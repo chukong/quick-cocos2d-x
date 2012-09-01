@@ -4,8 +4,8 @@
 #include "SimpleAudioEngine.h"
 #include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
-#include "cocos2dx_extension_crypto_win32.h"
-#include "cocos2dx_extension_network_win32.h"
+//#include "cocos2dx_extension_crypto_win32.h"
+//#include "cocos2dx_extension_network_win32.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -21,7 +21,7 @@ AppDelegate::~AppDelegate()
 {
     // end simple audio engine here, or it may crashed on win32
     SimpleAudioEngine::sharedEngine()->end();
-    //CCScriptEngineManager::purgeSharedManager();
+    CCScriptEngineManager::purgeSharedManager();
 }
 
 void AppDelegate::setStartupScriptFilename(const char* filename)
@@ -35,10 +35,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
-    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(480, 320, kResolutionShowAll);
+    //CCEGLView::sharedOpenGLView()->setDesignResolutionSize(480, 320, kResolutionShowAll);
 
     // enable High Resource Mode(2x, such as iphone4) and maintains low resource on other devices.
-    // pDirector->enableRetinaDisplay(true);
+    //pDirector->enableRetinaDisplay(true);
 
     // turn on display FPS
     pDirector->setDisplayStats(true);
@@ -47,11 +47,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
 
     // register lua engine
-    CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
+    CCScriptEngineProtocol* pEngine = CCLuaEngine::engine();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
-    tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
-    tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
+    //tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
+    //tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
 
     string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/");
     pEngine->addSearchPath(path.c_str());

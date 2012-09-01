@@ -16,6 +16,9 @@
     <Filter Include="Classes">
       <UniqueIdentifier>{9fb0cee8-3ae1-47fb-9619-5d870427328b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LuaCocos2dx">
+      <UniqueIdentifier>{4631f785-ebfe-45b3-aa69-e4b2b8a98c08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -42,6 +45,18 @@
     <ClInclude Include="..\..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h">
+      <Filter>LuaCocos2dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.h">
+      <Filter>LuaCocos2dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2d.h">
+      <Filter>LuaCocos2dx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.h">
+      <Filter>LuaCocos2dx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -52,6 +67,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
+      <Filter>LuaCocos2dx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.cpp">
+      <Filter>LuaCocos2dx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2d.cpp">
+      <Filter>LuaCocos2dx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.c">
+      <Filter>LuaCocos2dx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

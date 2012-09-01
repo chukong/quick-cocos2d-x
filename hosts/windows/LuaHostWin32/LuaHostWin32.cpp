@@ -21,8 +21,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // create the application instance
     AppDelegate app;
 
-    int width = 480;
-    int height = 320;
+    float width = 480;
+    float height = 320;
 
     // parse command line arguments
     int index = 1;
@@ -40,8 +40,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 string s_width, s_height;
                 s_width.assign(size, 0, pos);
                 s_height.assign(size, pos + 1, size.length() - pos);
-                width = atoi(s_width.c_str());
-                height = atoi(s_height.c_str());
+                width = (float)atoi(s_width.c_str());
+                height = (float)atoi(s_height.c_str());
                 if (width < 480) width = 480;
                 if (height < 320) height = 320;
             }
