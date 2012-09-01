@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="base_nodes">
@@ -246,9 +246,6 @@
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCCommon.cpp">
       <Filter>platform\win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.cpp">
-      <Filter>platform\win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCFileUtils.cpp">
       <Filter>platform\win32</Filter>
     </ClCompile>
@@ -426,6 +423,9 @@
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCDrawingPrimitives.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCScheduler.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\cocos2d.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.cpp">
+      <Filter>platform\win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\base_nodes\CCAtlasNode.h">
@@ -624,9 +624,6 @@
       <Filter>platform\win32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCApplication.h">
-      <Filter>platform\win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.h">
       <Filter>platform\win32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCGL.h">
@@ -862,5 +859,8 @@
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCDirector.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCDrawingPrimitives.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCScheduler.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.h">
+      <Filter>platform\win32</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

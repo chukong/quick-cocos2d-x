@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Classes">
       <UniqueIdentifier>{9fb0cee8-3ae1-47fb-9619-5d870427328b}</UniqueIdentifier>
     </Filter>
@@ -22,28 +10,36 @@
     <Filter Include="cocos2d-x-lua-support">
       <UniqueIdentifier>{4631f785-ebfe-45b3-aa69-e4b2b8a98c08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="small.ico">
-      <Filter>资源文件</Filter>
+      <Filter>Resources</Filter>
     </None>
     <None Include="LuaHostWin32.ico">
-      <Filter>资源文件</Filter>
+      <Filter>Resources</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>头文件</Filter>
+      <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
+      <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>头文件</Filter>
+      <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="LuaHostWin32.h">
-      <Filter>头文件</Filter>
+      <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
@@ -95,12 +91,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="LuaHostWin32.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -143,10 +133,16 @@
     <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\luabinding\cocos2dx_extension_network_win32.cpp">
       <Filter>cocos2d-x-extensions</Filter>
     </ClCompile>
+    <ClCompile Include="LuaHostWin32.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LuaHostWin32.rc">
-      <Filter>资源文件</Filter>
+      <Filter>Resources</Filter>
     </ResourceCompile>
   </ItemGroup>
 </Project>
