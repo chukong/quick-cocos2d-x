@@ -47,7 +47,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
 
     // register lua engine
-    CCScriptEngineProtocol* pEngine = CCLuaEngine::engine();
+    CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
     //tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
