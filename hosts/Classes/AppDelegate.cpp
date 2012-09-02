@@ -23,7 +23,7 @@ AppDelegate::~AppDelegate()
 {
     // end simple audio engine here, or it may crashed on win32
     SimpleAudioEngine::sharedEngine()->end();
-    CCScriptEngineManager::purgeSharedManager();
+    //CCScriptEngineManager::purgeSharedManager();
 }
 
 void AppDelegate::setStartupScriptFilename(const char* filename)
@@ -55,14 +55,13 @@ bool AppDelegate::applicationDidFinishLaunching()
     //tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
     //tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
 
-    string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/");
-    pEngine->addSearchPath(path.c_str());
-
-    std::stringstream ss;
-    ss << "client_scripts/";
-    ss << m_startupScriptFilename;
-
-    path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(ss.str().c_str());
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(m_startupScriptFilename.c_str());
+    size_t p = path.find_last_of("/\\");
+    if (p != path.npos)
+    {
+        const string dir = path.substr(0, p);
+        pEngine->addSearchPath(dir.c_str());
+    }
 
     CCLOG("\n");
     CCLOG("------------------------------------------------");
