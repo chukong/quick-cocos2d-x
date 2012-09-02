@@ -89,6 +89,9 @@
     <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\cocos2dx_extensions.h">
       <Filter>cocos2d-x-extensions</Filter>
     </ClInclude>
+    <ClInclude Include="HostVersion.h">
+      <Filter>win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">

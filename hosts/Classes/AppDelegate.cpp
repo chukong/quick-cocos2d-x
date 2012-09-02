@@ -7,6 +7,8 @@
 //#include "cocos2dx_extension_crypto_win32.h"
 //#include "cocos2dx_extension_network_win32.h"
 
+#include "HostVersion.h"
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -61,7 +63,12 @@ bool AppDelegate::applicationDidFinishLaunching()
     ss << m_startupScriptFilename;
 
     path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(ss.str().c_str());
-    CCLOG("\nLOAD LUA FILE: %s\n", path.c_str());
+
+    CCLOG("\n");
+    CCLOG("------------------------------------------------");
+    CCLOG(" HOST VERSION: %s", HOST_VERSION);
+    CCLOG("------------------------------------------------");
+    CCLOG("LOAD LUA FILE: %s\n\n", path.c_str());
     pEngine->executeScriptFile(path.c_str());
 
     return true;
