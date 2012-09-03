@@ -57,20 +57,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         }
     }
 
+    app.setStartupScriptFilename(s_startupScriptFilename.c_str());
     if (s_workingDir.length() > 0)
     {
-        wstring ws(s_workingDir.begin(), s_workingDir.end());
-        SetCurrentDirectory(ws.c_str());
+        CCFileUtils::sharedFileUtils()->setResourceDirectory(s_workingDir.c_str(), true);
     }
-    else
-    {
-        TCHAR buff[MAX_PATH + 1];
-        memset(buff, 0, sizeof(TCHAR) * (MAX_PATH + 1));
-        GetCurrentDirectory(MAX_PATH, buff);
-        wstring wd(buff);
-        s_workingDir.assign(wd.begin(), wd.end());
-    }
-    app.setStartupScriptFilename(s_startupScriptFilename.c_str());
 
     CCEGLView* eglView = CCEGLView::sharedOpenGLView();    
     eglView->setMenuResource(MAKEINTRESOURCE(IDC_LUAHOSTWIN32));
@@ -96,7 +87,7 @@ void parseCommandLineArgs(void)
     while (index < __argc)
     {
         const string arg = getCommandLineArg(index);
-        if (arg.compare("--size") == 0)
+        if (arg.compare("-size") == 0)
         {
             index++;
             const string size = getCommandLineArg(index);
@@ -112,16 +103,16 @@ void parseCommandLineArgs(void)
                 if (s_startupHeight < 320) s_startupHeight = 320;
             }
         }
-        else if (arg.compare("--disable-console") == 0)
+        else if (arg.compare("-disable-console") == 0)
         {
             s_useConsole = FALSE;
         }
-        else if (arg.compare("--workdir") == 0)
+        else if (arg.compare("-workdir") == 0)
         {
             index++;
             s_workingDir = getCommandLineArg(index);
         }
-        else if (arg.compare("--file") == 0)
+        else if (arg.compare("-file") == 0)
         {
             index++;
             s_startupScriptFilename = getCommandLineArg(index);
@@ -144,12 +135,20 @@ const string getCommandLineArg(int index)
 
 INT CALLBACK BrowseCallbackProc(HWND hwnd, UINT uMsg, LPARAM lp, LPARAM pData) 
 {
-    TCHAR buff[MAX_PATH];
+    TCHAR buff[MAX_PATH + 1];
 
     switch(uMsg) 
     {
-    case BFFM_INITIALIZED: 
-        if (GetCurrentDirectory(MAX_PATH, buff))
+    case BFFM_INITIALIZED:
+        if (s_workingDir.length() > 0)
+        {
+            wstring ws;
+            ws.assign(s_workingDir.begin(), s_workingDir.end());
+            memset(buff, 0, sizeof(TCHAR) * (MAX_PATH  + 1));
+            wcscpy_s(buff, MAX_PATH, ws.c_str());
+            SendMessage(hwnd, BFFM_SETSELECTION, TRUE, (LPARAM)buff);
+        }
+        else if (GetCurrentDirectory(MAX_PATH, buff))
         {
             // WParam is TRUE since you are passing a path.
             // It would be FALSE if you were passing a pidl.
@@ -228,19 +227,19 @@ void restartApplication(float width, float height)
         s_startupHeight = height;
     }
 
-    buff << " --size ";
+    buff << " -size ";
     buff << s_startupWidth;
     buff << "x";
     buff << s_startupHeight;
 
     if (!s_useConsole)
     {
-        buff << " --disable-console";
+        buff << " -disable-console";
     }
 
-    buff << " --workdir ";
+    buff << " -workdir ";
     buff << s_workingDir;
-    buff << " --file ";
+    buff << " -file ";
     buff << s_startupScriptFilename;
 
     const string str = buff.str();
