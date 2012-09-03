@@ -24,12 +24,8 @@
 
 #import "AppController.h"
 #import "AppDelegate.h"
-#include <string>
 
 static AppDelegate s_sharedApplication;
-
-using namespace std;
-using namespace cocos2d;
 
 @implementation AppController
 
@@ -37,6 +33,8 @@ using namespace cocos2d;
 
 -(void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    waitForRestart = NO;
+    
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     
     int width = 480;
@@ -58,43 +56,30 @@ using namespace cocos2d;
             if (height < 320) height = 320;
         }
     }
+    frameSize.width = width;
+    frameSize.height = height;
     
-    // create the window
-    // note that using NSResizableWindowMask causes the window to be a little
-    // smaller and therefore ipad graphics are not loaded
-    NSRect rect = NSMakeRect(200, 200, width, height);
-    window = [[NSWindow alloc] initWithContentRect:rect
-                                         styleMask:( NSClosableWindowMask | NSTitledWindowMask )
-                                           backing:NSBackingStoreBuffered
-                                             defer:YES];
-    
-    // allocate our GL view
-    // (isn't there already a shared EAGLView?)
-    glView = [[EAGLView alloc] initWithFrame:rect];
-    [glView initWithFrame:rect];
-    
-    // set window parameters
-    [window becomeFirstResponder];
-    [window setContentView:glView];
-    [window setTitle:@"LuaHostMac"];
-    [window makeKeyAndOrderFront:self];
-    [window setAcceptsMouseMovedEvents:NO];
-    
-    cocos2d::CCApplication* app = cocos2d::CCApplication::sharedApplication();
-    NSString *startupScriptFilename = [args stringForKey:@"file"];
-    if (startupScriptFilename)
+    NSString *nsstartupScriptFilename = [args stringForKey:@"file"];
+    if (nsstartupScriptFilename)
     {
-        app->setStartupScriptFilename([startupScriptFilename cStringUsingEncoding:NSUTF8StringEncoding]);
+        startupScriptFilename = string([nsstartupScriptFilename cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    else
+    {
+        startupScriptFilename = string("main.lua");
     }
     
-    NSString *workingDir = [args stringForKey:@"workdir"];
-    if (workingDir)
+    NSString *nsworkingDir = [args stringForKey:@"workdir"];
+    if (nsworkingDir)
     {
-        cocos2d::CCFileUtils::sharedFileUtils()->setResourceDirectory([workingDir cStringUsingEncoding:NSUTF8StringEncoding], true);
+        workingDir = string([nsworkingDir cStringUsingEncoding:NSUTF8StringEncoding]);
     }
     
-    app->run();
+    
+    [self createWindowAndGLView];
+    [self startup];
 }
+
 
 -(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
 {
@@ -103,8 +88,61 @@ using namespace cocos2d;
 
 -(void) dealloc
 {
-    cocos2d::CCDirector::sharedDirector()->end();
+    CCDirector::sharedDirector()->end();
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark functions
+
+-(void) createWindowAndGLView
+{
+    float left = 100;
+    float top = 100;
+    if (window)
+    {
+        left = [window frame].origin.x;
+        top = [window frame].origin.y;
+        
+        [window setContentView:nil];
+        [glView release];
+        glView = nil;
+        
+        [window setReleasedWhenClosed:YES];
+        [window close];
+        window = nil;
+    }
+    
+    // create the window
+    // note that using NSResizableWindowMask causes the window to be a little
+    // smaller and therefore ipad graphics are not loaded
+    NSRect rect = NSMakeRect(left, top, frameSize.width, frameSize.height);
+    window = [[NSWindow alloc] initWithContentRect:rect
+                                         styleMask:( NSClosableWindowMask | NSTitledWindowMask )
+                                           backing:NSBackingStoreBuffered
+                                             defer:YES];
+    
+    // allocate our GL view
+    // (isn't there already a shared EAGLView?)
+    glView = [[EAGLView alloc] initWithFrame:rect];
+    
+    // set window parameters
+    [window becomeFirstResponder];
+    [window setContentView:glView];
+    [window setTitle:@"LuaHostMac"];
+    [window makeKeyAndOrderFront:self];
+    [window setAcceptsMouseMovedEvents:NO];
+}
+
+-(void) startup
+{
+    CCApplication* app = CCApplication::sharedApplication();
+    app->setStartupScriptFilename(startupScriptFilename.c_str());
+    if (workingDir.length() > 0)
+    {
+        CCFileUtils::sharedFileUtils()->setResourceDirectory(workingDir.c_str(), true);
+    }
+    app->run();
 }
 
 #pragma mark -
@@ -113,6 +151,37 @@ using namespace cocos2d;
 -(IBAction) openWorkingDirectory:(id)sender
 {
     CCLOG("openWorkdingDirectory");
+}
+
+-(IBAction) selectStartupScript:(id)sender
+{
+}
+
+-(IBAction) restart:(id)sender
+{
+    if (waitForRestart) return;
+    waitForRestart = YES;
+    
+    CCDirector::sharedDirector()->end();
+    [NSTimer scheduledTimerWithTimeInterval:0.051
+                                     target:self
+                                   selector:@selector(restartRefresh)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+-(void) restartRefresh
+{
+    if (CCScriptEngineManager::sharedManager()->getScriptEngine())
+    {
+        CCScriptEngineManager::sharedManager()->removeScriptEngine();
+        CCScriptEngineManager::purgeSharedManager();
+    }
+    
+    [self createWindowAndGLView];
+    [self startup];
+    
+    waitForRestart = NO;
 }
 
 -(IBAction) toggleFullScreen:(id)sender

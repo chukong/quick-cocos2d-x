@@ -73,11 +73,10 @@ bool AppDelegate::applicationDidFinishLaunching()
         pEngine->addSearchPath(dir.c_str());
     }
 
-    CCLOG("\n");
     CCLOG("------------------------------------------------");
     CCLOG(" HOST VERSION: %s", HOST_VERSION);
     CCLOG("------------------------------------------------");
-    CCLOG("LOAD LUA FILE: %s\n\n", path.c_str());
+    CCLOG("LOAD LUA FILE: %s\n", path.c_str());
     pEngine->executeScriptFile(path.c_str());
 
     return true;

@@ -27,11 +27,22 @@
 #import "cocos2d.h"
 #import "EAGLView.h"
 
+#include <string>
+
+using namespace std;
+using namespace cocos2d;
+
 @interface AppController : NSObject <NSApplicationDelegate>
 {
     NSWindow *window;
     EAGLView *glView;
     NSMenu *menu;
+
+    BOOL waitForRestart;
+    
+    NSSize frameSize;
+    string workingDir;
+    string startupScriptFilename;
 }
 
 @property (nonatomic, assign) IBOutlet NSWindow* window;
@@ -39,6 +50,8 @@
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
 
 -(IBAction) openWorkingDirectory:(id)sender;
+-(IBAction) selectStartupScript:(id)sender;
+-(IBAction) restart:(id)sender;
 
 -(IBAction) toggleFullScreen:(id)sender;
 -(IBAction) exitFullScreen:(id)sender;
