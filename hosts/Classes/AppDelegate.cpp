@@ -4,8 +4,8 @@
 #include "SimpleAudioEngine.h"
 #include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
-//#include "cocos2dx_extension_crypto_win32.h"
-//#include "cocos2dx_extension_network_win32.h"
+#include "luabinding/cocos2dx_extension_crypto_win32.h"
+#include "luabinding/cocos2dx_extension_network_win32.h"
 
 #include "HostVersion.h"
 
@@ -52,8 +52,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
-    //tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
-    //tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
+    tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
+    tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
 
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(m_startupScriptFilename.c_str());
     size_t p = path.find_last_of("/\\");
