@@ -16,7 +16,7 @@ USING_NS_CC;
 
 void parseCommandLineArgs(void);
 const string getCommandLineArg(int index);
-BOOL chooseWorkDir(void);
+BOOL openProjectFolder(void);
 void restartApplication(float width = 0, float height = 0);
 LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed);
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
@@ -26,8 +26,8 @@ BOOL s_useConsole = TRUE;
 float s_startupWidth = 480;
 float s_startupHeight = 320;
 string s_resourcesDir("");
-string s_workDir("");
-string s_startupScriptFilename("");
+string s_projectFolder("");
+string s_startupScriptFilename("main.lua");
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
@@ -57,15 +57,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         }
     }
 
-    if (s_startupScriptFilename.length() == 0)
+    if (s_projectFolder.length() == 0)
     {
-        chooseWorkDir();
+        openProjectFolder();
         s_startupScriptFilename = string("main.lua");
     }
 
-    if (s_workDir.length() > 0)
+    if (s_projectFolder.length() > 0)
     {
-        wstring ws(s_workDir.begin(), s_workDir.end());
+        wstring ws(s_projectFolder.begin(), s_projectFolder.end());
         SetCurrentDirectory(ws.c_str());
     }
 
@@ -125,7 +125,7 @@ void parseCommandLineArgs(void)
         else if (arg.compare("--workdir") == 0)
         {
             index++;
-            s_workDir = getCommandLineArg(index);
+            s_projectFolder = getCommandLineArg(index);
         }
         else if (arg.compare("--file") == 0)
         {
@@ -148,7 +148,7 @@ const string getCommandLineArg(int index)
     return s;
 }
 
-BOOL chooseWorkDir(void)
+BOOL openProjectFolder(void)
 {
     TCHAR buff[MAX_PATH + 1];
     memset(buff, 0, sizeof(TCHAR) * (MAX_PATH + 1));
@@ -163,7 +163,7 @@ BOOL chooseWorkDir(void)
     if (SHBrowseForFolder(&bi))
     {
         wstring ws(buff);
-        s_workDir.assign(ws.begin(), ws.end());
+        s_projectFolder.assign(ws.begin(), ws.end());
         return TRUE;
     }
 
@@ -178,7 +178,6 @@ void restartApplication(float width, float height)
     PROCESS_INFORMATION pi;
     memset(&si, 0, sizeof(si));
     memset(&pi, 0, sizeof(pi));
-
 
     ostringstream buff;
     buff << "\"";
@@ -247,36 +246,31 @@ LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
 
         case ID_FILE_OPEN:
         {
-            TCHAR buff[MAX_PATH + 1];
-            memset(buff, 0, sizeof(TCHAR) * (MAX_PATH + 1));
-
-            OPENFILENAME ofn;
-            memset(&ofn, 0, sizeof(ofn));
-            ofn.lStructSize = sizeof(ofn);
-            ofn.hwndOwner = s_hWnd;
-            ofn.lpstrFilter = L"*.lua";
-            ofn.lpstrTitle = L"Open script file";
-            ofn.Flags = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
-            ofn.lpstrFile = buff;
-            ofn.nMaxFile = MAX_PATH;
-
-            if (GetOpenFileName(&ofn))
-            {
-                wstring ws(buff);
-                s_startupScriptFilename.assign(ws.begin(), ws.end());
-                CCLOG("new startup script filename: %s", s_startupScriptFilename.c_str());
-                restartApplication();
-            }
-            break;
-        }
-
-        case ID_FILE_SETWORKDIR:
-        {
-            if (chooseWorkDir())
+            if (openProjectFolder())
             {
                 restartApplication();
             }
-            break;
+            //TCHAR buff[MAX_PATH + 1];
+            //memset(buff, 0, sizeof(TCHAR) * (MAX_PATH + 1));
+
+            //OPENFILENAME ofn;
+            //memset(&ofn, 0, sizeof(ofn));
+            //ofn.lStructSize = sizeof(ofn);
+            //ofn.hwndOwner = s_hWnd;
+            //ofn.lpstrFilter = L"*.lua";
+            //ofn.lpstrTitle = L"Open script file";
+            //ofn.Flags = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
+            //ofn.lpstrFile = buff;
+            //ofn.nMaxFile = MAX_PATH;
+
+            //if (GetOpenFileName(&ofn))
+            //{
+            //    wstring ws(buff);
+            //    s_startupScriptFilename.assign(ws.begin(), ws.end());
+            //    CCLOG("new startup script filename: %s", s_startupScriptFilename.c_str());
+            //    restartApplication();
+            //}
+            //break;
         }
 
         case ID_FILE_RESTART:
