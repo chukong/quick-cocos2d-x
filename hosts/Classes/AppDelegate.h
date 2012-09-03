@@ -2,10 +2,7 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
-#include "CCApplication.h"
-#include <string>
-
-using namespace std;
+#include "cocos2d.h"
 
 /**
 @brief    The cocos2d Application.
@@ -17,8 +14,6 @@ class  AppDelegate : private cocos2d::CCApplication
 public:
     AppDelegate();
     virtual ~AppDelegate();
-
-    void setStartupScriptFilename(const char* filename);
 
     /**
     @brief    Implement CCDirector and CCScene init code here.
@@ -38,9 +33,6 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
-
-private:
-    string m_startupScriptFilename;
 };
 
 #endif // _APP_DELEGATE_H_

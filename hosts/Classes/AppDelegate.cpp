@@ -1,15 +1,25 @@
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
+
+#include <string>
+
 #include "SimpleAudioEngine.h"
 #include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "cocos2dx_extension_crypto_win32.h"
 #include "cocos2dx_extension_network_win32.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#include "cocos2dx_extension_crypto_mac.h"
+#include "cocos2dx_extension_network_mac.h"
+#endif
 
 #include "HostVersion.h"
 
-USING_NS_CC;
+using namespace std;
+using namespace cocos2d;
 using namespace CocosDenshion;
 
 AppDelegate::AppDelegate()
@@ -24,11 +34,6 @@ AppDelegate::~AppDelegate()
     // end simple audio engine here, or it may crashed on win32
     SimpleAudioEngine::sharedEngine()->end();
     //CCScriptEngineManager::purgeSharedManager();
-}
-
-void AppDelegate::setStartupScriptFilename(const char* filename)
-{
-    m_startupScriptFilename = std::string(filename);
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -52,10 +57,15 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
     tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
-
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(m_startupScriptFilename.c_str());
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    tolua_cocos2dx_extension_crypto_mac_open(pEngine->getLuaState());
+    tolua_cocos2dx_extension_network_mac_open(pEngine->getLuaState());
+#endif
+    
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename());
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {
