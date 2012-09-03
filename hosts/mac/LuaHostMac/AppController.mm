@@ -24,9 +24,11 @@
 
 #import "AppController.h"
 #import "AppDelegate.h"
+#include <string>
 
 static AppDelegate s_sharedApplication;
 
+using namespace std;
 using namespace cocos2d;
 
 @implementation AppController
@@ -37,10 +39,30 @@ using namespace cocos2d;
 {
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     
+    int width = 480;
+    int height = 320;
+    NSString *nssize = [args stringForKey:@"size"];
+    if (nssize)
+    {
+        const char *csize = [nssize cStringUsingEncoding:NSUTF8StringEncoding];
+        string size(csize);
+        int pos = size.find('x');
+        if (pos != size.npos && pos > 0)
+        {
+            string widthStr, heightStr;
+            widthStr.assign(size, 0, pos);
+            heightStr.assign(size, pos + 1, size.length() - pos);
+            width = (float)atoi(widthStr.c_str());
+            height = (float)atoi(heightStr.c_str());
+            if (width < 480) width = 480;
+            if (height < 320) height = 320;
+        }
+    }
+    
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
     // smaller and therefore ipad graphics are not loaded
-    NSRect rect = NSMakeRect(200, 200, 960, 640);
+    NSRect rect = NSMakeRect(200, 200, width, height);
     window = [[NSWindow alloc] initWithContentRect:rect
                                          styleMask:( NSClosableWindowMask | NSTitledWindowMask )
                                            backing:NSBackingStoreBuffered
