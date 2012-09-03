@@ -42,21 +42,23 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
-    //CCEGLView::sharedOpenGLView()->setDesignResolutionSize(480, 320, kResolutionShowAll);
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     // enable High Resource Mode(2x, such as iphone4) and maintains low resource on other devices.
-    //pDirector->enableRetinaDisplay(true);
-
+    pDirector->enableRetinaDisplay(true);
+#endif
+    
+    pDirector->setProjection(kCCDirectorProjection2D);
+    
     // turn on display FPS
     pDirector->setDisplayStats(true);
-
+    
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-
+    
     // register lua engine
     CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
-
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
     tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
@@ -72,13 +74,13 @@ bool AppDelegate::applicationDidFinishLaunching()
         const string dir = path.substr(0, p);
         pEngine->addSearchPath(dir.c_str());
     }
-
+    
     CCLOG("------------------------------------------------");
     CCLOG(" HOST VERSION: %s", HOST_VERSION);
     CCLOG("------------------------------------------------");
     CCLOG("LOAD LUA FILE: %s\n", path.c_str());
     pEngine->executeScriptFile(path.c_str());
-
+    
     return true;
 }
 

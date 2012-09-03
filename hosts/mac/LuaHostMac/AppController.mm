@@ -136,12 +136,19 @@ static AppDelegate s_sharedApplication;
 
 -(void) startup
 {
+    if (CCScriptEngineManager::sharedManager()->getScriptEngine())
+    {
+        CCScriptEngineManager::sharedManager()->removeScriptEngine();
+        CCScriptEngineManager::purgeSharedManager();
+    }
+
     CCApplication* app = CCApplication::sharedApplication();
     app->setStartupScriptFilename(startupScriptFilename.c_str());
     if (workingDir.length() > 0)
     {
         CCFileUtils::sharedFileUtils()->setResourceDirectory(workingDir.c_str(), true);
     }
+    
     app->run();
 }
 
@@ -163,7 +170,7 @@ static AppDelegate s_sharedApplication;
     waitForRestart = YES;
     
     CCDirector::sharedDirector()->end();
-    [NSTimer scheduledTimerWithTimeInterval:0.051
+    [NSTimer scheduledTimerWithTimeInterval:0.02
                                      target:self
                                    selector:@selector(restartRefresh)
                                    userInfo:nil
@@ -172,16 +179,73 @@ static AppDelegate s_sharedApplication;
 
 -(void) restartRefresh
 {
-    if (CCScriptEngineManager::sharedManager()->getScriptEngine())
-    {
-        CCScriptEngineManager::sharedManager()->removeScriptEngine();
-        CCScriptEngineManager::purgeSharedManager();
-    }
-    
     [self createWindowAndGLView];
     [self startup];
     
     waitForRestart = NO;
+}
+
+-(IBAction) resize_iPhone3G:(id)sender
+{
+    frameSize.width = 480;
+    frameSize.height = 320;
+    [self restart:sender];
+}
+
+-(IBAction) resize_iPhone4:(id)sender
+{
+    frameSize.width = 960;
+    frameSize.height = 640;
+    [self restart:sender];
+}
+
+-(IBAction) resize_iPad:(id)sender
+{
+    frameSize.width = 1024;
+    frameSize.height = 768;
+    [self restart:sender];
+}
+
+-(IBAction) resize_New_iPad:(id)sender
+{
+    frameSize.width = 2048;
+    frameSize.height = 1536;
+    [self restart:sender];
+}
+
+-(IBAction) resize_Android_854_480:(id)sender
+{
+    frameSize.width = 854;
+    frameSize.height = 480;
+    [self restart:sender];
+}
+
+-(IBAction) resize_Android_800_480:(id)sender
+{
+    frameSize.width = 800;
+    frameSize.height = 480;
+    [self restart:sender];
+}
+
+-(IBAction) resize_Android_1024_600:(id)sender
+{
+    frameSize.width = 1024;
+    frameSize.height = 600;
+    [self restart:sender];
+}
+
+-(IBAction) resize_Android_1280_720:(id)sender
+{
+    frameSize.width = 1280;
+    frameSize.height = 720;
+    [self restart:sender];
+}
+
+-(IBAction) resize_Android_1280_800:(id)sender
+{
+    frameSize.width = 1280;
+    frameSize.height = 800;
+    [self restart:sender];
 }
 
 -(IBAction) toggleFullScreen:(id)sender

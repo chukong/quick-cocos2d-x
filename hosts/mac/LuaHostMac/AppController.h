@@ -53,6 +53,16 @@ using namespace cocos2d;
 -(IBAction) selectStartupScript:(id)sender;
 -(IBAction) restart:(id)sender;
 
+-(IBAction) resize_iPhone3G:(id)sender;
+-(IBAction) resize_iPhone4:(id)sender;
+-(IBAction) resize_iPad:(id)sender;
+-(IBAction) resize_New_iPad:(id)sender;
+-(IBAction) resize_Android_854_480:(id)sender;
+-(IBAction) resize_Android_800_480:(id)sender;
+-(IBAction) resize_Android_1024_600:(id)sender;
+-(IBAction) resize_Android_1280_720:(id)sender;
+-(IBAction) resize_Android_1280_800:(id)sender;
+
 -(IBAction) toggleFullScreen:(id)sender;
 -(IBAction) exitFullScreen:(id)sender;
 
