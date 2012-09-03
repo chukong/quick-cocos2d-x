@@ -4,8 +4,8 @@
 #include "SimpleAudioEngine.h"
 #include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
-#include "luabinding/cocos2dx_extension_crypto_win32.h"
-#include "luabinding/cocos2dx_extension_network_win32.h"
+#include "cocos2dx_extension_crypto_win32.h"
+#include "cocos2dx_extension_network_win32.h"
 
 #include "HostVersion.h"
 
