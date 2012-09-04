@@ -189,6 +189,12 @@ local CCObjectTypes = {
 	"CCParticleSmoke",
 	"CCParticleSnow",
 	"CCParticleRain",
+
+    "CCShapeNode",
+    "CCCircleShape",
+    "CCRectShape",
+    "CCPointShape",
+    "CCPolygonShape",
 }
 
 -- register CCObject types

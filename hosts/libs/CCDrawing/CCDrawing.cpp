@@ -4,39 +4,39 @@
 
 NS_CC_BEGIN
 
-CCCircleGraph* CCCircleGraph::create(float radius,
+CCCircleShape* CCCircleShape::create(float radius,
                                      float angle,
                                      unsigned int segments,
                                      bool drawLineToCenter)
 {
-    CCCircleGraph* circle = new CCCircleGraph();
+    CCCircleShape* circle = new CCCircleShape();
     circle->m_radius = radius;
     circle->m_angle = angle;
-    circle->m_segments = m_segments;
+    circle->m_segments = segments;
     circle->m_drawLineToCenter = drawLineToCenter;
     circle->autorelease();
     return circle;
 }
 
-void CCCircleGraph::draw(void)
+void CCCircleShape::draw(void)
 {
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
-    ccDrawCircle(getPosition(), m_radius, m_angle, m_segments, m_drawLineToCenter);
+    ccDrawCircle(getWorldPosition(), m_radius, m_angle, m_segments, m_drawLineToCenter);
 }
 
 
 #pragma mark -
 
-CCRectGraph* CCRectGraph::create(const cocos2d::CCSize &size, bool fill)
+CCRectShape* CCRectShape::create(const cocos2d::CCSize &size, bool fill)
 {
-    CCRectGraph* rect = new CCRectGraph();
+    CCRectShape* rect = new CCRectShape();
     rect->m_size = size;
     rect->m_fill = fill;
     rect->autorelease();
     return rect;
 }
 
-void CCRectGraph::draw(void)
+void CCRectShape::draw(void)
 {
     CCPoint destination = getPosition();
     destination.x += m_size.width;
@@ -45,36 +45,36 @@ void CCRectGraph::draw(void)
     if (m_fill)
     {
         ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
-        ccDrawRect(getPosition(), destination);
+        ccDrawRect(getWorldPosition(), destination);
     }
     else
     {
-        ccDrawSolidRect(getPosition(), destination, m_color);
+        ccDrawSolidRect(getWorldPosition(), destination, m_color);
     }
 }
 
 
 #pragma mark -
 
-CCPointGraph* CCPointGraph::create(void)
+CCPointShape* CCPointShape::create(void)
 {
-    CCPointGraph* point = new CCPointGraph();
+    CCPointShape* point = new CCPointShape();
     point->autorelease();
     return point;
 }
 
-void CCPointGraph::draw(void)
+void CCPointShape::draw(void)
 {
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
-    ccDrawPoint(getPosition());
+    ccDrawPoint(getWorldPosition());
 }
 
 
 #pragma mark -
 
-CCPolygonGraph* CCPolygonGraph::create(cocos2d::CCArray *vertices, bool fill, bool close)
+CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bool close)
 {
-    CCPolygonGraph* polygon = new CCPolygonGraph();
+    CCPolygonShape* polygon = new CCPolygonShape();
     polygon->m_numberOfVertices = vertices->count();
     polygon->m_vertices = new CCPoint[polygon->m_numberOfVertices];
     for (int i = 0; i < polygon->m_numberOfVertices; ++i)
@@ -87,12 +87,12 @@ CCPolygonGraph* CCPolygonGraph::create(cocos2d::CCArray *vertices, bool fill, bo
     return polygon;
 }
 
-CCPolygonGraph::~CCPolygonGraph(void)
+CCPolygonShape::~CCPolygonShape(void)
 {
     delete[] m_vertices;
 }
 
-void CCPolygonGraph::draw(void)
+void CCPolygonShape::draw(void)
 {
     if (m_fill)
     {

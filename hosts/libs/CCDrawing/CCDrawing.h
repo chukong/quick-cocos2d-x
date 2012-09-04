@@ -32,7 +32,7 @@
 
 NS_CC_BEGIN
 
-class CCGraphNode : public CCNode
+class CCShapeNode : public CCNode
 {
 public:
     const ccColor4F& getColor(void)
@@ -48,22 +48,28 @@ public:
 protected:
     ccColor4F m_color;
 
-    CCGraphNode(void)
+    CCShapeNode(void)
     {
         m_color = ccc4f(0, 0, 0, 1);
+    }
+    
+    const CCPoint getWorldPosition(void)
+    {
+        const CCPoint& p = getPosition();
+        return getParent()->convertToWorldSpace(p);
     }
 };
 
 
 #pragma mark -
 
-class CCCircleGraph : public CCGraphNode
+class CCCircleShape : public CCShapeNode
 {
 public:
-    CCCircleGraph* create(float radius,
-                          float angle = 0,
-                          unsigned int segments = 10,
-                          bool drawLineToCenter = false);
+    static CCCircleShape* create(float radius,
+                                 float angle = 0,
+                                 unsigned int segments = 10,
+                                 bool drawLineToCenter = false);
     
     float getRadius(void)
     {
@@ -117,10 +123,10 @@ protected:
 
 #pragma mark -
 
-class CCRectGraph : public CCGraphNode
+class CCRectShape : public CCShapeNode
 {
 public:
-    CCRectGraph* create(const CCSize& size, bool fill);
+    static CCRectShape* create(const CCSize& size, bool fill);
     
     const CCSize& getSize(void)
     {
@@ -152,21 +158,21 @@ protected:
 
 #pragma mark -
 
-class CCPointGraph : public CCGraphNode
+class CCPointShape : public CCShapeNode
 {
 public:
-    CCPointGraph* create(void);
+    static CCPointShape* create(void);
     virtual void draw(void);
 };
 
 
 #pragma mark -
 
-class CCPolygonGraph : public CCGraphNode
+class CCPolygonShape : public CCShapeNode
 {
 public:
-    CCPolygonGraph* create(CCArray* vertices, bool fill, bool close);
-    ~CCPolygonGraph(void);
+    static CCPolygonShape* create(CCArray* vertices, bool fill, bool close);
+    ~CCPolygonShape(void);
     
     bool getFill(void)
     {

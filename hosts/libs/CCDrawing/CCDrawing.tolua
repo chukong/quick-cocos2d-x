@@ -1,16 +1,16 @@
 
-class CCGraphNode : public CCNode
+class CCShapeNode : public CCNode
 {
     const ccColor4F& getColor(void);
     void setColor(const ccColor4F& color);
 };
 
-class CCCircleGraph : public CCGraphNode
+class CCCircleShape : public CCShapeNode
 {
-    CCCircleGraph* create(float radius,
-                          float angle = 0,
-                          unsigned int segments = 10,
-                          bool drawLineToCenter = false);
+    static CCCircleShape* create(float radius,
+                                 float angle = 0,
+                                 unsigned int segments = 10,
+                                 bool drawLineToCenter = false);
 
     float getRadius(void);
     void setRadius(float radius);
@@ -22,24 +22,24 @@ class CCCircleGraph : public CCGraphNode
     void setDrawLineToCenter(bool drawLineToCenter);
 };
 
-class CCRectGraph : public CCGraphNode
+class CCRectShape : public CCShapeNode
 {
 public:
-    CCRectGraph* create(const CCSize& size, bool fill);
+    static CCRectShape* create(const CCSize& size, bool fill);
     const CCSize& getSize(void);
     void setSize(const CCSize& size);
     bool getFill(void);
     void setFill(bool fill);
 };
 
-class CCPointGraph : public CCGraphNode
+class CCPointShape : public CCShapeNode
 {
-    CCPointGraph* create(void);
+    static CCPointShape* create(void);
 };
 
-class CCPolygonGraph : public CCGraphNode
+class CCPolygonShape : public CCShapeNode
 {
-    CCPolygonGraph* create(CCArray* vertices, bool fill, bool close);
+    static CCPolygonShape* create(CCArray* vertices, bool fill, bool close);
     bool getFill(void);
     void setFill(bool fill);
     bool getClose(void);

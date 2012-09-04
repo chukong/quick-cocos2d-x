@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCDrawing
-** Generated automatically by tolua++-1.0.92 on Tue Sep  4 17:19:13 2012.
+** Generated automatically by tolua++-1.0.92 on Tue Sep  4 17:41:10 2012.
 */
 
 
@@ -14,32 +14,32 @@
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CCRectGraph");
- tolua_usertype(tolua_S,"CCCircleGraph");
- tolua_usertype(tolua_S,"CCGraphNode");
- tolua_usertype(tolua_S,"ccColor4F");
+ tolua_usertype(tolua_S,"CCPointShape");
+ tolua_usertype(tolua_S,"CCShapeNode");
+ tolua_usertype(tolua_S,"CCPolygonShape");
+ tolua_usertype(tolua_S,"CCRectShape");
  tolua_usertype(tolua_S,"CCSize");
- tolua_usertype(tolua_S,"CCPointGraph");
+ tolua_usertype(tolua_S,"CCCircleShape");
  tolua_usertype(tolua_S,"CCNode");
- tolua_usertype(tolua_S,"CCPolygonGraph");
+ tolua_usertype(tolua_S,"ccColor4F");
  tolua_usertype(tolua_S,"CCArray");
 }
 
-/* method: getColor of class  CCGraphNode */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCGraphNode_getColor00
-static int tolua_CCDrawing_CCGraphNode_getColor00(lua_State* tolua_S)
+/* method: getColor of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_getColor00
+static int tolua_CCDrawing_CCShapeNode_getColor00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCGraphNode",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCGraphNode* self = (CCGraphNode*)  tolua_tousertype(tolua_S,1,0);
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getColor'", NULL);
 #endif
@@ -57,14 +57,14 @@ static int tolua_CCDrawing_CCGraphNode_getColor00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setColor of class  CCGraphNode */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCGraphNode_setColor00
-static int tolua_CCDrawing_CCGraphNode_setColor00(lua_State* tolua_S)
+/* method: setColor of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_setColor00
+static int tolua_CCDrawing_CCShapeNode_setColor00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCGraphNode",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const ccColor4F",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -72,7 +72,7 @@ static int tolua_CCDrawing_CCGraphNode_setColor00(lua_State* tolua_S)
  else
 #endif
  {
-  CCGraphNode* self = (CCGraphNode*)  tolua_tousertype(tolua_S,1,0);
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
   const ccColor4F* color = ((const ccColor4F*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setColor'", NULL);
@@ -90,14 +90,14 @@ static int tolua_CCDrawing_CCGraphNode_setColor00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: create of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_create00
-static int tolua_CCDrawing_CCCircleGraph_create00(lua_State* tolua_S)
+/* method: create of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_create00
+static int tolua_CCDrawing_CCCircleShape_create00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
@@ -108,17 +108,15 @@ static int tolua_CCDrawing_CCCircleGraph_create00(lua_State* tolua_S)
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
   float radius = ((float)  tolua_tonumber(tolua_S,2,0));
   float angle = ((float)  tolua_tonumber(tolua_S,3,0));
   unsigned int segments = ((unsigned int)  tolua_tonumber(tolua_S,4,10));
   bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,5,false));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'create'", NULL);
-#endif
   {
-   CCCircleGraph* tolua_ret = (CCCircleGraph*)  self->create(radius,angle,segments,drawLineToCenter);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCCircleGraph");
+   CCCircleShape* tolua_ret = (CCCircleShape*)  CCCircleShape::create(radius,angle,segments,drawLineToCenter);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCCircleShape");
   }
  }
  return 1;
@@ -130,21 +128,21 @@ static int tolua_CCDrawing_CCCircleGraph_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getRadius of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_getRadius00
-static int tolua_CCDrawing_CCCircleGraph_getRadius00(lua_State* tolua_S)
+/* method: getRadius of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_getRadius00
+static int tolua_CCDrawing_CCCircleShape_getRadius00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRadius'", NULL);
 #endif
@@ -162,14 +160,14 @@ static int tolua_CCDrawing_CCCircleGraph_getRadius00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setRadius of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_setRadius00
-static int tolua_CCDrawing_CCCircleGraph_setRadius00(lua_State* tolua_S)
+/* method: setRadius of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_setRadius00
+static int tolua_CCDrawing_CCCircleShape_setRadius00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -177,7 +175,7 @@ static int tolua_CCDrawing_CCCircleGraph_setRadius00(lua_State* tolua_S)
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
   float radius = ((float)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRadius'", NULL);
@@ -195,21 +193,21 @@ static int tolua_CCDrawing_CCCircleGraph_setRadius00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getAngle of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_getAngle00
-static int tolua_CCDrawing_CCCircleGraph_getAngle00(lua_State* tolua_S)
+/* method: getAngle of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_getAngle00
+static int tolua_CCDrawing_CCCircleShape_getAngle00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAngle'", NULL);
 #endif
@@ -227,14 +225,14 @@ static int tolua_CCDrawing_CCCircleGraph_getAngle00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setAngle of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_setAngle00
-static int tolua_CCDrawing_CCCircleGraph_setAngle00(lua_State* tolua_S)
+/* method: setAngle of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_setAngle00
+static int tolua_CCDrawing_CCCircleShape_setAngle00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -242,7 +240,7 @@ static int tolua_CCDrawing_CCCircleGraph_setAngle00(lua_State* tolua_S)
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
   float angle = ((float)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAngle'", NULL);
@@ -260,21 +258,21 @@ static int tolua_CCDrawing_CCCircleGraph_setAngle00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getSegments of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_getSegments00
-static int tolua_CCDrawing_CCCircleGraph_getSegments00(lua_State* tolua_S)
+/* method: getSegments of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_getSegments00
+static int tolua_CCDrawing_CCCircleShape_getSegments00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSegments'", NULL);
 #endif
@@ -292,14 +290,14 @@ static int tolua_CCDrawing_CCCircleGraph_getSegments00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setSegments of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_setSegments00
-static int tolua_CCDrawing_CCCircleGraph_setSegments00(lua_State* tolua_S)
+/* method: setSegments of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_setSegments00
+static int tolua_CCDrawing_CCCircleShape_setSegments00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -307,7 +305,7 @@ static int tolua_CCDrawing_CCCircleGraph_setSegments00(lua_State* tolua_S)
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
   unsigned int segments = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSegments'", NULL);
@@ -325,21 +323,21 @@ static int tolua_CCDrawing_CCCircleGraph_setSegments00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getDrawLineToCenter of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_getDrawLineToCenter00
-static int tolua_CCDrawing_CCCircleGraph_getDrawLineToCenter00(lua_State* tolua_S)
+/* method: getDrawLineToCenter of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_getDrawLineToCenter00
+static int tolua_CCDrawing_CCCircleShape_getDrawLineToCenter00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDrawLineToCenter'", NULL);
 #endif
@@ -357,14 +355,14 @@ static int tolua_CCDrawing_CCCircleGraph_getDrawLineToCenter00(lua_State* tolua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setDrawLineToCenter of class  CCCircleGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleGraph_setDrawLineToCenter00
-static int tolua_CCDrawing_CCCircleGraph_setDrawLineToCenter00(lua_State* tolua_S)
+/* method: setDrawLineToCenter of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCCircleShape_setDrawLineToCenter00
+static int tolua_CCDrawing_CCCircleShape_setDrawLineToCenter00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCCircleGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -372,7 +370,7 @@ static int tolua_CCDrawing_CCCircleGraph_setDrawLineToCenter00(lua_State* tolua_
  else
 #endif
  {
-  CCCircleGraph* self = (CCCircleGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
   bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setDrawLineToCenter'", NULL);
@@ -390,14 +388,14 @@ static int tolua_CCDrawing_CCCircleGraph_setDrawLineToCenter00(lua_State* tolua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: create of class  CCRectGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectGraph_create00
-static int tolua_CCDrawing_CCRectGraph_create00(lua_State* tolua_S)
+/* method: create of class  CCRectShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectShape_create00
+static int tolua_CCDrawing_CCRectShape_create00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCRectGraph",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"CCRectShape",0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const CCSize",0,&tolua_err)) ||
      !tolua_isboolean(tolua_S,3,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
@@ -406,15 +404,13 @@ static int tolua_CCDrawing_CCRectGraph_create00(lua_State* tolua_S)
  else
 #endif
  {
-  CCRectGraph* self = (CCRectGraph*)  tolua_tousertype(tolua_S,1,0);
   const CCSize* size = ((const CCSize*)  tolua_tousertype(tolua_S,2,0));
   bool fill = ((bool)  tolua_toboolean(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'create'", NULL);
-#endif
   {
-   CCRectGraph* tolua_ret = (CCRectGraph*)  self->create(*size,fill);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCRectGraph");
+   CCRectShape* tolua_ret = (CCRectShape*)  CCRectShape::create(*size,fill);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCRectShape");
   }
  }
  return 1;
@@ -426,21 +422,21 @@ static int tolua_CCDrawing_CCRectGraph_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getSize of class  CCRectGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectGraph_getSize00
-static int tolua_CCDrawing_CCRectGraph_getSize00(lua_State* tolua_S)
+/* method: getSize of class  CCRectShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectShape_getSize00
+static int tolua_CCDrawing_CCRectShape_getSize00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCRectGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCRectShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCRectGraph* self = (CCRectGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCRectShape* self = (CCRectShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSize'", NULL);
 #endif
@@ -458,14 +454,14 @@ static int tolua_CCDrawing_CCRectGraph_getSize00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setSize of class  CCRectGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectGraph_setSize00
-static int tolua_CCDrawing_CCRectGraph_setSize00(lua_State* tolua_S)
+/* method: setSize of class  CCRectShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectShape_setSize00
+static int tolua_CCDrawing_CCRectShape_setSize00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCRectGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCRectShape",0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const CCSize",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -473,7 +469,7 @@ static int tolua_CCDrawing_CCRectGraph_setSize00(lua_State* tolua_S)
  else
 #endif
  {
-  CCRectGraph* self = (CCRectGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCRectShape* self = (CCRectShape*)  tolua_tousertype(tolua_S,1,0);
   const CCSize* size = ((const CCSize*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSize'", NULL);
@@ -491,21 +487,21 @@ static int tolua_CCDrawing_CCRectGraph_setSize00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getFill of class  CCRectGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectGraph_getFill00
-static int tolua_CCDrawing_CCRectGraph_getFill00(lua_State* tolua_S)
+/* method: getFill of class  CCRectShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectShape_getFill00
+static int tolua_CCDrawing_CCRectShape_getFill00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCRectGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCRectShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCRectGraph* self = (CCRectGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCRectShape* self = (CCRectShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFill'", NULL);
 #endif
@@ -523,14 +519,14 @@ static int tolua_CCDrawing_CCRectGraph_getFill00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setFill of class  CCRectGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectGraph_setFill00
-static int tolua_CCDrawing_CCRectGraph_setFill00(lua_State* tolua_S)
+/* method: setFill of class  CCRectShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCRectShape_setFill00
+static int tolua_CCDrawing_CCRectShape_setFill00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCRectGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCRectShape",0,&tolua_err) ||
      !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -538,7 +534,7 @@ static int tolua_CCDrawing_CCRectGraph_setFill00(lua_State* tolua_S)
  else
 #endif
  {
-  CCRectGraph* self = (CCRectGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCRectShape* self = (CCRectShape*)  tolua_tousertype(tolua_S,1,0);
   bool fill = ((bool)  tolua_toboolean(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFill'", NULL);
@@ -556,27 +552,25 @@ static int tolua_CCDrawing_CCRectGraph_setFill00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: create of class  CCPointGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPointGraph_create00
-static int tolua_CCDrawing_CCPointGraph_create00(lua_State* tolua_S)
+/* method: create of class  CCPointShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPointShape_create00
+static int tolua_CCDrawing_CCPointShape_create00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCPointGraph",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"CCPointShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCPointGraph* self = (CCPointGraph*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'create'", NULL);
-#endif
   {
-   CCPointGraph* tolua_ret = (CCPointGraph*)  self->create();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCPointGraph");
+   CCPointShape* tolua_ret = (CCPointShape*)  CCPointShape::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCPointShape");
   }
  }
  return 1;
@@ -588,14 +582,14 @@ static int tolua_CCDrawing_CCPointGraph_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: create of class  CCPolygonGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonGraph_create00
-static int tolua_CCDrawing_CCPolygonGraph_create00(lua_State* tolua_S)
+/* method: create of class  CCPolygonShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonShape_create00
+static int tolua_CCDrawing_CCPolygonShape_create00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCPolygonGraph",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"CCPolygonShape",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err) ||
      !tolua_isboolean(tolua_S,3,0,&tolua_err) ||
      !tolua_isboolean(tolua_S,4,0,&tolua_err) ||
@@ -605,16 +599,14 @@ static int tolua_CCDrawing_CCPolygonGraph_create00(lua_State* tolua_S)
  else
 #endif
  {
-  CCPolygonGraph* self = (CCPolygonGraph*)  tolua_tousertype(tolua_S,1,0);
   CCArray* vertices = ((CCArray*)  tolua_tousertype(tolua_S,2,0));
   bool fill = ((bool)  tolua_toboolean(tolua_S,3,0));
   bool close = ((bool)  tolua_toboolean(tolua_S,4,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'create'", NULL);
-#endif
   {
-   CCPolygonGraph* tolua_ret = (CCPolygonGraph*)  self->create(vertices,fill,close);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCPolygonGraph");
+   CCPolygonShape* tolua_ret = (CCPolygonShape*)  CCPolygonShape::create(vertices,fill,close);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCPolygonShape");
   }
  }
  return 1;
@@ -626,21 +618,21 @@ static int tolua_CCDrawing_CCPolygonGraph_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getFill of class  CCPolygonGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonGraph_getFill00
-static int tolua_CCDrawing_CCPolygonGraph_getFill00(lua_State* tolua_S)
+/* method: getFill of class  CCPolygonShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonShape_getFill00
+static int tolua_CCDrawing_CCPolygonShape_getFill00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCPolygonGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCPolygonShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCPolygonGraph* self = (CCPolygonGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCPolygonShape* self = (CCPolygonShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFill'", NULL);
 #endif
@@ -658,14 +650,14 @@ static int tolua_CCDrawing_CCPolygonGraph_getFill00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setFill of class  CCPolygonGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonGraph_setFill00
-static int tolua_CCDrawing_CCPolygonGraph_setFill00(lua_State* tolua_S)
+/* method: setFill of class  CCPolygonShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonShape_setFill00
+static int tolua_CCDrawing_CCPolygonShape_setFill00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCPolygonGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCPolygonShape",0,&tolua_err) ||
      !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -673,7 +665,7 @@ static int tolua_CCDrawing_CCPolygonGraph_setFill00(lua_State* tolua_S)
  else
 #endif
  {
-  CCPolygonGraph* self = (CCPolygonGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCPolygonShape* self = (CCPolygonShape*)  tolua_tousertype(tolua_S,1,0);
   bool fill = ((bool)  tolua_toboolean(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFill'", NULL);
@@ -691,21 +683,21 @@ static int tolua_CCDrawing_CCPolygonGraph_setFill00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getClose of class  CCPolygonGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonGraph_getClose00
-static int tolua_CCDrawing_CCPolygonGraph_getClose00(lua_State* tolua_S)
+/* method: getClose of class  CCPolygonShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonShape_getClose00
+static int tolua_CCDrawing_CCPolygonShape_getClose00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCPolygonGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCPolygonShape",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  CCPolygonGraph* self = (CCPolygonGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCPolygonShape* self = (CCPolygonShape*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getClose'", NULL);
 #endif
@@ -723,14 +715,14 @@ static int tolua_CCDrawing_CCPolygonGraph_getClose00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setClose of class  CCPolygonGraph */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonGraph_setClose00
-static int tolua_CCDrawing_CCPolygonGraph_setClose00(lua_State* tolua_S)
+/* method: setClose of class  CCPolygonShape */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPolygonShape_setClose00
+static int tolua_CCDrawing_CCPolygonShape_setClose00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"CCPolygonGraph",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"CCPolygonShape",0,&tolua_err) ||
      !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -738,7 +730,7 @@ static int tolua_CCDrawing_CCPolygonGraph_setClose00(lua_State* tolua_S)
  else
 #endif
  {
-  CCPolygonGraph* self = (CCPolygonGraph*)  tolua_tousertype(tolua_S,1,0);
+  CCPolygonShape* self = (CCPolygonShape*)  tolua_tousertype(tolua_S,1,0);
   bool close = ((bool)  tolua_toboolean(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setClose'", NULL);
@@ -763,42 +755,42 @@ TOLUA_API int tolua_CCDrawing_open (lua_State* tolua_S)
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
  tolua_beginmodule(tolua_S,NULL);
-  tolua_cclass(tolua_S,"CCGraphNode","CCGraphNode","CCNode",NULL);
-  tolua_beginmodule(tolua_S,"CCGraphNode");
-   tolua_function(tolua_S,"getColor",tolua_CCDrawing_CCGraphNode_getColor00);
-   tolua_function(tolua_S,"setColor",tolua_CCDrawing_CCGraphNode_setColor00);
+  tolua_cclass(tolua_S,"CCShapeNode","CCShapeNode","CCNode",NULL);
+  tolua_beginmodule(tolua_S,"CCShapeNode");
+   tolua_function(tolua_S,"getColor",tolua_CCDrawing_CCShapeNode_getColor00);
+   tolua_function(tolua_S,"setColor",tolua_CCDrawing_CCShapeNode_setColor00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCCircleGraph","CCCircleGraph","CCGraphNode",NULL);
-  tolua_beginmodule(tolua_S,"CCCircleGraph");
-   tolua_function(tolua_S,"create",tolua_CCDrawing_CCCircleGraph_create00);
-   tolua_function(tolua_S,"getRadius",tolua_CCDrawing_CCCircleGraph_getRadius00);
-   tolua_function(tolua_S,"setRadius",tolua_CCDrawing_CCCircleGraph_setRadius00);
-   tolua_function(tolua_S,"getAngle",tolua_CCDrawing_CCCircleGraph_getAngle00);
-   tolua_function(tolua_S,"setAngle",tolua_CCDrawing_CCCircleGraph_setAngle00);
-   tolua_function(tolua_S,"getSegments",tolua_CCDrawing_CCCircleGraph_getSegments00);
-   tolua_function(tolua_S,"setSegments",tolua_CCDrawing_CCCircleGraph_setSegments00);
-   tolua_function(tolua_S,"getDrawLineToCenter",tolua_CCDrawing_CCCircleGraph_getDrawLineToCenter00);
-   tolua_function(tolua_S,"setDrawLineToCenter",tolua_CCDrawing_CCCircleGraph_setDrawLineToCenter00);
+  tolua_cclass(tolua_S,"CCCircleShape","CCCircleShape","CCShapeNode",NULL);
+  tolua_beginmodule(tolua_S,"CCCircleShape");
+   tolua_function(tolua_S,"create",tolua_CCDrawing_CCCircleShape_create00);
+   tolua_function(tolua_S,"getRadius",tolua_CCDrawing_CCCircleShape_getRadius00);
+   tolua_function(tolua_S,"setRadius",tolua_CCDrawing_CCCircleShape_setRadius00);
+   tolua_function(tolua_S,"getAngle",tolua_CCDrawing_CCCircleShape_getAngle00);
+   tolua_function(tolua_S,"setAngle",tolua_CCDrawing_CCCircleShape_setAngle00);
+   tolua_function(tolua_S,"getSegments",tolua_CCDrawing_CCCircleShape_getSegments00);
+   tolua_function(tolua_S,"setSegments",tolua_CCDrawing_CCCircleShape_setSegments00);
+   tolua_function(tolua_S,"getDrawLineToCenter",tolua_CCDrawing_CCCircleShape_getDrawLineToCenter00);
+   tolua_function(tolua_S,"setDrawLineToCenter",tolua_CCDrawing_CCCircleShape_setDrawLineToCenter00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCRectGraph","CCRectGraph","CCGraphNode",NULL);
-  tolua_beginmodule(tolua_S,"CCRectGraph");
-   tolua_function(tolua_S,"create",tolua_CCDrawing_CCRectGraph_create00);
-   tolua_function(tolua_S,"getSize",tolua_CCDrawing_CCRectGraph_getSize00);
-   tolua_function(tolua_S,"setSize",tolua_CCDrawing_CCRectGraph_setSize00);
-   tolua_function(tolua_S,"getFill",tolua_CCDrawing_CCRectGraph_getFill00);
-   tolua_function(tolua_S,"setFill",tolua_CCDrawing_CCRectGraph_setFill00);
+  tolua_cclass(tolua_S,"CCRectShape","CCRectShape","CCShapeNode",NULL);
+  tolua_beginmodule(tolua_S,"CCRectShape");
+   tolua_function(tolua_S,"create",tolua_CCDrawing_CCRectShape_create00);
+   tolua_function(tolua_S,"getSize",tolua_CCDrawing_CCRectShape_getSize00);
+   tolua_function(tolua_S,"setSize",tolua_CCDrawing_CCRectShape_setSize00);
+   tolua_function(tolua_S,"getFill",tolua_CCDrawing_CCRectShape_getFill00);
+   tolua_function(tolua_S,"setFill",tolua_CCDrawing_CCRectShape_setFill00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCPointGraph","CCPointGraph","CCGraphNode",NULL);
-  tolua_beginmodule(tolua_S,"CCPointGraph");
-   tolua_function(tolua_S,"create",tolua_CCDrawing_CCPointGraph_create00);
+  tolua_cclass(tolua_S,"CCPointShape","CCPointShape","CCShapeNode",NULL);
+  tolua_beginmodule(tolua_S,"CCPointShape");
+   tolua_function(tolua_S,"create",tolua_CCDrawing_CCPointShape_create00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCPolygonGraph","CCPolygonGraph","CCGraphNode",NULL);
-  tolua_beginmodule(tolua_S,"CCPolygonGraph");
-   tolua_function(tolua_S,"create",tolua_CCDrawing_CCPolygonGraph_create00);
-   tolua_function(tolua_S,"getFill",tolua_CCDrawing_CCPolygonGraph_getFill00);
-   tolua_function(tolua_S,"setFill",tolua_CCDrawing_CCPolygonGraph_setFill00);
-   tolua_function(tolua_S,"getClose",tolua_CCDrawing_CCPolygonGraph_getClose00);
-   tolua_function(tolua_S,"setClose",tolua_CCDrawing_CCPolygonGraph_setClose00);
+  tolua_cclass(tolua_S,"CCPolygonShape","CCPolygonShape","CCShapeNode",NULL);
+  tolua_beginmodule(tolua_S,"CCPolygonShape");
+   tolua_function(tolua_S,"create",tolua_CCDrawing_CCPolygonShape_create00);
+   tolua_function(tolua_S,"getFill",tolua_CCDrawing_CCPolygonShape_getFill00);
+   tolua_function(tolua_S,"setFill",tolua_CCDrawing_CCPolygonShape_setFill00);
+   tolua_function(tolua_S,"getClose",tolua_CCDrawing_CCPolygonShape_getClose00);
+   tolua_function(tolua_S,"setClose",tolua_CCDrawing_CCPolygonShape_setClose00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;
