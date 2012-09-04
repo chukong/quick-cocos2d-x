@@ -1,0 +1,12 @@
+
+.*
+*.aps
+*.lnk
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.user
+
+bin/
+out/
+hosts/windows/ipch/
