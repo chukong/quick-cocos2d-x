@@ -16,6 +16,9 @@
 #include "cocos2dx_extension_network_mac.h"
 #endif
 
+// more lua exts
+#include "LuaCCDrawing.h"
+
 #include "HostVersion.h"
 
 using namespace std;
@@ -59,13 +62,18 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
     
+    lua_State* L = pEngine->getLuaState();
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    tolua_cocos2dx_extension_crypto_win32_open(pEngine->getLuaState());
-    tolua_cocos2dx_extension_network_win32_open(pEngine->getLuaState());
+    tolua_cocos2dx_extension_crypto_win32_open(L);
+    tolua_cocos2dx_extension_network_win32_open(L);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    tolua_cocos2dx_extension_crypto_mac_open(pEngine->getLuaState());
-    tolua_cocos2dx_extension_network_mac_open(pEngine->getLuaState());
+    tolua_cocos2dx_extension_crypto_mac_open(L);
+    tolua_cocos2dx_extension_network_mac_open(L);
 #endif
+    
+    // more lua exts
+    tolua_CCDrawing_open(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename());

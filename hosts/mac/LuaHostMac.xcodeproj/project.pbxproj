@@ -45,8 +45,6 @@
 		F491223215F5A72D006129CB /* CCGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491214D15F5A72D006129CB /* CCGrabber.cpp */; };
 		F491223315F5A72D006129CB /* CCGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491214F15F5A72D006129CB /* CCGrid.cpp */; };
 		F491223415F5A72D006129CB /* aabb.c in Sources */ = {isa = PBXBuildFile; fileRef = F491216C15F5A72D006129CB /* aabb.c */; };
-		F491223515F5A72D006129CB /* ChangeLog in Resources */ = {isa = PBXBuildFile; fileRef = F491216D15F5A72D006129CB /* ChangeLog */; };
-		F491223615F5A72D006129CB /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = F491216E15F5A72D006129CB /* CMakeLists.txt */; };
 		F491223715F5A72D006129CB /* mat4stack.c in Sources */ = {isa = PBXBuildFile; fileRef = F491217015F5A72D006129CB /* mat4stack.c */; };
 		F491223815F5A72D006129CB /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = F491217115F5A72D006129CB /* matrix.c */; };
 		F491223915F5A72D006129CB /* mat3.c in Sources */ = {isa = PBXBuildFile; fileRef = F491217215F5A72D006129CB /* mat3.c */; };
@@ -130,6 +128,8 @@
 		F49122AF15F5A749006129CB /* CCWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F491229F15F5A749006129CB /* CCWindow.m */; };
 		F49122B015F5A749006129CB /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F49122A115F5A749006129CB /* EAGLView.mm */; };
 		F49122B115F5A749006129CB /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49122A215F5A749006129CB /* platform.cpp */; };
+		F49122B515F5F16B006129CB /* CCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49122B315F5F16B006129CB /* CCDrawing.cpp */; };
+		F49122B815F5FE33006129CB /* LuaCCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49122B615F5FE33006129CB /* LuaCCDrawing.cpp */; };
 		F4BA6C3115F4911600CE7A10 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6C3015F4911600CE7A10 /* AppController.mm */; };
 		F4BA6DE515F4925800CE7A10 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6DE315F4925800CE7A10 /* AppDelegate.cpp */; };
 		F4BA6E0B15F4962000CE7A10 /* CDAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6E0015F4962000CE7A10 /* CDAudioManager.m */; };
@@ -296,8 +296,6 @@
 		F491216915F5A72D006129CB /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec3.h; sourceTree = "<group>"; };
 		F491216A15F5A72D006129CB /* vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vec4.h; sourceTree = "<group>"; };
 		F491216C15F5A72D006129CB /* aabb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aabb.c; sourceTree = "<group>"; };
-		F491216D15F5A72D006129CB /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
-		F491216E15F5A72D006129CB /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		F491217015F5A72D006129CB /* mat4stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mat4stack.c; sourceTree = "<group>"; };
 		F491217115F5A72D006129CB /* matrix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = matrix.c; sourceTree = "<group>"; };
 		F491217215F5A72D006129CB /* mat3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mat3.c; sourceTree = "<group>"; };
@@ -479,6 +477,10 @@
 		F49122A115F5A749006129CB /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
 		F49122A215F5A749006129CB /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cpp; path = "../../libs/cocos2d-x/cocos2dx/platform/platform.cpp"; sourceTree = "<group>"; };
 		F49122A315F5A749006129CB /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = "../../libs/cocos2d-x/cocos2dx/platform/platform.h"; sourceTree = "<group>"; };
+		F49122B315F5F16B006129CB /* CCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDrawing.cpp; path = ../../libs/CCDrawing/CCDrawing.cpp; sourceTree = "<group>"; };
+		F49122B415F5F16B006129CB /* CCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawing.h; path = ../../libs/CCDrawing/CCDrawing.h; sourceTree = "<group>"; };
+		F49122B615F5FE33006129CB /* LuaCCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LuaCCDrawing.cpp; path = ../../libs/CCDrawing/LuaCCDrawing.cpp; sourceTree = "<group>"; };
+		F49122B715F5FE33006129CB /* LuaCCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LuaCCDrawing.h; path = ../../libs/CCDrawing/LuaCCDrawing.h; sourceTree = "<group>"; };
 		F4BA6C2E15F4909200CE7A10 /* HostVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostVersion.h; sourceTree = "<group>"; };
 		F4BA6C2F15F4911600CE7A10 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		F4BA6C3015F4911600CE7A10 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 		F44C957C15F49004004D4151 /* LuaHostMac */ = {
 			isa = PBXGroup;
 			children = (
+				F49122B215F5F136006129CB /* CCDrawing */,
 				F4BA6DEF15F494B300CE7A10 /* libs */,
 				F4BA6DE215F4924C00CE7A10 /* Classes */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
@@ -867,8 +870,6 @@
 			isa = PBXGroup;
 			children = (
 				F491216C15F5A72D006129CB /* aabb.c */,
-				F491216D15F5A72D006129CB /* ChangeLog */,
-				F491216E15F5A72D006129CB /* CMakeLists.txt */,
 				F491216F15F5A72D006129CB /* GL */,
 				F491217215F5A72D006129CB /* mat3.c */,
 				F491217315F5A72D006129CB /* mat4.c */,
@@ -1214,6 +1215,17 @@
 			path = "../../libs/cocos2d-x/cocos2dx/platform/mac";
 			sourceTree = "<group>";
 		};
+		F49122B215F5F136006129CB /* CCDrawing */ = {
+			isa = PBXGroup;
+			children = (
+				F49122B315F5F16B006129CB /* CCDrawing.cpp */,
+				F49122B415F5F16B006129CB /* CCDrawing.h */,
+				F49122B615F5FE33006129CB /* LuaCCDrawing.cpp */,
+				F49122B715F5FE33006129CB /* LuaCCDrawing.h */,
+			);
+			name = CCDrawing;
+			sourceTree = "<group>";
+		};
 		F4BA6C3215F4912B00CE7A10 /* mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -1519,8 +1531,6 @@
 			files = (
 				F44C958115F49004004D4151 /* InfoPlist.strings in Resources */,
 				F44C958D15F49004004D4151 /* MainMenu.xib in Resources */,
-				F491223515F5A72D006129CB /* ChangeLog in Resources */,
-				F491223615F5A72D006129CB /* CMakeLists.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1706,6 +1716,8 @@
 				F49122AF15F5A749006129CB /* CCWindow.m in Sources */,
 				F49122B015F5A749006129CB /* EAGLView.mm in Sources */,
 				F49122B115F5A749006129CB /* platform.cpp in Sources */,
+				F49122B515F5F16B006129CB /* CCDrawing.cpp in Sources */,
+				F49122B815F5FE33006129CB /* LuaCCDrawing.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

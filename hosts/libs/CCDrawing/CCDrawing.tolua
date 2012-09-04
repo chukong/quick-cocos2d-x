@@ -1,0 +1,47 @@
+
+class CCGraphNode : public CCNode
+{
+    const ccColor4F& getColor(void);
+    void setColor(const ccColor4F& color);
+};
+
+class CCCircleGraph : public CCGraphNode
+{
+    CCCircleGraph* create(float radius,
+                          float angle = 0,
+                          unsigned int segments = 10,
+                          bool drawLineToCenter = false);
+
+    float getRadius(void);
+    void setRadius(float radius);
+    float getAngle(void);
+    void setAngle(float angle);
+    unsigned int getSegments(void);
+    void setSegments(unsigned int segments);
+    bool getDrawLineToCenter(void);
+    void setDrawLineToCenter(bool drawLineToCenter);
+};
+
+class CCRectGraph : public CCGraphNode
+{
+public:
+    CCRectGraph* create(const CCSize& size, bool fill);
+    const CCSize& getSize(void);
+    void setSize(const CCSize& size);
+    bool getFill(void);
+    void setFill(bool fill);
+};
+
+class CCPointGraph : public CCGraphNode
+{
+    CCPointGraph* create(void);
+};
+
+class CCPolygonGraph : public CCGraphNode
+{
+    CCPolygonGraph* create(CCArray* vertices, bool fill, bool close);
+    bool getFill(void);
+    void setFill(bool fill);
+    bool getClose(void);
+    void setClose(bool close);
+};

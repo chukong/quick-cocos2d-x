@@ -34,6 +34,7 @@ NS_CC_BEGIN
 
 class CCGraphNode : public CCNode
 {
+public:
     const ccColor4F& getColor(void)
     {
         return m_color;
