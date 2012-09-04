@@ -67,6 +67,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_network_mac_open(pEngine->getLuaState());
 #endif
     
+    CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename());
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
