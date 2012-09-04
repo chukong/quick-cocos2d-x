@@ -18,6 +18,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="CCDrawing">
+      <UniqueIdentifier>{a19ee6a2-b9ba-4876-bc32-079540886703}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -92,6 +95,12 @@
     <ClInclude Include="HostVersion.h">
       <Filter>win32</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libs\CCDrawing\CCDrawing.h">
+      <Filter>CCDrawing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\CCDrawing\LuaCCDrawing.h">
+      <Filter>CCDrawing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
@@ -141,6 +150,12 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\CCDrawing\CCDrawing.cpp">
+      <Filter>CCDrawing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\CCDrawing\LuaCCDrawing.cpp">
+      <Filter>CCDrawing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
