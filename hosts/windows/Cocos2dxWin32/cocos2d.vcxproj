@@ -58,7 +58,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\libs\cocos2d-x\cocos2dx;..\..\libs\cocos2d-x\cocos2dx\platform\win32;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;..\..\libs\cocos2d-x\cocos2dx\include;..\..\libs\cocos2d-x\cocos2dx\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;CC_DISABLE_ASSERT=1;CC_LUA_ENGINE_ENABLED=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
