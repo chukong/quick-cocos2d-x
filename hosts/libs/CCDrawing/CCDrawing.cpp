@@ -1,5 +1,4 @@
 
-
 #include "CCDrawing.h"
 
 NS_CC_BEGIN
@@ -77,7 +76,7 @@ CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bo
     CCPolygonShape* polygon = new CCPolygonShape();
     polygon->m_numberOfVertices = vertices->count();
     polygon->m_vertices = new CCPoint[polygon->m_numberOfVertices];
-    for (int i = 0; i < polygon->m_numberOfVertices; ++i)
+    for (unsigned int i = 0; i < polygon->m_numberOfVertices; ++i)
     {
         polygon->m_vertices[i] = *(static_cast<CCPoint*>(vertices->objectAtIndex(i)));
     }
