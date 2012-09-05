@@ -23,7 +23,13 @@
  ****************************************************************************/
 
 #import "AppController.h"
-#import "AppDelegate.h"
+
+#include "AppDelegate.h"
+#include "CCDirector.h"
+#include "CCDrawingPrimitives.h"
+
+using namespace std;
+using namespace cocos2d;
 
 static AppDelegate s_sharedApplication;
 
@@ -74,7 +80,6 @@ static AppDelegate s_sharedApplication;
     {
         workingDir = string([nsworkingDir cStringUsingEncoding:NSUTF8StringEncoding]);
     }
-    
     
     [self createWindowAndGLView];
     [self startup];
@@ -132,6 +137,8 @@ static AppDelegate s_sharedApplication;
     [window setTitle:@"LuaHostMac"];
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
+    
+    ccDrawInit();
 }
 
 -(void) startup
@@ -143,10 +150,10 @@ static AppDelegate s_sharedApplication;
     }
 
     CCApplication* app = CCApplication::sharedApplication();
-    app->setStartupScriptFilename(startupScriptFilename.c_str());
+    app->setStartupScriptFilename(startupScriptFilename);
     if (workingDir.length() > 0)
     {
-        CCFileUtils::sharedFileUtils()->setResourceDirectory(workingDir.c_str(), true);
+        app->setResourceRootPath(workingDir);
     }
     
     app->run();

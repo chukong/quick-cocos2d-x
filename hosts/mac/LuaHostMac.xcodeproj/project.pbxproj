@@ -198,6 +198,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F434018815F73B7000E0AF55 /* CCApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCApplication.h; sourceTree = "<group>"; };
 		F44C957215F49004004D4151 /* LuaHostMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaHostMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44C957915F49004004D4151 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -449,14 +450,12 @@
 		F491228215F5A749006129CB /* CCEGLViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCEGLViewProtocol.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCEGLViewProtocol.h"; sourceTree = "<group>"; };
 		F491228315F5A749006129CB /* CCFileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCFileUtils.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCFileUtils.h"; sourceTree = "<group>"; };
 		F491228515F5A749006129CB /* CCImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCImage.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCImage.h"; sourceTree = "<group>"; };
-		F491228615F5A749006129CB /* CCImageCommon_cpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCImageCommon_cpp.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCImageCommon_cpp.h"; sourceTree = "<group>"; };
 		F491228715F5A749006129CB /* CCPlatformConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPlatformConfig.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCPlatformConfig.h"; sourceTree = "<group>"; };
 		F491228815F5A749006129CB /* CCPlatformMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCPlatformMacros.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCPlatformMacros.h"; sourceTree = "<group>"; };
 		F491228915F5A749006129CB /* CCSAXParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCSAXParser.cpp; path = "../../libs/cocos2d-x/cocos2dx/platform/CCSAXParser.cpp"; sourceTree = "<group>"; };
 		F491228A15F5A749006129CB /* CCSAXParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSAXParser.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCSAXParser.h"; sourceTree = "<group>"; };
 		F491228C15F5A749006129CB /* CCThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCThread.h; path = "../../libs/cocos2d-x/cocos2dx/platform/CCThread.h"; sourceTree = "<group>"; };
 		F491228E15F5A749006129CB /* CCAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAccelerometer.h; sourceTree = "<group>"; };
-		F491228F15F5A749006129CB /* CCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCApplication.h; sourceTree = "<group>"; };
 		F491229015F5A749006129CB /* CCApplication.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCApplication.mm; sourceTree = "<group>"; };
 		F491229115F5A749006129CB /* CCCommon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCommon.mm; sourceTree = "<group>"; };
 		F491229215F5A749006129CB /* CCDirectorCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDirectorCaller.h; sourceTree = "<group>"; };
@@ -1174,7 +1173,6 @@
 				F491228215F5A749006129CB /* CCEGLViewProtocol.h */,
 				F491228315F5A749006129CB /* CCFileUtils.h */,
 				F491228515F5A749006129CB /* CCImage.h */,
-				F491228615F5A749006129CB /* CCImageCommon_cpp.h */,
 				F491228715F5A749006129CB /* CCPlatformConfig.h */,
 				F491228815F5A749006129CB /* CCPlatformMacros.h */,
 				F491228915F5A749006129CB /* CCSAXParser.cpp */,
@@ -1191,7 +1189,7 @@
 			isa = PBXGroup;
 			children = (
 				F491228E15F5A749006129CB /* CCAccelerometer.h */,
-				F491228F15F5A749006129CB /* CCApplication.h */,
+				F434018815F73B7000E0AF55 /* CCApplication.h */,
 				F491229015F5A749006129CB /* CCApplication.mm */,
 				F491229115F5A749006129CB /* CCCommon.mm */,
 				F491229215F5A749006129CB /* CCDirectorCaller.h */,
@@ -1747,7 +1745,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1757,6 +1755,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					TARGET_OS_MAC,
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -1764,7 +1763,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1774,18 +1773,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = TARGET_OS_MAC;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -1794,24 +1794,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LuaHostMac/LuaHostMac-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					TARGET_OS_MAC,
+					"DEBUG=1",
 					USE_FILE32API,
 					"CC_LUA_ENGINE_ENABLED=1",
 					"COCOS2D_DEBUG=1",
 					"CC_DISABLE_ASSERT=1",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/include/libxml2/\"",
-					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform\"",
-					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/mac\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/include\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/mac\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions/luabinding\"",
@@ -1827,7 +1829,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LuaHostMac/LuaHostMac-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1836,13 +1841,12 @@
 					"CC_LUA_ENGINE_ENABLED=1",
 					"CC_DISABLE_ASSERT=1",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/include/libxml2/\"",
-					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx\"",
-					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform\"",
-					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/mac\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/include\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/mac\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions/luabinding\"",
