@@ -57,10 +57,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         }
     }
 
-    app.setStartupScriptFilename(s_startupScriptFilename.c_str());
+    app.setStartupScriptFilename(s_startupScriptFilename);
     if (s_workingDir.length() > 0)
     {
-        CCFileUtils::sharedFileUtils()->setResourceDirectory(s_workingDir.c_str(), true);
+        app.setResourceRootPath(s_workingDir);
     }
 
     CCEGLView* eglView = CCEGLView::sharedOpenGLView();    

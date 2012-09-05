@@ -67,7 +67,9 @@ CCPointShape* CCPointShape::create(float size)
 
 void CCPointShape::draw(void)
 {
+#ifndef _WINDOWS_
     glPointSize(m_size);
+#endif
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
     ccDrawPoint(getDrawPosition());
 }
