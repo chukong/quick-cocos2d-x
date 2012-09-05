@@ -1,9 +1,6 @@
 
-#include "cocos2d.h"
 #include "AppDelegate.h"
-
-#include <string>
-
+#include "HostVersion.h"
 #include "SimpleAudioEngine.h"
 #include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
@@ -15,11 +12,10 @@
 #include "cocos2dx_extension_crypto_mac.h"
 #include "cocos2dx_extension_network_mac.h"
 #endif
-
 // more lua exts
 #include "LuaCCDrawing.h"
 
-#include "HostVersion.h"
+#include <string>
 
 using namespace std;
 using namespace cocos2d;
@@ -29,7 +25,6 @@ AppDelegate::AppDelegate()
 {
     // fixed me
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
-    m_startupScriptFilename = std::string("main.lua");
 }
 
 AppDelegate::~AppDelegate()
@@ -76,7 +71,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_CCDrawing_open(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename());
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {

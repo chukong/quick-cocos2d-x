@@ -22,15 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#import "cocos2d.h"
 #import "EAGLView.h"
-
 #include <string>
-
-using namespace std;
-using namespace cocos2d;
 
 @interface AppController : NSObject <NSApplicationDelegate>
 {
@@ -41,8 +34,8 @@ using namespace cocos2d;
     BOOL waitForRestart;
     
     NSSize frameSize;
-    string workingDir;
-    string startupScriptFilename;
+    std::string workingDir;
+    std::string startupScriptFilename;
 }
 
 @property (nonatomic, assign) IBOutlet NSWindow* window;
