@@ -53,10 +53,10 @@ protected:
         m_color = ccc4f(0, 0, 0, 1);
     }
     
-    const CCPoint getWorldPosition(void)
+    const CCPoint getDrawPosition(void)
     {
-        const CCPoint& p = getPosition();
-        return getParent()->convertToWorldSpace(p);
+        const CCSize& size = getParent()->getContentSize();
+        return CCPointMake(size.width / 2, size.height / 2);
     }
 };
 
@@ -126,7 +126,7 @@ protected:
 class CCRectShape : public CCShapeNode
 {
 public:
-    static CCRectShape* create(const CCSize& size, bool fill);
+    static CCRectShape* create(const CCSize& size, bool fill = false);
     
     const CCSize& getSize(void)
     {
@@ -161,8 +161,21 @@ protected:
 class CCPointShape : public CCShapeNode
 {
 public:
-    static CCPointShape* create(void);
+    static CCPointShape* create(float size = 1);
     virtual void draw(void);
+    
+    float getSize(void)
+    {
+        return m_size;
+    }
+    
+    void setSize(float size)
+    {
+        m_size = size;
+    }
+    
+protected:
+    float m_size;
 };
 
 
@@ -171,7 +184,7 @@ public:
 class CCPolygonShape : public CCShapeNode
 {
 public:
-    static CCPolygonShape* create(CCArray* vertices, bool fill, bool close);
+    static CCPolygonShape* create(CCArray* vertices, bool fill = false, bool close = false);
     ~CCPolygonShape(void);
     
     bool getFill(void)
@@ -198,6 +211,7 @@ public:
     
 protected:
     CCPoint* m_vertices;
+    CCPoint* m_verticesDraw;
     unsigned int m_numberOfVertices;
     bool m_fill;
     bool m_close;

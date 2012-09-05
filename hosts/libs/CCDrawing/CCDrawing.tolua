@@ -25,7 +25,7 @@ class CCCircleShape : public CCShapeNode
 class CCRectShape : public CCShapeNode
 {
 public:
-    static CCRectShape* create(const CCSize& size, bool fill);
+    static CCRectShape* create(const CCSize& size, bool fill = false);
     const CCSize& getSize(void);
     void setSize(const CCSize& size);
     bool getFill(void);
@@ -34,12 +34,14 @@ public:
 
 class CCPointShape : public CCShapeNode
 {
-    static CCPointShape* create(void);
+    static CCPointShape* create(float size = 1);
+    float getSize(void);
+    void setSize(float size);
 };
 
 class CCPolygonShape : public CCShapeNode
 {
-    static CCPolygonShape* create(CCArray* vertices, bool fill, bool close);
+    static CCPolygonShape* create(CCArray* vertices, bool fill = false, bool close = false);
     bool getFill(void);
     void setFill(bool fill);
     bool getClose(void);
