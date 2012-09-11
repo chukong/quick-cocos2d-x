@@ -54,7 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
     
     // register lua engine
-    CCScriptEngineProtocol* pEngine = CCLuaEngine::create();
+    CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
     
     lua_State* L = pEngine->getLuaState();
@@ -71,7 +71,12 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_CCDrawing_open(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
+    
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
+#else
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/main_new.lua");
+#endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {
@@ -80,9 +85,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
     
     CCLOG("------------------------------------------------");
-    CCLOG(" HOST VERSION: %s", HOST_VERSION);
+    CCLOG("HOST VERSION: %s", HOST_VERSION);
+    CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
-    CCLOG("LOAD LUA FILE: %s\n", path.c_str());
     pEngine->executeScriptFile(path.c_str());
     
     return true;
