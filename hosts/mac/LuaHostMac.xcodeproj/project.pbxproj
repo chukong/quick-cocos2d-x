@@ -1805,6 +1805,7 @@
 					"DEBUG=1",
 					USE_FILE32API,
 					"CC_LUA_ENGINE_ENABLED=1",
+					"CC_LUA_ENGINE_DEBUG=1",
 					"COCOS2D_DEBUG=1",
 					"CC_DISABLE_ASSERT=1",
 				);
