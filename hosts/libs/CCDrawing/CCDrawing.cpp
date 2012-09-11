@@ -57,19 +57,15 @@ void CCRectShape::draw(void)
 
 #pragma mark -
 
-CCPointShape* CCPointShape::create(float size)
+CCPointShape* CCPointShape::create(void)
 {
     CCPointShape* point = new CCPointShape();
-    point->setSize(size);
     point->autorelease();
     return point;
 }
 
 void CCPointShape::draw(void)
 {
-#ifndef _WINDOWS_
-    glPointSize(m_size);
-#endif
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
     ccDrawPoint(getDrawPosition());
 }

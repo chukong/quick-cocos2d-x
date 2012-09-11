@@ -161,21 +161,8 @@ protected:
 class CCPointShape : public CCShapeNode
 {
 public:
-    static CCPointShape* create(float size = 1);
+    static CCPointShape* create(void);
     virtual void draw(void);
-    
-    float getSize(void)
-    {
-        return m_size;
-    }
-    
-    void setSize(float size)
-    {
-        m_size = size;
-    }
-    
-protected:
-    float m_size;
 };
 
 

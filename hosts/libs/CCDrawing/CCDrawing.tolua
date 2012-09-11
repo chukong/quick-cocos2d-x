@@ -34,9 +34,7 @@ public:
 
 class CCPointShape : public CCShapeNode
 {
-    static CCPointShape* create(float size = 1);
-    float getSize(void);
-    void setSize(float size);
+    static CCPointShape* create(void);
 };
 
 class CCPolygonShape : public CCShapeNode

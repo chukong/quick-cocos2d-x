@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCDrawing
-** Generated automatically by tolua++-1.0.92 on Tue Sep  4 23:10:14 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Sep  6 16:50:27 2012.
 */
 
 
@@ -560,16 +560,14 @@ static int tolua_CCDrawing_CCPointShape_create00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"CCPointShape",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  float size = ((float)  tolua_tonumber(tolua_S,2,1));
   {
-   CCPointShape* tolua_ret = (CCPointShape*)  CCPointShape::create(size);
+   CCPointShape* tolua_ret = (CCPointShape*)  CCPointShape::create();
     int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
     int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
     toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCPointShape");
@@ -579,71 +577,6 @@ static int tolua_CCDrawing_CCPointShape_create00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getSize of class  CCPointShape */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPointShape_getSize00
-static int tolua_CCDrawing_CCPointShape_getSize00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCPointShape",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCPointShape* self = (CCPointShape*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSize'", NULL);
-#endif
-  {
-   float tolua_ret = (float)  self->getSize();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getSize'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setSize of class  CCPointShape */
-#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCPointShape_setSize00
-static int tolua_CCDrawing_CCPointShape_setSize00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCPointShape",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCPointShape* self = (CCPointShape*)  tolua_tousertype(tolua_S,1,0);
-  float size = ((float)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setSize'", NULL);
-#endif
-  {
-   self->setSize(size);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setSize'.",&tolua_err);
  return 0;
 #endif
 }
@@ -850,8 +783,6 @@ TOLUA_API int tolua_CCDrawing_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCPointShape","CCPointShape","CCShapeNode",NULL);
   tolua_beginmodule(tolua_S,"CCPointShape");
    tolua_function(tolua_S,"create",tolua_CCDrawing_CCPointShape_create00);
-   tolua_function(tolua_S,"getSize",tolua_CCDrawing_CCPointShape_getSize00);
-   tolua_function(tolua_S,"setSize",tolua_CCDrawing_CCPointShape_setSize00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCPolygonShape","CCPolygonShape","CCShapeNode",NULL);
   tolua_beginmodule(tolua_S,"CCPolygonShape");
