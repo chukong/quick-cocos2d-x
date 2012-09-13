@@ -240,10 +240,19 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="269981381">
+									<reference key="NSMenu" ref="466310130"/>
+									<string key="NSTitle">iPhone 5 (1136x640)</string>
+									<string key="NSKeyEquiv">3</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="535098250">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">iPad (1024x768)</string>
-									<string key="NSKeyEquiv">3</string>
+									<string key="NSKeyEquiv">4</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -252,7 +261,7 @@
 								<object class="NSMenuItem" id="216965476">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">New iPad (2048x1536)</string>
-									<string key="NSKeyEquiv">4</string>
+									<string key="NSKeyEquiv">5</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -261,7 +270,7 @@
 								<object class="NSMenuItem" id="851521240">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Android (854x480)</string>
-									<string key="NSKeyEquiv">5</string>
+									<string key="NSKeyEquiv">6</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -270,7 +279,7 @@
 								<object class="NSMenuItem" id="927775136">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Android (800x480)</string>
-									<string key="NSKeyEquiv">6</string>
+									<string key="NSKeyEquiv">7</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -279,7 +288,7 @@
 								<object class="NSMenuItem" id="384292120">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Android (1024x600)</string>
-									<string key="NSKeyEquiv">7</string>
+									<string key="NSKeyEquiv">8</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -288,7 +297,7 @@
 								<object class="NSMenuItem" id="843330710">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Android (1280x720)</string>
-									<string key="NSKeyEquiv">8</string>
+									<string key="NSKeyEquiv">9</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -297,7 +306,7 @@
 								<object class="NSMenuItem" id="452166457">
 									<reference key="NSMenu" ref="466310130"/>
 									<string key="NSTitle">Android (1280x800)</string>
-									<string key="NSKeyEquiv">9</string>
+									<string key="NSKeyEquiv">0</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -555,6 +564,14 @@
 					</object>
 					<int key="connectionID">561</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">resize_iPhone5:</string>
+						<reference key="source" ref="299735127"/>
+						<reference key="destination" ref="269981381"/>
+					</object>
+					<int key="connectionID">563</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -745,6 +762,7 @@
 							<reference ref="384292120"/>
 							<reference ref="843330710"/>
 							<reference ref="452166457"/>
+							<reference ref="269981381"/>
 						</array>
 						<reference key="parent" ref="586577488"/>
 					</object>
@@ -849,6 +867,11 @@
 						<reference key="object" ref="452166457"/>
 						<reference key="parent" ref="466310130"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">562</int>
+						<reference key="object" ref="269981381"/>
+						<reference key="parent" ref="466310130"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -889,6 +912,7 @@
 				<string key="548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="562.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="57.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -901,9 +925,126 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">561</int>
+			<int key="maxID">563</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">AppController</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="exitFullScreen:">id</string>
+						<string key="openWorkingDirectory:">id</string>
+						<string key="resize_Android_1024_600:">id</string>
+						<string key="resize_Android_1280_720:">id</string>
+						<string key="resize_Android_1280_800:">id</string>
+						<string key="resize_Android_800_480:">id</string>
+						<string key="resize_Android_854_480:">id</string>
+						<string key="resize_New_iPad:">id</string>
+						<string key="resize_iPad:">id</string>
+						<string key="resize_iPhone3G:">id</string>
+						<string key="resize_iPhone4:">id</string>
+						<string key="resize_iPhone5:">id</string>
+						<string key="restart:">id</string>
+						<string key="selectStartupScript:">id</string>
+						<string key="toggleFullScreen:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="exitFullScreen:">
+							<string key="name">exitFullScreen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openWorkingDirectory:">
+							<string key="name">openWorkingDirectory:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_Android_1024_600:">
+							<string key="name">resize_Android_1024_600:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_Android_1280_720:">
+							<string key="name">resize_Android_1280_720:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_Android_1280_800:">
+							<string key="name">resize_Android_1280_800:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_Android_800_480:">
+							<string key="name">resize_Android_800_480:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_Android_854_480:">
+							<string key="name">resize_Android_854_480:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_New_iPad:">
+							<string key="name">resize_New_iPad:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_iPad:">
+							<string key="name">resize_iPad:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_iPhone3G:">
+							<string key="name">resize_iPhone3G:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_iPhone4:">
+							<string key="name">resize_iPhone4:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="resize_iPhone5:">
+							<string key="name">resize_iPhone5:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="restart:">
+							<string key="name">restart:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="selectStartupScript:">
+							<string key="name">selectStartupScript:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleFullScreen:">
+							<string key="name">toggleFullScreen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="glView">EAGLView</string>
+						<string key="menu">NSMenu</string>
+						<string key="window">NSWindow</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="glView">
+							<string key="name">glView</string>
+							<string key="candidateClassName">EAGLView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menu">
+							<string key="name">menu</string>
+							<string key="candidateClassName">NSMenu</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="window">
+							<string key="name">window</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AppController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">EAGLView</string>
+					<string key="superclassName">NSOpenGLView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/EAGLView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

@@ -206,6 +206,13 @@ static AppDelegate s_sharedApplication;
     [self restart:sender];
 }
 
+-(IBAction) resize_iPhone5:(id)sender
+{
+    frameSize.width = 1136;
+    frameSize.height = 640;
+    [self restart:sender];
+}
+
 -(IBAction) resize_iPad:(id)sender
 {
     frameSize.width = 1024;

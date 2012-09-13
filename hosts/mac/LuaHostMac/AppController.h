@@ -48,6 +48,7 @@
 
 -(IBAction) resize_iPhone3G:(id)sender;
 -(IBAction) resize_iPhone4:(id)sender;
+-(IBAction) resize_iPhone5:(id)sender;
 -(IBAction) resize_iPad:(id)sender;
 -(IBAction) resize_New_iPad:(id)sender;
 -(IBAction) resize_Android_854_480:(id)sender;
