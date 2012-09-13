@@ -26,21 +26,21 @@ local function decode_(fileContents)
     local j = json.decode(contents)
 
     if type(j) ~= "table" then
-        log.error("[framework.client.api.GameState] ERR, decode_() invalid contents")
+        echoError("[framework.client.api.GameState] ERR, decode_() invalid contents")
         return {errorCode = M.ERROR_INVALID_FILE_CONTENTS}
     end
 
     local hash,s = j.h, j.s
     local testHash = crypto.md5(s..secretKey)
     if testHash ~= hash then
-        log.error("[framework.client.api.GameState] ERR, decode_() hash miss match")
+        echoError("[framework.client.api.GameState] ERR, decode_() hash miss match")
         return {errorCode = M.ERROR_HASH_MISS_MATCH}
     end
 
     local values = json.decode(crypto.decodeBase64(s))
 
     if type(values) ~= "table" then
-        log.error("[framework.client.api.GameState] ERR, decode_() invalid state data")
+        echoError("[framework.client.api.GameState] ERR, decode_() invalid state data")
         return {errorCode = M.ERROR_INVALID_FILE_CONTENTS}
     end
 
@@ -51,7 +51,7 @@ end
 
 function M.init(eventListener_, stateFilename_, secretKey_)
     if type(eventListener_) ~= "function" then
-        log.error("[framework.client.api.GameState] ERR, init() invalid eventListener")
+        echoError("[framework.client.api.GameState] ERR, init() invalid eventListener")
         return false
     end
 
@@ -78,12 +78,12 @@ function M.load()
     local filename = M.getGameStatePath()
 
     if not io.exists(filename) then
-        log.warning("[framework.client.api.GameState] load() file \"%s\" not found", filename)
+        echoWarning("[framework.client.api.GameState] load() file \"%s\" not found", filename)
         return eventListener({name = "load", errorCode = M.ERROR_STATE_FILE_NOT_FOUND})
     end
 
     local contents = io.readfile(filename)
-    log.warning("[framework.client.api.GameState] load() get values from \"%s\"", filename)
+    echoWarning("[framework.client.api.GameState] load() get values from \"%s\"", filename)
 
     local values
     local encode = false
@@ -99,7 +99,7 @@ function M.load()
     else
         values = json.decode(contents)
         if type(values) ~= "table" then
-            log.error("[framework.client.api.GameState] ERR, load() invalid data")
+            echoError("[framework.client.api.GameState] ERR, load() invalid data")
             return eventListener({name = "load", errorCode = M.ERROR_INVALID_FILE_CONTENTS})
         end
     end
@@ -119,7 +119,7 @@ function M.save(newValues)
         encode = type(secretKey) == "string"
     })
     if type(values) ~= "table" then
-        log.error("[framework.client.api.GameState] ERR, save() listener return invalid data")
+        echoError("[framework.client.api.GameState] ERR, save() listener return invalid data")
         return false
     end
 
@@ -134,7 +134,7 @@ function M.save(newValues)
         end
     end
 
-    log.warning("[framework.client.api.GameState] save() update file \"%s\"", filename)
+    echoWarning("[framework.client.api.GameState] save() update file \"%s\"", filename)
     return ret
 end
 

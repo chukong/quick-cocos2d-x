@@ -251,20 +251,7 @@ ModelBase 并不会为类自动添加 getter 和 setter 方法，所以开发者
 
 ]]
 
---[[--
-
-构造函数
-
-@ignore
-
-]]
-local function ctor(self, properties)
-    if type(properties) ~= "table" then properties = {} end
-    self:setProperties(properties)
-    self.isModelBase_ = true
-end
-
-local ModelBase = class("ModelBase", ctor)
+local ModelBase = class("ModelBase")
 ModelBase.idkey = "id"
 ModelBase.schema = {
     id = {"string"}
@@ -275,6 +262,12 @@ local function filterProperties(properties, filter)
     for i, field in ipairs(filter) do
         properties[field] = nil
     end
+end
+
+function ModelBase:ctor(properties)
+    self.isModelBase_ = true
+    if type(properties) ~= "table" then properties = {} end
+    self:setProperties(properties)
 end
 
 --[[--

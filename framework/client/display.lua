@@ -82,7 +82,6 @@ function display.reset()
                                        CONFIG_SCREEN_HEIGHT,
                                        kResolutionNoBorder)
     else
-        -- cocos2d-x 在 retina 模式下无法使用 setDesignResolutionSize()
         local winSize = director:getWinSize()
         xyscale = winSize.width / CONFIG_VIEW_WIDTH
     end
@@ -106,20 +105,24 @@ function display.reset()
     display.widthInPixels  = display.sizeInPixels.width
     display.heightInPixels = display.sizeInPixels.height
 
-    log.warning("# display.widthInPixels        = "..format("%0.2f", display.widthInPixels))
-    log.warning("# display.heightInPixels       = "..format("%0.2f", display.heightInPixels))
-    log.warning("# display.scale                = "..format("%0.2f", display.scale))
-    log.warning("# display.xyscale              = "..format("%0.2f", display.xyscale))
-    log.warning("# display.orientation          = "..display.orientation)
-    log.warning("# display.width                = "..format("%0.2f", display.width))
-    log.warning("# display.height               = "..format("%0.2f", display.height))
-    log.warning("# display.cx                   = "..format("%0.2f", display.cx))
-    log.warning("# display.cy                   = "..format("%0.2f", display.cy))
-    log.warning("# display.left                 = "..format("%0.2f", display.left))
-    log.warning("# display.right                = "..format("%0.2f", display.right))
-    log.warning("# display.top                  = "..format("%0.2f", display.top))
-    log.warning("# display.bottom               = "..format("%0.2f", display.bottom))
-    log.warning("#")
+    echoWarning("# display.widthInPixels        = "..format("%0.2f", display.widthInPixels))
+    echoWarning("# display.heightInPixels       = "..format("%0.2f", display.heightInPixels))
+    echoWarning("# display.scale                = "..format("%0.2f", display.scale))
+    echoWarning("# display.xyscale              = "..format("%0.2f", display.xyscale))
+    echoWarning("# display.orientation          = "..display.orientation)
+    echoWarning("# display.width                = "..format("%0.2f", display.width))
+    echoWarning("# display.height               = "..format("%0.2f", display.height))
+    echoWarning("# display.cx                   = "..format("%0.2f", display.cx))
+    echoWarning("# display.cy                   = "..format("%0.2f", display.cy))
+    echoWarning("# display.left                 = "..format("%0.2f", display.left))
+    echoWarning("# display.right                = "..format("%0.2f", display.right))
+    echoWarning("# display.top                  = "..format("%0.2f", display.top))
+    echoWarning("# display.bottom               = "..format("%0.2f", display.bottom))
+    echoWarning("# display.c_left               = "..format("%0.2f", display.c_left))
+    echoWarning("# display.c_right              = "..format("%0.2f", display.c_right))
+    echoWarning("# display.c_top                = "..format("%0.2f", display.c_top))
+    echoWarning("# display.c_botto              = "..format("%0.2f", display.c_bottom))
+    echoWarning("#")
 end
 
 display.reset()
@@ -209,11 +212,11 @@ end
 function display.extendScene(scene)
     local function sceneEventHandler(event)
         if event.name == "enter" then
-            log.warning("## Scene \"%s:onEnter()\"", scene.name)
+            echoWarning("## Scene \"%s:onEnter()\"", scene.name)
             scene.isTouchEnabled = true
             if scene.onEnter then scene:onEnter() end
         else
-            log.warning("## Scene \"%s:onExit()\"", scene.name)
+            echoWarning("## Scene \"%s:onExit()\"", scene.name)
             scene.isTouchEnabled = false
             if scene.onExit then scene:onExit() end
         end
@@ -267,11 +270,6 @@ end
 -- nodes
 ----------------------------------------
 
-display.imagesDir = ""
-function display.setImagesDir(dir)
-    display.imagesDir = dir
-end
-
 local ANCHOR_POINTS = {
     ccp(0.5, 0.5),  -- CENTER
     ccp(0, 1),      -- TOP_LEFT
@@ -302,11 +300,14 @@ function display.newSprite(filename, x, y)
     if string.sub(filename, 1, 1) == "#" then
         sprite = CCSprite:createWithSpriteFrameName(string.sub(filename, 2))
     else
-        sprite = CCSprite:create(display.imagesDir .. filename)
+        sprite = CCSprite:create(filename)
     end
 
     if sprite == nil then
-        log.error("[display] ERR, newSprite() not found image: %s", filename)
+        local msg = format("[display] ERR, newSprite() not found image: %s", filename)
+        echo(debug.traceback(msg, 2))
+        echo("")
+        return
     end
 
     local sprite = display.extendSprite(display.extendNode(sprite))
@@ -320,16 +321,34 @@ function display.newBackgroundSprite(filename)
 end
 display.newBackgroundImage = display.newBackgroundSprite
 
+function display.newCircle(radius, segments)
+    if type(segments) ~= "number" then segments = 36 end
+    return display.extendShape(CCCircleShape:create(radius, 0, segments))
+end
+
+function display.newRect(width, height)
+    return CCRectShape:create(CCSize(width, height))
+end
+
+function display.newPolygon(points)
+    local arr = CCArray:create()
+    for i, p in ipairs(points) do
+        if type(p) == "table" then p = ccp(p[1], p[2]) end
+        arr:addObject(p)
+    end
+    return CCPolygonShape:create(arr)
+end
+
 display.sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
 function display.addSpriteFramesWithFile(plistFilename, image)
-    plistFilename = display.imagesDir .. plistFilename
-    image = display.imagesDir .. image
+    plistFilename = plistFilename
+    image = image
     display.sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
 end
 
 function display.removeSpriteFramesWithFile(plistFilename, image)
-    plistFilename = display.imagesDir .. plistFilename
-    image = display.imagesDir .. image
+    plistFilename = plistFilename
+    image = image
     display.sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
     display.sharedSpriteFrameCache:removeTextureForKey(image);
 end
@@ -338,7 +357,7 @@ function display.newBatchNode(image, capacity)
     capacity = capacity or 29
     local node
     if type(image) == "string" then
-        node = CCSpriteBatchNode:create(display.imagesDir .. image, capacity)
+        node = CCSpriteBatchNode:create(image, capacity)
     else
         node = CCSpriteBatchNode:create(image, capacity)
     end
@@ -403,9 +422,6 @@ function display.newAnimation(frames, time)
     for i = 1, count do
         array:addObject(frames[i])
     end
-
-    -- TODO: memory leak
-
     time = time or 1.0 / count
     return CCAnimation:createWithSpriteFrames(array, time)
 end
@@ -459,6 +475,10 @@ function display.extendNode(node)
         display.align(self, anchorPoint, x, y)
     end
 
+    function node:resetPixelSize()
+        self:setScale(1 / display.scale)
+    end
+
     node.insert = node.addChild
 
     return node
@@ -480,11 +500,38 @@ function display.extendLayer(node)
 end
 
 function display.extendSprite(node)
-    function node:runAnimateRepeatForever(animate)
+    function node:playAnimationOnce(animation, removeWhenFinished)
+        local animate = display.newAnimate(animation)
+        if removeWhenFinished then
+            self:runAction(transition.sequence({
+                animate,
+                CCCallFunc:create(function()
+                    self:removeFromParentAndCleanup(true)
+                end)
+            }))
+        else
+            self:runAction(animate)
+        end
+    end
+
+    function node:playAnimationForever(animation, isRestoreOriginalFrame)
+        local animate = display.newAnimate(animation, isRestoreOriginalFrame)
         self:runAction(CCRepeatForever:create(animate))
     end
 
     return node
+end
+
+function display.extendShape(shape)
+    shape.setColor_ = shape.setColor
+
+    function shape:setColor(r, g, b, a)
+        r, g, b = _i(r), _i(g), _i(b)
+        if type(a) ~= "number" then a = 255 end
+        shape:setColor_(ccc4f(r / 255, g / 255, b / 255, a / 255))
+    end
+
+    return shape
 end
 
 return display

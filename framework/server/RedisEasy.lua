@@ -1,7 +1,9 @@
 
 require("framework.server.resty_redis")
 
-local function ctor(self, config)
+local RedisEasy = class("RedisEasy")
+
+function RedisEasy:ctor(config)
     if type(config) ~= "table" then config = {} end
     config.timeout = config.timeout or 1000 -- 1 second
     config.host    = config.host or "127.0.0.1"
@@ -32,7 +34,6 @@ local function ctor(self, config)
     addCommand("cancel_pipeline")
     addCommand("commit_pipeline")
 end
-local RedisEasy = class("RedisEasy", ctor)
 
 function RedisEasy:connect()
     local ok, err = self.instance_:connect(self.config_.host, self.config_.port)

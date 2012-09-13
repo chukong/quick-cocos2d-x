@@ -1,13 +1,13 @@
 
-log.warning("")
-log.warning("# DEBUG                        = "..DEBUG)
-log.warning("#")
+echoWarning("")
+echoWarning("# DEBUG                        = "..DEBUG)
+echoWarning("#")
 
 -- define global module
 device     = require("framework.client.device")
+transition = require("framework.client.transition")
 display    = require("framework.client.display")
 scheduler  = require("framework.client.scheduler")
-transition = require("framework.client.transition")
 audio      = require("framework.client.audio")
 ui         = require("framework.client.ui")
 crypto     = require("framework.client.crypto")
@@ -24,9 +24,9 @@ end
 --     CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 2.0, false)
 -- end
 
-if DEBUG > 0 then
-    CCDirector:sharedDirector():setDisplayStats(true)
-end
+-- if DEBUG > 1 then
+--     CCDirector:sharedDirector():setDisplayStats(true)
+-- end
 
 local function onNotificationPost(msg)
     if msg == "app.enterFullScreen" or msg == "app.exitFullScreen" then

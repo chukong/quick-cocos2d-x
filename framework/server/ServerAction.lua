@@ -1,7 +1,8 @@
 
-local function ctor(self, app)
-    self.app = app
+local ServerAction = class("ServerAction")
+
+function ServerAction:ctor(app)
+    self.app = app  
 end
-local ServerAction = class("ServerAction", ctor)
 
 return ServerAction

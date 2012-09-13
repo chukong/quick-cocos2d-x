@@ -4,6 +4,10 @@ function _n(v)
     return v or 0
 end
 
+function _i(v)
+    return math.floor(_n(v))
+end
+
 function _s(v)
     return tostring(v)
 end
@@ -15,10 +19,6 @@ end
 function _t(v)
     if type(v) ~= "table" then v = {} end
     return v
-end
-
-function _i(v)
-    return math.floor(_n(v))
 end
 
 function format(...)
@@ -132,15 +132,21 @@ end
 
 -- count all elements in an table
 table.nums = function(t)
-    if type(t) ~= "table" then
-        if DEBUG > 0 then traceback() end
-        return nil
-    end
-    local nums = 0
+    return #table.keys(t)
+end
+
+table.keys = function(t)
+    local keys = {}
     for k, v in pairs(t) do
-        nums = nums + 1
+        keys[#keys + 1] = k
     end
-    return nums
+    return keys
+end
+
+table.merge = function(dest, src)
+    for k, v in pairs(src) do
+        dest[k] = v
+    end
 end
 
 ---- global functions
@@ -164,36 +170,22 @@ function clone(object)
     return _copy(object)
 end
 
-function class(classname, ctor, super)
+function class(classname, super)
     local cls
     if super then
         cls = clone(super)
     else
         cls = {}
     end
-
-    if super then
-        cls.super = super
-        for k, v in pairs(super) do cls[k] = v end
-    end
-
     cls.super     = super
     cls.classname = classname
-    cls.ctor      = ctor
     cls.__index   = cls
 
-    local function callctor(o, ctor, super, ...)
-        if super then callctor(o, super.ctor, super.super, ...) end
-        if ctor then ctor(o, ...) end
-    end
-
-    cls.new = function(...)
-        local o = setmetatable({}, cls)
-        o.class = cls
-        -- 创建对象实例时，要按照正确的顺序调用继承层次上所有的 ctor 函数
-        callctor(o, ctor, super, ...)
-
-        return o
+    function cls.new(...)
+        local instance = setmetatable({}, cls)
+        instance.class = cls
+        if cls.ctor then instance:ctor(...) end
+        return instance
     end
 
     return cls
@@ -267,15 +259,15 @@ string.text2html = function(input)
 end
 
 string.split = function(str, div)
-  if (div=='') then return false end
-  local pos,arr = 0,{}
-  -- for each divider found
-  for st,sp in function() return string.find(str,div,pos,true) end do
-    table.insert(arr,string.sub(str,pos,st-1)) -- Attach chars left of current divider
-    pos = sp + 1 -- Jump past current divider
-  end
-  table.insert(arr,string.sub(str,pos)) -- Attach chars right of last divider
-  return arr
+    if (div=='') then return false end
+    local pos,arr = 0,{}
+    -- for each divider found
+    for st,sp in function() return string.find(str,div,pos,true) end do
+        table.insert(arr,string.sub(str,pos,st-1)) -- Attach chars left of current divider
+        pos = sp + 1 -- Jump past current divider
+    end
+    table.insert(arr,string.sub(str,pos)) -- Attach chars right of last divider
+    return arr
 end
 
 string.ltrim = function(str)

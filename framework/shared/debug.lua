@@ -16,14 +16,12 @@ local prt = function(...)
     echo("[LUA] "..string.format(...))
 end
 
-log = {}
-log.notice  = function() end
-log.warning = function() end
-log.error   = prt
-log.say     = prt
+echoNotice  = function() end
+echoWarning = function() end
+echoError   = prt
 
-if DEBUG > 0 then log.warning = prt end
-if DEBUG > 1 then log.notice = prt end
+if DEBUG > 0 then echoWarning = prt end
+if DEBUG > 1 then echoNotice = prt end
 
 function traceback()
     echo(debug.traceback())
@@ -67,12 +65,16 @@ function dump(object, label, isReturnContents, nesting)
         return tostring(v)
     end
 
-    local function _dump(object, label, indent, nest)
+    local function _dump(object, label, indent, nest, keylen)
         label = label or "<var>"
+        spc = ""
+        if type(keylen) == "number" then
+            spc = string.rep(" ", keylen - string.len(_v(label)))
+        end
         if type(object) ~= "table" then
-            result[#result +1 ] = string.format("%s%s = %s", indent, _v(label), _v(object))
+            result[#result +1 ] = string.format("%s%s%s = %s", indent, _v(label), spc, _v(object))
         elseif lookupTable[object] then
-            result[#result +1 ] = string.format("%s%s = *REF*", indent, label)
+            result[#result +1 ] = string.format("%s%s%s = *REF*", indent, label, spc)
         else
             lookupTable[object] = true
             if nest > nesting then
@@ -81,15 +83,18 @@ function dump(object, label, isReturnContents, nesting)
                 result[#result +1 ] = string.format("%s%s = {", indent, label)
                 local indent2 = indent.."    "
                 local keys = {}
+                local keylen = 0
                 local values = {}
                 for k, v in pairs(object) do
-                    k = tostring(k)
                     keys[#keys + 1] = k
+                    local vk = _v(k)
+                    local vkl = string.len(vk)
+                    if vkl > keylen then keylen = vkl end
                     values[k] = v
                 end
                 table.sort(keys)
                 for i, k in ipairs(keys) do
-                    _dump(values[k], k, indent2, nest + 1)
+                    _dump(values[k], k, indent2, nest + 1, keylen)
                 end
                 result[#result +1] = string.format("%s}", indent)
             end
@@ -97,12 +102,13 @@ function dump(object, label, isReturnContents, nesting)
     end
     _dump(object, label, "- ", 1)
 
-    local contents = table.concat(result, "\n")
     if isReturnContents then
-        return contents
+        return table.concat(result, "\n")
     end
 
-    echo(contents)
+    for i, line in ipairs(result) do
+        echo(line)
+    end
 end
 
 function newError(errorCode, errorMessage)

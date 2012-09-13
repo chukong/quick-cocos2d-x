@@ -8,7 +8,7 @@ M.TEXT_ALIGN_LEFT    = kCCTextAlignmentLeft
 M.TEXT_ALIGN_CENTER  = kCCTextAlignmentCenter
 M.TEXT_ALIGN_RIGHT   = kCCTextAlignmentRight
 M.TEXT_VALIGN_TOP    = kCCVerticalTextAlignmentTop
-M.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentCenter
+M.TEXT_VALIGN_CENTER = kCCVerticalTextAlignmentCenter
 M.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
 function M.newMenu(...)

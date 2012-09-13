@@ -19,7 +19,7 @@ end
 
 function M.md5(input, isRawOutput)
     if type(isRawOutput) ~= "boolean" then isRawOutput = false end
-    return CCCrypto:MD5Lua(input, string.len(input), isRawOutput)
+    return CCCrypto:MD5Lua(input, isRawOutput)
 end
 
 return M

@@ -99,12 +99,12 @@ when the user is not logged in.
 ]]
 function M.init(providerName, params)
     if provider then
-        log.error("[framework.client.api.GameNetwork] ERR, init() GameNetwork already init")
+        echoError("[framework.client.api.GameNetwork] ERR, init() GameNetwork already init")
         return false
     end
 
     if type(params) ~= "table" then
-        log.error("[framework.client.api.GameNetwork] ERR, init() invalid params")
+        echoError("[framework.client.api.GameNetwork] ERR, init() invalid params")
         return false
     end
 
@@ -114,7 +114,7 @@ function M.init(providerName, params)
     elseif providerName == "OPENFEINT" then
         provider = require("framework.client.api.gamenetwork.OpenFeint")
     else
-        log.error("[framework.client.api.GameNetwork] ERR, init() invalid providerName: %s", providerName)
+        echoError("[framework.client.api.GameNetwork] ERR, init() invalid providerName: %s", providerName)
         return false
     end
 
@@ -193,7 +193,7 @@ Parmeters used in the commands.
 ]]
 function M.request(command, ...)
     if not provider then
-        log.error("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
+        echoError("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 
@@ -267,7 +267,7 @@ Parameters used by command.
 ]]
 function M.show(command, ...)
     if not provider then
-        log.error("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
+        echoError("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 

@@ -1,5 +1,5 @@
 
-local M = {}
+local transition = {}
 
 local ACTION_EASING = {}
 ACTION_EASING["BACKIN"]           = {CCEaseBackIn, 1}
@@ -26,7 +26,7 @@ ACTION_EASING["SINEOUT"]          = {CCEaseSineOut, 1}
 
 local actionManager = CCDirector:sharedDirector():getActionManager()
 
-function M.newEasing(action, easingName, more)
+function transition.newEasing(action, easingName, more)
     local key = string.upper(tostring(easingName))
     if string.sub(key, 1, 6) == "CCEASE" then
         key = string.sub(key, 7)
@@ -42,7 +42,7 @@ function M.newEasing(action, easingName, more)
     return easing
 end
 
-function M.execute(target, action, args)
+function transition.execute(target, action, args)
     local delay = _n(args.delay)
     local time = _n(args.time)
     if time <= 0 then time = 0.2 end
@@ -52,9 +52,9 @@ function M.execute(target, action, args)
 
     if args.easing then
         if type(args.easing) == "table" then
-            action = M.newEasing(action, unpack(args.easing))
+            action = transition.newEasing(action, unpack(args.easing))
         else
-            action = M.newEasing(action, args.easing)
+            action = transition.newEasing(action, args.easing)
         end
     end
 
@@ -78,33 +78,33 @@ function M.execute(target, action, args)
     return action
 end
 
-function M.moveTo(target, args)
+function transition.moveTo(target, args)
     local x = args.x or target.x
     local y = args.y or target.y
     local action = CCMoveTo:create(args.time, ccp(x, y))
-    return M.execute(target, action, args)
+    return transition.execute(target, action, args)
 end
 
-function M.moveBy(target, args)
+function transition.moveBy(target, args)
     local x = args.x or target.x
     local y = args.y or target.y
     local action = CCMoveBy:create(args.time, ccp(x, y))
-    return M.execute(target, action, args)
+    return transition.execute(target, action, args)
 end
 
-function M.fadeIn(target, args)
+function transition.fadeIn(target, args)
     local action = CCFadeIn:create(args.time)
     target.opacity = 0
-    return M.execute(target, action, args)
+    return transition.execute(target, action, args)
 end
 
-function M.fadeOut(target, args)
+function transition.fadeOut(target, args)
     local action = CCFadeOut:create(args.time)
     target.opacity = 255
-    return M.execute(target, action, args)
+    return transition.execute(target, action, args)
 end
 
-function M.fadeTo(target, args)
+function transition.fadeTo(target, args)
     local opacity = _i(args.opacity)
     if opacity < 0 then
         opacity = 0
@@ -112,43 +112,43 @@ function M.fadeTo(target, args)
         opacity = 255
     end
     local action = CCFadeTo:create(args.time, opacity)
-    return M.execute(target, action, args)
+    return transition.execute(target, action, args)
 end
 
-function M.scaleTo(target, args)
+function transition.scaleTo(target, args)
     local scale = _n(args.scale)
     local action = CCScaleTo:create(args.time, scale)
-    return M.execute(target, action, args)
+    return transition.execute(target, action, args)
 end
 
-function M.removeAllActionsFromTarget(target)
+function transition.removeAllActionsFromTarget(target)
     actionManager:removeAllActionsFromTarget(target)
 end
-M.removeTarget = M.removeAllActionsFromTarget
+transition.removeTarget = transition.removeAllActionsFromTarget
 
-function M.removeAction(action)
+function transition.removeAction(action)
     actionManager:removeAction(action)
 end
 
-function M.removeAllActions()
+function transition.removeAllActions()
     actionManager:removeAllActions()
 end
-M.removeAll = M.removeAllActions
+transition.removeAll = transition.removeAllActions
 
-function M.pause(target)
+function transition.pause(target)
     actionManager:pauseTarget(target)
 end
 
-function M.resume(target)
+function transition.resume(target)
     actionManager:resumeTarget(target)
 end
 
-function M.sequence(actions)
-    local arr = CCArray:array()
+function transition.sequence(actions)
+    local arr = CCArray:createWithCapacity(#actions)
     for i = 1, #actions do
         arr:addObject(actions[i])
     end
-    return CCSequence:actionsWithArrayLua(arr)
+    return CCSequence:create(arr)
 end
 
-return M
+return transition

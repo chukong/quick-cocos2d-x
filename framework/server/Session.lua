@@ -34,17 +34,17 @@ SessionId 用于唯一标示一个存储在服务端的会话数据。
 
 ]]
 
-local function ctor(self, app)
-    self.app  = app
-    self.keys = {}
-    self.sid  = nil
-    self.key  = "sess:"
-end
-
-local Session = class("Session", ctor)
+local Session = class("Session")
 
 Session.PREFIX    = "sess:"
 Session.LIFETIME  = 60 * 60   -- 1 hour
+
+function Session:ctor(app)
+    self.app  = app
+    self.keys = {}
+    self.sid  = nil
+    self.key  = "sess:" 
+end
 
 function Session:saveId()
     return Session.PREFIX .. self.sid

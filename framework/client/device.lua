@@ -25,11 +25,11 @@ end
 M.language = language_
 M.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
 
-log.warning("# device.host                  = "..M.host)
-log.warning("# device.model                 = "..M.model)
-log.warning("# device.platform              = "..M.platform)
-log.warning("# device.language              = "..M.language)
-log.warning("#")
+echoWarning("# device.host                  = "..M.host)
+echoWarning("# device.model                 = "..M.model)
+echoWarning("# device.platform              = "..M.platform)
+echoWarning("# device.language              = "..M.language)
+echoWarning("#")
 
 function M.showActivityIndicator(style)
     if type(style) ~= "number" then

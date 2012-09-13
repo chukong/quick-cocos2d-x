@@ -23,7 +23,7 @@ function M.request(name, params)
     elseif name == "UNLOCKACHIEVEMENT" then
         local achievementId = tostring(params[1])
         if type(achievementId) ~= "string" then
-            log.error("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
+            echoError("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
                       "unlockAchievement", "invalid achievementId")
         end
         return CCOpenFeint:unlockAchievement(achievementId)
@@ -34,26 +34,26 @@ function M.request(name, params)
     elseif name == "SETHIGHSCORE" then
         local leaderboardId = params[1]
         if type(leaderboardId) ~= "string" then
-            log.error("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
+            echoError("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
                       "setHighScore", "invalid leaderboardId")
             return false
         end
         local score = tonumber(params[2])
         if type(score) ~= "number" then
-            log.error("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
+            echoError("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
                       "setHighScore", "invalid score")
             return false
         end
         local displayText = params[3]
         if type(displayText) ~= "string" then
-            log.error("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
+            echoError("[framework.client.api.GameNetwork.OpenFeint] ERR, request(%s) %s",
                       "setHighScore", "invalid displayText")
             return false
         end
         return CCOpenFeint:setHighScore(leaderboardId, score, displayText)
 
     else
-        log.error("[framework.client.api.GameNetwork.OpenFeint] ERR, request() invalid name %s", name)
+        echoError("[framework.client.api.GameNetwork.OpenFeint] ERR, request() invalid name %s", name)
     end
 
     return false
@@ -67,7 +67,7 @@ function M.show(name, params)
     elseif name == "LEADERBOARD" then
         local leaderboardId = params[1]
         if type(leaderboardId) ~= "string" then
-            log.error("[framework.client.api.GameNetwork.OpenFeint] ERR, show(%s) %s",
+            echoError("[framework.client.api.GameNetwork.OpenFeint] ERR, show(%s) %s",
                       "leaderboards", "invalid leaderboardId")
         else
             CCOpenFeint:showLeaderboards(leaderboardId)

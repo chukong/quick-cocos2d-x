@@ -1,14 +1,5 @@
 
-local function ctor(self, config)
-    if type(config) ~= "table" then config = {} end
-    if type(config.appModuleName) ~= "string" then config.appModuleName = "app" end
-    self.config  = config
-
-    local Session = require("framework.server.Session")
-    self.session = Session.new(self)
-end
-
-local ServerApp = class("ServerApp", ctor)
+local ServerApp = class("ServerApp")
 
 local function normalizeActionName(actionName)
     local actionName = actionName or (GET.action or "index.index")
@@ -24,6 +15,15 @@ local function normalizeActionName(actionName)
     end
 
     return parts[1], parts[2]
+end
+
+function ServerApp:ctor(config)
+    if type(config) ~= "table" then config = {} end
+    if type(config.appModuleName) ~= "string" then config.appModuleName = "app" end
+    self.config  = config
+
+    local Session = require("framework.server.Session")
+    self.session = Session.new(self)
 end
 
 function ServerApp:run(actionName)

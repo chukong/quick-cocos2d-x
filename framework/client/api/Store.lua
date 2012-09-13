@@ -67,12 +67,12 @@ This is the listener that will handle transaction callback events.
 ]]
 function M.init(listener)
     if store then
-        log.error("[framework.client.api.Store] ERR, init() store already init")
+        echoError("[framework.client.api.Store] ERR, init() store already init")
         return false
     end
 
     if type(listener) ~= "function" then
-        log.error("[framework.client.api.Store] ERR, init() invalid listener")
+        echoError("[framework.client.api.Store] ERR, init() invalid listener")
         return false
     end
 
@@ -86,7 +86,7 @@ end
 ]]
 function M.getReceiptVerifyMode()
     if not store then
-        log.error("[framework.client.api.Store] ERR, getReceiptVerifyMode() store not init")
+        echoError("[framework.client.api.Store] ERR, getReceiptVerifyMode() store not init")
         return false
     end
 
@@ -98,7 +98,7 @@ end
 ]]
 function M.setReceiptVerifyMode(mode, isSandbox)
     if not store then
-        log.error("[framework.client.api.Store] ERR, setReceiptVerifyMode() store not init")
+        echoError("[framework.client.api.Store] ERR, setReceiptVerifyMode() store not init")
         return false
     end
 
@@ -106,7 +106,7 @@ function M.setReceiptVerifyMode(mode, isSandbox)
         or (mode ~= CCStoreReceiptVerifyModeNone
             and mode ~= CCStoreReceiptVerifyModeDevice
             and mode ~= CCStoreReceiptVerifyModeServer) then
-        log.error("[framework.client.api.Store] ERR, setReceiptVerifyMode() invalid mode")
+        echoError("[framework.client.api.Store] ERR, setReceiptVerifyMode() invalid mode")
         return false
     end
 
@@ -119,7 +119,7 @@ end
 ]]
 function M.getReceiptVerifyServerUrl()
     if not store then
-        log.error("[framework.client.api.Store] ERR, getReceiptVerifyServerUrl() store not init")
+        echoError("[framework.client.api.Store] ERR, getReceiptVerifyServerUrl() store not init")
         return false
     end
 
@@ -131,12 +131,12 @@ end
 ]]
 function M.setReceiptVerifyServerUrl(url)
     if not store then
-        log.error("[framework.client.api.Store] ERR, setReceiptVerifyServerUrl() store not init")
+        echoError("[framework.client.api.Store] ERR, setReceiptVerifyServerUrl() store not init")
         return false
     end
 
     if type(url) ~= "string" then
-        log.error("[framework.client.api.Store] ERR, setReceiptVerifyServerUrl() invalid url")
+        echoError("[framework.client.api.Store] ERR, setReceiptVerifyServerUrl() invalid url")
         return false
     end
 
@@ -170,7 +170,7 @@ iOS devices have a setting that disables purchasing. A common case for this is t
 ]]
 function M.canMakePurchases()
     if not store then
-        log.error("[framework.client.api.Store] ERR, canMakePurchases() store not init")
+        echoError("[framework.client.api.Store] ERR, canMakePurchases() store not init")
         return false
     end
 
@@ -226,23 +226,23 @@ A callback function that is invoked when the store finishes retrieving the produ
 ]]
 function M.loadProducts(productsId, listener)
     if not store then
-        log.error("[framework.client.api.Store] ERR, loadProducts() store not init")
+        echoError("[framework.client.api.Store] ERR, loadProducts() store not init")
         return false
     end
 
     if type(listener) ~= "function" then
-        log.error("[framework.client.api.Store] ERR, loadProducts() invalid listener")
+        echoError("[framework.client.api.Store] ERR, loadProducts() invalid listener")
         return false
     end
 
     if type(productsId) ~= "table" then
-        log.error("[framework.client.api.Store] ERR, loadProducts() invalid productsId")
+        echoError("[framework.client.api.Store] ERR, loadProducts() invalid productsId")
         return false
     end
 
     for i = 1, #productsId do
         if type(productsId[i]) ~= "string" then
-            log.error("[framework.client.api.Store] ERR, loadProducts() invalid id[#%d] in productsId", i)
+            echoError("[framework.client.api.Store] ERR, loadProducts() invalid id[#%d] in productsId", i)
             return false
         end
     end
@@ -256,7 +256,7 @@ end
 ]]
 function M.cancelLoadProducts()
     if not store then
-        log.error("[framework.client.api.Store] ERR, cancelLoadProducts() store not init")
+        echoError("[framework.client.api.Store] ERR, cancelLoadProducts() store not init")
         return false
     end
 
@@ -268,7 +268,7 @@ end
 ]]
 function M.isProductLoaded(productId)
     if not store then
-        log.error("[framework.client.api.Store] ERR, isProductLoaded() store not init")
+        echoError("[framework.client.api.Store] ERR, isProductLoaded() store not init")
         return false
     end
 
@@ -299,12 +299,12 @@ A string which is the product identifier string.
 ]]
 function M.purchase(productId)
     if not store then
-        log.error("[framework.client.api.Store] ERR, purchase() store not init")
+        echoError("[framework.client.api.Store] ERR, purchase() store not init")
         return false
     end
 
     if type(productId) ~= "string" then
-        log.error("[framework.client.api.Store] ERR, purchase() invalid productId")
+        echoError("[framework.client.api.Store] ERR, purchase() invalid productId")
         return false
     end
 
@@ -329,12 +329,12 @@ The transaction object belonging to the transaction you want to mark as finished
 ]]
 function M.finishTransaction(transaction)
     if not store then
-        log.error("[framework.client.api.Store] ERR, finishTransaction() store not init")
+        echoError("[framework.client.api.Store] ERR, finishTransaction() store not init")
         return false
     end
 
     if type(transaction) ~= "table" or type(transaction.transactionIdentifier) ~= "string" then
-        log.error("[framework.client.api.Store] ERR, finishTransaction() invalid transaction")
+        echoError("[framework.client.api.Store] ERR, finishTransaction() invalid transaction")
         return false
     end
 

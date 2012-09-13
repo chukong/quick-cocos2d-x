@@ -11,7 +11,7 @@ end
 
 function M.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
-        log.error("[network] ERR, isHostNameReachable() invalid hostname")
+        echoError("[network] ERR, isHostNameReachable() invalid hostname")
         return false
     end
     return CCNetwork:isHostNameReachable(hostname)
