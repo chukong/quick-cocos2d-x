@@ -304,6 +304,10 @@ LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
             restartApplication(960, 640);
             break;
 
+        case ID_VIEW_IPHONE5:
+            restartApplication(1136, 640);
+            break;
+
         case ID_VIEW_IPAD:
             restartApplication(1024, 768);
             break;
