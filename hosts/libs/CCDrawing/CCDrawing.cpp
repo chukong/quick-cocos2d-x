@@ -14,6 +14,8 @@ CCCircleShape* CCCircleShape::create(float radius,
     circle->m_angle = angle;
     circle->m_segments = segments;
     circle->m_drawLineToCenter = drawLineToCenter;
+    circle->m_scaleX = 1.0f;
+    circle->m_scaleY = 1.0f;
     circle->autorelease();
     return circle;
 }
@@ -21,7 +23,7 @@ CCCircleShape* CCCircleShape::create(float radius,
 void CCCircleShape::draw(void)
 {
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
-    ccDrawCircle(getDrawPosition(), m_radius, m_angle, m_segments, m_drawLineToCenter);
+    ccDrawCircle(getDrawPosition(), m_radius, m_angle, m_segments, m_drawLineToCenter, m_scaleX, m_scaleY);
     ccDrawColor4F(1, 1, 1, 1);
 }
 
@@ -31,8 +33,8 @@ void CCCircleShape::draw(void)
 CCRectShape* CCRectShape::create(const cocos2d::CCSize &size, bool fill)
 {
     CCRectShape* rect = new CCRectShape();
-    rect->setSize(size);
-    rect->setFill(fill);
+    rect->m_size = size;
+    rect->m_fill = fill;
     rect->autorelease();
     return rect;
 }
@@ -75,10 +77,11 @@ void CCPointShape::draw(void)
 
 CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bool close)
 {
+    CCAssert(vertices->count() > 0, "vertices->count() > 0");
     CCPolygonShape* polygon = new CCPolygonShape();
     polygon->m_numberOfVertices = vertices->count();
-    polygon->m_vertices = new CCPoint[polygon->m_numberOfVertices];
-    polygon->m_verticesDraw = new CCPoint[polygon->m_numberOfVertices];
+    polygon->m_vertices         = new CCPoint[polygon->m_numberOfVertices];
+    polygon->m_verticesDraw     = new CCPoint[polygon->m_numberOfVertices];
     for (unsigned int i = 0; i < polygon->m_numberOfVertices; ++i)
     {
         polygon->m_vertices[i] = *(static_cast<CCPoint*>(vertices->objectAtIndex(i)));
@@ -86,8 +89,6 @@ CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bo
     }
     polygon->m_fill = fill;
     polygon->m_close = close;
-    
-    
     polygon->autorelease();
     return polygon;
 }
@@ -95,6 +96,7 @@ CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bo
 CCPolygonShape::~CCPolygonShape(void)
 {
     delete[] m_vertices;
+    delete[] m_verticesDraw;
 }
 
 void CCPolygonShape::draw(void)

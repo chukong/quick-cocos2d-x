@@ -35,26 +35,22 @@ NS_CC_BEGIN
 class CCShapeNode : public CCNode
 {
 public:
-    const ccColor4F& getColor(void)
-    {
+    const ccColor4F& getColor(void) {
         return m_color;
     }
     
-    void setColor(const ccColor4F& color)
-    {
+    void setColor(const ccColor4F& color) {
         m_color = color;
     }
     
 protected:
     ccColor4F m_color;
 
-    CCShapeNode(void)
-    {
+    CCShapeNode(void) {
         m_color = ccc4f(0, 0, 0, 1);
     }
     
-    const CCPoint getDrawPosition(void)
-    {
+    const CCPoint getDrawPosition(void) {
         const CCSize& size = getParent()->getContentSize();
         return CCPointMake(size.width / 2, size.height / 2);
     }
@@ -71,44 +67,52 @@ public:
                                  unsigned int segments = 10,
                                  bool drawLineToCenter = false);
     
-    float getRadius(void)
-    {
+    float getRadius(void) {
         return m_radius;
     }
     
-    void setRadius(float radius)
-    {
+    void setRadius(float radius) {
         m_radius = radius;
     }
     
-    float getAngle(void)
-    {
+    float getAngle(void) {
         return m_angle;
     }
     
-    void setAngle(float angle)
-    {
+    void setAngle(float angle) {
         m_angle = angle;
     }
     
-    unsigned int getSegments(void)
-    {
+    unsigned int getSegments(void) {
         return m_segments;
     }
     
-    void setSegments(unsigned int segments)
-    {
+    void setSegments(unsigned int segments) {
         m_segments = segments;
     }
     
-    bool getDrawLineToCenter(void)
-    {
+    bool isDrawLineToCenter(void) {
         return m_drawLineToCenter;
     }
     
-    void setDrawLineToCenter(bool drawLineToCenter)
-    {
+    void setDrawLineToCenter(bool drawLineToCenter) {
         m_drawLineToCenter = drawLineToCenter;
+    }
+    
+    float getScaleX(void) {
+        return m_scaleX;
+    }
+    
+    void setScaleX(float xScale) {
+        m_scaleX = xScale;
+    }
+    
+    float getScaleY(void) {
+        return m_scaleY;
+    }
+    
+    void setScaleY(float yScale) {
+        m_scaleY = yScale;
     }
     
     virtual void draw(void);
@@ -118,6 +122,8 @@ protected:
     float m_angle;
     unsigned int m_segments;
     bool m_drawLineToCenter;
+    float m_scaleX;
+    float m_scaleY;
 };
 
 
@@ -128,23 +134,19 @@ class CCRectShape : public CCShapeNode
 public:
     static CCRectShape* create(const CCSize& size, bool fill = false);
     
-    const CCSize& getSize(void)
-    {
+    const CCSize& getSize(void) {
         return m_size;
     }
     
-    void setSize(const CCSize& size)
-    {
+    void setSize(const CCSize& size) {
         m_size = size;
     }
     
-    bool getFill(void)
-    {
+    bool isFill(void) {
         return m_fill;
     }
     
-    void setFill(bool fill)
-    {
+    void setFill(bool fill) {
         m_fill = fill;
     }
     
@@ -171,26 +173,23 @@ public:
 class CCPolygonShape : public CCShapeNode
 {
 public:
+    static CCPolygonShape* create(const CCPoint& point1, const CCPoint& point2, bool fill = false, bool close = false);
     static CCPolygonShape* create(CCArray* vertices, bool fill = false, bool close = false);
     ~CCPolygonShape(void);
     
-    bool getFill(void)
-    {
+    bool isFill(void) {
         return m_fill;
     }
     
-    void setFill(bool fill)
-    {
+    void setFill(bool fill) {
         m_fill = fill;
     }
     
-    bool getClose(void)
-    {
+    bool isClose(void) {
         return m_close;
     }
     
-    void setClose(bool close)
-    {
+    void setClose(bool close) {
         m_close = close;
     }
     
