@@ -84,10 +84,11 @@ CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bo
     polygon->m_verticesDraw     = new CCPoint[polygon->m_numberOfVertices];
     for (unsigned int i = 0; i < polygon->m_numberOfVertices; ++i)
     {
-        polygon->m_vertices[i] = *(static_cast<CCPoint*>(vertices->objectAtIndex(i)));
-        polygon->m_verticesDraw[i] = polygon->m_vertices[i];
+        CCPoint* pt = static_cast<CCPoint*>(vertices->objectAtIndex(i));
+        polygon->m_vertices[i]     = *pt;
+        polygon->m_verticesDraw[i] = *pt;
     }
-    polygon->m_fill = fill;
+    polygon->m_fill  = fill;
     polygon->m_close = close;
     polygon->autorelease();
     return polygon;
@@ -104,7 +105,8 @@ void CCPolygonShape::draw(void)
     const CCPoint center = getDrawPosition();
     for (unsigned int i = 0; i < m_numberOfVertices; ++i)
     {
-        m_verticesDraw[i] = ccpAdd(m_vertices[i], center);
+        m_verticesDraw[i].x = m_vertices[i].x + center.x;
+        m_verticesDraw[i].y = m_vertices[i].y + center.y;
     }
     
     if (m_fill)

@@ -18,8 +18,12 @@ class CCCircleShape : public CCShapeNode
     void setAngle(float angle);
     unsigned int getSegments(void);
     void setSegments(unsigned int segments);
-    bool getDrawLineToCenter(void);
+    bool isDrawLineToCenter(void);
     void setDrawLineToCenter(bool drawLineToCenter);
+    float getScaleX(void);
+    void setScaleX(float scaleX);
+    float getScaleY(void);
+    void setScaleY(float scaleY);
 };
 
 class CCRectShape : public CCShapeNode
@@ -28,7 +32,7 @@ public:
     static CCRectShape* create(const CCSize& size, bool fill = false);
     const CCSize& getSize(void);
     void setSize(const CCSize& size);
-    bool getFill(void);
+    bool isFill(void);
     void setFill(bool fill);
 };
 
@@ -40,8 +44,8 @@ class CCPointShape : public CCShapeNode
 class CCPolygonShape : public CCShapeNode
 {
     static CCPolygonShape* create(CCArray* vertices, bool fill = false, bool close = false);
-    bool getFill(void);
+    bool isFill(void);
     void setFill(bool fill);
-    bool getClose(void);
+    bool isClose(void);
     void setClose(bool close);
 };
