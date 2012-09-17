@@ -5,12 +5,18 @@
 #include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "cocos2dx_extension_crypto.h"
+#include "cocos2dx_extension_network.h"
+#include "cocos2dx_extension_native.h"
+#include "cocos2dx_extension_store.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "cocos2dx_extension_crypto_win32.h"
 #include "cocos2dx_extension_network_win32.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "cocos2dx_extension_crypto_mac.h"
 #include "cocos2dx_extension_network_mac.h"
+
 #endif
 // more lua exts
 #include "LuaCCDrawing.h"
@@ -60,8 +66,13 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
     
     lua_State* L = pEngine->getLuaState();
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    tolua_cocos2dx_extension_crypto_open(L);
+    tolua_cocos2dx_extension_network_open(L);
+    tolua_cocos2dx_extension_native_open(L);
+    tolua_cocos2dx_extension_store_open(L);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     tolua_cocos2dx_extension_crypto_win32_open(L);
     tolua_cocos2dx_extension_network_win32_open(L);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
@@ -77,7 +88,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
 #else
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/main_new.lua");
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/main.lua");
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)

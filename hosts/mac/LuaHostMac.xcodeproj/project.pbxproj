@@ -668,7 +668,6 @@
 		F44C957C15F49004004D4151 /* LuaHostMac */ = {
 			isa = PBXGroup;
 			children = (
-				F49122B215F5F136006129CB /* CCDrawing */,
 				F4BA6DEF15F494B300CE7A10 /* libs */,
 				F4BA6DE215F4924C00CE7A10 /* Classes */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
@@ -1267,6 +1266,7 @@
 		F4BA6DEF15F494B300CE7A10 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				F49122B215F5F136006129CB /* CCDrawing */,
 				F491210A15F5A713006129CB /* cocos2d-x */,
 				F4BA6E8215F4966000CE7A10 /* cocos2d-x-extensions */,
 				F4BA6DFA15F4960F00CE7A10 /* CocosDenshion */,

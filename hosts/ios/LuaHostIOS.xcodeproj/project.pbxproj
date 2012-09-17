@@ -56,6 +56,36 @@
 		F481BF6F15F89AD800FD6CE9 /* LuaCCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F481BF6C15F89AD800FD6CE9 /* LuaCCDrawing.cpp */; };
 		F481BF7215F89BA200FD6CE9 /* client_res in Resources */ = {isa = PBXBuildFile; fileRef = F481BF7015F89BA200FD6CE9 /* client_res */; };
 		F481BF7315F89BA200FD6CE9 /* client_scripts in Resources */ = {isa = PBXBuildFile; fileRef = F481BF7115F89BA200FD6CE9 /* client_scripts */; };
+		F4C53AF416072E3300091290 /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F4C53ADF16072E3300091290 /* libb64.c */; };
+		F4C53AF516072E3300091290 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AE116072E3300091290 /* CCCrypto.cpp */; };
+		F4C53AF616072E3300091290 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AE416072E3300091290 /* md5.c */; };
+		F4C53AF716072E3300091290 /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AE716072E3300091290 /* sha1.cpp */; };
+		F4C53AF816072E3300091290 /* CCHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AED16072E3300091290 /* CCHttpRequest.cpp */; };
+		F4C53AF916072E3300091290 /* CCHttpRequest_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AEF16072E3300091290 /* CCHttpRequest_impl.cpp */; };
+		F4C53AFA16072E3300091290 /* CCNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AF216072E3300091290 /* CCNetwork.cpp */; };
+		F4C53B0E16072E4000091290 /* cocos2dx_extension_crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AFC16072E4000091290 /* cocos2dx_extension_crypto.cpp */; };
+		F4C53B1116072E4000091290 /* cocos2dx_extension_native.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B0216072E4000091290 /* cocos2dx_extension_native.cpp */; };
+		F4C53B1216072E4000091290 /* cocos2dx_extension_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B0416072E4000091290 /* cocos2dx_extension_network.cpp */; };
+		F4C53B3316072E7000091290 /* CCCrypto_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B1916072E7000091290 /* CCCrypto_objc.mm */; };
+		F4C53B3416072E7000091290 /* CCNative_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B1B16072E7000091290 /* CCNative_objc.mm */; };
+		F4C53B3516072E7000091290 /* CCNative.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B1C16072E7000091290 /* CCNative.mm */; };
+		F4C53B3616072E7000091290 /* CCNetwork_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B1D16072E7000091290 /* CCNetwork_objc.mm */; };
+		F4C53B3716072E7000091290 /* CCStore_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B1F16072E7000091290 /* CCStore_objc.mm */; };
+		F4C53B3816072E7000091290 /* CCStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2016072E7000091290 /* CCStore.mm */; };
+		F4C53B3916072E7000091290 /* CCStorePaymentTransactionWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2116072E7000091290 /* CCStorePaymentTransactionWrapper.mm */; };
+		F4C53B3A16072E7000091290 /* CCStoreReceiptVerifyRequest_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2316072E7000091290 /* CCStoreReceiptVerifyRequest_objc.mm */; };
+		F4C53B3B16072E7000091290 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2616072E7000091290 /* SBJSON.m */; };
+		F4C53B3C16072E7000091290 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2816072E7000091290 /* SBJsonBase.m */; };
+		F4C53B3D16072E7000091290 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2A16072E7000091290 /* SBJsonParser.m */; };
+		F4C53B3E16072E7000091290 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2C16072E7000091290 /* SBJsonWriter.m */; };
+		F4C53B3F16072E7000091290 /* OpenUDID_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B2F16072E7000091290 /* OpenUDID_objc.m */; };
+		F4C53B4016072E7000091290 /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B3216072E7000091290 /* Reachability_objc.m */; };
+		F4C53B4316072E8000091290 /* cocos2dx_extension_store.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B4116072E8000091290 /* cocos2dx_extension_store.cpp */; };
+		F4C53B4D16072E8A00091290 /* CCStorePaymentTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B4616072E8A00091290 /* CCStorePaymentTransaction.cpp */; };
+		F4C53B4E16072E8A00091290 /* CCStoreProduct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53B4916072E8A00091290 /* CCStoreProduct.cpp */; };
+		F4C53B501607304E00091290 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C53B4F1607304E00091290 /* StoreKit.framework */; };
+		F4C53B541607307D00091290 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C53B531607307D00091290 /* SystemConfiguration.framework */; };
+		F4C53B561607309E00091290 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C53B551607309E00091290 /* libcurl.a */; };
 		F4C986A515F898BB00F956E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C986A415F898BB00F956E0 /* QuartzCore.framework */; };
 		F4C986A715F898BB00F956E0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C986A615F898BB00F956E0 /* OpenGLES.framework */; };
 		F4C986A915F898BB00F956E0 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C986A815F898BB00F956E0 /* OpenAL.framework */; };
@@ -301,6 +331,67 @@
 		F481BF6D15F89AD800FD6CE9 /* LuaCCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LuaCCDrawing.h; path = ../../libs/CCDrawing/LuaCCDrawing.h; sourceTree = "<group>"; };
 		F481BF7015F89BA200FD6CE9 /* client_res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = client_res; path = ../../../../Voyage/client_res; sourceTree = "<group>"; };
 		F481BF7115F89BA200FD6CE9 /* client_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = client_scripts; path = ../../../../Voyage/client_scripts; sourceTree = "<group>"; };
+		F4C53ADC16072E3300091290 /* cocos2dx_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extensions.h; path = "../../libs/cocos2d-x-extensions/extensions/cocos2dx_extensions.h"; sourceTree = "<group>"; };
+		F4C53ADF16072E3300091290 /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
+		F4C53AE016072E3300091290 /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
+		F4C53AE116072E3300091290 /* CCCrypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCrypto.cpp; sourceTree = "<group>"; };
+		F4C53AE216072E3300091290 /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
+		F4C53AE416072E3300091290 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		F4C53AE516072E3300091290 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		F4C53AE716072E3300091290 /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
+		F4C53AE816072E3300091290 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		F4C53AEA16072E3300091290 /* CCAlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAlertViewDelegate.h; sourceTree = "<group>"; };
+		F4C53AEB16072E3300091290 /* CCNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative.h; sourceTree = "<group>"; };
+		F4C53AED16072E3300091290 /* CCHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCHttpRequest.cpp; sourceTree = "<group>"; };
+		F4C53AEE16072E3300091290 /* CCHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHttpRequest.h; sourceTree = "<group>"; };
+		F4C53AEF16072E3300091290 /* CCHttpRequest_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCHttpRequest_impl.cpp; sourceTree = "<group>"; };
+		F4C53AF016072E3300091290 /* CCHttpRequest_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHttpRequest_impl.h; sourceTree = "<group>"; };
+		F4C53AF116072E3300091290 /* CCHttpRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHttpRequestDelegate.h; sourceTree = "<group>"; };
+		F4C53AF216072E3300091290 /* CCNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNetwork.cpp; sourceTree = "<group>"; };
+		F4C53AF316072E3300091290 /* CCNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNetwork.h; sourceTree = "<group>"; };
+		F4C53AFC16072E4000091290 /* cocos2dx_extension_crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extension_crypto.cpp; sourceTree = "<group>"; };
+		F4C53AFD16072E4000091290 /* cocos2dx_extension_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extension_crypto.h; sourceTree = "<group>"; };
+		F4C53B0216072E4000091290 /* cocos2dx_extension_native.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extension_native.cpp; sourceTree = "<group>"; };
+		F4C53B0316072E4000091290 /* cocos2dx_extension_native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extension_native.h; sourceTree = "<group>"; };
+		F4C53B0416072E4000091290 /* cocos2dx_extension_network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extension_network.cpp; sourceTree = "<group>"; };
+		F4C53B0516072E4000091290 /* cocos2dx_extension_network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extension_network.h; sourceTree = "<group>"; };
+		F4C53B1916072E7000091290 /* CCCrypto_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCCrypto_objc.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCCrypto_objc.mm"; sourceTree = "<group>"; };
+		F4C53B1A16072E7000091290 /* CCNative_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCNative_objc.h; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCNative_objc.h"; sourceTree = "<group>"; };
+		F4C53B1B16072E7000091290 /* CCNative_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCNative_objc.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCNative_objc.mm"; sourceTree = "<group>"; };
+		F4C53B1C16072E7000091290 /* CCNative.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCNative.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCNative.mm"; sourceTree = "<group>"; };
+		F4C53B1D16072E7000091290 /* CCNetwork_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCNetwork_objc.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCNetwork_objc.mm"; sourceTree = "<group>"; };
+		F4C53B1E16072E7000091290 /* CCStore_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCStore_objc.h; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCStore_objc.h"; sourceTree = "<group>"; };
+		F4C53B1F16072E7000091290 /* CCStore_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCStore_objc.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCStore_objc.mm"; sourceTree = "<group>"; };
+		F4C53B2016072E7000091290 /* CCStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCStore.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCStore.mm"; sourceTree = "<group>"; };
+		F4C53B2116072E7000091290 /* CCStorePaymentTransactionWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCStorePaymentTransactionWrapper.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCStorePaymentTransactionWrapper.mm"; sourceTree = "<group>"; };
+		F4C53B2216072E7000091290 /* CCStoreReceiptVerifyRequest_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCStoreReceiptVerifyRequest_objc.h; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCStoreReceiptVerifyRequest_objc.h"; sourceTree = "<group>"; };
+		F4C53B2316072E7000091290 /* CCStoreReceiptVerifyRequest_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCStoreReceiptVerifyRequest_objc.mm; path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/CCStoreReceiptVerifyRequest_objc.mm"; sourceTree = "<group>"; };
+		F4C53B2516072E7000091290 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		F4C53B2616072E7000091290 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		F4C53B2716072E7000091290 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		F4C53B2816072E7000091290 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		F4C53B2916072E7000091290 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		F4C53B2A16072E7000091290 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		F4C53B2B16072E7000091290 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		F4C53B2C16072E7000091290 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		F4C53B2E16072E7000091290 /* OpenUDID_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID_objc.h; sourceTree = "<group>"; };
+		F4C53B2F16072E7000091290 /* OpenUDID_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID_objc.m; sourceTree = "<group>"; };
+		F4C53B3116072E7000091290 /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability_objc.h; sourceTree = "<group>"; };
+		F4C53B3216072E7000091290 /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability_objc.m; sourceTree = "<group>"; };
+		F4C53B4116072E8000091290 /* cocos2dx_extension_store.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extension_store.cpp; sourceTree = "<group>"; };
+		F4C53B4216072E8000091290 /* cocos2dx_extension_store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extension_store.h; sourceTree = "<group>"; };
+		F4C53B4516072E8A00091290 /* CCStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStore.h; sourceTree = "<group>"; };
+		F4C53B4616072E8A00091290 /* CCStorePaymentTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStorePaymentTransaction.cpp; sourceTree = "<group>"; };
+		F4C53B4716072E8A00091290 /* CCStorePaymentTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStorePaymentTransaction.h; sourceTree = "<group>"; };
+		F4C53B4816072E8A00091290 /* CCStorePaymentTransactionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStorePaymentTransactionWrapper.h; sourceTree = "<group>"; };
+		F4C53B4916072E8A00091290 /* CCStoreProduct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreProduct.cpp; sourceTree = "<group>"; };
+		F4C53B4A16072E8A00091290 /* CCStoreProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreProduct.h; sourceTree = "<group>"; };
+		F4C53B4B16072E8A00091290 /* CCStoreProductsRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreProductsRequestDelegate.h; sourceTree = "<group>"; };
+		F4C53B4C16072E8A00091290 /* CCStoreTransactionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreTransactionObserver.h; sourceTree = "<group>"; };
+		F4C53B4F1607304E00091290 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		F4C53B511607306300091290 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F4C53B531607307D00091290 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F4C53B551607309E00091290 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		F4C986A015F898BB00F956E0 /* LuaHostIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaHostIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C986A415F898BB00F956E0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F4C986A615F898BB00F956E0 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -620,6 +711,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4C53B561607309E00091290 /* libcurl.a in Frameworks */,
+				F4C53B541607307D00091290 /* SystemConfiguration.framework in Frameworks */,
+				F4C53B501607304E00091290 /* StoreKit.framework in Frameworks */,
 				F4C986A515F898BB00F956E0 /* QuartzCore.framework in Frameworks */,
 				F4C986A715F898BB00F956E0 /* OpenGLES.framework in Frameworks */,
 				F4C986A915F898BB00F956E0 /* OpenAL.framework in Frameworks */,
@@ -663,7 +757,6 @@
 		F481BEE415F89A8C00FD6CE9 /* CocosDenshion */ = {
 			isa = PBXGroup;
 			children = (
-				F481BEF815F89AAB00FD6CE9 /* lua */,
 				F481BEE515F89A9E00FD6CE9 /* include */,
 				F481BEE815F89A9E00FD6CE9 /* ios */,
 			);
@@ -812,6 +905,182 @@
 			name = CCDrawing;
 			sourceTree = "<group>";
 		};
+		F4C53AD916072DE100091290 /* cocos2d-x-extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53ADC16072E3300091290 /* cocos2dx_extensions.h */,
+				F4C53ADD16072E3300091290 /* crypto */,
+				F4C53AFB16072E4000091290 /* luabinding */,
+				F4C53AE916072E3300091290 /* native */,
+				F4C53AEC16072E3300091290 /* network */,
+				F4C53B1716072E5200091290 /* platform */,
+				F4C53B4416072E8A00091290 /* store */,
+			);
+			name = "cocos2d-x-extensions";
+			sourceTree = "<group>";
+		};
+		F4C53ADD16072E3300091290 /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53ADE16072E3300091290 /* base64 */,
+				F4C53AE116072E3300091290 /* CCCrypto.cpp */,
+				F4C53AE216072E3300091290 /* CCCrypto.h */,
+				F4C53AE316072E3300091290 /* md5 */,
+				F4C53AE616072E3300091290 /* sha1 */,
+			);
+			name = crypto;
+			path = "../../libs/cocos2d-x-extensions/extensions/crypto";
+			sourceTree = "<group>";
+		};
+		F4C53ADE16072E3300091290 /* base64 */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53ADF16072E3300091290 /* libb64.c */,
+				F4C53AE016072E3300091290 /* libb64.h */,
+			);
+			path = base64;
+			sourceTree = "<group>";
+		};
+		F4C53AE316072E3300091290 /* md5 */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53AE416072E3300091290 /* md5.c */,
+				F4C53AE516072E3300091290 /* md5.h */,
+			);
+			path = md5;
+			sourceTree = "<group>";
+		};
+		F4C53AE616072E3300091290 /* sha1 */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53AE716072E3300091290 /* sha1.cpp */,
+				F4C53AE816072E3300091290 /* sha1.h */,
+			);
+			path = sha1;
+			sourceTree = "<group>";
+		};
+		F4C53AE916072E3300091290 /* native */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53AEA16072E3300091290 /* CCAlertViewDelegate.h */,
+				F4C53AEB16072E3300091290 /* CCNative.h */,
+			);
+			name = native;
+			path = "../../libs/cocos2d-x-extensions/extensions/native";
+			sourceTree = "<group>";
+		};
+		F4C53AEC16072E3300091290 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53AED16072E3300091290 /* CCHttpRequest.cpp */,
+				F4C53AEE16072E3300091290 /* CCHttpRequest.h */,
+				F4C53AEF16072E3300091290 /* CCHttpRequest_impl.cpp */,
+				F4C53AF016072E3300091290 /* CCHttpRequest_impl.h */,
+				F4C53AF116072E3300091290 /* CCHttpRequestDelegate.h */,
+				F4C53AF216072E3300091290 /* CCNetwork.cpp */,
+				F4C53AF316072E3300091290 /* CCNetwork.h */,
+			);
+			name = network;
+			path = "../../libs/cocos2d-x-extensions/extensions/network";
+			sourceTree = "<group>";
+		};
+		F4C53AFB16072E4000091290 /* luabinding */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53AFC16072E4000091290 /* cocos2dx_extension_crypto.cpp */,
+				F4C53AFD16072E4000091290 /* cocos2dx_extension_crypto.h */,
+				F4C53B0216072E4000091290 /* cocos2dx_extension_native.cpp */,
+				F4C53B0316072E4000091290 /* cocos2dx_extension_native.h */,
+				F4C53B0416072E4000091290 /* cocos2dx_extension_network.cpp */,
+				F4C53B0516072E4000091290 /* cocos2dx_extension_network.h */,
+				F4C53B4116072E8000091290 /* cocos2dx_extension_store.cpp */,
+				F4C53B4216072E8000091290 /* cocos2dx_extension_store.h */,
+			);
+			name = luabinding;
+			path = "../../libs/cocos2d-x-extensions/extensions/luabinding";
+			sourceTree = "<group>";
+		};
+		F4C53B1716072E5200091290 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53B1816072E5B00091290 /* ios */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		F4C53B1816072E5B00091290 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53B1916072E7000091290 /* CCCrypto_objc.mm */,
+				F4C53B1C16072E7000091290 /* CCNative.mm */,
+				F4C53B1A16072E7000091290 /* CCNative_objc.h */,
+				F4C53B1B16072E7000091290 /* CCNative_objc.mm */,
+				F4C53B1D16072E7000091290 /* CCNetwork_objc.mm */,
+				F4C53B2016072E7000091290 /* CCStore.mm */,
+				F4C53B1E16072E7000091290 /* CCStore_objc.h */,
+				F4C53B1F16072E7000091290 /* CCStore_objc.mm */,
+				F4C53B2116072E7000091290 /* CCStorePaymentTransactionWrapper.mm */,
+				F4C53B2216072E7000091290 /* CCStoreReceiptVerifyRequest_objc.h */,
+				F4C53B2316072E7000091290 /* CCStoreReceiptVerifyRequest_objc.mm */,
+				F4C53B2416072E7000091290 /* json */,
+				F4C53B2D16072E7000091290 /* openudid */,
+				F4C53B3016072E7000091290 /* reachability */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		F4C53B2416072E7000091290 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53B2516072E7000091290 /* SBJSON.h */,
+				F4C53B2616072E7000091290 /* SBJSON.m */,
+				F4C53B2716072E7000091290 /* SBJsonBase.h */,
+				F4C53B2816072E7000091290 /* SBJsonBase.m */,
+				F4C53B2916072E7000091290 /* SBJsonParser.h */,
+				F4C53B2A16072E7000091290 /* SBJsonParser.m */,
+				F4C53B2B16072E7000091290 /* SBJsonWriter.h */,
+				F4C53B2C16072E7000091290 /* SBJsonWriter.m */,
+			);
+			name = json;
+			path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/json";
+			sourceTree = "<group>";
+		};
+		F4C53B2D16072E7000091290 /* openudid */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53B2E16072E7000091290 /* OpenUDID_objc.h */,
+				F4C53B2F16072E7000091290 /* OpenUDID_objc.m */,
+			);
+			name = openudid;
+			path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/openudid";
+			sourceTree = "<group>";
+		};
+		F4C53B3016072E7000091290 /* reachability */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53B3116072E7000091290 /* Reachability_objc.h */,
+				F4C53B3216072E7000091290 /* Reachability_objc.m */,
+			);
+			name = reachability;
+			path = "../../libs/cocos2d-x-extensions/extensions/platform/ios/reachability";
+			sourceTree = "<group>";
+		};
+		F4C53B4416072E8A00091290 /* store */ = {
+			isa = PBXGroup;
+			children = (
+				F4C53B4516072E8A00091290 /* CCStore.h */,
+				F4C53B4616072E8A00091290 /* CCStorePaymentTransaction.cpp */,
+				F4C53B4716072E8A00091290 /* CCStorePaymentTransaction.h */,
+				F4C53B4816072E8A00091290 /* CCStorePaymentTransactionWrapper.h */,
+				F4C53B4916072E8A00091290 /* CCStoreProduct.cpp */,
+				F4C53B4A16072E8A00091290 /* CCStoreProduct.h */,
+				F4C53B4B16072E8A00091290 /* CCStoreProductsRequestDelegate.h */,
+				F4C53B4C16072E8A00091290 /* CCStoreTransactionObserver.h */,
+			);
+			name = store;
+			path = "../../libs/cocos2d-x-extensions/extensions/store";
+			sourceTree = "<group>";
+		};
 		F4C9869515F898BB00F956E0 = {
 			isa = PBXGroup;
 			children = (
@@ -832,14 +1101,18 @@
 		F4C986A315F898BB00F956E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4C986A415F898BB00F956E0 /* QuartzCore.framework */,
-				F4C986A615F898BB00F956E0 /* OpenGLES.framework */,
-				F4C986A815F898BB00F956E0 /* OpenAL.framework */,
 				F4C986AA15F898BB00F956E0 /* AudioToolbox.framework */,
 				F4C986AC15F898BB00F956E0 /* AVFoundation.framework */,
-				F4C986AE15F898BB00F956E0 /* UIKit.framework */,
-				F4C986B015F898BB00F956E0 /* Foundation.framework */,
+				F4C53B511607306300091290 /* CFNetwork.framework */,
 				F4C986B215F898BB00F956E0 /* CoreGraphics.framework */,
+				F4C986B015F898BB00F956E0 /* Foundation.framework */,
+				F4C53B551607309E00091290 /* libcurl.a */,
+				F4C986A815F898BB00F956E0 /* OpenAL.framework */,
+				F4C986A615F898BB00F956E0 /* OpenGLES.framework */,
+				F4C986A415F898BB00F956E0 /* QuartzCore.framework */,
+				F4C53B4F1607304E00091290 /* StoreKit.framework */,
+				F4C53B531607307D00091290 /* SystemConfiguration.framework */,
+				F4C986AE15F898BB00F956E0 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -875,8 +1148,10 @@
 			isa = PBXGroup;
 			children = (
 				F481BF6915F89ACE00FD6CE9 /* CCDrawing */,
+				F4C53AD916072DE100091290 /* cocos2d-x-extensions */,
+				F4C989B915F8993B00F956E0 /* cocos2d-x */,
 				F481BEE415F89A8C00FD6CE9 /* CocosDenshion */,
-				F4C989B915F8993B00F956E0 /* cocos2dx */,
+				F481BEF815F89AAB00FD6CE9 /* lua */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -911,7 +1186,7 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		F4C989B915F8993B00F956E0 /* cocos2dx */ = {
+		F4C989B915F8993B00F956E0 /* cocos2d-x */ = {
 			isa = PBXGroup;
 			children = (
 				F4C989BA15F8995700F956E0 /* actions */,
@@ -947,7 +1222,7 @@
 				F4C98AAD15F8995700F956E0 /* tilemap_parallax_nodes */,
 				F4C98ABA15F8995700F956E0 /* touch_dispatcher */,
 			);
-			name = cocos2dx;
+			name = "cocos2d-x";
 			sourceTree = "<group>";
 		};
 		F4C989BA15F8995700F956E0 /* actions */ = {
@@ -1418,7 +1693,7 @@
 				F4C98B3A15F8997D00F956E0 /* ios */,
 				F4C98B6315F8997D00F956E0 /* platform.cpp */,
 				F4C98B6415F8997D00F956E0 /* platform.h */,
-				F4C98B7A15F8999300F956E0 /* thrid_patry */,
+				F4C98B7A15F8999300F956E0 /* thrid_party */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -1485,12 +1760,12 @@
 			path = Simulation;
 			sourceTree = "<group>";
 		};
-		F4C98B7A15F8999300F956E0 /* thrid_patry */ = {
+		F4C98B7A15F8999300F956E0 /* thrid_party */ = {
 			isa = PBXGroup;
 			children = (
 				F481BED315F899C000FD6CE9 /* ios */,
 			);
-			name = thrid_patry;
+			name = thrid_party;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1755,6 +2030,33 @@
 				F481BF6815F89AB900FD6CE9 /* tolua_to.c in Sources */,
 				F481BF6E15F89AD800FD6CE9 /* CCDrawing.cpp in Sources */,
 				F481BF6F15F89AD800FD6CE9 /* LuaCCDrawing.cpp in Sources */,
+				F4C53AF416072E3300091290 /* libb64.c in Sources */,
+				F4C53AF516072E3300091290 /* CCCrypto.cpp in Sources */,
+				F4C53AF616072E3300091290 /* md5.c in Sources */,
+				F4C53AF716072E3300091290 /* sha1.cpp in Sources */,
+				F4C53AF816072E3300091290 /* CCHttpRequest.cpp in Sources */,
+				F4C53AF916072E3300091290 /* CCHttpRequest_impl.cpp in Sources */,
+				F4C53AFA16072E3300091290 /* CCNetwork.cpp in Sources */,
+				F4C53B0E16072E4000091290 /* cocos2dx_extension_crypto.cpp in Sources */,
+				F4C53B1116072E4000091290 /* cocos2dx_extension_native.cpp in Sources */,
+				F4C53B1216072E4000091290 /* cocos2dx_extension_network.cpp in Sources */,
+				F4C53B3316072E7000091290 /* CCCrypto_objc.mm in Sources */,
+				F4C53B3416072E7000091290 /* CCNative_objc.mm in Sources */,
+				F4C53B3516072E7000091290 /* CCNative.mm in Sources */,
+				F4C53B3616072E7000091290 /* CCNetwork_objc.mm in Sources */,
+				F4C53B3716072E7000091290 /* CCStore_objc.mm in Sources */,
+				F4C53B3816072E7000091290 /* CCStore.mm in Sources */,
+				F4C53B3916072E7000091290 /* CCStorePaymentTransactionWrapper.mm in Sources */,
+				F4C53B3A16072E7000091290 /* CCStoreReceiptVerifyRequest_objc.mm in Sources */,
+				F4C53B3B16072E7000091290 /* SBJSON.m in Sources */,
+				F4C53B3C16072E7000091290 /* SBJsonBase.m in Sources */,
+				F4C53B3D16072E7000091290 /* SBJsonParser.m in Sources */,
+				F4C53B3E16072E7000091290 /* SBJsonWriter.m in Sources */,
+				F4C53B3F16072E7000091290 /* OpenUDID_objc.m in Sources */,
+				F4C53B4016072E7000091290 /* Reachability_objc.m in Sources */,
+				F4C53B4316072E8000091290 /* cocos2dx_extension_store.cpp in Sources */,
+				F4C53B4D16072E8A00091290 /* CCStorePaymentTransaction.cpp in Sources */,
+				F4C53B4E16072E8A00091290 /* CCStoreProduct.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1819,6 +2121,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1829,6 +2132,7 @@
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/ios\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions/luabinding\"",
@@ -1853,6 +2157,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LuaHostIOS/Prefix.pch;
@@ -1862,6 +2167,7 @@
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/ios\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/third_party/ios\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions/luabinding\"",
