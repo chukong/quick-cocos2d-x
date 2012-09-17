@@ -914,7 +914,6 @@
 		F4C989B915F8993B00F956E0 /* cocos2dx */ = {
 			isa = PBXGroup;
 			children = (
-				F4C98B2C15F8995F00F956E0 /* platform */,
 				F4C989BA15F8995700F956E0 /* actions */,
 				F4C989D515F8995700F956E0 /* base_nodes */,
 				F4C989DA15F8995700F956E0 /* CCCamera.cpp */,
@@ -938,6 +937,7 @@
 				F4C98A4215F8995700F956E0 /* menu_nodes */,
 				F4C98A4715F8995700F956E0 /* misc_nodes */,
 				F4C98A4E15F8995700F956E0 /* particle_nodes */,
+				F4C98B2C15F8995F00F956E0 /* platform */,
 				F4C98A5715F8995700F956E0 /* script_support */,
 				F4C98A5A15F8995700F956E0 /* shaders */,
 				F4C98A7115F8995700F956E0 /* sprite_nodes */,
@@ -1402,7 +1402,6 @@
 		F4C98B2C15F8995F00F956E0 /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				F4C98B7A15F8999300F956E0 /* thrid_patry */,
 				F4C98B2D15F8997D00F956E0 /* CCAccelerometerDelegate.h */,
 				F4C98B2E15F8997D00F956E0 /* CCApplicationProtocol.h */,
 				F4C98B2F15F8997D00F956E0 /* CCCommon.h */,
@@ -1419,6 +1418,7 @@
 				F4C98B3A15F8997D00F956E0 /* ios */,
 				F4C98B6315F8997D00F956E0 /* platform.cpp */,
 				F4C98B6415F8997D00F956E0 /* platform.h */,
+				F4C98B7A15F8999300F956E0 /* thrid_patry */,
 			);
 			name = platform;
 			sourceTree = "<group>";

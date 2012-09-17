@@ -122,10 +122,13 @@ static AppDelegate s_sharedApplication;
     // note that using NSResizableWindowMask causes the window to be a little
     // smaller and therefore ipad graphics are not loaded
     NSRect rect = NSMakeRect(left, top, frameSize.width, frameSize.height);
+    NSInteger mask = NSClosableWindowMask | NSTitledWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask;
     window = [[NSWindow alloc] initWithContentRect:rect
-                                         styleMask:( NSClosableWindowMask | NSTitledWindowMask )
+                                         styleMask:mask
                                            backing:NSBackingStoreBuffered
                                              defer:YES];
+    
+    window.delegate = self;
     
     // allocate our GL view
     // (isn't there already a shared EAGLView?)
@@ -177,14 +180,14 @@ static AppDelegate s_sharedApplication;
     waitForRestart = YES;
     
     CCDirector::sharedDirector()->end();
-    [NSTimer scheduledTimerWithTimeInterval:0.02
+    [NSTimer scheduledTimerWithTimeInterval:0.1
                                      target:self
-                                   selector:@selector(restartRefresh)
+                                   selector:@selector(restartComplete)
                                    userInfo:nil
                                     repeats:NO];
 }
 
--(void) restartRefresh
+-(void) restartComplete
 {
     [self createWindowAndGLView];
     [self startup];
@@ -271,6 +274,12 @@ static AppDelegate s_sharedApplication;
 -(IBAction) exitFullScreen:(id)sender
 {
     [[EAGLView sharedEGLView] setFullScreen:NO];
+}
+
+- (void)windowDidEndLiveResize:(NSNotification *)notification
+{
+    frameSize = window.frame.size;
+    [self restart:nil];
 }
 
 @end

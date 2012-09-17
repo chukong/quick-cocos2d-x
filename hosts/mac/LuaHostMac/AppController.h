@@ -25,7 +25,7 @@
 #import "EAGLView.h"
 #include <string>
 
-@interface AppController : NSObject <NSApplicationDelegate>
+@interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>
 {
     NSWindow *window;
     EAGLView *glView;

@@ -192,9 +192,9 @@
 		F4BA6EB715F499BD00CE7A10 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EB615F499BD00CE7A10 /* libz.dylib */; };
 		F4BA6EB915F499C200CE7A10 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EB815F499C200CE7A10 /* libxml2.dylib */; };
 		F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EBC15F499EE00CE7A10 /* Security.framework */; };
-		F4BA6EBF15F49A0800CE7A10 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EBE15F49A0800CE7A10 /* libcurl.dylib */; };
 		F4BA6EC415F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6EC015F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.cpp */; };
 		F4BA6EC515F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6EC215F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp */; };
+		F4F7781F1606D39500C69253 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F7781E1606D39500C69253 /* libcurl.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -592,11 +592,20 @@
 		F4BA6EB815F499C200CE7A10 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		F4BA6EBA15F499CC00CE7A10 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F4BA6EBC15F499EE00CE7A10 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		F4BA6EBE15F49A0800CE7A10 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		F4BA6EC015F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_crypto_mac.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_crypto_mac.cpp"; sourceTree = "<group>"; };
 		F4BA6EC115F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_crypto_mac.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_crypto_mac.h"; sourceTree = "<group>"; };
 		F4BA6EC215F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_network_mac.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network_mac.cpp"; sourceTree = "<group>"; };
 		F4BA6EC315F4A59C00CE7A10 /* cocos2dx_extension_network_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_network_mac.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network_mac.h"; sourceTree = "<group>"; };
+		F4F7780B1606CD0900C69253 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
+		F4F7780C1606CD0900C69253 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
+		F4F7780D1606CD0900C69253 /* curlrules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlrules.h; sourceTree = "<group>"; };
+		F4F7780E1606CD0900C69253 /* curlver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlver.h; sourceTree = "<group>"; };
+		F4F7780F1606CD0900C69253 /* easy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easy.h; sourceTree = "<group>"; };
+		F4F778101606CD0900C69253 /* mprintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mprintf.h; sourceTree = "<group>"; };
+		F4F778111606CD0900C69253 /* multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi.h; sourceTree = "<group>"; };
+		F4F778121606CD0900C69253 /* stdcheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdcheaders.h; sourceTree = "<group>"; };
+		F4F778131606CD0900C69253 /* typecheck-gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "typecheck-gcc.h"; sourceTree = "<group>"; };
+		F4F7781E1606D39500C69253 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -604,7 +613,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4BA6EBF15F49A0800CE7A10 /* libcurl.dylib in Frameworks */,
+				F4F7781F1606D39500C69253 /* libcurl.dylib in Frameworks */,
 				F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */,
 				F4BA6EB915F499C200CE7A10 /* libxml2.dylib in Frameworks */,
 				F4BA6EB715F499BD00CE7A10 /* libz.dylib in Frameworks */,
@@ -645,7 +654,7 @@
 				F44C957A15F49004004D4151 /* CoreData.framework */,
 				F4BA6EBA15F499CC00CE7A10 /* CoreFoundation.framework */,
 				F44C957B15F49004004D4151 /* Foundation.framework */,
-				F4BA6EBE15F49A0800CE7A10 /* libcurl.dylib */,
+				F4F7781E1606D39500C69253 /* libcurl.dylib */,
 				F4BA6EB815F499C200CE7A10 /* libxml2.dylib */,
 				F4BA6EB615F499BD00CE7A10 /* libz.dylib */,
 				F4BA6EAE15F4999700CE7A10 /* OpenAL.framework */,
@@ -675,6 +684,14 @@
 				F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F45495B91606CCE500F0F7F6 /* third_party */ = {
+			isa = PBXGroup;
+			children = (
+				F4F7780A1606CD0900C69253 /* curl */,
+			);
+			name = third_party;
 			sourceTree = "<group>";
 		};
 		F491210A15F5A713006129CB /* cocos2d-x */ = {
@@ -1166,6 +1183,7 @@
 		F491227D15F5A735006129CB /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				F45495B91606CCE500F0F7F6 /* third_party */,
 				F491227E15F5A749006129CB /* CCAccelerometerDelegate.h */,
 				F491227F15F5A749006129CB /* CCApplicationProtocol.h */,
 				F491228015F5A749006129CB /* CCCommon.h */,
@@ -1474,6 +1492,23 @@
 				F4BA6EC315F4A59C00CE7A10 /* cocos2dx_extension_network_mac.h */,
 			);
 			name = luabinding;
+			sourceTree = "<group>";
+		};
+		F4F7780A1606CD0900C69253 /* curl */ = {
+			isa = PBXGroup;
+			children = (
+				F4F7780B1606CD0900C69253 /* curl.h */,
+				F4F7780C1606CD0900C69253 /* curlbuild.h */,
+				F4F7780D1606CD0900C69253 /* curlrules.h */,
+				F4F7780E1606CD0900C69253 /* curlver.h */,
+				F4F7780F1606CD0900C69253 /* easy.h */,
+				F4F778101606CD0900C69253 /* mprintf.h */,
+				F4F778111606CD0900C69253 /* multi.h */,
+				F4F778121606CD0900C69253 /* stdcheaders.h */,
+				F4F778131606CD0900C69253 /* typecheck-gcc.h */,
+			);
+			name = curl;
+			path = "../../libs/cocos2d-x/cocos2dx/platform/third_party/mac/curl";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1818,10 +1853,13 @@
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions/luabinding\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/third_party\"",
 				);
 				INFOPLIST_FILE = "LuaHostMac/LuaHostMac-Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = binary;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1851,10 +1889,13 @@
 					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/kazmath/include\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions\"",
 					"\"$(SRCROOT)/../libs/cocos2d-x-extensions/extensions/luabinding\"",
+					"\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/third_party\"",
 				);
 				INFOPLIST_FILE = "LuaHostMac/LuaHostMac-Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = binary;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
