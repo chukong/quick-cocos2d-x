@@ -15,3 +15,5 @@ hosts/mac/LuaHostMac.xcodeproj/project.xcworkspace/xcuserdata/dualface.xcuserdat
 hosts/mac/LuaHostMac.xcodeproj/xcuserdata/dualface.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
 hosts/mac/LuaHostMac.xcodeproj/xcuserdata/dualface.xcuserdatad/xcschemes/LuaHostMac.xcscheme
 hosts/mac/LuaHostMac.xcodeproj/xcuserdata/dualface.xcuserdatad/xcschemes/xcschememanagement.plist
+hosts/mac/build/
+
