@@ -86,8 +86,8 @@ function transition.moveTo(target, args)
 end
 
 function transition.moveBy(target, args)
-    local x = args.x or target.x
-    local y = args.y or target.y
+    local x = args.x or 0
+    local y = args.y or 0
     local action = CCMoveBy:create(args.time, ccp(x, y))
     return transition.execute(target, action, args)
 end

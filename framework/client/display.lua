@@ -5,6 +5,10 @@ function xy(v)
     return v * xyscale
 end
 
+function xy2(v)
+    return v / xyscale
+end
+
 function ccsize(width, height)
     return CCSize(width, height)
 end
@@ -48,42 +52,26 @@ function display.reset()
     local size = glview:getFrameSize()
     display.sizeInPixels = {width = size.width, height = size.height}
 
-    if type(CONFIG_SCREEN_WIDTH) ~= "number" then
-        CONFIG_SCREEN_WIDTH = 960
-    end
-    if type(CONFIG_SCREEN_HEIGHT) ~= "number" then
-        CONFIG_SCREEN_HEIGHT = 640
-    end
-
-    if type(CONFIG_VIEW_WIDTH) ~= "number" then
-        CONFIG_VIEW_WIDTH = 480
-    end
-    if type(CONFIG_VIEW_HEIGHT) ~= "number" then
-        CONFIG_VIEW_HEIGHT = 320
-    end
-
     local scale = 1
-    if not CONFIG_SCREEN_MODE then
-        CONFIG_SCREEN_MODE = "width"
-    end
+    if CONFIG_SCREEN_AUTOSCALE then
+        if not glview:isRetinaEnabled() then
+            if CONFIG_SCREEN_AUTOSCALE == "width" then
+                scale = display.sizeInPixels.width / CONFIG_SCREEN_WIDTH;
+                CONFIG_SCREEN_HEIGHT = display.sizeInPixels.height / scale;
+                xyscale = CONFIG_SCREEN_WIDTH / CONFIG_VIEW_WIDTH
+            elseif CONFIG_SCREEN_AUTOSCALE == "height" then
+                scale = display.sizeInPixels.height / CONFIG_SCREEN_HEIGHT;
+                CONFIG_SCREEN_WIDTH = display.sizeInPixels.width / scale;
+                xyscale = CONFIG_SCREEN_HEIGHT / CONFIG_VIEW_HEIGHT
+            end
 
-    if not glview:isRetinaEnabled() then
-        if CONFIG_SCREEN_MODE == "width" then
-            scale = display.sizeInPixels.width / CONFIG_SCREEN_WIDTH;
-            CONFIG_SCREEN_HEIGHT = display.sizeInPixels.height / scale;
-            xyscale = CONFIG_SCREEN_WIDTH / CONFIG_VIEW_WIDTH
-        else
-            scale = display.sizeInPixels.height / CONFIG_SCREEN_HEIGHT;
-            CONFIG_SCREEN_WIDTH = display.sizeInPixels.width / scale;
-            xyscale = CONFIG_SCREEN_HEIGHT / CONFIG_VIEW_HEIGHT
+            glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
+                                           CONFIG_SCREEN_HEIGHT,
+                                           kResolutionNoBorder)
+        elseif CONFIG_VIEW_WIDTH then
+            local winSize = director:getWinSize()
+            xyscale = winSize.width / CONFIG_VIEW_WIDTH
         end
-
-        glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
-                                       CONFIG_SCREEN_HEIGHT,
-                                       kResolutionNoBorder)
-    else
-        local winSize = director:getWinSize()
-        xyscale = winSize.width / CONFIG_VIEW_WIDTH
     end
     display.xyscale = xyscale
 
@@ -310,7 +298,7 @@ function display.newSprite(filename, x, y)
         return
     end
 
-    local sprite = display.extendSprite(display.extendNode(sprite))
+    local sprite = display.extendSprite(sprite)
     sprite:setPosition(x, y)
     return sprite
 end
@@ -327,16 +315,18 @@ function display.newCircle(radius, segments)
 end
 
 function display.newRect(width, height)
-    return CCRectShape:create(CCSize(width, height))
+    return display.extendShape(CCRectShape:create(CCSize(width, height)))
 end
 
-function display.newPolygon(points)
+function display.newPolygon(points, scale)
     local arr = CCArray:create()
     for i, p in ipairs(points) do
-        if type(p) == "table" then p = ccp(p[1], p[2]) end
+        p = ccp(p[1] * scale, p[2] * scale)
+        p:autorelease()
         arr:addObject(p)
     end
-    return CCPolygonShape:create(arr)
+    arr:retain() -- TODO: memory leaks ?!?
+    return display.extendShape(CCPolygonShape:create(arr))
 end
 
 display.sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
@@ -369,7 +359,7 @@ function display.newSpriteWithFrame(frame, x, y)
         traceback()
     end
     local sprite = CCSprite:createWithSpriteFrame(frame)
-    display.extendSprite(display.extendNode(sprite))
+    display.extendSprite(sprite)
     sprite:setPosition(x, y)
     return sprite
 end
@@ -500,6 +490,8 @@ function display.extendLayer(node)
 end
 
 function display.extendSprite(node)
+    display.extendNode(node)
+
     function node:playAnimationOnce(animation, removeWhenFinished)
         local animate = display.newAnimate(animation)
         if removeWhenFinished then
@@ -523,6 +515,7 @@ function display.extendSprite(node)
 end
 
 function display.extendShape(shape)
+    shape = display.extendNode(shape)
     shape.setColor_ = shape.setColor
 
     function shape:setColor(r, g, b, a)

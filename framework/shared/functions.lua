@@ -126,6 +126,22 @@ io.pathForFile = function(filename, path)
     return path .. "/" .. filename
 end
 
+-- find path for module
+io.findModulePath = function(moduleName)
+    local filename = string.gsub(moduleName, "%.", "/") .. ".lua"
+    local paths = string.split(package.path, ";")
+    for i, path in ipairs(paths) do
+        if string.sub(path, -5) == "?.lua" then
+            path = string.sub(path, 1, -6)
+            if not string.find(path, "?", 1, true) then
+                local fullpath = path .. filename
+                if io.exists(fullpath) then
+                    return fullpath
+                end
+            end
+        end
+    end
+end
 
 
 ---- table

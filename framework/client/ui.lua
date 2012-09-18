@@ -28,7 +28,9 @@ function M.newMenu(...)
     end
 
     for k, item in pairs(items) do
-        menu:addChild(item, 0, item:getTag())
+        if type(item) == "userdata" then
+            menu:addChild(item, 0, item:getTag())
+        end
     end
 
     menu:setPosition(0, 0)
@@ -37,7 +39,7 @@ end
 
 function M.newMenuItemImage(params)
     local imageNormal   = params.image
-    local imageDown     = params.imageDown
+    local imageSelected = params.imageSelected
     local imageDisabled = params.imageDisabled
     local listener      = params.listener
     local tag           = params.tag
@@ -48,14 +50,14 @@ function M.newMenuItemImage(params)
         imageNormal = display.newImage(imageNormal)
     end
 
-    if type(imageDown) == "string" then
-        imageDown = display.newImage(imageDown)
+    if type(imageSelected) == "string" then
+        imageSelected = display.newImage(imageSelected)
     end
     if type(imageDisabled) == "string" then
         imageDisabled = display.newImage(imageDisabled)
     end
 
-    local item = CCMenuItemSprite:create(imageNormal, imageDown, imageDisabled)
+    local item = CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
     if item then
         display.extendSprite(item)
         if type(listener) == "function" then item:registerScriptTapHandler(listener) end
@@ -82,18 +84,21 @@ function M.newMenuItemLabel(params)
     return item
 end
 
-function M.newBMFontLabel(text, font, x, y, textAlign)
-    text = tostring(text)
-    local label = CCLabelBMFont:create(text, font)
+function M.newBMFontLabel(params)
+    assert(type(params) == "table",
+           "[framework.client.ui] newBMFontLabel() invalid params")
+
+    local text      = tostring(params.text)
+    local font      = params.font or M.DEFAULT_TTF_FONT
+    local textAlign = params.align or M.TEXT_ALIGN_LEFT
+    local x, y      = params.x, params.y
+
+    local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
     if not label then return end
 
     display.extendNode(label)
     if type(x) == "number" and type(y) == "number" then
-        if textAlign then
-            label:textAlign(textAlign, x, y)
-        else
-            label:setPosition(x, y)
-        end
+        label:setPosition(x, y)
     end
     return label
 end

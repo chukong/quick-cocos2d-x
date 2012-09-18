@@ -31,26 +31,6 @@ function printf(fmt, ...)
     echo(string.format(fmt, ...))
 end
 
-function vardump(...)
-    local count = select("#", ...)
-    if count < 1 then return end
-
-    echo("vardump:")
-    for i = 1, count do
-        local v = select(i, ...)
-        local t = type(v)
-        if t == "string" then
-            printf("  %02d: [string] %s", i, v)
-        elseif t == "boolean" then
-            printf("  %02d: [boolean] %s", i, tostring(v))
-        elseif t == "number" then
-            printf("  %02d: [number] %0.2f", i, v)
-        else
-            printf("  %02d: [%s] %s", i, t, tostring(v))
-        end
-    end
-end
-
 -- prints human-readable information about a variable
 function dump(object, label, isReturnContents, nesting)
     if type(nesting) ~= "number" then nesting = 99 end
