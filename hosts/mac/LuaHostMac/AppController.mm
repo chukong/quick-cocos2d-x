@@ -102,8 +102,8 @@ static AppDelegate s_sharedApplication;
 
 -(void) createWindowAndGLView
 {
-    float left = 100;
-    float top = 100;
+    float left = 10;
+    float top = [[NSScreen mainScreen] frame].size.height - frameSize.height - 60;
     if (window)
     {
         left = [window frame].origin.x;
