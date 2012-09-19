@@ -47,12 +47,12 @@ void CCRectShape::draw(void)
     
     if (m_fill)
     {
-        ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
-        ccDrawRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h));
+        ccDrawSolidRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h), m_color);
     }
     else
     {
-        ccDrawSolidRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h), m_color);
+        ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
+        ccDrawRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h));
     }
 }
 
