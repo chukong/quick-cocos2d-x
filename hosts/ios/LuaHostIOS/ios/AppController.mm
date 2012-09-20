@@ -39,8 +39,6 @@ static AppDelegate s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    // Override point for customization after application launch.
-
     // Add the view controller's view to the window and display.
     window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     EAGLView *__glView = [EAGLView viewWithFrame: [window bounds]
@@ -51,6 +49,15 @@ static AppDelegate s_sharedApplication;
                                    multiSampling: NO
                                  numberOfSamples: 0 ];
 
+    // Override point for customization after application launch.
+    if ([[UIScreen mainScreen] respondsToSelector: @selector(scale)]) {
+        CGFloat scale = [[UIScreen mainScreen] scale];
+        if(scale == 2.0) {
+            // for iPhone4/4S/5, New iPad
+            [__glView setDesignContentScaleFactor:scale];
+        }
+    }
+    
     // Use RootViewController manage EAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     viewController.wantsFullScreenLayout = YES;

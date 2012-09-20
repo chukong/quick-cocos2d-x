@@ -45,12 +45,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    // enable High Resource Mode(2x, such as iphone4) and maintains low resource on other devices.
-    pDirector->enableRetinaDisplay(true);
-#endif
-    
     pDirector->setProjection(kCCDirectorProjection2D);
     
 //#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

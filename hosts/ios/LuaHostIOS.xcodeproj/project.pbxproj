@@ -1148,8 +1148,8 @@
 			isa = PBXGroup;
 			children = (
 				F481BF6915F89ACE00FD6CE9 /* CCDrawing */,
-				F4C53AD916072DE100091290 /* cocos2d-x-extensions */,
 				F4C989B915F8993B00F956E0 /* cocos2d-x */,
+				F4C53AD916072DE100091290 /* cocos2d-x-extensions */,
 				F481BEE415F89A8C00FD6CE9 /* CocosDenshion */,
 				F481BEF815F89AAB00FD6CE9 /* lua */,
 			);
