@@ -32,8 +32,11 @@
     NSMenu *menu;
 
     BOOL waitForRestart;
+    BOOL isAlwaysOnTop;
+    BOOL isMaximized;
     
     NSSize frameSize;
+    NSSize prevFrameSize;
     std::string workingDir;
     std::string startupScriptFilename;
 }
@@ -56,6 +59,8 @@
 -(IBAction) resize_Android_1024_600:(id)sender;
 -(IBAction) resize_Android_1280_720:(id)sender;
 -(IBAction) resize_Android_1280_800:(id)sender;
+-(IBAction) toggleMaximize:(id)sender;
+-(IBAction) toggleAlwaysOnTop:(id)sender;
 
 -(IBAction) toggleFullScreen:(id)sender;
 -(IBAction) exitFullScreen:(id)sender;

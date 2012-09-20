@@ -40,6 +40,8 @@ static AppDelegate s_sharedApplication;
 -(void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     waitForRestart = NO;
+    isAlwaysOnTop = NO;
+    isMaximized = NO;
     
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     
@@ -103,11 +105,12 @@ static AppDelegate s_sharedApplication;
 -(void) createWindowAndGLView
 {
     float left = 10;
-    float top = [[NSScreen mainScreen] frame].size.height - frameSize.height - 60;
+    float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
+    bottom -= [NSMenuView menuBarHeight] + 10;
     if (window)
     {
-        left = [window frame].origin.x;
-        top = [window frame].origin.y;
+        left = window.frame.origin.x;
+        bottom = window.frame.origin.y + ([glView getHeight] - frameSize.height);
         
         [window setContentView:nil];
         [glView release];
@@ -121,8 +124,8 @@ static AppDelegate s_sharedApplication;
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
     // smaller and therefore ipad graphics are not loaded
-    NSRect rect = NSMakeRect(left, top, frameSize.width, frameSize.height);
-    NSInteger mask = NSClosableWindowMask | NSTitledWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask;
+    NSRect rect = NSMakeRect(left, bottom, frameSize.width, frameSize.height);
+    NSInteger mask = NSClosableWindowMask | NSTitledWindowMask | NSMiniaturizableWindowMask;
     window = [[NSWindow alloc] initWithContentRect:rect
                                          styleMask:mask
                                            backing:NSBackingStoreBuffered
@@ -195,10 +198,19 @@ static AppDelegate s_sharedApplication;
     waitForRestart = NO;
 }
 
+-(void) removeMaximize
+{
+    isMaximized = NO;
+    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"View"];
+    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Toggle Maximize"];
+    [menuItem setState:NSOffState];
+}
+
 -(IBAction) resize_iPhone3G:(id)sender
 {
     frameSize.width = 480;
     frameSize.height = 320;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -206,6 +218,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 960;
     frameSize.height = 640;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -213,6 +226,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 1136;
     frameSize.height = 640;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -220,6 +234,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 1024;
     frameSize.height = 768;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -227,6 +242,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 2048;
     frameSize.height = 1536;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -234,6 +250,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 854;
     frameSize.height = 480;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -241,6 +258,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 800;
     frameSize.height = 480;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -248,6 +266,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 1024;
     frameSize.height = 600;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -255,6 +274,7 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 1280;
     frameSize.height = 720;
+    [self removeMaximize];
     [self restart:sender];
 }
 
@@ -262,24 +282,62 @@ static AppDelegate s_sharedApplication;
 {
     frameSize.width = 1280;
     frameSize.height = 800;
+    [self removeMaximize];
     [self restart:sender];
+}
+
+-(IBAction) toggleMaximize:(id)sender
+{
+    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"View"];
+    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Toggle Maximize"];
+    if (!isMaximized)
+    {
+        prevFrameSize = frameSize;
+        frameSize = [[NSScreen mainScreen] visibleFrame].size;
+        frameSize.height -= window.frame.size.height - [glView getHeight];
+        [menuItem setState:NSOnState];
+    }
+    else
+    {
+        frameSize = prevFrameSize;
+        [menuItem setState:NSOffState];
+    }
+    isMaximized = !isMaximized;
+    [self restart:sender];
+}
+
+-(IBAction) toggleAlwaysOnTop:(id)sender
+{
+    isAlwaysOnTop = !isAlwaysOnTop;
+    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"Window"];
+    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Always On Top"];
+    if (isAlwaysOnTop)
+    {
+        [window setLevel:NSFloatingWindowLevel];
+        [menuItem setState:NSOnState];
+    }
+    else
+    {
+        [window setLevel:NSNormalWindowLevel];
+        [menuItem setState:NSOffState];
+    }
 }
 
 -(IBAction) toggleFullScreen:(id)sender
 {
-    EAGLView* pView = [EAGLView sharedEGLView];
-    [pView setFullScreen:!pView.isFullScreen];
+//    EAGLView* pView = [EAGLView sharedEGLView];
+//    [pView setFullScreen:!pView.isFullScreen];
 }
 
 -(IBAction) exitFullScreen:(id)sender
 {
-    [[EAGLView sharedEGLView] setFullScreen:NO];
+//    [[EAGLView sharedEGLView] setFullScreen:NO];
 }
 
-- (void)windowDidEndLiveResize:(NSNotification *)notification
-{
-    frameSize = window.frame.size;
-    [self restart:nil];
-}
+//- (void)windowDidEndLiveResize:(NSNotification *)notification
+//{
+//    frameSize = window.frame.size;
+//    [self restart:nil];
+//}
 
 @end
