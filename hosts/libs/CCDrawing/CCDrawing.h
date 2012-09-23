@@ -43,10 +43,21 @@ public:
         m_color = color;
     }
     
+    float getLineWidth(void) {
+        return m_lineWidth;
+    }
+    
+    void setLineWidth(float lineWidth) {
+        m_lineWidth = lineWidth;
+    }
+
 protected:
     ccColor4F m_color;
+    float m_lineWidth;
 
-    CCShapeNode(void) {
+    CCShapeNode(void)
+    : m_lineWidth(1.0f)
+    {
         m_color = ccc4f(0, 0, 0, 1);
     }
     
@@ -192,7 +203,7 @@ public:
     void setClose(bool close) {
         m_close = close;
     }
-    
+        
     virtual void draw(void);
     
 protected:

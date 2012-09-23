@@ -3,6 +3,8 @@ class CCShapeNode : public CCNode
 {
     const ccColor4F& getColor(void);
     void setColor(const ccColor4F& color);
+    float getLineWidth(void);
+    void setLineWidth(float lineWidth);
 };
 
 class CCCircleShape : public CCShapeNode

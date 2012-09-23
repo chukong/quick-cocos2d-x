@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCDrawing
-** Generated automatically by tolua++-1.0.92 on Fri Sep 14 11:15:00 2012.
+** Generated automatically by tolua++-1.0.92 on Sat Sep 22 15:28:15 2012.
 */
 
 
@@ -85,6 +85,71 @@ static int tolua_CCDrawing_CCShapeNode_setColor00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setColor'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLineWidth of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_getLineWidth00
+static int tolua_CCDrawing_CCShapeNode_getLineWidth00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLineWidth'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getLineWidth();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLineWidth'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLineWidth of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_setLineWidth00
+static int tolua_CCDrawing_CCShapeNode_setLineWidth00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
+  float lineWidth = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLineWidth'", NULL);
+#endif
+  {
+   self->setLineWidth(lineWidth);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLineWidth'.",&tolua_err);
  return 0;
 #endif
 }
@@ -889,6 +954,8 @@ TOLUA_API int tolua_CCDrawing_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"CCShapeNode");
    tolua_function(tolua_S,"getColor",tolua_CCDrawing_CCShapeNode_getColor00);
    tolua_function(tolua_S,"setColor",tolua_CCDrawing_CCShapeNode_setColor00);
+   tolua_function(tolua_S,"getLineWidth",tolua_CCDrawing_CCShapeNode_getLineWidth00);
+   tolua_function(tolua_S,"setLineWidth",tolua_CCDrawing_CCShapeNode_setLineWidth00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCCircleShape","CCCircleShape","CCShapeNode",NULL);
   tolua_beginmodule(tolua_S,"CCCircleShape");
