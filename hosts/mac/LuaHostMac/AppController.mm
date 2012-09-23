@@ -194,7 +194,7 @@ static AppDelegate s_sharedApplication;
 {
     [self createWindowAndGLView];
     [self startup];
-    
+    [self setAlwaysOnTop:isAlwaysOnTop];
     waitForRestart = NO;
 }
 
@@ -306,12 +306,11 @@ static AppDelegate s_sharedApplication;
     [self restart:sender];
 }
 
--(IBAction) toggleAlwaysOnTop:(id)sender
+-(void) setAlwaysOnTop:(BOOL)alwaysOnTop
 {
-    isAlwaysOnTop = !isAlwaysOnTop;
     NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"Window"];
     NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Always On Top"];
-    if (isAlwaysOnTop)
+    if (alwaysOnTop)
     {
         [window setLevel:NSFloatingWindowLevel];
         [menuItem setState:NSOnState];
@@ -321,6 +320,12 @@ static AppDelegate s_sharedApplication;
         [window setLevel:NSNormalWindowLevel];
         [menuItem setState:NSOffState];
     }
+    isAlwaysOnTop = alwaysOnTop;
+}
+
+-(IBAction) toggleAlwaysOnTop:(id)sender
+{
+    [self setAlwaysOnTop:!isAlwaysOnTop];
 }
 
 -(IBAction) toggleFullScreen:(id)sender
