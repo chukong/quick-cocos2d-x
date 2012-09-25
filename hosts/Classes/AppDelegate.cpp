@@ -47,10 +47,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     pDirector->setProjection(kCCDirectorProjection2D);
     
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     // turn on display FPS
     pDirector->setDisplayStats(true);
-//#endif
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
@@ -82,7 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
 #else
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/main.lua");
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/main_editor.lua");
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)

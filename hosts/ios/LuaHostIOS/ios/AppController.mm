@@ -50,13 +50,6 @@ static AppDelegate s_sharedApplication;
                                  numberOfSamples: 0 ];
 
     // Override point for customization after application launch.
-    if ([[UIScreen mainScreen] respondsToSelector: @selector(scale)]) {
-        CGFloat scale = [[UIScreen mainScreen] scale];
-        if(scale == 2.0) {
-            // for iPhone4/4S/5, New iPad
-            [__glView setDesignContentScaleFactor:scale];
-        }
-    }
     
     // Use RootViewController manage EAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
