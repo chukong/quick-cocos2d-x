@@ -230,6 +230,8 @@
 		F4C98B7715F8997D00F956E0 /* ZFont.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5E15F8997D00F956E0 /* ZFont.m */; };
 		F4C98B7815F8997D00F956E0 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B6215F8997D00F956E0 /* AccelerometerSimulation.m */; };
 		F4C98B7915F8997D00F956E0 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B6315F8997D00F956E0 /* platform.cpp */; };
+		F4DFA42316144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA42116144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */; };
+		F4DFA42616144C51001391CC /* CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA42416144C51001391CC /* CCScale9Sprite.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -704,6 +706,12 @@
 		F4C98B6215F8997D00F956E0 /* AccelerometerSimulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerSimulation.m; sourceTree = "<group>"; };
 		F4C98B6315F8997D00F956E0 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cpp; path = "../../libs/cocos2d-x/cocos2dx/platform/platform.cpp"; sourceTree = "<group>"; };
 		F4C98B6415F8997D00F956E0 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = "../../libs/cocos2d-x/cocos2dx/platform/platform.h"; sourceTree = "<group>"; };
+		F4DFA42116144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_CCScale9Sprite.cpp; path = "../../libs/cocos2d-x-extensions-luabinding/cocos2dx_extension_CCScale9Sprite.cpp"; sourceTree = "<group>"; };
+		F4DFA42216144C47001391CC /* cocos2dx_extension_CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_CCScale9Sprite.h; path = "../../libs/cocos2d-x-extensions-luabinding/cocos2dx_extension_CCScale9Sprite.h"; sourceTree = "<group>"; };
+		F4DFA42416144C51001391CC /* CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCScale9Sprite.cpp; path = "../../libs/cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.cpp"; sourceTree = "<group>"; };
+		F4DFA42516144C51001391CC /* CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScale9Sprite.h; path = "../../libs/cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.h"; sourceTree = "<group>"; };
+		F4DFA42716144C58001391CC /* cocos-ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "cocos-ext.h"; path = "../../libs/cocos2d-x/extensions/cocos-ext.h"; sourceTree = "<group>"; };
+		F4DFA42816144C58001391CC /* ExtensionMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtensionMacros.h; path = "../../libs/cocos2d-x/extensions/ExtensionMacros.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1147,6 +1155,7 @@
 		F4C986CD15F898BB00F956E0 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				F4DFA41F16144C30001391CC /* cocos2d-x-ext-extensions */,
 				F481BF6915F89ACE00FD6CE9 /* CCDrawing */,
 				F4C989B915F8993B00F956E0 /* cocos2d-x */,
 				F4C53AD916072DE100091290 /* cocos2d-x-extensions */,
@@ -1768,6 +1777,19 @@
 			name = thrid_party;
 			sourceTree = "<group>";
 		};
+		F4DFA41F16144C30001391CC /* cocos2d-x-ext-extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4DFA42716144C58001391CC /* cocos-ext.h */,
+				F4DFA42816144C58001391CC /* ExtensionMacros.h */,
+				F4DFA42416144C51001391CC /* CCScale9Sprite.cpp */,
+				F4DFA42516144C51001391CC /* CCScale9Sprite.h */,
+				F4DFA42116144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */,
+				F4DFA42216144C47001391CC /* cocos2dx_extension_CCScale9Sprite.h */,
+			);
+			name = "cocos2d-x-ext-extensions";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2057,6 +2079,8 @@
 				F4C53B4316072E8000091290 /* cocos2dx_extension_store.cpp in Sources */,
 				F4C53B4D16072E8A00091290 /* CCStorePaymentTransaction.cpp in Sources */,
 				F4C53B4E16072E8A00091290 /* CCStoreProduct.cpp in Sources */,
+				F4DFA42316144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */,
+				F4DFA42616144C51001391CC /* CCScale9Sprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2133,6 +2157,7 @@
 					TARGET_OS_IPHONE,
 					"CC_LUA_ENGINE_ENABLED=1",
 					"CC_DIRECTOR_STATS_FONT_SIZE=16",
+					"CC_SPRITE_DEBUG_DRAW=0",
 				);
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				HEADER_SEARCH_PATHS = (

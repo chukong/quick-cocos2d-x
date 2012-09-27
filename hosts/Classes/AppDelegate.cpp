@@ -16,10 +16,11 @@
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "cocos2dx_extension_crypto_mac.h"
 #include "cocos2dx_extension_network_mac.h"
-
 #endif
+
 // more lua exts
 #include "LuaCCDrawing.h"
+#include "cocos2dx_extension_CCScale9Sprite.h"
 
 #include <string>
 
@@ -71,6 +72,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_crypto_mac_open(L);
     tolua_cocos2dx_extension_network_mac_open(L);
 #endif
+    
+    tolua_cocos2dx_extension_CCScale9Sprite_open(L);
     
     // more lua exts
     tolua_CCDrawing_open(L);
