@@ -21,6 +21,9 @@
     <Filter Include="CCDrawing">
       <UniqueIdentifier>{a19ee6a2-b9ba-4876-bc32-079540886703}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x-ext">
+      <UniqueIdentifier>{84247eef-730b-49e7-9b17-1b694c3ef59e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -101,6 +104,18 @@
     <ClInclude Include="..\..\libs\CCDrawing\LuaCCDrawing.h">
       <Filter>CCDrawing</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions-luabinding\cocos2dx_extension_CCScale9Sprite.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\cocos-ext.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\ExtensionMacros.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
@@ -156,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="..\..\libs\CCDrawing\LuaCCDrawing.cpp">
       <Filter>CCDrawing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x-extensions-luabinding\cocos2dx_extension_CCScale9Sprite.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.cpp">
+      <Filter>cocos2d-x-ext</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
