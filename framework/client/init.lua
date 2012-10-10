@@ -20,13 +20,9 @@ local function checkMemory(dt)
     local used = collectgarbage("count")
     echo(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
 end
--- if DEBUG > 1 then
---     CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 2.0, false)
--- end
-
--- if DEBUG > 1 then
---     CCDirector:sharedDirector():setDisplayStats(true)
--- end
+if DEBUG > 1 then
+    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 10.0, false)
+end
 
 local function onNotificationPost(msg)
     if msg == "app.enterFullScreen" or msg == "app.exitFullScreen" then

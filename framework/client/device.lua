@@ -1,9 +1,44 @@
 
 local M = {}
 
-M.host     = "ios"
-M.model    = "iphone"
-M.platform = "ios"
+-- enum TargetPlatform
+-- {
+--     kTargetWindows,
+--     kTargetLinux,
+--     kTargetMacOS,
+--     kTargetAndroid,
+--     kTargetIphone,
+--     kTargetIpad,
+--     kTargetBlackBerry,
+-- };
+
+M.platform = "unknown"
+M.host     = "simulator"
+M.model    = "unknown"
+
+local target = CCApplication:sharedApplication():getTargetPlatform()
+if target == kTargetWindows then
+    M.platform = "windows"
+elseif target == kTargetLinux then
+    M.platform = "linux"
+elseif target == kTargetMacOS then
+    M.platform = "mac"
+elseif target == kTargetAndroid then
+    M.platform = "android"
+elseif target == kTargetIphone or target == kTargetIpad then
+    M.platform = "ios"
+    if target == kTargetIphone then
+        M.model = "iphone"
+    else
+        M.model = "ipad"
+    end
+elseif target == kTargetBlackBerry then
+    M.platform = "blackberry"
+end
+
+if CCApplication:sharedApplication():getTargetEnvironment() == kTargetDevice then
+    M.host = "device"
+end
 
 local language_ = CCApplication:sharedApplication():getCurrentLanguage()
 if language_ == kLanguageChinese then

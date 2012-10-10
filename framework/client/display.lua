@@ -1,14 +1,4 @@
 
-local xyscale = 1
-
-function xy(v)
-    return v * xyscale
-end
-
-function xy2(v)
-    return v / xyscale
-end
-
 function ccsize(width, height)
     return CCSize(width, height)
 end
@@ -51,29 +41,42 @@ function display.reset()
     local glview = director:getOpenGLView()
     local size = glview:getFrameSize()
     display.sizeInPixels = {width = size.width, height = size.height}
+    local contentScaleFactor = director:getContentScaleFactor()
+
+    local w = display.sizeInPixels.width / contentScaleFactor
+    local h = display.sizeInPixels.height / contentScaleFactor
 
     local scale = 1
     if CONFIG_SCREEN_AUTOSCALE then
-        if not glview:isRetinaEnabled() then
-            if CONFIG_SCREEN_AUTOSCALE == "width" then
-                scale = display.sizeInPixels.width / CONFIG_SCREEN_WIDTH;
-                CONFIG_SCREEN_HEIGHT = display.sizeInPixels.height / scale;
-                xyscale = CONFIG_SCREEN_WIDTH / CONFIG_VIEW_WIDTH
-            elseif CONFIG_SCREEN_AUTOSCALE == "height" then
-                scale = display.sizeInPixels.height / CONFIG_SCREEN_HEIGHT;
-                CONFIG_SCREEN_WIDTH = display.sizeInPixels.width / scale;
-                xyscale = CONFIG_SCREEN_HEIGHT / CONFIG_VIEW_HEIGHT
+        CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
+        if CONFIG_SCREEN_AUTOSCALE == "FULLWIDTH" then
+            scale = w / CONFIG_SCREEN_WIDTH;
+            CONFIG_SCREEN_HEIGHT = h / scale;
+        elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHT" then
+            scale = h / CONFIG_SCREEN_HEIGHT;
+            CONFIG_SCREEN_WIDTH = w / scale;
+        elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLWIDTH" then
+            if w < CONFIG_SCREEN_WIDTH then
+                scale = w / CONFIG_SCREEN_WIDTH;
+                CONFIG_SCREEN_HEIGHT = h / scale;
+            else
+                CONFIG_SCREEN_WIDTH = w
+                CONFIG_SCREEN_HEIGHT = h
             end
-
-            glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
-                                           CONFIG_SCREEN_HEIGHT,
-                                           kResolutionNoBorder)
-        elseif CONFIG_VIEW_WIDTH then
-            local winSize = director:getWinSize()
-            xyscale = winSize.width / CONFIG_VIEW_WIDTH
+        elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLSCREEN" then
+            if h < CONFIG_SCREEN_HEIGHT then
+                scale = h / CONFIG_SCREEN_HEIGHT;
+                CONFIG_SCREEN_WIDTH = w / scale;
+            else
+                CONFIG_SCREEN_WIDTH = w
+                CONFIG_SCREEN_HEIGHT = h
+            end
         end
+
+        glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
+                                       CONFIG_SCREEN_HEIGHT,
+                                       kResolutionNoBorder)
     end
-    display.xyscale = xyscale
 
     local winSize = director:getWinSize()
     display.scale          = scale
@@ -86,17 +89,22 @@ function display.reset()
     display.c_right        = display.width / 2
     display.c_top          = display.height / 2
     display.c_bottom       = -display.height / 2
+    display.cp_left        = display.c_left * scale
+    display.cp_right       = display.c_right * scale
+    display.cp_top         = display.c_top * scale
+    display.cp_bottom      = display.c_bottom * scale
     display.left           = 0
-    display.right          = display.width - 1
-    display.top            = display.height - 1
+    display.right          = display.width
+    display.top            = display.height
     display.bottom         = 0
     display.widthInPixels  = display.sizeInPixels.width
     display.heightInPixels = display.sizeInPixels.height
 
+    echoWarning(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
+    echoWarning(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
     echoWarning("# display.widthInPixels        = "..format("%0.2f", display.widthInPixels))
     echoWarning("# display.heightInPixels       = "..format("%0.2f", display.heightInPixels))
     echoWarning("# display.scale                = "..format("%0.2f", display.scale))
-    echoWarning("# display.xyscale              = "..format("%0.2f", display.xyscale))
     echoWarning("# display.orientation          = "..display.orientation)
     echoWarning("# display.width                = "..format("%0.2f", display.width))
     echoWarning("# display.height               = "..format("%0.2f", display.height))
@@ -109,7 +117,11 @@ function display.reset()
     echoWarning("# display.c_left               = "..format("%0.2f", display.c_left))
     echoWarning("# display.c_right              = "..format("%0.2f", display.c_right))
     echoWarning("# display.c_top                = "..format("%0.2f", display.c_top))
-    echoWarning("# display.c_botto              = "..format("%0.2f", display.c_bottom))
+    echoWarning("# display.c_bottom             = "..format("%0.2f", display.c_bottom))
+    echoWarning("# display.cp_left              = "..format("%0.2f", display.cp_left))
+    echoWarning("# display.cp_right             = "..format("%0.2f", display.cp_right))
+    echoWarning("# display.cp_top               = "..format("%0.2f", display.cp_top))
+    echoWarning("# display.cp_bottom            = "..format("%0.2f", display.cp_bottom))
     echoWarning("#")
 end
 
@@ -295,10 +307,10 @@ function display.newSprite(filename, x, y)
         local msg = format("[display] ERR, newSprite() not found image: %s", filename)
         echo(debug.traceback(msg, 2))
         echo("")
-        return
+        return nil
     end
 
-    local sprite = display.extendSprite(sprite)
+    display.extendSprite(sprite)
     sprite:setPosition(x, y)
     return sprite
 end
@@ -308,6 +320,29 @@ function display.newBackgroundSprite(filename)
     return display.newSprite(filename, display.cx, display.cy)
 end
 display.newBackgroundImage = display.newBackgroundSprite
+
+function display.newBackgroundTilesSprite(filename)
+    local rect = CCRectMake(0, 0, display.width, display.height)
+    local sprite = CCSprite:create(filename, rect)
+    if sprite == nil then
+        local msg = format("[display] ERR, newSprite() not found image: %s", filename)
+        echo(debug.traceback(msg, 2))
+        echo("")
+        return nil
+    end
+
+    local tp = ccTexParams()
+    tp.minFilter = 9729
+    tp.magFilter = 9729
+    tp.wrapS = 10497
+    tp.wrapT = 10497
+    sprite:getTexture():setTexParameters(tp)
+
+    display.extendSprite(sprite)
+    sprite:align(display.LEFT_BOTTOM, 0, 0)
+    return sprite
+end
+display.newBackgroundTilesImage = display.newBackgroundTilesSprite
 
 function display.newCircle(radius, segments)
     if type(segments) ~= "number" then segments = 36 end
@@ -319,6 +354,7 @@ function display.newRect(width, height)
 end
 
 function display.newPolygon(points, scale)
+    if type(scale) ~= "number" then scale = 1 end
     local arr = CCArray:create()
     for i, p in ipairs(points) do
         p = ccp(p[1] * scale, p[2] * scale)
@@ -354,6 +390,10 @@ function display.newBatchNode(image, capacity)
     return display.extendNode(node)
 end
 
+function display.newSpriteFrame(frameName)
+    return sharedSpriteFrameCache:spriteFrameByName(frameName)
+end
+
 function display.newSpriteWithFrame(frame, x, y)
     if not frame then
         traceback()
@@ -375,13 +415,20 @@ create multiple frames by pattern
 **Example:**
 
     -- create array [walk_01.png -> walk_20.png]
-    display.newBatchNodeWithDataAndImage("walk.plist", "walk.png")
+    display.addSpriteFramesWithFile("walk.plist", "walk.png")
     local frames = display.newFrames("walk_%02d.png", 1, 20)
 
 ]]
-function display.newFrames(pattern, begin, length)
+function display.newFrames(pattern, begin, length, isReversed)
     local frames = {}
-    for index = begin, begin + length - 1 do
+    local step = 1
+    local last = begin + length - 1
+    if isReversed then
+        last, begin = begin, last
+        step = -1
+    end
+
+    for index = begin, last, step do
         local frameName = string.format(pattern, index)
         local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
         if not frame then
@@ -431,7 +478,6 @@ create animate
 
     local animation = display.newAnimation(frames, 0.5 / 20) -- 0.5s play 20 frames
     local animate = display.newAnimate(animation)
-    sprite:runAnimateRepeatForever(animate)
 
 ]]
 function display.newAnimate(animation, isRestoreOriginalFrame)
@@ -492,13 +538,18 @@ end
 function display.extendSprite(node)
     display.extendNode(node)
 
-    function node:playAnimationOnce(animation, removeWhenFinished)
+    function node:playAnimationOnce(animation, removeWhenFinished, onComplete)
         local animate = display.newAnimate(animation)
-        if removeWhenFinished then
+        if removeWhenFinished or onComplete then
             self:runAction(transition.sequence({
                 animate,
                 CCCallFunc:create(function()
-                    self:removeFromParentAndCleanup(true)
+                    if removeWhenFinished then
+                        self:removeFromParentAndCleanup(true)
+                    end
+                    if type(onComplete) == "function" then
+                        onComplete()
+                    end
                 end)
             }))
         else

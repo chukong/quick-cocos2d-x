@@ -2,7 +2,7 @@
 local M = {}
 
 M.DEFAULT_TTF_FONT      = "Arial"
-M.DEFAULT_TTF_FONT_SIZE = 16
+M.DEFAULT_TTF_FONT_SIZE = 14
 
 M.TEXT_ALIGN_LEFT    = kCCTextAlignmentLeft
 M.TEXT_ALIGN_CENTER  = kCCTextAlignmentCenter
@@ -49,7 +49,6 @@ function M.newMenuItemImage(params)
     if type(imageNormal) == "string" then
         imageNormal = display.newImage(imageNormal)
     end
-
     if type(imageSelected) == "string" then
         imageSelected = display.newImage(imageSelected)
     end
@@ -68,11 +67,11 @@ function M.newMenuItemImage(params)
 end
 
 function M.newMenuItemLabel(params)
-    local label = M.newTTFLabel(params)
-    local listener      = params.listener
-    local tag           = params.tag
-    local x             = params.x
-    local y             = params.y
+    local label    = M.newTTFLabel(params)
+    local listener = params.listener
+    local tag      = params.tag
+    local x        = params.x
+    local y        = params.y
 
     local item = CCMenuItemLabel:create(label)
     if item then
@@ -112,6 +111,7 @@ function M.newTTFLabel(params)
     local size       = params.size or M.DEFAULT_TTF_FONT_SIZE
     local color      = params.color or display.COLOR_WHITE
     local textAlign  = params.align or M.TEXT_ALIGN_LEFT
+    local textValign = params.valign or M.TEXT_VALIGN_CENTER
     local x, y       = params.x, params.y
     local dimensions = params.dimensions
 
@@ -120,19 +120,20 @@ function M.newTTFLabel(params)
 
     local label
     if dimensions then
-        label = CCLabelTTF:create(text, font, size, dimensions, textAlign)
+        label = CCLabelTTF:create(text, font, size, dimensions, textAlign, textValign)
     else
         label = CCLabelTTF:create(text, font, size)
     end
+
     if label then
         display.extendNode(label)
         label:setColor(color)
 
         function label:realign(x, y)
             if textAlign == M.TEXT_ALIGN_LEFT then
-                label:setPosition(x + label:getContentSize().width / 2, y)
+                label:setPosition(math.round(x + label:getContentSize().width / 2), y)
             elseif textAlign == M.TEXT_ALIGN_RIGHT then
-                label:setPosition(x - label:getContentSize().width / 2, y)
+                label:setPosition(x - math.round(label:getContentSize().width / 2), y)
             else
                 label:setPosition(x, y)
             end
@@ -140,6 +141,7 @@ function M.newTTFLabel(params)
 
         if x and y then label:realign(x, y) end
     end
+
     return label
 end
 
@@ -152,11 +154,12 @@ function M.newTTFLabelWithShadow(params)
     local x, y        = params.x, params.y
 
     local g = display.newGroup()
+    params.size = params.size
     params.color = shadowColor
-    params.x, params.y = nil, nil
-    g.shadow = M.newTTFLabel(params)
-    g.shadow:realign(0.5, -0.5)
-    g:addChild(g.shadow)
+    params.x, params.y = 0, 0
+    g.shadow1 = M.newTTFLabel(params)
+    g.shadow1:realign(1, -1)
+    g:addChild(g.shadow1)
 
     params.color = color
     g.label = M.newTTFLabel(params)
@@ -164,12 +167,25 @@ function M.newTTFLabelWithShadow(params)
     g:addChild(g.label)
 
     function g:setString(text)
-        g.shadow:setString(text)
+        g.shadow1:setString(text)
         g.label:setString(text)
     end
 
     function g:getContentSize()
         return g.lable:getContentSize()
+    end
+
+    function g:setColor(...)
+        g.label:setColor(...)
+    end
+
+    function g:setShadowColor(...)
+        g.shadow1:setColor(...)
+    end
+
+    function g:setOpacity(opacity)
+        g.label:setOpacity(opacity)
+        g.shadow1:setOpacity(opacity)
     end
 
     if x and y then g:setPosition(x, y) end
