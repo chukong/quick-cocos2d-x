@@ -22,15 +22,11 @@ CCCircleShape* CCCircleShape::create(float radius,
 
 void CCCircleShape::draw(void)
 {
-#ifndef _WINDOWS_
     glLineWidth(m_lineWidth);
-#endif
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
     ccDrawCircle(getDrawPosition(), m_radius, m_angle, m_segments, m_drawLineToCenter, m_scaleX, m_scaleY);
     ccDrawColor4F(1, 1, 1, 1);
-#ifndef _WINDOWS_
     glLineWidth(1);
-#endif
 }
 
 
@@ -51,9 +47,7 @@ void CCRectShape::draw(void)
     float w = m_size.width / 2;
     float h = m_size.height / 2;
     
-#ifndef _WINDOWS_
     glLineWidth(m_lineWidth);
-#endif
     if (m_fill)
     {
         ccDrawSolidRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h), m_color);
@@ -63,9 +57,7 @@ void CCRectShape::draw(void)
         ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
         ccDrawRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h));
     }
-#ifndef _WINDOWS_
     glLineWidth(1);
-#endif
 }
 
 
@@ -121,9 +113,7 @@ void CCPolygonShape::draw(void)
         m_verticesDraw[i].y = m_vertices[i].y + center.y;
     }
     
-#ifndef _WINDOWS_
     glLineWidth(m_lineWidth);
-#endif
     if (m_fill)
     {
         ccDrawSolidPoly(m_verticesDraw, m_numberOfVertices, m_color);
@@ -133,9 +123,7 @@ void CCPolygonShape::draw(void)
         ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
         ccDrawPoly(m_verticesDraw, m_numberOfVertices, m_close);
     }
-#ifndef _WINDOWS_
     glLineWidth(1);
-#endif
 }
 
 NS_CC_END
