@@ -1,4 +1,3 @@
-
 local M = {}
 
 local scheduler = CCDirector:sharedDirector():getScheduler()
@@ -40,6 +39,7 @@ M.removeAll = M.unscheduleAll
 
 function M.performWithDelay(time, listener)
     local handle
+    if type(time) == "function" then time,listener = listener,time end
     handle = scheduler:scheduleScriptFunc(function()
         M.unschedule(handle)
         listener()
