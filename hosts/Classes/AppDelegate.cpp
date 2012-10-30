@@ -13,6 +13,7 @@
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "cocos2dx_extension_crypto_win32.h"
 #include "cocos2dx_extension_network_win32.h"
+#include "cocos2dx_extension_native_win32.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "cocos2dx_extension_crypto_mac.h"
 #include "cocos2dx_extension_network_mac.h"
@@ -74,6 +75,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     tolua_cocos2dx_extension_crypto_win32_open(L);
     tolua_cocos2dx_extension_network_win32_open(L);
+	tolua_cocos2dx_extension_native_win32_open(L);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     tolua_cocos2dx_extension_crypto_mac_open(L);
     tolua_cocos2dx_extension_network_mac_open(L);
