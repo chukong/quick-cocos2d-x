@@ -16,6 +16,7 @@
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "cocos2dx_extension_crypto_mac.h"
 #include "cocos2dx_extension_network_mac.h"
+#include "cocos2dx_extension_native_mac.h"
 #endif
 
 // more lua exts
@@ -23,6 +24,10 @@
 #include "cocos2dx_extension_CCScale9Sprite.h"
 
 #include <string>
+
+//extern "C" {
+//#include "gamescripts.h"
+//}
 
 using namespace std;
 using namespace cocos2d;
@@ -38,7 +43,6 @@ AppDelegate::~AppDelegate()
 {
     // end simple audio engine here, or it may crashed on win32
     SimpleAudioEngine::sharedEngine()->end();
-    //CCScriptEngineManager::purgeSharedManager();
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -53,6 +57,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
+    
+//    CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
     
     // register lua engine
     CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
@@ -71,6 +77,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     tolua_cocos2dx_extension_crypto_mac_open(L);
     tolua_cocos2dx_extension_network_mac_open(L);
+    tolua_cocos2dx_extension_native_mac_open(L);
 #endif
     
     tolua_cocos2dx_extension_CCScale9Sprite_open(L);
@@ -97,7 +104,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
-    
+
+//    luaopen_gamescripts(pEngine->getLuaState());
+//    pEngine->executeString("require(\"main\")");
     return true;
 }
 

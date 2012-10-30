@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F40EE898163F83E000090121 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957915F49004004D4151 /* AppKit.framework */; };
+		F40EE8C8163F893200090121 /* cocos2dx_extension_native_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40EE8C6163F893200090121 /* cocos2dx_extension_native_mac.cpp */; };
+		F40EE8CC163F8B9A00090121 /* OpenUDID_mac.m in Sources */ = {isa = PBXBuildFile; fileRef = F40EE8CB163F8B9A00090121 /* OpenUDID_mac.m */; };
+		F4198B14163F709500F99D75 /* CCNative.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4198B11163F709500F99D75 /* CCNative.mm */; };
+		F4198B15163F709500F99D75 /* CCNative_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4198B13163F709500F99D75 /* CCNative_objc.mm */; };
 		F44C957715F49004004D4151 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957615F49004004D4151 /* Cocoa.framework */; };
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
@@ -200,6 +205,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F40EE8C6163F893200090121 /* cocos2dx_extension_native_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_native_mac.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_native_mac.cpp"; sourceTree = "<group>"; };
+		F40EE8C7163F893200090121 /* cocos2dx_extension_native_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_native_mac.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_native_mac.h"; sourceTree = "<group>"; };
+		F40EE8CA163F8B9A00090121 /* OpenUDID_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID_mac.h; sourceTree = "<group>"; };
+		F40EE8CB163F8B9A00090121 /* OpenUDID_mac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID_mac.m; sourceTree = "<group>"; };
+		F4198B0D163F6FD500F99D75 /* CCAlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAlertViewDelegate.h; sourceTree = "<group>"; };
+		F4198B0E163F6FD500F99D75 /* CCNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative.h; sourceTree = "<group>"; };
+		F4198B11163F709500F99D75 /* CCNative.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative.mm; sourceTree = "<group>"; };
+		F4198B12163F709500F99D75 /* CCNative_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative_objc.h; sourceTree = "<group>"; };
+		F4198B13163F709500F99D75 /* CCNative_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative_objc.mm; sourceTree = "<group>"; };
 		F434018815F73B7000E0AF55 /* CCApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCApplication.h; sourceTree = "<group>"; };
 		F44C957215F49004004D4151 /* LuaHostMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaHostMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -621,6 +635,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F40EE898163F83E000090121 /* AppKit.framework in Frameworks */,
 				F4F7781F1606D39500C69253 /* libcurl.dylib in Frameworks */,
 				F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */,
 				F4BA6EB915F499C200CE7A10 /* libxml2.dylib in Frameworks */,
@@ -636,6 +651,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F40EE8C9163F8B9A00090121 /* openudid */ = {
+			isa = PBXGroup;
+			children = (
+				F40EE8CA163F8B9A00090121 /* OpenUDID_mac.h */,
+				F40EE8CB163F8B9A00090121 /* OpenUDID_mac.m */,
+			);
+			path = openudid;
+			sourceTree = "<group>";
+		};
+		F4198B0C163F6FD500F99D75 /* native */ = {
+			isa = PBXGroup;
+			children = (
+				F4198B0D163F6FD500F99D75 /* CCAlertViewDelegate.h */,
+				F4198B0E163F6FD500F99D75 /* CCNative.h */,
+			);
+			name = native;
+			path = "../../libs/cocos2d-x-extensions/extensions/native";
+			sourceTree = "<group>";
+		};
+		F4198B10163F709500F99D75 /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				F40EE8C9163F8B9A00090121 /* openudid */,
+				F4198B11163F709500F99D75 /* CCNative.mm */,
+				F4198B12163F709500F99D75 /* CCNative_objc.h */,
+				F4198B13163F709500F99D75 /* CCNative_objc.mm */,
+			);
+			name = mac;
+			path = "../../libs/cocos2d-x-extensions/extensions/platform/mac";
+			sourceTree = "<group>";
+		};
 		F44C956715F49004004D4151 = {
 			isa = PBXGroup;
 			children = (
@@ -1432,6 +1478,8 @@
 				F4BA6E8315F4967300CE7A10 /* cocos2dx_extensions.h */,
 				F4BA6E8415F4967300CE7A10 /* crypto */,
 				F4BA6E9F15F4967F00CE7A10 /* luabinding */,
+				F4198B10163F709500F99D75 /* mac */,
+				F4198B0C163F6FD500F99D75 /* native */,
 				F4BA6E9015F4967300CE7A10 /* network */,
 			);
 			name = "cocos2d-x-extensions";
@@ -1497,6 +1545,8 @@
 			children = (
 				F4BA6EC015F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.cpp */,
 				F4BA6EC115F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.h */,
+				F40EE8C6163F893200090121 /* cocos2dx_extension_native_mac.cpp */,
+				F40EE8C7163F893200090121 /* cocos2dx_extension_native_mac.h */,
 				F4BA6EC215F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp */,
 				F4BA6EC315F4A59C00CE7A10 /* cocos2dx_extension_network_mac.h */,
 			);
@@ -1775,6 +1825,10 @@
 				F49122B815F5FE33006129CB /* LuaCCDrawing.cpp in Sources */,
 				F4DFA41516143D4D001391CC /* CCScale9Sprite.cpp in Sources */,
 				F4DFA41A16143F8F001391CC /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */,
+				F4198B14163F709500F99D75 /* CCNative.mm in Sources */,
+				F4198B15163F709500F99D75 /* CCNative_objc.mm in Sources */,
+				F40EE8C8163F893200090121 /* cocos2dx_extension_native_mac.cpp in Sources */,
+				F40EE8CC163F8B9A00090121 /* OpenUDID_mac.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,7 +1938,7 @@
 				INFOPLIST_OUTPUT_FORMAT = binary;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1919,7 +1973,7 @@
 				INFOPLIST_OUTPUT_FORMAT = binary;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
