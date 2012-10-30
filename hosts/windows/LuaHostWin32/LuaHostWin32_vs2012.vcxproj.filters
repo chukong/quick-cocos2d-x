@@ -116,6 +116,21 @@
     <ClInclude Include="..\..\libs\cocos2d-x\extensions\ExtensionMacros.h">
       <Filter>cocos2d-x-ext</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\platform\win32\CCNative_win32.h">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\native\CCAlertViewDelegate.h">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\native\CCNative.h">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\luabinding\cocos2dx_extension_native_win32.h">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\platform\win32\CCNative_win32def.h">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
@@ -177,6 +192,15 @@
     </ClCompile>
     <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.cpp">
       <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\platform\win32\CCNative.cpp">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\platform\win32\CCNative_win32.cpp">
+      <Filter>cocos2d-x-extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\luabinding\cocos2dx_extension_native_win32.cpp">
+      <Filter>cocos2d-x-extensions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

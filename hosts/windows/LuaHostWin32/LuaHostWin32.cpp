@@ -3,7 +3,8 @@
 #include "LuaHostWin32.h"
 #include "AppDelegate.h"
 #include "CCEGLView.h"
-#include "platform\CCFileUtils.h"
+#include "platform/CCFileUtils.h"
+#include "platform/win32/CCNative_win32def.h"
 #include <string>
 #include <sstream>
 #include <Commdlg.h>
@@ -21,6 +22,7 @@ BOOL selectStartupScriptFile(void);
 void restartApplication(float width = 0, float height = 0);
 LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed);
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 HWND s_hWnd = NULL;
 BOOL s_useConsole = TRUE;
@@ -355,6 +357,15 @@ LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
 		}
         break;
 
+	case WM_CUT:
+		if (wParam == 998)
+		{
+			DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_INPUTBOX), s_hWnd, InputBox, lParam);
+
+			break;
+		}
+		return 0;
+
     case WM_KEYDOWN:
         if (wParam == VK_F5)
         {
@@ -382,6 +393,41 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
         {
             EndDialog(hDlg, LOWORD(wParam));
+            return (INT_PTR)TRUE;
+        }
+        break;
+    }
+    return (INT_PTR)FALSE;
+}
+
+INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	static CCNativeWin32InputBoxStruct* inputbox = NULL;
+    switch (message)
+    {
+    case WM_INITDIALOG:
+		{
+			inputbox = (CCNativeWin32InputBoxStruct*)lParam;
+			wstring ws(inputbox->message.begin(), inputbox->message.end());
+			SetDlgItemText(hDlg, IDC_INPUTBOX_MESSAGE, ws.c_str());
+			ws = wstring(inputbox->title.begin(), inputbox->title.end());
+			SetWindowText(hDlg, ws.c_str());
+			return (INT_PTR)TRUE;
+		}
+
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+        {
+			if (LOWORD(wParam) == IDOK && inputbox)
+			{
+				WCHAR buff[MAX_PATH + 1];
+				memset(buff, 0, sizeof(WCHAR) * (MAX_PATH + 1));
+				GetDlgItemText(hDlg, IDC_INPUTBOX_EDIT, buff, MAX_PATH);
+				wstring ws(buff);
+				inputbox->value = string(ws.begin(), ws.end());
+			}
+			inputbox = NULL;
+			EndDialog(hDlg, LOWORD(wParam));
             return (INT_PTR)TRUE;
         }
         break;
