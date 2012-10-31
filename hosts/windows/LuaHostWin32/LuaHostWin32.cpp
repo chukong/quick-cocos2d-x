@@ -422,6 +422,16 @@ INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			SetWindowText(hDlg, widebuff);
 			delete[] widebuff;
 
+			if (inputbox->value.length() > 0)
+			{
+				len = MultiByteToWideChar(CP_UTF8, 0, inputbox->value.c_str(), -1, NULL, 0);
+				widebuff = new WCHAR[len + 1];
+				memset(widebuff, 0, sizeof(WCHAR) * (len + 1));
+				MultiByteToWideChar(CP_UTF8, 0, inputbox->value.c_str(), -1, widebuff, len);
+				SetWindowText(GetDlgItem(hDlg, IDC_INPUTBOX_EDIT), widebuff);
+				delete[] widebuff;
+			}
+
 			SetFocus(GetDlgItem(hDlg, IDC_INPUTBOX_EDIT));
 			return (INT_PTR)FALSE;
 		}
