@@ -413,14 +413,14 @@ INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			memset(widebuff, 0, sizeof(WCHAR) * (len + 1));
 			MultiByteToWideChar(CP_UTF8, 0, inputbox->message.c_str(), -1, widebuff, len);
 			SetDlgItemText(hDlg, IDC_INPUTBOX_MESSAGE, widebuff);
-			delete widebuff;
+			delete[] widebuff;
 
 			len = MultiByteToWideChar(CP_UTF8, 0, inputbox->title.c_str(), -1, NULL, 0);
 			widebuff = new WCHAR[len + 1];
 			memset(widebuff, 0, sizeof(WCHAR) * (len + 1));
 			MultiByteToWideChar(CP_UTF8, 0, inputbox->title.c_str(), -1, widebuff, len);
 			SetWindowText(hDlg, widebuff);
-			delete widebuff;
+			delete[] widebuff;
 
 			SetFocus(GetDlgItem(hDlg, IDC_INPUTBOX_EDIT));
 			return (INT_PTR)FALSE;
@@ -440,7 +440,7 @@ INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 				memset(buff2, 0, sizeof(char) * (bufflen + 1));
 				WideCharToMultiByte(CP_UTF8, 0, buff, -1, buff2, bufflen, NULL, NULL);
 				inputbox->value = string(buff2);
-				delete buff2;
+				delete[] buff2;
 			}
 			inputbox = NULL;
 			EndDialog(hDlg, LOWORD(wParam));
