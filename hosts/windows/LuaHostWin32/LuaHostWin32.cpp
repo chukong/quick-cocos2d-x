@@ -408,11 +408,22 @@ INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_INITDIALOG:
 		{
 			inputbox = (CCNativeWin32InputBoxStruct*)lParam;
-			wstring ws(inputbox->message.begin(), inputbox->message.end());
-			SetDlgItemText(hDlg, IDC_INPUTBOX_MESSAGE, ws.c_str());
-			ws = wstring(inputbox->title.begin(), inputbox->title.end());
-			SetWindowText(hDlg, ws.c_str());
-			return (INT_PTR)TRUE;
+			int len = MultiByteToWideChar(CP_UTF8, 0, inputbox->message.c_str(), -1, NULL, 0);
+			WCHAR *widebuff = new WCHAR[len + 1];
+			memset(widebuff, 0, sizeof(WCHAR) * (len + 1));
+			MultiByteToWideChar(CP_UTF8, 0, inputbox->message.c_str(), -1, widebuff, len);
+			SetDlgItemText(hDlg, IDC_INPUTBOX_MESSAGE, widebuff);
+			delete widebuff;
+
+			len = MultiByteToWideChar(CP_UTF8, 0, inputbox->title.c_str(), -1, NULL, 0);
+			widebuff = new WCHAR[len + 1];
+			memset(widebuff, 0, sizeof(WCHAR) * (len + 1));
+			MultiByteToWideChar(CP_UTF8, 0, inputbox->title.c_str(), -1, widebuff, len);
+			SetWindowText(hDlg, widebuff);
+			delete widebuff;
+
+			SetFocus(GetDlgItem(hDlg, IDC_INPUTBOX_EDIT));
+			return (INT_PTR)FALSE;
 		}
 
     case WM_COMMAND:
@@ -423,8 +434,13 @@ INT_PTR CALLBACK InputBox(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 				WCHAR buff[MAX_PATH + 1];
 				memset(buff, 0, sizeof(WCHAR) * (MAX_PATH + 1));
 				GetDlgItemText(hDlg, IDC_INPUTBOX_EDIT, buff, MAX_PATH);
-				wstring ws(buff);
-				inputbox->value = string(ws.begin(), ws.end());
+
+				int bufflen = WideCharToMultiByte(CP_UTF8, 0, buff, -1, NULL, 0, NULL, NULL);
+				char *buff2 = new char[bufflen + 1];
+				memset(buff2, 0, sizeof(char) * (bufflen + 1));
+				WideCharToMultiByte(CP_UTF8, 0, buff, -1, buff2, bufflen, NULL, NULL);
+				inputbox->value = string(buff2);
+				delete buff2;
 			}
 			inputbox = NULL;
 			EndDialog(hDlg, LOWORD(wParam));
