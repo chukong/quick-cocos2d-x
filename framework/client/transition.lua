@@ -34,9 +34,9 @@ function transition.newEasing(action, easingName, more)
     if ACTION_EASING[key] then
         local cls, count, default = unpack(ACTION_EASING[key])
         if count == 2 then
-            easing = cls:actionWithAction(action, more or default)
+            easing = cls:create(action, more or default)
         else
-            easing = cls:actionWithAction(action)
+            easing = cls:create(action)
         end
     end
     return easing
@@ -116,8 +116,24 @@ function transition.fadeTo(target, args)
 end
 
 function transition.scaleTo(target, args)
-    local scale = _n(args.scale)
-    local action = CCScaleTo:create(args.time, scale)
+    local action
+    if args.scale then
+        local scale = _n(args.scale)
+        action = CCScaleTo:create(_n(args.time), scale)
+    elseif args.scaleX or args.scaleY then
+        local scaleX, scaleY
+        if args.scaleX then
+            scaleX = _n(args.scaleX)
+        else
+            scaleX = target:getScaleX()
+        end
+        if args.scaleY then
+            scaleY = _n(args.scaleY)
+        else
+            scaleY = target:getScaleY()
+        end
+        action = CCScaleTo:create(_n(args.time), scaleX, scaleY)
+    end
     return transition.execute(target, action, args)
 end
 

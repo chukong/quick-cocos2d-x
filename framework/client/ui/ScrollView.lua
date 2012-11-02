@@ -272,7 +272,7 @@ function M.new(args)
     function view:prepare()
         if enterFrameHandle then return end
         view:addTouchEventListener(onTouch)
-        view:setIsTouchEnabled(true)
+        view:setTouchEnabled(true)
         enterFrameHandle = scheduler.enterFrame(onEnterFrame)
     end
 

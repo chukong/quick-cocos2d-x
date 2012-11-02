@@ -37,7 +37,7 @@ SessionId 用于唯一标示一个存储在服务端的会话数据。
 local Session = class("Session")
 
 Session.PREFIX    = "sess:"
-Session.LIFETIME  = 30 * 60   -- 1 hour
+Session.LIFETIME  = 60 * 60   -- 1 hour
 
 function Session:ctor(app)
     self.app  = app

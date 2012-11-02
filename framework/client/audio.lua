@@ -1,137 +1,143 @@
 
-local M = {}
+local audio = {}
 
-local engine    = SimpleAudioEngine:sharedEngine()
-local isEnabled = true
-local isMusicOn = true
+local engine     = SimpleAudioEngine:sharedEngine()
+local isEnabled  = true
+local isMusicOn  = true
 local isSoundsOn = true
+local prefix     = ""
 
-function M.disable()
+function audio.setPrefix(prefix_)
+    if not prefix_ then prefix_ = "" end
+    prefix = _s(prefix_)
+end
+
+function audio.disable()
     isEnabled = false
 end
 
-function M.enable()
+function audio.enable()
     isEnabled = true
 end
 
-function M.preloadMusic(filename)
+function audio.preloadMusic(filename)
     if not isEnabled then return end
-    engine:preloadBackgroundMusic(filename)
+    engine:preloadBackgroundMusic(prefix .. filename)
 end
 
-function M.playMusic(filename, isLoop)
+function audio.playMusic(filename, isLoop)
     if not isEnabled then return end
     if type(isLoop) ~= "boolean" then isLoop = true end
-    engine:playBackgroundMusic(filename, isLoop)
+    engine:playBackgroundMusic(prefix .. filename, isLoop)
 end
 
-function M.stopMusic(isReleaseData)
+function audio.stopMusic(isReleaseData)
     if not isEnabled then return end
     if type(isReleaseData) ~= "boolean" then isReleaseData = false end
     engine:stopBackgroundMusic(isReleaseData)
 end
 
-function M.pauseMusic()
+function audio.pauseMusic()
     if not isEnabled then return end
     engine:pauseBackgroundMusic()
 end
 
-function M.resumeMusic()
+function audio.resumeMusic()
     if not isEnabled then return end
     engine:resumeBackgroundMusic()
 end
 
-function M.rewindMusic()
+function audio.rewindMusic()
     if not isEnabled then return end
     ending:rewindBackgroundMusic()
 end
 
-function M.willPlayMusic()
+function audio.willPlayMusic()
     if not isEnabled then return false end
     return engine:willPlayBackgroundMusic()
 end
 
-function M.isMusicPlaying()
+function audio.isMusicPlaying()
     if not isEnabled then return false end
     return engine:isBackgroundMusicPlaying()
 end
 
-function M.getMusicVolume()
+function audio.getMusicVolume()
     if not isEnabled then return 0 end
     return engine:getBackgroundMusicVolume()
 end
 
-function M.setMusicVolume(volume)
+function audio.setMusicVolume(volume)
     if not isEnabled then return end
     engine:setBackgroundMusicVolume(volume)
     isMusicOn = volume > 0
 end
 
-function M.getSoundsVolume()
+function audio.getSoundsVolume()
     if not isEnabled then return 0 end
     return engine:getEffectsVolume()
 end
-M.getEffectsVolume = M.getSoundsVolume
+audio.getEffectsVolume = audio.getSoundsVolume
 
-function M.setSoundsVolume(volume)
+function audio.setSoundsVolume(volume)
     if not isEnabled then return end
     engine:setEffectsVolume(volume)
     isSoundsOn = volume > 0
 end
-M.setEffectsVolume = M.setSoundsVolume
+audio.setEffectsVolume = audio.setSoundsVolume
 
-function M.switchMusicOnOff()
+function audio.switchMusicOnOff()
     if not isEnabled then return end
-    if M.getMusicVolume() <= 0.01 then
-        M.setMusicVolume(1)
+    if audio.getMusicVolume() <= 0.01 then
+        audio.setMusicVolume(1)
         isMusicOn = true
     else
-        M.setMusicVolume(0)
+        audio.setMusicVolume(0)
         isMusicOn = false
     end
 end
 
-function M.switchSoundsOnOff()
+function audio.switchSoundsOnOff()
     if not isEnabled then return end
-    if M.getSoundsVolume() <= 0.01 then
-        M.setSoundsVolume(1)
+    if audio.getSoundsVolume() <= 0.01 then
+        audio.setSoundsVolume(1)
         isSoundsOn = true
     else
-        M.setSoundsVolume(0)
+        audio.setSoundsVolume(0)
         isSoundsOn = false
     end
 end
-M.switchEffectsOnOff = M.switchSoundsOnOff
+audio.switchEffectsOnOff = audio.switchSoundsOnOff
 
-function M.playSound(filename, isLoop)
+function audio.playSound(filename, isLoop)
     if not isEnabled then return end
     if type(isLoop) ~= "boolean" then isLoop = false end
-    return engine:playEffect(filename, isLoop)
+    return engine:playEffect(prefix .. filename, isLoop)
 end
-M.playEffect = M.playSound
+audio.playEffect = audio.playSound
 
-function M.stopSound(handle)
+function audio.stopSound(handle)
     if not isEnabled then return end
     engine:stopEffect(handle)
 end
-M.stopEffect = M.stopSound
+audio.stopEffect = audio.stopSound
 
-function M.preloadSound(filename)
+function audio.preloadSound(filename)
     if not isEnabled then return end
-    engine:preloadEffect(filename)
+    engine:preloadEffect(prefix .. filename)
 end
-M.preloadEffect = M.preloadSound
+audio.preloadEffect = audio.preloadSound
 
-function M.unloadSound(filename)
+function audio.unloadSound(filename)
     if not isEnabled then return end
-    engine:unloadEffect(filename)
+    engine:unloadEffect(prefix .. filename)
 end
-M.unloadEffect = M.unloadSound
+audio.unloadEffect = audio.unloadSound
 
 local handleFadeMusicVolumeTo = nil
-function M.fadeMusicVolumeTo(time, volume)
+function audio.fadeMusicVolumeTo(time, volume)
     if not isEnabled or not isMusicOn then return end
-    local currentVolume = M.getMusicVolume()
+    local currentVolume = audio.getMusicVolume()
     if volume == currentVolume then return end
 
     if handleFadeMusicVolumeTo then
@@ -146,23 +152,23 @@ function M.fadeMusicVolumeTo(time, volume)
             currentVolume = volume
             scheduler.remove(handleFadeMusicVolumeTo)
         end
-        M.setMusicVolume(currentVolume)
+        audio.setMusicVolume(currentVolume)
     end
 
     handleFadeMusicVolumeTo = scheduler.enterFrame(changeVolumeStep, false)
 end
 
 local handleFadeToMusic = nil
-function M.fadeToMusic(music, time, volume, isLoop)
+function audio.fadeToMusic(music, time, volume, isLoop)
     if not isEnabled then return end
     if handleFadeToMusic then scheduler.remove(handleFadeToMusic) end
     time = time / 2
     if type(volume) ~= "number" then volume = 1.0 end
-    M.fadeMusicVolumeTo(volume, 0.01)
+    audio.fadeMusicVolumeTo(volume, 0.01)
     handleFadeToMusic = scheduler.performWithDelay(time + 0.1, function()
-        M.playMusic(music, isLoop)
-        M.fadeMusicVolumeTo(time, volume)
+        audio.playMusic(music, isLoop)
+        audio.fadeMusicVolumeTo(time, volume)
     end)
 end
 
-return M
+return audio

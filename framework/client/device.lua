@@ -1,5 +1,5 @@
 
-local M = {}
+local device = {}
 
 -- enum TargetPlatform
 -- {
@@ -12,32 +12,32 @@ local M = {}
 --     kTargetBlackBerry,
 -- };
 
-M.platform = "unknown"
-M.host     = "simulator"
-M.model    = "unknown"
+device.platform = "unknown"
+device.host     = "simulator"
+device.model    = "unknown"
 
 local target = CCApplication:sharedApplication():getTargetPlatform()
 if target == kTargetWindows then
-    M.platform = "windows"
+    device.platform = "windows"
 elseif target == kTargetLinux then
-    M.platform = "linux"
+    device.platform = "linux"
 elseif target == kTargetMacOS then
-    M.platform = "mac"
+    device.platform = "mac"
 elseif target == kTargetAndroid then
-    M.platform = "android"
+    device.platform = "android"
 elseif target == kTargetIphone or target == kTargetIpad then
-    M.platform = "ios"
+    device.platform = "ios"
     if target == kTargetIphone then
-        M.model = "iphone"
+        device.model = "iphone"
     else
-        M.model = "ipad"
+        device.model = "ipad"
     end
 elseif target == kTargetBlackBerry then
-    M.platform = "blackberry"
+    device.platform = "blackberry"
 end
 
 if CCApplication:sharedApplication():getTargetEnvironment() == kTargetDevice then
-    M.host = "device"
+    device.host = "device"
 end
 
 local language_ = CCApplication:sharedApplication():getCurrentLanguage()
@@ -57,27 +57,27 @@ else
     language_ = "en"
 end
 
-M.language = language_
-M.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
+device.language = language_
+device.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
 
-echoWarning("# device.host                  = "..M.host)
-echoWarning("# device.model                 = "..M.model)
-echoWarning("# device.platform              = "..M.platform)
-echoWarning("# device.language              = "..M.language)
+echoWarning("# device.host                  = "..device.host)
+echoWarning("# device.model                 = "..device.model)
+echoWarning("# device.platform              = "..device.platform)
+echoWarning("# device.language              = "..device.language)
 echoWarning("#")
 
-function M.showActivityIndicator(style)
+function device.showActivityIndicator(style)
     if type(style) ~= "number" then
         style = CCActivityIndicatorViewStyleWhiteLarge
     end
     CCNative:showActivityIndicator(style)
 end
 
-function M.hideActivityIndicator()
+function device.hideActivityIndicator()
     CCNative:hideActivityIndicator()
 end
 
-function M.showAlert(title, message, cancelButtonTitle, listener, ...)
+function device.showAlert(title, message, cancelButtonTitle, listener, ...)
     CCNative:createAlert(title, message, cancelButtonTitle)
     for i = 1, select("#", ...) do
         local buttonTitle = select(i, ...)
@@ -89,16 +89,23 @@ function M.showAlert(title, message, cancelButtonTitle, listener, ...)
     CCNative:showAlertLua(listener)
 end
 
-function M.cancelAlert()
+function device.cancelAlert()
     CCNative:cancelAlert()
 end
 
-function M.getOpenUDID()
+function device.getOpenUDID()
     return CCNative:getOpenUDID()
 end
 
-function M.openURL(url)
+function device.openURL(url)
     CCNative:openURL(url)
 end
 
-return M
+function device.getInputText(title, message, defaultValue)
+    title = title or "INPUT TEXT"
+    message = message or "INPUT TEXT, CLICK OK BUTTON"
+    defaultValue = defaultValue or ""
+    return CCNative:getInputText(title, message, defaultValue)
+end
+
+return device

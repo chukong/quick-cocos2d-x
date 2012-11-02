@@ -19,9 +19,10 @@ local function checkMemory(dt)
     timeCount = timeCount + dt
     local used = collectgarbage("count")
     echo(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
+    -- findLeaks()
 end
 if DEBUG > 1 then
-    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 10.0, false)
+    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 3.0, false)
 end
 
 local function onNotificationPost(msg)

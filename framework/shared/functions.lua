@@ -159,6 +159,14 @@ table.keys = function(t)
     return keys
 end
 
+table.values = function(t)
+    local values = {}
+    for k, v in pairs(t) do
+        values[#values + 1] = v
+    end
+    return values
+end
+
 table.merge = function(dest, src)
     for k, v in pairs(src) do
         dest[k] = v

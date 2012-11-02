@@ -3,6 +3,8 @@ function ccsize(width, height)
     return CCSize(width, height)
 end
 
+local traceObject = traceObject
+
 local display = {}
 
 local director = CCDirector:sharedDirector()
@@ -37,95 +39,90 @@ else
 end
 display.orientation = orientation_
 
-function display.reset()
-    local glview = director:getOpenGLView()
-    local size = glview:getFrameSize()
-    display.sizeInPixels = {width = size.width, height = size.height}
-    local contentScaleFactor = director:getContentScaleFactor()
+local glview = director:getOpenGLView()
+local size = glview:getFrameSize()
+display.sizeInPixels = {width = size.width, height = size.height}
 
-    local w = display.sizeInPixels.width / contentScaleFactor
-    local h = display.sizeInPixels.height / contentScaleFactor
+local w = display.sizeInPixels.width
+local h = display.sizeInPixels.height
 
-    local scale = 1
-    if CONFIG_SCREEN_AUTOSCALE then
-        CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
-        if CONFIG_SCREEN_AUTOSCALE == "FULLWIDTH" then
+local scale = 1
+if CONFIG_SCREEN_AUTOSCALE then
+    CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
+    if CONFIG_SCREEN_AUTOSCALE == "FULLWIDTH" then
+        scale = w / CONFIG_SCREEN_WIDTH;
+        CONFIG_SCREEN_HEIGHT = h / scale;
+    elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHT" then
+        scale = h / CONFIG_SCREEN_HEIGHT;
+        CONFIG_SCREEN_WIDTH = w / scale;
+    elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLWIDTH" then
+        if w < CONFIG_SCREEN_WIDTH then
             scale = w / CONFIG_SCREEN_WIDTH;
             CONFIG_SCREEN_HEIGHT = h / scale;
-        elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHT" then
+        else
+            CONFIG_SCREEN_WIDTH = w
+            CONFIG_SCREEN_HEIGHT = h
+        end
+    elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLSCREEN" then
+        if h < CONFIG_SCREEN_HEIGHT then
             scale = h / CONFIG_SCREEN_HEIGHT;
             CONFIG_SCREEN_WIDTH = w / scale;
-        elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLWIDTH" then
-            if w < CONFIG_SCREEN_WIDTH then
-                scale = w / CONFIG_SCREEN_WIDTH;
-                CONFIG_SCREEN_HEIGHT = h / scale;
-            else
-                CONFIG_SCREEN_WIDTH = w
-                CONFIG_SCREEN_HEIGHT = h
-            end
-        elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLSCREEN" then
-            if h < CONFIG_SCREEN_HEIGHT then
-                scale = h / CONFIG_SCREEN_HEIGHT;
-                CONFIG_SCREEN_WIDTH = w / scale;
-            else
-                CONFIG_SCREEN_WIDTH = w
-                CONFIG_SCREEN_HEIGHT = h
-            end
+        else
+            CONFIG_SCREEN_WIDTH = w
+            CONFIG_SCREEN_HEIGHT = h
         end
-
-        glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
-                                       CONFIG_SCREEN_HEIGHT,
-                                       kResolutionNoBorder)
     end
 
-    local winSize = director:getWinSize()
-    display.scale          = scale
-    display.size           = {width = winSize.width, height = winSize.height}
-    display.width          = display.size.width
-    display.height         = display.size.height
-    display.cx             = display.width / 2
-    display.cy             = display.height / 2
-    display.c_left         = -display.width / 2
-    display.c_right        = display.width / 2
-    display.c_top          = display.height / 2
-    display.c_bottom       = -display.height / 2
-    display.cp_left        = display.c_left * scale
-    display.cp_right       = display.c_right * scale
-    display.cp_top         = display.c_top * scale
-    display.cp_bottom      = display.c_bottom * scale
-    display.left           = 0
-    display.right          = display.width
-    display.top            = display.height
-    display.bottom         = 0
-    display.widthInPixels  = display.sizeInPixels.width
-    display.heightInPixels = display.sizeInPixels.height
-
-    echoWarning(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
-    echoWarning(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
-    echoWarning("# display.widthInPixels        = "..format("%0.2f", display.widthInPixels))
-    echoWarning("# display.heightInPixels       = "..format("%0.2f", display.heightInPixels))
-    echoWarning("# display.scale                = "..format("%0.2f", display.scale))
-    echoWarning("# display.orientation          = "..display.orientation)
-    echoWarning("# display.width                = "..format("%0.2f", display.width))
-    echoWarning("# display.height               = "..format("%0.2f", display.height))
-    echoWarning("# display.cx                   = "..format("%0.2f", display.cx))
-    echoWarning("# display.cy                   = "..format("%0.2f", display.cy))
-    echoWarning("# display.left                 = "..format("%0.2f", display.left))
-    echoWarning("# display.right                = "..format("%0.2f", display.right))
-    echoWarning("# display.top                  = "..format("%0.2f", display.top))
-    echoWarning("# display.bottom               = "..format("%0.2f", display.bottom))
-    echoWarning("# display.c_left               = "..format("%0.2f", display.c_left))
-    echoWarning("# display.c_right              = "..format("%0.2f", display.c_right))
-    echoWarning("# display.c_top                = "..format("%0.2f", display.c_top))
-    echoWarning("# display.c_bottom             = "..format("%0.2f", display.c_bottom))
-    echoWarning("# display.cp_left              = "..format("%0.2f", display.cp_left))
-    echoWarning("# display.cp_right             = "..format("%0.2f", display.cp_right))
-    echoWarning("# display.cp_top               = "..format("%0.2f", display.cp_top))
-    echoWarning("# display.cp_bottom            = "..format("%0.2f", display.cp_bottom))
-    echoWarning("#")
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
+                                   CONFIG_SCREEN_HEIGHT,
+                                   kResolutionNoBorder)
 end
 
-display.reset()
+local winSize = director:getWinSize()
+display.contentScaleFactor = scale
+display.size               = {width = winSize.width, height = winSize.height}
+display.width              = display.size.width
+display.height             = display.size.height
+display.cx                 = display.width / 2
+display.cy                 = display.height / 2
+display.c_left             = -display.width / 2
+display.c_right            = display.width / 2
+display.c_top              = display.height / 2
+display.c_bottom           = -display.height / 2
+display.cp_left            = display.c_left * scale
+display.cp_right           = display.c_right * scale
+display.cp_top             = display.c_top * scale
+display.cp_bottom          = display.c_bottom * scale
+display.left               = 0
+display.right              = display.width
+display.top                = display.height
+display.bottom             = 0
+display.widthInPixels      = display.sizeInPixels.width
+display.heightInPixels     = display.sizeInPixels.height
+
+echoWarning(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
+echoWarning(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
+echoWarning(format("# display.widthInPixels        = %0.2f", display.widthInPixels))
+echoWarning(format("# display.heightInPixels       = %0.2f", display.heightInPixels))
+echoWarning(format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
+echoWarning(format("# display.orientation          = %s",    display.orientation))
+echoWarning(format("# display.width                = %0.2f", display.width))
+echoWarning(format("# display.height               = %0.2f", display.height))
+echoWarning(format("# display.cx                   = %0.2f", display.cx))
+echoWarning(format("# display.cy                   = %0.2f", display.cy))
+echoWarning(format("# display.left                 = %0.2f", display.left))
+echoWarning(format("# display.right                = %0.2f", display.right))
+echoWarning(format("# display.top                  = %0.2f", display.top))
+echoWarning(format("# display.bottom               = %0.2f", display.bottom))
+echoWarning(format("# display.c_left               = %0.2f", display.c_left))
+echoWarning(format("# display.c_right              = %0.2f", display.c_right))
+echoWarning(format("# display.c_top                = %0.2f", display.c_top))
+echoWarning(format("# display.c_bottom             = %0.2f", display.c_bottom))
+echoWarning(format("# display.cp_left              = %0.2f", display.cp_left))
+echoWarning(format("# display.cp_right             = %0.2f", display.cp_right))
+echoWarning(format("# display.cp_top               = %0.2f", display.cp_top))
+echoWarning(format("# display.cp_bottom            = %0.2f", display.cp_bottom))
+echoWarning("#")
 
 display.COLOR_WHITE = ccc3(255, 255, 255)
 display.COLOR_BLACK = ccc3(0, 0, 0)
@@ -206,6 +203,8 @@ function display.newScene(name)
     local scene = CCScene:create()
     scene.name = name or "<none-name>"
     scene.isTouchEnabled = false
+
+    if DEBUG > 1 then traceObject(scene, format("Scene - %s", scene.name)) end
     return display.extendScene(scene)
 end
 
@@ -288,11 +287,15 @@ function display.align(node, anchorPoint, x, y)
 end
 
 function display.newLayer()
-    return display.extendLayer(display.extendNode(CCLayer:create()))
+    local layer = display.extendLayer(display.extendNode(CCLayer:create()))
+    if DEBUG > 1 then traceObject(layer, "Layer") end
+    return layer
 end
 
 function display.newGroup()
-    return display.extendNode(CCNode:create())
+    local group = display.extendNode(CCNode:create())
+    if DEBUG > 1 then traceObject(group, "Group") end
+    return group
 end
 
 function display.newSprite(filename, x, y)
@@ -312,6 +315,8 @@ function display.newSprite(filename, x, y)
 
     display.extendSprite(sprite)
     sprite:setPosition(x, y)
+
+    if DEBUG > 1 then traceObject(sprite, format("Sprite - %s", filename)) end
     return sprite
 end
 display.newImage = display.newSprite
@@ -340,17 +345,23 @@ function display.newBackgroundTilesSprite(filename)
 
     display.extendSprite(sprite)
     sprite:align(display.LEFT_BOTTOM, 0, 0)
+
+    if DEBUG > 1 then traceObject(sprite, format("Sprite - %s", filename)) end
     return sprite
 end
 display.newBackgroundTilesImage = display.newBackgroundTilesSprite
 
 function display.newCircle(radius, segments)
     if type(segments) ~= "number" then segments = 36 end
-    return display.extendShape(CCCircleShape:create(radius, 0, segments))
+    local shape = display.extendShape(CCCircleShape:create(radius, 0, segments))
+    if DEBUG > 1 then traceObject(shape, "CircleShape") end
+    return shape
 end
 
 function display.newRect(width, height)
-    return display.extendShape(CCRectShape:create(CCSize(width, height)))
+    local shape = display.extendShape(CCRectShape:create(CCSize(width, height)))
+    if DEBUG > 1 then traceObject(shape, "RectShape") end
+    return shape
 end
 
 function display.newPolygon(points, scale)
@@ -362,21 +373,19 @@ function display.newPolygon(points, scale)
         arr:addObject(p)
     end
     arr:retain() -- TODO: memory leaks ?!?
-    return display.extendShape(CCPolygonShape:create(arr))
+    local shape = CCPolygonShape:create(arr)
+    display.extendShape(shape)
+    if DEBUG > 1 then traceObject(shape, "PolygonShape") end
+    return shape
 end
 
 display.sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
 function display.addSpriteFramesWithFile(plistFilename, image)
-    plistFilename = plistFilename
-    image = image
     display.sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
 end
 
 function display.removeSpriteFramesWithFile(plistFilename, image)
-    plistFilename = plistFilename
-    image = image
     display.sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
-    display.sharedSpriteFrameCache:removeTextureForKey(image);
 end
 
 function display.newBatchNode(image, capacity)
@@ -387,11 +396,14 @@ function display.newBatchNode(image, capacity)
     else
         node = CCSpriteBatchNode:create(image, capacity)
     end
+    if DEBUG > 1 then traceObject(node, "BatchNode") end
     return display.extendNode(node)
 end
 
 function display.newSpriteFrame(frameName)
-    return sharedSpriteFrameCache:spriteFrameByName(frameName)
+    local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
+    if DEBUG > 1 then traceObject(frame, format("SpriteFrame - %s", frameName)) end
+    return frame
 end
 
 function display.newSpriteWithFrame(frame, x, y)
@@ -401,7 +413,20 @@ function display.newSpriteWithFrame(frame, x, y)
     local sprite = CCSprite:createWithSpriteFrame(frame)
     display.extendSprite(sprite)
     sprite:setPosition(x, y)
+    if DEBUG > 1 then traceObject(sprite, "Sprite") end
     return sprite
+end
+
+local floor = math.floor
+local function round(num)
+    return floor(num + 0.5)
+end
+
+function display.pixels(x, y)
+    local scale = 1 / display.contentScaleFactor
+    if x then x = round(x / scale) * scale end
+    if y then y = round(y / scale) * scale end
+    return x, y
 end
 
 --[[--
@@ -431,9 +456,8 @@ function display.newFrames(pattern, begin, length, isReversed)
     for index = begin, last, step do
         local frameName = string.format(pattern, index)
         local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
-        if not frame then
-            error("Invalid frame")
-        end
+        if not frame then error("Invalid frame") end
+        if DEBUG > 1 then traceObject(frame, format("SpriteFrame - %s", frameName)) end
         frames[#frames + 1] = frame
     end
     return frames
@@ -460,7 +484,9 @@ function display.newAnimation(frames, time)
         array:addObject(frames[i])
     end
     time = time or 1.0 / count
-    return CCAnimation:createWithSpriteFrames(array, time)
+    local animation = CCAnimation:createWithSpriteFrames(array, time)
+    if DEBUG > 1 then traceObject(animation, "Animation") end
+    return animation
 end
 
 --[[
@@ -482,7 +508,9 @@ create animate
 ]]
 function display.newAnimate(animation, isRestoreOriginalFrame)
     if type(isRestoreOriginalFrame) ~= "boolean" then isRestoreOriginalFrame = false end
-    return CCAnimate:create(animation)
+    local animate = CCAnimate:create(animation)
+    if DEBUG > 1 then traceObject(animate, "Animate") end
+    return animate
 end
 
 ----------------------------------------
@@ -511,8 +539,9 @@ function display.extendNode(node)
         display.align(self, anchorPoint, x, y)
     end
 
-    function node:resetPixelSize()
-        self:setScale(1 / display.scale)
+    function node:pixels()
+        local x, y = node:getPosition()
+        node:setPosition(display.pixels(x, y))
     end
 
     node.insert = node.addChild

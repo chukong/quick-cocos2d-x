@@ -1,15 +1,15 @@
 
-local M = {}
+local network = {}
 
-function M.isLocalWiFiAvailable()
+function network.isLocalWiFiAvailable()
     return CCNetwork:isLocalWiFiAvailable()
 end
 
-function M.isInternetConnectionAvailable()
+function network.isInternetConnectionAvailable()
     return CCNetwork:isInternetConnectionAvailable()
 end
 
-function M.isHostNameReachable(hostname)
+function network.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
         echoError("[network] ERR, isHostNameReachable() invalid hostname")
         return false
@@ -17,11 +17,11 @@ function M.isHostNameReachable(hostname)
     return CCNetwork:isHostNameReachable(hostname)
 end
 
-function M.getInternetConnectionStatus()
+function network.getInternetConnectionStatus()
     return CCNetwork:getInternetConnectionStatus()
 end
 
-function M.request(url, method, callback)
+function network.request(url, method, callback)
     if DEBUG > 0 then echo("HTTP REQUEST:" .. _s(url)) end
 
     method = string.upper(method)
@@ -34,4 +34,4 @@ function M.request(url, method, callback)
     return CCHttpRequest:createWithUrlLua(callback, url, method)
 end
 
-return M
+return network

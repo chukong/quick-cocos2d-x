@@ -1,6 +1,7 @@
-local M = {}
 
-local scheduler = CCDirector:sharedDirector():getScheduler()
+local scheduler = {}
+
+local sharedScheduler = CCDirector:sharedDirector():getScheduler()
 local stack = {}
 
 local function push(handle)
@@ -8,18 +9,18 @@ local function push(handle)
     return handle
 end
 
-function M.enterFrame(listener, isPaused)
+function scheduler.enterFrame(listener, isPaused)
     if type(isPaused) ~= "boolean" then isPaused = false end
-    return push(scheduler:scheduleScriptFunc(listener, 0, isPaused))
+    return push(sharedScheduler:scheduleScriptFunc(listener, 0, isPaused))
 end
 
-function M.schedule(listener, interval, isPaused)
+function scheduler.schedule(listener, interval, isPaused)
     if type(isPaused) ~= "boolean" then isPaused = false end
-    return push(scheduler:scheduleScriptFunc(listener, interval, isPaused))
+    return push(sharedScheduler:scheduleScriptFunc(listener, interval, isPaused))
 end
 
-function M.unschedule(handle)
-    scheduler:unscheduleScriptEntry(handle)
+function scheduler.unschedule(handle)
+    sharedScheduler:unscheduleScriptEntry(handle)
     for i = 1, #stack do
         if stack[i] == handle then
             table.remove(stack, i)
@@ -27,24 +28,23 @@ function M.unschedule(handle)
         end
     end
 end
-M.remove = M.unschedule
+scheduler.remove = scheduler.unschedule
 
-function M.unscheduleAll()
+function scheduler.unscheduleAll()
     for i = 1, #stack do
-        scheduler:unscheduleScriptEntry(stack[i])
+        sharedScheduler:unscheduleScriptEntry(stack[i])
     end
     stack = {}
 end
-M.removeAll = M.unscheduleAll
+scheduler.removeAll = scheduler.unscheduleAll
 
-function M.performWithDelay(time, listener)
+function scheduler.performWithDelay(time, listener)
     local handle
-    if type(time) == "function" then time,listener = listener,time end
-    handle = scheduler:scheduleScriptFunc(function()
-        M.unschedule(handle)
+    handle = sharedScheduler:scheduleScriptFunc(function()
+        scheduler.unschedule(handle)
         listener()
     end, time, false)
     return push(handle)
 end
 
-return M
+return scheduler
