@@ -20,3 +20,6 @@ hosts/mac/build/
 UserInterfaceState.xcuserstate
 WorkspaceSettings.xcsettings
 Breakpoints.xcbkptlist
+hosts/ios/libquick-cocos2d-x/libquick-cocos2d-x.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+hosts/ios/libquick-cocos2d-x/libquick-cocos2d-x.xcodeproj/xcuserdata/dualface.xcuserdatad/xcschemes/libquick-cocos2d-x.xcscheme
+hosts/ios/libquick-cocos2d-x/libquick-cocos2d-x.xcodeproj/xcuserdata/dualface.xcuserdatad/xcschemes/xcschememanagement.plist
