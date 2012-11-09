@@ -686,6 +686,7 @@
 			isa = PBXGroup;
 			children = (
 				F44C957C15F49004004D4151 /* LuaHostMac */,
+				F4F08A471642B72F009632BB /* Resources */,
 				F44C957515F49004004D4151 /* Frameworks */,
 				F44C957315F49004004D4151 /* Products */,
 			);
@@ -1564,6 +1565,14 @@
 				F4DFA41716143D66001391CC /* ExtensionMacros.h */,
 			);
 			name = "cocos2d-x-ext-extensions";
+			sourceTree = "<group>";
+		};
+		F4F08A471642B72F009632BB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = LuaHostMac;
 			sourceTree = "<group>";
 		};
 		F4F7780A1606CD0900C69253 /* curl */ = {

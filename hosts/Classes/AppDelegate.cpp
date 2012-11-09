@@ -44,6 +44,11 @@ AppDelegate::~AppDelegate()
 {
     // end simple audio engine here, or it may crashed on win32
     SimpleAudioEngine::sharedEngine()->end();
+    CCLOG("~ delete AppDelegate");
+    CCLOG("");
+    CCLOG("");
+    CCLOG("");
+    CCLOG("--------------------------------------------------------------------------------");
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -54,7 +59,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setProjection(kCCDirectorProjection2D);
     
     // turn on display FPS
-    pDirector->setDisplayStats(true);
+//    pDirector->setDisplayStats(true);
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
@@ -83,7 +88,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     
     tolua_cocos2dx_extension_CCScale9Sprite_open(L);
-    
+
     // more lua exts
     tolua_CCDrawing_open(L);
     
@@ -92,7 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
 #else
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("client_scripts/main_editor.lua");
+    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("scripts/main.lua");
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
@@ -100,6 +105,11 @@ bool AppDelegate::applicationDidFinishLaunching()
         const string dir = path.substr(0, p);
         pEngine->addSearchPath(dir.c_str());
     }
+
+    string env = "__LUA_STARTUP_FILE__=\"";
+    env.append(path);
+    env.append("\"");
+    pEngine->executeString(env.c_str());
     
     CCLOG("------------------------------------------------");
     CCLOG("HOST VERSION: %s", HOST_VERSION);

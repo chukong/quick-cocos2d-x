@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F47AD41216403932001DDD89 /* client_res in Resources */ = {isa = PBXBuildFile; fileRef = F47AD41016403932001DDD89 /* client_res */; };
+		F47AD41316403932001DDD89 /* client_scripts in Resources */ = {isa = PBXBuildFile; fileRef = F47AD41116403932001DDD89 /* client_scripts */; };
 		F481BEF315F89A9E00FD6CE9 /* CDAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F481BEEA15F89A9E00FD6CE9 /* CDAudioManager.m */; };
 		F481BEF415F89A9E00FD6CE9 /* CDOpenALSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = F481BEED15F89A9E00FD6CE9 /* CDOpenALSupport.m */; };
 		F481BEF515F89A9E00FD6CE9 /* CocosDenshion.m in Sources */ = {isa = PBXBuildFile; fileRef = F481BEEF15F89A9E00FD6CE9 /* CocosDenshion.m */; };
@@ -54,8 +56,6 @@
 		F481BF6815F89AB900FD6CE9 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = F481BF4015F89AB900FD6CE9 /* tolua_to.c */; };
 		F481BF6E15F89AD800FD6CE9 /* CCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F481BF6A15F89AD800FD6CE9 /* CCDrawing.cpp */; };
 		F481BF6F15F89AD800FD6CE9 /* LuaCCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F481BF6C15F89AD800FD6CE9 /* LuaCCDrawing.cpp */; };
-		F481BF7215F89BA200FD6CE9 /* client_res in Resources */ = {isa = PBXBuildFile; fileRef = F481BF7015F89BA200FD6CE9 /* client_res */; };
-		F481BF7315F89BA200FD6CE9 /* client_scripts in Resources */ = {isa = PBXBuildFile; fileRef = F481BF7115F89BA200FD6CE9 /* client_scripts */; };
 		F4C53AF416072E3300091290 /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F4C53ADF16072E3300091290 /* libb64.c */; };
 		F4C53AF516072E3300091290 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AE116072E3300091290 /* CCCrypto.cpp */; };
 		F4C53AF616072E3300091290 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F4C53AE416072E3300091290 /* md5.c */; };
@@ -223,11 +223,6 @@
 		F4C98B7015F8997D00F956E0 /* CCLock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B4C15F8997D00F956E0 /* CCLock.cpp */; };
 		F4C98B7115F8997D00F956E0 /* CCThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5015F8997D00F956E0 /* CCThread.mm */; };
 		F4C98B7215F8997D00F956E0 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5215F8997D00F956E0 /* EAGLView.mm */; };
-		F4C98B7315F8997D00F956E0 /* FontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5515F8997D00F956E0 /* FontLabel.m */; };
-		F4C98B7415F8997D00F956E0 /* FontLabelStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5715F8997D00F956E0 /* FontLabelStringDrawing.m */; };
-		F4C98B7515F8997D00F956E0 /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5915F8997D00F956E0 /* FontManager.m */; };
-		F4C98B7615F8997D00F956E0 /* ZAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5B15F8997D00F956E0 /* ZAttributedString.m */; };
-		F4C98B7715F8997D00F956E0 /* ZFont.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B5E15F8997D00F956E0 /* ZFont.m */; };
 		F4C98B7815F8997D00F956E0 /* AccelerometerSimulation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B6215F8997D00F956E0 /* AccelerometerSimulation.m */; };
 		F4C98B7915F8997D00F956E0 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C98B6315F8997D00F956E0 /* platform.cpp */; };
 		F4DFA42316144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA42116144C47001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */; };
@@ -235,6 +230,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F47AD41016403932001DDD89 /* client_res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = client_res; path = ../../../../Voyage/client_res; sourceTree = "<group>"; };
+		F47AD41116403932001DDD89 /* client_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = client_scripts; path = ../../../../Voyage/client_scripts; sourceTree = "<group>"; };
 		F481BED515F899C000FD6CE9 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
 		F481BED615F899C000FD6CE9 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
 		F481BED715F899C000FD6CE9 /* curlrules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlrules.h; sourceTree = "<group>"; };
@@ -331,8 +328,6 @@
 		F481BF6B15F89AD800FD6CE9 /* CCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawing.h; path = ../../libs/CCDrawing/CCDrawing.h; sourceTree = "<group>"; };
 		F481BF6C15F89AD800FD6CE9 /* LuaCCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LuaCCDrawing.cpp; path = ../../libs/CCDrawing/LuaCCDrawing.cpp; sourceTree = "<group>"; };
 		F481BF6D15F89AD800FD6CE9 /* LuaCCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LuaCCDrawing.h; path = ../../libs/CCDrawing/LuaCCDrawing.h; sourceTree = "<group>"; };
-		F481BF7015F89BA200FD6CE9 /* client_res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = client_res; path = ../../../../Voyage/client_res; sourceTree = "<group>"; };
-		F481BF7115F89BA200FD6CE9 /* client_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = client_scripts; path = ../../../../Voyage/client_scripts; sourceTree = "<group>"; };
 		F4C53ADC16072E3300091290 /* cocos2dx_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extensions.h; path = "../../libs/cocos2d-x-extensions/extensions/cocos2dx_extensions.h"; sourceTree = "<group>"; };
 		F4C53ADF16072E3300091290 /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
 		F4C53AE016072E3300091290 /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
@@ -690,17 +685,6 @@
 		F4C98B5015F8997D00F956E0 /* CCThread.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCThread.mm; sourceTree = "<group>"; };
 		F4C98B5115F8997D00F956E0 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAGLView.h; sourceTree = "<group>"; };
 		F4C98B5215F8997D00F956E0 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EAGLView.mm; sourceTree = "<group>"; };
-		F4C98B5415F8997D00F956E0 /* FontLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontLabel.h; sourceTree = "<group>"; };
-		F4C98B5515F8997D00F956E0 /* FontLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontLabel.m; sourceTree = "<group>"; };
-		F4C98B5615F8997D00F956E0 /* FontLabelStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontLabelStringDrawing.h; sourceTree = "<group>"; };
-		F4C98B5715F8997D00F956E0 /* FontLabelStringDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontLabelStringDrawing.m; sourceTree = "<group>"; };
-		F4C98B5815F8997D00F956E0 /* FontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontManager.h; sourceTree = "<group>"; };
-		F4C98B5915F8997D00F956E0 /* FontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontManager.m; sourceTree = "<group>"; };
-		F4C98B5A15F8997D00F956E0 /* ZAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedString.h; sourceTree = "<group>"; };
-		F4C98B5B15F8997D00F956E0 /* ZAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZAttributedString.m; sourceTree = "<group>"; };
-		F4C98B5C15F8997D00F956E0 /* ZAttributedStringPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZAttributedStringPrivate.h; sourceTree = "<group>"; };
-		F4C98B5D15F8997D00F956E0 /* ZFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFont.h; sourceTree = "<group>"; };
-		F4C98B5E15F8997D00F956E0 /* ZFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFont.m; sourceTree = "<group>"; };
 		F4C98B5F15F8997D00F956E0 /* OpenGL_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGL_Internal.h; sourceTree = "<group>"; };
 		F4C98B6115F8997D00F956E0 /* AccelerometerSimulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccelerometerSimulation.h; sourceTree = "<group>"; };
 		F4C98B6215F8997D00F956E0 /* AccelerometerSimulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccelerometerSimulation.m; sourceTree = "<group>"; };
@@ -1140,8 +1124,8 @@
 		F4C986B515F898BB00F956E0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F481BF7015F89BA200FD6CE9 /* client_res */,
-				F481BF7115F89BA200FD6CE9 /* client_scripts */,
+				F47AD41016403932001DDD89 /* client_res */,
+				F47AD41116403932001DDD89 /* client_scripts */,
 				F4C986BA15F898BB00F956E0 /* Default.png */,
 				F4C986BE15F898BB00F956E0 /* Icon-72.png */,
 				F4C986C615F898BB00F956E0 /* Icon.png */,
@@ -1734,30 +1718,11 @@
 				F4C98B5015F8997D00F956E0 /* CCThread.mm */,
 				F4C98B5115F8997D00F956E0 /* EAGLView.h */,
 				F4C98B5215F8997D00F956E0 /* EAGLView.mm */,
-				F4C98B5315F8997D00F956E0 /* FontLabel */,
 				F4C98B5F15F8997D00F956E0 /* OpenGL_Internal.h */,
 				F4C98B6015F8997D00F956E0 /* Simulation */,
 			);
 			name = ios;
 			path = "../../libs/cocos2d-x/cocos2dx/platform/ios";
-			sourceTree = "<group>";
-		};
-		F4C98B5315F8997D00F956E0 /* FontLabel */ = {
-			isa = PBXGroup;
-			children = (
-				F4C98B5415F8997D00F956E0 /* FontLabel.h */,
-				F4C98B5515F8997D00F956E0 /* FontLabel.m */,
-				F4C98B5615F8997D00F956E0 /* FontLabelStringDrawing.h */,
-				F4C98B5715F8997D00F956E0 /* FontLabelStringDrawing.m */,
-				F4C98B5815F8997D00F956E0 /* FontManager.h */,
-				F4C98B5915F8997D00F956E0 /* FontManager.m */,
-				F4C98B5A15F8997D00F956E0 /* ZAttributedString.h */,
-				F4C98B5B15F8997D00F956E0 /* ZAttributedString.m */,
-				F4C98B5C15F8997D00F956E0 /* ZAttributedStringPrivate.h */,
-				F4C98B5D15F8997D00F956E0 /* ZFont.h */,
-				F4C98B5E15F8997D00F956E0 /* ZFont.m */,
-			);
-			path = FontLabel;
 			sourceTree = "<group>";
 		};
 		F4C98B6015F8997D00F956E0 /* Simulation */ = {
@@ -1825,6 +1790,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hant",
 			);
 			mainGroup = F4C9869515F898BB00F956E0;
 			productRefGroup = F4C986A115F898BB00F956E0 /* Products */;
@@ -1848,8 +1814,8 @@
 				F4C986CB15F898BB00F956E0 /* iTunesArtwork in Resources */,
 				F4C98AE415F8995700F956E0 /* ChangeLog in Resources */,
 				F4C98AE515F8995700F956E0 /* CMakeLists.txt in Resources */,
-				F481BF7215F89BA200FD6CE9 /* client_res in Resources */,
-				F481BF7315F89BA200FD6CE9 /* client_scripts in Resources */,
+				F47AD41216403932001DDD89 /* client_res in Resources */,
+				F47AD41316403932001DDD89 /* client_scripts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1867,7 +1833,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "_TARGET_BUILD_CONTENTS_PATH=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH\necho Cleaning $_TARGET_BUILD_CONTENTS_PATH/client_scripts/\nrm -fr $_TARGET_BUILD_CONTENTS_PATH/client_scripts/\necho PWD: $PWD\necho cp -RL $PWD/../../../Voyage/client_scripts $_TARGET_BUILD_CONTENTS_PATH/client_scripts\ncp -RL $PWD/../../../Voyage/client_scripts $_TARGET_BUILD_CONTENTS_PATH/client_scripts\n\necho Cleaning $_TARGET_BUILD_CONTENTS_PATH/client_res/\nrm -fr $_TARGET_BUILD_CONTENTS_PATH/client_res/\necho PWD: $PWD\necho cp -RL $PWD/../../../Voyage/client_res $_TARGET_BUILD_CONTENTS_PATH/client_res\ncp -RL $PWD/../../../Voyage/client_res $_TARGET_BUILD_CONTENTS_PATH/client_res\n";
+			shellScript = "# _TARGET_BUILD_CONTENTS_PATH=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH\n# echo Cleaning $_TARGET_BUILD_CONTENTS_PATH/client_scripts/\n# rm -fr $_TARGET_BUILD_CONTENTS_PATH/client_scripts/\n# echo PWD: $PWD\n# echo cp -RL $PWD/../../../Voyage/client_scripts $_TARGET_BUILD_CONTENTS_PATH/client_scripts\n# cp -RL $PWD/../../../Voyage/client_scripts $_TARGET_BUILD_CONTENTS_PATH/client_scripts\n\n# echo Cleaning $_TARGET_BUILD_CONTENTS_PATH/client_res/\n# rm -fr $_TARGET_BUILD_CONTENTS_PATH/client_res/\n# echo PWD: $PWD\n# echo cp -RL $PWD/../../../Voyage/client_res $_TARGET_BUILD_CONTENTS_PATH/client_res\n# cp -RL $PWD/../../../Voyage/client_res $_TARGET_BUILD_CONTENTS_PATH/client_res\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1998,11 +1964,6 @@
 				F4C98B7015F8997D00F956E0 /* CCLock.cpp in Sources */,
 				F4C98B7115F8997D00F956E0 /* CCThread.mm in Sources */,
 				F4C98B7215F8997D00F956E0 /* EAGLView.mm in Sources */,
-				F4C98B7315F8997D00F956E0 /* FontLabel.m in Sources */,
-				F4C98B7415F8997D00F956E0 /* FontLabelStringDrawing.m in Sources */,
-				F4C98B7515F8997D00F956E0 /* FontManager.m in Sources */,
-				F4C98B7615F8997D00F956E0 /* ZAttributedString.m in Sources */,
-				F4C98B7715F8997D00F956E0 /* ZFont.m in Sources */,
 				F4C98B7815F8997D00F956E0 /* AccelerometerSimulation.m in Sources */,
 				F4C98B7915F8997D00F956E0 /* platform.cpp in Sources */,
 				F481BEF315F89A9E00FD6CE9 /* CDAudioManager.m in Sources */,
@@ -2182,6 +2143,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2218,6 +2180,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

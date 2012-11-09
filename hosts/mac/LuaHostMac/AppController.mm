@@ -26,12 +26,13 @@
 
 #include "AppDelegate.h"
 #include "CCDirector.h"
+#include "SimpleAudioEngine.h"
 #include "CCDrawingPrimitives.h"
 
 using namespace std;
 using namespace cocos2d;
 
-static AppDelegate s_sharedApplication;
+static AppDelegate* s_sharedApplication = NULL;
 
 @implementation AppController
 
@@ -45,8 +46,8 @@ static AppDelegate s_sharedApplication;
     
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     
-    int width = 480;
-    int height = 320;
+    int width = 960;
+    int height = 640;
     NSString *nssize = [args stringForKey:@"size"];
     if (nssize)
     {
@@ -104,6 +105,12 @@ static AppDelegate s_sharedApplication;
 
 -(void) createWindowAndGLView
 {
+    if (s_sharedApplication)
+    {
+        delete s_sharedApplication;
+    }
+    s_sharedApplication = new AppDelegate();
+
     float left = 10;
     float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
     bottom -= [NSMenuView menuBarHeight] + 10;
@@ -155,6 +162,8 @@ static AppDelegate s_sharedApplication;
         CCScriptEngineManager::purgeSharedManager();
     }
 
+    CocosDenshion::SimpleAudioEngine::end();
+    
     CCApplication* app = CCApplication::sharedApplication();
     app->setStartupScriptFilename(startupScriptFilename);
     if (workingDir.length() > 0)

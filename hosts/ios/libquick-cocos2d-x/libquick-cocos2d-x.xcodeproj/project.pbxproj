@@ -7,6 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F47B6B3E16478CB300A8E8D8 /* CCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B3A16478CB300A8E8D8 /* CCDrawing.cpp */; };
+		F47B6B3F16478CB300A8E8D8 /* LuaCCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B3C16478CB300A8E8D8 /* LuaCCDrawing.cpp */; };
+		F47B6B4416478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B4216478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp */; };
+		F47B6B6716478CFF00A8E8D8 /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B4916478CFF00A8E8D8 /* libb64.c */; };
+		F47B6B6816478CFF00A8E8D8 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B4B16478CFF00A8E8D8 /* CCCrypto.cpp */; };
+		F47B6B6916478CFF00A8E8D8 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B4E16478CFF00A8E8D8 /* md5.c */; };
+		F47B6B6A16478CFF00A8E8D8 /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B5116478CFF00A8E8D8 /* sha1.cpp */; };
+		F47B6B6B16478CFF00A8E8D8 /* CCHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B5716478CFF00A8E8D8 /* CCHttpRequest.cpp */; };
+		F47B6B6C16478CFF00A8E8D8 /* CCHttpRequest_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B5916478CFF00A8E8D8 /* CCHttpRequest_impl.cpp */; };
+		F47B6B6D16478CFF00A8E8D8 /* CCNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B5C16478CFF00A8E8D8 /* CCNetwork.cpp */; };
+		F47B6B6E16478CFF00A8E8D8 /* CCStorePaymentTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B6016478CFF00A8E8D8 /* CCStorePaymentTransaction.cpp */; };
+		F47B6B6F16478CFF00A8E8D8 /* CCStoreProduct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B6316478CFF00A8E8D8 /* CCStoreProduct.cpp */; };
+		F47B6B7916478D1A00A8E8D8 /* cocos2dx_extension_crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B7116478D1A00A8E8D8 /* cocos2dx_extension_crypto.cpp */; };
+		F47B6B7A16478D1A00A8E8D8 /* cocos2dx_extension_native.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B7316478D1A00A8E8D8 /* cocos2dx_extension_native.cpp */; };
+		F47B6B7B16478D1A00A8E8D8 /* cocos2dx_extension_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B7516478D1A00A8E8D8 /* cocos2dx_extension_network.cpp */; };
+		F47B785A164793B400A8E8D8 /* CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B7858164793B400A8E8D8 /* CCScale9Sprite.cpp */; };
+		F47B787F1647948300A8E8D8 /* CCCrypto_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B78621647948300A8E8D8 /* CCCrypto_objc.mm */; };
+		F47B78801647948300A8E8D8 /* CCNative.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B78631647948300A8E8D8 /* CCNative.mm */; };
+		F47B78811647948300A8E8D8 /* CCNative_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B78651647948300A8E8D8 /* CCNative_objc.mm */; };
+		F47B78821647948300A8E8D8 /* CCNetwork_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B78661647948300A8E8D8 /* CCNetwork_objc.mm */; };
+		F47B78851647948300A8E8D8 /* CCStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B786A1647948300A8E8D8 /* CCStore.mm */; };
+		F47B78861647948300A8E8D8 /* CCStore_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B786C1647948300A8E8D8 /* CCStore_objc.mm */; };
+		F47B78871647948300A8E8D8 /* CCStorePaymentTransactionWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B786D1647948300A8E8D8 /* CCStorePaymentTransactionWrapper.mm */; };
+		F47B78881647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F47B786F1647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.mm */; };
+		F47B78891647948300A8E8D8 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B78721647948300A8E8D8 /* SBJSON.m */; };
+		F47B788A1647948300A8E8D8 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B78741647948300A8E8D8 /* SBJsonBase.m */; };
+		F47B788B1647948300A8E8D8 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B78761647948300A8E8D8 /* SBJsonParser.m */; };
+		F47B788C1647948300A8E8D8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B78781647948300A8E8D8 /* SBJsonWriter.m */; };
+		F47B788D1647948300A8E8D8 /* OpenUDID_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B787B1647948300A8E8D8 /* OpenUDID_objc.m */; };
+		F47B788E1647948300A8E8D8 /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B787E1647948300A8E8D8 /* Reachability_objc.m */; };
+		F4808C7C1647CEFE00B96E6E /* cocos2dx_extension_store.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4808C7A1647CEFE00B96E6E /* cocos2dx_extension_store.cpp */; };
 		F484A53716466E3C006A1C3C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F484A53616466E3C006A1C3C /* Foundation.framework */; };
 		F484A65216466F5B006A1C3C /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A54B16466F5B006A1C3C /* CCAction.cpp */; };
 		F484A65316466F5B006A1C3C /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A54D16466F5B006A1C3C /* CCActionCamera.cpp */; };
@@ -189,6 +220,71 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F47B6B3A16478CB300A8E8D8 /* CCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDrawing.cpp; path = ../../libs/CCDrawing/CCDrawing.cpp; sourceTree = "<group>"; };
+		F47B6B3B16478CB300A8E8D8 /* CCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawing.h; path = ../../libs/CCDrawing/CCDrawing.h; sourceTree = "<group>"; };
+		F47B6B3C16478CB300A8E8D8 /* LuaCCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LuaCCDrawing.cpp; path = ../../libs/CCDrawing/LuaCCDrawing.cpp; sourceTree = "<group>"; };
+		F47B6B3D16478CB300A8E8D8 /* LuaCCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LuaCCDrawing.h; path = ../../libs/CCDrawing/LuaCCDrawing.h; sourceTree = "<group>"; };
+		F47B6B4216478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_CCScale9Sprite.cpp; path = "../../../libs/cocos2d-x-extensions-luabinding/cocos2dx_extension_CCScale9Sprite.cpp"; sourceTree = "<group>"; };
+		F47B6B4316478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_CCScale9Sprite.h; path = "../../../libs/cocos2d-x-extensions-luabinding/cocos2dx_extension_CCScale9Sprite.h"; sourceTree = "<group>"; };
+		F47B6B4616478CFF00A8E8D8 /* cocos2dx_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extensions.h; path = "../../libs/cocos2d-x-extensions/extensions/cocos2dx_extensions.h"; sourceTree = "<group>"; };
+		F47B6B4916478CFF00A8E8D8 /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
+		F47B6B4A16478CFF00A8E8D8 /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
+		F47B6B4B16478CFF00A8E8D8 /* CCCrypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCrypto.cpp; sourceTree = "<group>"; };
+		F47B6B4C16478CFF00A8E8D8 /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
+		F47B6B4E16478CFF00A8E8D8 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		F47B6B4F16478CFF00A8E8D8 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		F47B6B5116478CFF00A8E8D8 /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
+		F47B6B5216478CFF00A8E8D8 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		F47B6B5416478CFF00A8E8D8 /* CCAlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAlertViewDelegate.h; sourceTree = "<group>"; };
+		F47B6B5516478CFF00A8E8D8 /* CCNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative.h; sourceTree = "<group>"; };
+		F47B6B5716478CFF00A8E8D8 /* CCHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCHttpRequest.cpp; sourceTree = "<group>"; };
+		F47B6B5816478CFF00A8E8D8 /* CCHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHttpRequest.h; sourceTree = "<group>"; };
+		F47B6B5916478CFF00A8E8D8 /* CCHttpRequest_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCHttpRequest_impl.cpp; sourceTree = "<group>"; };
+		F47B6B5A16478CFF00A8E8D8 /* CCHttpRequest_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHttpRequest_impl.h; sourceTree = "<group>"; };
+		F47B6B5B16478CFF00A8E8D8 /* CCHttpRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHttpRequestDelegate.h; sourceTree = "<group>"; };
+		F47B6B5C16478CFF00A8E8D8 /* CCNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNetwork.cpp; sourceTree = "<group>"; };
+		F47B6B5D16478CFF00A8E8D8 /* CCNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNetwork.h; sourceTree = "<group>"; };
+		F47B6B5F16478CFF00A8E8D8 /* CCStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStore.h; sourceTree = "<group>"; };
+		F47B6B6016478CFF00A8E8D8 /* CCStorePaymentTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStorePaymentTransaction.cpp; sourceTree = "<group>"; };
+		F47B6B6116478CFF00A8E8D8 /* CCStorePaymentTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStorePaymentTransaction.h; sourceTree = "<group>"; };
+		F47B6B6216478CFF00A8E8D8 /* CCStorePaymentTransactionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStorePaymentTransactionWrapper.h; sourceTree = "<group>"; };
+		F47B6B6316478CFF00A8E8D8 /* CCStoreProduct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreProduct.cpp; sourceTree = "<group>"; };
+		F47B6B6416478CFF00A8E8D8 /* CCStoreProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreProduct.h; sourceTree = "<group>"; };
+		F47B6B6516478CFF00A8E8D8 /* CCStoreProductsRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreProductsRequestDelegate.h; sourceTree = "<group>"; };
+		F47B6B6616478CFF00A8E8D8 /* CCStoreTransactionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreTransactionObserver.h; sourceTree = "<group>"; };
+		F47B6B7116478D1A00A8E8D8 /* cocos2dx_extension_crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_crypto.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_crypto.cpp"; sourceTree = "<group>"; };
+		F47B6B7216478D1A00A8E8D8 /* cocos2dx_extension_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_crypto.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_crypto.h"; sourceTree = "<group>"; };
+		F47B6B7316478D1A00A8E8D8 /* cocos2dx_extension_native.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_native.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_native.cpp"; sourceTree = "<group>"; };
+		F47B6B7416478D1A00A8E8D8 /* cocos2dx_extension_native.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_native.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_native.h"; sourceTree = "<group>"; };
+		F47B6B7516478D1A00A8E8D8 /* cocos2dx_extension_network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_network.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network.cpp"; sourceTree = "<group>"; };
+		F47B6B7616478D1A00A8E8D8 /* cocos2dx_extension_network.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_network.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network.h"; sourceTree = "<group>"; };
+		F47B7858164793B400A8E8D8 /* CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCScale9Sprite.cpp; path = "../../libs/cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.cpp"; sourceTree = "<group>"; };
+		F47B7859164793B400A8E8D8 /* CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScale9Sprite.h; path = "../../libs/cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.h"; sourceTree = "<group>"; };
+		F47B785B1647941500A8E8D8 /* ExtensionMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExtensionMacros.h; path = "../../libs/cocos2d-x/extensions/ExtensionMacros.h"; sourceTree = "<group>"; };
+		F47B78621647948300A8E8D8 /* CCCrypto_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCrypto_objc.mm; sourceTree = "<group>"; };
+		F47B78631647948300A8E8D8 /* CCNative.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative.mm; sourceTree = "<group>"; };
+		F47B78641647948300A8E8D8 /* CCNative_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative_objc.h; sourceTree = "<group>"; };
+		F47B78651647948300A8E8D8 /* CCNative_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative_objc.mm; sourceTree = "<group>"; };
+		F47B78661647948300A8E8D8 /* CCNetwork_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetwork_objc.mm; sourceTree = "<group>"; };
+		F47B786A1647948300A8E8D8 /* CCStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStore.mm; sourceTree = "<group>"; };
+		F47B786B1647948300A8E8D8 /* CCStore_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStore_objc.h; sourceTree = "<group>"; };
+		F47B786C1647948300A8E8D8 /* CCStore_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStore_objc.mm; sourceTree = "<group>"; };
+		F47B786D1647948300A8E8D8 /* CCStorePaymentTransactionWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStorePaymentTransactionWrapper.mm; sourceTree = "<group>"; };
+		F47B786E1647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreReceiptVerifyRequest_objc.h; sourceTree = "<group>"; };
+		F47B786F1647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStoreReceiptVerifyRequest_objc.mm; sourceTree = "<group>"; };
+		F47B78711647948300A8E8D8 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		F47B78721647948300A8E8D8 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		F47B78731647948300A8E8D8 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		F47B78741647948300A8E8D8 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		F47B78751647948300A8E8D8 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		F47B78761647948300A8E8D8 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		F47B78771647948300A8E8D8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		F47B78781647948300A8E8D8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		F47B787A1647948300A8E8D8 /* OpenUDID_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID_objc.h; sourceTree = "<group>"; };
+		F47B787B1647948300A8E8D8 /* OpenUDID_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID_objc.m; sourceTree = "<group>"; };
+		F47B787D1647948300A8E8D8 /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability_objc.h; sourceTree = "<group>"; };
+		F47B787E1647948300A8E8D8 /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability_objc.m; sourceTree = "<group>"; };
+		F4808C7A1647CEFE00B96E6E /* cocos2dx_extension_store.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_store.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_store.cpp"; sourceTree = "<group>"; };
 		F484A53316466E3C006A1C3C /* liblibquick-cocos2d-x.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "liblibquick-cocos2d-x.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F484A53616466E3C006A1C3C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F484A54B16466F5B006A1C3C /* CCAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAction.cpp; sourceTree = "<group>"; };
@@ -566,10 +662,215 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F47B6B3916478CAB00A8E8D8 /* CCDrawing */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B3A16478CB300A8E8D8 /* CCDrawing.cpp */,
+				F47B6B3B16478CB300A8E8D8 /* CCDrawing.h */,
+				F47B6B3C16478CB300A8E8D8 /* LuaCCDrawing.cpp */,
+				F47B6B3D16478CB300A8E8D8 /* LuaCCDrawing.h */,
+			);
+			name = CCDrawing;
+			sourceTree = "<group>";
+		};
+		F47B6B4116478CDF00A8E8D8 /* cocos2d-x-extensions-luabinding */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B4216478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp */,
+				F47B6B4316478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.h */,
+			);
+			name = "cocos2d-x-extensions-luabinding";
+			sourceTree = "<group>";
+		};
+		F47B6B4516478CEF00A8E8D8 /* cocos2d-x-extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B4616478CFF00A8E8D8 /* cocos2dx_extensions.h */,
+				F47B6B4716478CFF00A8E8D8 /* crypto */,
+				F47B6B7016478D0900A8E8D8 /* luabinding */,
+				F47B6B5316478CFF00A8E8D8 /* native */,
+				F47B6B5616478CFF00A8E8D8 /* network */,
+				F47B78601647946800A8E8D8 /* platform */,
+				F47B6B5E16478CFF00A8E8D8 /* store */,
+			);
+			name = "cocos2d-x-extensions";
+			sourceTree = "<group>";
+		};
+		F47B6B4716478CFF00A8E8D8 /* crypto */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B4816478CFF00A8E8D8 /* base64 */,
+				F47B6B4B16478CFF00A8E8D8 /* CCCrypto.cpp */,
+				F47B6B4C16478CFF00A8E8D8 /* CCCrypto.h */,
+				F47B6B4D16478CFF00A8E8D8 /* md5 */,
+				F47B6B5016478CFF00A8E8D8 /* sha1 */,
+			);
+			name = crypto;
+			path = "../../libs/cocos2d-x-extensions/extensions/crypto";
+			sourceTree = "<group>";
+		};
+		F47B6B4816478CFF00A8E8D8 /* base64 */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B4916478CFF00A8E8D8 /* libb64.c */,
+				F47B6B4A16478CFF00A8E8D8 /* libb64.h */,
+			);
+			path = base64;
+			sourceTree = "<group>";
+		};
+		F47B6B4D16478CFF00A8E8D8 /* md5 */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B4E16478CFF00A8E8D8 /* md5.c */,
+				F47B6B4F16478CFF00A8E8D8 /* md5.h */,
+			);
+			path = md5;
+			sourceTree = "<group>";
+		};
+		F47B6B5016478CFF00A8E8D8 /* sha1 */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B5116478CFF00A8E8D8 /* sha1.cpp */,
+				F47B6B5216478CFF00A8E8D8 /* sha1.h */,
+			);
+			path = sha1;
+			sourceTree = "<group>";
+		};
+		F47B6B5316478CFF00A8E8D8 /* native */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B5416478CFF00A8E8D8 /* CCAlertViewDelegate.h */,
+				F47B6B5516478CFF00A8E8D8 /* CCNative.h */,
+			);
+			name = native;
+			path = "../../libs/cocos2d-x-extensions/extensions/native";
+			sourceTree = "<group>";
+		};
+		F47B6B5616478CFF00A8E8D8 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B5716478CFF00A8E8D8 /* CCHttpRequest.cpp */,
+				F47B6B5816478CFF00A8E8D8 /* CCHttpRequest.h */,
+				F47B6B5916478CFF00A8E8D8 /* CCHttpRequest_impl.cpp */,
+				F47B6B5A16478CFF00A8E8D8 /* CCHttpRequest_impl.h */,
+				F47B6B5B16478CFF00A8E8D8 /* CCHttpRequestDelegate.h */,
+				F47B6B5C16478CFF00A8E8D8 /* CCNetwork.cpp */,
+				F47B6B5D16478CFF00A8E8D8 /* CCNetwork.h */,
+			);
+			name = network;
+			path = "../../libs/cocos2d-x-extensions/extensions/network";
+			sourceTree = "<group>";
+		};
+		F47B6B5E16478CFF00A8E8D8 /* store */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B5F16478CFF00A8E8D8 /* CCStore.h */,
+				F47B6B6016478CFF00A8E8D8 /* CCStorePaymentTransaction.cpp */,
+				F47B6B6116478CFF00A8E8D8 /* CCStorePaymentTransaction.h */,
+				F47B6B6216478CFF00A8E8D8 /* CCStorePaymentTransactionWrapper.h */,
+				F47B6B6316478CFF00A8E8D8 /* CCStoreProduct.cpp */,
+				F47B6B6416478CFF00A8E8D8 /* CCStoreProduct.h */,
+				F47B6B6516478CFF00A8E8D8 /* CCStoreProductsRequestDelegate.h */,
+				F47B6B6616478CFF00A8E8D8 /* CCStoreTransactionObserver.h */,
+			);
+			name = store;
+			path = "../../libs/cocos2d-x-extensions/extensions/store";
+			sourceTree = "<group>";
+		};
+		F47B6B7016478D0900A8E8D8 /* luabinding */ = {
+			isa = PBXGroup;
+			children = (
+				F47B6B7116478D1A00A8E8D8 /* cocos2dx_extension_crypto.cpp */,
+				F47B6B7216478D1A00A8E8D8 /* cocos2dx_extension_crypto.h */,
+				F47B6B7316478D1A00A8E8D8 /* cocos2dx_extension_native.cpp */,
+				F47B6B7416478D1A00A8E8D8 /* cocos2dx_extension_native.h */,
+				F47B6B7516478D1A00A8E8D8 /* cocos2dx_extension_network.cpp */,
+				F47B6B7616478D1A00A8E8D8 /* cocos2dx_extension_network.h */,
+				F4808C7A1647CEFE00B96E6E /* cocos2dx_extension_store.cpp */,
+			);
+			name = luabinding;
+			sourceTree = "<group>";
+		};
+		F47B78571647938700A8E8D8 /* Scale9Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				F47B785B1647941500A8E8D8 /* ExtensionMacros.h */,
+				F47B7858164793B400A8E8D8 /* CCScale9Sprite.cpp */,
+				F47B7859164793B400A8E8D8 /* CCScale9Sprite.h */,
+			);
+			name = Scale9Sprite;
+			sourceTree = "<group>";
+		};
+		F47B78601647946800A8E8D8 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				F47B78611647948300A8E8D8 /* ios */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		F47B78611647948300A8E8D8 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				F47B78621647948300A8E8D8 /* CCCrypto_objc.mm */,
+				F47B78631647948300A8E8D8 /* CCNative.mm */,
+				F47B78641647948300A8E8D8 /* CCNative_objc.h */,
+				F47B78651647948300A8E8D8 /* CCNative_objc.mm */,
+				F47B78661647948300A8E8D8 /* CCNetwork_objc.mm */,
+				F47B786A1647948300A8E8D8 /* CCStore.mm */,
+				F47B786B1647948300A8E8D8 /* CCStore_objc.h */,
+				F47B786C1647948300A8E8D8 /* CCStore_objc.mm */,
+				F47B786D1647948300A8E8D8 /* CCStorePaymentTransactionWrapper.mm */,
+				F47B786E1647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.h */,
+				F47B786F1647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.mm */,
+				F47B78701647948300A8E8D8 /* json */,
+				F47B78791647948300A8E8D8 /* openudid */,
+				F47B787C1647948300A8E8D8 /* reachability */,
+			);
+			name = ios;
+			path = "../../libs/cocos2d-x-extensions/extensions/platform/ios";
+			sourceTree = "<group>";
+		};
+		F47B78701647948300A8E8D8 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				F47B78711647948300A8E8D8 /* SBJSON.h */,
+				F47B78721647948300A8E8D8 /* SBJSON.m */,
+				F47B78731647948300A8E8D8 /* SBJsonBase.h */,
+				F47B78741647948300A8E8D8 /* SBJsonBase.m */,
+				F47B78751647948300A8E8D8 /* SBJsonParser.h */,
+				F47B78761647948300A8E8D8 /* SBJsonParser.m */,
+				F47B78771647948300A8E8D8 /* SBJsonWriter.h */,
+				F47B78781647948300A8E8D8 /* SBJsonWriter.m */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		F47B78791647948300A8E8D8 /* openudid */ = {
+			isa = PBXGroup;
+			children = (
+				F47B787A1647948300A8E8D8 /* OpenUDID_objc.h */,
+				F47B787B1647948300A8E8D8 /* OpenUDID_objc.m */,
+			);
+			path = openudid;
+			sourceTree = "<group>";
+		};
+		F47B787C1647948300A8E8D8 /* reachability */ = {
+			isa = PBXGroup;
+			children = (
+				F47B787D1647948300A8E8D8 /* Reachability_objc.h */,
+				F47B787E1647948300A8E8D8 /* Reachability_objc.m */,
+			);
+			path = reachability;
+			sourceTree = "<group>";
+		};
 		F484A52816466E3C006A1C3C = {
 			isa = PBXGroup;
 			children = (
-				F484A53816466E3C006A1C3C /* libquick-cocos2d-x */,
+				F47B78571647938700A8E8D8 /* Scale9Sprite */,
+				F47B6B4516478CEF00A8E8D8 /* cocos2d-x-extensions */,
+				F47B6B3916478CAB00A8E8D8 /* CCDrawing */,
+				F484A53816466E3C006A1C3C /* cocos2d-x */,
 				F484A53516466E3C006A1C3C /* Frameworks */,
 				F484A53416466E3C006A1C3C /* Products */,
 			);
@@ -591,13 +892,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F484A53816466E3C006A1C3C /* libquick-cocos2d-x */ = {
+		F484A53816466E3C006A1C3C /* cocos2d-x */ = {
 			isa = PBXGroup;
 			children = (
+				F47B6B4116478CDF00A8E8D8 /* cocos2d-x-extensions-luabinding */,
 				F484A54916466EA9006A1C3C /* cocos2d-x */,
 				F4F964F916469E5D003A5354 /* CocosDenshion */,
-				F4F964D716467DC2003A5354 /* lua_support */,
+				F4F964D716467DC2003A5354 /* scripting */,
 			);
+			name = "cocos2d-x";
 			path = "libquick-cocos2d-x";
 			sourceTree = "<group>";
 		};
@@ -1250,14 +1553,14 @@
 			path = "../../../libs/cocos2d-x/scripting/lua/tolua";
 			sourceTree = "<group>";
 		};
-		F4F964D716467DC2003A5354 /* lua_support */ = {
+		F4F964D716467DC2003A5354 /* scripting */ = {
 			isa = PBXGroup;
 			children = (
 				F4F9646716467DBE003A5354 /* cocos2dx_support */,
 				F4F9647016467DBE003A5354 /* lua */,
 				F4F964A716467DBE003A5354 /* tolua */,
 			);
-			name = lua_support;
+			name = scripting;
 			sourceTree = "<group>";
 		};
 		F4F964E616469E4B003A5354 /* include */ = {
@@ -1514,6 +1817,37 @@
 				F4F964F816469E4B003A5354 /* SimpleAudioEngine_objc.m in Sources */,
 				F4F964FE16469F08003A5354 /* CCSAXParser.cpp in Sources */,
 				F4F9650316469F77003A5354 /* platform.cpp in Sources */,
+				F47B6B3E16478CB300A8E8D8 /* CCDrawing.cpp in Sources */,
+				F47B6B3F16478CB300A8E8D8 /* LuaCCDrawing.cpp in Sources */,
+				F47B6B4416478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */,
+				F47B6B6716478CFF00A8E8D8 /* libb64.c in Sources */,
+				F47B6B6816478CFF00A8E8D8 /* CCCrypto.cpp in Sources */,
+				F47B6B6916478CFF00A8E8D8 /* md5.c in Sources */,
+				F47B6B6A16478CFF00A8E8D8 /* sha1.cpp in Sources */,
+				F47B6B6B16478CFF00A8E8D8 /* CCHttpRequest.cpp in Sources */,
+				F47B6B6C16478CFF00A8E8D8 /* CCHttpRequest_impl.cpp in Sources */,
+				F47B6B6D16478CFF00A8E8D8 /* CCNetwork.cpp in Sources */,
+				F47B6B6E16478CFF00A8E8D8 /* CCStorePaymentTransaction.cpp in Sources */,
+				F47B6B6F16478CFF00A8E8D8 /* CCStoreProduct.cpp in Sources */,
+				F47B6B7916478D1A00A8E8D8 /* cocos2dx_extension_crypto.cpp in Sources */,
+				F47B6B7A16478D1A00A8E8D8 /* cocos2dx_extension_native.cpp in Sources */,
+				F47B6B7B16478D1A00A8E8D8 /* cocos2dx_extension_network.cpp in Sources */,
+				F47B785A164793B400A8E8D8 /* CCScale9Sprite.cpp in Sources */,
+				F47B787F1647948300A8E8D8 /* CCCrypto_objc.mm in Sources */,
+				F47B78801647948300A8E8D8 /* CCNative.mm in Sources */,
+				F47B78811647948300A8E8D8 /* CCNative_objc.mm in Sources */,
+				F47B78821647948300A8E8D8 /* CCNetwork_objc.mm in Sources */,
+				F47B78851647948300A8E8D8 /* CCStore.mm in Sources */,
+				F47B78861647948300A8E8D8 /* CCStore_objc.mm in Sources */,
+				F47B78871647948300A8E8D8 /* CCStorePaymentTransactionWrapper.mm in Sources */,
+				F47B78881647948300A8E8D8 /* CCStoreReceiptVerifyRequest_objc.mm in Sources */,
+				F47B78891647948300A8E8D8 /* SBJSON.m in Sources */,
+				F47B788A1647948300A8E8D8 /* SBJsonBase.m in Sources */,
+				F47B788B1647948300A8E8D8 /* SBJsonParser.m in Sources */,
+				F47B788C1647948300A8E8D8 /* SBJsonWriter.m in Sources */,
+				F47B788D1647948300A8E8D8 /* OpenUDID_objc.m in Sources */,
+				F47B788E1647948300A8E8D8 /* Reachability_objc.m in Sources */,
+				F4808C7C1647CEFE00B96E6E /* cocos2dx_extension_store.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1589,13 +1923,17 @@
 					"\"$(COCOS2DX_ROOT)/cocos2dx/kazmath/include\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/ios\"",
+					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/include\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/ios\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/cocos2dx_support\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/lua\"",
+					"\"$(COCOS2DX_ROOT)/scripting/lua/tolua\"",
+					"\"$(COCOS2DX_PLUS_ROOT)/extensions\"",
+					"/Users/dualface/Documents/Games/quick-cocos2d-x/hosts/libs/CCDrawing",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"";
+				LIBRARY_SEARCH_PATHS = "\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/libraries\"";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
@@ -1626,13 +1964,17 @@
 					"\"$(COCOS2DX_ROOT)/cocos2dx/kazmath/include\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/ios\"",
+					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/include\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/ios\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/cocos2dx_support\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/lua\"",
+					"\"$(COCOS2DX_ROOT)/scripting/lua/tolua\"",
+					"\"$(COCOS2DX_PLUS_ROOT)/extensions\"",
+					"/Users/dualface/Documents/Games/quick-cocos2d-x/hosts/libs/CCDrawing",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"";
+				LIBRARY_SEARCH_PATHS = "\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/libraries\"";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = NO;
