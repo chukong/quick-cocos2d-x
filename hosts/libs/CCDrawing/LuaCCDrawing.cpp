@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCDrawing
-** Generated automatically by tolua++-1.0.92 on Sat Sep 22 15:28:15 2012.
+** Generated automatically by tolua++-1.0.92 on Thu Nov  8 16:19:17 2012.
 */
 
 
@@ -150,6 +150,136 @@ static int tolua_CCDrawing_CCShapeNode_setLineWidth00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setLineWidth'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLineStipple of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_getLineStipple00
+static int tolua_CCDrawing_CCShapeNode_getLineStipple00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLineStipple'", NULL);
+#endif
+  {
+   unsigned short tolua_ret = (unsigned short)  self->getLineStipple();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLineStipple'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLineStipple of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_setLineStipple00
+static int tolua_CCDrawing_CCShapeNode_setLineStipple00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
+  unsigned short pattern = ((unsigned short)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLineStipple'", NULL);
+#endif
+  {
+   self->setLineStipple(pattern);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLineStipple'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isLineStippleEnabled of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_isLineStippleEnabled00
+static int tolua_CCDrawing_CCShapeNode_isLineStippleEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isLineStippleEnabled'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isLineStippleEnabled();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isLineStippleEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setLineStippleEnabled of class  CCShapeNode */
+#ifndef TOLUA_DISABLE_tolua_CCDrawing_CCShapeNode_setLineStippleEnabled00
+static int tolua_CCDrawing_CCShapeNode_setLineStippleEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCShapeNode",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCShapeNode* self = (CCShapeNode*)  tolua_tousertype(tolua_S,1,0);
+  bool lineStippleEnabled = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setLineStippleEnabled'", NULL);
+#endif
+  {
+   self->setLineStippleEnabled(lineStippleEnabled);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setLineStippleEnabled'.",&tolua_err);
  return 0;
 #endif
 }
@@ -956,6 +1086,10 @@ TOLUA_API int tolua_CCDrawing_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setColor",tolua_CCDrawing_CCShapeNode_setColor00);
    tolua_function(tolua_S,"getLineWidth",tolua_CCDrawing_CCShapeNode_getLineWidth00);
    tolua_function(tolua_S,"setLineWidth",tolua_CCDrawing_CCShapeNode_setLineWidth00);
+   tolua_function(tolua_S,"getLineStipple",tolua_CCDrawing_CCShapeNode_getLineStipple00);
+   tolua_function(tolua_S,"setLineStipple",tolua_CCDrawing_CCShapeNode_setLineStipple00);
+   tolua_function(tolua_S,"isLineStippleEnabled",tolua_CCDrawing_CCShapeNode_isLineStippleEnabled00);
+   tolua_function(tolua_S,"setLineStippleEnabled",tolua_CCDrawing_CCShapeNode_setLineStippleEnabled00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCCircleShape","CCCircleShape","CCShapeNode",NULL);
   tolua_beginmodule(tolua_S,"CCCircleShape");

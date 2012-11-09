@@ -50,16 +50,42 @@ public:
     void setLineWidth(float lineWidth) {
         m_lineWidth = lineWidth;
     }
+    
+    GLushort getLineStipple(void) {
+        return m_lineStipple;
+    }
+    
+    void setLineStipple(GLushort pattern) {
+        m_lineStipple = pattern;
+    }
+    
+    bool isLineStippleEnabled(void) {
+        return m_lineStippleEnabled;
+    }
+    
+    void setLineStippleEnabled(bool lineStippleEnabled) {
+        m_lineStippleEnabled = lineStippleEnabled;
+    }
+    
+    void draw(void);
 
 protected:
     ccColor4F m_color;
-    float m_lineWidth;
+    float     m_lineWidth;
+    GLushort  m_lineStipple;
+    bool      m_lineStippleEnabled;
 
     CCShapeNode(void)
     : m_lineWidth(1.0f)
+    , m_lineStipple(0xFFFF)
+    , m_lineStippleEnabled(false)
     {
         m_color = ccc4f(0, 0, 0, 1);
     }
+    
+    virtual void beforeDraw(void);
+    virtual void drawProc(void) = 0;
+    virtual void afterDraw(void);
     
     const CCPoint getDrawPosition(void) {
         const CCSize& size = getParent()->getContentSize();
@@ -126,8 +152,6 @@ public:
         m_scaleY = yScale;
     }
     
-    virtual void draw(void);
-    
 protected:
     float m_radius;
     float m_angle;
@@ -135,6 +159,8 @@ protected:
     bool m_drawLineToCenter;
     float m_scaleX;
     float m_scaleY;
+    
+    virtual void drawProc(void);
 };
 
 
@@ -161,11 +187,11 @@ public:
         m_fill = fill;
     }
     
-    virtual void draw(void);
-    
 protected:
     CCSize m_size;
     bool m_fill;
+    
+    virtual void drawProc(void);
 };
 
 
@@ -175,7 +201,9 @@ class CCPointShape : public CCShapeNode
 {
 public:
     static CCPointShape* create(void);
-    virtual void draw(void);
+    
+protected:
+    virtual void drawProc(void);
 };
 
 
@@ -203,8 +231,6 @@ public:
     void setClose(bool close) {
         m_close = close;
     }
-        
-    virtual void draw(void);
     
 protected:
     CCPoint* m_vertices;
@@ -212,6 +238,8 @@ protected:
     unsigned int m_numberOfVertices;
     bool m_fill;
     bool m_close;
+    
+    virtual void drawProc(void);
 };
 
 

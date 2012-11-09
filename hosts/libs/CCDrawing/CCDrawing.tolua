@@ -5,6 +5,10 @@ class CCShapeNode : public CCNode
     void setColor(const ccColor4F& color);
     float getLineWidth(void);
     void setLineWidth(float lineWidth);
+    unsigned short getLineStipple(void);
+    setLineStipple(unsigned short pattern);
+    bool isLineStippleEnabled(void);
+    void setLineStippleEnabled(bool lineStippleEnabled);
 };
 
 class CCCircleShape : public CCShapeNode

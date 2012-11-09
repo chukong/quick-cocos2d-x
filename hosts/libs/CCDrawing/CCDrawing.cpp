@@ -4,6 +4,35 @@
 
 NS_CC_BEGIN
 
+void CCShapeNode::draw(void)
+{
+    beforeDraw();
+    drawProc();
+    afterDraw();
+}
+
+void CCShapeNode::beforeDraw(void)
+{
+    glLineWidth(m_lineWidth);
+    ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
+    if (m_lineStippleEnabled)
+    {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(1, m_lineStipple);
+    }
+}
+
+void CCShapeNode::afterDraw(void)
+{
+    glLineWidth(1);    
+    ccDrawColor4F(1, 1, 1, 1);
+    if (m_lineStippleEnabled)
+    {
+        glDisable(GL_LINE_STIPPLE);
+        glLineStipple(1, 0xFFFF);
+    }
+}
+
 CCCircleShape* CCCircleShape::create(float radius,
                                      float angle,
                                      unsigned int segments,
@@ -20,13 +49,9 @@ CCCircleShape* CCCircleShape::create(float radius,
     return circle;
 }
 
-void CCCircleShape::draw(void)
+void CCCircleShape::drawProc(void)
 {
-    glLineWidth(m_lineWidth);
-    ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
     ccDrawCircle(getDrawPosition(), m_radius, m_angle, m_segments, m_drawLineToCenter, m_scaleX, m_scaleY);
-    ccDrawColor4F(1, 1, 1, 1);
-    glLineWidth(1);
 }
 
 
@@ -41,13 +66,12 @@ CCRectShape* CCRectShape::create(const cocos2d::CCSize &size, bool fill)
     return rect;
 }
 
-void CCRectShape::draw(void)
+void CCRectShape::drawProc(void)
 {
     const CCPoint center = getDrawPosition();
     float w = m_size.width / 2;
     float h = m_size.height / 2;
     
-    glLineWidth(m_lineWidth);
     if (m_fill)
     {
         ccDrawSolidRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h), m_color);
@@ -57,7 +81,6 @@ void CCRectShape::draw(void)
         ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
         ccDrawRect(ccp(center.x - w, center.y + h), ccp(center.x + w, center.y - h));
     }
-    glLineWidth(1);
 }
 
 
@@ -70,9 +93,8 @@ CCPointShape* CCPointShape::create(void)
     return point;
 }
 
-void CCPointShape::draw(void)
+void CCPointShape::drawProc(void)
 {
-    ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
     ccDrawPoint(getDrawPosition());
 }
 
@@ -104,7 +126,7 @@ CCPolygonShape::~CCPolygonShape(void)
     delete[] m_verticesDraw;
 }
 
-void CCPolygonShape::draw(void)
+void CCPolygonShape::drawProc(void)
 {
     const CCPoint center = getDrawPosition();
     for (unsigned int i = 0; i < m_numberOfVertices; ++i)
@@ -113,7 +135,6 @@ void CCPolygonShape::draw(void)
         m_verticesDraw[i].y = m_vertices[i].y + center.y;
     }
     
-    glLineWidth(m_lineWidth);
     if (m_fill)
     {
         ccDrawSolidPoly(m_verticesDraw, m_numberOfVertices, m_color);
@@ -123,7 +144,6 @@ void CCPolygonShape::draw(void)
         ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
         ccDrawPoly(m_verticesDraw, m_numberOfVertices, m_close);
     }
-    glLineWidth(1);
 }
 
 NS_CC_END
