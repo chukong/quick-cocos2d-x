@@ -15,22 +15,26 @@ void CCShapeNode::beforeDraw(void)
 {
     glLineWidth(m_lineWidth);
     ccDrawColor4F(m_color.r, m_color.g, m_color.b, m_color.a);
+#ifdef GL_LINE_STIPPLE
     if (m_lineStippleEnabled)
     {
         glEnable(GL_LINE_STIPPLE);
         glLineStipple(1, m_lineStipple);
     }
+#endif
 }
 
 void CCShapeNode::afterDraw(void)
 {
     glLineWidth(1);    
     ccDrawColor4F(1, 1, 1, 1);
+#ifdef GL_LINE_STIPPLE
     if (m_lineStippleEnabled)
     {
         glDisable(GL_LINE_STIPPLE);
         glLineStipple(1, 0xFFFF);
     }
+#endif
 }
 
 CCCircleShape* CCCircleShape::create(float radius,
