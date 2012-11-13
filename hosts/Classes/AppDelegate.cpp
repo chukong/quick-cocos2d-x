@@ -23,12 +23,13 @@
 // more lua exts
 #include "LuaCCDrawing.h"
 #include "cocos2dx_extension_CCScale9Sprite.h"
+#include "MapMath.h"
 
 #include <string>
 
-//extern "C" {
+extern "C" {
 //#include "gamescripts.h"
-//}
+}
 
 using namespace std;
 using namespace cocos2d;
@@ -59,7 +60,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setProjection(kCCDirectorProjection2D);
     
     // turn on display FPS
-//    pDirector->setDisplayStats(true);
+    pDirector->setDisplayStats(true);
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
@@ -87,10 +88,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_native_mac_open(L);
 #endif
     
-    tolua_cocos2dx_extension_CCScale9Sprite_open(L);
-
     // more lua exts
     tolua_CCDrawing_open(L);
+    tolua_cocos2dx_extension_CCScale9Sprite_open(L);
+    mapmath::MapMath_luaopen(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     

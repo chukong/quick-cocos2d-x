@@ -16,6 +16,7 @@
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
+		F475D2671651DE9500597053 /* MapMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475D2661651DE9500597053 /* MapMath.cpp */; };
 		F491221315F5A72D006129CB /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491210C15F5A72D006129CB /* CCAction.cpp */; };
 		F491221415F5A72D006129CB /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491210E15F5A72D006129CB /* CCActionCamera.cpp */; };
 		F491221515F5A72D006129CB /* CCActionCatmullRom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491211015F5A72D006129CB /* CCActionCatmullRom.cpp */; };
@@ -225,6 +226,8 @@
 		F44C958215F49004004D4151 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LuaHostMac-Prefix.pch"; sourceTree = "<group>"; };
 		F44C958C15F49004004D4151 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F475D2651651DE8300597053 /* MapMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapMath.h; sourceTree = "<group>"; };
+		F475D2661651DE9500597053 /* MapMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapMath.cpp; sourceTree = "<group>"; };
 		F491210C15F5A72D006129CB /* CCAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAction.cpp; sourceTree = "<group>"; };
 		F491210D15F5A72D006129CB /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		F491210E15F5A72D006129CB /* CCActionCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionCamera.cpp; sourceTree = "<group>"; };
@@ -723,6 +726,7 @@
 		F44C957C15F49004004D4151 /* LuaHostMac */ = {
 			isa = PBXGroup;
 			children = (
+				F475D2621651DE6800597053 /* client_sources */,
 				F4BA6DEF15F494B300CE7A10 /* libs */,
 				F4BA6DE215F4924C00CE7A10 /* Classes */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
@@ -746,6 +750,24 @@
 				F4F7780A1606CD0900C69253 /* curl */,
 			);
 			name = third_party;
+			sourceTree = "<group>";
+		};
+		F475D2621651DE6800597053 /* client_sources */ = {
+			isa = PBXGroup;
+			children = (
+				F475D2631651DE6800597053 /* Classes */,
+			);
+			name = client_sources;
+			path = ../../../../voyage/client_sources;
+			sourceTree = "<group>";
+		};
+		F475D2631651DE6800597053 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F475D2651651DE8300597053 /* MapMath.h */,
+				F475D2661651DE9500597053 /* MapMath.cpp */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		F491210A15F5A713006129CB /* cocos2d-x */ = {
@@ -1838,6 +1860,7 @@
 				F4198B15163F709500F99D75 /* CCNative_objc.mm in Sources */,
 				F40EE8C8163F893200090121 /* cocos2dx_extension_native_mac.cpp in Sources */,
 				F40EE8CC163F8B9A00090121 /* OpenUDID_mac.m in Sources */,
+				F475D2671651DE9500597053 /* MapMath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
