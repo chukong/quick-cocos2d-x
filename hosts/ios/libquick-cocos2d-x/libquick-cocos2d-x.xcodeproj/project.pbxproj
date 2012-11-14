@@ -1930,7 +1930,7 @@
 					"\"$(COCOS2DX_ROOT)/scripting/lua/lua\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/tolua\"",
 					"\"$(COCOS2DX_PLUS_ROOT)/extensions\"",
-					"/Users/dualface/Documents/Games/quick-cocos2d-x/hosts/libs/CCDrawing",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = "\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/libraries\"";
@@ -1971,7 +1971,7 @@
 					"\"$(COCOS2DX_ROOT)/scripting/lua/lua\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/tolua\"",
 					"\"$(COCOS2DX_PLUS_ROOT)/extensions\"",
-					"/Users/dualface/Documents/Games/quick-cocos2d-x/hosts/libs/CCDrawing",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = "\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/libraries\"";
