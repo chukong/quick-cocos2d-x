@@ -23,7 +23,7 @@
 // more lua exts
 #include "LuaCCDrawing.h"
 #include "cocos2dx_extension_CCScale9Sprite.h"
-#include "MapMath.h"
+#include "MapRuntimeC.h"
 
 #include <string>
 
@@ -91,7 +91,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     // more lua exts
     tolua_CCDrawing_open(L);
     tolua_cocos2dx_extension_CCScale9Sprite_open(L);
-    mapmath::MapMath_luaopen(L);
+    MapRuntimeC::MapRuntimeC_luaopen(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
