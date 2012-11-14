@@ -131,6 +131,9 @@
     <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\platform\win32\CCNative_win32def.h">
       <Filter>cocos2d-x-extensions</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\voyage\client_sources\Classes\MapRuntimeC.h">
+      <Filter>win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
@@ -202,6 +205,7 @@
     <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\luabinding\cocos2dx_extension_native_win32.cpp">
       <Filter>cocos2d-x-extensions</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\voyage\client_sources\Classes\MapRuntimeC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LuaHostWin32.rc">
