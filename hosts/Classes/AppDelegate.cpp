@@ -1,4 +1,6 @@
 
+#include <string>
+#include "cocos2d.h"
 #include "AppDelegate.h"
 #include "HostVersion.h"
 #include "SimpleAudioEngine.h"
@@ -24,8 +26,6 @@
 #include "LuaCCDrawing.h"
 #include "cocos2dx_extension_CCScale9Sprite.h"
 #include "MapRuntimeC.h"
-
-#include <string>
 
 extern "C" {
 //#include "gamescripts.h"

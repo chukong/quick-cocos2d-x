@@ -1923,14 +1923,17 @@
 					"\"$(COCOS2DX_ROOT)/cocos2dx/kazmath/include\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/ios\"",
-					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/\"",
+					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios\"",
+					"\"$(COCOS2DX_ROOT)/extensions\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/include\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/ios\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/cocos2dx_support\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/lua\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/tolua\"",
 					"\"$(COCOS2DX_PLUS_ROOT)/extensions\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing",
+					"\"$(COCOS2DX_PLUS_ROOT)/extensions/luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = "\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/libraries\"";
@@ -1964,14 +1967,17 @@
 					"\"$(COCOS2DX_ROOT)/cocos2dx/kazmath/include\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform\"",
 					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/ios\"",
-					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/\"",
+					"\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios\"",
+					"\"$(COCOS2DX_ROOT)/extensions\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/include\"",
 					"\"$(COCOS2DX_ROOT)/CocosDenshion/ios\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/cocos2dx_support\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/lua\"",
 					"\"$(COCOS2DX_ROOT)/scripting/lua/tolua\"",
 					"\"$(COCOS2DX_PLUS_ROOT)/extensions\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing",
+					"\"$(COCOS2DX_PLUS_ROOT)/extensions/luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = "\"$(COCOS2DX_ROOT)/cocos2dx/platform/third_party/ios/libraries\"";

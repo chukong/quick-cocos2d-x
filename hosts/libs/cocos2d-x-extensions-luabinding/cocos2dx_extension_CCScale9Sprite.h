@@ -7,7 +7,7 @@ extern "C" {
 #include "tolua_fix.h"
 }
 #include "cocos2d.h"
-#include "CCScale9Sprite.h"
+#include "GUI/CCControlExtension/CCScale9Sprite.h"
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
