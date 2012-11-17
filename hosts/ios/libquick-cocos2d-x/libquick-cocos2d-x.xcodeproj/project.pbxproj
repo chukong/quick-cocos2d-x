@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F415ACB0165789B600EB9C3C /* CCDrawingPrimitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F415ACAD1657898400EB9C3C /* CCDrawingPrimitives.cpp */; };
 		F47B6B3E16478CB300A8E8D8 /* CCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B3A16478CB300A8E8D8 /* CCDrawing.cpp */; };
 		F47B6B3F16478CB300A8E8D8 /* LuaCCDrawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B3C16478CB300A8E8D8 /* LuaCCDrawing.cpp */; };
 		F47B6B4416478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47B6B4216478CE600A8E8D8 /* cocos2dx_extension_CCScale9Sprite.cpp */; };
@@ -57,7 +58,6 @@
 		F484A66116466F5B006A1C3C /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A56A16466F5B006A1C3C /* CCCamera.cpp */; };
 		F484A66216466F5B006A1C3C /* CCConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A56C16466F5B006A1C3C /* CCConfiguration.cpp */; };
 		F484A66316466F5B006A1C3C /* CCDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A56E16466F5B006A1C3C /* CCDirector.cpp */; };
-		F484A66416466F5B006A1C3C /* CCDrawingPrimitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A57016466F5B006A1C3C /* CCDrawingPrimitives.cpp */; };
 		F484A66516466F5B006A1C3C /* CCScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A57216466F5B006A1C3C /* CCScheduler.cpp */; };
 		F484A66616466F5B006A1C3C /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A57516466F5B006A1C3C /* CCAffineTransform.cpp */; };
 		F484A66716466F5B006A1C3C /* CCArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F484A57716466F5B006A1C3C /* CCArray.cpp */; };
@@ -220,6 +220,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F415ACAD1657898400EB9C3C /* CCDrawingPrimitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDrawingPrimitives.cpp; path = "../../libs/cocos2d-x/cocos2dx/CCDrawingPrimitives.cpp"; sourceTree = SOURCE_ROOT; };
+		F415ACAE1657898400EB9C3C /* CCDrawingPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawingPrimitives.h; path = "../../../libs/cocos2d-x/cocos2dx/CCDrawingPrimitives.h"; sourceTree = "<group>"; };
 		F47B6B3A16478CB300A8E8D8 /* CCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDrawing.cpp; path = ../../libs/CCDrawing/CCDrawing.cpp; sourceTree = "<group>"; };
 		F47B6B3B16478CB300A8E8D8 /* CCDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawing.h; path = ../../libs/CCDrawing/CCDrawing.h; sourceTree = "<group>"; };
 		F47B6B3C16478CB300A8E8D8 /* LuaCCDrawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LuaCCDrawing.cpp; path = ../../libs/CCDrawing/LuaCCDrawing.cpp; sourceTree = "<group>"; };
@@ -323,8 +325,6 @@
 		F484A56D16466F5B006A1C3C /* CCConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCConfiguration.h; path = "../../../libs/cocos2d-x/cocos2dx/CCConfiguration.h"; sourceTree = "<group>"; };
 		F484A56E16466F5B006A1C3C /* CCDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDirector.cpp; path = "../../../libs/cocos2d-x/cocos2dx/CCDirector.cpp"; sourceTree = "<group>"; };
 		F484A56F16466F5B006A1C3C /* CCDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDirector.h; path = "../../../libs/cocos2d-x/cocos2dx/CCDirector.h"; sourceTree = "<group>"; };
-		F484A57016466F5B006A1C3C /* CCDrawingPrimitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDrawingPrimitives.cpp; path = "../../../libs/cocos2d-x/cocos2dx/CCDrawingPrimitives.cpp"; sourceTree = "<group>"; };
-		F484A57116466F5B006A1C3C /* CCDrawingPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawingPrimitives.h; path = "../../../libs/cocos2d-x/cocos2dx/CCDrawingPrimitives.h"; sourceTree = "<group>"; };
 		F484A57216466F5B006A1C3C /* CCScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCScheduler.cpp; path = "../../../libs/cocos2d-x/cocos2dx/CCScheduler.cpp"; sourceTree = "<group>"; };
 		F484A57316466F5B006A1C3C /* CCScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScheduler.h; path = "../../../libs/cocos2d-x/cocos2dx/CCScheduler.h"; sourceTree = "<group>"; };
 		F484A57516466F5B006A1C3C /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
@@ -915,8 +915,8 @@
 				F484A56D16466F5B006A1C3C /* CCConfiguration.h */,
 				F484A56E16466F5B006A1C3C /* CCDirector.cpp */,
 				F484A56F16466F5B006A1C3C /* CCDirector.h */,
-				F484A57016466F5B006A1C3C /* CCDrawingPrimitives.cpp */,
-				F484A57116466F5B006A1C3C /* CCDrawingPrimitives.h */,
+				F415ACAD1657898400EB9C3C /* CCDrawingPrimitives.cpp */,
+				F415ACAE1657898400EB9C3C /* CCDrawingPrimitives.h */,
 				F484A57216466F5B006A1C3C /* CCScheduler.cpp */,
 				F484A57316466F5B006A1C3C /* CCScheduler.h */,
 				F484A57416466F5B006A1C3C /* cocoa */,
@@ -1669,7 +1669,6 @@
 				F484A66116466F5B006A1C3C /* CCCamera.cpp in Sources */,
 				F484A66216466F5B006A1C3C /* CCConfiguration.cpp in Sources */,
 				F484A66316466F5B006A1C3C /* CCDirector.cpp in Sources */,
-				F484A66416466F5B006A1C3C /* CCDrawingPrimitives.cpp in Sources */,
 				F484A66516466F5B006A1C3C /* CCScheduler.cpp in Sources */,
 				F484A66616466F5B006A1C3C /* CCAffineTransform.cpp in Sources */,
 				F484A66716466F5B006A1C3C /* CCArray.cpp in Sources */,
@@ -1848,6 +1847,7 @@
 				F47B788D1647948300A8E8D8 /* OpenUDID_objc.m in Sources */,
 				F47B788E1647948300A8E8D8 /* Reachability_objc.m in Sources */,
 				F4808C7C1647CEFE00B96E6E /* cocos2dx_extension_store.cpp in Sources */,
+				F415ACB0165789B600EB9C3C /* CCDrawingPrimitives.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
