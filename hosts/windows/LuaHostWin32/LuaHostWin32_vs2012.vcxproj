@@ -53,7 +53,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;COCOS2D_DEBUG=1;CC_DISABLE_ASSERT=1;CC_LUA_ENGINE_ENABLED=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\libs\cocos2d-x\cocos2dx;..\..\libs\cocos2d-x\cocos2dx\include;..\..\libs\cocos2d-x\cocos2dx\platform;..\..\libs\cocos2d-x\cocos2dx\platform\win32;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES\;..\..\libs\cocos2d-x\cocos2dx\kazmath\include;..\..\libs\cocos2d-x\extensions;..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension;..\..\libs\cocos2d-x-extensions-luabinding;..\..\libs\cocos2d-x\scripting\lua\lua;..\..\libs\cocos2d-x\scripting\lua\tolua;..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support;..\..\libs\cocos2d-x\CocosDenshion\include;..\..\libs\cocos2d-x-extensions\extensions;..\..\libs\cocos2d-x-extensions\extensions\luabinding;..\..\libs\CCDrawing;..\..\Classes;.;C:\Work\voyage\client_sources\Classes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\libs\cocos2d-x\cocos2dx;..\..\libs\cocos2d-x\cocos2dx\include;..\..\libs\cocos2d-x\cocos2dx\platform;..\..\libs\cocos2d-x\cocos2dx\platform\win32;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES\;..\..\libs\cocos2d-x\cocos2dx\kazmath\include;..\..\libs\cocos2d-x\extensions;..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension;..\..\libs\cocos2d-x-extensions-luabinding;..\..\libs\cocos2d-x\scripting\lua\lua;..\..\libs\cocos2d-x\scripting\lua\tolua;..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support;..\..\libs\cocos2d-x\CocosDenshion\include;..\..\libs\cocos2d-x-extensions\extensions;..\..\libs\cocos2d-x-extensions\extensions\luabinding;..\..\libs\CCDrawing;..\..\Classes;.;C:\Work\voyage\client_sources\Classes;C:\Work\voyage\client_sources\luabinding;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251;4068;4800</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\voyage\client_sources\Classes\MapRuntimeC.h" />
+    <ClInclude Include="..\..\..\..\voyage\client_sources\luabinding\MapRuntimeC_luabinding.h" />
     <ClInclude Include="..\..\Classes\AppDelegate.h" />
     <ClInclude Include="..\..\libs\CCDrawing\CCDrawing.h" />
     <ClInclude Include="..\..\libs\CCDrawing\LuaCCDrawing.h" />
@@ -121,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\voyage\client_sources\Classes\MapRuntimeC.cpp" />
+    <ClCompile Include="..\..\..\..\voyage\client_sources\luabinding\MapRuntimeC_luabinding.cpp" />
     <ClCompile Include="..\..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\..\libs\CCDrawing\CCDrawing.cpp" />
     <ClCompile Include="..\..\libs\CCDrawing\LuaCCDrawing.cpp" />

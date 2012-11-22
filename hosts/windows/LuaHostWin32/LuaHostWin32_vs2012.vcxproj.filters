@@ -134,6 +134,9 @@
     <ClInclude Include="..\..\..\..\voyage\client_sources\Classes\MapRuntimeC.h">
       <Filter>win32</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\voyage\client_sources\luabinding\MapRuntimeC_luabinding.h">
+      <Filter>win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
@@ -206,6 +209,7 @@
       <Filter>cocos2d-x-extensions</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\voyage\client_sources\Classes\MapRuntimeC.cpp" />
+    <ClCompile Include="..\..\..\..\voyage\client_sources\luabinding\MapRuntimeC_luabinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LuaHostWin32.rc">
