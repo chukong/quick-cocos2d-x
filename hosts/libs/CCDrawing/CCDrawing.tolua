@@ -13,11 +13,7 @@ class CCShapeNode : public CCNode
 
 class CCCircleShape : public CCShapeNode
 {
-    static CCCircleShape* create(float radius,
-                                 float angle = 0,
-                                 unsigned int segments = 10,
-                                 bool drawLineToCenter = false);
-
+    static CCCircleShape* create(float radius);
     float getRadius(void);
     void setRadius(float radius);
     float getAngle(void);
@@ -35,7 +31,7 @@ class CCCircleShape : public CCShapeNode
 class CCRectShape : public CCShapeNode
 {
 public:
-    static CCRectShape* create(const CCSize& size, bool fill = false);
+    static CCRectShape* create(const CCSize& size);
     const CCSize& getSize(void);
     void setSize(const CCSize& size);
     bool isFill(void);
@@ -49,7 +45,7 @@ class CCPointShape : public CCShapeNode
 
 class CCPolygonShape : public CCShapeNode
 {
-    static CCPolygonShape* create(CCArray* vertices, bool fill = false, bool close = false);
+    static CCPolygonShape* create(CCArray* vertices);
     bool isFill(void);
     void setFill(bool fill);
     bool isClose(void);

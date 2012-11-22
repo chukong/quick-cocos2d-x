@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCDrawing
-** Generated automatically by tolua++-1.0.92 on Thu Nov  8 16:19:17 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Nov 23 01:32:24 2012.
 */
 
 
@@ -294,21 +294,15 @@ static int tolua_CCDrawing_CCCircleShape_create00(lua_State* tolua_S)
  if (
      !tolua_isusertable(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
-     !tolua_isboolean(tolua_S,5,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   float radius = ((float)  tolua_tonumber(tolua_S,2,0));
-  float angle = ((float)  tolua_tonumber(tolua_S,3,0));
-  unsigned int segments = ((unsigned int)  tolua_tonumber(tolua_S,4,10));
-  bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,5,false));
   {
-   CCCircleShape* tolua_ret = (CCCircleShape*)  CCCircleShape::create(radius,angle,segments,drawLineToCenter);
+   CCCircleShape* tolua_ret = (CCCircleShape*)  CCCircleShape::create(radius);
     int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
     int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
     toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCCircleShape");
@@ -722,17 +716,15 @@ static int tolua_CCDrawing_CCRectShape_create00(lua_State* tolua_S)
  if (
      !tolua_isusertable(tolua_S,1,"CCRectShape",0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const CCSize",0,&tolua_err)) ||
-     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   const CCSize* size = ((const CCSize*)  tolua_tousertype(tolua_S,2,0));
-  bool fill = ((bool)  tolua_toboolean(tolua_S,3,false));
   {
-   CCRectShape* tolua_ret = (CCRectShape*)  CCRectShape::create(*size,fill);
+   CCRectShape* tolua_ret = (CCRectShape*)  CCRectShape::create(*size);
     int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
     int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
     toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCRectShape");
@@ -916,19 +908,15 @@ static int tolua_CCDrawing_CCPolygonShape_create00(lua_State* tolua_S)
  if (
      !tolua_isusertable(tolua_S,1,"CCPolygonShape",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,3,1,&tolua_err) ||
-     !tolua_isboolean(tolua_S,4,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCArray* vertices = ((CCArray*)  tolua_tousertype(tolua_S,2,0));
-  bool fill = ((bool)  tolua_toboolean(tolua_S,3,false));
-  bool close = ((bool)  tolua_toboolean(tolua_S,4,false));
   {
-   CCPolygonShape* tolua_ret = (CCPolygonShape*)  CCPolygonShape::create(vertices,fill,close);
+   CCPolygonShape* tolua_ret = (CCPolygonShape*)  CCPolygonShape::create(vertices);
     int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
     int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
     toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCPolygonShape");

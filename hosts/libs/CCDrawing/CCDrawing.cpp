@@ -37,18 +37,9 @@ void CCShapeNode::afterDraw(void)
 #endif
 }
 
-CCCircleShape* CCCircleShape::create(float radius,
-                                     float angle,
-                                     unsigned int segments,
-                                     bool drawLineToCenter)
+CCCircleShape* CCCircleShape::create(float radius)
 {
-    CCCircleShape* circle = new CCCircleShape();
-    circle->m_radius = radius;
-    circle->m_angle = angle;
-    circle->m_segments = segments;
-    circle->m_drawLineToCenter = drawLineToCenter;
-    circle->m_scaleX = 1.0f;
-    circle->m_scaleY = 1.0f;
+    CCCircleShape* circle = new CCCircleShape(radius);
     circle->autorelease();
     return circle;
 }
@@ -61,11 +52,9 @@ void CCCircleShape::drawProc(void)
 
 #pragma mark -
 
-CCRectShape* CCRectShape::create(const cocos2d::CCSize &size, bool fill)
+CCRectShape* CCRectShape::create(const cocos2d::CCSize &size)
 {
-    CCRectShape* rect = new CCRectShape();
-    rect->m_size = size;
-    rect->m_fill = fill;
+    CCRectShape* rect = new CCRectShape(size);
     rect->autorelease();
     return rect;
 }
@@ -105,23 +94,30 @@ void CCPointShape::drawProc(void)
 
 #pragma mark -
 
-CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices, bool fill, bool close)
+CCPolygonShape* CCPolygonShape::create(cocos2d::CCArray *vertices)
 {
     CCAssert(vertices->count() > 0, "vertices->count() > 0");
     CCPolygonShape* polygon = new CCPolygonShape();
-    polygon->m_numberOfVertices = vertices->count();
-    polygon->m_vertices         = new CCPoint[polygon->m_numberOfVertices];
-    polygon->m_verticesDraw     = new CCPoint[polygon->m_numberOfVertices];
-    for (unsigned int i = 0; i < polygon->m_numberOfVertices; ++i)
-    {
-        CCPoint* pt = static_cast<CCPoint*>(vertices->objectAtIndex(i));
-        polygon->m_vertices[i]     = *pt;
-        polygon->m_verticesDraw[i] = *pt;
-    }
-    polygon->m_fill  = fill;
-    polygon->m_close = close;
+    polygon->initWithVertices(vertices);
     polygon->autorelease();
     return polygon;
+}
+
+bool CCPolygonShape::initWithVertices(CCArray* vertices)
+{
+    m_numberOfVertices = vertices->count();
+    m_vertices         = new CCPoint[m_numberOfVertices];
+    m_verticesDraw     = new CCPoint[m_numberOfVertices];
+    for (unsigned int i = 0; i < m_numberOfVertices; ++i)
+    {
+        CCPoint* pt = static_cast<CCPoint*>(vertices->objectAtIndex(i));
+        m_vertices[i].x = pt->x;
+        m_vertices[i].y = pt->y;
+        m_verticesDraw[i].x = pt->x;
+        m_verticesDraw[i].y = pt->y;
+    }
+
+    return true;
 }
 
 CCPolygonShape::~CCPolygonShape(void)

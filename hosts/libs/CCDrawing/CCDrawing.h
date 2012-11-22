@@ -70,11 +70,6 @@ public:
     void draw(void);
 
 protected:
-    ccColor4F m_color;
-    float     m_lineWidth;
-    GLushort  m_lineStipple;
-    bool      m_lineStippleEnabled;
-
     CCShapeNode(void)
     : m_lineWidth(1.0f)
     , m_lineStipple(0xFFFF)
@@ -83,11 +78,16 @@ protected:
         m_color = ccc4f(0, 0, 0, 1);
     }
     
+    ccColor4F m_color;
+    float     m_lineWidth;
+    GLushort  m_lineStipple;
+    bool      m_lineStippleEnabled;
+
     virtual void beforeDraw(void);
     virtual void drawProc(void) = 0;
     virtual void afterDraw(void);
     
-    const CCPoint getDrawPosition(void) {
+    inline const CCPoint getDrawPosition(void) {
         const CCSize& size = getParent()->getContentSize();
         return CCPointMake(size.width / 2, size.height / 2);
     }
@@ -99,10 +99,7 @@ protected:
 class CCCircleShape : public CCShapeNode
 {
 public:
-    static CCCircleShape* create(float radius,
-                                 float angle = 0,
-                                 unsigned int segments = 10,
-                                 bool drawLineToCenter = false);
+    static CCCircleShape* create(float radius);
     
     float getRadius(void) {
         return m_radius;
@@ -153,6 +150,16 @@ public:
     }
     
 protected:
+    CCCircleShape(float radius)
+    : m_radius(radius)
+    , m_angle(0)
+    , m_segments(32)
+    , m_drawLineToCenter(false)
+    , m_scaleX(1.0f)
+    , m_scaleY(1.0f)
+    {
+    }
+    
     float m_radius;
     float m_angle;
     unsigned int m_segments;
@@ -169,7 +176,7 @@ protected:
 class CCRectShape : public CCShapeNode
 {
 public:
-    static CCRectShape* create(const CCSize& size, bool fill = false);
+    static CCRectShape* create(const CCSize& size);
     
     const CCSize& getSize(void) {
         return m_size;
@@ -188,6 +195,12 @@ public:
     }
     
 protected:
+    CCRectShape(const CCSize& size)
+    : m_size(size)
+    , m_fill(false)
+    {
+    }
+    
     CCSize m_size;
     bool m_fill;
     
@@ -212,8 +225,7 @@ protected:
 class CCPolygonShape : public CCShapeNode
 {
 public:
-    static CCPolygonShape* create(const CCPoint& point1, const CCPoint& point2, bool fill = false, bool close = false);
-    static CCPolygonShape* create(CCArray* vertices, bool fill = false, bool close = false);
+    static CCPolygonShape* create(CCArray* vertices);
     ~CCPolygonShape(void);
     
     bool isFill(void) {
@@ -233,6 +245,16 @@ public:
     }
     
 protected:
+    CCPolygonShape(void)
+    : m_vertices(NULL)
+    , m_verticesDraw(NULL)
+    , m_numberOfVertices(0)
+    , m_fill(false)
+    , m_close(false)
+    {
+    }
+    bool initWithVertices(CCArray* vertices);
+    
     CCPoint* m_vertices;
     CCPoint* m_verticesDraw;
     unsigned int m_numberOfVertices;
