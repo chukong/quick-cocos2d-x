@@ -43,6 +43,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bin\$(Configuration).win32\</OutDir>
     <IntDir>..\..\..\out\$(Configuration).win32\</IntDir>
+    <TargetName>LuaHostWin32</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
