@@ -27,7 +27,7 @@
 #ifndef __CCDRAWING_H_
 #define __CCDRAWING_H_
 
-#include "CCDrawingPrimitives.h"
+#include "draw_nodes/CCDrawingPrimitives.h"
 #include "base_nodes/CCNode.h"
 
 NS_CC_BEGIN
