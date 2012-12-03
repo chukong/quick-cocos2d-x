@@ -84,8 +84,14 @@ function M.extend(object)
         if object.listeners[eventName] == nil then return end
         local t = object.listeners[eventName]
         for i = #t, 1, -1 do
+            local ret
             local listener = t[i]
-            if listener(event) == false then break end
+            if type(listener) == "table" then
+                ret = listener[2](listener[1], event)
+            else
+                ret = listener(event)
+            end
+            if ret == false then break end
         end
     end
 

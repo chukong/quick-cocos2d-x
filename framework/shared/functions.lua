@@ -1,40 +1,127 @@
 
+--[[--
+
+转换值为数值，结果可能是整数或浮点数。
+
+@param mixed v
+@return number
+
+]]
 function _n(v)
     v = tonumber(v)
     return v or 0
 end
 
+--[[--
+
+转换值为整数（四舍五入）。
+
+@param mixed v
+@return number(integer)
+
+]]
 function _i(v)
-    return math.floor(_n(v))
+    return math.round(_n(v))
 end
 
+--[[--
+
+转换值为字符串。
+
+@param mixed v
+@return string
+
+]]
 function _s(v)
     return tostring(v)
 end
 
+--[[--
+
+测试值是否为 nil 或 false，并返回结果。
+
+@param mixed v
+@return boolean
+
+]]
 function _b(v)
     return (v ~= nil and v ~= false)
 end
 
+--[[--
+
+检查值是否是表格，如果值不是表格，则返回一个空表格。
+
+@param mixed v
+@return table
+
+]]
 function _t(v)
     if type(v) ~= "table" then v = {} end
     return v
 end
 
+--[[--
+
+返回格式化后的字符串，string.format() 函数的别名。
+
+@code
+    local value = format("%0.2f", 0.4785) -- value = "0.48"
+@endcode
+
+@param string format
+@param mixed ...
+@return string
+
+]]
 function format(...)
     return string.format(select(1, ...))
 end
 
+--[[--
+
+输出格式化后的字符串。
+
+@code
+    printf("%0.2f", 0.4785) -- 输出 0.48
+@endcode
+
+@param string format
+@param mixed ...
+
+在不同平台上，输出目的地可能是控制台或者日志文件，详情参考 echo() 函数。
+
+@see echo
+
+]]
 function printf(...)
     echo(string.format(select(1, ...)))
 end
 
----- math
+--[[--
 
+对值进行四舍五入，返回结果。
+
+@param number num
+@return number(integer)
+
+]]
 math.round = function(num)
     return math.floor(num + 0.5)
 end
 
+--[[--
+
+对数值采用千分位分隔符格式化。
+
+@code
+    local value = math.comma("232423.234") -- value = "232,423.234"
+@endcode
+
+@param number num
+@return string
+
+]]
 math.comma = function(num)
     local formatted = tostring(_n(num))
     while true do
@@ -44,10 +131,14 @@ math.comma = function(num)
     return formatted
 end
 
+--[[--
 
----- io
+测试指定的文件是否存在。
 
--- checks whether a file exists
+@param string path
+@return boolean
+
+]]
 io.exists = function(path)
     local file = io.open(path, "r")
     if file then
@@ -57,7 +148,14 @@ io.exists = function(path)
     return false
 end
 
--- reads entire file into a string, on failure return nil
+--[[--
+
+读取指定文件的内容，失败返回 nil。
+
+@param string path
+@return string
+
+]]
 io.readfile = function(path)
     local file = io.open(path, "r")
     if file then
@@ -68,7 +166,15 @@ io.readfile = function(path)
     return nil
 end
 
--- write a string to a file
+--[[--
+
+写入内容到指定的文件，并返回结果指示是否写入成功。
+
+@param string path
+@param string content
+@return boolean
+
+]]
 io.writefile = function(path, content)
     local file = io.open(path, "w+")
     if file then
@@ -80,7 +186,23 @@ io.writefile = function(path, content)
     end
 end
 
--- returns information [dirname, filename, basename, extname] about a file path
+--[[--
+
+分割路径，提取出文件名、目录名等信息。
+
+@code
+    local path = "/var/app/test/abc.png"
+    local pathinfo  = io.pathinfo(path)
+    -- pathinfo.dirname  = "/var/app/test/"
+    -- pathinfo.filename = "abc.png"
+    -- pathinfo.basename = "abc"
+    -- pathinfo.extname  = ".png"
+@endcode
+
+@param string path
+@return table
+
+]]
 io.pathinfo = function(path)
     local pos = string.len(path)
     local extpos = pos + 1
@@ -107,7 +229,14 @@ io.pathinfo = function(path)
     }
 end
 
--- gets file size, on failure return false
+--[[--
+
+确定指定文件的大小，如果失败返回 false。
+
+@param string path
+@return number(integer)
+
+]]
 io.filesize = function(path)
     local size = false
     local file = io.open(path, "r")
@@ -120,13 +249,36 @@ io.filesize = function(path)
     return size
 end
 
+--[[--
+
+根据路径和文件名，构造文件的完整路径。
+
+@code
+    local path = "/var/app/test"
+    local filename = "abc.png"
+    local fullpath = io.pathForFile(filename, path)
+    -- fullpath = "/var/app/test/abc.png"
+@endcode
+
+@param string filename
+@param string path
+@return string
+
+]]
 -- append filename to path
 io.pathForFile = function(filename, path)
     path = string.gsub(path, "[\\\\/]+$", "")
     return path .. "/" .. filename
 end
 
--- find path for module
+--[[--
+
+从 package.path 中查找指定模块的文件名，如果失败返回 false。
+
+@param string moduleName
+@return string
+
+]]
 io.findModulePath = function(moduleName)
     local filename = string.gsub(moduleName, "%.", "/") .. ".lua"
     local paths = string.split(package.path, ";")
@@ -141,16 +293,35 @@ io.findModulePath = function(moduleName)
             end
         end
     end
+    return false
 end
 
+--[[--
 
----- table
+统计表格中包含的值的总数。
 
--- count all elements in an table
+@param table t
+@return number(integer)
+
+]]
 table.nums = function(t)
     return #table.keys(t)
 end
 
+--[[--
+
+返回包含表格中所有值的键名的表格。
+
+@code
+    local t = {a = 1, b = 2, c = 3}
+    local keys = table.keys(t)
+    -- keys = {"a", "b", "c"}
+@endcode
+
+@param table t
+@return table
+
+]]
 table.keys = function(t)
     local keys = {}
     for k, v in pairs(t) do
@@ -159,6 +330,20 @@ table.keys = function(t)
     return keys
 end
 
+--[[--
+
+返回包含表格中所有值的表格。
+
+@code
+    local t = {a = "1", b = "2", c = "3"}
+    local values = table.values(t)
+    -- values = {1, 2, 3}
+@endcode
+
+@param table t
+@return table
+
+]]
 table.values = function(t)
     local values = {}
     for k, v in pairs(t) do
@@ -167,15 +352,54 @@ table.values = function(t)
     return values
 end
 
+--[[--
+
+将一个表格的值复制到另一个表格中。
+
+@code
+    local dest = {a = 1, b = 2}
+    local src = {c = 3, d = 4}
+    table.merge(dest, src)
+    -- dest = {a = 1, b = 2, c = 3, d = 4}
+@endcode
+
+@param table dest
+@param table src
+
+]]
 table.merge = function(dest, src)
     for k, v in pairs(src) do
         dest[k] = v
     end
 end
 
----- global functions
+--[[--
 
--- clones object
+克隆一个值。
+
+因为在 Lua 中，表格的赋值并不会拷贝表格中包含的值，而只是添加一个对表格引用。
+因此下面的代码会导致原始数据被修改：
+
+@code
+    local t1 = {a = 1, b = 2}
+    local t2 = t1
+    t2.b = 3
+    -- t1 = {a = 1, b = 3} <-- t1 中的数据也被修改了
+@endcode
+
+要避免这种情况，就需要使用 clone() 函数：
+
+@code
+    local t1 = {a = 1, b = 2}
+    local t2 = clone(t1)
+    t2.b = 3
+    -- t1 = {a = 1, b = 2} <-- t1 中的数据没有被修改
+@endcode
+
+@param mixed object
+@return mixed
+
+]]
 function clone(object)
     local lookup_table = {}
     local function _copy(object)

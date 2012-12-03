@@ -12,6 +12,11 @@ local device = {}
 --     kTargetBlackBerry,
 -- };
 
+device.PLATFORM_IOS     = "ios"
+device.PLATFORM_ANDROID = "android"
+device.PLATFORM_MAC     = "mac"
+device.PLATFORM_WINDOWS = "windows"
+
 device.platform = "unknown"
 device.host     = "simulator"
 device.model    = "unknown"
@@ -106,6 +111,30 @@ function device.getInputText(title, message, defaultValue)
     message = message or "INPUT TEXT, CLICK OK BUTTON"
     defaultValue = defaultValue or ""
     return CCNative:getInputText(title, message, defaultValue)
+end
+
+function device.newKeypadLayer(callback)
+    local keypadLayer = CCLayer:create()
+
+    keypadLayer:registerScriptKeypadHandler(function(keycode)
+        if keycode == kTypeBackClicked then
+            callback({target = keypadLayer, name = "keypad", key = "back"})
+        elseif keycode == kTypeMenuClicked then
+            callback({target = keypadLayer, name = "keypad", key = "menu"})
+        else
+            callback({target = keypadLayer, name = "keypad", key = keycode})
+        end
+    end)
+
+    function keypadLayer:enable()
+        keypadLayer:setKeypadEnabled(true)
+    end
+
+    function keypadLayer:disable()
+        keypadLayer:setKeypadEnabled(false)
+    end
+
+    return keypadLayer
 end
 
 return device

@@ -168,7 +168,7 @@ function ui.newTTFLabelWithShadow(params)
     params.color = shadowColor
     params.x, params.y = 0, 0
     g.shadow1 = ui.newTTFLabel(params)
-    g.shadow1:realign(1 / display.contentScaleFactor, -1 / display.contentScaleFactor)
+    g.shadow1:realign(1, -1)
     g:addChild(g.shadow1)
 
     params.color = color

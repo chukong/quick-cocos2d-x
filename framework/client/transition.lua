@@ -61,7 +61,9 @@ function transition.execute(target, action, args)
     if delay > 0 then
         action:retain()
         scheduler.performWithDelay(delay, function()
-            target:runAction(action)
+            if not tolua.isnull(target) then
+                target:runAction(action)
+            end
             action:release()
         end)
     else
@@ -79,8 +81,9 @@ function transition.execute(target, action, args)
 end
 
 function transition.moveTo(target, args)
-    local x = args.x or target.x
-    local y = args.y or target.y
+    local tx, ty = target:getPosition()
+    local x = args.x or tx
+    local y = args.y or ty
     local action = CCMoveTo:create(args.time, ccp(x, y))
     return transition.execute(target, action, args)
 end

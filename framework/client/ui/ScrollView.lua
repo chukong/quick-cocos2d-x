@@ -31,15 +31,15 @@ function M.new(args)
     ----
 
     local function snapLayer(isAutoScroll)
-        local ny = layer.y
-        if layer.y < layer.topY then
+        local ny = layer:getPositionY()
+        if ny < layer.topY then
             ny = layer.topY
-        elseif layer.y > layer.bottomY then
+        elseif ny > layer.bottomY then
             ny = layer.bottomY
         end
 
-        if layer.y ~= ny then
-            local time = math.abs(layer.y - ny) / SCROLL_TO_VALID_RANGE_SPEED
+        if layer:getPositionY() ~= ny then
+            local time = math.abs(layer:getPositionY() - ny) / SCROLL_TO_VALID_RANGE_SPEED
             local easing = "backOut"
             if isAutoScroll then easing = {"inOut", 2} end
             transition.moveTo(layer, {y = ny, time = time, easing = easing})
@@ -53,15 +53,15 @@ function M.new(args)
         local moving = swiping.speed * dt
         if swiping.direction then
             -- up
-            layer.y = layer.y - moving
+            layer:setPositionY(layer:getPositionY() - moving)
         else
             -- down
-            layer.y = layer.y + moving
+            layer:setPositionY(layer:getPositionY() + moving)
         end
         if moving < 1 then
             swiping = nil
             snapLayer(true)
-        elseif layer.y < layer.topY or layer.y > layer.bottomY then
+        elseif layer:getPositionY() < layer.topY or layer:getPositionY() > layer.bottomY then
             swiping.speed = swiping.speed * 0.5;
         else
             swiping.speed = swiping.speed * 0.9;
@@ -88,7 +88,7 @@ function M.new(args)
 
             touch = {
                 initTouchY      = y,
-                initLayerY      = layer.y,
+                initLayerY      = layer:getPositionY(),
                 isMaybeTap      = (swiping == nil), -- 如果触摸开始时视图尚在自动卷动，则不考虑 tap 事件
                 lastTouchTime   = frameTime,
                 lastTouchY      = y,
@@ -133,7 +133,7 @@ function M.new(args)
                 if ny > layer.bottomY + validTouchHeight / 2 then
                     ny = layer.bottomY + validTouchHeight / 2
                 end
-                layer.y = ny
+                layer:setPositionY(ny)
             end
 
             return true
@@ -141,7 +141,7 @@ function M.new(args)
 
         if event == CCTOUCHENDED and touch.isMaybeTap then
             -- tap 事件，确定触发哪一个条目的 listener
-            local offset = view.y + layer.y
+            local offset = view:getPositionY() + layer:getPositionY()
             for i, item in ipairs(view.items) do
                 if y <= offset and y >= offset - item.itemHeight + 1 then
                     item:dispatchEvent({name = "tap"})
@@ -153,7 +153,7 @@ function M.new(args)
             return false
         end
 
-        if layer.y <= layer.topY or layer.y >= layer.bottomY then
+        if layer:getPositionY() <= layer.topY or layer:getPositionY() >= layer.bottomY then
             snapLayer()
         elseif touch.isMaybySwiping then
             -- 根据一定时间范围内手指的滑动速度计算惯性
@@ -172,7 +172,7 @@ function M.new(args)
         -- 计算列表的总高度，并依次排列所有条目
         sumHeight = 0
         for i, item in ipairs(view.items) do
-            item.y = -sumHeight
+            item:setPositionY(-sumHeight)
             sumHeight = sumHeight + item.itemHeight
         end
 
@@ -183,7 +183,13 @@ function M.new(args)
     end
 
     local function init()
-        local keys = {marginTop = "number", marginBottom = "number"}
+        local keys = {
+            marginTop        = "number",
+            marginBottom     = "number",
+            validTouchBottom = "number",
+            validTouchTop    = "number",
+            validTouchHeight = "number",
+        }
         for k, t in pairs(keys) do
             if type(args[k]) == t then view[k] = args[k] end
         end
@@ -191,9 +197,9 @@ function M.new(args)
         layer = display.newGroup()
         view:addChild(layer)
 
-        validTouchTop    = display.height - view.marginTop - 1
-        validTouchBottom = view.marginBottom
-        validTouchHeight = validTouchTop - validTouchBottom + 1
+        validTouchTop    = view.validTouchTop    or display.height - view.marginTop - 1
+        validTouchBottom = view.validTouchBottom or view.marginBottom
+        validTouchHeight = view.validTouchHeight or validTouchTop - validTouchBottom + 1
 
         setSumHeight()
 
@@ -205,7 +211,7 @@ function M.new(args)
     ----
 
     function view:addItem(item)
-        item.y = sumHeight
+        item:setPositionY(sumHeight)
         view.items[#view.items + 1] = item
         item.itemIndex = #view.items
         layer:addChild(item)
@@ -241,6 +247,10 @@ function M.new(args)
         return #view.items
     end
 
+    function view:getItemsLayer()
+        return layer
+    end
+
     -- 滚动到指定的条目，确保该条目完整显示在屏幕上
     function view:scrollToItem(itemIndex)
         if itemIndex < 1 or itemIndex > #view.items then return end
@@ -258,7 +268,7 @@ function M.new(args)
             end
         end
 
-        local y = -layer.y
+        local y = -layer:getPositionY()
         if top <= y and bottom >= y - validTouchHeight then return end
         if bottom < y - validTouchHeight then
             -- 如果是条目底部不在有效区，则向上滚动

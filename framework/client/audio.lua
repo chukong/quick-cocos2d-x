@@ -25,10 +25,29 @@ function audio.preloadMusic(filename)
     engine:preloadBackgroundMusic(prefix .. filename)
 end
 
+local playMusicDelayHandle
 function audio.playMusic(filename, isLoop)
     if not isEnabled then return end
     if type(isLoop) ~= "boolean" then isLoop = true end
-    engine:playBackgroundMusic(prefix .. filename, isLoop)
+    audio.stopMusic(true)
+
+    if device.platform == device.PLATFORM_ANDROID then
+        local sharedScheduler = CCDirector:sharedDirector():getScheduler()
+
+        if playMusicDelayHandle then
+            sharedScheduler:unscheduleScriptEntry(playMusicDelayHandle)
+        end
+
+        playMusicDelayHandle = sharedScheduler:scheduleScriptFunc(function()
+            sharedScheduler:unscheduleScriptEntry(playMusicDelayHandle)
+            playMusicDelayHandle = nil
+            echoNotice("audio.playMusic() - filename: %s, isLoop: %s", _s(filename), _s(isLoop))
+            engine:playBackgroundMusic(prefix .. filename, isLoop)
+        end, 0.5, false)
+    else
+        echoNotice("audio.playMusic() - filename: %s, isLoop: %s", _s(filename), _s(isLoop))
+        engine:playBackgroundMusic(prefix .. filename, isLoop)
+    end
 end
 
 function audio.stopMusic(isReleaseData)

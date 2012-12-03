@@ -173,17 +173,22 @@ SCENE_TRANSITIONS["SPLITCOLS"]       = {CCTransitionSplitCols, 2}
 SCENE_TRANSITIONS["SPLITROWS"]       = {CCTransitionSplitRows, 2}
 SCENE_TRANSITIONS["TURNOFFTILES"]    = {CCTransitionTurnOffTiles, 2}
 
-SCENE_TRANSITIONS["SCENEORIENTED"]   = {CCTransitionSceneOriented, 3, kOrientationLeftOver}
+-- SCENE_TRANSITIONS["SCENEORIENTED"]   = {CCTransitionSceneOriented, 3, kOrientationLeftOver}
 SCENE_TRANSITIONS["ZOOMFLIPANGULAR"] = {CCTransitionZoomFlipAngular, 2}
 
 SCENE_TRANSITIONS["PAGETURN"]        = {CCTransitionPageTurn, 3, false}
-SCENE_TRANSITIONS["RADIALCCW"]       = {CCTransitionRadialCCW, 2}
-SCENE_TRANSITIONS["RADIALCW"]        = {CCTransitionRadialCW, 2}
+-- SCENE_TRANSITIONS["RADIALCCW"]       = {CCTransitionRadialCCW, 2}
+-- SCENE_TRANSITIONS["RADIALCW"]        = {CCTransitionRadialCW, 2}
 
-local function newSceneWithTransition(scene, transitionName, time, more)
+local function newSceneWithTransition(scene, transitionName, transitionTime, more)
     local key = string.upper(tostring(transitionName))
     if string.sub(key, 1, 12) == "CCTRANSITION" then
         key = string.sub(key, 13)
+    end
+
+    if key == "RANDOM" then
+        local keys = table.keys(SCENE_TRANSITIONS)
+        key = keys[math.random(1, #keys)]
     end
 
     if SCENE_TRANSITIONS[key] then
@@ -191,9 +196,9 @@ local function newSceneWithTransition(scene, transitionName, time, more)
         transitionTime = transitionTime or 0.2
 
         if count == 3 then
-            scene = cls:create(time, scene, more or default)
+            scene = cls:create(transitionTime, scene, more or default)
         else
-            scene = cls:create(time, scene)
+            scene = cls:create(transitionTime, scene)
         end
     end
     return scene
@@ -351,9 +356,8 @@ function display.newBackgroundTilesSprite(filename)
 end
 display.newBackgroundTilesImage = display.newBackgroundTilesSprite
 
-function display.newCircle(radius, segments)
-    if type(segments) ~= "number" then segments = 36 end
-    local shape = display.extendShape(CCCircleShape:create(radius, 0, segments))
+function display.newCircle(radius)
+    local shape = display.extendShape(CCCircleShape:create(radius))
     if DEBUG > 1 then traceObject(shape, "CircleShape") end
     return shape
 end
@@ -521,7 +525,9 @@ function display.extendNode(node)
     node.removeFromParentAndCleanup_ = node.removeFromParentAndCleanup
     function node:removeFromParentAndCleanup(isCleanup)
         if type(isCleanup) ~= "boolean" then isCleanup = true end
-        self:removeFromParentAndCleanup_(isCleanup)
+        if not tolua.isnull(self) then
+            self:removeFromParentAndCleanup_(isCleanup)
+        end
     end
 
     node.setPosition_ = node.setPosition
