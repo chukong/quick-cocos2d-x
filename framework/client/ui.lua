@@ -168,7 +168,8 @@ function ui.newTTFLabelWithShadow(params)
     params.color = shadowColor
     params.x, params.y = 0, 0
     g.shadow1 = ui.newTTFLabel(params)
-    g.shadow1:realign(1, -1)
+    local offset = 1 / (display.widthInPixels / display.width)
+    g.shadow1:realign(offset, -offset)
     g:addChild(g.shadow1)
 
     params.color = color
@@ -179,6 +180,10 @@ function ui.newTTFLabelWithShadow(params)
     function g:setString(text)
         g.shadow1:setString(text)
         g.label:setString(text)
+    end
+
+    function g:realign(x, y)
+        g:setPosition(x, y)
     end
 
     function g:getContentSize()

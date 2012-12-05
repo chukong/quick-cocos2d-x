@@ -6,7 +6,7 @@ This feature allows you to support In-App Purchases. Currently, only the Apple i
 @module framework.client.api.Store
 
 ]]
-local M = {}
+local Store = {}
 
 local store = __QEEPLAY_GLOBALS__["api.Store"]
 
@@ -26,14 +26,14 @@ Starts up the In-App Purchase engine and allows you to receive callbacks with th
         local transaction = event.transaction
         if transaction.state == "purchased" then
             print("Transaction succuessful!")
-            print("productId", transaction.productIdentifier)
+            print("productId", transaction.productId)
             print("quantity", transaction.quantity)
             print("transactionIdentifier", transaction.transactionIdentifier)
             print("date", os.date("%Y-%m-%d %H:%M:%S", transaction.date))
             print("receipt", transaction.receipt)
         elseif  transaction.state == "restored" then
             print("Transaction restored (from previous session)")
-            print("productId", transaction.productIdentifier)
+            print("productId", transaction.productId)
             print("receipt", transaction.receipt)
             print("transactionIdentifier", transaction.identifier)
             print("date", transaction.date)
@@ -65,7 +65,9 @@ This is the listener that will handle transaction callback events.
 @return Nothing.
 
 ]]
-function M.init(listener)
+function Store.init(listener)
+    if not CCStore then return end
+
     if store then
         echoError("[framework.client.api.Store] ERR, init() store already init")
         return false
@@ -84,7 +86,9 @@ end
 --[[--
 
 ]]
-function M.getReceiptVerifyMode()
+function Store.getReceiptVerifyMode()
+    if not CCStore then return end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, getReceiptVerifyMode() store not init")
         return false
@@ -96,7 +100,9 @@ end
 --[[--
 
 ]]
-function M.setReceiptVerifyMode(mode, isSandbox)
+function Store.setReceiptVerifyMode(mode, isSandbox)
+    if not CCStore then return end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, setReceiptVerifyMode() store not init")
         return false
@@ -117,7 +123,9 @@ end
 --[[--
 
 ]]
-function M.getReceiptVerifyServerUrl()
+function Store.getReceiptVerifyServerUrl()
+    if not CCStore then return end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, getReceiptVerifyServerUrl() store not init")
         return false
@@ -129,7 +137,9 @@ end
 --[[--
 
 ]]
-function M.setReceiptVerifyServerUrl(url)
+function Store.setReceiptVerifyServerUrl(url)
+    if not CCStore then return end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, setReceiptVerifyServerUrl() store not init")
         return false
@@ -168,7 +178,9 @@ iOS devices have a setting that disables purchasing. A common case for this is t
 @return Returns true if purchases are allowed, false otherwise.
 
 ]]
-function M.canMakePurchases()
+function Store.canMakePurchases()
+    if not CCStore then return false end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, canMakePurchases() store not init")
         return false
@@ -224,7 +236,9 @@ A callback function that is invoked when the store finishes retrieving the produ
 @return Nothing.
 
 ]]
-function M.loadProducts(productsId, listener)
+function Store.loadProducts(productsId, listener)
+    if not CCStore then return false end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, loadProducts() store not init")
         return false
@@ -254,7 +268,7 @@ end
 --[[--
 
 ]]
-function M.cancelLoadProducts()
+function Store.cancelLoadProducts()
     if not store then
         echoError("[framework.client.api.Store] ERR, cancelLoadProducts() store not init")
         return false
@@ -266,7 +280,9 @@ end
 --[[--
 
 ]]
-function M.isProductLoaded(productId)
+function Store.isProductLoaded(productId)
+    if not CCStore then return false end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, isProductLoaded() store not init")
         return false
@@ -297,7 +313,9 @@ A string which is the product identifier string.
 @return Nothing.
 
 ]]
-function M.purchase(productId)
+function Store.purchase(productId)
+    if not CCStore then return end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, purchase() store not init")
         return false
@@ -327,7 +345,9 @@ The transaction object belonging to the transaction you want to mark as finished
 @return Nothing.
 
 ]]
-function M.finishTransaction(transaction)
+function Store.finishTransaction(transaction)
+    if not CCStore then return false end
+
     if not store then
         echoError("[framework.client.api.Store] ERR, finishTransaction() store not init")
         return false
@@ -341,4 +361,4 @@ function M.finishTransaction(transaction)
     return store:finishTransactionLua(transaction.transactionIdentifier)
 end
 
-return M
+return Store

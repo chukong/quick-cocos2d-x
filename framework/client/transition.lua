@@ -97,13 +97,13 @@ end
 
 function transition.fadeIn(target, args)
     local action = CCFadeIn:create(args.time)
-    target.opacity = 0
+    target:setOpacity(0)
     return transition.execute(target, action, args)
 end
 
 function transition.fadeOut(target, args)
     local action = CCFadeOut:create(args.time)
-    target.opacity = 255
+    target:setOpacity(255)
     return transition.execute(target, action, args)
 end
 
@@ -163,11 +163,14 @@ function transition.resume(target)
 end
 
 function transition.sequence(actions)
-    local arr = CCArray:createWithCapacity(#actions)
-    for i = 1, #actions do
-        arr:addObject(actions[i])
+    if #actions < 1 then return end
+    if #actions < 2 then return actions[1] end
+
+    local prev = actions[1]
+    for i = 2, #actions do
+        prev = CCSequence:createWithTwoActions(prev, actions[i])
     end
-    return CCSequence:create(arr)
+    return prev
 end
 
 return transition

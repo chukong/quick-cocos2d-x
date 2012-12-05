@@ -1,5 +1,5 @@
 
-local M = {}
+local json = {}
 
 local _encode, _decode
 
@@ -15,7 +15,7 @@ if not ok then
     _decode = simplejson.decode
 end
 
-function M.encode(var, isDebug)
+function json.encode(var, isDebug)
     local status, result = pcall(_encode, var)
     if status then return result end
     if isDebug then
@@ -23,7 +23,7 @@ function M.encode(var, isDebug)
     end
 end
 
-function M.decode(text, isDebug)
+function json.decode(text, isDebug)
     local status, result = pcall(_decode, text)
     if status then return result end
     if isDebug then
@@ -31,4 +31,4 @@ function M.decode(text, isDebug)
     end
 end
 
-return M
+return json

@@ -106,7 +106,7 @@ end
 @return number(integer)
 
 ]]
-math.round = function(num)
+function math.round(num)
     return math.floor(num + 0.5)
 end
 
@@ -122,7 +122,7 @@ end
 @return string
 
 ]]
-math.comma = function(num)
+function math.comma(num)
     local formatted = tostring(_n(num))
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
@@ -139,7 +139,7 @@ end
 @return boolean
 
 ]]
-io.exists = function(path)
+function io.exists(path)
     local file = io.open(path, "r")
     if file then
         io.close(file)
@@ -156,7 +156,7 @@ end
 @return string
 
 ]]
-io.readfile = function(path)
+function io.readfile(path)
     local file = io.open(path, "r")
     if file then
         local content = file:read("*a")
@@ -175,7 +175,7 @@ end
 @return boolean
 
 ]]
-io.writefile = function(path, content)
+function io.writefile(path, content)
     local file = io.open(path, "w+")
     if file then
         if file:write(content) == nil then return false end
@@ -203,7 +203,7 @@ end
 @return table
 
 ]]
-io.pathinfo = function(path)
+function io.pathinfo(path)
     local pos = string.len(path)
     local extpos = pos + 1
     while pos > 0 do
@@ -237,7 +237,7 @@ end
 @return number(integer)
 
 ]]
-io.filesize = function(path)
+function io.filesize(path)
     local size = false
     local file = io.open(path, "r")
     if file then
@@ -266,7 +266,7 @@ end
 
 ]]
 -- append filename to path
-io.pathForFile = function(filename, path)
+function io.pathForFile(filename, path)
     path = string.gsub(path, "[\\\\/]+$", "")
     return path .. "/" .. filename
 end
@@ -279,7 +279,7 @@ end
 @return string
 
 ]]
-io.findModulePath = function(moduleName)
+function io.findModulePath(moduleName)
     local filename = string.gsub(moduleName, "%.", "/") .. ".lua"
     local paths = string.split(package.path, ";")
     for i, path in ipairs(paths) do
@@ -304,7 +304,7 @@ end
 @return number(integer)
 
 ]]
-table.nums = function(t)
+function table.nums(t)
     return #table.keys(t)
 end
 
@@ -322,7 +322,7 @@ end
 @return table
 
 ]]
-table.keys = function(t)
+function table.keys(t)
     local keys = {}
     for k, v in pairs(t) do
         keys[#keys + 1] = k
@@ -344,7 +344,7 @@ end
 @return table
 
 ]]
-table.values = function(t)
+function table.values(t)
     local values = {}
     for k, v in pairs(t) do
         values[#values + 1] = v
@@ -367,7 +367,7 @@ end
 @param table src
 
 ]]
-table.merge = function(dest, src)
+function table.merge(dest, src)
     for k, v in pairs(src) do
         dest[k] = v
     end
@@ -487,18 +487,18 @@ string._htmlspecialchars_set["'"] = "&#039;"
 string._htmlspecialchars_set["<"] = "&lt;"
 string._htmlspecialchars_set[">"] = "&gt;"
 
-string.htmlspecialchars = function(input)
+function string.htmlspecialchars(input)
     for k, v in pairs(string._htmlspecialchars_set) do
         input = string.gsub(input, k, v)
     end
     return input
 end
 
-string.nl2br = function(input)
+function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
 end
 
-string.text2html = function(input)
+function string.text2html(input)
     input = string.gsub(input, "\t", "    ")
     input = string.htmlspecialchars(input)
     input = string.gsub(input, " ", "&nbsp;")
@@ -506,7 +506,7 @@ string.text2html = function(input)
     return input
 end
 
-string.split = function(str, div)
+function string.split(str, div)
     if (div=='') then return false end
     local pos,arr = 0,{}
     -- for each divider found
@@ -518,32 +518,52 @@ string.split = function(str, div)
     return arr
 end
 
-string.ltrim = function(str)
+function string.ltrim(str)
     return string.gsub(str, "^[ \t]+", "")
 end
 
-string.rtrim = function(str)
+function string.rtrim(str)
     return string.gsub(str, "[ \t]+$", "")
 end
 
-string.trim = function(str)
+function string.trim(str)
     str = string.gsub(str, "^[ \t]+", "")
     return string.gsub(str, "[ \t]+$", "")
 end
 
-string.ucfirst = function(str)
+function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
 
-string.urlencodeChar = function(char)
+function string.urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
 
-string.urlencode = function(str)
+function string.urlencode(str)
     -- convert line endings
     str = string.gsub(tostring(str), "\n", "\r\n")
     -- escape all characters but alphanumeric, '.' and '-'
     str = string.gsub(str, "([^%w%.%- ])", string.urlencodeChar)
     -- convert spaces to "+" symbols
     return string.gsub(str, " ", "+")
+end
+
+function string.utf8len(str)
+    local len = #str
+    local left = len
+    local cnt = 0
+    local arr={0,0xc0,0xe0,0xf0,0xf8,0xfc}
+    while left ~= 0 do
+        local tmp=string.byte(str,-left)
+        local i=#arr
+        while arr[i] do
+            if tmp>=arr[i] then
+                left=left-i
+                break
+            end
+            i=i-1
+        end
+        cnt=cnt+1
+    end
+    return cnt
 end
