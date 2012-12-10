@@ -91,6 +91,9 @@
     <Filter Include="shaders">
       <UniqueIdentifier>{163895ae-8a8e-46bf-bdf2-98bb2c1347fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="draw_nodes">
+      <UniqueIdentifier>{8911f545-7ff8-4b62-b088-a9f24bef8075}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\base_nodes\CCAtlasNode.cpp">
@@ -420,11 +423,19 @@
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCCamera.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCConfiguration.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCDirector.cpp" />
-    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCDrawingPrimitives.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCScheduler.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\cocos2d.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.cpp">
       <Filter>platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawingPrimitives.cpp">
+      <Filter>draw_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawNode.cpp">
+      <Filter>draw_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCClippingNode.cpp">
+      <Filter>misc_nodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -857,10 +868,18 @@
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCCamera.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCConfiguration.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCDirector.h" />
-    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCDrawingPrimitives.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCScheduler.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.h">
       <Filter>platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawNode.h">
+      <Filter>draw_nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawingPrimitives.h">
+      <Filter>draw_nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCClippingNode.h">
+      <Filter>misc_nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

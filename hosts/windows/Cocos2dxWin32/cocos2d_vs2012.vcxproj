@@ -141,6 +141,8 @@ xcopy /Y /Q "..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\cocoa\CCSet.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\cocoa\CCString.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\cocoa\CCZone.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawingPrimitives.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawNode.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\effects\CCGrabber.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\effects\CCGrid.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\actions\CCAction.cpp" />
@@ -166,6 +168,7 @@ xcopy /Y /Q "..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\layers_scenes_transitions_nodes\CCTransitionProgress.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\menu_nodes\CCMenu.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\menu_nodes\CCMenuItem.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCClippingNode.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCMotionStreak.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCProgressTimer.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCRenderTexture.cpp" />
@@ -241,7 +244,6 @@ xcopy /Y /Q "..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCCamera.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCConfiguration.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCDirector.cpp" />
-    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCDrawingPrimitives.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\CCScheduler.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\cocos2d.cpp" />
   </ItemGroup>
@@ -259,6 +261,8 @@ xcopy /Y /Q "..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\cocoa\CCSet.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\cocoa\CCString.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\cocoa\CCZone.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawingPrimitives.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\draw_nodes\CCDrawNode.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\effects\CCGrabber.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\effects\CCGrid.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\actions\CCAction.h" />
@@ -290,6 +294,7 @@ xcopy /Y /Q "..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\layers_scenes_transitions_nodes\CCTransitionProgress.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\menu_nodes\CCMenu.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\menu_nodes\CCMenuItem.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCClippingNode.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCMotionStreak.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCProgressTimer.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\misc_nodes\CCRenderTexture.h" />
@@ -392,7 +397,6 @@ xcopy /Y /Q "..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCCamera.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCConfiguration.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCDirector.h" />
-    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCDrawingPrimitives.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\CCScheduler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
