@@ -16,7 +16,6 @@
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
-		F475D2671651DE9500597053 /* MapRuntimeC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475D2661651DE9500597053 /* MapRuntimeC.cpp */; };
 		F491221315F5A72D006129CB /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491210C15F5A72D006129CB /* CCAction.cpp */; };
 		F491221415F5A72D006129CB /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491210E15F5A72D006129CB /* CCActionCamera.cpp */; };
 		F491221515F5A72D006129CB /* CCActionCatmullRom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491211015F5A72D006129CB /* CCActionCatmullRom.cpp */; };
@@ -35,7 +34,6 @@
 		F491222215F5A72D006129CB /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491212B15F5A72D006129CB /* CCCamera.cpp */; };
 		F491222315F5A72D006129CB /* CCConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491212D15F5A72D006129CB /* CCConfiguration.cpp */; };
 		F491222415F5A72D006129CB /* CCDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491212F15F5A72D006129CB /* CCDirector.cpp */; };
-		F491222515F5A72D006129CB /* CCDrawingPrimitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491213115F5A72D006129CB /* CCDrawingPrimitives.cpp */; };
 		F491222615F5A72D006129CB /* CCScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491213315F5A72D006129CB /* CCScheduler.cpp */; };
 		F491222715F5A72D006129CB /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491213615F5A72D006129CB /* CCAffineTransform.cpp */; };
 		F491222815F5A72D006129CB /* CCArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F491213815F5A72D006129CB /* CCArray.cpp */; };
@@ -226,8 +224,6 @@
 		F44C958215F49004004D4151 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LuaHostMac-Prefix.pch"; sourceTree = "<group>"; };
 		F44C958C15F49004004D4151 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		F475D2651651DE8300597053 /* MapRuntimeC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapRuntimeC.h; sourceTree = "<group>"; };
-		F475D2661651DE9500597053 /* MapRuntimeC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapRuntimeC.cpp; sourceTree = "<group>"; };
 		F491210C15F5A72D006129CB /* CCAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAction.cpp; sourceTree = "<group>"; };
 		F491210D15F5A72D006129CB /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		F491210E15F5A72D006129CB /* CCActionCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionCamera.cpp; sourceTree = "<group>"; };
@@ -264,8 +260,6 @@
 		F491212E15F5A72D006129CB /* CCConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCConfiguration.h; path = "../../libs/cocos2d-x/cocos2dx/CCConfiguration.h"; sourceTree = "<group>"; };
 		F491212F15F5A72D006129CB /* CCDirector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDirector.cpp; path = "../../libs/cocos2d-x/cocos2dx/CCDirector.cpp"; sourceTree = "<group>"; };
 		F491213015F5A72D006129CB /* CCDirector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDirector.h; path = "../../libs/cocos2d-x/cocos2dx/CCDirector.h"; sourceTree = "<group>"; };
-		F491213115F5A72D006129CB /* CCDrawingPrimitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCDrawingPrimitives.cpp; path = "../../libs/cocos2d-x/cocos2dx/CCDrawingPrimitives.cpp"; sourceTree = "<group>"; };
-		F491213215F5A72D006129CB /* CCDrawingPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCDrawingPrimitives.h; path = "../../libs/cocos2d-x/cocos2dx/CCDrawingPrimitives.h"; sourceTree = "<group>"; };
 		F491213315F5A72D006129CB /* CCScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCScheduler.cpp; path = "../../libs/cocos2d-x/cocos2dx/CCScheduler.cpp"; sourceTree = "<group>"; };
 		F491213415F5A72D006129CB /* CCScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScheduler.h; path = "../../libs/cocos2d-x/cocos2dx/CCScheduler.h"; sourceTree = "<group>"; };
 		F491213615F5A72D006129CB /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
@@ -726,7 +720,6 @@
 		F44C957C15F49004004D4151 /* LuaHostMac */ = {
 			isa = PBXGroup;
 			children = (
-				F475D2621651DE6800597053 /* client_sources */,
 				F4BA6DEF15F494B300CE7A10 /* libs */,
 				F4BA6DE215F4924C00CE7A10 /* Classes */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
@@ -752,24 +745,6 @@
 			name = third_party;
 			sourceTree = "<group>";
 		};
-		F475D2621651DE6800597053 /* client_sources */ = {
-			isa = PBXGroup;
-			children = (
-				F475D2631651DE6800597053 /* Classes */,
-			);
-			name = client_sources;
-			path = ../../../../voyage/client_sources;
-			sourceTree = "<group>";
-		};
-		F475D2631651DE6800597053 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F475D2661651DE9500597053 /* MapRuntimeC.cpp */,
-				F475D2651651DE8300597053 /* MapRuntimeC.h */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		F491210A15F5A713006129CB /* cocos2d-x */ = {
 			isa = PBXGroup;
 			children = (
@@ -781,8 +756,6 @@
 				F491212E15F5A72D006129CB /* CCConfiguration.h */,
 				F491212F15F5A72D006129CB /* CCDirector.cpp */,
 				F491213015F5A72D006129CB /* CCDirector.h */,
-				F491213115F5A72D006129CB /* CCDrawingPrimitives.cpp */,
-				F491213215F5A72D006129CB /* CCDrawingPrimitives.h */,
 				F491213315F5A72D006129CB /* CCScheduler.cpp */,
 				F491213415F5A72D006129CB /* CCScheduler.h */,
 				F491213515F5A72D006129CB /* cocoa */,
@@ -1753,7 +1726,6 @@
 				F491222215F5A72D006129CB /* CCCamera.cpp in Sources */,
 				F491222315F5A72D006129CB /* CCConfiguration.cpp in Sources */,
 				F491222415F5A72D006129CB /* CCDirector.cpp in Sources */,
-				F491222515F5A72D006129CB /* CCDrawingPrimitives.cpp in Sources */,
 				F491222615F5A72D006129CB /* CCScheduler.cpp in Sources */,
 				F491222715F5A72D006129CB /* CCAffineTransform.cpp in Sources */,
 				F491222815F5A72D006129CB /* CCArray.cpp in Sources */,
@@ -1860,7 +1832,6 @@
 				F4198B15163F709500F99D75 /* CCNative_objc.mm in Sources */,
 				F40EE8C8163F893200090121 /* cocos2dx_extension_native_mac.cpp in Sources */,
 				F40EE8CC163F8B9A00090121 /* OpenUDID_mac.m in Sources */,
-				F475D2671651DE9500597053 /* MapRuntimeC.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1946,7 +1917,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LuaHostMac/LuaHostMac-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					TARGET_OS_MAC,
+					CC_TARGET_OS_MAC,
 					"DEBUG=1",
 					USE_FILE32API,
 					"CC_LUA_ENGINE_ENABLED=1",
@@ -1986,7 +1957,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LuaHostMac/LuaHostMac-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					TARGET_OS_MAC,
+					CC_TARGET_OS_MAC,
 					USE_FILE32API,
 					"CC_LUA_ENGINE_ENABLED=1",
 				);
