@@ -1,7 +1,32 @@
+--[[
+
+Copyright (c) 2011-2012 qeeplay.com
+
+http://dualface.github.com/quick-cocos2d-x/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
 
 --[[--
 
-转换值为数值，结果可能是整数或浮点数。
+Convert to number.
 
 @param mixed v
 @return number
@@ -14,7 +39,7 @@ end
 
 --[[--
 
-转换值为整数（四舍五入）。
+Convert to integer.
 
 @param mixed v
 @return number(integer)
@@ -26,7 +51,7 @@ end
 
 --[[--
 
-转换值为字符串。
+Convert to string.
 
 @param mixed v
 @return string
@@ -38,7 +63,7 @@ end
 
 --[[--
 
-测试值是否为 nil 或 false，并返回结果。
+Convert to boolean.
 
 @param mixed v
 @return boolean
@@ -50,7 +75,7 @@ end
 
 --[[--
 
-检查值是否是表格，如果值不是表格，则返回一个空表格。
+Convert to table.
 
 @param mixed v
 @return table
@@ -63,11 +88,7 @@ end
 
 --[[--
 
-返回格式化后的字符串，string.format() 函数的别名。
-
-@code
-    local value = format("%0.2f", 0.4785) -- value = "0.48"
-@endcode
+Returns a formatted version of its variable number of arguments following the description given in its first argument (which must be a string). string.format() alias.
 
 @param string format
 @param mixed ...
@@ -75,32 +96,164 @@ end
 
 ]]
 function format(...)
-    return string.format(select(1, ...))
+    return string.format(...)
 end
 
 --[[--
 
-输出格式化后的字符串。
+Creating a copy of an table with fully replicated properties.
 
-@code
-    printf("%0.2f", 0.4785) -- 输出 0.48
-@endcode
+**Usage:**
 
-@param string format
-@param mixed ...
+    -- Creating a reference of an table:
+    local t1 = {a = 1, b = 2}
+    local t2 = t1
+    t2.b = 3    -- t1 = {a = 1, b = 3} <-- t1.b changed
 
-在不同平台上，输出目的地可能是控制台或者日志文件，详情参考 echo() 函数。
+    -- Createing a copy of an table:
+    local t1 = {a = 1, b = 2}
+    local t2 = clone(t1)
+    t2.b = 3    -- t1 = {a = 1, b = 2} <-- t1.b no change
 
-@see echo
+
+@param mixed object
+@return mixed
 
 ]]
-function printf(...)
-    echo(string.format(select(1, ...)))
+function clone(object)
+    local lookup_table = {}
+    local function _copy(object)
+        if type(object) ~= "table" then
+            return object
+        elseif lookup_table[object] then
+            return lookup_table[object]
+        end
+        local new_table = {}
+        lookup_table[object] = new_table
+        for key, value in pairs(object) do
+            new_table[_copy(key)] = _copy(value)
+        end
+        return setmetatable(new_table, getmetatable(object))
+    end
+    return _copy(object)
 end
 
 --[[--
 
-对值进行四舍五入，返回结果。
+Create an class.
+
+**Usage:**
+
+    local Shape = class("Shape")
+
+    -- base class
+    function Shape:ctor(shapeName)
+        self.shapeName = shapeName
+        printf("Shape:ctor(%s)", self.shapeName)
+    end
+
+    function Shape:draw()
+        printf("draw %s", self.shapeName)
+    end
+
+    --
+
+    local Circle = class("Circle", Shape)
+
+    function Circle:ctor()
+        Circle.super.ctor(self, "circle")   -- call super-class method
+        self.radius = 100
+    end
+
+    function Circle:setRadius(radius)
+        self.radius = radius
+    end
+
+    function Circle:draw()                  -- overrideing super-class method
+        printf("draw %s, raidus = %0.2f", self.shapeName, self.raidus)
+    end
+
+    --
+
+    local Rectangle = class("Rectangle", Shape)
+
+    function Rectangle:ctor()
+        Rectangle.super.ctor(self, "rectangle")
+    end
+
+    --
+
+    local circle = Circle.new()             -- output: Shape:ctor(circle)
+    circle:setRaidus(200)
+    circle:draw()                           -- output: draw circle, radius = 200.00
+
+    local rectangle = Rectangle.new()       -- output: Shape:ctor(rectangle)
+    rectangle:draw()                        -- output: draw rectangle
+
+
+@param string classname
+@param table super-class
+@return table
+
+]]
+function class(classname, super)
+    local cls
+    if super then
+        cls = clone(super)
+    else
+        cls = {}
+    end
+    cls.super     = super
+    cls.classname = classname
+    cls.__index   = cls
+
+    function cls.new(...)
+        local instance = setmetatable({}, cls)
+        instance.class = cls
+        if cls.ctor then instance:ctor(...) end
+        return instance
+    end
+
+    return cls
+end
+
+--[[--
+
+Returns a associative table containing the matching values.
+
+@param table arr
+@param table names
+@return array
+
+]]
+function export(arr, names)
+    local args = {}
+    for k, def in pairs(names) do
+        if type(k) == "number" then
+            args[def] = arr[def]
+        else
+            args[k] = arr[k] or def
+        end
+    end
+    return args
+end
+
+--[[--
+
+hecks if the given key or index exists in the table.
+
+@param table arr
+@param mixed key
+@return boolean
+
+]]
+function isset(arr, key)
+    return type(arr) == "table" and arr[key] ~= nil
+end
+
+--[[--
+
+Rounds a float.
 
 @param number num
 @return number(integer)
@@ -112,28 +265,7 @@ end
 
 --[[--
 
-对数值采用千分位分隔符格式化。
-
-@code
-    local value = math.comma("232423.234") -- value = "232,423.234"
-@endcode
-
-@param number num
-@return string
-
-]]
-function math.comma(num)
-    local formatted = tostring(_n(num))
-    while true do
-        formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
-        if k == 0 then break end
-    end
-    return formatted
-end
-
---[[--
-
-测试指定的文件是否存在。
+Checks whether a file exists.
 
 @param string path
 @return boolean
@@ -150,7 +282,7 @@ end
 
 --[[--
 
-读取指定文件的内容，失败返回 nil。
+Reads entire file into a string, or return FALSE on failure.
 
 @param string path
 @return string
@@ -168,7 +300,7 @@ end
 
 --[[--
 
-写入内容到指定的文件，并返回结果指示是否写入成功。
+Write a string to a file, or return FALSE on failure.
 
 @param string path
 @param string content
@@ -188,16 +320,17 @@ end
 
 --[[--
 
-分割路径，提取出文件名、目录名等信息。
+Returns information about a file path.
 
-@code
+**Usage:**
+
     local path = "/var/app/test/abc.png"
     local pathinfo  = io.pathinfo(path)
     -- pathinfo.dirname  = "/var/app/test/"
     -- pathinfo.filename = "abc.png"
     -- pathinfo.basename = "abc"
     -- pathinfo.extname  = ".png"
-@endcode
+
 
 @param string path
 @return table
@@ -231,7 +364,7 @@ end
 
 --[[--
 
-确定指定文件的大小，如果失败返回 false。
+Gets file size, or return FALSE on failure.
 
 @param string path
 @return number(integer)
@@ -251,72 +384,30 @@ end
 
 --[[--
 
-根据路径和文件名，构造文件的完整路径。
-
-@code
-    local path = "/var/app/test"
-    local filename = "abc.png"
-    local fullpath = io.pathForFile(filename, path)
-    -- fullpath = "/var/app/test/abc.png"
-@endcode
-
-@param string filename
-@param string path
-@return string
-
-]]
--- append filename to path
-function io.pathForFile(filename, path)
-    path = string.gsub(path, "[\\\\/]+$", "")
-    return path .. "/" .. filename
-end
-
---[[--
-
-从 package.path 中查找指定模块的文件名，如果失败返回 false。
-
-@param string moduleName
-@return string
-
-]]
-function io.findModulePath(moduleName)
-    local filename = string.gsub(moduleName, "%.", "/") .. ".lua"
-    local paths = string.split(package.path, ";")
-    for i, path in ipairs(paths) do
-        if string.sub(path, -5) == "?.lua" then
-            path = string.sub(path, 1, -6)
-            if not string.find(path, "?", 1, true) then
-                local fullpath = path .. filename
-                if io.exists(fullpath) then
-                    return fullpath
-                end
-            end
-        end
-    end
-    return false
-end
-
---[[--
-
-统计表格中包含的值的总数。
+Count all elements in an table.
 
 @param table t
 @return number(integer)
 
 ]]
 function table.nums(t)
-    return #table.keys(t)
+    local count = 0
+    for k, v in pairs(t) do
+        count = count + 1
+    end
+    return count
 end
 
 --[[--
 
-返回包含表格中所有值的键名的表格。
+Return all the keys or a subset of the keys of an table.
 
-@code
+**Usage:**
+
     local t = {a = 1, b = 2, c = 3}
     local keys = table.keys(t)
     -- keys = {"a", "b", "c"}
-@endcode
+
 
 @param table t
 @return table
@@ -332,13 +423,14 @@ end
 
 --[[--
 
-返回包含表格中所有值的表格。
+Return all the values of an table.
 
-@code
+**Usage:**
+
     local t = {a = "1", b = "2", c = "3"}
     local values = table.values(t)
     -- values = {1, 2, 3}
-@endcode
+
 
 @param table t
 @return table
@@ -354,14 +446,15 @@ end
 
 --[[--
 
-将一个表格的值复制到另一个表格中。
+Merge tables.
 
-@code
+**Usage:**
+
     local dest = {a = 1, b = 2}
-    local src = {c = 3, d = 4}
+    local src  = {c = 3, d = 4}
     table.merge(dest, src)
     -- dest = {a = 1, b = 2, c = 3, d = 4}
-@endcode
+
 
 @param table dest
 @param table src
@@ -375,111 +468,26 @@ end
 
 --[[--
 
-克隆一个值。
+Convert special characters to HTML entities.
 
-因为在 Lua 中，表格的赋值并不会拷贝表格中包含的值，而只是添加一个对表格引用。
-因此下面的代码会导致原始数据被修改：
+The translations performed are:
 
-@code
-    local t1 = {a = 1, b = 2}
-    local t2 = t1
-    t2.b = 3
-    -- t1 = {a = 1, b = 3} <-- t1 中的数据也被修改了
-@endcode
+-   '&' (ampersand) becomes '&amp;'
+-   '"' (double quote) becomes '&quot;'
+-   "'" (single quote) becomes '&#039;'
+-   '<' (less than) becomes '&lt;'
+-   '>' (greater than) becomes '&gt;'
 
-要避免这种情况，就需要使用 clone() 函数：
-
-@code
-    local t1 = {a = 1, b = 2}
-    local t2 = clone(t1)
-    t2.b = 3
-    -- t1 = {a = 1, b = 2} <-- t1 中的数据没有被修改
-@endcode
-
-@param mixed object
-@return mixed
+@param string input
+@return string
 
 ]]
-function clone(object)
-    local lookup_table = {}
-    local function _copy(object)
-        if type(object) ~= "table" then
-            return object
-        elseif lookup_table[object] then
-            return lookup_table[object]
-        end
-        local new_table = {}
-        lookup_table[object] = new_table
-        for key, value in pairs(object) do
-            new_table[_copy(key)] = _copy(value)
-        end
-        return setmetatable(new_table, getmetatable(object))
+function string.htmlspecialchars(input)
+    for k, v in pairs(string._htmlspecialchars_set) do
+        input = string.gsub(input, k, v)
     end
-    return _copy(object)
+    return input
 end
-
-function class(classname, super)
-    local cls
-    if super then
-        cls = clone(super)
-    else
-        cls = {}
-    end
-    cls.super     = super
-    cls.classname = classname
-    cls.__index   = cls
-
-    function cls.new(...)
-        local instance = setmetatable({}, cls)
-        instance.class = cls
-        if cls.ctor then instance:ctor(...) end
-        return instance
-    end
-
-    return cls
-end
-
-function try(f, catch_f, finally_f)
-    local throw_err
-    local function catch_err(err)
-        if catch_f then
-            throw_err = catch_f(err)
-        end
-    end
-
-    local ok, result = xpcall(f, catch_err)
-    if ok then
-        if finally_f then finally_f() end
-        return result
-    elseif throw_err then
-        error(throw_err)
-    end
-end
-
-function throw(msg, code)
-    if code then
-        error(format("<<%08u>> - %s", _i(code), _s(msg)), 2)
-    else
-        error(msg, 2)
-    end
-end
-
-function export(arr, names)
-    local args = {}
-    for k, def in pairs(names) do
-        if type(k) == "number" then
-            args[def] = arr[def]
-        else
-            args[k] = arr[k] or def
-        end
-    end
-    return args
-end
-
-function isset(arr, key)
-    return type(arr) == "table" and arr[key] ~= nil
-end
-
 string._htmlspecialchars_set = {}
 string._htmlspecialchars_set["&"] = "&amp;"
 string._htmlspecialchars_set["\""] = "&quot;"
@@ -487,17 +495,28 @@ string._htmlspecialchars_set["'"] = "&#039;"
 string._htmlspecialchars_set["<"] = "&lt;"
 string._htmlspecialchars_set[">"] = "&gt;"
 
-function string.htmlspecialchars(input)
-    for k, v in pairs(string._htmlspecialchars_set) do
-        input = string.gsub(input, k, v)
-    end
-    return input
-end
+--[[--
 
+Inserts HTML line breaks before all newlines in a string.
+
+Returns string with '<br />' inserted before all newlines (\n).
+
+@param string input
+@return string
+
+]]
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
 end
 
+--[[--
+
+Returns a HTML entities formatted version of string.
+
+@param string input
+@return string
+
+]]
 function string.text2html(input)
     input = string.gsub(input, "\t", "    ")
     input = string.htmlspecialchars(input)
@@ -506,39 +525,94 @@ function string.text2html(input)
     return input
 end
 
-function string.split(str, div)
-    if (div=='') then return false end
-    local pos,arr = 0,{}
+--[[--
+
+Split a string by string.
+
+@param string str
+@param string delimiter
+@return table
+
+]]
+function string.split(str, delimiter)
+    if (delimiter=='') then return false end
+    local pos,arr = 0, {}
     -- for each divider found
-    for st,sp in function() return string.find(str,div,pos,true) end do
-        table.insert(arr,string.sub(str,pos,st-1)) -- Attach chars left of current divider
-        pos = sp + 1 -- Jump past current divider
+    for st,sp in function() return string.find(str, delimiter, pos, true) end do
+        table.insert(arr, string.sub(str, pos, st - 1))
+        pos = sp + 1
     end
-    table.insert(arr,string.sub(str,pos)) -- Attach chars right of last divider
+    table.insert(arr, string.sub(str, pos))
     return arr
 end
 
+--[[--
+
+Strip whitespace (or other characters) from the beginning of a string.
+
+@param string str
+@return string
+
+]]
 function string.ltrim(str)
     return string.gsub(str, "^[ \t]+", "")
 end
 
+--[[--
+
+Strip whitespace (or other characters) from the end of a string.
+
+@param string str
+@return string
+
+]]
 function string.rtrim(str)
     return string.gsub(str, "[ \t]+$", "")
 end
 
+--[[--
+
+Strip whitespace (or other characters) from the beginning and end of a string.
+
+@param string str
+@return string
+
+]]
 function string.trim(str)
     str = string.gsub(str, "^[ \t]+", "")
     return string.gsub(str, "[ \t]+$", "")
 end
 
+--[[--
+
+Make a string's first character uppercase.
+
+@param string str
+@return string
+
+]]
 function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
 
+--[[--
+
+@param string str
+@return string
+
+]]
 function string.urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
 
+--[[--
+
+URL-encodes string.
+
+@param string str
+@return string
+
+]]
 function string.urlencode(str)
     -- convert line endings
     str = string.gsub(tostring(str), "\n", "\r\n")
@@ -548,22 +622,53 @@ function string.urlencode(str)
     return string.gsub(str, " ", "+")
 end
 
+--[[--
+
+Get UTF8 string length.
+
+@param string str
+@return int
+
+]]
 function string.utf8len(str)
-    local len = #str
+    local len  = #str
     local left = len
-    local cnt = 0
-    local arr={0,0xc0,0xe0,0xf0,0xf8,0xfc}
+    local cnt  = 0
+    local arr  = {0, 0xc0, 0xe0, 0xf0, 0xf8, 0xfc}
     while left ~= 0 do
-        local tmp=string.byte(str,-left)
-        local i=#arr
+        local tmp = string.byte(str, -left)
+        local i   = #arr
         while arr[i] do
-            if tmp>=arr[i] then
-                left=left-i
+            if tmp >= arr[i] then
+                left = left - i
                 break
             end
-            i=i-1
+            i = i - 1
         end
-        cnt=cnt+1
+        cnt = cnt + 1
     end
     return cnt
 end
+
+--[[--
+
+Return formatted string with a comma (",") between every group of thousands.
+
+**Usage:**
+
+    local value = math.comma("232423.234") -- value = "232,423.234"
+
+
+@param number num
+@return string
+
+]]
+function string.formatNumberThousands(num)
+    local formatted = tostring(_n(num))
+    while true do
+        formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+        if k == 0 then break end
+    end
+    return formatted
+end
+

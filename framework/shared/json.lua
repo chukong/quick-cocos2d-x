@@ -3,14 +3,17 @@ local json = {}
 
 local _encode, _decode
 
-local ok = pcall(function()
-    local cjson = require("cjson")
-    _encode = cjson.encode
-    _decode = cjson.decode
-end)
+local ok
+if __FRAMEWORK_ENVIRONMENT__ == "client" then
+    ok = pcall(function()
+        local cjson = require("cjson")
+        _encode = cjson.encode
+        _decode = cjson.decode
+    end)
+end
 
 if not ok then
-    local simplejson = require("framework.shared.simplejson")
+    local simplejson = require("framework.shared.json.simplejson")
     _encode = simplejson.encode
     _decode = simplejson.decode
 end

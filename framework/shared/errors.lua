@@ -19,3 +19,43 @@ ERROR_INVALID_PARAMETERS         = 1002
 ERROR_SERVER_INVALID_ACTION      = 1003
 ERROR_REDIS_FAILED               = 1004
 ERROR_INVALID_SESSION_ID         = 1005
+
+
+function newError(errorCode, errorMessage)
+    local err
+    if type(errorCode) == "table" then
+        err = clone(errorCode)
+    else
+        err = {
+            errorCode    = errorCode,
+            errorMessage = errorMessage,
+        }
+    end
+
+    return err
+end
+
+function try(f, catch_f, finally_f)
+    local throw_err
+    local function catch_err(err)
+        if catch_f then
+            throw_err = catch_f(err)
+        end
+    end
+
+    local ok, result = xpcall(f, catch_err)
+    if ok then
+        if finally_f then finally_f() end
+        return result
+    elseif throw_err then
+        error(throw_err)
+    end
+end
+
+function throw(msg, code)
+    if code then
+        error(format("<<%08u>> - %s", _i(code), _s(msg)), 2)
+    else
+        error(msg, 2)
+    end
+end

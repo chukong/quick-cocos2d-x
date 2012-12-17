@@ -1,9 +1,12 @@
 
-local M = {}
+local GameState = {}
 
-M.ERROR_INVALID_FILE_CONTENTS = -1
-M.ERROR_HASH_MISS_MATCH       = -2
-M.ERROR_STATE_FILE_NOT_FOUND  = -3
+GameState.ERROR_INVALID_FILE_CONTENTS = -1
+GameState.ERROR_HASH_MISS_MATCH       = -2
+GameState.ERROR_STATE_FILE_NOT_FOUND  = -3
+
+local crypto = require("framework.client.crypto")
+local json   = require("framework.shared.json")
 
 local encodeSign    = "=QP="
 local stateFilename = "state.txt"
@@ -15,7 +18,7 @@ local function isEncodedContents_(contents)
 end
 
 local function encode_(values)
-    local s = crypto.encodeBase64(json.encode(values))
+    local s = json.encode(values)
     local hash = crypto.md5(s..secretKey)
     local contents = json.encode({h = hash, s = s})
     return encodeSign..contents
@@ -27,21 +30,20 @@ local function decode_(fileContents)
 
     if type(j) ~= "table" then
         echoError("[framework.client.api.GameState] ERR, decode_() invalid contents")
-        return {errorCode = M.ERROR_INVALID_FILE_CONTENTS}
+        return {errorCode = GameState.ERROR_INVALID_FILE_CONTENTS}
     end
 
     local hash,s = j.h, j.s
     local testHash = crypto.md5(s..secretKey)
     if testHash ~= hash then
         echoError("[framework.client.api.GameState] ERR, decode_() hash miss match")
-        return {errorCode = M.ERROR_HASH_MISS_MATCH}
+        return {errorCode = GameState.ERROR_HASH_MISS_MATCH}
     end
 
-    local values = json.decode(crypto.decodeBase64(s))
-
+    local values = json.decode(s)
     if type(values) ~= "table" then
         echoError("[framework.client.api.GameState] ERR, decode_() invalid state data")
-        return {errorCode = M.ERROR_INVALID_FILE_CONTENTS}
+        return {errorCode = GameState.ERROR_INVALID_FILE_CONTENTS}
     end
 
     return {values = values}
@@ -49,7 +51,7 @@ end
 
 ----------------------------------------
 
-function M.init(eventListener_, stateFilename_, secretKey_)
+function GameState.init(eventListener_, stateFilename_, secretKey_)
     if type(eventListener_) ~= "function" then
         echoError("[framework.client.api.GameState] ERR, init() invalid eventListener")
         return false
@@ -67,19 +69,19 @@ function M.init(eventListener_, stateFilename_, secretKey_)
 
     eventListener({
         name     = "init",
-        filename = M.getGameStatePath(),
+        filename = GameState.getGameStatePath(),
         encode   = type(secretKey) == "string"
     })
 
     return true
 end
 
-function M.load()
-    local filename = M.getGameStatePath()
+function GameState.load()
+    local filename = GameState.getGameStatePath()
 
     if not io.exists(filename) then
         echoWarning("[framework.client.api.GameState] load() file \"%s\" not found", filename)
-        return eventListener({name = "load", errorCode = M.ERROR_STATE_FILE_NOT_FOUND})
+        return eventListener({name = "load", errorCode = GameState.ERROR_STATE_FILE_NOT_FOUND})
     end
 
     local contents = io.readfile(filename)
@@ -100,7 +102,7 @@ function M.load()
         values = json.decode(contents)
         if type(values) ~= "table" then
             echoError("[framework.client.api.GameState] ERR, load() invalid data")
-            return eventListener({name = "load", errorCode = M.ERROR_INVALID_FILE_CONTENTS})
+            return eventListener({name = "load", errorCode = GameState.ERROR_INVALID_FILE_CONTENTS})
         end
     end
 
@@ -112,7 +114,7 @@ function M.load()
     })
 end
 
-function M.save(newValues)
+function GameState.save(newValues)
     local values = eventListener({
         name   = "save",
         values = newValues,
@@ -123,7 +125,7 @@ function M.save(newValues)
         return false
     end
 
-    local filename = M.getGameStatePath()
+    local filename = GameState.getGameStatePath()
     local ret = false
     if secretKey then
         ret = io.writefile(filename, encode_(values))
@@ -138,8 +140,8 @@ function M.save(newValues)
     return ret
 end
 
-function M.getGameStatePath()
-    return io.pathForFile(stateFilename, device.writeablePath)
+function GameState.getGameStatePath()
+    return string.gsub(device.writeablePath, "[\\\\/]+$", "") .. "/" .. stateFilename
 end
 
-return M
+return GameState

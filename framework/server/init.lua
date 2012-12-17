@@ -1,4 +1,9 @@
 
+__FRAMEWORK_ENVIRONMENT__ = "server"
+
+require("framework.shared.debug")
+require("framework.shared.functions")
+
 json = require("framework.shared.json")
 
 REQUEST_METHOD = ngx.req.get_method()

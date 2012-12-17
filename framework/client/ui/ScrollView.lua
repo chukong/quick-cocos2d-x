@@ -20,7 +20,6 @@ function M.new(args)
     local touch             = nil
     local layer             = nil
     local swiping           = nil
-    local enterFrameHandle  = nil
     local paddingTop        = display.height / 8
     local paddingBottom     = paddingTop
 
@@ -70,9 +69,7 @@ function M.new(args)
 
     local function cleanup()
         view:removeTouchEventListener()
-        if enterFrameHandle then
-            scheduler.remove(enterFrameHandle)
-        end
+        view:unscheduleUpdate()
 
         -- remove all event listeners
         for i, item in ipairs(view.items) do
@@ -194,7 +191,7 @@ function M.new(args)
             if type(args[k]) == t then view[k] = args[k] end
         end
 
-        layer = display.newGroup()
+        layer = display.newNode()
         view:addChild(layer)
 
         validTouchTop    = view.validTouchTop    or display.height - view.marginTop - 1
@@ -280,10 +277,9 @@ function M.new(args)
     end
 
     function view:prepare()
-        if enterFrameHandle then return end
         view:addTouchEventListener(onTouch)
         view:setTouchEnabled(true)
-        enterFrameHandle = scheduler.enterFrame(onEnterFrame)
+        view:scheduleUpdate(onEnterFrame)
     end
 
     function view:enable()
@@ -304,7 +300,7 @@ function M.new(args)
         if type(params) ~= "table" then params = {} end
         if type(params.height) ~= "number" then params.height = 40 end
 
-        local item = display.newGroup()
+        local item = display.newNode()
         EventProtocol.extend(item)
         item.scrollView = view
         item.itemHeight = params.height

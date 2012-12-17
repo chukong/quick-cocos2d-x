@@ -8,7 +8,7 @@ This feature allows you to support In-App Purchases. Currently, only the Apple i
 ]]
 local Store = {}
 
-local store = __QEEPLAY_GLOBALS__["api.Store"]
+local store = __FRAMEWORK_GLOBALS__["api.Store"]
 
 --[[--
 
@@ -79,7 +79,7 @@ function Store.init(listener)
     end
 
     store = CCStore:sharedStore()
-    __QEEPLAY_GLOBALS__["api.Store"] = store    -- avoid gc
+    __FRAMEWORK_GLOBALS__["api.Store"] = store    -- avoid gc
     return store:postInitWithTransactionListenerLua(listener)
 end
 

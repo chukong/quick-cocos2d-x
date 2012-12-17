@@ -21,8 +21,10 @@ function network.getInternetConnectionStatus()
     return CCNetwork:getInternetConnectionStatus()
 end
 
-function network.request(url, method, callback)
-    if DEBUG > 0 then echo("HTTP REQUEST:" .. _s(url)) end
+function network.sendHttpRequest(url, method, callback)
+    if DEBUG > 0 then
+        echoNotice(string.format("HTTP REQUEST: [%s] %s", os.date("%Y-%m-%d %H:%I:%S"), url))
+    end
 
     method = string.upper(method)
     if method == "GET" then

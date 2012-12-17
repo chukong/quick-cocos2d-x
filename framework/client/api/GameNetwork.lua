@@ -16,9 +16,9 @@ See http://support.openfeint.com/dev/game-center-compatibility/ for details.
 
 ]]
 
-local M = {}
+local GameNetwork = {}
 
-local provider = __QEEPLAY_GLOBALS__["api.GameNetwork"]
+local provider = __FRAMEWORK_GLOBALS__["api.GameNetwork"]
 
 --[[--
 
@@ -97,7 +97,7 @@ when the user is not logged in.
 @return Nothing.
 
 ]]
-function M.init(providerName, params)
+function GameNetwork.init(providerName, params)
     if provider then
         echoError("[framework.client.api.GameNetwork] ERR, init() GameNetwork already init")
         return false
@@ -113,13 +113,15 @@ function M.init(providerName, params)
         provider = require("framework.client.api.gamenetwork.GameCenter")
     elseif providerName == "OPENFEINT" then
         provider = require("framework.client.api.gamenetwork.OpenFeint")
+    elseif providerName == "CHINAMOBILE" then
+        provider = require("framework.client.api.gamenetwork.ChinaMobile")
     else
         echoError("[framework.client.api.GameNetwork] ERR, init() invalid providerName: %s", providerName)
         return false
     end
 
     provider.init(params)
-    __QEEPLAY_GLOBALS__["api.GameNetwork"] = provider
+    __FRAMEWORK_GLOBALS__["api.GameNetwork"] = provider
 end
 
 --[[--
@@ -191,17 +193,13 @@ Parmeters used in the commands.
 @return Nothing.
 
 ]]
-function M.request(command, ...)
+function GameNetwork.request(command, ...)
     if not provider then
         echoError("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 
-    local params = {}
-    for i = 1, select("#", ...) do
-        params[i] = select(i, ...)
-    end
-    return provider.request(command, params)
+    return provider.request(command, {...})
 end
 
 --[[--
@@ -265,17 +263,22 @@ Parameters used by command.
 @return Nothing.
 
 ]]
-function M.show(command, ...)
+function GameNetwork.show(command, ...)
     if not provider then
         echoError("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 
-    local params = {}
-    for i = 1, select("#", ...) do
-        params[i] = select(i, ...)
-    end
-    provider.show(command, params)
+    provider.show(command, {...})
 end
 
-return M
+function GameNetwork.exit()
+    if not provider then
+        echoError("[framework.client.api.GameNetwork] ERR, request() GameNetwork not init")
+        return
+    end
+
+    provider.exit()
+end
+
+return GameNetwork

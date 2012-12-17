@@ -153,41 +153,4 @@ function audio.unloadSound(filename)
 end
 audio.unloadEffect = audio.unloadSound
 
-local handleFadeMusicVolumeTo = nil
-function audio.fadeMusicVolumeTo(time, volume)
-    if not isEnabled or not isMusicOn then return end
-    local currentVolume = audio.getMusicVolume()
-    if volume == currentVolume then return end
-
-    if handleFadeMusicVolumeTo then
-        scheduler.remove(handleFadeMusicVolumeTo)
-    end
-    local stepVolume = (volume - currentVolume) / time * (1.0 / 60)
-    local isIncr     = volume > currentVolume
-
-    local function changeVolumeStep()
-        currentVolume = currentVolume + stepVolume
-        if (isIncr and currentVolume >= volume) or (not isIncr and currentVolume <= volume) then
-            currentVolume = volume
-            scheduler.remove(handleFadeMusicVolumeTo)
-        end
-        audio.setMusicVolume(currentVolume)
-    end
-
-    handleFadeMusicVolumeTo = scheduler.enterFrame(changeVolumeStep, false)
-end
-
-local handleFadeToMusic = nil
-function audio.fadeToMusic(music, time, volume, isLoop)
-    if not isEnabled then return end
-    if handleFadeToMusic then scheduler.remove(handleFadeToMusic) end
-    time = time / 2
-    if type(volume) ~= "number" then volume = 1.0 end
-    audio.fadeMusicVolumeTo(volume, 0.01)
-    handleFadeToMusic = scheduler.performWithDelay(time + 0.1, function()
-        audio.playMusic(music, isLoop)
-        audio.fadeMusicVolumeTo(time, volume)
-    end)
-end
-
 return audio

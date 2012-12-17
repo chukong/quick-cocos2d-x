@@ -1,37 +1,88 @@
+--[[
 
-require("framework.shared.errors")
+Copyright (c) 2011-2012 qeeplay.com
 
-if ngx and ngx.say then
-    echo = ngx.say
-elseif CCLuaLog then
-    echo = CCLuaLog
-else
-    echo = print
+http://dualface.github.com/quick-cocos2d-x/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+Debug functions.
+
+## Functions ##
+
+-   echo
+-   echoNotice
+-   echoWarning
+-   echoError
+-   printf
+
+]]
+
+if __FRAMEWORK_ENVIRONMENT__ == "server" then
+    if ngx and ngx.say then echo = ngx.say end
+elseif __FRAMEWORK_ENVIRONMENT__ == "client" then
+    if CCLuaLog then echo = CCLuaLog end
 end
+if not echo then echo = print end
 
-if type(DEBUG) ~= "number" then DEBUG = 1 end
 io.output():setvbuf('no')
 
-local prt = function(...)
-    echo("[LUA] "..string.format(...))
+
+--[[--
+
+Output a formatted string.
+
+Depends on the platform, output to console or log file. @see echo().
+
+@param string format
+@param mixed ...
+
+@see echo
+
+]]
+function printf(...)
+    echo(string.format(...))
 end
 
 echoNotice  = function() end
 echoWarning = function() end
-echoError   = prt
+echoError   = printf
 
-if DEBUG > 0 then echoWarning = prt end
-if DEBUG > 1 then echoNotice = prt end
+if DEBUG > 0 then echoWarning = printf end
+if DEBUG > 1 then echoNotice = printf end
 
-function traceback()
-    echo(debug.traceback())
-end
 
-function printf(fmt, ...)
-    echo(string.format(fmt, ...))
-end
+--[[--
 
--- prints human-readable information about a variable
+Dumps information about a variable.
+
+@param mixed object
+@param string label
+@param bool isReturnContents
+@param int nesting
+@return nil|string
+
+]]
 function dump(object, label, isReturnContents, nesting)
     if type(nesting) ~= "number" then nesting = 99 end
 
@@ -97,6 +148,15 @@ function dump(object, label, isReturnContents, nesting)
     end
 end
 
+--[[--
+
+Outputs or returns a parsable string representation of a variable.
+
+@param mixed object
+@param string label
+@return string
+
+]]
 function vardump(object, label)
     local lookupTable = {}
     local result = {}
@@ -149,47 +209,4 @@ function vardump(object, label)
     _vardump(object, label, "", 1)
 
     return table.concat(result, "\n")
-end
-
-function newError(errorCode, errorMessage)
-    local err
-    if type(errorCode) == "table" then
-        err = clone(errorCode)
-    else
-        err = {
-            errorCode    = errorCode,
-            errorMessage = errorMessage,
-        }
-    end
-
-    return err
-end
-
-_G_TRACE_MEMORY = {}
-local mt = {__mode = "k"}
-setmetatable(_G_TRACE_MEMORY, mt)
-
-function traceObject(object, info)
-    _G_TRACE_MEMORY[object] = {tostring(object), info, debug.traceback()}
-end
-
-function findLeaks()
-    collectgarbage("collect")
-    collectgarbage("collect")
-    collectgarbage("collect")
-    collectgarbage("collect")
-
-    local values = table.values(_G_TRACE_MEMORY)
-    table.sort(values, function(a, b)
-        return a[2] < b[2]
-    end)
-
-    if #values > 0 then
-        echo("[LUA] OBJECTS IN MEMORY:")
-        for i, v in ipairs(values) do
-            echo(string.format("[LUA]     [%s] %s", v[1], v[2]))
-        end
-    else
-        echo("[LUA] NOT FOUND OBJECTS IN MEMORY")
-    end
 end

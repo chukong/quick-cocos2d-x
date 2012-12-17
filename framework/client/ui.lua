@@ -1,8 +1,6 @@
 
 local ui = {}
 
-local traceObject = traceObject
-
 ui.DEFAULT_TTF_FONT      = "Arial"
 ui.DEFAULT_TTF_FONT_SIZE = 24
 
@@ -36,7 +34,6 @@ function ui.newMenu(...)
     end
 
     menu:setPosition(0, 0)
-    if DEBUG > 1 then traceObject(menu, "Menu") end
     return menu
 end
 
@@ -50,13 +47,13 @@ function ui.newMenuItemImage(params)
     local y             = params.y
 
     if type(imageNormal) == "string" then
-        imageNormal = display.newImage(imageNormal)
+        imageNormal = display.newSprite(imageNormal)
     end
     if type(imageSelected) == "string" then
-        imageSelected = display.newImage(imageSelected)
+        imageSelected = display.newSprite(imageSelected)
     end
     if type(imageDisabled) == "string" then
-        imageDisabled = display.newImage(imageDisabled)
+        imageDisabled = display.newSprite(imageDisabled)
     end
 
     local item = CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
@@ -67,7 +64,6 @@ function ui.newMenuItemImage(params)
         if tag then item:setTag(tag) end
     end
 
-    if DEBUG > 1 then traceObject(item, "MenuItem") end
     return item
 end
 
@@ -86,7 +82,6 @@ function ui.newMenuItemLabel(params)
         if tag then item:setTag(tag) end
     end
 
-    if DEBUG > 1 then traceObject(item, "MenuItem") end
     return item
 end
 
@@ -107,7 +102,6 @@ function ui.newBMFontLabel(params)
         label:setPosition(x, y)
     end
 
-    if DEBUG > 1 then traceObject(label, format("Label - %s", text)) end
     return label
 end
 
@@ -151,7 +145,6 @@ function ui.newTTFLabel(params)
         if x and y then label:realign(x, y) end
     end
 
-    if DEBUG > 1 then traceObject(label, format("Label - %s", text)) end
     return label
 end
 
@@ -163,7 +156,7 @@ function ui.newTTFLabelWithShadow(params)
     local shadowColor = params.shadowColor or display.COLOR_BLACK
     local x, y        = params.x, params.y
 
-    local g = display.newGroup()
+    local g = display.newNode()
     params.size = params.size
     params.color = shadowColor
     params.x, params.y = 0, 0
@@ -207,7 +200,7 @@ function ui.newTTFLabelWithShadow(params)
         g:setPosition(x, y)
         g:pixels()
     end
-    if DEBUG > 1 then traceObject(g, format("Label - %s", _s(params.text))) end
+
     return g
 end
 
@@ -219,7 +212,7 @@ function ui.newTTFLabelWithOutline(params)
     local outlineColor = params.outlineColor or display.COLOR_BLACK
     local x, y         = params.x, params.y
 
-    local g = display.newGroup()
+    local g = display.newNode()
     params.size  = params.size
     params.color = outlineColor
     params.x, params.y = 0, 0
@@ -276,7 +269,7 @@ function ui.newTTFLabelWithOutline(params)
         g:setPosition(x, y)
         g:pixels()
     end
-    if DEBUG > 1 then traceObject(g, format("Label - %s", _s(params.text))) end
+
     return g
 end
 
