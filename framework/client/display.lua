@@ -179,9 +179,9 @@ SCENE_TRANSITIONS["FADEBL"]          = {CCTransitionFadeBL, 2}
 SCENE_TRANSITIONS["FADEDOWN"]        = {CCTransitionFadeDown, 2}
 SCENE_TRANSITIONS["FADETR"]          = {CCTransitionFadeTR, 2}
 SCENE_TRANSITIONS["FADEUP"]          = {CCTransitionFadeUp, 2}
-SCENE_TRANSITIONS["FLIPANGULAR"]     = {CCTransitionFlipAngular, 3, kOrientationLeftOver}
-SCENE_TRANSITIONS["FLIPX"]           = {CCTransitionFlipX, 3, kOrientationLeftOver}
-SCENE_TRANSITIONS["FLIPY"]           = {CCTransitionFlipY, 3, kOrientationUpOver}
+SCENE_TRANSITIONS["FLIPANGULAR"]     = {CCTransitionFlipAngular, 3, kCCTransitionOrientationLeftOver}
+SCENE_TRANSITIONS["FLIPX"]           = {CCTransitionFlipX, 3, kCCTransitionOrientationLeftOver}
+SCENE_TRANSITIONS["FLIPY"]           = {CCTransitionFlipY, 3, kCCTransitionOrientationUpOver}
 SCENE_TRANSITIONS["JUMPZOOM"]        = {CCTransitionJumpZoom, 2}
 SCENE_TRANSITIONS["MOVEINB"]         = {CCTransitionMoveInB, 2}
 SCENE_TRANSITIONS["MOVEINL"]         = {CCTransitionMoveInL, 2}
@@ -198,8 +198,8 @@ SCENE_TRANSITIONS["SPLITCOLS"]       = {CCTransitionSplitCols, 2}
 SCENE_TRANSITIONS["SPLITROWS"]       = {CCTransitionSplitRows, 2}
 SCENE_TRANSITIONS["TURNOFFTILES"]    = {CCTransitionTurnOffTiles, 2}
 SCENE_TRANSITIONS["ZOOMFLIPANGULAR"] = {CCTransitionZoomFlipAngular, 2}
-SCENE_TRANSITIONS["ZOOMFLIPX"]       = {CCTransitionZoomFlipX, 3, kOrientationLeftOver}
-SCENE_TRANSITIONS["ZOOMFLIPY"]       = {CCTransitionZoomFlipY, 3, kOrientationUpOver}
+SCENE_TRANSITIONS["ZOOMFLIPX"]       = {CCTransitionZoomFlipX, 3, kCCTransitionOrientationLeftOver}
+SCENE_TRANSITIONS["ZOOMFLIPY"]       = {CCTransitionZoomFlipY, 3, kCCTransitionOrientationUpOver}
 
 --[[--
 @ignore
