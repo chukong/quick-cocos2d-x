@@ -20,7 +20,7 @@ end
 function scheduler.performWithDelayGlobal(listener, time)
     local handle
     handle = sharedScheduler:scheduleScriptFunc(function()
-        scheduler.unschedule(handle)
+        scheduler.unscheduleGlobal(handle)
         listener()
     end, time, false)
     return handle

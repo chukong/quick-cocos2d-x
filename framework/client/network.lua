@@ -22,9 +22,7 @@ function network.getInternetConnectionStatus()
 end
 
 function network.sendHttpRequest(url, method, callback)
-    if DEBUG > 0 then
-        echoNotice(string.format("HTTP REQUEST: [%s] %s", os.date("%Y-%m-%d %H:%I:%S"), url))
-    end
+    echoNotice("HTTP REQUEST: [%s] %s", os.date("%Y-%m-%d %H:%I:%S"), url)
 
     method = string.upper(method)
     if method == "GET" then
