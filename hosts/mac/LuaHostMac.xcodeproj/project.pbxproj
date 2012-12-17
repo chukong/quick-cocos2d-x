@@ -198,9 +198,9 @@
 		F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EBC15F499EE00CE7A10 /* Security.framework */; };
 		F4BA6EC415F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6EC015F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.cpp */; };
 		F4BA6EC515F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6EC215F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp */; };
-		F4DFA41516143D4D001391CC /* CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA41316143D4D001391CC /* CCScale9Sprite.cpp */; };
-		F4DFA41A16143F8F001391CC /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DFA41816143F8E001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */; };
 		F4F7781F1606D39500C69253 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F7781E1606D39500C69253 /* libcurl.dylib */; };
+		F4FACEFE167EAFB60004E8B8 /* CCDrawingPrimitives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FACEFA167EAFB60004E8B8 /* CCDrawingPrimitives.cpp */; };
+		F4FACEFF167EAFB60004E8B8 /* CCDrawNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FACEFC167EAFB60004E8B8 /* CCDrawNode.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -609,12 +609,6 @@
 		F4BA6EC115F4A59C00CE7A10 /* cocos2dx_extension_crypto_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_crypto_mac.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_crypto_mac.h"; sourceTree = "<group>"; };
 		F4BA6EC215F4A59C00CE7A10 /* cocos2dx_extension_network_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_network_mac.cpp; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network_mac.cpp"; sourceTree = "<group>"; };
 		F4BA6EC315F4A59C00CE7A10 /* cocos2dx_extension_network_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_network_mac.h; path = "../../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network_mac.h"; sourceTree = "<group>"; };
-		F4DFA41316143D4D001391CC /* CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCScale9Sprite.cpp; path = "../../libs/cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.cpp"; sourceTree = "<group>"; };
-		F4DFA41416143D4D001391CC /* CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScale9Sprite.h; path = "../../libs/cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.h"; sourceTree = "<group>"; };
-		F4DFA41616143D66001391CC /* cocos-ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "cocos-ext.h"; path = "../../libs/cocos2d-x/extensions/cocos-ext.h"; sourceTree = "<group>"; };
-		F4DFA41716143D66001391CC /* ExtensionMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExtensionMacros.h; path = "../../libs/cocos2d-x/extensions/ExtensionMacros.h"; sourceTree = "<group>"; };
-		F4DFA41816143F8E001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cocos2dx_extension_CCScale9Sprite.cpp; path = "../../libs/cocos2d-x-extensions-luabinding/cocos2dx_extension_CCScale9Sprite.cpp"; sourceTree = "<group>"; };
-		F4DFA41916143F8E001391CC /* cocos2dx_extension_CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cocos2dx_extension_CCScale9Sprite.h; path = "../../libs/cocos2d-x-extensions-luabinding/cocos2dx_extension_CCScale9Sprite.h"; sourceTree = "<group>"; };
 		F4F7780B1606CD0900C69253 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
 		F4F7780C1606CD0900C69253 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
 		F4F7780D1606CD0900C69253 /* curlrules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlrules.h; sourceTree = "<group>"; };
@@ -625,6 +619,10 @@
 		F4F778121606CD0900C69253 /* stdcheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdcheaders.h; sourceTree = "<group>"; };
 		F4F778131606CD0900C69253 /* typecheck-gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "typecheck-gcc.h"; sourceTree = "<group>"; };
 		F4F7781E1606D39500C69253 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		F4FACEFA167EAFB60004E8B8 /* CCDrawingPrimitives.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDrawingPrimitives.cpp; sourceTree = "<group>"; };
+		F4FACEFB167EAFB60004E8B8 /* CCDrawingPrimitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawingPrimitives.h; sourceTree = "<group>"; };
+		F4FACEFC167EAFB60004E8B8 /* CCDrawNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDrawNode.cpp; sourceTree = "<group>"; };
+		F4FACEFD167EAFB60004E8B8 /* CCDrawNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDrawNode.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -760,6 +758,7 @@
 				F491213415F5A72D006129CB /* CCScheduler.h */,
 				F491213515F5A72D006129CB /* cocoa */,
 				F491214B15F5A72D006129CB /* cocos2d.cpp */,
+				F4FACEF9167EAFB60004E8B8 /* draw_nodes */,
 				F491214C15F5A72D006129CB /* effects */,
 				F491215115F5A72D006129CB /* include */,
 				F491215915F5A72D006129CB /* kazmath */,
@@ -1318,7 +1317,6 @@
 			children = (
 				F49122B215F5F136006129CB /* CCDrawing */,
 				F491210A15F5A713006129CB /* cocos2d-x */,
-				F4DFA41116143CD1001391CC /* cocos2d-x-ext-extensions */,
 				F4BA6E8215F4966000CE7A10 /* cocos2d-x-extensions */,
 				F4BA6DFA15F4960F00CE7A10 /* CocosDenshion */,
 				F4BA6E1115F4963F00CE7A10 /* lua */,
@@ -1549,19 +1547,6 @@
 			name = luabinding;
 			sourceTree = "<group>";
 		};
-		F4DFA41116143CD1001391CC /* cocos2d-x-ext-extensions */ = {
-			isa = PBXGroup;
-			children = (
-				F4DFA41316143D4D001391CC /* CCScale9Sprite.cpp */,
-				F4DFA41416143D4D001391CC /* CCScale9Sprite.h */,
-				F4DFA41616143D66001391CC /* cocos-ext.h */,
-				F4DFA41816143F8E001391CC /* cocos2dx_extension_CCScale9Sprite.cpp */,
-				F4DFA41916143F8E001391CC /* cocos2dx_extension_CCScale9Sprite.h */,
-				F4DFA41716143D66001391CC /* ExtensionMacros.h */,
-			);
-			name = "cocos2d-x-ext-extensions";
-			sourceTree = "<group>";
-		};
 		F4F08A471642B72F009632BB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1585,6 +1570,18 @@
 			);
 			name = curl;
 			path = "../../libs/cocos2d-x/cocos2dx/platform/third_party/mac/curl";
+			sourceTree = "<group>";
+		};
+		F4FACEF9167EAFB60004E8B8 /* draw_nodes */ = {
+			isa = PBXGroup;
+			children = (
+				F4FACEFA167EAFB60004E8B8 /* CCDrawingPrimitives.cpp */,
+				F4FACEFB167EAFB60004E8B8 /* CCDrawingPrimitives.h */,
+				F4FACEFC167EAFB60004E8B8 /* CCDrawNode.cpp */,
+				F4FACEFD167EAFB60004E8B8 /* CCDrawNode.h */,
+			);
+			name = draw_nodes;
+			path = "../../libs/cocos2d-x/cocos2dx/draw_nodes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1826,12 +1823,12 @@
 				F49122B115F5A749006129CB /* platform.cpp in Sources */,
 				F49122B515F5F16B006129CB /* CCDrawing.cpp in Sources */,
 				F49122B815F5FE33006129CB /* LuaCCDrawing.cpp in Sources */,
-				F4DFA41516143D4D001391CC /* CCScale9Sprite.cpp in Sources */,
-				F4DFA41A16143F8F001391CC /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */,
 				F4198B14163F709500F99D75 /* CCNative.mm in Sources */,
 				F4198B15163F709500F99D75 /* CCNative_objc.mm in Sources */,
 				F40EE8C8163F893200090121 /* cocos2dx_extension_native_mac.cpp in Sources */,
 				F40EE8CC163F8B9A00090121 /* OpenUDID_mac.m in Sources */,
+				F4FACEFE167EAFB60004E8B8 /* CCDrawingPrimitives.cpp in Sources */,
+				F4FACEFF167EAFB60004E8B8 /* CCDrawNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,8 +24,6 @@
 
 // more lua exts
 #include "LuaCCDrawing.h"
-#include "cocos2dx_extension_CCScale9Sprite.h"
-#include "MapRuntimeC_luabinding.h"
 
 extern "C" {
 //#include "gamescripts.h"
@@ -64,9 +62,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-    
-//    CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
-    
+        
     // register lua engine
     CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
@@ -90,8 +86,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // more lua exts
     tolua_CCDrawing_open(L);
-    tolua_cocos2dx_extension_CCScale9Sprite_open(L);
-    tolua_MapRuntimeC_luabinding_open(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
@@ -99,6 +93,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
 #else
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("scripts/main.lua");
+    //    luaopen_gamescripts(pEngine->getLuaState());
+    //    pEngine->executeString("require(\"main\")");
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
@@ -118,8 +114,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
 
-//    luaopen_gamescripts(pEngine->getLuaState());
-//    pEngine->executeString("require(\"main\")");
     return true;
 }
 
