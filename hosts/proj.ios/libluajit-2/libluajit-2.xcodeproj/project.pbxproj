@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F4C1A0F0167F16BC002DFC20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C1A0EF167F16BC002DFC20 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F4C1A0EA167F16BC002DFC20 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F4C1A0EC167F16BC002DFC20 /* liblibluajit-2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "liblibluajit-2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4C1A0EF167F16BC002DFC20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4C1A0F3167F16BC002DFC20 /* libluajit-2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libluajit-2-Prefix.pch"; sourceTree = "<group>"; };
+		F4C1A104167F16DD002DFC20 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
+		F4C1A105167F16DD002DFC20 /* lua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
+		F4C1A106167F16DD002DFC20 /* lua.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lua.hpp; sourceTree = "<group>"; };
+		F4C1A107167F16DD002DFC20 /* luaconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
+		F4C1A108167F16DD002DFC20 /* luajit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luajit.h; sourceTree = "<group>"; };
+		F4C1A109167F16DD002DFC20 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F4C1A0E9167F16BC002DFC20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4C1A0F0167F16BC002DFC20 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F4C1A0E1167F16BC002DFC20 = {
+			isa = PBXGroup;
+			children = (
+				F4C1A0F1167F16BC002DFC20 /* libluajit-2 */,
+				F4C1A0EE167F16BC002DFC20 /* Frameworks */,
+				F4C1A0ED167F16BC002DFC20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F4C1A0ED167F16BC002DFC20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1A0EC167F16BC002DFC20 /* liblibluajit-2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4C1A0EE167F16BC002DFC20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1A0EF167F16BC002DFC20 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4C1A0F1167F16BC002DFC20 /* libluajit-2 */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1A103167F16DD002DFC20 /* Headers */,
+				F4C1A0F2167F16BC002DFC20 /* Supporting Files */,
+			);
+			path = "libluajit-2";
+			sourceTree = "<group>";
+		};
+		F4C1A0F2167F16BC002DFC20 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1A0F3167F16BC002DFC20 /* libluajit-2-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4C1A103167F16DD002DFC20 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F4C1A104167F16DD002DFC20 /* lauxlib.h */,
+				F4C1A105167F16DD002DFC20 /* lua.h */,
+				F4C1A106167F16DD002DFC20 /* lua.hpp */,
+				F4C1A107167F16DD002DFC20 /* luaconf.h */,
+				F4C1A108167F16DD002DFC20 /* luajit.h */,
+				F4C1A109167F16DD002DFC20 /* lualib.h */,
+			);
+			name = Headers;
+			path = "../../../../../libs/LuaJIT-iOS-Framework/LuaJIT.framework/Headers";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F4C1A0EB167F16BC002DFC20 /* libluajit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4C1A0FA167F16BC002DFC20 /* Build configuration list for PBXNativeTarget "libluajit" */;
+			buildPhases = (
+				F4C1A0E8167F16BC002DFC20 /* Sources */,
+				F4C1A0E9167F16BC002DFC20 /* Frameworks */,
+				F4C1A0EA167F16BC002DFC20 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libluajit;
+			productName = "libluajit-2";
+			productReference = F4C1A0EC167F16BC002DFC20 /* liblibluajit-2.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4C1A0E3167F16BC002DFC20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = qeeplay.com;
+			};
+			buildConfigurationList = F4C1A0E6167F16BC002DFC20 /* Build configuration list for PBXProject "libluajit-2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F4C1A0E1167F16BC002DFC20;
+			productRefGroup = F4C1A0ED167F16BC002DFC20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F4C1A0EB167F16BC002DFC20 /* libluajit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F4C1A0E8167F16BC002DFC20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F4C1A0F8167F16BC002DFC20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F4C1A0F9167F16BC002DFC20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F4C1A0FB167F16BC002DFC20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = armv7;
+				DSTROOT = /tmp/libluajit_2.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "libluajit-2/libluajit-2-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../libs/LuaJIT-iOS-Framework/luajit-2.0/src\"",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/llvm-gcc-4.2/lib/gcc/arm-apple-darwin10/4.2.1/v7\"",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/llvm-gcc-4.2/lib/gcc/arm-apple-darwin10/4.2.1\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = armv7;
+			};
+			name = Debug;
+		};
+		F4C1A0FC167F16BC002DFC20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = armv7;
+				DSTROOT = /tmp/libluajit_2.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "libluajit-2/libluajit-2-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../libs/LuaJIT-iOS-Framework/luajit-2.0/src\"",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/llvm-gcc-4.2/lib/gcc/arm-apple-darwin10/4.2.1/v7\"",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/llvm-gcc-4.2/lib/gcc/arm-apple-darwin10/4.2.1\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VALID_ARCHS = armv7;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F4C1A0E6167F16BC002DFC20 /* Build configuration list for PBXProject "libluajit-2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4C1A0F8167F16BC002DFC20 /* Debug */,
+				F4C1A0F9167F16BC002DFC20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F4C1A0FA167F16BC002DFC20 /* Build configuration list for PBXNativeTarget "libluajit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4C1A0FB167F16BC002DFC20 /* Debug */,
+				F4C1A0FC167F16BC002DFC20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4C1A0E3167F16BC002DFC20 /* Project object */;
+}
