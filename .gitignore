@@ -6,6 +6,8 @@
 *.opensdf
 *.suo
 *.vcxproj.user
+*.so
+*.o
 
 bin/
 out/
@@ -13,3 +15,15 @@ hosts/windows/ipch/
 project.xcworkspace/
 xcuserdata/
 hosts/mac/build/
+
+hosts/libs/luajit2/LuaJIT-2.0.0/src/host/buildvm
+hosts/libs/luajit2/LuaJIT-2.0.0/src/host/buildvm_arch.h
+hosts/libs/luajit2/LuaJIT-2.0.0/src/host/minilua
+hosts/libs/luajit2/LuaJIT-2.0.0/src/jit/vmdef.lua
+hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_bcdef.h
+hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_ffdef.h
+hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_folddef.h
+hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_libdef.h
+hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_recdef.h
+hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_vm.s
+hosts/libs/luajit2/LuaJIT-2.0.0/src/luajit
