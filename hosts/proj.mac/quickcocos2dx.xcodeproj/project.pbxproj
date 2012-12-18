@@ -350,6 +350,16 @@
 		F4DE0C1516800334005DB2DB /* LuaCCDrawing.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DE0C1116800334005DB2DB /* LuaCCDrawing.h */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F4DE0CCE1680448B005DB2DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4DE0C9016800C74005DB2DB /* luajit2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4DE0C7616800C59005DB2DB;
+			remoteInfo = luajit2;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F4DE082016800061005DB2DB /* libquickcocos2dx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libquickcocos2dx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE082316800061005DB2DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -1526,6 +1536,14 @@
 			path = CCDrawing;
 			sourceTree = "<group>";
 		};
+		F4DE0CCB1680448B005DB2DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4DE0CCF1680448B005DB2DB /* libluajit2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1765,12 +1783,28 @@
 			mainGroup = F4DE081516800060005DB2DB;
 			productRefGroup = F4DE082116800061005DB2DB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4DE0CCB1680448B005DB2DB /* Products */;
+					ProjectRef = F4DE0C9016800C74005DB2DB /* luajit2.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F4DE081F16800061005DB2DB /* quickcocos2dx */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F4DE0CCF1680448B005DB2DB /* libluajit2.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libluajit2.a;
+			remoteRef = F4DE0CCE1680448B005DB2DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F4DE081C16800061005DB2DB /* Sources */ = {
