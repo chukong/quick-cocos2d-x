@@ -182,6 +182,16 @@
 		F48E6F69166B1F9A00295A03 /* cocos2dx_extension_CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F48E6F66166B1F9A00295A03 /* cocos2dx_extension_CCScale9Sprite.cpp */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F4DE0CB816801619005DB2DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4DE0C5416800A0E005DB2DB /* luajit2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4DE0C32168006D0005DB2DB;
+			remoteInfo = luajit2;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		F45A2B9B166B07B600760194 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -1572,6 +1582,14 @@
 			path = "cocos2d-x-extensions-luabinding";
 			sourceTree = "<group>";
 		};
+		F4DE0CB516801619005DB2DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4DE0CB916801619005DB2DB /* libluajit2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1611,12 +1629,28 @@
 			mainGroup = F45A2B92166B07B600760194;
 			productRefGroup = F45A2B9E166B07B600760194 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4DE0CB516801619005DB2DB /* Products */;
+					ProjectRef = F4DE0C5416800A0E005DB2DB /* luajit2.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F45A2B9C166B07B600760194 /* quickcocos2dx */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F4DE0CB916801619005DB2DB /* libluajit2.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libluajit2.a;
+			remoteRef = F4DE0CB816801619005DB2DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F45A2B99166B07B600760194 /* Sources */ = {
@@ -1876,12 +1910,12 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/CocosDenshion/ios\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/cocos2dx_support\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/lua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/tolua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
@@ -1927,12 +1961,12 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/CocosDenshion/ios\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/cocos2dx_support\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/lua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/tolua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
