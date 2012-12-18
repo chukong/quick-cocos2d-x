@@ -596,12 +596,7 @@
 		F48E6F56166B1F5C00295A03 /* CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScale9Sprite.h; sourceTree = "<group>"; };
 		F48E6F66166B1F9A00295A03 /* cocos2dx_extension_CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extension_CCScale9Sprite.cpp; sourceTree = "<group>"; };
 		F48E6F67166B1F9A00295A03 /* cocos2dx_extension_CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extension_CCScale9Sprite.h; sourceTree = "<group>"; };
-		F4C1A115167F1AA6002DFC20 /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
-		F4C1A116167F1AA6002DFC20 /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
-		F4C1A117167F1AA6002DFC20 /* lua.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lua.hpp; sourceTree = "<group>"; };
-		F4C1A118167F1AA6002DFC20 /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
-		F4C1A119167F1AA6002DFC20 /* luajit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luajit.h; sourceTree = "<group>"; };
-		F4C1A11A167F1AA6002DFC20 /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
+		F4DE0C5416800A0E005DB2DB /* luajit2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = luajit2.xcodeproj; path = hosts/libs/luajit2/proj.ios/luajit2.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -619,6 +614,7 @@
 		F45A2B92166B07B600760194 = {
 			isa = PBXGroup;
 			children = (
+				F4DE0C5416800A0E005DB2DB /* luajit2.xcodeproj */,
 				F45A2BB2166B07FC00760194 /* quickcocos2dx-Prefix.pch */,
 				F45A2BA2166B07B600760194 /* quickcocos2dx */,
 				F45A2B9F166B07B600760194 /* Frameworks */,
@@ -1305,7 +1301,6 @@
 		F45A2DA0166B16A100760194 /* lua */ = {
 			isa = PBXGroup;
 			children = (
-				F4C1A114167F1AA6002DFC20 /* Headers */,
 				F45A2DA1166B16B100760194 /* cocos2dx_support */,
 				F45A2DE1166B16B100760194 /* tolua */,
 			);
@@ -1575,20 +1570,6 @@
 				F48E6F67166B1F9A00295A03 /* cocos2dx_extension_CCScale9Sprite.h */,
 			);
 			path = "cocos2d-x-extensions-luabinding";
-			sourceTree = "<group>";
-		};
-		F4C1A114167F1AA6002DFC20 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				F4C1A115167F1AA6002DFC20 /* lauxlib.h */,
-				F4C1A116167F1AA6002DFC20 /* lua.h */,
-				F4C1A117167F1AA6002DFC20 /* lua.hpp */,
-				F4C1A118167F1AA6002DFC20 /* luaconf.h */,
-				F4C1A119167F1AA6002DFC20 /* luajit.h */,
-				F4C1A11A167F1AA6002DFC20 /* lualib.h */,
-			);
-			name = Headers;
-			path = "../../../../../../libs/LuaJIT-iOS-Framework/LuaJIT.framework/Headers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1872,10 +1853,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				DSTROOT = /tmp/quickcocos2dx.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Volumes/MacHDD2/Downloads/Sources/LuaJIT-2.0.0-iOS\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "quickcocos2dx-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1929,10 +1906,6 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				DSTROOT = /tmp/quickcocos2dx.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"/Volumes/MacHDD2/Downloads/Sources/LuaJIT-2.0.0-iOS\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "quickcocos2dx-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
