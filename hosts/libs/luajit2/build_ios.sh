@@ -13,11 +13,4 @@ make HOST_CC="gcc -m32 -arch i386" CROSS=$ISDKP TARGET_FLAGS="$ISDKF" TARGET_SYS
 
 if [ -f $SRCDIR/src/libluajit.a ]; then
     mv $SRCDIR/src/libluajit.a $DESTDIR/libluajit2.a
-
-    cp $SRCDIR/src/lauxlib.h $DIR/include
-    cp $SRCDIR/src/lua.h $DIR/include
-    cp $SRCDIR/src/lua.hpp $DIR/include
-    cp $SRCDIR/src/luaconf.h $DIR/include
-    cp $SRCDIR/src/luajit.h $DIR/include
-    cp $SRCDIR/src/lualib.h $DIR/include
 fi;
