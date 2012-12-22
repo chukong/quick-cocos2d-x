@@ -126,11 +126,11 @@
     <Filter Include="lua\cocos2dx_support">
       <UniqueIdentifier>{463a1e0a-cb28-4096-a33f-eaedc1147437}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lua\lua">
-      <UniqueIdentifier>{b60bc6b6-2fb7-4097-9440-42cb4cacca16}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lua\tolua">
       <UniqueIdentifier>{89a92960-2084-49bc-b0dd-39f83b6ca0de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\luajit2">
+      <UniqueIdentifier>{0deaf90b-085d-4d28-af0e-d9617546bf46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -704,80 +704,29 @@
     <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.h">
       <Filter>lua\cocos2dx_support</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lapi.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lauxlib.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lcode.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\ldebug.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\ldo.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lfunc.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lgc.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\llex.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\llimits.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lmem.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lobject.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lopcodes.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lparser.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lstate.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lstring.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\ltable.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\ltm.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lua.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\luaconf.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lualib.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lundump.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lvm.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\lua\lzio.h">
-      <Filter>lua\lua</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\tolua\tolua_event.h">
       <Filter>lua\tolua</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\tolua\tolua++.h">
       <Filter>lua\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\luajit2\include\lauxlib.h">
+      <Filter>lua\luajit2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\luajit2\include\lua.h">
+      <Filter>lua\luajit2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\luajit2\include\lua.hpp">
+      <Filter>lua\luajit2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\luajit2\include\luaconf.h">
+      <Filter>lua\luajit2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\luajit2\include\luajit.h">
+      <Filter>lua\luajit2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\luajit2\include\lualib.h">
+      <Filter>lua\luajit2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1208,99 +1157,6 @@
     </ClCompile>
     <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.c">
       <Filter>lua\cocos2dx_support</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lapi.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lauxlib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lbaselib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lcode.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ldblib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ldebug.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ldo.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ldump.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lfunc.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lgc.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\linit.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\liolib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\llex.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lmathlib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lmem.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\loadlib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lobject.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lopcodes.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\loslib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lparser.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lstate.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lstring.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lstrlib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ltable.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ltablib.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\ltm.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lua.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lundump.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lvm.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\lzio.c">
-      <Filter>lua\lua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\lua\print.c">
-      <Filter>lua\lua</Filter>
     </ClCompile>
     <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\tolua\tolua_event.c">
       <Filter>lua\tolua</Filter>
