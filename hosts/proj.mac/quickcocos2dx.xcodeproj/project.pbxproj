@@ -854,7 +854,6 @@
 		F4DE084316800187005DB2DB /* cocos2dx */ = {
 			isa = PBXGroup;
 			children = (
-				F4DE0A45168001AE005DB2DB /* platform */,
 				F4DE0844168001A9005DB2DB /* actions */,
 				F4DE085F168001A9005DB2DB /* base_nodes */,
 				F4DE0864168001A9005DB2DB /* CCCamera.cpp */,
@@ -877,6 +876,7 @@
 				F4DE08CF168001AA005DB2DB /* menu_nodes */,
 				F4DE08D4168001AA005DB2DB /* misc_nodes */,
 				F4DE08DD168001AA005DB2DB /* particle_nodes */,
+				F4DE0A45168001AE005DB2DB /* platform */,
 				F4DE08E7168001AA005DB2DB /* script_support */,
 				F4DE08EA168001AA005DB2DB /* shaders */,
 				F4DE0903168001AA005DB2DB /* sprite_nodes */,
