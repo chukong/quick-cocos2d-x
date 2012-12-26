@@ -1,4 +1,9 @@
 
+$#include "CCScale9Sprite.h"
+$#include "CCEditBox.h"
+
+$using namespace cocos2d::extension;
+
 class CCScale9Sprite : public CCNode
 {
     /**
