@@ -49,7 +49,9 @@ extern "C" {
 #include "tolua_fix.h"
 }
 #include "cocos2d.h"
+#include "CCLuaEngine.h"
 #include "CCScale9Sprite.h"
+#include "CCEditBox.h"
 
 using namespace cocos2d;
 using namespace cocos2d::extension;
@@ -102,6 +104,59 @@ $FIX[$find] = $replace;
 $find = <<<EOT
 /* Exported function */
 TOLUA_API int  tolua_##LUABINDING_FILENAME##_open (lua_State* tolua_S);
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+static int tolua_collect_ccColor3B (lua_State* tolua_S)
+{
+ ccColor3B* self = (ccColor3B*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"CCLayer");
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"CCString");
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"CCSize");
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"ccColor3B");
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"CCNode");
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"CCSpriteFrame");
+EOT;
+$replace = '';
+$FIX[$find] = $replace;
+
+$find = <<<EOT
+ tolua_usertype(tolua_S,"CCRect");
 EOT;
 $replace = '';
 $FIX[$find] = $replace;
@@ -207,7 +262,7 @@ $FIX[$find] = $replace;
 // main
 
 $extensions = array(
-    'CCScale9Sprite'     => 'cocos2dx_extension_CCScale9Sprite',
+    'cocos2dx_extensions_luabinding'     => 'cocos2dx_extensions_luabinding',
 );
 
 // main

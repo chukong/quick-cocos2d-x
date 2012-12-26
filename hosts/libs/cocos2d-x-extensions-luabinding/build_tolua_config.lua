@@ -5,7 +5,10 @@ _push_functions = _push_functions or {}
 
 local CCObjectTypes = {
     -- Add CCObject inherited class to here
-    "CCScale9Sprite"
+    "CCScale9Sprite",
+    "CCControl",
+    "CCControlButton",
+    "CCEditBox",
 }
 
 -- register CCObject types
