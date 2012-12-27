@@ -1,0 +1,29 @@
+
+$#include "CCScale9Sprite.h"
+
+$using namespace cocos2d::extension;
+
+class CCScale9Sprite : public CCNode
+{
+    CCRect getCapInsets();
+    void setCapInsets(CCRect);
+
+    float getInsetLeft();
+    void setInsetLeft(float);
+    float getInsetTop();
+    void setInsetTop(float);
+    float getInsetRight();
+    void setInsetRight(float);
+    float getInsetBottom();
+    void setInsetBottom(float);
+
+    void setContentSize(CCSize size);
+
+    static CCScale9Sprite* create(const char* file, CCRect rect,  CCRect capInsets);
+    static CCScale9Sprite* create(const char* file, CCRect rect);
+    static CCScale9Sprite* create(const char* file);
+    static CCScale9Sprite* createWithSpriteFrame(CCSpriteFrame* spriteFrame, CCRect capInsets);
+    static CCScale9Sprite* createWithSpriteFrame(CCSpriteFrame* spriteFrame);
+    static CCScale9Sprite* createWithSpriteFrameName(const char*spriteFrameName, CCRect capInsets);
+    static CCScale9Sprite* createWithSpriteFrameName(const char*spriteFrameName);
+};

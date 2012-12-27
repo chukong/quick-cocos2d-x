@@ -1,17 +1,12 @@
 <?php
 
-require(__DIR__ . '/build_config.inc.php');
-require(__DIR__ . '/build_functions.inc.php');
+require(__DIR__ . '/build/build_functions.inc.php');
 
 define('SRC_DIR', __DIR__ . DS . 'mac' . DS);
+define('OUT_DIR', __DIR__ . DS . 'mac' . DS);
 
 $extensions = array(
-    'crypto'     => 'cocos2dx_extension_crypto_mac',
-    'native'     => 'cocos2dx_extension_native_mac',
-    'network'    => 'cocos2dx_extension_network_mac',
-    // 'store'      => 'cocos2dx_extension_store',
-    // 'openfeint'  => 'cocos2dx_extension_openfeint',
-    // 'gamecenter' => 'cocos2dx_extension_gamecenter',
+    'cocos2dx_extensions_luabinding_mac' => 'cocos2dx_extensions_luabinding_mac',
 );
 
 runBuilder($extensions, SRC_DIR, OUT_DIR);

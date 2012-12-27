@@ -16,6 +16,33 @@
 		F4398F41168169B400AE90D1 /* lualoadexts.c in Sources */ = {isa = PBXBuildFile; fileRef = F4398F39168169B400AE90D1 /* lualoadexts.c */; };
 		F4398F42168169B400AE90D1 /* lualoadexts.h in Headers */ = {isa = PBXBuildFile; fileRef = F4398F3A168169B400AE90D1 /* lualoadexts.h */; };
 		F439920B16816D3400AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920A16816D3400AE90D1 /* libluajit2.a */; };
+		F4DCAD06168C151700679DBE /* CCControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE3168C151700679DBE /* CCControl.cpp */; };
+		F4DCAD07168C151700679DBE /* CCControl.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACE4168C151700679DBE /* CCControl.h */; };
+		F4DCAD08168C151700679DBE /* CCControlButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE5168C151700679DBE /* CCControlButton.cpp */; };
+		F4DCAD09168C151700679DBE /* CCControlButton.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACE6168C151700679DBE /* CCControlButton.h */; };
+		F4DCAD0A168C151700679DBE /* CCControlColourPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE7168C151700679DBE /* CCControlColourPicker.cpp */; };
+		F4DCAD0B168C151700679DBE /* CCControlColourPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACE8168C151700679DBE /* CCControlColourPicker.h */; };
+		F4DCAD0C168C151700679DBE /* CCControlExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACE9168C151700679DBE /* CCControlExtensions.h */; };
+		F4DCAD0D168C151700679DBE /* CCControlHuePicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACEA168C151700679DBE /* CCControlHuePicker.cpp */; };
+		F4DCAD0E168C151700679DBE /* CCControlHuePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACEB168C151700679DBE /* CCControlHuePicker.h */; };
+		F4DCAD0F168C151700679DBE /* CCControlPotentiometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACEC168C151700679DBE /* CCControlPotentiometer.cpp */; };
+		F4DCAD10168C151700679DBE /* CCControlPotentiometer.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACED168C151700679DBE /* CCControlPotentiometer.h */; };
+		F4DCAD11168C151700679DBE /* CCControlSaturationBrightnessPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACEE168C151700679DBE /* CCControlSaturationBrightnessPicker.cpp */; };
+		F4DCAD12168C151700679DBE /* CCControlSaturationBrightnessPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACEF168C151700679DBE /* CCControlSaturationBrightnessPicker.h */; };
+		F4DCAD13168C151700679DBE /* CCControlSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF0168C151700679DBE /* CCControlSlider.cpp */; };
+		F4DCAD14168C151700679DBE /* CCControlSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACF1168C151700679DBE /* CCControlSlider.h */; };
+		F4DCAD15168C151700679DBE /* CCControlStepper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF2168C151700679DBE /* CCControlStepper.cpp */; };
+		F4DCAD16168C151700679DBE /* CCControlStepper.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACF3168C151700679DBE /* CCControlStepper.h */; };
+		F4DCAD17168C151700679DBE /* CCControlSwitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF4168C151700679DBE /* CCControlSwitch.cpp */; };
+		F4DCAD18168C151700679DBE /* CCControlSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACF5168C151700679DBE /* CCControlSwitch.h */; };
+		F4DCAD19168C151700679DBE /* CCControlUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF6168C151700679DBE /* CCControlUtils.cpp */; };
+		F4DCAD1A168C151700679DBE /* CCControlUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACF7168C151700679DBE /* CCControlUtils.h */; };
+		F4DCAD1B168C151700679DBE /* CCInvocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF8168C151700679DBE /* CCInvocation.cpp */; };
+		F4DCAD1C168C151700679DBE /* CCInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACF9168C151700679DBE /* CCInvocation.h */; };
+		F4DCAD1D168C151700679DBE /* CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACFA168C151700679DBE /* CCScale9Sprite.cpp */; };
+		F4DCAD1E168C151700679DBE /* CCScale9Sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACFB168C151700679DBE /* CCScale9Sprite.h */; };
+		F4DCAD33168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCAD30168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp */; };
+		F4DCAD34168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCAD31168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h */; };
 		F4DE082416800061005DB2DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE082316800061005DB2DB /* Cocoa.framework */; };
 		F4DE0954168001AA005DB2DB /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0845168001A9005DB2DB /* CCAction.cpp */; };
 		F4DE0955168001AA005DB2DB /* CCAction.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DE0846168001A9005DB2DB /* CCAction.h */; };
@@ -375,6 +402,33 @@
 		F43991E816816ACA00AE90D1 /* luajit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luajit.h; sourceTree = "<group>"; };
 		F43991E916816ACA00AE90D1 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F439920A16816D3400AE90D1 /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
+		F4DCACE3168C151700679DBE /* CCControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControl.cpp; sourceTree = "<group>"; };
+		F4DCACE4168C151700679DBE /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
+		F4DCACE5168C151700679DBE /* CCControlButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlButton.cpp; sourceTree = "<group>"; };
+		F4DCACE6168C151700679DBE /* CCControlButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlButton.h; sourceTree = "<group>"; };
+		F4DCACE7168C151700679DBE /* CCControlColourPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlColourPicker.cpp; sourceTree = "<group>"; };
+		F4DCACE8168C151700679DBE /* CCControlColourPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlColourPicker.h; sourceTree = "<group>"; };
+		F4DCACE9168C151700679DBE /* CCControlExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlExtensions.h; sourceTree = "<group>"; };
+		F4DCACEA168C151700679DBE /* CCControlHuePicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlHuePicker.cpp; sourceTree = "<group>"; };
+		F4DCACEB168C151700679DBE /* CCControlHuePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlHuePicker.h; sourceTree = "<group>"; };
+		F4DCACEC168C151700679DBE /* CCControlPotentiometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlPotentiometer.cpp; sourceTree = "<group>"; };
+		F4DCACED168C151700679DBE /* CCControlPotentiometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlPotentiometer.h; sourceTree = "<group>"; };
+		F4DCACEE168C151700679DBE /* CCControlSaturationBrightnessPicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlSaturationBrightnessPicker.cpp; sourceTree = "<group>"; };
+		F4DCACEF168C151700679DBE /* CCControlSaturationBrightnessPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlSaturationBrightnessPicker.h; sourceTree = "<group>"; };
+		F4DCACF0168C151700679DBE /* CCControlSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlSlider.cpp; sourceTree = "<group>"; };
+		F4DCACF1168C151700679DBE /* CCControlSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlSlider.h; sourceTree = "<group>"; };
+		F4DCACF2168C151700679DBE /* CCControlStepper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlStepper.cpp; sourceTree = "<group>"; };
+		F4DCACF3168C151700679DBE /* CCControlStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlStepper.h; sourceTree = "<group>"; };
+		F4DCACF4168C151700679DBE /* CCControlSwitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlSwitch.cpp; sourceTree = "<group>"; };
+		F4DCACF5168C151700679DBE /* CCControlSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlSwitch.h; sourceTree = "<group>"; };
+		F4DCACF6168C151700679DBE /* CCControlUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlUtils.cpp; sourceTree = "<group>"; };
+		F4DCACF7168C151700679DBE /* CCControlUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControlUtils.h; sourceTree = "<group>"; };
+		F4DCACF8168C151700679DBE /* CCInvocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCInvocation.cpp; sourceTree = "<group>"; };
+		F4DCACF9168C151700679DBE /* CCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCInvocation.h; sourceTree = "<group>"; };
+		F4DCACFA168C151700679DBE /* CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCScale9Sprite.cpp; sourceTree = "<group>"; };
+		F4DCACFB168C151700679DBE /* CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScale9Sprite.h; sourceTree = "<group>"; };
+		F4DCAD30168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding_mac.cpp; sourceTree = "<group>"; };
+		F4DCAD31168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding_mac.h; sourceTree = "<group>"; };
 		F4DE082016800061005DB2DB /* libquickcocos2dx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libquickcocos2dx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE082316800061005DB2DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4DE082616800061005DB2DB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -791,6 +845,71 @@
 			path = proj.mac;
 			sourceTree = "<group>";
 		};
+		F4DCACDF168C0F5900679DBE /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4DCACE1168C150000679DBE /* GUI */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		F4DCACE1168C150000679DBE /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				F4DCACE2168C151700679DBE /* CCControlExtension */,
+			);
+			path = GUI;
+			sourceTree = "<group>";
+		};
+		F4DCACE2168C151700679DBE /* CCControlExtension */ = {
+			isa = PBXGroup;
+			children = (
+				F4DCACE3168C151700679DBE /* CCControl.cpp */,
+				F4DCACE4168C151700679DBE /* CCControl.h */,
+				F4DCACE5168C151700679DBE /* CCControlButton.cpp */,
+				F4DCACE6168C151700679DBE /* CCControlButton.h */,
+				F4DCACE7168C151700679DBE /* CCControlColourPicker.cpp */,
+				F4DCACE8168C151700679DBE /* CCControlColourPicker.h */,
+				F4DCACE9168C151700679DBE /* CCControlExtensions.h */,
+				F4DCACEA168C151700679DBE /* CCControlHuePicker.cpp */,
+				F4DCACEB168C151700679DBE /* CCControlHuePicker.h */,
+				F4DCACEC168C151700679DBE /* CCControlPotentiometer.cpp */,
+				F4DCACED168C151700679DBE /* CCControlPotentiometer.h */,
+				F4DCACEE168C151700679DBE /* CCControlSaturationBrightnessPicker.cpp */,
+				F4DCACEF168C151700679DBE /* CCControlSaturationBrightnessPicker.h */,
+				F4DCACF0168C151700679DBE /* CCControlSlider.cpp */,
+				F4DCACF1168C151700679DBE /* CCControlSlider.h */,
+				F4DCACF2168C151700679DBE /* CCControlStepper.cpp */,
+				F4DCACF3168C151700679DBE /* CCControlStepper.h */,
+				F4DCACF4168C151700679DBE /* CCControlSwitch.cpp */,
+				F4DCACF5168C151700679DBE /* CCControlSwitch.h */,
+				F4DCACF6168C151700679DBE /* CCControlUtils.cpp */,
+				F4DCACF7168C151700679DBE /* CCControlUtils.h */,
+				F4DCACF8168C151700679DBE /* CCInvocation.cpp */,
+				F4DCACF9168C151700679DBE /* CCInvocation.h */,
+				F4DCACFA168C151700679DBE /* CCScale9Sprite.cpp */,
+				F4DCACFB168C151700679DBE /* CCScale9Sprite.h */,
+			);
+			path = CCControlExtension;
+			sourceTree = "<group>";
+		};
+		F4DCAD28168C153000679DBE /* cocos2d-x-extensions-luabinding */ = {
+			isa = PBXGroup;
+			children = (
+				F4DCAD2F168C15C900679DBE /* mac */,
+			);
+			path = "cocos2d-x-extensions-luabinding";
+			sourceTree = "<group>";
+		};
+		F4DCAD2F168C15C900679DBE /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				F4DCAD30168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp */,
+				F4DCAD31168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h */,
+			);
+			path = mac;
+			sourceTree = "<group>";
+		};
 		F4DE081516800060005DB2DB = {
 			isa = PBXGroup;
 			children = (
@@ -834,6 +953,7 @@
 				F4DE0C0D16800323005DB2DB /* CCDrawing */,
 				F4DE084216800151005DB2DB /* cocos2d-x */,
 				F4DE0B41168002A0005DB2DB /* cocos2d-x-extensions */,
+				F4DCAD28168C153000679DBE /* cocos2d-x-extensions-luabinding */,
 				F4398F2F1681699C00AE90D1 /* luaexts */,
 				F43991E216816AB600AE90D1 /* luajit2 */,
 			);
@@ -846,6 +966,7 @@
 			children = (
 				F4DE084316800187005DB2DB /* cocos2dx */,
 				F4DE0A91168001EE005DB2DB /* CocosDenshion */,
+				F4DCACDF168C0F5900679DBE /* extensions */,
 				F4DE0AB01680023C005DB2DB /* scripting */,
 			);
 			path = "cocos2d-x";
@@ -1805,6 +1926,20 @@
 				F4398F3E168169B400AE90D1 /* lua_cjson.h in Headers */,
 				F4398F40168169B400AE90D1 /* strbuf.h in Headers */,
 				F4398F42168169B400AE90D1 /* lualoadexts.h in Headers */,
+				F4DCAD07168C151700679DBE /* CCControl.h in Headers */,
+				F4DCAD09168C151700679DBE /* CCControlButton.h in Headers */,
+				F4DCAD0B168C151700679DBE /* CCControlColourPicker.h in Headers */,
+				F4DCAD0C168C151700679DBE /* CCControlExtensions.h in Headers */,
+				F4DCAD0E168C151700679DBE /* CCControlHuePicker.h in Headers */,
+				F4DCAD10168C151700679DBE /* CCControlPotentiometer.h in Headers */,
+				F4DCAD12168C151700679DBE /* CCControlSaturationBrightnessPicker.h in Headers */,
+				F4DCAD14168C151700679DBE /* CCControlSlider.h in Headers */,
+				F4DCAD16168C151700679DBE /* CCControlStepper.h in Headers */,
+				F4DCAD18168C151700679DBE /* CCControlSwitch.h in Headers */,
+				F4DCAD1A168C151700679DBE /* CCControlUtils.h in Headers */,
+				F4DCAD1C168C151700679DBE /* CCInvocation.h in Headers */,
+				F4DCAD1E168C151700679DBE /* CCScale9Sprite.h in Headers */,
+				F4DCAD34168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2013,6 +2148,19 @@
 				F4398F3D168169B400AE90D1 /* lua_cjson.c in Sources */,
 				F4398F3F168169B400AE90D1 /* strbuf.c in Sources */,
 				F4398F41168169B400AE90D1 /* lualoadexts.c in Sources */,
+				F4DCAD06168C151700679DBE /* CCControl.cpp in Sources */,
+				F4DCAD08168C151700679DBE /* CCControlButton.cpp in Sources */,
+				F4DCAD0A168C151700679DBE /* CCControlColourPicker.cpp in Sources */,
+				F4DCAD0D168C151700679DBE /* CCControlHuePicker.cpp in Sources */,
+				F4DCAD0F168C151700679DBE /* CCControlPotentiometer.cpp in Sources */,
+				F4DCAD11168C151700679DBE /* CCControlSaturationBrightnessPicker.cpp in Sources */,
+				F4DCAD13168C151700679DBE /* CCControlSlider.cpp in Sources */,
+				F4DCAD15168C151700679DBE /* CCControlStepper.cpp in Sources */,
+				F4DCAD17168C151700679DBE /* CCControlSwitch.cpp in Sources */,
+				F4DCAD19168C151700679DBE /* CCControlUtils.cpp in Sources */,
+				F4DCAD1B168C151700679DBE /* CCInvocation.cpp in Sources */,
+				F4DCAD1D168C151700679DBE /* CCScale9Sprite.cpp in Sources */,
+				F4DCAD33168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2023,7 +2171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2045,6 +2193,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				VALID_ARCHS = i386;
 			};
 			name = Debug;
 		};
@@ -2052,7 +2201,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2067,6 +2216,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
+				VALID_ARCHS = i386;
 			};
 			name = Release;
 		};
@@ -2103,7 +2253,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding/mac\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts\"",
 				);
@@ -2144,7 +2294,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding/mac\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts\"",
 				);
