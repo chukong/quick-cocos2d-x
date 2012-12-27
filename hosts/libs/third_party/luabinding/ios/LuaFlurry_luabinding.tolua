@@ -1,0 +1,10 @@
+
+$#include "LuaFlurry.h"
+
+class LuaFlurry
+{
+public:
+    static void logEvent(const char *eventName, bool timed);
+    static void logEventWithParameters(const char *eventName, LUA_TABLE parameters, bool timed);
+    static void endTimedEvent(const char *eventName);
+};
