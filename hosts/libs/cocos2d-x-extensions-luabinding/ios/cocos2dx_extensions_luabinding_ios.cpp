@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extensions_luabinding_ios
-** Generated automatically by tolua++-1.0.92 on Wed Dec 26 11:41:31 2012.
+** Generated automatically by tolua++-1.0.92 on Fri Dec 28 13:21:27 2012.
 */
 
 #include "cocos2dx_extensions_luabinding_ios.h"
@@ -14,16 +14,23 @@ using namespace cocos2d::extension;
 /* function to release collected object via destructor */
 #ifdef __cplusplus
 
-static int tolua_collect_ccColor3B (lua_State* tolua_S)
+static int tolua_collect_CCRect (lua_State* tolua_S)
 {
- ccColor3B* self = (ccColor3B*) tolua_tousertype(tolua_S,1,0);
+ CCRect* self = (CCRect*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
 
-static int tolua_collect_CCRect (lua_State* tolua_S)
+static int tolua_collect_CCSize (lua_State* tolua_S)
 {
- CCRect* self = (CCRect*) tolua_tousertype(tolua_S,1,0);
+ CCSize* self = (CCSize*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_ccColor3B (lua_State* tolua_S)
+{
+ ccColor3B* self = (ccColor3B*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -382,6 +389,48 @@ static int tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setInsetBotto
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getContentSize of class  CCScale9Sprite */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getContentSize00
+static int tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getContentSize00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCScale9Sprite",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCScale9Sprite* self = (CCScale9Sprite*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getContentSize'", NULL);
+#endif
+  {
+   CCSize tolua_ret = (CCSize)  self->getContentSize();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((CCSize)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"CCSize");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(CCSize));
+     tolua_pushusertype(tolua_S,tolua_obj,"CCSize");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getContentSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setContentSize of class  CCScale9Sprite */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setContentSize00
 static int tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setContentSize00(lua_State* tolua_S)
@@ -410,6 +459,71 @@ static int tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setContentSiz
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setContentSize'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOpacity of class  CCScale9Sprite */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getOpacity00
+static int tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCScale9Sprite",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCScale9Sprite* self = (CCScale9Sprite*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOpacity'", NULL);
+#endif
+  {
+   unsigned char tolua_ret = (unsigned char)  self->getOpacity();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOpacity of class  CCScale9Sprite */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setOpacity00
+static int tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCScale9Sprite",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCScale9Sprite* self = (CCScale9Sprite*)  tolua_tousertype(tolua_S,1,0);
+  unsigned char opacity = ((unsigned char)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOpacity'", NULL);
+#endif
+  {
+   self->setOpacity(opacity);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOpacity'.",&tolua_err);
  return 0;
 #endif
 }
@@ -851,6 +965,71 @@ static int tolua_cocos2dx_extensions_luabinding_ios_CCControl_isHighlighted00(lu
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'isHighlighted'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getOpacity of class  CCControl */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extensions_luabinding_ios_CCControl_getOpacity00
+static int tolua_cocos2dx_extensions_luabinding_ios_CCControl_getOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCControl",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCControl* self = (CCControl*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOpacity'", NULL);
+#endif
+  {
+   unsigned char tolua_ret = (unsigned char)  self->getOpacity();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getOpacity'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOpacity of class  CCControl */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extensions_luabinding_ios_CCControl_setOpacity00
+static int tolua_cocos2dx_extensions_luabinding_ios_CCControl_setOpacity00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCControl",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCControl* self = (CCControl*)  tolua_tousertype(tolua_S,1,0);
+  unsigned char opacity = ((unsigned char)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOpacity'", NULL);
+#endif
+  {
+   self->setOpacity(opacity);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOpacity'.",&tolua_err);
  return 0;
 #endif
 }
@@ -2058,7 +2237,10 @@ TOLUA_API int tolua_cocos2dx_extensions_luabinding_ios_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setInsetRight",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setInsetRight00);
    tolua_function(tolua_S,"getInsetBottom",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getInsetBottom00);
    tolua_function(tolua_S,"setInsetBottom",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setInsetBottom00);
+   tolua_function(tolua_S,"getContentSize",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getContentSize00);
    tolua_function(tolua_S,"setContentSize",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setContentSize00);
+   tolua_function(tolua_S,"getOpacity",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_getOpacity00);
+   tolua_function(tolua_S,"setOpacity",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_setOpacity00);
    tolua_function(tolua_S,"create",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_create00);
    tolua_function(tolua_S,"create",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_create01);
    tolua_function(tolua_S,"create",tolua_cocos2dx_extensions_luabinding_ios_CCScale9Sprite_create02);
@@ -2080,6 +2262,8 @@ TOLUA_API int tolua_cocos2dx_extensions_luabinding_ios_open (lua_State* tolua_S)
    tolua_function(tolua_S,"isSelected",tolua_cocos2dx_extensions_luabinding_ios_CCControl_isSelected00);
    tolua_function(tolua_S,"setHighlighted",tolua_cocos2dx_extensions_luabinding_ios_CCControl_setHighlighted00);
    tolua_function(tolua_S,"isHighlighted",tolua_cocos2dx_extensions_luabinding_ios_CCControl_isHighlighted00);
+   tolua_function(tolua_S,"getOpacity",tolua_cocos2dx_extensions_luabinding_ios_CCControl_getOpacity00);
+   tolua_function(tolua_S,"setOpacity",tolua_cocos2dx_extensions_luabinding_ios_CCControl_setOpacity00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCControlButton","CCControlButton","CCControl",NULL);
   tolua_beginmodule(tolua_S,"CCControlButton");

@@ -18,7 +18,10 @@ class CCScale9Sprite : public CCNode
     float getInsetBottom();
     void setInsetBottom(float);
 
+    CCSize getContentSize();
     void setContentSize(CCSize size);
+    unsigned char getOpacity(void);
+    void setOpacity(unsigned char opacity);
 
     static CCScale9Sprite* create(const char* file, CCRect rect,  CCRect capInsets);
     static CCScale9Sprite* create(const char* file, CCRect rect);
@@ -53,6 +56,9 @@ class CCControl : public CCLayer
     /** A Boolean value that determines whether the control is highlighted. */
     void setHighlighted(bool bHighlighted);
     bool isHighlighted();
+
+    unsigned char getOpacity(void);
+    void setOpacity(unsigned char opacity);
 };
 
 /** @class CCControlButton Button control for Cocos2D. */
