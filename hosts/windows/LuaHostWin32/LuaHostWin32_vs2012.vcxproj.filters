@@ -132,6 +132,30 @@
     <Filter Include="lua\luajit2">
       <UniqueIdentifier>{0deaf90b-085d-4d28-af0e-d9617546bf46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2dx\platform\third_party">
+      <UniqueIdentifier>{d3f56bab-0454-4aae-a3e2-8b183b4e4026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common">
+      <UniqueIdentifier>{c3a88d88-3613-4c2c-b36e-704a1f428882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common\webp">
+      <UniqueIdentifier>{fc07bde1-c06e-4a7f-b9b3-f949a6a5fba7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common\webp\dec">
+      <UniqueIdentifier>{4d87dccf-ccb6-4965-a8ce-00460dabd3cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common\webp\dsp">
+      <UniqueIdentifier>{ada81e3a-802d-4f3c-b907-58ecd0fefa80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common\webp\mux">
+      <UniqueIdentifier>{a9dad0f5-2f9c-461a-9fa0-a528b23309db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common\webp\utils">
+      <UniqueIdentifier>{eebe972f-7553-4b89-899c-42aeeb3f4482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2dx\platform\third_party\common\webp\webp">
+      <UniqueIdentifier>{f4561b10-fbbc-4659-9c95-9a9a0f8de350}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -199,12 +223,6 @@
     </ClInclude>
     <ClInclude Include="..\..\libs\CCDrawing\LuaCCDrawing.h">
       <Filter>CCDrawing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x-extensions-luabinding\cocos2dx_extension_CCScale9Sprite.h">
-      <Filter>cocos2d-x-ext</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.h">
-      <Filter>cocos2d-x-ext</Filter>
     </ClInclude>
     <ClInclude Include="..\..\libs\cocos2d-x\extensions\cocos-ext.h">
       <Filter>cocos2d-x-ext</Filter>
@@ -728,6 +746,117 @@
     <ClInclude Include="..\..\libs\luajit2\include\lualib.h">
       <Filter>lua\luajit2</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlColourPicker.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlExtensions.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlHuePicker.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlPotentiometer.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSaturationBrightnessPicker.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSlider.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlStepper.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSwitch.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlUtils.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCInvocation.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControl.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlButton.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions-luabinding\win32\cocos2dx_extensions_luabinding_win32.h">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\decode_vp8.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8i.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8li.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\webpi.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dsp.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\lossless.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\yuv.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxi.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\mux</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_reader.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_writer.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\color_cache.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\filters.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman_encode.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\quant_levels.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\rescaler.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\thread.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\utils.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\decode.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\encode.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\format_constants.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\mux.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\webp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\types.h">
+      <Filter>cocos2dx\platform\third_party\common\webp\webp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
@@ -771,12 +900,6 @@
     </ClCompile>
     <ClCompile Include="..\..\libs\CCDrawing\LuaCCDrawing.cpp">
       <Filter>CCDrawing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x-extensions-luabinding\cocos2dx_extension_CCScale9Sprite.cpp">
-      <Filter>cocos2d-x-ext</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.cpp">
-      <Filter>cocos2d-x-ext</Filter>
     </ClCompile>
     <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\platform\win32\CCNative.cpp">
       <Filter>cocos2d-x-extensions</Filter>
@@ -1172,6 +1295,153 @@
     </ClCompile>
     <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\tolua\tolua_to.c">
       <Filter>lua\tolua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlHuePicker.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlPotentiometer.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSaturationBrightnessPicker.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSlider.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlStepper.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSwitch.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlUtils.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCInvocation.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControl.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlButton.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlColourPicker.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x-extensions-luabinding\win32\cocos2dx_extensions_luabinding_win32.cpp">
+      <Filter>cocos2d-x-ext</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCImageCommonWebp.cpp">
+      <Filter>cocos2dx\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\alpha.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\buffer.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\frame.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\idec.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\io.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\layer.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\quant.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\tree.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8l.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\webp.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\cpu.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dec.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dec_neon.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dec_sse2.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\enc.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\enc_sse2.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\lossless.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\upsampling.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\upsampling_sse2.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\yuv.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\demux.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxedit.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxinternal.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxread.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\mux</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_reader.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_writer.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\color_cache.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\filters.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman_encode.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\quant_levels.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\rescaler.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\thread.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\utils.c">
+      <Filter>cocos2dx\platform\third_party\common\webp\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

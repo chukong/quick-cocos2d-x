@@ -9,7 +9,7 @@
 *.so
 *.o
 
-bin/
+bin/Debug.win32/
 out/
 hosts/windows/ipch/
 project.xcworkspace/

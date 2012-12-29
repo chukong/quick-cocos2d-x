@@ -21,6 +21,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v110_xp</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -53,10 +54,17 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;COCOS2D_DEBUG=1;CC_LUA_ENGINE_ENABLED=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\..\Classes;..\..\libs\CCDrawing;..\..\libs\cocos2d-x-extensions-luabinding;..\..\libs\cocos2d-x-extensions\extensions;..\..\libs\cocos2d-x-extensions\extensions\luabinding;..\..\libs\cocos2d-x\cocos2dx;..\..\libs\cocos2d-x\cocos2dx\include;..\..\libs\cocos2d-x\cocos2dx\kazmath\include;..\..\libs\cocos2d-x\cocos2dx\platform;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;..\..\libs\cocos2d-x\cocos2dx\platform\win32;..\..\libs\cocos2d-x\CocosDenshion\include;..\..\libs\cocos2d-x\CocosDenshion\win32;..\..\libs\cocos2d-x\extensions;..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension;..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support;..\..\libs\cocos2d-x\scripting\lua\lua;..\..\libs\cocos2d-x\scripting\lua\tolua;C:\Work\voyage\client_sources\Classes;C:\Work\voyage\client_sources\luabinding;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4251;4068;4800</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;DEBUG;COCOS2D_DEBUG=1;CC_LUA_ENGINE_ENABLED=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\..\Classes;..\..\libs\CCDrawing;..\..\libs\cocos2d-x-extensions-luabinding\win32;..\..\libs\cocos2d-x-extensions\extensions;..\..\libs\cocos2d-x-extensions\extensions\luabinding;..\..\libs\cocos2d-x\cocos2dx;..\..\libs\cocos2d-x\cocos2dx\include;..\..\libs\cocos2d-x\cocos2dx\kazmath\include;..\..\libs\cocos2d-x\cocos2dx\platform;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;..\..\libs\cocos2d-x\cocos2dx\platform\win32;..\..\libs\cocos2d-x\CocosDenshion\include;..\..\libs\cocos2d-x\CocosDenshion\win32;..\..\libs\cocos2d-x\extensions;..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension;..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support;..\..\libs\cocos2d-x\scripting\lua\lua;..\..\libs\cocos2d-x\scripting\lua\tolua;C:\Work\voyage\client_sources\Classes;C:\Work\voyage\client_sources\luabinding;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251;4068;4800;4244;4819</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -64,6 +72,7 @@
       <AdditionalDependencies>lua51.lib;winmm.lib;opengl32.lib;glew32.lib;libxml2.lib;libzlib.lib;libpng.lib;libjpeg.lib;libtiff.lib;libiconv.lib;pthreadVCE2.lib;libcurl_imp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\libs\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;..\..\libs\luajit2\proj.win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,7 +102,7 @@
     <ClInclude Include="..\..\Classes\AppDelegate.h" />
     <ClInclude Include="..\..\libs\CCDrawing\CCDrawing.h" />
     <ClInclude Include="..\..\libs\CCDrawing\LuaCCDrawing.h" />
-    <ClInclude Include="..\..\libs\cocos2d-x-extensions-luabinding\cocos2dx_extension_CCScale9Sprite.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x-extensions-luabinding\win32\cocos2dx_extensions_luabinding_win32.h" />
     <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\cocos2dx_extensions.h" />
     <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\crypto\base64\libb64.h" />
     <ClInclude Include="..\..\libs\cocos2d-x-extensions\extensions\crypto\CCCrypto.h" />
@@ -197,6 +206,29 @@
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCSAXParser.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCThread.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\platform.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\decode_vp8.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8i.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8li.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\webpi.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dsp.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\lossless.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\yuv.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxi.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_reader.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_writer.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\color_cache.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\filters.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman_encode.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\quant_levels.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\rescaler.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\thread.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\utils.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\decode.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\encode.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\format_constants.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\mux.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\webp\types.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCAccelerometer.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCApplication.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCEGLView.h" />
@@ -265,6 +297,18 @@
     <ClInclude Include="..\..\libs\cocos2d-x\CocosDenshion\win32\MciPlayer.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\extensions\cocos-ext.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\extensions\ExtensionMacros.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControl.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlButton.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlColourPicker.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlExtensions.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlHuePicker.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlPotentiometer.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSaturationBrightnessPicker.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSlider.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlStepper.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSwitch.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlUtils.h" />
+    <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCInvocation.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h" />
     <ClInclude Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.h" />
@@ -290,7 +334,7 @@
     <ClCompile Include="..\..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\..\libs\CCDrawing\CCDrawing.cpp" />
     <ClCompile Include="..\..\libs\CCDrawing\LuaCCDrawing.cpp" />
-    <ClCompile Include="..\..\libs\cocos2d-x-extensions-luabinding\cocos2dx_extension_CCScale9Sprite.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x-extensions-luabinding\win32\cocos2dx_extensions_luabinding_win32.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\crypto\base64\libb64.c" />
     <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\crypto\CCCrypto.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x-extensions\extensions\crypto\md5\md5.c" />
@@ -371,9 +415,45 @@
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\particle_nodes\CCParticleSystem.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\particle_nodes\CCParticleSystemQuad.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCEGLViewProtocol.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCImageCommonWebp.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCSAXParser.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\CCThread.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\platform.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\alpha.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\buffer.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\frame.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\idec.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\io.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\layer.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\quant.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\tree.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8l.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\webp.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\cpu.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dec.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dec_neon.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\dec_sse2.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\enc.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\enc_sse2.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\lossless.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\upsampling.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\upsampling_sse2.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\dsp\yuv.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\demux.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxedit.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxinternal.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\mux\muxread.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_reader.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\bit_writer.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\color_cache.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\filters.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\huffman_encode.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\quant_levels.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\rescaler.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\thread.c" />
+    <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\third_party\common\webp\utils\utils.c" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCAccelerometer.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCApplication.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\platform\win32\CCCommon.cpp" />
@@ -422,6 +502,17 @@
     <ClCompile Include="..\..\libs\cocos2d-x\cocos2dx\touch_dispatcher\CCTouchHandler.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\CocosDenshion\win32\MciPlayer.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\CocosDenshion\win32\SimpleAudioEngine.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControl.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlButton.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlColourPicker.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlHuePicker.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlPotentiometer.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSaturationBrightnessPicker.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSlider.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlStepper.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlSwitch.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCControlUtils.cpp" />
+    <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCInvocation.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\extensions\GUI\CCControlExtension\CCScale9Sprite.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp" />
     <ClCompile Include="..\..\libs\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.cpp" />
