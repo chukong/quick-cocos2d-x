@@ -14,7 +14,7 @@ JNIEXPORT jint JNICALL Java_com_qeeplay_frameworks_LuaJavaBridge_callLuaFunction
   (JNIEnv *env, jclass cls, jint functionId, jstring value)
 {
     const char *value_ = env->GetStringUTFChars(value, 0);
-    int ret = LuaJavaBridge_callLuaFunctionById(functionId, value_);
+    int ret = LuaJavaBridge::callLuaFunctionById(functionId, value_);
     env->ReleaseStringUTFChars(value, value_);
     return ret;
 }
@@ -24,7 +24,7 @@ JNIEXPORT jint JNICALL Java_com_qeeplay_frameworks_LuaJavaBridge_callLuaGlobalFu
 {
     const char *luaFunctionName_ = env->GetStringUTFChars(luaFunctionName, 0);
     const char *value_ = env->GetStringUTFChars(value, 0);
-    int ret = LuaJavaBridge_callLuaGlobalFunction(luaFunctionName_, value_);
+    int ret = LuaJavaBridge::callLuaGlobalFunction(luaFunctionName_, value_);
     env->ReleaseStringUTFChars(luaFunctionName, luaFunctionName_);
     env->ReleaseStringUTFChars(value, value_);
     return ret;
@@ -33,13 +33,13 @@ JNIEXPORT jint JNICALL Java_com_qeeplay_frameworks_LuaJavaBridge_callLuaGlobalFu
 JNIEXPORT jint JNICALL Java_com_qeeplay_frameworks_LuaJavaBridge_retainLuaFunction
   (JNIEnv *env, jclass cls, jint luaFunctionId)
 {
-    return LuaJavaBridge_retainLuaFunctionById(luaFunctionId);
+    return LuaJavaBridge::retainLuaFunctionById(luaFunctionId);
 }
 
 JNIEXPORT jint JNICALL Java_com_qeeplay_frameworks_LuaJavaBridge_releaseLuaFunction
   (JNIEnv *env, jclass cls, jint luaFunctionId)
 {
-    return LuaJavaBridge_releaseLuaFunctionById(luaFunctionId);
+    return LuaJavaBridge::releaseLuaFunctionById(luaFunctionId);
 }
 
 } // extern "C"

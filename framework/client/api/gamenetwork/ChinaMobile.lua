@@ -84,6 +84,11 @@ function ChinaMobile.show(name, params)
     elseif name == "PLAYING" then
         CCOpenFeint:showPlaying()
 
+    elseif name == "MOREGAMES" then
+        display.pause()
+        luaj.callStaticMethod(className, "GameInterface_viewMoreGames")
+        display.resume()
+
     elseif name == "RECOMMEND" then
         display.pause()
         luaj.callStaticMethod(className, "GameCommunity_launchGameRecommend")
