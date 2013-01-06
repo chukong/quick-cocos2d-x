@@ -46,6 +46,10 @@ local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
 local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
 
+if DEBUG > 1 then
+    sharedDirector:setDisplayStats(true)
+end
+
 -- check screen orientation
 display.orientationPortrait       = "portrait"
 display.orientationUpsideDown     = "upside_down"
@@ -255,6 +259,14 @@ function display.newScene(name)
     return display.extendScene(scene)
 end
 
+display.REPLACE_SCENE_POLICY_NORMAL   = 0
+display.REPLACE_SCENE_POLICY_INDIRECT = 1
+
+display.replaceScenePolicy_ = display.REPLACE_SCENE_POLICY_NORMAL
+function display.setReplaceScenePolicy(policy)
+    display.replaceScenePolicy_ = policy
+end
+
 --[[--
 
 Replaces the running scene with a new one.
@@ -310,7 +322,26 @@ function display.replaceScene(newScene, transitionType, time, more)
     local current = sharedDirector:getRunningScene()
     if current then
         if current.beforeExit then current:beforeExit() end
-        newScene = newSceneWithTransition(newScene, transitionType, time, more)
+
+        if display.replaceScenePolicy_ == display.REPLACE_SCENE_POLICY_INDIRECT then
+            local nextScene = newScene
+            nextScene:retain()
+
+            local middleScene = display.newScene("_middle_")
+
+            function middleScene:onEnter()
+                middleScene:scheduleUpdate(function()
+                    middleScene:unscheduleUpdate()
+                    sharedDirector:replaceScene(nextScene)
+                    nextScene:release()
+                end)
+            end
+
+            newScene = middleScene
+        else
+            newScene = newSceneWithTransition(newScene, transitionType, time, more)
+        end
+
         sharedDirector:replaceScene(newScene)
     else
         sharedDirector:runWithScene(newScene)
@@ -472,6 +503,11 @@ function display.newNode()
     return display.extendNode(CCNode:create())
 end
 
+display.spritesPixelFormat_ = {}
+function display.setSpritePixelFormat(filename, format)
+    display.spritesPixelFormat_[filename] = format
+end
+
 --[[--
 
 Creates a CCSprite object.
@@ -505,7 +541,13 @@ function display.newSprite(filename, x, y)
 
         sprite = CCSprite:createWithSpriteFrame(frame)
     else
-        sprite = CCSprite:create(filename)
+        if display.spritesPixelFormat_[filename] then
+            CCTexture2D:setDefaultAlphaPixelFormat(display.spritesPixelFormat_[filename])
+            sprite = CCSprite:create(filename)
+            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+        else
+            sprite = CCSprite:create(filename)
+        end
         if not sprite then
             local msg = format("display.newSprite() - not found image: %s", filename)
             echo(debug.traceback(msg, 2))
@@ -727,7 +769,13 @@ Creates sprite sheet tools:
 
 ]]
 function display.addSpriteFramesWithFile(plistFilename, image)
-    sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+    if display.spritesPixelFormat_[image] then
+        CCTexture2D:setDefaultAlphaPixelFormat(display.spritesPixelFormat_[image])
+        sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+        CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+    else
+        sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+    end
 end
 
 --[[--
@@ -741,8 +789,16 @@ Sprite Frames stored in this file will be removed. It is convinient to call this
 -   string **plistFilename** filename of plist file
 
 ]]
-function display.removeSpriteFramesWithFile(plistFilename)
+function display.removeSpriteFramesWithFile(plistFilename, imageName)
     sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
+    if imageName then
+        display.removeSpriteFrameByName(imageName)
+    end
+end
+
+function display.removeSpriteFrameByName(imageName)
+    CCSpriteFrameCache:sharedSpriteFrameCache():removeSpriteFrameByName(imageName)
+    CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
 
 --[[--
@@ -918,7 +974,7 @@ function display.newFrames(pattern, begin, length, isReversed)
     for index = begin, last, step do
         local frameName = string.format(pattern, index)
         local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
-        if not frame then error("Invalid frame") end
+        if not frame then error(format("Invalid frame %s", _s(frameName))) end
         frames[#frames + 1] = frame
     end
     return frames
@@ -984,15 +1040,32 @@ end
 function display.extendScene(scene)
     display.extendNode(scene)
 
+    function scene:addAutoCleanImage(imageName)
+        if not scene.autoCleanImages_ then scene.autoCleanImages_ = {} end
+        scene.autoCleanImages_[imageName] = true
+    end
+
     local function sceneEventHandler(event)
         if event.name == "enter" then
             echoWarning("## Scene \"%s:onEnter()\"", scene.name)
             scene.isTouchEnabled = true
             if scene.onEnter then scene:onEnter() end
-        else
+        elseif event.name == "exit" then
             echoWarning("## Scene \"%s:onExit()\"", scene.name)
             scene.isTouchEnabled = false
+
+            -- cleanup one-off images
+            if scene.autoCleanImages_ then
+                for imageName, v in pairs(scene.autoCleanImages_) do
+                    display.removeSpriteFrameByName(imageName)
+                end
+                scene.autoCleanImages_ = nil
+            end
+
             if scene.onExit then scene:onExit() end
+            if DEBUG > 1 then
+                CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
+            end
         end
     end
 

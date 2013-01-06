@@ -11,24 +11,13 @@ ui.TEXT_VALIGN_TOP    = kCCVerticalTextAlignmentTop
 ui.TEXT_VALIGN_CENTER = kCCVerticalTextAlignmentCenter
 ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
-function ui.newMenu(...)
+function ui.newMenu(items)
     local menu
     menu = CCMenu:create()
     display.extendNode(menu)
 
-    local item = select(1, ...)
-    local items = {}
-
-    if type(item) ~= "table" then
-        for i = 1, select("#", ...) do
-            items[i] = select(i, ...)
-        end
-    else
-        items = item
-    end
-
     for k, item in pairs(items) do
-        if type(item) == "userdata" then
+        if not tolua.isnull(item) then
             menu:addChild(item, 0, item:getTag())
         end
     end
@@ -90,9 +79,10 @@ function ui.newBMFontLabel(params)
            "[framework.client.ui] newBMFontLabel() invalid params")
 
     local text      = tostring(params.text)
-    local font      = params.font or ui.DEFAULT_TTF_FONT
+    local font      = params.font
     local textAlign = params.align or ui.TEXT_ALIGN_LEFT
     local x, y      = params.x, params.y
+    assert(font ~= nil, "ui.newBMFontLabel() - not set font")
 
     local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
     if not label then return end

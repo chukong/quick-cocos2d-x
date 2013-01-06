@@ -279,8 +279,7 @@ function transition.scaleTo(target, args)
     assert(not tolua.isnull(target), "transition.scaleTo() - target is not CCNode")
     local action
     if args.scale then
-        local scale = _n(args.scale)
-        action = CCScaleTo:create(_n(args.time), scale)
+        action = CCScaleTo:create(_n(args.time), _n(args.scale))
     elseif args.scaleX or args.scaleY then
         local scaleX, scaleY
         if args.scaleX then

@@ -1,115 +1,263 @@
 
 #include "LuaJavaBridge.h"
 #include <android/log.h>
-#include <string.h>
 
-#define  LOG_TAG    "LuaJavaBridge_c"
+#define  LOG_TAG    "luajc"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 
-#define LUAJ_TYPE_NOT_SUPPORT       -1
-#define LUAJ_TYPE_VOID              0
-#define LUAJ_TYPE_INT               1
-#define LUAJ_TYPE_FLOAT             2
-#define LUAJ_TYPE_BOOLEAN           3
-#define LUAJ_TYPE_STRING            4
-#define LUAJ_TYPE_FUNCTION          5
-
-#define LUAJ_TYPE_INT_CHAR          '1'
-#define LUAJ_TYPE_FLOAT_CHAR        '2'
-#define LUAJ_TYPE_BOOLEAN_CHAR      '3'
-#define LUAJ_TYPE_STRING_CHAR       '4'
-#define LUAJ_TYPE_FUNCTION_CHAR     '5'
-
-#define LUAJ_ERR_INVALID_PARAMETERS -2
-#define LUAJ_ERR_METHOD_NOT_FOUND   -3
-#define LUAJ_ERR_EXCEPTION_OCCURRED -4
-
-#define LUAJ_REGISTRY_FUNCTION      "luajb_function_id"     // table[function] = id
-#define LUAJ_REGISTRY_RETAIN        "luajb_id_retain_count" // table[id] = retain count
-
 extern "C" {
-
 #include "tolua_fix.h"
+}
 
-typedef union
+LuaJavaBridge::CallInfo::~CallInfo(void)
 {
-    int         intValue;
-    float       floatValue;
-    int         boolValue;
-    const char *stringValue;
-} LuaJavaBridge_Return;
+	if (m_returnType == TypeString && m_ret.stringValue)
+	{
+		delete m_ret.stringValue;
+	}
+}
 
-class LuaJavaBridge_CallInfo
+bool LuaJavaBridge::CallInfo::execute(void)
 {
-public:
-    JNIEnv                 *env;
-    jclass                  classID;
-    jmethodID               methodID;
-    char                   *argsType;
-    LuaJavaBridge_Return    ret;
-    jstring                 retjs;
-    int                     retType;
-
-    LuaJavaBridge_CallInfo(void)
-    : env(NULL)
-    , classID(NULL)
-    , methodID(NULL)
-    , argsType(NULL)
-    , retjs(NULL)
-    , retType(LUAJ_TYPE_VOID)
+	switch (m_returnType)
     {
-        memset(&ret, 0, sizeof(ret));
+        case TypeVoid:
+            m_env->CallStaticVoidMethod(m_classID, m_methodID);
+            break;
+
+        case TypeInteger:
+            m_ret.intValue = m_env->CallStaticIntMethod(m_classID, m_methodID);
+            break;
+
+        case TypeFloat:
+            m_ret.floatValue = m_env->CallStaticFloatMethod(m_classID, m_methodID);
+            break;
+
+        case TypeBoolean:
+            m_ret.boolValue = m_env->CallStaticBooleanMethod(m_classID, m_methodID);
+            break;
+
+        case TypeString:
+            m_retjs = (jstring)m_env->CallStaticObjectMethod(m_classID, m_methodID);
+            const char *stringBuff = m_env->GetStringUTFChars(m_retjs, 0);
+            m_ret.stringValue = new string(stringBuff);
+            m_env->ReleaseStringUTFChars(m_retjs, stringBuff);
+           break;
     }
 
-    ~LuaJavaBridge_CallInfo(void)
+	if (m_env->ExceptionCheck() == JNI_TRUE)
+	{
+		m_env->ExceptionDescribe();
+		m_env->ExceptionClear();
+		m_error = LUAJ_ERR_EXCEPTION_OCCURRED;
+		return false;
+	}
+
+	return true;
+}
+
+
+bool LuaJavaBridge::CallInfo::executeWithArgs(jvalue *args)
+{
+    switch (m_returnType)
+     {
+         case TypeVoid:
+             m_env->CallStaticVoidMethodA(m_classID, m_methodID, args);
+             break;
+
+         case TypeInteger:
+             m_ret.intValue = m_env->CallStaticIntMethodA(m_classID, m_methodID, args);
+             break;
+
+         case TypeFloat:
+             m_ret.floatValue = m_env->CallStaticFloatMethodA(m_classID, m_methodID, args);
+             break;
+
+         case TypeBoolean:
+             m_ret.boolValue = m_env->CallStaticBooleanMethodA(m_classID, m_methodID, args);
+             break;
+
+         case TypeString:
+        	 m_retjs = (jstring)m_env->CallStaticObjectMethodA(m_classID, m_methodID, args);
+			 const char *stringBuff = m_env->GetStringUTFChars(m_retjs, 0);
+			 m_ret.stringValue = new string(stringBuff);
+			 m_env->ReleaseStringUTFChars(m_retjs, stringBuff);
+            break;
+     }
+
+	if (m_env->ExceptionCheck() == JNI_TRUE)
+	{
+		m_env->ExceptionDescribe();
+		m_env->ExceptionClear();
+		m_error = LUAJ_ERR_EXCEPTION_OCCURRED;
+		return false;
+	}
+
+	return true;
+}
+
+int LuaJavaBridge::CallInfo::pushReturnValue(lua_State *L)
+{
+	if (m_error != LUAJ_ERR_OK)
+	{
+		lua_pushinteger(L, m_error);
+		return 1;
+	}
+
+	switch (m_returnType)
+	{
+		case TypeInteger:
+			lua_pushinteger(L, m_ret.intValue);
+			return 1;
+		case TypeFloat:
+			lua_pushnumber(L, m_ret.floatValue);
+			return 1;
+		case TypeBoolean:
+			lua_pushboolean(L, m_ret.boolValue);
+			return 1;
+		case TypeString:
+			lua_pushstring(L, m_ret.stringValue->c_str());
+			return 1;
+	}
+
+	return 0;
+}
+
+
+bool LuaJavaBridge::CallInfo::validateMethodSig(void)
+{
+    size_t len = m_methodSig.length();
+    if (len < 3 || m_methodSig[0] != '(') // min sig is "()V"
     {
-        if (argsType) delete []argsType;
+    	m_error = LUAJ_ERR_INVALID_SIGNATURES;
+    	return false;
+	}
+
+    size_t pos = 1;
+    while (pos < len && m_methodSig[pos] != ')')
+    {
+    	LuaJavaBridge::ValueType type = checkType(m_methodSig, &pos);
+    	if (type == TypeInvalid) return false;
+
+		m_argumentsCount++;
+		m_argumentsType.push_back(type);
+        pos++;
     }
 
-    void setArgsType(const char *type)
+    if (pos >= len || m_methodSig[pos] != ')')
+	{
+    	m_error = LUAJ_ERR_INVALID_SIGNATURES;
+    	return false;
+	}
+
+    pos++;
+    m_returnType = checkType(m_methodSig, &pos);
+    return true;
+}
+
+LuaJavaBridge::ValueType LuaJavaBridge::CallInfo::checkType(const string& sig, size_t *pos)
+{
+    switch (sig[*pos])
     {
-        argsType = new char[strlen(type) + 1];
-        strcpy(argsType, type);
+        case 'I':
+            return TypeInteger;
+        case 'F':
+            return TypeFloat;
+        case 'Z':
+            return TypeBoolean;
+        case 'V':
+        	return TypeVoid;
+        case 'L':
+            size_t pos2 = sig.find_first_of(';', *pos + 1);
+            if (pos2 == string::npos)
+            {
+                m_error = LUAJ_ERR_INVALID_SIGNATURES;
+                return TypeInvalid;
+            }
+
+            const string t = sig.substr(*pos, pos2 - *pos + 1);
+            if (t.compare("Ljava/lang/String;") == 0)
+            {
+            	*pos = pos2;
+                return TypeString;
+            }
+            else if (t.compare("Ljava/util/Vector;") == 0)
+            {
+            	*pos = pos2;
+                return TypeVector;
+            }
+            else
+            {
+            	m_error = LUAJ_ERR_TYPE_NOT_SUPPORT;
+                return TypeInvalid;
+            }
     }
-};
 
-int callJavaStaticMethodWithArgs(lua_State *L);
-int callJavaStaticMethodWithArray(lua_State *L);
-int checkParameters(lua_State *L, LuaJavaBridge_CallInfo *call);
-int checkArgsType(const char typeChar);
-int retainLuaFunction(lua_State *L, int functionIndex, int *retainCountReturn);
-int getMethodInfo(LuaJavaBridge_CallInfo *call, const char *className, const char *methodName, const char *paramCode);
-int fetchArrayElements(lua_State *L, int index);
-int callAndPushReturnValue(lua_State *L, LuaJavaBridge_CallInfo *call, jvalue *args);
+    m_error = LUAJ_ERR_TYPE_NOT_SUPPORT;
+    return TypeInvalid;
+}
 
-static JavaVM    *s_jvm = NULL;
-static lua_State *s_LuaState = NULL;
-static int        s_newFunctionId = 0;
 
-void LuaJavaBridge_setJavaVM(JavaVM *vm)
+bool LuaJavaBridge::CallInfo::getMethodInfo(void)
+{
+	m_methodID = 0;
+    m_env = 0;
+
+    jint ret = s_jvm->GetEnv((void**)&m_env, JNI_VERSION_1_4);
+    switch (ret) {
+        case JNI_OK:
+            break;
+
+        case JNI_EDETACHED :
+            if (s_jvm->AttachCurrentThread(&m_env, NULL) < 0)
+            {
+                LOGD("Failed to get the environment using AttachCurrentThread()");
+                m_error = LUAJ_ERR_VM_THREAD_DETACHED;
+                return false;
+            }
+            break;
+
+        case JNI_EVERSION :
+        default :
+            LOGD("Failed to get the environment using GetEnv()");
+            m_error = LUAJ_ERR_VM_FAILURE;
+            return false;
+    }
+
+    m_classID = m_env->FindClass(m_className.c_str());
+    m_methodID = m_env->GetStaticMethodID(m_classID, m_methodName.c_str(), m_methodSig.c_str());
+    if (!m_methodID)
+    {
+    	m_env->ExceptionClear();
+        LOGD("Failed to find method id of %s.%s %s",
+        		m_className.c_str(),
+        		m_methodName.c_str(),
+        		m_methodSig.c_str());
+        m_error = LUAJ_ERR_METHOD_NOT_FOUND;
+        return false;
+    }
+
+    return true;
+}
+
+/* ---------------------------------------- */
+
+JavaVM *LuaJavaBridge::s_jvm = NULL;
+lua_State *LuaJavaBridge::s_luaState = NULL;
+int LuaJavaBridge::s_newFunctionId = 0;
+
+void LuaJavaBridge::setJavaVM(JavaVM *vm)
 {
     s_jvm = vm;
 }
 
-void LuaJavaBridge_setLuaState(lua_State *L)
+void LuaJavaBridge::luabindingOpen(lua_State *L)
 {
-    s_LuaState = L;
-}
-
-void LuaJavaBridge_luabinding_open(lua_State *L)
-{
-    LuaJavaBridge_setLuaState(L);
-
+	s_luaState = L;
     lua_newtable(L);
-
     lua_pushstring(L, "callStaticMethod");
-    lua_pushcfunction(L, callJavaStaticMethodWithArgs);
+    lua_pushcfunction(L, LuaJavaBridge::callJavaStaticMethod);
     lua_rawset(L, -3);
-
-    lua_pushstring(L, "callStaticMethodWithArray");
-    lua_pushcfunction(L, callJavaStaticMethodWithArray);
-    lua_rawset(L, -3);
-
     lua_setglobal(L, "LuaJavaBridge");
 }
 
@@ -117,144 +265,97 @@ void LuaJavaBridge_luabinding_open(lua_State *L)
 args:
     const char *className
     const char *methodName
-    const char*methodSig
-    LUA_TABLE args
-    const char *argsType
-    const char *retType
+    LUA_TABLE   args
+    const char *sig
 */
-int callJavaStaticMethodWithArgs(lua_State *L)
+int LuaJavaBridge::callJavaStaticMethod(lua_State *L)
 {
-    LuaJavaBridge_CallInfo call;
-    int check = checkParameters(L, &call);
-    if (check) return check;
+    if (!lua_isstring(L, -4) || !lua_isstring(L, -3)  || !lua_istable(L, -2) || !lua_isstring(L, -1))
+    {
+    	lua_pushboolean(L, 0);
+    	lua_pushinteger(L, LUAJ_ERR_INVALID_SIGNATURES);
+    	return 2;
+    }
+
+    const char *className  = lua_tostring(L, -4);
+    const char *methodName = lua_tostring(L, -3);
+    const char *methodSig  = lua_tostring(L, -1);
+    CallInfo call(className, methodName, methodSig);
+
+    if (!call.isValid())
+    {
+    	LOGD("LuaJavaBridge::callJavaStaticMethod(\"%s\", \"%s\", args, \"%s\") CHECK FAILURE, ERROR CODE: %d",
+    			className, methodName, methodSig, call.getErrorCode());
+
+        lua_pushboolean(L, 0);
+        lua_pushinteger(L, call.getErrorCode());
+    	return 2;
+    }
 
     // check args
-    int count = fetchArrayElements(L, -1);                      /* L: args e1 e2 e3 e4 ... */
-    if (count == 0)
+    lua_pop(L, 1);													/* L: args */
+    int count = fetchArrayElements(L, -1);                      	/* L: args e1 e2 e3 e4 ... */
+    jvalue *args = NULL;
+    if (count > 0)
     {
-        return callAndPushReturnValue(L, &call, NULL);
+	    args = new jvalue[count];
+	    for (int i = 0; i < count; ++i)
+	    {
+	        int index = -count + i;
+	        switch (call.argumentTypeAtIndex(i))
+	        {
+	            case TypeInteger:
+	            	if (lua_isfunction(L, index))
+	            	{
+	                    args[i].i = retainLuaFunction(L, index, NULL);
+	            	}
+	            	else
+	            	{
+	            		args[i].i = (int)lua_tonumber(L, index);
+	            	}
+	                break;
+
+	            case TypeFloat:
+	                args[i].f = lua_tonumber(L, index);
+	                break;
+
+	            case TypeBoolean:
+	                args[i].z = lua_toboolean(L, index) != 0 ? JNI_TRUE : JNI_FALSE;
+	                break;
+
+	            case TypeString:
+	            default:
+	                args[i].l = call.getEnv()->NewStringUTF(lua_tostring(L, index));
+	                break;
+	        }
+	    }
+	    lua_pop(L, count);                               			/* L: args */
     }
 
-    jvalue *args = new jvalue[count];
-    for (int i = 0; i < count; ++i)
+    bool success = args ? call.executeWithArgs(args) : call.execute();
+    if (args) delete []args;
+
+    if (!success)
     {
-        int index = -count + i;
-        switch (checkArgsType(call.argsType[i]))
-        {
-            case LUAJ_TYPE_INT:
-                args[i].i = (int)lua_tonumber(L, index);
-                break;
+    	LOGD("LuaJavaBridge::callJavaStaticMethod(\"%s\", \"%s\", args, \"%s\") EXECUTE FAILURE, ERROR CODE: %d",
+    			className, methodName, methodSig, call.getErrorCode());
 
-            case LUAJ_TYPE_FLOAT:
-                args[i].f = lua_tonumber(L, index);
-                break;
-
-            case LUAJ_TYPE_BOOLEAN:
-                args[i].z = lua_toboolean(L, index) != 0 ? JNI_TRUE : JNI_FALSE;
-                break;
-
-            case LUAJ_TYPE_FUNCTION:
-                args[i].i = retainLuaFunction(L, index, NULL);
-                break;
-
-            case LUAJ_TYPE_STRING:
-            default:
-                args[i].l = call.env->NewStringUTF(lua_tostring(L, index));
-        }
-    }
-    lua_pop(L, count);                                          /* L: args */
-
-    check = callAndPushReturnValue(L, &call, args);
-
-    for (int i = 0; i < count; ++i)
-    {
-        if (checkArgsType(call.argsType[i]) == LUAJ_TYPE_FUNCTION)
-        {
-            LuaJavaBridge_releaseLuaFunctionById(args[i].i);
-        }
+    	lua_pushboolean(L, 0);
+    	lua_pushinteger(L, call.getErrorCode());
+    	return 2;
     }
 
-    delete []args;
-    return check;
-}
+	LOGD("LuaJavaBridge::callJavaStaticMethod(\"%s\", \"%s\", args, \"%s\") SUCCESS",
+			className, methodName, methodSig);
 
-int callJavaStaticMethodWithArray(lua_State *L)
-{
-    LuaJavaBridge_CallInfo call;
-    int check = checkParameters(L, &call);
-    if (check) return check;
-
-    // create Java vector, copy args from lua table
-    JNIEnv *env = call.env;
-
-    jclass jvectorClass  = env->FindClass("java/util/Vector");
-    jmethodID jvectorAdd = env->GetMethodID(jvectorClass, "add", "(Ljava/lang/Object;)Z");
-    jobject jvector      = env->NewObject(jvectorClass, env->GetMethodID(jvectorClass, "<init>", "()V"));
-
-    jclass jintClass     = env->FindClass("java/lang/Integer");
-    jmethodID jintCtor   = env->GetMethodID(jintClass, "<init>", "(I)V");
-
-    jclass jfloatClass   = env->FindClass("java/lang/Float");
-    jmethodID jfloatCtor = env->GetMethodID(jfloatClass, "<init>", "(F)V");
-
-    jclass jboolClass    = env->FindClass("java/lang/Boolean");
-    jmethodID jboolCtor  = env->GetMethodID(jboolClass, "<init>", "(Z)V");
-
-    // check array length
-    int count = fetchArrayElements(L, -1);                      /* L: args e1 e2 e3 e4 ... */
-    int *functionsID = new int[count];
-    memset(functionsID, 0, sizeof(int) * count);
-    int functionIndex = 0;
-    for (int i = 0; i < count; ++i)
-    {
-        int index = -count + i;
-        jobject value;
-        switch (checkArgsType(call.argsType[i]))
-        {
-            case LUAJ_TYPE_INT:
-                value = env->NewObject(jintClass, jintCtor, lua_tonumber(L, index));
-                break;
-
-            case LUAJ_TYPE_FLOAT:
-                value = env->NewObject(jfloatClass, jfloatCtor, lua_tonumber(L, index));
-                break;
-
-            case LUAJ_TYPE_BOOLEAN:
-                value = env->NewObject(jboolClass, jboolCtor, lua_toboolean(L, index) != 0);
-                break;
-
-            case LUAJ_TYPE_FUNCTION:
-                functionsID[functionIndex] = retainLuaFunction(L, index, NULL);
-                value = env->NewObject(jintClass, jintCtor, functionsID[functionIndex]);
-                functionIndex++;
-                break;
-
-            case LUAJ_TYPE_STRING:
-            default:
-                value = env->NewStringUTF(lua_tostring(L, index));
-        }
-        env->CallBooleanMethod(jvector, jvectorAdd, value);
-    }
-    lua_pop(L, count);                                          /* L: args */
-
-    for (int i = 0; i < count; ++i)
-    {
-        if (functionsID[i])
-        {
-            LuaJavaBridge_releaseLuaFunctionById(functionsID[i]);
-        }
-    }
-    delete []functionsID;
-
-    jvalue args[1];
-    args[0].l = jvector;
-    return check = callAndPushReturnValue(L, &call, args);
+	lua_pushboolean(L, 1);
+	return 1 + call.pushReturnValue(L);
 }
 
 // increase lua function refernece counter, return counter
-int LuaJavaBridge_retainLuaFunctionById(int functionId)
+int LuaJavaBridge::retainLuaFunctionById(int functionId)
 {
-    lua_State *L = s_LuaState;
+    lua_State *L = s_luaState;
 
     lua_pushstring(L, LUAJ_REGISTRY_RETAIN);                    /* L: key */
     lua_rawget(L, LUA_REGISTRYINDEX);                           /* L: id_r */
@@ -282,22 +383,22 @@ int LuaJavaBridge_retainLuaFunctionById(int functionId)
     lua_rawset(L, -3);                            /* id_r[id] = r, L: id_r */
     lua_pop(L, 1);
 
-    LOGD("LuaJavaBridge_retainLuaFunctionById(%d) - retain count = %d", functionId, retainCount);
+    LOGD("luajretainLuaFunctionById(%d) - retain count = %d", functionId, retainCount);
 
     return retainCount;
 }
 
 // decrease lua function reference counter, return counter
-int LuaJavaBridge_releaseLuaFunctionById(int functionId)
+int LuaJavaBridge::releaseLuaFunctionById(int functionId)
 {
-    lua_State *L = s_LuaState;
+    lua_State *L = s_luaState;
                                                                 /* L: */
     lua_pushstring(L, LUAJ_REGISTRY_FUNCTION);                  /* L: key */
     lua_rawget(L, LUA_REGISTRYINDEX);                           /* L: f_id */
     if (!lua_istable(L, -1))
     {
         lua_pop(L, 1);
-        LOGD("LuaJavaBridge_releaseLuaFunctionById() - LUAJ_REGISTRY_FUNCTION not exists");
+        LOGD("luajreleaseLuaFunctionById() - LUAJ_REGISTRY_FUNCTION not exists");
         return 0;
     }
 
@@ -306,7 +407,7 @@ int LuaJavaBridge_releaseLuaFunctionById(int functionId)
     if (!lua_istable(L, -1))
     {
         lua_pop(L, 2);
-        LOGD("LuaJavaBridge_releaseLuaFunctionById() - LUAJ_REGISTRY_RETAIN not exists");
+        LOGD("luajreleaseLuaFunctionById() - LUAJ_REGISTRY_RETAIN not exists");
         return 0;
     }
 
@@ -315,7 +416,7 @@ int LuaJavaBridge_releaseLuaFunctionById(int functionId)
     if (lua_type(L, -1) != LUA_TNUMBER)
     {
         lua_pop(L, 3);
-        LOGD("LuaJavaBridge_releaseLuaFunctionById() - function id %d not found", functionId);
+        LOGD("luajreleaseLuaFunctionById() - function id %d not found", functionId);
         return 0;
     }
 
@@ -330,7 +431,7 @@ int LuaJavaBridge_releaseLuaFunctionById(int functionId)
         lua_pushinteger(L, retainCount);                        /* L: f_id id_r id r */
         lua_rawset(L, -3);                        /* id_r[id] = r, L: f_id id_r */
         lua_pop(L, 2);
-        LOGD("LuaJavaBridge_releaseLuaFunctionById() - function id %d retain count = %d", functionId, retainCount);
+        LOGD("luajreleaseLuaFunctionById() - function id %d retain count = %d", functionId, retainCount);
         return retainCount;
     }
 
@@ -355,13 +456,13 @@ int LuaJavaBridge_releaseLuaFunctionById(int functionId)
     }                                                           /* L: f_id */
 
     lua_pop(L, 1);
-    LOGD("LuaJavaBridge_releaseLuaFunctionById() - function id %d released", functionId);
+    LOGD("luajreleaseLuaFunctionById() - function id %d released", functionId);
     return 0;
 }
 
-int LuaJavaBridge_callLuaFunctionById(int functionId, const char *arg)
+int LuaJavaBridge::callLuaFunctionById(int functionId, const char *arg)
 {
-    lua_State *L = s_LuaState;
+    lua_State *L = s_luaState;
     int top = lua_gettop(L);
                                                                 /* L: */
     lua_pushstring(L, LUAJ_REGISTRY_FUNCTION);                  /* L: key */
@@ -401,9 +502,9 @@ int LuaJavaBridge_callLuaFunctionById(int functionId, const char *arg)
 }
 
 // call lua global function
-int LuaJavaBridge_callLuaGlobalFunction(const char *functionName, const char *arg)
+int LuaJavaBridge::callLuaGlobalFunction(const char *functionName, const char *arg)
 {
-    lua_State *L = s_LuaState;
+    lua_State *L = s_luaState;
 
     int ret = -1;
     int top = lua_gettop(L);
@@ -430,7 +531,7 @@ int LuaJavaBridge_callLuaGlobalFunction(const char *functionName, const char *ar
 // ----------------------------------------
 
 // increase lua function reference counter, return functionId
-int retainLuaFunction(lua_State *L, int functionIndex, int *retainCountReturn)
+int LuaJavaBridge::retainLuaFunction(lua_State *L, int functionIndex, int *retainCountReturn)
 {
                                                                 /* L: f ... */
     lua_pushstring(L, LUAJ_REGISTRY_FUNCTION);                  /* L: f ... key */
@@ -503,218 +604,7 @@ int retainLuaFunction(lua_State *L, int functionIndex, int *retainCountReturn)
     return functionId;
 }
 
-/*
-args:
-    -6  const char *className
-    -5  const char *methodName
-    -4  const char *methodSig
-    -3  const char *argsType
-    -2  int         retType
-    -1  LUA_TABLE   args
-*/
-int checkParameters(lua_State *L, LuaJavaBridge_CallInfo *call)
-{
-    memset(call, 0, sizeof(call));
-
-    if (!lua_isstring(L, -6)
-            || !lua_isstring(L, -5)
-            || !lua_isstring(L, -4)
-            || !lua_isstring(L, -3)
-            || !lua_isnumber(L, -2)
-            || !lua_istable(L, -1))
-    {
-        lua_pushboolean(L, 0);
-        lua_pushinteger(L, LUAJ_ERR_INVALID_PARAMETERS);
-        return 2;
-    }
-
-    // check java method
-    const char *className  = lua_tostring(L, -6);
-    const char *methodName = lua_tostring(L, -5);
-    const char *methodSig  = lua_tostring(L, -4);
-
-    if (getMethodInfo(call, className, methodName, methodSig) != 0)
-    {
-        lua_pushboolean(L, 0);
-        lua_pushinteger(L, LUAJ_ERR_METHOD_NOT_FOUND);
-        return 2;
-    }
-
-    call->setArgsType(lua_tostring(L, -3));
-    call->retType = lua_tonumber(L, -2);
-
-    if (call->retType == LUAJ_TYPE_NOT_SUPPORT)
-    {
-        lua_pushboolean(L, 0);
-        lua_pushinteger(L, LUAJ_TYPE_NOT_SUPPORT);
-        return 2;
-    }
-
-    return 0;
-}
-
-int callAndPushReturnValue(lua_State *L, LuaJavaBridge_CallInfo *call, jvalue *args)
-{
-    JNIEnv *env = call->env;
-
-    if (!args)
-    {
-        switch (call->retType)
-        {
-            case LUAJ_TYPE_VOID:
-                env->CallStaticVoidMethod(call->classID, call->methodID);
-                break;
-
-            case LUAJ_TYPE_INT:
-                call->ret.intValue = env->CallStaticIntMethod(call->classID, call->methodID);
-                break;
-
-            case LUAJ_TYPE_FLOAT:
-                call->ret.floatValue = env->CallStaticFloatMethod(call->classID, call->methodID);
-                break;
-
-            case LUAJ_TYPE_BOOLEAN:
-                call->ret.boolValue = env->CallStaticBooleanMethod(call->classID, call->methodID);
-                break;
-
-            case LUAJ_TYPE_STRING:
-                call->retjs = (jstring)env->CallStaticObjectMethod(call->classID, call->methodID);
-                call->ret.stringValue = env->GetStringUTFChars(call->retjs, 0);
-               break;
-        }
-    }
-    else
-    {
-        switch (call->retType)
-        {
-            case LUAJ_TYPE_VOID:
-                env->CallStaticVoidMethodA(call->classID, call->methodID, args);
-                break;
-
-            case LUAJ_TYPE_INT:
-                call->ret.intValue = env->CallStaticIntMethodA(call->classID, call->methodID, args);
-                break;
-
-            case LUAJ_TYPE_FLOAT:
-                call->ret.floatValue = env->CallStaticFloatMethodA(call->classID, call->methodID, args);
-                break;
-
-            case LUAJ_TYPE_BOOLEAN:
-                call->ret.boolValue = env->CallStaticBooleanMethodA(call->classID, call->methodID, args);
-                break;
-
-            case LUAJ_TYPE_STRING:
-                call->retjs = (jstring)env->CallStaticObjectMethodA(call->classID, call->methodID, args);
-                call->ret.stringValue = env->GetStringUTFChars(call->retjs, 0);
-               break;
-        }
-    }
-
-    if (env->ExceptionCheck() == JNI_TRUE)
-    {
-        env->ExceptionDescribe();
-        env->ExceptionClear();
-
-        if (call->retjs)
-        {
-            env->ReleaseStringUTFChars(call->retjs, call->ret.stringValue);
-        }
-
-        lua_pushboolean(L, 0);
-        lua_pushinteger(L, LUAJ_ERR_EXCEPTION_OCCURRED);
-        return 2;
-    }
-
-    lua_pushboolean(L, 1);
-    switch (call->retType)
-    {
-        case LUAJ_TYPE_INT:
-            lua_pushinteger(L, call->ret.intValue);
-            break;
-
-        case LUAJ_TYPE_FLOAT:
-            lua_pushnumber(L, call->ret.floatValue);
-            break;
-
-        case LUAJ_TYPE_BOOLEAN:
-            lua_pushboolean(L, call->ret.boolValue);
-            break;
-
-        case LUAJ_TYPE_STRING:
-            lua_pushstring(L, call->ret.stringValue);
-            env->ReleaseStringUTFChars(call->retjs, call->ret.stringValue);
-           break;
-
-        case LUAJ_TYPE_VOID:
-        default:
-            lua_pushnil(L);
-    }
-    return 2;
-}
-
-int getMethodInfo(LuaJavaBridge_CallInfo *call, const char *className, const char *methodName, const char *methodSig)
-{
-    jmethodID methodID = 0;
-    JNIEnv *env = 0;
-
-    jint ret = s_jvm->GetEnv((void**)&env, JNI_VERSION_1_4);
-    switch (ret) {
-        case JNI_OK:
-            break;
-
-        case JNI_EDETACHED :
-            if (s_jvm->AttachCurrentThread(&env, NULL) < 0)
-            {
-                LOGD("Failed to get the environment using AttachCurrentThread()");
-                return -1;
-            }
-            break;
-
-        case JNI_EVERSION :
-            LOGD("JNI interface version 1.4 not supported");
-        default :
-            LOGD("Failed to get the environment using GetEnv()");
-            return -1;
-    }
-
-    jclass classID = env->FindClass(className);
-    methodID = env->GetStaticMethodID(classID, methodName, methodSig);
-    if (!methodID)
-    {
-        env->ExceptionClear();
-        LOGD("Failed to find method id of %s.%s %s", className, methodName, methodSig);
-        return -1;
-    }
-
-    call->env      = env;
-    call->classID  = classID;
-    call->methodID = methodID;
-
-    return 0;
-}
-
-int checkArgsType(const char typeChar)
-{
-    switch (typeChar)
-    {
-        case LUAJ_TYPE_INT_CHAR:
-            return LUAJ_TYPE_INT;
-
-        case LUAJ_TYPE_FLOAT_CHAR:
-            return LUAJ_TYPE_FLOAT;
-
-        case LUAJ_TYPE_BOOLEAN_CHAR:
-            return LUAJ_TYPE_BOOLEAN;
-
-        case LUAJ_TYPE_FUNCTION_CHAR:
-            return LUAJ_TYPE_FUNCTION;
-
-        default:
-            return LUAJ_TYPE_STRING;
-    }
-}
-
-int fetchArrayElements(lua_State *L, int index)
+int LuaJavaBridge::fetchArrayElements(lua_State *L, int index)
 {
     int count = 0;
     do
@@ -729,5 +619,3 @@ int fetchArrayElements(lua_State *L, int index)
     } while (1);
     return count;
 }
-
-} // extern "C"

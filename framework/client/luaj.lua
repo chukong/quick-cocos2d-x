@@ -1,130 +1,107 @@
+--[[
+
+Copyright (c) 2011-2012 qeeplay.com
+
+http://dualface.github.com/quick-cocos2d-x/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+Call Java form Lua, and call Lua from Java.
+
+-   Call Java Class Static Method from Lua
+-   Pass Lua function to Java
+-   Call Lua function from Java
+
+[BR]
+
+**References:**
+
+-   [LuaJavaBridge - Call Java from Lua (Chinese only)](http://dualface.github.com/blog/2013/01/01/call-java-from-lua/)
+
+]]
 
 local luaj = {}
 
-luaj.TYPE_INT             = 1
-luaj.TYPE_FLOAT           = 2
-luaj.TYPE_BOOLEAN         = 3
-luaj.TYPE_STRING          = 4
-luaj.TYPE_FUNCTION        = 5
-luaj.TYPE_VOID            = 0
+local callJavaStaticMethod = LuaJavaBridge.callStaticMethod
 
-luaj.TYPE_INT_CHAR        = "1"
-luaj.TYPE_FLOAT_CHAR      = "2"
-luaj.TYPE_BOOLEAN_CHAR    = "3"
-luaj.TYPE_STRING_CHAR     = "4"
-luaj.TYPE_FUNCTION_CHAR   = "5"
-luaj.TYPE_VOID_CHAR       = "0"
-
-luaj.TYPE_INT_STRING      = "I"
-luaj.TYPE_FLOAT_STRING    = "F"
-luaj.TYPE_BOOLEAN_STRING  = "Z"
-luaj.TYPE_STRING_STRING   = "Ljava/lang/String;"
-luaj.TYPE_FUNCTION_STRING = "I"
-luaj.TYPE_VOID_STRING     = "V"
-
-local callJavaStaticMethod          = LuaJavaBridge.callStaticMethod
-local callJavaStaticMethodWithArray = LuaJavaBridge.callStaticMethodWithArray
-
-function to_float(v)
-    v = tonumber(v)
-    return v or 0
-end
-
-function to_integer(v)
-    return math.floor(to_float(v) + 0.5)
-end
-
-function to_boolean(v)
-    return (v ~= nil and v ~= false)
-end
-
-local function checkReturnType(returnType)
-    local returnTypeString = luaj.TYPE_VOID_STRING
-
-    if returnType == luaj.TYPE_INT then
-        returnTypeString = luaj.TYPE_INT_STRING
-    elseif returnType == luaj.TYPE_FLOAT then
-        returnTypeString = luaj.TYPE_FLOAT_STRING
-    elseif returnType == luaj.TYPE_BOOLEAN then
-        returnTypeString = luaj.TYPE_BOOLEAN_STRING
-    elseif returnType == luaj.TYPE_STRING then
-        returnTypeString = luaj.TYPE_STRING_STRING
-    else
-        returnType = luaj.TYPE_VOID
-    end
-
-    return returnType, returnTypeString
-end
-
-local function checkParameters(args, argsType, returnType)
+local function checkArguments(args, sig)
     if type(args) ~= "table" then args = {} end
-    if type(argsType) ~= "table" then
-        argsType = {}
-        for i, v in ipairs(args) do
-            local t = type(v)
-            if t == "number" then
-                argsType[i] = luaj.TYPE_FLOAT
-            elseif t == "boolean" then
-                argsType[i] = luaj.TYPE_BOOLEAN
-            elseif t == "function" then
-                argsType[i] = luaj.TYPE_FUNCTION
-            else
-                argsType[i] = luaj.TYPE_STRING
-            end
+    if sig then return args, sig end
+
+    sig = {"("}
+    for i, v in ipairs(args) do
+        local t = type(v)
+        if t == "number" then
+            sig[#sig + 1] = "F"
+        elseif t == "boolean" then
+            sig[#sig + 1] = "Z"
+        elseif t == "function" then
+            sig[#sig + 1] = "I"
+        else
+            sig[#sig + 1] = "Ljava/lang/String;"
         end
     end
+    sig[#sig + 1] = ")V"
 
-    local args_     = {}
-    local argsType_ = {}
-    local sig_      = {}
+    return args, table.concat(sig)
+end
 
-    for i, t in ipairs(argsType) do
-        if t == luaj.TYPE_INT then
-            args_[i]     = to_integer(args[i])
-            argsType_[i] = luaj.TYPE_INT_CHAR
-            sig_[i]      = luaj.TYPE_INT_STRING
-        elseif t == luaj.TYPE_FLOAT then
-            args_[i]     = to_float(args[i])
-            argsType_[i] = luaj.TYPE_FLOAT_CHAR
-            sig_[i]      = luaj.TYPE_FLOAT_STRING
-        elseif t == luaj.TYPE_BOOLEAN then
-            args_[i]     = to_boolean(args[i])
-            argsType_[i] = luaj.TYPE_BOOLEAN_CHAR
-            sig_[i]      = luaj.TYPE_BOOLEAN_STRING
-        elseif t == luaj.TYPE_FUNCTION then
-            args_[i]     = args[i]
-            argsType_[i] = luaj.TYPE_FUNCTION_CHAR
-            sig_[i]      = luaj.TYPE_FUNCTION_STRING
-        else -- string
-            args_[i]     = tostring(args[i])
-            argsType_[i] = luaj.TYPE_STRING_CHAR
-            sig_[i]      = luaj.TYPE_STRING_STRING
-        end
+--[[--
+
+Call Java Class Static Method
+
+### Example:
+
+    local className = "com/flurry/android/FlurryAgent"
+    local args = {"APP_START"}
+    local sig  = "(Ljava/lang/String;)V"
+    local ok = luaj.callStaticMethod(className, "logEvent", args, sig)
+    if ok then
+        -- call success
+    else
+        -- call failure
     end
 
-    returnType, returnTypeString = checkReturnType(returnType)
+### Parameters:
 
-    sig_ = "(" .. table.concat(sig_) .. ")" .. returnTypeString
-    return args_, table.concat(argsType_), sig_, returnType
-end
+-   string **className** Java class name
+-   string **methodName** Method name
+-   [_optional table **args**_] Arguments pass to Java
+-   [_optional string **sig**_] Java Method Signature
 
-function luaj.callStaticMethod(className, methodName, args, argsType, returnType)
-    local args, argsType, sig, returnType = checkParameters(args, argsType, returnType)
-    return callJavaStaticMethod(className,
-                                methodName,
-                                sig,
-                                argsType,
-                                returnType,
-                                args)
-end
 
-function luaj.callStaticMethodWithArray(className, methodName, args, returnType)
-    returnType, returnTypeString = checkReturnType(returnType)
-    return callJavaStaticMethodWithArray(className,
-                                         methodName,
-                                         "(Ljava/util/Vector;)" .. returnTypeString,
-                                         returnType,
-                                         args)
+> Java Method Signature reference: [JNI Types and Data Structures](http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html#wp16432)
+
+### Returns:
+
+-   boolean call success or failure
+-   mixed Java method returned value
+
+]]
+function luaj.callStaticMethod(className, methodName, args, sig)
+    local args, sig = checkArguments(args, sig)
+    echoNotice("luaj.callStaticMethod(\"%s\",\n\t\"%s\",\n\targs,\n\t\"%s", className, methodName, sig)
+    return callJavaStaticMethod(className, methodName, args, sig)
 end
 
 return luaj

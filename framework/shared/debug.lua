@@ -39,14 +39,24 @@ Debug functions.
 ]]
 
 if __FRAMEWORK_ENVIRONMENT__ == "server" then
-    if ngx and ngx.say then echo = ngx.say end
+    if ngx and ngx.say then echo_ = ngx.say end
 elseif __FRAMEWORK_ENVIRONMENT__ == "client" then
-    if CCLuaLog then echo = CCLuaLog end
+    if CCLuaLog then echo_ = CCLuaLog end
 end
-if not echo then echo = print end
+if not echo_ then echo_ = print end
 
 io.output():setvbuf('no')
 
+function echo(...)
+    local arr = {}
+    for i, a in ipairs({...}) do
+        arr[#arr + 1] = tostring(a)
+    end
+
+    echo_(table.concat(arr, "\t"))
+end
+
+if CCLuaLog then print = echo end
 
 --[[--
 
