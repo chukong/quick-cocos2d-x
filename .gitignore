@@ -19,7 +19,7 @@ hosts/libs/luajit2/LuaJIT-2.0.0/src/*.lib
 hosts/libs/luajit2/LuaJIT-2.0.0/src/*.dll
 hosts/libs/luajit2/LuaJIT-2.0.0/src/*.exp
 hosts/libs/luajit2/LuaJIT-2.0.0/src/*.exe
-
+hosts/libs/luajit2/LuaJIT-2.0.0/src/*.a
 hosts/libs/luajit2/LuaJIT-2.0.0/src/host/buildvm
 hosts/libs/luajit2/LuaJIT-2.0.0/src/host/buildvm_arch.h
 hosts/libs/luajit2/LuaJIT-2.0.0/src/host/minilua
@@ -31,3 +31,7 @@ hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_libdef.h
 hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_recdef.h
 hosts/libs/luajit2/LuaJIT-2.0.0/src/lj_vm.s
 hosts/libs/luajit2/LuaJIT-2.0.0/src/luajit
+
+hosts/proj.android/quick-cocos2d-x/bin/
+hosts/proj.android/quick-cocos2d-x/gen/
+
