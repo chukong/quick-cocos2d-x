@@ -20,8 +20,8 @@ LOCAL_SRC_FILES := ../libs/CCDrawing/CCDrawing.cpp \
     ../libs/luaexts/cjson/lua_cjson.c \
     ../libs/luaexts/cjson/strbuf.c \
     ../libs/luaexts/lualoadexts.c \
-    ../libs/luaj/jni/com_qeeplay_frameworks_LuaJavaBridge.cpp \
-    ../libs/luaj/luabinding/LuaJavaBridge.cpp \
+    ../libs/LuaBridge/java/jni/com_qeeplay_frameworks_LuaJavaBridge.cpp \
+    ../libs/LuaBridge/java/luabinding/LuaJavaBridge.cpp \
     ../libs/cocos2d-x/scripting/lua/tolua/tolua_event.c \
     ../libs/cocos2d-x/scripting/lua/tolua/tolua_is.c \
     ../libs/cocos2d-x/scripting/lua/tolua/tolua_map.c \
@@ -38,8 +38,8 @@ LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing \
     $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/luabinding \
     $(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts \
     $(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts/cjson \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/luaj/jni \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/luaj/luabinding \
+    $(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/java/jni \
+    $(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/java/luabinding \
     $(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include \
     $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/tolua \
     $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/cocos2dx_support
