@@ -242,4 +242,12 @@ function device.showInputBox(title, message, defaultValue)
     return CCNative:getInputText(title, message, defaultValue)
 end
 
+
+device.notification = {}
+require("framework.client.api.EventProtocol").extend(device.notification)
+
+CCNotificationCenter:sharedNotificationCenter():registerScriptObserver(function(eventName)
+    device.notification:dispatchEvent({name = eventName})
+end)
+
 return device

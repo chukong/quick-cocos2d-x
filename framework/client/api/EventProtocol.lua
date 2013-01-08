@@ -6,7 +6,7 @@ triggering responses in your program. For example, you can turn any display obje
 interactive object.
 
 ]]
-local M = {}
+local EventProtocol = {}
 
 --[[--
 
@@ -17,7 +17,7 @@ Turn any object into an interactive object.
     framework.client.api.EventProtocol.extend(object)
 
 ]]
-function M.extend(object)
+function EventProtocol.extend(object)
     object.listeners = {}
 
     --[[--
@@ -147,4 +147,4 @@ function M.extend(object)
     return object
 end
 
-return M
+return EventProtocol
