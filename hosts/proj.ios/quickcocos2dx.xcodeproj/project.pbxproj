@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F408808B169C119D0070F33E /* LuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4088084169C119C0070F33E /* LuaObjcBridge.mm */; };
+		F408808F169C11D10070F33E /* LuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F408808D169C11D10070F33E /* LuaBridge.cpp */; };
 		F4398F1D16815E5400AE90D1 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = F4398F1516815E5400AE90D1 /* fpconv.c */; };
 		F4398F1E16815E5400AE90D1 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = F4398F1716815E5400AE90D1 /* lua_cjson.c */; };
 		F4398F1F16815E5400AE90D1 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = F4398F1916815E5400AE90D1 /* strbuf.c */; };
@@ -262,6 +264,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F4088084169C119C0070F33E /* LuaObjcBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LuaObjcBridge.mm; sourceTree = "<group>"; };
+		F4088085169C119C0070F33E /* LuaObjcBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaObjcBridge.h; sourceTree = "<group>"; };
+		F408808D169C11D10070F33E /* LuaBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaBridge.cpp; sourceTree = "<group>"; };
+		F408808E169C11D10070F33E /* LuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaBridge.h; sourceTree = "<group>"; };
 		F4398F1516815E5400AE90D1 /* fpconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fpconv.c; sourceTree = "<group>"; };
 		F4398F1616815E5400AE90D1 /* fpconv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpconv.h; sourceTree = "<group>"; };
 		F4398F1716815E5400AE90D1 /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -795,6 +801,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4088074169C119C0070F33E /* LuaBridge */ = {
+			isa = PBXGroup;
+			children = (
+				F4088075169C119C0070F33E /* common */,
+				F4088083169C119C0070F33E /* objc */,
+			);
+			path = LuaBridge;
+			sourceTree = "<group>";
+		};
+		F4088075169C119C0070F33E /* common */ = {
+			isa = PBXGroup;
+			children = (
+				F408808D169C11D10070F33E /* LuaBridge.cpp */,
+				F408808E169C11D10070F33E /* LuaBridge.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		F4088083169C119C0070F33E /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				F4088084169C119C0070F33E /* LuaObjcBridge.mm */,
+				F4088085169C119C0070F33E /* LuaObjcBridge.h */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
 		F4398F1316815E3E00AE90D1 /* luaexts */ = {
 			isa = PBXGroup;
 			children = (
@@ -913,6 +946,7 @@
 				F45A2BC0166B151300760194 /* cocos2d-x */,
 				F45A2E26166B177D00760194 /* cocos2d-x-extensions */,
 				F48E6F63166B1F9A00295A03 /* cocos2d-x-extensions-luabinding */,
+				F4088074169C119C0070F33E /* LuaBridge */,
 				F4398F1316815E3E00AE90D1 /* luaexts */,
 				F43991FB16816CB700AE90D1 /* luajit2 */,
 			);
@@ -2265,6 +2299,8 @@
 				F46B6524168E8A6200FEA984 /* thread.c in Sources */,
 				F46B6525168E8A6200FEA984 /* utils.c in Sources */,
 				F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */,
+				F408808B169C119D0070F33E /* LuaObjcBridge.mm in Sources */,
+				F408808F169C11D10070F33E /* LuaBridge.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2355,6 +2391,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding/ios\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/common\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/objc\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
@@ -2408,6 +2446,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions-luabinding/ios\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/common\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/objc\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
