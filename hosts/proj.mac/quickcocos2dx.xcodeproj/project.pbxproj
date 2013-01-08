@@ -591,9 +591,6 @@
 		F4DCAD31168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding_mac.h; sourceTree = "<group>"; };
 		F4DE082016800061005DB2DB /* libquickcocos2dx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libquickcocos2dx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE082316800061005DB2DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		F4DE082616800061005DB2DB /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		F4DE082716800061005DB2DB /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		F4DE082816800061005DB2DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4DE082B16800061005DB2DB /* quickcocos2dx-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quickcocos2dx-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		F4DE0845168001A9005DB2DB /* CCAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAction.cpp; sourceTree = "<group>"; };
 		F4DE0846168001A9005DB2DB /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
@@ -1242,19 +1239,8 @@
 			isa = PBXGroup;
 			children = (
 				F4DE082316800061005DB2DB /* Cocoa.framework */,
-				F4DE082516800061005DB2DB /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F4DE082516800061005DB2DB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F4DE082616800061005DB2DB /* AppKit.framework */,
-				F4DE082716800061005DB2DB /* CoreData.framework */,
-				F4DE082816800061005DB2DB /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		F4DE082916800061005DB2DB /* quickcocos2dx */ = {

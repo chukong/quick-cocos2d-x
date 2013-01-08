@@ -27,7 +27,7 @@
 #include "AppDelegate.h"
 #include "CCDirector.h"
 #include "SimpleAudioEngine.h"
-#include "CCDrawingPrimitives.h"
+#include "draw_nodes/CCDrawingPrimitives.h"
 
 using namespace std;
 using namespace cocos2d;
