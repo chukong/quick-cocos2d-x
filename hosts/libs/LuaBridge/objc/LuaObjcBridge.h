@@ -11,6 +11,8 @@ public:
     
 protected:
     static int callObjcStaticMethod(lua_State *L);
+    
+    static void pushValue(lua_State *L, void *val);
 };
 
 #endif // __LUA_OBJC_BRIDGE_H_

@@ -45,27 +45,40 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
         return 2;
     }
     
-    SEL method;
+    SEL methodSel;
     bool hasArguments = lua_istable(L, -1);
     if (hasArguments)
     {
         NSString *methodName_ = [NSString stringWithCString:methodName encoding:NSUTF8StringEncoding];
         methodName_ = [NSString stringWithFormat:@"%@:", methodName_];
-        method = NSSelectorFromString(methodName_);
+        methodSel = NSSelectorFromString(methodName_);
     }
     else
     {
-        method = NSSelectorFromString([NSString stringWithCString:methodName encoding:NSUTF8StringEncoding]);
+        methodSel = NSSelectorFromString([NSString stringWithCString:methodName encoding:NSUTF8StringEncoding]);
     }
-    if (method == (SEL)0)
+    if (methodSel == (SEL)0)
     {
         lua_pushboolean(L, 0);
         lua_pushinteger(L, kLuaBridgeErrorMethodNotFound);
         return 2;
     }
     
+    NSMethodSignature *methodSig = [targetClass methodSignatureForSelector:(SEL)methodSel];
+    if (methodSig == nil)
+    {
+        lua_pushboolean(L, 0);
+        lua_pushinteger(L, kLuaBridgeErrorMethodSignature);
+        return 2;
+    }
+    
     @try {
-        id ret;
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSig];
+        [invocation setTarget:targetClass];
+        [invocation setSelector:methodSel];
+        NSUInteger returnLength = [methodSig methodReturnLength];
+        const char *returnType = [methodSig methodReturnType];
+        
         if (hasArguments)
         {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -97,56 +110,107 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
                 
                 lua_pop(L, 1);
             }
-            ret = [targetClass performSelector:method withObject:dict];
+            
+            [invocation setArgument:&dict atIndex:2];
+            [invocation invoke];
         }
         else
         {
-            ret = [targetClass performSelector:method];
+            [invocation invoke];
         }
         
-        if (ret == nil)
+        lua_pushboolean(L, 1);
+        if (returnLength > 0)
         {
-            lua_pushboolean(L, 1);
-            lua_pushnil(L);
-            return 2;
-        }
-        else if ([ret isKindOfClass:[NSNumber class]])
-        {
-            lua_pushboolean(L, 1);
-            NSNumber *number = (NSNumber *)ret;
-            const char *numberType = [number objCType];
-            if (strcmp(numberType, @encode(BOOL)) == 0)
+            if (strcmp(returnType, "@") == 0)
             {
-                lua_pushboolean(L, [number boolValue]);
+                id ret;
+                [invocation getReturnValue:&ret];
+                pushValue(L, ret);
             }
-            else if (strcmp(numberType, @encode(int)) == 0)
+            else if (strcmp(returnType, "c") == 0) // BOOL
             {
-                lua_pushinteger(L, [number intValue]);
+                char ret;
+                [invocation getReturnValue:&ret];
+                lua_pushboolean(L, ret);
+            }
+            else if (strcmp(returnType, "i") == 0) // int
+            {
+                int ret;
+                [invocation getReturnValue:&ret];
+                lua_pushinteger(L, ret);
+            }
+            else if (strcmp(returnType, "f") == 0) // float
+            {
+                float ret;
+                [invocation getReturnValue:&ret];
+                lua_pushnumber(L, ret);
             }
             else
             {
-                lua_pushnumber(L, [number floatValue]);
+                NSLog(@"not support return type = %s", returnType);
+                lua_pushnil(L);
             }
-            return 2;
-        }
-        else if ([ret isKindOfClass:[NSString class]])
-        {
-            lua_pushboolean(L, 1);
-            lua_pushstring(L, [ret cStringUsingEncoding:NSUTF8StringEncoding]);
-            return 2;
         }
         else
         {
-            lua_pushboolean(L, 1);
-            lua_pushstring(L, [[NSString stringWithFormat:@"%@", ret] cStringUsingEncoding:NSUTF8StringEncoding]);
-            return 2;
+            lua_pushnil(L);
         }
+        return 2;
     }
     @catch (NSException *exception)
     {
         NSLog(@"EXCEPTION THROW: %@", exception);
         lua_pushboolean(L, 0);
         lua_pushinteger(L, kLuaBridgeErrorExceptionOccurred);
-        return 2;
+        return 2; 
+    }
+}
+
+void LuaObjcBridge::pushValue(lua_State *L, void *val)
+{
+    id oval = (id)val;
+    if (oval == nil)
+    {
+        lua_pushnil(L);
+    }
+    else if ([oval isKindOfClass:[NSNumber class]])
+    {
+        NSNumber *number = (NSNumber *)oval;
+        const char *numberType = [number objCType];
+        if (strcmp(numberType, @encode(BOOL)) == 0)
+        {
+            lua_pushboolean(L, [number boolValue]);
+        }
+        else if (strcmp(numberType, @encode(int)) == 0)
+        {
+            lua_pushinteger(L, [number intValue]);
+        }
+        else
+        {
+            lua_pushnumber(L, [number floatValue]);
+        }
+    }
+    else if ([oval isKindOfClass:[NSString class]])
+    {
+        lua_pushstring(L, [oval cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    else if ([oval isKindOfClass:[NSDictionary class]])
+    {
+        lua_newtable(L);
+        
+        for (id key in oval)
+        {
+            const char *key_ = [[NSString stringWithFormat:@"%@", key] cStringUsingEncoding:NSUTF8StringEncoding];
+            lua_pushstring(L, key_);
+            pushValue(L, oval[key]);
+            lua_rawset(L, -3);
+        }
+        
+        return;
+    }
+    else
+    {
+        lua_pushstring(L, [[NSString stringWithFormat:@"%@", oval] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
 }
