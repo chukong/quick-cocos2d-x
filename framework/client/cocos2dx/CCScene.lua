@@ -4,7 +4,6 @@ function CCScene:create()
     local scene = create(CCScene)
 
     local function handler(event)
-        print("event = ", event)
         if event == "enter" then
             echoWarning("## Scene \"%s:onEnter()\"", scene.name)
             scene:onEnter()

@@ -1,0 +1,6 @@
+
+DEBUG                   = 2
+DEVICE_ORIENTATION      = "landscape"
+CONFIG_SCREEN_WIDTH     = 960
+CONFIG_SCREEN_HEIGHT    = 640
+CONFIG_SCREEN_AUTOSCALE = "FullWidth"

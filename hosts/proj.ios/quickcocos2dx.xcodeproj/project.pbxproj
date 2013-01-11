@@ -248,6 +248,9 @@
 		F46B6524168E8A6200FEA984 /* thread.c in Sources */ = {isa = PBXBuildFile; fileRef = F46B64E9168E8A6200FEA984 /* thread.c */; };
 		F46B6525168E8A6200FEA984 /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = F46B64EB168E8A6200FEA984 /* utils.c */; };
 		F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */; };
+		F48ABAD116A0576100A60C5B /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48ABAD016A0576100A60C5B /* libcurl.a */; };
+		F48ABAD416A0578500A60C5B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F48ABAD316A0578500A60C5B /* libz.dylib */; };
+		F48ABADD16A0590B00A60C5B /* framework_lua.c in Sources */ = {isa = PBXBuildFile; fileRef = F48ABADB16A0590B00A60C5B /* framework_lua.c */; };
 		F496D76F168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F496D76C168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.cpp */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
@@ -786,6 +789,10 @@
 		F46B64F1168E8A6200FEA984 /* mux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mux.h; sourceTree = "<group>"; };
 		F46B64F2168E8A6200FEA984 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageCommonWebp.cpp; sourceTree = "<group>"; };
+		F48ABAD016A0576100A60C5B /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
+		F48ABAD316A0578500A60C5B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/usr/lib/libz.dylib; sourceTree = "<absolute>"; };
+		F48ABADB16A0590B00A60C5B /* framework_lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = framework_lua.c; sourceTree = "<group>"; };
+		F48ABADC16A0590B00A60C5B /* framework_lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework_lua.h; sourceTree = "<group>"; };
 		F496D76C168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding_ios.cpp; sourceTree = "<group>"; };
 		F496D76D168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding_ios.h; sourceTree = "<group>"; };
 		F4D11004169FBED400305E28 /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
@@ -801,6 +808,8 @@
 			files = (
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
 				F439920816816D0E00AE90D1 /* libluajit2.a in Frameworks */,
+				F48ABAD116A0576100A60C5B /* libcurl.a in Frameworks */,
+				F48ABAD416A0578500A60C5B /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +950,8 @@
 			isa = PBXGroup;
 			children = (
 				F45A2BA0166B07B600760194 /* Foundation.framework */,
+				F48ABAD016A0576100A60C5B /* libcurl.a */,
+				F48ABAD316A0578500A60C5B /* libz.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -952,6 +963,7 @@
 				F45A2BC0166B151300760194 /* cocos2d-x */,
 				F45A2E26166B177D00760194 /* cocos2d-x-extensions */,
 				F48E6F63166B1F9A00295A03 /* cocos2d-x-extensions-luabinding */,
+				F48ABADA16A0590B00A60C5B /* framework */,
 				F4088074169C119C0070F33E /* LuaBridge */,
 				F4398F1316815E3E00AE90D1 /* luaexts */,
 				F43991FB16816CB700AE90D1 /* luajit2 */,
@@ -2003,6 +2015,15 @@
 			path = webp;
 			sourceTree = "<group>";
 		};
+		F48ABADA16A0590B00A60C5B /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				F48ABADB16A0590B00A60C5B /* framework_lua.c */,
+				F48ABADC16A0590B00A60C5B /* framework_lua.h */,
+			);
+			path = framework;
+			sourceTree = "<group>";
+		};
 		F48E6F63166B1F9A00295A03 /* cocos2d-x-extensions-luabinding */ = {
 			isa = PBXGroup;
 			children = (
@@ -2313,6 +2334,7 @@
 				F408808F169C11D10070F33E /* CCLuaBridge.cpp in Sources */,
 				F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */,
 				F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */,
+				F48ABADD16A0590B00A60C5B /* framework_lua.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2405,12 +2427,12 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/common\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/objc\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/framework\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
-					"\"$(SRCROOT)/../libs/luajit2/proj.ios\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/proj.ios\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -2460,12 +2482,12 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/common\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/objc\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/framework\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
 					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
-					"\"$(SRCROOT)/../libs/luajit2/proj.ios\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/proj.ios\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
