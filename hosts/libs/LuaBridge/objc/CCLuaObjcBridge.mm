@@ -202,7 +202,7 @@ void CCLuaObjcBridge::pushValue(lua_State *L, void *val)
         {
             const char *key_ = [[NSString stringWithFormat:@"%@", key] cStringUsingEncoding:NSUTF8StringEncoding];
             lua_pushstring(L, key_);
-            pushValue(L, oval[key]);
+            pushValue(L, [oval objectForKey:key]);
             lua_rawset(L, -3);
         }
         

@@ -65,10 +65,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
         
     // register lua engine
-    CCLuaEngine* pEngine = CCLuaEngine::defaultEngine();
+    CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
+    CCLuaStack *pStack = pEngine->getLuaStack();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
     
-    lua_State* L = pEngine->getLuaState();
+    lua_State* L = pStack->getLuaState();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     tolua_cocos2dx_extension_crypto_open(L);
@@ -90,7 +91,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_CCDrawing_open(L);
     
     // load lua framework
-//    luaopen_framework_lua(L);
+    luaopen_framework_lua(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
@@ -103,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     if (p != path.npos)
     {
         const string dir = path.substr(0, p);
-        pEngine->addSearchPath(dir.c_str());
+        pStack->addSearchPath(dir.c_str());
     }
 
     string env = "__LUA_STARTUP_FILE__=\"";

@@ -13,6 +13,7 @@
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
+		F4B427BE169DD53C00E427E5 /* framework_lua.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B427BC169DD53C00E427E5 /* framework_lua.c */; };
 		F4BA6C3115F4911600CE7A10 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6C3015F4911600CE7A10 /* AppController.mm */; };
 		F4BA6DE515F4925800CE7A10 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6DE315F4925800CE7A10 /* AppDelegate.cpp */; };
 		F4BA6EAD15F4999000CE7A10 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EAC15F4999000CE7A10 /* AudioToolbox.framework */; };
@@ -47,6 +48,8 @@
 		F44C958215F49004004D4151 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LuaHostMac-Prefix.pch"; sourceTree = "<group>"; };
 		F44C958C15F49004004D4151 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F4B427BC169DD53C00E427E5 /* framework_lua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = framework_lua.c; path = ../../libs/framework/framework_lua.c; sourceTree = "<group>"; };
+		F4B427BD169DD53C00E427E5 /* framework_lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = framework_lua.h; path = ../../libs/framework/framework_lua.h; sourceTree = "<group>"; };
 		F4BA6C2E15F4909200CE7A10 /* HostVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostVersion.h; sourceTree = "<group>"; };
 		F4BA6C2F15F4911600CE7A10 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		F4BA6C3015F4911600CE7A10 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 			children = (
 				F4BA6DE315F4925800CE7A10 /* AppDelegate.cpp */,
 				F4BA6DE415F4925800CE7A10 /* AppDelegate.h */,
+				F4B427BC169DD53C00E427E5 /* framework_lua.c */,
+				F4B427BD169DD53C00E427E5 /* framework_lua.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				F44C958315F49004004D4151 /* main.m in Sources */,
 				F4BA6C3115F4911600CE7A10 /* AppController.mm in Sources */,
 				F4BA6DE515F4925800CE7A10 /* AppDelegate.cpp in Sources */,
+				F4B427BE169DD53C00E427E5 /* framework_lua.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

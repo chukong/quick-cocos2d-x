@@ -1,5 +1,5 @@
 
-quick-cocos2d-x is an \*quick\* framework, based cocos2d-x. Make mobile games in Lua. Code Less, Play More!
+quick-cocos2d-x is a \*quick\* framework, based cocos2d-x. Make mobile games in Lua. Code Less, Play More!
 
 > [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
 

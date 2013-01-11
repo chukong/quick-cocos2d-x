@@ -96,6 +96,14 @@
 		F46B65DA168E9A8F00FEA984 /* format_constants.h in Headers */ = {isa = PBXBuildFile; fileRef = F46B658B168E9A8F00FEA984 /* format_constants.h */; };
 		F46B65DB168E9A8F00FEA984 /* mux.h in Headers */ = {isa = PBXBuildFile; fileRef = F46B658C168E9A8F00FEA984 /* mux.h */; };
 		F46B65DC168E9A8F00FEA984 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = F46B658D168E9A8F00FEA984 /* types.h */; };
+		F48ABB1016A0625300A60C5B /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F48ABAFE16A0625300A60C5B /* CCLuaBridge.cpp */; };
+		F48ABB1116A0625300A60C5B /* CCLuaBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F48ABAFF16A0625300A60C5B /* CCLuaBridge.h */; };
+		F48ABB1716A0625300A60C5B /* CCLuaObjcBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = F48ABB0E16A0625300A60C5B /* CCLuaObjcBridge.h */; };
+		F48ABB1816A0625300A60C5B /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F48ABB0F16A0625300A60C5B /* CCLuaObjcBridge.mm */; };
+		F48ABB1E16A0631000A60C5B /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F48ABB1A16A0631000A60C5B /* CCLuaStack.cpp */; };
+		F48ABB1F16A0631000A60C5B /* CCLuaStack.h in Headers */ = {isa = PBXBuildFile; fileRef = F48ABB1B16A0631000A60C5B /* CCLuaStack.h */; };
+		F48ABB2016A0631000A60C5B /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F48ABB1C16A0631000A60C5B /* CCLuaValue.cpp */; };
+		F48ABB2116A0631000A60C5B /* CCLuaValue.h in Headers */ = {isa = PBXBuildFile; fileRef = F48ABB1D16A0631000A60C5B /* CCLuaValue.h */; };
 		F4DCAD06168C151700679DBE /* CCControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE3168C151700679DBE /* CCControl.cpp */; };
 		F4DCAD07168C151700679DBE /* CCControl.h in Headers */ = {isa = PBXBuildFile; fileRef = F4DCACE4168C151700679DBE /* CCControl.h */; };
 		F4DCAD08168C151700679DBE /* CCControlButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE5168C151700679DBE /* CCControlButton.cpp */; };
@@ -562,6 +570,14 @@
 		F46B658B168E9A8F00FEA984 /* format_constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = format_constants.h; sourceTree = "<group>"; };
 		F46B658C168E9A8F00FEA984 /* mux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mux.h; sourceTree = "<group>"; };
 		F46B658D168E9A8F00FEA984 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		F48ABAFE16A0625300A60C5B /* CCLuaBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaBridge.cpp; sourceTree = "<group>"; };
+		F48ABAFF16A0625300A60C5B /* CCLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaBridge.h; sourceTree = "<group>"; };
+		F48ABB0E16A0625300A60C5B /* CCLuaObjcBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaObjcBridge.h; sourceTree = "<group>"; };
+		F48ABB0F16A0625300A60C5B /* CCLuaObjcBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCLuaObjcBridge.mm; sourceTree = "<group>"; };
+		F48ABB1A16A0631000A60C5B /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
+		F48ABB1B16A0631000A60C5B /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
+		F48ABB1C16A0631000A60C5B /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
+		F48ABB1D16A0631000A60C5B /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
 		F4DCACE3168C151700679DBE /* CCControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControl.cpp; sourceTree = "<group>"; };
 		F4DCACE4168C151700679DBE /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
 		F4DCACE5168C151700679DBE /* CCControlButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlButton.cpp; sourceTree = "<group>"; };
@@ -1152,6 +1168,33 @@
 			path = webp;
 			sourceTree = "<group>";
 		};
+		F48ABAFC16A0625300A60C5B /* LuaBridge */ = {
+			isa = PBXGroup;
+			children = (
+				F48ABAFD16A0625300A60C5B /* common */,
+				F48ABB0D16A0625300A60C5B /* objc */,
+			);
+			path = LuaBridge;
+			sourceTree = "<group>";
+		};
+		F48ABAFD16A0625300A60C5B /* common */ = {
+			isa = PBXGroup;
+			children = (
+				F48ABAFE16A0625300A60C5B /* CCLuaBridge.cpp */,
+				F48ABAFF16A0625300A60C5B /* CCLuaBridge.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		F48ABB0D16A0625300A60C5B /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				F48ABB0E16A0625300A60C5B /* CCLuaObjcBridge.h */,
+				F48ABB0F16A0625300A60C5B /* CCLuaObjcBridge.mm */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
 		F4DCACDF168C0F5900679DBE /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1250,6 +1293,7 @@
 				F4DE084216800151005DB2DB /* cocos2d-x */,
 				F4DE0B41168002A0005DB2DB /* cocos2d-x-extensions */,
 				F4DCAD28168C153000679DBE /* cocos2d-x-extensions-luabinding */,
+				F48ABAFC16A0625300A60C5B /* LuaBridge */,
 				F4398F2F1681699C00AE90D1 /* luaexts */,
 				F43991E216816AB600AE90D1 /* luajit2 */,
 			);
@@ -1864,6 +1908,10 @@
 			children = (
 				F4DE0AB316800261005DB2DB /* CCLuaEngine.cpp */,
 				F4DE0AB416800261005DB2DB /* CCLuaEngine.h */,
+				F48ABB1A16A0631000A60C5B /* CCLuaStack.cpp */,
+				F48ABB1B16A0631000A60C5B /* CCLuaStack.h */,
+				F48ABB1C16A0631000A60C5B /* CCLuaValue.cpp */,
+				F48ABB1D16A0631000A60C5B /* CCLuaValue.h */,
 				F4DE0AB516800261005DB2DB /* Cocos2dxLuaLoader.cpp */,
 				F4DE0AB616800261005DB2DB /* Cocos2dxLuaLoader.h */,
 				F4DE0AB716800261005DB2DB /* LuaCocos2d.cpp */,
@@ -2266,6 +2314,10 @@
 				F46B65DA168E9A8F00FEA984 /* format_constants.h in Headers */,
 				F46B65DB168E9A8F00FEA984 /* mux.h in Headers */,
 				F46B65DC168E9A8F00FEA984 /* types.h in Headers */,
+				F48ABB1116A0625300A60C5B /* CCLuaBridge.h in Headers */,
+				F48ABB1716A0625300A60C5B /* CCLuaObjcBridge.h in Headers */,
+				F48ABB1F16A0631000A60C5B /* CCLuaStack.h in Headers */,
+				F48ABB2116A0631000A60C5B /* CCLuaValue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2539,6 +2591,10 @@
 				F46B65D2168E9A8F00FEA984 /* rescaler.c in Sources */,
 				F46B65D4168E9A8F00FEA984 /* thread.c in Sources */,
 				F46B65D6168E9A8F00FEA984 /* utils.c in Sources */,
+				F48ABB1016A0625300A60C5B /* CCLuaBridge.cpp in Sources */,
+				F48ABB1816A0625300A60C5B /* CCLuaObjcBridge.mm in Sources */,
+				F48ABB1E16A0631000A60C5B /* CCLuaStack.cpp in Sources */,
+				F48ABB2016A0631000A60C5B /* CCLuaValue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
