@@ -14,7 +14,6 @@ ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 function ui.newMenu(items)
     local menu
     menu = CCMenu:create()
-    display.extendNode(menu)
 
     for k, item in pairs(items) do
         if not tolua.isnull(item) then
@@ -87,7 +86,6 @@ function ui.newBMFontLabel(params)
     local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
     if not label then return end
 
-    display.extendNode(label)
     if type(x) == "number" and type(y) == "number" then
         label:setPosition(x, y)
     end
@@ -119,7 +117,6 @@ function ui.newTTFLabel(params)
     end
 
     if label then
-        display.extendNode(label)
         label:setColor(color)
 
         function label:realign(x, y)
