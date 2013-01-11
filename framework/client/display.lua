@@ -42,6 +42,9 @@ The display module provides access to cocos2d-x core features.
 
 local display = {}
 
+require("framework.client.cocos2dx.CCNode")
+require("framework.client.cocos2dx.CCScene")
+
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
 local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
@@ -255,16 +258,7 @@ A scene (implemented with the CCScene object) is more or less an independent pie
 function display.newScene(name)
     local scene = CCScene:create()
     scene.name = name or "<none-name>"
-    scene.isTouchEnabled = false
-    return display.extendScene(scene)
-end
-
-display.REPLACE_SCENE_POLICY_NORMAL   = 0
-display.REPLACE_SCENE_POLICY_INDIRECT = 1
-
-display.replaceScenePolicy_ = display.REPLACE_SCENE_POLICY_NORMAL
-function display.setReplaceScenePolicy(policy)
-    display.replaceScenePolicy_ = policy
+    return scene
 end
 
 --[[--
@@ -322,26 +316,7 @@ function display.replaceScene(newScene, transitionType, time, more)
     local current = sharedDirector:getRunningScene()
     if current then
         if current.beforeExit then current:beforeExit() end
-
-        if display.replaceScenePolicy_ == display.REPLACE_SCENE_POLICY_INDIRECT then
-            local nextScene = newScene
-            nextScene:retain()
-
-            local middleScene = display.newScene("_middle_")
-
-            function middleScene:onEnter()
-                middleScene:scheduleUpdate(function()
-                    middleScene:unscheduleUpdate()
-                    sharedDirector:replaceScene(nextScene)
-                    nextScene:release()
-                end)
-            end
-
-            newScene = middleScene
-        else
-            newScene = newSceneWithTransition(newScene, transitionType, time, more)
-        end
-
+        newScene = newSceneWithTransition(newScene, transitionType, time, more)
         sharedDirector:replaceScene(newScene)
     else
         sharedDirector:runWithScene(newScene)
@@ -358,7 +333,7 @@ Get current running Scene.
 
 ]]
 function display.getRunningScene()
-    return display.extendNode(sharedDirector:getRunningScene())
+    return sharedDirector:getRunningScene()
 end
 
 --[[--
@@ -457,7 +432,7 @@ CCLayer object created by display have more methods, see [display.extendLayer()]
 
 ]]
 function display.newLayer()
-    return display.extendLayer(display.extendNode(CCLayer:create()))
+    return display.extendLayer(CCLayer:create())
 end
 
 --[[--
@@ -500,7 +475,7 @@ CCNode object created by display have more methods, see [display.extendNode()](#
 
 ]]
 function display.newNode()
-    return display.extendNode(CCNode:create())
+    return CCNode:create()
 end
 
 display.spritesPixelFormat_ = {}
@@ -538,7 +513,6 @@ function display.newSprite(filename, x, y)
     if string.byte(filename) == 35 then -- #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
         if not frame then return end
-
         sprite = CCSprite:createWithSpriteFrame(frame)
     else
         if display.spritesPixelFormat_[filename] then
@@ -548,16 +522,11 @@ function display.newSprite(filename, x, y)
         else
             sprite = CCSprite:create(filename)
         end
-        if not sprite then
-            local msg = format("display.newSprite() - not found image: %s", filename)
-            echo(debug.traceback(msg, 2))
-            echo("")
-            return
-        end
+        if not sprite then return end
     end
 
     display.extendSprite(sprite)
-    sprite:setPosition(x, y)
+    if x and y then sprite:setPosition(x, y) end
 
     return sprite
 end
@@ -854,7 +823,7 @@ function display.newBatchNode(image, capacity)
     else
         node = CCSpriteBatchNode:create(image, capacity)
     end
-    return display.extendNode(node)
+    return node
 end
 
 --[[--
@@ -910,7 +879,7 @@ function display.newSpriteWithFrame(frame, x, y)
     end
     local sprite = CCSprite:createWithSpriteFrame(frame)
     display.extendSprite(sprite)
-    sprite:setPosition(x, y)
+    if x and y then sprite:setPosition(x, y) end
     return sprite
 end
 
@@ -1037,123 +1006,6 @@ end
 ### Returns:
 
 ]]
-function display.extendScene(scene)
-    display.extendNode(scene)
-
-    function scene:addAutoCleanImage(imageName)
-        if not scene.autoCleanImages_ then scene.autoCleanImages_ = {} end
-        scene.autoCleanImages_[imageName] = true
-    end
-
-    local function sceneEventHandler(event)
-        if event.name == "enter" then
-            echoWarning("## Scene \"%s:onEnter()\"", scene.name)
-            scene.isTouchEnabled = true
-            if scene.onEnter then scene:onEnter() end
-        elseif event.name == "exit" then
-            echoWarning("## Scene \"%s:onExit()\"", scene.name)
-            scene.isTouchEnabled = false
-
-            -- cleanup one-off images
-            if scene.autoCleanImages_ then
-                for imageName, v in pairs(scene.autoCleanImages_) do
-                    display.removeSpriteFrameByName(imageName)
-                end
-                scene.autoCleanImages_ = nil
-            end
-
-            if scene.onExit then scene:onExit() end
-            if DEBUG > 1 then
-                CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
-            end
-        end
-    end
-
-    scene:registerScriptHandler(sceneEventHandler)
-    return scene
-end
-
---[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
-]]
-function display.extendNode(node)
-    node.removeFromParentAndCleanup_ = node.removeFromParentAndCleanup
-    function node:removeFromParentAndCleanup(isCleanup)
-        if type(isCleanup) ~= "boolean" then isCleanup = true end
-        if not tolua.isnull(self) then
-            self:removeFromParentAndCleanup_(isCleanup)
-        end
-    end
-
-    node.setPosition_ = node.setPosition
-    function node:setPosition(x, y)
-        if type(x) == "number" and type(y) == "number" then
-            node:setPosition_(x, y)
-        end
-    end
-
-    function node:removeSelf(isCleanup)
-        self:removeFromParentAndCleanup(isCleanup)
-    end
-
-    function node:align(anchorPoint, x, y)
-        display.align(self, anchorPoint, x, y)
-    end
-
-    function node:pixels()
-        local x, y = node:getPosition()
-        node:setPosition(display.pixels(x, y))
-    end
-
-    function node:scheduleUpdate(callback, priority)
-        node:scheduleUpdateWithPriorityLua(callback, _i(priority))
-    end
-
-    function node:schedule(callback, interval)
-        local seq = transition.sequence({
-            CCDelayTime:create(interval),
-            CCCallFunc:create(callback),
-        })
-        local action = CCRepeatForever:create(seq)
-        self:runAction(action)
-        return action
-    end
-
-    function node:performWithDelay(callback, delay)
-        local action = transition.sequence({
-            CCDelayTime:create(delay),
-            CCCallFunc:create(callback),
-        })
-        self:runAction(action)
-        return action
-    end
-
-    function node:removeAction(action)
-        transition.removeAction(action)
-    end
-
-    function node:stopAllActions()
-        transition.stopTarget(self)
-    end
-
-    return node
-end
-
---[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
-]]
 function display.extendLayer(node)
     function node:addTouchEventListener(listener, isMultiTouches, priority, swallowsTouches)
         if type(isMultiTouches) ~= "boolean" then isMultiTouches = false end
@@ -1214,8 +1066,6 @@ end
 
 ]]
 function display.extendSprite(node)
-    display.extendNode(node)
-
     function node:playAnimationOnce(animation, removeWhenFinished, onComplete, delay)
         local actions = {}
         if type(delay) == "number" and delay > 0 then
@@ -1278,7 +1128,6 @@ end
 
 ]]
 function display.extendShape(shape)
-    shape = display.extendNode(shape)
     shape.setColor_ = shape.setColor
 
     function shape:setColor(r, g, b, a)

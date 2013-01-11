@@ -80,7 +80,7 @@ function M.new(args)
 
     local function onTouch(event, x, y)
         if not view.isEnabled then return false end
-        if event == CCTOUCHBEGAN then
+        if event == "began" then
             if y > validTouchTop or y < validTouchBottom then return false end
 
             touch = {
@@ -97,7 +97,7 @@ function M.new(args)
             return true
         end
 
-        if event == CCTOUCHMOVED then
+        if event == "moved" then
             if touch.lastTouchY == y then
                 -- 如果两次触摸事件之间，坐标没有变化，则取消轻扫状态
                 touch.isMaybySwiping = false
@@ -136,7 +136,7 @@ function M.new(args)
             return true
         end
 
-        if event == CCTOUCHENDED and touch.isMaybeTap then
+        if event == "ended" and touch.isMaybeTap then
             -- tap 事件，确定触发哪一个条目的 listener
             local offset = view:getPositionY() + layer:getPositionY()
             for i, item in ipairs(view.items) do

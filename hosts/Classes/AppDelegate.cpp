@@ -20,13 +20,15 @@
 #include "cocos2dx_extension_crypto_mac.h"
 #include "cocos2dx_extension_network_mac.h"
 #include "cocos2dx_extension_native_mac.h"
+#include "cocos2dx_extensions_luabinding_mac.h"
 #endif
 
 // more lua exts
 #include "LuaCCDrawing.h"
 
 extern "C" {
-//#include "gamescripts.h"
+// load lua framework
+#include "framework_lua.h"
 }
 
 using namespace std;
@@ -45,9 +47,8 @@ AppDelegate::~AppDelegate()
     SimpleAudioEngine::sharedEngine()->end();
     CCLOG("~ delete AppDelegate");
     CCLOG("");
-    CCLOG("");
-    CCLOG("");
     CCLOG("--------------------------------------------------------------------------------");
+    CCLOG("");
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -82,10 +83,14 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_crypto_mac_open(L);
     tolua_cocos2dx_extension_network_mac_open(L);
     tolua_cocos2dx_extension_native_mac_open(L);
+    tolua_cocos2dx_extensions_luabinding_mac_open(L);
 #endif
     
     // more lua exts
     tolua_CCDrawing_open(L);
+    
+    // load lua framework
+//    luaopen_framework_lua(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
@@ -93,8 +98,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
 #else
     const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("scripts/main.lua");
-    //    luaopen_gamescripts(pEngine->getLuaState());
-    //    pEngine->executeString("require(\"main\")");
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)

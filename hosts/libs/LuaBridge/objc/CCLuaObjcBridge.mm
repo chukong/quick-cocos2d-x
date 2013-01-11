@@ -1,17 +1,16 @@
 
-#include "LuaObjcBridge.h"
-#include "cocos2d.h"
+#include "CCLuaObjcBridge.h"
 
-using namespace cocos2d;
+NS_CC_BEGIN
 
-void LuaObjcBridge::luabindingOpen(lua_State *L)
+void CCLuaObjcBridge::luabindingOpen(lua_State *L)
 {
     s_luaState = L;
     lua_newtable(L);
     lua_pushstring(L, "callStaticMethod");
-    lua_pushcfunction(L, LuaObjcBridge::callObjcStaticMethod);
+    lua_pushcfunction(L, CCLuaObjcBridge::callObjcStaticMethod);
     lua_rawset(L, -3);
-    lua_setglobal(L, "LuaObjcBridge");
+    lua_setglobal(L, "CCLuaObjcBridge");
 }
 
 /**
@@ -19,12 +18,12 @@ void LuaObjcBridge::luabindingOpen(lua_State *L)
  methodName
  args
  */
-int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
+int CCLuaObjcBridge::callObjcStaticMethod(lua_State *L)
 {
     if (lua_gettop(L) != 3 || !lua_isstring(L, -3) || !lua_isstring(L, -2))
     {
     	lua_pushboolean(L, 0);
-    	lua_pushinteger(L, kLuaBridgeErrorInvalidParameters);
+    	lua_pushinteger(L, kCCLuaBridgeErrorInvalidParameters);
     	return 2;
     }
     
@@ -33,7 +32,7 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
     if (!className || !methodName)
     {
         lua_pushboolean(L, 0);
-        lua_pushinteger(L, kLuaBridgeErrorInvalidParameters);
+        lua_pushinteger(L, kCCLuaBridgeErrorInvalidParameters);
         return 2;
     }
     
@@ -41,7 +40,7 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
     if (!targetClass)
     {
         lua_pushboolean(L, 0);
-        lua_pushinteger(L, kLuaBridgeErrorClassNotFound);
+        lua_pushinteger(L, kCCLuaBridgeErrorClassNotFound);
         return 2;
     }
     
@@ -60,7 +59,7 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
     if (methodSel == (SEL)0)
     {
         lua_pushboolean(L, 0);
-        lua_pushinteger(L, kLuaBridgeErrorMethodNotFound);
+        lua_pushinteger(L, kCCLuaBridgeErrorMethodNotFound);
         return 2;
     }
     
@@ -68,7 +67,7 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
     if (methodSig == nil)
     {
         lua_pushboolean(L, 0);
-        lua_pushinteger(L, kLuaBridgeErrorMethodSignature);
+        lua_pushinteger(L, kCCLuaBridgeErrorMethodSignature);
         return 2;
     }
     
@@ -162,12 +161,12 @@ int LuaObjcBridge::callObjcStaticMethod(lua_State *L)
     {
         NSLog(@"EXCEPTION THROW: %@", exception);
         lua_pushboolean(L, 0);
-        lua_pushinteger(L, kLuaBridgeErrorExceptionOccurred);
+        lua_pushinteger(L, kCCLuaBridgeErrorExceptionOccurred);
         return 2; 
     }
 }
 
-void LuaObjcBridge::pushValue(lua_State *L, void *val)
+void CCLuaObjcBridge::pushValue(lua_State *L, void *val)
 {
     id oval = (id)val;
     if (oval == nil)
@@ -214,3 +213,5 @@ void LuaObjcBridge::pushValue(lua_State *L, void *val)
         lua_pushstring(L, [[NSString stringWithFormat:@"%@", oval] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
 }
+
+NS_CC_END

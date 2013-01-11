@@ -1,11 +1,45 @@
 
-#include "LuaBridge.h"
-#include "cocos2d.h"
+#include "CCLuaBridge.h"
 
-lua_State *LuaBridge::s_luaState = NULL;
-int        LuaBridge::s_newFunctionId = 0;
+NS_CC_BEGIN
 
-int LuaBridge::retainLuaFunctionById(int functionId)
+lua_State *CCLuaBridge::s_luaState = NULL;
+int        CCLuaBridge::s_newFunctionId = 0;
+
+CCLuaStack *CCLuaBridge::getStack(void)
+{
+    return CCLuaEngine::defaultEngine()->getLuaStack();
+}
+
+int CCLuaBridge::pushLuaFunctionById(int functionId)
+{
+    lua_State *L = s_luaState;
+    int top = lua_gettop(L);
+    /* L: */
+    lua_pushstring(L, LUA_BRIDGE_REGISTRY_FUNCTION);            /* L: key */
+    lua_rawget(L, LUA_REGISTRYINDEX);                           /* L: f_id */
+    if (!lua_istable(L, -1))
+    {
+        lua_pop(L, 1);
+        return 0;
+    }
+    
+    lua_pushnil(L);                                             /* L: f_id nil */
+    while (lua_next(L, -2) != 0)                                /* L: f_id f id */
+    {
+        int value = lua_tonumber(L, -1);
+        lua_pop(L, 1);                                          /* L: f_id f */
+        if (value == functionId)
+        {
+            return -1;
+        }
+    }                                                           /* L: f_id */
+    
+    lua_settop(L, top);
+    return 0;
+}
+
+int CCLuaBridge::retainLuaFunctionById(int functionId)
 {
     lua_State *L = s_luaState;
     
@@ -35,13 +69,13 @@ int LuaBridge::retainLuaFunctionById(int functionId)
     lua_rawset(L, -3);                            /* id_r[id] = r, L: id_r */
     lua_pop(L, 1);
     
-    CCLOG("LuaBridge::retainLuaFunctionById(%d) - retain count = %d", functionId, retainCount);
+    CCLOG("CCLuaBridge::retainLuaFunctionById(%d) - retain count = %d", functionId, retainCount);
     
     return retainCount;
     
 }
 
-int LuaBridge::releaseLuaFunctionById(int functionId)
+int CCLuaBridge::releaseLuaFunctionById(int functionId)
 {
     lua_State *L = s_luaState;
     /* L: */
@@ -50,7 +84,7 @@ int LuaBridge::releaseLuaFunctionById(int functionId)
     if (!lua_istable(L, -1))
     {
         lua_pop(L, 1);
-        CCLOG("LuaBridge::releaseLuaFunctionById() - LUA_BRIDGE_REGISTRY_FUNCTION not exists");
+        CCLOG("CCLuaBridge::releaseLuaFunctionById() - LUA_BRIDGE_REGISTRY_FUNCTION not exists");
         return 0;
     }
     
@@ -59,7 +93,7 @@ int LuaBridge::releaseLuaFunctionById(int functionId)
     if (!lua_istable(L, -1))
     {
         lua_pop(L, 2);
-        CCLOG("LuaBridge::releaseLuaFunctionById() - LUA_BRIDGE_REGISTRY_RETAIN not exists");
+        CCLOG("CCLuaBridge::releaseLuaFunctionById() - LUA_BRIDGE_REGISTRY_RETAIN not exists");
         return 0;
     }
     
@@ -68,7 +102,7 @@ int LuaBridge::releaseLuaFunctionById(int functionId)
     if (lua_type(L, -1) != LUA_TNUMBER)
     {
         lua_pop(L, 3);
-        CCLOG("LuaBridge::releaseLuaFunctionById() - function id %d not found", functionId);
+        CCLOG("CCLuaBridge::releaseLuaFunctionById() - function id %d not found", functionId);
         return 0;
     }
     
@@ -83,7 +117,7 @@ int LuaBridge::releaseLuaFunctionById(int functionId)
         lua_pushinteger(L, retainCount);                        /* L: f_id id_r id r */
         lua_rawset(L, -3);                        /* id_r[id] = r, L: f_id id_r */
         lua_pop(L, 2);
-        CCLOG("LuaBridge::releaseLuaFunctionById() - function id %d retain count = %d", functionId, retainCount);
+        CCLOG("CCLuaBridge::releaseLuaFunctionById() - function id %d retain count = %d", functionId, retainCount);
         return retainCount;
     }
     
@@ -108,78 +142,11 @@ int LuaBridge::releaseLuaFunctionById(int functionId)
     }                                                           /* L: f_id */
     
     lua_pop(L, 1);
-    CCLOG("LuaBridge::releaseLuaFunctionById() - function id %d released", functionId);
+    CCLOG("CCLuaBridge::releaseLuaFunctionById() - function id %d released", functionId);
     return 0;
 }
 
-int LuaBridge::callLuaFunctionById(int functionId, const char *arg)
-{
-    lua_State *L = s_luaState;
-    int top = lua_gettop(L);
-    /* L: */
-    lua_pushstring(L, LUA_BRIDGE_REGISTRY_FUNCTION);            /* L: key */
-    lua_rawget(L, LUA_REGISTRYINDEX);                           /* L: f_id */
-    if (!lua_istable(L, -1))
-    {
-        lua_pop(L, 1);
-        return -1;
-    }
-    
-    lua_pushnil(L);                                             /* L: f_id nil */
-    while (lua_next(L, -2) != 0)                                /* L: f_id f id */
-    {
-        int value = lua_tonumber(L, -1);
-        lua_pop(L, 1);                                          /* L: f_id f */
-        if (value == functionId)
-        {
-            lua_pushstring(L, arg);                             /* L: f_id f arg */
-            int ok = lua_pcall(L, 1, 1, 0);                     /* L: f_id ret|err */
-            int ret;
-            if (ok == 0)
-            {
-                ret = lua_tonumber(L, -1);
-            }
-            else
-            {
-                ret = -ok;
-            }
-            
-            lua_settop(L, top);
-            return ret;
-        }
-    }                                                           /* L: f_id */
-    
-    lua_settop(L, top);
-    return -1;
-}
-
-int LuaBridge::callLuaGlobalFunction(const char *functionName, const char *arg)
-{
-    lua_State *L = s_luaState;
-    
-    int ret = -1;
-    int top = lua_gettop(L);
-    
-    lua_getglobal(L, functionName);
-    if (lua_isfunction(L, -1))
-    {
-        lua_pushstring(L, arg);
-        int ok = lua_pcall(L, 1, 1, 0);
-        if (ok == 0)
-        {
-            ret = lua_tonumber(L, -1);
-        }
-        else
-        {
-            ret = -ok;
-        }
-    }
-    
-    lua_settop(L, top);
-    return ret;
-}
-
-int LuaBridge::retainLuaFunction(lua_State *L, int functionIndex, int *retainCountReturn)
+int CCLuaBridge::retainLuaFunction(lua_State *L, int functionIndex, int *retainCountReturn)
 {
     /* L: f ... */
     lua_pushstring(L, LUA_BRIDGE_REGISTRY_FUNCTION);            /* L: f ... key */
@@ -251,3 +218,5 @@ int LuaBridge::retainLuaFunction(lua_State *L, int functionIndex, int *retainCou
     if (retainCountReturn) *retainCountReturn = retainCount;
     return functionId;
 }
+
+NS_CC_END

@@ -63,7 +63,7 @@ Call Objective-C form Lua, and call Lua from Objective-C.
 
 ### Objective-C method:
 
-    #include "LuaObjcBridge.h"
+    #include "CCLuaObjcBridge.h"
 
     + (NSString *)login:(NSDictionary *)dict
     {
@@ -74,13 +74,13 @@ Call Objective-C form Lua, and call Lua from Objective-C.
 
         if (.....)
         {
-            LuaObjcBridge::callLuaFunctionById(callback, "ok");
+            CCLuaObjcBridge::callLuaFunctionById(callback, "ok");
         }
         else
         {
-            LuaObjcBridge::callLuaFunctionById(callback, "error message");
+            CCLuaObjcBridge::callLuaFunctionById(callback, "error message");
         }
-        LuaObjcBridge::releaseLuaFunctionById(callback);
+        CCLuaObjcBridge::releaseLuaFunctionById(callback);
 
         return @"return something";
     }
@@ -90,7 +90,7 @@ Call Objective-C form Lua, and call Lua from Objective-C.
 
 local luaoc = {}
 
-local callJavaStaticMethod = LuaObjcBridge.callStaticMethod
+local callJavaStaticMethod = CCLuaObjcBridge.callStaticMethod
 
 --[[--
 
@@ -109,7 +109,25 @@ Call Objective-C Class Method
 
 ]]
 function luaoc.callStaticMethod(className, methodName, args)
-    return callJavaStaticMethod(className, methodName, args)
+    local ok, ret = callJavaStaticMethod(className, methodName, args)
+    if not ok then
+        local msg = string.format("luaoc.callStaticMethod(\"%s\", \"%s\", \"%s\") - error: [%s] ",
+                className, methodName, tostring(args), tostring(ret))
+        if ret == -1 then
+            echoError(msg .. "INVALID PARAMETERS")
+        elseif ret == -2 then
+            echoError(msg .. "CLASS NOT FOUND")
+        elseif ret == -3 then
+            echoError(msg .. "METHOD NOT FOUND")
+        elseif ret == -4 then
+            echoError(msg .. "EXCEPTION OCCURRED")
+        elseif ret == -5 then
+            echoError(msg .. "INVALID METHOD SIGNATURE")
+        else
+            echoError(msg .. "UNKNOWN")
+        end
+    end
+    return ok, ret
 end
 
 return luaoc

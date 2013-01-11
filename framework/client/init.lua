@@ -49,19 +49,15 @@ echoWarning("# DEBUG                        = "..DEBUG)
 echoWarning("#")
 
 device     = require("framework.client.device")
-echoWarning("# -- load framework.client.device module ok")
 transition = require("framework.client.transition")
-echoWarning("# -- load framework.client.transition module ok")
 display    = require("framework.client.display")
-echoWarning("# -- load framework.client.display module ok")
 audio      = require("framework.client.audio")
-echoWarning("# -- load framework.client.audio module ok")
 ui         = require("framework.client.ui")
-echoWarning("# -- load framework.client.ui module ok")
 
 if device.platform == "android" then
     luaj = require("framework.client.luaj")
-    echoWarning("# -- load framework.client.luaj module ok")
+elseif device.platform == "ios" then
+    luaoc = require("framework.client.luaoc")
 end
 
 local timeCount = 0
@@ -79,8 +75,3 @@ end
 if DEBUG > 1 then
     CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 10.0, false)
 end
-
--- collectgarbage("setpause", 5000)
--- collectgarbage("setstepmul", 200)
-
-echoWarning("# -- init ok")
