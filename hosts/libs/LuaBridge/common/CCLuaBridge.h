@@ -24,26 +24,6 @@ typedef enum {
     kCCLuaBridgeErrorJavaVMError          = -6,
 } CCLuaBridgeError;
 
-typedef enum {
-    kCCLuaBridgeTypeInvalid   = 0,
-    kCCLuaBridgeTypeInt       = 1,
-    kCCLuaBridgeTypeFloat     = 2,
-    kCCLuaBridgeTypeBoolean   = 3,
-    kCCLuaBridgeTypeString    = 4,
-    kCCLuaBridgeTypeFunction  = 5,
-    kCCLuaBridgeTypeArray     = 6,    // not used for CCLuaBridgeValueUnion
-    kCCLuaBridgeTypeMap       = 7,    // not used for CCLuaBridgeValueUnion
-    kCCLuaBridgeTypeVoid      = 8,    // not used for CCLuaBridgeValueUnion
-} CCLuaBridgeType;
-
-typedef union {
-    int     intValue;
-    float   floatValue;
-    bool    boolValue;
-    string  stringValue;
-    int     functionRef;
-} CCLuaBridgeValueUnion;
-
 #define LUA_BRIDGE_REGISTRY_FUNCTION    "lua_bridge_function_id"        // table[function] = id
 #define LUA_BRIDGE_REGISTRY_RETAIN      "lua_bridge_function_id_retain" // table[id] = retain count
 
