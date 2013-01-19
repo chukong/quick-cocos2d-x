@@ -30,12 +30,25 @@ Bootstrap for client.
 
 ### Auto registered global module
 
--   device: [framework.client.device](framework.client.device.html)
--   transition: [framework.client.transition](framework.client.transition.html)
--   display: [framework.client.display](framework.client.display.html)
--   audio: [framework.client.audio](framework.client.audio.html)
--   ui: [framework.client.ui](framework.client.ui.html)
--   luaj: [framework.client.luaj](framework.client.device.html) , Android platform only
+Module | Descripton
+------ | ----------
+[framework.client.device](framework.client.device.html) | Query information about the system
+[framework.client.transition](framework.client.transition.html) | Actions, Transformations and Effects
+[framework.client.display](framework.client.display.html) | Create scene, layer, sprite
+[framework.client.audio](framework.client.audio.html) | Play music, sound effect
+[framework.client.ui](framework.client.ui.html) | Create menu, label, widgets
+[framework.client.luaoc](framework.client.luaoc.html) | Call Objective-C from Lua, iOS platform only
+[framework.client.luaj](framework.client.luaj.html) | Call Java from Lua, Android platform only
+
+<br />
+
+### More client modules
+
+Module | Descripton
+------ | ----------
+[framework.client.crypto](framework.client.crypto.html) | Crypto
+[framework.client.network](framework.client.network.html) | Network
+[framework.client.scheduler](framework.client.scheduler.html) | Scheduler
 
 ]]
 
@@ -61,6 +74,7 @@ elseif device.platform == "ios" then
 end
 
 local timeCount = 0
+
 --[[--
 
 @ignore
@@ -73,5 +87,7 @@ local function checkMemory(dt)
 end
 
 if DEBUG > 1 then
-    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(checkMemory, 10.0, false)
+    local sharedDirector = CCDirector:sharedDirector()
+    sharedDirector:setDisplayStats(true)
+    sharedDirector:getScheduler():scheduleScriptFunc(checkMemory, 10.0, false)
 end

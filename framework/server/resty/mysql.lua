@@ -25,7 +25,7 @@ local error = error
 local tonumber = tonumber
 
 
-module(...)
+module("resty.mysql")
 
 _VERSION = '0.12'
 

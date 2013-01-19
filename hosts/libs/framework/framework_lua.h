@@ -1,8 +1,8 @@
 
 /* framework_lua.h */
 
-#ifndef __LUA_MODULES_7D8BEEF4217BF7471B4949D9488E849B_H_
-#define __LUA_MODULES_7D8BEEF4217BF7471B4949D9488E849B_H_
+#ifndef __LUA_MODULES_AF794DAB86C489E9251720B22607F38A_H_
+#define __LUA_MODULES_AF794DAB86C489E9251720B22607F38A_H_
 
 #include "lua.h"
 
@@ -11,16 +11,14 @@ void luaopen_framework_lua(lua_State* L);
 /*
 int luaopen_lua_m_framework_client_api_context(lua_State* L);
 int luaopen_lua_m_framework_client_api_eventprotocol(lua_State* L);
-int luaopen_lua_m_framework_client_api_flurry(lua_State* L);
-int luaopen_lua_m_framework_client_api_gamenetwork_chinamobile(lua_State* L);
 int luaopen_lua_m_framework_client_api_gamenetwork_openfeint(lua_State* L);
 int luaopen_lua_m_framework_client_api_gamenetwork(lua_State* L);
 int luaopen_lua_m_framework_client_api_gamestate(lua_State* L);
 int luaopen_lua_m_framework_client_api_localize(lua_State* L);
-int luaopen_lua_m_framework_client_api_sdkndcom(lua_State* L);
 int luaopen_lua_m_framework_client_api_store(lua_State* L);
 int luaopen_lua_m_framework_client_api_timer(lua_State* L);
 int luaopen_lua_m_framework_client_audio(lua_State* L);
+int luaopen_lua_m_framework_client_cocos2dx_cclayer(lua_State* L);
 int luaopen_lua_m_framework_client_cocos2dx_ccnode(lua_State* L);
 int luaopen_lua_m_framework_client_cocos2dx_ccscene(lua_State* L);
 int luaopen_lua_m_framework_client_crypto(lua_State* L);
@@ -44,4 +42,4 @@ int luaopen_lua_m_framework_shared_json(lua_State* L);
 int luaopen_lua_m_framework_shared_modelbase(lua_State* L);
 */
 
-#endif /* __LUA_MODULES_7D8BEEF4217BF7471B4949D9488E849B_H_ */
+#endif /* __LUA_MODULES_AF794DAB86C489E9251720B22607F38A_H_ */

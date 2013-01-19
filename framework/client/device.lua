@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 Query information about the system (get device information, current language, etc) and execute system functions (show alert view, show input box, etc).
 
-.
+<br />
 
 Following properties predefined:
 
@@ -54,6 +54,8 @@ Following properties predefined:
     ru          | Russian
     jp          | Japanese
     en          | English
+
+-   **device.writeablePath** returns the writeable path.
 
 ]]
 
@@ -108,15 +110,20 @@ end
 device.language = language_
 device.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
 
-echoWarning("# device.platform              = "..device.platform)
-echoWarning("# device.environment           = "..device.environment)
-echoWarning("# device.model                 = "..device.model)
-echoWarning("# device.language              = "..device.language)
+echoWarning("# device.platform              = " .. device.platform)
+echoWarning("# device.environment           = " .. device.environment)
+echoWarning("# device.model                 = " .. device.model)
+echoWarning("# device.language              = " .. device.language)
+echoWarning("# device.writeablePath         = " .. device.writeablePath)
 echoWarning("#")
 
 --[[--
 
 Displays a platform-specific activity indicator.
+
+### Note:
+
+Supported platform: ios, android.
 
 ]]
 function device.showActivityIndicator(style)
@@ -126,6 +133,10 @@ end
 --[[--
 
 Hides activity indicator.
+
+### Note:
+
+Supported platform: ios, android.
 
 ]]
 function device.hideActivityIndicator()
@@ -145,6 +156,10 @@ Displays a popup alert box with one or more buttons. Program activity, including
 -   table **buttonLabels** Table of strings, each of which will create a button with the corresponding label.
 
 -   function **listener** The listener to be notified when a user presses any button in the alert box.
+
+### Note:
+
+Supported platform: ios, android, mac.
 
 ]]
 function device.showAlert(title, message, buttonLabels, listener)
@@ -173,6 +188,10 @@ Dismisses an alert box programmatically.
 
 For example, you may wish to have a popup alert that automatically disappears after ten seconds even if the user doesn’t click it. In that case, you could call this function at the end of a ten-second timer.
 
+### Note:
+
+Supported platform: ios, android, mac.
+
 ]]
 function device.cancelAlert()
     CCNative:cancelAlert()
@@ -184,11 +203,13 @@ Returns OpenUDID for device.
 
 > OpenUDID is a drop-in replacement for the deprecated uniqueIdentifier property of the UIDevice class on iOS (a.k.a. UDID) and otherwise is an industry-friendly equivalent for iOS and Android.
 
-Supported platform: ios, android, mac.
-
 ### Returns:
 
 -   string OpenUDID
+
+### Note:
+
+Supported platform: ios, android, mac.
 
 ]]
 function device.getOpenUDID()
@@ -209,11 +230,15 @@ Note: Executing this function will make the app background and switch to the bui
 
     -   Email address: "mailto:nobody@mycompany.com".
 
-        The email address url can also contain subject and body parameters, both of which must be url encoded.[BR]
-        Example: "mailto:nobody@mycompany.com?subject=Hi%20there&body=I%20just%20wanted%20to%20say%2C%20Hi!"[BR]
+        The email address url can also contain subject and body parameters, both of which must be url encoded.<br />
+        Example: "mailto:nobody@mycompany.com?subject=Hi%20there&body=I%20just%20wanted%20to%20say%2C%20Hi!"<br />
         Try this URL encoder to encode your text.
 
     -   Phone number: "tel:123-456-7890"
+
+### Note:
+
+Supported platform: ios, android.
 
 ]]
 function device.openURL(url)
@@ -234,6 +259,10 @@ Displays a popup input dialog with ok and cancel button.
 
 -   string User entered text. If uesr cancel input dialog, return nil.
 
+### Note:
+
+Supported platform: mac, windows.
+
 ]]
 function device.showInputBox(title, message, defaultValue)
     title = title or "INPUT TEXT"
@@ -241,13 +270,5 @@ function device.showInputBox(title, message, defaultValue)
     defaultValue = defaultValue or ""
     return CCNative:getInputText(title, message, defaultValue)
 end
-
-
-device.notification = {}
-require("framework.client.api.EventProtocol").extend(device.notification)
-
-CCNotificationCenter:sharedNotificationCenter():registerScriptObserver(function(eventName)
-    device.notification:dispatchEvent({name = eventName})
-end)
 
 return device

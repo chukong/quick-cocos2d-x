@@ -32,7 +32,7 @@ Call Java form Lua, and call Lua from Java.
 -   Pass Lua function to Java
 -   Call Lua function from Java
 
-[BR]
+<br />
 
 **References:**
 

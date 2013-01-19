@@ -1,3 +1,34 @@
+--[[
+
+Copyright (c) 2011-2012 qeeplay.com
+
+http://dualface.github.com/quick-cocos2d-x/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+Create menu, label, widgets
+
+]]
 
 local ui = {}
 
@@ -11,6 +42,10 @@ ui.TEXT_VALIGN_TOP    = kCCVerticalTextAlignmentTop
 ui.TEXT_VALIGN_CENTER = kCCVerticalTextAlignmentCenter
 ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
+--[[--
+
+
+]]
 function ui.newMenu(items)
     local menu
     menu = CCMenu:create()
@@ -25,7 +60,10 @@ function ui.newMenu(items)
     return menu
 end
 
-function ui.newMenuItemImage(params)
+--[[--
+
+]]
+function ui.newImageMenuItem(params)
     local imageNormal   = params.image
     local imageSelected = params.imageSelected
     local imageDisabled = params.imageDisabled
@@ -55,7 +93,10 @@ function ui.newMenuItemImage(params)
     return item
 end
 
-function ui.newMenuItemLabel(params)
+--[[--
+
+]]
+function ui.newTTFLabelMenuItem(params)
     local label    = ui.newTTFLabel(params)
     local listener = params.listener
     local tag      = params.tag
@@ -73,6 +114,9 @@ function ui.newMenuItemLabel(params)
     return item
 end
 
+--[[--
+
+]]
 function ui.newBMFontLabel(params)
     assert(type(params) == "table",
            "[framework.client.ui] newBMFontLabel() invalid params")
@@ -93,6 +137,9 @@ function ui.newBMFontLabel(params)
     return label
 end
 
+--[[--
+
+]]
 function ui.newTTFLabel(params)
     assert(type(params) == "table",
            "[framework.client.ui] newTTFLabel() invalid params")
@@ -135,6 +182,9 @@ function ui.newTTFLabel(params)
     return label
 end
 
+--[[--
+
+]]
 function ui.newTTFLabelWithShadow(params)
     assert(type(params) == "table",
            "[framework.client.ui] newTTFLabelWithShadow() invalid params")
@@ -191,6 +241,9 @@ function ui.newTTFLabelWithShadow(params)
     return g
 end
 
+--[[--
+
+]]
 function ui.newTTFLabelWithOutline(params)
     assert(type(params) == "table",
            "[framework.client.ui] newTTFLabelWithShadow() invalid params")

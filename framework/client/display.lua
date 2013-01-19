@@ -32,49 +32,17 @@ The display module provides access to cocos2d-x core features.
 -   Mange scenes.
 -   Creates display objects.
 
-[BR]
-
-**References:**
-
--   [cocos2d Programming Guide](http://www.cocos2d-iphone.org/wiki/doku.php/prog_guide:index)
-
 ]]
 
 local display = {}
 
 require("framework.client.cocos2dx.CCNode")
 require("framework.client.cocos2dx.CCScene")
+require("framework.client.cocos2dx.CCLayer")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
 local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
-
-if DEBUG > 1 then
-    sharedDirector:setDisplayStats(true)
-end
-
--- check screen orientation
-display.orientationPortrait       = "portrait"
-display.orientationUpsideDown     = "upside_down"
-display.orientationLandscapeLeft  = "landscape_left"
-display.orientationLandscapeRight = "landscape_right"
-
-local orientation_
-if not DEVICE_ORIENTATION then DEVICE_ORIENTATION = "portrait" end
-
-orientation_ = string.lower(DEVICE_ORIENTATION)
-if orientation_ == "landscape"
-   or orientation_ == "landscape_right"
-   or orientation_ == "landscaperight" then
-    orientation_ = display.orientationLandscapeRight
-elseif orientation_ == "landscape_left" or orientation_ == "landscapeleft" then
-    orientation_ = display.orientationLandscapeLeft
-elseif orientation_ == "upside_down" or orientation_ == "upsidedown" then
-    orientation_ = display.orientationUpsideDown
-else
-    orientation_ = display.orientationPortrait
-end
-display.orientation = orientation_
 
 -- check device screen size
 local glview = sharedDirector:getOpenGLView()
@@ -88,21 +56,13 @@ local scale = 1
 if CONFIG_SCREEN_AUTOSCALE then
     -- set auto scale
     CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
-    if CONFIG_SCREEN_AUTOSCALE == "FULLWIDTH" then
+    if CONFIG_SCREEN_AUTOSCALE == "FIXED_WIDTH" then
         scale = w / CONFIG_SCREEN_WIDTH;
         CONFIG_SCREEN_HEIGHT = h / scale;
-    elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHT" then
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT" then
         scale = h / CONFIG_SCREEN_HEIGHT;
         CONFIG_SCREEN_WIDTH = w / scale;
-    elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLWIDTH" then
-        if w < CONFIG_SCREEN_WIDTH then
-            scale = w / CONFIG_SCREEN_WIDTH;
-            CONFIG_SCREEN_HEIGHT = h / scale;
-        else
-            CONFIG_SCREEN_WIDTH = w
-            CONFIG_SCREEN_HEIGHT = h
-        end
-    elseif CONFIG_SCREEN_AUTOSCALE == "FULLHEIGHTONSMALLSCREEN" then
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT_ON_SMALL_SCREEN" then
         if h < CONFIG_SCREEN_HEIGHT then
             scale = h / CONFIG_SCREEN_HEIGHT;
             CONFIG_SCREEN_WIDTH = w / scale;
@@ -128,10 +88,6 @@ display.c_left             = -display.width / 2
 display.c_right            = display.width / 2
 display.c_top              = display.height / 2
 display.c_bottom           = -display.height / 2
-display.cp_left            = display.c_left * scale
-display.cp_right           = display.c_right * scale
-display.cp_top             = display.c_top * scale
-display.cp_bottom          = display.c_bottom * scale
 display.left               = 0
 display.right              = display.width
 display.top                = display.height
@@ -144,7 +100,6 @@ echoWarning(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGH
 echoWarning(format("# display.widthInPixels        = %0.2f", display.widthInPixels))
 echoWarning(format("# display.heightInPixels       = %0.2f", display.heightInPixels))
 echoWarning(format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
-echoWarning(format("# display.orientation          = %s",    display.orientation))
 echoWarning(format("# display.width                = %0.2f", display.width))
 echoWarning(format("# display.height               = %0.2f", display.height))
 echoWarning(format("# display.cx                   = %0.2f", display.cx))
@@ -157,10 +112,6 @@ echoWarning(format("# display.c_left               = %0.2f", display.c_left))
 echoWarning(format("# display.c_right              = %0.2f", display.c_right))
 echoWarning(format("# display.c_top                = %0.2f", display.c_top))
 echoWarning(format("# display.c_bottom             = %0.2f", display.c_bottom))
-echoWarning(format("# display.cp_left              = %0.2f", display.cp_left))
-echoWarning(format("# display.cp_right             = %0.2f", display.cp_right))
-echoWarning(format("# display.cp_top               = %0.2f", display.cp_top))
-echoWarning(format("# display.cp_bottom            = %0.2f", display.cp_bottom))
 echoWarning("#")
 
 display.COLOR_WHITE = ccc3(255, 255, 255)
@@ -307,9 +258,9 @@ Replaces the running scene with a new one.
     CCTransitionZoomFlipX       | Flips the screen horizontally doing a zoom out/in The front face is the outgoing scene and the back face is the incoming scene
     CCTransitionZoomFlipY       | Flips the screen vertically doing a little zooming out/in The front face is the outgoing scene and the back face is the incoming scene
 
--   [_optional float **time**_]
+-   [_optional float **time**_] duration of the transition
 
--   [_optional mixed **more**_]
+-   [_optional mixed **more**_] parameter for the transition
 
 ]]
 function display.replaceScene(newScene, transitionType, time, more)
@@ -325,7 +276,7 @@ end
 
 --[[--
 
-Get current running Scene.
+Get current running scene.
 
 ### Returns:
 
@@ -384,19 +335,19 @@ Set node object anchorPoint and position.
 
 -   enum **anchorPoint** is one of the following:
 
-    enum                                            | Value
-    ----------------------------------------------- | ----------------------
-    display.CENTER                                  | CCPoint(0.5, 0.5)
-    display.TOP_LEFT,[BR]display.LEFT_TOP           | CCPoint(  0,   1)
-    display.TOP_CENTER,[BR]display.CENTER_TOP       | CCPoint(0.5,   1)
-    display.TOP_RIGHT,[BR]display.RIGHT_TOP         | CCPoint(  1,   1)
-    display.CENTER_LEFT,[BR]display.LEFT_CENTER     | CCPoint(  0, 0.5)
-    display.CENTER_RIGHT,[BR]display.RIGHT_CENTER   | CCPoint(  1, 0.5)
-    display.BOTTOM_LEFT,[BR]display.LEFT_BOTTOM     | CCPoint(  0,   0)
-    display.BOTTOM_RIGHT,[BR]display.RIGHT_BOTTOM   | CCPoint(  1,   0)
-    display.BOTTOM_CENTER,[BR]display.CENTER_BOTTOM | CCPoint(0.5,   0)
+    enum                                              | Value
+    ------------------------------------------------- | ----------------------
+    display.CENTER                                    | CCPoint(0.5, 0.5)
+    display.TOP_LEFT,<br />display.LEFT_TOP           | CCPoint(  0,   1)
+    display.TOP_CENTER,<br />display.CENTER_TOP       | CCPoint(0.5,   1)
+    display.TOP_RIGHT,<br />display.RIGHT_TOP         | CCPoint(  1,   1)
+    display.CENTER_LEFT,<br />display.LEFT_CENTER     | CCPoint(  0, 0.5)
+    display.CENTER_RIGHT,<br />display.RIGHT_CENTER   | CCPoint(  1, 0.5)
+    display.BOTTOM_LEFT,<br />display.LEFT_BOTTOM     | CCPoint(  0,   0)
+    display.BOTTOM_RIGHT,<br />display.RIGHT_BOTTOM   | CCPoint(  1,   0)
+    display.BOTTOM_CENTER,<br />display.CENTER_BOTTOM | CCPoint(0.5,   0)
 
--   [_optional float **x**, float **y**_]
+-   [_optional float **x**, float **y**_] position of the node
 
 ]]
 function display.align(node, anchorPoint, x, y)
@@ -414,8 +365,6 @@ CCLayer is a subclass of CCNode. all features from CCNode are valid, plus the fo
 -   It can receive Accelerometer input
 -   It can receive device hardward keypad input
 
-CCLayer object created by display have more methods, see [display.extendLayer()](#anchor_display_extendLayer) .
-
 ### Example:
 
     local function onTouch(event, x, y)
@@ -432,7 +381,7 @@ CCLayer object created by display have more methods, see [display.extendLayer()]
 
 ]]
 function display.newLayer()
-    return display.extendLayer(CCLayer:create())
+    return CCLayer:create()
 end
 
 --[[--
@@ -460,8 +409,6 @@ Features of CCNode:
 -   visible
 -   z-order
 
-CCNode object created by display have more methods, see [display.extendNode()](#anchor_display_extendNode) .
-
 ### Example:
 
     local group = display.newNode()    -- create container
@@ -478,7 +425,11 @@ function display.newNode()
     return CCNode:create()
 end
 
+
 display.spritesPixelFormat_ = {}
+--[[--
+
+]]
 function display.setSpritePixelFormat(filename, format)
     display.spritesPixelFormat_[filename] = format
 end
@@ -501,7 +452,7 @@ CCSprite can be created with an image, or with a sprite frame.
 
 -   string **filename** image filename or sprite frame name. sprite frame name have prefix character '#'.
 
--   [_optional float **x**, float **y**_] sprite initial position
+-   [_optional float **x**, float **y**_] initial position or the sprite
 
 ### Returns:
 
@@ -525,7 +476,6 @@ function display.newSprite(filename, x, y)
         if not sprite then return end
     end
 
-    display.extendSprite(sprite)
     if x and y then sprite:setPosition(x, y) end
 
     return sprite
@@ -563,7 +513,7 @@ Creates a sprite, repeat sprite's texture to fill whole rect.
 ]]
 function display.newBackgroundTilesSprite(filename)
     local rect = CCRectMake(0, 0, display.width, display.height)
-    local sprite = CCSprite:create(filename, rect)
+    local sprite = CCSprite:createWithRect(filename, rect)
     if sprite == nil then
         local msg = format("[display] ERR, newSprite() not found image: %s", filename)
         echo(debug.traceback(msg, 2))
@@ -578,7 +528,6 @@ function display.newBackgroundTilesSprite(filename)
     tp.wrapT = 10497
     sprite:getTexture():setTexParameters(tp)
 
-    display.extendSprite(sprite)
     sprite:align(display.LEFT_BOTTOM, 0, 0)
 
     return sprite
@@ -765,7 +714,10 @@ function display.removeSpriteFramesWithFile(plistFilename, imageName)
     end
 end
 
-function display.removeSpriteFrameByName(imageName)
+--[[--
+
+]]
+function display.removeSpriteFrameByImageName(imageName)
     CCSpriteFrameCache:sharedSpriteFrameCache():removeSpriteFrameByName(imageName)
     CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
@@ -878,33 +830,8 @@ function display.newSpriteWithFrame(frame, x, y)
         echo(debug.traceback())
     end
     local sprite = CCSprite:createWithSpriteFrame(frame)
-    display.extendSprite(sprite)
     if x and y then sprite:setPosition(x, y) end
     return sprite
-end
-
-local floor = math.floor
---[[--
-@ignore
-]]
-local function round(num)
-    return floor(num + 0.5)
-end
-
---[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
-]]
-function display.pixels(x, y)
-    local scale = 1 / display.contentScaleFactor
-    if x then x = round(x / scale) * scale end
-    if y then y = round(y / scale) * scale end
-    return x, y
 end
 
 --[[--
@@ -995,137 +922,8 @@ function display.newAnimate(animation, isRestoreOriginalFrame)
     return CCAnimate:create(animation)
 end
 
-----------------------------------------
-
 --[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
-]]
-function display.extendLayer(node)
-    function node:addTouchEventListener(listener, isMultiTouches, priority, swallowsTouches)
-        if type(isMultiTouches) ~= "boolean" then isMultiTouches = false end
-        if type(priority) ~= "number" then priority = 0 end
-        if type(swallowsTouches) ~= "boolean" then swallowsTouches = false end
-        self:registerScriptTouchHandler(listener, isMultiTouches, priority, swallowsTouches)
-    end
-
-    function node:removeTouchEventListener()
-        self:unregisterScriptTouchHandler()
-    end
-
--- --[[--
-
--- Create new layer, used for setting up Android hardware keys.
-
--- Note: This only works on Android devices (not iOS or simulators).
-
--- @param function callback
--- @return CCLayer
-
--- ]]
--- function device.newKeypadLayer(callback)
---     local keypadLayer = CCLayer:create()
-
---     keypadLayer:registerScriptKeypadHandler(function(keycode)
---         if keycode == kTypeBackClicked then
---             callback({target = keypadLayer, name = "keypad", key = "back"})
---         elseif keycode == kTypeMenuClicked then
---             callback({target = keypadLayer, name = "keypad", key = "menu"})
---         else
---             callback({target = keypadLayer, name = "keypad", key = keycode})
---         end
---     end)
-
---     function keypadLayer:enable()
---         keypadLayer:setKeypadEnabled(true)
---     end
-
---     function keypadLayer:disable()
---         keypadLayer:setKeypadEnabled(false)
---     end
-
---     return keypadLayer
--- end
-
-
-    return node
-end
-
---[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
-]]
-function display.extendSprite(node)
-    function node:playAnimationOnce(animation, removeWhenFinished, onComplete, delay)
-        local actions = {}
-        if type(delay) == "number" and delay > 0 then
-            self:setVisible(false)
-            actions[#actions + 1] = CCDelayTime:create(delay)
-            actions[#actions + 1] = CCShow:create()
-        end
-
-        actions[#actions + 1] = display.newAnimate(animation)
-
-        if removeWhenFinished or onComplete then
-            actions[#actions + 1] = CCCallFunc:create(function()
-                if removeWhenFinished then
-                    self:removeFromParentAndCleanup(true)
-                end
-                if type(onComplete) == "function" then
-                    onComplete()
-                end
-            end)
-        end
-
-        local action
-        if #actions > 1 then
-            action = transition.sequence(actions)
-        else
-            action = actions[1]
-        end
-        self:runAction(action)
-        return action
-    end
-
-    function node:playAnimationForever(animation, isRestoreOriginalFrame, delay)
-        local animate = display.newAnimate(animation, isRestoreOriginalFrame)
-        local action
-        if type(delay) == "number" and delay > 0 then
-            self:setVisible(false)
-            local sequence = transition.sequence({
-                CCDelayTime:create(delay),
-                CCShow:create(),
-                animate,
-            })
-            action = CCRepeatForever:create(sequence)
-        else
-            action = CCRepeatForever:create(animate)
-        end
-        self:runAction(action)
-        return action
-    end
-
-    return node
-end
-
---[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
+@ignore
 ]]
 function display.extendShape(shape)
     shape.setColor_ = shape.setColor
@@ -1137,19 +935,6 @@ function display.extendShape(shape)
     end
 
     return shape
-end
-
---[[--
-
-### Example:
-
-### Parameters:
-
-### Returns:
-
-]]
-function ccsize(width, height)
-    return CCSize(width, height)
 end
 
 return display

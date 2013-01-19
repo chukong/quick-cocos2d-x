@@ -26,9 +26,7 @@ THE SOFTWARE.
 
 --[[--
 
-**References:**
-
--   [cocos2d Programming Guide - Actions](http://www.cocos2d-iphone.org/wiki/doku.php/prog_guide:actions)
+Actions, Transformations and Effects
 
 ]]
 
@@ -330,6 +328,56 @@ function transition.sequence(actions)
         prev = CCSequence:createWithTwoActions(prev, actions[i])
     end
     return prev
+end
+
+
+function transition.playAnimationOnce(target, animation, removeWhenFinished, onComplete, delay)
+    local actions = {}
+    if type(delay) == "number" and delay > 0 then
+        target:setVisible(false)
+        actions[#actions + 1] = CCDelayTime:create(delay)
+        actions[#actions + 1] = CCShow:create()
+    end
+
+    actions[#actions + 1] = display.newAnimate(animation)
+
+    if removeWhenFinished or onComplete then
+        actions[#actions + 1] = CCCallFunc:create(function()
+            if removeWhenFinished then
+                target:removeFromParentAndCleanup(true)
+            end
+            if type(onComplete) == "function" then
+                onComplete()
+            end
+        end)
+    end
+
+    local action
+    if #actions > 1 then
+        action = transition.sequence(actions)
+    else
+        action = actions[1]
+    end
+    target:runAction(action)
+    return action
+end
+
+function transition.playAnimationForever(target, animation, isRestoreOriginalFrame, delay)
+    local animate = display.newAnimate(animation, isRestoreOriginalFrame)
+    local action
+    if type(delay) == "number" and delay > 0 then
+        target:setVisible(false)
+        local sequence = transition.sequence({
+            CCDelayTime:create(delay),
+            CCShow:create(),
+            animate,
+        })
+        action = CCRepeatForever:create(sequence)
+    else
+        action = CCRepeatForever:create(animate)
+    end
+    target:runAction(action)
+    return action
 end
 
 --[[--

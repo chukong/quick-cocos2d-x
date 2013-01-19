@@ -17,11 +17,6 @@ function nodeObject:removeSelf(isCleanup)
     self:removeFromParentAndCleanup(isCleanup)
 end
 
-function nodeObject:pixels()
-    local x, y = self:getPosition()
-    self:setPosition(display.pixels(x, y))
-end
-
 function nodeObject:scheduleUpdate(callback, priority)
     self:scheduleUpdateWithPriorityLua(callback, _i(priority))
 end
