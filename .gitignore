@@ -34,4 +34,6 @@ hosts/libs/luajit2/LuaJIT-2.0.0/src/luajit
 
 hosts/proj.android/quick-cocos2d-x/bin/
 hosts/proj.android/quick-cocos2d-x/gen/
+hosts/proj.android/quick-cocos2d-x/lint.xml
+hosts/proj.android/quick-cocos2d-x/obj/
 
