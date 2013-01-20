@@ -30,6 +30,7 @@
 		F456F0F915EE0CDB00FCF3E2 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F456F0F815EE0CDB00FCF3E2 /* CFNetwork.framework */; };
 		F456F0FD15EE0CF600FCF3E2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F456F0FC15EE0CF600FCF3E2 /* SystemConfiguration.framework */; };
 		F456F10515EE0D2D00FCF3E2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F456F10415EE0D2D00FCF3E2 /* MobileCoreServices.framework */; };
+		F479A19616AC1EA000AF26CB /* framework in Resources */ = {isa = PBXBuildFile; fileRef = F479A19516AC1EA000AF26CB /* framework */; };
 		F48ABAD816A057EE00A60C5B /* res in Resources */ = {isa = PBXBuildFile; fileRef = F48ABAD616A057EE00A60C5B /* res */; };
 		F48ABAD916A057EE00A60C5B /* scripts in Resources */ = {isa = PBXBuildFile; fileRef = F48ABAD716A057EE00A60C5B /* scripts */; };
 		F4949C791699553B00DB561E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4949C781699553B00DB561E /* AddressBook.framework */; };
@@ -78,6 +79,7 @@
 		F456F10415EE0D2D00FCF3E2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F456F10615EE0D3500FCF3E2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F45A2EB9166B197700760194 /* quickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = quickcocos2dx.xcodeproj; path = hosts/proj.ios/quickcocos2dx.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
+		F479A19516AC1EA000AF26CB /* framework */ = {isa = PBXFileReference; lastKnownFileType = folder; name = framework; path = ../../../../../framework; sourceTree = "<group>"; };
 		F48ABAD616A057EE00A60C5B /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
 		F48ABAD716A057EE00A60C5B /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scripts; path = ../../../scripts; sourceTree = "<group>"; };
 		F4949C781699553B00DB561E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -203,6 +205,7 @@
 		F48E6F76166B264500295A03 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F479A19516AC1EA000AF26CB /* framework */,
 				F48ABAD616A057EE00A60C5B /* res */,
 				F48ABAD716A057EE00A60C5B /* scripts */,
 				F48ABAD516A057D000A60C5B /* ios */,
@@ -294,6 +297,7 @@
 				F4482F2616A0555000FDDDAD /* Icon@2x.png in Resources */,
 				F48ABAD816A057EE00A60C5B /* res in Resources */,
 				F48ABAD916A057EE00A60C5B /* scripts in Resources */,
+				F479A19616AC1EA000AF26CB /* framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

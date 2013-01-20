@@ -19,6 +19,10 @@ function MenuScene:ctor()
         listener = function()
             self.menu:setEnabled(false)
             print("Start")
+            -- display.replaceScene(require("scenes.ChooseLevelScene").new(),
+            --                      "fade",
+            --                      0.4,
+            --                      display.COLOR_WHITE)
         end,
     })
 
@@ -35,8 +39,6 @@ function MenuScene:ctor()
 
     self.menu = ui.newMenu({self.startButton, self.moreGamesButton})
     self:addChild(self.menu)
-
-    print(package.path)
 end
 
 return MenuScene

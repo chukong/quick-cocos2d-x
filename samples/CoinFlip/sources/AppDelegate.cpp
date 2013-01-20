@@ -34,11 +34,6 @@
 
 #endif
 
-// lua framework
-extern "C" {
-#include "framework_lua.h"
-}
-
 // more lua exts
 extern "C" {
 #include "lualoadexts.h"
@@ -108,12 +103,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     
 #endif
 
-    // lua framework
-    luaopen_framework_lua(L);
-    
-    // more lua exts
+    // load lua extensions
     luax_loadexts(L);
     tolua_CCDrawing_open(L);
+    CCLuaObjcBridge::luabindingOpen(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
@@ -127,6 +120,12 @@ bool AppDelegate::applicationDidFinishLaunching()
     {
         const string dir = path.substr(0, p);
         pStack->addSearchPath(dir.c_str());
+        
+        p = dir.find_last_of("/\\");
+        if (p != dir.npos)
+        {
+            pStack->addSearchPath(dir.substr(0, p).c_str());
+        }
     }
     
     string env = "__LUA_STARTUP_FILE__=\"";
