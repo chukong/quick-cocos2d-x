@@ -13,7 +13,7 @@ quick-cocos2d-x is a \*quick\* framework, based cocos2d-x. Make mobile games in 
 
 quick-cocos2d-x is licensed under the MIT license. That means you can use it freely for any purpose — including commercial ones.
 
-~
+<br />
 
 ## CODE LESS, PLAY MORE !
 
@@ -24,7 +24,20 @@ scene:addChild(sprite)
 display.replaceScene(scene)
 ```
 
-~
+<br />
+
+
+## Get Started
+
+**Open Xcode Perferences, add Source Trees:**
+
+![Add Source Trees](http://dualface.github.com/quick-cocos2d-x/images/AddSourceTrees.png)
+
+Try samples/CoinFlip/proj.ios.
+
+API Documents: [http://dualface.github.com/quick-cocos2d-x/docs/framework/index.html](http://dualface.github.com/quick-cocos2d-x/docs/framework/index.html)
+
+<br />
 
 ## Full-featured development framework
 
@@ -40,9 +53,7 @@ Main modules:
 -   Store: Integration IAP, China Mobile Pay API ...
 -   GameState: save game state to file, hash check ...
 
-API Documents: [http://dualface.github.com/quick-cocos2d-x/docs/framework/index.html](http://dualface.github.com/quick-cocos2d-x/docs/framework/index.html)
-
-~
+<br />
 
 ## Lua running on the server, share code between client and server
 
