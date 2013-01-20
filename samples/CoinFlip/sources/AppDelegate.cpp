@@ -34,6 +34,11 @@
 
 #endif
 
+// if use compiled framework, uncomment below codes
+//extern "C" {
+//#include "framework_lua.h"
+//}
+
 // more lua exts
 extern "C" {
 #include "lualoadexts.h"
@@ -107,6 +112,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     luax_loadexts(L);
     tolua_CCDrawing_open(L);
     CCLuaObjcBridge::luabindingOpen(L);
+    
+    // if use compiled framework, uncomment below codes
+    //luaopen_framework_lua(L);
     
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
