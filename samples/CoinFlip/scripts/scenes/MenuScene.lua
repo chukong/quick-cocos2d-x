@@ -1,30 +1,42 @@
 
-local MenuScene = {}
+local MenuScene = class("MenuScene", function()
+    return display.newScene("MenuScene")
+end)
 
-function MenuScene.new()
-    local scene = display.newScene("MenuScene")
+function MenuScene:ctor()
+    self.bg = display.newBackgroundSprite("#MenuSceneBg.png")
+    self:addChild(self.bg)
 
-    ----
+    self.adBar = require("scenes.ui.AdBar").new()
+    self:addChild(self.adBar)
 
-    function init()
-        local bg = display.newSprite("#MenuSceneBg.png")
-        bg:align(display.TOP_CENTER, display.cx, display.top)
-        scene:addChild(bg)
+    -- create menu
+    self.startButton = game.newBubbleButton({
+        image = "#MenuSceneStartButton.png",
+        x = display.cx - 200,
+        y = display.cy - 140,
+        sound = GAME_SFX.tapButton,
+        listener = function()
+            self.menu:setEnabled(false)
+            print("Start")
+        end,
+    })
 
-        local adBar = require("scenes.ui.AdBar").new()
-        scene:addChild(adBar)
-    end
+    self.moreGamesButton = game.newBubbleButton({
+        image = "#MenuSceneMoreGamesButton.png",
+        x = display.cx + 200,
+        y = display.cy - 140,
+        sound = GAME_SFX.tapButton,
+        listener = function()
+            self.menu:setEnabled(false)
+            print("More Games")
+        end,
+    })
 
-    ----
+    self.menu = ui.newMenu({self.startButton, self.moreGamesButton})
+    self:addChild(self.menu)
 
-    function scene:onEnter()
-    end
-
-    function scene:onExit()
-    end
-
-    init()
-    return scene
+    print(package.path)
 end
 
 return MenuScene
