@@ -192,31 +192,43 @@ Create an class.
 
 
 @param string classname
-@param table super-class
+@param table|function super-class
 @return table
 
 ]]
 function class(classname, super)
     local cls
-    if super then
-        cls = clone(super)
-    else
-        cls = {}
-    end
-    cls.super     = super
-    cls.classname = classname
-    cls.__index   = cls
 
-    function cls.new(...)
-        local instance = setmetatable({}, cls)
-        instance.class = cls
-        if cls.ctor then instance:ctor(...) end
-        return instance
+    if type(super) == "function" then
+        cls = {}
+        cls.classname = classname
+
+        function cls.new(...)
+            local instance = super()
+            tolua.setpeer(instance, cls)
+            if cls.ctor then instance:ctor(...) end
+            return instance
+        end
+    else
+        if super then
+            cls = clone(super)
+        else
+            cls = {}
+        end
+        cls.super     = super
+        cls.classname = classname
+        cls.__index   = cls
+
+        function cls.new(...)
+            local instance = setmetatable({}, cls)
+            instance.class = cls
+            if cls.ctor then instance:ctor(...) end
+            return instance
+        end
     end
 
     return cls
 end
-
 --[[--
 
 Returns a associative table containing the matching values.

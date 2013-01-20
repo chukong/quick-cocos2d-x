@@ -71,6 +71,7 @@ function ui.newImageMenuItem(params)
     local tag           = params.tag
     local x             = params.x
     local y             = params.y
+    local sound         = params.sound
 
     if type(imageNormal) == "string" then
         imageNormal = display.newSprite(imageNormal)
@@ -84,8 +85,12 @@ function ui.newImageMenuItem(params)
 
     local item = CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
     if item then
-        display.extendSprite(item)
-        if type(listener) == "function" then item:registerScriptTapHandler(listener) end
+        if type(listener) == "function" then
+            item:registerScriptTapHandler(function(tag)
+                if sound then audio.playSound(sound) end
+                listener(tag)
+            end)
+        end
         if x and y then item:setPosition(x, y) end
         if tag then item:setTag(tag) end
     end
@@ -102,11 +107,16 @@ function ui.newTTFLabelMenuItem(params)
     local tag      = params.tag
     local x        = params.x
     local y        = params.y
+    local sound    = params.sound
 
     local item = CCMenuItemLabel:create(label)
     if item then
-        display.extendSprite(item)
-        if type(listener) == "function" then item:registerScriptTapHandler(listener) end
+        if type(listener) == "function" then
+            item:registerScriptTapHandler(function(tag)
+                if sound then audio.playSound(sound) end
+                listener(tag)
+            end)
+        end
         if x and y then item:setPosition(x, y) end
         if tag then item:setTag(tag) end
     end
