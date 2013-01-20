@@ -1,4 +1,3 @@
-
 quick-cocos2d-x is a \*quick\* framework, based cocos2d-x. Make mobile games in Lua. Code Less, Play More!
 
 > [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
@@ -6,10 +5,10 @@ quick-cocos2d-x is a \*quick\* framework, based cocos2d-x. Make mobile games in 
 ## Main Features
 
 -   **Make game in Lua**: Learn easy, Use easy, Build easy.
--   **Enhanced Simulator**: Run the game from any directory, multiple resolution switching, debug console, More detailed error information.
+-   **Enhanced Simulator**: Run the game from any directory, multiple resolution switching, debug console.
 -   **Full-featured development framework**: Write the entire game using Lua.
--   **Native extensions**: Integration of third-party components, including IAP, GameCenter, Gree, Flurry, etc..
--   **Open-Source**: Make your native extensions free. Licen
+-   **Native extensions**: Integration of third-party components, including IAP, GameCenter, Flurry, Umeng, etc..
+-   **Open-Source**: Make your native extensions free.
 
 quick-cocos2d-x is licensed under the MIT license. That means you can use it freely for any purpose — including commercial ones.
 
