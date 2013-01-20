@@ -1,8 +1,8 @@
 
 /* framework_lua.h */
 
-#ifndef __LUA_MODULES_441A430C88B9CC19B0B26180997F272B_H_
-#define __LUA_MODULES_441A430C88B9CC19B0B26180997F272B_H_
+#ifndef __LUA_MODULES_50E61B4AB2896D7C6B053986BD9F4AB7_H_
+#define __LUA_MODULES_50E61B4AB2896D7C6B053986BD9F4AB7_H_
 
 #include "lua.h"
 
@@ -42,4 +42,4 @@ int luaopen_lua_m_framework_shared_json(lua_State* L);
 int luaopen_lua_m_framework_shared_modelbase(lua_State* L);
 */
 
-#endif /* __LUA_MODULES_441A430C88B9CC19B0B26180997F272B_H_ */
+#endif /* __LUA_MODULES_50E61B4AB2896D7C6B053986BD9F4AB7_H_ */

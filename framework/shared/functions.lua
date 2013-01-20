@@ -198,14 +198,25 @@ Create an class.
 ]]
 function class(classname, super)
     local cls
+    local superType = type(super)
 
-    if type(super) == "function" then
+    if superType == "function" or (superType == "table" and super.type == 1) then
         cls = {}
         cls.classname = classname
+        cls.type      = 1 -- native
+
+        if superType == "table" and super.type == 1 then
+            cls.create = super.create
+            cls.super = super
+        else
+            cls.create = super
+        end
 
         function cls.new(...)
-            local instance = super()
+            local instance = cls.create()
+            tolua.setpeer(instance, cls.super)
             tolua.setpeer(instance, cls)
+            instance.class = cls
             if cls.ctor then instance:ctor(...) end
             return instance
         end
@@ -217,6 +228,7 @@ function class(classname, super)
         end
         cls.super     = super
         cls.classname = classname
+        cls.type      = 2 -- lua
         cls.__index   = cls
 
         function cls.new(...)
