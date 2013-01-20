@@ -89,7 +89,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_store_open(L);
     tolua_cocos2dx_extensions_luabinding_ios_open(L);
     CCLuaObjcBridge::luabindingOpen(L);
-    
+
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     tolua_cocos2dx_extension_crypto_android_open(L);
     tolua_cocos2dx_extension_network_android_open(L);
@@ -111,7 +111,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     // load lua extensions
     luax_loadexts(L);
     tolua_CCDrawing_open(L);
-    CCLuaObjcBridge::luabindingOpen(L);
     
     // if use compiled framework, uncomment below codes
     //luaopen_framework_lua(L);

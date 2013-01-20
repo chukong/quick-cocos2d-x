@@ -710,7 +710,7 @@ Sprite Frames stored in this file will be removed. It is convinient to call this
 function display.removeSpriteFramesWithFile(plistFilename, imageName)
     sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
     if imageName then
-        display.removeSpriteFrameByName(imageName)
+        display.removeSpriteFrameByImageName(imageName)
     end
 end
 
