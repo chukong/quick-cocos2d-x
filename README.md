@@ -29,11 +29,29 @@ display.replaceScene(scene)
 
 ## Get Started
 
-**Open Xcode Perferences, add Source Trees:**
+**1. Get sources from Github.com**
+
+    git clone git://github.com/dualface/quick-cocos2d-x.git
+    cd quick-cocos2d-x
+    git submodule init
+    git submodule update
+
+Update sources:
+
+    git pull
+    git submodule update
+
+<br />
+
+**2. Open Xcode Perferences, add Source Trees:**
 
 ![Add Source Trees](http://dualface.github.com/quick-cocos2d-x/images/AddSourceTrees.png)
 
-Try samples/CoinFlip/proj.ios.
+<br />
+
+**3. Open samples/CoinFlip/proj.ios project, try it!**
+
+**4. Read documents**
 
 API Documents: [http://dualface.github.com/quick-cocos2d-x/docs/framework/index.html](http://dualface.github.com/quick-cocos2d-x/docs/framework/index.html)
 
