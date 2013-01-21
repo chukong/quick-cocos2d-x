@@ -28,6 +28,8 @@ LOCAL_SRC_FILES := ../libs/CCDrawing/CCDrawing.cpp \
     ../libs/cocos2d-x/scripting/lua/tolua/tolua_push.c \
     ../libs/cocos2d-x/scripting/lua/tolua/tolua_to.c \
     ../libs/cocos2d-x/scripting/lua/cocos2dx_support/CCLuaEngine.cpp \
+    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/CCLuaStack.cpp \
+    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/CCLuaValue.cpp \
     ../libs/cocos2d-x/scripting/lua/cocos2dx_support/Cocos2dxLuaLoader.cpp \
     ../libs/cocos2d-x/scripting/lua/cocos2dx_support/LuaCocos2d.cpp \
     ../libs/cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c
