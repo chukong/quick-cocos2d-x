@@ -6,9 +6,12 @@ CCNodeExtend.__index = CCNodeExtend
 
 ]]
 function CCNodeExtend.extend(target)
-    local t = {}
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
     setmetatable(t, CCNodeExtend)
-    tolua.setpeer(target, t)
     return target
 end
 

@@ -202,8 +202,14 @@ function class(classname, super)
 
         function cls.new(...)
             local instance = cls.create()
-            tolua.setpeer(instance, cls.super)
-            tolua.setpeer(instance, cls)
+            if cls.super then
+                for k,v in pairs(cls.super) do
+                    instance[k] = v
+                end
+            end
+            for k,v in pairs(cls) do
+                instance[k] = v
+            end
             instance.class = cls
             if cls.ctor then instance:ctor(...) end
             return instance

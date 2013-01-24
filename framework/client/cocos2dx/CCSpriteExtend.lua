@@ -3,9 +3,12 @@ CCSpriteExtend = class("CCSpriteExtend", CCNodeExtend)
 CCSpriteExtend.__index = CCSpriteExtend
 
 function CCSpriteExtend.extend(target)
-    local t = {}
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
     setmetatable(t, CCSpriteExtend)
-    tolua.setpeer(target, t)
     return target
 end
 

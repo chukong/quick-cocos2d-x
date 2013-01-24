@@ -3,9 +3,12 @@ CCSceneExtend = class("CCSceneExtend", CCNodeExtend)
 CCSceneExtend.__index = CCSceneExtend
 
 function CCSceneExtend.extend(target)
-    local t = {}
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
     setmetatable(t, CCSceneExtend)
-    tolua.setpeer(target, t)
 
     local function handler(event)
         if event == "enter" then

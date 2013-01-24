@@ -3,9 +3,12 @@ CCShapeNodeExtend = class("CCShapeNodeExtend", CCNodeExtend)
 CCShapeNodeExtend.__index = CCShapeNodeExtend
 
 function CCShapeNodeExtend.extend(target)
-    local t = {}
+    local t = tolua.getpeer(target)
+    if not t then
+        t = {}
+        tolua.setpeer(target, t)
+    end
     setmetatable(t, CCShapeNodeExtend)
-    tolua.setpeer(target, t)
     return target
 end
 
