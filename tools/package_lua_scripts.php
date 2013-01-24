@@ -12,16 +12,57 @@ class LuaPackager
     private $modules        = array();
     private $excludes       = array();
 
-    function __construct($srcDir, $packageName, $excludes = array())
+    function __construct($config)
     {
-        $this->rootdir       = realpath($srcDir);
+        $this->rootdir       = realpath($config['srcdir']);
         $this->rootdirLength = strlen($this->rootdir) + 1;
-        $this->packageName   = trim($packageName, '.');
-        $this->excludes      = $excludes;
+        $this->packageName   = trim($config['packageName'], '.');
+        $this->excludes      = $config['excludes'];
         if (!empty($this->packageName))
         {
             $this->packageName = $this->packageName . '.';
         }
+    }
+
+    function dumpBundle($outputFileBasename)
+    {
+        $this->files = array();
+        $this->modules = array();
+
+        print("compile script files\n");
+        $this->compile();
+        if (empty($this->files))
+        {
+            printf("error.\nERROR: not found script files in %s\n", $this->rootdir);
+            return;
+        }
+
+        $indexFilename = $outputFileBasename . '.idx';
+        printf("create bundle index file: %s\n", $indexFilename);
+        file_put_contents($indexFilename, $this->renderIndexFile($outputFileBasename));
+
+        $binaryFilename = $outputFileBasename . '.bin';
+        printf("create bundle binary file: %s\n", $binaryFilename);
+        file_put_contents($binaryFilename, $this->renderBinaryFile($outputFileBasename));
+
+        printf("done.\n\n");
+
+        $outputFileBasename = basename($outputFileBasename);
+
+        print <<<EOT
+
+----------------------------------------
+DONE
+----------------------------------------
+
+
+EOT;
+
+    }
+
+    function renderIndexFile()
+    {
+
     }
 
     function dump($outputFileBasename)
@@ -340,6 +381,7 @@ function help()
 usage: php package_scripts.php [options] dirname output_filename
 
 options:
+    --bundle make bundle file
     -p prefix package name
     -x exclude packages, eg: -x framework.server, framework.tests
 
@@ -356,16 +398,19 @@ if ($argc < 3)
 
 array_shift($argv);
 
-$packageName = '';
-$excludes = array();
-$srcdir = '';
-$outputFileBasename = '';
+$config = array(
+    'packageName'        => '',
+    'excludes'           => array(),
+    'srcdir'             => '',
+    'outputFileBasename' => '',
+    'makeBundle'         => false,
+);
 
 do
 {
     if ($argv[0] == '-p')
     {
-        $packageName = $argv[1];
+        $config['packageName'] = $argv[1];
         array_shift($argv);
         array_shift($argv);
     }
@@ -384,20 +429,32 @@ do
                 $excludes[$k] = $v;
             }
         }
+        $config['excludes'] = $excludes;
         array_shift($argv);
         array_shift($argv);
     }
-    else if ($srcdir == '')
+    else if ($argv[0] == '--bundle')
     {
-        $srcdir = $argv[0];
+        $config['makeBundle'] = true;
+    }
+    else if ($config['srcdir'] == '')
+    {
+        $config['srcdir'] = $argv[0];
         array_shift($argv);
     }
     else
     {
-        $outputFileBasename = $argv[0];
+        $config['outputFileBasename'] = $argv[0];
         array_shift($argv);
     }
 } while (count($argv) > 0);
 
-$packager = new LuaPackager($srcdir, $packageName, $excludes);
-$packager->dump($outputFileBasename);
+$packager = new LuaPackager($config);
+if ($config['makeBundle'])
+{
+    $packager->dumpBundle($config['outputFileBasename']);
+}
+else
+{
+    $packager->dump($config['outputFileBasename']);
+}
