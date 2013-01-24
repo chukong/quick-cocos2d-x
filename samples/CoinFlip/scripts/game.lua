@@ -14,7 +14,7 @@ function game.startup()
     else
         CCFileUtils:sharedFileUtils():setResourceDirectory("res/hd/")
     end
-    display.addSpriteFramesWithFile("AllSprites.plist", "AllSprites.png")
+    display.addSpriteFramesWithFile(GAME_TEXTURE_DATA_FILENAME, GAME_TEXTURE_IMAGE_FILENAME)
 
     if device.platform == "ios" then
         require("config_ios")
@@ -28,6 +28,7 @@ function game.startup()
     end
 
     display.replaceScene(require("scenes.MenuScene").new())
+    -- display.replaceScene(require("scenes.ChooseLevelScene").new())
 end
 
 

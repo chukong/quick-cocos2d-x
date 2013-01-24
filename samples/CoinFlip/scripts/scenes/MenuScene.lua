@@ -7,7 +7,7 @@ function MenuScene:ctor()
     self.bg = display.newBackgroundSprite("#MenuSceneBg.png")
     self:addChild(self.bg)
 
-    self.adBar = require("scenes.ui.AdBar").new()
+    self.adBar = require("views.AdBar").new()
     self:addChild(self.adBar)
 
     -- create menu
@@ -18,11 +18,10 @@ function MenuScene:ctor()
         sound = GAME_SFX.tapButton,
         listener = function()
             self.menu:setEnabled(false)
-            print("Start")
-            -- display.replaceScene(require("scenes.ChooseLevelScene").new(),
-            --                      "fade",
-            --                      0.4,
-            --                      display.COLOR_WHITE)
+            display.replaceScene(require("scenes.ChooseLevelScene").new(),
+                                 "fade",
+                                 0.4,
+                                 display.COLOR_WHITE)
         end,
     })
 

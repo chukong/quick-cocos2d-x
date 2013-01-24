@@ -14,3 +14,6 @@ GAME_SFX = {
     tapButton = "TapButtonSound",
     backButton = "BackButtonSound",
 }
+
+GAME_TEXTURE_DATA_FILENAME  = "AllSprites.plist"
+GAME_TEXTURE_IMAGE_FILENAME = "AllSprites.png"
