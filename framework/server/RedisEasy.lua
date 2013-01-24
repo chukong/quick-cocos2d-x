@@ -19,7 +19,7 @@ function RedisEasy:ctor(config)
         self[cmd] = function(self, ...)
             local res, err = self.instance_[cmd](self.instance_, ...)
             if err then
-                throw("redis error " .. _s(err), ERROR_REDIS_FAILED)
+                throw("redis error " .. tostring(err), ERROR_REDIS_FAILED)
             end
             return res
         end
@@ -38,7 +38,7 @@ end
 function RedisEasy:connect()
     local ok, err = self.instance_:connect(self.config_.host, self.config_.port)
     if not ok then
-        throw("redis error " .. _s(err), ERROR_REDIS_FAILED)
+        throw("redis error " .. tostring(err), ERROR_REDIS_FAILED)
     end
 end
 

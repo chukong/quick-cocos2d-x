@@ -110,12 +110,12 @@ end
 device.language = language_
 device.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
 
-echoWarning("# device.platform              = " .. device.platform)
-echoWarning("# device.environment           = " .. device.environment)
-echoWarning("# device.model                 = " .. device.model)
-echoWarning("# device.language              = " .. device.language)
-echoWarning("# device.writeablePath         = " .. device.writeablePath)
-echoWarning("#")
+echoInfo("# device.platform              = " .. device.platform)
+echoInfo("# device.environment           = " .. device.environment)
+echoInfo("# device.model                 = " .. device.model)
+echoInfo("# device.language              = " .. device.language)
+echoInfo("# device.writeablePath         = " .. device.writeablePath)
+echoInfo("#")
 
 --[[--
 
@@ -163,7 +163,7 @@ Supported platform: ios, android, mac.
 
 ]]
 function device.showAlert(title, message, buttonLabels, listener)
-    buttonLabels = _t(buttonLabels)
+    buttonLabels = totable(buttonLabels)
     local defaultLabel = ""
     if #buttonLabels > 0 then
         defaultLabel = buttonLabels[1]

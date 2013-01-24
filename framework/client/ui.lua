@@ -48,7 +48,7 @@ ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 ]]
 function ui.newMenu(items)
     local menu
-    menu = CCMenu:create()
+    menu = CCNodeExtend.extend(CCMenu:create())
 
     for k, item in pairs(items) do
         if not tolua.isnull(item) then
@@ -85,6 +85,7 @@ function ui.newImageMenuItem(params)
 
     local item = CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
     if item then
+        CCNodeExtend.extend(item)
         if type(listener) == "function" then
             item:registerScriptTapHandler(function(tag)
                 if sound then audio.playSound(sound) end
@@ -111,6 +112,7 @@ function ui.newTTFLabelMenuItem(params)
 
     local item = CCMenuItemLabel:create(label)
     if item then
+        CCNodeExtend.extend(item)
         if type(listener) == "function" then
             item:registerScriptTapHandler(function(tag)
                 if sound then audio.playSound(sound) end
@@ -140,6 +142,7 @@ function ui.newBMFontLabel(params)
     local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
     if not label then return end
 
+    CCNodeExtend.extend(label)
     if type(x) == "number" and type(y) == "number" then
         label:setPosition(x, y)
     end
@@ -174,6 +177,7 @@ function ui.newTTFLabel(params)
     end
 
     if label then
+        CCNodeExtend.extend(label)
         label:setColor(color)
 
         function label:realign(x, y)

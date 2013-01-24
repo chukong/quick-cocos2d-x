@@ -80,12 +80,12 @@ function GameState.load()
     local filename = GameState.getGameStatePath()
 
     if not io.exists(filename) then
-        echoWarning("[framework.client.api.GameState] load() file \"%s\" not found", filename)
+        echoError("[framework.client.api.GameState] load() file \"%s\" not found", filename)
         return eventListener({name = "load", errorCode = GameState.ERROR_STATE_FILE_NOT_FOUND})
     end
 
     local contents = io.readfile(filename)
-    echoWarning("[framework.client.api.GameState] load() get values from \"%s\"", filename)
+    echoError("[framework.client.api.GameState] load() get values from \"%s\"", filename)
 
     local values
     local encode = false
@@ -136,7 +136,7 @@ function GameState.save(newValues)
         end
     end
 
-    echoWarning("[framework.client.api.GameState] save() update file \"%s\"", filename)
+    echoError("[framework.client.api.GameState] save() update file \"%s\"", filename)
     return ret
 end
 

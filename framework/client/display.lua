@@ -36,9 +36,11 @@ The display module provides access to cocos2d-x core features.
 
 local display = {}
 
-require("framework.client.cocos2dx.CCNode")
-require("framework.client.cocos2dx.CCScene")
-require("framework.client.cocos2dx.CCLayer")
+require("framework.client.cocos2dx.CCNodeExtend")
+require("framework.client.cocos2dx.CCSpriteExtend")
+require("framework.client.cocos2dx.CCLayerExtend")
+require("framework.client.cocos2dx.CCSceneExtend")
+require("framework.client.cocos2dx.CCShapeNodeExtend")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
@@ -95,24 +97,24 @@ display.bottom             = 0
 display.widthInPixels      = display.sizeInPixels.width
 display.heightInPixels     = display.sizeInPixels.height
 
-echoWarning(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
-echoWarning(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
-echoWarning(format("# display.widthInPixels        = %0.2f", display.widthInPixels))
-echoWarning(format("# display.heightInPixels       = %0.2f", display.heightInPixels))
-echoWarning(format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
-echoWarning(format("# display.width                = %0.2f", display.width))
-echoWarning(format("# display.height               = %0.2f", display.height))
-echoWarning(format("# display.cx                   = %0.2f", display.cx))
-echoWarning(format("# display.cy                   = %0.2f", display.cy))
-echoWarning(format("# display.left                 = %0.2f", display.left))
-echoWarning(format("# display.right                = %0.2f", display.right))
-echoWarning(format("# display.top                  = %0.2f", display.top))
-echoWarning(format("# display.bottom               = %0.2f", display.bottom))
-echoWarning(format("# display.c_left               = %0.2f", display.c_left))
-echoWarning(format("# display.c_right              = %0.2f", display.c_right))
-echoWarning(format("# display.c_top                = %0.2f", display.c_top))
-echoWarning(format("# display.c_bottom             = %0.2f", display.c_bottom))
-echoWarning("#")
+echoInfo(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
+echoInfo(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
+echoInfo(format("# display.widthInPixels        = %0.2f", display.widthInPixels))
+echoInfo(format("# display.heightInPixels       = %0.2f", display.heightInPixels))
+echoInfo(format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
+echoInfo(format("# display.width                = %0.2f", display.width))
+echoInfo(format("# display.height               = %0.2f", display.height))
+echoInfo(format("# display.cx                   = %0.2f", display.cx))
+echoInfo(format("# display.cy                   = %0.2f", display.cy))
+echoInfo(format("# display.left                 = %0.2f", display.left))
+echoInfo(format("# display.right                = %0.2f", display.right))
+echoInfo(format("# display.top                  = %0.2f", display.top))
+echoInfo(format("# display.bottom               = %0.2f", display.bottom))
+echoInfo(format("# display.c_left               = %0.2f", display.c_left))
+echoInfo(format("# display.c_right              = %0.2f", display.c_right))
+echoInfo(format("# display.c_top                = %0.2f", display.c_top))
+echoInfo(format("# display.c_bottom             = %0.2f", display.c_bottom))
+echoInfo("#")
 
 display.COLOR_WHITE = ccc3(255, 255, 255)
 display.COLOR_BLACK = ccc3(0, 0, 0)
@@ -127,63 +129,55 @@ display.BOTTOM_LEFT   = 7; display.LEFT_BOTTOM   = 7
 display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
 
-----------------------------------------
+display.ANCHOR_POINTS = {
+    ccp(0.5, 0.5),  -- CENTER
+    ccp(0, 1),      -- TOP_LEFT
+    ccp(0.5, 1),    -- TOP_CENTER
+    ccp(1, 1),      -- TOP_RIGHT
+    ccp(0, 0.5),    -- CENTER_LEFT
+    ccp(1, 0.5),    -- CENTER_RIGHT
+    ccp(0, 0),      -- BOTTOM_LEFT
+    ccp(1, 0),      -- BOTTOM_RIGHT
+    ccp(0.5, 0),    -- BOTTOM_CENTER
+}
 
-local SCENE_TRANSITIONS = {}
+display.SCENE_TRANSITIONS = {
+    CROSSFADE       = {CCTransitionCrossFade, 2},
+    FADE            = {CCTransitionFade, 3, ccc3(0, 0, 0)},
+    FADEBL          = {CCTransitionFadeBL, 2},
+    FADEDOWN        = {CCTransitionFadeDown, 2},
+    FADETR          = {CCTransitionFadeTR, 2},
+    FADEUP          = {CCTransitionFadeUp, 2},
+    FLIPANGULAR     = {CCTransitionFlipAngular, 3, kCCTransitionOrientationLeftOver},
+    FLIPX           = {CCTransitionFlipX, 3, kCCTransitionOrientationLeftOver},
+    FLIPY           = {CCTransitionFlipY, 3, kCCTransitionOrientationUpOver},
+    JUMPZOOM        = {CCTransitionJumpZoom, 2},
+    MOVEINB         = {CCTransitionMoveInB, 2},
+    MOVEINL         = {CCTransitionMoveInL, 2},
+    MOVEINR         = {CCTransitionMoveInR, 2},
+    MOVEINT         = {CCTransitionMoveInT, 2},
+    PAGETURN        = {CCTransitionPageTurn, 3, false},
+    ROTOZOOM        = {CCTransitionRotoZoom, 2},
+    SHRINKGROW      = {CCTransitionShrinkGrow, 2},
+    SLIDEINB        = {CCTransitionSlideInB, 2},
+    SLIDEINL        = {CCTransitionSlideInL, 2},
+    SLIDEINR        = {CCTransitionSlideInR, 2},
+    SLIDEINT        = {CCTransitionSlideInT, 2},
+    SPLITCOLS       = {CCTransitionSplitCols, 2},
+    SPLITROWS       = {CCTransitionSplitRows, 2},
+    TURNOFFTILES    = {CCTransitionTurnOffTiles, 2},
+    ZOOMFLIPANGULAR = {CCTransitionZoomFlipAngular, 2},
+    ZOOMFLIPX       = {CCTransitionZoomFlipX, 3, kCCTransitionOrientationLeftOver},
+    ZOOMFLIPY       = {CCTransitionZoomFlipY, 3, kCCTransitionOrientationUpOver},
+}
 
-SCENE_TRANSITIONS["CROSSFADE"]       = {CCTransitionCrossFade, 2}
-SCENE_TRANSITIONS["FADE"]            = {CCTransitionFade, 3, ccc3(0, 0, 0)}
-SCENE_TRANSITIONS["FADEBL"]          = {CCTransitionFadeBL, 2}
-SCENE_TRANSITIONS["FADEDOWN"]        = {CCTransitionFadeDown, 2}
-SCENE_TRANSITIONS["FADETR"]          = {CCTransitionFadeTR, 2}
-SCENE_TRANSITIONS["FADEUP"]          = {CCTransitionFadeUp, 2}
-SCENE_TRANSITIONS["FLIPANGULAR"]     = {CCTransitionFlipAngular, 3, kCCTransitionOrientationLeftOver}
-SCENE_TRANSITIONS["FLIPX"]           = {CCTransitionFlipX, 3, kCCTransitionOrientationLeftOver}
-SCENE_TRANSITIONS["FLIPY"]           = {CCTransitionFlipY, 3, kCCTransitionOrientationUpOver}
-SCENE_TRANSITIONS["JUMPZOOM"]        = {CCTransitionJumpZoom, 2}
-SCENE_TRANSITIONS["MOVEINB"]         = {CCTransitionMoveInB, 2}
-SCENE_TRANSITIONS["MOVEINL"]         = {CCTransitionMoveInL, 2}
-SCENE_TRANSITIONS["MOVEINR"]         = {CCTransitionMoveInR, 2}
-SCENE_TRANSITIONS["MOVEINT"]         = {CCTransitionMoveInT, 2}
-SCENE_TRANSITIONS["PAGETURN"]        = {CCTransitionPageTurn, 3, false}
-SCENE_TRANSITIONS["ROTOZOOM"]        = {CCTransitionRotoZoom, 2}
-SCENE_TRANSITIONS["SHRINKGROW"]      = {CCTransitionShrinkGrow, 2}
-SCENE_TRANSITIONS["SLIDEINB"]        = {CCTransitionSlideInB, 2}
-SCENE_TRANSITIONS["SLIDEINL"]        = {CCTransitionSlideInL, 2}
-SCENE_TRANSITIONS["SLIDEINR"]        = {CCTransitionSlideInR, 2}
-SCENE_TRANSITIONS["SLIDEINT"]        = {CCTransitionSlideInT, 2}
-SCENE_TRANSITIONS["SPLITCOLS"]       = {CCTransitionSplitCols, 2}
-SCENE_TRANSITIONS["SPLITROWS"]       = {CCTransitionSplitRows, 2}
-SCENE_TRANSITIONS["TURNOFFTILES"]    = {CCTransitionTurnOffTiles, 2}
-SCENE_TRANSITIONS["ZOOMFLIPANGULAR"] = {CCTransitionZoomFlipAngular, 2}
-SCENE_TRANSITIONS["ZOOMFLIPX"]       = {CCTransitionZoomFlipX, 3, kCCTransitionOrientationLeftOver}
-SCENE_TRANSITIONS["ZOOMFLIPY"]       = {CCTransitionZoomFlipY, 3, kCCTransitionOrientationUpOver}
+display.TEXTURES_PIXEL_FORMAT = {}
 
 --[[--
-@ignore
+
 ]]
-local function newSceneWithTransition(scene, transitionName, time, more)
-    local key = string.upper(tostring(transitionName))
-    if string.sub(key, 1, 12) == "CCTRANSITION" then
-        key = string.sub(key, 13)
-    end
-
-    if key == "RANDOM" then
-        local keys = table.keys(SCENE_TRANSITIONS)
-        key = keys[math.random(1, #keys)]
-    end
-
-    if SCENE_TRANSITIONS[key] then
-        local cls, count, default = unpack(SCENE_TRANSITIONS[key])
-        time = time or 0.2
-
-        if count == 3 then
-            scene = cls:create(time, scene, more or default)
-        else
-            scene = cls:create(time, scene)
-        end
-    end
-    return scene
+function display.setTexturePixelFormat(filename, format)
+    display.TEXTURES_PIXEL_FORMAT[filename] = format
 end
 
 --[[--
@@ -207,8 +201,37 @@ A scene (implemented with the CCScene object) is more or less an independent pie
 
 ]]
 function display.newScene(name)
-    local scene = CCScene:create()
-    scene.name = name or "<none-name>"
+    local scene = CCSceneExtend.extend(CCScene:create())
+    scene.name = name or "<unknown-scene>"
+    return scene
+end
+
+--[[--
+
+]]
+function display.wrapSceneWithTransition(scene, transitionType, time, more)
+    local key = string.upper(tostring(transitionType))
+    if string.sub(key, 1, 12) == "CCTRANSITION" then
+        key = string.sub(key, 13)
+    end
+
+    if key == "RANDOM" then
+        local keys = table.keys(display.SCENE_TRANSITIONS)
+        key = keys[math.random(1, #keys)]
+    end
+
+    if display.SCENE_TRANSITIONS[key] then
+        local cls, count, default = unpack(display.SCENE_TRANSITIONS[key])
+        time = time or 0.2
+
+        if count == 3 then
+            scene = cls:create(time, scene, more or default)
+        else
+            scene = cls:create(time, scene)
+        end
+    else
+        echoError("display.wrapSceneWithTransition() - invalid transitionType %s", tostring(transitionType))
+    end
     return scene
 end
 
@@ -219,8 +242,8 @@ Replaces the running scene with a new one.
 ### Example:
 
     display.replaceScene(scene1)
-    display.replaceScene(scene2, "CCTransitionCrossFade", 0.5)
-    display.replaceScene(scene3, "CCTransitionFade", 0.5, ccc3(255, 255, 255))
+    display.replaceScene(scene2, "CROSSFADE", 0.5)
+    display.replaceScene(scene3, "FADE", 0.5, ccc3(255, 255, 255))
 
 ### Parameters:
 
@@ -230,33 +253,33 @@ Replaces the running scene with a new one.
 
     Transition Type             | Note
     --------------------------- | -------------------
-    CCTransitionCrossFade       | Cross fades two scenes using the CCRenderTexture object
-    CCTransitionFade            | Fade out the outgoing scene and then fade in the incoming scene
-    CCTransitionFadeBL          | Fade the tiles of the outgoing scene from the top-right corner to the bottom-left corner
-    CCTransitionFadeDown        | Fade the tiles of the outgoing scene from the top to the bottom
-    CCTransitionFadeTR          | Fade the tiles of the outgoing scene from the left-bottom corner the to top-right corner
-    CCTransitionFadeUp          | Fade the tiles of the outgoing scene from the bottom to the top
-    CCTransitionFlipAngular     | Flips the screen half horizontally and half vertically
-    CCTransitionFlipX           | Flips the screen horizontally
-    CCTransitionFlipY           | Flips the screen vertically
-    CCTransitionJumpZoom        | Zoom out and jump the outgoing scene, and then jump and zoom in the incoming
-    CCTransitionMoveInB         | Move in from to the bottom the incoming scene
-    CCTransitionMoveInL         | Move in from to the left the incoming scene
-    CCTransitionMoveInR         | Move in from to the right the incoming scene
-    CCTransitionMoveInT         | Move in from to the top the incoming scene
-    CCTransitionPageTurn        | A transition which peels back the bottom right hand corner of a scene to transition to the scene beneath it simulating a page turn
-    CCTransitionRotoZoom        | Rotate and zoom out the outgoing scene, and then rotate and zoom in the incoming
-    CCTransitionShrinkGrow      | Shrink the outgoing scene while grow the incoming scene
-    CCTransitionSlideInB        | Slide in the incoming scene from the bottom border
-    CCTransitionSlideInL        | Slide in the incoming scene from the left border
-    CCTransitionSlideInR        | Slide in the incoming scene from the right border
-    CCTransitionSlideInT        | Slide in the incoming scene from the top border
-    CCTransitionSplitCols       | The odd columns goes upwards while the even columns goes downwards
-    CCTransitionSplitRows       | The odd rows goes to the left while the even rows goes to the right
-    CCTransitionTurnOffTiles    | Turn off the tiles of the outgoing scene in random order
-    CCTransitionZoomFlipAngular | Flips the screen half horizontally and half vertically doing a little zooming out/in
-    CCTransitionZoomFlipX       | Flips the screen horizontally doing a zoom out/in The front face is the outgoing scene and the back face is the incoming scene
-    CCTransitionZoomFlipY       | Flips the screen vertically doing a little zooming out/in The front face is the outgoing scene and the back face is the incoming scene
+    CROSSFADE       | Cross fades two scenes using the CCRenderTexture object
+    FADE            | Fade out the outgoing scene and then fade in the incoming scene
+    FADEBL          | Fade the tiles of the outgoing scene from the top-right corner to the bottom-left corner
+    FADEDOWN        | Fade the tiles of the outgoing scene from the top to the bottom
+    FADETR          | Fade the tiles of the outgoing scene from the left-bottom corner the to top-right corner
+    FADEUP          | Fade the tiles of the outgoing scene from the bottom to the top
+    FLIPANGULAR     | Flips the screen half horizontally and half vertically
+    FLIPX           | Flips the screen horizontally
+    FLIPY           | Flips the screen vertically
+    JUMPZOOM        | Zoom out and jump the outgoing scene, and then jump and zoom in the incoming
+    MOVEINB         | Move in from to the bottom the incoming scene
+    MOVEINL         | Move in from to the left the incoming scene
+    MOVEINR         | Move in from to the right the incoming scene
+    MOVEINT         | Move in from to the top the incoming scene
+    PAGETURN        | A transition which peels back the bottom right hand corner of a scene to transition to the scene beneath it simulating a page turn
+    ROTOZOOM        | Rotate and zoom out the outgoing scene, and then rotate and zoom in the incoming
+    SHRINKGROW      | Shrink the outgoing scene while grow the incoming scene
+    SLIDEINB        | Slide in the incoming scene from the bottom border
+    SLIDEINL        | Slide in the incoming scene from the left border
+    SLIDEINR        | Slide in the incoming scene from the right border
+    SLIDEINT        | Slide in the incoming scene from the top border
+    SPLITCOLS       | The odd columns goes upwards while the even columns goes downwards
+    SPLITROWS       | The odd rows goes to the left while the even rows goes to the right
+    TURNOFFTILES    | Turn off the tiles of the outgoing scene in random order
+    ZOOMFLIPANGULAR | Flips the screen half horizontally and half vertically doing a little zooming out/in
+    ZOOMFLIPX       | Flips the screen horizontally doing a zoom out/in The front face is the outgoing scene and the back face is the incoming scene
+    ZOOMFLIPY       | Flips the screen vertically doing a little zooming out/in The front face is the outgoing scene and the back face is the incoming scene
 
 -   [_optional float **time**_] duration of the transition
 
@@ -264,10 +287,10 @@ Replaces the running scene with a new one.
 
 ]]
 function display.replaceScene(newScene, transitionType, time, more)
-    local current = sharedDirector:getRunningScene()
-    if current then
-        if current.beforeExit then current:beforeExit() end
-        newScene = newSceneWithTransition(newScene, transitionType, time, more)
+    if sharedDirector:getRunningScene() then
+        if transitionType then
+            newScene = display.wrapSceneWithTransition(newScene, transitionType, time, more)
+        end
         sharedDirector:replaceScene(newScene)
     else
         sharedDirector:runWithScene(newScene)
@@ -305,56 +328,6 @@ function display.resume()
     sharedDirector:resume()
 end
 
-----------------------------------------
-
-local ANCHOR_POINTS = {
-    ccp(0.5, 0.5),  -- CENTER
-    ccp(0, 1),      -- TOP_LEFT
-    ccp(0.5, 1),    -- TOP_CENTER
-    ccp(1, 1),      -- TOP_RIGHT
-    ccp(0, 0.5),    -- CENTER_LEFT
-    ccp(1, 0.5),    -- CENTER_RIGHT
-    ccp(0, 0),      -- BOTTOM_LEFT
-    ccp(1, 0),      -- BOTTOM_RIGHT
-    ccp(0.5, 0),    -- BOTTOM_CENTER
-}
-
---[[--
-
-Set node object anchorPoint and position.
-
-### Example:
-
-    display.align(sprite, display.LEFT_TOP, 100, 100)
-    -- or
-    sprite:align(display.LEFT_TOP, 100, 100)
-
-### Parameters:
-
--   CCNode **node**
-
--   enum **anchorPoint** is one of the following:
-
-    enum                                              | Value
-    ------------------------------------------------- | ----------------------
-    display.CENTER                                    | CCPoint(0.5, 0.5)
-    display.TOP_LEFT,<br />display.LEFT_TOP           | CCPoint(  0,   1)
-    display.TOP_CENTER,<br />display.CENTER_TOP       | CCPoint(0.5,   1)
-    display.TOP_RIGHT,<br />display.RIGHT_TOP         | CCPoint(  1,   1)
-    display.CENTER_LEFT,<br />display.LEFT_CENTER     | CCPoint(  0, 0.5)
-    display.CENTER_RIGHT,<br />display.RIGHT_CENTER   | CCPoint(  1, 0.5)
-    display.BOTTOM_LEFT,<br />display.LEFT_BOTTOM     | CCPoint(  0,   0)
-    display.BOTTOM_RIGHT,<br />display.RIGHT_BOTTOM   | CCPoint(  1,   0)
-    display.BOTTOM_CENTER,<br />display.CENTER_BOTTOM | CCPoint(0.5,   0)
-
--   [_optional float **x**, float **y**_] position of the node
-
-]]
-function display.align(node, anchorPoint, x, y)
-    node:setAnchorPoint(ANCHOR_POINTS[anchorPoint])
-    if x and y then node:setPosition(x, y) end
-end
-
 --[[--
 
 Creates CCLayer object.
@@ -381,7 +354,7 @@ CCLayer is a subclass of CCNode. all features from CCNode are valid, plus the fo
 
 ]]
 function display.newLayer()
-    return CCLayer:create()
+    return CCLayerExtend.extend(CCLayer:create())
 end
 
 --[[--
@@ -411,7 +384,7 @@ Features of CCNode:
 
 ### Example:
 
-    local group = display.newNode()    -- create container
+    local group = display.newNode()     -- create container
     group:addChild(sprite1)             -- add sprites to container
     group:addChild(sprite2)             -- add sprites to container
     transition.moveBy(group, {time = 2.0, x = 100})
@@ -422,16 +395,7 @@ Features of CCNode:
 
 ]]
 function display.newNode()
-    return CCNode:create()
-end
-
-
-display.spritesPixelFormat_ = {}
---[[--
-
-]]
-function display.setSpritePixelFormat(filename, format)
-    display.spritesPixelFormat_[filename] = format
+    return CCNodeExtend.extend(CCNode:create())
 end
 
 --[[--
@@ -460,23 +424,32 @@ CCSprite can be created with an image, or with a sprite frame.
 
 ]]
 function display.newSprite(filename, x, y)
-    local sprite
-    if string.byte(filename) == 35 then -- #
+    local sprite, autoCleanupFilename
+    if string.byte(filename) == 35 then -- first char is #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
-        if not frame then return end
-        sprite = CCSprite:createWithSpriteFrame(frame)
+        if frame then
+            sprite = CCSprite:createWithSpriteFrame(frame)
+        end
     else
-        if display.spritesPixelFormat_[filename] then
-            CCTexture2D:setDefaultAlphaPixelFormat(display.spritesPixelFormat_[filename])
+        if display.TEXTURES_PIXEL_FORMAT[filename] then
+            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
             sprite = CCSprite:create(filename)
             CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
         else
             sprite = CCSprite:create(filename)
         end
-        if not sprite then return end
+        autoCleanupFilename = filename
     end
 
-    if x and y then sprite:setPosition(x, y) end
+    if sprite then
+        CCSpriteExtend.extend(sprite)
+        if x and y then sprite:setPosition(x, y) end
+        if autoCleanupFilename then
+            sprite.IMAGE_FILENAME = autoCleanupFilename
+        end
+    else
+        echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
+    end
 
     return sprite
 end
@@ -513,12 +486,10 @@ Creates a sprite, repeat sprite's texture to fill whole rect.
 ]]
 function display.newBackgroundTilesSprite(filename)
     local rect = CCRectMake(0, 0, display.width, display.height)
-    local sprite = CCSprite:createWithRect(filename, rect)
-    if sprite == nil then
-        local msg = format("[display] ERR, newSprite() not found image: %s", filename)
-        echo(debug.traceback(msg, 2))
-        echo("")
-        return nil
+    local sprite = CCSprite:create(filename, rect)
+    if not sprite then
+        echoError("display.newBackgroundTilesSprite() - create sprite failure, filename %s", tostring(filename))
+        return
     end
 
     local tp = ccTexParams()
@@ -528,7 +499,7 @@ function display.newBackgroundTilesSprite(filename)
     tp.wrapT = 10497
     sprite:getTexture():setTexParameters(tp)
 
-    sprite:align(display.LEFT_BOTTOM, 0, 0)
+    display.align(sprite, display.LEFT_BOTTOM, 0, 0)
 
     return sprite
 end
@@ -584,7 +555,7 @@ CCCircleShape have the following new methods:
 
 ]]
 function display.newCircle(radius)
-    return display.extendShape(CCCircleShape:create(radius))
+    return CCShapeNodeExtend.extend(CCCircleShape:create(radius))
 end
 
 --[[--
@@ -614,7 +585,7 @@ CCRectShape have the following new methods:
 
 ]]
 function display.newRect(width, height)
-    return display.extendShape(CCRectShape:create(CCSize(width, height)))
+    return CCShapeNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
 end
 
 --[[--
@@ -660,9 +631,28 @@ function display.newPolygon(points, scale)
         arr:addObject(p)
     end
     arr:retain() -- TODO: memory leaks ?!?
-    local shape = CCPolygonShape:create(arr)
-    display.extendShape(shape)
-    return shape
+
+    return CCShapeNodeExtend.extend(CCPolygonShape:create(arr))
+end
+
+--[[--
+
+]]
+function display.align(target, anchorPoint, x, y)
+    target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
+    if x and y then target:setPosition(x, y) end
+end
+
+local round = math.round
+
+--[[--
+
+]]
+function display.pixels(x, y)
+    local scale = 1 / display.contentScaleFactor
+    if x then x = round(x / scale) * scale end
+    if y then y = round(y / scale) * scale end
+    return x, y
 end
 
 --[[--
@@ -687,8 +677,8 @@ Creates sprite sheet tools:
 
 ]]
 function display.addSpriteFramesWithFile(plistFilename, image)
-    if display.spritesPixelFormat_[image] then
-        CCTexture2D:setDefaultAlphaPixelFormat(display.spritesPixelFormat_[image])
+    if display.TEXTURES_PIXEL_FORMAT[image] then
+        CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
         CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
     else
@@ -718,7 +708,7 @@ end
 
 ]]
 function display.removeSpriteFrameByImageName(imageName)
-    CCSpriteFrameCache:sharedSpriteFrameCache():removeSpriteFrameByName(imageName)
+    sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
     CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
 
@@ -768,14 +758,7 @@ Limitations:
 
 ]]
 function display.newBatchNode(image, capacity)
-    capacity = capacity or 29
-    local node
-    if type(image) == "string" then
-        node = CCSpriteBatchNode:create(image, capacity)
-    else
-        node = CCSpriteBatchNode:create(image, capacity)
-    end
-    return node
+    return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 29))
 end
 
 --[[--
@@ -807,11 +790,10 @@ Returns an Sprite Frame that was previously added.
 ]]
 function display.newSpriteFrame(frameName)
     local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
-    if frame then return frame end
-
-    local msg = format("display.newSpriteFrame() - not found sprite frame: %s", frameName)
-    echo(debug.traceback(msg, 2))
-    echo("")
+    if not frame then
+        echoError("display.newSpriteFrame() - invalid frame, name %s", tostring(frameName))
+    end
+    return frame
 end
 
 --[[--
@@ -826,10 +808,8 @@ end
 
 ]]
 function display.newSpriteWithFrame(frame, x, y)
-    if not frame then
-        echo(debug.traceback())
-    end
     local sprite = CCSprite:createWithSpriteFrame(frame)
+    if sprite then CCSpriteExtend.extend(sprite) end
     if x and y then sprite:setPosition(x, y) end
     return sprite
 end
@@ -870,7 +850,11 @@ function display.newFrames(pattern, begin, length, isReversed)
     for index = begin, last, step do
         local frameName = string.format(pattern, index)
         local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
-        if not frame then error(format("Invalid frame %s", _s(frameName))) end
+        if not frame then
+            echoError("display.newFrames() - invalid frame, name %s", tostring(frameName))
+            return
+        end
+
         frames[#frames + 1] = frame
     end
     return frames
@@ -917,24 +901,8 @@ create animate
     local animate = display.newAnimate(animation)
 
 ]]
-function display.newAnimate(animation, isRestoreOriginalFrame)
-    if type(isRestoreOriginalFrame) ~= "boolean" then isRestoreOriginalFrame = false end
+function display.newAnimate(animation)
     return CCAnimate:create(animation)
-end
-
---[[--
-@ignore
-]]
-function display.extendShape(shape)
-    shape.setColor_ = shape.setColor
-
-    function shape:setColor(r, g, b, a)
-        r, g, b = _i(r), _i(g), _i(b)
-        if type(a) ~= "number" then a = 255 end
-        shape:setColor_(ccc4f(r / 255, g / 255, b / 255, a / 255))
-    end
-
-    return shape
 end
 
 return display

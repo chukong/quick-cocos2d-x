@@ -108,7 +108,7 @@ Note: **Other transiton methods can also use the same args parameters.**
 function transition.execute(target, action, args)
     assert(not tolua.isnull(target), "transition.execute() - target is not CCNode")
 
-    args = _t(args)
+    args = totable(args)
     if args.easing then
         if type(args.easing) == "table" then
             action = newEasing(action, unpack(args.easing))
@@ -118,7 +118,7 @@ function transition.execute(target, action, args)
     end
 
     local actions = {}
-    local delay = _n(args.delay)
+    local delay = tonumber(args.delay)
     if delay > 0 then
         actions[#actions + 1] = CCDelayTime:create(delay)
     end
@@ -246,7 +246,7 @@ Fades an sprite. It modifies the opacity from the current value to a custom one.
 ]]
 function transition.fadeTo(target, args)
     assert(not tolua.isnull(target), "transition.fadeTo() - target is not CCNode")
-    local opacity = _i(args.opacity)
+    local opacity = toint(args.opacity)
     if opacity < 0 then
         opacity = 0
     elseif opacity > 255 then
@@ -277,20 +277,20 @@ function transition.scaleTo(target, args)
     assert(not tolua.isnull(target), "transition.scaleTo() - target is not CCNode")
     local action
     if args.scale then
-        action = CCScaleTo:create(_n(args.time), _n(args.scale))
+        action = CCScaleTo:create(tonumber(args.time), tonumber(args.scale))
     elseif args.scaleX or args.scaleY then
         local scaleX, scaleY
         if args.scaleX then
-            scaleX = _n(args.scaleX)
+            scaleX = tonumber(args.scaleX)
         else
             scaleX = target:getScaleX()
         end
         if args.scaleY then
-            scaleY = _n(args.scaleY)
+            scaleY = tonumber(args.scaleY)
         else
             scaleY = target:getScaleY()
         end
-        action = CCScaleTo:create(_n(args.time), scaleX, scaleY)
+        action = CCScaleTo:create(tonumber(args.time), scaleX, scaleY)
     end
     return transition.execute(target, action, args)
 end

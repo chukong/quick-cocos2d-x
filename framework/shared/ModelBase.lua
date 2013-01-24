@@ -317,7 +317,7 @@ function ModelBase:setProperties(properties)
 
         local val = properties[field] or def
         if val ~= nil then
-            if typ == "number" then val = _n(val) end
+            if typ == "number" then val = tonumber(val) end
             assert(type(val) == typ,
                    string.format("%s [%s:setProperties()] Type mismatch, %s expected %s, actual is %s",
                                  tostring(self), self.class.classname, field, typ, type(val)))

@@ -31,8 +31,7 @@ Debug functions.
 ## Functions ##
 
 -   echo
--   echoNotice
--   echoWarning
+-   echoInfo
 -   echoError
 -   printf
 
@@ -74,13 +73,26 @@ function printf(...)
     echo(string.format(...))
 end
 
-echoNotice  = function() end
-echoWarning = function() end
-echoError   = printf
+function echoError(...)
+    echo(string.format("[ERR] %s%s", string.format(...), debug.traceback("", 2)))
+end
 
-if DEBUG > 0 then echoWarning = printf end
-if DEBUG > 1 then echoNotice = printf end
+function echoInfo(...)
+    echo("[INFO] " .. string.format(...))
+end
 
+function echoLog(tag, ...)
+    echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(...)))
+end
+
+function getPackageName(moduleName)
+    local packageName = ""
+    local pos = string.find(string.reverse(moduleName), "%.")
+    if pos then
+        packageName = string.sub(moduleName, 1, string.len(moduleName) - pos + 1)
+    end
+    return packageName
+end
 
 --[[--
 
@@ -105,6 +117,9 @@ function dump(object, label, isReturnContents, nesting)
         end
         return tostring(v)
     end
+
+    local traceback = string.split(debug.traceback("", 2), "\n")
+    echo("dump from: " .. string.trim(traceback[3]))
 
     local function _dump(object, label, indent, nest, keylen)
         label = label or "<var>"

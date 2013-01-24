@@ -57,9 +57,9 @@ __FRAMEWORK_ENVIRONMENT__ = "client"
 require("framework.shared.debug")
 require("framework.shared.functions")
 
-echoWarning("")
-echoWarning("# DEBUG                        = "..DEBUG)
-echoWarning("#")
+echoInfo("")
+echoInfo("# DEBUG                        = "..DEBUG)
+echoInfo("#")
 
 device     = require("framework.client.device")
 transition = require("framework.client.transition")
@@ -82,8 +82,7 @@ local timeCount = 0
 ]]
 local function checkMemory(dt)
     timeCount = timeCount + dt
-    local used = collectgarbage("count")
-    echo(string.format("[LUA] MEMORY USED: %0.2f KB, UPTIME: %04.2fs", used, timeCount))
+    echoInfo(string.format("MEMORY USED: %0.2f KB, UPTIME: %04.2fs", collectgarbage("count"), timeCount))
 end
 
 if DEBUG > 1 then

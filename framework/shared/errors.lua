@@ -54,7 +54,7 @@ end
 
 function throw(msg, code)
     if code then
-        error(format("<<%08u>> - %s", _i(code), _s(msg)), 2)
+        error(format("<<%08u>> - %s", toint(code), tostring(msg)), 2)
     else
         error(msg, 2)
     end

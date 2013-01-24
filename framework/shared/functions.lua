@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 ]]
 
+local tonumber_ = tonumber
 --[[--
 
 Convert to number.
@@ -32,9 +33,8 @@ Convert to number.
 @return number
 
 ]]
-function _n(v)
-    v = tonumber(v)
-    return v or 0
+function tonumber(v, base)
+    return tonumber_(v, base) or 0
 end
 
 --[[--
@@ -45,20 +45,8 @@ Convert to integer.
 @return number(integer)
 
 ]]
-function _i(v)
-    return math.round(_n(v))
-end
-
---[[--
-
-Convert to string.
-
-@param mixed v
-@return string
-
-]]
-function _s(v)
-    return tostring(v)
+function toint(v)
+    return math.round(tonumber(v))
 end
 
 --[[--
@@ -69,7 +57,7 @@ Convert to boolean.
 @return boolean
 
 ]]
-function _b(v)
+function tobool(v)
     return (v ~= nil and v ~= false)
 end
 
@@ -81,7 +69,7 @@ Convert to table.
 @return table
 
 ]]
-function _t(v)
+function totable(v)
     if type(v) ~= "table" then v = {} end
     return v
 end
@@ -579,7 +567,7 @@ Strip whitespace (or other characters) from the beginning of a string.
 
 ]]
 function string.ltrim(str)
-    return string.gsub(str, "^[ \t]+", "")
+    return string.gsub(str, "^[ \t\n\r]+", "")
 end
 
 --[[--
@@ -591,7 +579,7 @@ Strip whitespace (or other characters) from the end of a string.
 
 ]]
 function string.rtrim(str)
-    return string.gsub(str, "[ \t]+$", "")
+    return string.gsub(str, "[ \t\n\r]+$", "")
 end
 
 --[[--
@@ -603,8 +591,8 @@ Strip whitespace (or other characters) from the beginning and end of a string.
 
 ]]
 function string.trim(str)
-    str = string.gsub(str, "^[ \t]+", "")
-    return string.gsub(str, "[ \t]+$", "")
+    str = string.gsub(str, "^[ \t\n\r]+", "")
+    return string.gsub(str, "[ \t\n\r]+$", "")
 end
 
 --[[--
@@ -688,7 +676,7 @@ Return formatted string with a comma (",") between every group of thousands.
 
 ]]
 function string.formatNumberThousands(num)
-    local formatted = tostring(_n(num))
+    local formatted = tostring(tonumber(num))
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
         if k == 0 then break end

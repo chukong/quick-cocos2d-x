@@ -47,11 +47,12 @@ function MysqlEasy:insert(tableName, params)
                        table.concat(fieldNames, ","),
                        table.concat(fieldValues, ","))
 
-    ngx.say("SQL: " .. sql)
+    -- ngx.say("SQL: " .. sql)
     local ok, err, errno, sqlstate = self.db_:query(sql)
     if not ok then
         ngx.say("mysql query error: ", err, ",", errno, ",", sqlstate)
     end
+    return ok, err, errno, sqlstate
 end
 
 function MysqlEasy:update(tableName, params, where)
@@ -78,6 +79,7 @@ function MysqlEasy:update(tableName, params, where)
     if not ok then
         ngx.say("mysql query error: ", err, ",", errno, ",", sqlstate)
     end
+    return ok, err, errno, sqlstate
 end
 
 

@@ -144,7 +144,9 @@ Preload background music
 ]]
 function audio.preloadMusic(filename)
     if not isEnabled then return end
-    echoNotice("audio.preloadMusic() - filename: %s", _s(filename))
+    if DEBUG > 1 then
+        echoInfo("audio.preloadMusic() - filename: %s", tostring(filename))
+    end
     sharedEngine:preloadBackgroundMusic(filename)
 end
 audio.preloadBackgroundMusic = audio.preloadMusic
@@ -168,7 +170,9 @@ function audio.playMusic(filename, isLoop)
     if type(isLoop) ~= "boolean" then isLoop = true end
 
     audio.stopMusic(true)
-    echoNotice("audio.playMusic() - filename: %s, isLoop: %s", _s(filename), _s(isLoop))
+    if DEBUG > 1 then
+        echoInfo("audio.playMusic() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
+    end
     sharedEngine:playBackgroundMusic(filename, isLoop)
 end
 audio.playBackgroundMusic = audio.playMusic
@@ -291,7 +295,9 @@ Play sound effect
 function audio.playSound(filename, isLoop)
     if not isEnabled then return end
     if type(isLoop) ~= "boolean" then isLoop = false end
-    echoNotice("audio.playSound() - filename: %s, isLoop: %s", _s(filename), _s(isLoop))
+    if DEBUG > 1 then
+        echoInfo("audio.playSound() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
+    end
     return sharedEngine:playEffect(filename, isLoop)
 end
 audio.playEffect = audio.playSound
@@ -413,7 +419,9 @@ Preload a sound effect
 ]]
 function audio.preloadSound(filename)
     if not isEnabled then return end
-    echoNotice("audio.preloadSound() - filename: %s", _s(filename))
+    if DEBUG > 1 then
+        echoInfo("audio.preloadSound() - filename: %s", tostring(filename))
+    end
     sharedEngine:preloadEffect(filename)
 end
 audio.preloadEffect = audio.preloadSound
