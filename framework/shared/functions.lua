@@ -322,11 +322,22 @@ Write a string to a file, or return FALSE on failure.
 
 @param string path
 @param string content
+@param string mode
 @return boolean
 
+### Note:
+The mode string can be any of the following:
+    "r": read mode
+    "w": write mode;
+    "a": append mode;
+    "r+": update mode, all previous data is preserved;
+    "w+": update mode, all previous data is erased; (the default);
+    "a+": append update mode, previous data is preserved, writing is only allowed at the end of file.
+
 ]]
-function io.writefile(path, content)
-    local file = io.open(path, "w+")
+function io.writefile(path, content, mode)
+    mode = mode or "w+"
+    local file = io.open(path, mode)
     if file then
         if file:write(content) == nil then return false end
         io.close(file)
