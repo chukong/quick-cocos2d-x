@@ -1,0 +1,30 @@
+
+$#include "native/CCNative.h"
+
+$using namespace cocos2d::extra;
+
+
+typedef enum {
+    CCActivityIndicatorViewStyleWhiteLarge,
+    CCActivityIndicatorViewStyleWhite,
+    CCActivityIndicatorViewStyleGray,
+} CCActivityIndicatorViewStyle;
+
+class CCNative
+{
+public:
+    // static void showActivityIndicator(CCActivityIndicatorViewStyle style = CCActivityIndicatorViewStyleWhiteLarge);
+    // static void hideActivityIndicator(void);
+
+    static void createAlert(const char* title,
+                            const char* message,
+                            const char* cancelButtonTitle);
+    static int addAlertButton(const char* buttonTitle);
+    static void showAlertLua(LUA_FUNCTION listener);
+    static void cancelAlert(void);
+
+    static void openURL(const char* url);
+    static const std::string getOpenUDID(void);
+    static const std::string getInputText(const char* title, const char* message, const char* defaultValue);
+};
+

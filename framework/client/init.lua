@@ -80,7 +80,7 @@ local timeCount = 0
 @ignore
 
 ]]
-local function checkMemory(dt)
+local function showMemoryUsage(dt)
     timeCount = timeCount + dt
     echoInfo(string.format("MEMORY USED: %0.2f KB, UPTIME: %04.2fs", collectgarbage("count"), timeCount))
 end
@@ -88,5 +88,8 @@ end
 if DEBUG > 1 then
     local sharedDirector = CCDirector:sharedDirector()
     sharedDirector:setDisplayStats(true)
-    sharedDirector:getScheduler():scheduleScriptFunc(checkMemory, 10.0, false)
+end
+
+if DEBUG_MEM_USAGE then
+    sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, 10.0, false)
 end

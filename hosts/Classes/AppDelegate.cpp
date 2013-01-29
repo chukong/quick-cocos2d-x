@@ -27,6 +27,7 @@
 #include "LuaCCDrawing.h"
 
 extern "C" {
+#include "lualoadexts.h"
 // load lua framework
 #include "framework_lua.h"
 }
@@ -88,6 +89,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     
     // more lua exts
+    luax_loadexts(L);
     tolua_CCDrawing_open(L);
     
     // load lua framework
