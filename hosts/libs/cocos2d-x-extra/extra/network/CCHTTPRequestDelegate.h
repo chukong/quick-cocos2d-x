@@ -11,9 +11,8 @@ class CCHTTPRequest;
 class CCHTTPRequestDelegate
 {
 public:
-    virtual void requestFinished(CCHTTPRequest* request) = 0;
-    virtual void requestFailed(CCHTTPRequest* request) {
-    }
+    virtual void requestFinished(CCHTTPRequest* request) {}
+    virtual void requestFailed(CCHTTPRequest* request) {}
 };
 
 NS_CC_EXTRA_END
