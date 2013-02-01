@@ -1,0 +1,14 @@
+
+$#include "crypto/CCCrypto.h"
+
+$using namespace cocos2d::extra;
+
+class CCCrypto
+{
+public:
+    static LUA_STRING encodeBase64Lua(const char* input, int inputLength);
+    static LUA_STRING decodeBase64Lua(const char* input);
+
+    static LUA_STRING MD5Lua(char* input, bool isRawOutput);
+    static LUA_STRING sha1Lua(char* input, char* key, bool isRawOutput);
+};

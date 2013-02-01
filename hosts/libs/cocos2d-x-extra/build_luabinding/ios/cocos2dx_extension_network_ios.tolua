@@ -1,0 +1,58 @@
+
+$#include "network/CCNetwork.h"
+
+$using namespace cocos2d::extra;
+
+typedef enum {
+    CCNetworkStatusNotReachable = 0,
+    CCNetworkStatusReachableViaWiFi,
+    CCNetworkStatusReachableViaWWAN
+} CCNetworkStatus;
+
+typedef enum {
+    CCHTTPRequestMethodGET = 0,
+    CCHTTPRequestMethodPOST,
+} CCHTTPRequestMethod;
+
+typedef enum {
+    CCHTTPRequestErrorNone = 0,
+    CCHTTPRequestErrorConnectionFailure = 1,
+    CCHTTPRequestErrorTimeout,
+    CCHTTPRequestErrorAuthentication,
+    CCHTTPRequestErrorCancelled,
+    CCHTTPRequestErrorUnknown
+} CCHTTPRequestError;
+
+class CCHTTPRequest : public CCObject
+{
+    static CCHTTPRequest* createWithUrlLua(LUA_FUNCTION listener,
+                                           const char* url,
+                                           CCHTTPRequestMethod method = CCHTTPRequestMethodGET);
+    void addRequestHeader(const char* key, const char* value);
+    void addPostValue(const char* key, const char* value);
+    void setPostData(const char* data);
+    void setTimeout(float timeout);
+    bool getIsInProgress(void);
+    void start(bool isCached = false);
+    void cancel(void);
+    void clearDelegatesAndCancel(void);
+    int getResponseStatusCode(void);
+    const char* getResponseString(void);
+    LUA_STRING getResponseDataLua(void);
+    int getResponseDataLength(void);
+    int saveResponseData(const char* filename);
+    int getErrorCode(void);
+    const char* getErrorMessage(void);
+};
+
+class CCNetwork
+{
+    static bool isLocalWiFiAvailable(void);
+    static bool isInternetConnectionAvailable(void);
+    static bool isHostNameReachable(const char* hostName);
+    static CCNetworkStatus getInternetConnectionStatus(void);
+
+    static CCHTTPRequest* createHTTPRequestLua(LUA_FUNCTION listener,
+                                               const char* url,
+                                               CCHTTPRequestMethod method = CCHTTPRequestMethodGET);
+};

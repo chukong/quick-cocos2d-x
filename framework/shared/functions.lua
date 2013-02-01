@@ -235,6 +235,7 @@ function class(classname, super)
 
     return cls
 end
+
 --[[--
 
 Returns a associative table containing the matching values.

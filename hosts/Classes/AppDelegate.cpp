@@ -4,29 +4,25 @@
 #include "AppDelegate.h"
 #include "HostVersion.h"
 #include "SimpleAudioEngine.h"
-#include "script_support/CCScriptSupport.h"
 #include "CCLuaEngine.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "cocos2dx_extension_crypto.h"
-#include "cocos2dx_extension_network.h"
-#include "cocos2dx_extension_native.h"
-#include "cocos2dx_extension_store.h"
+#include "luabinding/ios/cocos2dx_extension_crypto.h"
+#include "luabinding/ios/cocos2dx_extension_network.h"
+#include "luabinding/ios/cocos2dx_extension_native.h"
+#include "luabinding/ios/cocos2dx_extension_store.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#include "cocos2dx_extension_crypto_win32.h"
-#include "cocos2dx_extension_network_win32.h"
-#include "cocos2dx_extension_native_win32.h"
+#include "luabinding/win32/cocos2dx_extension_crypto_win32.h"
+#include "luabinding/win32/cocos2dx_extension_network_win32.h"
+#include "luabinding/win32/cocos2dx_extension_native_win32.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-#include "cocos2dx_extension_crypto_mac.h"
-#include "cocos2dx_extension_network_mac.h"
-#include "cocos2dx_extension_native_mac.h"
-#include "cocos2dx_extensions_luabinding_mac.h"
+#include "luabinding/mac/cocos2dx_extension_crypto_mac.h"
+#include "luabinding/mac/cocos2dx_extension_network_mac.h"
+#include "luabinding/mac/cocos2dx_extension_native_mac.h"
 #endif
 
-// more lua exts
-#include "LuaCCDrawing.h"
-
 extern "C" {
+#include "luaextra.h"
 // load lua framework
 #include "framework_lua.h"
 }
@@ -59,18 +55,18 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setProjection(kCCDirectorProjection2D);
     
     // turn on display FPS
-    pDirector->setDisplayStats(true);
+//    pDirector->setDisplayStats(true);
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-        
+    
     // register lua engine
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
     CCLuaStack *pStack = pEngine->getLuaStack();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
     
     lua_State* L = pStack->getLuaState();
-
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     tolua_cocos2dx_extension_crypto_open(L);
     tolua_cocos2dx_extension_network_open(L);
@@ -84,11 +80,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_crypto_mac_open(L);
     tolua_cocos2dx_extension_network_mac_open(L);
     tolua_cocos2dx_extension_native_mac_open(L);
-    tolua_cocos2dx_extensions_luabinding_mac_open(L);
 #endif
     
     // more lua exts
-    tolua_CCDrawing_open(L);
+    luaopen_extra(L);
     
     // load lua framework
     luaopen_framework_lua(L);
@@ -106,7 +101,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         const string dir = path.substr(0, p);
         pStack->addSearchPath(dir.c_str());
     }
-
+    
     string env = "__LUA_STARTUP_FILE__=\"";
     env.append(path);
     env.append("\"");
@@ -117,7 +112,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
-
+    
     return true;
 }
 

@@ -250,9 +250,15 @@
 		F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */; };
 		F48ABAD116A0576100A60C5B /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48ABAD016A0576100A60C5B /* libcurl.a */; };
 		F48ABAD416A0578500A60C5B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F48ABAD316A0578500A60C5B /* libz.dylib */; };
+		F49455EB16B42583006944B7 /* lanes_loader.c in Sources */ = {isa = PBXBuildFile; fileRef = F49455EA16B42582006944B7 /* lanes_loader.c */; };
 		F496D76F168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F496D76C168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.cpp */; };
+		F4A035F616B62E8B00C7A457 /* lua_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A035F416B62E8B00C7A457 /* lua_zlib.c */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
+		F4E739FE16B3ABF2003E0C14 /* keeper.c in Sources */ = {isa = PBXBuildFile; fileRef = F4E739F716B3ABF2003E0C14 /* keeper.c */; };
+		F4E739FF16B3ABF2003E0C14 /* lanes.c in Sources */ = {isa = PBXBuildFile; fileRef = F4E739F916B3ABF2003E0C14 /* lanes.c */; };
+		F4E73A0016B3ABF2003E0C14 /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = F4E739FA16B3ABF2003E0C14 /* threading.c */; };
+		F4E73A0116B3ABF2003E0C14 /* tools.c in Sources */ = {isa = PBXBuildFile; fileRef = F4E739FC16B3ABF2003E0C14 /* tools.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -790,12 +796,24 @@
 		F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageCommonWebp.cpp; sourceTree = "<group>"; };
 		F48ABAD016A0576100A60C5B /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../libs/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		F48ABAD316A0578500A60C5B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.0.sdk/usr/lib/libz.dylib; sourceTree = "<absolute>"; };
+		F49455EA16B42582006944B7 /* lanes_loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lanes_loader.c; sourceTree = "<group>"; };
 		F496D76C168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding_ios.cpp; sourceTree = "<group>"; };
 		F496D76D168AA12900D71A07 /* cocos2dx_extensions_luabinding_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding_ios.h; sourceTree = "<group>"; };
+		F4A035F416B62E8B00C7A457 /* lua_zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_zlib.c; sourceTree = "<group>"; };
+		F4A035F516B62E8B00C7A457 /* lua_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_zlib.h; sourceTree = "<group>"; };
 		F4D11004169FBED400305E28 /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
 		F4D11009169FBF7C00305E28 /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
+		F4E739F616B3ABF2003E0C14 /* deep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deep.h; sourceTree = "<group>"; };
+		F4E739F716B3ABF2003E0C14 /* keeper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = keeper.c; sourceTree = "<group>"; };
+		F4E739F816B3ABF2003E0C14 /* keeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keeper.h; sourceTree = "<group>"; };
+		F4E739F916B3ABF2003E0C14 /* lanes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lanes.c; sourceTree = "<group>"; };
+		F4E739FA16B3ABF2003E0C14 /* threading.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
+		F4E739FB16B3ABF2003E0C14 /* threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
+		F4E739FC16B3ABF2003E0C14 /* tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tools.c; sourceTree = "<group>"; };
+		F4E739FD16B3ABF2003E0C14 /* tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tools.h; sourceTree = "<group>"; };
+		F4E73A0316B3ADB9003E0C14 /* lanes_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lanes_loader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -844,8 +862,10 @@
 			isa = PBXGroup;
 			children = (
 				F4398F1416815E5400AE90D1 /* cjson */,
+				F4E739F516B3ABF2003E0C14 /* lanes */,
 				F4398F1B16815E5400AE90D1 /* lualoadexts.c */,
 				F4398F1C16815E5400AE90D1 /* lualoadexts.h */,
+				F4A035F316B62E8B00C7A457 /* zlib */,
 			);
 			path = luaexts;
 			sourceTree = "<group>";
@@ -2028,6 +2048,32 @@
 			path = ios;
 			sourceTree = "<group>";
 		};
+		F4A035F316B62E8B00C7A457 /* zlib */ = {
+			isa = PBXGroup;
+			children = (
+				F4A035F416B62E8B00C7A457 /* lua_zlib.c */,
+				F4A035F516B62E8B00C7A457 /* lua_zlib.h */,
+			);
+			path = zlib;
+			sourceTree = "<group>";
+		};
+		F4E739F516B3ABF2003E0C14 /* lanes */ = {
+			isa = PBXGroup;
+			children = (
+				F4E739F616B3ABF2003E0C14 /* deep.h */,
+				F4E739F716B3ABF2003E0C14 /* keeper.c */,
+				F4E739F816B3ABF2003E0C14 /* keeper.h */,
+				F4E739F916B3ABF2003E0C14 /* lanes.c */,
+				F49455EA16B42582006944B7 /* lanes_loader.c */,
+				F4E73A0316B3ADB9003E0C14 /* lanes_loader.h */,
+				F4E739FA16B3ABF2003E0C14 /* threading.c */,
+				F4E739FB16B3ABF2003E0C14 /* threading.h */,
+				F4E739FC16B3ABF2003E0C14 /* tools.c */,
+				F4E739FD16B3ABF2003E0C14 /* tools.h */,
+			);
+			path = lanes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2321,6 +2367,12 @@
 				F408808F169C11D10070F33E /* CCLuaBridge.cpp in Sources */,
 				F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */,
 				F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */,
+				F4E739FE16B3ABF2003E0C14 /* keeper.c in Sources */,
+				F4E739FF16B3ABF2003E0C14 /* lanes.c in Sources */,
+				F4E73A0016B3ABF2003E0C14 /* threading.c in Sources */,
+				F4E73A0116B3ABF2003E0C14 /* tools.c in Sources */,
+				F49455EB16B42583006944B7 /* lanes_loader.c in Sources */,
+				F4A035F616B62E8B00C7A457 /* lua_zlib.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

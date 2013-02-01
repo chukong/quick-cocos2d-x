@@ -14,6 +14,7 @@
 #include "cocos2dx_extension_native.h"
 #include "cocos2dx_extension_store.h"
 #include "cocos2dx_extensions_luabinding_ios.h"
+
 #include "CCLuaObjcBridge.h"
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
