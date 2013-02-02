@@ -2,31 +2,83 @@
 $#include "network/CCNetwork.h"
 
 $using namespace cocos2d::extra;
+$#include <vector>
+$#include <string>
+$using namespace std;
+$using namespace cocos2d;
 
-typedef enum {
-    CCHTTPRequestMethodGET = 0,
-    CCHTTPRequestMethodPOST,
-} CCHTTPRequestMethod;
+#define kCCHTTPRequestMethodGET  0
+#define kCCHTTPRequestMethodPOST 1
+
+#define kCCHTTPRequestAcceptEncodingIdentity 0
+#define kCCHTTPRequestAcceptEncodingGzip     1
+#define kCCHTTPRequestAcceptEncodingDeflate  2
+
+#define kCCHTTPRequestStateIdle       0
+#define kCCHTTPRequestStateInProgress 1
+#define kCCHTTPRequestStateCompleted  2
+#define kCCHTTPRequestStateCancelled  3
+#define kCCHTTPRequestStateCleared    4
+
+typedef vector<string> CCHTTPRequestHeaders;
+typedef CCHTTPRequestHeaders::iterator CCHTTPRequestHeadersIterator;
 
 class CCHTTPRequest : public CCObject
 {
     static CCHTTPRequest* createWithUrlLua(LUA_FUNCTION listener,
                                            const char* url,
-                                           CCHTTPRequestMethod method = CCHTTPRequestMethodGET);
-    void addRequestHeader(const char* key, const char* value);
-    void addPostValue(const char* key, const char* value);
-    void setPostData(const char* data);
+                                           int method = kCCHTTPRequestMethodGET);
+    /** @brief Set request url. */
+    void setRequestUrl(const char* url);
+    
+    /** @brief Add a custom header to the request. */
+    void addRequestHeader(const char* header);
+    
+    /** @brief Add a POST variable to the request, POST only. */
+    void addPOSTValue(const char* key, const char* value);
+    
+    /** @brief Set POST data to the request body, POST only. */
+    void setPOSTData(const char* data);
+    
+    /** @brief Set accept encoding. */
+    void setAcceptEncoding(int acceptEncoding);
+    
+    /** @brief Number of seconds to wait before timing out - default is 10. */
     void setTimeout(float timeout);
-    bool getIsInProgress(void);
-    void start(bool isCached = false);
+    
+    /** @brief Execute an asynchronous request. */
+    void start(void);
+    
+    /** @brief Cancel an asynchronous request. */
     void cancel(void);
+    
+    /** @brief Cancel an asynchronous request, clearing all delegates first. */
     void clearDelegatesAndCancel(void);
+    
+    /** @brief Get the request state. */
+    int getState(void);
+    
+    /** @brief Return HTTP status code. */
     int getResponseStatusCode(void);
-    const char* getResponseString(void);
+    
+    /** @brief Return HTTP response headers. */
+    const CCHTTPRequestHeaders& getResponseHeaders(void);
+    
+    /** @brief Returns the contents of the result. */
+    const string getResponseString(void);
+    
     LUA_STRING getResponseDataLua(void);
+    
+    /** @brief Get response data length (bytes). */
     int getResponseDataLength(void);
+    
+    /** @brief Save response data to file. */
     int saveResponseData(const char* filename);
+    
+    /** @brief Get error code. */
     int getErrorCode(void);
+    
+    /** @brief Get error message. */
     const char* getErrorMessage(void);
 };
 
@@ -34,5 +86,5 @@ class CCNetwork
 {
     static CCHTTPRequest* createHTTPRequestLua(LUA_FUNCTION listener,
                                                const char* url,
-                                               CCHTTPRequestMethod method = CCHTTPRequestMethodGET);
+                                               int method = kCCHTTPRequestMethodGET);
 };

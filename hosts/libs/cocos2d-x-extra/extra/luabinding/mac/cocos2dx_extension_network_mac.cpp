@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extension_network_mac
-** Generated automatically by tolua++-1.0.92 on Tue Jan 29 11:54:27 2013.
+** Generated automatically by tolua++-1.0.92 on Fri Feb  1 17:43:15 2013.
 */
 
 #include "cocos2dx_extension_network_mac.h"
@@ -9,6 +9,10 @@
 
 #include "network/CCNetwork.h"
 using namespace cocos2d::extra;
+#include <vector>
+#include <string>
+using namespace std;
+using namespace cocos2d;
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -21,10 +25,11 @@ using namespace cocos2d::extra;
 static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"CCNetwork");
+ tolua_usertype(tolua_S,"vector<string>");
  
- 
- tolua_usertype(tolua_S,"CCHTTPRequest");
  tolua_usertype(tolua_S,"CCObject");
+ tolua_usertype(tolua_S,"CCHTTPRequest");
+ 
 }
 
 /* method: createWithUrlLua of class  CCHTTPRequest */
@@ -46,7 +51,7 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_createWithUrlLua00
  {
   LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,2,0));
   const char* url = ((const char*)  tolua_tostring(tolua_S,3,0));
-  CCHTTPRequestMethod method = ((CCHTTPRequestMethod) (int)  tolua_tonumber(tolua_S,4,CCHTTPRequestMethodGET));
+  int method = ((int)  tolua_tonumber(tolua_S,4,kCCHTTPRequestMethodGET));
   {
    CCHTTPRequest* tolua_ret = (CCHTTPRequest*)  CCHTTPRequest::createWithUrlLua(listener,url,method);
     int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
@@ -63,6 +68,39 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCHTTPReq
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setRequestUrl of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setRequestUrl00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setRequestUrl00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRequestUrl'", NULL);
+#endif
+  {
+   self->setRequestUrl(url);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setRequestUrl'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: addRequestHeader of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addRequestHeader00
 static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addRequestHeader00(lua_State* tolua_S)
@@ -72,21 +110,19 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addRequestHeader00
  if (
      !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
-  const char* key = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* value = ((const char*)  tolua_tostring(tolua_S,3,0));
+  const char* header = ((const char*)  tolua_tostring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addRequestHeader'", NULL);
 #endif
   {
-   self->addRequestHeader(key,value);
+   self->addRequestHeader(header);
   }
  }
  return 0;
@@ -98,9 +134,9 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addRequestHeader00
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: addPostValue of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPostValue00
-static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPostValue00(lua_State* tolua_S)
+/* method: addPOSTValue of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPOSTValue00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPOSTValue00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -118,24 +154,24 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPostValue00(lua
   const char* key = ((const char*)  tolua_tostring(tolua_S,2,0));
   const char* value = ((const char*)  tolua_tostring(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addPostValue'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addPOSTValue'", NULL);
 #endif
   {
-   self->addPostValue(key,value);
+   self->addPOSTValue(key,value);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addPostValue'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addPOSTValue'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setPostData of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPostData00
-static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPostData00(lua_State* tolua_S)
+/* method: setPOSTData of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPOSTData00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPOSTData00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -151,16 +187,49 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPostData00(lua_
   CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
   const char* data = ((const char*)  tolua_tostring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPostData'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPOSTData'", NULL);
 #endif
   {
-   self->setPostData(data);
+   self->setPOSTData(data);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setPostData'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setPOSTData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAcceptEncoding of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setAcceptEncoding00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setAcceptEncoding00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+  int acceptEncoding = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAcceptEncoding'", NULL);
+#endif
+  {
+   self->setAcceptEncoding(acceptEncoding);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAcceptEncoding'.",&tolua_err);
  return 0;
 #endif
 }
@@ -199,9 +268,9 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setTimeout00(lua_S
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getIsInProgress of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getIsInProgress00
-static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getIsInProgress00(lua_State* tolua_S)
+/* method: start of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_start00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_start00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -215,44 +284,10 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getIsInProgress00(
  {
   CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getIsInProgress'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->getIsInProgress();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getIsInProgress'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: start of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_start00
-static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_start00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
-  bool isCached = ((bool)  tolua_toboolean(tolua_S,2,false));
-#ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'start'", NULL);
 #endif
   {
-   self->start(isCached);
+   self->start();
   }
  }
  return 0;
@@ -326,6 +361,38 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_clearDelegatesAndC
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getState of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getState00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getState00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getState'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getState();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getState'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getResponseStatusCode of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseStatusCode00
 static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseStatusCode00(lua_State* tolua_S)
@@ -358,6 +425,38 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseStatusC
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getResponseHeaders of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseHeaders00
+static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseHeaders00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResponseHeaders'", NULL);
+#endif
+  {
+    const vector<string>& tolua_ret = (  const vector<string>&)  self->getResponseHeaders();
+    tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const vector<string>");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getResponseHeaders'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getResponseString of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseString00
 static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseString00(lua_State* tolua_S)
@@ -377,8 +476,8 @@ static int tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseString0
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResponseString'", NULL);
 #endif
   {
-   const char* tolua_ret = (const char*)  self->getResponseString();
-   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+   const string tolua_ret = (const string)  self->getResponseString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
  return 1;
@@ -571,7 +670,7 @@ static int tolua_cocos2dx_extension_network_mac_CCNetwork_createHTTPRequestLua00
  {
   LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,2,0));
   const char* url = ((const char*)  tolua_tostring(tolua_S,3,0));
-  CCHTTPRequestMethod method = ((CCHTTPRequestMethod) (int)  tolua_tonumber(tolua_S,4,CCHTTPRequestMethodGET));
+  int method = ((int)  tolua_tonumber(tolua_S,4,kCCHTTPRequestMethodGET));
   {
    CCHTTPRequest* tolua_ret = (CCHTTPRequest*)  CCNetwork::createHTTPRequestLua(listener,url,method);
     int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
@@ -595,20 +694,31 @@ TOLUA_API int tolua_cocos2dx_extension_network_mac_open (lua_State* tolua_S)
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
  tolua_beginmodule(tolua_S,NULL);
-  tolua_constant(tolua_S,"CCHTTPRequestMethodGET",CCHTTPRequestMethodGET);
-  tolua_constant(tolua_S,"CCHTTPRequestMethodPOST",CCHTTPRequestMethodPOST);
+  tolua_constant(tolua_S,"kCCHTTPRequestMethodGET",kCCHTTPRequestMethodGET);
+  tolua_constant(tolua_S,"kCCHTTPRequestMethodPOST",kCCHTTPRequestMethodPOST);
+  tolua_constant(tolua_S,"kCCHTTPRequestAcceptEncodingIdentity",kCCHTTPRequestAcceptEncodingIdentity);
+  tolua_constant(tolua_S,"kCCHTTPRequestAcceptEncodingGzip",kCCHTTPRequestAcceptEncodingGzip);
+  tolua_constant(tolua_S,"kCCHTTPRequestAcceptEncodingDeflate",kCCHTTPRequestAcceptEncodingDeflate);
+  tolua_constant(tolua_S,"kCCHTTPRequestStateIdle",kCCHTTPRequestStateIdle);
+  tolua_constant(tolua_S,"kCCHTTPRequestStateInProgress",kCCHTTPRequestStateInProgress);
+  tolua_constant(tolua_S,"kCCHTTPRequestStateCompleted",kCCHTTPRequestStateCompleted);
+  tolua_constant(tolua_S,"kCCHTTPRequestStateCancelled",kCCHTTPRequestStateCancelled);
+  tolua_constant(tolua_S,"kCCHTTPRequestStateCleared",kCCHTTPRequestStateCleared);
   tolua_cclass(tolua_S,"CCHTTPRequest","CCHTTPRequest","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCHTTPRequest");
    tolua_function(tolua_S,"createWithUrlLua",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_createWithUrlLua00);
+   tolua_function(tolua_S,"setRequestUrl",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setRequestUrl00);
    tolua_function(tolua_S,"addRequestHeader",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addRequestHeader00);
-   tolua_function(tolua_S,"addPostValue",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPostValue00);
-   tolua_function(tolua_S,"setPostData",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPostData00);
+   tolua_function(tolua_S,"addPOSTValue",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_addPOSTValue00);
+   tolua_function(tolua_S,"setPOSTData",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setPOSTData00);
+   tolua_function(tolua_S,"setAcceptEncoding",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setAcceptEncoding00);
    tolua_function(tolua_S,"setTimeout",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_setTimeout00);
-   tolua_function(tolua_S,"getIsInProgress",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getIsInProgress00);
    tolua_function(tolua_S,"start",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_start00);
    tolua_function(tolua_S,"cancel",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_cancel00);
    tolua_function(tolua_S,"clearDelegatesAndCancel",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_clearDelegatesAndCancel00);
+   tolua_function(tolua_S,"getState",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getState00);
    tolua_function(tolua_S,"getResponseStatusCode",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseStatusCode00);
+   tolua_function(tolua_S,"getResponseHeaders",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseHeaders00);
    tolua_function(tolua_S,"getResponseString",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseString00);
    tolua_function(tolua_S,"getResponseDataLua",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseDataLua00);
    tolua_function(tolua_S,"getResponseDataLength",tolua_cocos2dx_extension_network_mac_CCHTTPRequest_getResponseDataLength00);

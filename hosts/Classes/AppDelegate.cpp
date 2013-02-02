@@ -16,9 +16,9 @@
 #include "luabinding/win32/cocos2dx_extension_network_win32.h"
 #include "luabinding/win32/cocos2dx_extension_native_win32.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-#include "luabinding/mac/cocos2dx_extension_crypto_mac.h"
-#include "luabinding/mac/cocos2dx_extension_network_mac.h"
-#include "luabinding/mac/cocos2dx_extension_native_mac.h"
+//#include "luabinding/mac/cocos2dx_extension_crypto_mac.h"
+//#include "luabinding/mac/cocos2dx_extension_network_mac.h"
+//#include "luabinding/mac/cocos2dx_extension_native_mac.h"
 #endif
 
 extern "C" {
@@ -62,10 +62,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // register lua engine
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
-    CCLuaStack *pStack = pEngine->getLuaStack();
+//    CCLuaStack *pStack = pEngine->getLuaStack();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
     
-    lua_State* L = pStack->getLuaState();
+//    lua_State* L = pStack->getLuaState();
+    lua_State* L = pEngine->getLuaState();
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     tolua_cocos2dx_extension_crypto_open(L);
@@ -77,9 +78,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     tolua_cocos2dx_extension_network_win32_open(L);
 	tolua_cocos2dx_extension_native_win32_open(L);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    tolua_cocos2dx_extension_crypto_mac_open(L);
-    tolua_cocos2dx_extension_network_mac_open(L);
-    tolua_cocos2dx_extension_native_mac_open(L);
+//    tolua_cocos2dx_extension_crypto_mac_open(L);
+//    tolua_cocos2dx_extension_network_mac_open(L);
+//    tolua_cocos2dx_extension_native_mac_open(L);
 #endif
     
     // more lua exts
@@ -91,15 +92,16 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCFileUtils::sharedFileUtils()->setPopupNotify(false);
     
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath(getStartupScriptFilename().c_str());
+    const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
 #else
-    const string path = CCFileUtils::sharedFileUtils()->fullPathFromRelativePath("scripts/main.lua");
+    const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {
         const string dir = path.substr(0, p);
-        pStack->addSearchPath(dir.c_str());
+//        pStack->addSearchPath(dir.c_str());
+        pEngine->addSearchPath(dir.c_str());
     }
     
     string env = "__LUA_STARTUP_FILE__=\"";

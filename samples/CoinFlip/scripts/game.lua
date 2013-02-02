@@ -9,10 +9,10 @@ game = {}
 function game.startup()
     if display.contentScaleFactor <= 0.50 then
         -- for iPhone 3Gs, use low-res assets
-        CCFileUtils:sharedFileUtils():setResourceDirectory("res/sd/")
+        CCFileUtils:sharedFileUtils():addSearchResolutionsOrder("res/sd/")
         CCDirector:sharedDirector():setContentScaleFactor(display.contentScaleFactor)
     else
-        CCFileUtils:sharedFileUtils():setResourceDirectory("res/hd/")
+        CCFileUtils:sharedFileUtils():addSearchResolutionsOrder("res/hd/")
     end
     display.addSpriteFramesWithFile(GAME_TEXTURE_DATA_FILENAME, GAME_TEXTURE_IMAGE_FILENAME)
 

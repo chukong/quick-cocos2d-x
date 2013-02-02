@@ -27,6 +27,7 @@
 #include "AppDelegate.h"
 #include "CCDirector.h"
 #include "SimpleAudioEngine.h"
+#include "platform/CCFileUtils.h"
 #include "draw_nodes/CCDrawingPrimitives.h"
 
 using namespace std;
@@ -161,14 +162,19 @@ static AppDelegate* s_sharedApplication = NULL;
         CCScriptEngineManager::sharedManager()->removeScriptEngine();
         CCScriptEngineManager::purgeSharedManager();
     }
-
     CocosDenshion::SimpleAudioEngine::end();
     
     CCApplication* app = CCApplication::sharedApplication();
     app->setStartupScriptFilename(startupScriptFilename);
     if (workingDir.length() > 0)
     {
-        app->setResourceRootPath(workingDir);
+        vector<string> orders;
+        orders.push_back(workingDir);
+        CCFileUtils::sharedFileUtils()->setSearchPaths(orders);
+        
+//        orders.clear();
+//        orders.push_back("res/hd");
+//        CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(orders);
     }
     
     app->run();

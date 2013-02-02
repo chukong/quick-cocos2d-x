@@ -1,11 +1,12 @@
 
 #include "network/CCHTTPRequest.h"
-#include "network/CCHTTPRequest.h"
-#include "cocos2d.h"
 #include <stdio.h>
 #include <iostream>
 
 #if CC_LUA_ENGINE_ENABLED > 0
+extern "C" {
+#include "lua.h"
+}
 #include "CCLuaEngine.h"
 #endif
 
@@ -15,76 +16,102 @@ NS_CC_EXTRA_BEGIN
 
 CCHTTPRequest* CCHTTPRequest::createWithUrl(CCHTTPRequestDelegate* delegate,
                                             const char* url,
-                                            int method,
-                                            bool isAutoReleaseOnFinish)
+                                            int method)
 {
-    CCHTTPRequest* request = new CCHTTPRequest(delegate, url, method, isAutoReleaseOnFinish);
-    request->initHttpRequest();
+    CCHTTPRequest* request = new CCHTTPRequest();
+    request->initWithDelegate(delegate, url, method);
     request->autorelease();
-    if (isAutoReleaseOnFinish)
-    {
-        request->retain();
-    }
     return request;
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
-CCHTTPRequest* CCHTTPRequest::createWithUrlLua(cocos2d::LUA_FUNCTION listener,
+CCHTTPRequest* CCHTTPRequest::createWithUrlLua(LUA_FUNCTION listener,
                                                const char* url,
                                                int method)
 {
-    CCHTTPRequest* request = new CCHTTPRequest(NULL, url, method, true);
-    request->m_luaListener = listener;
-    request->initHttpRequest();
+    CCHTTPRequest* request = new CCHTTPRequest();
+    request->initWithListener(listener, url, method);
     request->autorelease();
-    request->retain();
     return request;
 }
 #endif
 
-bool CCHTTPRequest::initHttpRequest(void)
+bool CCHTTPRequest::initWithDelegate(CCHTTPRequestDelegate* delegate, const char* url, int method)
+{
+    m_delegate = delegate;
+    return initWithUrl(url, method);
+}
+
+bool CCHTTPRequest::initWithListener(LUA_FUNCTION listener, const char* url, int method)
+{
+    m_listener = listener;
+    return initWithUrl(url, method);
+}
+
+bool CCHTTPRequest::initWithUrl(const char* url, int method)
 {
     m_curl = curl_easy_init();
-    curl_easy_setopt(m_curl, CURLOPT_URL, m_url.c_str());
+    curl_easy_setopt(m_curl, CURLOPT_URL, url);
     curl_easy_setopt(m_curl, CURLOPT_USERAGENT, "libcurl");
     curl_easy_setopt(m_curl, CURLOPT_TIMEOUT_MS, DEFAULT_TIMEOUT * 1000);
-    if (m_method == kCCHTTPRequestMethodPOST)
+    if (method == kCCHTTPRequestMethodPOST)
     {
         curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
+        curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, "");
     }
     return true;
 }
 
 CCHTTPRequest::~CCHTTPRequest(void)
 {
-    if (m_responseString)
-    {
-        delete m_responseString;
-    }
     cleanup();
     CCLOG("~~ delete CCHTTPRequest\n");
 }
 
-void CCHTTPRequest::addRequestHeader(const char* key, const char* value)
+void CCHTTPRequest::setRequestUrl(const char* url)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
-    CCAssert(key, "Invalid key");
-    m_headers[string(key)] = string(value ? value : "");
+    curl_easy_setopt(m_curl, CURLOPT_URL, url);
 }
 
-void CCHTTPRequest::addPostValue(const char* key, const char* value)
+void CCHTTPRequest::addRequestHeader(const char* header)
+{
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
+    CCAssert(header, "Invalid header");
+    m_headers.push_back(string(header));
+}
+
+void CCHTTPRequest::addPOSTValue(const char* key, const char* value)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
     CCAssert(key, "Invalid key");
     m_postFields[string(key)] = string(value ? value : "");
 }
 
-void CCHTTPRequest::setPostData(const char* data)
+void CCHTTPRequest::setPOSTData(const char* data)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
     CCAssert(data, "Invalid data");
     m_postFields.clear();
-    m_postdata = string(data);
+    curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
+    curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, data);
+}
+
+void CCHTTPRequest::setAcceptEncoding(int acceptEncoding)
+{
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
+    switch (acceptEncoding)
+    {
+        case kCCHTTPRequestAcceptEncodingGzip:
+            curl_easy_setopt(m_curl, CURLOPT_ACCEPT_ENCODING, "gzip");
+            break;
+            
+        case kCCHTTPRequestAcceptEncodingDeflate:
+            curl_easy_setopt(m_curl, CURLOPT_ACCEPT_ENCODING, "deflate");
+            break;
+            
+        default:
+            curl_easy_setopt(m_curl, CURLOPT_ACCEPT_ENCODING, "identity");
+    }
 }
 
 void CCHTTPRequest::setTimeout(float timeout)
@@ -95,12 +122,9 @@ void CCHTTPRequest::setTimeout(float timeout)
 
 void CCHTTPRequest::start(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
-    CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
-    
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");    
     m_state = kCCHTTPRequestStateInProgress;
     
-    curl_easy_setopt(m_curl, CURLOPT_ACCEPT_ENCODING, "gzip");
     curl_easy_setopt(m_curl, CURLOPT_HTTP_CONTENT_DECODING, 1);
     curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeDataCURL);
     curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
@@ -120,11 +144,12 @@ void CCHTTPRequest::start(void)
     pthread_create(&m_thread, NULL, requestCURL, this);
     pthread_detach(m_thread);
 #endif
+    
+    CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
 }
 
 void CCHTTPRequest::cancel(void)
 {
-    CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
     if (m_state == kCCHTTPRequestStateInProgress)
     {
         m_state = kCCHTTPRequestStateCancelled;
@@ -137,39 +162,49 @@ void CCHTTPRequest::clearDelegatesAndCancel(void)
     cancel();
 }
 
-const char* CCHTTPRequest::getResponseHeaders(void)
+const CCHTTPRequestHeaders& CCHTTPRequest::getResponseHeaders(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
-//    return ((CCHTTPRequest*)m_request)->getResponseHeaders().c_str();
+    return m_responseHeaders;
 }
 
-const char* CCHTTPRequest::getResponseString(void)
+const string CCHTTPRequest::getResponseString(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
-//    return ((CCHTTPRequest*)m_request)->getResponseString().c_str();
+    return string(m_responseBuffer ? static_cast<char*>(m_responseBuffer) : "");
 }
 
-const void* CCHTTPRequest::getResponseData(void)
+void* CCHTTPRequest::getResponseData(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
-//    return ((CCHTTPRequest*)m_request)->getResponseData();
+    void* buff = malloc(m_responseDataLength);
+    memcpy(buff, m_responseBuffer, m_responseDataLength);
+    return buff;
 }
 
-cocos2d::LUA_STRING CCHTTPRequest::getResponseDataLua(void)
+#if CC_LUA_ENGINE_ENABLED > 0
+LUA_STRING CCHTTPRequest::getResponseDataLua(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+    stack->pushString(static_cast<char*>(m_responseBuffer), m_responseDataLength);
     return 1;
 }
+#endif
 
-int CCHTTPRequest::saveResponseData(const char* filename)
+size_t CCHTTPRequest::saveResponseData(const char* filename)
 {
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
     
     FILE *fp = fopen(filename, "wb");
-    int writedBytes = 0;
+    size_t writedBytes = m_responseDataLength;
     if (fp)
     {
-        writedBytes = fwrite(getResponseData(), m_rawResponseBufferLength, 1, fp);
+        if (writedBytes > 0)
+        {
+            fwrite(m_responseBuffer, m_responseDataLength, 1, fp);
+        }
         fclose(fp);
     }
     return writedBytes;
@@ -177,62 +212,54 @@ int CCHTTPRequest::saveResponseData(const char* filename)
 
 void CCHTTPRequest::update(float dt)
 {
-    CCHTTPRequest* request = (CCHTTPRequest*)m_request;
-    if (!request || !request->getIsInProgress())
-    {
-        CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
-    }
-    
-    if (request->getIsCompleted())
+    if (m_state == kCCHTTPRequestStateInProgress) return;
+    CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
+
+    if (m_state == kCCHTTPRequestStateCompleted)
     {
         if (m_delegate) m_delegate->requestFinished(this);
         
 #if CC_LUA_ENGINE_ENABLED > 0
-        
-        if (m_luaListener)
+        if (m_listener)
         {
-            cocos2d::CCLuaValueDict dict;
-            dict["name"] = cocos2d::CCLuaValue::stringValue("completed");
-            dict["request"] = cocos2d::CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
-            cocos2d::CCLuaStack *stack = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack();
+            CCLuaValueDict dict;
+            dict["name"] = CCLuaValue::stringValue("completed");
+            dict["request"] = CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
+            CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
             stack->clean();
             stack->pushCCLuaValueDict(dict);
-            stack->executeFunctionByHandler(m_luaListener, 1);
+            stack->executeFunctionByHandler(m_listener, 1);
         }
-        
 #endif
-        
     }
-    else if (request->getIsCancelled())
+    else if (m_state == kCCHTTPRequestStateCancelled)
     {
         if (m_delegate) m_delegate->requestFailed(this);
         
 #if CC_LUA_ENGINE_ENABLED > 0
-        
-        if (m_luaListener)
+        if (m_listener)
         {
-            cocos2d::CCLuaValueDict dict;
-            dict["name"] = cocos2d::CCLuaValue::stringValue("failed");
-            dict["request"] = cocos2d::CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
-            cocos2d::CCLuaStack *stack = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack();
+            CCLuaValueDict dict;
+            dict["name"] = CCLuaValue::stringValue("failed");
+            dict["request"] = CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
+            CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
             stack->clean();
             stack->pushCCLuaValueDict(dict);
-            stack->executeFunctionByHandler(m_luaListener, 1);
+            stack->executeFunctionByHandler(m_listener, 1);
         }
-        
 #endif
-        
     }
 }
+
+// instance callback
 
 void CCHTTPRequest::onRequest(void)
 {
     if (m_postFields.size() > 0)
     {
         curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
-        std::stringbuf buf;
-        PostFieldsIterator it = m_postFields.begin();
-        while (it != m_postFields.end())
+        stringbuf buf;
+        for (Fields::iterator it = m_postFields.begin(); it != m_postFields.end(); ++it)
         {
             char* part = curl_easy_escape(m_curl, it->first.c_str(), 0);
             buf.sputn(part, strlen(part));
@@ -243,23 +270,13 @@ void CCHTTPRequest::onRequest(void)
             buf.sputn(part, strlen(part));
             curl_free(part);
             
-            ++it;
-            if (it != m_postFields.end()) buf.sputc('&');
+            buf.sputc('&');
         }
         curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, buf.str().c_str());
     }
-    else if (m_postdata.length() > 0)
-    {
-        curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
-        curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, m_postdata.c_str());
-    }
-    else if (m_isPost)
-    {
-        curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, "");
-    }
-    
+
     struct curl_slist* chunk = NULL;
-    for (HeadersIterator it = m_headers.begin(); it != m_headers.end(); ++it)
+    for (CCHTTPRequestHeadersIterator it = m_headers.begin(); it != m_headers.end(); ++it)
     {
         chunk = curl_slist_append(chunk, (*it).c_str());
     }
@@ -271,94 +288,59 @@ void CCHTTPRequest::onRequest(void)
     m_curl = NULL;
     curl_slist_free_all(chunk);
     
-    m_errorCode = (code == CURLE_OK) ? CCHTTPRequestErrorNone : CCHTTPRequestErrorUnknown;
+    m_errorCode = code;
     m_errorMessage = (code == CURLE_OK) ? "" : curl_easy_strerror(code);
     
-    m_responseData = (unsigned char*)malloc(m_rawResponseBuffLength + 1);
-    m_responseData[m_rawResponseBuffLength] = '\0';
-    m_responseDataLength = 0;
-    for (RecvBufferIterator it = m_rawResponseBuff.begin(); it != m_rawResponseBuff.end(); ++it)
-    {
-        CCHTTPRequest::Chunk* chunk = *it;
-        size_t bytes = chunk->getBytes();
-        memcpy(m_responseData + m_responseDataLength, chunk->getChunk(), bytes);
-        m_responseDataLength += bytes;
-    }
-    cleanupRawResponseBuff();
-    
-    m_responseString = std::string(reinterpret_cast<char*>(m_responseData));
-    m_state = STATE_COMPLETED;
+    m_state = kCCHTTPRequestStateCompleted;
 }
 
 size_t CCHTTPRequest::onWriteData(void* buffer, size_t bytes)
 {
-    CCHTTPRequest::Chunk* chunk = new CCHTTPRequest::Chunk(buffer, bytes);
-    m_rawResponseBuff.push_back(chunk);
-    m_rawResponseBuffLength += bytes;
+    if (m_responseDataLength + bytes + 1 > m_responseBufferLength)
+    {
+        m_responseBufferLength += BUFFER_CHUNK_SIZE;
+        m_responseBuffer = realloc(m_responseBuffer, m_responseBufferLength);
+    }
+    
+    memcpy(static_cast<char*>(m_responseBuffer) + m_responseDataLength, buffer, bytes);
+    m_responseDataLength += bytes;
+    static_cast<char*>(m_responseBuffer)[m_responseDataLength] = 0;
     return bytes;
 }
 
 size_t CCHTTPRequest::onWriteHeader(void* buffer, size_t bytes)
 {
     char* headerBuffer = new char[bytes + 1];
-    memset(headerBuffer, 0, bytes + 1);
-    memcpy(headerBuffer, buffer, bytes);
+    headerBuffer[bytes] = 0;
+    memcpy(headerBuffer, buffer, bytes);    
+    m_responseHeaders.push_back(string(headerBuffer));
     delete []headerBuffer;
-    
-    std::string header(headerBuffer);
-    size_t pos = header.find("Content-Encoding:");
-    if (pos != header.npos)
-    {
-        CCLOG("Content-Encoding: %s", header.substr(pos + 18).c_str());
-        
-        if (header.compare(pos + 18, std::string::npos, "gzip") == 0)
-        {
-            m_responseEncoding = ENCODING_GZIP;
-        }
-        else if (header.compare(pos + 18, std::string::npos, "deflate") == 0)
-        {
-            m_responseEncoding = ENCODING_DEFLATE;
-        }
-    }
-    
-    m_responseHeaders.push_back(header);
     return bytes;
 }
 
 int CCHTTPRequest::onProgress(double dltotal, double dlnow, double ultotal, double ulnow)
 {
-    return m_state == STATE_CANCELLED ? 1: 0;
+    return m_state == kCCHTTPRequestStateCancelled ? 1: 0;
 }
 
 void CCHTTPRequest::cleanup(void)
 {
     m_state = kCCHTTPRequestStateCleared;
-    cleanupRawResponseBuff();
-    m_rawResponseBufferLength = 0;
-    if (m_responseString)
+    if (m_responseBuffer)
     {
-        delete m_responseString;
-        m_responseString = NULL;
+        free(m_responseBuffer);
     }
+    m_responseBuffer = NULL;
+    m_responseBufferLength = 0;
+    m_responseDataLength = 0;
     if (m_curl)
     {
         curl_easy_cleanup(m_curl);
-        m_curl = NULL;
     }
+    m_curl = NULL;
 }
 
-void CCHTTPRequest::cleanupRawResponseBuff(void)
-{
-    for (BufferIterator it = m_rawResponseBuffer.begin(); it != m_rawResponseBuffer.end(); ++it)
-    {
-        delete (*it);
-    }
-    m_rawResponseBuffer.clear();
-    m_rawResponseBufferLength = 0;
-}
-
-// ----------------------------------------
-// CURL callbacks
+// curl callback
 
 #ifdef _WINDOWS_
 DWORD WINAPI CCHTTPRequest::requestCURL(LPVOID userdata)
