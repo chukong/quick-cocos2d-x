@@ -1,9 +1,24 @@
-
-## ENGLISH README ==> README_en.md ##
+quick-cocos2d-x is a \*quick\* framework, based cocos2d-x. Make mobile games in Lua. Code Less, Play More!
 
 quick-cocos2d-x 是一个可以让您觉得“爽快”的 cocos2d-x 的扩展版。基于 cocos2d-x，完全的跨平台能力、优异的性能和可靠性。而 quick-cocos2d-x 在这一切的基础上，添加了完善的 Lua 脚本语言支持，让开发者可以使用 Lua 这种简单易用的脚本语言完成商业品质的移动游戏。
 
-## 为什么要选择 quick-cocos2d-x
+> [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
+
+<br />
+
+## Why quick-cocos2d-x
+
+QUICK = SUCCESS !
+
+-   **No risk**: cocos2d-x's Lua support already exists two years, mature, reliable, the choice of large companies.
+
+-   **Full-featured framework**: Write the entire game using Lua, no C++ requirements.
+
+-   **Native extensions**: Integration of third-party components, including Mobile-Pay, Ad, Analysis. Lua-Objective-C and Lua-Java bridge make life easy.
+
+-   **Enhanced Simulator**: Run the game from any directory, multiple resolution switching, debug console.
+
+-   **100% FREE**: cocos2d-x, Lua, quick-cocos2d-x all is Open-Sources project. licensed under MIT.
 
 在这个“以快致胜”的时代，生产力很大程度上决定了成败！
 
@@ -23,12 +38,131 @@ quick-cocos2d-x 是一个可以让您觉得“爽快”的 cocos2d-x 的扩展�
 
 -   **100% 开源**: cocos2d-x、Lua，以及 quick-cocos2d-x 都是 100% 开源的项目。这意味着更低的成本、自由修改的权利，以及快速发展的技术。
 
-> [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
+<br />
+
+
+## Get Started
+
+1.  Download quick-cocos2d-x-kickstart.zip
+
+    download link: Coming very soon.
+
+2.  Open LuaHostWin32.exe or LuaHostMac.app
+
+    Select menu "File->Open Project", choose directory samples/CoinFlip/. Enjoy it !
 
 <br />
 
 
-## 快速开始
+## Test samples
+
+Try samples/CoinFlip/proj.ios
+
+<br />
+
+
+## Create your project
+
+Create project folder, add files:
+
+-   scripts/config.lua:
+
+~~~ lua
+-- 0 - disable debug info, 1 - less debug info, 2 - verbose debug info
+DEBUG = 2
+
+-- design resolution, landscape
+CONFIG_SCREEN_WIDTH  = 960
+CONFIG_SCREEN_HEIGHT = 640
+
+-- auto scale mode
+CONFIG_SCREEN_AUTOSCALE = "FIXED_HEIGHT"
+~~~
+
+-   scripts/main.lua
+
+~~~ lua
+-- for CCLuaEngine
+function __G__TRACKBACK__(errorMessage)
+    CCLuaLog("----------------------------------------")
+    CCLuaLog("LUA ERROR: "..tostring(errorMessage).."\n")
+    CCLuaLog(debug.traceback("", 2))
+    CCLuaLog("----------------------------------------")
+end
+
+xpcall(function()
+    CCFileUtils:sharedFileUtils():addSearchResolutionsOrder("res")
+    
+    local MenuScene = require("scenes.MenuScene")
+    display.replaceScene(MenuScene.new())
+end, __G__TRACKBACK__)
+~~~
+
+-   scripts/scenes/MenuScene.lua:
+
+~~~ lua
+local MenuScene = class("MenuScene", function()
+    return display.newScene("MenuScene")
+end)
+
+function MenuScene:ctor()
+    local label = ui.newTTFLabel{
+        text = "Hello, World",
+        font = 32
+    }
+    label:setPosition(display.cx, display.cy) -- place label center of screen
+    self:addChild(label)
+end
+~~~
+
+<br />
+
+## Framework main features:
+
+-   display: creates scenes, display objects, animation ...
+-   transition: moving, fades, creates animation programing easy ...
+-   audio: play background music, effect sounds ...
+-   ui: creates button, menu, label ...
+-   luaoc: Lua call Objective-C, Objective-C call Lua ...
+-   luaj: Lua call Java, Java call Lua ...
+-   network: Asynchronous HTTP requests, JSON, check the network status ...
+
+<br />
+
+
+## Documents
+
+Coming soon.
+
+<br />
+
+
+## Version of quick-cocos2d-x
+
+当前版本号为 quick-cocos2d-x-2.1.1，基于 cocos2d-2.1beta3-x-2.1.1 发布。
+
+相比官方 cocos2d-x，此版本有以下改进：
+
+-   用 LuaJIT-2.0 替换 Lua-5.1.5
+-   整合 CCLuaObjcBridge
+-   整合 WebP 图像格式的支持 [X]
+-   整合 CCShapeNode [X]
+-   整合 TTF 字体渲染模糊修正补丁 [X]
+-   为新的 CCFileUtils 完善 Lua 支持 [X]
+
+每当 cocos2d-x 发布一个版本，我们都将发布相同版本号的 quick-cocos2d-x。会以发布版的 cocos2d-x 源码为基础，整合各种针对 Lua 的改进。
+
+每一个版本都会提供下列几种发布文件：
+
+-    精简源代码包，包括 quick-cocos2d-x 和 cocos2d-x 的源代码，但去掉了除 iOS/Android/Windows/Mac 以外平台的支持，以便减少文件包的体积。
+-    kickstart 包，提供预编译好的 Windows/Mac 模拟器，以及框架、示例程序源代码。
+
+如果要取得完整的源代码，请使用 git 工具 clone quick-cocos2d-x 仓库。
+
+<br />
+
+
+## Build from sources
 
 **1. Get sources from Github.com**
 
@@ -59,55 +193,7 @@ API Documents: [http://dualface.github.com/quick-cocos2d-x/docs/framework/index.
 <br />
 
 
-## 框架主要功能模块介绍
+## Changelog
 
 <br />
 
-
-## 文档
-
--   创建项目：工程、目录结构、骨架文件
--   编译项目：将 Lua 文件编译到执行文件中
--   发布项目
-
-<br />
-
-
-## 与 cocos2d-x 的差异
-
-<br />
-
-
-## 版本发布与分支维护
-
-<br />
-
-
-
-## 修订记录
-
-<br />
-
-## Full-featured development framework
-
-Main modules:
-
--   display: creates scenes, display objects, animation ...
--   transition: moving, fades, creates animation programing easy ...
--   audio: play background music, effect sounds ...
--   ui: creates button, menu, label ...
--   luaj: Lua call Java, Java call Lua ...
--   network: Asynchronous HTTP requests, JSON, check the network status ...
--   GameNetwork: Integration GameCenter, Gree Platform, China Mobile Game Community ...
--   Store: Integration IAP, China Mobile Pay API ...
--   GameState: save game state to file, hash check ...
-
-<br />
-
-## Lua running on the server, share code between client and server
-
-With nginx-lua server environment and Redis database framework provides efficient server architecture. Developers can shared code between the client and server.
-
--   [nginx](http://nginx.org) - nginx [engine x] is an HTTP server.
--   [ngx_lua](http://wiki.nginx.org/HttpLuaModule) - Embed the power of Lua into Nginx.
--   [redis](http://redis.io) - Redis is an open source, advanced key-value store.
