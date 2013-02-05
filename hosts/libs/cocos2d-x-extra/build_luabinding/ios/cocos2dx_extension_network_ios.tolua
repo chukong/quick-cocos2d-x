@@ -3,41 +3,36 @@ $#include "network/CCNetwork.h"
 
 $using namespace cocos2d::extra;
 
-typedef enum {
-    CCNetworkStatusNotReachable = 0,
-    CCNetworkStatusReachableViaWiFi,
-    CCNetworkStatusReachableViaWWAN
-} CCNetworkStatus;
+#define kCCHTTPRequestMethodGET  0
+#define kCCHTTPRequestMethodPOST 1
 
-typedef enum {
-    CCHTTPRequestMethodGET = 0,
-    CCHTTPRequestMethodPOST,
-} CCHTTPRequestMethod;
+#define kCCHTTPRequestAcceptEncodingIdentity 0
+#define kCCHTTPRequestAcceptEncodingGzip     1
+#define kCCHTTPRequestAcceptEncodingDeflate  2
 
-typedef enum {
-    CCHTTPRequestErrorNone = 0,
-    CCHTTPRequestErrorConnectionFailure = 1,
-    CCHTTPRequestErrorTimeout,
-    CCHTTPRequestErrorAuthentication,
-    CCHTTPRequestErrorCancelled,
-    CCHTTPRequestErrorUnknown
-} CCHTTPRequestError;
+#define kCCHTTPRequestStateIdle       0
+#define kCCHTTPRequestStateInProgress 1
+#define kCCHTTPRequestStateCompleted  2
+#define kCCHTTPRequestStateCancelled  3
+#define kCCHTTPRequestStateCleared    4
 
 class CCHTTPRequest : public CCObject
 {
     static CCHTTPRequest* createWithUrlLua(LUA_FUNCTION listener,
                                            const char* url,
-                                           CCHTTPRequestMethod method = CCHTTPRequestMethodGET);
-    void addRequestHeader(const char* key, const char* value);
-    void addPostValue(const char* key, const char* value);
-    void setPostData(const char* data);
+                                           int method = kCCHTTPRequestMethodGET);
+    void setRequestUrl(const char* url);
+    void addRequestHeader(const char* header);
+    void addPOSTValue(const char* key, const char* value);
+    void setPOSTData(const char* data);
+    void setAcceptEncoding(int acceptEncoding);
     void setTimeout(float timeout);
-    bool getIsInProgress(void);
-    void start(bool isCached = false);
+    void start(void);
     void cancel(void);
     void clearDelegatesAndCancel(void);
+    int getState(void);
     int getResponseStatusCode(void);
-    const char* getResponseString(void);
+    const string getResponseString(void);
     LUA_STRING getResponseDataLua(void);
     int getResponseDataLength(void);
     int saveResponseData(const char* filename);
@@ -54,5 +49,5 @@ class CCNetwork
 
     static CCHTTPRequest* createHTTPRequestLua(LUA_FUNCTION listener,
                                                const char* url,
-                                               CCHTTPRequestMethod method = CCHTTPRequestMethodGET);
+                                               int method = kCCHTTPRequestMethodGET);
 };

@@ -1,4 +1,6 @@
 
+local BubbleButton = require("views.BubbleButton")
+
 local MenuScene = class("MenuScene", function()
     return display.newScene("MenuScene")
 end)
@@ -11,7 +13,7 @@ function MenuScene:ctor()
     self:addChild(self.adBar)
 
     -- create menu
-    self.startButton = game.newBubbleButton({
+    self.startButton = BubbleButton.new({
         image = "#MenuSceneStartButton.png",
         x = display.cx - 200,
         y = display.cy - 140,
@@ -25,7 +27,7 @@ function MenuScene:ctor()
         end,
     })
 
-    self.moreGamesButton = game.newBubbleButton({
+    self.moreGamesButton = BubbleButton.new({
         image = "#MenuSceneMoreGamesButton.png",
         x = display.cx + 200,
         y = display.cy - 140,
