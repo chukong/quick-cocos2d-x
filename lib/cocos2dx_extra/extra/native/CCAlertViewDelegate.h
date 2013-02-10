@@ -2,7 +2,7 @@
 #ifndef __CC_EXTENSION_CCALERTVIEW_DELEGATE_H_
 #define __CC_EXTENSION_CCALERTVIEW_DELEGATE_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 
 NS_CC_EXTRA_BEGIN
 

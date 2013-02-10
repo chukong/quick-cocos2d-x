@@ -2,7 +2,7 @@
 #ifndef __CC_HTTP_REQUEST_H_
 #define __CC_HTTP_REQUEST_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 #include "cocos2d.h"
 #include "network/CCHTTPRequestDelegate.h"
 

@@ -2,7 +2,7 @@
 #ifndef __CC_EXTENSION_CCCRYPTO_H_
 #define __CC_EXTENSION_CCCRYPTO_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 
 #if CC_LUA_ENGINE_ENABLED > 0
 #include "CCLuaEngine.h"

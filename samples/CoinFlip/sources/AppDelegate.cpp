@@ -8,8 +8,8 @@
 
 // lua extensions
 #include "lua_extensions.h"
-// cocos2d-x-extra luabinding
-#include "luabinding/cocos2d-x-extra-luabinding.h"
+// cocos2dx_extra luabinding
+#include "luabinding/cocos2dx_extra_luabinding.h"
 
 // if use compiled framework, uncomment below codes
 extern "C" {
@@ -51,8 +51,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // load lua extensions
     luaopen_lua_extensions(L);
-    // load cocos2d-x-extra luabinding
-    luaopen_cocos2d_x_extra_luabinding(L);
+    // load cocos2dx_extra luabinding
+    luaopen_cocos2dx_extra_luabinding(L);
     // if use compiled framework, uncomment below codes
     // load compiled framework
     luaopen_framework_precompiled(L);

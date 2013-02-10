@@ -2,7 +2,7 @@
 #ifndef __CC_EXTENSION_CCNATIVE_H_
 #define __CC_EXTENSION_CCNATIVE_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 #include "CCAlertViewDelegate.h"
 
 #if CC_LUA_ENGINE_ENABLED > 0

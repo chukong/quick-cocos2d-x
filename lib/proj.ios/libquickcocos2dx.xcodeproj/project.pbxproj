@@ -27,7 +27,7 @@
 		F40AFE9A16BD160200565A5E /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8416BD160200565A5E /* fpconv.c */; };
 		F40AFE9B16BD160200565A5E /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8616BD160200565A5E /* lua_cjson.c */; };
 		F40AFE9C16BD160200565A5E /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8816BD160200565A5E /* strbuf.c */; };
-		F40F45C616C75FD9000394B5 /* cocos2d-x-extra-luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C416C75FD9000394B5 /* cocos2d-x-extra-luabinding.cpp */; };
+		F40F45C616C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C416C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp */; };
 		F40F45CA16C76145000394B5 /* lua_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C816C76145000394B5 /* lua_zlib.c */; };
 		F436706016BD0D8B004C8BB9 /* CCShapeNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436705E16BD0D8B004C8BB9 /* CCShapeNode.cpp */; };
 		F439920816816D0E00AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920716816D0E00AE90D1 /* libluajit2.a */; };
@@ -260,7 +260,7 @@
 		F40AFDCD16BD152900565A5E /* CCLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaBridge.h; sourceTree = "<group>"; };
 		F40AFDD716BD153500565A5E /* CCLuaObjcBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaObjcBridge.h; sourceTree = "<group>"; };
 		F40AFDD816BD153500565A5E /* CCLuaObjcBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCLuaObjcBridge.mm; sourceTree = "<group>"; };
-		F40AFDF616BD15C600565A5E /* cocos2d-x-extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocos2d-x-extra.h"; sourceTree = "<group>"; };
+		F40AFDF616BD15C600565A5E /* cocos2dx_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra.h; sourceTree = "<group>"; };
 		F40AFDF916BD15C600565A5E /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
 		F40AFDFA16BD15C600565A5E /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
 		F40AFDFB16BD15C600565A5E /* CCCrypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCrypto.cpp; sourceTree = "<group>"; };
@@ -291,8 +291,8 @@
 		F40AFE8716BD160200565A5E /* lua_cjson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cjson.h; sourceTree = "<group>"; };
 		F40AFE8816BD160200565A5E /* strbuf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuf.c; sourceTree = "<group>"; };
 		F40AFE8916BD160200565A5E /* strbuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuf.h; sourceTree = "<group>"; };
-		F40F45C416C75FD9000394B5 /* cocos2d-x-extra-luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cocos2d-x-extra-luabinding.cpp"; sourceTree = "<group>"; };
-		F40F45C516C75FD9000394B5 /* cocos2d-x-extra-luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocos2d-x-extra-luabinding.h"; sourceTree = "<group>"; };
+		F40F45C416C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extra_luabinding.cpp; sourceTree = "<group>"; };
+		F40F45C516C75FD9000394B5 /* cocos2dx_extra_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra_luabinding.h; sourceTree = "<group>"; };
 		F40F45C816C76145000394B5 /* lua_zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_zlib.c; sourceTree = "<group>"; };
 		F40F45C916C76145000394B5 /* lua_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_zlib.h; sourceTree = "<group>"; };
 		F436705E16BD0D8B004C8BB9 /* CCShapeNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCShapeNode.cpp; sourceTree = "<group>"; };
@@ -778,18 +778,18 @@
 			path = ios;
 			sourceTree = "<group>";
 		};
-		F40AFDDA16BD15C600565A5E /* cocos2d-x-extra */ = {
+		F40AFDDA16BD15C600565A5E /* cocos2dx_extra */ = {
 			isa = PBXGroup;
 			children = (
 				F40AFDF516BD15C600565A5E /* extra */,
 			);
-			path = "cocos2d-x-extra";
+			path = cocos2dx_extra;
 			sourceTree = "<group>";
 		};
 		F40AFDF516BD15C600565A5E /* extra */ = {
 			isa = PBXGroup;
 			children = (
-				F40AFDF616BD15C600565A5E /* cocos2d-x-extra.h */,
+				F40AFDF616BD15C600565A5E /* cocos2dx_extra.h */,
 				F40AFDF716BD15C600565A5E /* crypto */,
 				F40AFE0316BD15C600565A5E /* luabinding */,
 				F40AFE2016BD15C600565A5E /* native */,
@@ -841,8 +841,8 @@
 		F40AFE0316BD15C600565A5E /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
-				F40F45C416C75FD9000394B5 /* cocos2d-x-extra-luabinding.cpp */,
-				F40F45C516C75FD9000394B5 /* cocos2d-x-extra-luabinding.h */,
+				F40F45C416C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp */,
+				F40F45C516C75FD9000394B5 /* cocos2dx_extra_luabinding.h */,
 			);
 			path = luabinding;
 			sourceTree = "<group>";
@@ -1168,7 +1168,7 @@
 			isa = PBXGroup;
 			children = (
 				F45A2BC0166B151300760194 /* cocos2d-x */,
-				F40AFDDA16BD15C600565A5E /* cocos2d-x-extra */,
+				F40AFDDA16BD15C600565A5E /* cocos2dx_extra */,
 				F40AFE8216BD160200565A5E /* lua_extensions */,
 				F43991FB16816CB700AE90D1 /* luajit2 */,
 			);
@@ -2176,7 +2176,7 @@
 				F43B7E5816C75A9800202F8D /* rescaler.c in Sources */,
 				F43B7E5916C75A9800202F8D /* thread.c in Sources */,
 				F43B7E5A16C75A9800202F8D /* utils.c in Sources */,
-				F40F45C616C75FD9000394B5 /* cocos2d-x-extra-luabinding.cpp in Sources */,
+				F40F45C616C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp in Sources */,
 				F40F45CA16C76145000394B5 /* lua_zlib.c in Sources */,
 				F45FF34516C7D24200275222 /* lua_extensions.c in Sources */,
 			);
@@ -2268,8 +2268,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extensions-luabinding/ios\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extra/extra\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extra/extra/luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
@@ -2321,8 +2321,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extensions-luabinding/ios\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extra/extra\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extra/extra/luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
