@@ -6,17 +6,14 @@
 #include "CCLuaEngine.h"
 #include <string>
 
+// lua extensions
+#include "lua_extensions.h"
 // cocos2d-x-extra luabinding
 #include "luabinding/cocos2d-x-extra-luabinding.h"
 
-// lua extensions
-extern "C" {
-#include "luaextra.h"
-}
-
 // if use compiled framework, uncomment below codes
 extern "C" {
-#include "framework_lua.h"
+#include "framework_precompiled.h"
 }
 
 using namespace std;
@@ -53,13 +50,13 @@ bool AppDelegate::applicationDidFinishLaunching()
     lua_State* L = pStack->getLuaState();
     
     // load lua extensions
-    luaopen_extra(L);
+    luaopen_lua_extensions(L);
     // load cocos2d-x-extra luabinding
     luaopen_cocos2d_x_extra_luabinding(L);
     // if use compiled framework, uncomment below codes
     // load compiled framework
-    luaopen_framework_lua(L);
-        
+    luaopen_framework_precompiled(L);
+    
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
