@@ -1,7 +1,54 @@
 
+$#include "crypto/CCCrypto.h"
+$#include "native/CCNative.h"
 $#include "network/CCNetwork.h"
 
 $using namespace cocos2d::extra;
+
+class CCCrypto
+{
+public:
+    static int getAES256KeyLength(void);
+
+    static LUA_STRING encryptAES256Lua(const char* plaintext,
+                                       int plaintextLength,
+                                       const char* key,
+                                       int keyLength);
+    static LUA_STRING decryptAES256Lua(const char* ciphertext,
+                                       int ciphertextLength,
+                                       const char* key,
+                                       int keyLength);
+
+    static LUA_STRING encodeBase64Lua(const char* input, int inputLength);
+    static LUA_STRING decodeBase64Lua(const char* input);
+
+    static LUA_STRING MD5Lua(char* input, bool isRawOutput);
+    static LUA_STRING sha1Lua(char* input, char* key, bool isRawOutput);
+};
+
+//
+
+class CCNative
+{
+public:
+    static void showActivityIndicator(void);
+    static void hideActivityIndicator(void);
+
+    static void createAlert(const char* title,
+                            const char* message,
+                            const char* cancelButtonTitle);
+    static int addAlertButton(const char* buttonTitle);
+    static void showAlertLua(LUA_FUNCTION listener);
+    static void cancelAlert(void);
+
+    static const std::string getOpenUDID(void);
+    static void openURL(const char* url);
+
+    static const char* getDeviceName(void);
+    static void vibrate();
+};
+
+//
 
 #define kCCHTTPRequestMethodGET  0
 #define kCCHTTPRequestMethodPOST 1

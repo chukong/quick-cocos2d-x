@@ -6,36 +6,17 @@
 #include "CCLuaEngine.h"
 #include <string>
 
-// cocos2d-x-entensions
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "luabinding/ios/cocos2dx_extension_crypto_ios.h"
-#include "luabinding/ios/cocos2dx_extension_network_ios.h"
-#include "luabinding/ios/cocos2dx_extension_native_ios.h"
+// cocos2d-x-extra luabinding
+#include "luabinding/cocos2d-x-extra-luabinding.h"
 
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "luabinding/android/cocos2dx_extension_crypto_android.h"
-#include "luabinding/android/cocos2dx_extension_network_android.h"
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#include "luabinding/win32/cocos2dx_extension_crypto_win32.h"
-#include "luabinding/win32/cocos2dx_extension_network_win32.h"
-#include "luabinding/win32/cocos2dx_extension_native_win32.h"
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-#include "luabinding/mac/cocos2dx_extension_crypto_mac.h"
-#include "luabinding/mac/cocos2dx_extension_network_mac.h"
-#include "luabinding/mac/cocos2dx_extension_native_mac.h"
-
-#endif
+// lua extensions
+extern "C" {
+#include "luaextra.h"
+}
 
 // if use compiled framework, uncomment below codes
 extern "C" {
 #include "framework_lua.h"
-}
-
-// more lua exts
-extern "C" {
-#include "luaextra.h"
 }
 
 using namespace std;
@@ -61,49 +42,24 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     pDirector->setProjection(kCCDirectorProjection2D);
     
-    // turn on display FPS
-//    pDirector->setDisplayStats(true);
-
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-    
-//    CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
-    
+        
     // register lua engine
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
+    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);    
+
     CCLuaStack *pStack = pEngine->getLuaStack();
     lua_State* L = pStack->getLuaState();
-    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);    
     
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    tolua_cocos2dx_extension_crypto_ios_open(L);
-    tolua_cocos2dx_extension_network_ios_open(L);
-    tolua_cocos2dx_extension_native_ios_open(L);
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    tolua_cocos2dx_extension_crypto_android_open(L);
-    tolua_cocos2dx_extension_network_android_open(L);
-    
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    tolua_cocos2dx_extension_crypto_win32_open(L);
-    tolua_cocos2dx_extension_network_win32_open(L);
-	tolua_cocos2dx_extension_native_win32_open(L);
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    tolua_cocos2dx_extension_crypto_mac_open(L);
-    tolua_cocos2dx_extension_network_mac_open(L);
-    tolua_cocos2dx_extension_native_mac_open(L);
-
-#endif
-
     // load lua extensions
     luaopen_extra(L);
-
+    // load cocos2d-x-extra luabinding
+    luaopen_cocos2d_x_extra_luabinding(L);
     // if use compiled framework, uncomment below codes
+    // load compiled framework
     luaopen_framework_lua(L);
-    
-    CCFileUtils::sharedFileUtils()->setPopupNotify(false);
-    
+        
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else

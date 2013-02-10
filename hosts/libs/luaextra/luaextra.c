@@ -9,9 +9,6 @@
 // cjson
 #include "lua_cjson.h"
 
-// lanes
-//#include "lanes_loader.h"
-
 // zlib
 #include "lua_zlib.h"
 
@@ -45,10 +42,4 @@ void luaopen_extra(lua_State *L)
         lua_setfield(L, -2, lib->name);
         lua_pop(L, 2);
     }
-
-//    lua_getglobal(L, "package");
-//    lua_getfield(L, -1, "preload");
-//    lua_pushcfunction(L, lanes_core_loader);
-//    lua_setfield(L, -2, "lanes.core");
-//    lua_pop(L, 2);
 }
