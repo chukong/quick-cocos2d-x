@@ -42,11 +42,13 @@ bool CCHTTPRequest::initWithDelegate(CCHTTPRequestDelegate* delegate, const char
     return initWithUrl(url, method);
 }
 
+#if CC_LUA_ENGINE_ENABLED > 0
 bool CCHTTPRequest::initWithListener(LUA_FUNCTION listener, const char* url, int method)
 {
     m_listener = listener;
     return initWithUrl(url, method);
 }
+#endif
 
 bool CCHTTPRequest::initWithUrl(const char* url, int method)
 {

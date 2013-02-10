@@ -10,7 +10,7 @@
 using namespace std;
 
 USING_NS_CC;
-USING_NS_CC_EXT;
+USING_NS_CC_EXTRA;
 
 class CCNative_win32
 {

@@ -148,7 +148,9 @@ private:
     {
     }
     bool initWithDelegate(CCHTTPRequestDelegate* delegate, const char* url, int method);
+#if CC_LUA_ENGINE_ENABLED > 0
     bool initWithListener(LUA_FUNCTION listener, const char* url, int method);
+#endif
     bool initWithUrl(const char* url, int method);
 
     enum {

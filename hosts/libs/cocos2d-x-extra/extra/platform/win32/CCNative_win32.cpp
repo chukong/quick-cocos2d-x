@@ -68,7 +68,6 @@ void CCNative_win32::showAlertViewWithLuaListener(LUA_FUNCTION listener)
 	wstring title(m_alertViewTitle.begin(), m_alertViewTitle.end());
 	wstring message(m_alertViewMessage.begin(), m_alertViewMessage.end());
 	int button = MessageBox(NULL, message.c_str(), title.c_str(), MB_OKCANCEL);
-    CCLuaEngine *engine = CCLuaEngine::defaultEngine();
     
     CCLuaValueDict event;
     event["action"] = CCLuaValue::stringValue("clicked");
@@ -80,8 +79,10 @@ void CCNative_win32::showAlertViewWithLuaListener(LUA_FUNCTION listener)
 	{
 		event["buttonIndex"] = CCLuaValue::intValue(2);
 	}
-    engine->pushCCLuaValueDict(event);
-    engine->executeFunctionByHandler(listener, 1);
+
+	CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+	stack->pushCCLuaValueDict(event);
+    stack->executeFunctionByHandler(listener, 1);
 }
 
 void CCNative_win32::removeAlertViewLuaListener(void)
