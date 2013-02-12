@@ -3,6 +3,8 @@ $#include "crypto/CCCrypto.h"
 $#include "native/CCNative.h"
 $#include "network/CCNetwork.h"
 
+$using namespace std;
+$using namespace cocos2d;
 $using namespace cocos2d::extra;
 
 class CCCrypto
@@ -41,10 +43,10 @@ public:
     static void showAlertLua(LUA_FUNCTION listener);
     static void cancelAlert(void);
 
-    static const std::string getOpenUDID(void);
+    static const string getOpenUDID(void);
     static void openURL(const char* url);
 
-    static const char* getDeviceName(void);
+    static const string getDeviceName(void);
     static void vibrate();
 };
 
@@ -87,12 +89,16 @@ class CCHTTPRequest : public CCObject
     const char* getErrorMessage(void);
 };
 
+#define kCCNetworkStatusNotReachable     0
+#define kCCNetworkStatusReachableViaWiFi 1
+#define kCCNetworkStatusReachableViaWWAN 2
+
 class CCNetwork
 {
     static bool isLocalWiFiAvailable(void);
     static bool isInternetConnectionAvailable(void);
     static bool isHostNameReachable(const char* hostName);
-    static CCNetworkStatus getInternetConnectionStatus(void);
+    static int getInternetConnectionStatus(void);
 
     static CCHTTPRequest* createHTTPRequestLua(LUA_FUNCTION listener,
                                                const char* url,

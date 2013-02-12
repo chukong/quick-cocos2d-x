@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Sun Feb 10 21:11:11 2013.
+** Generated automatically by tolua++-1.0.92 on Mon Feb 11 10:40:02 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -14,17 +14,12 @@ using namespace cocos2d;
 #include "crypto/CCCrypto.h"
 #include "native/CCNative.h"
 #include "network/CCNetwork.h"
+using namespace std;
+using namespace cocos2d;
 using namespace cocos2d::extra;
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
-
-static int tolua_collect_CCNetworkStatus (lua_State* tolua_S)
-{
- CCNetworkStatus* self = (CCNetworkStatus*) tolua_tousertype(tolua_S,1,0);
-    Mtolua_delete(self);
-    return 0;
-}
 
 
 #endif
@@ -33,7 +28,6 @@ static int tolua_collect_CCNetworkStatus (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CCNetworkStatus");
  tolua_usertype(tolua_S,"CCNetwork");
  tolua_usertype(tolua_S,"CCObject");
  tolua_usertype(tolua_S,"CCHTTPRequest");
@@ -459,7 +453,7 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_getOpenUDID00(lua_State* tol
 #endif
  {
   {
-   const std::string tolua_ret = (const std::string)  CCNative::getOpenUDID();
+   const string tolua_ret = (const string)  CCNative::getOpenUDID();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -516,8 +510,8 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_getDeviceName00(lua_State* t
 #endif
  {
   {
-   const char* tolua_ret = (const char*)  CCNative::getDeviceName();
-   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+   const string tolua_ret = (const string)  CCNative::getDeviceName();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
  return 1;
@@ -1244,18 +1238,8 @@ static int tolua_cocos2dx_extra_luabinding_CCNetwork_getInternetConnectionStatus
 #endif
  {
   {
-   CCNetworkStatus tolua_ret = (CCNetworkStatus)  CCNetwork::getInternetConnectionStatus();
-   {
-#ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((CCNetworkStatus)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"CCNetworkStatus");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(CCNetworkStatus));
-     tolua_pushusertype(tolua_S,tolua_obj,"CCNetworkStatus");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#endif
-   }
+   int tolua_ret = (int)  CCNetwork::getInternetConnectionStatus();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
@@ -1364,6 +1348,9 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getErrorCode",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getErrorCode00);
    tolua_function(tolua_S,"getErrorMessage",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getErrorMessage00);
   tolua_endmodule(tolua_S);
+  tolua_constant(tolua_S,"kCCNetworkStatusNotReachable",kCCNetworkStatusNotReachable);
+  tolua_constant(tolua_S,"kCCNetworkStatusReachableViaWiFi",kCCNetworkStatusReachableViaWiFi);
+  tolua_constant(tolua_S,"kCCNetworkStatusReachableViaWWAN",kCCNetworkStatusReachableViaWWAN);
   tolua_cclass(tolua_S,"CCNetwork","CCNetwork","",NULL);
   tolua_beginmodule(tolua_S,"CCNetwork");
    tolua_function(tolua_S,"isLocalWiFiAvailable",tolua_cocos2dx_extra_luabinding_CCNetwork_isLocalWiFiAvailable00);

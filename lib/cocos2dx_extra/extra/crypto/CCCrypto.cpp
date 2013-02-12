@@ -78,6 +78,35 @@ void CCCrypto::sha1(unsigned char* input, int inputLength,
 
 #if CC_LUA_ENGINE_ENABLED > 0
 
+cocos2d::LUA_STRING CCCrypto::cryptAES256Lua(bool isDecrypt,
+                                             const void* input,
+                                             int inputLength,
+                                             const void* key,
+                                             int keyLength)
+{
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+    if (getAES256KeyLength() == 0)
+    {
+        stack->pushNil();
+        return 1;
+    }
+    
+    int bufferSize = inputLength + getAES256KeyLength();
+    void* buffer = malloc(bufferSize);
+    int dataUsed = cryptAES256(isDecrypt, input, inputLength, buffer, bufferSize, key, keyLength);
+    if (dataUsed > 0)
+    {
+        stack->pushString(static_cast<const char*>(buffer), dataUsed);
+    }
+    else
+    {
+        stack->pushNil();
+    }
+    free(buffer);
+    return 1;
+}
+
 LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
                                        const char* input,
                                        int inputLength)

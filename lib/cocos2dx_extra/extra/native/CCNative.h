@@ -9,16 +9,7 @@
 #include "CCLuaEngine.h"
 #endif
 
-#include <string>
-
 NS_CC_EXTRA_BEGIN
-
-/** @brief Activity indicator style */
-typedef enum {
-    CCActivityIndicatorViewStyleWhiteLarge,
-    CCActivityIndicatorViewStyleWhite,
-    CCActivityIndicatorViewStyleGray,
-} CCActivityIndicatorViewStyle;
 
 class CCNative
 {
@@ -28,7 +19,7 @@ public:
 #pragma mark activity indicator
     
     /** @brief Show activity indicator */
-    static void showActivityIndicator(CCActivityIndicatorViewStyle style = CCActivityIndicatorViewStyleWhiteLarge);
+    static void showActivityIndicator(void);
     
     /** @brief Hide activity indicator */
     static void hideActivityIndicator(void);
@@ -53,7 +44,7 @@ public:
 #pragma mark OpenUDID
     
     /** @brief Get OpenUDID value */
-    static const std::string getOpenUDID(void);
+    static const string getOpenUDID(void);
     
 #pragma mark -
 #pragma mark misc
@@ -62,12 +53,12 @@ public:
     static void openURL(const char* url);
     
 	/** @brief Show alert view, and get user input */
-    static const std::string getInputText(const char* title, const char* message, const char* defaultValue);
+    static const string getInputText(const char* title, const char* message, const char* defaultValue);
     
 #pragma mark -
 #pragma mark helper
     
-    static const char* getDeviceName(void);
+    static const string getDeviceName(void);
     static void vibrate();
     
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
@@ -76,7 +67,7 @@ public:
     
 #if CC_LUA_ENGINE_ENABLED > 0
     static int addAlertButtonLua(const char* buttonTitle);
-    static void showAlertLua(cocos2d::LUA_FUNCTION listener);
+    static void showAlertLua(LUA_FUNCTION listener);
 #endif
 
 private:

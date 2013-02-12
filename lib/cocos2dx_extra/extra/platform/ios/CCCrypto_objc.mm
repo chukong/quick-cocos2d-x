@@ -82,31 +82,4 @@ int CCCrypto::cryptAES256(bool isDecrypt,
     return 0;
 }
 
-#if CC_LUA_ENGINE_ENABLED > 0
-
-cocos2d::LUA_STRING CCCrypto::cryptAES256Lua(bool isDecrypt,
-                                             const void* input,
-                                             int inputLength,
-                                             const void* key,
-                                             int keyLength)
-{
-    int bufferSize = inputLength + getAES256KeyLength();
-    void* buffer = malloc(bufferSize);
-    int dataUsed = cryptAES256(isDecrypt, input, inputLength, buffer, bufferSize, key, keyLength);
-    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
-    stack->clean();
-    if (dataUsed > 0)
-    {
-        stack->pushString(static_cast<const char*>(buffer), dataUsed);
-    }
-    else
-    {
-        stack->pushNil();
-    }
-    free(buffer);
-    return 1;
-}
-
-#endif
-
 NS_CC_EXTRA_END

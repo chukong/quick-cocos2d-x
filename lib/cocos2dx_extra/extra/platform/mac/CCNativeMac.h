@@ -8,13 +8,12 @@
 USING_NS_CC;
 USING_NS_CC_EXTRA;
 
-@interface CCNative_objc : NSObject
+@interface CCNativeMac : NSObject
 {
-//    UIActivityIndicatorView *activityIndicatorView_;
     NSAlert *alertView_;
 }
 
-+ (CCNative_objc *)sharedInstance;
++ (CCNativeMac *)sharedInstance;
 
 
 #pragma mark -

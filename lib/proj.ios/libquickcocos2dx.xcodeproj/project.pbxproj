@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6CD67460C915735CD32C81D2 /* CCFileUtilsIOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */; };
 		6CD6791CAC6D34352940B124 /* CCFileUtilsIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */; };
 		6CD67A14F827D80B58B1095F /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67BBC1575D82FF5E1519D /* CCFileUtils.cpp */; };
 		F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */; };
@@ -234,23 +233,11 @@
 		F45A2E22166B172300760194 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F45A2E1B166B172300760194 /* CCEditBox.cpp */; };
 		F45A2E23166B172300760194 /* CCEditBoxImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F45A2E1F166B172300760194 /* CCEditBoxImplIOS.mm */; };
 		F45FF34516C7D24200275222 /* lua_extensions.c in Sources */ = {isa = PBXBuildFile; fileRef = F45FF34316C7D24200275222 /* lua_extensions.c */; };
+		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
 		F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		F45A2B9B166B07B600760194 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-				6CD67460C915735CD32C81D2 /* CCFileUtilsIOS.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFileUtilsIOS.h; sourceTree = "<group>"; };
@@ -741,6 +728,7 @@
 		F45A2E25166B175C00760194 /* ExtensionMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionMacros.h; sourceTree = "<group>"; };
 		F45FF34316C7D24200275222 /* lua_extensions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_extensions.c; sourceTree = "<group>"; };
 		F45FF34416C7D24200275222 /* lua_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_extensions.h; sourceTree = "<group>"; };
+		F45FF34A16C7DD4C00275222 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageCommonWebp.cpp; sourceTree = "<group>"; };
 		F4D11004169FBED400305E28 /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
@@ -753,6 +741,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */,
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
 				F439920816816D0E00AE90D1 /* libluajit2.a in Frameworks */,
 			);
@@ -1159,6 +1148,7 @@
 		F45A2B9F166B07B600760194 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F45FF34A16C7DD4C00275222 /* libcurl.a */,
 				F45A2BA0166B07B600760194 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -1910,7 +1900,6 @@
 			buildPhases = (
 				F45A2B99166B07B600760194 /* Sources */,
 				F45A2B9A166B07B600760194 /* Frameworks */,
-				F45A2B9B166B07B600760194 /* CopyFiles */,
 			);
 			buildRules = (
 			);

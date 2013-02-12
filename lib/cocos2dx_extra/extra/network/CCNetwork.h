@@ -6,13 +6,12 @@
 #include "network/CCHTTPRequest.h"
 #include "network/CCHTTPRequestDelegate.h"
 
+using namespace cocos2d;
 NS_CC_EXTRA_BEGIN
 
-typedef enum {
-    CCNetworkStatusNotReachable = 0,
-    CCNetworkStatusReachableViaWiFi,
-    CCNetworkStatusReachableViaWWAN
-} CCNetworkStatus;
+#define kCCNetworkStatusNotReachable     0
+#define kCCNetworkStatusReachableViaWiFi 1
+#define kCCNetworkStatusReachableViaWWAN 2
 
 class CCNetwork
 {
@@ -20,7 +19,6 @@ public:
 #pragma mark -
 #pragma mark reachability
     
-#ifndef CC_UNDER_WIN32
     /** @brief Checks whether a local wifi connection is available */
     static bool isLocalWiFiAvailable(void);
     
@@ -31,8 +29,7 @@ public:
     static bool isHostNameReachable(const char* hostName);
     
     /** @brief Checks Internet connection reachability status */
-    static CCNetworkStatus getInternetConnectionStatus(void);
-#endif
+    static int getInternetConnectionStatus(void);
     
 #pragma mark -
 #pragma mark HTTP

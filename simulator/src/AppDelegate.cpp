@@ -1,30 +1,19 @@
 
-#include <string>
 #include "cocos2d.h"
 #include "AppDelegate.h"
-#include "HostVersion.h"
 #include "SimpleAudioEngine.h"
+#include "support/CCNotificationCenter.h"
 #include "CCLuaEngine.h"
+#include <string>
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "luabinding/ios/cocos2dx_extension_crypto.h"
-#include "luabinding/ios/cocos2dx_extension_network.h"
-#include "luabinding/ios/cocos2dx_extension_native.h"
-#include "luabinding/ios/cocos2dx_extension_store.h"
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#include "luabinding/win32/cocos2dx_extension_crypto_win32.h"
-#include "luabinding/win32/cocos2dx_extension_network_win32.h"
-#include "luabinding/win32/cocos2dx_extension_native_win32.h"
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-//#include "luabinding/mac/cocos2dx_extension_crypto_mac.h"
-//#include "luabinding/mac/cocos2dx_extension_network_mac.h"
-//#include "luabinding/mac/cocos2dx_extension_native_mac.h"
-#endif
+// lua extensions
+#include "lua_extensions.h"
+// cocos2dx_extra luabinding
+#include "luabinding/cocos2dx_extra_luabinding.h"
 
+// if use compiled framework, uncomment below codes
 extern "C" {
-#include "luaextra.h"
-// load lua framework
-#include "framework_lua.h"
+#include "framework_precompiled.h"
 }
 
 using namespace std;
@@ -35,16 +24,12 @@ AppDelegate::AppDelegate()
 {
     // fixed me
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
-}
+} 
 
 AppDelegate::~AppDelegate()
 {
     // end simple audio engine here, or it may crashed on win32
     SimpleAudioEngine::sharedEngine()->end();
-    CCLOG("~ delete AppDelegate");
-    CCLOG("");
-    CCLOG("--------------------------------------------------------------------------------");
-    CCLOG("");
 }
 
 bool AppDelegate::applicationDidFinishLaunching()
@@ -54,54 +39,40 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     pDirector->setProjection(kCCDirectorProjection2D);
     
-    // turn on display FPS
-//    pDirector->setDisplayStats(true);
-    
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
     
     // register lua engine
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
-//    CCLuaStack *pStack = pEngine->getLuaStack();
-    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
+    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);    
     
-//    lua_State* L = pStack->getLuaState();
-    lua_State* L = pEngine->getLuaState();
+    CCLuaStack *pStack = pEngine->getLuaStack();
+    lua_State* L = pStack->getLuaState();
     
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    tolua_cocos2dx_extension_crypto_open(L);
-    tolua_cocos2dx_extension_network_open(L);
-    tolua_cocos2dx_extension_native_open(L);
-    tolua_cocos2dx_extension_store_open(L);
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    tolua_cocos2dx_extension_crypto_win32_open(L);
-    tolua_cocos2dx_extension_network_win32_open(L);
-	tolua_cocos2dx_extension_native_win32_open(L);
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-//    tolua_cocos2dx_extension_crypto_mac_open(L);
-//    tolua_cocos2dx_extension_network_mac_open(L);
-//    tolua_cocos2dx_extension_native_mac_open(L);
-#endif
+    // load lua extensions
+    luaopen_lua_extensions(L);
+    // load cocos2dx_extra luabinding
+    luaopen_cocos2dx_extra_luabinding(L);
+    // if use compiled framework, uncomment below codes
+    // load compiled framework
+    luaopen_framework_precompiled(L);
     
-    // more lua exts
-    luaopen_extra(L);
-    
-    // load lua framework
-    luaopen_framework_lua(L);
-    
-    CCFileUtils::sharedFileUtils()->setPopupNotify(false);
-    
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_IOS)
-    const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
-#else
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
+#else
+    const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
 #endif
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {
         const string dir = path.substr(0, p);
-//        pStack->addSearchPath(dir.c_str());
-        pEngine->addSearchPath(dir.c_str());
+        pStack->addSearchPath(dir.c_str());
+        
+        p = dir.find_last_of("/\\");
+        if (p != dir.npos)
+        {
+            pStack->addSearchPath(dir.substr(0, p).c_str());
+        }
     }
     
     string env = "__LUA_STARTUP_FILE__=\"";
@@ -110,7 +81,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     pEngine->executeString(env.c_str());
     
     CCLOG("------------------------------------------------");
-    CCLOG("HOST VERSION: %s", HOST_VERSION);
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
@@ -122,12 +92,18 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->stopAnimation();
+    CCDirector::sharedDirector()->pause();
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_BACKGROUND");
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
     CCDirector::sharedDirector()->startAnimation();
+    CCDirector::sharedDirector()->resume();
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_FOREGROUND");
 }

@@ -1,21 +1,22 @@
 
 #include "native/CCNative.h"
-#import "platform/mac/CCNative_objc.h"
-#import "platform/mac/openudid/OpenUDID_mac.h"
+#include <sys/sysctl.h>
+#import "platform/mac/CCNativeMac.h"
+#import "platform/mac/openudid/OpenUDIDMac.h"
 
 NS_CC_EXTRA_BEGIN
 
 #pragma mark -
 #pragma mark activity indicator
 
-void CCNative::showActivityIndicator(CCActivityIndicatorViewStyle style)
+void CCNative::showActivityIndicator(void)
 {
-    [[CCNative_objc sharedInstance] showActivityIndicator];
+    [[CCNativeMac sharedInstance] showActivityIndicator];
 }
 
 void CCNative::hideActivityIndicator(void)
 {
-    [[CCNative_objc sharedInstance] hideActivityIndicator];
+    [[CCNativeMac sharedInstance] hideActivityIndicator];
 }
 
 #pragma mark -
@@ -28,7 +29,7 @@ void CCNative::createAlert(const char* title,
     NSString *title_ = [NSString stringWithUTF8String:title ? title : ""];
     NSString *message_ = [NSString stringWithUTF8String:message ? message : ""];
     NSString *cancelButtonTitle_ = cancelButtonTitle ? [NSString stringWithUTF8String:cancelButtonTitle] : nil;
-    [[CCNative_objc sharedInstance] createAlertView:title_
+    [[CCNativeMac sharedInstance] createAlertView:title_
                                          andMessage:message_
                                andCancelButtonTitle:cancelButtonTitle_];
 }
@@ -36,7 +37,7 @@ void CCNative::createAlert(const char* title,
 int CCNative::addAlertButton(const char* buttonTitle)
 {
     NSString *buttonTitle_ = [NSString stringWithUTF8String:buttonTitle ? buttonTitle : "Button"];
-    return [[CCNative_objc sharedInstance] addAlertButton:buttonTitle_];
+    return [[CCNativeMac sharedInstance] addAlertButton:buttonTitle_];
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -48,19 +49,19 @@ int CCNative::addAlertButtonLua(const char* buttonTitle)
 
 void CCNative::showAlert(CCAlertViewDelegate* delegate)
 {
-    [[CCNative_objc sharedInstance] showAlertViewWithDelegate:delegate];
+    [[CCNativeMac sharedInstance] showAlertViewWithDelegate:delegate];
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
-void CCNative::showAlertLua(cocos2d::LUA_FUNCTION listener)
+void CCNative::showAlertLua(LUA_FUNCTION listener)
 {
-    [[CCNative_objc sharedInstance] showAlertViewWithLuaListener:listener];
+    [[CCNativeMac sharedInstance] showAlertViewWithLuaListener:listener];
 }
 #endif
 
 void CCNative::cancelAlert(void)
 {
-    [[CCNative_objc sharedInstance] cancelAlertView];
+    [[CCNativeMac sharedInstance] cancelAlertView];
 }
 
 
@@ -74,24 +75,46 @@ void CCNative::openURL(const char* url)
     [[NSWorkspace sharedWorkspace] openURL:nsurl];
 }
 
-const std::string CCNative::getInputText(const char* title, const char* message, const char* defaultValue)
+const string CCNative::getInputText(const char* title, const char* message, const char* defaultValue)
 {
     NSString *title_ = [NSString stringWithUTF8String:title ? title : ""];
     NSString *message_ = [NSString stringWithUTF8String:message ? message : ""];
     NSString *defaultValue_ = [NSString stringWithUTF8String:defaultValue ? defaultValue : ""];
-    NSString *input = [[CCNative_objc sharedInstance] getInputText:title_
+    NSString *input = [[CCNativeMac sharedInstance] getInputText:title_
                                                            message:message_
                                                       defaultValue:defaultValue_];
-    return std::string([input cStringUsingEncoding:NSUTF8StringEncoding]);
+    return string([input cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 
 #pragma mark -
 #pragma mark OpenUDID
 
-const std::string CCNative::getOpenUDID(void)
+const string CCNative::getOpenUDID(void)
 {
-    return std::string([[OpenUDID_mac value] cStringUsingEncoding:NSUTF8StringEncoding]);
+    return string([[OpenUDIDMac value] cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+const string CCNative::getDeviceName(void)
+{
+    size_t len = 0;
+    sysctlbyname("hw.model", NULL, &len, NULL, 0);
+    if (len)
+    {
+        char* model = static_cast<char*>(malloc(len * sizeof(char)));
+        sysctlbyname("hw.model", model, &len, NULL, 0);
+        string modelStr(model);
+        free(model);
+        return modelStr;
+    }
+
+    CCLog("CCNative::getDeviceName() not support on this platform.");
+    return string("");
+}
+
+void CCNative::vibrate()
+{
+    CCLog("CCNative::vibrate() not support on this platform.");
 }
 
 NS_CC_EXTRA_END

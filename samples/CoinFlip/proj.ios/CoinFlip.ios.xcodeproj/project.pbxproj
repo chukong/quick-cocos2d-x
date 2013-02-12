@@ -13,7 +13,6 @@
 		F4482F2416A0555000FDDDAD /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1D16A0555000FDDDAD /* Icon-72.png */; };
 		F4482F2516A0555000FDDDAD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1E16A0555000FDDDAD /* Icon.png */; };
 		F4482F2616A0555000FDDDAD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1F16A0555000FDDDAD /* Icon@2x.png */; };
-		F4499C7916C7CF370059FF37 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4499C7816C7CF370059FF37 /* libcurl.a */; };
 		F4499C7A16C7CF480059FF37 /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4499C7616C7CDE20059FF37 /* liblibquickcocos2dx.a */; };
 		F452BFC51687EEF900DC5BCC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFC41687EEF900DC5BCC /* CoreText.framework */; };
 		F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFCF1687F0F200DC5BCC /* UIKit.framework */; };
@@ -58,7 +57,6 @@
 		F4482F1F16A0555000FDDDAD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F4482F2016A0555000FDDDAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4499C7116C7CDE20059FF37 /* libquickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libquickcocos2dx.xcodeproj; path = ../../../lib/proj.ios/libquickcocos2dx.xcodeproj; sourceTree = "<group>"; };
-		F4499C7816C7CF370059FF37 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../../lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		F452BFC41687EEF900DC5BCC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		F452BFCF1687F0F200DC5BCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F456ECC115EE018E00FCF3E2 /* CoinFlip.ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinFlip.ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,7 +109,6 @@
 				F456ECCC15EE018E00FCF3E2 /* AudioToolbox.framework in Frameworks */,
 				F456ECCE15EE018E00FCF3E2 /* AVFoundation.framework in Frameworks */,
 				F456ECD215EE018E00FCF3E2 /* Foundation.framework in Frameworks */,
-				F4499C7916C7CF370059FF37 /* libcurl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +145,6 @@
 		F456ECC415EE018E00FCF3E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4499C7816C7CF370059FF37 /* libcurl.a */,
 				F4949C781699553B00DB561E /* AddressBook.framework */,
 				F456ECCB15EE018E00FCF3E2 /* AudioToolbox.framework */,
 				F456ECCD15EE018E00FCF3E2 /* AVFoundation.framework */,

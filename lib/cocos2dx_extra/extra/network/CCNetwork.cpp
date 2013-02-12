@@ -1,8 +1,6 @@
 
 #include "network/CCNetwork.h"
 
-using namespace cocos2d;
-
 NS_CC_EXTRA_BEGIN
 
 CCHTTPRequest* CCNetwork::createHTTPRequest(CCHTTPRequestDelegate* delegate,

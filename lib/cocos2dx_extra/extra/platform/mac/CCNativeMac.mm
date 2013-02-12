@@ -1,32 +1,21 @@
 
-#import "platform/mac/CCNative_objc.h"
+#import "platform/mac/CCNativeMac.h"
 
 #ifndef utf8cstr
 #define utf8cstr(nsstr) (nsstr ? [nsstr cStringUsingEncoding:NSUTF8StringEncoding] : "")
 #endif
 
-@implementation CCNative_objc
+@implementation CCNativeMac
 
-static CCNative_objc *s_sharedInstance;
+static CCNativeMac *s_sharedInstance;
 
-+ (CCNative_objc *)sharedInstance
++ (CCNativeMac *)sharedInstance
 {
     if (!s_sharedInstance)
     {
-        s_sharedInstance = [[CCNative_objc alloc] init];
+        s_sharedInstance = [[CCNativeMac alloc] init];
     }
     return s_sharedInstance;
-}
-
-- (void)dealloc
-{
-//    [self hideActivityIndicator];
-    [self removeAlertView];
-#if CC_LUA_ENGINE_ENABLED > 0
-    [self removeAlertViewLuaListener];
-#endif
-    [super dealloc];
-    s_sharedInstance = nil;
 }
 
 
@@ -35,37 +24,12 @@ static CCNative_objc *s_sharedInstance;
 
 - (void)showActivityIndicator
 {
-//    if (activityIndicatorView_)
-//    {
-//        CCLOG("[CCNative_objc] ERR, showActivityIndicator() activity indicator already visible");
-//        return;
-//    }
-//    
-//    CCLOG("[CCNative_objc] showActivityIndicator()");
-//    activityIndicatorView_ = [UIActivityIndicatorView  alloc];
-//    [activityIndicatorView_ initWithActivityIndicatorStyle:style];
-//    [activityIndicatorView_ autorelease];
-//    [activityIndicatorView_ retain];
-//    
-//    NSInteger count = [UIApplication sharedApplication].windows.count;
-//    UIWindow* topWindow = [[UIApplication sharedApplication].windows objectAtIndex:count - 1];
-//    [topWindow addSubview: activityIndicatorView_];
-//    activityIndicatorView_.center = topWindow.center;
-//    [activityIndicatorView_ startAnimating];
+    CCLog("CCNative::showActivityIndicator() not support on this platform.");
 }
 
 - (void)hideActivityIndicator
 {
-//    if (!activityIndicatorView_)
-//    {
-//        CCLOG("[CCNative_objc] ERR, hideActivityIndicator() activity indicator not visible");
-//        return;
-//    }
-//    
-//    CCLOG("[CCNative_objc] hideActivityIndicator()");
-//    [activityIndicatorView_ removeFromSuperview];
-//    [activityIndicatorView_ release];
-//    activityIndicatorView_ = nil;
+    CCLog("CCNative::hideActivityIndicator() not support on this platform.");
 }
 
 
@@ -78,11 +42,11 @@ static CCNative_objc *s_sharedInstance;
 {
     if (alertView_)
     {
-        CCLOG("[CCNative_objc] ERR, createAlertView() alert view already exists");
+        CCLOG("CCNative::createAlertView() - alert view already exists");
         return;
     }
     
-    CCLOG("[CCNative_objc] createAlertView() title: %s, message: %s, cancelButtonTitle: %s",
+    CCLOG("CCNative::createAlertView() - title: %s, message: %s, cancelButtonTitle: %s",
           utf8cstr(title), utf8cstr(message), utf8cstr(cancelButtonTitle));
     alertView_ = [NSAlert alertWithMessageText:title
                                  defaultButton:cancelButtonTitle
@@ -96,11 +60,11 @@ static CCNative_objc *s_sharedInstance;
 {
     if (!alertView_)
     {
-        CCLOG("[CCNative_objc] ERR, addAlertButton() alert view not exists");
+        CCLOG("CCNative::addAlertButton() - alert view not exists");
         return 0;
     }
 
-    CCLOG("[CCNative_objc] addAlertButton() buttonTitle: %s", utf8cstr(buttonTitle));
+    CCLOG("CCNative::addAlertButton() - buttonTitle: %s", utf8cstr(buttonTitle));
     [alertView_ addButtonWithTitle:buttonTitle];
     return [alertView_.buttons count] - 1;
 }
@@ -109,13 +73,12 @@ static CCNative_objc *s_sharedInstance;
 {
     if (!alertView_)
     {
-        CCLOG("[CCNative_objc] ERR, showAlertViewWithDelegate() alert view not exists");
+        CCLOG("CCNative::showAlertViewWithDelegate() - alert view not exists");
         return;
     }
 
-    CCLOG("[CCNative_objc] showAlertViewWithDelegate()");
-    NSInteger buttonIndex = [alertView_ runModal];
-    
+    CCLOG("CCNative::showAlertViewWithDelegate()");
+    NSInteger buttonIndex = [alertView_ runModal];    
     if (delegate)
     {
         delegate->alertViewClickedButtonAtIndex(buttonIndex);
@@ -127,11 +90,11 @@ static CCNative_objc *s_sharedInstance;
 {
     if (!alertView_)
     {
-        CCLOG("[CCNative_objc] ERR, removeAlertView() alert view not exists");
+        CCLOG("CCNative::removeAlertView() - alert view not exists");
         return;
     }
     
-    CCLOG("[CCNative_objc] removeAlertView()");
+    CCLOG("CCNative::removeAlertView()");
     [alertView_ release];
     alertView_ = nil;
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -143,11 +106,11 @@ static CCNative_objc *s_sharedInstance;
 {
     if (!alertView_)
     {
-        CCLOG("[CCNative_objc] ERR, cancelAlertView() alert view not exists");
+        CCLOG("CCNative::cancelAlertView() - alert view not exists");
         return;
     }
     
-    CCLOG("[CCNative_objc] cancelAlertView()");
+    CCLOG("CCNative::cancelAlertView()");
     [self removeAlertView];
 }
 
@@ -156,11 +119,11 @@ static CCNative_objc *s_sharedInstance;
 {
     if (!alertView_)
     {
-        CCLOG("[CCNative_objc] ERR, showAlertViewWithLuaListener() alert view not exists");
+        CCLOG("CCNative::showAlertViewWithLuaListener() - alert view not exists");
         return;
     }
     
-    CCLOG("[CCNative_objc] showAlertViewWithLuaListener()");
+    CCLOG("CCNative::showAlertViewWithLuaListener()");
     NSInteger buttonIndex = [alertView_ runModal];
     
     CCLuaValueDict event;
