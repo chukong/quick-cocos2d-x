@@ -1,8 +1,8 @@
 
 #include "native/CCNative.h"
 #import <UIKit/UIKit.h>
-#import "platform/ios/CCNative_objc.h"
-#import "platform/ios/openudid/OpenUDID_objc.h"
+#import "platform/ios/CCNativeIOS.h"
+#import "platform/ios/openudid/OpenUDIDIOS.h"
 #import "AudioToolbox/AudioServices.h"
 
 NS_CC_EXTRA_BEGIN
@@ -10,14 +10,14 @@ NS_CC_EXTRA_BEGIN
 #pragma mark -
 #pragma mark activity indicator
 
-void CCNative::showActivityIndicator(CCActivityIndicatorViewStyle style)
+void CCNative::showActivityIndicator(void)
 {
-    [[CCNative_objc sharedInstance] showActivityIndicator:static_cast<UIActivityIndicatorViewStyle>(style)];
+    [[CCNativeIOS sharedInstance] showActivityIndicator:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 void CCNative::hideActivityIndicator(void)
 {
-    [[CCNative_objc sharedInstance] hideActivityIndicator];
+    [[CCNativeIOS sharedInstance] hideActivityIndicator];
 }
 
 #pragma mark -
@@ -30,7 +30,7 @@ void CCNative::createAlert(const char* title,
     NSString *title_ = [NSString stringWithUTF8String:title ? title : ""];
     NSString *message_ = [NSString stringWithUTF8String:message ? message : ""];
     NSString *cancelButtonTitle_ = cancelButtonTitle ? [NSString stringWithUTF8String:cancelButtonTitle] : nil;
-    [[CCNative_objc sharedInstance] createAlertView:title_
+    [[CCNativeIOS sharedInstance] createAlertView:title_
                                          andMessage:message_
                                andCancelButtonTitle:cancelButtonTitle_];
 }
@@ -38,17 +38,17 @@ void CCNative::createAlert(const char* title,
 int CCNative::addAlertButton(const char* buttonTitle)
 {
     NSString *buttonTitle_ = [NSString stringWithUTF8String:buttonTitle ? buttonTitle : "Button"];
-    return [[CCNative_objc sharedInstance] addAlertButton:buttonTitle_];
+    return [[CCNativeIOS sharedInstance] addAlertButton:buttonTitle_];
 }
 
 void CCNative::showAlert(CCAlertViewDelegate* delegate)
 {
-    [[CCNative_objc sharedInstance] showAlertViewWithDelegate:delegate];
+    [[CCNativeIOS sharedInstance] showAlertViewWithDelegate:delegate];
 }
 
 void CCNative::cancelAlert(void)
 {
-    [[CCNative_objc sharedInstance] cancelAlertView];
+    [[CCNativeIOS sharedInstance] cancelAlertView];
 }
 
 void CCNative::openURL(const char* url)
@@ -61,13 +61,12 @@ void CCNative::openURL(const char* url)
 #pragma mark -
 #pragma mark OpenUDID
 
-const std::string CCNative::getOpenUDID(void)
+const string CCNative::getOpenUDID(void)
 {
-    return std::string([[OpenUDID_objc value] cStringUsingEncoding:NSUTF8StringEncoding]);
+    return string([[OpenUDIDIOS value] cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
-
-const char* CCNative::getDeviceName(void)
+const string CCNative::getDeviceName(void)
 {
     UIDevice *device = [UIDevice currentDevice];
     return [[device name] cStringUsingEncoding:NSUTF8StringEncoding];
@@ -81,7 +80,7 @@ void CCNative::vibrate()
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 void CCNative::showAlertObjc(void *delegate)
 {
-    [[CCNative_objc sharedInstance] showAlertViewWithObjcDelegate:(id<UIAlertViewDelegate>)delegate];
+    [[CCNativeIOS sharedInstance] showAlertViewWithObjcDelegate:(id<UIAlertViewDelegate>)delegate];
 }
 #endif
 
@@ -93,7 +92,7 @@ int CCNative::addAlertButtonLua(const char* buttonTitle)
 
 void CCNative::showAlertLua(cocos2d::LUA_FUNCTION listener)
 {
-    [[CCNative_objc sharedInstance] showAlertViewWithLuaListener:listener];
+    [[CCNativeIOS sharedInstance] showAlertViewWithLuaListener:listener];
 }
 #endif
 

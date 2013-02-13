@@ -56,7 +56,7 @@
 #define kOpenUDIDErrorOptedOut      1
 #define kOpenUDIDErrorCompromised   2
 
-@interface OpenUDID_objc : NSObject {
+@interface OpenUDIDIOS : NSObject {
 }
 + (NSString*) value;
 + (NSString*) valueWithError:(NSError**)error;

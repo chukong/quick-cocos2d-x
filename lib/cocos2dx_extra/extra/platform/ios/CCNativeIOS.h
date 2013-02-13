@@ -11,7 +11,7 @@
 USING_NS_CC;
 USING_NS_CC_EXTRA;
 
-@interface CCNative_objc : NSObject < UIAlertViewDelegate >
+@interface CCNativeIOS : NSObject < UIAlertViewDelegate >
 {
     UIActivityIndicatorView *activityIndicatorView_;
     
@@ -22,7 +22,7 @@ USING_NS_CC_EXTRA;
 #endif
 }
 
-+ (CCNative_objc *)sharedInstance;
++ (CCNativeIOS *)sharedInstance;
 
 
 #pragma mark -

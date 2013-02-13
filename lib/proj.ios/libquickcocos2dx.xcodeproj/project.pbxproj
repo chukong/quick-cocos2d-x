@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6CD6791CAC6D34352940B124 /* CCFileUtilsIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */; };
 		6CD67A14F827D80B58B1095F /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67BBC1575D82FF5E1519D /* CCFileUtils.cpp */; };
+		F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */; };
+		F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = F4037FB416CA2BA10004E298 /* ReachabilityIOSMac.m */; };
 		F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */; };
 		F40AFDD916BD153500565A5E /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDD816BD153500565A5E /* CCLuaObjcBridge.mm */; };
 		F40AFE5B16BD15C700565A5E /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDF916BD15C600565A5E /* libb64.c */; };
@@ -19,10 +21,8 @@
 		F40AFE6C16BD15C700565A5E /* CCNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2716BD15C600565A5E /* CCNetwork.cpp */; };
 		F40AFE6D16BD15C700565A5E /* CCCrypto_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2C16BD15C600565A5E /* CCCrypto_objc.mm */; };
 		F40AFE6E16BD15C700565A5E /* CCNative.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2D16BD15C600565A5E /* CCNative.mm */; };
-		F40AFE6F16BD15C700565A5E /* CCNative_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2F16BD15C600565A5E /* CCNative_objc.mm */; };
-		F40AFE7016BD15C700565A5E /* CCNetwork_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE3016BD15C600565A5E /* CCNetwork_objc.mm */; };
-		F40AFE7916BD15C700565A5E /* OpenUDID_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE4216BD15C600565A5E /* OpenUDID_objc.m */; };
-		F40AFE7A16BD15C700565A5E /* Reachability_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE4516BD15C600565A5E /* Reachability_objc.m */; };
+		F40AFE6F16BD15C700565A5E /* CCNativeIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */; };
+		F40AFE7916BD15C700565A5E /* OpenUDIDIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE4216BD15C600565A5E /* OpenUDIDIOS.m */; };
 		F40AFE9A16BD160200565A5E /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8416BD160200565A5E /* fpconv.c */; };
 		F40AFE9B16BD160200565A5E /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8616BD160200565A5E /* lua_cjson.c */; };
 		F40AFE9C16BD160200565A5E /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8816BD160200565A5E /* strbuf.c */; };
@@ -243,6 +243,9 @@
 		6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFileUtilsIOS.h; sourceTree = "<group>"; };
 		6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCFileUtilsIOS.mm; sourceTree = "<group>"; };
 		6CD67BBC1575D82FF5E1519D /* CCFileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFileUtils.cpp; sourceTree = "<group>"; };
+		F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetworkIOSMac.mm; sourceTree = "<group>"; };
+		F4037FB316CA2BA10004E298 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
+		F4037FB416CA2BA10004E298 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
 		F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaBridge.cpp; sourceTree = "<group>"; };
 		F40AFDCD16BD152900565A5E /* CCLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaBridge.h; sourceTree = "<group>"; };
 		F40AFDD716BD153500565A5E /* CCLuaObjcBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaObjcBridge.h; sourceTree = "<group>"; };
@@ -265,13 +268,10 @@
 		F40AFE2816BD15C600565A5E /* CCNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNetwork.h; sourceTree = "<group>"; };
 		F40AFE2C16BD15C600565A5E /* CCCrypto_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCrypto_objc.mm; sourceTree = "<group>"; };
 		F40AFE2D16BD15C600565A5E /* CCNative.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative.mm; sourceTree = "<group>"; };
-		F40AFE2E16BD15C600565A5E /* CCNative_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative_objc.h; sourceTree = "<group>"; };
-		F40AFE2F16BD15C600565A5E /* CCNative_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative_objc.mm; sourceTree = "<group>"; };
-		F40AFE3016BD15C600565A5E /* CCNetwork_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetwork_objc.mm; sourceTree = "<group>"; };
-		F40AFE4116BD15C600565A5E /* OpenUDID_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID_objc.h; sourceTree = "<group>"; };
-		F40AFE4216BD15C600565A5E /* OpenUDID_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID_objc.m; sourceTree = "<group>"; };
-		F40AFE4416BD15C600565A5E /* Reachability_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability_objc.h; sourceTree = "<group>"; };
-		F40AFE4516BD15C600565A5E /* Reachability_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability_objc.m; sourceTree = "<group>"; };
+		F40AFE2E16BD15C600565A5E /* CCNativeIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeIOS.h; sourceTree = "<group>"; };
+		F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNativeIOS.mm; sourceTree = "<group>"; };
+		F40AFE4116BD15C600565A5E /* OpenUDIDIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDIDIOS.h; sourceTree = "<group>"; };
+		F40AFE4216BD15C600565A5E /* OpenUDIDIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDIDIOS.m; sourceTree = "<group>"; };
 		F40AFE8416BD160200565A5E /* fpconv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fpconv.c; sourceTree = "<group>"; };
 		F40AFE8516BD160200565A5E /* fpconv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fpconv.h; sourceTree = "<group>"; };
 		F40AFE8616BD160200565A5E /* lua_cjson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
@@ -750,6 +750,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4037FB116CA2BA10004E298 /* ios_mac */ = {
+			isa = PBXGroup;
+			children = (
+				F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */,
+				F4037FB316CA2BA10004E298 /* ReachabilityIOSMac.h */,
+				F4037FB416CA2BA10004E298 /* ReachabilityIOSMac.m */,
+			);
+			path = ios_mac;
+			sourceTree = "<group>";
+		};
 		F40AFDCF16BD153500565A5E /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -860,6 +870,7 @@
 		F40AFE2916BD15C600565A5E /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				F4037FB116CA2BA10004E298 /* ios_mac */,
 				F40AFE2B16BD15C600565A5E /* ios */,
 			);
 			path = platform;
@@ -870,11 +881,9 @@
 			children = (
 				F40AFE2C16BD15C600565A5E /* CCCrypto_objc.mm */,
 				F40AFE2D16BD15C600565A5E /* CCNative.mm */,
-				F40AFE2E16BD15C600565A5E /* CCNative_objc.h */,
-				F40AFE2F16BD15C600565A5E /* CCNative_objc.mm */,
-				F40AFE3016BD15C600565A5E /* CCNetwork_objc.mm */,
+				F40AFE2E16BD15C600565A5E /* CCNativeIOS.h */,
+				F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */,
 				F40AFE4016BD15C600565A5E /* openudid */,
-				F40AFE4316BD15C600565A5E /* reachability */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -882,19 +891,10 @@
 		F40AFE4016BD15C600565A5E /* openudid */ = {
 			isa = PBXGroup;
 			children = (
-				F40AFE4116BD15C600565A5E /* OpenUDID_objc.h */,
-				F40AFE4216BD15C600565A5E /* OpenUDID_objc.m */,
+				F40AFE4116BD15C600565A5E /* OpenUDIDIOS.h */,
+				F40AFE4216BD15C600565A5E /* OpenUDIDIOS.m */,
 			);
 			path = openudid;
-			sourceTree = "<group>";
-		};
-		F40AFE4316BD15C600565A5E /* reachability */ = {
-			isa = PBXGroup;
-			children = (
-				F40AFE4416BD15C600565A5E /* Reachability_objc.h */,
-				F40AFE4516BD15C600565A5E /* Reachability_objc.m */,
-			);
-			path = reachability;
 			sourceTree = "<group>";
 		};
 		F40AFE8216BD160200565A5E /* lua_extensions */ = {
@@ -2105,10 +2105,8 @@
 				F40AFE6C16BD15C700565A5E /* CCNetwork.cpp in Sources */,
 				F40AFE6D16BD15C700565A5E /* CCCrypto_objc.mm in Sources */,
 				F40AFE6E16BD15C700565A5E /* CCNative.mm in Sources */,
-				F40AFE6F16BD15C700565A5E /* CCNative_objc.mm in Sources */,
-				F40AFE7016BD15C700565A5E /* CCNetwork_objc.mm in Sources */,
-				F40AFE7916BD15C700565A5E /* OpenUDID_objc.m in Sources */,
-				F40AFE7A16BD15C700565A5E /* Reachability_objc.m in Sources */,
+				F40AFE6F16BD15C700565A5E /* CCNativeIOS.mm in Sources */,
+				F40AFE7916BD15C700565A5E /* OpenUDIDIOS.m in Sources */,
 				F40AFE9A16BD160200565A5E /* fpconv.c in Sources */,
 				F40AFE9B16BD160200565A5E /* lua_cjson.c in Sources */,
 				F40AFE9C16BD160200565A5E /* strbuf.c in Sources */,
@@ -2168,6 +2166,8 @@
 				F40F45C616C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp in Sources */,
 				F40F45CA16C76145000394B5 /* lua_zlib.c in Sources */,
 				F45FF34516C7D24200275222 /* lua_extensions.c in Sources */,
+				F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */,
+				F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
