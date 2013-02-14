@@ -384,7 +384,6 @@
 		F4B4EF5D16CA24C300736FFE /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
 		F4B4EF5F16CA25BF00736FFE /* CCCryptoMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCryptoMac.mm; sourceTree = "<group>"; };
 		F4B4EF6116CA296D00736FFE /* CCNetworkIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetworkIOSMac.mm; sourceTree = "<group>"; };
-		F4B4EF6316CA2A7500736FFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F4DCACE3168C151700679DBE /* CCControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControl.cpp; sourceTree = "<group>"; };
 		F4DCACE4168C151700679DBE /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
 		F4DCACE5168C151700679DBE /* CCControlButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlButton.cpp; sourceTree = "<group>"; };
@@ -1160,7 +1159,6 @@
 		F4DE081516800060005DB2DB = {
 			isa = PBXGroup;
 			children = (
-				F4B4EF6316CA2A7500736FFE /* SystemConfiguration.framework */,
 				F4DE082B16800061005DB2DB /* libquickcocos2dx.pch */,
 				F4DE082916800061005DB2DB /* libquickcocos2dx */,
 				F4DE082216800061005DB2DB /* Frameworks */,
@@ -1179,8 +1177,8 @@
 		F4DE082216800061005DB2DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F45FF35316C7DE1F00275222 /* libcurl.dylib */,
 				F4DE082316800061005DB2DB /* Cocoa.framework */,
+				F45FF35316C7DE1F00275222 /* libcurl.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2142,6 +2140,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2166,6 +2165,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;

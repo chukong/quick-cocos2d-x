@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		F40EE898163F83E000090121 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957915F49004004D4151 /* AppKit.framework */; };
+		F423AE6216CB75760007E734 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F423AE6116CB75760007E734 /* Icon.icns */; };
 		F44C957715F49004004D4151 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957615F49004004D4151 /* Cocoa.framework */; };
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
-		F460540E16C7DFB800AE5F46 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35216C7DDF100275222 /* libquickcocos2dx.a */; };
+		F460540E16C7DFB800AE5F46 /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35216C7DDF100275222 /* liblibquickcocos2dx.a */; };
 		F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15816B7A35700A12606 /* AudioToolbox.framework */; };
 		F4A5C15F16B7A35700A12606 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15916B7A35700A12606 /* OpenAL.framework */; };
 		F4A5C16016B7A35700A12606 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15A16B7A35700A12606 /* OpenGL.framework */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F423AE6116CB75760007E734 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		F44C957215F49004004D4151 /* LuaHostMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaHostMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44C957915F49004004D4151 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -74,7 +76,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B4EF6616CA2A8B00736FFE /* SystemConfiguration.framework in Frameworks */,
-				F460540E16C7DFB800AE5F46 /* libquickcocos2dx.a in Frameworks */,
+				F460540E16C7DFB800AE5F46 /* liblibquickcocos2dx.a in Frameworks */,
 				F40EE898163F83E000090121 /* AppKit.framework in Frameworks */,
 				F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */,
 				F4BA6EB315F499A300CE7A10 /* QuartzCore.framework in Frameworks */,
@@ -154,7 +156,7 @@
 		F45FF34E16C7DDF100275222 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F45FF35216C7DDF100275222 /* libquickcocos2dx.a */,
+				F45FF35216C7DDF100275222 /* liblibquickcocos2dx.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +184,7 @@
 		F4BA6C3215F4912B00CE7A10 /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				F423AE6116CB75760007E734 /* Icon.icns */,
 				F4BA6C2F15F4911600CE7A10 /* AppController.h */,
 				F4BA6C3015F4911600CE7A10 /* AppController.mm */,
 				F4BA6C2E15F4909200CE7A10 /* HostVersion.h */,
@@ -253,10 +256,9 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F45FF35216C7DDF100275222 /* libquickcocos2dx.a */ = {
+		F45FF35216C7DDF100275222 /* liblibquickcocos2dx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			name = libquickcocos2dx.a;
 			path = liblibquickcocos2dx.a;
 			remoteRef = F45FF35116C7DDF100275222 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -270,6 +272,7 @@
 			files = (
 				F44C958115F49004004D4151 /* InfoPlist.strings in Resources */,
 				F44C958D15F49004004D4151 /* MainMenu.xib in Resources */,
+				F423AE6216CB75760007E734 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
