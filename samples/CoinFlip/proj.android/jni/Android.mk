@@ -13,8 +13,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../sources
 
 LOCAL_CFLAGS += -Wno-psabi -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
 
-LOCAL_WHOLE_STATIC_LIBRARIES := quickcocos2dx
+LOCAL_WHOLE_STATIC_LIBRARIES := libquickcocos2dx
 
 include $(BUILD_SHARED_LIBRARY)
 
-$(call import-module,hosts/proj.android)
+$(call import-module,lib/proj.android)

@@ -1,30 +1,31 @@
 
 $#include "CCScale9Sprite.h"
+$#include "CCControl.h"
+$#include "CCControlButton.h"
 $#include "CCEditBox.h"
 
 $using namespace cocos2d::extension;
 
 class CCScale9Sprite : public CCNode
 {
-    CCRect getCapInsets();
-    void setCapInsets(CCRect);
+    CCSize getOriginalSize(void);
 
-    float getInsetLeft();
-    void setInsetLeft(float);
-    float getInsetTop();
-    void setInsetTop(float);
-    float getInsetRight();
-    void setInsetRight(float);
-    float getInsetBottom();
-    void setInsetBottom(float);
+    CCSize getPreferredSize(void);
+    void setPreferredSize(CCSize size);
 
-    CCSize getContentSize();
-    void setContentSize(CCSize size);
+    CCRect getCapInsets(void);
+    void setCapInsets(CCRect capInsets);
+
     unsigned char getOpacity(void);
     void setOpacity(unsigned char opacity);
 
+    CCScale9Sprite* resizableSpriteWithCapInsets(CCRect capInsets);
+    static CCScale9Sprite* create();
+    void setSpriteFrame(CCSpriteFrame * spriteFrame);
+
     static CCScale9Sprite* create(const char* file, CCRect rect,  CCRect capInsets);
     static CCScale9Sprite* create(const char* file, CCRect rect);
+    static CCScale9Sprite* create(CCRect capInsets, const char* file);
     static CCScale9Sprite* create(const char* file);
     static CCScale9Sprite* createWithSpriteFrame(CCSpriteFrame* spriteFrame, CCRect capInsets);
     static CCScale9Sprite* createWithSpriteFrame(CCSpriteFrame* spriteFrame);
@@ -32,108 +33,68 @@ class CCScale9Sprite : public CCNode
     static CCScale9Sprite* createWithSpriteFrameName(const char*spriteFrameName);
 };
 
-
-// ----------------------------------------
-
 enum CCControlState
 {
-    CCControlStateNormal       = 1 << 0, // The normal, or default state of a control°™that is, enabled but neither selected nor highlighted.
-    CCControlStateHighlighted  = 1 << 1, // Highlighted state of a control. A control enters this state when a touch down, drag inside or drag enter is performed. You can retrieve and set this value through the highlighted property.
-    CCControlStateDisabled     = 1 << 2, // Disabled state of a control. This state indicates that the control is currently disabled. You can retrieve and set this value through the enabled property.
-    CCControlStateSelected     = 1 << 3  // Selected state of a control. This state indicates that the control is currently selected. You can retrieve and set this value through the selected property.
+    CCControlStateNormal       = 1 << 0,
+    CCControlStateHighlighted  = 1 << 1,
+    CCControlStateDisabled     = 1 << 2,
+    CCControlStateSelected     = 1 << 3
 };
 
 class CCControl : public CCLayer
 {
     CCControlState getState();
 
-    /** Tells whether the control is enabled. */
-    void setEnabled(bool bEnabled);
-    bool isEnabled();
-    /** A Boolean value that determines the control selected state. */
-    void setSelected(bool bSelected);
-    bool isSelected();
-    /** A Boolean value that determines whether the control is highlighted. */
-    void setHighlighted(bool bHighlighted);
-    bool isHighlighted();
-
     unsigned char getOpacity(void);
     void setOpacity(unsigned char opacity);
+
+    void setEnabled(bool bEnabled);
+    bool isEnabled();
+    void setSelected(bool bSelected);
+    bool isSelected();
+    void setHighlighted(bool bHighlighted);
+    bool isHighlighted();
+    bool hasVisibleParents();
+    void needsLayout();
 };
 
-/** @class CCControlButton Button control for Cocos2D. */
 class CCControlButton : public CCControl
 {
-    /* Define the button margin for Top/Bottom edge */
-    int getVerticalMargin();
-    /* Define the button margin for Left/Right edge */
-    int getHorizontalOrigin();
-    //set the margins at once (so we only have to do one call of needsLayout)
+    bool doesAdjustBackgroundImage();
+    void setAdjustBackgroundImage(bool adjustBackgroundImage);
+
+    CCNode* getTitleLabel(void);
+    void setTitleLabel(CCNode* titleLabel);
+
+    CCScale9Sprite* getBackgroundSprite(void);
+    void setBackgroundSprite(CCScale9Sprite* backgroundSprite);
+
+    CCSize getPreferredSize(void);
+    void setPreferredSize(CCSize size);
+
+    bool getZoomOnTouchDown(void);
+    void setZoomOnTouchDown(bool zoom);
+
+    CCPoint getLabelAnchorPoint(void);
+    void setLabelAnchorPoint(CCPoint point);
+
+    bool isPushed(void);
+
+    int getVerticalMargin(void);
+    int getHorizontalOrigin(void);
     void setMargins(int marginH, int marginV);
 
     static CCControlButton* create(CCNode* label, CCScale9Sprite* backgroundSprite);
     static CCControlButton* create(std::string title, const char * fontName, float fontSize);
     static CCControlButton* create(CCScale9Sprite* sprite);
-    // static CCControlButton* create();
+    static CCControlButton* create();
 
-    /**
-    * Returns the title used for a state.
-    *
-    * @param state The state that uses the title. Possible values are described in
-    * "CCControlState".
-    *
-    * @return The title for the specified state.
-    */
     CCString* getTitleForState(CCControlState state);
-
-    /**
-    * Sets the title string to use for the specified state.
-    * If a property is not specified for a state, the default is to use
-    * the CCButtonStateNormal value.
-    *
-    * @param title The title string to use for the specified state.
-    * @param state The state that uses the specified title. The values are described
-    * in "CCControlState".
-    */
     void setTitleForState(CCString* title, CCControlState state);
-
-    /**
-    * Returns the title color used for a state.
-    *
-    * @param state The state that uses the specified color. The values are described
-    * in "CCControlState".
-    *
-    * @return The color of the title for the specified state.
-    */
-
-    const ccColor3B getTitleColorForState(CCControlState state);
-
-    /**
-    * Sets the color of the title to use for the specified state.
-    *
-    * @param color The color of the title to use for the specified state.
-    * @param state The state that uses the specified color. The values are described
-    * in "CCControlState".
-    */
+    ccColor3B getTitleColorForState(CCControlState state);
     void setTitleColorForState(ccColor3B color, CCControlState state);
 
-    /**
-    * Returns the title label used for a state.
-    *
-    * @param state The state that uses the title label. Possible values are described
-    * in "CCControlState".
-    */
     CCNode* getTitleLabelForState(CCControlState state);
-
-    /**
-    * Sets the title label to use for the specified state.
-    * If a property is not specified for a state, the default is to use
-    * the CCButtonStateNormal value.
-    *
-    * @param title The title label to use for the specified state.
-    * @param state The state that uses the specified title. The values are described
-    * in "CCControlState".
-    */
     void setTitleLabelForState(CCNode* label, CCControlState state);
 
     void setTitleTTFForState(const char * fntFile, CCControlState state);
@@ -142,42 +103,13 @@ class CCControlButton : public CCControl
     void setTitleTTFSizeForState(float size, CCControlState state);
     float getTitleTTFSizeForState(CCControlState state);
 
-    /**
-     * Sets the font of the label, changes the label to a CCLabelBMFont if neccessary.
-     * @param fntFile The name of the font to change to
-     * @param state The state that uses the specified fntFile. The values are described
-     * in "CCControlState".
-     */
     void setTitleBMFontForState(const char * fntFile, CCControlState state);
     const char * getTitleBMFontForState(CCControlState state);
 
-    /**
-    * Returns the background sprite used for a state.
-    *
-    * @param state The state that uses the background sprite. Possible values are
-    * described in "CCControlState".
-    */
     CCScale9Sprite* getBackgroundSpriteForState(CCControlState state);
-
-    /**
-    * Sets the background sprite to use for the specified button state.
-    *
-    * @param sprite The background sprite to use for the specified state.
-    * @param state The state that uses the specified image. The values are described
-    * in "CCControlState".
-    */
     void setBackgroundSpriteForState(CCScale9Sprite* sprite, CCControlState state);
-
-    /**
-     * Sets the background spriteFrame to use for the specified button state.
-     *
-     * @param spriteFrame The background spriteFrame to use for the specified state.
-     * @param state The state that uses the specified image. The values are described
-     * in "CCControlState".
-     */
     void setBackgroundSpriteFrameForState(CCSpriteFrame * spriteFrame, CCControlState state);
 };
-
 
 enum KeyboardReturnType {
     kKeyboardReturnTypeDefault = 0,
@@ -265,7 +197,6 @@ enum EditBoxInputFlag
      * Capitalize all characters automatically.
      */
     kEditBoxInputFlagInitialCapsAllCharacters
-
 };
 
 // ----------------------------------------
@@ -276,61 +207,83 @@ enum EditBoxInputFlag
  * You can use this widget to gather small amounts of text from the user.
  *
  */
-
 class CCEditBox : public CCControlButton
 {
-public:
     /**
      * create a edit box with size.
      * @return An autorelease pointer of CCEditBox, you don't need to release it only if you retain it again.
      */
     static CCEditBox* create(const CCSize& size, CCScale9Sprite* pNormal9SpriteBg, CCScale9Sprite* pPressed9SpriteBg = NULL, CCScale9Sprite* pDisabled9SpriteBg = NULL);
 
-    void registerScriptEditboxHandler(LUA_FUNCTION nHandler);
-    void unregisterScriptEditboxHandler(void);
+    /**
+     * Registers a script function that will be called for EditBox events.
+     * 
+     * This handler will be removed automatically after onExit() called.
+     * @code
+     * -- lua sample
+     * local function editboxEventHandler(eventType)
+     *     if eventType == "began" then
+     *         -- triggered when an edit box gains focus after keyboard is shown
+     *     elseif eventType == "ended" then
+     *         -- triggered when an edit box loses focus after keyboard is hidden.
+     *     elseif eventType == "changed" then
+     *         -- triggered when the edit box text was changed.
+     *     elseif eventType == "return" then
+     *         -- triggered when the return button was pressed or the outside area of keyboard was touched.
+     *     end
+     * end
+     * 
+     * local editbox = CCEditBox:create(CCSize(...), CCScale9Sprite:create(...))
+     * editbox = registerScriptEditBoxHandler(editboxEventHandler)
+     * @endcode
+     *
+     * @param handler A number that indicates a lua function. 
+     */
+    void registerScriptEditBoxHandler(LUA_FUNCTION handler);
+    void unregisterScriptEditBoxHandler(void);
 
     /**
      * Set the text entered in the edit box.
      * @param pText The given text.
      */
     void setText(const char* pText);
-
+    
     /**
      * Get the text entered in the edit box.
      * @return The text entered in the edit box.
      */
     const char* getText(void);
-
+    
     /**
      * Set the font color of the widget's text.
      */
     void setFontColor(const ccColor3B& color);
-
+    
     /**
      * Set the font color of the placeholder text when the edit box is empty.
      * Not supported on IOS.
      */
     void setPlaceholderFontColor(const ccColor3B& color);
-
+    
     /**
      * Set a text in the edit box that acts as a placeholder when an
      * edit box is empty.
      * @param pText The given text.
      */
     void setPlaceHolder(const char* pText);
-
+    
     /**
      * Get a text in the edit box that acts as a placeholder when an
      * edit box is empty.
      */
     const char* getPlaceHolder(void);
-
+    
     /**
      * Set the input mode of the edit box.
      * @param inputMode One of the EditBoxInputMode constants.
      */
     void setInputMode(EditBoxInputMode inputMode);
-
+    
     /**
      * Sets the maximum input length of the edit box.
      * Setting this value enables multiline input mode by default.
@@ -339,20 +292,20 @@ public:
      * @param maxLength The maximum length.
      */
     void setMaxLength(int maxLength);
-
+    
     /**
      * Gets the maximum input length of the edit box.
      *
      * @return Maximum input length.
      */
     int getMaxLength();
-
+    
     /**
      * Set the input flags that are to be applied to the edit box.
      * @param inputFlag One of the EditBoxInputFlag constants.
      */
     void setInputFlag(EditBoxInputFlag inputFlag);
-
+    
     /**
      * Set the return type that are to be applied to the edit box.
      * @param returnType One of the CCKeyboardReturnType constants.

@@ -8,6 +8,8 @@
 
 // lua extensions
 #include "lua_extensions.h"
+// cocos2dx_extensions luabinding
+#include "cocos2dx_extensions_luabinding.h"
 // cocos2dx_extra luabinding
 #include "luabinding/cocos2dx_extra_luabinding.h"
 
@@ -41,16 +43,18 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-        
+    
     // register lua engine
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);    
-
+    
     CCLuaStack *pStack = pEngine->getLuaStack();
     lua_State* L = pStack->getLuaState();
     
     // load lua extensions
     luaopen_lua_extensions(L);
+    // load cocos2dx_extensions luabinding
+    luaopen_cocos2dx_extensions_luabinding(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
     // if use compiled framework, uncomment below codes

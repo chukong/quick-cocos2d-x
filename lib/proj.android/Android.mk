@@ -1,50 +1,59 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := quickcocos2dx
+LOCAL_MODULE := libquickcocos2dx
 
-LOCAL_MODULE_FILENAME := quickcocos2dx
+LOCAL_MODULE_FILENAME := libquickcocos2dx
 
-LOCAL_SRC_FILES := ../libs/CCDrawing/CCDrawing.cpp \
-    ../libs/CCDrawing/LuaCCDrawing.cpp \
-    ../libs/cocos2d-x-extensions/extensions/crypto/CCCrypto.cpp \
-    ../libs/cocos2d-x-extensions/extensions/crypto/base64/libb64.c \
-    ../libs/cocos2d-x-extensions/extensions/crypto/md5/md5.c \
-    ../libs/cocos2d-x-extensions/extensions/crypto/sha1/sha1.cpp \
-    ../libs/cocos2d-x-extensions/extensions/network/CCHttpRequest_impl.cpp \
-    ../libs/cocos2d-x-extensions/extensions/network/CCHttpRequest.cpp \
-    ../libs/cocos2d-x-extensions/extensions/network/CCNetwork.cpp \
-    ../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_crypto_android.cpp \
-    ../libs/cocos2d-x-extensions/extensions/luabinding/cocos2dx_extension_network_android.cpp \
-    ../libs/luaexts/cjson/fpconv.c \
-    ../libs/luaexts/cjson/lua_cjson.c \
-    ../libs/luaexts/cjson/strbuf.c \
-    ../libs/luaexts/lualoadexts.c \
-    ../libs/LuaBridge/java/jni/com_qeeplay_frameworks_LuaJavaBridge.cpp \
-    ../libs/LuaBridge/java/luabinding/LuaJavaBridge.cpp \
-    ../libs/cocos2d-x/scripting/lua/tolua/tolua_event.c \
-    ../libs/cocos2d-x/scripting/lua/tolua/tolua_is.c \
-    ../libs/cocos2d-x/scripting/lua/tolua/tolua_map.c \
-    ../libs/cocos2d-x/scripting/lua/tolua/tolua_push.c \
-    ../libs/cocos2d-x/scripting/lua/tolua/tolua_to.c \
-    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/CCLuaEngine.cpp \
-    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/CCLuaStack.cpp \
-    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/CCLuaValue.cpp \
-    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/Cocos2dxLuaLoader.cpp \
-    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/LuaCocos2d.cpp \
-    ../libs/cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c
+LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.cpp \
+    ../cocos2d-x/extensions/GUI/CCControlExtension/CCControl.cpp \
+    ../cocos2d-x/extensions/GUI/CCControlExtension/CCControlButton.cpp \
+    ../cocos2d-x/extensions/GUI/CCControlExtension/CCControlUtils.cpp \
+    ../cocos2d-x/extensions/GUI/CCControlExtension/CCInvocation.cpp \
+    ../cocos2d-x/extensions/GUI/CCEditBox/CCEditBox.cpp \
+    ../cocos2d-x/extensions/GUI/CCEditBox/CCEditBoxImplAndroid.cpp \
+    ../cocos2dx_extensions_luabinding/cocos2dx_extensions_luabinding.cpp \
+    ../cocos2dx_extra/extra/crypto/CCCrypto.cpp \
+    ../cocos2dx_extra/extra/crypto/base64/libb64.c \
+    ../cocos2dx_extra/extra/crypto/md5/md5.c \
+    ../cocos2dx_extra/extra/crypto/sha1/sha1.cpp \
+    ../cocos2dx_extra/extra/network/CCHttpRequest.cpp \
+    ../cocos2dx_extra/extra/network/CCNetwork.cpp \
+    ../cocos2dx_extra/extra/platform/android/CCCryptoAndroid.cpp \
+    ../cocos2dx_extra/extra/platform/android/CCNativeAndroid.cpp \
+    ../cocos2dx_extra/extra/platform/android/CCNetworkAndroid.cpp \
+    ../cocos2dx_extra/extra/luabinding/cocos2dx_extra_luabinding.cpp \
+    ../lua_extensions/cjson/fpconv.c \
+    ../lua_extensions/cjson/lua_cjson.c \
+    ../lua_extensions/cjson/strbuf.c \
+    ../lua_extensions/zlib/lua_zlib.c \
+    ../lua_extensions/lua_extensions.c \
+    ../framework_precompiled/framework_precompiled.c \
+    ../cocos2d-x/scripting/lua/tolua/tolua_event.c \
+    ../cocos2d-x/scripting/lua/tolua/tolua_is.c \
+    ../cocos2d-x/scripting/lua/tolua/tolua_map.c \
+    ../cocos2d-x/scripting/lua/tolua/tolua_push.c \
+    ../cocos2d-x/scripting/lua/tolua/tolua_to.c \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/CCLuaEngine.cpp \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/CCLuaStack.cpp \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/CCLuaValue.cpp \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/Cocos2dxLuaLoader.cpp \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/LuaCocos2d.cpp \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c
 
-LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/hosts/libs/CCDrawing \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/include \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x-extensions/extensions/luabinding \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/luaexts/cjson \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/java/jni \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/LuaBridge/java/luabinding \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/luajit2/include \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/tolua \
-    $(QUICK_COCOS2DX_ROOT)/hosts/libs/cocos2d-x/scripting/lua/cocos2dx_support
+LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCControlExtension \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding/ \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding \
+    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions \
+    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson \
+    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib \
+    $(QUICK_COCOS2DX_ROOT)/lib/framework_precompiled \
+    $(QUICK_COCOS2DX_ROOT)/lib/luajit2/include \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support
 
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES)
 
@@ -58,4 +67,4 @@ include $(BUILD_STATIC_LIBRARY)
 $(call import-module,CocosDenshion/android) \
 $(call import-module,cocos2dx) \
 $(call import-module,libcurl) \
-$(call import-module,hosts/libs/luajit2/proj.android)
+$(call import-module,lib/luajit2/proj.android)

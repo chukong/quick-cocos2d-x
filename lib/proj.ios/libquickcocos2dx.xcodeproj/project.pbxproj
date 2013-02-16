@@ -19,7 +19,7 @@
 		F40AFE5E16BD15C700565A5E /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE0116BD15C600565A5E /* sha1.cpp */; };
 		F40AFE6B16BD15C700565A5E /* CCHTTPRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2416BD15C600565A5E /* CCHTTPRequest.cpp */; };
 		F40AFE6C16BD15C700565A5E /* CCNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2716BD15C600565A5E /* CCNetwork.cpp */; };
-		F40AFE6D16BD15C700565A5E /* CCCrypto_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2C16BD15C600565A5E /* CCCrypto_objc.mm */; };
+		F40AFE6D16BD15C700565A5E /* CCCryptoIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2C16BD15C600565A5E /* CCCryptoIOS.mm */; };
 		F40AFE6E16BD15C700565A5E /* CCNative.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2D16BD15C600565A5E /* CCNative.mm */; };
 		F40AFE6F16BD15C700565A5E /* CCNativeIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */; };
 		F40AFE7916BD15C700565A5E /* OpenUDIDIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE4216BD15C600565A5E /* OpenUDIDIOS.m */; };
@@ -237,6 +237,7 @@
 		F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
+		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -266,7 +267,7 @@
 		F40AFE2616BD15C600565A5E /* CCHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHTTPRequestDelegate.h; sourceTree = "<group>"; };
 		F40AFE2716BD15C600565A5E /* CCNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCNetwork.cpp; sourceTree = "<group>"; };
 		F40AFE2816BD15C600565A5E /* CCNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNetwork.h; sourceTree = "<group>"; };
-		F40AFE2C16BD15C600565A5E /* CCCrypto_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCrypto_objc.mm; sourceTree = "<group>"; };
+		F40AFE2C16BD15C600565A5E /* CCCryptoIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCryptoIOS.mm; sourceTree = "<group>"; };
 		F40AFE2D16BD15C600565A5E /* CCNative.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNative.mm; sourceTree = "<group>"; };
 		F40AFE2E16BD15C600565A5E /* CCNativeIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNativeIOS.h; sourceTree = "<group>"; };
 		F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNativeIOS.mm; sourceTree = "<group>"; };
@@ -734,6 +735,8 @@
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
 		F4D11009169FBF7C00305E28 /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
+		F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
+		F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -879,7 +882,7 @@
 		F40AFE2B16BD15C600565A5E /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				F40AFE2C16BD15C600565A5E /* CCCrypto_objc.mm */,
+				F40AFE2C16BD15C600565A5E /* CCCryptoIOS.mm */,
 				F40AFE2D16BD15C600565A5E /* CCNative.mm */,
 				F40AFE2E16BD15C600565A5E /* CCNativeIOS.h */,
 				F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */,
@@ -1158,6 +1161,7 @@
 			isa = PBXGroup;
 			children = (
 				F45A2BC0166B151300760194 /* cocos2d-x */,
+				F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */,
 				F40AFDDA16BD15C600565A5E /* cocos2dx_extra */,
 				F40AFE8216BD160200565A5E /* lua_extensions */,
 				F43991FB16816CB700AE90D1 /* luajit2 */,
@@ -1891,6 +1895,15 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */ = {
+			isa = PBXGroup;
+			children = (
+				F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */,
+				F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */,
+			);
+			path = cocos2dx_extensions_luabinding;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2103,7 +2116,7 @@
 				F40AFE5E16BD15C700565A5E /* sha1.cpp in Sources */,
 				F40AFE6B16BD15C700565A5E /* CCHTTPRequest.cpp in Sources */,
 				F40AFE6C16BD15C700565A5E /* CCNetwork.cpp in Sources */,
-				F40AFE6D16BD15C700565A5E /* CCCrypto_objc.mm in Sources */,
+				F40AFE6D16BD15C700565A5E /* CCCryptoIOS.mm in Sources */,
 				F40AFE6E16BD15C700565A5E /* CCNative.mm in Sources */,
 				F40AFE6F16BD15C700565A5E /* CCNativeIOS.mm in Sources */,
 				F40AFE7916BD15C700565A5E /* OpenUDIDIOS.m in Sources */,
@@ -2168,6 +2181,7 @@
 				F45FF34516C7D24200275222 /* lua_extensions.c in Sources */,
 				F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */,
 				F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */,
+				F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2256,7 +2270,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extensions-luabinding/ios\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",
@@ -2309,7 +2323,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extensions-luabinding/ios\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",

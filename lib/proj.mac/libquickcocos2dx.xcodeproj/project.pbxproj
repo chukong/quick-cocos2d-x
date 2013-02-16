@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */; };
 		F436705816BCCB76004C8BB9 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */; };
 		F439920B16816D3400AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920A16816D3400AE90D1 /* libluajit2.a */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
+		F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F486025016CF35F100A158F4 /* CCEditBox.cpp */; };
+		F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */; };
 		F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */; };
 		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
 		F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */; };
@@ -102,7 +105,6 @@
 		F4DCAD19168C151700679DBE /* CCControlUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF6168C151700679DBE /* CCControlUtils.cpp */; };
 		F4DCAD1B168C151700679DBE /* CCInvocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACF8168C151700679DBE /* CCInvocation.cpp */; };
 		F4DCAD1D168C151700679DBE /* CCScale9Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACFA168C151700679DBE /* CCScale9Sprite.cpp */; };
-		F4DCAD33168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCAD30168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp */; };
 		F4DE082416800061005DB2DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DE082316800061005DB2DB /* Cocoa.framework */; };
 		F4DE0954168001AA005DB2DB /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0845168001A9005DB2DB /* CCAction.cpp */; };
 		F4DE0956168001AA005DB2DB /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0847168001A9005DB2DB /* CCActionCamera.cpp */; };
@@ -237,6 +239,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
+		6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageCommonWebp.cpp; sourceTree = "<group>"; };
 		F43991E416816ACA00AE90D1 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F43991E516816ACA00AE90D1 /* lua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
@@ -246,6 +250,11 @@
 		F43991E916816ACA00AE90D1 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F439920A16816D3400AE90D1 /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		F486025016CF35F100A158F4 /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
+		F486025116CF35F100A158F4 /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
+		F486025216CF35F100A158F4 /* CCEditBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImpl.h; sourceTree = "<group>"; };
+		F486025716CF35F100A158F4 /* CCEditBoxImplMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplMac.h; sourceTree = "<group>"; };
+		F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplMac.mm; sourceTree = "<group>"; };
 		F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaEngine.cpp; sourceTree = "<group>"; };
 		F4A9C07416BC3AF400088CF7 /* CCLuaEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaEngine.h; sourceTree = "<group>"; };
 		F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaLoader.cpp; sourceTree = "<group>"; };
@@ -409,8 +418,6 @@
 		F4DCACF9168C151700679DBE /* CCInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCInvocation.h; sourceTree = "<group>"; };
 		F4DCACFA168C151700679DBE /* CCScale9Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCScale9Sprite.cpp; sourceTree = "<group>"; };
 		F4DCACFB168C151700679DBE /* CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScale9Sprite.h; sourceTree = "<group>"; };
-		F4DCAD30168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding_mac.cpp; sourceTree = "<group>"; };
-		F4DCAD31168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding_mac.h; sourceTree = "<group>"; };
 		F4DE082016800061005DB2DB /* liblibquickcocos2dx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibquickcocos2dx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4DE082316800061005DB2DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F4DE082B16800061005DB2DB /* libquickcocos2dx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libquickcocos2dx.pch; sourceTree = SOURCE_ROOT; };
@@ -767,6 +774,18 @@
 			path = proj.mac;
 			sourceTree = "<group>";
 		};
+		F486024F16CF35F100A158F4 /* CCEditBox */ = {
+			isa = PBXGroup;
+			children = (
+				F486025016CF35F100A158F4 /* CCEditBox.cpp */,
+				F486025116CF35F100A158F4 /* CCEditBox.h */,
+				F486025216CF35F100A158F4 /* CCEditBoxImpl.h */,
+				F486025716CF35F100A158F4 /* CCEditBoxImplMac.h */,
+				F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */,
+			);
+			path = CCEditBox;
+			sourceTree = "<group>";
+		};
 		F4B4EE3416C7E01B00736FFE /* third_party */ = {
 			isa = PBXGroup;
 			children = (
@@ -1103,6 +1122,7 @@
 			isa = PBXGroup;
 			children = (
 				F4DCACE2168C151700679DBE /* CCControlExtension */,
+				F486024F16CF35F100A158F4 /* CCEditBox */,
 			);
 			path = GUI;
 			sourceTree = "<group>";
@@ -1139,21 +1159,13 @@
 			path = CCControlExtension;
 			sourceTree = "<group>";
 		};
-		F4DCAD28168C153000679DBE /* cocos2d-x-extensions-luabinding */ = {
+		F4DCAD28168C153000679DBE /* cocos2dx_extensions_luabinding */ = {
 			isa = PBXGroup;
 			children = (
-				F4DCAD2F168C15C900679DBE /* mac */,
+				6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */,
+				6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */,
 			);
-			path = "cocos2d-x-extensions-luabinding";
-			sourceTree = "<group>";
-		};
-		F4DCAD2F168C15C900679DBE /* mac */ = {
-			isa = PBXGroup;
-			children = (
-				F4DCAD30168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp */,
-				F4DCAD31168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.h */,
-			);
-			path = mac;
+			path = cocos2dx_extensions_luabinding;
 			sourceTree = "<group>";
 		};
 		F4DE081516800060005DB2DB = {
@@ -1187,7 +1199,7 @@
 			isa = PBXGroup;
 			children = (
 				F4DE084216800151005DB2DB /* cocos2d-x */,
-				F4DCAD28168C153000679DBE /* cocos2d-x-extensions-luabinding */,
+				F4DCAD28168C153000679DBE /* cocos2dx_extensions_luabinding */,
 				F425ABD016B7777A00A1C8DB /* cocos2dx_extra */,
 				F4B4EF3516C7E0AE00736FFE /* lua_extensions */,
 				F43991E216816AB600AE90D1 /* luajit2 */,
@@ -2029,7 +2041,6 @@
 				F4DCAD19168C151700679DBE /* CCControlUtils.cpp in Sources */,
 				F4DCAD1B168C151700679DBE /* CCInvocation.cpp in Sources */,
 				F4DCAD1D168C151700679DBE /* CCScale9Sprite.cpp in Sources */,
-				F4DCAD33168C15C900679DBE /* cocos2dx_extensions_luabinding_mac.cpp in Sources */,
 				F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */,
 				F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */,
 				F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */,
@@ -2111,6 +2122,9 @@
 				F4B4EF5E16CA24C300736FFE /* ReachabilityIOSMac.m in Sources */,
 				F4B4EF6016CA25C000736FFE /* CCCryptoMac.mm in Sources */,
 				F4B4EF6216CA296E00736FFE /* CCNetworkIOSMac.mm in Sources */,
+				F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */,
+				F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */,
+				6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2204,7 +2218,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extensions-luabinding/mac\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",
@@ -2250,7 +2264,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x-extensions-luabinding/mac\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",

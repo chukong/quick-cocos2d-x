@@ -34,7 +34,10 @@ function MenuScene:ctor()
         sound = GAME_SFX.tapButton,
         listener = function()
             self.menu:setEnabled(false)
-            print("More Games")
+            display.replaceScene(require("scenes.MoreGamesScene").new(),
+                                 "fade",
+                                 0.4,
+                                 display.COLOR_WHITE)
         end,
     })
 
