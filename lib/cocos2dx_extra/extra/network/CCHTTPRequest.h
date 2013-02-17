@@ -78,11 +78,8 @@ public:
     /** @brief Execute an asynchronous request. */
     void start(void);
     
-    /** @brief Cancel an asynchronous request. */
-    void cancel(void);
-    
     /** @brief Cancel an asynchronous request, clearing all delegates first. */
-    void clearDelegatesAndCancel(void);
+    void cancel(void);
     
     /** @brief Get the request state. */
     int getState(void) {
@@ -158,6 +155,7 @@ private:
         BUFFER_CHUNK_SIZE = 32768, // 32 KB
     };
     
+    static unsigned int s_id;
     CURL* m_curl;
     CCHTTPRequestDelegate* m_delegate;
     int m_listener;

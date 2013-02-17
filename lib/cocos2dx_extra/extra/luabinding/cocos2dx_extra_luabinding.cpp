@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Mon Feb 11 10:40:02 2013.
+** Generated automatically by tolua++-1.0.92 on Sun Feb 17 15:22:08 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -848,37 +848,6 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_cancel00(lua_State* tol
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: clearDelegatesAndCancel of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_clearDelegatesAndCancel00
-static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_clearDelegatesAndCancel00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'clearDelegatesAndCancel'", NULL);
-#endif
-  {
-   self->clearDelegatesAndCancel();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'clearDelegatesAndCancel'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getState of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getState00
 static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getState00(lua_State* tolua_S)
@@ -1338,7 +1307,6 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setTimeout",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setTimeout00);
    tolua_function(tolua_S,"start",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_start00);
    tolua_function(tolua_S,"cancel",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_cancel00);
-   tolua_function(tolua_S,"clearDelegatesAndCancel",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_clearDelegatesAndCancel00);
    tolua_function(tolua_S,"getState",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getState00);
    tolua_function(tolua_S,"getResponseStatusCode",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseStatusCode00);
    tolua_function(tolua_S,"getResponseString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00);

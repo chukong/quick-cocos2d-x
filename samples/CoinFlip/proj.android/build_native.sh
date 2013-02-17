@@ -47,20 +47,17 @@ echo "- cleanup"
 if [ -d "$APP_ANDROID_ROOT"/bin ]; then
     rm -rf "$APP_ANDROID_ROOT"/bin/*.apk
 fi
+mkdir -p "$APP_ANDROID_ROOT"/bin
 
 if [ -d "$APP_ANDROID_ROOT"/assets ]; then
     rm -rf "$APP_ANDROID_ROOT"/assets/*
 fi
+mkdir -p "$APP_ANDROID_ROOT"/assets
 
-if [ -d "$APP_ANDROID_ROOT"/res ]; then
-    rm -rf "$APP_ANDROID_ROOT"/res/*
-fi
-
-
+echo "- copy scripts"
+cp -rf "$APP_ROOT"/scripts "$APP_ANDROID_ROOT"/assets/
 echo "- copy resources"
-cp -rf "$APP_ROOT"/res/hd/ "$APP_ANDROID_ROOT"/res/
-cp -rf "$APP_ROOT"/res/sd/ "$APP_ANDROID_ROOT"/res/
-# cp -rf "$APP_ROOT"/res/sfx.android/ "$APP_ANDROID_ROOT"/res/
+cp -rf "$APP_ROOT"/res "$APP_ANDROID_ROOT"/assets/
 
 # build
 if [[ "$buildexternalsfromsource" ]]; then

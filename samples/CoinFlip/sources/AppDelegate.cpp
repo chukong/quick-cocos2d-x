@@ -62,10 +62,12 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_framework_precompiled(L);
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
+    string path("scripts/main.lua");
 #else
-    const string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
+    string path = getStartupScriptFilename();
 #endif
+
+    path = CCFileUtils::sharedFileUtils()->fullPathForFilename(path.c_str());
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {

@@ -157,52 +157,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>assets/AdBar.png</filename>
-            <filename>assets/BackButton.png</filename>
-            <filename>assets/BackButtonSelected.png</filename>
-            <filename>assets/boardNode.png</filename>
-            <filename>assets/boardNodeLocked.png</filename>
-            <filename>assets/ChooseLevelSceneBg.png</filename>
-            <filename>assets/CloseButton.png</filename>
-            <filename>assets/coin-01.png</filename>
-            <filename>assets/coin-02.png</filename>
-            <filename>assets/coin-03.png</filename>
-            <filename>assets/coin-04.png</filename>
-            <filename>assets/coin-05.png</filename>
-            <filename>assets/coin-06.png</filename>
-            <filename>assets/coin-07.png</filename>
-            <filename>assets/coin-08.png</filename>
-            <filename>assets/CompletedLevelIcon.png</filename>
-            <filename>assets/Flash.png</filename>
-            <filename>assets/FlipItLeftIcon.png</filename>
-            <filename>assets/FlipItRightIcon.png</filename>
-            <filename>assets/LockedLevelIcon.png</filename>
-            <filename>assets/MenuSceneBg.png</filename>
-            <filename>assets/MenuSceneMoreGamesButton.png</filename>
-            <filename>assets/MenuSceneStartButton.png</filename>
-            <filename>assets/PauseBar_buttonResume.png</filename>
-            <filename>assets/PauseBarBg.png</filename>
-            <filename>assets/PauseBarHomeButton.png</filename>
-            <filename>assets/PauseBarMusicOffButton.png</filename>
-            <filename>assets/PauseBarMusicOnButton.png</filename>
-            <filename>assets/PauseBarPauseButton.png</filename>
-            <filename>assets/PauseBarRestartButton.png</filename>
-            <filename>assets/PauseBarResumeButton.png</filename>
-            <filename>assets/PauseBarSoundsOffButton.png</filename>
-            <filename>assets/PauseBarSoundsOn.png</filename>
-            <filename>assets/SceneLevels_crown.png</filename>
-            <filename>assets/SceneLevels_lock.png</filename>
-            <filename>assets/scraps01.png</filename>
-            <filename>assets/scraps02.png</filename>
-            <filename>assets/scraps03.png</filename>
-            <filename>assets/scraps04.png</filename>
-            <filename>assets/scraps05.png</filename>
-            <filename>assets/snowflake01.png</filename>
-            <filename>assets/snowflake02.png</filename>
-            <filename>assets/StartButton.png</filename>
-            <filename>assets/UnlockAllButton.png</filename>
-            <filename>assets/UnlockAllButtonSelected.png</filename>
-            <filename>assets/UnlockedLevelIcon.png</filename>
+            <filename>assets</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

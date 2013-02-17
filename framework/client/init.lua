@@ -37,6 +37,7 @@ Module | Descripton
 [framework.client.display](framework.client.display.html) | Create scene, layer, sprite
 [framework.client.audio](framework.client.audio.html) | Play music, sound effect
 [framework.client.ui](framework.client.ui.html) | Create menu, label, widgets
+[framework.client.network](framework.client.network.html) | ...
 [framework.client.luaoc](framework.client.luaoc.html) | Call Objective-C from Lua, iOS platform only
 [framework.client.luaj](framework.client.luaj.html) | Call Java from Lua, Android platform only
 
@@ -66,9 +67,10 @@ transition = require("framework.client.transition")
 display    = require("framework.client.display")
 audio      = require("framework.client.audio")
 ui         = require("framework.client.ui")
+network    = require("framework.client.network")
 
 if device.platform == "android" then
-    luaj = require("framework.client.luaj")
+    -- luaj = require("framework.client.luaj")
 elseif device.platform == "ios" then
     luaoc = require("framework.client.luaoc")
 end

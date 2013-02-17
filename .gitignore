@@ -11,10 +11,8 @@
 
 bin/Debug.win32/
 out/
-hosts/windows/ipch/
 project.xcworkspace/
 xcuserdata/
-hosts/mac/build/
 lib/luajit2/LuaJIT-2.0.0/src/*.lib
 lib/luajit2/LuaJIT-2.0.0/src/*.dll
 lib/luajit2/LuaJIT-2.0.0/src/*.exp
@@ -36,5 +34,6 @@ samples/CoinFlip/proj.android/bin/
 samples/CoinFlip/proj.android/gen/
 samples/CoinFlip/proj.android/lint.xml
 samples/CoinFlip/proj.android/obj/
-samples/CoinFlip/proj.android/res/
+samples/CoinFlip/proj.android/assets/
+samples/CoinFlip/proj.android/libs/
 

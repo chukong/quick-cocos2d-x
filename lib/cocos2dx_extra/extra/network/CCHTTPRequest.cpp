@@ -14,6 +14,8 @@ using namespace cocos2d;
 
 NS_CC_EXTRA_BEGIN
 
+unsigned int CCHTTPRequest::s_id = 0;
+
 CCHTTPRequest* CCHTTPRequest::createWithUrl(CCHTTPRequestDelegate* delegate,
                                             const char* url,
                                             int method)
@@ -52,6 +54,7 @@ bool CCHTTPRequest::initWithListener(LUA_FUNCTION listener, const char* url, int
 
 bool CCHTTPRequest::initWithUrl(const char* url, int method)
 {
+    CCAssert(url, "CCHTTPRequest::initWithUrl() - invalid url");
     m_curl = curl_easy_init();
     curl_easy_setopt(m_curl, CURLOPT_URL, url);
     curl_easy_setopt(m_curl, CURLOPT_USERAGENT, "libcurl");
@@ -61,13 +64,16 @@ bool CCHTTPRequest::initWithUrl(const char* url, int method)
         curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
         curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, "");
     }
+    
+    ++s_id;
+    CCLOG("CCHTTPRequest[0x%04x] - create request with url: %s", s_id, url);
     return true;
 }
 
 CCHTTPRequest::~CCHTTPRequest(void)
 {
     cleanup();
-    CCLOG("~~ delete CCHTTPRequest\n");
+    CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
 }
 
 void CCHTTPRequest::setRequestUrl(const char* url)
@@ -77,22 +83,22 @@ void CCHTTPRequest::setRequestUrl(const char* url)
 
 void CCHTTPRequest::addRequestHeader(const char* header)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
-    CCAssert(header, "Invalid header");
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::addRequestHeader() - request not idle");
+    CCAssert(header, "CCHTTPRequest::addRequestHeader() - invalid header");
     m_headers.push_back(string(header));
 }
 
 void CCHTTPRequest::addPOSTValue(const char* key, const char* value)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
-    CCAssert(key, "Invalid key");
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::addPOSTValue() - request not idle");
+    CCAssert(key, "CCHTTPRequest::addPOSTValue() - invalid key");
     m_postFields[string(key)] = string(value ? value : "");
 }
 
 void CCHTTPRequest::setPOSTData(const char* data)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
-    CCAssert(data, "Invalid data");
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::setPOSTData() - request not idle");
+    CCAssert(data, "CCHTTPRequest::setPOSTData() - invalid post data");
     m_postFields.clear();
     curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
     curl_easy_setopt(m_curl, CURLOPT_COPYPOSTFIELDS, data);
@@ -100,7 +106,7 @@ void CCHTTPRequest::setPOSTData(const char* data)
 
 void CCHTTPRequest::setAcceptEncoding(int acceptEncoding)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::setAcceptEncoding() - request not idle");
     switch (acceptEncoding)
     {
         case kCCHTTPRequestAcceptEncodingGzip:
@@ -118,13 +124,13 @@ void CCHTTPRequest::setAcceptEncoding(int acceptEncoding)
 
 void CCHTTPRequest::setTimeout(float timeout)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::setTimeout() - request not idle");
     curl_easy_setopt(m_curl, CURLOPT_TIMEOUT_MS, timeout * 1000);
 }
 
 void CCHTTPRequest::start(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "Request not idle");    
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::start() - request not idle");    
     m_state = kCCHTTPRequestStateInProgress;
     
     curl_easy_setopt(m_curl, CURLOPT_HTTP_CONTENT_DECODING, 1);
@@ -148,37 +154,33 @@ void CCHTTPRequest::start(void)
 #endif
     
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
+    CCLOG("CCHTTPRequest[0x%04x] - request start", s_id);
 }
 
 void CCHTTPRequest::cancel(void)
 {
+    m_delegate = NULL;
     if (m_state == kCCHTTPRequestStateInProgress)
     {
         m_state = kCCHTTPRequestStateCancelled;
     }
 }
 
-void CCHTTPRequest::clearDelegatesAndCancel(void)
-{
-    m_delegate = NULL;
-    cancel();
-}
-
 const CCHTTPRequestHeaders& CCHTTPRequest::getResponseHeaders(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseHeaders() - request not completed");
     return m_responseHeaders;
 }
 
 const string CCHTTPRequest::getResponseString(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseString() - request not completed");
     return string(m_responseBuffer ? static_cast<char*>(m_responseBuffer) : "");
 }
 
 void* CCHTTPRequest::getResponseData(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseData() - request not completed");
     void* buff = malloc(m_responseDataLength);
     memcpy(buff, m_responseBuffer, m_responseDataLength);
     return buff;
@@ -187,7 +189,7 @@ void* CCHTTPRequest::getResponseData(void)
 #if CC_LUA_ENGINE_ENABLED > 0
 LUA_STRING CCHTTPRequest::getResponseDataLua(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseDataLua() - request not completed");
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
     stack->clean();
     stack->pushString(static_cast<char*>(m_responseBuffer), m_responseDataLength);
@@ -197,18 +199,17 @@ LUA_STRING CCHTTPRequest::getResponseDataLua(void)
 
 size_t CCHTTPRequest::saveResponseData(const char* filename)
 {
-    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::saveResponseData() - request not completed");
     
     FILE *fp = fopen(filename, "wb");
+    CCAssert(fp, "CCHTTPRequest::saveResponseData() - open file failure");
+    
     size_t writedBytes = m_responseDataLength;
-    if (fp)
+    if (writedBytes > 0)
     {
-        if (writedBytes > 0)
-        {
-            fwrite(m_responseBuffer, m_responseDataLength, 1, fp);
-        }
-        fclose(fp);
+        fwrite(m_responseBuffer, m_responseDataLength, 1, fp);
     }
+    fclose(fp);
     return writedBytes;
 }
 
@@ -219,6 +220,7 @@ void CCHTTPRequest::update(float dt)
 
     if (m_state == kCCHTTPRequestStateCompleted)
     {
+        CCLOG("CCHTTPRequest[0x%04x] - request completed", s_id);
         if (m_delegate) m_delegate->requestFinished(this);
         
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -236,6 +238,7 @@ void CCHTTPRequest::update(float dt)
     }
     else if (m_state == kCCHTTPRequestStateCancelled)
     {
+        CCLOG("CCHTTPRequest[0x%04x] - request cancelled", s_id);
         if (m_delegate) m_delegate->requestFailed(this);
         
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -307,6 +310,7 @@ size_t CCHTTPRequest::onWriteData(void* buffer, size_t bytes)
     memcpy(static_cast<char*>(m_responseBuffer) + m_responseDataLength, buffer, bytes);
     m_responseDataLength += bytes;
     static_cast<char*>(m_responseBuffer)[m_responseDataLength] = 0;
+    //CCLOG("CCHTTPRequest[0x%04x] - receive data %u bytes, total %u bytes", s_id, bytes, m_responseDataLength);
     return bytes;
 }
 

@@ -11,7 +11,7 @@ end
 
 function network.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
-        echoError("[network] ERR, isHostNameReachable() invalid hostname")
+        echoError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
         return false
     end
     return CCNetwork:isHostNameReachable(hostname)
@@ -21,19 +21,14 @@ function network.getInternetConnectionStatus()
     return CCNetwork:getInternetConnectionStatus()
 end
 
-function network.sendHttpRequest(url, method, callback)
-    if DEBUG > 1 then
-        echoInfo(string.format("HTTP REQUEST: [%s] %s", os.date("%Y-%m-%d %H:%I:%S"), url))
-    end
-
-    method = string.upper(method)
-    if method == "GET" then
-        method = CCHttpRequestMethodGET
+function network.createHTTPRequest(callback, url, method)
+    if not method then method = "GET" end
+    if string.upper(tostring(method)) == "GET" then
+        method = kCCHTTPRequestMethodGET
     else
-        method = CCHttpRequestMethodPOST
+        method = kCCHTTPRequestMethodPOST
     end
-
-    return CCHttpRequest:createWithUrlLua(callback, url, method)
+    return CCHTTPRequest:createWithUrlLua(callback, url, method)
 end
 
 return network

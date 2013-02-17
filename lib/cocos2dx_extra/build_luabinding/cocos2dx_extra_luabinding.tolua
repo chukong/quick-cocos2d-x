@@ -78,7 +78,6 @@ class CCHTTPRequest : public CCObject
     void setTimeout(float timeout);
     void start(void);
     void cancel(void);
-    void clearDelegatesAndCancel(void);
     int getState(void);
     int getResponseStatusCode(void);
     const string getResponseString(void);
