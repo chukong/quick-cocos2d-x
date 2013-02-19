@@ -126,8 +126,8 @@ Displays a platform-specific activity indicator.
 Supported platform: ios, android.
 
 ]]
-function device.showActivityIndicator(style)
-    CCNative:showActivityIndicator(CCActivityIndicatorViewStyleWhiteLarge)
+function device.showActivityIndicator()
+    CCNative:showActivityIndicator()
 end
 
 --[[--

@@ -13,7 +13,6 @@
 		F4482F2416A0555000FDDDAD /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1D16A0555000FDDDAD /* Icon-72.png */; };
 		F4482F2516A0555000FDDDAD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1E16A0555000FDDDAD /* Icon.png */; };
 		F4482F2616A0555000FDDDAD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1F16A0555000FDDDAD /* Icon@2x.png */; };
-		F4499C7A16C7CF480059FF37 /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4499C7616C7CDE20059FF37 /* liblibquickcocos2dx.a */; };
 		F452BFC51687EEF900DC5BCC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFC41687EEF900DC5BCC /* CoreText.framework */; };
 		F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFCF1687F0F200DC5BCC /* UIKit.framework */; };
 		F456ECC615EE018E00FCF3E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F456ECC515EE018E00FCF3E2 /* QuartzCore.framework */; };
@@ -39,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F4499C7516C7CDE20059FF37 /* PBXContainerItemProxy */ = {
+		F48F590716D21F8C000651BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F4499C7116C7CDE20059FF37 /* libquickcocos2dx.xcodeproj */;
 			proxyType = 2;
@@ -56,7 +55,7 @@
 		F4482F1E16A0555000FDDDAD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		F4482F1F16A0555000FDDDAD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		F4482F2016A0555000FDDDAD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4499C7116C7CDE20059FF37 /* libquickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libquickcocos2dx.xcodeproj; path = ../../../lib/proj.ios/libquickcocos2dx.xcodeproj; sourceTree = "<group>"; };
+		F4499C7116C7CDE20059FF37 /* libquickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libquickcocos2dx.xcodeproj; path = lib/proj.ios/libquickcocos2dx.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F452BFC41687EEF900DC5BCC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		F452BFCF1687F0F200DC5BCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F456ECC115EE018E00FCF3E2 /* CoinFlip.ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinFlip.ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +92,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4499C7A16C7CF480059FF37 /* liblibquickcocos2dx.a in Frameworks */,
 				F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */,
 				F456F0FD15EE0CF600FCF3E2 /* SystemConfiguration.framework in Frameworks */,
 				F456ECC615EE018E00FCF3E2 /* QuartzCore.framework in Frameworks */,
@@ -115,14 +113,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F4499C7216C7CDE20059FF37 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F4499C7616C7CDE20059FF37 /* liblibquickcocos2dx.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F456ECB615EE018E00FCF3E2 = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +191,14 @@
 			path = CoinFlip.ios/Resources;
 			sourceTree = "<group>";
 		};
+		F48F590416D21F8C000651BE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F48F590816D21F8C000651BE /* liblibquickcocos2dx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F4D26BC616C7D0D2004442B6 /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,8 +218,8 @@
 				F4D26BD516C7D1AC004442B6 /* framework_precompiled.h */,
 			);
 			name = framework_precompiled;
-			path = ../../../../lib/framework_precompiled;
-			sourceTree = "<group>";
+			path = lib/framework_precompiled;
+			sourceTree = QUICK_COCOS2DX_ROOT;
 		};
 		F4E50FE216CF7B6500AA7E90 /* sources */ = {
 			isa = PBXGroup;
@@ -274,7 +272,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = F4499C7216C7CDE20059FF37 /* Products */;
+					ProductGroup = F48F590416D21F8C000651BE /* Products */;
 					ProjectRef = F4499C7116C7CDE20059FF37 /* libquickcocos2dx.xcodeproj */;
 				},
 			);
@@ -286,11 +284,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F4499C7616C7CDE20059FF37 /* liblibquickcocos2dx.a */ = {
+		F48F590816D21F8C000651BE /* liblibquickcocos2dx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = liblibquickcocos2dx.a;
-			remoteRef = F4499C7516C7CDE20059FF37 /* PBXContainerItemProxy */;
+			remoteRef = F48F590716D21F8C000651BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
