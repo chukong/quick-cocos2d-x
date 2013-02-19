@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4323CF716D3298E0072B773 /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590816D21F8C000651BE /* liblibquickcocos2dx.a */; };
 		F4482F2116A0555000FDDDAD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1A16A0555000FDDDAD /* Default-568h@2x.png */; };
 		F4482F2216A0555000FDDDAD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1B16A0555000FDDDAD /* Default.png */; };
 		F4482F2316A0555000FDDDAD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1C16A0555000FDDDAD /* Default@2x.png */; };
@@ -92,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4323CF716D3298E0072B773 /* liblibquickcocos2dx.a in Frameworks */,
 				F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */,
 				F456F0FD15EE0CF600FCF3E2 /* SystemConfiguration.framework in Frameworks */,
 				F456ECC615EE018E00FCF3E2 /* QuartzCore.framework in Frameworks */,
