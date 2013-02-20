@@ -3,11 +3,16 @@
 
 #include "stdafx.h"
 #include "LuaHostWin32.h"
-#include "CCEGLView.h"
-#include "SimpleAudioEngine.h"
 #include <sstream>
 #include <Commdlg.h>
 #include <Shlobj.h>
+#include <winnls.h>
+#include <shobjidl.h>
+#include <objbase.h>
+#include <objidl.h>
+#include <shlguid.h>
+#include "CCEGLView.h"
+#include "SimpleAudioEngine.h"
 #include "ProjectConfigDialog.h"
 
 #define MAX_LOADSTRING 100
@@ -205,6 +210,72 @@ void LuaHostWin32::onFileOpenProject(void)
 
 void LuaHostWin32::onFileCreateProjectShortcut(void)
 {
+    WCHAR shortcutPathBuff[MAX_PATH + 1] = {0};
+
+    OPENFILENAME ofn = {0};
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = m_hwnd;
+    ofn.lpstrFilter = L"Shortcut (*.lnk)\0*.lnk\0";
+    ofn.lpstrTitle = L"Create Project Shortcut";
+    ofn.Flags = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
+    ofn.lpstrFile = shortcutPathBuff;
+    ofn.nMaxFile = MAX_PATH;
+
+    if (!GetSaveFileName(&ofn)) return;
+
+    // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
+    // has already been called.
+    IShellLink* psl;
+    HRESULT hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
+
+    if (SUCCEEDED(hres)) 
+    {
+        IPersistFile* ppf;
+ 
+        // args
+        string args("-workdir ");
+        args.append(m_project.projectDir);
+
+        args.append(" -file ");
+        args.append(m_project.scriptFile);
+
+        args.append(" -size ");
+        char buff[32] = {0};
+        sprintf_s(buff, "%d", (int)m_project.frameWidth);
+        args.append(buff);
+        args.append("x");
+        sprintf_s(buff, "%d", (int)m_project.frameHeight);
+        args.append(buff);
+
+        if (!m_project.showConsole)
+        {
+            args.append(" -disable-console");
+        }
+
+        // Set the path to the shortcut target and add the description. 
+        psl->SetPath(__wargv[0]);
+        wstring wargs;
+        wargs.assign(args.begin(), args.end());
+        psl->SetArguments(wargs.c_str());
+        psl->SetDescription(L"LuaHostWin32"); 
+ 
+        // Query IShellLink for the IPersistFile interface, used for saving the 
+        // shortcut in persistent storage. 
+        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf); 
+ 
+        if (SUCCEEDED(hres))
+        { 
+            // Save the link by calling IPersistFile::Save.
+            size_t len = wcslen(shortcutPathBuff);
+            if (_wcsicmp(shortcutPathBuff + len - 4, L".lnk") != 0)
+            {
+                wcscat_s(shortcutPathBuff, L".lnk");
+            }
+            hres = ppf->Save(shortcutPathBuff, TRUE);
+            ppf->Release();
+        }
+        psl->Release();
+    }
 }
 
 void LuaHostWin32::onFileProjectConfig(void)
@@ -342,6 +413,7 @@ LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
 
         case ID_FILE_CREATE_PROJECT_SHORTCUT:
             host->onFileCreateProjectShortcut();
+            break;
 
         case ID_FILE_PROJECT_CONFIG:
             host->onFileProjectConfig();
