@@ -1,45 +1,45 @@
 
-#include "platform/win32/CCNative_win32.h"
-#include "platform/win32/CCNative_win32def.h"
+#include "platform/win32/CCNativeWin32.h"
+#include "platform/win32/CCNativeWin32def.h"
 #include "CCEGLView.h"
 
-CCNative_win32* CCNative_win32::s_sharedInstance = NULL;
+CCNativeWin32* CCNativeWin32::s_sharedInstance = NULL;
 
-CCNative_win32* CCNative_win32::sharedInstance(void)
+CCNativeWin32* CCNativeWin32::sharedInstance(void)
 {
 	if (!s_sharedInstance)
     {
-		s_sharedInstance = new CCNative_win32();
+		s_sharedInstance = new CCNativeWin32();
     }
     return s_sharedInstance;
 }
 
-CCNative_win32::CCNative_win32(void)
+CCNativeWin32::CCNativeWin32(void)
 {
 }
 
 
-void CCNative_win32::showActivityIndicator(void)
+void CCNativeWin32::showActivityIndicator(void)
 {
 }
 
-void CCNative_win32::hideActivityIndicator(void)
+void CCNativeWin32::hideActivityIndicator(void)
 {
 }
 
 
-void CCNative_win32::createAlertView(const char* title, const char *message, const char* cancelButtonTitle)
+void CCNativeWin32::createAlertView(const char* title, const char *message, const char* cancelButtonTitle)
 {
 	m_alertViewTitle = string(title ? title : "");
 	m_alertViewMessage = string(message ? message : "");
 }
 
-int CCNative_win32::addAlertButton(const char* buttonTitle)
+int CCNativeWin32::addAlertButton(const char* buttonTitle)
 {
 	return 0;
 }
 
-void CCNative_win32::showAlertViewWithDelegate(CCAlertViewDelegate *delegate)
+void CCNativeWin32::showAlertViewWithDelegate(CCAlertViewDelegate *delegate)
 {
 	wstring title(m_alertViewTitle.begin(), m_alertViewTitle.end());
 	wstring message(m_alertViewMessage.begin(), m_alertViewMessage.end());
@@ -54,16 +54,16 @@ void CCNative_win32::showAlertViewWithDelegate(CCAlertViewDelegate *delegate)
 	}
 }
 
-void CCNative_win32::removeAlertView(void)
+void CCNativeWin32::removeAlertView(void)
 {
 }
 
-void CCNative_win32::cancelAlertView(void)
+void CCNativeWin32::cancelAlertView(void)
 {
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
-void CCNative_win32::showAlertViewWithLuaListener(LUA_FUNCTION listener)
+void CCNativeWin32::showAlertViewWithLuaListener(LUA_FUNCTION listener)
 {
 	wstring title(m_alertViewTitle.begin(), m_alertViewTitle.end());
 	wstring message(m_alertViewMessage.begin(), m_alertViewMessage.end());
@@ -85,12 +85,12 @@ void CCNative_win32::showAlertViewWithLuaListener(LUA_FUNCTION listener)
     stack->executeFunctionByHandler(listener, 1);
 }
 
-void CCNative_win32::removeAlertViewLuaListener(void)
+void CCNativeWin32::removeAlertViewLuaListener(void)
 {
 }
 #endif
 
-const string CCNative_win32::getInputText(const char* title, const char* message, const char* defaultValue)
+const string CCNativeWin32::getInputText(const char* title, const char* message, const char* defaultValue)
 {
 	HWND handle = CCEGLView::sharedOpenGLView()->getHWnd();
 

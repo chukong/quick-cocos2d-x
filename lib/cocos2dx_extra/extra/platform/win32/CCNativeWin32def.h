@@ -1,6 +1,6 @@
 
-#ifndef CCNATIVE_WIN32DEF_H_
-#define CCNATIVE_WIN32DEF_H_
+#ifndef CCNativeWin32DEF_H_
+#define CCNativeWin32DEF_H_
 
 #include <string>
 
@@ -10,4 +10,4 @@ typedef struct {
 	std::string value;
 } CCNativeWin32InputBoxStruct;
 
-#endif CCNATIVE_WIN32DEF_H_
+#endif CCNativeWin32DEF_H_
