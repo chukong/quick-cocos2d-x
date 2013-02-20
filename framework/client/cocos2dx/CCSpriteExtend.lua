@@ -17,8 +17,8 @@ function CCSpriteExtend:playAnimationOnce(animation, removeWhenFinished, onCompl
     return transition.playAnimationOnce(self, animation, removeWhenFinished, onComplete, delay)
 end
 
-function CCSpriteExtend:playAnimationForever(animation, isRestoreOriginalFrame, delay)
-    return transition.playAnimationForever(self, animation, isRestoreOriginalFrame, delay)
+function CCSpriteExtend:playAnimationForever(target, animation, isRestoreOriginalFrame, delay)
+    return transition.playAnimationForever(self, target, animation, isRestoreOriginalFrame, delay)
 end
 
 function CCSpriteExtend:autoCleanup()

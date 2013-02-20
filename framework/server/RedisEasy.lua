@@ -1,5 +1,5 @@
 
-require("framework.server.resty.redis")
+require("resty.redis")
 
 local RedisEasy = class("RedisEasy")
 

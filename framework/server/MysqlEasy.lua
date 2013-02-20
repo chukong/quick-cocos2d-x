@@ -1,5 +1,5 @@
 
-require("framework.server.resty.mysql")
+require("resty.mysql")
 
 local MysqlEasy = class("MysqlEasy")
 

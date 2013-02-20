@@ -24,22 +24,31 @@ THE SOFTWARE.
 
 ]]
 
----
---
--- Play music, sound effects.
---
---
+--[[--
+
+Play music, sound effects.
+
+]]
+
 local audio = {}
 
 local sharedEngine = SimpleAudioEngine:sharedEngine()
 local isEnabled    = true
 
---- Disable audio sharedEngine.
+--[[--
+
+Disable audio sharedEngine.
+
+]]
 function audio.disable()
     isEnabled = false
 end
 
---- Enable audio sharedEngine. (default is enabled)
+--[[--
+
+Enable audio sharedEngine. (default is enabled)
+
+]]
 function audio.enable()
     isEnabled = true
 end

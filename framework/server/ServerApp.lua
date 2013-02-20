@@ -34,7 +34,11 @@ function ServerApp:run(actionName)
     local actionModule = self:require(actionModuleName)
     local action = actionModule.new(self)
     local method = action[actionMethodName]
+    if not method then
+        throw("ERROR_SERVER_INVALID_ACTION", ERROR_SERVER_INVALID_ACTION)
+    else
     return method(action)
+end
 end
 
 function ServerApp:require(moduleName)
