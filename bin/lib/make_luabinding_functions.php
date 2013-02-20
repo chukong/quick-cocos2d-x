@@ -191,6 +191,7 @@ class Builder
         $this->fixLuabindingFile();
 
         $includeOnce = sprintf('__%s_H_', strtoupper(str_replace('-', '_', $this->outputFilename_)));
+        $dllMacroName = sprintf('%s_DLL', strtoupper(str_replace('-', '_', $this->outputFilename_)));
         $functionName = $this->luaopenFunctionName_;
         $contents = <<<EOT
 
@@ -203,7 +204,13 @@ extern "C" {
 #include "tolua_fix.h"
 }
 
-TOLUA_API int ${functionName}(lua_State* tolua_S);
+#if defined(_USRDLL)
+    #define ${dllMacroName}     __declspec(dllexport)
+#else         /* use a DLL library */
+    #define ${dllMacroName}     __declspec(dllimport)
+#endif
+
+TOLUA_API int ${dllMacroName} ${functionName}(lua_State* tolua_S);
 
 #endif // ${includeOnce}
 
