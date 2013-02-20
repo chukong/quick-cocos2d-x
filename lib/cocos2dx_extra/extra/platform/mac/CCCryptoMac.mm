@@ -1,5 +1,5 @@
 
-#include "CCCrypto.h"
+#include "crypto/CCCrypto.h"
 
 NS_CC_EXTRA_BEGIN
 

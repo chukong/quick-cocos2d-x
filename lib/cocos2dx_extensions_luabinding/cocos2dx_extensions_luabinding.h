@@ -8,6 +8,12 @@ extern "C" {
 #include "tolua_fix.h"
 }
 
-TOLUA_API int luaopen_cocos2dx_extensions_luabinding(lua_State* tolua_S);
+#if defined(_USRDLL)
+    #define COCOS2DX_EXTENSIONS_LUABINDING_DLL     __declspec(dllexport)
+#else         /* use a DLL library */
+    #define COCOS2DX_EXTENSIONS_LUABINDING_DLL     __declspec(dllimport)
+#endif
+
+TOLUA_API int COCOS2DX_EXTENSIONS_LUABINDING_DLL luaopen_cocos2dx_extensions_luabinding(lua_State* tolua_S);
 
 #endif // __COCOS2DX_EXTENSIONS_LUABINDING_H_
