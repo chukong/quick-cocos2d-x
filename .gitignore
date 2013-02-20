@@ -37,3 +37,5 @@ samples/CoinFlip/proj.android/obj/
 samples/CoinFlip/proj.android/assets/
 samples/CoinFlip/proj.android/libs/
 
+lib/proj.win32/Debug
+simulator/proj.win32/LuaHostWin32/Debug
