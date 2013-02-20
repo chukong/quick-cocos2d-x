@@ -105,6 +105,10 @@ int LuaHostWin32::run(void)
             eglView->moveWindow(m_project.windowLeft, m_project.windowTop);
         }
 
+        HICON icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_LUAHOSTWIN32));
+        SendMessage(m_hwnd, WM_SETICON, ICON_BIG, (LPARAM)icon);
+        SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
+
         m_app->run();
 
         CCScriptEngineManager::sharedManager()->removeScriptEngine();
