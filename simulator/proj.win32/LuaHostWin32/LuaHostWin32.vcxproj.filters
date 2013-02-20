@@ -24,6 +24,12 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\sources\ProjectConfig.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectConfigDialog.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\sources\AppDelegate.h">
@@ -47,12 +53,15 @@
     <ClInclude Include="targetver.h">
       <Filter>win32</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\sources\ProjectConfig.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectConfigDialog.h">
+      <Filter>win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="LuaHostWin32.ico">
-      <Filter>win32</Filter>
-    </Image>
-    <Image Include="small.ico">
       <Filter>win32</Filter>
     </Image>
   </ItemGroup>
