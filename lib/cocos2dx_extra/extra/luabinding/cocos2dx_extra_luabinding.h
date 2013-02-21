@@ -11,7 +11,7 @@ extern "C" {
 #if defined(_USRDLL)
     #define COCOS2DX_EXTRA_LUABINDING_DLL     __declspec(dllexport)
 #else         /* use a DLL library */
-    #define COCOS2DX_EXTRA_LUABINDING_DLL     __declspec(dllimport)
+    #define COCOS2DX_EXTRA_LUABINDING_DLL
 #endif
 
 TOLUA_API int COCOS2DX_EXTRA_LUABINDING_DLL luaopen_cocos2dx_extra_luabinding(lua_State* tolua_S);

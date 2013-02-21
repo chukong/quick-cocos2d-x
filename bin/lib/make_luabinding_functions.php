@@ -207,7 +207,7 @@ extern "C" {
 #if defined(_USRDLL)
     #define ${dllMacroName}     __declspec(dllexport)
 #else         /* use a DLL library */
-    #define ${dllMacroName}     __declspec(dllimport)
+    #define ${dllMacroName}
 #endif
 
 TOLUA_API int ${dllMacroName} ${functionName}(lua_State* tolua_S);

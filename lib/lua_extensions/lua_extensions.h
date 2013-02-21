@@ -5,7 +5,7 @@
 #if defined(_USRDLL)
     #define LUA_EXTENSIONS_DLL     __declspec(dllexport)
 #else         /* use a DLL library */
-    #define LUA_EXTENSIONS_DLL     __declspec(dllimport)
+    #define LUA_EXTENSIONS_DLL
 #endif
 
 #if __cplusplus
