@@ -20,13 +20,24 @@
 		F4A5C16E16B7A3EC00A12606 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16B16B7A3EC00A12606 /* libcurl.dylib */; };
 		F4A5C16F16B7A3EC00A12606 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16C16B7A3EC00A12606 /* libxml2.dylib */; };
 		F4A5C17016B7A3EC00A12606 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16D16B7A3EC00A12606 /* libz.dylib */; };
-		F4B4EF4C16C7E19B00736FFE /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EF4A16C7E19B00736FFE /* AppDelegate.cpp */; };
 		F4B4EF5016C7E23B00736FFE /* framework_precompiled.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EF4E16C7E23B00736FFE /* framework_precompiled.c */; };
 		F4B4EF6616CA2A8B00736FFE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */; };
 		F4BA6C3115F4911600CE7A10 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4BA6C3015F4911600CE7A10 /* AppController.mm */; };
 		F4BA6EB315F499A300CE7A10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */; };
 		F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EBC15F499EE00CE7A10 /* Security.framework */; };
+		F4F3996F16D5CFDC00B7E3AF /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3996B16D5CFDC00B7E3AF /* AppDelegate.cpp */; };
+		F4F3997016D5CFDC00B7E3AF /* ProjectConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3996D16D5CFDC00B7E3AF /* ProjectConfig.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F40D3B3216D4BB0200F155E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F45FF34D16C7DDF100275222 /* libquickcocos2dx.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4DE082016800061005DB2DB;
+			remoteInfo = libquickcocos2dx;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F423AE6116CB75760007E734 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -48,8 +59,6 @@
 		F4A5C16B16B7A3EC00A12606 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libcurl.dylib; sourceTree = "<absolute>"; };
 		F4A5C16C16B7A3EC00A12606 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		F4A5C16D16B7A3EC00A12606 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libz.dylib; sourceTree = "<absolute>"; };
-		F4B4EF4A16C7E19B00736FFE /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
-		F4B4EF4B16C7E19B00736FFE /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F4B4EF4E16C7E23B00736FFE /* framework_precompiled.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = framework_precompiled.c; sourceTree = "<group>"; };
 		F4B4EF4F16C7E23B00736FFE /* framework_precompiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework_precompiled.h; sourceTree = "<group>"; };
 		F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -59,6 +68,10 @@
 		F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F4BA6EBA15F499CC00CE7A10 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F4BA6EBC15F499EE00CE7A10 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F4F3996B16D5CFDC00B7E3AF /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
+		F4F3996C16D5CFDC00B7E3AF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F4F3996D16D5CFDC00B7E3AF /* ProjectConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectConfig.cpp; sourceTree = "<group>"; };
+		F4F3996E16D5CFDC00B7E3AF /* ProjectConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectConfig.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +97,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F40D3B2F16D4BB0200F155E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F40D3B3316D4BB0200F155E8 /* liblibquickcocos2dx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F44C956715F49004004D4151 = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +149,7 @@
 		F44C957C15F49004004D4151 /* LuaHostMac */ = {
 			isa = PBXGroup;
 			children = (
-				F4B4EF4916C7E19B00736FFE /* src */,
+				F4F3996A16D5CFDC00B7E3AF /* sources */,
 				F4B4EF4D16C7E23B00736FFE /* framework_precompiled */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
 			);
@@ -143,16 +164,6 @@
 				F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F4B4EF4916C7E19B00736FFE /* src */ = {
-			isa = PBXGroup;
-			children = (
-				F4B4EF4A16C7E19B00736FFE /* AppDelegate.cpp */,
-				F4B4EF4B16C7E19B00736FFE /* AppDelegate.h */,
-			);
-			name = src;
-			path = ../../src;
 			sourceTree = "<group>";
 		};
 		F4B4EF4D16C7E23B00736FFE /* framework_precompiled */ = {
@@ -185,6 +196,18 @@
 			);
 			name = Resources;
 			path = LuaHostMac;
+			sourceTree = "<group>";
+		};
+		F4F3996A16D5CFDC00B7E3AF /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3996B16D5CFDC00B7E3AF /* AppDelegate.cpp */,
+				F4F3996C16D5CFDC00B7E3AF /* AppDelegate.h */,
+				F4F3996D16D5CFDC00B7E3AF /* ProjectConfig.cpp */,
+				F4F3996E16D5CFDC00B7E3AF /* ProjectConfig.h */,
+			);
+			name = sources;
+			path = ../../sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,12 +249,28 @@
 			mainGroup = F44C956715F49004004D4151;
 			productRefGroup = F44C957315F49004004D4151 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F40D3B2F16D4BB0200F155E8 /* Products */;
+					ProjectRef = F45FF34D16C7DDF100275222 /* libquickcocos2dx.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F44C957115F49004004D4151 /* LuaHostMac */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F40D3B3316D4BB0200F155E8 /* liblibquickcocos2dx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = liblibquickcocos2dx.a;
+			remoteRef = F40D3B3216D4BB0200F155E8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F44C957015F49004004D4151 /* Resources */ = {
@@ -253,8 +292,9 @@
 			files = (
 				F44C958315F49004004D4151 /* main.m in Sources */,
 				F4BA6C3115F4911600CE7A10 /* AppController.mm in Sources */,
-				F4B4EF4C16C7E19B00736FFE /* AppDelegate.cpp in Sources */,
 				F4B4EF5016C7E23B00736FFE /* framework_precompiled.c in Sources */,
+				F4F3996F16D5CFDC00B7E3AF /* AppDelegate.cpp in Sources */,
+				F4F3997016D5CFDC00B7E3AF /* ProjectConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
