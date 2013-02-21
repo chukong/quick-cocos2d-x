@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 #include "LuaHostWin32.h"
-#include <sstream>
 #include <Commdlg.h>
 #include <Shlobj.h>
 #include <winnls.h>
@@ -11,6 +10,7 @@
 #include <objbase.h>
 #include <objidl.h>
 #include <shlguid.h>
+#include <vector>
 #include "CCEGLView.h"
 #include "SimpleAudioEngine.h"
 #include "ProjectConfigDialog.h"
@@ -81,6 +81,7 @@ int LuaHostWin32::run(void)
     {
         m_exit = true;
 
+        m_project.normalize();
         if (m_project.showConsole)
         {
             ShowWindow(hwndConsole, SW_SHOW);
@@ -95,6 +96,9 @@ int LuaHostWin32::run(void)
         m_app = new AppDelegate();
         m_app->setStartupScriptFilename(m_project.scriptFile);
         SetCurrentDirectoryA(m_project.projectDir.c_str());
+        vector<string> searchPaths;
+        searchPaths.push_back(m_project.projectDir);
+        CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
 
         CCEGLView* eglView = CCEGLView::sharedOpenGLView();    
         eglView->setMenuResource(MAKEINTRESOURCE(IDC_LUAHOSTWIN32));

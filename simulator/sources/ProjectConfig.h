@@ -5,8 +5,9 @@
 
 using namespace std;
 
-typedef struct _ProjectConfig
+class ProjectConfig
 {
+public:
     std::string projectDir;
     std::string scriptFile;
     float frameWidth;
@@ -16,7 +17,7 @@ typedef struct _ProjectConfig
     int windowLeft;
     int windowTop;
 
-    _ProjectConfig(void)
+    ProjectConfig(void)
     : scriptFile("scripts/main.lua")
     , frameWidth(320)
     , frameHeight(480)
@@ -25,8 +26,12 @@ typedef struct _ProjectConfig
     , windowLeft(-1)
     , windowTop(-1)
     {
+        normalize();
     }
-} ProjectConfig;
+
+    void normalize(void);
+    void normalizeUnixStyle(void);
+};
 
 
 typedef struct _ScreenSizeDescription {

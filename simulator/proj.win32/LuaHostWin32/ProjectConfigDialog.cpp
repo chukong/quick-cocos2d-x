@@ -238,12 +238,18 @@ void ProjectConfigDialog::onSelectProjectDir(void)
 void ProjectConfigDialog::onSelectScriptFile(void)
 {
     char buff[MAX_PATH + 1] = {0};
+    char projdir[MAX_PATH + 1] = {0};
+    GetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, projdir, MAX_PATH);
 
     OPENFILENAMEA ofn = {0};
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = m_hwndDialog;
     ofn.lpstrFilter = "Lua Script File (*.lua)\0*.lua\0";
     ofn.lpstrTitle = "Select Script File";
+    if (DirectoryExists(projdir))
+    {
+        ofn.lpstrInitialDir = projdir;
+    }
     ofn.Flags = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
     ofn.lpstrFile = buff;
     ofn.nMaxFile = MAX_PATH;

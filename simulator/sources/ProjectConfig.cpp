@@ -1,6 +1,34 @@
 
 #include "ProjectConfig.h"
 
+#if defined(_WINDOWS)
+#define DIRECTORY_SEPARATOR "\\"
+#else
+#define DIRECTORY_SEPARATOR "/"
+#endif
+
+void normalizePath(string &path, const char *directorySeparator = NULL)
+{
+    if (!directorySeparator) directorySeparator = DIRECTORY_SEPARATOR;
+    int pos = -1;
+    while ((pos = path.find_first_of("/\\", pos + 1)) != std::string::npos)
+    {
+        path.replace(pos, 1, directorySeparator);
+    }
+}
+
+void ProjectConfig::normalize(void)
+{
+    normalizePath(projectDir);
+    normalizePath(scriptFile);
+}
+
+void ProjectConfig::normalizeUnixStyle(void)
+{
+    normalizePath(projectDir, "/");
+    normalizePath(scriptFile, "/");
+}
+
 ProjectConfigDefaults *ProjectConfigDefaults::s_sharedInstance = NULL;
 
 ProjectConfigDefaults *ProjectConfigDefaults::sharedDefaults(void)

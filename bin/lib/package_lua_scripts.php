@@ -219,9 +219,17 @@ EOT;
 #ifndef ${headerSign}
 #define ${headerSign}
 
+#if __cplusplus
+extern "C" {
+#endif
+
 #include "lua.h"
 
 void luaopen_${outputFileBasename}(lua_State* L);
+
+#if __cplusplus
+}
+#endif
 
 EOT;
 

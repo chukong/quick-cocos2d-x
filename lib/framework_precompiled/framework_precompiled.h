@@ -4,9 +4,17 @@
 #ifndef __LUA_MODULES_6907A384754E80F1EDB7BDB8160CF410_H_
 #define __LUA_MODULES_6907A384754E80F1EDB7BDB8160CF410_H_
 
+#if __cplusplus
+extern "C" {
+#endif
+
 #include "lua.h"
 
 void luaopen_framework_precompiled(lua_State* L);
+
+#if __cplusplus
+}
+#endif
 
 /*
 int luaopen_lua_m_framework_client_api_context(lua_State* L);
