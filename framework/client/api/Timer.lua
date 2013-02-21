@@ -1,4 +1,6 @@
 
+local scheduler = require("framework.client.scheduler")
+
 --[[--
 
 Timer 实现了一个计时器容器，用于跟踪应用中所有需要计时的事件。
@@ -146,7 +148,7 @@ function Timer.new()
     ]]
     function timer:start()
         if not handle then
-            handle = CCScheduler:sharedScheduler():scheduleScriptFunc(onTimer, 1.0, false)
+            handle = scheduler.scheduleGlobal(onTimer, 1.0, false)
         end
     end
 
@@ -157,7 +159,7 @@ function Timer.new()
     ]]
     function timer:stop()
         if handle then
-            CCScheduler:sharedScheduler():unscheduleScriptEntry(handle)
+            scheduler.unscheduleGlobal(handle)
             handle = nil
         end
     end
