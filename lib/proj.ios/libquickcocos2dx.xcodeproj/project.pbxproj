@@ -238,6 +238,7 @@
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
+		F4EF0A5D16D70C1E00B81E8C /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -737,6 +738,7 @@
 		F4D11009169FBF7C00305E28 /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
 		F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
 		F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
+		F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFileUtils.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1674,6 +1676,7 @@
 				F45A2D3F166B161800760194 /* CCCommon.h */,
 				F45A2D40166B161800760194 /* CCEGLViewProtocol.cpp */,
 				F45A2D41166B161800760194 /* CCEGLViewProtocol.h */,
+				F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */,
 				F45A2D42166B161800760194 /* CCFileUtils.h */,
 				F45A2D44166B161800760194 /* CCImage.h */,
 				F45A2D45166B161800760194 /* CCImageCommon_cpp.h */,
@@ -2182,6 +2185,7 @@
 				F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */,
 				F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */,
 				F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */,
+				F4EF0A5D16D70C1E00B81E8C /* CCFileUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
