@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\lib\framework_precompiled\framework_precompiled.c" />
+    <ClCompile Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.c" />
     <ClCompile Include="..\..\sources\AppDelegate.cpp" />
     <ClCompile Include="..\..\sources\ProjectConfig.cpp" />
     <ClCompile Include="LuaHostWin32.cpp" />
@@ -19,7 +19,7 @@
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\lib\framework_precompiled\framework_precompiled.h" />
+    <ClInclude Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.h" />
     <ClInclude Include="..\..\sources\AppDelegate.h" />
     <ClInclude Include="..\..\sources\ProjectConfig.h" />
     <ClInclude Include="HostVersion.h" />
@@ -30,7 +30,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\lib\proj.win32\libquickcocos2dx.vcxproj">
+    <ProjectReference Include="$(QUICK_COCOS2DX_ROOT)\lib\proj.win32\libquickcocos2dx.vcxproj">
       <Project>{9e05aa4b-1a09-433c-b1df-bce6675ec0d5}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -92,8 +92,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libquickcocos2dx.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\simulator\proj.win32\LuaHostWin32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libquickcocos2dx.lib;opengl32.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libxml2.lib;libzlib.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\simulator\proj.win32\LuaHostWin32\$(Configuration);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

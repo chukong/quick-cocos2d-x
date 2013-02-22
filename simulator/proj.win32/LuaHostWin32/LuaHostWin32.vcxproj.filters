@@ -15,7 +15,7 @@
     <ClCompile Include="..\..\sources\AppDelegate.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\lib\framework_precompiled\framework_precompiled.c">
+    <ClCompile Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.c">
       <Filter>framework_precompiled</Filter>
     </ClCompile>
     <ClCompile Include="LuaHostWin32.cpp">
@@ -35,7 +35,7 @@
     <ClInclude Include="..\..\sources\AppDelegate.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\lib\framework_precompiled\framework_precompiled.h">
+    <ClInclude Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.h">
       <Filter>framework_precompiled</Filter>
     </ClInclude>
     <ClInclude Include="HostVersion.h">
