@@ -28,7 +28,6 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../lua_extensions/cjson/strbuf.c \
     ../lua_extensions/zlib/lua_zlib.c \
     ../lua_extensions/lua_extensions.c \
-    ../framework_precompiled/framework_precompiled.c \
     ../cocos2d-x/scripting/lua/tolua/tolua_event.c \
     ../cocos2d-x/scripting/lua/tolua/tolua_is.c \
     ../cocos2d-x/scripting/lua/tolua/tolua_map.c \
@@ -50,7 +49,6 @@ LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib \
-    $(QUICK_COCOS2DX_ROOT)/lib/framework_precompiled \
     $(QUICK_COCOS2DX_ROOT)/lib/luajit2/include \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support
