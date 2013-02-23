@@ -2,7 +2,7 @@
 #ifndef __CC_EXTENSION_CCSTORE_PAYMENT_TRANSACTION_H_
 #define __CC_EXTENSION_CCSTORE_PAYMENT_TRANSACTION_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 #include "store/CCStorePaymentTransactionWrapper.h"
 
 #if CC_LUA_ENGINE_ENABLED > 0

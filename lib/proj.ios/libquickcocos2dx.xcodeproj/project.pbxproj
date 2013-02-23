@@ -239,6 +239,17 @@
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
 		F4EF0A5D16D70C1E00B81E8C /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */; };
+		F4FBA51B16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA51916D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp */; };
+		F4FBA52616D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA51F16D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp */; };
+		F4FBA52716D8C96600CD8EC1 /* CCStoreProduct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA52216D8C96600CD8EC1 /* CCStoreProduct.cpp */; };
+		F4FBA53716D8C97A00CD8EC1 /* CCStoreIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA52916D8C97900CD8EC1 /* CCStoreIOS.mm */; };
+		F4FBA53816D8C97A00CD8EC1 /* CCStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA52A16D8C97900CD8EC1 /* CCStore.mm */; };
+		F4FBA53916D8C97A00CD8EC1 /* CCStorePaymentTransactionWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA52B16D8C97900CD8EC1 /* CCStorePaymentTransactionWrapper.mm */; };
+		F4FBA53A16D8C97A00CD8EC1 /* CCStoreReceiptVerifyRequestIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA52D16D8C97900CD8EC1 /* CCStoreReceiptVerifyRequestIOS.mm */; };
+		F4FBA53B16D8C97A00CD8EC1 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA53016D8C97900CD8EC1 /* SBJSON.m */; };
+		F4FBA53C16D8C97A00CD8EC1 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA53216D8C97900CD8EC1 /* SBJsonBase.m */; };
+		F4FBA53D16D8C97A00CD8EC1 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA53416D8C97A00CD8EC1 /* SBJsonParser.m */; };
+		F4FBA53E16D8C97A00CD8EC1 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA53616D8C97A00CD8EC1 /* SBJsonWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -739,6 +750,30 @@
 		F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
 		F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFileUtils.cpp; sourceTree = "<group>"; };
+		F4FBA51916D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extra_ios_iap_luabinding.cpp; sourceTree = "<group>"; };
+		F4FBA51A16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra_ios_iap_luabinding.h; sourceTree = "<group>"; };
+		F4FBA51E16D8C96600CD8EC1 /* CCStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStore.h; sourceTree = "<group>"; };
+		F4FBA51F16D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStorePaymentTransaction.cpp; sourceTree = "<group>"; };
+		F4FBA52016D8C96600CD8EC1 /* CCStorePaymentTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStorePaymentTransaction.h; sourceTree = "<group>"; };
+		F4FBA52116D8C96600CD8EC1 /* CCStorePaymentTransactionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStorePaymentTransactionWrapper.h; sourceTree = "<group>"; };
+		F4FBA52216D8C96600CD8EC1 /* CCStoreProduct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCStoreProduct.cpp; sourceTree = "<group>"; };
+		F4FBA52316D8C96600CD8EC1 /* CCStoreProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreProduct.h; sourceTree = "<group>"; };
+		F4FBA52416D8C96600CD8EC1 /* CCStoreProductsRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreProductsRequestDelegate.h; sourceTree = "<group>"; };
+		F4FBA52516D8C96600CD8EC1 /* CCStoreTransactionObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreTransactionObserver.h; sourceTree = "<group>"; };
+		F4FBA52816D8C97900CD8EC1 /* CCStoreIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreIOS.h; sourceTree = "<group>"; };
+		F4FBA52916D8C97900CD8EC1 /* CCStoreIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStoreIOS.mm; sourceTree = "<group>"; };
+		F4FBA52A16D8C97900CD8EC1 /* CCStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStore.mm; sourceTree = "<group>"; };
+		F4FBA52B16D8C97900CD8EC1 /* CCStorePaymentTransactionWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStorePaymentTransactionWrapper.mm; sourceTree = "<group>"; };
+		F4FBA52C16D8C97900CD8EC1 /* CCStoreReceiptVerifyRequestIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreReceiptVerifyRequestIOS.h; sourceTree = "<group>"; };
+		F4FBA52D16D8C97900CD8EC1 /* CCStoreReceiptVerifyRequestIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStoreReceiptVerifyRequestIOS.mm; sourceTree = "<group>"; };
+		F4FBA52F16D8C97900CD8EC1 /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		F4FBA53016D8C97900CD8EC1 /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		F4FBA53116D8C97900CD8EC1 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		F4FBA53216D8C97900CD8EC1 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		F4FBA53316D8C97900CD8EC1 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		F4FBA53416D8C97A00CD8EC1 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		F4FBA53516D8C97A00CD8EC1 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		F4FBA53616D8C97A00CD8EC1 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -799,6 +834,7 @@
 				F40AFE2016BD15C600565A5E /* native */,
 				F40AFE2316BD15C600565A5E /* network */,
 				F40AFE2916BD15C600565A5E /* platform */,
+				F4FBA51D16D8C96600CD8EC1 /* store */,
 			);
 			path = extra;
 			sourceTree = "<group>";
@@ -845,6 +881,8 @@
 		F40AFE0316BD15C600565A5E /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
+				F4FBA51916D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp */,
+				F4FBA51A16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.h */,
 				F40F45C416C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp */,
 				F40F45C516C75FD9000394B5 /* cocos2dx_extra_luabinding.h */,
 			);
@@ -888,6 +926,13 @@
 				F40AFE2D16BD15C600565A5E /* CCNative.mm */,
 				F40AFE2E16BD15C600565A5E /* CCNativeIOS.h */,
 				F40AFE2F16BD15C600565A5E /* CCNativeIOS.mm */,
+				F4FBA52A16D8C97900CD8EC1 /* CCStore.mm */,
+				F4FBA52816D8C97900CD8EC1 /* CCStoreIOS.h */,
+				F4FBA52916D8C97900CD8EC1 /* CCStoreIOS.mm */,
+				F4FBA52B16D8C97900CD8EC1 /* CCStorePaymentTransactionWrapper.mm */,
+				F4FBA52C16D8C97900CD8EC1 /* CCStoreReceiptVerifyRequestIOS.h */,
+				F4FBA52D16D8C97900CD8EC1 /* CCStoreReceiptVerifyRequestIOS.mm */,
+				F4FBA52E16D8C97900CD8EC1 /* json */,
 				F40AFE4016BD15C600565A5E /* openudid */,
 			);
 			path = ios;
@@ -1907,6 +1952,36 @@
 			path = cocos2dx_extensions_luabinding;
 			sourceTree = "<group>";
 		};
+		F4FBA51D16D8C96600CD8EC1 /* store */ = {
+			isa = PBXGroup;
+			children = (
+				F4FBA51E16D8C96600CD8EC1 /* CCStore.h */,
+				F4FBA51F16D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp */,
+				F4FBA52016D8C96600CD8EC1 /* CCStorePaymentTransaction.h */,
+				F4FBA52116D8C96600CD8EC1 /* CCStorePaymentTransactionWrapper.h */,
+				F4FBA52216D8C96600CD8EC1 /* CCStoreProduct.cpp */,
+				F4FBA52316D8C96600CD8EC1 /* CCStoreProduct.h */,
+				F4FBA52416D8C96600CD8EC1 /* CCStoreProductsRequestDelegate.h */,
+				F4FBA52516D8C96600CD8EC1 /* CCStoreTransactionObserver.h */,
+			);
+			path = store;
+			sourceTree = "<group>";
+		};
+		F4FBA52E16D8C97900CD8EC1 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				F4FBA52F16D8C97900CD8EC1 /* SBJSON.h */,
+				F4FBA53016D8C97900CD8EC1 /* SBJSON.m */,
+				F4FBA53116D8C97900CD8EC1 /* SBJsonBase.h */,
+				F4FBA53216D8C97900CD8EC1 /* SBJsonBase.m */,
+				F4FBA53316D8C97900CD8EC1 /* SBJsonParser.h */,
+				F4FBA53416D8C97A00CD8EC1 /* SBJsonParser.m */,
+				F4FBA53516D8C97A00CD8EC1 /* SBJsonWriter.h */,
+				F4FBA53616D8C97A00CD8EC1 /* SBJsonWriter.m */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2186,6 +2261,17 @@
 				F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */,
 				F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */,
 				F4EF0A5D16D70C1E00B81E8C /* CCFileUtils.cpp in Sources */,
+				F4FBA51B16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp in Sources */,
+				F4FBA52616D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp in Sources */,
+				F4FBA52716D8C96600CD8EC1 /* CCStoreProduct.cpp in Sources */,
+				F4FBA53716D8C97A00CD8EC1 /* CCStoreIOS.mm in Sources */,
+				F4FBA53816D8C97A00CD8EC1 /* CCStore.mm in Sources */,
+				F4FBA53916D8C97A00CD8EC1 /* CCStorePaymentTransactionWrapper.mm in Sources */,
+				F4FBA53A16D8C97A00CD8EC1 /* CCStoreReceiptVerifyRequestIOS.mm in Sources */,
+				F4FBA53B16D8C97A00CD8EC1 /* SBJSON.m in Sources */,
+				F4FBA53C16D8C97A00CD8EC1 /* SBJsonBase.m in Sources */,
+				F4FBA53D16D8C97A00CD8EC1 /* SBJsonParser.m in Sources */,
+				F4FBA53E16D8C97A00CD8EC1 /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

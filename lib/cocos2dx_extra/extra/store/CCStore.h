@@ -2,7 +2,7 @@
 #ifndef  __CC_EXTENSION_CCSTORE_H_
 #define  __CC_EXTENSION_CCSTORE_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 #include "store/CCStoreProduct.h"
 #include "store/CCStorePaymentTransaction.h"
 #include "store/CCStoreTransactionObserver.h"
@@ -26,57 +26,28 @@ public:
     
     ~CCStore(void);
     
-    // 初始化
     void postInitWithTransactionObserver(CCStoreTransactionObserver* observer);
-    
 #if CC_LUA_ENGINE_ENABLED > 0
-    // 初始化 Lua
     void postInitWithTransactionListenerLua(cocos2d::LUA_FUNCTION listener);
 #endif
     
-    // 确认当前是否可以进行交易
     bool canMakePurchases(void);
     
-    // 载入指定产品的信息
     void loadProducts(CCArray* productsId, CCStoreProductsRequestDelegate* delegate);
-    
 #if CC_LUA_ENGINE_ENABLED > 0
-    // 载入指定产品的信息 Lua
     void loadProductsLua(cocos2d::LUA_TABLE __LUA_TABLE__, cocos2d::LUA_FUNCTION callback);
 #endif
-    
-    // 取消载入产品信息的操作
     void cancelLoadProducts(void);
-    
-    /** @brief 确定指定的产品是否已经载入
-     
-     @param productId 要检查的产品 ID
-     */
     bool isProductLoaded(const char* productId);
-    
-    /** @brief 购买指定的产品
-     
-     @param productId 要购买产品的 ID
-     
-     指定 ID 的产品信息必须之前成功调用 loadProducts() 载入。如果指定的产品尚未载入，则返回 false。
-     */
     bool purchase(const char* productId);
-    
-    /** @brief 结束交易 */
     void finishTransaction(CCStorePaymentTransaction *transaction);
 #if CC_LUA_ENGINE_ENABLED > 0
     void finishTransactionLua(const char* transactionIdentifier);
 #endif
-    // 确定当前的收据验证模式
-    CCStoreReceiptVerifyMode getReceiptVerifyMode(void);
-    
-    // 设置收据验证模式
+
+    CCStoreReceiptVerifyMode getReceiptVerifyMode(void);    
     void setReceiptVerifyMode(CCStoreReceiptVerifyMode mode, CCStoreIsSandbox isSandbox = true);
-    
-    // 确定验证收据的服务器 URL
     const char* getReceiptVerifyServerUrl(void);
-    
-    // 设置验证收据的服务器 URL
     void setReceiptVerifyServerUrl(const char* url);
     
 #pragma mark -

@@ -1,7 +1,7 @@
 
 #include "store/CCStore.h"
 
-#import "platform/ios/CCStore_objc.h"
+#import "platform/ios/CCStoreIOS.h"
 
 #if CC_LUA_ENGINE_ENABLED > 0
 extern "C" {
@@ -45,7 +45,7 @@ bool CCStore::init(void)
 
 void CCStore::purgeSharedStore(void)
 {
-    [CCStore_objc purgeSharedStore];
+    [CCStoreIOS purgeSharedStore];
     if (s_sharedStore)
     {
         delete s_sharedStore;
@@ -56,7 +56,7 @@ void CCStore::purgeSharedStore(void)
 void CCStore::postInitWithTransactionObserver(CCStoreTransactionObserver* observer)
 {
     m_observer = observer;
-    [[CCStore_objc sharedStore] postInitWithTransactionObserver:this];
+    [[CCStoreIOS sharedStore] postInitWithTransactionObserver:this];
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -67,13 +67,13 @@ void CCStore::postInitWithTransactionListenerLua(LUA_FUNCTION listener)
         CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_listener);
     }
     m_listener = listener;
-    [[CCStore_objc sharedStore] postInitWithTransactionObserver:this];
+    [[CCStoreIOS sharedStore] postInitWithTransactionObserver:this];
 }
 #endif
 
 bool CCStore::canMakePurchases(void)
 {
-    return [[CCStore_objc sharedStore] canMakePurchases];
+    return [[CCStoreIOS sharedStore] canMakePurchases];
 }
 
 void CCStore::loadProducts(CCArray* productsId, CCStoreProductsRequestDelegate* delegate)
@@ -84,7 +84,7 @@ void CCStore::loadProducts(CCArray* productsId, CCStoreProductsRequestDelegate* 
         CCString* productId = static_cast<CCString*>(productsId->objectAtIndex(i));
         [set addObject:[NSString stringWithUTF8String: productId->m_sString.c_str()]];
     }
-    [[CCStore_objc sharedStore] requestProductData:set andDelegate:delegate];
+    [[CCStoreIOS sharedStore] requestProductData:set andDelegate:delegate];
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -118,28 +118,28 @@ void CCStore::loadProductsLua(LUA_TABLE __LUA_TABLE__, LUA_FUNCTION callback)
 
     m_isLoadProductsLuaNotCompleted = true;
     m_loadProductsCallback = callback;
-    [[CCStore_objc sharedStore] requestProductData:set andDelegate:this];
+    [[CCStoreIOS sharedStore] requestProductData:set andDelegate:this];
 }
 #endif
 
 void CCStore::cancelLoadProducts(void)
 {
-    [[CCStore_objc sharedStore] cancelRequestProductData];
+    [[CCStoreIOS sharedStore] cancelRequestProductData];
 }
 
 bool CCStore::isProductLoaded(const char* productId)
 {
     if (!productId) return false;
-    return [[CCStore_objc sharedStore] isProductLoaded:[NSString stringWithUTF8String:productId]];
+    return [[CCStoreIOS sharedStore] isProductLoaded:[NSString stringWithUTF8String:productId]];
 }
 
 bool CCStore::purchase(const char* productId)
 {
     if (!productId) return false;
-    SKProduct *product = [[CCStore_objc sharedStore] getProduct:[NSString stringWithUTF8String:productId]];
+    SKProduct *product = [[CCStoreIOS sharedStore] getProduct:[NSString stringWithUTF8String:productId]];
     if (product)
     {
-        [[CCStore_objc sharedStore] purchase:product];
+        [[CCStoreIOS sharedStore] purchase:product];
         return true;
     }
     return false;
@@ -148,7 +148,7 @@ bool CCStore::purchase(const char* productId)
 void CCStore::finishTransaction(CCStorePaymentTransaction *transaction)
 {
     CCStorePaymentTransactionWrapper* wrapper = transaction->getTransactionWrapper();
-    [[CCStore_objc sharedStore] finishTransaction:(SKPaymentTransaction *)wrapper->getTransactionObj()];
+    [[CCStoreIOS sharedStore] finishTransaction:(SKPaymentTransaction *)wrapper->getTransactionObj()];
     CCStorePaymentTransactionsIterator it = m_transactions.find(transaction->getTransactionIdentifier());
     if (it != m_transactions.end())
     {
@@ -179,23 +179,23 @@ void CCStore::finishTransactionLua(const char* transactionIdentifier)
 
 CCStoreReceiptVerifyMode CCStore::getReceiptVerifyMode(void)
 {
-    return [CCStore_objc sharedStore].receiptVerifyMode;
+    return [CCStoreIOS sharedStore].receiptVerifyMode;
 }
 
 void CCStore::setReceiptVerifyMode(CCStoreReceiptVerifyMode mode, CCStoreIsSandbox isSandbox)
 {
-    [CCStore_objc sharedStore].receiptVerifyMode = mode;
-    [CCStore_objc sharedStore].isSandbox = isSandbox;
+    [CCStoreIOS sharedStore].receiptVerifyMode = mode;
+    [CCStoreIOS sharedStore].isSandbox = isSandbox;
 }
 
 const char* CCStore::getReceiptVerifyServerUrl(void)
 {
-    return [[CCStore_objc sharedStore].receiptVerifyServerUrl cStringUsingEncoding:NSUTF8StringEncoding];
+    return [[CCStoreIOS sharedStore].receiptVerifyServerUrl cStringUsingEncoding:NSUTF8StringEncoding];
 }
 
 void CCStore::setReceiptVerifyServerUrl(const char* url)
 {
-    [CCStore_objc sharedStore].receiptVerifyServerUrl = [NSString stringWithUTF8String:url];
+    [CCStoreIOS sharedStore].receiptVerifyServerUrl = [NSString stringWithUTF8String:url];
 }
 
 #pragma mark -

@@ -12,6 +12,9 @@
 #include "cocos2dx_extensions_luabinding.h"
 // cocos2dx_extra luabinding
 #include "luabinding/cocos2dx_extra_luabinding.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
+#endif
 
 // if use compiled framework, uncomment below codes
 extern "C" {
@@ -57,6 +60,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_cocos2dx_extensions_luabinding(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    luaopen_cocos2dx_extra_ios_iap_luabinding(L);
+#endif
     // if use compiled framework, uncomment below codes
     // load compiled framework
     luaopen_framework_precompiled(L);

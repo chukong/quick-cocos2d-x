@@ -95,7 +95,7 @@ static int lz_filter_impl(lua_State *L, int (*filter)(z_streamp, int), int (*end
     int flush = Z_NO_FLUSH, result;
     z_stream* stream;
     luaL_Buffer buff;
-    size_t avail_in;
+    size_t avail_in = 0;
 
     if ( filter == deflate ) {
         const char *const opts[] = { "none", "sync", "full", "finish", NULL };

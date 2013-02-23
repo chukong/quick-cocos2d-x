@@ -4,11 +4,11 @@
 #include "store/CCStore.h"
 #include "store/CCStoreProductsRequestDelegate.h"
 
-USING_NS_CC_EXT;
+USING_NS_CC_EXTRA;
 
-class CCStoreReceiptVerifyRequest_objc;
+class CCStoreReceiptVerifyRequestIOS;
 
-@interface CCStore_objc : NSObject < SKPaymentTransactionObserver, SKProductsRequestDelegate >
+@interface CCStoreIOS : NSObject < SKPaymentTransactionObserver, SKProductsRequestDelegate >
 {
     CCStoreIsSandbox isSandbox_;
     CCStoreReceiptVerifyMode receiptVerifyMode_;
@@ -27,7 +27,7 @@ class CCStoreReceiptVerifyRequest_objc;
 #pragma mark -
 #pragma mark init
 
-+ (CCStore_objc *)sharedStore;
++ (CCStoreIOS *)sharedStore;
 + (void)purgeSharedStore;
 - (id)init;
 - (void)postInitWithTransactionObserver:(CCStoreTransactionObserver *)observer;
@@ -64,9 +64,9 @@ class CCStoreReceiptVerifyRequest_objc;
 
 - (void)verifyTransactionReceipt:(SKPaymentTransaction *)transaction;
 
-/* CCStoreReceiptVerifyRequest_objc */
-- (void)verifyReceiptRequestFinished:(CCStoreReceiptVerifyRequest_objc *)handler;
-- (void)verifyReceiptRequestFailed:(CCStoreReceiptVerifyRequest_objc *)handler;
+/* CCStoreReceiptVerifyRequestIOS */
+- (void)verifyReceiptRequestFinished:(CCStoreReceiptVerifyRequestIOS *)handler;
+- (void)verifyReceiptRequestFailed:(CCStoreReceiptVerifyRequestIOS *)handler;
 
 #pragma mark -
 #pragma mark helper

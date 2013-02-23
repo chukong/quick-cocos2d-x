@@ -45,6 +45,7 @@ public:
 
     static const string getOpenUDID(void);
     static void openURL(const char* url);
+    static const string getInputText(const char* title, const char* message, const char* defaultValue);
 
     static const string getDeviceName(void);
     static void vibrate();

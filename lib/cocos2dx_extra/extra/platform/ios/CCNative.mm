@@ -58,6 +58,12 @@ void CCNative::openURL(const char* url)
     [[UIApplication sharedApplication] openURL:nsurl];
 }
 
+const string CCNative::getInputText(const char* title, const char* message, const char* defaultValue)
+{
+    CCLOG("CCNative::getInputText() - not support this platform.");
+    return string("");
+}
+
 #pragma mark -
 #pragma mark OpenUDID
 

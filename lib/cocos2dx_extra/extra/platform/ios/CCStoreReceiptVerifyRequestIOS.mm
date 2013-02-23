@@ -1,19 +1,18 @@
 
-#include "platform/ios/CCStoreReceiptVerifyRequest_objc.h"
+#include "platform/ios/CCStoreReceiptVerifyRequestIOS.h"
 
-
-CCStoreReceiptVerifyRequest_objc* CCStoreReceiptVerifyRequest_objc::create(CCStore_objc* store,
+CCStoreReceiptVerifyRequestIOS* CCStoreReceiptVerifyRequestIOS::create(CCStoreIOS* store,
                                                                            SKPaymentTransaction* transaction,
                                                                            const char* url)
 {
-    CCStoreReceiptVerifyRequest_objc* handler = new CCStoreReceiptVerifyRequest_objc();
+    CCStoreReceiptVerifyRequestIOS* handler = new CCStoreReceiptVerifyRequestIOS();
     handler->init(store, transaction, url);
     handler->autorelease();
     handler->retain();
     return handler;
 }
 
-bool CCStoreReceiptVerifyRequest_objc::init(CCStore_objc* store,
+bool CCStoreReceiptVerifyRequestIOS::init(CCStoreIOS* store,
                                             SKPaymentTransaction* transaction,
                                             const char* url)
 {
@@ -21,26 +20,26 @@ bool CCStoreReceiptVerifyRequest_objc::init(CCStore_objc* store,
     [m_store retain];
     m_transaction = transaction;
     [m_transaction retain];
-    m_request = CCHttpRequest::createWithUrl(this, url, CCHttpRequestMethodPOST);
+    m_request = CCHTTPRequest::createWithUrl(this, url, kCCHTTPRequestMethodPOST);
     m_request->retain();
     return true;
 }
 
-CCStoreReceiptVerifyRequest_objc::~CCStoreReceiptVerifyRequest_objc(void)
+CCStoreReceiptVerifyRequestIOS::~CCStoreReceiptVerifyRequestIOS(void)
 {
     [m_transaction release];
     CC_SAFE_RELEASE(m_request);
-    CCLOG("~~ delete CCStoreReceiptVerifyRequest_objc");
+    CCLOG("~~ delete CCStoreReceiptVerifyRequestIOS");
 }
 
-void CCStoreReceiptVerifyRequest_objc::requestFinished(CCHttpRequest* request)
+void CCStoreReceiptVerifyRequestIOS::requestFinished(CCHTTPRequest* request)
 {
     [m_store verifyReceiptRequestFinished: this];
     [m_store release];
     release();
 }
 
-void CCStoreReceiptVerifyRequest_objc::requestFailed(CCHttpRequest* request)
+void CCStoreReceiptVerifyRequestIOS::requestFailed(CCHTTPRequest* request)
 {
     [m_store verifyReceiptRequestFailed: this];
     [m_store release];

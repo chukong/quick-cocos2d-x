@@ -2,7 +2,7 @@
 #ifndef __CC_EXTENSION_CCSTORE_TRANSACTION_OBSERVER_H_
 #define __CC_EXTENSION_CCSTORE_TRANSACTION_OBSERVER_H_
 
-#include "cocos2d-x-extra.h"
+#include "cocos2dx_extra.h"
 #include "store/CCStorePaymentTransaction.h"
 
 NS_CC_EXTRA_BEGIN
