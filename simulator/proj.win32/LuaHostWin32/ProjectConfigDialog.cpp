@@ -19,7 +19,7 @@ bool ProjectConfigDialog::showDialog(ProjectConfig *project, const char *dialogC
     m_dialogCaption = string(dialogCaption ? dialogCaption : "Project Config");
     m_buttonCaption = string(buttonCaption ? buttonCaption : "Open Project");
     DialogBox(GetModuleHandle(NULL),
-        MAKEINTRESOURCE(IDD_OPEN_PROJECT),
+		MAKEINTRESOURCE(IDD_PROJECT_CONFIG),
         m_hwnd,
         DialogCallback);
     if (m_dialogResult)
