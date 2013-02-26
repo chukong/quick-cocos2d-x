@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_ios_iap_luabinding
-** Generated automatically by tolua++-1.0.92 on Sat Feb 23 17:51:33 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Feb 26 11:21:07 2013.
 */
 
 #include "cocos2dx_extra_ios_iap_luabinding.h"
@@ -19,8 +19,8 @@ using namespace cocos2d::extra;
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"cocos2d::LUA_FUNCTION");
- tolua_usertype(tolua_S,"cocos2d::LUA_TABLE");
+ 
+ 
  tolua_usertype(tolua_S,"CCStore");
 }
 
@@ -87,7 +87,7 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransacti
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCStore",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"cocos2d::LUA_FUNCTION",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -95,7 +95,7 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransacti
 #endif
  {
   CCStore* self = (CCStore*)  tolua_tousertype(tolua_S,1,0);
-  cocos2d::LUA_FUNCTION listener = *((cocos2d::LUA_FUNCTION*)  tolua_tousertype(tolua_S,2,0));
+  LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'postInitWithTransactionListenerLua'", NULL);
 #endif
@@ -152,8 +152,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_loadProductsLua00(lua
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCStore",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"cocos2d::LUA_TABLE",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"cocos2d::LUA_FUNCTION",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_istable(tolua_S,2,"LUA_TABLE",0,&tolua_err)) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -161,8 +161,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_loadProductsLua00(lua
 #endif
  {
   CCStore* self = (CCStore*)  tolua_tousertype(tolua_S,1,0);
-  cocos2d::LUA_TABLE __LUA_TABLE__ = *((cocos2d::LUA_TABLE*)  tolua_tousertype(tolua_S,2,0));
-  cocos2d::LUA_FUNCTION callback = *((cocos2d::LUA_FUNCTION*)  tolua_tousertype(tolua_S,3,0));
+  LUA_TABLE __LUA_TABLE__ = (  toluafix_totable(tolua_S,2,0));
+  LUA_FUNCTION callback = (  toluafix_ref_function(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadProductsLua'", NULL);
 #endif

@@ -25,11 +25,11 @@ public:
     static CCStore* sharedStore(void);
     static void purgeSharedStore(void);
 
-    void postInitWithTransactionListenerLua(cocos2d::LUA_FUNCTION listener);
+    void postInitWithTransactionListenerLua(LUA_FUNCTION listener);
 
     bool canMakePurchases(void);
 
-    void loadProductsLua(cocos2d::LUA_TABLE __LUA_TABLE__, cocos2d::LUA_FUNCTION callback);
+    void loadProductsLua(LUA_TABLE __LUA_TABLE__, LUA_FUNCTION callback);
     void cancelLoadProducts(void);
     bool isProductLoaded(const char* productId);
 
