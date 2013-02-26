@@ -112,7 +112,7 @@ function CCNodeExtend:removeAction(action)
 end
 
 function CCNodeExtend:stopAllActions()
-    if not tolua.isnull(target) then
+    if not tolua.isnull(self) then
         actionManager:removeAllActionsFromTarget(self)
     end
 end
