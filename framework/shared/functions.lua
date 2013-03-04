@@ -185,50 +185,58 @@ Create an class.
 
 ]]
 function class(classname, super)
-    local cls
     local superType = type(super)
+    local cls
 
-    if superType == "function" or (superType == "table" and super.type == 1) then
+    if superType ~= "function" and superType ~= "table" then
+        superType = nil
+        super = nil
+    end
+
+    if superType == "function" or (super and super.__ctype == 1) then
+        -- inherited from native C++ Object
         cls = {}
-        cls.classname = classname
-        cls.type      = 1 -- native
+        cls.ctor    = function() end
+        cls.__cname = classname
+        cls.__ctype = 1
 
-        if superType == "table" and super.type == 1 then
-            cls.create = super.create
-            cls.super = super
+        if superType == "table" then
+            cls.__create = super.__create
+            cls.super    = super
+            for k,v in pairs(super) do
+                cls[k] = v
+            end
         else
-            cls.create = super
+            cls.__create = super
         end
 
         function cls.new(...)
-            local instance = cls.create()
-            if cls.super then
-                for k,v in pairs(cls.super) do
-                    instance[k] = v
-                end
-            end
+            local instance = cls.__create()
             for k,v in pairs(cls) do
                 instance[k] = v
             end
             instance.class = cls
-            if cls.ctor then instance:ctor(...) end
+            instance:ctor(...)
             return instance
         end
+
     else
+        -- inherited from Lua Object
         if super then
             cls = clone(super)
+            cls.super = super
         else
-            cls = {}
+            cls = {ctor = function() end}
         end
-        cls.super     = super
-        cls.classname = classname
-        cls.type      = 2 -- lua
-        cls.__index   = cls
+
+        cls.__cname = classname
+        cls.__ctype = 2 -- lua
+        cls.__index = cls
 
         function cls.new(...)
             local instance = setmetatable({}, cls)
             instance.class = cls
-            if cls.ctor then instance:ctor(...) end
+            instance:ctor(...)
             return instance
         end
     end
