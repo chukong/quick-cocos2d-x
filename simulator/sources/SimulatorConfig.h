@@ -24,8 +24,8 @@ public:
 	, m_packagePath("")
     , m_frameSize(320, 480)
     , m_frameScale(1.0f)
-    , m_showConsole(TRUE)
-	, m_loadPrecompiledFramework(TRUE)
+    , m_showConsole(true)
+	, m_loadPrecompiledFramework(true)
     , m_windowOffset(-1, -1)
     {
         normalize();
@@ -58,7 +58,7 @@ public:
 		CCAssert(frameSize.width > 0 && frameSize.height > 0, "Invalid frameSize");
 		m_frameSize = frameSize;
 	}
-	BOOL isLandscapeFrame(void) {
+	bool isLandscapeFrame(void) {
 		return m_frameSize.width > m_frameSize.height;
 	}
 
@@ -70,17 +70,17 @@ public:
 		m_frameScale = frameScale;
 	}
 
-	const BOOL isShowConsole(void) {
+	const bool isShowConsole(void) {
 		return m_showConsole;
 	}
-	void setShowConsole(BOOL showConsole) {
+	void setShowConsole(bool showConsole) {
 		m_showConsole = showConsole;
 	}
 
-	const BOOL isLoadPrecompiledFramework(void) {
+	const bool isLoadPrecompiledFramework(void) {
 		return m_loadPrecompiledFramework;
 	}
-	void setLoadPrecompiledFramework(BOOL loadPrecompiledFramework) {
+	void setLoadPrecompiledFramework(bool loadPrecompiledFramework) {
 		m_loadPrecompiledFramework = loadPrecompiledFramework;
 	}
 
@@ -97,8 +97,8 @@ private:
 	string	m_packagePath;
 	CCSize	m_frameSize;
 	float	m_frameScale;
-	BOOL	m_showConsole;
-	BOOL	m_loadPrecompiledFramework;
+	bool	m_showConsole;
+	bool	m_loadPrecompiledFramework;
 	CCPoint	m_windowOffset;
 
 	void normalize(void);

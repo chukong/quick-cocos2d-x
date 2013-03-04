@@ -1,6 +1,10 @@
 
 #include "SimulatorConfig.h"
 
+#ifdef _MSC_VER
+#define strcasecmp _stricmp
+#endif
+
 void ProjectConfig::setProjectDir(const char *projectDir)
 {
 	m_projectDir = projectDir;
@@ -69,7 +73,7 @@ void ProjectConfig::normalize(void)
 	if (m_scriptFile.length() >= 1 && m_scriptFile[0] == '$') return;
 
 	int projectDirLength = m_projectDir.length();
-	if (_stricmp(m_scriptFile.substr(0, projectDirLength).c_str(), m_projectDir.c_str()) == 0)
+	if (strcasecmp(m_scriptFile.substr(0, projectDirLength).c_str(), m_projectDir.c_str()) == 0)
 	{
 		m_scriptFile = string("$WORKDIR\\").append(m_scriptFile.substr(projectDirLength));
 	}
