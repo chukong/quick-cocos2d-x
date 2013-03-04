@@ -99,7 +99,7 @@ bool ProjectConfigDialog::checkConfig(void)
 
         // ok
         m_project.setFrameSize(CCSize(w, h));
-        m_project.setShowConsole(IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE));
+        m_project.setShowConsole(IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE) == TRUE);
         isOK = true;
     } while (false);
 
