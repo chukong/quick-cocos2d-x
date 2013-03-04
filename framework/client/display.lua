@@ -624,13 +624,11 @@ CCPolygon have the following new methods:
 ]]
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
-    local arr = CCArray:create()
+    local arr = CCPointArray:create(#points)
     for i, p in ipairs(points) do
         p = ccp(p[1] * scale, p[2] * scale)
-        p:autorelease()
-        arr:addObject(p)
+        arr:add(p)
     end
-    arr:retain() -- TODO: memory leaks ?!?
 
     return CCShapeNodeExtend.extend(CCPolygonShape:create(arr))
 end

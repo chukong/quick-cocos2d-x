@@ -92,7 +92,7 @@ end
 
 local luaoc = {}
 
-local callJavaStaticMethod = CCLuaObjcBridge.callStaticMethod
+local callStaticMethod = CCLuaObjcBridge.callStaticMethod
 
 --[[--
 
@@ -111,7 +111,7 @@ Call Objective-C Class Method
 
 ]]
 function luaoc.callStaticMethod(className, methodName, args)
-    local ok, ret = callJavaStaticMethod(className, methodName, args)
+    local ok, ret = callStaticMethod(className, methodName, args)
     if not ok then
         local msg = string.format("luaoc.callStaticMethod(\"%s\", \"%s\", \"%s\") - error: [%s] ",
                 className, methodName, tostring(args), tostring(ret))
