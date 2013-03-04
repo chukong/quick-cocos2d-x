@@ -1,3 +1,4 @@
+
 #pragma comment(lib, "comctl32.lib")
 #pragma comment(linker, "\"/manifestdependency:type='Win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='X86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
@@ -15,7 +16,6 @@
 #include "SimpleAudioEngine.h"
 #include "ProjectConfigDialog.h"
 
-#define MAX_LOADSTRING 100
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
@@ -24,41 +24,46 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-    return LuaHostWin32::createAndRun();
-}
-
-LuaHostWin32 *LuaHostWin32::s_sharedInstance = NULL;
-
-LuaHostWin32::LuaHostWin32(void)
-: m_app(NULL)
-, m_hwnd(NULL)
-, m_consoleVisible(true)
-, m_exit(true)
-{
-    CCAssert(s_sharedInstance == NULL, "Can't create more LuaHostWin32 instance");
-    s_sharedInstance = this;
-
-    INITCOMMONCONTROLSEX InitCtrls;
-    InitCtrls.dwSize = sizeof(InitCtrls);
-    InitCtrls.dwICC = ICC_WIN95_CLASSES;
-    InitCommonControlsEx(&InitCtrls);
-}
-
-LuaHostWin32::~LuaHostWin32(void)
-{
-    s_sharedInstance = NULL;
+	return LuaHostWin32::createAndRun();
 }
 
 int LuaHostWin32::createAndRun(void)
 {
-    LuaHostWin32 *host = new LuaHostWin32();
-    host->init();
-    return host->run();
+	LuaHostWin32 *host = LuaHostWin32::sharedInstance();
+	int ret = host->run();
+	LuaHostWin32::purgeSharedInstance();
+	return ret;
 }
 
-bool LuaHostWin32::init(void)
+LuaHostWin32 *LuaHostWin32::s_sharedInstance = NULL;
+
+LuaHostWin32 *LuaHostWin32::sharedInstance(void)
 {
-    return true;
+	if (!s_sharedInstance)
+	{
+		s_sharedInstance = new LuaHostWin32();
+	}
+	return s_sharedInstance;
+}
+
+void LuaHostWin32::purgeSharedInstance(void)
+{
+	if (s_sharedInstance)
+	{
+		delete s_sharedInstance;
+		s_sharedInstance = NULL;
+	}
+}
+
+LuaHostWin32::LuaHostWin32(void)
+: m_app(NULL)
+, m_hwnd(NULL)
+, m_exit(TRUE)
+{
+    INITCOMMONCONTROLSEX InitCtrls;
+    InitCtrls.dwSize = sizeof(InitCtrls);
+    InitCtrls.dwICC = ICC_WIN95_CLASSES;
+    InitCommonControlsEx(&InitCtrls);
 }
 
 int LuaHostWin32::run(void)
@@ -79,10 +84,9 @@ int LuaHostWin32::run(void)
 
     do
     {
-        m_exit = true;
+        m_exit = TRUE;
 
-        m_project.normalize();
-        if (m_project.showConsole)
+        if (m_project.isShowConsole())
         {
             ShowWindow(hwndConsole, SW_SHOW);
             BringWindowToTop(hwndConsole);
@@ -94,32 +98,41 @@ int LuaHostWin32::run(void)
 
         // create the application instance
         m_app = new AppDelegate();
-        m_app->setStartupScriptFilename(m_project.scriptFile);
-        SetCurrentDirectoryA(m_project.projectDir.c_str());
+        m_app->setStartupScriptFilename(m_project.getScriptFilePath());
+
+		// set environments
+        SetCurrentDirectoryA(m_project.getProjectDir().c_str());
         vector<string> searchPaths;
-        searchPaths.push_back(m_project.projectDir);
+        searchPaths.push_back(m_project.getProjectDir());
         CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
 
+		// create opengl view
         CCEGLView* eglView = CCEGLView::sharedOpenGLView();    
         eglView->setMenuResource(MAKEINTRESOURCE(IDC_LUAHOSTWIN32));
         eglView->setWndProc(WindowProc);
-        eglView->setFrameSize(m_project.frameWidth, m_project.frameHeight);
-        eglView->setFrameZoomFactor(m_project.frameScale);
+        eglView->setFrameSize(m_project.getFrameSize().width, m_project.getFrameSize().height);
+        eglView->setFrameZoomFactor(m_project.getFrameScale());
 
+		// make window actived
         m_hwnd = eglView->getHWnd();
         BringWindowToTop(m_hwnd);
 
-        if (m_project.windowLeft >= 0)
+		// restore window position
+		const CCPoint windowOffset = m_project.getWindowOffset();
+        if (windowOffset.x >= 0 || windowOffset.y >= 0)
         {
-            eglView->moveWindow(m_project.windowLeft, m_project.windowTop);
+            eglView->moveWindow(windowOffset.x, windowOffset.y);
         }
 
+		// set icon
         HICON icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_LUAHOSTWIN32));
         SendMessage(m_hwnd, WM_SETICON, ICON_BIG, (LPARAM)icon);
         SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
 
+		// run game
         m_app->run();
 
+		// cleanup
         CCScriptEngineManager::sharedManager()->removeScriptEngine();
         CCScriptEngineManager::purgeSharedManager();
         CocosDenshion::SimpleAudioEngine::end();
@@ -141,13 +154,18 @@ void LuaHostWin32::loadProjectConfig(void)
         if (arg.compare("-workdir") == 0)
         {
             index++;
-            m_project.projectDir = getCommandLineArg(index);
+            m_project.setProjectDir(getCommandLineArg(index).c_str());
         }
         else if (arg.compare("-file") == 0)
         {
             index++;
-            m_project.scriptFile = getCommandLineArg(index);
+            m_project.setScriptFile(getCommandLineArg(index).c_str());
         }
+		else if (arg.compare("-package.path") == 0)
+		{
+			index++;
+			m_project.setPackagePath(getCommandLineArg(index).c_str());
+		}
         else if (arg.compare("-size") == 0)
         {
             index++;
@@ -155,15 +173,11 @@ void LuaHostWin32::loadProjectConfig(void)
             int pos = size.find('x');
             if (pos != size.npos && pos > 0)
             {
-                string widthStr, heightStr;
-                widthStr.assign(size, 0, pos);
-                heightStr.assign(size, pos + 1, size.length() - pos);
-                int frameWidth = atoi(widthStr.c_str());
-                int frameHeight = atoi(heightStr.c_str());
-                if (frameWidth < 320) frameWidth = 320;
-                if (frameHeight < 320) frameHeight = 320;
-                m_project.frameWidth = frameWidth;
-                m_project.frameHeight = frameHeight;
+                int frameWidth = atoi(size.substr(0, pos).c_str());
+                int frameHeight = atoi(size.substr(pos + 1).c_str());
+                if (frameWidth < 100) frameWidth = 100;
+                if (frameHeight < 100) frameHeight = 100;
+				m_project.setFrameSize(CCSize(frameWidth, frameHeight));
             }
         }
         else if (arg.compare("-scale") == 0)
@@ -173,12 +187,12 @@ void LuaHostWin32::loadProjectConfig(void)
             float frameScale = atof(scale.c_str());
             if (frameScale > 0)
             {
-                m_project.frameScale = frameScale;
+                m_project.setFrameScale(frameScale);
             }
         }
         else if (arg.compare("-disable-console") == 0)
         {
-            m_project.showConsole = false;
+            m_project.setShowConsole(FALSE);
         }
 
         index++;
@@ -193,8 +207,7 @@ void LuaHostWin32::relaunch(void)
 {
     RECT rect;
     GetWindowRect(m_hwnd, &rect);
-    m_project.windowLeft = rect.left;
-    m_project.windowTop  = rect.top;
+	m_project.setWindowOffset(CCPoint(rect.left, rect.top));
     m_exit = false;
     CCDirector::sharedDirector()->end();
 }
@@ -217,13 +230,13 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
     WCHAR shortcutPathBuff[MAX_PATH + 1] = {0};
 
     OPENFILENAME ofn = {0};
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = m_hwnd;
-    ofn.lpstrFilter = L"Shortcut (*.lnk)\0*.lnk\0";
-    ofn.lpstrTitle = L"Create Project Shortcut";
-    ofn.Flags = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
-    ofn.lpstrFile = shortcutPathBuff;
-    ofn.nMaxFile = MAX_PATH;
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner   = m_hwnd;
+	ofn.lpstrFilter = L"Shortcut (*.lnk)\0*.lnk\0";
+	ofn.lpstrTitle  = L"Create Project Shortcut";
+	ofn.Flags       = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
+	ofn.lpstrFile   = shortcutPathBuff;
+	ofn.nMaxFile    = MAX_PATH;
 
     if (!GetSaveFileName(&ofn)) return;
 
@@ -238,20 +251,21 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
  
         // args
         string args("-workdir ");
-        args.append(m_project.projectDir);
+        args.append(m_project.getProjectDir());
 
         args.append(" -file ");
-        args.append(m_project.scriptFile);
+        args.append(m_project.getScriptFile());
 
         args.append(" -size ");
+		const CCSize frameSize = m_project.getFrameSize();
         char buff[32] = {0};
-        sprintf_s(buff, "%d", (int)m_project.frameWidth);
+        sprintf_s(buff, "%d", (int)frameSize.width);
         args.append(buff);
         args.append("x");
-        sprintf_s(buff, "%d", (int)m_project.frameHeight);
+        sprintf_s(buff, "%d", (int)frameSize.height);
         args.append(buff);
 
-        if (!m_project.showConsole)
+        if (!m_project.isShowConsole())
         {
             args.append(" -disable-console");
         }
@@ -350,26 +364,24 @@ void LuaHostWin32::onViewChangeFrameSize(int index)
         default:
             w = 320; h = 480;
     }
-    if (m_project.frameWidth > m_project.frameHeight)
+    if (m_project.isLandscapeFrame())
     {
         int w2 = w;
         w = h;
         h = w2;
     }
-    m_project.frameWidth = w;
-    m_project.frameHeight = h;
-    m_project.frameScale = 1.0f;
+    m_project.setFrameSize(CCSize(w, h));
+    m_project.setFrameScale(1.0f);
     relaunch();
 }
 
 void LuaHostWin32::onViewChangeDirection(int directionMode)
 {
-    if ((directionMode == ID_VIEW_PORTRAIT && m_project.frameWidth > m_project.frameHeight)
-        || (directionMode == ID_VIEW_LANDSCAPE && m_project.frameHeight > m_project.frameWidth))
+	BOOL isLandscape = m_project.isLandscapeFrame();
+    if ((directionMode == ID_VIEW_PORTRAIT && isLandscape) || (directionMode == ID_VIEW_LANDSCAPE && !isLandscape))
     {
-        float height = m_project.frameWidth;
-        m_project.frameWidth = m_project.frameHeight;
-        m_project.frameHeight = height;
+		CCSize frameSize = m_project.getFrameSize();
+		frameSize.setSize(frameSize.height, frameSize.width);
         relaunch();
     }
 }
@@ -382,9 +394,9 @@ void LuaHostWin32::onViewChangeZoom(int scaleMode)
         scale = 0.5f;
     }
 
-    m_project.frameScale = scale;
+    m_project.setFrameScale(scale);
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
-    CCEGLView::sharedOpenGLView()->resize(m_project.frameWidth * scale, m_project.frameHeight * scale);
+    CCEGLView::sharedOpenGLView()->resize(m_project.getFrameSize().width, m_project.getFrameSize().height);
 }
 
 void LuaHostWin32::onHelpAbout(void)
@@ -397,14 +409,14 @@ LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
 {
     int wmId, wmEvent;
     LuaHostWin32 *host = LuaHostWin32::sharedInstance();
-    HWND hwnd = host->getHWnd();
+    HWND hwnd = host->getWindowHandle();
 
 	switch (message)
 	{
 	case WM_COMMAND:
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
-		// ·ÖÎö²Ëµ¥Ñ¡Ôñ:
+		
 		switch (wmId)
 		{
         case ID_FILE_NEW_PROJECT:

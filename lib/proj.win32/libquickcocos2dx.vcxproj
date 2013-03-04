@@ -567,6 +567,12 @@
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
+    <PreLinkEvent>
+      <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
+xcopy /Y /Q "%QUICK_COCOS2DX_ROOT%\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries\*.*" "$(OutDir)"
+xcopy /Y /Q "%QUICK_COCOS2DX_ROOT%\lib\luajit2\proj.win32\*.*" "$(OutDir)"
+</Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

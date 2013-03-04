@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "resource.h"
@@ -8,7 +9,7 @@
 #include <string>
 #include "cocos2d.h"
 #include "AppDelegate.h"
-#include "ProjectConfig.h"
+#include "SimulatorConfig.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -16,32 +17,30 @@ using namespace cocos2d;
 class LuaHostWin32
 {
 public:
-    static LuaHostWin32 *sharedInstance(void) {
-        return s_sharedInstance;
-    }
-    static int createAndRun(void);
-    ~LuaHostWin32(void);
+	static int createAndRun(void);
 
     AppDelegate *getApp(void) {
         return m_app;
     }
 
-    HWND getHWnd(void) {
+    HWND getWindowHandle(void) {
         return m_hwnd;
     }
 
 private:
-    LuaHostWin32(void);
-    bool init(void);
+	static LuaHostWin32 *s_sharedInstance;
+	static LuaHostWin32 *sharedInstance(void);
+	static void purgeSharedInstance(void);
 
-    static LuaHostWin32 *s_sharedInstance;
+	LuaHostWin32(void);
+
     AppDelegate *m_app;
     ProjectConfig m_project;
-    HWND m_hwnd;
-    bool m_consoleVisible;
-    bool m_exit;
 
-    int run(void);
+    HWND m_hwnd;
+    BOOL m_exit;
+
+	int run(void);
     void loadProjectConfig(void);
     void updateWindowTitle(void);
     void relaunch(void);

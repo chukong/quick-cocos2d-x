@@ -29,18 +29,6 @@ bool ProjectConfigDialog::showDialog(ProjectConfig *project, const char *dialogC
     return m_dialogResult;
 }
 
-BOOL DirectoryExists(const char *path)
-{
-    DWORD dwAttrib = GetFileAttributesA(path);
-    return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
-}
-
-BOOL FileExists(const char *path)
-{
-    DWORD dwAttrib = GetFileAttributesA(path);
-    return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
-}
-
 bool ProjectConfigDialog::checkConfig(void)
 {
     bool isOK = false;
@@ -48,33 +36,20 @@ bool ProjectConfigDialog::checkConfig(void)
 
     do
     {
-        // check project dir
+        // check project dir and script file
         GetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, buff, MAX_PATH);
-        if (!DirectoryExists(buff))
-        {
-            MessageBox(m_hwndDialog, L"Invalid Project Directory, please check it", L"Error", MB_OK);
-            SetFocus(GetDlgItem(m_hwndDialog, IDC_EDIT_PROJECT_DIR));
-            break;
-        }
+		m_project.setProjectDir(buff);
+		GetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, buff, MAX_PATH);
+		m_project.setScriptFile(buff);
 
-        int len = strlen(buff);
-        if (buff[len - 1] != '\\')
-        {
-            buff[len] = '\\';
-            buff[len + 1] = '\0';
-        }
-        string projectDir(buff);
+		if (!DirectoryExists(m_project.getProjectDir().c_str()))
+		{
+			MessageBox(m_hwndDialog, L"Invalid Project Directory, please check it", L"Error", MB_OK);
+			SetFocus(GetDlgItem(m_hwndDialog, IDC_EDIT_PROJECT_DIR));
+			break;
+		}
 
-        // check script file
-        GetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, buff, MAX_PATH);
-        string scriptFile(buff);
-        string scriptPath((buff[1] == ':') ? buff : projectDir);
-        if (buff[1] != ':')
-        {
-            scriptPath.append(buff[0] == '\\' ? buff + 1 : buff);
-        }
-
-        if (!FileExists(scriptPath.c_str()))
+        if (!FileExists(m_project.getScriptFilePath().c_str()))
         {
             MessageBox(m_hwndDialog, L"Invalid Script File, please check it", L"Error", MB_OK);
             SetFocus(GetDlgItem(m_hwndDialog, IDC_EDIT_SCRIPT_FILE));
@@ -84,12 +59,12 @@ bool ProjectConfigDialog::checkConfig(void)
         // check screen size
         HWND list = GetDlgItem(m_hwndDialog, IDC_COMBO_SCREEN_SIZE);
         int index = ComboBox_GetCurSel(list);
-        ProjectConfigDefaults *defaults = ProjectConfigDefaults::sharedDefaults();
+        SimulatorConfig *defaults = SimulatorConfig::sharedDefaults();
 
         int w, h;
-        if (index < defaults->getScreenSizeCount())
+        if (index < defaults->numScreenSize())
         {
-            const ScreenSizeDescription &size = defaults->getScreenSize(index);
+            const SimulatorScreenSize &size = defaults->getScreenSize(index);
             w = size.width;
             h = size.height;
 
@@ -123,11 +98,8 @@ bool ProjectConfigDialog::checkConfig(void)
         }
 
         // ok
-        m_project.projectDir = projectDir.substr(0, projectDir.length() - 1);
-        m_project.scriptFile = scriptFile;
-        m_project.frameWidth = w;
-        m_project.frameHeight = h;
-        m_project.showConsole = IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE) == TRUE;
+        m_project.setFrameSize(CCSize(w, h));
+        m_project.setShowConsole(IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE));
         isOK = true;
     } while (false);
 
@@ -136,27 +108,27 @@ bool ProjectConfigDialog::checkConfig(void)
 
 void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
 {
-    ProjectConfigDefaults *defaults = ProjectConfigDefaults::sharedDefaults();
+    SimulatorConfig *defaults = SimulatorConfig::sharedDefaults();
     m_hwndDialog = hwndDialog;
     HWND list = GetDlgItem(m_hwndDialog, IDC_COMBO_SCREEN_SIZE);
 
-    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, m_project.projectDir.c_str());
-    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.scriptFile.c_str());
+    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, m_project.getProjectDir().c_str());
+    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
 
-    bool isLandscape = false;
-    int currentSizeIndex = defaults->checkScreenSize(m_project.frameWidth, m_project.frameHeight);
+    BOOL isLandscape = FALSE;
+    int currentSizeIndex = defaults->checkScreenSize(m_project.getFrameSize());
     if (currentSizeIndex < 0)
     {
         currentSizeIndex = 0;
     }
     else
     {
-        isLandscape = defaults->isLandscape(m_project.frameWidth, m_project.frameHeight);
+        isLandscape = m_project.isLandscapeFrame();
     }
 
-    for (int i = 0; i < defaults->getScreenSizeCount(); ++i)
+    for (int i = 0; i < defaults->numScreenSize(); ++i)
     {
-        const ScreenSizeDescription &size = defaults->getScreenSize(i);
+        const SimulatorScreenSize &size = defaults->getScreenSize(i);
         wstring title;
         title.assign(size.title.begin(), size.title.end());
         ComboBox_AddString(list, title.c_str());
@@ -179,7 +151,16 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
     HWND direction = GetDlgItem(m_hwndDialog, IDC_RADIO_PORTRAIT);
     CheckRadioButton(m_hwndDialog, IDC_RADIO_PORTRAIT, IDC_RADIO_LANDSCAPE, isLandscape ? IDC_RADIO_LANDSCAPE : IDC_RADIO_PORTRAIT);
 
-    Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE), m_project.showConsole);
+    Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE), m_project.isShowConsole());
+	Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_LOAD_PRECOMPILED_FRAMEWORK), m_project.isLoadPrecompiledFramework());
+
+	const vector<string> paths = m_project.getPackagePathArray();
+	for (vector<string>::const_iterator it = paths.begin(); it != paths.end(); ++it)
+	{
+		wstring item;
+		item.assign(it->begin(), it->end());
+		ListBox_AddString(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS), item.c_str());
+	}
 
     // set dialog caption, button caption
     SetWindowTextA(m_hwndDialog, m_dialogCaption.c_str());
@@ -203,21 +184,15 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
                  SWP_NOSIZE);
 }
 
-int CALLBACK BrowseFolderCallback(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
-{
-    if (uMsg == BFFM_INITIALIZED)
-    {
-        LPCTSTR path = reinterpret_cast<LPCTSTR>(lpData);
-        SendMessage(hwnd, BFFM_SETSELECTION, true, (LPARAM)path);
-    }
-    return 0;
-}
-
 void ProjectConfigDialog::onSelectProjectDir(void)
 {
     char buff[MAX_PATH + 1] = {0};
     WCHAR curr[MAX_PATH + 1] = {0};
     GetDlgItemText(m_hwndDialog, IDC_EDIT_PROJECT_DIR, curr, MAX_PATH);
+	if (wcslen(curr) == 0)
+	{
+		GetCurrentDirectory(MAX_PATH, curr);
+	}
 
     BROWSEINFOA bi = {0};
     bi.hwndOwner = m_hwndDialog;
@@ -231,7 +206,9 @@ void ProjectConfigDialog::onSelectProjectDir(void)
     if (pid)
     {
         SHGetPathFromIDListA(pid, buff);
-        SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, buff);
+		m_project.setProjectDir(buff);
+		SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, m_project.getProjectDir().c_str());
+		SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
     }
 }
 
@@ -256,15 +233,8 @@ void ProjectConfigDialog::onSelectScriptFile(void)
 
     if (GetOpenFileNameA(&ofn))
     {
-        string scriptFile(buff);
-        GetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, buff, MAX_PATH);
-        string projectDir(buff);
-        int projectDirLength = projectDir.length();
-        if (_stricmp(scriptFile.substr(0, projectDirLength).c_str(), projectDir.c_str()) == 0)
-        {
-            scriptFile = scriptFile.substr(projectDirLength + 1);
-        }
-        SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, scriptFile.c_str());
+		m_project.setScriptFile(buff);
+        SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
     }
 }
 
@@ -272,12 +242,12 @@ void ProjectConfigDialog::onScreenSizeChanged(void)
 {
     HWND list = GetDlgItem(m_hwndDialog, IDC_COMBO_SCREEN_SIZE);
     int index = ComboBox_GetCurSel(list);
-    ProjectConfigDefaults *defaults = ProjectConfigDefaults::sharedDefaults();
+    SimulatorConfig *defaults = SimulatorConfig::sharedDefaults();
 
     int w, h;
-    if (index < defaults->getScreenSizeCount())
+    if (index < defaults->numScreenSize())
     {
-        const ScreenSizeDescription &size = defaults->getScreenSize(index);
+        const SimulatorScreenSize &size = defaults->getScreenSize(index);
         w = size.width;
         h = size.height;
 
@@ -312,6 +282,7 @@ void ProjectConfigDialog::onScreenSizeChanged(void)
     }
 }
 
+
 void ProjectConfigDialog::onScreenDirectionChanged(void)
 {
     char buff[32] = {0};
@@ -330,6 +301,27 @@ void ProjectConfigDialog::onScreenDirectionChanged(void)
     }
 }
 
+void ProjectConfigDialog::onListSelectChanged(void)
+{
+	int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
+	Button_Enable(GetDlgItem(m_hwndDialog, IDC_BUTTON_REMOVE_SEARCH_PATH), index != LB_ERR);
+}
+
+void ProjectConfigDialog::onButtonAddSearchPathClicked(void)
+{
+
+}
+
+void ProjectConfigDialog::onButtonRemoveSearchPathClicked(void)
+{
+	int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
+	if (index != LB_ERR)
+	{
+		ListBox_DeleteString(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS), index);
+		m_project.setPackagePath(makeSearchPath().c_str());
+	}
+}
+
 void ProjectConfigDialog::onOK(void)
 {
     if (checkConfig())
@@ -337,6 +329,9 @@ void ProjectConfigDialog::onOK(void)
         m_dialogResult = true;
     }
 }
+
+
+// callback
 
 INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -374,6 +369,21 @@ INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WP
             }
             break;
 
+		case IDC_LIST_PACKAGE_SEARCH_PATHS:
+			if (HIWORD(wParam) == LBN_SELCHANGE)
+			{
+				sharedInstance()->onListSelectChanged();
+			}
+			break;
+
+		case IDC_BUTTON_ADD_SEARCH_PATH:
+			sharedInstance()->onButtonAddSearchPathClicked();
+			break;
+
+		case IDC_BUTTON_REMOVE_SEARCH_PATH:
+			sharedInstance()->onButtonRemoveSearchPathClicked();
+			break;
+
         case IDOK:
             sharedInstance()->onOK();
             EndDialog(hDlg, LOWORD(wParam));
@@ -387,4 +397,49 @@ INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WP
         break;
     }
     return (INT_PTR)FALSE;
+}
+
+int CALLBACK ProjectConfigDialog::BrowseFolderCallback(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
+{
+	if (uMsg == BFFM_INITIALIZED)
+	{
+		LPCTSTR path = reinterpret_cast<LPCTSTR>(lpData);
+		SendMessage(hwnd, BFFM_SETSELECTION, true, (LPARAM)path);
+	}
+	return 0;
+}
+
+
+// helper
+
+const string ProjectConfigDialog::makeSearchPath(void)
+{
+	HWND listbox = GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS);
+	int count = ListBox_GetCount(listbox);
+	string path;
+	for (int index = 0; index < count; ++index)
+	{
+		int buffsize = ListBox_GetTextLen(listbox, index);
+		WCHAR *wbuff = new WCHAR[buffsize + 1];
+		ListBox_GetText(listbox, index, wbuff);
+		char *buff = new char[buffsize * 2 + 1];
+		WideCharToMultiByte(CP_UTF8, 0, wbuff, -1, buff, buffsize * 2, NULL, NULL);
+		path.append(buff);
+		if (index < count - 1) path.append(";");
+		delete []buff;
+		delete []wbuff;
+	}
+	return path;
+}
+
+BOOL ProjectConfigDialog::DirectoryExists(const char *path)
+{
+	DWORD dwAttrib = GetFileAttributesA(path);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+BOOL ProjectConfigDialog::FileExists(const char *path)
+{
+	DWORD dwAttrib = GetFileAttributesA(path);
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }

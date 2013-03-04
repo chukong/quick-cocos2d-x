@@ -6,7 +6,7 @@
 #include "CCStdC.h"
 
 #include <string>
-#include "ProjectConfig.h"
+#include "SimulatorConfig.h"
 
 class ProjectConfigDialog
 {
@@ -45,8 +45,17 @@ private:
     void onSelectScriptFile(void);
     void onScreenSizeChanged(void);
     void onScreenDirectionChanged(void);
+	void onListSelectChanged(void);
+	void onButtonAddSearchPathClicked(void);
+	void onButtonRemoveSearchPathClicked(void);
     void onOK(void);
 
     // windows callback
     static INT_PTR CALLBACK DialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+	static int CALLBACK BrowseFolderCallback(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData);
+
+	// helper
+	const string makeSearchPath(void);
+	static BOOL DirectoryExists(const char *path);
+	static BOOL FileExists(const char *path);
 };

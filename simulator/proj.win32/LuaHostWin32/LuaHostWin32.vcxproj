@@ -13,7 +13,7 @@
   <ItemGroup>
     <ClCompile Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.c" />
     <ClCompile Include="..\..\sources\AppDelegate.cpp" />
-    <ClCompile Include="..\..\sources\ProjectConfig.cpp" />
+    <ClCompile Include="..\..\sources\SimulatorConfig.cpp" />
     <ClCompile Include="LuaHostWin32.cpp" />
     <ClCompile Include="ProjectConfigDialog.cpp" />
     <ClCompile Include="stdafx.cpp" />
@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClInclude Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.h" />
     <ClInclude Include="..\..\sources\AppDelegate.h" />
-    <ClInclude Include="..\..\sources\ProjectConfig.h" />
+    <ClInclude Include="..\..\sources\SimulatorConfig.h" />
     <ClInclude Include="HostVersion.h" />
     <ClInclude Include="LuaHostWin32.h" />
     <ClInclude Include="ProjectConfigDialog.h" />
