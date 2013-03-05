@@ -1,8 +1,8 @@
 
 /* framework_precompiled.h */
 
-#ifndef __LUA_MODULES_E7F4FF00D978E02449801F1847E34221_H_
-#define __LUA_MODULES_E7F4FF00D978E02449801F1847E34221_H_
+#ifndef __LUA_MODULES_943D215258C5CCEC15255C177E030788_H_
+#define __LUA_MODULES_943D215258C5CCEC15255C177E030788_H_
 
 #if __cplusplus
 extern "C" {
@@ -52,4 +52,4 @@ int luaopen_lua_m_framework_shared_json(lua_State* L);
 int luaopen_lua_m_framework_shared_modelbase(lua_State* L);
 */
 
-#endif /* __LUA_MODULES_E7F4FF00D978E02449801F1847E34221_H_ */
+#endif /* __LUA_MODULES_943D215258C5CCEC15255C177E030788_H_ */

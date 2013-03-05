@@ -196,25 +196,24 @@ function class(classname, super)
     if superType == "function" or (super and super.__ctype == 1) then
         -- inherited from native C++ Object
         cls = {}
-        cls.ctor    = function() end
-        cls.__cname = classname
-        cls.__ctype = 1
 
         if superType == "table" then
+            -- copy fields from super
+            for k,v in pairs(super) do cls[k] = v end
             cls.__create = super.__create
             cls.super    = super
-            for k,v in pairs(super) do
-                cls[k] = v
-            end
         else
             cls.__create = super
         end
 
+        cls.ctor    = function() end
+        cls.__cname = classname
+        cls.__ctype = 1
+
         function cls.new(...)
-            local instance = cls.__create()
-            for k,v in pairs(cls) do
-                instance[k] = v
-            end
+            local instance = cls.__create(...)
+            -- copy fields from class to native object
+            for k,v in pairs(cls) do instance[k] = v end
             instance.class = cls
             instance:ctor(...)
             return instance
