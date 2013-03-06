@@ -95,6 +95,11 @@
       <AdditionalDependencies>libquickcocos2dx.lib;opengl32.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libxml2.lib;libzlib.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\simulator\proj.win32\LuaHostWin32\$(Configuration);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y /Q "$(OutDir)*.exe" "%QUICK_COCOS2DX_ROOT%\simulator\bin\win32\"
+xcopy /Y /Q "$(OutDir)*.dll" "%QUICK_COCOS2DX_ROOT%\simulator\bin\win32\"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
