@@ -405,7 +405,8 @@ void LuaHostWin32::onViewChangeZoom(int scaleMode)
 
     m_project.setFrameScale(scale);
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
-    CCEGLView::sharedOpenGLView()->resize(m_project.getFrameSize().width, m_project.getFrameSize().height);
+    CCEGLView::sharedOpenGLView()->resize(m_project.getFrameSize().width * scale,
+        m_project.getFrameSize().height * scale);
 }
 
 void LuaHostWin32::onHelpAbout(void)
