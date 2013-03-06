@@ -17,7 +17,7 @@ using namespace cocos2d;
 class LuaHostWin32
 {
 public:
-	static int createAndRun(void);
+    static int createAndRun(void);
 
     AppDelegate *getApp(void) {
         return m_app;
@@ -28,11 +28,11 @@ public:
     }
 
 private:
-	static LuaHostWin32 *s_sharedInstance;
-	static LuaHostWin32 *sharedInstance(void);
-	static void purgeSharedInstance(void);
+    static LuaHostWin32 *s_sharedInstance;
+    static LuaHostWin32 *sharedInstance(void);
+    static void purgeSharedInstance(void);
 
-	LuaHostWin32(void);
+    LuaHostWin32(void);
 
     AppDelegate *m_app;
     ProjectConfig m_project;
@@ -40,7 +40,7 @@ private:
     HWND m_hwnd;
     BOOL m_exit;
 
-	int run(void);
+    int run(void);
     void loadProjectConfig(void);
     void updateWindowTitle(void);
     void relaunch(void);

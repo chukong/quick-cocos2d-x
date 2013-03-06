@@ -5,7 +5,7 @@
 
 ProjectConfigDialog *ProjectConfigDialog::s_sharedInstance = NULL;
 
-bool ProjectConfigDialog::showModal(HWND hwnd, ProjectConfig *project, const char *dialogCaption, const char *buttonCaption)
+bool ProjectConfigDialog::showModal(HWND hwnd, ProjectConfig *project, const string dialogCaption, const string buttonCaption)
 {
     ProjectConfigDialog *dialog = new ProjectConfigDialog(hwnd);
     bool ret = dialog->showDialog(project, dialogCaption, buttonCaption);
@@ -13,15 +13,12 @@ bool ProjectConfigDialog::showModal(HWND hwnd, ProjectConfig *project, const cha
     return ret;
 }
 
-bool ProjectConfigDialog::showDialog(ProjectConfig *project, const char *dialogCaption, const char *buttonCaption)
+bool ProjectConfigDialog::showDialog(ProjectConfig *project, const string dialogCaption, const string buttonCaption)
 {
     m_project = *project;
-    m_dialogCaption = string(dialogCaption ? dialogCaption : "Project Config");
-    m_buttonCaption = string(buttonCaption ? buttonCaption : "Open Project");
-    DialogBox(GetModuleHandle(NULL),
-		MAKEINTRESOURCE(IDD_PROJECT_CONFIG),
-        m_hwnd,
-        DialogCallback);
+    m_dialogCaption = dialogCaption.length() > 0 ? dialogCaption : string("Project Config");
+    m_buttonCaption = buttonCaption.length() > 0 ? buttonCaption : string("Open Project");
+    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_PROJECT_CONFIG), m_hwnd, DialogCallback);
     if (m_dialogResult)
     {
         *project = m_project;
@@ -38,16 +35,16 @@ bool ProjectConfigDialog::checkConfig(void)
     {
         // check project dir and script file
         GetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, buff, MAX_PATH);
-		m_project.setProjectDir(buff);
-		GetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, buff, MAX_PATH);
-		m_project.setScriptFile(buff);
+        m_project.setProjectDir(buff);
+        GetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, buff, MAX_PATH);
+        m_project.setScriptFile(buff);
 
-		if (!DirectoryExists(m_project.getProjectDir().c_str()))
-		{
-			MessageBox(m_hwndDialog, L"Invalid Project Directory, please check it", L"Error", MB_OK);
-			SetFocus(GetDlgItem(m_hwndDialog, IDC_EDIT_PROJECT_DIR));
-			break;
-		}
+        if (!DirectoryExists(m_project.getProjectDir().c_str()))
+        {
+            MessageBox(m_hwndDialog, L"Invalid Project Directory, please check it", L"Error", MB_OK);
+            SetFocus(GetDlgItem(m_hwndDialog, IDC_EDIT_PROJECT_DIR));
+            break;
+        }
 
         if (!FileExists(m_project.getScriptFilePath().c_str()))
         {
@@ -112,8 +109,9 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
     m_hwndDialog = hwndDialog;
     HWND list = GetDlgItem(m_hwndDialog, IDC_COMBO_SCREEN_SIZE);
 
-    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, m_project.getProjectDir().c_str());
-    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
+    updateProjectDir();
+    updateScriptFile();
+    updatePackagePath();
 
     BOOL isLandscape = FALSE;
     int currentSizeIndex = defaults->checkScreenSize(m_project.getFrameSize());
@@ -152,15 +150,7 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
     CheckRadioButton(m_hwndDialog, IDC_RADIO_PORTRAIT, IDC_RADIO_LANDSCAPE, isLandscape ? IDC_RADIO_LANDSCAPE : IDC_RADIO_PORTRAIT);
 
     Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE), m_project.isShowConsole());
-	Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_LOAD_PRECOMPILED_FRAMEWORK), m_project.isLoadPrecompiledFramework());
-
-	const vector<string> paths = m_project.getPackagePathArray();
-	for (vector<string>::const_iterator it = paths.begin(); it != paths.end(); ++it)
-	{
-		wstring item;
-		item.assign(it->begin(), it->end());
-		ListBox_AddString(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS), item.c_str());
-	}
+    Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_LOAD_PRECOMPILED_FRAMEWORK), m_project.isLoadPrecompiledFramework());
 
     // set dialog caption, button caption
     SetWindowTextA(m_hwndDialog, m_dialogCaption.c_str());
@@ -186,29 +176,13 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
 
 void ProjectConfigDialog::onSelectProjectDir(void)
 {
-    char buff[MAX_PATH + 1] = {0};
-    WCHAR curr[MAX_PATH + 1] = {0};
-    GetDlgItemText(m_hwndDialog, IDC_EDIT_PROJECT_DIR, curr, MAX_PATH);
-	if (wcslen(curr) == 0)
-	{
-		GetCurrentDirectory(MAX_PATH, curr);
-	}
-
-    BROWSEINFOA bi = {0};
-    bi.hwndOwner = m_hwndDialog;
-    bi.pszDisplayName = buff;
-    bi.lpszTitle = "Select Project Directory";
-    bi.lParam = reinterpret_cast<LPARAM>(curr);
-    bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NONEWFOLDERBUTTON | BIF_NEWDIALOGSTYLE;
-    bi.lpfn = BrowseFolderCallback;
-
-    PIDLIST_ABSOLUTE pid = SHBrowseForFolderA(&bi);
-    if (pid)
+    string dir = browseFolder(m_project.getProjectDir());
+    if (dir.length() > 0)
     {
-        SHGetPathFromIDListA(pid, buff);
-		m_project.setProjectDir(buff);
-		SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, m_project.getProjectDir().c_str());
-		SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
+        m_project.setProjectDir(dir);
+        updateProjectDir();
+        updateScriptFile();
+        updatePackagePath();
     }
 }
 
@@ -233,8 +207,8 @@ void ProjectConfigDialog::onSelectScriptFile(void)
 
     if (GetOpenFileNameA(&ofn))
     {
-		m_project.setScriptFile(buff);
-        SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
+        m_project.setScriptFile(buff);
+        updateScriptFile();
     }
 }
 
@@ -282,7 +256,6 @@ void ProjectConfigDialog::onScreenSizeChanged(void)
     }
 }
 
-
 void ProjectConfigDialog::onScreenDirectionChanged(void)
 {
     char buff[32] = {0};
@@ -303,23 +276,28 @@ void ProjectConfigDialog::onScreenDirectionChanged(void)
 
 void ProjectConfigDialog::onListSelectChanged(void)
 {
-	int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
-	Button_Enable(GetDlgItem(m_hwndDialog, IDC_BUTTON_REMOVE_SEARCH_PATH), index != LB_ERR);
+    int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
+    Button_Enable(GetDlgItem(m_hwndDialog, IDC_BUTTON_REMOVE_SEARCH_PATH), index != LB_ERR);
 }
 
 void ProjectConfigDialog::onButtonAddSearchPathClicked(void)
 {
-
+    string dir = browseFolder(m_project.getProjectDir());
+    if (dir.length() > 0)
+    {
+        m_project.addPackagePath(dir);
+        updatePackagePath();
+    }
 }
 
 void ProjectConfigDialog::onButtonRemoveSearchPathClicked(void)
 {
-	int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
-	if (index != LB_ERR)
-	{
-		ListBox_DeleteString(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS), index);
-		m_project.setPackagePath(makeSearchPath().c_str());
-	}
+    int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
+    if (index != LB_ERR)
+    {
+        ListBox_DeleteString(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS), index);
+        m_project.setPackagePath(makeSearchPath().c_str());
+    }
 }
 
 void ProjectConfigDialog::onOK(void)
@@ -369,20 +347,20 @@ INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WP
             }
             break;
 
-		case IDC_LIST_PACKAGE_SEARCH_PATHS:
-			if (HIWORD(wParam) == LBN_SELCHANGE)
-			{
-				sharedInstance()->onListSelectChanged();
-			}
-			break;
+        case IDC_LIST_PACKAGE_SEARCH_PATHS:
+            if (HIWORD(wParam) == LBN_SELCHANGE)
+            {
+                sharedInstance()->onListSelectChanged();
+            }
+            break;
 
-		case IDC_BUTTON_ADD_SEARCH_PATH:
-			sharedInstance()->onButtonAddSearchPathClicked();
-			break;
+        case IDC_BUTTON_ADD_SEARCH_PATH:
+            sharedInstance()->onButtonAddSearchPathClicked();
+            break;
 
-		case IDC_BUTTON_REMOVE_SEARCH_PATH:
-			sharedInstance()->onButtonRemoveSearchPathClicked();
-			break;
+        case IDC_BUTTON_REMOVE_SEARCH_PATH:
+            sharedInstance()->onButtonRemoveSearchPathClicked();
+            break;
 
         case IDOK:
             sharedInstance()->onOK();
@@ -401,45 +379,105 @@ INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WP
 
 int CALLBACK ProjectConfigDialog::BrowseFolderCallback(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
-	if (uMsg == BFFM_INITIALIZED)
-	{
-		LPCTSTR path = reinterpret_cast<LPCTSTR>(lpData);
-		SendMessage(hwnd, BFFM_SETSELECTION, true, (LPARAM)path);
-	}
-	return 0;
+    if (uMsg == BFFM_INITIALIZED && lpData)
+    {
+        LPCTSTR path = reinterpret_cast<LPCTSTR>(lpData);
+        SendMessage(hwnd, BFFM_SETSELECTION, true, (LPARAM)path);
+    }
+    return 0;
 }
 
+
+// update ui
+
+void ProjectConfigDialog::updateProjectDir(void)
+{
+    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_PROJECT_DIR, m_project.getProjectDir().c_str());
+}
+
+void ProjectConfigDialog::updateScriptFile(void)
+{
+    SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
+}
+
+void ProjectConfigDialog::updatePackagePath(void)
+{
+    HWND listbox = GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS);
+    ListBox_ResetContent(listbox);
+
+    const vector<string> paths = m_project.getPackagePathArray();
+    for (vector<string>::const_iterator it = paths.begin(); it != paths.end(); ++it)
+    {
+        wstring item;
+        item.assign(it->begin(), it->end());
+        ListBox_AddString(listbox, item.c_str());
+    }
+}
 
 // helper
 
 const string ProjectConfigDialog::makeSearchPath(void)
 {
-	HWND listbox = GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS);
-	int count = ListBox_GetCount(listbox);
-	string path;
-	for (int index = 0; index < count; ++index)
-	{
-		int buffsize = ListBox_GetTextLen(listbox, index);
-		WCHAR *wbuff = new WCHAR[buffsize + 1];
-		ListBox_GetText(listbox, index, wbuff);
-		char *buff = new char[buffsize * 2 + 1];
-		WideCharToMultiByte(CP_UTF8, 0, wbuff, -1, buff, buffsize * 2, NULL, NULL);
-		path.append(buff);
-		if (index < count - 1) path.append(";");
-		delete []buff;
-		delete []wbuff;
-	}
-	return path;
+    HWND listbox = GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS);
+    int count = ListBox_GetCount(listbox);
+    string path;
+    for (int index = 0; index < count; ++index)
+    {
+        int buffsize = ListBox_GetTextLen(listbox, index);
+        WCHAR *wbuff = new WCHAR[buffsize + 1];
+        ListBox_GetText(listbox, index, wbuff);
+        char *buff = new char[buffsize * 2 + 1];
+        WideCharToMultiByte(CP_UTF8, 0, wbuff, -1, buff, buffsize * 2, NULL, NULL);
+        path.append(buff);
+        if (index < count - 1) path.append(";");
+        delete []buff;
+        delete []wbuff;
+    }
+    return path;
 }
 
-BOOL ProjectConfigDialog::DirectoryExists(const char *path)
+const string ProjectConfigDialog::browseFolder(const string baseDir)
 {
-	DWORD dwAttrib = GetFileAttributesA(path);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+    char buff[MAX_PATH + 1] = {0};
+    WCHAR curr[MAX_PATH + 1] = {0};
+
+    if (baseDir.length() > 0)
+    {
+        MultiByteToWideChar(CP_UTF8, 0, baseDir.c_str(), baseDir.length(), curr, MAX_PATH);
+    }
+    else
+    {
+        GetCurrentDirectory(MAX_PATH + 1, curr);
+    }
+
+    BROWSEINFOA bi = {0};
+    bi.hwndOwner = m_hwndDialog;
+    bi.pszDisplayName = buff;
+    bi.lpszTitle = "Select Project Directory";
+    bi.lParam = reinterpret_cast<LPARAM>(curr);
+    bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NONEWFOLDERBUTTON | BIF_NEWDIALOGSTYLE;
+    bi.lpfn = BrowseFolderCallback;
+
+    PIDLIST_ABSOLUTE pid = SHBrowseForFolderA(&bi);
+    if (pid)
+    {
+        SHGetPathFromIDListA(pid, buff);
+        return string(buff);
+    }
+    else
+    {
+        return string("");
+    }
 }
 
-BOOL ProjectConfigDialog::FileExists(const char *path)
+BOOL ProjectConfigDialog::DirectoryExists(const string path)
 {
-	DWORD dwAttrib = GetFileAttributesA(path);
-	return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+    DWORD dwAttrib = GetFileAttributesA(path.c_str());
+    return (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+}
+
+BOOL ProjectConfigDialog::FileExists(const string path)
+{
+    DWORD dwAttrib = GetFileAttributesA(path.c_str());
+    return (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
