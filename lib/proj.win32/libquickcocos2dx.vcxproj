@@ -84,6 +84,7 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\CCImageCommonWebp.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\CCSAXParser.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\CCThread.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\platform\CCZipFile.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\platform.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\alpha.c" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\buffer.c" />
@@ -297,6 +298,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\CCPlatformMacros.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\CCSAXParser.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\CCThread.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\platform\CCZipFile.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\platform.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\decode_vp8.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\third_party\common\webp\dec\vp8i.h" />

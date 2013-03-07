@@ -25,7 +25,6 @@ public:
     , m_frameSize(320, 480)
     , m_frameScale(1.0f)
     , m_showConsole(true)
-    , m_loadPrecompiledFramework(true)
     , m_windowOffset(-1, -1)
     {
         normalize();
@@ -78,13 +77,6 @@ public:
         m_showConsole = showConsole;
     }
 
-    const bool isLoadPrecompiledFramework(void) {
-        return m_loadPrecompiledFramework;
-    }
-    void setLoadPrecompiledFramework(bool loadPrecompiledFramework) {
-        m_loadPrecompiledFramework = loadPrecompiledFramework;
-    }
-
     const CCPoint getWindowOffset(void) {
         return m_windowOffset;
     }
@@ -99,7 +91,6 @@ private:
     CCSize	m_frameSize;
     float	m_frameScale;
     bool	m_showConsole;
-    bool	m_loadPrecompiledFramework;
     CCPoint	m_windowOffset;
 
     void normalize(void);

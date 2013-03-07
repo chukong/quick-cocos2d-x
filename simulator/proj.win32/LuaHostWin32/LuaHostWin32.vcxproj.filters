@@ -4,9 +4,6 @@
     <Filter Include="sources">
       <UniqueIdentifier>{da35f943-2f62-4dbf-bd58-91a522b39592}</UniqueIdentifier>
     </Filter>
-    <Filter Include="framework_precompiled">
-      <UniqueIdentifier>{ccc1525a-a85a-44c0-8d24-ede7ae7d7b3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="win32">
       <UniqueIdentifier>{54d36d2c-b373-4c65-962b-76ff1fedc28b}</UniqueIdentifier>
     </Filter>
@@ -14,9 +11,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\sources\AppDelegate.cpp">
       <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.c">
-      <Filter>framework_precompiled</Filter>
     </ClCompile>
     <ClCompile Include="LuaHostWin32.cpp">
       <Filter>win32</Filter>
@@ -34,9 +28,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\sources\AppDelegate.h">
       <Filter>sources</Filter>
-    </ClInclude>
-    <ClInclude Include="$(QUICK_COCOS2DX_ROOT)\lib\framework_precompiled\framework_precompiled.h">
-      <Filter>framework_precompiled</Filter>
     </ClInclude>
     <ClInclude Include="HostVersion.h">
       <Filter>win32</Filter>

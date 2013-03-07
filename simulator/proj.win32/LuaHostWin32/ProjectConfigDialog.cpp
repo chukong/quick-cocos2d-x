@@ -150,7 +150,6 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
     CheckRadioButton(m_hwndDialog, IDC_RADIO_PORTRAIT, IDC_RADIO_LANDSCAPE, isLandscape ? IDC_RADIO_LANDSCAPE : IDC_RADIO_PORTRAIT);
 
     Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE), m_project.isShowConsole());
-    Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_LOAD_PRECOMPILED_FRAMEWORK), m_project.isLoadPrecompiledFramework());
 
     // set dialog caption, button caption
     SetWindowTextA(m_hwndDialog, m_dialogCaption.c_str());

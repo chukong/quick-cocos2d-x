@@ -828,6 +828,9 @@
     <ClCompile Include="..\cocos2dx_extra\extra\platform\win32\CCNetworkWin32.cpp">
       <Filter>cocos2dx_extra\extra\platform\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\platform\CCZipFile.cpp">
+      <Filter>cocos2d-x\cocos2dx\platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.h">
@@ -1744,6 +1747,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\proj.win32\Win32InputBox.h">
       <Filter>cocos2d-x\extensions\GUI\CCEditBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\platform\CCZipFile.h">
+      <Filter>cocos2d-x\cocos2dx\platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
