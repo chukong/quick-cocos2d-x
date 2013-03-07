@@ -24,7 +24,7 @@ class LuaPackager
         }
     }
 
-    function dumpBundle($outputFileBasename)
+    function dumpZip($outputFileBasename)
     {
         $this->files = array();
         $this->modules = array();
@@ -37,32 +37,30 @@ class LuaPackager
             return;
         }
 
-        $indexFilename = $outputFileBasename . '.idx';
-        printf("create bundle index file: %s\n", $indexFilename);
-        file_put_contents($indexFilename, $this->renderIndexFile($outputFileBasename));
-
-        $binaryFilename = $outputFileBasename . '.bin';
-        printf("create bundle binary file: %s\n", $binaryFilename);
-        file_put_contents($binaryFilename, $this->renderBinaryFile($outputFileBasename));
-
-        printf("done.\n\n");
-
-        $outputFileBasename = basename($outputFileBasename);
+        $zipFilename = $outputFileBasename . '.zip';
+        $zip = new ZipArchive();
+        if ($zip->open($zipFilename, ZIPARCHIVE::OVERWRITE))
+        {
+            printf("create ZIP bundle file: %s\n", $zipFilename);
+            foreach ($this->modules as $module)
+            {
+                $zip->addFromString($module['moduleName'], $module['bytes']);
+            }
+            $zip->close();
+            printf("done.\n\n");
+        }
 
         print <<<EOT
 
-----------------------------------------
-DONE
-----------------------------------------
+
+### HOW TO USE ###
+
+1. Add code to your lua script:
+
+    CCLoadChunksFromZip("${zipFilename}")
 
 
 EOT;
-
-    }
-
-    function renderIndexFile()
-    {
-
     }
 
     function dump($outputFileBasename)
@@ -411,7 +409,7 @@ $config = array(
     'excludes'           => array(),
     'srcdir'             => '',
     'outputFileBasename' => '',
-    'makeBundle'         => false,
+    'zip'                => false,
 );
 
 do
@@ -419,7 +417,6 @@ do
     if ($argv[0] == '-p')
     {
         $config['packageName'] = $argv[1];
-        array_shift($argv);
         array_shift($argv);
     }
     else if ($argv[0] == '-x')
@@ -439,28 +436,27 @@ do
         }
         $config['excludes'] = $excludes;
         array_shift($argv);
-        array_shift($argv);
     }
-    else if ($argv[0] == '--bundle')
+    else if ($argv[0] == '-zip')
     {
-        $config['makeBundle'] = true;
+        $config['zip'] = true;
     }
     else if ($config['srcdir'] == '')
     {
         $config['srcdir'] = $argv[0];
-        array_shift($argv);
     }
     else
     {
         $config['outputFileBasename'] = $argv[0];
-        array_shift($argv);
     }
+
+    array_shift($argv);
 } while (count($argv) > 0);
 
 $packager = new LuaPackager($config);
-if ($config['makeBundle'])
+if ($config['zip'])
 {
-    $packager->dumpBundle($config['outputFileBasename']);
+    $packager->dumpZip($config['outputFileBasename']);
 }
 else
 {

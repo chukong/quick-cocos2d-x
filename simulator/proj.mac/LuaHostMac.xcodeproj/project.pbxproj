@@ -14,7 +14,6 @@
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
 		F468700D16E4908300F6CF2F /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F468700B16E4908300F6CF2F /* SimulatorConfig.cpp */; };
-		F48E0AF616DA73EF00B4F764 /* framework_precompiled.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EF4E16C7E23B00736FFE /* framework_precompiled.c */; };
 		F48F590A16D2225A000651BE /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590916D2225A000651BE /* liblibquickcocos2dx.a */; };
 		F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15816B7A35700A12606 /* AudioToolbox.framework */; };
 		F4A5C15F16B7A35700A12606 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15916B7A35700A12606 /* OpenAL.framework */; };
@@ -61,8 +60,6 @@
 		F4A5C16B16B7A3EC00A12606 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libcurl.dylib; sourceTree = "<absolute>"; };
 		F4A5C16C16B7A3EC00A12606 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		F4A5C16D16B7A3EC00A12606 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libz.dylib; sourceTree = "<absolute>"; };
-		F4B4EF4E16C7E23B00736FFE /* framework_precompiled.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = framework_precompiled.c; sourceTree = "<group>"; };
-		F4B4EF4F16C7E23B00736FFE /* framework_precompiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework_precompiled.h; sourceTree = "<group>"; };
 		F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F4BA6C2E15F4909200CE7A10 /* HostVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostVersion.h; sourceTree = "<group>"; };
 		F4BA6C2F15F4911600CE7A10 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -150,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				F4F3996A16D5CFDC00B7E3AF /* sources */,
-				F4B4EF4D16C7E23B00736FFE /* framework_precompiled */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
 			);
 			path = LuaHostMac;
@@ -165,16 +161,6 @@
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
-		};
-		F4B4EF4D16C7E23B00736FFE /* framework_precompiled */ = {
-			isa = PBXGroup;
-			children = (
-				F4B4EF4E16C7E23B00736FFE /* framework_precompiled.c */,
-				F4B4EF4F16C7E23B00736FFE /* framework_precompiled.h */,
-			);
-			name = framework_precompiled;
-			path = lib/framework_precompiled;
-			sourceTree = QUICK_COCOS2DX_ROOT;
 		};
 		F4BA6C3215F4912B00CE7A10 /* mac */ = {
 			isa = PBXGroup;
@@ -293,7 +279,6 @@
 				F44C958315F49004004D4151 /* main.m in Sources */,
 				F4BA6C3115F4911600CE7A10 /* AppController.mm in Sources */,
 				F4F3996F16D5CFDC00B7E3AF /* AppDelegate.cpp in Sources */,
-				F48E0AF616DA73EF00B4F764 /* framework_precompiled.c in Sources */,
 				F468700D16E4908300F6CF2F /* SimulatorConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,8 +12,6 @@
 #include "cocos2dx_extensions_luabinding.h"
 // cocos2dx_extra luabinding
 #include "luabinding/cocos2dx_extra_luabinding.h"
-// load precompiled framework
-#include "framework_precompiled.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -54,8 +52,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_cocos2dx_extensions_luabinding(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
-    // load precompiled framework
-    luaopen_framework_precompiled(L);
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");

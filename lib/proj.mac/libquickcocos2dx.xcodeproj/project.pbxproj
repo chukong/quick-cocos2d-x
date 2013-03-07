@@ -13,6 +13,7 @@
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
 		F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F486025016CF35F100A158F4 /* CCEditBox.cpp */; };
 		F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */; };
+		F49B397216E82B1100FB8EE9 /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49B397016E82B1000FB8EE9 /* CCZipFile.cpp */; };
 		F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */; };
 		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
 		F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */; };
@@ -255,6 +256,8 @@
 		F486025216CF35F100A158F4 /* CCEditBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImpl.h; sourceTree = "<group>"; };
 		F486025716CF35F100A158F4 /* CCEditBoxImplMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplMac.h; sourceTree = "<group>"; };
 		F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplMac.mm; sourceTree = "<group>"; };
+		F49B397016E82B1000FB8EE9 /* CCZipFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCZipFile.cpp; sourceTree = "<group>"; };
+		F49B397116E82B1100FB8EE9 /* CCZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCZipFile.h; sourceTree = "<group>"; };
 		F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaEngine.cpp; sourceTree = "<group>"; };
 		F4A9C07416BC3AF400088CF7 /* CCLuaEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaEngine.h; sourceTree = "<group>"; };
 		F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaLoader.cpp; sourceTree = "<group>"; };
@@ -1723,6 +1726,8 @@
 				F4DE0A52168001D3005DB2DB /* CCSAXParser.h */,
 				F4DE0A53168001D3005DB2DB /* CCThread.cpp */,
 				F4DE0A54168001D3005DB2DB /* CCThread.h */,
+				F49B397016E82B1000FB8EE9 /* CCZipFile.cpp */,
+				F49B397116E82B1100FB8EE9 /* CCZipFile.h */,
 				F4DE0A55168001D3005DB2DB /* mac */,
 				F4DE0A6A168001D3005DB2DB /* platform.cpp */,
 				F4DE0A6B168001D3005DB2DB /* platform.h */,
@@ -2125,6 +2130,7 @@
 				F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */,
 				F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */,
 				6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */,
+				F49B397216E82B1100FB8EE9 /* CCZipFile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -168,13 +168,7 @@ static AppDelegate* s_sharedApplication = NULL;
     app->setStartupScriptFilename(startupScriptFilename);
     if (workingDir.length() > 0)
     {
-        vector<string> orders;
-        orders.push_back(workingDir);
-        CCFileUtils::sharedFileUtils()->setSearchPaths(orders);
-        
-//        orders.clear();
-//        orders.push_back("res/hd");
-//        CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(orders);
+        CCFileUtils::sharedFileUtils()->setSearchRootPath(workingDir.c_str());
     }
     
     app->run();
