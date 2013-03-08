@@ -11,8 +11,8 @@ CONFIG_SCREEN_AUTOSCALE = "FIXED_HEIGHT"
 
 -- sounds
 GAME_SFX = {
-    tapButton = "TapButtonSound",
-    backButton = "BackButtonSound",
+    tapButton  = "sfx/TapButtonSound.mp3",
+    backButton = "sfx/BackButtonSound.mp3",
 }
 
 GAME_TEXTURE_DATA_FILENAME  = "AllSprites.plist"

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6CD6791CAC6D34352940B124 /* CCFileUtilsIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */; };
-		6CD67A14F827D80B58B1095F /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67BBC1575D82FF5E1519D /* CCFileUtils.cpp */; };
 		F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */; };
 		F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = F4037FB416CA2BA10004E298 /* ReachabilityIOSMac.m */; };
 		F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */; };
@@ -256,7 +255,6 @@
 /* Begin PBXFileReference section */
 		6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFileUtilsIOS.h; sourceTree = "<group>"; };
 		6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCFileUtilsIOS.mm; sourceTree = "<group>"; };
-		6CD67BBC1575D82FF5E1519D /* CCFileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFileUtils.cpp; sourceTree = "<group>"; };
 		F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetworkIOSMac.mm; sourceTree = "<group>"; };
 		F4037FB316CA2BA10004E298 /* ReachabilityIOSMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityIOSMac.h; sourceTree = "<group>"; };
 		F4037FB416CA2BA10004E298 /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
@@ -1741,7 +1739,6 @@
 				F45A2D69166B161800760194 /* platform.cpp */,
 				F45A2D6A166B161800760194 /* platform.h */,
 				F45A2D7C166B162700760194 /* third_party */,
-				6CD67BBC1575D82FF5E1519D /* CCFileUtils.cpp */,
 			);
 			path = platform;
 			sourceTree = "<group>";
@@ -1763,6 +1760,8 @@
 				F45A2D58166B161800760194 /* CCES2Renderer.h */,
 				F45A2D59166B161800760194 /* CCES2Renderer.m */,
 				F45A2D5A166B161800760194 /* CCESRenderer.h */,
+				6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */,
+				6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */,
 				F45A2D5C166B161800760194 /* CCGL.h */,
 				F45A2D5D166B161800760194 /* CCImage.mm */,
 				F45A2D5E166B161800760194 /* CCLock.cpp */,
@@ -1774,8 +1773,6 @@
 				F45A2D64166B161800760194 /* EAGLView.mm */,
 				F45A2D65166B161800760194 /* OpenGL_Internal.h */,
 				F45A2D66166B161800760194 /* Simulation */,
-				6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */,
-				6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -2206,7 +2203,6 @@
 				F40AFE9A16BD160200565A5E /* fpconv.c in Sources */,
 				F40AFE9B16BD160200565A5E /* lua_cjson.c in Sources */,
 				F40AFE9C16BD160200565A5E /* strbuf.c in Sources */,
-				6CD67A14F827D80B58B1095F /* CCFileUtils.cpp in Sources */,
 				6CD6791CAC6D34352940B124 /* CCFileUtilsIOS.mm in Sources */,
 				F43B7E2816C75A9800202F8D /* alpha.c in Sources */,
 				F43B7E2916C75A9800202F8D /* buffer.c in Sources */,

@@ -16,11 +16,6 @@
 #include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
 #endif
 
-// if use compiled framework, uncomment below codes
-extern "C" {
-#include "framework_precompiled.h"
-}
-
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -63,16 +58,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(L);
 #endif
-    // if use compiled framework, uncomment below codes
-    // load compiled framework
-    luaopen_framework_precompiled(L);
     
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     string path("scripts/main.lua");
-#else
-    string path = getStartupScriptFilename();
-#endif
-
     path = CCFileUtils::sharedFileUtils()->fullPathForFilename(path.c_str());
     size_t p = path.find_last_of("/\\");
     if (p != path.npos)

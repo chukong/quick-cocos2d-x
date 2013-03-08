@@ -33,7 +33,6 @@
 		F4D26BCC16C7D0D2004442B6 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4D26BC816C7D0D2004442B6 /* AppController.mm */; };
 		F4D26BCD16C7D0D2004442B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D26BC916C7D0D2004442B6 /* main.m */; };
 		F4D26BCE16C7D0D2004442B6 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4D26BCB16C7D0D2004442B6 /* RootViewController.mm */; };
-		F4D26BD616C7D1AC004442B6 /* framework_precompiled.c in Sources */ = {isa = PBXBuildFile; fileRef = F4D26BD416C7D1AC004442B6 /* framework_precompiled.c */; };
 		F4E50FE516CF7B6500AA7E90 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FE316CF7B6500AA7E90 /* AppDelegate.cpp */; };
 		F4F40D1B16573CE0007937AD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F40D1A16573CE0007937AD /* StoreKit.framework */; };
 /* End PBXBuildFile section */
@@ -81,8 +80,6 @@
 		F4D26BC916C7D0D2004442B6 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F4D26BCA16C7D0D2004442B6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		F4D26BCB16C7D0D2004442B6 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
-		F4D26BD416C7D1AC004442B6 /* framework_precompiled.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = framework_precompiled.c; sourceTree = "<group>"; };
-		F4D26BD516C7D1AC004442B6 /* framework_precompiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework_precompiled.h; sourceTree = "<group>"; };
 		F4E50FE316CF7B6500AA7E90 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		F4E50FE416CF7B6500AA7E90 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F4F40D1A16573CE0007937AD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -162,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				F4E50FE216CF7B6500AA7E90 /* sources */,
-				F4D26BD316C7D1AC004442B6 /* framework_precompiled */,
 				F4D26BC616C7D0D2004442B6 /* ios */,
 			);
 			path = CoinFlip.ios;
@@ -212,16 +208,6 @@
 			);
 			path = ios;
 			sourceTree = "<group>";
-		};
-		F4D26BD316C7D1AC004442B6 /* framework_precompiled */ = {
-			isa = PBXGroup;
-			children = (
-				F4D26BD416C7D1AC004442B6 /* framework_precompiled.c */,
-				F4D26BD516C7D1AC004442B6 /* framework_precompiled.h */,
-			);
-			name = framework_precompiled;
-			path = lib/framework_precompiled;
-			sourceTree = QUICK_COCOS2DX_ROOT;
 		};
 		F4E50FE216CF7B6500AA7E90 /* sources */ = {
 			isa = PBXGroup;
@@ -321,7 +307,6 @@
 				F4D26BCC16C7D0D2004442B6 /* AppController.mm in Sources */,
 				F4D26BCD16C7D0D2004442B6 /* main.m in Sources */,
 				F4D26BCE16C7D0D2004442B6 /* RootViewController.mm in Sources */,
-				F4D26BD616C7D1AC004442B6 /* framework_precompiled.c in Sources */,
 				F4E50FE516CF7B6500AA7E90 /* AppDelegate.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
