@@ -7,7 +7,7 @@ function __G__TRACKBACK__(errorMessage)
     CCLuaLog("----------------------------------------")
 end
 
-CCLoadChunksFromZip("res/framework_precompiled.zip")
+CCLuaLoadChunksFromZip("res/framework_precompiled.zip")
 
 xpcall(function()
     require("game")
