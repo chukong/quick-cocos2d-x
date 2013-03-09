@@ -424,8 +424,10 @@ CCSprite can be created with an image, or with a sprite frame.
 
 ]]
 function display.newSprite(filename, x, y)
-    local sprite, autoCleanupFilename
-    if string.byte(filename) == 35 then -- first char is #
+    local sprite
+    if not filename then
+        sprite = CCSprite:create()
+    elseif string.byte(filename) == 35 then -- first char is #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
         if frame then
             sprite = CCSprite:createWithSpriteFrame(frame)
@@ -438,15 +440,11 @@ function display.newSprite(filename, x, y)
         else
             sprite = CCSprite:create(filename)
         end
-        autoCleanupFilename = filename
     end
 
     if sprite then
         CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
-        if autoCleanupFilename then
-            sprite.IMAGE_FILENAME = autoCleanupFilename
-        end
     else
         echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
     end

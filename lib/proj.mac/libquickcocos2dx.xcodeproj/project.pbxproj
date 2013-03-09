@@ -10,6 +10,7 @@
 		6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */; };
 		F436705816BCCB76004C8BB9 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */; };
 		F439920B16816D3400AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920A16816D3400AE90D1 /* libluajit2.a */; };
+		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
 		F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F486025016CF35F100A158F4 /* CCEditBox.cpp */; };
 		F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */; };
@@ -243,14 +244,14 @@
 		6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
 		6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageCommonWebp.cpp; sourceTree = "<group>"; };
-		F43991E416816ACA00AE90D1 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F43991E516816ACA00AE90D1 /* lua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
-		F43991E616816ACA00AE90D1 /* lua.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lua.hpp; sourceTree = "<group>"; };
 		F43991E716816ACA00AE90D1 /* luaconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
-		F43991E816816ACA00AE90D1 /* luajit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luajit.h; sourceTree = "<group>"; };
 		F43991E916816ACA00AE90D1 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F439920A16816D3400AE90D1 /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
+		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
+		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		F47C66BF16EB362E00132435 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F486025016CF35F100A158F4 /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
 		F486025116CF35F100A158F4 /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
 		F486025216CF35F100A158F4 /* CCEditBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImpl.h; sourceTree = "<group>"; };
@@ -759,11 +760,9 @@
 		F43991E316816ACA00AE90D1 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				F43991E416816ACA00AE90D1 /* lauxlib.h */,
+				F47C66BF16EB362E00132435 /* lauxlib.h */,
 				F43991E516816ACA00AE90D1 /* lua.h */,
-				F43991E616816ACA00AE90D1 /* lua.hpp */,
 				F43991E716816ACA00AE90D1 /* luaconf.h */,
-				F43991E816816ACA00AE90D1 /* luajit.h */,
 				F43991E916816ACA00AE90D1 /* lualib.h */,
 			);
 			path = include;
@@ -1834,6 +1833,8 @@
 				F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */,
 				F4A9C07C16BC3AF400088CF7 /* LuaCocos2d.h */,
 				F4B4EEC316C7E05F00736FFE /* platform */,
+				F44F3C3616EB1B54009ED7F0 /* snapshot.c */,
+				F44F3C3816EB1BE2009ED7F0 /* snapshot.h */,
 				F4A9C08816BC3AF400088CF7 /* tolua_fix.c */,
 				F4A9C08916BC3AF400088CF7 /* tolua_fix.h */,
 			);
@@ -2131,6 +2132,7 @@
 				F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */,
 				6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */,
 				F49B397216E82B1100FB8EE9 /* CCZipFile.cpp in Sources */,
+				F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

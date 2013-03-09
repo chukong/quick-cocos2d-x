@@ -75,19 +75,18 @@ elseif device.platform == "ios" then
     luaoc = require("framework.client.luaoc")
 end
 
-local timeCount = 0
-
 --[[--
 
 @ignore
 
 ]]
+local timeCount = 0
 local function showMemoryUsage(dt)
     timeCount = timeCount + dt
     echoInfo(string.format("MEMORY USED: %0.2f KB, UPTIME: %04.2fs", collectgarbage("count"), timeCount))
 end
 
-if DEBUG > 1 then
+if DEBUG_FPS then
     local sharedDirector = CCDirector:sharedDirector()
     sharedDirector:setDisplayStats(true)
 end
