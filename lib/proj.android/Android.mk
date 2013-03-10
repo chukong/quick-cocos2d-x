@@ -38,7 +38,8 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../cocos2d-x/scripting/lua/cocos2dx_support/CCLuaValue.cpp \
     ../cocos2d-x/scripting/lua/cocos2dx_support/Cocos2dxLuaLoader.cpp \
     ../cocos2d-x/scripting/lua/cocos2dx_support/LuaCocos2d.cpp \
-    ../cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c
+    ../cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/snapshot.c
 
 LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCControlExtension \
