@@ -831,6 +831,9 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\CCZipFile.cpp">
       <Filter>cocos2d-x\cocos2dx\platform</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.c">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.h">
@@ -896,13 +899,7 @@
     <ClInclude Include="..\luajit2\include\lua.h">
       <Filter>luajit2\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\luajit2\include\lua.hpp">
-      <Filter>luajit2\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\luajit2\include\luaconf.h">
-      <Filter>luajit2\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luajit2\include\luajit.h">
       <Filter>luajit2\include</Filter>
     </ClInclude>
     <ClInclude Include="..\luajit2\include\lualib.h">
@@ -1750,6 +1747,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\platform\CCZipFile.h">
       <Filter>cocos2d-x\cocos2dx\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.h">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

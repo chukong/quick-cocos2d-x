@@ -182,6 +182,9 @@
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaValue.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2d.cpp" />
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.c">
+      <FileType>CppCode</FileType>
+    </ClCompile>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\tolua\tolua_event.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\tolua\tolua_is.c" />
@@ -485,6 +488,7 @@
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaValue.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2d.h" />
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\tolua\tolua++.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\tolua\tolua_event.h" />
@@ -504,9 +508,7 @@
     <ClInclude Include="..\cocos2dx_extra\extra\platform\win32\CCNativeWin32def.h" />
     <ClInclude Include="..\luajit2\include\lauxlib.h" />
     <ClInclude Include="..\luajit2\include\lua.h" />
-    <ClInclude Include="..\luajit2\include\lua.hpp" />
     <ClInclude Include="..\luajit2\include\luaconf.h" />
-    <ClInclude Include="..\luajit2\include\luajit.h" />
     <ClInclude Include="..\luajit2\include\lualib.h" />
     <ClInclude Include="..\lua_extensions\cjson\fpconv.h" />
     <ClInclude Include="..\lua_extensions\cjson\lua_cjson.h" />
