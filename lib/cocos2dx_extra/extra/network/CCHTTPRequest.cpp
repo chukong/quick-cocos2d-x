@@ -66,14 +66,14 @@ bool CCHTTPRequest::initWithUrl(const char* url, int method)
     }
     
     ++s_id;
-    CCLOG("CCHTTPRequest[0x%04x] - create request with url: %s", s_id, url);
+    // CCLOG("CCHTTPRequest[0x%04x] - create request with url: %s", s_id, url);
     return true;
 }
 
 CCHTTPRequest::~CCHTTPRequest(void)
 {
     cleanup();
-    CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
+    // CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
 }
 
 void CCHTTPRequest::setRequestUrl(const char* url)
@@ -154,7 +154,7 @@ void CCHTTPRequest::start(void)
 #endif
     
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
-    CCLOG("CCHTTPRequest[0x%04x] - request start", s_id);
+    // CCLOG("CCHTTPRequest[0x%04x] - request start", s_id);
 }
 
 void CCHTTPRequest::cancel(void)
@@ -220,7 +220,7 @@ void CCHTTPRequest::update(float dt)
 
     if (m_state == kCCHTTPRequestStateCompleted)
     {
-        CCLOG("CCHTTPRequest[0x%04x] - request completed", s_id);
+        // CCLOG("CCHTTPRequest[0x%04x] - request completed", s_id);
         if (m_delegate) m_delegate->requestFinished(this);
         
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -238,7 +238,7 @@ void CCHTTPRequest::update(float dt)
     }
     else if (m_state == kCCHTTPRequestStateCancelled)
     {
-        CCLOG("CCHTTPRequest[0x%04x] - request cancelled", s_id);
+        // CCLOG("CCHTTPRequest[0x%04x] - request cancelled", s_id);
         if (m_delegate) m_delegate->requestFailed(this);
         
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -310,7 +310,7 @@ size_t CCHTTPRequest::onWriteData(void* buffer, size_t bytes)
     memcpy(static_cast<char*>(m_responseBuffer) + m_responseDataLength, buffer, bytes);
     m_responseDataLength += bytes;
     static_cast<char*>(m_responseBuffer)[m_responseDataLength] = 0;
-    //CCLOG("CCHTTPRequest[0x%04x] - receive data %u bytes, total %u bytes", s_id, bytes, m_responseDataLength);
+    // CCLOG("CCHTTPRequest[0x%04x] - receive data %u bytes, total %u bytes", s_id, bytes, m_responseDataLength);
     return bytes;
 }
 

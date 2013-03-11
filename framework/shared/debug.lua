@@ -69,20 +69,20 @@ Depends on the platform, output to console or log file. @see echo().
 @see echo
 
 ]]
-function printf(...)
-    echo(string.format(...))
+function printf(fmt, ...)
+    echo(string.format(tostring(fmt), ...))
 end
 
-function echoError(...)
-    echo(string.format("[ERR] %s%s", string.format(...), debug.traceback("", 2)))
+function echoError(fmt, ...)
+    echo(string.format("[ERR] %s%s", string.format(tostring(fmt), ...), debug.traceback("", 2)))
 end
 
-function echoInfo(...)
-    echo("[INFO] " .. string.format(...))
+function echoInfo(fmt, ...)
+    echo("[INFO] " .. string.format(tostring(fmt), ...))
 end
 
-function echoLog(tag, ...)
-    echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(...)))
+function echoLog(tag, fmt, ...)
+    echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(tostring(fmt), ...)))
 end
 
 function getPackageName(moduleName)
