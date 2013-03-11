@@ -39,7 +39,7 @@ class LuaPackager
 
         $zipFilename = $outputFileBasename . '.zip';
         $zip = new ZipArchive();
-        if ($zip->open($zipFilename, ZIPARCHIVE::OVERWRITE))
+        if ($zip->open($zipFilename, ZIPARCHIVE::OVERWRITE | ZIPARCHIVE::CM_STORE))
         {
             printf("create ZIP bundle file: %s\n", $zipFilename);
             foreach ($this->modules as $module)
