@@ -4,7 +4,6 @@
 #import "platform/ios/json/SBJSON.h"
 
 #include "crypto/CCCrypto.h"
-#include "network/CCHttpRequest.h"
 #include <string>
 
 #ifndef utf8cstr
