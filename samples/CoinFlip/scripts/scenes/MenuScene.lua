@@ -13,24 +13,10 @@ function MenuScene:ctor()
     self:addChild(self.adBar)
 
     -- create menu
-    self.startButton = BubbleButton.new({
-        image = "#MenuSceneStartButton.png",
-        x = display.cx - 200,
-        y = display.cy - 140,
-        sound = GAME_SFX.tapButton,
-        listener = function()
-            self.menu:setEnabled(false)
-            display.replaceScene(require("scenes.ChooseLevelScene").new(),
-                                 "fade",
-                                 0.4,
-                                 display.COLOR_WHITE)
-        end,
-    })
-
     self.moreGamesButton = BubbleButton.new({
         image = "#MenuSceneMoreGamesButton.png",
-        x = display.cx + 200,
-        y = display.cy - 140,
+        x = display.left + 150,
+        y = display.bottom + 300,
         sound = GAME_SFX.tapButton,
         listener = function()
             self.menu:setEnabled(false)
@@ -41,7 +27,21 @@ function MenuScene:ctor()
         end,
     })
 
-    self.menu = ui.newMenu({self.startButton, self.moreGamesButton})
+    self.startButton = BubbleButton.new({
+        image = "#MenuSceneStartButton.png",
+        x = display.right - 150,
+        y = display.bottom + 300,
+        sound = GAME_SFX.tapButton,
+        listener = function()
+            self.menu:setEnabled(false)
+            display.replaceScene(require("scenes.ChooseLevelScene").new(),
+                                 "fade",
+                                 0.4,
+                                 display.COLOR_WHITE)
+        end,
+    })
+
+    self.menu = ui.newMenu({self.moreGamesButton, self.startButton})
     self:addChild(self.menu)
 end
 

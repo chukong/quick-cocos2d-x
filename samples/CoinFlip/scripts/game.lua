@@ -15,5 +15,6 @@ function game.startup()
         audio.preloadSound(v)
     end
 
-    display.replaceScene(require("scenes.MenuScene").new())
+    -- display.replaceScene(require("scenes.MenuScene").new())
+    display.replaceScene(require("scenes.ChooseLevelScene").new())
 end

@@ -4,15 +4,18 @@ local ChooseLevelScene = class("ChooseLevelScene", function()
 end)
 
 function ChooseLevelScene:ctor()
-    local bg = display.newBackgroundSprite("#ChooseLevelSceneBg.png")
+    local bg = display.newSprite("#ChooseLevelSceneBg.png")
+    -- make background sprite always align top
+    bg:setPosition(display.cx, display.top - bg:getContentSize().height / 2)
     self:addChild(bg)
 
     local adBar = require("views.AdBar").new()
     self:addChild(adBar)
 
     -- create levels list
-    local levelsList = require("views.LevelsList").new()
-    self:addChild(levelsList)
+    local rect = CCRect(display.left, display.bottom, display.width, display.height)
+    self.levelsList = require("views.LevelsList").new(rect)
+    self:addChild(self.levelsList)
 
     -- create menu
     local unlockAllButton = ui.newImageMenuItem({
@@ -22,7 +25,6 @@ function ChooseLevelScene:ctor()
         y = display.bottom + 120,
         sound = GAME_SFX.tapButton,
         listener = function()
-            -- display.replaceScene(require("scenes.ChooseLevelScene").new())
             print("UNLOCK ALL")
         end,
     })
@@ -43,6 +45,12 @@ function ChooseLevelScene:ctor()
 
     local menu = ui.newMenu({unlockAllButton, backButton})
     self:addChild(menu)
+end
+
+function ChooseLevelScene:onEnter()
+    -- self:performWithDelay(function()
+    --     self.levelsList:setContentOffset(100, true)
+    -- end, 2)
 end
 
 return ChooseLevelScene
