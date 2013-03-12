@@ -834,6 +834,9 @@
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.c">
       <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingRegionNode.cpp">
+      <Filter>cocos2d-x\cocos2dx\misc_nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.h">
@@ -1750,6 +1753,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.h">
       <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingRegionNode.h">
+      <Filter>cocos2d-x\cocos2dx\misc_nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

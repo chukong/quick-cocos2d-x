@@ -72,6 +72,7 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\menu_nodes\CCMenu.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\menu_nodes\CCMenuItem.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingNode.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingRegionNode.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCMotionStreak.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCProgressTimer.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCRenderTexture.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\menu_nodes\CCMenu.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\menu_nodes\CCMenuItem.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingNode.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingRegionNode.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCMotionStreak.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCProgressTimer.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCRenderTexture.h" />
