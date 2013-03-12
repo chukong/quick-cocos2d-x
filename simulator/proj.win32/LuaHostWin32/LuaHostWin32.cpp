@@ -104,9 +104,7 @@ int LuaHostWin32::run(void)
 
         // set environments
         SetCurrentDirectoryA(m_project.getProjectDir().c_str());
-        vector<string> searchPaths;
-        searchPaths.push_back(m_project.getProjectDir());
-        CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
+        CCFileUtils::sharedFileUtils()->setSearchRootPath(m_project.getProjectDir().c_str());
 
         // create opengl view
         CCEGLView* eglView = CCEGLView::sharedOpenGLView();    
