@@ -236,6 +236,7 @@
 		F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */; };
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
 		F49B397716E8876700FB8EE9 /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49B397516E8876700FB8EE9 /* CCZipFile.cpp */; };
+		F4B0436B16EFA7CA0026279E /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B0436916EFA7CA0026279E /* CCClippingRegionNode.cpp */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
@@ -745,6 +746,8 @@
 		F47C66C216EB37DB00132435 /* snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F49B397516E8876700FB8EE9 /* CCZipFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCZipFile.cpp; sourceTree = "<group>"; };
 		F49B397616E8876700FB8EE9 /* CCZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCZipFile.h; sourceTree = "<group>"; };
+		F4B0436916EFA7CA0026279E /* CCClippingRegionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCClippingRegionNode.cpp; sourceTree = "<group>"; };
+		F4B0436A16EFA7CA0026279E /* CCClippingRegionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCClippingRegionNode.h; sourceTree = "<group>"; };
 		F4D11004169FBED400305E28 /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
@@ -1509,6 +1512,8 @@
 			children = (
 				F45A2C53166B15E400760194 /* CCClippingNode.cpp */,
 				F45A2C54166B15E400760194 /* CCClippingNode.h */,
+				F4B0436916EFA7CA0026279E /* CCClippingRegionNode.cpp */,
+				F4B0436A16EFA7CA0026279E /* CCClippingRegionNode.h */,
 				F45A2C55166B15E400760194 /* CCMotionStreak.cpp */,
 				F45A2C56166B15E400760194 /* CCMotionStreak.h */,
 				F45A2C57166B15E400760194 /* CCProgressTimer.cpp */,
@@ -2276,6 +2281,7 @@
 				F4FBA53E16D8C97A00CD8EC1 /* SBJsonWriter.m in Sources */,
 				F49B397716E8876700FB8EE9 /* CCZipFile.cpp in Sources */,
 				F47C66C316EB37DB00132435 /* snapshot.c in Sources */,
+				F4B0436B16EFA7CA0026279E /* CCClippingRegionNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
