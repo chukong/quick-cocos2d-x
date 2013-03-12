@@ -11,6 +11,7 @@
 		F436705816BCCB76004C8BB9 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */; };
 		F439920B16816D3400AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920A16816D3400AE90D1 /* libluajit2.a */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
+		F44FEA8216EF7CAF00CE7B56 /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
 		F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F486025016CF35F100A158F4 /* CCEditBox.cpp */; };
 		F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */; };
@@ -250,6 +251,8 @@
 		F439920A16816D3400AE90D1 /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
 		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
+		F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCClippingRegionNode.cpp; sourceTree = "<group>"; };
+		F44FEA8116EF7CAF00CE7B56 /* CCClippingRegionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCClippingRegionNode.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		F47C66BF16EB362E00132435 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F486025016CF35F100A158F4 /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
@@ -1502,6 +1505,8 @@
 			children = (
 				F4DE08D5168001AA005DB2DB /* CCClippingNode.cpp */,
 				F4DE08D6168001AA005DB2DB /* CCClippingNode.h */,
+				F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */,
+				F44FEA8116EF7CAF00CE7B56 /* CCClippingRegionNode.h */,
 				F4DE08D7168001AA005DB2DB /* CCMotionStreak.cpp */,
 				F4DE08D8168001AA005DB2DB /* CCMotionStreak.h */,
 				F4DE08D9168001AA005DB2DB /* CCProgressTimer.cpp */,
@@ -2133,6 +2138,7 @@
 				6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */,
 				F49B397216E82B1100FB8EE9 /* CCZipFile.cpp in Sources */,
 				F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */,
+				F44FEA8216EF7CAF00CE7B56 /* CCClippingRegionNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

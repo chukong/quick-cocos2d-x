@@ -13,6 +13,7 @@
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
+		F44FEA8516EF9ED800CE7B56 /* LuaHostMac.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F44C957215F49004004D4151 /* LuaHostMac.app */; };
 		F468700D16E4908300F6CF2F /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F468700B16E4908300F6CF2F /* SimulatorConfig.cpp */; };
 		F48F590A16D2225A000651BE /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590916D2225A000651BE /* liblibquickcocos2dx.a */; };
 		F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15816B7A35700A12606 /* AudioToolbox.framework */; };
@@ -37,6 +38,19 @@
 			remoteInfo = libquickcocos2dx;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F44FEA8316EF9EBA00CE7B56 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = $QUICK_COCOS2DX_ROOT/simulator/bin/mac/;
+			dstSubfolderSpec = 0;
+			files = (
+				F44FEA8516EF9ED800CE7B56 /* LuaHostMac.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F423AE6116CB75760007E734 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -206,6 +220,7 @@
 				F44C956E15F49004004D4151 /* Sources */,
 				F44C956F15F49004004D4151 /* Frameworks */,
 				F44C957015F49004004D4151 /* Resources */,
+				F44FEA8316EF9EBA00CE7B56 /* CopyFiles */,
 			);
 			buildRules = (
 			);

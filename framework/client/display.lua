@@ -400,6 +400,13 @@ end
 
 --[[--
 
+]]
+function display.newClippingRegionNode(rect)
+    return CCClippingRegionNode:create(rect)
+end
+
+--[[--
+
 Creates a CCSprite object.
 
 CCSprite can be created with an image, or with a sprite frame.
