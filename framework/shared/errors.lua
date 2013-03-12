@@ -52,9 +52,11 @@ function try(f, catch_f, finally_f)
     end
 end
 
-function throw(msg, code)
+function throw(msg, code, ...)
     if code then
-        error(format("<<%08u>> - %s", toint(code), tostring(msg)), 2)
+        local more = {...}
+        table.insert(more, 1, tostring(msg))
+        error(format("<<%08u>> - %s", toint(code), table.concat(more, ", ")), 2)
     else
         error(msg, 2)
     end

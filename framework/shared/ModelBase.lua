@@ -283,7 +283,7 @@ end
 ]]
 function ModelBase:getId()
     local id = self[self.class.idkey .. "_"]
-    assert(id ~= nil, string.format("%s [%s:getId()] Invalid id", tostring(self), self.class.classname))
+    assert(id ~= nil, string.format("%s [%s:getId()] Invalid id", tostring(self), self.class.__cname))
     return id
 end
 
@@ -309,7 +309,7 @@ end
 ]]
 function ModelBase:setProperties(properties)
     assert(type(properties) == "table", "Invalid properties")
-           -- string.format("%s [%s:setProperties()] Invalid properties", tostring(self), self.class.classname))
+           -- string.format("%s [%s:setProperties()] Invalid properties", tostring(self), self.class.__cname))
 
     for field, schema in pairs(self.class.schema) do
         local typ, def = unpack(schema)
@@ -320,7 +320,7 @@ function ModelBase:setProperties(properties)
             if typ == "number" then val = tonumber(val) end
             assert(type(val) == typ,
                    string.format("%s [%s:setProperties()] Type mismatch, %s expected %s, actual is %s",
-                                 tostring(self), self.class.classname, field, typ, type(val)))
+                                 tostring(self), self.class.__cname, field, typ, type(val)))
             self[propname] = val
         end
     end
@@ -351,7 +351,7 @@ function ModelBase:getProperties(fields, filter)
         local val = self[propname]
         assert(type(val) == typ,
                string.format("%s [%s:getProperties()] Type mismatch, %s expected %s, actual is %s",
-                                 tostring(self), self.class.classname, field, typ, type(val)))
+                                 tostring(self), self.class.__cname, field, typ, type(val)))
         properties[field] = val
     end
 

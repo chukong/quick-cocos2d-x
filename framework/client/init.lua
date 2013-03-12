@@ -87,10 +87,9 @@ local function showMemoryUsage(dt)
 end
 
 if DEBUG_FPS then
-    local sharedDirector = CCDirector:sharedDirector()
-    sharedDirector:setDisplayStats(true)
+    CCDirector:sharedDirector():setDisplayStats(true)
 end
 
-if DEBUG_MEM_USAGE then
-    sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, 10.0, false)
+if DEBUG_MEM then
+    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(showMemoryUsage, 10.0, false)
 end

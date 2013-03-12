@@ -1,25 +1,9 @@
 
 local json = {}
-
-local _encode, _decode
-
-local ok
-if __FRAMEWORK_ENVIRONMENT__ == "client" then
-    ok = pcall(function()
-        local cjson = require("cjson")
-        _encode = cjson.encode
-        _decode = cjson.decode
-    end)
-end
-
-if not ok then
-    local simplejson = require("framework.shared.json.simplejson")
-    _encode = simplejson.encode
-    _decode = simplejson.decode
-end
+local cjson = require("cjson")
 
 function json.encode(var, isDebug)
-    local status, result = pcall(_encode, var)
+    local status, result = pcall(cjson.encode, var)
     if status then return result end
     if isDebug then
         error(string.format("[framework.shared.json] encode failed: %s", tostring(result)))
@@ -27,7 +11,7 @@ function json.encode(var, isDebug)
 end
 
 function json.decode(text, isDebug)
-    local status, result = pcall(_decode, text)
+    local status, result = pcall(cjson.decode, text)
     if status then return result end
     if isDebug then
         error(string.format("[framework.shared.json] decode failed: %s", tostring(result)))

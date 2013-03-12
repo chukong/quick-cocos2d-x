@@ -37,10 +37,10 @@ Debug functions.
 
 ]]
 
-if __FRAMEWORK_ENVIRONMENT__ == "server" then
-    if ngx and ngx.say then echo_ = ngx.say end
-elseif __FRAMEWORK_ENVIRONMENT__ == "client" then
-    if CCLuaLog then echo_ = CCLuaLog end
+if ngx and ngx.say then
+    echo_ = ngx.say
+elseif CCLuaLog then
+    echo_ = CCLuaLog
 end
 if not echo_ then echo_ = print end
 
