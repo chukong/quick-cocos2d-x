@@ -590,7 +590,16 @@ CCRectShape have the following new methods:
 
 ]]
 function display.newRect(width, height)
-    return CCShapeNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
+    local x, y = 0, 0
+    if type(width) == "userdata" then
+        x = width.origin.x
+        y = width.origin.y
+        height = width.size.height
+        width = width.size.width
+    end
+    local rect = CCShapeNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
+    rect:setPosition(x, y)
+    return rect
 end
 
 --[[--
