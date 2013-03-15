@@ -204,9 +204,9 @@ function class(classname, super)
             cls.super    = super
         else
             cls.__create = super
+            cls.ctor = function() end
         end
 
-        cls.ctor    = function() end
         cls.__cname = classname
         cls.__ctype = 1
 
