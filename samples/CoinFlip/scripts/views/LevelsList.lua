@@ -1,51 +1,60 @@
 
+local LevelsListCell = require("views.LevelsListCell")
+
 local ScrollView = require("ui.ScrollView")
 local LevelsList = class("LevelsList", ScrollView)
+
+LevelsList.INDICATOR_MARGIN = 46
 
 function LevelsList:ctor(rect)
     self.super.ctor(self, rect, ScrollView.DIRECTION_HORIZONTAL)
 
-    -- create page control
-    local rect = {
-        left   = display.left + 40,
-        top    = display.top - 40,
-        width  = display.width - 80,
-        height = display.height - 180,
-    }
-    local pageControl = require("views.PageControl").new(rect)
-    self.view:addChild(pageControl)
+    -- add cells
+    local rows, cols = 4, 4
+    if display.height > 1000 then rows = rows + 1 end
 
-    -- add page
     local Levels = require("data.Levels")
-    local numPages = math.ceil(Levels.numLevels() / 18)
+    local numPages = math.ceil(Levels.numLevels() / (rows * cols))
+    local levelIndex = 1
 
-    local PageControlPage = require("views.PageControlPage")
-    for page = 1, numPages do
-        local page = PageControlPage.new()
-        pageControl:addPage(page)
-
-        local batch = display.newBatchNode(GAME_TEXTURE_IMAGE_FILENAME)
-        self.view:addChild(batch)
-
-        local rows = 4
-        if display.height > 1000 then rows = rows + 1 end
-        local rowHeight = math.floor((display.height - 340) / rows)
-        local y = display.top - 220
-
-        local cols = 4
-        local colWidth = math.floor(display.width * 0.9 / cols)
-        local xStart = (display.width - colWidth * (cols - 1)) / 2
-
-        for row = 1, rows do
-            local x = xStart
-            for column = 1, cols do
-                local icon = display.newSprite("#LockedLevelIcon.png", x, y)
-                batch:addChild(icon)
-                x = x + colWidth
-            end
-
-            y = y - rowHeight
+    for pageIndex = 1, numPages do
+        local endLevelIndex = levelIndex + (rows * cols) - 1
+        if endLevelIndex > Levels.numLevels() then
+            endLevelIndex = Levels.numLevels()
         end
+        local cell = LevelsListCell.new(CCSize(display.width, rect.size.height), levelIndex, endLevelIndex, rows, cols)
+        self:addCell(cell)
+        levelIndex = endLevelIndex + 1
+    end
+
+    -- add indicators
+    local x = (self:getClippingRect().size.width - LevelsList.INDICATOR_MARGIN * (numPages - 1)) / 2
+    local y = self:getClippingRect().origin.y + 20
+
+    self.indicator_ = display.newSprite("#LevelListsCellSelected.png")
+    self.indicator_:setPosition(x, y)
+    self.indicator_.firstX_ = x
+
+    for pageIndex = 1, numPages do
+        local icon = display.newSprite("#LevelListsCellIndicator.png")
+        icon:setPosition(x, y)
+        self:addChild(icon)
+        x = x + LevelsList.INDICATOR_MARGIN
+    end
+
+    self:addChild(self.indicator_)
+end
+
+function LevelsList:scrollToCell(index, animated, time)
+    LevelsList.super.scrollToCell(self, index, animated, time)
+
+    transition.stopTarget(self.indicator_)
+    local x = self.indicator_.firstX_ + (self:getCurrentIndex() - 1) * LevelsList.INDICATOR_MARGIN
+    if animated then
+        time = time or self.defaultAnimateTime
+        transition.moveTo(self.indicator_, {x = x, time = time / 2})
+    else
+        self.indicator_:setPositionX(x)
     end
 end
 

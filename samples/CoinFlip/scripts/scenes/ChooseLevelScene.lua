@@ -4,17 +4,21 @@ local ChooseLevelScene = class("ChooseLevelScene", function()
 end)
 
 function ChooseLevelScene:ctor()
-    local bg = display.newSprite("#ChooseLevelSceneBg.png")
+    local bg = display.newSprite("#OtherSceneBg.png")
     -- make background sprite always align top
     bg:setPosition(display.cx, display.top - bg:getContentSize().height / 2)
     self:addChild(bg)
+
+    local title = display.newSprite("#Title.png", display.cx, display.top - 100)
+    self:addChild(title)
 
     local adBar = require("views.AdBar").new()
     self:addChild(adBar)
 
     -- create levels list
-    local rect = CCRect(display.left, display.bottom, display.width, display.height)
+    local rect = CCRect(display.left, display.bottom + 180, display.width, display.height - 280)
     self.levelsList = require("views.LevelsList").new(rect)
+    -- self.levelsList:createDebugView()
     self:addChild(self.levelsList)
 
     -- create menu
@@ -48,8 +52,9 @@ function ChooseLevelScene:ctor()
 end
 
 function ChooseLevelScene:onEnter()
+    self.levelsList:setTouchEnabled(true)
     -- self:performWithDelay(function()
-    --     self.levelsList:setContentOffset(100, true)
+    --     self.levelsList:setContentOffset(display.width * 0.75, true, 0.3)
     -- end, 2)
 end
 
