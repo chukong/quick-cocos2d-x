@@ -10,7 +10,7 @@ end)
 function ScrollViewCell:onTouch(event, x, y)
 end
 
-function ScrollViewCell:onTapped(x, y)
+function ScrollViewCell:onTap(x, y)
 end
 
 return ScrollViewCell
