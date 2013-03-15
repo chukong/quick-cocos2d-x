@@ -104,7 +104,7 @@ function ScrollView:setClippingRect(rect)
     self:dispatchEvent({name = "setClippingRect", rect = rect})
 end
 
-function ScrollView:scrollToCell(index, animated, time)
+function ScrollView:scrollToCell(index, animated, time, easing)
     local count = #self.cells_
     if count < 1 then
         self.currentIndex_ = 0
@@ -129,8 +129,8 @@ function ScrollView:scrollToCell(index, animated, time)
         end
     end
 
-    self:setContentOffset_(offset, animated, time)
-    self:dispatchEvent({name = "scrollToCell", animated = animated, time = time})
+    self:setContentOffset_(offset, animated, time, easing)
+    self:dispatchEvent({name = "scrollToCell", animated = animated, time = time, easing = easing})
 end
 
 function ScrollView:isTouchEnabled()
@@ -206,7 +206,7 @@ function ScrollView:reorderAllCells_()
     self.view_:setContentSize(size)
 end
 
-function ScrollView:setContentOffset_(offset, animated, time)
+function ScrollView:setContentOffset_(offset, animated, time, easing)
     local ox, oy = self.offsetX_, self.offsetY_
     local x, y = ox, oy
     if self.direction_ == ScrollView.DIRECTION_HORIZONTAL then
@@ -239,7 +239,7 @@ function ScrollView:setContentOffset_(offset, animated, time)
             x = x,
             y = y,
             time = time or self.defaultAnimateTime,
-            easing = self.defaultAnimateEasing,
+            easing = easing or self.defaultAnimateEasing,
         })
     else
         self.view_:setPosition(x, y)

@@ -65,6 +65,7 @@ local function newEasing(action, easingName, more)
     if string.sub(key, 1, 6) == "CCEASE" then
         key = string.sub(key, 7)
     end
+    local easing
     if ACTION_EASING[key] then
         local cls, count, default = unpack(ACTION_EASING[key])
         if count == 2 then
@@ -73,7 +74,7 @@ local function newEasing(action, easingName, more)
             easing = cls:create(action)
         end
     end
-    return easing
+    return easing or action
 end
 
 --[[--
