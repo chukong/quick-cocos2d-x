@@ -7,6 +7,10 @@ function BubbleButton.new(params)
     local button -- pre-reference
 
     params.listener = function(tag)
+        if params.prepare then
+            params.prepare()
+        end
+
         local function zoom1(offset, time, onComplete)
             local x, y = button:getPosition()
             local size = button:getContentSize()
@@ -37,10 +41,6 @@ function BubbleButton.new(params)
         end
 
         button:getParent():setEnabled(false)
-
-        if params.sound then
-            audio.playSound(params.sound)
-        end
 
         zoom1(40, 0.08, function()
             zoom2(40, 0.09, function()

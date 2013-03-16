@@ -1168,8 +1168,7 @@ function Levels.numLevels()
 end
 
 function Levels.get(levelIndex)
-    assert(levelIndex >= 1 and levelIndex <= #levels,
-           format("levelsData.get() - invalid levelIndex %s", _s(levelIndex)))
+    assert(levelIndex >= 1 and levelIndex <= #levelsData, string.format("levelsData.get() - invalid levelIndex %s", tostring(levelIndex)))
     return clone(levelsData[levelIndex])
 end
 

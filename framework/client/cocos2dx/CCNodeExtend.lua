@@ -116,3 +116,31 @@ function CCNodeExtend:stopAllActions()
         actionManager:removeAllActionsFromTarget(self)
     end
 end
+
+function CCNodeExtend:onEnter()
+end
+
+function CCNodeExtend:onExit()
+end
+
+function CCNodeExtend:onCleanup()
+end
+
+function CCNodeExtend:registerNodeEvent(handler)
+    if not handler then
+        handler = function(event)
+            if event == "enter" then
+                self:onEnter()
+            elseif event == "exit" then
+                self:onExit()
+            elseif event == "cleanup" then
+                self:onCleanup()
+            end
+        end
+    end
+    self:registerScriptHandler(handler)
+end
+
+function CCNodeExtend:unregisterNodeEvent()
+    self:unregisterScriptHandler()
+end

@@ -22,3 +22,19 @@ end
 function CCLayerExtend:removeTouchEventListener()
     self:unregisterScriptTouchHandler()
 end
+
+function CCLayerExtend:addKeypadEventListener(listener)
+    self:registerScriptKeypadHandler(listener)
+end
+
+function CCLayerExtend:removeKeypadEventListener()
+    self:unregisterScriptKeypadHandler()
+end
+
+function CCLayerExtend:addScriptAccelerateHandler(listener)
+    self:registerScriptAccelerateHandler(listener)
+end
+
+function CCLayerExtend:removeScriptAccelerateHandler()
+    self:unregisterScriptAccelerateHandler()
+end

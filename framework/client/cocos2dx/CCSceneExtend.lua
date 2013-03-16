@@ -25,17 +25,15 @@ function CCSceneExtend.extend(target)
             end
 
             target:onExit()
+
+            if DEBUG_MEM then
+                CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
+            end
         end
     end
-    target:registerScriptHandler(handler)
+    target:registerNodeEvent(handler)
 
     return target
-end
-
-function CCSceneExtend:onEnter()
-end
-
-function CCSceneExtend:onExit()
 end
 
 function CCSceneExtend:addAutoCleanImage(imageName)

@@ -8,8 +8,8 @@ function LevelsListCell:ctor(size, beginLevelIndex, endLevelIndex, rows, cols)
 
     local batch = display.newBatchNode(GAME_TEXTURE_IMAGE_FILENAME)
     self:addChild(batch)
-    self.pageIndex_ = pageIndex
-    self.buttons_ = {}
+    self.pageIndex = pageIndex
+    self.buttons = {}
 
     local startX = (display.width - colWidth * (cols - 1)) / 2
     local y = display.top - 220
@@ -20,8 +20,8 @@ function LevelsListCell:ctor(size, beginLevelIndex, endLevelIndex, rows, cols)
         for column = 1, cols do
             local icon = display.newSprite("#LockedLevelIcon.png", x, y)
             batch:addChild(icon)
-            icon.levelIndex_ = levelIndex
-            self.buttons_[#self.buttons_ + 1] = icon
+            icon.levelIndex = levelIndex
+            self.buttons[#self.buttons + 1] = icon
 
             local label = ui.newBMFontLabel({
                 text = tostring(levelIndex),
@@ -41,34 +41,34 @@ function LevelsListCell:ctor(size, beginLevelIndex, endLevelIndex, rows, cols)
     end
 
     -- add highlight level icon
-    self.highlightButton_ = display.newSprite("#HighlightLevelIcon.png")
-    self.highlightButton_:setVisible(false)
-    self:addChild(self.highlightButton_)
+    self.highlightButton = display.newSprite("#HighlightLevelIcon.png")
+    self.highlightButton:setVisible(false)
+    self:addChild(self.highlightButton)
 end
 
 function LevelsListCell:onTouch(event, x, y)
     if event == "began" then
         local button = self:checkButton(x, y)
         if button then
-            self.highlightButton_:setVisible(true)
-            self.highlightButton_:setPosition(button:getPosition())
+            self.highlightButton:setVisible(true)
+            self.highlightButton:setPosition(button:getPosition())
         end
     elseif event ~= "moved" then
-        self.highlightButton_:setVisible(false)
+        self.highlightButton:setVisible(false)
     end
 end
 
 function LevelsListCell:onTap(x, y)
     local button = self:checkButton(x, y)
     if button then
-        print("tap button:", button.levelIndex_)
+        self:dispatchEvent({name = "onTapLevelIcon", levelIndex = button.levelIndex})
     end
 end
 
 function LevelsListCell:checkButton(x, y)
     local pos = ccp(x, y)
-    for i = 1, #self.buttons_ do
-        local button = self.buttons_[i]
+    for i = 1, #self.buttons do
+        local button = self.buttons[i]
         if button:boundingBox():containsPoint(pos) then
             return button
         end

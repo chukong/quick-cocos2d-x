@@ -15,6 +15,27 @@ function game.startup()
         audio.preloadSound(v)
     end
 
-    -- display.replaceScene(require("scenes.MenuScene").new())
-    display.replaceScene(require("scenes.ChooseLevelScene").new())
+    -- game.enterMenuScene()
+    game.playLevel(1)
+end
+
+function game.exit()
+    CCDirector:sharedDirector():endToLua()
+end
+
+function game.enterMenuScene()
+    display.replaceScene(require("scenes.MenuScene").new(), "fade", 0.6, display.COLOR_WHITE)
+end
+
+function game.enterMoreGamesScene()
+    display.replaceScene(require("scenes.MoreGamesScene").new(), "fade", 0.6, display.COLOR_WHITE)
+end
+
+function game.enterChooseLevelScene()
+    display.replaceScene(require("scenes.ChooseLevelScene").new(), "fade", 0.6, display.COLOR_WHITE)
+end
+
+function game.playLevel(levelIndex)
+    local PlayLevelScene = require("scenes.PlayLevelScene")
+    display.replaceScene(PlayLevelScene.new(levelIndex), "fade", 0.6, display.COLOR_WHITE)
 end

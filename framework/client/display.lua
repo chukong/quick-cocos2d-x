@@ -402,7 +402,7 @@ end
 
 ]]
 function display.newClippingRegionNode(rect)
-    return CCClippingRegionNode:create(rect)
+    return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
 --[[--

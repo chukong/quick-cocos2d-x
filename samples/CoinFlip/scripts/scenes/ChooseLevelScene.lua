@@ -18,7 +18,9 @@ function ChooseLevelScene:ctor()
     -- create levels list
     local rect = CCRect(display.left, display.bottom + 180, display.width, display.height - 280)
     self.levelsList = require("views.LevelsList").new(rect)
-    -- self.levelsList:createDebugView()
+    self.levelsList:addEventListener("onTapLevelIcon", function(event)
+        return self:onTapLevelIcon(event)
+    end)
     self:addChild(self.levelsList)
 
     -- create menu
@@ -40,22 +42,42 @@ function ChooseLevelScene:ctor()
         y = display.bottom + 120,
         sound = GAME_SFX.backButton,
         listener = function()
-            display.replaceScene(require("scenes.MenuScene").new(),
-                                 "fade",
-                                 0.4,
-                                 display.COLOR_WHITE)
+            self.layer:setKeypadEnabled(false)
+            self:backToMenuScene()
         end,
     })
 
     local menu = ui.newMenu({unlockAllButton, backButton})
     self:addChild(menu)
+
+    -- keypad layer, for android
+    self.layer = display.newLayer()
+    self.layer:addKeypadEventListener(function(event)
+        if event == "back" then
+            audio.playSound(GAME_SFX.backButton)
+            self.layer:setKeypadEnabled(false)
+            self:backToMenuScene()
+        end
+    end)
+    self:addChild(self.layer)
+end
+
+function ChooseLevelScene:onTapLevelIcon(event)
+    audio.playSound(GAME_SFX.tapButton)
+    game.playLevel(event.levelIndex)
+end
+
+function ChooseLevelScene:backToMenuScene()
+    game.enterMenuScene()
 end
 
 function ChooseLevelScene:onEnter()
     self.levelsList:setTouchEnabled(true)
-    -- self:performWithDelay(function()
-    --     self.levelsList:setContentOffset(display.width * 0.75, true, 0.3)
-    -- end, 2)
+
+    -- avoid unmeant back
+    self:performWithDelay(function()
+        self.layer:setKeypadEnabled(true)
+    end, 0.5)
 end
 
 return ChooseLevelScene

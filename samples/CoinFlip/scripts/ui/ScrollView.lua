@@ -1,10 +1,11 @@
 
 local ScrollView = class("ScrollView", function(rect)
     if not rect then rect = CCRect(0, 0, 0, 0) end
-    return display.newClippingRegionNode(rect)
+    local node = display.newClippingRegionNode(rect)
+    node:registerNodeEvent()
+    require("framework.client.api.EventProtocol").extend(node)
+    return node
 end)
-
-require("framework.client.api.EventProtocol").extend(ScrollView)
 
 ScrollView.DIRECTION_VERTICAL   = 1
 ScrollView.DIRECTION_HORIZONTAL = 2
@@ -141,12 +142,6 @@ function ScrollView:setTouchEnabled(enabled)
 end
 
 ---- events
-
-function ScrollView:onEnter()
-end
-
-function ScrollView:onExit()
-end
 
 function ScrollView:onTouchBegan(x, y)
     self.drag = {
@@ -305,6 +300,10 @@ function ScrollView:setContentOffset(offset, animated, time, easing)
     else
         self.view:setPosition(x, y)
     end
+end
+
+function ScrollView:onExit()
+    self:removeAllEventListeners()
 end
 
 return ScrollView

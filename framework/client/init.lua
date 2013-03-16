@@ -71,6 +71,7 @@ network    = require("framework.client.network")
 
 if device.platform == "android" then
     -- luaj = require("framework.client.luaj")
+    jit.off()
 elseif device.platform == "ios" then
     luaoc = require("framework.client.luaoc")
 end
