@@ -15,8 +15,8 @@ function game.startup()
         audio.preloadSound(v)
     end
 
-    -- game.enterMenuScene()
-    game.playLevel(1)
+    game.enterMenuScene()
+    -- game.playLevel(1)
 end
 
 function game.exit()
