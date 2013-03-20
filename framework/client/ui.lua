@@ -135,7 +135,7 @@ function ui.newBMFontLabel(params)
 
     local text      = tostring(params.text)
     local font      = params.font
-    local textAlign = params.align or ui.TEXT_ALIGN_LEFT
+    local textAlign = params.align or ui.TEXT_ALIGN_CENTER
     local x, y      = params.x, params.y
     assert(font ~= nil, "ui.newBMFontLabel() - not set font")
 
@@ -145,6 +145,14 @@ function ui.newBMFontLabel(params)
     CCNodeExtend.extend(label)
     if type(x) == "number" and type(y) == "number" then
         label:setPosition(x, y)
+    end
+
+    if textAlign == ui.TEXT_ALIGN_LEFT then
+        label:align(display.LEFT_CENTER)
+    elseif textAlign == ui.TEXT_ALIGN_RIGHT then
+        label:align(display.RIGHT_CENTER)
+    else
+        label:align(display.CENTER)
     end
 
     return label
