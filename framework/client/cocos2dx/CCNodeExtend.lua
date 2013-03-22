@@ -123,6 +123,12 @@ end
 function CCNodeExtend:onExit()
 end
 
+function CCNodeExtend:onEnterTransitionFinish()
+end
+
+function CCNodeExtend:onExitTransitionStart()
+end
+
 function CCNodeExtend:onCleanup()
 end
 
@@ -133,6 +139,10 @@ function CCNodeExtend:registerNodeEvent(handler)
                 self:onEnter()
             elseif event == "exit" then
                 self:onExit()
+            elseif event == "enterTransitionFinish" then
+                self:onEnterTransitionFinish()
+            elseif event == "exitTransitionStart" then
+                self:onExitTransitionStart()
             elseif event == "cleanup" then
                 self:onCleanup()
             end

@@ -14,6 +14,12 @@ function CCSceneExtend.extend(target)
         if event == "enter" then
             echoInfo("Scene \"%s:onEnter()\"", target.name or (target.className or "unknown"))
             target:onEnter()
+        elseif event == "enterTransitionFinish" then
+            target:onEnterTransitionFinish()
+        elseif event == "exitTransitionStart" then
+            target:onExitTransitionStart()
+        elseif event == "cleanup" then
+            target:onCleanup()
         elseif event == "exit" then
             echoInfo("Scene \"%s:onExit()\"", target.name or (target.className or "unknown"))
 
@@ -29,6 +35,8 @@ function CCSceneExtend.extend(target)
             if DEBUG_MEM then
                 CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
             end
+        elseif event == "cleanup" then
+            target:onCleanup()
         end
     end
     target:registerNodeEvent(handler)
