@@ -57,7 +57,7 @@ class LuaPackager
 
 1. Add code to your lua script:
 
-    CCLoadChunksFromZip("${zipFilename}")
+    CCLuaLoadChunksFromZip("${zipFilename}")
 
 
 EOT;
