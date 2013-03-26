@@ -912,6 +912,10 @@ create animate
     local animation = display.newAnimation(frames, 0.5 / 20) -- 0.5s play 20 frames
     local animate = display.newAnimate(animation)
 
+    sprite:playAnimationOnce(animate)
+    -- or
+    sprite:playAnimationForever(animate)
+
 ]]
 function display.newAnimate(animation)
     return CCAnimate:create(animation)
