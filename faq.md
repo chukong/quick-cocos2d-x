@@ -8,6 +8,7 @@ local UserBase = class("UserBase")
 
 -- constructor
 function UserBase:ctor(username)
+    print("UserBase:ctor()")
     self.username = username
 end
 
@@ -24,6 +25,7 @@ local Player = class("Player", UserBase)
 function Player:ctor(username, level)
     -- call super class method
     Player.super.ctor(self, username)
+    print("Player:ctor()")
     
     self.level = level
 end
@@ -37,6 +39,13 @@ end
 local player1 = Player.new("dualface", 99)
 player1:sayHello()
 player1:play()
+
+-- output:
+--
+-- UserBase:ctor()
+-- Player:ctor()
+-- dualface say: Hello
+-- dualface play level 99
 
 
 ```
