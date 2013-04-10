@@ -6,14 +6,19 @@ IXCODE=`xcode-select -print-path`
 ISDK=$IXCODE/Platforms/iPhoneOS.platform/Developer
 ISDKVER=iPhoneOS6.1.sdk
 ISDKP=$ISDK/usr/bin/
-ISDKF="-arch armv7 -isysroot $ISDK/SDKs/$ISDKVER"
 
 rm "$DESTDIR"/*.a
-
 cd $SRCDIR
+
 make clean
+ISDKF="-arch armv7 -isysroot $ISDK/SDKs/$ISDKVER"
 make HOST_CC="gcc -m32 -arch i386" CROSS=$ISDKP TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
 mv "$SRCDIR"/src/libluajit.a "$DESTDIR"/libluajit2-armv7.a
+
+make clean
+ISDKF="-arch armv7s -isysroot $ISDK/SDKs/$ISDKVER"
+make HOST_CC="gcc -m32 -arch i386" CROSS=$ISDKP TARGET_FLAGS="$ISDKF" TARGET_SYS=iOS
+mv "$SRCDIR"/src/libluajit.a "$DESTDIR"/libluajit2-armv7s.a
 
 make clean
 make CC="gcc -m32 -arch i386" clean all
