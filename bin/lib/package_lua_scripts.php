@@ -5,6 +5,7 @@ define('LUAJIT', true);
 
 class LuaPackager
 {
+    private $quiet          = false;
     private $packageName    = '';
     private $rootdir        = '';
     private $rootdirLength  = 0;
@@ -14,6 +15,7 @@ class LuaPackager
 
     function __construct($config)
     {
+        $this->quiet         = $config['quiet'];
         $this->rootdir       = realpath($config['srcdir']);
         $this->rootdirLength = strlen($this->rootdir) + 1;
         $this->packageName   = trim($config['packageName'], '.');
@@ -29,7 +31,10 @@ class LuaPackager
         $this->files = array();
         $this->modules = array();
 
-        print("compile script files\n");
+        if (!$this->quiet)
+        {
+            print("compile script files\n");
+        }
         $this->compile();
         if (empty($this->files))
         {
@@ -41,16 +46,24 @@ class LuaPackager
         $zip = new ZipArchive();
         if ($zip->open($zipFilename, ZIPARCHIVE::OVERWRITE | ZIPARCHIVE::CM_STORE))
         {
-            printf("create ZIP bundle file: %s\n", $zipFilename);
+            if (!$this->quiet)
+            {
+                printf("create ZIP bundle file: %s\n", $zipFilename);
+            }
             foreach ($this->modules as $module)
             {
                 $zip->addFromString($module['moduleName'], $module['bytes']);
             }
             $zip->close();
-            printf("done.\n\n");
+            if (!$this->quiet)
+            {
+                printf("done.\n\n");
+            }
         }
 
-        print <<<EOT
+        if (!$this->quiet)
+        {
+            print <<<EOT
 
 
 ### HOW TO USE ###
@@ -61,6 +74,7 @@ class LuaPackager
 
 
 EOT;
+        }
     }
 
     function dump($outputFileBasename)
@@ -68,7 +82,10 @@ EOT;
         $this->files = array();
         $this->modules = array();
 
-        print("compile script files\n");
+        if (!$this->quiet)
+        {
+            print("compile script files\n");
+        }
         $this->compile();
         if (empty($this->files))
         {
@@ -77,14 +94,23 @@ EOT;
         }
 
         $headerFilename = $outputFileBasename . '.h';
-        printf("create C header file: %s\n", $headerFilename);
+        if (!$this->quiet)
+        {
+            printf("create C header file: %s\n", $headerFilename);
+        }
         file_put_contents($headerFilename, $this->renderHeaderFile($outputFileBasename));
 
         $sourceFilename = $outputFileBasename . '.c';
-        printf("create C source file: %s\n", $sourceFilename);
+        if (!$this->quiet)
+        {
+            printf("create C source file: %s\n", $sourceFilename);
+        }
         file_put_contents($sourceFilename, $this->renderSourceFile($outputFileBasename));
 
-        printf("done.\n\n");
+        if (!$this->quiet)
+        {
+            printf("done.\n\n");
+        }
 
         $outputFileBasename = basename($outputFileBasename);
 
@@ -137,7 +163,10 @@ EOT;
             }
             if ($found) continue;
 
-            printf('  compile module: %s...', $moduleName);
+            if (!$this->quiet)
+            {
+                printf('  compile module: %s...', $moduleName);
+            }
             $bytes = $this->compileFile($path);
             if ($bytes == false)
             {
@@ -145,7 +174,10 @@ EOT;
             }
             else
             {
-                print("ok.\n");
+                if (!$this->quiet)
+                {
+                    print("ok.\n");
+                }
                 $bytesName = 'lua_m_' . strtolower(str_replace('.', '_', $moduleName));
                 $this->modules[] = array(
                     'moduleName'    => $moduleName,
@@ -235,7 +267,6 @@ EOT;
 
         foreach ($this->modules as $module)
         {
-            // $contents[] = sprintf('/* %s, %s.lua */', $module['moduleName'], $module['basename']);
             $contents[] = sprintf('int %s(lua_State* L);', $module['functionName']);
         }
 
@@ -410,6 +441,7 @@ $config = array(
     'srcdir'             => '',
     'outputFileBasename' => '',
     'zip'                => false,
+    'quiet'              => false,
 );
 
 do
@@ -436,6 +468,10 @@ do
         }
         $config['excludes'] = $excludes;
         array_shift($argv);
+    }
+    else if ($argv[0] == '-q')
+    {
+        $config['quiet'] = true;
     }
     else if ($argv[0] == '-zip')
     {
