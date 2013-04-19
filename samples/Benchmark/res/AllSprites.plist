@@ -7,7 +7,7 @@
             <key>AddCoinButton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1,118},{116,116}}</string>
+                <string>{{118,1},{116,116}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>CoinSpin01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{118,1},{30,30}}</string>
+                <string>{{118,118},{30,30}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -33,11 +33,11 @@
             <key>CoinSpin02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{180,1},{28,30}}</string>
+                <string>{{118,180},{28,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,1},{28,30}}</string>
                 <key>sourceSize</key>
@@ -46,11 +46,11 @@
             <key>CoinSpin03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{211,28},{26,30}}</string>
+                <string>{{145,211},{26,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{3,1},{26,30}}</string>
                 <key>sourceSize</key>
@@ -98,11 +98,11 @@
             <key>CoinSpin07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{211,1},{26,30}}</string>
+                <string>{{118,211},{26,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{3,1},{26,30}}</string>
                 <key>sourceSize</key>
@@ -111,15 +111,28 @@
             <key>CoinSpin08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{149,1},{28,30}}</string>
+                <string>{{118,149},{28,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,1},{28,30}}</string>
                 <key>sourceSize</key>
                 <string>{32,32}</string>
+            </dict>
+            <key>ExitButton.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1,118},{116,116}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{116,116}}</string>
+                <key>sourceSize</key>
+                <string>{120,120}</string>
             </dict>
             <key>RemoveCoinButton.png</key>
             <dict>
@@ -144,7 +157,7 @@
             <key>size</key>
             <string>{256,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ab46b54c4863581720eca8c6fb678229$</string>
+            <string>$TexturePacker:SmartUpdate:fd709f022e6bf93131200ef49ee2ae64$</string>
             <key>textureFileName</key>
             <string>AllSprites.png</string>
         </dict>

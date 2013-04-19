@@ -12,13 +12,24 @@ function BenchmarkScene:ctor()
     self.layer = display.newLayer()
     self:addChild(self.layer)
 
-    local button = display.newSprite("#AddCoinButton.png", display.left + 100, display.bottom + 100)
+    local button = display.newSprite("#AddCoinButton.png", display.right - 100, display.bottom + 270)
     self:addChild(button)
     self.addCoinButtonBoundingBox = button:boundingBox()
 
     local button = display.newSprite("#RemoveCoinButton.png", display.right - 100, display.bottom + 100)
     self:addChild(button)
     self.removeCoinButtonBoundingBox = button:boundingBox()
+
+    local button = ui.newImageMenuItem({
+        image = "#ExitButton.png",
+        listener = function()
+            game.exit()
+        end,
+        x = display.right - 100,
+        y = display.top - 100,
+    })
+    local menu = ui.newMenu({button})
+    self:addChild(menu)
 
     self.label = ui.newBMFontLabel({
         text = "00000",

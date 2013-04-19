@@ -226,6 +226,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F456EFBD15EE019300FCF3E2 /* Build configuration list for PBXNativeTarget "benchmark.ios" */;
 			buildPhases = (
+				F4D25CE21721577800F14EAB /* ShellScript */,
 				F456ECBD15EE018E00FCF3E2 /* Sources */,
 				F456ECBE15EE018E00FCF3E2 /* Frameworks */,
 				F456ECBF15EE018E00FCF3E2 /* Resources */,
@@ -298,6 +299,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F4D25CE21721577800F14EAB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n_TARGET_BUILD_CONTENTS_PATH=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH\necho _TARGET_BUILD_CONTENTS_PATH: $_TARGET_BUILD_CONTENTS_PATH\necho PWD: $PWD\n\necho Cleaning $_TARGET_BUILD_CONTENTS_PATH/res/\nrm -fr $_TARGET_BUILD_CONTENTS_PATH/res/\n\necho Cleaning $_TARGET_BUILD_CONTENTS_PATH/scripts/\nrm -fr $_TARGET_BUILD_CONTENTS_PATH/scripts/\n\ncp -RL $PWD/../res $_TARGET_BUILD_CONTENTS_PATH\ncp -RL $PWD/../scripts $_TARGET_BUILD_CONTENTS_PATH\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F456ECBD15EE018E00FCF3E2 /* Sources */ = {

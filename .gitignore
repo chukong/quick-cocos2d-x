@@ -37,5 +37,12 @@ samples/CoinFlip/proj.android/obj/
 samples/CoinFlip/proj.android/assets/
 samples/CoinFlip/proj.android/libs/
 
+samples/Benchmark/proj.android/bin/
+samples/Benchmark/proj.android/gen/
+samples/Benchmark/proj.android/lint.xml
+samples/Benchmark/proj.android/obj/
+samples/Benchmark/proj.android/assets/
+samples/Benchmark/proj.android/libs/
+
 lib/proj.win32/Debug
 simulator/proj.win32/LuaHostWin32/Debug
