@@ -27,6 +27,22 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../lua_extensions/cjson/lua_cjson.c \
     ../lua_extensions/cjson/strbuf.c \
     ../lua_extensions/zlib/lua_zlib.c \
+    ../lua_extensions/socket/auxiliar.c \
+    ../lua_extensions/socket/buffer.c \
+    ../lua_extensions/socket/except.c \
+    ../lua_extensions/socket/inet.c \
+    ../lua_extensions/socket/io.c \
+    ../lua_extensions/socket/luasocket.c \
+    ../lua_extensions/socket/mime.c \
+    ../lua_extensions/socket/options.c \
+    ../lua_extensions/socket/select.c \
+    ../lua_extensions/socket/serial.c \
+    ../lua_extensions/socket/socket_scripts.c \
+    ../lua_extensions/socket/tcp.c \
+    ../lua_extensions/socket/timeout.c \
+    ../lua_extensions/socket/udp.c \
+    ../lua_extensions/socket/unix.c \
+    ../lua_extensions/socket/usocket.c \
     ../lua_extensions/lua_extensions.c \
     ../cocos2d-x/scripting/lua/tolua/tolua_event.c \
     ../cocos2d-x/scripting/lua/tolua/tolua_is.c \
@@ -50,6 +66,7 @@ LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib \
+    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/socket \
     $(QUICK_COCOS2DX_ROOT)/lib/luajit2/include \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support

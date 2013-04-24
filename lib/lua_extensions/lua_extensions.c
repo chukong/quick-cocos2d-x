@@ -11,9 +11,16 @@ extern "C" {
 // zlib
 #include "lua_zlib.h"
 
+// socket
+#include "luasocket.h"
+#include "mime.h"
+#include "socket_scripts.h"
+
 static luaL_Reg luax_exts[] = {
     {"cjson", luaopen_cjson},
     {"zlib", luaopen_zlib},
+    {"socket.core", luaopen_socket_core},
+    {"mime.core", luaopen_mime_core},
 
     {NULL, NULL}
 };
@@ -31,6 +38,9 @@ void luaopen_lua_extensions(lua_State *L)
         lua_setfield(L, -2, lib->name);
     }
     lua_pop(L, 2);
+
+    // load extensions script
+    luaopen_socket_scripts(L);
 }
 
 #if __cplusplus
