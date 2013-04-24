@@ -28,10 +28,10 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../lua_extensions/cjson/strbuf.c \
     ../lua_extensions/zlib/lua_zlib.c \
     ../lua_extensions/socket/auxiliar.c \
-    ../lua_extensions/socket/buffer.c \
+    ../lua_extensions/socket/luasocket_buffer.c \
     ../lua_extensions/socket/except.c \
     ../lua_extensions/socket/inet.c \
-    ../lua_extensions/socket/io.c \
+    ../lua_extensions/socket/luasocket_io.c \
     ../lua_extensions/socket/luasocket.c \
     ../lua_extensions/socket/mime.c \
     ../lua_extensions/socket/options.c \

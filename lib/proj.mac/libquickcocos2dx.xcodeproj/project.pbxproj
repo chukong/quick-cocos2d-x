@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */; };
 		F42B55E71727F1C7000379DE /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C51727F1C7000379DE /* auxiliar.c */; };
-		F42B55E81727F1C7000379DE /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C71727F1C7000379DE /* buffer.c */; };
 		F42B55E91727F1C7000379DE /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C91727F1C7000379DE /* except.c */; };
 		F42B55EA1727F1C7000379DE /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55CB1727F1C7000379DE /* inet.c */; };
-		F42B55EB1727F1C7000379DE /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55CD1727F1C7000379DE /* io.c */; };
 		F42B55EC1727F1C7000379DE /* luasocket.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55CF1727F1C7000379DE /* luasocket.c */; };
 		F42B55ED1727F1C7000379DE /* mime.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55D11727F1C7000379DE /* mime.c */; };
 		F42B55EE1727F1C7000379DE /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55D31727F1C7000379DE /* options.c */; };
@@ -112,6 +110,8 @@
 		F4B4EF5E16CA24C300736FFE /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EF5D16CA24C300736FFE /* ReachabilityIOSMac.m */; };
 		F4B4EF6016CA25C000736FFE /* CCCryptoMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EF5F16CA25BF00736FFE /* CCCryptoMac.mm */; };
 		F4B4EF6216CA296E00736FFE /* CCNetworkIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EF6116CA296D00736FFE /* CCNetworkIOSMac.mm */; };
+		F4B61CF3172805BC0057E1F0 /* luasocket_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CEF172805BC0057E1F0 /* luasocket_buffer.c */; };
+		F4B61CF4172805BC0057E1F0 /* luasocket_io.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF1172805BC0057E1F0 /* luasocket_io.c */; };
 		F4DCAD06168C151700679DBE /* CCControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE3168C151700679DBE /* CCControl.cpp */; };
 		F4DCAD08168C151700679DBE /* CCControlButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE5168C151700679DBE /* CCControlButton.cpp */; };
 		F4DCAD0A168C151700679DBE /* CCControlColourPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4DCACE7168C151700679DBE /* CCControlColourPicker.cpp */; };
@@ -262,14 +262,10 @@
 		6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F42B55C51727F1C7000379DE /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
 		F42B55C61727F1C7000379DE /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliar.h; sourceTree = "<group>"; };
-		F42B55C71727F1C7000379DE /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
-		F42B55C81727F1C7000379DE /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
 		F42B55C91727F1C7000379DE /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = except.c; sourceTree = "<group>"; };
 		F42B55CA1727F1C7000379DE /* except.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = except.h; sourceTree = "<group>"; };
 		F42B55CB1727F1C7000379DE /* inet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inet.c; sourceTree = "<group>"; };
 		F42B55CC1727F1C7000379DE /* inet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inet.h; sourceTree = "<group>"; };
-		F42B55CD1727F1C7000379DE /* io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = io.c; sourceTree = "<group>"; };
-		F42B55CE1727F1C7000379DE /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
 		F42B55CF1727F1C7000379DE /* luasocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket.c; sourceTree = "<group>"; };
 		F42B55D01727F1C7000379DE /* luasocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket.h; sourceTree = "<group>"; };
 		F42B55D11727F1C7000379DE /* mime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mime.c; sourceTree = "<group>"; };
@@ -448,6 +444,10 @@
 		F4B4EF5D16CA24C300736FFE /* ReachabilityIOSMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityIOSMac.m; sourceTree = "<group>"; };
 		F4B4EF5F16CA25BF00736FFE /* CCCryptoMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCCryptoMac.mm; sourceTree = "<group>"; };
 		F4B4EF6116CA296D00736FFE /* CCNetworkIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetworkIOSMac.mm; sourceTree = "<group>"; };
+		F4B61CEF172805BC0057E1F0 /* luasocket_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_buffer.c; sourceTree = "<group>"; };
+		F4B61CF0172805BC0057E1F0 /* luasocket_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket_buffer.h; sourceTree = "<group>"; };
+		F4B61CF1172805BC0057E1F0 /* luasocket_io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_io.c; sourceTree = "<group>"; };
+		F4B61CF2172805BC0057E1F0 /* luasocket_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket_io.h; sourceTree = "<group>"; };
 		F4DCACE3168C151700679DBE /* CCControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControl.cpp; sourceTree = "<group>"; };
 		F4DCACE4168C151700679DBE /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
 		F4DCACE5168C151700679DBE /* CCControlButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControlButton.cpp; sourceTree = "<group>"; };
@@ -804,16 +804,16 @@
 			children = (
 				F42B55C51727F1C7000379DE /* auxiliar.c */,
 				F42B55C61727F1C7000379DE /* auxiliar.h */,
-				F42B55C71727F1C7000379DE /* buffer.c */,
-				F42B55C81727F1C7000379DE /* buffer.h */,
 				F42B55C91727F1C7000379DE /* except.c */,
 				F42B55CA1727F1C7000379DE /* except.h */,
 				F42B55CB1727F1C7000379DE /* inet.c */,
 				F42B55CC1727F1C7000379DE /* inet.h */,
-				F42B55CD1727F1C7000379DE /* io.c */,
-				F42B55CE1727F1C7000379DE /* io.h */,
 				F42B55CF1727F1C7000379DE /* luasocket.c */,
 				F42B55D01727F1C7000379DE /* luasocket.h */,
+				F4B61CEF172805BC0057E1F0 /* luasocket_buffer.c */,
+				F4B61CF0172805BC0057E1F0 /* luasocket_buffer.h */,
+				F4B61CF1172805BC0057E1F0 /* luasocket_io.c */,
+				F4B61CF2172805BC0057E1F0 /* luasocket_io.h */,
 				F42B55D11727F1C7000379DE /* mime.c */,
 				F42B55D21727F1C7000379DE /* mime.h */,
 				F42B55D31727F1C7000379DE /* options.c */,
@@ -2228,10 +2228,8 @@
 				F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */,
 				F44FEA8216EF7CAF00CE7B56 /* CCClippingRegionNode.cpp in Sources */,
 				F42B55E71727F1C7000379DE /* auxiliar.c in Sources */,
-				F42B55E81727F1C7000379DE /* buffer.c in Sources */,
 				F42B55E91727F1C7000379DE /* except.c in Sources */,
 				F42B55EA1727F1C7000379DE /* inet.c in Sources */,
-				F42B55EB1727F1C7000379DE /* io.c in Sources */,
 				F42B55EC1727F1C7000379DE /* luasocket.c in Sources */,
 				F42B55ED1727F1C7000379DE /* mime.c in Sources */,
 				F42B55EE1727F1C7000379DE /* options.c in Sources */,
@@ -2243,6 +2241,8 @@
 				F42B55F41727F1C7000379DE /* udp.c in Sources */,
 				F42B55F51727F1C7000379DE /* unix.c in Sources */,
 				F42B55F61727F1C7000379DE /* usocket.c in Sources */,
+				F4B61CF3172805BC0057E1F0 /* luasocket_buffer.c in Sources */,
+				F4B61CF4172805BC0057E1F0 /* luasocket_io.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

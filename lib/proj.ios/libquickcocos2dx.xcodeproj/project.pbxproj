@@ -237,15 +237,15 @@
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
 		F49B397716E8876700FB8EE9 /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49B397516E8876700FB8EE9 /* CCZipFile.cpp */; };
 		F4B0436B16EFA7CA0026279E /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B0436916EFA7CA0026279E /* CCClippingRegionNode.cpp */; };
+		F4B61CFA172806280057E1F0 /* luasocket_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF6172806280057E1F0 /* luasocket_buffer.c */; };
+		F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF8172806280057E1F0 /* luasocket_io.c */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
 		F4EF0A5D16D70C1E00B81E8C /* CCFileUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */; };
 		F4F26D2F1727E73D002D3935 /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D0F1727E73D002D3935 /* auxiliar.c */; };
-		F4F26D301727E73D002D3935 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D111727E73D002D3935 /* buffer.c */; };
 		F4F26D311727E73D002D3935 /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D131727E73D002D3935 /* except.c */; };
 		F4F26D321727E73D002D3935 /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D151727E73D002D3935 /* inet.c */; };
-		F4F26D331727E73D002D3935 /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D171727E73D002D3935 /* io.c */; };
 		F4F26D341727E73D002D3935 /* luasocket.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D191727E73D002D3935 /* luasocket.c */; };
 		F4F26D351727E73D002D3935 /* mime.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D1B1727E73D002D3935 /* mime.c */; };
 		F4F26D361727E73D002D3935 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D1D1727E73D002D3935 /* options.c */; };
@@ -764,6 +764,10 @@
 		F49B397616E8876700FB8EE9 /* CCZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCZipFile.h; sourceTree = "<group>"; };
 		F4B0436916EFA7CA0026279E /* CCClippingRegionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCClippingRegionNode.cpp; sourceTree = "<group>"; };
 		F4B0436A16EFA7CA0026279E /* CCClippingRegionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCClippingRegionNode.h; sourceTree = "<group>"; };
+		F4B61CF6172806280057E1F0 /* luasocket_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_buffer.c; sourceTree = "<group>"; };
+		F4B61CF7172806280057E1F0 /* luasocket_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket_buffer.h; sourceTree = "<group>"; };
+		F4B61CF8172806280057E1F0 /* luasocket_io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_io.c; sourceTree = "<group>"; };
+		F4B61CF9172806280057E1F0 /* luasocket_io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket_io.h; sourceTree = "<group>"; };
 		F4D11004169FBED400305E28 /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
@@ -773,14 +777,10 @@
 		F4EF0A5C16D70C1E00B81E8C /* CCFileUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFileUtils.cpp; sourceTree = "<group>"; };
 		F4F26D0F1727E73D002D3935 /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
 		F4F26D101727E73D002D3935 /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliar.h; sourceTree = "<group>"; };
-		F4F26D111727E73D002D3935 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
-		F4F26D121727E73D002D3935 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
 		F4F26D131727E73D002D3935 /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = except.c; sourceTree = "<group>"; };
 		F4F26D141727E73D002D3935 /* except.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = except.h; sourceTree = "<group>"; };
 		F4F26D151727E73D002D3935 /* inet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inet.c; sourceTree = "<group>"; };
 		F4F26D161727E73D002D3935 /* inet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inet.h; sourceTree = "<group>"; };
-		F4F26D171727E73D002D3935 /* io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = io.c; sourceTree = "<group>"; };
-		F4F26D181727E73D002D3935 /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
 		F4F26D191727E73D002D3935 /* luasocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket.c; sourceTree = "<group>"; };
 		F4F26D1A1727E73D002D3935 /* luasocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket.h; sourceTree = "<group>"; };
 		F4F26D1B1727E73D002D3935 /* mime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mime.c; sourceTree = "<group>"; };
@@ -2014,16 +2014,16 @@
 			children = (
 				F4F26D0F1727E73D002D3935 /* auxiliar.c */,
 				F4F26D101727E73D002D3935 /* auxiliar.h */,
-				F4F26D111727E73D002D3935 /* buffer.c */,
-				F4F26D121727E73D002D3935 /* buffer.h */,
 				F4F26D131727E73D002D3935 /* except.c */,
 				F4F26D141727E73D002D3935 /* except.h */,
 				F4F26D151727E73D002D3935 /* inet.c */,
 				F4F26D161727E73D002D3935 /* inet.h */,
-				F4F26D171727E73D002D3935 /* io.c */,
-				F4F26D181727E73D002D3935 /* io.h */,
 				F4F26D191727E73D002D3935 /* luasocket.c */,
 				F4F26D1A1727E73D002D3935 /* luasocket.h */,
+				F4B61CF6172806280057E1F0 /* luasocket_buffer.c */,
+				F4B61CF7172806280057E1F0 /* luasocket_buffer.h */,
+				F4B61CF8172806280057E1F0 /* luasocket_io.c */,
+				F4B61CF9172806280057E1F0 /* luasocket_io.h */,
 				F4F26D1B1727E73D002D3935 /* mime.c */,
 				F4F26D1C1727E73D002D3935 /* mime.h */,
 				F4F26D1D1727E73D002D3935 /* options.c */,
@@ -2371,10 +2371,8 @@
 				F47C66C316EB37DB00132435 /* snapshot.c in Sources */,
 				F4B0436B16EFA7CA0026279E /* CCClippingRegionNode.cpp in Sources */,
 				F4F26D2F1727E73D002D3935 /* auxiliar.c in Sources */,
-				F4F26D301727E73D002D3935 /* buffer.c in Sources */,
 				F4F26D311727E73D002D3935 /* except.c in Sources */,
 				F4F26D321727E73D002D3935 /* inet.c in Sources */,
-				F4F26D331727E73D002D3935 /* io.c in Sources */,
 				F4F26D341727E73D002D3935 /* luasocket.c in Sources */,
 				F4F26D351727E73D002D3935 /* mime.c in Sources */,
 				F4F26D361727E73D002D3935 /* options.c in Sources */,
@@ -2386,6 +2384,8 @@
 				F4F26D3C1727E73D002D3935 /* unix.c in Sources */,
 				F4F26D3D1727E73D002D3935 /* usocket.c in Sources */,
 				F4F26D411727E887002D3935 /* socket_scripts.c in Sources */,
+				F4B61CFA172806280057E1F0 /* luasocket_buffer.c in Sources */,
+				F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
