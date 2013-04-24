@@ -208,6 +208,20 @@
     <ClCompile Include="..\lua_extensions\cjson\lua_cjson.c" />
     <ClCompile Include="..\lua_extensions\cjson\strbuf.c" />
     <ClCompile Include="..\lua_extensions\lua_extensions.c" />
+    <ClCompile Include="..\lua_extensions\socket\auxiliar.c" />
+    <ClCompile Include="..\lua_extensions\socket\except.c" />
+    <ClCompile Include="..\lua_extensions\socket\inet.c" />
+    <ClCompile Include="..\lua_extensions\socket\luasocket.c" />
+    <ClCompile Include="..\lua_extensions\socket\luasocket_buffer.c" />
+    <ClCompile Include="..\lua_extensions\socket\luasocket_io.c" />
+    <ClCompile Include="..\lua_extensions\socket\mime.c" />
+    <ClCompile Include="..\lua_extensions\socket\options.c" />
+    <ClCompile Include="..\lua_extensions\socket\select.c" />
+    <ClCompile Include="..\lua_extensions\socket\socket_scripts.c" />
+    <ClCompile Include="..\lua_extensions\socket\tcp.c" />
+    <ClCompile Include="..\lua_extensions\socket\timeout.c" />
+    <ClCompile Include="..\lua_extensions\socket\udp.c" />
+    <ClCompile Include="..\lua_extensions\socket\wsocket.c" />
     <ClCompile Include="..\lua_extensions\zlib\lua_zlib.c" />
   </ItemGroup>
   <ItemGroup>
@@ -516,6 +530,21 @@
     <ClInclude Include="..\lua_extensions\cjson\lua_cjson.h" />
     <ClInclude Include="..\lua_extensions\cjson\strbuf.h" />
     <ClInclude Include="..\lua_extensions\lua_extensions.h" />
+    <ClInclude Include="..\lua_extensions\socket\auxiliar.h" />
+    <ClInclude Include="..\lua_extensions\socket\except.h" />
+    <ClInclude Include="..\lua_extensions\socket\inet.h" />
+    <ClInclude Include="..\lua_extensions\socket\luasocket.h" />
+    <ClInclude Include="..\lua_extensions\socket\luasocket_buffer.h" />
+    <ClInclude Include="..\lua_extensions\socket\luasocket_io.h" />
+    <ClInclude Include="..\lua_extensions\socket\mime.h" />
+    <ClInclude Include="..\lua_extensions\socket\options.h" />
+    <ClInclude Include="..\lua_extensions\socket\select.h" />
+    <ClInclude Include="..\lua_extensions\socket\socket.h" />
+    <ClInclude Include="..\lua_extensions\socket\socket_scripts.h" />
+    <ClInclude Include="..\lua_extensions\socket\tcp.h" />
+    <ClInclude Include="..\lua_extensions\socket\timeout.h" />
+    <ClInclude Include="..\lua_extensions\socket\udp.h" />
+    <ClInclude Include="..\lua_extensions\socket\wsocket.h" />
     <ClInclude Include="..\lua_extensions\zlib\lua_zlib.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -561,7 +590,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_EXPORT_DLL_;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_LUA_ENGINE_ENABLED=1;TOLUA_API=extern __declspec(dllexport);GLAPI=extern __declspec(dllexport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extensions_luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\luajit2\include;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extensions_luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\luajit2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4800;4068;4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -570,7 +599,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libxml2.lib;libzlib.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;opengl32.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libxml2.lib;libzlib.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>
