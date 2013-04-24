@@ -9,7 +9,7 @@
 * (and the associated usocket.h and wsocket.h) factor these differences and
 * creates a interface compatible with the io.h module.
 \*=========================================================================*/
-#include "io.h"
+#include "luasocket_io.h"
 
 /*=========================================================================*\
 * Platform specific compatibilization

@@ -5,7 +5,7 @@
 #include "lua.h"
 #include "lauxlib.h"
 
-#include "buffer.h"
+#include "luasocket_buffer.h"
 
 /*=========================================================================*\
 * Internal function prototypes

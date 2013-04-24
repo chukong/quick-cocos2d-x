@@ -407,7 +407,7 @@ const char *socket_gaistrerror(int err) {
         case EAI_SERVICE: return "service not supported for socket type";
         case EAI_SOCKTYPE: return "ai_socktype not supported";
 //        case EAI_SYSTEM: return strerror(errno); 
-        default: return gai_strerror(err);
+        default: return gai_strerrorA(err);
     }
 }
 

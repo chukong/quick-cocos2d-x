@@ -29,7 +29,7 @@
 #include "auxiliar.h"
 #include "except.h"
 #include "timeout.h"
-#include "buffer.h"
+#include "luasocket_buffer.h"
 #include "inet.h"
 #include "tcp.h"
 #include "udp.h"

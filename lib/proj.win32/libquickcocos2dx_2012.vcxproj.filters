@@ -247,6 +247,9 @@
     <Filter Include="cocos2d-x\cocos2dx\platform\third_party\common\webp\webp">
       <UniqueIdentifier>{ea977b19-fef7-46f1-a057-d01fa32e4711}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua_extensions\socket">
+      <UniqueIdentifier>{030a5225-057d-432e-816b-ed4f1cd14463}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.cpp">
@@ -836,6 +839,48 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingRegionNode.cpp">
       <Filter>cocos2d-x\cocos2dx\misc_nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\except.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\inet.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\luasocket.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\mime.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\options.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\select.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\socket_scripts.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\tcp.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\timeout.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\udp.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\wsocket.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\auxiliar.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\luasocket_buffer.c">
+      <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\socket\luasocket_io.c">
+      <Filter>lua_extensions\socket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1756,6 +1801,51 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\misc_nodes\CCClippingRegionNode.h">
       <Filter>cocos2d-x\cocos2dx\misc_nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\except.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\inet.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\luasocket.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\mime.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\options.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\select.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\socket.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\socket_scripts.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\tcp.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\timeout.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\udp.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\wsocket.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\auxiliar.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\luasocket_buffer.h">
+      <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\socket\luasocket_io.h">
+      <Filter>lua_extensions\socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
