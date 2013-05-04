@@ -4,13 +4,7 @@
 Game Network allows access to 3rd party libraries that enables social gaming features
 such as public leaderboards and achievements.
 
-Currently, the OpenFeint and Game Center (iOS only) libraries are supported.
-
-If you want to use both OpenFeint and Game Center, iOS OpenFeint will post achievement
-updates and leaderboard updates to Game Center provided OFGameCenter.plist is present
-in the project folder.
-
-See http://support.openfeint.com/dev/game-center-compatibility/ for details.
+Currently, Game Center (iOS only) libraries are supported.
 
 @module framework.client.api.GameNetwork
 
@@ -27,13 +21,6 @@ required by the game network provider.
 
 **Syntax:**
 
-    -- OpenFeint
-    framework.client.api.GameNetwork.init("openfeint", {
-        productKey  = ...,
-        secret      = ...,
-        displayName = ...,
-    })
-
     -- GameCenter
     framework.client.api.GameNetwork.init("gamecenter", {
         listener = ...
@@ -42,10 +29,8 @@ required by the game network provider.
 **Example:**
 
     require("framework.client.api.GameNetwork")
-    framework.client.api.GameNetwork.init("openfeint", {
-        productKey  = ...,
-        secret      = ...,
-        displayName = ...
+    framework.client.api.GameNetwork.init("gamecenter", {
+        listener = ...
     })
 
     --
@@ -72,15 +57,9 @@ different providers).
 <br />
 
 @param providerName
-String of the game network provider. ("openfeint" or "gamecenter", case insensitive)
+String of the game network provider. ("gamecenter", case insensitive)
 
 @param params
-Additional parameters required by the "openfeint" provider.
-
--   **productKey**: String of your application's OpenFeint product key (provided by OpenFeint).
--   **secret**: String of your application's product secret (provided by OpenFeint).
--   **displayName**: String of the name to display in OpenFeint leaderboards and other views.
-
 If using GameCenter, the params.listener allows you to specify a callback function.
 (Instead of secret keys, your bundle identifier is used automatically to identify your app.)
 On successful login, event.data will be 'true'. On unsuccessful init, event.data will be false.
@@ -111,8 +90,6 @@ function GameNetwork.init(providerName, params)
     providerName = string.upper(providerName)
     if providerName == "GAMECENTER" then
         provider = require("framework.client.api.gamenetwork.GameCenter")
-    elseif providerName == "OPENFEINT" then
-        provider = require("framework.client.api.gamenetwork.OpenFeint")
     elseif providerName == "CHINAMOBILE" then
         provider = require("framework.client.api.gamenetwork.ChinaMobile")
     else
@@ -130,53 +107,6 @@ Send or request information to/from the game network provider:
 **Syntax:**
 
     GameNetwork.request( command [, params ...] )
-
-**Example:**
-
-    -- For OpenFeint:
-    -- setHighScore, leaderboard id, score, display text
-    GameNetwork.request("setHighScore", "abc123", 99, "99 sec")
-
-    -- unlockAchievement, achievement id
-    GameNetwork.request("unlockAchievement", "1242345322")
-
-
-**OpenFeint**
-
-Command supported by the OpenFeint provider:
-
--   getAchievements:
-
-        local achievements = framework.client.api.GameNetwork.request("getAchievements")
-        for achievementId, achievement in pairs(achievements) do
-            -- achievement.id (string)
-            -- achievement.title (string)
-            -- achievement.description (string)
-            -- achievement.iconUrl (string)
-            -- achievement.gameScore (integer)
-            -- achievement.isUnlocked (boolean)
-            -- achievement.isSecret (boolean)
-        end
-
--   unlockAchievement: achievement id
-
-        framework.client.api.GameNetwork.request("unlockAchievement", "1242345322")
-
--   getLeaderboards:
-
-        local leaderboards = framework.client.api.GameNetwork.request("getLeaderboards")
-        for i, leaderboard = ipairs(leaderboards) do
-            -- leaderboard.id (string)
-            -- leaderboard.name (string)
-            -- leaderboard.currentUserScore (integer)
-            -- leaderboard.currentUserScoreDisplayText (string)
-            -- leaderboard.descendingScoreOrder (boolean)
-        end
-
--   setHighScore: leaderboard id, score, display text
-
-        framework.client.api.GameNetwork.request("setHighScore", "abc123", 99, "99 sec")
-
 
 **GameCenter**
 
@@ -205,8 +135,6 @@ end
 --[[--
 Shows (displays) information from game network provider on the screen.
 
-For OpenFeint provider, launches the OpenFeint dashboard in one of the following configurations: leaderboards, challenges, achievements, friends, playing or high score.
-
 **Syntax:**
 
     framework.client.api.GameNetwork.show(command [, params] )
@@ -214,39 +142,6 @@ For OpenFeint provider, launches the OpenFeint dashboard in one of the following
 **Example:**
 
     framework.client.api.GameNetwork("leaderboards")
-
-**OpenFeint:**
-
-Command supported by the OpenFeint provider.
-
--   leaderboard: leaderboard id
-
-        framework.client.api.GameNetwork.show("leaderboard", "abc123")
-
--   leaderboards:
-
-        framework.client.api.GameNetwork.show("leaderboards")
-
--   achievements:
-
-        framework.client.api.GameNetwork.show("achievements")
-
--   challenges:
-
-        framework.client.api.GameNetwork.show("challenges")
-
--   friends:
-
-        framework.client.api.GameNetwork.show("friends")
-
--   playing:
-
-        framework.client.api.GameNetwork.show("playing")
-
--   dashboard:
-
-        framework.client.api.GameNetwork.show("dashboard")
-
 
 **GameCenter:**
 
