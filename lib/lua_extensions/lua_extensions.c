@@ -16,11 +16,15 @@ extern "C" {
 #include "mime.h"
 #include "socket_scripts.h"
 
+// lsqlite3
+#include "lsqlite3.h"
+
 static luaL_Reg luax_exts[] = {
     {"cjson", luaopen_cjson},
     {"zlib", luaopen_zlib},
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},
+    {"lsqlite3", luaopen_lsqlite3},
 
     {NULL, NULL}
 };

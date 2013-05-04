@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E96FF7C1734E82700DFDEFB /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E96FF741734E82700DFDEFB /* lsqlite3.c */; };
+		5E96FF7D1734E82700DFDEFB /* shell.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E96FF771734E82700DFDEFB /* shell.c */; };
+		5E96FF7E1734E82700DFDEFB /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E96FF781734E82700DFDEFB /* sqlite3.c */; };
 		6CD6791CAC6D34352940B124 /* CCFileUtilsIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */; };
 		F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */; };
 		F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */ = {isa = PBXBuildFile; fileRef = F4037FB416CA2BA10004E298 /* ReachabilityIOSMac.m */; };
@@ -271,6 +274,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E96FF731734E82700DFDEFB /* HISTORY */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HISTORY; sourceTree = "<group>"; };
+		5E96FF741734E82700DFDEFB /* lsqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsqlite3.c; sourceTree = "<group>"; };
+		5E96FF751734E82700DFDEFB /* lsqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lsqlite3.h; sourceTree = "<group>"; };
+		5E96FF771734E82700DFDEFB /* shell.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shell.c; sourceTree = "<group>"; };
+		5E96FF781734E82700DFDEFB /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		5E96FF791734E82700DFDEFB /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		5E96FF7A1734E82700DFDEFB /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
+		5E96FF7B1734E82700DFDEFB /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		6CD6715B75D150772AE5566D /* CCFileUtilsIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFileUtilsIOS.h; sourceTree = "<group>"; };
 		6CD67A296CA6F194EACEF012 /* CCFileUtilsIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCFileUtilsIOS.mm; sourceTree = "<group>"; };
 		F4037FB216CA2BA10004E298 /* CCNetworkIOSMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCNetworkIOSMac.mm; sourceTree = "<group>"; };
@@ -843,6 +854,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E96FF721734E82600DFDEFB /* lsqlite3 */ = {
+			isa = PBXGroup;
+			children = (
+				5E96FF731734E82700DFDEFB /* HISTORY */,
+				5E96FF741734E82700DFDEFB /* lsqlite3.c */,
+				5E96FF751734E82700DFDEFB /* lsqlite3.h */,
+			);
+			path = lsqlite3;
+			sourceTree = "<group>";
+		};
+		5E96FF761734E82700DFDEFB /* sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				5E96FF771734E82700DFDEFB /* shell.c */,
+				5E96FF781734E82700DFDEFB /* sqlite3.c */,
+				5E96FF791734E82700DFDEFB /* sqlite3.h */,
+				5E96FF7A1734E82700DFDEFB /* sqlite3ext.h */,
+				5E96FF7B1734E82700DFDEFB /* VERSION */,
+			);
+			path = sqlite;
+			sourceTree = "<group>";
+		};
 		F4037FB116CA2BA10004E298 /* ios_mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +1036,8 @@
 		F40AFE8216BD160200565A5E /* lua_extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5E96FF721734E82600DFDEFB /* lsqlite3 */,
+				5E96FF761734E82700DFDEFB /* sqlite */,
 				F4F26D0E1727E73D002D3935 /* socket */,
 				F40AFE8316BD160200565A5E /* cjson */,
 				F45FF34316C7D24200275222 /* lua_extensions.c */,
@@ -2386,6 +2421,9 @@
 				F4F26D411727E887002D3935 /* socket_scripts.c in Sources */,
 				F4B61CFA172806280057E1F0 /* luasocket_buffer.c in Sources */,
 				F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */,
+				5E96FF7C1734E82700DFDEFB /* lsqlite3.c in Sources */,
+				5E96FF7D1734E82700DFDEFB /* shell.c in Sources */,
+				5E96FF7E1734E82700DFDEFB /* sqlite3.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
