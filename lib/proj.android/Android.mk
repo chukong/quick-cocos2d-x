@@ -17,6 +17,7 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../cocos2dx_extra/extra/crypto/base64/libb64.c \
     ../cocos2dx_extra/extra/crypto/md5/md5.c \
     ../cocos2dx_extra/extra/crypto/sha1/sha1.cpp \
+    ../cocos2dx_extra/extra/crypto/xxtea/xxtea.c \
     ../cocos2dx_extra/extra/network/CCHttpRequest.cpp \
     ../cocos2dx_extra/extra/network/CCNetwork.cpp \
     ../cocos2dx_extra/extra/platform/android/CCCryptoAndroid.cpp \
