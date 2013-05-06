@@ -216,6 +216,11 @@ EOT;
         return true;
     }
 
+    function getOutputFilename()
+    {
+        return $this->outputFilename_;
+    }
+
     function getLuaopenFunctionName()
     {
         return $this->luaopenFunctionName_;
@@ -251,7 +256,7 @@ function runBuilder($params)
         $contents = array();
         $contents[] = '';
         $contents[] = '// add to AppDelegate.cpp';
-        $contents[] = sprintf('#include "%s"', $luabindingFilename . '.h');
+        $contents[] = sprintf('#include "%s"', $builder->getOutputFilename() . '.h');
         $contents[] = '';
         $contents[] = '// add to AppDelegate::applicationDidFinishLaunching()';
         $contents[] = 'CCLuaStack* stack = CCScriptEngineManager::sharedManager()->getScriptEngine()->getLuaStack();';

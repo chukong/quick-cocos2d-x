@@ -9,6 +9,7 @@ class LuaPackager
     private $packageName    = '';
     private $rootdir        = '';
     private $rootdirLength  = 0;
+    private $suffixName     = 'zip';
     private $files          = array();
     private $modules        = array();
     private $excludes       = array();
@@ -19,6 +20,7 @@ class LuaPackager
         $this->rootdir       = realpath($config['srcdir']);
         $this->rootdirLength = strlen($this->rootdir) + 1;
         $this->packageName   = trim($config['packageName'], '.');
+        $this->suffixName    = $config['suffixName'];
         $this->excludes      = $config['excludes'];
         if (!empty($this->packageName))
         {
@@ -42,7 +44,7 @@ class LuaPackager
             return;
         }
 
-        $zipFilename = $outputFileBasename . '.zip';
+        $zipFilename = $outputFileBasename . '.' . $this->suffixName;
         $zip = new ZipArchive();
         if ($zip->open($zipFilename, ZIPARCHIVE::OVERWRITE | ZIPARCHIVE::CM_STORE))
         {
@@ -441,6 +443,7 @@ $config = array(
     'srcdir'             => '',
     'outputFileBasename' => '',
     'zip'                => false,
+    'suffixName'         => 'zip',
     'quiet'              => false,
 );
 
@@ -476,6 +479,11 @@ do
     else if ($argv[0] == '-zip')
     {
         $config['zip'] = true;
+    }
+    else if ($argv[0] == '-suffix')
+    {
+        $config['suffixName'] = $argv[1];
+        array_shift($argv);
     }
     else if ($config['srcdir'] == '')
     {
