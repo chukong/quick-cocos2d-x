@@ -234,6 +234,7 @@
 		F45FF34516C7D24200275222 /* lua_extensions.c in Sources */ = {isa = PBXBuildFile; fileRef = F45FF34316C7D24200275222 /* lua_extensions.c */; };
 		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
 		F46B6527168E8C1800FEA984 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */; };
+		F4778ADE1736085400EE1551 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4778ADD1736085400EE1551 /* xxtea.c */; };
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
 		F49B397716E8876700FB8EE9 /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49B397516E8876700FB8EE9 /* CCZipFile.cpp */; };
 		F4B0436B16EFA7CA0026279E /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B0436916EFA7CA0026279E /* CCClippingRegionNode.cpp */; };
@@ -758,6 +759,8 @@
 		F45FF34416C7D24200275222 /* lua_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_extensions.h; sourceTree = "<group>"; };
 		F45FF34A16C7DD4C00275222 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F46B6526168E8C1800FEA984 /* CCImageCommonWebp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCImageCommonWebp.cpp; sourceTree = "<group>"; };
+		F4778ADD1736085400EE1551 /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
+		F4778ADF1736085C00EE1551 /* xxtea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		F47C66C116EB37DB00132435 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F47C66C216EB37DB00132435 /* snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F49B397516E8876700FB8EE9 /* CCZipFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCZipFile.cpp; sourceTree = "<group>"; };
@@ -900,6 +903,7 @@
 				F40AFDFC16BD15C600565A5E /* CCCrypto.h */,
 				F40AFDFD16BD15C600565A5E /* md5 */,
 				F40AFE0016BD15C600565A5E /* sha1 */,
+				F4778ADC1736080E00EE1551 /* xxtea */,
 			);
 			path = crypto;
 			sourceTree = "<group>";
@@ -2000,6 +2004,15 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		F4778ADC1736080E00EE1551 /* xxtea */ = {
+			isa = PBXGroup;
+			children = (
+				F4778ADD1736085400EE1551 /* xxtea.c */,
+				F4778ADF1736085C00EE1551 /* xxtea.h */,
+			);
+			path = xxtea;
+			sourceTree = "<group>";
+		};
 		F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */ = {
 			isa = PBXGroup;
 			children = (
@@ -2386,6 +2399,7 @@
 				F4F26D411727E887002D3935 /* socket_scripts.c in Sources */,
 				F4B61CFA172806280057E1F0 /* luasocket_buffer.c in Sources */,
 				F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */,
+				F4778ADE1736085400EE1551 /* xxtea.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

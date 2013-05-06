@@ -24,6 +24,7 @@
 		F42B55F61727F1C7000379DE /* usocket.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55E31727F1C7000379DE /* usocket.c */; };
 		F436705816BCCB76004C8BB9 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */; };
 		F439920B16816D3400AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920A16816D3400AE90D1 /* libluajit2.a */; };
+		F43A2B1D1737C3F2000244FC /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F43A2B1B1737C3F2000244FC /* xxtea.c */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F44FEA8216EF7CAF00CE7B56 /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
@@ -293,6 +294,8 @@
 		F43991E716816ACA00AE90D1 /* luaconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
 		F43991E916816ACA00AE90D1 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F439920A16816D3400AE90D1 /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
+		F43A2B1B1737C3F2000244FC /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
+		F43A2B1C1737C3F2000244FC /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCClippingRegionNode.cpp; sourceTree = "<group>"; };
@@ -866,6 +869,15 @@
 			path = proj.mac;
 			sourceTree = "<group>";
 		};
+		F43A2B1A1737C3F2000244FC /* xxtea */ = {
+			isa = PBXGroup;
+			children = (
+				F43A2B1B1737C3F2000244FC /* xxtea.c */,
+				F43A2B1C1737C3F2000244FC /* xxtea.h */,
+			);
+			path = xxtea;
+			sourceTree = "<group>";
+		};
 		F486024F16CF35F100A158F4 /* CCEditBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,6 +1080,7 @@
 				F4B4EED516C7E09400736FFE /* CCCrypto.h */,
 				F4B4EED616C7E09400736FFE /* md5 */,
 				F4B4EED916C7E09400736FFE /* sha1 */,
+				F43A2B1A1737C3F2000244FC /* xxtea */,
 			);
 			path = crypto;
 			sourceTree = "<group>";
@@ -2243,6 +2256,7 @@
 				F42B55F61727F1C7000379DE /* usocket.c in Sources */,
 				F4B61CF3172805BC0057E1F0 /* luasocket_buffer.c in Sources */,
 				F4B61CF4172805BC0057E1F0 /* luasocket_io.c in Sources */,
+				F43A2B1D1737C3F2000244FC /* xxtea.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
