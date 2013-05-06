@@ -7,7 +7,7 @@
 4.  Rename folder **android/sdk** to **android/android\_sdk\_macosx**
 5.  Run **tools/android**, Select **Android SDK 2.2**, Install packages
 
-![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/Build_from_sources_Mac_Install_Android_SDK.png)
+![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/INSTALL_ANDROID_SDK_MAC_01.png)
 
 <br />
 
@@ -19,25 +19,17 @@
 
 <br />
 
-### GET quick-cocos2d-x
-
-1.  Download from [quick-cocos2d-x-latest.zip](http://quick-x.com/downloads/quick-cocos2d-x-latest.zip)
-2.  Unzip it.
-
-<br />
-
-### SETUP ENVIRONMENT VARIABLE
-
 Directory structure:
 
 ```
-<PATH_TO>/quick-cocos2d-x
 <PATH_TO>/android/android_sdk_macosx
 <PATH_TO>/android/android_ndk_r8b
 <PATH_TO>/android/eclipse
 ```
 
 <br />
+
+### SETUP ENVIRONMENT VARIABLE
 
 ``` bash
 vi ~/.profile
