@@ -21,16 +21,24 @@ CODE LESS, PLAY MORE !
 
 #### RUN SIMULATOR
 
-<br />
+Open quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, or quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
 
+1.  Select menu: File -> Open Project
+2.  Set Project Director to **quick-cocos2d-x/samples/CoinFlip**
+3.  Set Script File to **$WORKDIR/scripts/main.lua**
+4.  Click "Open Project" button.
 
-#### BUILD FROM SOURCES
+![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)
+
+![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_02.png)
+
+#### BUILD
 
 -   [Install Android SDK/NDK - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_MAC.md)
 -   [Install Android SDK/NDK - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_WINDOWS.md)
--   [Build from source - Mac]()
--   [Build from source - Windows]()
--   [Create new project]()
+-   [Build from source - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_MAC.md)
+-   [Build from source - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_WINDOWS.md)
+-   [Create new project](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/CREATE_NEW_PROJECT.md)
 
 
 #### DOCUMENTS
