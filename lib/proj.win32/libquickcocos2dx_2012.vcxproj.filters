@@ -250,6 +250,9 @@
     <Filter Include="lua_extensions\socket">
       <UniqueIdentifier>{030a5225-057d-432e-816b-ed4f1cd14463}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2dx_extra\extra\crypto\xxtea">
+      <UniqueIdentifier>{177b140b-e4f3-427d-be6d-ac0c389adf36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.cpp">
@@ -881,6 +884,9 @@
     </ClCompile>
     <ClCompile Include="..\lua_extensions\socket\luasocket_io.c">
       <Filter>lua_extensions\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2dx_extra\extra\crypto\xxtea\xxtea.c">
+      <Filter>cocos2dx_extra\extra\crypto\xxtea</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1846,6 +1852,9 @@
     </ClInclude>
     <ClInclude Include="..\lua_extensions\socket\luasocket_io.h">
       <Filter>lua_extensions\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2dx_extra\extra\crypto\xxtea\xxtea.h">
+      <Filter>cocos2dx_extra\extra\crypto\xxtea</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
