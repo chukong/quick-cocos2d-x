@@ -46,8 +46,8 @@ Open quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, or quick-cocos2d-x/simula
 
 #### DOCUMENTS
 
--   [API Documents]()
--   [Manual]()
+-   [API Documents](http://quick-x.com/docs/api/)
+-   [Manual](http://quick-x.com/docs/manual/)
 
 <br />
 

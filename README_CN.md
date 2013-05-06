@@ -9,17 +9,17 @@ CODE LESS, PLAY MORE !
 
 ## 快速开始
 
-#### 系统需求
+### 系统需求
 
 -   最新版本 Xcode (当前为 4.6) 和最新的 iOS SDK (当前为 6.1)
 -   Android SDK (2.2) 和 Android NDK (r8b, 不能使用其他版本)
 
-#### 下载
+### 下载
 
 -   最新版本: [quick-cocos2d-x-20130506.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130506.zip)
 
 
-#### 运行模拟器
+### 运行模拟器
 
 打开 quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, 或者 quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
 
@@ -34,7 +34,7 @@ CODE LESS, PLAY MORE !
 ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_02.png)
 
 
-#### 编译和创建新项目
+### 编译和创建新项目
 
 -   [安装 Android SDK/NDK - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_MAC.md)
 -   [安装 Android SDK/NDK - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_WINDOWS.md)
@@ -43,10 +43,10 @@ CODE LESS, PLAY MORE !
 -   [创建新项目](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/CREATE_NEW_PROJECT.md)
 
 
-#### 文档
+### 文档
 
--   [API 文档]()
--   [开发者指南]()
+-   [API 文档](http://quick-x.com/docs/api/)
+-   [开发者指南](http://quick-x.com/docs/manual/)
 
 <br />
 
