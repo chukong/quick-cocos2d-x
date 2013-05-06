@@ -143,6 +143,29 @@ end
 
 --[[--
 
+Rotate a sprite to the rotation.
+
+### Example:
+
+    -- rotate sprite to 200
+    transition.rotateTo(sprite, {time = 2.0, rotate = 200})
+
+### Parameters:
+
+-   CCNode **target**
+
+-   table **args**
+
+]]
+function transition.rotateTo(target, args)
+    assert(not tolua.isnull(target), "transition.rotateTo() - target is not CCNode")
+    -- local rotation = args.rotate
+    local action = CCRotateTo:create(args.time, args.rotate)
+    return transition.execute(target, action, args)
+end
+
+--[[--
+
 Moves a sprite to the position x,y. x and y are absolute coordinates by modifying it's position attribute.
 
 ### Example:

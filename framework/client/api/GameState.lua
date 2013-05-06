@@ -80,7 +80,7 @@ function GameState.load()
     local filename = GameState.getGameStatePath()
 
     if not io.exists(filename) then
-        echoError("GameState.load() - file \"%s\" not found", filename)
+        echoInfo("GameState.load() - file \"%s\" not found", filename)
         return eventListener({name = "load", errorCode = GameState.ERROR_STATE_FILE_NOT_FOUND})
     end
 
@@ -141,7 +141,7 @@ function GameState.save(newValues)
 end
 
 function GameState.getGameStatePath()
-    return string.gsub(device.writeablePath, "[\\\\/]+$", "") .. "/" .. stateFilename
+    return string.gsub(device.documentsPath, "[\\\\/]+$", "") .. "/" .. stateFilename
 end
 
 return GameState
