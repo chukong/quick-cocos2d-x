@@ -150,6 +150,7 @@ LUA_STRING CCCrypto::encryptXXTEALua(const char* plaintext,
     else
     {
         lua_pushlstring(stack->getLuaState(), (const char*)result, resultLength);
+        free(result);
     }
     return 1;
 }
@@ -172,6 +173,7 @@ LUA_STRING CCCrypto::decryptXXTEALua(const char* plaintext,
     else
     {
         lua_pushlstring(stack->getLuaState(), (const char*)result, resultLength);
+        free(result);
     }
     return 1;
 }

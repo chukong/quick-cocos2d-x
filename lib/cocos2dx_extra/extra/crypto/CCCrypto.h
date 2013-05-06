@@ -41,14 +41,14 @@ public:
         return cryptAES256(true, ciphertext, ciphertextLength, plaintext, plaintextBufferLength, key, keyLength);
     }
     
-    /** @brief Encrypt data with XXTEA algorithm, return ciphertext */
+    /** @brief Encrypt data with XXTEA algorithm, return ciphertext, free ciphertext after used */
     static unsigned char* encryptXXTEA(unsigned char* plaintext,
                                        int plaintextLength,
                                        unsigned char* key,
                                        int keyLength,
                                        int* resultLength);
     
-    /** @brief Decrypt data with XXTEA algorithm, return plaintext */
+    /** @brief Decrypt data with XXTEA algorithm, return plaintext, free plaintext after used */
     static unsigned char* decryptXXTEA(unsigned char* ciphertext,
                                        int ciphertextLength,
                                        unsigned char* key,
