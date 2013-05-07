@@ -9,11 +9,8 @@
 using namespace std;
 using namespace cocos2d;
 
-#define PHYSICS_WORLD_DRAW_MODE_NORMAL  0
-#define PHYSICS_WORLD_DRAW_MODE_HYBRID  1
-#define PHYSICS_WORLD_DRAW_MODE_DEBUG   2
-
 class PhysicsBody;
+class PhysicsDebugNode;
 
 typedef map<CCNode*, PhysicsBody*> PhysicsWorldBodyMap;
 typedef PhysicsWorldBodyMap::iterator PhysicsWorldBodyMapIterator;
@@ -28,40 +25,36 @@ public:
         return m_space;
     }
     
+    PhysicsDebugNode *createDebugNode(void);
+    
     void getGravity(float *gravityX, float *gravityY);
     void setGravity(float gravityX, float gravityY);
     
-    int getDrawMode(void);
-    void setDrawMode(int drawMode);
+    float calcMomentForCircle(float mass, float innerRadius, float outerRadius, float offsetX, float offsetY);
 
     PhysicsBody *bindNodeToDefaultStaticBody(CCNode *node);
     PhysicsBody *bindNodeToNewStaticBody(CCNode *node);
-    PhysicsBody *bindNodeToNewBody(CCNode *node, float mass, float inertia = 0);
+    PhysicsBody *bindNodeToNewBody(CCNode *node, float mass, float moment);
     void unbindNode(CCNode *node);
     void unbindAllNodes(void);
     
-    void start(bool allowSleep);
+    void start(void);
     void stop(void);
     
     virtual void update(float dt);
+    virtual void onExit(void);
     
 private:
     PhysicsWorld(void)
     : m_space(NULL)
-    , m_gravity({0, 0})
-    , m_drawMode(PHYSICS_WORLD_DRAW_MODE_NORMAL)
     , m_defaultStaticBody(NULL)
     {
     }
     bool init(void);
     
     cpSpace            *m_space;
-    cpVect              m_gravity;
-    int                 m_drawMode;
     PhysicsWorldBodyMap m_bodies;
     PhysicsBody        *m_defaultStaticBody;
-    
-    static int          m_nodeId;
 };
 
 #endif // __PHYSICS_WORLD_H_

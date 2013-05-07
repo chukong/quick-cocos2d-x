@@ -439,6 +439,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
 				);
 				INFOPLIST_FILE = CoinFlip.ios/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -503,6 +505,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
 				);
 				INFOPLIST_FILE = CoinFlip.ios/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;

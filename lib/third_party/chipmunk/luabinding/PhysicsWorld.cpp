@@ -1,10 +1,9 @@
 
 #include "PhysicsWorld.h"
 #include "PhysicsBody.h"
+#include "PhysicsDebugNode.h"
 
 using namespace cocos2d;
-
-int PhysicsWorld::m_nodeId = 0;
 
 PhysicsWorld *PhysicsWorld::create(void)
 {
@@ -24,30 +23,30 @@ PhysicsWorld::~PhysicsWorld(void)
 bool PhysicsWorld::init(void)
 {
     m_space = cpSpaceNew();
-    cpSpaceSetGravity(m_space, m_gravity);
+    cpSpaceSetGravity(m_space, cpvzero);
     return true;
+}
+
+PhysicsDebugNode *PhysicsWorld::createDebugNode(void)
+{
+    return PhysicsDebugNode::create(m_space);
 }
 
 void PhysicsWorld::getGravity(float *gravityX, float *gravityY)
 {
-    *gravityX = m_gravity.x;
-    *gravityY = m_gravity.y;
+    const cpVect gravity = cpSpaceGetGravity(m_space);
+    *gravityX = gravity.x;
+    *gravityY = gravity.y;
 }
 
 void PhysicsWorld::setGravity(float gravityX, float gravityY)
 {
-    m_gravity = cpv(gravityX, gravityY);
-    cpSpaceSetGravity(m_space, m_gravity);
+    cpSpaceSetGravity(m_space, cpv(gravityX, gravityY));
 }
 
-int PhysicsWorld::getDrawMode(void)
+float PhysicsWorld::calcMomentForCircle(float mass, float innerRadius, float outerRadius, float offsetX, float offsetY)
 {
-    return m_drawMode;
-}
-
-void PhysicsWorld::setDrawMode(int drawMode)
-{
-    m_drawMode = drawMode;
+    return cpMomentForCircle(mass, innerRadius, outerRadius, cpv(offsetX, offsetY));
 }
 
 PhysicsBody *PhysicsWorld::bindNodeToDefaultStaticBody(CCNode *node)
@@ -77,10 +76,10 @@ PhysicsBody *PhysicsWorld::bindNodeToNewStaticBody(CCNode *node)
     return body;
 }
 
-PhysicsBody *PhysicsWorld::bindNodeToNewBody(CCNode *node, float mass, float inertia /* = 0 */)
+PhysicsBody *PhysicsWorld::bindNodeToNewBody(CCNode *node, float mass, float moment)
 {
     CCAssert(m_bodies.find(node) == m_bodies.end(), "PhysicsWorld::bindNodeToNewBody() - Node already in world");
-    PhysicsBody *body = PhysicsBody::create(this, mass, inertia);
+    PhysicsBody *body = PhysicsBody::create(this, mass, moment);
     node->retain();
     body->retain();
     m_bodies[node] = body;
@@ -106,7 +105,7 @@ void PhysicsWorld::unbindAllNodes(void)
     m_bodies.clear();
 }
 
-void PhysicsWorld::start(bool allowSleep)
+void PhysicsWorld::start(void)
 {
     scheduleUpdate();
 }
@@ -124,9 +123,14 @@ void PhysicsWorld::update(float dt)
         const cpVect pos = cpBodyGetPos(body);
         
         CCNode *node = it->first;
-        node->setRotation(cpBodyGetAngle(body));
+        node->setRotation(-CC_RADIANS_TO_DEGREES(cpBodyGetAngle(body)));
         node->setPosition(pos.x, pos.y);
     }
     
     cpSpaceStep(m_space, dt);
+}
+
+void PhysicsWorld::onExit(void)
+{
+    stop();
 }

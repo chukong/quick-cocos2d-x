@@ -1,6 +1,7 @@
 
 #include "PhysicsBody.h"
 #include "PhysicsWorld.h"
+#include "PhysicsShape.h"
 
 PhysicsBody *PhysicsBody::defaultStaticBody(PhysicsWorld *world)
 {
@@ -18,10 +19,10 @@ PhysicsBody *PhysicsBody::createStaticBody(PhysicsWorld *world)
     return body;
 }
 
-PhysicsBody *PhysicsBody::create(PhysicsWorld *world, float mass, float inertia)
+PhysicsBody *PhysicsBody::create(PhysicsWorld *world, float mass, float moment)
 {
     PhysicsBody *body = new PhysicsBody(world);
-    body->initWithBody(mass, inertia);
+    body->initWithBody(mass, moment);
     body->autorelease();
     return body;
 }
@@ -29,9 +30,12 @@ PhysicsBody *PhysicsBody::create(PhysicsWorld *world, float mass, float inertia)
 PhysicsBody::PhysicsBody(PhysicsWorld *world)
 : m_world(world)
 , m_body(NULL)
+, m_shapes(NULL)
 {
     m_world->retain();
     m_space = m_world->getSpace();
+    m_shapes = CCArray::create();
+    m_shapes->retain();
 }
 
 PhysicsBody::~PhysicsBody(void)
@@ -43,6 +47,7 @@ PhysicsBody::~PhysicsBody(void)
         cpBodyFree(m_body);
     }
     m_world->release();
+    m_shapes->release();
 }
 
 bool PhysicsBody::initWithDefaultStaticBody(void)
@@ -54,13 +59,12 @@ bool PhysicsBody::initWithDefaultStaticBody(void)
 bool PhysicsBody::initWithStaticBody(void)
 {
     m_body = cpBodyNewStatic();
-    cpSpaceAddBody(m_space, m_body);
     return true;
 }
 
-bool PhysicsBody::initWithBody(float mass, float inertia)
+bool PhysicsBody::initWithBody(float mass, float moment)
 {
-    m_body = cpBodyNew(mass, inertia);
+    m_body = cpBodyNew(mass, moment);
     cpSpaceAddBody(m_space, m_body);
     return true;
 }
@@ -75,29 +79,54 @@ void PhysicsBody::setInertia(float inertia)
     cpBodySetMoment(m_body, inertia);
 }
 
-int PhysicsBody::addCircleShape(float radius, float offsetX, float offsetY)
+void PhysicsBody::setPosition(float x, float y)
 {
-    cpShape *shape = cpCircleShapeNew(m_body, radius, cpv(offsetX, offsetY));
-    cpSpaceAddShape(m_space, shape);
-    m_shapes.push_back(shape);
-    return m_shapes.size() - 1;
+    cpBodySetPos(m_body, cpv(x, y));
+    cpSpaceReindexShapesForBody(m_space, m_body);
+}
+
+PhysicsShape *PhysicsBody::addSegmentShape(float lowerLeftX, float lowerLeftY, float lowerRightX, float lowerRightY, float thickness)
+{
+    return addShape(cpSegmentShapeNew(m_body, cpv(lowerLeftX, lowerLeftY), cpv(lowerRightX, lowerRightY), thickness));
+}
+
+PhysicsShape *PhysicsBody::addCircleShape(float radius, float offsetX, float offsetY)
+{
+    return addShape(cpCircleShapeNew(m_body, radius, cpv(offsetX, offsetY)));
+}
+
+PhysicsShape *PhysicsBody::addBoxShape(float width, float height)
+{
+    return addShape(cpBoxShapeNew(m_body, width, height));
 }
 
 void PhysicsBody::removeShapeAtIndex(int index)
 {
-    CCAssert(index >= 0 && index < m_shapes.size(), "PhysicsBody::removeShapeAtIndex() - Invalid index");
-    cpShape *shape = m_shapes[index];
-    cpSpaceRemoveShape(m_space, shape);
-    cpShapeFree(shape);
-    m_shapes.erase(m_shapes.begin() + index);
+    CCAssert(index >= 0 && index < m_shapes->count(), "PhysicsBody::removeShapeAtIndex() - Invalid index");
+    PhysicsShape *shapeObject = static_cast<PhysicsShape*>(m_shapes->objectAtIndex(index));
+    cpSpaceRemoveShape(m_space, shapeObject->getShape());
+    m_shapes->removeObjectAtIndex(index);
+}
+
+void PhysicsBody::removeShape(PhysicsShape *shapeObject)
+{
+    removeShapeAtIndex(m_shapes->indexOfObject(shapeObject));
 }
 
 void PhysicsBody::removeAllShape(void)
 {
-    for (PhysicsShapeVectorIterator it = m_shapes.begin(); it != m_shapes.end(); ++it)
+    for (int index = m_shapes->count(); index > 0; --index)
     {
-        cpSpaceRemoveShape(m_space, *it);
-        cpShapeFree(*it);
+        PhysicsShape *shapeObject = static_cast<PhysicsShape*>(m_shapes->objectAtIndex(index));
+        cpSpaceRemoveShape(m_space, shapeObject->getShape());
     }
-    m_shapes.clear();
+    m_shapes->removeAllObjects();
+}
+
+PhysicsShape *PhysicsBody::addShape(cpShape *shape)
+{
+    cpSpaceAddShape(m_space, shape);
+    PhysicsShape *shapeObject = PhysicsShape::create(shape);
+    m_shapes->addObject(shapeObject);
+    return shapeObject;
 }

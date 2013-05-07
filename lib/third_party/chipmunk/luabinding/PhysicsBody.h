@@ -2,7 +2,6 @@
 #ifndef __PHYSICS_BODY_H_
 #define __PHYSICS_BODY_H_
 
-#include <vector>
 #include "cocos2d.h"
 #include "chipmunk.h"
 
@@ -10,16 +9,14 @@ using namespace std;
 using namespace cocos2d;
 
 class PhysicsWorld;
-
-typedef vector<cpShape*> PhysicsShapeVector;
-typedef PhysicsShapeVector::iterator PhysicsShapeVectorIterator;
+class PhysicsShape;
 
 class PhysicsBody : public CCObject
 {
 public:
     static PhysicsBody *defaultStaticBody(PhysicsWorld *world);
     static PhysicsBody *createStaticBody(PhysicsWorld *world);
-    static PhysicsBody *create(PhysicsWorld *world, float mass, float inertia);
+    static PhysicsBody *create(PhysicsWorld *world, float mass, float moment);
     virtual ~PhysicsBody(void);
     
     cpBody *getBody(void) {
@@ -28,22 +25,28 @@ public:
     
     void setMass(float mass);
     void setInertia(float inertia);
+    void setPosition(float x, float y);
     
-    int addCircleShape(float radius, float offsetX, float offsetY);
+    PhysicsShape *addSegmentShape(float lowerLeftX, float lowerLeftY, float lowerRightX, float lowerRightY, float thickness);
+    PhysicsShape *addCircleShape(float radius, float offsetX, float offsetY);
+    PhysicsShape *addBoxShape(float width, float height);
     
     void removeShapeAtIndex(int index);
+    void removeShape(PhysicsShape *shapeObject);
     void removeAllShape(void);
     
 private:
     PhysicsBody(PhysicsWorld *world);
     bool initWithDefaultStaticBody(void);
     bool initWithStaticBody(void);
-    bool initWithBody(float mass, float inertia);
+    bool initWithBody(float mass, float moment);
     
     PhysicsWorld *m_world;
     cpSpace *m_space;
     cpBody *m_body;
-    PhysicsShapeVector m_shapes;
+    CCArray *m_shapes;
+    
+    PhysicsShape *addShape(cpShape *shape);
 };
 
 #endif // __PHYSICS_BODY_H_

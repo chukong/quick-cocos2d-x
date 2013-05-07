@@ -13,6 +13,9 @@
 // cocos2dx_extra luabinding
 #include "luabinding/cocos2dx_extra_luabinding.h"
 
+// physics
+#include "PhysicsWorld_luabinding.h"
+
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -52,6 +55,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_cocos2dx_extensions_luabinding(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
+    
+    // physics
+    luaopen_PhysicsWorld_luabinding(L);
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");

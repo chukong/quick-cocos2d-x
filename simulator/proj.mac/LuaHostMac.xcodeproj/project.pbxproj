@@ -409,6 +409,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
 				);
 				INFOPLIST_FILE = "LuaHostMac/LuaHostMac-Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = binary;
@@ -458,6 +460,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
 				);
 				INFOPLIST_FILE = "LuaHostMac/LuaHostMac-Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = binary;
