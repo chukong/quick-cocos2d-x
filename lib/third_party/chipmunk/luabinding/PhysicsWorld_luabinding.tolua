@@ -1,0 +1,42 @@
+
+$#include "PhysicsBody.h"
+$#include "PhysicsWorld.h"
+
+#define PHYSICS_WORLD_DRAW_MODE_NORMAL  0
+#define PHYSICS_WORLD_DRAW_MODE_HYBRID  1
+#define PHYSICS_WORLD_DRAW_MODE_DEBUG   2
+
+class PhysicsWorld : public CCNode
+{
+    static PhysicsWorld *create(void);
+
+    void getGravity(float *gravityX, float *gravityY);
+    void setGravity(float gravityX, float gravityY);
+
+    int getDrawMode(void);
+    void setDrawMode(int drawMode);
+
+    PhysicsBody *bindNodeToDefaultStaticBody(CCNode *node);
+    PhysicsBody *bindNodeToNewStaticBody(CCNode *node);
+    PhysicsBody *bindNodeToNewBody(CCNode *node, float mass, float inertia);
+    void unbindNode(CCNode *node);
+    void unbindAllNodes(void);
+
+    void start(bool allowSleep);
+    void stop(void);
+};
+
+class PhysicsBody : public CCObject
+{
+    static PhysicsBody *defaultStaticBody(PhysicsWorld *world);
+    static PhysicsBody *createStaticBody(PhysicsWorld *world);
+    static PhysicsBody *create(PhysicsWorld *world, float mass, float inertia);
+
+    void setMass(float mass);
+    void setInertia(float inertia);
+
+    int addCircleShape(float radius, float offsetX, float offsetY);
+
+    void removeShapeAtIndex(int index);
+    void removeAllShape(void);
+};
