@@ -18,8 +18,8 @@ CODE LESS, PLAY MORE !
 
 #### DOWNLOADS
 
--   **LATEST**: [quick-cocos2d-x-20130507.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130507.zip)
--   **CHINA DOWNLOAD LINK**: [quick-cocos2d-x-20130507.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130507.zip)
+-   **LATEST**: [quick-cocos2d-x-20130508.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130508.zip)
+-   **CHINA DOWNLOAD LINK**: [quick-cocos2d-x-20130508.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130508.zip)
 
 
 #### RUN SIMULATOR
