@@ -16,8 +16,8 @@ CODE LESS, PLAY MORE !
 
 ### 下载
 
--   **最新版本**: [quick-cocos2d-x-20130506.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130506.zip)
--   **中国大陆下载地址**: [quick-cocos2d-x-20130506.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130506.zip)
+-   **最新版本**: [quick-cocos2d-x-20130507.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130507.zip)
+-   **中国大陆下载地址**: [quick-cocos2d-x-20130507.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130507.zip)
 
 
 ### 运行模拟器
