@@ -9,10 +9,10 @@
 *.so
 *.o
 
-bin/Debug.win32/
-out/
+simulator/proj.win32/LuaHostWin32/Debug
 project.xcworkspace/
 xcuserdata/
+lib/proj.win32/Debug
 lib/luajit2/LuaJIT-2.0.0/src/*.lib
 lib/luajit2/LuaJIT-2.0.0/src/*.dll
 lib/luajit2/LuaJIT-2.0.0/src/*.exp
@@ -30,19 +30,25 @@ lib/luajit2/LuaJIT-2.0.0/src/lj_recdef.h
 lib/luajit2/LuaJIT-2.0.0/src/lj_vm.s
 lib/luajit2/LuaJIT-2.0.0/src/luajit
 
-samples/CoinFlip/proj.android/bin/
-samples/CoinFlip/proj.android/gen/
-samples/CoinFlip/proj.android/lint.xml
-samples/CoinFlip/proj.android/obj/
-samples/CoinFlip/proj.android/assets/
-samples/CoinFlip/proj.android/libs/
+sample/CoinFlip/proj.android/bin/
+sample/CoinFlip/proj.android/gen/
+sample/CoinFlip/proj.android/lint.xml
+sample/CoinFlip/proj.android/obj/
+sample/CoinFlip/proj.android/assets/
+sample/CoinFlip/proj.android/libs/
 
-samples/Benchmark/proj.android/bin/
-samples/Benchmark/proj.android/gen/
-samples/Benchmark/proj.android/lint.xml
-samples/Benchmark/proj.android/obj/
-samples/Benchmark/proj.android/assets/
-samples/Benchmark/proj.android/libs/
+sample/Benchmark/proj.android/bin/
+sample/Benchmark/proj.android/gen/
+sample/Benchmark/proj.android/lint.xml
+sample/Benchmark/proj.android/obj/
+sample/Benchmark/proj.android/assets/
+sample/Benchmark/proj.android/libs/
 
-lib/proj.win32/Debug
-simulator/proj.win32/LuaHostWin32/Debug
+sample/Physics/proj.android/bin/
+sample/Physics/proj.android/gen/
+sample/Physics/proj.android/lint.xml
+sample/Physics/proj.android/obj/
+sample/Physics/proj.android/assets/
+sample/Physics/proj.android/libs/
+
+
