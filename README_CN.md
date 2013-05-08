@@ -16,8 +16,8 @@ CODE LESS, PLAY MORE !
 
 ### 下载
 
--   **最新版本**: [quick-cocos2d-x-20130506.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130506.zip)
--   **中国大陆下载地址**: [quick-cocos2d-x-20130506.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130506.zip)
+-   **最新版本**: [quick-cocos2d-x-20130508.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130508.zip)
+-   **中国大陆下载地址**: [quick-cocos2d-x-20130508.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130508.zip)
 
 
 ### 运行模拟器
@@ -25,7 +25,7 @@ CODE LESS, PLAY MORE !
 打开 quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, 或者 quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
 
 1.  选择菜单: File -> Open Project
-2.  设置 Project Director 为 **quick-cocos2d-x/samples/CoinFlip**
+2.  设置 Project Director 为 **quick-cocos2d-x/sample/CoinFlip**
 3.  设置 Script File 为 **$WORKDIR/scripts/main.lua**
 
     ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)

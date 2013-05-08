@@ -197,6 +197,7 @@
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\CCCrypto.cpp" />
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\md5\md5.c" />
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\sha1\sha1.cpp" />
+    <ClCompile Include="..\cocos2dx_extra\extra\crypto\xxtea\xxtea.c" />
     <ClCompile Include="..\cocos2dx_extra\extra\luabinding\cocos2dx_extra_luabinding.cpp" />
     <ClCompile Include="..\cocos2dx_extra\extra\network\CCHTTPRequest.cpp" />
     <ClCompile Include="..\cocos2dx_extra\extra\network\CCNetwork.cpp" />
@@ -514,6 +515,7 @@
     <ClInclude Include="..\cocos2dx_extra\extra\crypto\CCCrypto.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\crypto\md5\md5.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\crypto\sha1\sha1.h" />
+    <ClInclude Include="..\cocos2dx_extra\extra\crypto\xxtea\xxtea.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\luabinding\cocos2dx_extra_luabinding.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\native\CCAlertViewDelegate.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\native\CCNative.h" />
