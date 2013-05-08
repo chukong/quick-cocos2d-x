@@ -31,14 +31,14 @@
 // Override to allow orientations other than the default portrait orientation.
 // This method is deprecated on ios6
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIs__SCREEN_ORIENTATION__(interfaceOrientation);
+    return UIInterfaceOrientationIs__SCREEN_ORIENTATION_UF__(interfaceOrientation);
 }
 
 // For ios6.0 and higher, use supportedInterfaceOrientations & shouldAutorotate instead
 - (NSUInteger) supportedInterfaceOrientations
 {
 #ifdef __IPHONE_6_0
-    return UIInterfaceOrientationMask__SCREEN_ORIENTATION__;
+    return UIInterfaceOrientationMask__SCREEN_ORIENTATION_UF__;
 #endif
 }
 

@@ -8,9 +8,10 @@ class ProjectCreator
     private $packageName;
     private $packageFullName;
     private $packageLastName;
-    private $projectName;
     private $projectPath;
     private $orientation;
+
+    private $vars = array();
 
     private $ready = false;
 
@@ -40,23 +41,6 @@ class ProjectCreator
 
         $this->templatePath = $templatePath;
 
-        // check projectName
-        $projectName = preg_replace('/[^a-z0-9_]/i', '', $config['projectName']);
-        if (empty($projectName))
-        {
-            printf("ERROR: invalid project name \"%s\"\n", $projectName);
-            return;
-        }
-
-        $this->projectName = $projectName;
-        $this->projectPath = rtrim(getcwd(), '/\\') . DS . $projectName;
-
-        if (!$force && (is_dir($this->projectPath) || file_exists($this->projectPath)))
-        {
-            printf("ERROR: project path \"%s\" exists\n", $this->projectPath);
-            return;
-        }
-
         // check packageName
         $packageName = str_replace('-', '_', strtolower($config['packageName']));
         $parts = explode('.', $packageName);
@@ -73,14 +57,20 @@ class ProjectCreator
         }
 
         $lastname = $packageName[count($packageName) - 1];
-        if ($lastname == strtolower($this->projectName))
-        {
-            array_pop($packageName);
-        }
+        array_pop($packageName);
         $packageName = implode('.', $packageName);
         $this->packageName = $packageName;
-        $this->packageLastName = strtolower($this->projectName);
-        $this->packageFullName = $packageName . '.' . $this->packageLastName;
+        $this->packageLastName = $lastname;
+        $this->packageFullName = $packageName . '.' . $lastname;
+
+        // check projectName
+        $this->projectPath = rtrim(getcwd(), '/\\') . DS . $lastname . DS;
+
+        if (!$force && (is_dir($this->projectPath) || file_exists($this->projectPath)))
+        {
+            printf("ERROR: project path \"%s\" exists\n", $this->projectPath);
+            return;
+        }
 
         // check more options
         $orientation = strtolower($config['orientation']);
@@ -102,9 +92,7 @@ class ProjectCreator
 
 template            : {$this->templatePath}
 
-project name        : {$this->projectName}
-package name        : {$this->packageName}
-package full name   : {$this->packageFullName}
+package name        : {$this->packageFullName}
 project path        : {$this->projectPath}
 screen orientation  : {$this->orientation}
 
@@ -119,20 +107,91 @@ EOT;
             return;
         }
 
-        // copy files
-        $files = $this->getFiles($this->templatePath);
-        foreach ($files as $filename)
+        // prepare contents
+        $this->vars['__TEMPLATE_PATH__'] = $this->templatePath;
+        $this->vars['__PROJECT_PACKAGE_NAME__'] = $this->packageName;
+        $this->vars['__PROJECT_PACKAGE_NAME_L__'] = strtolower($this->packageName);
+        $this->vars['__PROJECT_PACKAGE_FULL_NAME__'] = $this->packageFullName;
+        $this->vars['__PROJECT_PACKAGE_FULL_NAME_L__'] = strtolower($this->packageFullName);
+        $this->vars['__PROJECT_PACKAGE_LAST_NAME__'] = $this->packageLastName;
+        $this->vars['__PROJECT_PACKAGE_LAST_NAME_L__'] = strtolower($this->packageLastName);
+        $this->vars['__PROJECT_PACKAGE_LAST_NAME_UF__'] = ucfirst(strtolower($this->packageLastName));
+        $this->vars['__PROJECT_PATH__'] = $this->projectPath;
+        $this->vars['__SCREEN_ORIENTATION__'] = $this->orientation;
+        $this->vars['__SCREEN_ORIENTATION_L__'] = strtolower($this->orientation);
+        $this->vars['__SCREEN_ORIENTATION_UF__'] = ucfirst(strtolower($this->orientation));
+
+        if ($this->orientation == 'landscape')
         {
-            print(substr($filename, strlen($this->templatePath)) . "\n");
+            $this->vars['__SCREEN_ORIENTATION_IOS__'] = "<string>UIInterfaceOrientationLandscapeRight</string>\n<string>UIInterfaceOrientationLandscapeLeft</string>";
+        }
+        else
+        {
+            $this->vars['__SCREEN_ORIENTATION_IOS__'] = '<string>UIInterfaceOrientationPortrait</string>';
         }
 
-
+        // copy files
+        $paths = $this->getPaths($this->templatePath);
+        foreach ($paths as $sourcePath)
+        {
+            if (!$this->copyFile($sourcePath)) return false;
+        }
 
         return true;
     }
 
+    private function copyFile($sourcePath)
+    {
+        // check filename
+        $sourceFilename = substr($sourcePath, strlen($this->templatePath));
+        $destinationFilename = $sourceFilename;
 
-    private function getFiles($dir)
+        foreach ($this->vars as $key => $value)
+        {
+            $value = str_replace('.', DS, $value);
+            $destinationFilename = str_replace($key, $value, $destinationFilename);
+        }
+
+        printf("create file \"%s\" ... ", $destinationFilename);
+        $dirname = pathinfo($destinationFilename, PATHINFO_DIRNAME);
+        $destinationDir = $this->projectPath . $dirname;
+
+        if (!is_dir($destinationDir))
+        {
+            mkdir($destinationDir, 0777, true);
+        }
+        if (!is_dir($destinationDir))
+        {
+            printf("ERROR: mkdir failure\n");
+            return false;
+        }
+
+        $destinationPath = $this->projectPath . $destinationFilename;
+        $contents = file_get_contents($sourcePath);
+        if ($contents == false)
+        {
+            printf("ERROR: file_get_contents failure\n");
+            return false;
+        }
+        $stat = stat($sourcePath);
+
+        foreach ($this->vars as $key => $value)
+        {
+            $contents = str_replace($key, $value, $contents);
+        }
+
+        if (file_put_contents($destinationPath, $contents) == false)
+        {
+            printf("ERROR: file_put_contents failure\n");
+            return false;
+        }
+        chmod($destinationPath, $stat['mode']);
+
+        printf("OK\n");
+        return true;
+    }
+
+    private function getPaths($dir)
     {
         $files = array();
         $dir = rtrim($dir, "/\\") . DS;
@@ -146,7 +205,7 @@ EOT;
             $path = $dir . $file;
             if (is_dir($path))
             {
-                $files = array_merge($files, $this->getFiles($path));
+                $files = array_merge($files, $this->getPaths($path));
             }
             elseif (is_file($path))
             {
@@ -166,13 +225,13 @@ function help()
 {
     echo <<<EOT
 
-usage: php create_project.php [options] -t template_path -p package_name project_name
+usage: php create_project.php [options] -t template_path package_name
 
 options:
     -f force copy files to project dir
     -o screen orientation, eg: -o landscape . default is portrait
     -t template path, eg: -t /quick-cocos2d-x/template/PROJECT_TEMPLATE_01
-    -p package name, eg: -p com.quickx.games
+    -package name, eg: -p com.quickx.games.physics
 
 
 EOT;
@@ -192,17 +251,11 @@ $config = array(
     'force'         => false,
     'templatePath'  => '',
     'packageName'   => '',
-    'projectName'   => '',
 );
 
 do
 {
-    if ($argv[0] == '-p')
-    {
-        $config['packageName'] = $argv[1];
-        array_shift($argv);
-    }
-    else if ($argv[0] == '-t')
+    if ($argv[0] == '-t')
     {
         $config['templatePath'] = $argv[1];
         array_shift($argv);
@@ -216,9 +269,9 @@ do
     {
         $config['force'] = true;
     }
-    else if ($config['projectName'] == '')
+    else if ($config['packageName'] == '')
     {
-        $config['projectName'] = $argv[0];
+        $config['packageName'] = $argv[0];
     }
 
     array_shift($argv);

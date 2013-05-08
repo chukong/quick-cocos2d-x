@@ -13,7 +13,7 @@
 		F44C958115F49004004D4151 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44C957F15F49004004D4151 /* InfoPlist.strings */; };
 		F44C958315F49004004D4151 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44C958215F49004004D4151 /* main.m */; };
 		F44C958D15F49004004D4151 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F44C958B15F49004004D4151 /* MainMenu.xib */; };
-		F44FEA8516EF9ED800CE7B56 /* LuaHostMac.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F44C957215F49004004D4151 /* LuaHostMac.app */; };
+		F44FEA8516EF9ED800CE7B56 /* __PROJECT_PACKAGE_LAST_NAME_L__.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = F44C957215F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__.app */; };
 		F468700D16E4908300F6CF2F /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F468700B16E4908300F6CF2F /* SimulatorConfig.cpp */; };
 		F48F590A16D2225A000651BE /* liblibquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590916D2225A000651BE /* liblibquickcocos2dx.a */; };
 		F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15816B7A35700A12606 /* AudioToolbox.framework */; };
@@ -39,35 +39,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		F44FEA8316EF9EBA00CE7B56 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = $QUICK_COCOS2DX_ROOT/simulator/bin/mac/;
-			dstSubfolderSpec = 0;
-			files = (
-				F44FEA8516EF9ED800CE7B56 /* LuaHostMac.app in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		F423AE6116CB75760007E734 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
-		F44C957215F49004004D4151 /* LuaHostMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuaHostMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44C957215F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = __PROJECT_PACKAGE_LAST_NAME_L__.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44C957915F49004004D4151 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F44C957A15F49004004D4151 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F44C957B15F49004004D4151 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F44C957E15F49004004D4151 /* LuaHostMac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LuaHostMac-Info.plist"; sourceTree = "<group>"; };
+		F44C957E15F49004004D4151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
 		F44C958015F49004004D4151 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F44C958215F49004004D4151 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LuaHostMac-Prefix.pch"; sourceTree = "<group>"; };
+		F44C958415F49004004D4151 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Prefix.pch"; sourceTree = "<group>"; };
 		F44C958C15F49004004D4151 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F45FF34D16C7DDF100275222 /* libquickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libquickcocos2dx.xcodeproj; path = lib/proj.mac/libquickcocos2dx.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F468700B16E4908300F6CF2F /* SimulatorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorConfig.cpp; sourceTree = "<group>"; };
 		F468700C16E4908300F6CF2F /* SimulatorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorConfig.h; sourceTree = "<group>"; };
-		F48F590916D2225A000651BE /* liblibquickcocos2dx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibquickcocos2dx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/LuaHostMac-ekidabqvqwpjrgdbftivdmqgwudr/Build/Products/Debug/liblibquickcocos2dx.a"; sourceTree = "<group>"; };
+		F48F590916D2225A000651BE /* liblibquickcocos2dx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblibquickcocos2dx.a; path = "../../../../../Library/Developer/Xcode/DerivedData/ekidabqvqwpjrgdbftivdmqgwudr/Build/Products/Debug/liblibquickcocos2dx.a"; sourceTree = "<group>"; };
 		F4A5C15816B7A35700A12606 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		F4A5C15916B7A35700A12606 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = "<absolute>"; };
 		F4A5C15A16B7A35700A12606 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -75,7 +62,6 @@
 		F4A5C16C16B7A3EC00A12606 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libxml2.dylib; sourceTree = "<absolute>"; };
 		F4A5C16D16B7A3EC00A12606 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		F4BA6C2E15F4909200CE7A10 /* HostVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostVersion.h; sourceTree = "<group>"; };
 		F4BA6C2F15F4911600CE7A10 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		F4BA6C3015F4911600CE7A10 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = "<group>"; };
 		F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -120,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				F45FF34D16C7DDF100275222 /* libquickcocos2dx.xcodeproj */,
-				F44C957C15F49004004D4151 /* LuaHostMac */,
+				F44C957C15F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__ */,
 				F4F08A471642B72F009632BB /* Resources */,
 				F44C957515F49004004D4151 /* Frameworks */,
 				F44C957315F49004004D4151 /* Products */,
@@ -130,7 +116,7 @@
 		F44C957315F49004004D4151 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F44C957215F49004004D4151 /* LuaHostMac.app */,
+				F44C957215F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,21 +143,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F44C957C15F49004004D4151 /* LuaHostMac */ = {
+		F44C957C15F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__ */ = {
 			isa = PBXGroup;
 			children = (
 				F4F3996A16D5CFDC00B7E3AF /* sources */,
 				F4BA6C3215F4912B00CE7A10 /* mac */,
 			);
-			path = LuaHostMac;
+			path = __PROJECT_PACKAGE_LAST_NAME_L__;
 			sourceTree = "<group>";
 		};
 		F44C957D15F49004004D4151 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F44C957E15F49004004D4151 /* LuaHostMac-Info.plist */,
+				F44C957E15F49004004D4151 /* Info.plist */,
 				F44C957F15F49004004D4151 /* InfoPlist.strings */,
-				F44C958415F49004004D4151 /* LuaHostMac-Prefix.pch */,
+				F44C958415F49004004D4151 /* Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -182,7 +168,6 @@
 				F423AE6116CB75760007E734 /* Icon.icns */,
 				F4BA6C2F15F4911600CE7A10 /* AppController.h */,
 				F4BA6C3015F4911600CE7A10 /* AppController.mm */,
-				F4BA6C2E15F4909200CE7A10 /* HostVersion.h */,
 				F44C958215F49004004D4151 /* main.m */,
 				F44C958B15F49004004D4151 /* MainMenu.xib */,
 				F44C957D15F49004004D4151 /* Supporting Files */,
@@ -195,7 +180,7 @@
 			children = (
 			);
 			name = Resources;
-			path = LuaHostMac;
+			path = __PROJECT_PACKAGE_LAST_NAME_L__;
 			sourceTree = "<group>";
 		};
 		F4F3996A16D5CFDC00B7E3AF /* sources */ = {
@@ -213,9 +198,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F44C957115F49004004D4151 /* LuaHostMac */ = {
+		F44C957115F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__ */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "LuaHostMac" */;
+			buildConfigurationList = F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "__PROJECT_PACKAGE_LAST_NAME_L__" */;
 			buildPhases = (
 				F44C956E15F49004004D4151 /* Sources */,
 				F44C956F15F49004004D4151 /* Frameworks */,
@@ -226,9 +211,9 @@
 			);
 			dependencies = (
 			);
-			name = LuaHostMac;
-			productName = LuaHostMac;
-			productReference = F44C957215F49004004D4151 /* LuaHostMac.app */;
+			name = __PROJECT_PACKAGE_LAST_NAME_L__;
+			productName = __PROJECT_PACKAGE_LAST_NAME_L__;
+			productReference = F44C957215F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -240,7 +225,7 @@
 				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = qeeplay.com;
 			};
-			buildConfigurationList = F44C956C15F49004004D4151 /* Build configuration list for PBXProject "LuaHostMac" */;
+			buildConfigurationList = F44C956C15F49004004D4151 /* Build configuration list for PBXProject "__PROJECT_PACKAGE_LAST_NAME_L__" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -258,7 +243,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				F44C957115F49004004D4151 /* LuaHostMac */,
+				F44C957115F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__ */,
 			);
 		};
 /* End PBXProject section */
@@ -378,7 +363,7 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LuaHostMac/LuaHostMac-Prefix.pch";
+				GCC_PREFIX_HEADER = "__PROJECT_PACKAGE_LAST_NAME_L__/Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					CC_TARGET_OS_MAC,
 					"DEBUG=1",
@@ -410,7 +395,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
 				);
-				INFOPLIST_FILE = "LuaHostMac/LuaHostMac-Info.plist";
+				INFOPLIST_FILE = "__PROJECT_PACKAGE_LAST_NAME_L__/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = binary;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -429,7 +414,7 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LuaHostMac/LuaHostMac-Prefix.pch";
+				GCC_PREFIX_HEADER = "__PROJECT_PACKAGE_LAST_NAME_L__/Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					CC_TARGET_OS_MAC,
 					USE_FILE32API,
@@ -459,7 +444,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
 				);
-				INFOPLIST_FILE = "LuaHostMac/LuaHostMac-Info.plist";
+				INFOPLIST_FILE = "__PROJECT_PACKAGE_LAST_NAME_L__/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = binary;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -472,7 +457,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F44C956C15F49004004D4151 /* Build configuration list for PBXProject "LuaHostMac" */ = {
+		F44C956C15F49004004D4151 /* Build configuration list for PBXProject "__PROJECT_PACKAGE_LAST_NAME_L__" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F44C958E15F49004004D4151 /* Debug */,
@@ -481,7 +466,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "LuaHostMac" */ = {
+		F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "__PROJECT_PACKAGE_LAST_NAME_L__" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F44C959115F49004004D4151 /* Debug */,

@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2010 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -44,9 +44,9 @@ static AppDelegate* s_sharedApplication = NULL;
     waitForRestart = NO;
     isAlwaysOnTop = NO;
     isMaximized = NO;
-    
+
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
-    
+
     int width = 960;
     int height = 640;
     NSString *nssize = [args stringForKey:@"size"];
@@ -68,7 +68,7 @@ static AppDelegate* s_sharedApplication = NULL;
     }
     frameSize.width = width;
     frameSize.height = height;
-    
+
     NSString *nsstartupScriptFilename = [args stringForKey:@"file"];
     if (nsstartupScriptFilename)
     {
@@ -78,13 +78,13 @@ static AppDelegate* s_sharedApplication = NULL;
     {
         startupScriptFilename = string("main.lua");
     }
-    
+
     NSString *nsworkingDir = [args stringForKey:@"workdir"];
     if (nsworkingDir)
     {
         workingDir = string([nsworkingDir cStringUsingEncoding:NSUTF8StringEncoding]);
     }
-    
+
     [self createWindowAndGLView];
     [self startup];
 }
@@ -119,16 +119,16 @@ static AppDelegate* s_sharedApplication = NULL;
     {
         left = window.frame.origin.x;
         bottom = window.frame.origin.y + ([glView getHeight] - frameSize.height);
-        
+
         [window setContentView:nil];
         [glView release];
         glView = nil;
-        
+
         [window setReleasedWhenClosed:YES];
         [window close];
         window = nil;
     }
-    
+
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
     // smaller and therefore ipad graphics are not loaded
@@ -138,20 +138,20 @@ static AppDelegate* s_sharedApplication = NULL;
                                          styleMask:mask
                                            backing:NSBackingStoreBuffered
                                              defer:YES];
-    
+
     window.delegate = self;
-    
+
     // allocate our GL view
     // (isn't there already a shared EAGLView?)
     glView = [[EAGLView alloc] initWithFrame:rect];
-    
+
     // set window parameters
     [window becomeFirstResponder];
     [window setContentView:glView];
-    [window setTitle:@"LuaHostMac"];
+    [window setTitle:@"__PROJECT_PACKAGE_LAST_NAME_L__"];
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
-    
+
     ccDrawInit();
 }
 
@@ -163,14 +163,14 @@ static AppDelegate* s_sharedApplication = NULL;
         CCScriptEngineManager::purgeSharedManager();
     }
     CocosDenshion::SimpleAudioEngine::end();
-    
+
     CCApplication* app = CCApplication::sharedApplication();
     app->setStartupScriptFilename(startupScriptFilename);
     if (workingDir.length() > 0)
     {
         CCFileUtils::sharedFileUtils()->setSearchRootPath(workingDir.c_str());
     }
-    
+
     app->run();
 }
 
@@ -190,7 +190,7 @@ static AppDelegate* s_sharedApplication = NULL;
 {
     if (waitForRestart) return;
     waitForRestart = YES;
-    
+
     CCDirector::sharedDirector()->end();
     [NSTimer scheduledTimerWithTimeInterval:0.1
                                      target:self

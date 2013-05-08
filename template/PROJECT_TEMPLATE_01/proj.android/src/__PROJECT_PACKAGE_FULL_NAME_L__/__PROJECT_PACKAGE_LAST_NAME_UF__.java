@@ -27,7 +27,7 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 
 import android.os.Bundle;
 
-public class __PROJECT_PACKAGE_LAST_NAME_L__ extends Cocos2dxActivity {
+public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
