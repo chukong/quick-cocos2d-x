@@ -14,7 +14,7 @@
 using namespace std;
 using namespace cocos2d;
 
-class LuaHostWin32
+class app
 {
 public:
     static int createAndRun(void);
@@ -28,11 +28,11 @@ public:
     }
 
 private:
-    static LuaHostWin32 *s_sharedInstance;
-    static LuaHostWin32 *sharedInstance(void);
+    static app *s_sharedInstance;
+    static app *sharedInstance(void);
     static void purgeSharedInstance(void);
 
-    LuaHostWin32(void);
+    app(void);
 
     AppDelegate *m_app;
     ProjectConfig m_project;

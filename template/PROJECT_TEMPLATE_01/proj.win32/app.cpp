@@ -3,7 +3,7 @@
 #pragma comment(linker, "\"/manifestdependency:type='Win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='X86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 #include "stdafx.h"
-#include "LuaHostWin32.h"
+#include "app.h"
 #include <Commdlg.h>
 #include <Shlobj.h>
 #include <winnls.h>
@@ -26,29 +26,29 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-    return LuaHostWin32::createAndRun();
+    return app::createAndRun();
 }
 
-int LuaHostWin32::createAndRun(void)
+int app::createAndRun(void)
 {
-    LuaHostWin32 *host = LuaHostWin32::sharedInstance();
+    app *host = app::sharedInstance();
     int ret = host->run();
-    LuaHostWin32::purgeSharedInstance();
+    app::purgeSharedInstance();
     return ret;
 }
 
-LuaHostWin32 *LuaHostWin32::s_sharedInstance = NULL;
+app *app::s_sharedInstance = NULL;
 
-LuaHostWin32 *LuaHostWin32::sharedInstance(void)
+app *app::sharedInstance(void)
 {
     if (!s_sharedInstance)
     {
-        s_sharedInstance = new LuaHostWin32();
+        s_sharedInstance = new app();
     }
     return s_sharedInstance;
 }
 
-void LuaHostWin32::purgeSharedInstance(void)
+void app::purgeSharedInstance(void)
 {
     if (s_sharedInstance)
     {
@@ -57,7 +57,7 @@ void LuaHostWin32::purgeSharedInstance(void)
     }
 }
 
-LuaHostWin32::LuaHostWin32(void)
+app::app(void)
 : m_app(NULL)
 , m_hwnd(NULL)
 , m_exit(TRUE)
@@ -68,7 +68,7 @@ LuaHostWin32::LuaHostWin32(void)
     InitCommonControlsEx(&InitCtrls);
 }
 
-int LuaHostWin32::run(void)
+int app::run(void)
 {
     loadProjectConfig();
 
@@ -152,7 +152,7 @@ int LuaHostWin32::run(void)
     return 0;
 }
 
-void LuaHostWin32::loadProjectConfig(void)
+void app::loadProjectConfig(void)
 {
     int index = 1;
     while (index < __argc)
@@ -206,11 +206,11 @@ void LuaHostWin32::loadProjectConfig(void)
     }
 }
 
-void LuaHostWin32::updateWindowTitle(void)
+void app::updateWindowTitle(void)
 {
 }
 
-void LuaHostWin32::relaunch(void)
+void app::relaunch(void)
 {
     RECT rect;
     GetWindowRect(m_hwnd, &rect);
@@ -220,11 +220,11 @@ void LuaHostWin32::relaunch(void)
 }
 
 // menu callback
-void LuaHostWin32::onFileNewProject(void)
+void app::onFileNewProject(void)
 {
 }
 
-void LuaHostWin32::onFileOpenProject(void)
+void app::onFileOpenProject(void)
 {
     if (ProjectConfigDialog::showModal(m_hwnd, &m_project))
     {
@@ -232,7 +232,7 @@ void LuaHostWin32::onFileOpenProject(void)
     }
 }
 
-void LuaHostWin32::onFileCreateProjectShortcut(void)
+void app::onFileCreateProjectShortcut(void)
 {
     WCHAR shortcutPathBuff[MAX_PATH + 1] = {0};
 
@@ -282,7 +282,7 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
         wstring wargs;
         wargs.assign(args.begin(), args.end());
         psl->SetArguments(wargs.c_str());
-        psl->SetDescription(L"LuaHostWin32"); 
+        psl->SetDescription(L"app"); 
  
         // Query IShellLink for the IPersistFile interface, used for saving the 
         // shortcut in persistent storage. 
@@ -303,7 +303,7 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
     }
 }
 
-void LuaHostWin32::onFileProjectConfig(void)
+void app::onFileProjectConfig(void)
 {
     if (ProjectConfigDialog::showModal(m_hwnd, &m_project, "Change Project Config", "Relaunch"))
     {
@@ -311,17 +311,17 @@ void LuaHostWin32::onFileProjectConfig(void)
     }
 }
 
-void LuaHostWin32::onFileRelaunch(void)
+void app::onFileRelaunch(void)
 {
     relaunch();
 }
 
-void LuaHostWin32::onFileExit(void)
+void app::onFileExit(void)
 {
     DestroyWindow(m_hwnd);
 }
 
-void LuaHostWin32::onViewChangeFrameSize(int index)
+void app::onViewChangeFrameSize(int index)
 {
     int w, h;
 
@@ -382,7 +382,7 @@ void LuaHostWin32::onViewChangeFrameSize(int index)
     relaunch();
 }
 
-void LuaHostWin32::onViewChangeDirection(int directionMode)
+void app::onViewChangeDirection(int directionMode)
 {
     BOOL isLandscape = m_project.isLandscapeFrame();
     if ((directionMode == ID_VIEW_PORTRAIT && isLandscape) || (directionMode == ID_VIEW_LANDSCAPE && !isLandscape))
@@ -393,7 +393,7 @@ void LuaHostWin32::onViewChangeDirection(int directionMode)
     }
 }
 
-void LuaHostWin32::onViewChangeZoom(int scaleMode)
+void app::onViewChangeZoom(int scaleMode)
 {
     float scale = 1.0f;
     if (scaleMode == ID_VIEW_ZOOM_OUT)
@@ -407,16 +407,16 @@ void LuaHostWin32::onViewChangeZoom(int scaleMode)
         m_project.getFrameSize().height * scale);
 }
 
-void LuaHostWin32::onHelpAbout(void)
+void app::onHelpAbout(void)
 {
     DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUTBOX), m_hwnd, AboutDialogCallback);
 }
 
 // windows callback
-LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
+LRESULT app::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
 {
     int wmId, wmEvent;
-    LuaHostWin32 *host = LuaHostWin32::sharedInstance();
+    app *host = app::sharedInstance();
     HWND hwnd = host->getWindowHandle();
 
     switch (message)
@@ -499,7 +499,7 @@ LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
     return 0;
 }
 
-INT_PTR CALLBACK LuaHostWin32::AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK app::AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
     switch (message)
@@ -520,7 +520,7 @@ INT_PTR CALLBACK LuaHostWin32::AboutDialogCallback(HWND hDlg, UINT message, WPAR
 
 // helper
 
-const string LuaHostWin32::getCommandLineArg(int index)
+const string app::getCommandLineArg(int index)
 {
     static string empty;
     if (index < 0 || index >= __argc) return empty;

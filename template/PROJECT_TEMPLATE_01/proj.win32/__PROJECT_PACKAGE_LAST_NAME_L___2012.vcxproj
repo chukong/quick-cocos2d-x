@@ -11,17 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\AppDelegate.cpp" />
-    <ClCompile Include="..\..\sources\SimulatorConfig.cpp" />
-    <ClCompile Include="LuaHostWin32.cpp" />
+    <ClCompile Include="..\sources\AppDelegate.cpp" />
+    <ClCompile Include="..\sources\SimulatorConfig.cpp" />
+    <ClCompile Include="app.cpp" />
     <ClCompile Include="ProjectConfigDialog.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\AppDelegate.h" />
-    <ClInclude Include="..\..\sources\SimulatorConfig.h" />
-    <ClInclude Include="HostVersion.h" />
-    <ClInclude Include="LuaHostWin32.h" />
+    <ClInclude Include="..\sources\AppDelegate.h" />
+    <ClInclude Include="..\sources\SimulatorConfig.h" />
+    <ClInclude Include="app.h" />
     <ClInclude Include="ProjectConfigDialog.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -33,15 +32,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="LuaHostWin32.ico" />
+    <Image Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="LuaHostWin32.rc" />
+    <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{71666DE3-D772-41E9-8624-8881686C7AED}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>LuaHostWin32</RootNamespace>
+    <RootNamespace>__PROJECT_PACKAGE_LAST_NAME_L__</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,7 +70,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>LuaHostWin32</TargetName>
+    <TargetName>__PROJECT_PACKAGE_LAST_NAME_L__</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,13 +91,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libquickcocos2dx.lib;opengl32.lib;ws2_32.lib;wsock32.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libxml2.lib;libzlib.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\simulator\proj.win32\LuaHostWin32\$(Configuration);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy /Y /Q "$(OutDir)*.exe" "%QUICK_COCOS2DX_ROOT%\simulator\bin\win32\"
-xcopy /Y /Q "$(OutDir)*.dll" "%QUICK_COCOS2DX_ROOT%\simulator\bin\win32\"
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

@@ -9,10 +9,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\AppDelegate.cpp">
+    <ClCompile Include="..\sources\AppDelegate.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="LuaHostWin32.cpp">
+    <ClCompile Include="app.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
@@ -21,18 +21,15 @@
     <ClCompile Include="ProjectConfigDialog.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\SimulatorConfig.cpp">
+    <ClCompile Include="..\sources\SimulatorConfig.cpp">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\AppDelegate.h">
+    <ClInclude Include="..\sources\AppDelegate.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="HostVersion.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="LuaHostWin32.h">
+    <ClInclude Include="app.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -47,17 +44,17 @@
     <ClInclude Include="ProjectConfigDialog.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\SimulatorConfig.h">
+    <ClInclude Include="..\sources\SimulatorConfig.h">
       <Filter>sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="LuaHostWin32.ico">
+    <Image Include="app.ico">
       <Filter>win32</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="LuaHostWin32.rc">
+    <ResourceCompile Include="app.rc">
       <Filter>win32</Filter>
     </ResourceCompile>
   </ItemGroup>
