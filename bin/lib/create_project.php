@@ -278,7 +278,17 @@ do
 } while (count($argv) > 0);
 
 $creator = new ProjectCreator($config);
-if (!$creator->run())
+if ($creator->run())
+{
+    echo <<<EOT
+
+DONE.
+
+
+EOT;
+
+}
+else
 {
     help();
 }
