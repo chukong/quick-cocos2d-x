@@ -50,5 +50,6 @@ sample/Physics/proj.android/lint.xml
 sample/Physics/proj.android/obj/
 sample/Physics/proj.android/assets/
 sample/Physics/proj.android/libs/
+sample/Physics/proj.win32/Debug/
 
 

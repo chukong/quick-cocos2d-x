@@ -5,3 +5,4 @@ cd "$DIR/../"
 
 cp lib/framework_precompiled/framework_precompiled.zip sample/CoinFlip/res/
 cp lib/framework_precompiled/framework_precompiled.zip sample/Benchmark/res/
+cp lib/framework_precompiled/framework_precompiled.zip template/PROJECT_TEMPLATE_01/res/
