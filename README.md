@@ -27,7 +27,7 @@ CODE LESS, PLAY MORE !
 Open quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, or quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
 
 1.  Select menu: File -> Open Project
-2.  Set Project Director to **quick-cocos2d-x/samples/CoinFlip**
+2.  Set Project Director to **quick-cocos2d-x/sample/CoinFlip**
 3.  Set Script File to **$WORKDIR/scripts/main.lua**
 
     ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - framework.shared.functions</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="index.html">framework.init</a></li>
+            <li><a href="framework.client.api.context.html">framework.client.api.Context</a></li>
+            <li><a href="framework.client.api.eventprotocol.html">framework.client.api.EventProtocol</a></li>
+            <li><a href="framework.client.api.gamenetwork.html">framework.client.api.GameNetwork</a></li>
+            <li><a href="framework.client.api.gamestate.html">framework.client.api.GameState</a></li>
+            <li><a href="framework.client.api.localize.html">framework.client.api.Localize</a></li>
+            <li><a href="framework.client.api.store.html">framework.client.api.Store</a></li>
+            <li><a href="framework.client.api.timer.html">framework.client.api.Timer</a></li>
+            <li><a href="framework.client.api.gamenetwork.openfeint.html">framework.client.api.gamenetwork.OpenFeint</a></li>
+            <li><a href="framework.client.audio.html">framework.client.audio</a></li>
+            <li><a href="framework.client.crypto.html">framework.client.crypto</a></li>
+            <li><a href="framework.client.device.html">framework.client.device</a></li>
+            <li><a href="framework.client.display.html">framework.client.display</a></li>
+            <li><a href="framework.client.init.html">framework.client.init</a></li>
+            <li><a href="framework.client.luaj.html">framework.client.luaj</a></li>
+            <li><a href="framework.client.luaoc.html">framework.client.luaoc</a></li>
+            <li><a href="framework.client.network.html">framework.client.network</a></li>
+            <li><a href="framework.client.scheduler.html">framework.client.scheduler</a></li>
+            <li><a href="framework.client.transition.html">framework.client.transition</a></li>
+            <li><a href="framework.client.ui.html">framework.client.ui</a></li>
+            <li><a href="framework.server.mysqleasy.html">framework.server.MysqlEasy</a></li>
+            <li><a href="framework.server.rediseasy.html">framework.server.RedisEasy</a></li>
+            <li><a href="framework.server.serveraction.html">framework.server.ServerAction</a></li>
+            <li><a href="framework.server.serverapp.html">framework.server.ServerApp</a></li>
+            <li><a href="framework.server.session.html">framework.server.Session</a></li>
+            <li><a href="framework.server.init.html">framework.server.init</a></li>
+            <li><a href="framework.shared.modelbase.html">framework.shared.ModelBase</a></li>
+            <li><a href="framework.shared.debug.html">framework.shared.debug</a></li>
+            <li><a href="framework.shared.errors.html">framework.shared.errors</a></li>
+            <li><strong>framework.shared.functions</strong></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <h1>Module <code>framework.shared.functions</code></h1>
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+
+          </div>
+
+          <!-- END module doc -->
+
+
+          <!--  BEGIN functions index -->
+
+          <h2>Functions</h2>
+          <table class="function_list">
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_tonumber">tonumber&nbsp;(v,&nbsp;base)</a></td>
+              <td class="summary">Convert to number.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_toint">toint&nbsp;(v)</a></td>
+              <td class="summary">Convert to integer.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_tobool">tobool&nbsp;(v)</a></td>
+              <td class="summary">Convert to boolean.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_totable">totable&nbsp;(v)</a></td>
+              <td class="summary">Convert to table.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_format">format&nbsp;(...)</a></td>
+              <td class="summary">Returns a formatted version of its variable number of arguments following the description given in its first argument (which must be a string). string.format() alias.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_clone">clone&nbsp;(object)</a></td>
+              <td class="summary">Creating a copy of an table with fully replicated properties.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_class">class&nbsp;(classname,&nbsp;super)</a></td>
+              <td class="summary">Create an class.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_export">export&nbsp;(arr,&nbsp;names)</a></td>
+              <td class="summary">Returns a associative table containing the matching values.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_isset">isset&nbsp;(arr,&nbsp;key)</a></td>
+              <td class="summary">hecks if the given key or index exists in the table.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_math_round">math.round&nbsp;(num)</a></td>
+              <td class="summary">Rounds a float.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_io_exists">io.exists&nbsp;(path)</a></td>
+              <td class="summary">Checks whether a file exists.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_io_readfile">io.readfile&nbsp;(path)</a></td>
+              <td class="summary">Reads entire file into a string, or return FALSE on failure.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_io_writefile">io.writefile&nbsp;(path,&nbsp;content,&nbsp;mode)</a></td>
+              <td class="summary">Write a string to a file, or return FALSE on failure.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_io_pathinfo">io.pathinfo&nbsp;(path)</a></td>
+              <td class="summary">Returns information about a file path.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_io_filesize">io.filesize&nbsp;(path)</a></td>
+              <td class="summary">Gets file size, or return FALSE on failure.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_table_nums">table.nums&nbsp;(t)</a></td>
+              <td class="summary">Count all elements in an table.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_table_keys">table.keys&nbsp;(t)</a></td>
+              <td class="summary">Return all the keys or a subset of the keys of an table.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_table_values">table.values&nbsp;(t)</a></td>
+              <td class="summary">Return all the values of an table.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_table_merge">table.merge&nbsp;(dest,&nbsp;src)</a></td>
+              <td class="summary">Merge tables.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_htmlspecialchars">string.htmlspecialchars&nbsp;(input)</a></td>
+              <td class="summary">Convert special characters to HTML entities.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_nl2br">string.nl2br&nbsp;(input)</a></td>
+              <td class="summary">Inserts HTML line breaks before all newlines in a string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_text2html">string.text2html&nbsp;(input)</a></td>
+              <td class="summary">Returns a HTML entities formatted version of string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_split">string.split&nbsp;(str,&nbsp;delimiter)</a></td>
+              <td class="summary">Split a string by string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_ltrim">string.ltrim&nbsp;(str)</a></td>
+              <td class="summary">Strip whitespace (or other characters) from the beginning of a string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_rtrim">string.rtrim&nbsp;(str)</a></td>
+              <td class="summary">Strip whitespace (or other characters) from the end of a string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_trim">string.trim&nbsp;(str)</a></td>
+              <td class="summary">Strip whitespace (or other characters) from the beginning and end of a string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_ucfirst">string.ucfirst&nbsp;(str)</a></td>
+              <td class="summary">Make a string's first character uppercase.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_urlencodeChar">string.urlencodeChar&nbsp;(char)</a></td>
+              <td class="summary">@param string str</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_urlencode">string.urlencode&nbsp;(str)</a></td>
+              <td class="summary">URL-encodes string.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_utf8len">string.utf8len&nbsp;(str)</a></td>
+              <td class="summary">Get UTF8 string length.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_string_formatNumberThousands">string.formatNumberThousands&nbsp;(num)</a></td>
+              <td class="summary">Return formatted string with a comma (&quot;,&quot;) between every group of thousands.</td>
+            </tr>
+
+
+          </table>
+
+          <!--  END functions index -->
+
+          <br />
+          <br />
+
+          <!-- BEGIN functions details -->
+
+          <h2>Functions</h2>
+          <dl class="function">
+
+
+            <dt class="">
+              <a name="anchor_tonumber"></a>
+              <h3>tonumber (v, base)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Convert to number.</p>
+
+<p>@param mixed v
+@return number</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_toint"></a>
+              <h3>toint (v)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Convert to integer.</p>
+
+<p>@param mixed v
+@return number(integer)</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_tobool"></a>
+              <h3>tobool (v)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Convert to boolean.</p>
+
+<p>@param mixed v
+@return boolean</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_totable"></a>
+              <h3>totable (v)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Convert to table.</p>
+
+<p>@param mixed v
+@return table</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_format"></a>
+              <h3>format (...)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Returns a formatted version of its variable number of arguments following the description given in its first argument (which must be a string). string.format() alias.</p>
+
+<p>@param string format
+@param mixed ...
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_clone"></a>
+              <h3>clone (object)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Creating a copy of an table with fully replicated properties.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">-- Creating a reference of an table:
+local t1 = {a = 1, b = 2}
+local t2 = t1
+t2.b = 3    -- t1 = {a = 1, b = 3} &lt;-- t1.b changed
+
+-- Createing a copy of an table:
+local t1 = {a = 1, b = 2}
+local t2 = clone(t1)
+t2.b = 3    -- t1 = {a = 1, b = 2} &lt;-- t1.b no change
+</code></pre>
+
+<p>@param mixed object
+@return mixed</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_class"></a>
+              <h3>class (classname, super)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Create an class.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">local Shape = class("Shape")
+
+-- base class
+function Shape:ctor(shapeName)
+    self.shapeName = shapeName
+    printf("Shape:ctor(%s)", self.shapeName)
+end
+
+function Shape:draw()
+    printf("draw %s", self.shapeName)
+end
+
+--
+
+local Circle = class("Circle", Shape)
+
+function Circle:ctor()
+    Circle.super.ctor(self, "circle")   -- call super-class method
+    self.radius = 100
+end
+
+function Circle:setRadius(radius)
+    self.radius = radius
+end
+
+function Circle:draw()                  -- overrideing super-class method
+    printf("draw %s, raidus = %0.2f", self.shapeName, self.raidus)
+end
+
+--
+
+local Rectangle = class("Rectangle", Shape)
+
+function Rectangle:ctor()
+    Rectangle.super.ctor(self, "rectangle")
+end
+
+--
+
+local circle = Circle.new()             -- output: Shape:ctor(circle)
+circle:setRaidus(200)
+circle:draw()                           -- output: draw circle, radius = 200.00
+
+local rectangle = Rectangle.new()       -- output: Shape:ctor(rectangle)
+rectangle:draw()                        -- output: draw rectangle
+</code></pre>
+
+<p>@param string classname
+@param table|function super-class
+@return table</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_export"></a>
+              <h3>export (arr, names)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Returns a associative table containing the matching values.</p>
+
+<p>@param table arr
+@param table names
+@return array</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_isset"></a>
+              <h3>isset (arr, key)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>hecks if the given key or index exists in the table.</p>
+
+<p>@param table arr
+@param mixed key
+@return boolean</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_math_round"></a>
+              <h3>math.round (num)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Rounds a float.</p>
+
+<p>@param number num
+@return number(integer)</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_io_exists"></a>
+              <h3>io.exists (path)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Checks whether a file exists.</p>
+
+<p>@param string path
+@return boolean</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_io_readfile"></a>
+              <h3>io.readfile (path)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Reads entire file into a string, or return FALSE on failure.</p>
+
+<p>@param string path
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_io_writefile"></a>
+              <h3>io.writefile (path, content, mode)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Write a string to a file, or return FALSE on failure.</p>
+
+<p>@param string path
+@param string content
+@param string mode
+@return boolean</p>
+
+<h3>Note:</h3>
+
+<p>The mode string can be any of the following:
+    "r": read mode
+    "w": write mode;
+    "a": append mode;
+    "r+": update mode, all previous data is preserved;
+    "w+": update mode, all previous data is erased; (the default);
+    "a+": append update mode, previous data is preserved, writing is only allowed at the end of file.</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_io_pathinfo"></a>
+              <h3>io.pathinfo (path)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Returns information about a file path.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">local path = "/var/app/test/abc.png"
+local pathinfo  = io.pathinfo(path)
+-- pathinfo.dirname  = "/var/app/test/"
+-- pathinfo.filename = "abc.png"
+-- pathinfo.basename = "abc"
+-- pathinfo.extname  = ".png"
+</code></pre>
+
+<p>@param string path
+@return table</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_io_filesize"></a>
+              <h3>io.filesize (path)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Gets file size, or return FALSE on failure.</p>
+
+<p>@param string path
+@return number(integer)</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_table_nums"></a>
+              <h3>table.nums (t)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Count all elements in an table.</p>
+
+<p>@param table t
+@return number(integer)</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_table_keys"></a>
+              <h3>table.keys (t)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Return all the keys or a subset of the keys of an table.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">local t = {a = 1, b = 2, c = 3}
+local keys = table.keys(t)
+-- keys = {"a", "b", "c"}
+</code></pre>
+
+<p>@param table t
+@return table</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_table_values"></a>
+              <h3>table.values (t)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Return all the values of an table.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">local t = {a = "1", b = "2", c = "3"}
+local values = table.values(t)
+-- values = {1, 2, 3}
+</code></pre>
+
+<p>@param table t
+@return table</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_table_merge"></a>
+              <h3>table.merge (dest, src)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Merge tables.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">local dest = {a = 1, b = 2}
+local src  = {c = 3, d = 4}
+table.merge(dest, src)
+-- dest = {a = 1, b = 2, c = 3, d = 4}
+</code></pre>
+
+<p>@param table dest
+@param table src</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_htmlspecialchars"></a>
+              <h3>string.htmlspecialchars (input)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Convert special characters to HTML entities.</p>
+
+<p>The translations performed are:</p>
+
+<ul>
+<li>'&amp;' (ampersand) becomes '&amp;'</li>
+<li>'"' (double quote) becomes '&quot;'</li>
+<li>"'" (single quote) becomes '&#039;'</li>
+<li>'&lt;' (less than) becomes '&lt;'</li>
+<li>'>' (greater than) becomes '&gt;'</li>
+</ul>
+
+<p>@param string input
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_nl2br"></a>
+              <h3>string.nl2br (input)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Inserts HTML line breaks before all newlines in a string.</p>
+
+<p>Returns string with '<br />' inserted before all newlines (\n).</p>
+
+<p>@param string input
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_text2html"></a>
+              <h3>string.text2html (input)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Returns a HTML entities formatted version of string.</p>
+
+<p>@param string input
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_split"></a>
+              <h3>string.split (str, delimiter)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Split a string by string.</p>
+
+<p>@param string str
+@param string delimiter
+@return table</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_ltrim"></a>
+              <h3>string.ltrim (str)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Strip whitespace (or other characters) from the beginning of a string.</p>
+
+<p>@param string str
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_rtrim"></a>
+              <h3>string.rtrim (str)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Strip whitespace (or other characters) from the end of a string.</p>
+
+<p>@param string str
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_trim"></a>
+              <h3>string.trim (str)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Strip whitespace (or other characters) from the beginning and end of a string.</p>
+
+<p>@param string str
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_ucfirst"></a>
+              <h3>string.ucfirst (str)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Make a string's first character uppercase.</p>
+
+<p>@param string str
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_urlencodeChar"></a>
+              <h3>string.urlencodeChar (char)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>@param string str
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_urlencode"></a>
+              <h3>string.urlencode (str)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>URL-encodes string.</p>
+
+<p>@param string str
+@return string</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_utf8len"></a>
+              <h3>string.utf8len (str)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Get UTF8 string length.</p>
+
+<p>@param string str
+@return int</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_string_formatNumberThousands"></a>
+              <h3>string.formatNumberThousands (num)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Return formatted string with a comma (",") between every group of thousands.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">local value = math.comma("232423.234") -- value = "232,423.234"
+</code></pre>
+
+<p>@param number num
+@return string</p>
+
+            </dd>
+
+
+          </dl>
+
+          <!-- BEGIN functions details -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2013-05-08 09:30:25, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.1</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>

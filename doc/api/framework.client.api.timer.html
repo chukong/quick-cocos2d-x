@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - framework.client.api.Timer</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="index.html">framework.init</a></li>
+            <li><a href="framework.client.api.context.html">framework.client.api.Context</a></li>
+            <li><a href="framework.client.api.eventprotocol.html">framework.client.api.EventProtocol</a></li>
+            <li><a href="framework.client.api.gamenetwork.html">framework.client.api.GameNetwork</a></li>
+            <li><a href="framework.client.api.gamestate.html">framework.client.api.GameState</a></li>
+            <li><a href="framework.client.api.localize.html">framework.client.api.Localize</a></li>
+            <li><a href="framework.client.api.store.html">framework.client.api.Store</a></li>
+            <li><strong>framework.client.api.Timer</strong></li>
+            <li><a href="framework.client.api.gamenetwork.openfeint.html">framework.client.api.gamenetwork.OpenFeint</a></li>
+            <li><a href="framework.client.audio.html">framework.client.audio</a></li>
+            <li><a href="framework.client.crypto.html">framework.client.crypto</a></li>
+            <li><a href="framework.client.device.html">framework.client.device</a></li>
+            <li><a href="framework.client.display.html">framework.client.display</a></li>
+            <li><a href="framework.client.init.html">framework.client.init</a></li>
+            <li><a href="framework.client.luaj.html">framework.client.luaj</a></li>
+            <li><a href="framework.client.luaoc.html">framework.client.luaoc</a></li>
+            <li><a href="framework.client.network.html">framework.client.network</a></li>
+            <li><a href="framework.client.scheduler.html">framework.client.scheduler</a></li>
+            <li><a href="framework.client.transition.html">framework.client.transition</a></li>
+            <li><a href="framework.client.ui.html">framework.client.ui</a></li>
+            <li><a href="framework.server.mysqleasy.html">framework.server.MysqlEasy</a></li>
+            <li><a href="framework.server.rediseasy.html">framework.server.RedisEasy</a></li>
+            <li><a href="framework.server.serveraction.html">framework.server.ServerAction</a></li>
+            <li><a href="framework.server.serverapp.html">framework.server.ServerApp</a></li>
+            <li><a href="framework.server.session.html">framework.server.Session</a></li>
+            <li><a href="framework.server.init.html">framework.server.init</a></li>
+            <li><a href="framework.shared.modelbase.html">framework.shared.ModelBase</a></li>
+            <li><a href="framework.shared.debug.html">framework.shared.debug</a></li>
+            <li><a href="framework.shared.errors.html">framework.shared.errors</a></li>
+            <li><a href="framework.shared.functions.html">framework.shared.functions</a></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <h1>Module <code>framework.client.api.Timer</code></h1>
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+<p>Timer 实现了一个计时器容器，用于跟踪应用中所有需要计时的事件。</p>
+
+<br />
+
+
+          </div>
+
+          <!-- END module doc -->
+
+
+          <!--  BEGIN functions index -->
+
+          <h2>Functions</h2>
+          <table class="function_list">
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_Timer_new">Timer.new&nbsp;()</a></td>
+              <td class="summary">创建一个计时器。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_timer:addCountdown">timer:addCountdown&nbsp;(eventName,&nbsp;countdown,&nbsp;interval)</a></td>
+              <td class="summary">添加一个计时器。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_timer:removeCountdown">timer:removeCountdown&nbsp;(eventName)</a></td>
+              <td class="summary">删除指定事件名称对应的计时器，并取消这个计时器的所有事件处理函数。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_timer:start">timer:start&nbsp;()</a></td>
+              <td class="summary">启动计时器容器。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_timer:stop">timer:stop&nbsp;()</a></td>
+              <td class="summary">停止计时器容器。</td>
+            </tr>
+
+
+          </table>
+
+          <!--  END functions index -->
+
+          <br />
+          <br />
+
+          <!-- BEGIN functions details -->
+
+          <h2>Functions</h2>
+          <dl class="function">
+
+
+            <dt class="">
+              <a name="anchor_Timer_new"></a>
+              <h3>Timer.new ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>创建一个计时器。</p>
+
+<p><strong>Returns:</strong></p>
+
+<ul>
+<li>Timer 对象</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_timer:addCountdown"></a>
+              <h3>timer:addCountdown (eventName, countdown, interval)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>添加一个计时器。</p>
+
+<p>在计时器倒计时完成前，会按照 <strong>interval</strong> 参数指定的时间间隔触发 <strong>eventName</strong> 参数指定的事件。
+事件参数则是倒计时还剩余的时间。</p>
+
+<p>在计时器倒计时完成后，同样会触发 <strong>eventName</strong> 参数指定的事件。此时事件的参数是 0，表示倒计时完成。</p>
+
+<p>因此在事件处理函数中，可以通过事件参数判断倒计时是否已经结束：</p>
+
+
+<pre><code class="lua">local Timer = require("framework.client.api.Timer")
+local appTimer = Timer.new()
+
+-- 响应 CITYHALL_UPGRADE_TIMER 事件
+local function onCityHallUpgradeTimer(event)
+    if event.countdown &gt; 0 then
+        -- 倒计时还未结束，更新用户界面上显示的时间
+        ....
+    else
+        -- 倒计时已经结束，更新用户界面显示升级后的城防大厅
+    end
+end
+
+-- 注册事件
+appTimer:addEventListener("CITYHALL_UPGRADE_TIMER", onCityHallUpgradeTimer)
+-- 城防大厅升级需要 3600 秒，每 30 秒更新一次界面显示
+appTimer:addCountdown("CITYHALL_UPGRADE_TIMER", 3600, 30)
+</code></pre>
+
+<p>考虑移动设备的特殊性，计时器可能存在一定误差，所以 <strong>interval</strong> 参数的最小值是 2 秒。
+在界面上需要显示倒计时的地方，应该以“分”为单位。例如显示为“2 小时 23 分”，这样可以避免误差带来的问题。</p>
+
+<h3>注意</h3>
+
+<p>计时器在倒计时结束并触发事件后，会自动删除。关联到这个计时器的所有事件处理函数也会被取消。</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>eventName: 计时器事件的名称</li>
+<li>countdown: 倒计时（秒）</li>
+<li>interval（可选）: 检查倒计时的时间间隔，最小为 5 秒，最长为 120 秒，如果未指定则默认为 30 秒</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_timer:removeCountdown"></a>
+              <h3>timer:removeCountdown (eventName)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>删除指定事件名称对应的计时器，并取消这个计时器的所有事件处理函数。</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>eventName: 计时器事件的名称</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_timer:start"></a>
+              <h3>timer:start ()</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>启动计时器容器。</p>
+
+<p>在开始游戏时调用这个方法，确保所有的计时器事件都正确触发。</p>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_timer:stop"></a>
+              <h3>timer:stop ()</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>停止计时器容器。</p>
+
+            </dd>
+
+
+          </dl>
+
+          <!-- BEGIN functions details -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2013-05-08 09:30:25, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.1</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>
