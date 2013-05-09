@@ -5,10 +5,10 @@ end)
 
 function MainScene:ctor()
     local label1 = ui.newTTFLabelMenuItem({
-        text  = "get https://github.com/opensearch.xml source code",
+        text  = "get http://qeeplay.com/ source code",
         size  = 32,
-        x     = display.left + 20,
-        y     = display.top - 40,
+        x     = display.left + 40,
+        y     = display.top - 60,
         listener = function() self:getSources() end
     })
     label1:align(display.LEFT_CENTER)
@@ -44,7 +44,7 @@ function MainScene:getSources()
     end
 
     print("---- get source begin ----")
-    local request = network.createHTTPRequest(callback, "https://github.com/opensearch.xml")
+    local request = network.createHTTPRequest(callback, "http://qeeplay.com/")
     request:start()
 end
 

@@ -44,12 +44,17 @@ sample/Benchmark/proj.android/obj/
 sample/Benchmark/proj.android/assets/
 sample/Benchmark/proj.android/libs/
 
-sample/Physics/proj.android/bin/
-sample/Physics/proj.android/gen/
-sample/Physics/proj.android/lint.xml
-sample/Physics/proj.android/obj/
-sample/Physics/proj.android/assets/
-sample/Physics/proj.android/libs/
-sample/Physics/proj.win32/Debug/
+sample/physics/proj.android/bin/
+sample/physics/proj.android/gen/
+sample/physics/proj.android/lint.xml
+sample/physics/proj.android/obj/
+sample/physics/proj.android/assets/
+sample/physics/proj.android/libs/
 
+sample/network/proj.android/bin/
+sample/network/proj.android/gen/
+sample/network/proj.android/lint.xml
+sample/network/proj.android/obj/
+sample/network/proj.android/assets/
+sample/network/proj.android/libs/
 
