@@ -54,7 +54,7 @@ class ProjectCreator
         }
         if (count($packageName) < 2)
         {
-            printf("ERROR: invalid package name \"%s\"\n", $packageName);
+            printf("ERROR: invalid package name \"%s\"\n", implode('.', $packageName));
             return;
         }
 
