@@ -10,6 +10,7 @@ class ProjectCreator
     private $packageLastName;
     private $projectPath;
     private $orientation;
+    private $noproj;
 
     private $vars = array();
 
@@ -18,6 +19,7 @@ class ProjectCreator
     function __construct(array $config)
     {
         $force = $config['force'];
+        $this->noproj = $config['noproj'];
 
         // check template
         $templatePath = rtrim($config['templatePath'], "/\\") . DS;
@@ -50,7 +52,7 @@ class ProjectCreator
             $parts[$i] = preg_replace('/[^a-z0-9_]/', '', $parts[$i]);
             if (!empty($parts[$i])) $packageName[] = $parts[$i];
         }
-        if (empty($packageName))
+        if (count($packageName) < 2)
         {
             printf("ERROR: invalid package name \"%s\"\n", $packageName);
             return;
@@ -120,6 +122,18 @@ EOT;
         $this->vars['__SCREEN_ORIENTATION__'] = $this->orientation;
         $this->vars['__SCREEN_ORIENTATION_L__'] = strtolower($this->orientation);
         $this->vars['__SCREEN_ORIENTATION_UF__'] = ucfirst(strtolower($this->orientation));
+        if ($this->orientation == 'landscape')
+        {
+            $this->vars['__SCREEN_WIDTH__'] = '960';
+            $this->vars['__SCREEN_HEIGHT__'] = '640';
+            $this->vars['__SCREEN_ORIENTATION_QUICK__'] = 'FIXED_HEIGHT';
+        }
+        else
+        {
+            $this->vars['__SCREEN_WIDTH__'] = '640';
+            $this->vars['__SCREEN_HEIGHT__'] = '960';
+            $this->vars['__SCREEN_ORIENTATION_QUICK__'] = 'FIXED_WIDTH';
+        }
 
         if ($this->orientation == 'landscape')
         {
@@ -134,13 +148,17 @@ EOT;
         $paths = $this->getPaths($this->templatePath);
         foreach ($paths as $sourcePath)
         {
-            if (!$this->copyFile($sourcePath)) return false;
+            $sourceFilename = substr($sourcePath, strlen($this->templatePath));
+            if ($sourceFilename == 'TEMPLATE_INFO.json') continue;
+            if ($this->noproj && substr($sourceFilename, 0, 5) == 'proj.') continue;
+            if ($this->noproj && substr($sourceFilename, 0, 8) == 'sources/') continue;
+            if (!$this->copyFile($sourcePath, $sourceFilename)) return false;
         }
 
         return true;
     }
 
-    private function copyFile($sourcePath)
+    private function copyFile($sourcePath, $sourceFilename)
     {
         // check filename
         $sourceFilename = substr($sourcePath, strlen($this->templatePath));
@@ -196,11 +214,17 @@ EOT;
         $files = array();
         $dir = rtrim($dir, "/\\") . DS;
         $dh = opendir($dir);
-        if ($dh == false) { return $files; }
+        if ($dh == false)
+        {
+            return $files;
+        }
 
         while (($file = readdir($dh)) !== false)
         {
-            if ($file{0} == '.') { continue; }
+            if ($file{0} == '.')
+            {
+                continue;
+            }
 
             $path = $dir . $file;
             if (is_dir($path))
@@ -225,20 +249,22 @@ function help()
 {
     echo <<<EOT
 
-usage: php create_project.php [options] -t template_path package_name
+usage: php create_project.php [options] package_name
 
 options:
     -f force copy files to project dir
     -o screen orientation, eg: -o landscape . default is portrait
     -t template path, eg: -t /quick-cocos2d-x/template/PROJECT_TEMPLATE_01
-    -package name, eg: -p com.quickx.games.physics
+    -noproj skip create projects
+
+    package name, eg: -p com.quickx.games.physics
 
 
 EOT;
 
 }
 
-if ($argc < 4)
+if ($argc < 2)
 {
     help();
     exit(1);
@@ -247,10 +273,11 @@ if ($argc < 4)
 array_shift($argv);
 
 $config = array(
-    'orientation'   => 'portrait',
-    'force'         => false,
-    'templatePath'  => '',
-    'packageName'   => '',
+    'orientation' => 'portrait',
+    'force' => false,
+    'templatePath' => '',
+    'packageName' => '',
+    'noproj' => false,
 );
 
 do
@@ -268,6 +295,10 @@ do
     else if ($argv[0] == '-f')
     {
         $config['force'] = true;
+    }
+    else if ($argv[0] == '-noproj')
+    {
+        $config['noproj'] = true;
     }
     else if ($config['packageName'] == '')
     {

@@ -103,7 +103,10 @@ end
 
 ]]
 function ui.newTTFLabelMenuItem(params)
-    local label    = ui.newTTFLabel(params)
+    local p = clone(params)
+    p.x, p.y = nil, nil
+    local label = ui.newTTFLabel(p)
+
     local listener = params.listener
     local tag      = params.tag
     local x        = params.x
