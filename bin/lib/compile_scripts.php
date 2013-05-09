@@ -417,12 +417,14 @@ EOT;
 function help()
 {
     echo <<<EOT
-usage: php package_scripts.php [options] dirname output_filename
+usage: php compile_scripts.php [options] dirname output_filename
 
 options:
-    --bundle make bundle file
+    -zip package to zip
+    -suffix package file extension name
     -p prefix package name
     -x exclude packages, eg: -x framework.server, framework.tests
+    -q quiet
 
 
 EOT;
