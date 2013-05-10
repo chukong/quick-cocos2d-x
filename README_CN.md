@@ -1,4 +1,3 @@
-
 quick-cocos2d-x 是一个可以让您觉得“爽快”的 cocos2d-x 的扩展版。基于 cocos2d-x，完全的跨平台能力、优异的性能和可靠性。而 quick-cocos2d-x 在这一切的基础上，添加了完善的 Lua 脚本语言支持，让开发者可以使用 Lua 这种简单易用的脚本语言完成商业品质的移动游戏。
 
 CODE LESS, PLAY MORE !
@@ -6,6 +5,10 @@ CODE LESS, PLAY MORE !
 > [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
 
 <br />
+
+**中国区特别推荐： QQ 群 284148017**
+
+**如果你觉得 quick-cocos2d-x 靠谱，请点一下本页面上面的 "Star" 按钮，然后发发微博帮忙宣传吧**
 
 ## 快速开始
 
