@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DEST_DIR="$DIR/../doc/api"
 if [ -d "$DEST_DIR" ]; then
