@@ -1523,12 +1523,12 @@
 		F4DE082916800061005DB2DB /* libquickcocos2dx */ = {
 			isa = PBXGroup;
 			children = (
-				F43D10441738DA2500B189FF /* third_party */,
 				F4DE084216800151005DB2DB /* cocos2d-x */,
 				F4DCAD28168C153000679DBE /* cocos2dx_extensions_luabinding */,
 				F425ABD016B7777A00A1C8DB /* cocos2dx_extra */,
 				F4B4EF3516C7E0AE00736FFE /* lua_extensions */,
 				F43991E216816AB600AE90D1 /* luajit2 */,
+				F43D10441738DA2500B189FF /* third_party */,
 			);
 			name = libquickcocos2dx;
 			path = lib;

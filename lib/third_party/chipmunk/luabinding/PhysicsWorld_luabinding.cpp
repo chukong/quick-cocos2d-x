@@ -1,6 +1,6 @@
 /*
 ** Lua binding: PhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Tue May  7 15:25:25 2013.
+** Generated automatically by tolua++-1.0.92 on Mon May 13 12:55:17 2013.
 */
 
 #include "PhysicsWorld_luabinding.h"
@@ -21,10 +21,12 @@ static void tolua_reg_types (lua_State* tolua_S)
 {
  tolua_usertype(tolua_S,"PhysicsDebugNode");
  tolua_usertype(tolua_S,"PhysicsWorld");
+ 
  tolua_usertype(tolua_S,"PhysicsBody");
+ tolua_usertype(tolua_S,"CCObject");
  tolua_usertype(tolua_S,"CCNode");
  tolua_usertype(tolua_S,"PhysicsShape");
- tolua_usertype(tolua_S,"CCObject");
+ tolua_usertype(tolua_S,"CCPointArray");
 }
 
 /* method: create of class  PhysicsWorld */
@@ -35,14 +37,18 @@ static int tolua_PhysicsWorld_luabinding_PhysicsWorld_create00(lua_State* tolua_
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
+  float gravityX = ((float)  tolua_tonumber(tolua_S,2,0));
+  float gravityY = ((float)  tolua_tonumber(tolua_S,3,0));
   {
-   PhysicsWorld* tolua_ret = (PhysicsWorld*)  PhysicsWorld::create();
+   PhysicsWorld* tolua_ret = (PhysicsWorld*)  PhysicsWorld::create(gravityX,gravityY);
     int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
 int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
 toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsWorld");
@@ -54,6 +60,31 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsWo
  tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_create01
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_create01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  {
+   PhysicsWorld* tolua_ret = (PhysicsWorld*)  PhysicsWorld::create();
+    int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
+int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsWorld");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_PhysicsWorld_luabinding_PhysicsWorld_create00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -161,9 +192,9 @@ static int tolua_PhysicsWorld_luabinding_PhysicsWorld_setGravity00(lua_State* to
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: calcMomentForCircle of class  PhysicsWorld */
-#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_calcMomentForCircle00
-static int tolua_PhysicsWorld_luabinding_PhysicsWorld_calcMomentForCircle00(lua_State* tolua_S)
+/* method: addCircleShape of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_addCircleShape00
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_addCircleShape00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -171,10 +202,9 @@ static int tolua_PhysicsWorld_luabinding_PhysicsWorld_calcMomentForCircle00(lua_
      !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -182,49 +212,14 @@ static int tolua_PhysicsWorld_luabinding_PhysicsWorld_calcMomentForCircle00(lua_
  {
   PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
   float mass = ((float)  tolua_tonumber(tolua_S,2,0));
-  float innerRadius = ((float)  tolua_tonumber(tolua_S,3,0));
-  float outerRadius = ((float)  tolua_tonumber(tolua_S,4,0));
-  float offsetX = ((float)  tolua_tonumber(tolua_S,5,0));
-  float offsetY = ((float)  tolua_tonumber(tolua_S,6,0));
+  float radius = ((float)  tolua_tonumber(tolua_S,3,0));
+  float offsetX = ((float)  tolua_tonumber(tolua_S,4,0));
+  float offsetY = ((float)  tolua_tonumber(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'calcMomentForCircle'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addCircleShape'", NULL);
 #endif
   {
-   float tolua_ret = (float)  self->calcMomentForCircle(mass,innerRadius,outerRadius,offsetX,offsetY);
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'calcMomentForCircle'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: bindNodeToDefaultStaticBody of class  PhysicsWorld */
-#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToDefaultStaticBody00
-static int tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToDefaultStaticBody00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"CCNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
-  CCNode* node = ((CCNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'bindNodeToDefaultStaticBody'", NULL);
-#endif
-  {
-   PhysicsBody* tolua_ret = (PhysicsBody*)  self->bindNodeToDefaultStaticBody(node);
+   PhysicsBody* tolua_ret = (PhysicsBody*)  self->addCircleShape(mass,radius,offsetX,offsetY);
     int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
 int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
 toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBody");
@@ -233,57 +228,21 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBo
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'bindNodeToDefaultStaticBody'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addCircleShape'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: bindNodeToNewStaticBody of class  PhysicsWorld */
-#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewStaticBody00
-static int tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewStaticBody00(lua_State* tolua_S)
+/* method: addBoxShape of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_addBoxShape00
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_addBoxShape00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"CCNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
-  CCNode* node = ((CCNode*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'bindNodeToNewStaticBody'", NULL);
-#endif
-  {
-   PhysicsBody* tolua_ret = (PhysicsBody*)  self->bindNodeToNewStaticBody(node);
-    int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
-int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBody");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'bindNodeToNewStaticBody'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: bindNodeToNewBody of class  PhysicsWorld */
-#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewBody00
-static int tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewBody00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"CCNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
@@ -293,14 +252,14 @@ static int tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewBody00(lua_St
 #endif
  {
   PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
-  CCNode* node = ((CCNode*)  tolua_tousertype(tolua_S,2,0));
-  float mass = ((float)  tolua_tonumber(tolua_S,3,0));
-  float moment = ((float)  tolua_tonumber(tolua_S,4,0));
+  float mass = ((float)  tolua_tonumber(tolua_S,2,0));
+  float width = ((float)  tolua_tonumber(tolua_S,3,0));
+  float height = ((float)  tolua_tonumber(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'bindNodeToNewBody'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addBoxShape'", NULL);
 #endif
   {
-   PhysicsBody* tolua_ret = (PhysicsBody*)  self->bindNodeToNewBody(node,mass,moment);
+   PhysicsBody* tolua_ret = (PhysicsBody*)  self->addBoxShape(mass,width,height);
     int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
 int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
 toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBody");
@@ -309,7 +268,121 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBo
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'bindNodeToNewBody'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addBoxShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addPolygonShape of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape00
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"CCPointArray",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+  float mass = ((float)  tolua_tonumber(tolua_S,2,0));
+  CCPointArray* vertexes = ((CCPointArray*)  tolua_tousertype(tolua_S,3,0));
+  float offsetX = ((float)  tolua_tonumber(tolua_S,4,0));
+  float offsetY = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addPolygonShape'", NULL);
+#endif
+  {
+   PhysicsBody* tolua_ret = (PhysicsBody*)  self->addPolygonShape(mass,vertexes,offsetX,offsetY);
+    int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
+int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBody");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addPolygonShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addPolygonShape of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape01
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_istable(tolua_S,3,"LUA_TABLE",0,&tolua_err)) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+  float mass = ((float)  tolua_tonumber(tolua_S,2,0));
+  LUA_TABLE vertexes = (  toluafix_totable(tolua_S,3,0));
+  float offsetX = ((float)  tolua_tonumber(tolua_S,4,0));
+  float offsetY = ((float)  tolua_tonumber(tolua_S,5,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addPolygonShape'", NULL);
+#endif
+  {
+   PhysicsBody* tolua_ret = (PhysicsBody*)  self->addPolygonShape(mass,vertexes,offsetX,offsetY);
+    int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
+int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBody");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: bindNodeToBody of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToBody00
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToBody00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCNode",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,3,"PhysicsBody",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+  CCNode* node = ((CCNode*)  tolua_tousertype(tolua_S,2,0));
+  PhysicsBody* body = ((PhysicsBody*)  tolua_tousertype(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'bindNodeToBody'", NULL);
+#endif
+  {
+   self->bindNodeToBody(node,body);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'bindNodeToBody'.",&tolua_err);
  return 0;
 #endif
 }
@@ -374,6 +447,42 @@ static int tolua_PhysicsWorld_luabinding_PhysicsWorld_unbindAllNodes00(lua_State
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'unbindAllNodes'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getBodyByNode of class  PhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsWorld_getBodyByNode00
+static int tolua_PhysicsWorld_luabinding_PhysicsWorld_getBodyByNode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"PhysicsWorld",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCNode",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  PhysicsWorld* self = (PhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+  CCNode* node = ((CCNode*)  tolua_tousertype(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBodyByNode'", NULL);
+#endif
+  {
+   PhysicsBody* tolua_ret = (PhysicsBody*)  self->getBodyByNode(node);
+    int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
+int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"PhysicsBody");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getBodyByNode'.",&tolua_err);
  return 0;
 #endif
 }
@@ -693,8 +802,8 @@ static int tolua_PhysicsWorld_luabinding_PhysicsBody_addCircleShape00(lua_State*
  if (
      !tolua_isusertype(tolua_S,1,"PhysicsBody",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
@@ -753,6 +862,44 @@ static int tolua_PhysicsWorld_luabinding_PhysicsBody_addBoxShape00(lua_State* to
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'addBoxShape'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addPolygonShape of class  PhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_PhysicsWorld_luabinding_PhysicsBody_addPolygonShape00
+static int tolua_PhysicsWorld_luabinding_PhysicsBody_addPolygonShape00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"PhysicsBody",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCPointArray",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  PhysicsBody* self = (PhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+  CCPointArray* vertexs = ((CCPointArray*)  tolua_tousertype(tolua_S,2,0));
+  float offsetX = ((float)  tolua_tonumber(tolua_S,3,0));
+  float offsetY = ((float)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addPolygonShape'", NULL);
+#endif
+  {
+   PhysicsShape* tolua_ret = (PhysicsShape*)  self->addPolygonShape(vertexs,offsetX,offsetY);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"PhysicsShape");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addPolygonShape'.",&tolua_err);
  return 0;
 #endif
 }
@@ -962,15 +1109,18 @@ TOLUA_API int tolua_PhysicsWorld_luabinding_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"PhysicsWorld","PhysicsWorld","CCNode",NULL);
   tolua_beginmodule(tolua_S,"PhysicsWorld");
    tolua_function(tolua_S,"create",tolua_PhysicsWorld_luabinding_PhysicsWorld_create00);
+   tolua_function(tolua_S,"create",tolua_PhysicsWorld_luabinding_PhysicsWorld_create01);
    tolua_function(tolua_S,"createDebugNode",tolua_PhysicsWorld_luabinding_PhysicsWorld_createDebugNode00);
    tolua_function(tolua_S,"getGravity",tolua_PhysicsWorld_luabinding_PhysicsWorld_getGravity00);
    tolua_function(tolua_S,"setGravity",tolua_PhysicsWorld_luabinding_PhysicsWorld_setGravity00);
-   tolua_function(tolua_S,"calcMomentForCircle",tolua_PhysicsWorld_luabinding_PhysicsWorld_calcMomentForCircle00);
-   tolua_function(tolua_S,"bindNodeToDefaultStaticBody",tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToDefaultStaticBody00);
-   tolua_function(tolua_S,"bindNodeToNewStaticBody",tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewStaticBody00);
-   tolua_function(tolua_S,"bindNodeToNewBody",tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToNewBody00);
+   tolua_function(tolua_S,"addCircleShape",tolua_PhysicsWorld_luabinding_PhysicsWorld_addCircleShape00);
+   tolua_function(tolua_S,"addBoxShape",tolua_PhysicsWorld_luabinding_PhysicsWorld_addBoxShape00);
+   tolua_function(tolua_S,"addPolygonShape",tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape00);
+   tolua_function(tolua_S,"addPolygonShape",tolua_PhysicsWorld_luabinding_PhysicsWorld_addPolygonShape01);
+   tolua_function(tolua_S,"bindNodeToBody",tolua_PhysicsWorld_luabinding_PhysicsWorld_bindNodeToBody00);
    tolua_function(tolua_S,"unbindNode",tolua_PhysicsWorld_luabinding_PhysicsWorld_unbindNode00);
    tolua_function(tolua_S,"unbindAllNodes",tolua_PhysicsWorld_luabinding_PhysicsWorld_unbindAllNodes00);
+   tolua_function(tolua_S,"getBodyByNode",tolua_PhysicsWorld_luabinding_PhysicsWorld_getBodyByNode00);
    tolua_function(tolua_S,"start",tolua_PhysicsWorld_luabinding_PhysicsWorld_start00);
    tolua_function(tolua_S,"stop",tolua_PhysicsWorld_luabinding_PhysicsWorld_stop00);
   tolua_endmodule(tolua_S);
@@ -985,6 +1135,7 @@ TOLUA_API int tolua_PhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"addSegmentShape",tolua_PhysicsWorld_luabinding_PhysicsBody_addSegmentShape00);
    tolua_function(tolua_S,"addCircleShape",tolua_PhysicsWorld_luabinding_PhysicsBody_addCircleShape00);
    tolua_function(tolua_S,"addBoxShape",tolua_PhysicsWorld_luabinding_PhysicsBody_addBoxShape00);
+   tolua_function(tolua_S,"addPolygonShape",tolua_PhysicsWorld_luabinding_PhysicsBody_addPolygonShape00);
    tolua_function(tolua_S,"removeShapeAtIndex",tolua_PhysicsWorld_luabinding_PhysicsBody_removeShapeAtIndex00);
    tolua_function(tolua_S,"removeAllShape",tolua_PhysicsWorld_luabinding_PhysicsBody_removeAllShape00);
   tolua_endmodule(tolua_S);

@@ -4,14 +4,22 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    local label = ui.newTTFLabel({
-        text = "Hello, World",
-        size = 64,
-        x = display.cx,
-        y = display.cy,
-        align = ui.TEXT_ALIGN_CENTER
-    })
-    self:addChild(label)
+    local world = PhysicsWorld:create(0, -200)
+    self:addChild(world)
+
+    local ship01 = display.newSprite("Ship01.png")
+    self:addChild(ship01)
+
+    local scaleFactor = 1.0
+    local shapes = require("data.shapes").physicsData(scaleFactor)
+    local shape = shapes:get("Ship01")
+    local body = world:addPolygonShape(shape.fixtures[1].mass, shape.fixtures[1].polygons)
+    world:bindNodeToBody(ship01, body)
+
+     -- dump(shapes.get(shapes, "shop01"))
+
+
+    --
 end
 
 function MainScene:onEnter()

@@ -100,6 +100,39 @@ PhysicsShape *PhysicsBody::addBoxShape(float width, float height)
     return addShape(cpBoxShapeNew(m_body, width, height));
 }
 
+PhysicsShape *PhysicsBody::addPolygonShape(CCPointArray *vertexs, float offsetX, float offsetY)
+{
+    int numVertexs = vertexs->count();
+    cpVect *cpVertexs = new cpVect[numVertexs];
+    for (int i = 0; i < numVertexs; ++i)
+    {
+        const CCPoint pos = vertexs->get(i);
+        cpVertexs[i] = cpv(pos.x, pos.y);
+    }
+    
+    PhysicsShape *shape = addShape(cpPolyShapeNew(m_body, numVertexs, cpVertexs, cpv(offsetX, offsetY)));
+    delete []cpVertexs;
+    return shape;
+}
+
+PhysicsShape *PhysicsBody::addPolygonShape(int numVertexs, CCPoint *vertexs, float offsetX, float offsetY)
+{
+    cpVect *cpVertexs = new cpVect[numVertexs];
+    for (int i = 0; i < numVertexs; ++i)
+    {
+        cpVertexs[i] = cpv(vertexs[i].x, vertexs[i].y);
+    }
+    
+    PhysicsShape *shape = addShape(cpPolyShapeNew(m_body, numVertexs, cpVertexs, cpv(offsetX, offsetY)));
+    delete []cpVertexs;
+    return shape;
+}
+
+PhysicsShape *PhysicsBody::addPolygonShape(int numVertexs, cpVect *vertexs, float offsetX, float offsetY)
+{
+    return addShape(cpPolyShapeNew(m_body, numVertexs, vertexs, cpv(offsetX, offsetY)));
+}
+
 void PhysicsBody::removeShapeAtIndex(int index)
 {
     CCAssert(index >= 0 && index < m_shapes->count(), "PhysicsBody::removeShapeAtIndex() - Invalid index");

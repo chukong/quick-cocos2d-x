@@ -28,8 +28,11 @@ public:
     void setPosition(float x, float y);
     
     PhysicsShape *addSegmentShape(float lowerLeftX, float lowerLeftY, float lowerRightX, float lowerRightY, float thickness);
-    PhysicsShape *addCircleShape(float radius, float offsetX, float offsetY);
+    PhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
     PhysicsShape *addBoxShape(float width, float height);
+    PhysicsShape *addPolygonShape(CCPointArray *vertexs, float offsetX = 0, float offsetY = 0);
+    PhysicsShape *addPolygonShape(int numVertexs, CCPoint *vertexs, float offsetX = 0, float offsetY = 0);
+    PhysicsShape *addPolygonShape(int numVertexs, cpVect *vertexs, float offsetX = 0, float offsetY = 0);
     
     void removeShapeAtIndex(int index);
     void removeShape(PhysicsShape *shapeObject);

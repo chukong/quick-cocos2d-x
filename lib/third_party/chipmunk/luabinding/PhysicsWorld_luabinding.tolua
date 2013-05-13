@@ -6,6 +6,7 @@ $#include "PhysicsDebugNode.h"
 
 class PhysicsWorld : public CCNode
 {
+    static PhysicsWorld *create(float gravityX, float gravityY);
     static PhysicsWorld *create(void);
 
     PhysicsDebugNode *createDebugNode(void);
@@ -13,13 +14,17 @@ class PhysicsWorld : public CCNode
     void getGravity(float *gravityX, float *gravityY);
     void setGravity(float gravityX, float gravityY);
 
-    float calcMomentForCircle(float mass, float innerRadius, float outerRadius, float offsetX, float offsetY);
+    // add shapes to world
+    PhysicsBody *addCircleShape(float mass, float radius, float offsetX = 0, float offsetY = 0);
+    PhysicsBody *addBoxShape(float mass, float width, float height);
+    PhysicsBody *addPolygonShape(float mass, CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
+    PhysicsBody *addPolygonShape(float mass, LUA_TABLE vertexes, float offsetX = 0, float offsetY = 0);
 
-    PhysicsBody *bindNodeToDefaultStaticBody(CCNode *node);
-    PhysicsBody *bindNodeToNewStaticBody(CCNode *node);
-    PhysicsBody *bindNodeToNewBody(CCNode *node, float mass, float moment);
+    void bindNodeToBody(CCNode *node, PhysicsBody *body);
     void unbindNode(CCNode *node);
     void unbindAllNodes(void);
+
+    PhysicsBody *getBodyByNode(CCNode *node);
 
     void start(void);
     void stop(void);
@@ -36,8 +41,9 @@ class PhysicsBody : public CCObject
     void setPosition(float x, float y);
 
     PhysicsShape *addSegmentShape(float lowerLeftX, float lowerLeftY, float lowerRightX, float lowerRightY, float thickness);
-    PhysicsShape *addCircleShape(float radius, float offsetX, float offsetY);
+    PhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
     PhysicsShape *addBoxShape(float width, float height);
+    PhysicsShape *addPolygonShape(CCPointArray *vertexs, float offsetX, float offsetY);
 
     void removeShapeAtIndex(int index);
     void removeAllShape(void);
