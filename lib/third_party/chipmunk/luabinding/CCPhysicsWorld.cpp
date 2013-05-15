@@ -31,8 +31,11 @@ CCPhysicsWorld::~CCPhysicsWorld(void)
 
 bool CCPhysicsWorld::init(void)
 {
+    m_bodies = CCArray::create();
+    m_bodies->retain();
     m_space = cpSpaceNew();
     cpSpaceSetGravity(m_space, cpvzero);
+    cpSpaceSetUserData(m_space, (cpDataPointer)this);
     return true;
 }
 
@@ -64,7 +67,7 @@ void CCPhysicsWorld::setGravity(float gravityX, float gravityY)
     cpSpaceSetGravity(m_space, cpv(gravityX, gravityY));
 }
 
-CCPhysicsBody *CCPhysicsWorld::addCircleShape(float mass, float radius, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createCircleBody(float mass, float radius, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     CCPhysicsBody *body;
     if (mass <= 0)
@@ -77,77 +80,102 @@ CCPhysicsBody *CCPhysicsWorld::addCircleShape(float mass, float radius, float of
         body = CCPhysicsBody::create(this, mass, moment);
     }
     body->addCircleShape(radius, offsetX, offsetY);
+    addBody(body);
     return body;
 }
 
-CCPhysicsBody *CCPhysicsWorld::addBoxShape(float mass, float width, float height)
+CCPhysicsBody *CCPhysicsWorld::createBoxBody(float mass, float width, float height)
 {
-    float moment = cpMomentForBox(mass, width, height);
-    CCPhysicsBody *body = CCPhysicsBody::create(this, mass, moment);
+    CCPhysicsBody *body;
+    if (mass <= 0)
+    {
+        body = CCPhysicsBody::createStaticBody(this);
+    }
+    else
+    {
+        float moment = cpMomentForBox(mass, width, height);
+        body = CCPhysicsBody::create(this, mass, moment);
+    }
     body->addBoxShape(width, height);
+    addBody(body);
     return body;
 }
 
-CCPhysicsBody *CCPhysicsWorld::addPolygonShape(float mass, CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     cpVectArray *cpVertexes = cpVectArray::createFromCCPointArray(vertexes);
-    return addPolygonShape(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
+    return createPolygonBody(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
-CCPhysicsBody *CCPhysicsWorld::addPolygonShape(float mass, cpVectArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, cpVectArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    return addPolygonShape(mass, vertexes->count(), vertexes->data(), offsetX, offsetY);
+    return createPolygonBody(mass, vertexes->count(), vertexes->data(), offsetX, offsetY);
 }
 
-CCPhysicsBody *CCPhysicsWorld::addPolygonShape(float mass, int numVertexes, cpVect *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int numVertexes, cpVect *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    float moment = cpMomentForPoly(mass, numVertexes, vertexes, cpv(offsetX, offsetY));
-    CCPhysicsBody *body = CCPhysicsBody::create(this, mass, moment);
+    CCPhysicsBody *body;
+    if (mass <= 0)
+    {
+        body = CCPhysicsBody::createStaticBody(this);
+    }
+    else
+    {
+        float moment = cpMomentForPoly(mass, numVertexes, vertexes, cpv(offsetX, offsetY));
+        body = CCPhysicsBody::create(this, mass, moment);
+    }
     body->addPolygonShape(numVertexes, vertexes, offsetX, offsetY);
+    addBody(body);
     return body;
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
-CCPhysicsBody *CCPhysicsWorld::addPolygonShape(float mass, int vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     cpVectArray *cpVertexes = cpVectArray::createFromLuaTable(vertexes);
-    return addPolygonShape(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
+    return createPolygonBody(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 #endif
 
-void CCPhysicsWorld::bindNodeToBody(CCNode *node, CCPhysicsBody *body)
+void CCPhysicsWorld::addBody(CCPhysicsBody *body)
 {
-    CCAssert(node != NULL, "CCPhysicsWorld::bindNodeToBody() - invalid node");
-    CCAssert(body != NULL, "CCPhysicsWorld::bindNodeToBody() - invalid body");
-    CCAssert(m_bodies.find(node) == m_bodies.end(), "CCPhysicsWorld::bindNodeToBody() - Node already in world");
-    node->retain();
-    body->retain();
-    m_bodies[node] = body;
+    m_bodies->addObject(body);
 }
 
-void CCPhysicsWorld::unbindNode(CCNode *node)
+CCPhysicsBody *CCPhysicsWorld::getBodyByTag(int tag)
 {
-    PhysicsWorldBodyMapIterator it = m_bodies.find(node);
-    CCAssert(it != m_bodies.end(), "CCPhysicsWorld::unbindNode() - Node not in world");
-    node->release();
-    it->second->release();
-    m_bodies.erase(it);
-}
-
-void CCPhysicsWorld::unbindAllNodes(void)
-{
-    for (PhysicsWorldBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
+    for (int i = m_bodies->count(); i >= 0; --i)
     {
-        it->first->release();
-        it->second->release();
+        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_bodies->objectAtIndex(i));
+        if (body->getTag() == tag) return body;
     }
-    m_bodies.clear();
+    return NULL;
 }
 
-CCPhysicsBody *CCPhysicsWorld::getBodyByNode(CCNode *node)
+void CCPhysicsWorld::removeBodyByTag(int tag, bool unbind/*= true*/)
 {
-    PhysicsWorldBodyMapIterator it = m_bodies.find(node);
-    return it != m_bodies.end() ? it->second : NULL;
+    CCPhysicsBody *body = getBodyByTag(tag);
+    if (body) removeBody(body, unbind);
+}
+
+void CCPhysicsWorld::removeBody(CCPhysicsBody *body, bool unbind/*= true*/)
+{
+    int i = m_bodies->indexOfObject(body);
+    if (i >= 0)
+    {
+        if (unbind) body->unbind();
+        m_bodies->removeObjectAtIndex(i, true);
+    }
+}
+
+void CCPhysicsWorld::removeAllBodies(bool unbind/*= true*/)
+{
+    for (int i = m_bodies->count(); i >= 0; --i)
+    {
+        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_bodies->objectAtIndex(i));
+        if (unbind) body->unbind();
+    }
+    m_bodies->removeAllObjects();
 }
 
 void CCPhysicsWorld::start(void)
@@ -162,17 +190,13 @@ void CCPhysicsWorld::stop(void)
 
 void CCPhysicsWorld::update(float dt)
 {
-    for (PhysicsWorldBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
-    {
-        cpBody *body = it->second->getBody();
-        const cpVect pos = cpBodyGetPos(body);
-
-        CCNode *node = it->first;
-        node->setRotation(-CC_RADIANS_TO_DEGREES(cpBodyGetAngle(body)));
-        node->setPosition(pos.x, pos.y);
-    }
-
     cpSpaceStep(m_space, dt);
+
+    for (int i = m_bodies->count(); i >= 0; --i)
+    {
+        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_bodies->objectAtIndex(i));
+        body->update(dt);
+    }
 }
 
 void CCPhysicsWorld::onExit(void)

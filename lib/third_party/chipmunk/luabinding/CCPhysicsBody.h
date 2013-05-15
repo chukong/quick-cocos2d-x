@@ -22,48 +22,50 @@ public:
 
     cpBody *getBody(void);
 
+    int getTag(void);
+    void setTag(int tag);
+
     float getMass(void);
     void setMass(float mass);
-    
+
     float getInertia(void);
     void setInertia(float inertia);
-    
+
     CCPoint getVelocity(void);
     void getVelocity(float *velocityX, float *velocityY);
     void setVelocity(const CCPoint &velocity);
     void setVelocity(float velocityX, float velocityY);
-    
+
     float getVelocityLimit(void);
     void setVelocityLimit(float limit);
-    
+
     float getAngleVelocity(void);
     void setAngleVelocity(float velocity);
-    
+
     float getAngleVelocityLimit(void);
     void setAngleVelocityLimit(float limit);
-    
+
     CCPoint getForce(void);
     void getForce(float *forceX, float *forceY);
     void setForce(const CCPoint &force);
     void setForce(float forceX, float forceY);
-    
+
     float getTorque(void);
     void setTorque(float force);
-    
+
     CCPoint getPosition(void);
     void getPosition(float *x, float *y);
     void setPosition(const CCPoint &pos);
     void setPosition(float x, float y);
-    
+
     float getAngle(void);
     void setAngle(float angle);
-    
+
     float getRotation(void);
     void setRotation(float rotation);
-    
+
     void bindNode(CCNode *node);
     void unbind(void);
-    void updateNode(void);
 
     CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
@@ -79,6 +81,8 @@ public:
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
 
+    virtual void update(float dt);
+
 private:
     CCPhysicsBody(CCPhysicsWorld *world);
     bool initWithDefaultStaticBody(void);
@@ -90,6 +94,7 @@ private:
     cpBody         *m_body;
     CCArray        *m_shapes;
     CCNode         *m_node;
+    int             m_tag;
 
     CCPhysicsShape *addShape(cpShape *shape);
 };

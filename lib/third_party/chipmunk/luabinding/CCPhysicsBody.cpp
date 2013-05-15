@@ -32,6 +32,7 @@ CCPhysicsBody::CCPhysicsBody(CCPhysicsWorld *world)
 , m_body(NULL)
 , m_shapes(NULL)
 , m_node(NULL)
+, m_tag(0)
 {
     m_world->retain();
     m_space = m_world->getSpace();
@@ -69,6 +70,16 @@ bool CCPhysicsBody::initWithBody(float mass, float moment)
     m_body = cpBodyNew(mass, moment);
     cpSpaceAddBody(m_space, m_body);
     return true;
+}
+
+int CCPhysicsBody::getTag(void)
+{
+    return m_tag;
+}
+
+void CCPhysicsBody::setTag(int tag)
+{
+    m_tag = tag;
 }
 
 cpBody *CCPhysicsBody::getBody(void)
@@ -116,7 +127,7 @@ void CCPhysicsBody::setVelocity(const CCPoint &velocity)
 
 void CCPhysicsBody::setVelocity(float velocityX, float velocityY)
 {
-    cpBodySetVel(m_body, cpv(velocityX, velocityY));    
+    cpBodySetVel(m_body, cpv(velocityX, velocityY));
 }
 
 float CCPhysicsBody::getVelocityLimit(void)
@@ -239,7 +250,7 @@ void CCPhysicsBody::unbind(void)
     CC_SAFE_RELEASE_NULL(m_node);
 }
 
-void CCPhysicsBody::updateNode(void)
+void CCPhysicsBody::update(float dt)
 {
     if (!m_node) return;
     m_node->setPosition(getPosition());
