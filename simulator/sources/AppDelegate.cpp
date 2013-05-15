@@ -14,7 +14,7 @@
 #include "luabinding/cocos2dx_extra_luabinding.h"
 
 // physics
-#include "PhysicsWorld_luabinding.h"
+#include "CCPhysicsWorld_luabinding.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -24,7 +24,7 @@ AppDelegate::AppDelegate()
 {
     // fixed me
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
-} 
+}
 
 AppDelegate::~AppDelegate()
 {
@@ -38,27 +38,27 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     pDirector->setProjection(kCCDirectorProjection2D);
-    
+
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
-    
+
     // register lua engine
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
-    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);    
-    
+    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
+
     CCLuaStack *pStack = pEngine->getLuaStack();
     lua_State* L = pStack->getLuaState();
-    
+
     // load lua extensions
     luaopen_lua_extensions(L);
     // load cocos2dx_extensions luabinding
     luaopen_cocos2dx_extensions_luabinding(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
-    
+
     // physics
-    luaopen_PhysicsWorld_luabinding(L);
-    
+    luaopen_CCPhysicsWorld_luabinding(L);
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
@@ -74,24 +74,24 @@ bool AppDelegate::applicationDidFinishLaunching()
     {
         const string dir = path.substr(0, p);
         pStack->addSearchPath(dir.c_str());
-        
+
         p = dir.find_last_of("/\\");
         if (p != dir.npos)
         {
             pStack->addSearchPath(dir.substr(0, p).c_str());
         }
     }
-    
+
     string env = "__LUA_STARTUP_FILE__=\"";
     env.append(path);
     env.append("\"");
     pEngine->executeString(env.c_str());
-    
+
     CCLOG("------------------------------------------------");
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
-    
+
     return true;
 }
 

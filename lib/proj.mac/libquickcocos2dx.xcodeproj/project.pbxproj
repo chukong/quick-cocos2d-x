@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */; };
+		6CD6724EF8B8F4708E160EED /* CCPhysicsDebugNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67FE2710ADA64A35D7C33 /* CCPhysicsDebugNode.cpp */; };
+		6CD672C387048264C148415C /* CCPhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6748D8D27C9027C4BA854 /* CCPhysicsBody.cpp */; };
+		6CD67549EA78F506C3970269 /* CCPhysicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6731F72A500138EB964C6 /* CCPhysicsWorld.cpp */; };
+		6CD675B91A5158BFF4249323 /* CCPhysicsWorld_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD67F07C42D1D7AEEBB8A45 /* CCPhysicsWorld_luabinding.cpp */; };
+		6CD67681FC34443605DFDD32 /* CCPhysicsShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6792323796BA7FC9D088D /* CCPhysicsShape.cpp */; };
 		F42B55E71727F1C7000379DE /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C51727F1C7000379DE /* auxiliar.c */; };
 		F42B55E91727F1C7000379DE /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C91727F1C7000379DE /* except.c */; };
 		F42B55EA1727F1C7000379DE /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55CB1727F1C7000379DE /* inet.c */; };
@@ -25,10 +30,6 @@
 		F436705816BCCB76004C8BB9 /* CCImageCommonWebp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436705716BCCB76004C8BB9 /* CCImageCommonWebp.cpp */; };
 		F439920B16816D3400AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920A16816D3400AE90D1 /* libluajit2.a */; };
 		F43A2B1D1737C3F2000244FC /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F43A2B1B1737C3F2000244FC /* xxtea.c */; };
-		F43D10901738DA2500B189FF /* PhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43D10641738DA2500B189FF /* PhysicsBody.cpp */; };
-		F43D10911738DA2500B189FF /* PhysicsShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43D10661738DA2500B189FF /* PhysicsShape.cpp */; };
-		F43D10921738DA2500B189FF /* PhysicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43D10681738DA2500B189FF /* PhysicsWorld.cpp */; };
-		F43D10931738DA2500B189FF /* PhysicsWorld_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43D106A1738DA2500B189FF /* PhysicsWorld_luabinding.cpp */; };
 		F43D10941738DA2500B189FF /* chipmunk.c in Sources */ = {isa = PBXBuildFile; fileRef = F43D106F1738DA2500B189FF /* chipmunk.c */; };
 		F43D10951738DA2500B189FF /* cpConstraint.c in Sources */ = {isa = PBXBuildFile; fileRef = F43D10721738DA2500B189FF /* cpConstraint.c */; };
 		F43D10961738DA2500B189FF /* cpDampedRotarySpring.c in Sources */ = {isa = PBXBuildFile; fileRef = F43D10731738DA2500B189FF /* cpDampedRotarySpring.c */; };
@@ -58,7 +59,6 @@
 		F43D10AE1738DA2500B189FF /* cpSpatialIndex.c in Sources */ = {isa = PBXBuildFile; fileRef = F43D108B1738DA2500B189FF /* cpSpatialIndex.c */; };
 		F43D10AF1738DA2500B189FF /* cpSweep1D.c in Sources */ = {isa = PBXBuildFile; fileRef = F43D108C1738DA2500B189FF /* cpSweep1D.c */; };
 		F43D10B01738DA2500B189FF /* cpVect.c in Sources */ = {isa = PBXBuildFile; fileRef = F43D108D1738DA2500B189FF /* cpVect.c */; };
-		F43D10B71738E04900B189FF /* PhysicsDebugNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43D10B51738E04900B189FF /* PhysicsDebugNode.cpp */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F44FEA8216EF7CAF00CE7B56 /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
@@ -293,8 +293,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6CD670DE633D6F0A20E810E6 /* CCPhysicsShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsShape.h; sourceTree = "<group>"; };
+		6CD671305FF9086B64334692 /* CCPhysicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsWorld.h; sourceTree = "<group>"; };
+		6CD6731F72A500138EB964C6 /* CCPhysicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsWorld.cpp; sourceTree = "<group>"; };
+		6CD6748D8D27C9027C4BA854 /* CCPhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsBody.cpp; sourceTree = "<group>"; };
 		6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
+		6CD6792323796BA7FC9D088D /* CCPhysicsShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsShape.cpp; sourceTree = "<group>"; };
 		6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
+		6CD67B73B9BFFEC719C2F576 /* CCPhysicsDebugNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsDebugNode.h; sourceTree = "<group>"; };
+		6CD67DAABDA43768FEDCB446 /* CCPhysicsWorld_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsWorld_luabinding.h; sourceTree = "<group>"; };
+		6CD67EEE4E8A1437D02FF3F3 /* CCPhysicsBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsBody.h; sourceTree = "<group>"; };
+		6CD67F07C42D1D7AEEBB8A45 /* CCPhysicsWorld_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsWorld_luabinding.cpp; sourceTree = "<group>"; };
+		6CD67FE2710ADA64A35D7C33 /* CCPhysicsDebugNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsDebugNode.cpp; sourceTree = "<group>"; };
 		F42B55C51727F1C7000379DE /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
 		F42B55C61727F1C7000379DE /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliar.h; sourceTree = "<group>"; };
 		F42B55C91727F1C7000379DE /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = except.c; sourceTree = "<group>"; };
@@ -355,14 +365,6 @@
 		F43D105E1738DA2500B189FF /* cpSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpace.h; sourceTree = "<group>"; };
 		F43D105F1738DA2500B189FF /* cpSpatialIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpSpatialIndex.h; sourceTree = "<group>"; };
 		F43D10601738DA2500B189FF /* cpVect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpVect.h; sourceTree = "<group>"; };
-		F43D10641738DA2500B189FF /* PhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsBody.cpp; sourceTree = "<group>"; };
-		F43D10651738DA2500B189FF /* PhysicsBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsBody.h; sourceTree = "<group>"; };
-		F43D10661738DA2500B189FF /* PhysicsShape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsShape.cpp; sourceTree = "<group>"; };
-		F43D10671738DA2500B189FF /* PhysicsShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsShape.h; sourceTree = "<group>"; };
-		F43D10681738DA2500B189FF /* PhysicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsWorld.cpp; sourceTree = "<group>"; };
-		F43D10691738DA2500B189FF /* PhysicsWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsWorld.h; sourceTree = "<group>"; };
-		F43D106A1738DA2500B189FF /* PhysicsWorld_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsWorld_luabinding.cpp; sourceTree = "<group>"; };
-		F43D106B1738DA2500B189FF /* PhysicsWorld_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsWorld_luabinding.h; sourceTree = "<group>"; };
 		F43D106F1738DA2500B189FF /* chipmunk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chipmunk.c; sourceTree = "<group>"; };
 		F43D10721738DA2500B189FF /* cpConstraint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpConstraint.c; sourceTree = "<group>"; };
 		F43D10731738DA2500B189FF /* cpDampedRotarySpring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpDampedRotarySpring.c; sourceTree = "<group>"; };
@@ -393,8 +395,6 @@
 		F43D108C1738DA2500B189FF /* cpSweep1D.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpSweep1D.c; sourceTree = "<group>"; };
 		F43D108D1738DA2500B189FF /* cpVect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cpVect.c; sourceTree = "<group>"; };
 		F43D108E1738DA2500B189FF /* prime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prime.h; sourceTree = "<group>"; };
-		F43D10B51738E04900B189FF /* PhysicsDebugNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsDebugNode.cpp; sourceTree = "<group>"; };
-		F43D10B61738E04900B189FF /* PhysicsDebugNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsDebugNode.h; sourceTree = "<group>"; };
 		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCClippingRegionNode.cpp; sourceTree = "<group>"; };
@@ -1038,16 +1038,16 @@
 		F43D10621738DA2500B189FF /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
-				F43D10641738DA2500B189FF /* PhysicsBody.cpp */,
-				F43D10651738DA2500B189FF /* PhysicsBody.h */,
-				F43D10B51738E04900B189FF /* PhysicsDebugNode.cpp */,
-				F43D10B61738E04900B189FF /* PhysicsDebugNode.h */,
-				F43D10661738DA2500B189FF /* PhysicsShape.cpp */,
-				F43D10671738DA2500B189FF /* PhysicsShape.h */,
-				F43D10681738DA2500B189FF /* PhysicsWorld.cpp */,
-				F43D10691738DA2500B189FF /* PhysicsWorld.h */,
-				F43D106A1738DA2500B189FF /* PhysicsWorld_luabinding.cpp */,
-				F43D106B1738DA2500B189FF /* PhysicsWorld_luabinding.h */,
+				6CD6748D8D27C9027C4BA854 /* CCPhysicsBody.cpp */,
+				6CD67EEE4E8A1437D02FF3F3 /* CCPhysicsBody.h */,
+				6CD67FE2710ADA64A35D7C33 /* CCPhysicsDebugNode.cpp */,
+				6CD67B73B9BFFEC719C2F576 /* CCPhysicsDebugNode.h */,
+				6CD6792323796BA7FC9D088D /* CCPhysicsShape.cpp */,
+				6CD670DE633D6F0A20E810E6 /* CCPhysicsShape.h */,
+				6CD6731F72A500138EB964C6 /* CCPhysicsWorld.cpp */,
+				6CD671305FF9086B64334692 /* CCPhysicsWorld.h */,
+				6CD67DAABDA43768FEDCB446 /* CCPhysicsWorld_luabinding.h */,
+				6CD67F07C42D1D7AEEBB8A45 /* CCPhysicsWorld_luabinding.cpp */,
 			);
 			path = luabinding;
 			sourceTree = "<group>";
@@ -2477,10 +2477,6 @@
 				F4B61CF3172805BC0057E1F0 /* luasocket_buffer.c in Sources */,
 				F4B61CF4172805BC0057E1F0 /* luasocket_io.c in Sources */,
 				F43A2B1D1737C3F2000244FC /* xxtea.c in Sources */,
-				F43D10901738DA2500B189FF /* PhysicsBody.cpp in Sources */,
-				F43D10911738DA2500B189FF /* PhysicsShape.cpp in Sources */,
-				F43D10921738DA2500B189FF /* PhysicsWorld.cpp in Sources */,
-				F43D10931738DA2500B189FF /* PhysicsWorld_luabinding.cpp in Sources */,
 				F43D10941738DA2500B189FF /* chipmunk.c in Sources */,
 				F43D10951738DA2500B189FF /* cpConstraint.c in Sources */,
 				F43D10961738DA2500B189FF /* cpDampedRotarySpring.c in Sources */,
@@ -2510,7 +2506,11 @@
 				F43D10AE1738DA2500B189FF /* cpSpatialIndex.c in Sources */,
 				F43D10AF1738DA2500B189FF /* cpSweep1D.c in Sources */,
 				F43D10B01738DA2500B189FF /* cpVect.c in Sources */,
-				F43D10B71738E04900B189FF /* PhysicsDebugNode.cpp in Sources */,
+				6CD672C387048264C148415C /* CCPhysicsBody.cpp in Sources */,
+				6CD6724EF8B8F4708E160EED /* CCPhysicsDebugNode.cpp in Sources */,
+				6CD67681FC34443605DFDD32 /* CCPhysicsShape.cpp in Sources */,
+				6CD67549EA78F506C3970269 /* CCPhysicsWorld.cpp in Sources */,
+				6CD675B91A5158BFF4249323 /* CCPhysicsWorld_luabinding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 
-#include "PhysicsDebugNode.h"
+#include "CCPhysicsDebugNode.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,7 +9,7 @@
 
 /*
  IMPORTANT - READ ME!
- 
+
  This file sets pokes around in the private API a lot to provide efficient
  debug rendering given nothing more than reference to a Chipmunk space.
  It is not recommended to write rendering code like this in your own games
@@ -41,7 +41,7 @@ static CCPoint* cpVertArray2ccpArrayN(const cpVect* cpVertArray, unsigned int co
 {
     if (count == 0) return NULL;
     CCPoint* pPoints = new CCPoint[count];
-    
+
     for (unsigned int i = 0; i < count; ++i)
     {
         pPoints[i].x = cpVertArray[i].x;
@@ -54,7 +54,7 @@ static void DrawShape(cpShape *shape, CCDrawNode *renderer)
 {
 	cpBody *body = shape->body;
 	ccColor4F color = ColorForBody(body);
-    
+
 	switch (shape->CP_PRIVATE(klass)->type)
     {
 		case CP_CIRCLE_SHAPE:
@@ -93,15 +93,15 @@ static void DrawConstraint(cpConstraint *constraint, CCDrawNode *renderer)
 {
 	cpBody *body_a = constraint->a;
 	cpBody *body_b = constraint->b;
-    
+
 	const cpConstraintClass *klass = constraint->CP_PRIVATE(klass);
 	if (klass == cpPinJointGetClass())
     {
 		cpPinJoint *joint = (cpPinJoint *)constraint;
-		
+
 		cpVect a = cpBodyLocal2World(body_a, joint->anchr1);
 		cpVect b = cpBodyLocal2World(body_b, joint->anchr2);
-		
+
         renderer->drawDot(cpVert2ccp(a), 3.0, CONSTRAINT_COLOR);
         renderer->drawDot(cpVert2ccp(b), 3.0, CONSTRAINT_COLOR);
         renderer->drawSegment(cpVert2ccp(a), cpVert2ccp(b), 1.0, CONSTRAINT_COLOR);
@@ -109,10 +109,10 @@ static void DrawConstraint(cpConstraint *constraint, CCDrawNode *renderer)
     else if (klass == cpSlideJointGetClass())
     {
 		cpSlideJoint *joint = (cpSlideJoint *)constraint;
-        
+
 		cpVect a = cpBodyLocal2World(body_a, joint->anchr1);
 		cpVect b = cpBodyLocal2World(body_b, joint->anchr2);
-        
+
         renderer->drawDot(cpVert2ccp(a), 3.0, CONSTRAINT_COLOR);
         renderer->drawDot(cpVert2ccp(b), 3.0, CONSTRAINT_COLOR);
         renderer->drawSegment(cpVert2ccp(a), cpVert2ccp(b), 1.0, CONSTRAINT_COLOR);
@@ -120,21 +120,21 @@ static void DrawConstraint(cpConstraint *constraint, CCDrawNode *renderer)
     else if (klass == cpPivotJointGetClass())
     {
 		cpPivotJoint *joint = (cpPivotJoint *)constraint;
-        
+
 		cpVect a = cpBodyLocal2World(body_a, joint->anchr1);
 		cpVect b = cpBodyLocal2World(body_b, joint->anchr2);
-        
+
         renderer->drawDot(cpVert2ccp(a), 3.0, CONSTRAINT_COLOR);
         renderer->drawDot(cpVert2ccp(b), 3.0, CONSTRAINT_COLOR);
 	}
     else if (klass == cpGrooveJointGetClass())
     {
 		cpGrooveJoint *joint = (cpGrooveJoint *)constraint;
-        
+
 		cpVect a = cpBodyLocal2World(body_a, joint->grv_a);
 		cpVect b = cpBodyLocal2World(body_a, joint->grv_b);
 		cpVect c = cpBodyLocal2World(body_b, joint->anchr2);
-        
+
         renderer->drawDot(cpVert2ccp(c), 3.0, CONSTRAINT_COLOR);
         renderer->drawSegment(cpVert2ccp(a), cpVert2ccp(b), 1.0, CONSTRAINT_COLOR);
 	}
@@ -148,55 +148,55 @@ static void DrawConstraint(cpConstraint *constraint, CCDrawNode *renderer)
 	}
 }
 
-// implementation of PhysicsDebugNode
+// implementation of CCPhysicsDebugNode
 
-void PhysicsDebugNode::draw()
+void CCPhysicsDebugNode::draw()
 {
     if (! m_pSpacePtr)
     {
         return;
     }
-    
+
     cpSpaceEachShape(m_pSpacePtr, (cpSpaceShapeIteratorFunc)DrawShape, this);
 	cpSpaceEachConstraint(m_pSpacePtr, (cpSpaceConstraintIteratorFunc)DrawConstraint, this);
-    
+
     CCDrawNode::draw();
     CCDrawNode::clear();
 }
 
-PhysicsDebugNode::PhysicsDebugNode()
+CCPhysicsDebugNode::CCPhysicsDebugNode()
 : m_pSpacePtr(NULL)
 {}
 
-PhysicsDebugNode* PhysicsDebugNode::create(cpSpace *space)
+CCPhysicsDebugNode *CCPhysicsDebugNode::create(cpSpace *space)
 {
-    PhysicsDebugNode *node = new PhysicsDebugNode();
+    CCPhysicsDebugNode *node = new CCPhysicsDebugNode();
     if (node)
     {
         node->init();
-        
+
         node->m_pSpacePtr = space;
-        
+
         node->autorelease();
     }
     else
     {
         CC_SAFE_DELETE(node);
     }
-    
+
     return node;
 }
 
-PhysicsDebugNode::~PhysicsDebugNode()
+CCPhysicsDebugNode::~CCPhysicsDebugNode()
 {
 }
 
-cpSpace* PhysicsDebugNode::getSpace() const
+cpSpace*CCPhysicsDebugNode::getSpace() const
 {
     return m_pSpacePtr;
 }
 
-void PhysicsDebugNode::setSpace(cpSpace *space)
+void CCPhysicsDebugNode::setSpace(cpSpace *space)
 {
     m_pSpacePtr = space;
 }

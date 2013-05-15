@@ -1,0 +1,64 @@
+
+$#include "CCPhysicsShape.h"
+$#include "CCPhysicsBody.h"
+$#include "CCPhysicsWorld.h"
+$#include "CCPhysicsDebugNode.h"
+
+class CCPhysicsWorld : public CCNode
+{
+    static CCPhysicsWorld *create(float gravityX, float gravityY);
+    static CCPhysicsWorld *create(void);
+
+    CCPhysicsDebugNode *createDebugNode(void);
+
+    void getGravity(float *gravityX, float *gravityY);
+    void setGravity(float gravityX, float gravityY);
+
+    // add shapes to world
+    CCPhysicsBody *addCircleShape(float mass, float radius, float offsetX = 0, float offsetY = 0);
+    CCPhysicsBody *addBoxShape(float mass, float width, float height);
+    CCPhysicsBody *addPolygonShape(float mass, CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
+    CCPhysicsBody *addPolygonShape(float mass, LUA_TABLE vertexes, float offsetX = 0, float offsetY = 0);
+
+    void bindNodeToBody(CCNode *node, CCPhysicsBody *body);
+    void unbindNode(CCNode *node);
+    void unbindAllNodes(void);
+    CCPhysicsBody *getBodyByNode(CCNode *node);
+
+    void start(void);
+    void stop(void);
+};
+
+class CCPhysicsBody : public CCObject
+{
+    static CCPhysicsBody *defaultStaticBody(CCPhysicsWorld *world);
+    static CCPhysicsBody *createStaticBody(CCPhysicsWorld *world);
+    static CCPhysicsBody *create(CCPhysicsWorld *world, float mass, float moment);
+
+    void setMass(float mass);
+    void setInertia(float inertia);
+    void setPosition(float x, float y);
+
+    CCPhysicsShape *addSegmentShape(CCPoint lowerLeft, CCPoint lowerRight, float thickness);
+    CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
+    CCPhysicsShape *addBoxShape(float width, float height);
+    CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
+    CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
+
+    void removeShapeAtIndex(int index);
+    void removeShape(CCPhysicsShape *shapeObject);
+    void removeAllShape(void);
+};
+
+class CCPhysicsShape : public CCObject
+{
+    float getElasticity(void);
+    void setElasticity(float elasticity);
+
+    float getFriction(void);
+    void setFriction(float friction);
+};
+
+class CCPhysicsDebugNode : public CCNode
+{
+};

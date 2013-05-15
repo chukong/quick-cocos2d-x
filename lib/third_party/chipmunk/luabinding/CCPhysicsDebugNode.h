@@ -7,23 +7,23 @@
 
 using namespace cocos2d;
 
-class PhysicsDebugNode : public CCDrawNode
+class CCPhysicsDebugNode : public CCDrawNode
 {
 protected:
     cpSpace *m_pSpacePtr;
-    
+
 public:
     /** Create a debug node for a regular Chipmunk space. */
-    static PhysicsDebugNode* create(cpSpace *space);
-    
-    virtual ~PhysicsDebugNode();
-    
+    static CCPhysicsDebugNode * create(cpSpace *space);
+
+    virtual ~CCPhysicsDebugNode();
+
     virtual void draw();
-    
+
     cpSpace* getSpace() const;
     void setSpace(cpSpace *space);
-    
-    PhysicsDebugNode();
+
+    CCPhysicsDebugNode();
 };
 
 #endif // __PHYSICS_DEBUG_NODE_H__
