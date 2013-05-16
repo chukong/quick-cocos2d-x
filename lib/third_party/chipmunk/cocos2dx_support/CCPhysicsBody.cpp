@@ -72,6 +72,21 @@ bool CCPhysicsBody::initWithBody(float mass, float moment)
     return true;
 }
 
+cpBody *CCPhysicsBody::getBody(void)
+{
+    return m_body;
+}
+
+const char *CCPhysicsBody::getName(void)
+{
+    return m_name.c_str();
+}
+
+void CCPhysicsBody::setName(const char *name)
+{
+    m_name = name ? name : "";
+}
+
 int CCPhysicsBody::getTag(void)
 {
     return m_tag;
@@ -80,11 +95,6 @@ int CCPhysicsBody::getTag(void)
 void CCPhysicsBody::setTag(int tag)
 {
     m_tag = tag;
-}
-
-cpBody *CCPhysicsBody::getBody(void)
-{
-    return m_body;
 }
 
 float CCPhysicsBody::getMass(void)
@@ -142,22 +152,22 @@ void CCPhysicsBody::setVelocityLimit(float limit)
 
 float CCPhysicsBody::getAngleVelocity(void)
 {
-    return cpBodyGetAngVel(m_body);
+    return -cpBodyGetAngVel(m_body);
 }
 
 void CCPhysicsBody::setAngleVelocity(float velocity)
 {
-    cpBodySetAngVel(m_body, velocity);
+    cpBodySetAngVel(m_body, -velocity);
 }
 
 float CCPhysicsBody::getAngleVelocityLimit(void)
 {
-    return cpBodyGetAngVelLimit(m_body);
+    return -cpBodyGetAngVelLimit(m_body);
 }
 
 void CCPhysicsBody::setAngleVelocityLimit(float limit)
 {
-    cpBodySetAngVelLimit(m_body, limit);
+    cpBodySetAngVelLimit(m_body, -limit);
 }
 
 CCPoint CCPhysicsBody::getForce(void)
@@ -238,9 +248,78 @@ void CCPhysicsBody::setRotation(float rotation)
     cpBodySetAngle(m_body, CC_DEGREES_TO_RADIANS(-rotation));
 }
 
-void CCPhysicsBody::bindNode(CCNode *node)
+float CCPhysicsBody::getElasticity(void)
 {
-    CC_SAFE_RELEASE_NULL(m_node);
+    float maxElasticity = -99999;
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        float elasticity = static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->getElasticity();
+        if (elasticity > maxElasticity) maxElasticity = elasticity;
+    }
+    return maxElasticity;
+}
+
+void CCPhysicsBody::setElasticity(float elasticity)
+{
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setElasticity(elasticity);
+    }
+}
+
+float CCPhysicsBody::getFriction(void)
+{
+    float maxFriction = -99999;
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        float friction = static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->getFriction();
+        if (friction > maxFriction) maxFriction = friction;
+    }
+    return maxFriction;
+}
+
+void CCPhysicsBody::setFriction(float friction)
+{
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setFriction(friction);
+    }
+}
+
+bool CCPhysicsBody::isSensor(void)
+{
+    bool isSensor = false;
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        isSensor = isSensor || static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->isSensor();
+    }
+    return isSensor;
+}
+
+void CCPhysicsBody::setIsSensor(bool isSensor)
+{
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setIsSensor(isSensor);
+    }
+}
+
+int CCPhysicsBody::getCollisionType(void)
+{
+    return m_shapes->count() > 0 ? static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(0))->getCollisionType() : 0;
+}
+
+void CCPhysicsBody::setCollisionType(int collisionType)
+{
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setCollisionType(collisionType);
+    }
+}
+
+void CCPhysicsBody::bind(CCNode *node)
+{
+    unbind();
     m_node = node;
     m_node->retain();
 }
@@ -248,13 +327,6 @@ void CCPhysicsBody::bindNode(CCNode *node)
 void CCPhysicsBody::unbind(void)
 {
     CC_SAFE_RELEASE_NULL(m_node);
-}
-
-void CCPhysicsBody::update(float dt)
-{
-    if (!m_node) return;
-    m_node->setPosition(getPosition());
-    m_node->setRotation(getRotation());
 }
 
 CCPhysicsShape *CCPhysicsBody::addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness)
@@ -274,13 +346,13 @@ CCPhysicsShape *CCPhysicsBody::addBoxShape(float width, float height)
 
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    cpVectArray *cpVertexes = cpVectArray::createFromCCPointArray(vertexes);
+    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromCCPointArray(vertexes);
     return addPolygonShape(cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    cpVectArray *cpVertexes = cpVectArray::createFromCCPoint(numVertexes, vertexes);
+    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromCCPoint(numVertexes, vertexes);
     return addPolygonShape(cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
@@ -292,7 +364,7 @@ CCPhysicsShape *CCPhysicsBody::addPolygonShape(int numVertexes, cpVect *vertexes
 #if CC_LUA_ENGINE_ENABLED > 0
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(int vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    cpVectArray *cpVertexes = cpVectArray::createFromLuaTable(vertexes);
+    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromLuaTable(vertexes);
     return addPolygonShape(cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 #endif
@@ -318,6 +390,13 @@ void CCPhysicsBody::removeAllShape(void)
         cpSpaceRemoveShape(m_space, shapeObject->getShape());
     }
     m_shapes->removeAllObjects();
+}
+
+void CCPhysicsBody::update(float dt)
+{
+    if (!m_node) return;
+    m_node->setPosition(getPosition());
+    m_node->setRotation(getRotation());
 }
 
 CCPhysicsShape *CCPhysicsBody::addShape(cpShape *shape)

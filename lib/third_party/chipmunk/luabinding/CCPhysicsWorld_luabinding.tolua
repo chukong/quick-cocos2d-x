@@ -26,8 +26,14 @@ class CCPhysicsWorld : public CCNode
     void removeBody(CCPhysicsBody *body, bool unbind = true);
     void removeAllBodies(bool unbind = true);
 
+    // operation
     void start(void);
     void stop(void);
+
+    // events
+    void addCollisionScriptListener(LUA_FUNCTION handler, int collisionTypeA, int collisionTypeB);
+    void removeCollisionScriptListener(int collisionTypeA, int collisionTypeB);
+    void removeAllCollisionListeners(void);
 };
 
 class CCPhysicsBody : public CCObject
@@ -36,6 +42,11 @@ class CCPhysicsBody : public CCObject
     static CCPhysicsBody *createStaticBody(CCPhysicsWorld *world);
     static CCPhysicsBody *create(CCPhysicsWorld *world, float mass, float moment);
 
+    // extended properties
+    const char *getName(void);
+    void setName(const char *name);
+
+    // body properties
     int getTag(void);
     void setTag(int tag);
 
@@ -78,10 +89,22 @@ class CCPhysicsBody : public CCObject
     float getRotation(void);
     void setRotation(float rotation);
 
-    void bindNode(CCNode *node);
+    // shape properties
+    float getElasticity(void);
+    void setElasticity(float elasticity);
+    float getFriction(void);
+    void setFriction(float friction);
+    bool isSensor(void);
+    void setIsSensor(bool isSensor);
+    int getCollisionType(void);
+    void setCollisionType(int collisionType);
+
+    // binding to node
+    void bind(CCNode *node);
     void unbind(void);
 
-    CCPhysicsShape *addSegmentShape(CCPoint lowerLeft, CCPoint lowerRight, float thickness);
+    // shapes management
+    CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addBoxShape(float width, float height);
     CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
@@ -99,8 +122,36 @@ class CCPhysicsShape : public CCObject
 
     float getFriction(void);
     void setFriction(float friction);
+
+    bool isSensor(void);
+    void setIsSensor(bool isSensor);
+
+    int getCollisionType(void);
+    void setCollisionType(int collisionType);
 };
 
 class CCPhysicsDebugNode : public CCNode
 {
+};
+
+class CCPhysicsCollisionEvent : public CCObject
+{
+    CCPhysicsWorld *getWorld(void);
+
+    CCPhysicsBody *getBody1(void);
+    CCPhysicsBody *getBody2(void);
+
+    bool isFirstContact(void);
+
+    float getElasticity(void);
+    void setElasticity(float elasticity);
+
+    float getFriction(void);
+    void setFriction(float friction);
+
+    const CCPoint getSurfaceVelocities(void);
+    void setSurfaceVelocities(const CCPoint velocities);
+
+    void *getUserData(void);
+    void setUserData(void *userdata);
 };

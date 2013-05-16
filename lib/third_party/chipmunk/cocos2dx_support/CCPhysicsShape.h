@@ -13,23 +13,19 @@ public:
     static CCPhysicsShape *create(cpShape *shape);
     ~CCPhysicsShape(void);
 
-    cpShape *getShape(void) {
-        return m_shape;
-    }
+    cpShape *getShape(void);
 
-    float getElasticity(void) {
-        return cpShapeGetElasticity(m_shape);
-    }
-    void setElasticity(float elasticity) {
-        cpShapeSetElasticity(m_shape, elasticity);
-    }
+    float getElasticity(void);
+    void setElasticity(float elasticity);
 
-    float getFriction(void) {
-        return cpShapeGetFriction(m_shape);
-    }
-    void setFriction(float friction) {
-        cpShapeSetFriction(m_shape, friction);
-    }
+    float getFriction(void);
+    void setFriction(float friction);
+
+    bool isSensor(void);
+    void setIsSensor(bool isSensor);
+
+    int getCollisionType(void);
+    void setCollisionType(int collisionType);
 
 private:
     CCPhysicsShape(cpShape *shape)

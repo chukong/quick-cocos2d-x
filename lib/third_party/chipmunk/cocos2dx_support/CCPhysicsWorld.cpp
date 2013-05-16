@@ -2,6 +2,11 @@
 #include "CCPhysicsWorld.h"
 #include "CCPhysicsBody.h"
 #include "CCPhysicsDebugNode.h"
+#include "CCScriptSupport.h"
+
+#if CC_LUA_ENGINE_ENABLED > 0
+#include "CCLuaEngine.h"
+#endif
 
 using namespace cocos2d;
 
@@ -24,18 +29,21 @@ CCPhysicsWorld *CCPhysicsWorld::create(float gravityX, float gravityY)
 
 CCPhysicsWorld::~CCPhysicsWorld(void)
 {
-    CC_SAFE_RELEASE(m_bodies);
+    removeAllCollisionListeners();
+    removeAllBodies();
+    CC_SAFE_RELEASE(m_listeners);
     CC_SAFE_RELEASE(m_defaultStaticBody);
     cpSpaceFree(m_space);
 }
 
 bool CCPhysicsWorld::init(void)
 {
-    m_bodies = CCArray::create();
-    m_bodies->retain();
     m_space = cpSpaceNew();
     cpSpaceSetGravity(m_space, cpvzero);
     cpSpaceSetUserData(m_space, (cpDataPointer)this);
+    
+    m_listeners = CCArray::create();
+    m_listeners->retain();
     return true;
 }
 
@@ -103,11 +111,11 @@ CCPhysicsBody *CCPhysicsWorld::createBoxBody(float mass, float width, float heig
 
 CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    cpVectArray *cpVertexes = cpVectArray::createFromCCPointArray(vertexes);
+    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromCCPointArray(vertexes);
     return createPolygonBody(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
-CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, cpVectArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, CCPhysicsVectArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     return createPolygonBody(mass, vertexes->count(), vertexes->data(), offsetX, offsetY);
 }
@@ -132,22 +140,22 @@ CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int numVertexes, cp
 #if CC_LUA_ENGINE_ENABLED > 0
 CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    cpVectArray *cpVertexes = cpVectArray::createFromLuaTable(vertexes);
+    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromLuaTable(vertexes);
     return createPolygonBody(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 #endif
 
 void CCPhysicsWorld::addBody(CCPhysicsBody *body)
 {
-    m_bodies->addObject(body);
+    body->retain();
+    m_bodies[body->getBody()] = body;
 }
 
 CCPhysicsBody *CCPhysicsWorld::getBodyByTag(int tag)
 {
-    for (int i = m_bodies->count(); i >= 0; --i)
+    for (CCPhysicsBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
     {
-        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_bodies->objectAtIndex(i));
-        if (body->getTag() == tag) return body;
+        if (it->second->getTag() == tag) return it->second;
     }
     return NULL;
 }
@@ -160,22 +168,29 @@ void CCPhysicsWorld::removeBodyByTag(int tag, bool unbind/*= true*/)
 
 void CCPhysicsWorld::removeBody(CCPhysicsBody *body, bool unbind/*= true*/)
 {
-    int i = m_bodies->indexOfObject(body);
-    if (i >= 0)
+    CCPhysicsBodyMapIterator it = m_bodies.find(body->getBody());
+    if (it != m_bodies.end())
     {
         if (unbind) body->unbind();
-        m_bodies->removeObjectAtIndex(i, true);
+        body->release();
+        m_bodies.erase(it);
     }
 }
 
 void CCPhysicsWorld::removeAllBodies(bool unbind/*= true*/)
 {
-    for (int i = m_bodies->count(); i >= 0; --i)
+    for (CCPhysicsBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
     {
-        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_bodies->objectAtIndex(i));
-        if (unbind) body->unbind();
+        if (unbind) it->second->unbind();
+        it->second->release();
     }
-    m_bodies->removeAllObjects();
+    m_bodies.clear();
+}
+
+CCPhysicsBody *CCPhysicsWorld::getBodyByCpBody(cpBody *cpBody)
+{
+    CCPhysicsBodyMapIterator it = m_bodies.find(cpBody);
+    return it != m_bodies.end() ? it->second : NULL;
 }
 
 void CCPhysicsWorld::start(void)
@@ -188,18 +203,86 @@ void CCPhysicsWorld::stop(void)
     unscheduleUpdate();
 }
 
+#if CC_LUA_ENGINE_ENABLED > 0
+void CCPhysicsWorld::addCollisionScriptListener(int handler, int collisionTypeA, int collisionTypeB)
+{
+    removeCollisionScriptListener(collisionTypeA, collisionTypeB);
+    CCPhysicsCollisionProxy *proxy = CCPhysicsCollisionProxy::createWithScriptHandler(this, handler, collisionTypeA, collisionTypeB);
+    m_listeners->addObject(proxy);
+    
+    cpSpaceAddCollisionHandler(m_space,
+                               (cpCollisionType)collisionTypeA,
+                               (cpCollisionType)collisionTypeB,
+                               collisionBeginCallback,
+                               collisionPreSolveCallback,
+                               collisionPostSolveCallback,
+                               collisionSeparateCallback,
+                               proxy);
+}
+
+void CCPhysicsWorld::removeCollisionScriptListener(int collisionTypeA, int collisionTypeB)
+{
+    cpSpaceRemoveCollisionHandler(m_space, (cpCollisionType)collisionTypeA, (cpCollisionType)collisionTypeB);
+    for (int i = m_listeners->count() - 1; i >= 0; --i)
+    {
+        CCPhysicsCollisionProxy *proxy = static_cast<CCPhysicsCollisionProxy*>(m_listeners->objectAtIndex(i));
+        if (proxy->getCollisionTypeA() == collisionTypeA && proxy->getCollisionTypeB() == collisionTypeB)
+        {
+            m_listeners->removeObjectAtIndex(i);
+        }
+    }
+}
+#endif
+
+void CCPhysicsWorld::removeAllCollisionListeners(void)
+{
+    for (int i = m_listeners->count() - 1; i >= 0; --i)
+    {
+        CCPhysicsCollisionProxy *proxy = static_cast<CCPhysicsCollisionProxy*>(m_listeners->objectAtIndex(i));
+        cpSpaceRemoveCollisionHandler(m_space, (cpCollisionType)proxy->getCollisionTypeA(), (cpCollisionType)proxy->getCollisionTypeB());
+    }
+    m_listeners->removeAllObjects();
+}
+
 void CCPhysicsWorld::update(float dt)
 {
     cpSpaceStep(m_space, dt);
-
-    for (int i = m_bodies->count(); i >= 0; --i)
+    
+    for (CCPhysicsBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
     {
-        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_bodies->objectAtIndex(i));
-        body->update(dt);
+        it->second->update(dt);
     }
 }
 
 void CCPhysicsWorld::onExit(void)
 {
     stop();
+}
+
+int CCPhysicsWorld::collisionBeginCallback(cpArbiter *arbiter, struct cpSpace *space, void *data)
+{
+    CCPhysicsCollisionProxy *proxy = static_cast<CCPhysicsCollisionProxy*>(data);
+    CCPhysicsCollisionEvent *event = CCPhysicsCollisionEvent::create(proxy->getWorld(), arbiter);
+    return proxy->collisionBegin(event) ? cpTrue : cpFalse;
+}
+
+int CCPhysicsWorld::collisionPreSolveCallback(cpArbiter *arbiter, struct cpSpace *space, void *data)
+{
+    CCPhysicsCollisionProxy *proxy = static_cast<CCPhysicsCollisionProxy*>(data);
+    CCPhysicsCollisionEvent *event = CCPhysicsCollisionEvent::create(proxy->getWorld(), arbiter);
+    return proxy->collisionPreSolve(event) ? cpTrue : cpFalse;
+}
+
+void CCPhysicsWorld::collisionPostSolveCallback(cpArbiter *arbiter, struct cpSpace *space, void *data)
+{
+    CCPhysicsCollisionProxy *proxy = static_cast<CCPhysicsCollisionProxy*>(data);
+    CCPhysicsCollisionEvent *event = CCPhysicsCollisionEvent::create(proxy->getWorld(), arbiter);
+    proxy->collisionPostSolve(event);
+}
+
+void CCPhysicsWorld::collisionSeparateCallback(cpArbiter *arbiter, struct cpSpace *space, void *data)
+{
+    CCPhysicsCollisionProxy *proxy = static_cast<CCPhysicsCollisionProxy*>(data);
+    CCPhysicsCollisionEvent *event = CCPhysicsCollisionEvent::create(proxy->getWorld(), arbiter);
+    proxy->collisionSeparate(event);
 }
