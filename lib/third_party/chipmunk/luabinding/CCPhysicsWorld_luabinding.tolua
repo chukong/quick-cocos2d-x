@@ -11,10 +11,14 @@ class CCPhysicsWorld : public CCNode
 
     CCPhysicsDebugNode *createDebugNode(void);
 
-    void getGravity(float *gravityX, float *gravityY);
+    // world properties
+    void getGravity(float *gravityX = 0, float *gravityY = 0);
     void setGravity(float gravityX, float gravityY);
 
-    // add shapes to world
+    float getDamping(void);
+    void setDamping(float damping);
+
+    // body management
     CCPhysicsBody *createCircleBody(float mass, float radius, float offsetX = 0, float offsetY = 0);
     CCPhysicsBody *createBoxBody(float mass, float width, float height);
     CCPhysicsBody *createPolygonBody(float mass, CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
@@ -56,10 +60,10 @@ class CCPhysicsBody : public CCObject
     float getInertia(void);
     void setInertia(float inertia);
 
-    CCPoint getVelocity(void);
-    void getVelocity(float *velocityX, float *velocityY);
-    void setVelocity(const CCPoint &velocity);
+    void getVelocity(float *velocityX = 0, float *velocityY = 0);
     void setVelocity(float velocityX, float velocityY);
+    void setVelocity(const CCPoint &velocity);
+    void setVelocity(CCPhysicsVector* velocity);
 
     float getVelocityLimit(void);
     void setVelocityLimit(float limit);
@@ -70,18 +74,25 @@ class CCPhysicsBody : public CCObject
     float getAngleVelocityLimit(void);
     void setAngleVelocityLimit(float limit);
 
-    CCPoint getForce(void);
-    void getForce(float *forceX, float *forceY);
-    void setForce(const CCPoint &force);
+    void getForce(float *forceX = 0, float *forceY = 0);
     void setForce(float forceX, float forceY);
+    void setForce(const CCPoint &force);
+    void setForce(CCPhysicsVector *force);
 
     float getTorque(void);
     void setTorque(float force);
 
-    CCPoint getPosition(void);
-    void getPosition(float *x, float *y);
-    void setPosition(const CCPoint &pos);
+    void resetForces(void);
+    void applyForce(float forceX, float forceY, float offsetX = 0, float offsetY = 0);
+    void applyForce(const CCPoint &force, float offsetX = 0, float offsetY = 0);
+    void applyForce(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(float forceX, float forceY, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(const CCPoint &force, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
+
+    void getPosition(float *x = 0, float *y = 0);
     void setPosition(float x, float y);
+    void setPosition(const CCPoint &pos);
 
     float getAngle(void);
     void setAngle(float angle);
@@ -98,6 +109,9 @@ class CCPhysicsBody : public CCObject
     void setIsSensor(bool isSensor);
     int getCollisionType(void);
     void setCollisionType(int collisionType);
+
+    // helper
+    float dist(CCPhysicsBody *other);
 
     // binding to node
     void bind(CCNode *node);
@@ -149,9 +163,80 @@ class CCPhysicsCollisionEvent : public CCObject
     float getFriction(void);
     void setFriction(float friction);
 
-    const CCPoint getSurfaceVelocities(void);
-    void setSurfaceVelocities(const CCPoint velocities);
+    void getSurfaceVelocities(float *velocityX = 0, float *velocityY = 0);
+    void setSurfaceVelocities(float velocityX, float velocityY);
+    void setSurfaceVelocities(const CCPoint velocity);
 
     void *getUserData(void);
     void setUserData(void *userdata);
+};
+
+class CCPhysicsVector : public CCObject
+{
+    static CCPhysicsVector *create(float x, float y);
+    static CCPhysicsVector *create(const CCPoint vector);
+
+    static CCPhysicsVector *createForAngle(float angle);
+    static CCPhysicsVector *createForRotation(float degrees);
+
+    void getValue(float *x = 0, float *y = 0);
+
+    // Check if two vectors are equal
+    bool equal(float x, float y);
+    bool equal(CCPhysicsVector *other);
+
+    // Add an other vectors
+    void add(float x, float y);
+    void add(CCPhysicsVector *other);
+
+    // Subtract an other vectors
+    void sub(float x, float y);
+    void sub(CCPhysicsVector *other);
+
+    // Negate a vector
+    void negate(void);
+
+    // Scalar multiplication
+    void multi(float scale);
+
+    // Vector dot product
+    float dot(float x, float y);
+    float dot(CCPhysicsVector *other);
+
+    // 2D vector cross product analog
+    float cross(float x, float y);
+    float cross(CCPhysicsVector *other);
+
+    // Returns a perpendicular vector. (90 degree rotation)
+    CCPhysicsVector *perp(void);
+
+    // Returns a perpendicular vector. (-90 degree rotation)
+    CCPhysicsVector *rperp(void);
+
+    // Uses complex multiplication to rotate v1 by v2. Scaling will occur if v1 is not a unit vector.
+    void rotate(float x, float y);
+    void rotate(CCPhysicsVector *other);
+
+    // Returns the length.
+    float length(void);
+
+    // Returns the squared length. Faster than length() when you only need to compare lengths.
+    float lengthsq(void);
+
+    // Returns the distance between current vector to other.
+    float dist(float x, float y);
+    float dist(CCPhysicsVector *other);
+
+    // Returns the squared distance between current vector and other. Faster than dist() when you only need to compare distances.
+    float distsq(float x, float y);
+    float distsq(CCPhysicsVector *other);
+
+    // Returns the angular direction v is pointing in (in radians).
+    float angle(void);
+
+    // Returns the angular direction v is pointing in (in degrees).
+    float rotation(void);
+
+    // Returns the sum of abs(x) nad abs(y).
+    float sum(void);
 };

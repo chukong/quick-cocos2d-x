@@ -32,11 +32,14 @@ public:
     void getGravity(float *gravityX, float *gravityY);
     void setGravity(float gravityX, float gravityY);
     
+    float getDamping(void);
+    void setDamping(float damping);
+    
     // body management
     CCPhysicsBody *createCircleBody(float mass, float radius, float offsetX = 0, float offsetY = 0);
     CCPhysicsBody *createBoxBody(float mass, float width, float height);
     CCPhysicsBody *createPolygonBody(float mass, CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
-    CCPhysicsBody *createPolygonBody(float mass, CCPhysicsVectArray *vertexes, float offsetX = 0, float offsetY = 0);
+    CCPhysicsBody *createPolygonBody(float mass, CCPhysicsVectorArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsBody *createPolygonBody(float mass, int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);
 #if CC_LUA_ENGINE_ENABLED > 0
     CCPhysicsBody *createPolygonBody(float mass, int vertexes, float offsetX = 0, float offsetY = 0);

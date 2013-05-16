@@ -135,6 +135,11 @@ void CCPhysicsBody::setVelocity(const CCPoint &velocity)
     cpBodySetVel(m_body, cpv(velocity.x, velocity.y));
 }
 
+void CCPhysicsBody::setVelocity(CCPhysicsVector* velocity)
+{
+    cpBodySetVel(m_body, velocity->getVector());
+}
+
 void CCPhysicsBody::setVelocity(float velocityX, float velocityY)
 {
     cpBodySetVel(m_body, cpv(velocityX, velocityY));
@@ -188,6 +193,11 @@ void CCPhysicsBody::setForce(const CCPoint &force)
     cpBodySetForce(m_body, cpv(force.x, force.y));
 }
 
+void CCPhysicsBody::setForce(CCPhysicsVector *force)
+{
+    cpBodySetForce(m_body, force->getVector());
+}
+
 void CCPhysicsBody::setForce(float forceX, float forceY)
 {
     cpBodySetForce(m_body, cpv(forceX, forceY));
@@ -201,6 +211,41 @@ float CCPhysicsBody::getTorque(void)
 void CCPhysicsBody::setTorque(float force)
 {
     cpBodySetTorque(m_body, force);
+}
+
+void CCPhysicsBody::resetForces(void)
+{
+    cpBodyResetForces(m_body);
+}
+
+void CCPhysicsBody::applyForce(float forceX, float forceY, float offsetX/*= 0*/, float offsetY/*= 0*/)
+{
+    cpBodyApplyForce(m_body, cpv(forceX, forceY), cpv(offsetX, offsetY));
+}
+
+void CCPhysicsBody::applyForce(const CCPoint &force, float offsetX/*= 0*/, float offsetY/*= 0*/)
+{
+    cpBodyApplyForce(m_body, cpv(force.x, force.y), cpv(offsetX, offsetY));
+}
+
+void CCPhysicsBody::applyForce(CCPhysicsVector *force, float offsetX/*= 0*/, float offsetY/*= 0*/)
+{
+    cpBodyApplyForce(m_body, force->getVector(), cpv(offsetX, offsetY));
+}
+
+void CCPhysicsBody::applyImpulse(float forceX, float forceY, float offsetX/*= 0*/, float offsetY/*= 0*/)
+{
+    cpBodyApplyImpulse(m_body, cpv(forceX, forceY), cpv(offsetX, offsetY));
+}
+
+void CCPhysicsBody::applyImpulse(const CCPoint &force, float offsetX/*= 0*/, float offsetY/*= 0*/)
+{
+    cpBodyApplyImpulse(m_body, cpv(force.x, force.y), cpv(offsetX, offsetY));
+}
+
+void CCPhysicsBody::applyImpulse(CCPhysicsVector *force, float offsetX/*= 0*/, float offsetY/*= 0*/)
+{
+    cpBodyApplyImpulse(m_body, force->getVector(), cpv(offsetX, offsetY));
 }
 
 CCPoint CCPhysicsBody::getPosition(void)
@@ -220,22 +265,44 @@ void CCPhysicsBody::setPosition(float x, float y)
 {
     cpBodySetPos(m_body, cpv(x, y));
     cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node)
+    {
+        m_node->setPosition(x, y);
+    }
 }
 
 void CCPhysicsBody::setPosition(const CCPoint &pos)
 {
     cpBodySetPos(m_body, cpv(pos.x, pos.y));
     cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node)
+    {
+        m_node->setPosition(pos);
+    }
+}
+
+void CCPhysicsBody::setPosition(CCPhysicsVector *pos)
+{
+    cpBodySetPos(m_body, pos->getVector());
+    cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node)
+    {
+        m_node->setPosition(pos->getValue());
+    }
 }
 
 float CCPhysicsBody::getAngle(void)
 {
-    return -cpBodyGetAngle(m_body);
+    return cpBodyGetAngle(m_body);
 }
 
 void CCPhysicsBody::setAngle(float angle)
 {
-    cpBodySetAngle(m_body, -angle);
+    cpBodySetAngle(m_body, angle);
+    if (m_node)
+    {
+        m_node->setRotation(CC_RADIANS_TO_DEGREES(-angle));
+    }
 }
 
 float CCPhysicsBody::getRotation(void)
@@ -246,6 +313,10 @@ float CCPhysicsBody::getRotation(void)
 void CCPhysicsBody::setRotation(float rotation)
 {
     cpBodySetAngle(m_body, CC_DEGREES_TO_RADIANS(-rotation));
+    if (m_node)
+    {
+        m_node->setRotation(rotation);
+    }
 }
 
 float CCPhysicsBody::getElasticity(void)
@@ -317,11 +388,18 @@ void CCPhysicsBody::setCollisionType(int collisionType)
     }
 }
 
+float CCPhysicsBody::dist(CCPhysicsBody *other)
+{
+    return cpvdist(cpBodyGetPos(m_body), cpBodyGetPos(other->getBody()));
+}
+
 void CCPhysicsBody::bind(CCNode *node)
 {
     unbind();
     m_node = node;
     m_node->retain();
+    setPosition(m_node->getPosition());
+    setRotation(m_node->getRotation());
 }
 
 void CCPhysicsBody::unbind(void)
@@ -346,13 +424,13 @@ CCPhysicsShape *CCPhysicsBody::addBoxShape(float width, float height)
 
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromCCPointArray(vertexes);
+    CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromCCPointArray(vertexes);
     return addPolygonShape(cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromCCPoint(numVertexes, vertexes);
+    CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromCCPoint(numVertexes, vertexes);
     return addPolygonShape(cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
@@ -364,7 +442,7 @@ CCPhysicsShape *CCPhysicsBody::addPolygonShape(int numVertexes, cpVect *vertexes
 #if CC_LUA_ENGINE_ENABLED > 0
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(int vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromLuaTable(vertexes);
+    CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromLuaTable(vertexes);
     return addPolygonShape(cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 #endif

@@ -8,38 +8,217 @@
 #include "CCLuaStack.h"
 #endif
 
-CCPhysicsVectArray *CCPhysicsVectArray::createFromCCPointArray(CCPointArray *points)
+CCPhysicsVector *CCPhysicsVector::create(float x, float y)
 {
-    CCPhysicsVectArray *array = new CCPhysicsVectArray();
+    CCPhysicsVector *vectorObject = new CCPhysicsVector(x, y);
+    vectorObject->autorelease();
+    return vectorObject;
+}
+
+CCPhysicsVector *CCPhysicsVector::create(const cpVect vector)
+{
+    CCPhysicsVector *vectorObject = new CCPhysicsVector(vector.x, vector.y);
+    vectorObject->autorelease();
+    return vectorObject;
+}
+
+CCPhysicsVector *CCPhysicsVector::create(const CCPoint vector)
+{
+    CCPhysicsVector *vectorObject = new CCPhysicsVector(vector.x, vector.y);
+    vectorObject->autorelease();
+    return vectorObject;
+}
+
+CCPhysicsVector *CCPhysicsVector::createForAngle(float angle)
+{
+    return CCPhysicsVector::create(cpvforangle(angle));
+}
+
+CCPhysicsVector *CCPhysicsVector::createForRotation(float degrees)
+{
+    return CCPhysicsVector::create(cpvforangle(-CC_DEGREES_TO_RADIANS(degrees)));
+}
+
+CCPhysicsVector::CCPhysicsVector(float x, float y)
+{
+    m_vector = cpv(x, y);
+}
+
+const cpVect CCPhysicsVector::getVector(void)
+{
+    return m_vector;
+}
+
+void CCPhysicsVector::getValue(float *x, float *y)
+{
+    *x = m_vector.x;
+    *y = m_vector.y;
+}
+
+const CCPoint CCPhysicsVector::getValue(void)
+{
+    return CCPoint(m_vector.x, m_vector.y);
+}
+
+bool CCPhysicsVector::equal(CCPhysicsVector *other)
+{
+    return cpveql(m_vector, other->m_vector);
+}
+
+bool CCPhysicsVector::equal(float x, float y)
+{
+    return cpveql(m_vector, cpv(x, y));
+}
+
+void CCPhysicsVector::add(CCPhysicsVector *other)
+{
+    m_vector = cpvadd(m_vector, other->m_vector);
+}
+
+void CCPhysicsVector::add(float x, float y)
+{
+    m_vector = cpvadd(m_vector, cpv(x, y));
+}
+
+void CCPhysicsVector::sub(CCPhysicsVector *other)
+{
+    m_vector = cpvsub(m_vector, other->m_vector);
+}
+
+void CCPhysicsVector::sub(float x, float y)
+{
+    m_vector = cpvsub(m_vector, cpv(x, y));
+}
+
+void CCPhysicsVector::negate(void)
+{
+    m_vector = cpvneg(m_vector);
+}
+
+void CCPhysicsVector::multi(float scale)
+{
+    m_vector = cpvmult(m_vector, scale);
+}
+
+float CCPhysicsVector::dot(CCPhysicsVector *other)
+{
+    return cpvdot(m_vector, other->m_vector);
+}
+
+float CCPhysicsVector::dot(float x, float y)
+{
+    return cpvdot(m_vector, cpv(x, y));
+}
+
+float CCPhysicsVector::cross(CCPhysicsVector *other)
+{
+    return cpvcross(m_vector, other->m_vector);
+}
+
+float CCPhysicsVector::cross(float x, float y)
+{
+    return cpvcross(m_vector, cpv(x, y));
+}
+
+CCPhysicsVector *CCPhysicsVector::perp(void)
+{
+    return CCPhysicsVector::create(cpvperp(m_vector));
+}
+
+CCPhysicsVector *CCPhysicsVector::rperp(void)
+{
+    return CCPhysicsVector::create(cpvrperp(m_vector));
+}
+
+void CCPhysicsVector::rotate(CCPhysicsVector *other)
+{
+    m_vector = cpvrotate(m_vector, other->getVector());
+}
+
+void CCPhysicsVector::rotate(float x, float y)
+{
+    m_vector = cpvrotate(m_vector, cpv(x, y));
+}
+
+float CCPhysicsVector::length(void)
+{
+    return cpvlength(m_vector);
+}
+
+float CCPhysicsVector::lengthsq(void)
+{
+    return cpvlengthsq(m_vector);
+}
+
+float CCPhysicsVector::dist(CCPhysicsVector *other)
+{
+    return cpvdist(m_vector, other->getVector());
+}
+
+float CCPhysicsVector::dist(float x, float y)
+{
+    return cpvdist(m_vector, cpv(x, y));
+}
+
+float CCPhysicsVector::distsq(CCPhysicsVector *other)
+{
+    return cpvdistsq(m_vector, other->getVector());
+}
+
+float CCPhysicsVector::distsq(float x, float y)
+{
+    return cpvdistsq(m_vector, cpv(x, y));
+}
+
+float CCPhysicsVector::angle(void)
+{
+    return cpvtoangle(m_vector);
+}
+
+float CCPhysicsVector::rotation(void)
+{
+    return CC_RADIANS_TO_DEGREES(-cpvtoangle(m_vector));
+}
+
+float CCPhysicsVector::sum(void)
+{
+    return fabsf(m_vector.x) + fabsf(m_vector.y);
+}
+
+// ----------------------------------------
+
+CCPhysicsVectorArray *CCPhysicsVectorArray::createFromCCPointArray(CCPointArray *points)
+{
+    CCPhysicsVectorArray *array = new CCPhysicsVectorArray();
     array->initWithCCPointArray(points);
     array->autorelease();
     return array;
 }
 
-CCPhysicsVectArray *CCPhysicsVectArray::createFromCCPoint(unsigned int numPoints, CCPoint *points)
+CCPhysicsVectorArray *CCPhysicsVectorArray::createFromCCPoint(unsigned int numPoints, CCPoint *points)
 {
-    CCPhysicsVectArray *array = new CCPhysicsVectArray();
+    CCPhysicsVectorArray *array = new CCPhysicsVectorArray();
     array->initWithCCPoint(points, numPoints);
     array->autorelease();
     return array;
 }
 
-CCPhysicsVectArray *CCPhysicsVectArray::createFromLuaTable(int vertexes)
+CCPhysicsVectorArray *CCPhysicsVectorArray::createFromLuaTable(int vertexes)
 {
-    CCPhysicsVectArray *array = new CCPhysicsVectArray();
+    CCPhysicsVectorArray *array = new CCPhysicsVectorArray();
     array->initWithLuaTable(vertexes);
     array->autorelease();
     return array;
 }
 
-CCPhysicsVectArray::~CCPhysicsVectArray(void)
+CCPhysicsVectorArray::~CCPhysicsVectorArray(void)
 {
     free(m_verts);
 }
 
-bool CCPhysicsVectArray::initWithCCPointArray(CCPointArray *points)
+bool CCPhysicsVectorArray::initWithCCPointArray(CCPointArray *points)
 {
-    CCAssert(points->count() > 0, "CCPhysicsVectArray::initWithCCPointArray() - can't convert empty array");
+    CCAssert(points->count() > 0, "CCPhysicsVectorArray::initWithCCPointArray() - can't convert empty array");
     m_count = points->count();
     m_verts = (cpVect*)malloc(sizeof(cpVect) * m_count);
     for (unsigned int i = 0; i < m_count; ++i)
@@ -50,9 +229,9 @@ bool CCPhysicsVectArray::initWithCCPointArray(CCPointArray *points)
     return true;
 }
 
-bool CCPhysicsVectArray::initWithCCPoint(CCPoint *points, unsigned int numPoints)
+bool CCPhysicsVectorArray::initWithCCPoint(CCPoint *points, unsigned int numPoints)
 {
-    CCAssert(numPoints > 0, "CCPhysicsVectArray::initWithCCPoint() - can't convert empty array");
+    CCAssert(numPoints > 0, "CCPhysicsVectorArray::initWithCCPoint() - can't convert empty array");
     m_count = numPoints;
     m_verts = (cpVect*)malloc(sizeof(cpVect) * m_count);
     for (unsigned int i = 0; i < m_count; ++i)
@@ -63,7 +242,7 @@ bool CCPhysicsVectArray::initWithCCPoint(CCPoint *points, unsigned int numPoints
     return true;
 }
 
-bool CCPhysicsVectArray::initWithLuaTable(int vertexes)
+bool CCPhysicsVectorArray::initWithLuaTable(int vertexes)
 {
     lua_State *L = CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
     if (!lua_istable(L, vertexes)) return NULL;
@@ -95,12 +274,12 @@ bool CCPhysicsVectArray::initWithLuaTable(int vertexes)
     return true;
 }
 
-unsigned int CCPhysicsVectArray::count(void)
+unsigned int CCPhysicsVectorArray::count(void)
 {
     return m_count;
 }
 
-cpVect *CCPhysicsVectArray::data(void)
+cpVect *CCPhysicsVectorArray::data(void)
 {
     return m_verts;
 }
@@ -171,9 +350,20 @@ const CCPoint CCPhysicsCollisionEvent::getSurfaceVelocities(void)
     return CCPoint(m_arbiter->surface_vr.x, m_arbiter->surface_vr.y);
 }
 
-void CCPhysicsCollisionEvent::setSurfaceVelocities(const CCPoint velocities)
+void CCPhysicsCollisionEvent::getSurfaceVelocities(float *velocityX, float *velocityY)
 {
-    m_arbiter->surface_vr = cpv(velocities.x, velocities.y);
+    *velocityX = m_arbiter->surface_vr.x;
+    *velocityY = m_arbiter->surface_vr.y;
+}
+
+void CCPhysicsCollisionEvent::setSurfaceVelocities(float velocityX, float velocityY)
+{
+    m_arbiter->surface_vr = cpv(velocityX, velocityY);
+}
+
+void CCPhysicsCollisionEvent::setSurfaceVelocities(const CCPoint velocity)
+{
+    m_arbiter->surface_vr = cpv(velocity.x, velocity.y);
 }
 
 void *CCPhysicsCollisionEvent::getUserData(void)

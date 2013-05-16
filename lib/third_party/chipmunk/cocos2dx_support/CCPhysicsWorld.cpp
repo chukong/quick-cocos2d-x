@@ -75,6 +75,16 @@ void CCPhysicsWorld::setGravity(float gravityX, float gravityY)
     cpSpaceSetGravity(m_space, cpv(gravityX, gravityY));
 }
 
+float CCPhysicsWorld::getDamping(void)
+{
+    return cpSpaceGetDamping(m_space);
+}
+
+void CCPhysicsWorld::setDamping(float damping)
+{
+    cpSpaceSetDamping(m_space, damping);
+}
+
 CCPhysicsBody *CCPhysicsWorld::createCircleBody(float mass, float radius, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     CCPhysicsBody *body;
@@ -111,11 +121,11 @@ CCPhysicsBody *CCPhysicsWorld::createBoxBody(float mass, float width, float heig
 
 CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromCCPointArray(vertexes);
+    CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromCCPointArray(vertexes);
     return createPolygonBody(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 
-CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, CCPhysicsVectArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
+CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, CCPhysicsVectorArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     return createPolygonBody(mass, vertexes->count(), vertexes->data(), offsetX, offsetY);
 }
@@ -140,7 +150,7 @@ CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int numVertexes, cp
 #if CC_LUA_ENGINE_ENABLED > 0
 CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
-    CCPhysicsVectArray *cpVertexes = CCPhysicsVectArray::createFromLuaTable(vertexes);
+    CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromLuaTable(vertexes);
     return createPolygonBody(mass, cpVertexes->count(), cpVertexes->data(), offsetX, offsetY);
 }
 #endif

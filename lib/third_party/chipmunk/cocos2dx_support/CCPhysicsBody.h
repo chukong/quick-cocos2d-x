@@ -40,6 +40,7 @@ public:
     CCPoint getVelocity(void);
     void getVelocity(float *velocityX, float *velocityY);
     void setVelocity(const CCPoint &velocity);
+    void setVelocity(CCPhysicsVector* velocity);
     void setVelocity(float velocityX, float velocityY);
     
     float getVelocityLimit(void);
@@ -54,14 +55,24 @@ public:
     CCPoint getForce(void);
     void getForce(float *forceX, float *forceY);
     void setForce(const CCPoint &force);
+    void setForce(CCPhysicsVector *force);
     void setForce(float forceX, float forceY);
     
     float getTorque(void);
     void setTorque(float force);
     
+    void resetForces(void);
+    void applyForce(float forceX, float forceY, float offsetX = 0, float offsetY = 0);
+    void applyForce(const CCPoint &force, float offsetX = 0, float offsetY = 0);
+    void applyForce(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(float forceX, float forceY, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(const CCPoint &force, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
+    
     CCPoint getPosition(void);
     void getPosition(float *x, float *y);
     void setPosition(const CCPoint &pos);
+    void setPosition(CCPhysicsVector *pos);
     void setPosition(float x, float y);
     
     float getAngle(void);
@@ -79,6 +90,9 @@ public:
     void setIsSensor(bool isSensor);
     int getCollisionType(void);
     void setCollisionType(int collisionType);
+    
+    // helper
+    float dist(CCPhysicsBody *other);
     
     // binding to node
     void bind(CCNode *node);
