@@ -27,6 +27,11 @@ public:
     const char *getName(void);
     void setName(const char *name);
     
+    // body behaviors
+    bool isSleeping(void);
+    void activate(void);
+    void sleep(void);
+    
     // body properties
     int getTag(void);
     void setTag(int tag);
@@ -90,7 +95,7 @@ public:
     void setIsSensor(bool isSensor);
     int getCollisionType(void);
     void setCollisionType(int collisionType);
-    
+
     // helper
     float dist(CCPhysicsBody *other);
     
@@ -129,6 +134,8 @@ private:
     CCNode *m_node;
     int m_tag;
     string m_name;
+    
+    cpBool m_postIsSleeping;
     
     // helper
     CCPhysicsShape *addShape(cpShape *shape);

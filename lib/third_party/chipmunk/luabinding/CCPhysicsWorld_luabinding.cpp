@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Thu May 16 16:01:08 2013.
+** Generated automatically by tolua++-1.0.92 on Fri May 17 08:16:30 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -921,6 +921,100 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setName00(lua_State* to
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setName'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isSleeping of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_isSleeping00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_isSleeping00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isSleeping'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isSleeping();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isSleeping'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: activate of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_activate00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_activate00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'activate'", NULL);
+#endif
+  {
+   self->activate();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'activate'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: sleep of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_sleep00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_sleep00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'sleep'", NULL);
+#endif
+  {
+   self->sleep();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'sleep'.",&tolua_err);
  return 0;
 #endif
 }
@@ -4447,6 +4541,9 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"create",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_create00);
    tolua_function(tolua_S,"getName",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getName00);
    tolua_function(tolua_S,"setName",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setName00);
+   tolua_function(tolua_S,"isSleeping",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_isSleeping00);
+   tolua_function(tolua_S,"activate",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_activate00);
+   tolua_function(tolua_S,"sleep",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_sleep00);
    tolua_function(tolua_S,"getTag",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getTag00);
    tolua_function(tolua_S,"setTag",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setTag00);
    tolua_function(tolua_S,"getMass",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getMass00);

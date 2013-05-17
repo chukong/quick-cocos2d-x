@@ -50,6 +50,11 @@ class CCPhysicsBody : public CCObject
     const char *getName(void);
     void setName(const char *name);
 
+    // body behaviors
+    bool isSleeping(void);
+    void activate(void);
+    void sleep(void);
+
     // body properties
     int getTag(void);
     void setTag(int tag);

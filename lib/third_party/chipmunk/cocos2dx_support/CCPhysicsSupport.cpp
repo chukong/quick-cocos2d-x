@@ -36,7 +36,7 @@ CCPhysicsVector *CCPhysicsVector::createForAngle(float angle)
 
 CCPhysicsVector *CCPhysicsVector::createForRotation(float degrees)
 {
-    return CCPhysicsVector::create(cpvforangle(-CC_DEGREES_TO_RADIANS(degrees)));
+    return CCPhysicsVector::create(cpvforangle(CC_DEGREES_TO_RADIANS(degrees)));
 }
 
 CCPhysicsVector::CCPhysicsVector(float x, float y)

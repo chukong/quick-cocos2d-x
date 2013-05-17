@@ -33,6 +33,7 @@ CCPhysicsBody::CCPhysicsBody(CCPhysicsWorld *world)
 , m_shapes(NULL)
 , m_node(NULL)
 , m_tag(0)
+, m_postIsSleeping(false)
 {
     m_world->retain();
     m_space = m_world->getSpace();
@@ -85,6 +86,29 @@ const char *CCPhysicsBody::getName(void)
 void CCPhysicsBody::setName(const char *name)
 {
     m_name = name ? name : "";
+}
+
+bool CCPhysicsBody::isSleeping(void)
+{
+    return cpBodyIsSleeping(m_body);
+}
+
+void CCPhysicsBody::activate(void)
+{
+    m_postIsSleeping = cpFalse;
+    if (!cpSpaceIsLocked(m_space))
+    {
+        cpBodyActivate(m_body);
+    }
+}
+
+void CCPhysicsBody::sleep(void)
+{
+    m_postIsSleeping = cpTrue;
+    if (!cpSpaceIsLocked(m_space))
+    {
+        cpBodySleep(m_body);
+    }
 }
 
 int CCPhysicsBody::getTag(void)
@@ -264,7 +288,7 @@ void CCPhysicsBody::getPosition(float *x, float *y)
 void CCPhysicsBody::setPosition(float x, float y)
 {
     cpBodySetPos(m_body, cpv(x, y));
-    cpSpaceReindexShapesForBody(m_space, m_body);
+    if (!cpSpaceIsLocked(m_space)) cpSpaceReindexShapesForBody(m_space, m_body);
     if (m_node)
     {
         m_node->setPosition(x, y);
@@ -274,7 +298,7 @@ void CCPhysicsBody::setPosition(float x, float y)
 void CCPhysicsBody::setPosition(const CCPoint &pos)
 {
     cpBodySetPos(m_body, cpv(pos.x, pos.y));
-    cpSpaceReindexShapesForBody(m_space, m_body);
+    if (!cpSpaceIsLocked(m_space)) cpSpaceReindexShapesForBody(m_space, m_body);
     if (m_node)
     {
         m_node->setPosition(pos);
@@ -284,7 +308,7 @@ void CCPhysicsBody::setPosition(const CCPoint &pos)
 void CCPhysicsBody::setPosition(CCPhysicsVector *pos)
 {
     cpBodySetPos(m_body, pos->getVector());
-    cpSpaceReindexShapesForBody(m_space, m_body);
+    if (!cpSpaceIsLocked(m_space)) cpSpaceReindexShapesForBody(m_space, m_body);
     if (m_node)
     {
         m_node->setPosition(pos->getValue());
@@ -301,18 +325,18 @@ void CCPhysicsBody::setAngle(float angle)
     cpBodySetAngle(m_body, angle);
     if (m_node)
     {
-        m_node->setRotation(CC_RADIANS_TO_DEGREES(-angle));
+        m_node->setRotation(CC_RADIANS_TO_DEGREES(angle));
     }
 }
 
 float CCPhysicsBody::getRotation(void)
 {
-    return CC_RADIANS_TO_DEGREES(-(cpBodyGetAngle(m_body)));
+    return CC_RADIANS_TO_DEGREES((cpBodyGetAngle(m_body)));
 }
 
 void CCPhysicsBody::setRotation(float rotation)
 {
-    cpBodySetAngle(m_body, CC_DEGREES_TO_RADIANS(-rotation));
+    cpBodySetAngle(m_body, CC_DEGREES_TO_RADIANS(rotation));
     if (m_node)
     {
         m_node->setRotation(rotation);
@@ -398,8 +422,6 @@ void CCPhysicsBody::bind(CCNode *node)
     unbind();
     m_node = node;
     m_node->retain();
-    setPosition(m_node->getPosition());
-    setRotation(m_node->getRotation());
 }
 
 void CCPhysicsBody::unbind(void)
@@ -475,6 +497,18 @@ void CCPhysicsBody::update(float dt)
     if (!m_node) return;
     m_node->setPosition(getPosition());
     m_node->setRotation(getRotation());
+
+    if (cpBodyIsSleeping(m_body) != m_postIsSleeping)
+    {
+        if (m_postIsSleeping)
+        {
+            cpBodySleep(m_body);
+        }
+        else
+        {
+            cpBodyActivate(m_body);
+        }
+    }
 }
 
 CCPhysicsShape *CCPhysicsBody::addShape(cpShape *shape)

@@ -82,6 +82,8 @@ private:
     CCPhysicsBodyMap m_bodies;
     CCArray *m_listeners;
     
+    static const char *POST_STEP_CALLBACK_KEY;
+    
     // callbacks
     static int collisionBeginCallback(cpArbiter *arbiter, struct cpSpace *space, void *data);
     static int collisionPreSolveCallback(cpArbiter *arbiter, struct cpSpace *space, void *data);

@@ -10,6 +10,8 @@
 
 using namespace cocos2d;
 
+const char *CCPhysicsWorld::POST_STEP_CALLBACK_KEY = "DEFAULT_POST_STEP_CALLBACK";
+
 CCPhysicsWorld *CCPhysicsWorld::create(void)
 {
     CCPhysicsWorld *world = new CCPhysicsWorld();
