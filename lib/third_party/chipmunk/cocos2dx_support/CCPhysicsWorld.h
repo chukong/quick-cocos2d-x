@@ -6,7 +6,7 @@
 #include "cocos2d.h"
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
-#include "CCScriptSupport.h"
+#include "script_support/CCScriptSupport.h"
 
 using namespace std;
 using namespace cocos2d;

@@ -253,6 +253,30 @@
     <Filter Include="cocos2dx_extra\extra\crypto\xxtea">
       <UniqueIdentifier>{177b140b-e4f3-427d-be6d-ac0c389adf36}</UniqueIdentifier>
     </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{d1e8df06-792f-4c5f-8495-380541c67c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk">
+      <UniqueIdentifier>{95a5e87a-8dc4-407b-bfea-7367a0a8e225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk\cocos2dx_support">
+      <UniqueIdentifier>{5d0a1ea9-7373-4332-bc2e-c56dcda11ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk\include">
+      <UniqueIdentifier>{f30cba3d-efc0-4d6c-a0ef-638524193b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk\luabinding">
+      <UniqueIdentifier>{1559dfe3-9768-40f2-b287-a2313acdc268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk\src">
+      <UniqueIdentifier>{11015662-5862-4d3a-ad13-b530b0ca16ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk\src\constraints">
+      <UniqueIdentifier>{8f29603f-50e2-4f20-ad6f-4bafed654d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\chipmunk\include\constraints">
+      <UniqueIdentifier>{2d9f5e8c-a2de-4ef6-867e-c53aa748f5cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.cpp">
@@ -887,6 +911,111 @@
     </ClCompile>
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\xxtea\xxtea.c">
       <Filter>cocos2dx_extra\extra\crypto\xxtea</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsBody.cpp">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsDebugNode.cpp">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsShape.cpp">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsSupport.cpp">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsWorld.cpp">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\chipmunk.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpArbiter.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpArray.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpBB.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpBBTree.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpBody.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpCollision.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpHashSet.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpPolyShape.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpShape.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpace.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceComponent.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceHash.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceQuery.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceStep.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpatialIndex.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSweep1D.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpVect.c">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpConstraint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpDampedRotarySpring.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpDampedSpring.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpGearJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpGrooveJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpPinJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpPivotJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpRatchetJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpRotaryLimitJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpSimpleMotor.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpSlideJoint.c">
+      <Filter>third_party\chipmunk\src\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\luabinding\CCPhysicsWorld_luabinding.cpp">
+      <Filter>third_party\chipmunk\luabinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1855,6 +1984,102 @@
     </ClInclude>
     <ClInclude Include="..\cocos2dx_extra\extra\crypto\xxtea\xxtea.h">
       <Filter>cocos2dx_extra\extra\crypto\xxtea</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsBody.h">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsDebugNode.h">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsShape.h">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsSupport.h">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsWorld.h">
+      <Filter>third_party\chipmunk\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\src\prime.h">
+      <Filter>third_party\chipmunk\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\luabinding\CCPhysicsWorld_luabinding.h">
+      <Filter>third_party\chipmunk\luabinding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_ffi.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_private.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_types.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_unsafe.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpArbiter.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpBB.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpBody.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpPolyShape.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpShape.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpSpace.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpSpatialIndex.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\cpVect.h">
+      <Filter>third_party\chipmunk\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpDampedRotarySpring.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpDampedSpring.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpGearJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpGrooveJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpPinJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpPivotJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpRatchetJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpRotaryLimitJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpSimpleMotor.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpSlideJoint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\util.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpConstraint.h">
+      <Filter>third_party\chipmunk\include\constraints</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

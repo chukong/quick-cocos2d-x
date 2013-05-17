@@ -2,7 +2,7 @@
 #include "CCPhysicsWorld.h"
 #include "CCPhysicsBody.h"
 #include "CCPhysicsDebugNode.h"
-#include "CCScriptSupport.h"
+#include "script_support/CCScriptSupport.h"
 
 #if CC_LUA_ENGINE_ENABLED > 0
 #include "CCLuaEngine.h"

@@ -224,6 +224,128 @@
     <ClCompile Include="..\lua_extensions\socket\udp.c" />
     <ClCompile Include="..\lua_extensions\socket\wsocket.c" />
     <ClCompile Include="..\lua_extensions\zlib\lua_zlib.c" />
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsBody.cpp" />
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsDebugNode.cpp" />
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsShape.cpp" />
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsSupport.cpp" />
+    <ClCompile Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsWorld.cpp" />
+    <ClCompile Include="..\third_party\chipmunk\luabinding\CCPhysicsWorld_luabinding.cpp" />
+    <ClCompile Include="..\third_party\chipmunk\src\chipmunk.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpConstraint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpDampedRotarySpring.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpDampedSpring.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpGearJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpGrooveJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpPinJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpPivotJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpRatchetJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpRotaryLimitJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpSimpleMotor.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\constraints\cpSlideJoint.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpArbiter.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpArray.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpBB.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpBBTree.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpBody.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpCollision.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpHashSet.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpPolyShape.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpShape.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpace.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceComponent.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceHash.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceQuery.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpaceStep.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSpatialIndex.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpSweep1D.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\third_party\chipmunk\src\cpVect.c">
+      <FileType>CppCode</FileType>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCAction.h" />
@@ -548,6 +670,38 @@
     <ClInclude Include="..\lua_extensions\socket\udp.h" />
     <ClInclude Include="..\lua_extensions\socket\wsocket.h" />
     <ClInclude Include="..\lua_extensions\zlib\lua_zlib.h" />
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsBody.h" />
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsDebugNode.h" />
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsShape.h" />
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsSupport.h" />
+    <ClInclude Include="..\third_party\chipmunk\cocos2dx_support\CCPhysicsWorld.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_ffi.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_private.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_types.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\chipmunk_unsafe.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpConstraint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpDampedRotarySpring.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpDampedSpring.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpGearJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpGrooveJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpPinJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpPivotJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpRatchetJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpRotaryLimitJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpSimpleMotor.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\cpSlideJoint.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\constraints\util.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpArbiter.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpBB.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpBody.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpPolyShape.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpShape.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpSpace.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpSpatialIndex.h" />
+    <ClInclude Include="..\third_party\chipmunk\include\cpVect.h" />
+    <ClInclude Include="..\third_party\chipmunk\luabinding\CCPhysicsWorld_luabinding.h" />
+    <ClInclude Include="..\third_party\chipmunk\src\prime.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9E05AA4B-1A09-433C-B1DF-BCE6675EC0D5}</ProjectGuid>
@@ -592,10 +746,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_EXPORT_DLL_;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_LUA_ENGINE_ENABLED=1;TOLUA_API=extern __declspec(dllexport);GLAPI=extern __declspec(dllexport);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extensions_luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\luajit2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extensions_luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra;$(QUICK_COCOS2DX_ROOT)\lib\cocos2dx_extra\extra\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\luajit2\include;$(QUICK_COCOS2DX_ROOT)\lib\third_party\chipmunk\include;$(QUICK_COCOS2DX_ROOT)\lib\third_party\chipmunk\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\third_party\chipmunk\cocos2dx_support;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4800;4068;4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <CompileAs>Default</CompileAs>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

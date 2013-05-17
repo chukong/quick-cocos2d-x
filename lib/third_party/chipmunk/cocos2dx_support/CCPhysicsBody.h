@@ -114,7 +114,7 @@ public:
     CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
 #endif
     
-    void removeShapeAtIndex(int index);
+    void removeShapeAtIndex(unsigned int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
     

@@ -469,7 +469,7 @@ CCPhysicsShape *CCPhysicsBody::addPolygonShape(int vertexes, float offsetX/*= 0*
 }
 #endif
 
-void CCPhysicsBody::removeShapeAtIndex(int index)
+void CCPhysicsBody::removeShapeAtIndex(unsigned int index)
 {
     CCAssert(index >= 0 && index < m_shapes->count(), "CCPhysicsBody::removeShapeAtIndex() - Invalid index");
     CCPhysicsShape *shapeObject = static_cast<CCPhysicsShape *>(m_shapes->objectAtIndex(index));
