@@ -55,3 +55,13 @@ void CCPhysicsShape::setCollisionType(int collisionType)
 {
     cpShapeSetCollisionType(m_shape, (cpCollisionType)collisionType);
 }
+
+bool CCPhysicsShape::isMarkedRemove(void)
+{
+	return m_postRemove;
+}
+
+void CCPhysicsShape::markRemove(void)
+{
+	m_postRemove = true;
+}

@@ -31,6 +31,7 @@ CCPhysicsBody::CCPhysicsBody(CCPhysicsWorld *world)
 : m_world(world)
 , m_body(NULL)
 , m_shapes(NULL)
+, m_removedShapes(NULL)
 , m_node(NULL)
 , m_tag(0)
 , m_postIsSleeping(false)
@@ -51,6 +52,7 @@ CCPhysicsBody::~CCPhysicsBody(void)
     }
     CC_SAFE_RELEASE(m_world);
     CC_SAFE_RELEASE(m_shapes);
+	CC_SAFE_RELEASE(m_removedShapes);
     CC_SAFE_RELEASE(m_node);
 }
 
@@ -429,6 +431,11 @@ void CCPhysicsBody::unbind(void)
     CC_SAFE_RELEASE_NULL(m_node);
 }
 
+CCNode *CCPhysicsBody::getNode(void)
+{
+	return m_node;
+}
+
 CCPhysicsShape *CCPhysicsBody::addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness)
 {
     return addShape(cpSegmentShapeNew(m_body, cpv(lowerLeft.x, lowerLeft.y), cpv(lowerRight.x, lowerRight.y), thickness));
@@ -473,23 +480,36 @@ void CCPhysicsBody::removeShapeAtIndex(unsigned int index)
 {
     CCAssert(index >= 0 && index < m_shapes->count(), "CCPhysicsBody::removeShapeAtIndex() - Invalid index");
     CCPhysicsShape *shapeObject = static_cast<CCPhysicsShape *>(m_shapes->objectAtIndex(index));
-    cpSpaceRemoveShape(m_space, shapeObject->getShape());
-    m_shapes->removeObjectAtIndex(index);
+	shapeObject->markRemove();
 }
 
 void CCPhysicsBody::removeShape(CCPhysicsShape *shapeObject)
 {
+	if (m_removedShapes == NULL)
+	{
+		m_removedShapes = CCArray::create();
+	}
+	m_removedShapes->addObject(shapeObject);
     removeShapeAtIndex(m_shapes->indexOfObject(shapeObject));
 }
 
 void CCPhysicsBody::removeAllShape(void)
 {
-    for (int index = m_shapes->count(); index > 0; --index)
-    {
-        CCPhysicsShape *shapeObject = static_cast<CCPhysicsShape *>(m_shapes->objectAtIndex(index));
-        cpSpaceRemoveShape(m_space, shapeObject->getShape());
-    }
-    m_shapes->removeAllObjects();
+	if (m_removedShapes == NULL)
+	{
+		m_removedShapes = CCArray::createWithArray(m_shapes);
+	}
+	else
+	{
+		m_removedShapes->addObjectsFromArray(m_shapes);
+	}
+	m_shapes->removeAllObjects();
+}
+
+void CCPhysicsBody::removeSelf(bool unbind/*= true*/)
+{
+	if (unbind) this->unbind();
+	m_world->removeBody(this);
 }
 
 void CCPhysicsBody::update(float dt)
@@ -509,6 +529,17 @@ void CCPhysicsBody::update(float dt)
             cpBodyActivate(m_body);
         }
     }
+}
+
+void CCPhysicsBody::postStep(void)
+{
+	if (m_removedShapes == NULL) return;
+	for (int index = m_removedShapes->count() - 1; index >= 0; --index)
+    {
+		CCPhysicsShape *shapeObject = static_cast<CCPhysicsShape *>(m_shapes->objectAtIndex(index));
+		cpSpaceRemoveShape(m_space, shapeObject->getShape());
+	}
+	m_removedShapes->removeAllObjects();
 }
 
 CCPhysicsShape *CCPhysicsBody::addShape(cpShape *shape)

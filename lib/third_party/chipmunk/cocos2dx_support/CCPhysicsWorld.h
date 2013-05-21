@@ -72,6 +72,7 @@ private:
     CCPhysicsWorld(void)
     : m_space(NULL)
     , m_defaultStaticBody(NULL)
+    , m_removedBodies(NULL)
     , m_listeners(NULL)
     {
     }
@@ -80,9 +81,12 @@ private:
     cpSpace *m_space;
     CCPhysicsBody *m_defaultStaticBody;
     CCPhysicsBodyMap m_bodies;
+    CCArray *m_removedBodies;
     CCArray *m_listeners;
     
     static const char *POST_STEP_CALLBACK_KEY;
+
+    void checkAndRemoveBody(CCPhysicsBody *body);
     
     // callbacks
     static int collisionBeginCallback(cpArbiter *arbiter, struct cpSpace *space, void *data);

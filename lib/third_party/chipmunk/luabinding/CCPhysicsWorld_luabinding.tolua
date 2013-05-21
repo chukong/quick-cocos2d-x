@@ -121,6 +121,7 @@ class CCPhysicsBody : public CCObject
     // binding to node
     void bind(CCNode *node);
     void unbind(void);
+    CCNode *getNode(void);
 
     // shapes management
     CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
@@ -132,6 +133,9 @@ class CCPhysicsBody : public CCObject
     void removeShapeAtIndex(int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
+
+    // cleanup
+    void removeSelf(bool unbind = true);
 };
 
 class CCPhysicsShape : public CCObject

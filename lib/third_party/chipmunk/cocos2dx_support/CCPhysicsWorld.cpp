@@ -33,6 +33,7 @@ CCPhysicsWorld::~CCPhysicsWorld(void)
 {
     removeAllCollisionListeners();
     removeAllBodies();
+    CC_SAFE_RELEASE(m_removedBodies);
     CC_SAFE_RELEASE(m_listeners);
     CC_SAFE_RELEASE(m_defaultStaticBody);
     cpSpaceFree(m_space);
@@ -43,7 +44,10 @@ bool CCPhysicsWorld::init(void)
     m_space = cpSpaceNew();
     cpSpaceSetGravity(m_space, cpvzero);
     cpSpaceSetUserData(m_space, (cpDataPointer)this);
-    
+
+    m_removedBodies = CCArray::create();
+    m_removedBodies->retain();
+
     m_listeners = CCArray::create();
     m_listeners->retain();
     return true;
@@ -184,7 +188,7 @@ void CCPhysicsWorld::removeBody(CCPhysicsBody *body, bool unbind/*= true*/)
     if (it != m_bodies.end())
     {
         if (unbind) body->unbind();
-        body->release();
+        checkAndRemoveBody(body);
         m_bodies.erase(it);
     }
 }
@@ -194,7 +198,7 @@ void CCPhysicsWorld::removeAllBodies(bool unbind/*= true*/)
     for (CCPhysicsBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
     {
         if (unbind) it->second->unbind();
-        it->second->release();
+        checkAndRemoveBody(it->second);
     }
     m_bodies.clear();
 }
@@ -263,12 +267,21 @@ void CCPhysicsWorld::update(float dt)
     for (CCPhysicsBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
     {
         it->second->update(dt);
+		it->second->postStep();
     }
+
+    m_removedBodies->removeAllObjects();
 }
 
 void CCPhysicsWorld::onExit(void)
 {
     stop();
+}
+
+void CCPhysicsWorld::checkAndRemoveBody(CCPhysicsBody *body)
+{
+    if (cpSpaceIsLocked(m_space)) m_removedBodies->addObject(body);
+    body->release();
 }
 
 int CCPhysicsWorld::collisionBeginCallback(cpArbiter *arbiter, struct cpSpace *space, void *data)

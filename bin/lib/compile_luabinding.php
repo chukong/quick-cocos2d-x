@@ -65,7 +65,7 @@ while (!empty($argv))
 // check input file
 if (!isset($parameters['input_path']))
 {
-    echo "\nERR: invalid parameters.\n";
+    echo "\nERR: not set input_path.\n";
     help();
 }
 $input_path = realpath($parameters['input_path']);
