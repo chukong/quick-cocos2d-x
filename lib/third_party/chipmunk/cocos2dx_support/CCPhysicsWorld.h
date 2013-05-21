@@ -13,6 +13,7 @@ using namespace cocos2d;
 
 class CCPhysicsBody;
 class CCPhysicsDebugNode;
+class CCPhysicsShape;
 
 typedef map<cpBody*, CCPhysicsBody*> CCPhysicsBodyMap;
 typedef CCPhysicsBodyMap::iterator CCPhysicsBodyMapIterator;
@@ -73,6 +74,7 @@ private:
     : m_space(NULL)
     , m_defaultStaticBody(NULL)
     , m_removedBodies(NULL)
+    , m_removedShapes(NULL)
     , m_listeners(NULL)
     {
     }
@@ -82,11 +84,14 @@ private:
     CCPhysicsBody *m_defaultStaticBody;
     CCPhysicsBodyMap m_bodies;
     CCArray *m_removedBodies;
+    CCArray *m_removedShapes;
     CCArray *m_listeners;
     
     static const char *POST_STEP_CALLBACK_KEY;
 
-    void checkAndRemoveBody(CCPhysicsBody *body);
+    // helper
+    friend class CCPhysicsBody;
+    void removeShape(CCPhysicsShape *shape);
     
     // callbacks
     static int collisionBeginCallback(cpArbiter *arbiter, struct cpSpace *space, void *data);

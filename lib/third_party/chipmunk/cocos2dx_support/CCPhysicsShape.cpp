@@ -11,6 +11,7 @@ CCPhysicsShape *CCPhysicsShape::create(cpShape *shape)
 CCPhysicsShape::~CCPhysicsShape(void)
 {
     cpShapeFree(m_shape);
+//    CCLOG("CCPhysicsShape::~CCPhysicsShape(void)");
 }
 
 cpShape *CCPhysicsShape::getShape(void)
@@ -56,12 +57,12 @@ void CCPhysicsShape::setCollisionType(int collisionType)
     cpShapeSetCollisionType(m_shape, (cpCollisionType)collisionType);
 }
 
-bool CCPhysicsShape::isMarkedRemove(void)
+bool CCPhysicsShape::isMarkRemoved(void)
 {
-	return m_postRemove;
+	return m_isRemoved;
 }
 
-void CCPhysicsShape::markRemove(void)
+void CCPhysicsShape::markRemoved(void)
 {
-	m_postRemove = true;
+	m_isRemoved = true;
 }

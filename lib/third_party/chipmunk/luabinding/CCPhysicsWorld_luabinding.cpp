@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on 05/21/13 17:37:32.
+** Generated automatically by tolua++-1.0.92 on Tue May 21 21:34:43 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"

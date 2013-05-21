@@ -95,7 +95,7 @@ public:
     void setIsSensor(bool isSensor);
     int getCollisionType(void);
     void setCollisionType(int collisionType);
-
+    
     // helper
     float dist(CCPhysicsBody *other);
     
@@ -103,7 +103,7 @@ public:
     void bind(CCNode *node);
     void unbind(void);
     CCNode *getNode(void);
-
+    
     // shapes management
     CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
@@ -118,13 +118,15 @@ public:
     void removeShapeAtIndex(unsigned int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
-
+    
 	// cleanup
 	void removeSelf(bool unbind = true);
     
+    bool isMarkRemoved(void);
+    void markRemoved(void);
+    
     // delegate
     virtual void update(float dt);
-	virtual void postStep(void);
     
 private:
     CCPhysicsBody(CCPhysicsWorld *world);
@@ -136,12 +138,12 @@ private:
     cpSpace *m_space;
     cpBody *m_body;
     CCArray *m_shapes;
-	CCArray *m_removedShapes;
     CCNode *m_node;
     int m_tag;
     string m_name;
     
     cpBool m_postIsSleeping;
+    bool m_isRemoved;
     
     // helper
     CCPhysicsShape *addShape(cpShape *shape);

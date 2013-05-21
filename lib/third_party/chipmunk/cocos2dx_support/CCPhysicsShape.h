@@ -27,18 +27,18 @@ public:
     int getCollisionType(void);
     void setCollisionType(int collisionType);
 
-	bool isMarkedRemove(void);
-	void markRemove(void);
+	bool isMarkRemoved(void);
+	void markRemoved(void);
 
 private:
     CCPhysicsShape(cpShape *shape)
     : m_shape(shape)
-	, m_postRemove(false)
+	, m_isRemoved(false)
     {
     }
 
     cpShape *m_shape;
-	bool m_postRemove;
+	bool m_isRemoved;
 };
 
 #endif // __CCPHYSICS_SHAPE_H_
