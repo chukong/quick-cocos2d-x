@@ -152,6 +152,8 @@ static AppDelegate* s_sharedApplication = NULL;
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
     
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+    
     ccDrawInit();
 }
 
