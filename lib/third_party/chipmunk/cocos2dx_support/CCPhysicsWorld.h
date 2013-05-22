@@ -33,6 +33,9 @@ public:
     void getGravity(float *gravityX, float *gravityY);
     void setGravity(float gravityX, float gravityY);
     
+    float getIdleSpeedThreshold(void);
+    void setIdleSpeedThreshold(float threshold);
+    
     float getDamping(void);
     void setDamping(float damping);
     

@@ -97,6 +97,16 @@ void CCPhysicsWorld::setDamping(float damping)
     cpSpaceSetDamping(m_space, damping);
 }
 
+float CCPhysicsWorld::getIdleSpeedThreshold(void)
+{
+    return cpSpaceGetIdleSpeedThreshold(m_space);
+}
+
+void CCPhysicsWorld::setIdleSpeedThreshold(float threshold)
+{
+    cpSpaceSetIdleSpeedThreshold(m_space, threshold);
+}
+
 CCPhysicsBody *CCPhysicsWorld::createCircleBody(float mass, float radius, float offsetX/*= 0*/, float offsetY/*= 0*/)
 {
     CCPhysicsBody *body;

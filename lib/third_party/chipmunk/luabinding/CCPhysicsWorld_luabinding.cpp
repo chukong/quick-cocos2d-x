@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Tue May 21 21:34:43 2013.
+** Generated automatically by tolua++-1.0.92 on Wed May 22 11:03:25 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -258,6 +258,71 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_setDamping00(lua_State
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setDamping'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getIdleSpeedThreshold of class  CCPhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getIdleSpeedThreshold00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getIdleSpeedThreshold00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsWorld",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsWorld* self = (CCPhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getIdleSpeedThreshold'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getIdleSpeedThreshold();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getIdleSpeedThreshold'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setIdleSpeedThreshold of class  CCPhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_setIdleSpeedThreshold00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_setIdleSpeedThreshold00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsWorld",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsWorld* self = (CCPhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+  float threshold = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setIdleSpeedThreshold'", NULL);
+#endif
+  {
+   self->setIdleSpeedThreshold(threshold);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setIdleSpeedThreshold'.",&tolua_err);
  return 0;
 #endif
 }
@@ -4584,6 +4649,8 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setGravity",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_setGravity00);
    tolua_function(tolua_S,"getDamping",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getDamping00);
    tolua_function(tolua_S,"setDamping",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_setDamping00);
+   tolua_function(tolua_S,"getIdleSpeedThreshold",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getIdleSpeedThreshold00);
+   tolua_function(tolua_S,"setIdleSpeedThreshold",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_setIdleSpeedThreshold00);
    tolua_function(tolua_S,"createCircleBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createCircleBody00);
    tolua_function(tolua_S,"createBoxBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createBoxBody00);
    tolua_function(tolua_S,"createPolygonBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createPolygonBody00);
