@@ -249,7 +249,7 @@ function help()
 {
     echo <<<EOT
 
-usage: php create_project.php [options] package_name
+usage: create_project [options] package_name
 
 options:
     -f force copy files to project dir
@@ -257,7 +257,11 @@ options:
     -t template path, eg: -t /quick-cocos2d-x/template/PROJECT_TEMPLATE_01
     -noproj skip create projects
 
-    package name, eg: -p com.quickx.games.physics
+    package name, eg: com.quickx.games.physics
+
+examples:
+
+    create_project -o landscape com.mycomp.games.game01
 
 
 EOT;

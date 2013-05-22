@@ -417,7 +417,7 @@ EOT;
 function help()
 {
     echo <<<EOT
-usage: php compile_scripts.php [options] dirname output_filename
+usage: compile_scripts [options] dirname output_filename
 
 options:
     -zip package to zip
@@ -426,6 +426,10 @@ options:
     -x exclude packages, eg: -x framework.server, framework.tests
     -q quiet
 
+examples:
+
+    * packageing scripts/*.lua to res/game.zip
+    compile_scripts -zip scripts/ res/game
 
 EOT;
 
