@@ -36,6 +36,7 @@ class CCPhysicsWorld : public CCNode
     // operation
     void start(void);
     void stop(void);
+    void step(float dt);
 
     // events
     void addCollisionScriptListener(LUA_FUNCTION handler, int collisionTypeA, int collisionTypeB);

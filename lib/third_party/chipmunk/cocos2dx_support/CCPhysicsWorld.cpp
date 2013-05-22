@@ -48,6 +48,8 @@ bool CCPhysicsWorld::init(void)
     cpSpaceSetGravity(m_space, cpvzero);
     cpSpaceSetUserData(m_space, (cpDataPointer)this);
     
+    m_stepInterval = CCDirector::sharedDirector()->getAnimationInterval();
+    
     m_removedBodies = CCArray::create();
     m_removedBodies->retain();
 
@@ -280,7 +282,7 @@ void CCPhysicsWorld::removeAllCollisionListeners(void)
     m_listeners->removeAllObjects();
 }
 
-void CCPhysicsWorld::update(float dt)
+void CCPhysicsWorld::step(float dt)
 {
     cpSpaceStep(m_space, dt);
     for (CCPhysicsBodyMapIterator it = m_bodies.begin(); it != m_bodies.end(); ++it)
@@ -295,6 +297,11 @@ void CCPhysicsWorld::update(float dt)
     }
     m_removedShapes->removeAllObjects();
     m_removedBodies->removeAllObjects();
+}
+
+void CCPhysicsWorld::update(float dt)
+{
+    step(m_stepInterval);
 }
 
 void CCPhysicsWorld::onExit(void)

@@ -69,12 +69,14 @@ public:
     void removeAllCollisionListeners(void);
     
     // delegate
+    virtual void step(float dt);
     virtual void update(float dt);
     virtual void onExit(void);
     
 private:
     CCPhysicsWorld(void)
     : m_space(NULL)
+    , m_stepInterval(0)
     , m_defaultStaticBody(NULL)
     , m_removedBodies(NULL)
     , m_removedShapes(NULL)
@@ -84,6 +86,7 @@ private:
     bool init(void);
     
     cpSpace *m_space;
+    float m_stepInterval;
     CCPhysicsBody *m_defaultStaticBody;
     CCPhysicsBodyMap m_bodies;
     CCArray *m_removedBodies;
