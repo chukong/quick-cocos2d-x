@@ -44,7 +44,7 @@ CCPhysicsBody::CCPhysicsBody(CCPhysicsWorld *world)
 CCPhysicsBody::~CCPhysicsBody(void)
 {
     removeAllShape();
-    if (m_body != m_space->staticBody)
+    if (!cpBodyIsStatic(m_body))
     {
         cpSpaceRemoveBody(m_space, m_body);
         cpBodyFree(m_body);
