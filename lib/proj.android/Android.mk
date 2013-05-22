@@ -56,7 +56,42 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../cocos2d-x/scripting/lua/cocos2dx_support/Cocos2dxLuaLoader.cpp \
     ../cocos2d-x/scripting/lua/cocos2dx_support/LuaCocos2d.cpp \
     ../cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c \
-    ../cocos2d-x/scripting/lua/cocos2dx_support/snapshot.c
+    ../cocos2d-x/scripting/lua/cocos2dx_support/snapshot.c \
+    ../third_party/chipmunk/cocos2dx_support/CCPhysicsBody.cpp \
+    ../third_party/chipmunk/cocos2dx_support/CCPhysicsDebugNode.cpp \
+    ../third_party/chipmunk/cocos2dx_support/CCPhysicsShape.cpp \
+    ../third_party/chipmunk/cocos2dx_support/CCPhysicsSupport.cpp \
+    ../third_party/chipmunk/cocos2dx_support/CCPhysicsWorld.cpp \
+    ../third_party/chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp \
+    ../third_party/chipmunk/src/chipmunk.c \
+    ../third_party/chipmunk/src/constraints/cpConstraint.c \
+    ../third_party/chipmunk/src/constraints/cpDampedRotarySpring.c \
+    ../third_party/chipmunk/src/constraints/cpDampedSpring.c \
+    ../third_party/chipmunk/src/constraints/cpGearJoint.c \
+    ../third_party/chipmunk/src/constraints/cpGrooveJoint.c \
+    ../third_party/chipmunk/src/constraints/cpPinJoint.c \
+    ../third_party/chipmunk/src/constraints/cpPivotJoint.c \
+    ../third_party/chipmunk/src/constraints/cpRatchetJoint.c \
+    ../third_party/chipmunk/src/constraints/cpRotaryLimitJoint.c \
+    ../third_party/chipmunk/src/constraints/cpSimpleMotor.c \
+    ../third_party/chipmunk/src/constraints/cpSlideJoint.c \
+    ../third_party/chipmunk/src/cpArbiter.c \
+    ../third_party/chipmunk/src/cpArray.c \
+    ../third_party/chipmunk/src/cpBB.c \
+    ../third_party/chipmunk/src/cpBBTree.c \
+    ../third_party/chipmunk/src/cpBody.c \
+    ../third_party/chipmunk/src/cpCollision.c \
+    ../third_party/chipmunk/src/cpHashSet.c \
+    ../third_party/chipmunk/src/cpPolyShape.c \
+    ../third_party/chipmunk/src/cpShape.c \
+    ../third_party/chipmunk/src/cpSpace.c \
+    ../third_party/chipmunk/src/cpSpaceComponent.c \
+    ../third_party/chipmunk/src/cpSpaceHash.c \
+    ../third_party/chipmunk/src/cpSpaceQuery.c \
+    ../third_party/chipmunk/src/cpSpaceStep.c \
+    ../third_party/chipmunk/src/cpSpatialIndex.c \
+    ../third_party/chipmunk/src/cpSweep1D.c \
+    ../third_party/chipmunk/src/cpVect.c
 
 LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCControlExtension \
@@ -70,12 +105,15 @@ LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/socket \
     $(QUICK_COCOS2DX_ROOT)/lib/luajit2/include \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua \
-    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support \
+    $(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include \
+    $(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding \
+    $(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/cocos2dx_support
 
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES)
 
 LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
-LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
+LOCAL_CFLAGS := -std=c99 -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocosdenshion_static cocos_curl_static luajit2
 
