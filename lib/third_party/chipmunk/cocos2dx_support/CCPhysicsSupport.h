@@ -138,19 +138,38 @@ public:
     CCPhysicsBody *getBody1(void);
     CCPhysicsBody *getBody2(void);
     
+    // Returns true if this is the first step the two shapes started touching. This can be useful for sound effects for instance. If it’s the first frame for a certain collision, check the energy of the collision in a postStep() callbock and use that to determine the volume of a sound effect to play.
     bool isFirstContact(void);
     
+    // The calculated elasticity for this collision pair. Setting the value in a preSolve() callback will override the value calculated by the space.
     float getElasticity(void);
     void setElasticity(float elasticity);
-    
+
+    // The calculated friction for this collision pair. Setting the value in a preSolve() callback will override the value calculated by the space.
     float getFriction(void);
     void setFriction(float friction);
     
+    // The calculated surface velocity for this collision pair. Setting the value in a preSolve() callback will override the value calculated by the space.
     const CCPoint getSurfaceVelocities(void);
     void getSurfaceVelocities(float *velocityX, float *velocityY);    
     void setSurfaceVelocities(float velocityX, float velocityY);
     void setSurfaceVelocities(const CCPoint velocity);
     
+    // Get the number of contact points.
+    int getCount(void);
+    
+    // Get the normal of the ith contact point.
+    const CCPoint getNormal(int index);
+    void getNormal(int index, float *x, float *y);
+    
+    // Get the position of the ith contact point.
+    const CCPoint getPoint(int index);
+    void getPoint(int index, float *x, float *y);
+ 	
+    // Get the depth of the ith contact point.
+    float getDepth(int index);
+ 	
+    // A user definable pointer. The value will persist for the pair of shapes until the "separate" is called.
     void *getUserData(void);
     void setUserData(void *userdata);
     

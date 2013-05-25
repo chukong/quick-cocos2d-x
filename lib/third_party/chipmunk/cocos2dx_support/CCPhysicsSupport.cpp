@@ -366,6 +366,42 @@ void CCPhysicsCollisionEvent::setSurfaceVelocities(const CCPoint velocity)
     m_arbiter->surface_vr = cpv(velocity.x, velocity.y);
 }
 
+int CCPhysicsCollisionEvent::getCount(void)
+{
+    return cpArbiterGetCount(m_arbiter);
+}
+
+const CCPoint CCPhysicsCollisionEvent::getNormal(int index)
+{
+    const cpVect v = cpArbiterGetNormal(m_arbiter, index);
+    return CCPoint(v.x, v.y);
+}
+
+void CCPhysicsCollisionEvent::getNormal(int index, float *x, float *y)
+{
+    const cpVect v = cpArbiterGetNormal(m_arbiter, index);
+    *x = v.x;
+    *y = v.y;
+}
+
+const CCPoint CCPhysicsCollisionEvent::getPoint(int index)
+{
+    const cpVect v = cpArbiterGetPoint(m_arbiter, index);
+    return CCPoint(v.x, v.y);
+}
+
+void CCPhysicsCollisionEvent::getPoint(int index, float *x, float *y)
+{
+    const cpVect v = cpArbiterGetPoint(m_arbiter, index);
+    *x = v.x;
+    *y = v.y;
+}
+
+float CCPhysicsCollisionEvent::getDepth(int index)
+{
+    return cpArbiterGetDepth(m_arbiter, index);
+}
+
 void *CCPhysicsCollisionEvent::getUserData(void)
 {
     return m_arbiter->data;

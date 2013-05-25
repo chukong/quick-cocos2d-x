@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed May 22 22:31:01 2013.
+** Generated automatically by tolua++-1.0.92 on Sat May 25 17:36:46 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -15,6 +15,18 @@ using namespace cocos2d;
 #include "CCPhysicsBody.h"
 #include "CCPhysicsWorld.h"
 #include "CCPhysicsDebugNode.h"
+
+/* function to release collected object via destructor */
+#ifdef __cplusplus
+
+static int tolua_collect_CCPoint (lua_State* tolua_S)
+{
+ CCPoint* self = (CCPoint*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+#endif
+
 
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
@@ -3541,13 +3553,53 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVel
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,1,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSurfaceVelocities'", NULL);
+#endif
+  {
+   const CCPoint tolua_ret = (const CCPoint)  self->getSurfaceVelocities();
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((CCPoint)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const CCPoint");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const CCPoint));
+     tolua_pushusertype(tolua_S,tolua_obj,"const CCPoint");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSurfaceVelocities'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSurfaceVelocities of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVelocities01
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVelocities01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
  {
   CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
   float velocityX = ((float)  tolua_tonumber(tolua_S,2,0));
@@ -3562,11 +3614,8 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVel
   }
  }
  return 2;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getSurfaceVelocities'.",&tolua_err);
- return 0;
-#endif
+tolua_lerror:
+ return tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVelocities00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -3630,6 +3679,228 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_setSurfaceVel
  return 0;
 tolua_lerror:
  return tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_setSurfaceVelocities00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCount of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getCount00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getCount00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCount'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getCount();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCount'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getNormal of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNormal'", NULL);
+#endif
+  {
+   const CCPoint tolua_ret = (const CCPoint)  self->getNormal(index);
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((CCPoint)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const CCPoint");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const CCPoint));
+     tolua_pushusertype(tolua_S,tolua_obj,"const CCPoint");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getNormal'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getNormal of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal01
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+  float x = ((float)  tolua_tonumber(tolua_S,3,0));
+  float y = ((float)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getNormal'", NULL);
+#endif
+  {
+   self->getNormal(index,&x,&y);
+   tolua_pushnumber(tolua_S,(lua_Number)x);
+   tolua_pushnumber(tolua_S,(lua_Number)y);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPoint of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPoint'", NULL);
+#endif
+  {
+   const CCPoint tolua_ret = (const CCPoint)  self->getPoint(index);
+   {
+#ifdef __cplusplus
+    void* tolua_obj = Mtolua_new((CCPoint)(tolua_ret));
+     tolua_pushusertype(tolua_S,tolua_obj,"const CCPoint");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#else
+    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(const CCPoint));
+     tolua_pushusertype(tolua_S,tolua_obj,"const CCPoint");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+#endif
+   }
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPoint'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPoint of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint01
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+  float x = ((float)  tolua_tonumber(tolua_S,3,0));
+  float y = ((float)  tolua_tonumber(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPoint'", NULL);
+#endif
+  {
+   self->getPoint(index,&x,&y);
+   tolua_pushnumber(tolua_S,(lua_Number)x);
+   tolua_pushnumber(tolua_S,(lua_Number)y);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getDepth of class  CCPhysicsCollisionEvent */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getDepth00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getDepth00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsCollisionEvent",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsCollisionEvent* self = (CCPhysicsCollisionEvent*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDepth'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getDepth(index);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getDepth'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -4793,8 +5064,15 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getFriction",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getFriction00);
    tolua_function(tolua_S,"setFriction",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_setFriction00);
    tolua_function(tolua_S,"getSurfaceVelocities",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVelocities00);
+   tolua_function(tolua_S,"getSurfaceVelocities",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getSurfaceVelocities01);
    tolua_function(tolua_S,"setSurfaceVelocities",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_setSurfaceVelocities00);
    tolua_function(tolua_S,"setSurfaceVelocities",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_setSurfaceVelocities01);
+   tolua_function(tolua_S,"getCount",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getCount00);
+   tolua_function(tolua_S,"getNormal",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal00);
+   tolua_function(tolua_S,"getNormal",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getNormal01);
+   tolua_function(tolua_S,"getPoint",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint00);
+   tolua_function(tolua_S,"getPoint",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getPoint01);
+   tolua_function(tolua_S,"getDepth",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getDepth00);
    tolua_function(tolua_S,"getUserData",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_getUserData00);
    tolua_function(tolua_S,"setUserData",tolua_CCPhysicsWorld_luabinding_CCPhysicsCollisionEvent_setUserData00);
   tolua_endmodule(tolua_S);
