@@ -317,7 +317,7 @@ void CCPhysicsBody::setPosition(CCPhysicsVector *pos)
 
 float CCPhysicsBody::getAngle(void)
 {
-    return cpBodyGetAngle(m_body);
+    return -cpBodyGetAngle(m_body);
 }
 
 void CCPhysicsBody::setAngle(float angle)
@@ -325,18 +325,18 @@ void CCPhysicsBody::setAngle(float angle)
     cpBodySetAngle(m_body, angle);
     if (m_node)
     {
-        m_node->setRotation(CC_RADIANS_TO_DEGREES(angle));
+        m_node->setRotation(CC_RADIANS_TO_DEGREES(-angle));
     }
 }
 
 float CCPhysicsBody::getRotation(void)
 {
-    return CC_RADIANS_TO_DEGREES((cpBodyGetAngle(m_body)));
+    return CC_RADIANS_TO_DEGREES(-(cpBodyGetAngle(m_body)));
 }
 
 void CCPhysicsBody::setRotation(float rotation)
 {
-    cpBodySetAngle(m_body, CC_DEGREES_TO_RADIANS(rotation));
+    cpBodySetAngle(m_body, -CC_DEGREES_TO_RADIANS(rotation));
     if (m_node)
     {
         m_node->setRotation(rotation);
