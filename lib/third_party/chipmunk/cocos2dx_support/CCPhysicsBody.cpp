@@ -325,7 +325,7 @@ void CCPhysicsBody::setAngle(float angle)
     cpBodySetAngle(m_body, angle);
     if (m_node)
     {
-        m_node->setRotation(CC_RADIANS_TO_DEGREES(-angle));
+        m_node->setRotation(CC_RADIANS_TO_DEGREES(angle));
     }
 }
 
