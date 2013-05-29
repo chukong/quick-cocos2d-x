@@ -26,6 +26,12 @@ public:
 
     int getCollisionType(void);
     void setCollisionType(int collisionType);
+    
+    int getCollisionGroup(void);
+    void setCollisionGroup(int group);
+    
+    int getCollisionLayers(void);
+    void setCollisionLayers(int layers);
 
 	bool isMarkRemoved(void);
 	void markRemoved(void);

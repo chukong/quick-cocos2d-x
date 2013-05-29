@@ -183,6 +183,7 @@ void CCPhysicsWorld::addBody(CCPhysicsBody *body)
 {
     body->retain();
     m_bodies[body->getBody()] = body;
+//    CCLOG("ADD BODY 0x%08x", (unsigned int)body->getBody());
 }
 
 CCPhysicsBody *CCPhysicsWorld::getBodyByTag(int tag)
@@ -205,6 +206,7 @@ void CCPhysicsWorld::removeBody(CCPhysicsBody *body, bool unbind/*= true*/)
     CCPhysicsBodyMapIterator it = m_bodies.find(body->getBody());
     if (it != m_bodies.end())
     {
+//        CCLOG("REMOVE BODY 0x%08x", (unsigned int)body->getBody());
         m_removedBodies->addObject(body);
         if (unbind) body->unbind();
         body->markRemoved();
@@ -228,7 +230,23 @@ void CCPhysicsWorld::removeAllBodies(bool unbind/*= true*/)
 CCPhysicsBody *CCPhysicsWorld::getBodyByCpBody(cpBody *cpBody)
 {
     CCPhysicsBodyMapIterator it = m_bodies.find(cpBody);
-    return it != m_bodies.end() ? it->second : NULL;
+    if (it != m_bodies.end())
+    {
+        return it->second;
+    }
+
+    unsigned int count = m_removedBodies->count();
+    for (unsigned int i = 0; i < count; ++i)
+    {
+        CCPhysicsBody *body = static_cast<CCPhysicsBody*>(m_removedBodies->objectAtIndex(i));
+        if (body->getBody() == cpBody)
+        {
+            return body;
+        }
+    }
+
+    CCLOG("NOT FOUND BODY 0x%08x", (unsigned int)cpBody);
+    return NULL;
 }
 
 void CCPhysicsWorld::start(void)

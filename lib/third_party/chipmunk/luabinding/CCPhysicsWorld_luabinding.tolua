@@ -117,7 +117,11 @@ class CCPhysicsBody : public CCObject
     bool isSensor(void);
     void setIsSensor(bool isSensor);
     int getCollisionType(void);
-    void setCollisionType(int collisionType);
+    void setCollisionType(int type);
+    int getCollisionGroup(void);
+    void setCollisionGroup(int group);
+    int getCollisionLayers(void);
+    void setCollisionLayers(int layers);
 
     // helper
     float dist(CCPhysicsBody *other);
@@ -155,6 +159,10 @@ class CCPhysicsShape : public CCObject
 
     int getCollisionType(void);
     void setCollisionType(int collisionType);
+    int getCollisionGroup(void);
+    void setCollisionGroup(int group);
+    int getCollisionLayers(void);
+    void setCollisionLayers(int layers);
 };
 
 class CCPhysicsDebugNode : public CCNode

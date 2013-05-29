@@ -404,11 +404,37 @@ int CCPhysicsBody::getCollisionType(void)
     return m_shapes->count() > 0 ? static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(0))->getCollisionType() : 0;
 }
 
-void CCPhysicsBody::setCollisionType(int collisionType)
+void CCPhysicsBody::setCollisionType(int type)
 {
     for (int i = m_shapes->count() - 1; i >= 0; --i)
     {
-        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setCollisionType(collisionType);
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setCollisionType(type);
+    }
+}
+
+int CCPhysicsBody::getCollisionGroup(void)
+{
+    return m_shapes->count() > 0 ? static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(0))->getCollisionGroup() : 0;
+}
+
+void CCPhysicsBody::setCollisionGroup(int group)
+{
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setCollisionGroup(group);
+    }
+}
+
+int CCPhysicsBody::getCollisionLayers(void)
+{
+    return m_shapes->count() > 0 ? static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(0))->getCollisionLayers() : 0;
+}
+
+void CCPhysicsBody::setCollisionLayers(int layers)
+{
+    for (int i = m_shapes->count() - 1; i >= 0; --i)
+    {
+        static_cast<CCPhysicsShape*>(m_shapes->objectAtIndex(i))->setCollisionLayers(layers);
     }
 }
 

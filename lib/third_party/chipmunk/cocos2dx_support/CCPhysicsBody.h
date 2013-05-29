@@ -94,7 +94,11 @@ public:
     bool isSensor(void);
     void setIsSensor(bool isSensor);
     int getCollisionType(void);
-    void setCollisionType(int collisionType);
+    void setCollisionType(int type);
+    int getCollisionGroup(void);
+    void setCollisionGroup(int group);
+    int getCollisionLayers(void);
+    void setCollisionLayers(int layers);
     
     // helper
     float dist(CCPhysicsBody *other);
@@ -144,7 +148,7 @@ private:
     
     cpBool m_postIsSleeping;
     bool m_isRemoved;
-    
+
     // helper
     CCPhysicsShape *addShape(cpShape *shape);
 };

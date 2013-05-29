@@ -57,6 +57,26 @@ void CCPhysicsShape::setCollisionType(int collisionType)
     cpShapeSetCollisionType(m_shape, (cpCollisionType)collisionType);
 }
 
+int CCPhysicsShape::getCollisionGroup(void)
+{
+    return (int)cpShapeGetGroup(m_shape);
+}
+
+void CCPhysicsShape::setCollisionGroup(int group)
+{
+    cpShapeSetGroup(m_shape, (cpGroup)group);
+}
+
+int CCPhysicsShape::getCollisionLayers(void)
+{
+    return (int)cpShapeGetLayers(m_shape);
+}
+
+void CCPhysicsShape::setCollisionLayers(int layers)
+{
+    cpShapeSetLayers(m_shape, (cpLayers)layers);
+}
+
 bool CCPhysicsShape::isMarkRemoved(void)
 {
 	return m_isRemoved;
