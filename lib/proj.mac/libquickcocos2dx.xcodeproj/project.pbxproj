@@ -63,6 +63,54 @@
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F44FEA8216EF7CAF00CE7B56 /* CCClippingRegionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
+		F46FBCFD1756546100E14613 /* SPAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC861756546100E14613 /* SPAnimation.cpp */; };
+		F46FBCFE1756546100E14613 /* SPProcessBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC881756546100E14613 /* SPProcessBase.cpp */; };
+		F46FBCFF1756546100E14613 /* SPTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC8A1756546100E14613 /* SPTween.cpp */; };
+		F46FBD001756546100E14613 /* SPArmatureDisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC8E1756546100E14613 /* SPArmatureDisplayData.cpp */; };
+		F46FBD011756546100E14613 /* SPDisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC901756546100E14613 /* SPDisplayData.cpp */; };
+		F46FBD021756546100E14613 /* SPParticleDisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC921756546100E14613 /* SPParticleDisplayData.cpp */; };
+		F46FBD031756546100E14613 /* SPShaderDisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC941756546100E14613 /* SPShaderDisplayData.cpp */; };
+		F46FBD041756546100E14613 /* SPSpriteDisplayData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC961756546100E14613 /* SPSpriteDisplayData.cpp */; };
+		F46FBD051756546100E14613 /* SPAnimationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC981756546100E14613 /* SPAnimationData.cpp */; };
+		F46FBD061756546100E14613 /* SPArmatureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC9A1756546100E14613 /* SPArmatureData.cpp */; };
+		F46FBD071756546100E14613 /* SPBoneData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC9C1756546100E14613 /* SPBoneData.cpp */; };
+		F46FBD081756546100E14613 /* SPContourData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBC9E1756546100E14613 /* SPContourData.cpp */; };
+		F46FBD091756546100E14613 /* SPFrameData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCA01756546100E14613 /* SPFrameData.cpp */; };
+		F46FBD0A1756546100E14613 /* SPJsonData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCA21756546100E14613 /* SPJsonData.cpp */; };
+		F46FBD0B1756546100E14613 /* SPMovementBoneData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCA41756546100E14613 /* SPMovementBoneData.cpp */; };
+		F46FBD0C1756546100E14613 /* SPMovementData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCA61756546100E14613 /* SPMovementData.cpp */; };
+		F46FBD0D1756546100E14613 /* SPMovementFrameData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCA81756546100E14613 /* SPMovementFrameData.cpp */; };
+		F46FBD0E1756546100E14613 /* SPNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCAA1756546100E14613 /* SPNode.cpp */; };
+		F46FBD0F1756546100E14613 /* SPTextureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCAC1756546100E14613 /* SPTextureData.cpp */; };
+		F46FBD101756546100E14613 /* CCTexture2DMutable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCAF1756546100E14613 /* CCTexture2DMutable.cpp */; };
+		F46FBD111756546100E14613 /* SPArmatureDisplayFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCB21756546100E14613 /* SPArmatureDisplayFactory.cpp */; };
+		F46FBD121756546100E14613 /* SPDisplayFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCB41756546100E14613 /* SPDisplayFactory.cpp */; };
+		F46FBD131756546100E14613 /* SPDisplayFactoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCB61756546100E14613 /* SPDisplayFactoryManager.cpp */; };
+		F46FBD141756546100E14613 /* SPParticleDisplayFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCB81756546100E14613 /* SPParticleDisplayFactory.cpp */; };
+		F46FBD151756546100E14613 /* SPShaderDisplayFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCBA1756546100E14613 /* SPShaderDisplayFactory.cpp */; };
+		F46FBD161756546100E14613 /* SPSpriteDisplayFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCBC1756546100E14613 /* SPSpriteDisplayFactory.cpp */; };
+		F46FBD171756546100E14613 /* SPContourPoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCBE1756546100E14613 /* SPContourPoints.cpp */; };
+		F46FBD181756546100E14613 /* SPContourSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCC01756546100E14613 /* SPContourSprite.cpp */; };
+		F46FBD191756546100E14613 /* SPDecorativeDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCC21756546100E14613 /* SPDecorativeDisplay.cpp */; };
+		F46FBD1A1756546100E14613 /* SPDisplayManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCC41756546100E14613 /* SPDisplayManager.cpp */; };
+		F46FBD1B1756546100E14613 /* SPShaderNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCC61756546100E14613 /* SPShaderNode.cpp */; };
+		F46FBD1C1756546100E14613 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCD71756546100E14613 /* json_reader.cpp */; };
+		F46FBD1D1756546100E14613 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCD91756546100E14613 /* json_value.cpp */; };
+		F46FBD1E1756546100E14613 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCDB1756546100E14613 /* json_writer.cpp */; };
+		F46FBD1F1756546100E14613 /* SPContentJsonDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCDD1756546100E14613 /* SPContentJsonDictionary.cpp */; };
+		F46FBD201756546100E14613 /* SPArmature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCE01756546100E14613 /* SPArmature.cpp */; };
+		F46FBD211756546100E14613 /* SPBone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCE21756546100E14613 /* SPBone.cpp */; };
+		F46FBD221756546100E14613 /* SPArmatureDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCE51756546100E14613 /* SPArmatureDataManager.cpp */; };
+		F46FBD231756546100E14613 /* SPBatchNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCE81756546100E14613 /* SPBatchNode.cpp */; };
+		F46FBD241756546100E14613 /* SPBatchNodeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCEA1756546100E14613 /* SPBatchNodeManager.cpp */; };
+		F46FBD251756546100E14613 /* SPDataReaderHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCED1756546100E14613 /* SPDataReaderHelper.cpp */; };
+		F46FBD261756546100E14613 /* SPTransformHelp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCEF1756546100E14613 /* SPTransformHelp.cpp */; };
+		F46FBD271756546100E14613 /* SPTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCF11756546100E14613 /* SPTweenFunction.cpp */; };
+		F46FBD281756546100E14613 /* SPUtilMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCF31756546100E14613 /* SPUtilMath.cpp */; };
+		F46FBD291756546100E14613 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCF61756546100E14613 /* tinystr.cpp */; };
+		F46FBD2A1756546100E14613 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCF81756546100E14613 /* tinyxml.cpp */; };
+		F46FBD2B1756546100E14613 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCFB1756546100E14613 /* tinyxmlerror.cpp */; };
+		F46FBD2C1756546100E14613 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCFC1756546100E14613 /* tinyxmlparser.cpp */; };
 		F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F486025016CF35F100A158F4 /* CCEditBox.cpp */; };
 		F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */; };
 		F49B397216E82B1100FB8EE9 /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49B397016E82B1000FB8EE9 /* CCZipFile.cpp */; };
@@ -403,6 +451,115 @@
 		F44FEA8016EF7CAF00CE7B56 /* CCClippingRegionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCClippingRegionNode.cpp; sourceTree = "<group>"; };
 		F44FEA8116EF7CAF00CE7B56 /* CCClippingRegionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCClippingRegionNode.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		F46FBC861756546100E14613 /* SPAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPAnimation.cpp; sourceTree = "<group>"; };
+		F46FBC871756546100E14613 /* SPAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnimation.h; sourceTree = "<group>"; };
+		F46FBC881756546100E14613 /* SPProcessBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPProcessBase.cpp; sourceTree = "<group>"; };
+		F46FBC891756546100E14613 /* SPProcessBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPProcessBase.h; sourceTree = "<group>"; };
+		F46FBC8A1756546100E14613 /* SPTween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPTween.cpp; sourceTree = "<group>"; };
+		F46FBC8B1756546100E14613 /* SPTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTween.h; sourceTree = "<group>"; };
+		F46FBC8E1756546100E14613 /* SPArmatureDisplayData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPArmatureDisplayData.cpp; sourceTree = "<group>"; };
+		F46FBC8F1756546100E14613 /* SPArmatureDisplayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmatureDisplayData.h; sourceTree = "<group>"; };
+		F46FBC901756546100E14613 /* SPDisplayData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPDisplayData.cpp; sourceTree = "<group>"; };
+		F46FBC911756546100E14613 /* SPDisplayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayData.h; sourceTree = "<group>"; };
+		F46FBC921756546100E14613 /* SPParticleDisplayData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPParticleDisplayData.cpp; sourceTree = "<group>"; };
+		F46FBC931756546100E14613 /* SPParticleDisplayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPParticleDisplayData.h; sourceTree = "<group>"; };
+		F46FBC941756546100E14613 /* SPShaderDisplayData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPShaderDisplayData.cpp; sourceTree = "<group>"; };
+		F46FBC951756546100E14613 /* SPShaderDisplayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPShaderDisplayData.h; sourceTree = "<group>"; };
+		F46FBC961756546100E14613 /* SPSpriteDisplayData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPSpriteDisplayData.cpp; sourceTree = "<group>"; };
+		F46FBC971756546100E14613 /* SPSpriteDisplayData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSpriteDisplayData.h; sourceTree = "<group>"; };
+		F46FBC981756546100E14613 /* SPAnimationData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPAnimationData.cpp; sourceTree = "<group>"; };
+		F46FBC991756546100E14613 /* SPAnimationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnimationData.h; sourceTree = "<group>"; };
+		F46FBC9A1756546100E14613 /* SPArmatureData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPArmatureData.cpp; sourceTree = "<group>"; };
+		F46FBC9B1756546100E14613 /* SPArmatureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmatureData.h; sourceTree = "<group>"; };
+		F46FBC9C1756546100E14613 /* SPBoneData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPBoneData.cpp; sourceTree = "<group>"; };
+		F46FBC9D1756546100E14613 /* SPBoneData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBoneData.h; sourceTree = "<group>"; };
+		F46FBC9E1756546100E14613 /* SPContourData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPContourData.cpp; sourceTree = "<group>"; };
+		F46FBC9F1756546100E14613 /* SPContourData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPContourData.h; sourceTree = "<group>"; };
+		F46FBCA01756546100E14613 /* SPFrameData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPFrameData.cpp; sourceTree = "<group>"; };
+		F46FBCA11756546100E14613 /* SPFrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPFrameData.h; sourceTree = "<group>"; };
+		F46FBCA21756546100E14613 /* SPJsonData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPJsonData.cpp; sourceTree = "<group>"; };
+		F46FBCA31756546100E14613 /* SPJsonData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPJsonData.h; sourceTree = "<group>"; };
+		F46FBCA41756546100E14613 /* SPMovementBoneData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPMovementBoneData.cpp; sourceTree = "<group>"; };
+		F46FBCA51756546100E14613 /* SPMovementBoneData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMovementBoneData.h; sourceTree = "<group>"; };
+		F46FBCA61756546100E14613 /* SPMovementData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPMovementData.cpp; sourceTree = "<group>"; };
+		F46FBCA71756546100E14613 /* SPMovementData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMovementData.h; sourceTree = "<group>"; };
+		F46FBCA81756546100E14613 /* SPMovementFrameData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPMovementFrameData.cpp; sourceTree = "<group>"; };
+		F46FBCA91756546100E14613 /* SPMovementFrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMovementFrameData.h; sourceTree = "<group>"; };
+		F46FBCAA1756546100E14613 /* SPNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPNode.cpp; sourceTree = "<group>"; };
+		F46FBCAB1756546100E14613 /* SPNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPNode.h; sourceTree = "<group>"; };
+		F46FBCAC1756546100E14613 /* SPTextureData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPTextureData.cpp; sourceTree = "<group>"; };
+		F46FBCAD1756546100E14613 /* SPTextureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTextureData.h; sourceTree = "<group>"; };
+		F46FBCAF1756546100E14613 /* CCTexture2DMutable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTexture2DMutable.cpp; sourceTree = "<group>"; };
+		F46FBCB01756546100E14613 /* CCTexture2DMutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTexture2DMutable.h; sourceTree = "<group>"; };
+		F46FBCB21756546100E14613 /* SPArmatureDisplayFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPArmatureDisplayFactory.cpp; sourceTree = "<group>"; };
+		F46FBCB31756546100E14613 /* SPArmatureDisplayFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmatureDisplayFactory.h; sourceTree = "<group>"; };
+		F46FBCB41756546100E14613 /* SPDisplayFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPDisplayFactory.cpp; sourceTree = "<group>"; };
+		F46FBCB51756546100E14613 /* SPDisplayFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayFactory.h; sourceTree = "<group>"; };
+		F46FBCB61756546100E14613 /* SPDisplayFactoryManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPDisplayFactoryManager.cpp; sourceTree = "<group>"; };
+		F46FBCB71756546100E14613 /* SPDisplayFactoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayFactoryManager.h; sourceTree = "<group>"; };
+		F46FBCB81756546100E14613 /* SPParticleDisplayFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPParticleDisplayFactory.cpp; sourceTree = "<group>"; };
+		F46FBCB91756546100E14613 /* SPParticleDisplayFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPParticleDisplayFactory.h; sourceTree = "<group>"; };
+		F46FBCBA1756546100E14613 /* SPShaderDisplayFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPShaderDisplayFactory.cpp; sourceTree = "<group>"; };
+		F46FBCBB1756546100E14613 /* SPShaderDisplayFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPShaderDisplayFactory.h; sourceTree = "<group>"; };
+		F46FBCBC1756546100E14613 /* SPSpriteDisplayFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPSpriteDisplayFactory.cpp; sourceTree = "<group>"; };
+		F46FBCBD1756546100E14613 /* SPSpriteDisplayFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSpriteDisplayFactory.h; sourceTree = "<group>"; };
+		F46FBCBE1756546100E14613 /* SPContourPoints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPContourPoints.cpp; sourceTree = "<group>"; };
+		F46FBCBF1756546100E14613 /* SPContourPoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPContourPoints.h; sourceTree = "<group>"; };
+		F46FBCC01756546100E14613 /* SPContourSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPContourSprite.cpp; sourceTree = "<group>"; };
+		F46FBCC11756546100E14613 /* SPContourSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPContourSprite.h; sourceTree = "<group>"; };
+		F46FBCC21756546100E14613 /* SPDecorativeDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPDecorativeDisplay.cpp; sourceTree = "<group>"; };
+		F46FBCC31756546100E14613 /* SPDecorativeDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDecorativeDisplay.h; sourceTree = "<group>"; };
+		F46FBCC41756546100E14613 /* SPDisplayManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPDisplayManager.cpp; sourceTree = "<group>"; };
+		F46FBCC51756546100E14613 /* SPDisplayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDisplayManager.h; sourceTree = "<group>"; };
+		F46FBCC61756546100E14613 /* SPShaderNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPShaderNode.cpp; sourceTree = "<group>"; };
+		F46FBCC71756546100E14613 /* SPShaderNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPShaderNode.h; sourceTree = "<group>"; };
+		F46FBCCB1756546100E14613 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		F46FBCCC1756546100E14613 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		F46FBCCD1756546100E14613 /* features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = features.h; sourceTree = "<group>"; };
+		F46FBCCE1756546100E14613 /* forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forwards.h; sourceTree = "<group>"; };
+		F46FBCCF1756546100E14613 /* json_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_lib.h; sourceTree = "<group>"; };
+		F46FBCD01756546100E14613 /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		F46FBCD11756546100E14613 /* value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = value.h; sourceTree = "<group>"; };
+		F46FBCD21756546100E14613 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		F46FBCD41756546100E14613 /* json_batchallocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_batchallocator.h; sourceTree = "<group>"; };
+		F46FBCD51756546100E14613 /* json_internalarray.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalarray.inl; sourceTree = "<group>"; };
+		F46FBCD61756546100E14613 /* json_internalmap.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalmap.inl; sourceTree = "<group>"; };
+		F46FBCD71756546100E14613 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
+		F46FBCD81756546100E14613 /* json_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_tool.h; sourceTree = "<group>"; };
+		F46FBCD91756546100E14613 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
+		F46FBCDA1756546100E14613 /* json_valueiterator.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_valueiterator.inl; sourceTree = "<group>"; };
+		F46FBCDB1756546100E14613 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		F46FBCDC1756546100E14613 /* sconscript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sconscript; sourceTree = "<group>"; };
+		F46FBCDD1756546100E14613 /* SPContentJsonDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPContentJsonDictionary.cpp; sourceTree = "<group>"; };
+		F46FBCDE1756546100E14613 /* SPContentJsonDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPContentJsonDictionary.h; sourceTree = "<group>"; };
+		F46FBCDF1756546100E14613 /* sigslot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sigslot.h; sourceTree = "<group>"; };
+		F46FBCE01756546100E14613 /* SPArmature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPArmature.cpp; sourceTree = "<group>"; };
+		F46FBCE11756546100E14613 /* SPArmature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmature.h; sourceTree = "<group>"; };
+		F46FBCE21756546100E14613 /* SPBone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPBone.cpp; sourceTree = "<group>"; };
+		F46FBCE31756546100E14613 /* SPBone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBone.h; sourceTree = "<group>"; };
+		F46FBCE51756546100E14613 /* SPArmatureDataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPArmatureDataManager.cpp; sourceTree = "<group>"; };
+		F46FBCE61756546100E14613 /* SPArmatureDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmatureDataManager.h; sourceTree = "<group>"; };
+		F46FBCE71756546100E14613 /* SPArmatureDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmatureDefine.h; sourceTree = "<group>"; };
+		F46FBCE81756546100E14613 /* SPBatchNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPBatchNode.cpp; sourceTree = "<group>"; };
+		F46FBCE91756546100E14613 /* SPBatchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBatchNode.h; sourceTree = "<group>"; };
+		F46FBCEA1756546100E14613 /* SPBatchNodeManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPBatchNodeManager.cpp; sourceTree = "<group>"; };
+		F46FBCEB1756546100E14613 /* SPBatchNodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBatchNodeManager.h; sourceTree = "<group>"; };
+		F46FBCEC1756546100E14613 /* SPConstValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPConstValue.h; sourceTree = "<group>"; };
+		F46FBCED1756546100E14613 /* SPDataReaderHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPDataReaderHelper.cpp; sourceTree = "<group>"; };
+		F46FBCEE1756546100E14613 /* SPDataReaderHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDataReaderHelper.h; sourceTree = "<group>"; };
+		F46FBCEF1756546100E14613 /* SPTransformHelp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPTransformHelp.cpp; sourceTree = "<group>"; };
+		F46FBCF01756546100E14613 /* SPTransformHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTransformHelp.h; sourceTree = "<group>"; };
+		F46FBCF11756546100E14613 /* SPTweenFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPTweenFunction.cpp; sourceTree = "<group>"; };
+		F46FBCF21756546100E14613 /* SPTweenFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTweenFunction.h; sourceTree = "<group>"; };
+		F46FBCF31756546100E14613 /* SPUtilMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPUtilMath.cpp; sourceTree = "<group>"; };
+		F46FBCF41756546100E14613 /* SPUtilMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilMath.h; sourceTree = "<group>"; };
+		F46FBCF61756546100E14613 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; };
+		F46FBCF71756546100E14613 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; };
+		F46FBCF81756546100E14613 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
+		F46FBCF91756546100E14613 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
+		F46FBCFA1756546100E14613 /* tinyxml.suo */ = {isa = PBXFileReference; lastKnownFileType = file; path = tinyxml.suo; sourceTree = "<group>"; };
+		F46FBCFB1756546100E14613 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
+		F46FBCFC1756546100E14613 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		F47C66BF16EB362E00132435 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F486025016CF35F100A158F4 /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
 		F486025116CF35F100A158F4 /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
@@ -1000,6 +1157,8 @@
 		F43D10441738DA2500B189FF /* third_party */ = {
 			isa = PBXGroup;
 			children = (
+				F46FBC841756546100E14613 /* SPArmature */,
+				F46FBCF51756546100E14613 /* tinyxml */,
 				F43D10451738DA2500B189FF /* chipmunk */,
 			);
 			path = third_party;
@@ -1108,6 +1267,209 @@
 				F43D107C1738DA2500B189FF /* cpSlideJoint.c */,
 			);
 			path = constraints;
+			sourceTree = "<group>";
+		};
+		F46FBC841756546100E14613 /* SPArmature */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBC851756546100E14613 /* animation */,
+				F46FBC8C1756546100E14613 /* datas */,
+				F46FBCAE1756546100E14613 /* display */,
+				F46FBCC81756546100E14613 /* external_tool */,
+				F46FBCE01756546100E14613 /* SPArmature.cpp */,
+				F46FBCE11756546100E14613 /* SPArmature.h */,
+				F46FBCE21756546100E14613 /* SPBone.cpp */,
+				F46FBCE31756546100E14613 /* SPBone.h */,
+				F46FBCE41756546100E14613 /* utils */,
+			);
+			path = SPArmature;
+			sourceTree = "<group>";
+		};
+		F46FBC851756546100E14613 /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBC861756546100E14613 /* SPAnimation.cpp */,
+				F46FBC871756546100E14613 /* SPAnimation.h */,
+				F46FBC881756546100E14613 /* SPProcessBase.cpp */,
+				F46FBC891756546100E14613 /* SPProcessBase.h */,
+				F46FBC8A1756546100E14613 /* SPTween.cpp */,
+				F46FBC8B1756546100E14613 /* SPTween.h */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
+		F46FBC8C1756546100E14613 /* datas */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBC8D1756546100E14613 /* display_data */,
+				F46FBC981756546100E14613 /* SPAnimationData.cpp */,
+				F46FBC991756546100E14613 /* SPAnimationData.h */,
+				F46FBC9A1756546100E14613 /* SPArmatureData.cpp */,
+				F46FBC9B1756546100E14613 /* SPArmatureData.h */,
+				F46FBC9C1756546100E14613 /* SPBoneData.cpp */,
+				F46FBC9D1756546100E14613 /* SPBoneData.h */,
+				F46FBC9E1756546100E14613 /* SPContourData.cpp */,
+				F46FBC9F1756546100E14613 /* SPContourData.h */,
+				F46FBCA01756546100E14613 /* SPFrameData.cpp */,
+				F46FBCA11756546100E14613 /* SPFrameData.h */,
+				F46FBCA21756546100E14613 /* SPJsonData.cpp */,
+				F46FBCA31756546100E14613 /* SPJsonData.h */,
+				F46FBCA41756546100E14613 /* SPMovementBoneData.cpp */,
+				F46FBCA51756546100E14613 /* SPMovementBoneData.h */,
+				F46FBCA61756546100E14613 /* SPMovementData.cpp */,
+				F46FBCA71756546100E14613 /* SPMovementData.h */,
+				F46FBCA81756546100E14613 /* SPMovementFrameData.cpp */,
+				F46FBCA91756546100E14613 /* SPMovementFrameData.h */,
+				F46FBCAA1756546100E14613 /* SPNode.cpp */,
+				F46FBCAB1756546100E14613 /* SPNode.h */,
+				F46FBCAC1756546100E14613 /* SPTextureData.cpp */,
+				F46FBCAD1756546100E14613 /* SPTextureData.h */,
+			);
+			path = datas;
+			sourceTree = "<group>";
+		};
+		F46FBC8D1756546100E14613 /* display_data */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBC8E1756546100E14613 /* SPArmatureDisplayData.cpp */,
+				F46FBC8F1756546100E14613 /* SPArmatureDisplayData.h */,
+				F46FBC901756546100E14613 /* SPDisplayData.cpp */,
+				F46FBC911756546100E14613 /* SPDisplayData.h */,
+				F46FBC921756546100E14613 /* SPParticleDisplayData.cpp */,
+				F46FBC931756546100E14613 /* SPParticleDisplayData.h */,
+				F46FBC941756546100E14613 /* SPShaderDisplayData.cpp */,
+				F46FBC951756546100E14613 /* SPShaderDisplayData.h */,
+				F46FBC961756546100E14613 /* SPSpriteDisplayData.cpp */,
+				F46FBC971756546100E14613 /* SPSpriteDisplayData.h */,
+			);
+			path = display_data;
+			sourceTree = "<group>";
+		};
+		F46FBCAE1756546100E14613 /* display */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCAF1756546100E14613 /* CCTexture2DMutable.cpp */,
+				F46FBCB01756546100E14613 /* CCTexture2DMutable.h */,
+				F46FBCB11756546100E14613 /* display_factory */,
+				F46FBCBE1756546100E14613 /* SPContourPoints.cpp */,
+				F46FBCBF1756546100E14613 /* SPContourPoints.h */,
+				F46FBCC01756546100E14613 /* SPContourSprite.cpp */,
+				F46FBCC11756546100E14613 /* SPContourSprite.h */,
+				F46FBCC21756546100E14613 /* SPDecorativeDisplay.cpp */,
+				F46FBCC31756546100E14613 /* SPDecorativeDisplay.h */,
+				F46FBCC41756546100E14613 /* SPDisplayManager.cpp */,
+				F46FBCC51756546100E14613 /* SPDisplayManager.h */,
+				F46FBCC61756546100E14613 /* SPShaderNode.cpp */,
+				F46FBCC71756546100E14613 /* SPShaderNode.h */,
+			);
+			path = display;
+			sourceTree = "<group>";
+		};
+		F46FBCB11756546100E14613 /* display_factory */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCB21756546100E14613 /* SPArmatureDisplayFactory.cpp */,
+				F46FBCB31756546100E14613 /* SPArmatureDisplayFactory.h */,
+				F46FBCB41756546100E14613 /* SPDisplayFactory.cpp */,
+				F46FBCB51756546100E14613 /* SPDisplayFactory.h */,
+				F46FBCB61756546100E14613 /* SPDisplayFactoryManager.cpp */,
+				F46FBCB71756546100E14613 /* SPDisplayFactoryManager.h */,
+				F46FBCB81756546100E14613 /* SPParticleDisplayFactory.cpp */,
+				F46FBCB91756546100E14613 /* SPParticleDisplayFactory.h */,
+				F46FBCBA1756546100E14613 /* SPShaderDisplayFactory.cpp */,
+				F46FBCBB1756546100E14613 /* SPShaderDisplayFactory.h */,
+				F46FBCBC1756546100E14613 /* SPSpriteDisplayFactory.cpp */,
+				F46FBCBD1756546100E14613 /* SPSpriteDisplayFactory.h */,
+			);
+			path = display_factory;
+			sourceTree = "<group>";
+		};
+		F46FBCC81756546100E14613 /* external_tool */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCC91756546100E14613 /* Json */,
+				F46FBCDF1756546100E14613 /* sigslot.h */,
+			);
+			path = external_tool;
+			sourceTree = "<group>";
+		};
+		F46FBCC91756546100E14613 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCCA1756546100E14613 /* json */,
+				F46FBCD31756546100E14613 /* lib_json */,
+				F46FBCDD1756546100E14613 /* SPContentJsonDictionary.cpp */,
+				F46FBCDE1756546100E14613 /* SPContentJsonDictionary.h */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
+		F46FBCCA1756546100E14613 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCCB1756546100E14613 /* autolink.h */,
+				F46FBCCC1756546100E14613 /* config.h */,
+				F46FBCCD1756546100E14613 /* features.h */,
+				F46FBCCE1756546100E14613 /* forwards.h */,
+				F46FBCCF1756546100E14613 /* json_lib.h */,
+				F46FBCD01756546100E14613 /* reader.h */,
+				F46FBCD11756546100E14613 /* value.h */,
+				F46FBCD21756546100E14613 /* writer.h */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		F46FBCD31756546100E14613 /* lib_json */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCD41756546100E14613 /* json_batchallocator.h */,
+				F46FBCD51756546100E14613 /* json_internalarray.inl */,
+				F46FBCD61756546100E14613 /* json_internalmap.inl */,
+				F46FBCD71756546100E14613 /* json_reader.cpp */,
+				F46FBCD81756546100E14613 /* json_tool.h */,
+				F46FBCD91756546100E14613 /* json_value.cpp */,
+				F46FBCDA1756546100E14613 /* json_valueiterator.inl */,
+				F46FBCDB1756546100E14613 /* json_writer.cpp */,
+				F46FBCDC1756546100E14613 /* sconscript */,
+			);
+			path = lib_json;
+			sourceTree = "<group>";
+		};
+		F46FBCE41756546100E14613 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCE51756546100E14613 /* SPArmatureDataManager.cpp */,
+				F46FBCE61756546100E14613 /* SPArmatureDataManager.h */,
+				F46FBCE71756546100E14613 /* SPArmatureDefine.h */,
+				F46FBCE81756546100E14613 /* SPBatchNode.cpp */,
+				F46FBCE91756546100E14613 /* SPBatchNode.h */,
+				F46FBCEA1756546100E14613 /* SPBatchNodeManager.cpp */,
+				F46FBCEB1756546100E14613 /* SPBatchNodeManager.h */,
+				F46FBCEC1756546100E14613 /* SPConstValue.h */,
+				F46FBCED1756546100E14613 /* SPDataReaderHelper.cpp */,
+				F46FBCEE1756546100E14613 /* SPDataReaderHelper.h */,
+				F46FBCEF1756546100E14613 /* SPTransformHelp.cpp */,
+				F46FBCF01756546100E14613 /* SPTransformHelp.h */,
+				F46FBCF11756546100E14613 /* SPTweenFunction.cpp */,
+				F46FBCF21756546100E14613 /* SPTweenFunction.h */,
+				F46FBCF31756546100E14613 /* SPUtilMath.cpp */,
+				F46FBCF41756546100E14613 /* SPUtilMath.h */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		F46FBCF51756546100E14613 /* tinyxml */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBCF61756546100E14613 /* tinystr.cpp */,
+				F46FBCF71756546100E14613 /* tinystr.h */,
+				F46FBCF81756546100E14613 /* tinyxml.cpp */,
+				F46FBCF91756546100E14613 /* tinyxml.h */,
+				F46FBCFA1756546100E14613 /* tinyxml.suo */,
+				F46FBCFB1756546100E14613 /* tinyxmlerror.cpp */,
+				F46FBCFC1756546100E14613 /* tinyxmlparser.cpp */,
+			);
+			path = tinyxml;
 			sourceTree = "<group>";
 		};
 		F486024F16CF35F100A158F4 /* CCEditBox */ = {
@@ -2525,6 +2887,54 @@
 				F404DD871743669500B57487 /* CCPhysicsShape.cpp in Sources */,
 				F404DD881743669500B57487 /* CCPhysicsWorld.cpp in Sources */,
 				F404DD891743669500B57487 /* CCPhysicsSupport.cpp in Sources */,
+				F46FBCFD1756546100E14613 /* SPAnimation.cpp in Sources */,
+				F46FBCFE1756546100E14613 /* SPProcessBase.cpp in Sources */,
+				F46FBCFF1756546100E14613 /* SPTween.cpp in Sources */,
+				F46FBD001756546100E14613 /* SPArmatureDisplayData.cpp in Sources */,
+				F46FBD011756546100E14613 /* SPDisplayData.cpp in Sources */,
+				F46FBD021756546100E14613 /* SPParticleDisplayData.cpp in Sources */,
+				F46FBD031756546100E14613 /* SPShaderDisplayData.cpp in Sources */,
+				F46FBD041756546100E14613 /* SPSpriteDisplayData.cpp in Sources */,
+				F46FBD051756546100E14613 /* SPAnimationData.cpp in Sources */,
+				F46FBD061756546100E14613 /* SPArmatureData.cpp in Sources */,
+				F46FBD071756546100E14613 /* SPBoneData.cpp in Sources */,
+				F46FBD081756546100E14613 /* SPContourData.cpp in Sources */,
+				F46FBD091756546100E14613 /* SPFrameData.cpp in Sources */,
+				F46FBD0A1756546100E14613 /* SPJsonData.cpp in Sources */,
+				F46FBD0B1756546100E14613 /* SPMovementBoneData.cpp in Sources */,
+				F46FBD0C1756546100E14613 /* SPMovementData.cpp in Sources */,
+				F46FBD0D1756546100E14613 /* SPMovementFrameData.cpp in Sources */,
+				F46FBD0E1756546100E14613 /* SPNode.cpp in Sources */,
+				F46FBD0F1756546100E14613 /* SPTextureData.cpp in Sources */,
+				F46FBD101756546100E14613 /* CCTexture2DMutable.cpp in Sources */,
+				F46FBD111756546100E14613 /* SPArmatureDisplayFactory.cpp in Sources */,
+				F46FBD121756546100E14613 /* SPDisplayFactory.cpp in Sources */,
+				F46FBD131756546100E14613 /* SPDisplayFactoryManager.cpp in Sources */,
+				F46FBD141756546100E14613 /* SPParticleDisplayFactory.cpp in Sources */,
+				F46FBD151756546100E14613 /* SPShaderDisplayFactory.cpp in Sources */,
+				F46FBD161756546100E14613 /* SPSpriteDisplayFactory.cpp in Sources */,
+				F46FBD171756546100E14613 /* SPContourPoints.cpp in Sources */,
+				F46FBD181756546100E14613 /* SPContourSprite.cpp in Sources */,
+				F46FBD191756546100E14613 /* SPDecorativeDisplay.cpp in Sources */,
+				F46FBD1A1756546100E14613 /* SPDisplayManager.cpp in Sources */,
+				F46FBD1B1756546100E14613 /* SPShaderNode.cpp in Sources */,
+				F46FBD1C1756546100E14613 /* json_reader.cpp in Sources */,
+				F46FBD1D1756546100E14613 /* json_value.cpp in Sources */,
+				F46FBD1E1756546100E14613 /* json_writer.cpp in Sources */,
+				F46FBD1F1756546100E14613 /* SPContentJsonDictionary.cpp in Sources */,
+				F46FBD201756546100E14613 /* SPArmature.cpp in Sources */,
+				F46FBD211756546100E14613 /* SPBone.cpp in Sources */,
+				F46FBD221756546100E14613 /* SPArmatureDataManager.cpp in Sources */,
+				F46FBD231756546100E14613 /* SPBatchNode.cpp in Sources */,
+				F46FBD241756546100E14613 /* SPBatchNodeManager.cpp in Sources */,
+				F46FBD251756546100E14613 /* SPDataReaderHelper.cpp in Sources */,
+				F46FBD261756546100E14613 /* SPTransformHelp.cpp in Sources */,
+				F46FBD271756546100E14613 /* SPTweenFunction.cpp in Sources */,
+				F46FBD281756546100E14613 /* SPUtilMath.cpp in Sources */,
+				F46FBD291756546100E14613 /* tinystr.cpp in Sources */,
+				F46FBD2A1756546100E14613 /* tinyxml.cpp in Sources */,
+				F46FBD2B1756546100E14613 /* tinyxmlerror.cpp in Sources */,
+				F46FBD2C1756546100E14613 /* tinyxmlparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
