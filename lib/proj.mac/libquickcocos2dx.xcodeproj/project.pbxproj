@@ -111,6 +111,7 @@
 		F46FBD2A1756546100E14613 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCF81756546100E14613 /* tinyxml.cpp */; };
 		F46FBD2B1756546100E14613 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCFB1756546100E14613 /* tinyxmlerror.cpp */; };
 		F46FBD2C1756546100E14613 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBCFC1756546100E14613 /* tinyxmlparser.cpp */; };
+		F46FBD301756F4B900E14613 /* SPArmature_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBD2E1756F4B900E14613 /* SPArmature_luabinding.cpp */; };
 		F486025B16CF35F100A158F4 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F486025016CF35F100A158F4 /* CCEditBox.cpp */; };
 		F486025E16CF35F100A158F4 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F486025816CF35F100A158F4 /* CCEditBoxImplMac.mm */; };
 		F49B397216E82B1100FB8EE9 /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49B397016E82B1000FB8EE9 /* CCZipFile.cpp */; };
@@ -560,6 +561,8 @@
 		F46FBCFA1756546100E14613 /* tinyxml.suo */ = {isa = PBXFileReference; lastKnownFileType = file; path = tinyxml.suo; sourceTree = "<group>"; };
 		F46FBCFB1756546100E14613 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
 		F46FBCFC1756546100E14613 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
+		F46FBD2E1756F4B900E14613 /* SPArmature_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SPArmature_luabinding.cpp; sourceTree = "<group>"; };
+		F46FBD2F1756F4B900E14613 /* SPArmature_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPArmature_luabinding.h; sourceTree = "<group>"; };
 		F47C66BF16EB362E00132435 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F486025016CF35F100A158F4 /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
 		F486025116CF35F100A158F4 /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
@@ -1276,6 +1279,7 @@
 				F46FBC8C1756546100E14613 /* datas */,
 				F46FBCAE1756546100E14613 /* display */,
 				F46FBCC81756546100E14613 /* external_tool */,
+				F46FBD2D1756EB1900E14613 /* luabinding */,
 				F46FBCE01756546100E14613 /* SPArmature.cpp */,
 				F46FBCE11756546100E14613 /* SPArmature.h */,
 				F46FBCE21756546100E14613 /* SPBone.cpp */,
@@ -1470,6 +1474,15 @@
 				F46FBCFC1756546100E14613 /* tinyxmlparser.cpp */,
 			);
 			path = tinyxml;
+			sourceTree = "<group>";
+		};
+		F46FBD2D1756EB1900E14613 /* luabinding */ = {
+			isa = PBXGroup;
+			children = (
+				F46FBD2E1756F4B900E14613 /* SPArmature_luabinding.cpp */,
+				F46FBD2F1756F4B900E14613 /* SPArmature_luabinding.h */,
+			);
+			path = luabinding;
 			sourceTree = "<group>";
 		};
 		F486024F16CF35F100A158F4 /* CCEditBox */ = {
@@ -2935,6 +2948,7 @@
 				F46FBD2A1756546100E14613 /* tinyxml.cpp in Sources */,
 				F46FBD2B1756546100E14613 /* tinyxmlerror.cpp in Sources */,
 				F46FBD2C1756546100E14613 /* tinyxmlparser.cpp in Sources */,
+				F46FBD301756F4B900E14613 /* SPArmature_luabinding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

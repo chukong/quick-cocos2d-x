@@ -36,7 +36,6 @@
 
 using namespace cocos2d;
 
-
 namespace sp{
 
 typedef struct _ImageInfo
@@ -53,7 +52,7 @@ typedef struct _ArmatureFileInfo : public CCObject
         if(_afi)
         {
             _afi->autorelease();
-            return _afi;  
+            return _afi;
         }
         CC_SAFE_DELETE(_afi);
         return NULL;
@@ -64,8 +63,8 @@ typedef struct _ArmatureFileInfo : public CCObject
     std::string configFilePath;
     std::vector<ImageInfo> imageInfoVector;
 }ArmatureFileInfo;
-    
-class Armature : public CCObject, public sigslot::has_slots<>
+
+class Armature : public CCNode, public sigslot::has_slots<>
 {
 
 public:
@@ -73,15 +72,15 @@ public:
      *  @brief    create a empty armature
      */
     static Armature *create();
-    
+
     /**
      *  @brief    create a armature with specified name
      *
      *  @param   _name   armature name
      */
     static Armature *create(const char* _name);
-    
-    
+
+
 
 public:
     Armature();
@@ -91,17 +90,17 @@ public:
      *  @brief    init the empty armature
      */
     virtual bool init();
-    
+
     /**
      *  @brief    init a armature with specified name
      *
      *  @param   _name   armature name
      */
     virtual bool init(const char *_name);
-    
-    
+
+
     /**
-     *  @brief    add a Bone to this Armature, 
+     *  @brief    add a Bone to this Armature,
      *
      *  @param   _bone  the Bone you want to add to Armature
      *
@@ -109,7 +108,7 @@ public:
      */
     void addBone(Bone *_bone, const char* _parentName);
 
-	
+
     /**
      *  @brief    get a bone with the specified name
      *
@@ -117,10 +116,10 @@ public:
      *
      */
     Bone *getBone(const char *_name);
-    
+
     void changeBoneParent(Bone *_bone, const char *_parentName);
-    
-    
+
+
     /**
      *  @brief   remove a bone with the specified name. It will also remove child Bone recursionly.
      *
@@ -128,24 +127,24 @@ public:
      *
      */
     void removeBone(Bone *_bone, bool _cleanup);
-    
+
 
     /**
      *  @brief   Reorder the Armature. This will redistribution all child bones vertexz or zorder.
      *          You should note that this zorder is different from zorder of cocos2dx.
      *          It is used to calculate child bones vertexz or zorder.
-     *          
+     *
      *          We do not use cocos2dx zorder, because we use batchnode to improve speed and batchnode zorder do not support two batchnode can't mixed use their sprite's zorder
      *
      *  @param  _zOrder  the zorder you want to set
      *
      */
     void setZOrder(int _zOrder);
-	
+
     /**
      *  @brief   Get current Armature's zorder
      *
-     *  @return Current Armature's zorder  
+     *  @return Current Armature's zorder
      *
      */
     int getZOrder();
@@ -156,42 +155,47 @@ public:
      *  @return Armature's bone dictionary
      *
      */
-	CCDictionary *getBoneDic();
-    
+    CCDictionary *getBoneDic();
+
     void setPosition(float _x, float _y);
     void setPositionX(float _x);
     void setPositionY(float _y);
-    
+
     void setRotation(float _r);
-    
+
     void setScale(float _scale);
     void setScaleX(float _scaleX);
     void setScaleY(float _scaleY);
 
-	CCRect getBoundingBox();
-    
-    
+    CCRect getBoundingBox();
+
     Bone *getBoneAtPoint(float _x, float _y);
-    
+
+    /**
+     * Script support & helper
+     */
+    void registerArmatureEventScriptListener(int handler);
+    void unregisterArmatureEventScriptListener(void);
+
     /**
      *  @brief   Animation event call back, When Animation is start, complete or other, Animation will call this method to dispatch Animation event.
      *
-     *  @param  _eventType 
+     *  @param  _eventType
      *
      */
     void onMovementEvent(const char *_eventType, const char *_movementID);
-    
-    void update(float dt);
 
-    
+    virtual void update(float dt);
+
+
     ////////////////////////////////////////////////////////////////////////
     ////                                                                ////
     ////                     Edit Function                              ////
     ////                                                                ////
     ////////////////////////////////////////////////////////////////////////
-    
+
     void editName(const char *_name);
-    
+
     /**
      *  @brief    add a Bone to this Armature for edit, this will modify ArmatureData
      *
@@ -200,8 +204,8 @@ public:
      *  @param   _parentName   the parent Bone's name you want to add to . If it's  NULL, then set Armature to it's parent
      */
     void addEditBone(Bone *_bone, const char* _parentName);
-    
-    
+
+
     /**
      *  @brief   remove a edit bone with the specified name. It will also remove child Bone recursionly.
      *
@@ -209,53 +213,53 @@ public:
      *
      */
     void removeEditBone(Bone *_bone, bool _cleanUp);
-    
-    
+
+
     void changeEditBoneParent(Bone *_bone, const char *_parentName);
-    
+
     /**
-     *  @brief   save the ArmatureData of this Armature to file 
+     *  @brief   save the ArmatureData of this Armature to file
      *
-     *  @param  _fileName the file'name save to 
+     *  @param  _fileName the file'name save to
      *
      */
     void saveJsonToFile(const char *_fileName);
-    
+
     CCNode *getDisplayRenderNode();
 private:
     /*
-     *  @brief   sort Bones in this Armature, if m_pDisPlayBatchNode used BATCHNODE_VERTEXZ, then order use vertexz, else use cocos2dx zorder 
+     *  @brief   sort Bones in this Armature, if m_pDisPlayBatchNode used BATCHNODE_VERTEXZ, then order use vertexz, else use cocos2dx zorder
      */
     void sortBoneHelper(int _baseVertexz, int &_index);
-    
+
     /*
      *  @brief used to create Bone internal
      */
-	Bone *createBone(const char *_boneName );
+    Bone *createBone(const char *_boneName );
 
-	/*
-	 *	When a new armature is created, internal sort is called. This sort will calculate the current max armature internal zorder, 
-	 *	and give the zorder to the new created armature. This zorder is not be changed after.
-	 *	It's different from the zorder used for users.
-	 */
-	void internalSort();
+    /*
+     *	When a new armature is created, internal sort is called. This sort will calculate the current max armature internal zorder,
+     *	and give the zorder to the new created armature. This zorder is not be changed after.
+     *	It's different from the zorder used for users.
+     */
+    void internalSort();
 
-	void initRootBone();
-    
+    void initRootBone();
+
 public:
-	CC_SYNTHESIZE(Animation *, m_pAnimation, Animation);
+    CC_SYNTHESIZE(Animation *, m_pAnimation, Animation);
 
-	CC_SYNTHESIZE_PASS_BY_REF(bool, m_bBonesIndexChanged, BonesIndexChanged);
-    
+    CC_SYNTHESIZE_PASS_BY_REF(bool, m_bBonesIndexChanged, BonesIndexChanged);
+
     CC_SYNTHESIZE(ArmatureData *, m_pArmatureData, ArmatureData);
-    
+
     CC_PROPERTY(RENDER_TYPE, m_eRenderType, RenderType)
 
-	CC_SYNTHESIZE(Bone *, m_pRootBone, RootBone)
+    CC_SYNTHESIZE(Bone *, m_pRootBone, RootBone)
 
-	CC_PROPERTY(bool, m_bVisible, Visible)
+    CC_PROPERTY(bool, m_bVisible, Visible)
 
-	CC_SYNTHESIZE(Armature*, m_pArmature, Armature);
+    CC_SYNTHESIZE(Armature*, m_pArmature, Armature);
 
 protected:
     
@@ -275,20 +279,20 @@ protected:
     
 protected:
     //! this is used to sign the index of the Armature being created
-	float m_fInternalZOrder;
+    float m_fInternalZOrder;
     
     //! zorder for user to set
-	float m_fZOrder;
-	
-	/*
-	 *	m_iInternalZOrder combine m_fZOrder is the m_fActualZOrder.
-	 */
-	float m_fActualZOrder;
-
-	CC_SYNTHESIZE_PASS_BY_REF(std::string, m_strName, Name);
-
+    float m_fZOrder;
+    
+    /*
+     *	m_iInternalZOrder combine m_fZOrder is the m_fActualZOrder.
+     */
+    float m_fActualZOrder;
+    
+    CC_SYNTHESIZE_PASS_BY_REF(std::string, m_strName, Name);
+    
 private:
-	static int m_siMaxArmatureZorder;
+    static int m_siMaxArmatureZorder;
     static CCDictionary *m_sArmatureMap;
     
 private:
@@ -297,7 +301,8 @@ private:
     
     void boneNameChangedSlot(Bone *_bone, const char *_newName);
     
+    int m_scriptHandler;
+    
 };
-
 
 }
