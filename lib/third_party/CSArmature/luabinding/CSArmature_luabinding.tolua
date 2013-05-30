@@ -1,0 +1,57 @@
+
+$#include "cocos2d.h"
+$#include "SPArmature.h"
+$#include "SPArmatureDataManager.h"
+$#include "SPBatchNodeManager.h"
+$#include "SPSpriteDisplayData.h"
+
+$using namespace cocos2d;
+$using namespace sp;
+
+class BatchNodeManager
+{
+    static BatchNodeManager *sharedBatchNodeManager();
+    bool initWithLayer(CCLayer *_layer, std::string _layerName);
+
+    void addBatchNode(std::string _name, BatchNode *_batchNode, int _zOrder = 0);
+    BatchNode *getBatchNode(std::string _name);
+    void setBatchNodeZOrder(std::string _name, int _zOrder);
+    void setBatchNodeBlendFunc(std::string _name, unsigned int _src, unsigned int _dst);
+    void removeBatchNodes(std::string _layerName);
+    CCLayer *getCurrentLayer();
+};
+
+class ArmatureDataManager : public CCObject
+{
+    static ArmatureDataManager *sharedArmatureDataManager();
+    void addArmatureFileInfo(const char *_armatureName, const char *_useExistFileInfo, const char *_imagePath, const char *_plistPath, const char *_configFilePath);
+    void addSpriteFrameFromFile(const char *_plistPath, const char *_imagePath);
+    const char *getDisplayImagePath(const char *_displayName);
+    void removeAll();
+};
+
+class Armature : public CCNode
+{
+    static Armature *create(const char* _name);
+    static Armature *create();
+
+    void setZOrder(int _zOrder);
+    int getZOrder();
+
+    void setPosition(float _x, float _y);
+    void setPositionX(float _x);
+    void setPositionY(float _y);
+
+    void setRotation(float _r);
+
+    void setScale(float _scale);
+    void setScaleX(float _scaleX);
+    void setScaleY(float _scaleY);
+
+    CCRect getBoundingBox();
+
+    void update(float dt);
+
+    bool getVisible(void);
+    void setVisible(bool visible);
+};
