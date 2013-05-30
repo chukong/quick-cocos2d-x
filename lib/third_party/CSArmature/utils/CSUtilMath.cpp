@@ -245,7 +245,7 @@ CCD_Result CalcIK_CCD(Bone *startBone, Bone *endBone, CCPoint &targetPoint, floa
 
 		// Track if the arc length that we moved the end effector was
 		// a nontrivial distance.
-		if( !modifiedBones && abs(rotAng)*curToEndMag > trivialArcLength )
+		if( !modifiedBones && fabsf(rotAng)*curToEndMag > trivialArcLength )
 		{
 			modifiedBones = true;
 		}

@@ -32,7 +32,6 @@
 #include "CSDataReaderHelper.h"
 #include "cocos2d.h"
 #include "CSSpriteFrameCacheHelper.h"
-#include "CSPhysicsWorld.h"
 
 using namespace cocos2d;
 
@@ -74,7 +73,6 @@ ArmatureDataManager::~ArmatureDataManager(void)
 void ArmatureDataManager::purgeArmatureSystem()
 {
 	SpriteFrameCacheHelper::purgeSpriteFrameCacheHelper();
-	PhysicsWorld::purgePhysicsWorld();
 
 	CC_SAFE_RELEASE_NULL(m_sSharedArmatureDataManager);
 }

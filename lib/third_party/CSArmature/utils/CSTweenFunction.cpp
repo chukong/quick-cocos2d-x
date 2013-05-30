@@ -268,7 +268,7 @@ float TweenFunction::elasticEaseIn(float t, float b, float c, float d, float a, 
         return b + c;
     if (!p)
         p = d * .3;
-    if (!a || a < abs(c)) {
+    if (!a || a < fabsf(c)) {
         a = c;
         s = p / 4;
     } else
@@ -284,7 +284,7 @@ float TweenFunction::elasticEaseOut(float t, float b, float c, float d, float a,
         return b + c;
     if (!p)
         p = d * .3;
-    if (!a || a < abs(c)) {
+    if (!a || a < fabsf(c)) {
         a = c;
         s = p / 4;
     } else
@@ -300,7 +300,7 @@ float TweenFunction::elasticEaseInOut(float t, float b, float c, float d, float 
         return b + c;
     if (!p)
         p = d * (.3 * 1.5);
-    if (!a || a < abs(c)) {
+    if (!a || a < fabsf(c)) {
         a = c;
         s = p / 4;
     } else
