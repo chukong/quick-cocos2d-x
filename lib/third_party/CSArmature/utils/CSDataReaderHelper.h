@@ -32,8 +32,9 @@
 #include "CSConstValue.h"
 #include "CSArmature.h"
 #include "CSContentJsonDictionary.h"
+#include "tinyxml2.h"
 
-class TiXmlElement;
+using namespace tinyxml2;
 
 namespace cs {
 
@@ -84,29 +85,29 @@ public:
     /**
 	 * Decode Armature Datas from xml export from Dragon Bone flash tool
      */
-	static ArmatureData *decodeArmature(TiXmlElement *armatureXML);
-	static BoneData *decodeBone(TiXmlElement *boneXML, TiXmlElement *parentXML);
-	static DisplayData *decodeBoneDisplay(TiXmlElement *displayXML);
+	static ArmatureData *decodeArmature(XMLElement *armatureXML);
+	static BoneData *decodeBone(XMLElement *boneXML, XMLElement *parentXML);
+	static DisplayData *decodeBoneDisplay(XMLElement *displayXML);
     
     
 	/**
 	 * Decode Animation Datas from xml export from Dragon Bone flash tool
      */
-	static AnimationData *decodeAnimation(TiXmlElement *animationXML);
-	static MovementData *decodeMovement(TiXmlElement *movementXML, ArmatureData *armatureData);
-	static MovementBoneData *decodeMovementBone(TiXmlElement* movBoneXml, TiXmlElement* parentXml, BoneData *boneData);
-	static FrameData *decodeFrame(TiXmlElement* frameXML, TiXmlElement* parentFrameXml, BoneData *boneData);
+	static AnimationData *decodeAnimation(XMLElement *animationXML);
+	static MovementData *decodeMovement(XMLElement *movementXML, ArmatureData *armatureData);
+	static MovementBoneData *decodeMovementBone(XMLElement* movBoneXml, XMLElement* parentXml, BoneData *boneData);
+	static FrameData *decodeFrame(XMLElement* frameXML, XMLElement* parentFrameXml, BoneData *boneData);
     
 	
     /**
 	 * Decode Texture Datas from xml export from Dragon Bone flash tool
      */
-	static TextureData *decodeTexture(TiXmlElement *textureXML);
+	static TextureData *decodeTexture(XMLElement *textureXML);
     
     /**
 	 * Decode Contour Datas from xml export from Dragon Bone flash tool
      */
-    static ContourData *decodeContour(TiXmlElement *contourXML);
+    static ContourData *decodeContour(XMLElement *contourXML);
 #pragma endregion
 
 #pragma region Decode Data From JSON

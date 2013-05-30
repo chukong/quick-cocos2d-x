@@ -26,7 +26,7 @@
  */
 
 
-#include "tinyxml.h"
+#include "tinyxml2.h"
 #include "CSArmatureDataManager.h"
 #include "CSTransformHelp.h"
 #include "CSDataReaderHelper.h"

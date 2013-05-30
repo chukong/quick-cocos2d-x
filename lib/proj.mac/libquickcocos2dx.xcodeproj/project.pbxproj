@@ -79,10 +79,6 @@
 		F46FBF57175726FA00E14613 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF26175726FA00E14613 /* json_reader.cpp */; };
 		F46FBF58175726FA00E14613 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF28175726FA00E14613 /* json_value.cpp */; };
 		F46FBF59175726FA00E14613 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF2A175726FA00E14613 /* json_writer.cpp */; };
-		F46FBF5A175726FA00E14613 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF2E175726FA00E14613 /* tinystr.cpp */; };
-		F46FBF5B175726FA00E14613 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF30175726FA00E14613 /* tinyxml.cpp */; };
-		F46FBF5C175726FA00E14613 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF32175726FA00E14613 /* tinyxmlerror.cpp */; };
-		F46FBF5D175726FA00E14613 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF33175726FA00E14613 /* tinyxmlparser.cpp */; };
 		F46FBF5E175726FA00E14613 /* CSArmatureDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF3A175726FA00E14613 /* CSArmatureDataManager.cpp */; };
 		F46FBF5F175726FA00E14613 /* CSDataReaderHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF3E175726FA00E14613 /* CSDataReaderHelper.cpp */; };
 		F46FBF60175726FA00E14613 /* CSSpriteFrameCacheHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBF40175726FA00E14613 /* CSSpriteFrameCacheHelper.cpp */; };
@@ -461,12 +457,6 @@
 		F46FBF2A175726FA00E14613 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
 		F46FBF2B175726FA00E14613 /* sconscript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sconscript; sourceTree = "<group>"; };
 		F46FBF2C175726FA00E14613 /* sigslot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sigslot.h; sourceTree = "<group>"; };
-		F46FBF2E175726FA00E14613 /* tinystr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinystr.cpp; sourceTree = "<group>"; };
-		F46FBF2F175726FA00E14613 /* tinystr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinystr.h; sourceTree = "<group>"; };
-		F46FBF30175726FA00E14613 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
-		F46FBF31175726FA00E14613 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
-		F46FBF32175726FA00E14613 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
-		F46FBF33175726FA00E14613 /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlparser.cpp; sourceTree = "<group>"; };
 		F46FBF3A175726FA00E14613 /* CSArmatureDataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSArmatureDataManager.cpp; sourceTree = "<group>"; };
 		F46FBF3B175726FA00E14613 /* CSArmatureDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSArmatureDataManager.h; sourceTree = "<group>"; };
 		F46FBF3C175726FA00E14613 /* CSArmatureDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSArmatureDefine.h; sourceTree = "<group>"; };
@@ -1261,7 +1251,6 @@
 				F46FBF13175726FA00E14613 /* CCTexture2DMutable.h */,
 				F46FBF16175726FA00E14613 /* Json */,
 				F46FBF2C175726FA00E14613 /* sigslot.h */,
-				F46FBF2D175726FA00E14613 /* tinyxml */,
 			);
 			path = external_tool;
 			sourceTree = "<group>";
@@ -1306,19 +1295,6 @@
 				F46FBF2B175726FA00E14613 /* sconscript */,
 			);
 			path = lib_json;
-			sourceTree = "<group>";
-		};
-		F46FBF2D175726FA00E14613 /* tinyxml */ = {
-			isa = PBXGroup;
-			children = (
-				F46FBF2E175726FA00E14613 /* tinystr.cpp */,
-				F46FBF2F175726FA00E14613 /* tinystr.h */,
-				F46FBF30175726FA00E14613 /* tinyxml.cpp */,
-				F46FBF31175726FA00E14613 /* tinyxml.h */,
-				F46FBF32175726FA00E14613 /* tinyxmlerror.cpp */,
-				F46FBF33175726FA00E14613 /* tinyxmlparser.cpp */,
-			);
-			path = tinyxml;
 			sourceTree = "<group>";
 		};
 		F46FBF34175726FA00E14613 /* luabinding */ = {
@@ -2592,10 +2568,6 @@
 				F46FBF57175726FA00E14613 /* json_reader.cpp in Sources */,
 				F46FBF58175726FA00E14613 /* json_value.cpp in Sources */,
 				F46FBF59175726FA00E14613 /* json_writer.cpp in Sources */,
-				F46FBF5A175726FA00E14613 /* tinystr.cpp in Sources */,
-				F46FBF5B175726FA00E14613 /* tinyxml.cpp in Sources */,
-				F46FBF5C175726FA00E14613 /* tinyxmlerror.cpp in Sources */,
-				F46FBF5D175726FA00E14613 /* tinyxmlparser.cpp in Sources */,
 				F46FBF5E175726FA00E14613 /* CSArmatureDataManager.cpp in Sources */,
 				F46FBF5F175726FA00E14613 /* CSDataReaderHelper.cpp in Sources */,
 				F46FBF60175726FA00E14613 /* CSSpriteFrameCacheHelper.cpp in Sources */,

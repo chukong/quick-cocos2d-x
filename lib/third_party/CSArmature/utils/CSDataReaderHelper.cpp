@@ -25,13 +25,14 @@
 */
 
 #include "CSDataReaderHelper.h"
-#include "tinyxml.h"
+#include "tinyxml2.h"
 #include "CSArmatureDataManager.h"
 #include "CSTransformHelp.h"
 #include "CSDatas.h"
 #include "CSArmatureDefine.h"
 
 using namespace cocos2d;
+using namespace tinyxml2;
 
 namespace cs {
 
@@ -134,10 +135,10 @@ namespace cs {
 
 	void DataReaderHelper::addDataFromCache(const char *_pFileContent)
 	{
-		TiXmlDocument document;
-		document.Parse(_pFileContent, 0, TIXML_ENCODING_UTF8);
+		XMLDocument document;
+		document.Parse(_pFileContent, 0);
 
-		TiXmlElement	*root = document.RootElement();
+		XMLElement	*root = document.RootElement();
 		CCAssert(root, "XML error  or  XML is empty.");
 
 		root->QueryFloatAttribute(VERSION, &s_FlashToolVersion);
@@ -145,8 +146,8 @@ namespace cs {
 		/*
 		* Begin decode armature data from xml
 		*/
-		TiXmlElement *armaturesXML = root->FirstChildElement(ARMATURES);
-		TiXmlElement *armatureXML = armaturesXML->FirstChildElement(ARMATURE);
+		XMLElement *armaturesXML = root->FirstChildElement(ARMATURES);
+		XMLElement *armatureXML = armaturesXML->FirstChildElement(ARMATURE);
 		while(armatureXML)
 		{
 			ArmatureData *armatureData = DataReaderHelper::decodeArmature(armatureXML);
@@ -158,8 +159,8 @@ namespace cs {
 		/*
 		* Begin decode animation data from xml
 		*/
-		TiXmlElement *animationsXML = root->FirstChildElement(ANIMATIONS);
-		TiXmlElement *animationXML = animationsXML->FirstChildElement(ANIMATION);
+		XMLElement *animationsXML = root->FirstChildElement(ANIMATIONS);
+		XMLElement *animationXML = animationsXML->FirstChildElement(ANIMATION);
 		while(animationXML)
 		{
 			AnimationData *animationData = DataReaderHelper::decodeAnimation(animationXML);
@@ -171,8 +172,8 @@ namespace cs {
 		/*
 		* Begin decode texture data from xml
 		*/
-		TiXmlElement *texturesXML = root->FirstChildElement(TEXTURE_ATLAS);
-		TiXmlElement *textureXML = texturesXML->FirstChildElement(SUB_TEXTURE);
+		XMLElement *texturesXML = root->FirstChildElement(TEXTURE_ATLAS);
+		XMLElement *textureXML = texturesXML->FirstChildElement(SUB_TEXTURE);
 		while(textureXML)
 		{
 			TextureData *textureData = DataReaderHelper::decodeTexture(textureXML);
@@ -180,11 +181,9 @@ namespace cs {
 
 			textureXML = textureXML->NextSiblingElement(SUB_TEXTURE);
 		}
-
-		document.Clear();
 	}
 
-	ArmatureData *DataReaderHelper::decodeArmature(TiXmlElement *armatureXML)
+	ArmatureData *DataReaderHelper::decodeArmature(XMLElement *armatureXML)
 	{
 		const char*	name = armatureXML->Attribute(A_NAME);
 
@@ -193,7 +192,7 @@ namespace cs {
 		armatureData->name = name;
 
 
-		TiXmlElement* boneXML = armatureXML->FirstChildElement(BONE);
+		XMLElement* boneXML = armatureXML->FirstChildElement(BONE);
 
 		while( boneXML )
 		{
@@ -201,7 +200,7 @@ namespace cs {
 			*  If this bone have parent, then get the parent bone xml
 			*/
 			const char *parentName = boneXML->Attribute(A_PARENT);
-			TiXmlElement *parentXML = NULL;
+			XMLElement *parentXML = NULL;
 			if (parentName)
 			{
 				parentXML = armatureXML->FirstChildElement(BONE);
@@ -225,7 +224,7 @@ namespace cs {
 		return armatureData;
 	}
 
-	BoneData *DataReaderHelper::decodeBone(TiXmlElement *boneXML, TiXmlElement *parentXml)
+	BoneData *DataReaderHelper::decodeBone(XMLElement *boneXML, XMLElement *parentXml)
 	{
 
 		std::string name = boneXML->Attribute(A_NAME);
@@ -292,7 +291,7 @@ namespace cs {
 		//     }
 
 
-		TiXmlElement *displayXML = boneXML->FirstChildElement(DISPLAY);
+		XMLElement *displayXML = boneXML->FirstChildElement(DISPLAY);
 		while(displayXML)
 		{
 			DisplayData *displayData = decodeBoneDisplay(displayXML);
@@ -305,14 +304,14 @@ namespace cs {
 		return boneData;
 	}
 
-	DisplayData *DataReaderHelper::decodeBoneDisplay(TiXmlElement *displayXML)
+	DisplayData *DataReaderHelper::decodeBoneDisplay(XMLElement *displayXML)
 	{
 		int _isArmature = 0;
 
 		DisplayData *displayData;
 
 
-		if( displayXML->QueryIntAttribute(A_IS_ARMATURE, &(_isArmature)) == TIXML_SUCCESS )
+		if( displayXML->QueryIntAttribute(A_IS_ARMATURE, &(_isArmature)) == XML_SUCCESS )
 		{
 			if(!_isArmature)
 			{
@@ -347,7 +346,7 @@ namespace cs {
 		return displayData;
 	}
 
-	AnimationData *DataReaderHelper::decodeAnimation(TiXmlElement *animationXML)
+	AnimationData *DataReaderHelper::decodeAnimation(XMLElement *animationXML)
 	{
 		const char*	name = animationXML->Attribute(A_NAME);
 
@@ -358,7 +357,7 @@ namespace cs {
 
 		aniData->name = name;
 
-		TiXmlElement* movementXML = animationXML->FirstChildElement(MOVEMENT);
+		XMLElement* movementXML = animationXML->FirstChildElement(MOVEMENT);
 
 		while( movementXML )
 		{
@@ -372,7 +371,7 @@ namespace cs {
 		return aniData;
 	}
 
-	MovementData *DataReaderHelper::decodeMovement(TiXmlElement *movementXML, ArmatureData *armatureData)
+	MovementData *DataReaderHelper::decodeMovement(XMLElement *movementXML, ArmatureData *armatureData)
 	{
 		const char* _movName = movementXML->Attribute(A_NAME);
 
@@ -383,19 +382,19 @@ namespace cs {
 
 		int _duration, _durationTo, _durationTween, _loop, _tweenEasing = 0;
 
-		if( movementXML->QueryIntAttribute(A_DURATION, &(_duration)) == TIXML_SUCCESS)
+		if( movementXML->QueryIntAttribute(A_DURATION, &(_duration)) == XML_SUCCESS)
 		{
 			movementData->duration  = _duration;
 		}
-		if( movementXML->QueryIntAttribute(A_DURATION_TO, &(_durationTo)) == TIXML_SUCCESS)
+		if( movementXML->QueryIntAttribute(A_DURATION_TO, &(_durationTo)) == XML_SUCCESS)
 		{
 			movementData->durationTo = _durationTo;
 		}
-		if( movementXML->QueryIntAttribute(A_DURATION_TWEEN, &(_durationTween)) == TIXML_SUCCESS)
+		if( movementXML->QueryIntAttribute(A_DURATION_TWEEN, &(_durationTween)) == XML_SUCCESS)
 		{
 			movementData->durationTween = _durationTween;
 		}
-		if( movementXML->QueryIntAttribute(A_LOOP, &(_loop)) == TIXML_SUCCESS)
+		if( movementXML->QueryIntAttribute(A_LOOP, &(_loop)) == XML_SUCCESS)
 		{
 			movementData->loop = (bool)_loop;
 		}
@@ -406,7 +405,7 @@ namespace cs {
 			std::string str = _easing;
 			if(str.compare(FL_NAN) != 0)
 			{
-				if( movementXML->QueryIntAttribute(A_TWEEN_EASING, &(_tweenEasing)) == TIXML_SUCCESS)
+				if( movementXML->QueryIntAttribute(A_TWEEN_EASING, &(_tweenEasing)) == XML_SUCCESS)
 				{
 					movementData->tweenEasing = (TweenType)_tweenEasing;
 				}
@@ -415,7 +414,7 @@ namespace cs {
 			}
 		}
 
-		TiXmlElement *movBoneXml = movementXML->FirstChildElement(BONE);
+		XMLElement *movBoneXml = movementXML->FirstChildElement(BONE);
 		while(movBoneXml)
 		{
 			const char* _boneName = movBoneXml->Attribute(A_NAME);
@@ -432,7 +431,7 @@ namespace cs {
 			std::string _parentName = boneData->parentName;
 
 
-			TiXmlElement *parentXml = NULL;
+			XMLElement *parentXml = NULL;
 			if (_parentName.compare("") != 0)
 			{
 				parentXml = movementXML->FirstChildElement(BONE);
@@ -457,18 +456,18 @@ namespace cs {
 	}
 
 
-	MovementBoneData *DataReaderHelper::decodeMovementBone(TiXmlElement* movBoneXml, TiXmlElement* parentXml, BoneData *boneData)
+	MovementBoneData *DataReaderHelper::decodeMovementBone(XMLElement* movBoneXml, XMLElement* parentXml, BoneData *boneData)
 	{
 		MovementBoneData* movBoneData = MovementBoneData::create();
 		float _scale, _delay;
 
 		if( movBoneXml )
 		{
-			if( movBoneXml->QueryFloatAttribute(A_MOVEMENT_SCALE, &_scale) == TIXML_SUCCESS )
+			if( movBoneXml->QueryFloatAttribute(A_MOVEMENT_SCALE, &_scale) == XML_SUCCESS )
 			{
 				movBoneData->scale = _scale;
 			}
-			if( movBoneXml->QueryFloatAttribute(A_MOVEMENT_DELAY, &_delay) == TIXML_SUCCESS )
+			if( movBoneXml->QueryFloatAttribute(A_MOVEMENT_DELAY, &_delay) == XML_SUCCESS )
 			{
 				if(_delay > 0)
 				{
@@ -483,9 +482,9 @@ namespace cs {
 		int _parentTotalDuration = 0;
 		int _currentDuration = 0;
 
-		TiXmlElement *parentFrameXML = NULL;
+		XMLElement *parentFrameXML = NULL;
 
-		std::vector<TiXmlElement*> parentXmlList;
+		std::vector<XMLElement*> parentXmlList;
 
 		/*
 		*  get the parent frame xml list, we need get the origin data
@@ -511,7 +510,7 @@ namespace cs {
 
 		movBoneData->name = name;
 
-		TiXmlElement *frameXML= movBoneXml->FirstChildElement(FRAME);
+		XMLElement *frameXML= movBoneXml->FirstChildElement(FRAME);
 
 		while( frameXML )
 		{
@@ -542,7 +541,7 @@ namespace cs {
 		return movBoneData;
 	}
 
-	FrameData * DataReaderHelper::decodeFrame(TiXmlElement* frameXML,  TiXmlElement* parentFrameXml, BoneData *boneData)
+	FrameData * DataReaderHelper::decodeFrame(XMLElement* frameXML,  XMLElement* parentFrameXml, BoneData *boneData)
 	{
 		float _x, _y, _scale_x, _scale_y, _skew_x, _skew_y = 0;
 		int _duration, _displayIndex, _zOrder, _tweenEasing = 0;
@@ -571,12 +570,12 @@ namespace cs {
 
 		if (s_FlashToolVersion >= VERSION_2_0)
 		{
-			if(frameXML->QueryFloatAttribute(A_COCOS2DX_X, &_x) == TIXML_SUCCESS)
+			if(frameXML->QueryFloatAttribute(A_COCOS2DX_X, &_x) == XML_SUCCESS)
 			{
 				frameData->x = _x;
 				frameData->x *= m_fPositionReadScale;
 			}
-			if(frameXML->QueryFloatAttribute(A_COCOS2DX_Y, &_y) == TIXML_SUCCESS)
+			if(frameXML->QueryFloatAttribute(A_COCOS2DX_Y, &_y) == XML_SUCCESS)
 			{
 				frameData->y = -_y;
 				frameData->y *= m_fPositionReadScale;
@@ -584,49 +583,49 @@ namespace cs {
 		}
 		else
 		{
-			if(frameXML->QueryFloatAttribute(A_X, &_x) == TIXML_SUCCESS)
+			if(frameXML->QueryFloatAttribute(A_X, &_x) == XML_SUCCESS)
 			{
 				frameData->x = _x;
 				frameData->x *= m_fPositionReadScale;
 			}
-			if(frameXML->QueryFloatAttribute(A_Y, &_y) == TIXML_SUCCESS)
+			if(frameXML->QueryFloatAttribute(A_Y, &_y) == XML_SUCCESS)
 			{
 				frameData->y = -_y;
 				frameData->y *= m_fPositionReadScale;
 			}
 		}
 
-		if( frameXML->QueryFloatAttribute(A_SCALE_X, &_scale_x) == TIXML_SUCCESS )
+		if( frameXML->QueryFloatAttribute(A_SCALE_X, &_scale_x) == XML_SUCCESS )
 		{
 			frameData->scaleX = _scale_x;
 		}
-		if( frameXML->QueryFloatAttribute(A_SCALE_Y, &_scale_y) == TIXML_SUCCESS )
+		if( frameXML->QueryFloatAttribute(A_SCALE_Y, &_scale_y) == XML_SUCCESS )
 		{
 			frameData->scaleY = _scale_y;
 		}
-		if( frameXML->QueryFloatAttribute(A_SKEW_X, &_skew_x) == TIXML_SUCCESS )
+		if( frameXML->QueryFloatAttribute(A_SKEW_X, &_skew_x) == XML_SUCCESS )
 		{
 			frameData->skewX = CC_DEGREES_TO_RADIANS(_skew_x);
 		}
-		if( frameXML->QueryFloatAttribute(A_SKEW_Y, &_skew_y) == TIXML_SUCCESS )
+		if( frameXML->QueryFloatAttribute(A_SKEW_Y, &_skew_y) == XML_SUCCESS )
 		{
 			frameData->skewY = CC_DEGREES_TO_RADIANS(-_skew_y);
 		}
-		if( frameXML->QueryIntAttribute(A_DURATION, &_duration) == TIXML_SUCCESS )
+		if( frameXML->QueryIntAttribute(A_DURATION, &_duration) == XML_SUCCESS )
 		{
 			frameData->duration = _duration;
 		}
-		if(  frameXML->QueryIntAttribute(A_DISPLAY_INDEX, &_displayIndex) == TIXML_SUCCESS )
+		if(  frameXML->QueryIntAttribute(A_DISPLAY_INDEX, &_displayIndex) == XML_SUCCESS )
 		{
 			frameData->displayIndex = _displayIndex;
 		}
-		if(  frameXML->QueryIntAttribute(A_Z, &_zOrder) == TIXML_SUCCESS )
+		if(  frameXML->QueryIntAttribute(A_Z, &_zOrder) == XML_SUCCESS )
 		{
 			frameData->zOrder = _zOrder;
 		}
 
 
-		TiXmlElement *colorTransformXML = frameXML->FirstChildElement(A_COLOR_TRANSFORM);
+		XMLElement *colorTransformXML = frameXML->FirstChildElement(A_COLOR_TRANSFORM);
 		if (colorTransformXML)
 		{
 			int alpha, red, green, blue = 100;
@@ -657,7 +656,7 @@ namespace cs {
 			std::string str = _easing;
 			if(str.compare(FL_NAN) != 0)
 			{
-				if( frameXML->QueryIntAttribute(A_TWEEN_EASING, &(_tweenEasing)) == TIXML_SUCCESS)
+				if( frameXML->QueryIntAttribute(A_TWEEN_EASING, &(_tweenEasing)) == XML_SUCCESS)
 				{
 					frameData->tweenEasing = (TweenType)_tweenEasing;
 				}
@@ -703,7 +702,7 @@ namespace cs {
 		return frameData;
 	}
 
-	TextureData *DataReaderHelper::decodeTexture(TiXmlElement *textureXML)
+	TextureData *DataReaderHelper::decodeTexture(XMLElement *textureXML)
 	{
 		TextureData *textureData = TextureData::create();
 
@@ -735,7 +734,7 @@ namespace cs {
 		textureData->pivotX = anchorPointX;
 		textureData->pivotY = anchorPointY;
 
-		TiXmlElement *contourXML = textureXML->FirstChildElement(CONTOUR);
+		XMLElement *contourXML = textureXML->FirstChildElement(CONTOUR);
 
 		while (contourXML) {
 
@@ -749,11 +748,11 @@ namespace cs {
 		return textureData;
 	}
 
-	ContourData *DataReaderHelper::decodeContour(TiXmlElement *contourXML)
+	ContourData *DataReaderHelper::decodeContour(XMLElement *contourXML)
 	{
 		ContourData *contourData = ContourData::create();
 
-		TiXmlElement *vertexDataXML = contourXML->FirstChildElement(CONTOUR_VERTEX);
+		XMLElement *vertexDataXML = contourXML->FirstChildElement(CONTOUR_VERTEX);
 
 		while (vertexDataXML) {
 
