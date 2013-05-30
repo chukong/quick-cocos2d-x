@@ -260,6 +260,7 @@
 		F477B988175740BF00260C19 /* CCSorting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B957175740BF00260C19 /* CCSorting.cpp */; };
 		F477B989175740BF00260C19 /* CCTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B959175740BF00260C19 /* CCTableView.cpp */; };
 		F477B98A175740BF00260C19 /* CCTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B95B175740BF00260C19 /* CCTableViewCell.cpp */; };
+		F477B98E175750FF00260C19 /* CSArmature_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B98C175750FF00260C19 /* CSArmature_luabinding.cpp */; };
 		F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */; };
 		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
 		F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */; };
@@ -830,7 +831,6 @@
 		F477B928175740BF00260C19 /* CCScrollViewLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScrollViewLoader.h; sourceTree = "<group>"; };
 		F477B929175740BF00260C19 /* CCSpriteLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSpriteLoader.cpp; sourceTree = "<group>"; };
 		F477B92A175740BF00260C19 /* CCSpriteLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCSpriteLoader.h; sourceTree = "<group>"; };
-		F477B92B175740BF00260C19 /* cocos-ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocos-ext.h"; sourceTree = "<group>"; };
 		F477B92C175740BF00260C19 /* ExtensionMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionMacros.h; sourceTree = "<group>"; };
 		F477B92F175740BF00260C19 /* CCControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCControl.cpp; sourceTree = "<group>"; };
 		F477B930175740BF00260C19 /* CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCControl.h; sourceTree = "<group>"; };
@@ -870,6 +870,8 @@
 		F477B95A175740BF00260C19 /* CCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableView.h; sourceTree = "<group>"; };
 		F477B95B175740BF00260C19 /* CCTableViewCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTableViewCell.cpp; sourceTree = "<group>"; };
 		F477B95C175740BF00260C19 /* CCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewCell.h; sourceTree = "<group>"; };
+		F477B98C175750FF00260C19 /* CSArmature_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSArmature_luabinding.cpp; sourceTree = "<group>"; };
+		F477B98D175750FF00260C19 /* CSArmature_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSArmature_luabinding.h; sourceTree = "<group>"; };
 		F47C66BF16EB362E00132435 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaEngine.cpp; sourceTree = "<group>"; };
 		F4A9C07416BC3AF400088CF7 /* CCLuaEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaEngine.h; sourceTree = "<group>"; };
@@ -1300,6 +1302,8 @@
 		F46FBF34175726FA00E14613 /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
+				F477B98C175750FF00260C19 /* CSArmature_luabinding.cpp */,
+				F477B98D175750FF00260C19 /* CSArmature_luabinding.h */,
 			);
 			path = luabinding;
 			sourceTree = "<group>";
@@ -2209,7 +2213,6 @@
 			children = (
 				F477B8F3175740BF00260C19 /* AssetsManager */,
 				F477B8F6175740BF00260C19 /* CCBReader */,
-				F477B92B175740BF00260C19 /* cocos-ext.h */,
 				F477B92C175740BF00260C19 /* ExtensionMacros.h */,
 				F477B92D175740BF00260C19 /* GUI */,
 			);
@@ -2748,6 +2751,7 @@
 				F477B988175740BF00260C19 /* CCSorting.cpp in Sources */,
 				F477B989175740BF00260C19 /* CCTableView.cpp in Sources */,
 				F477B98A175740BF00260C19 /* CCTableViewCell.cpp in Sources */,
+				F477B98E175750FF00260C19 /* CSArmature_luabinding.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

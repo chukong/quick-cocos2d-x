@@ -1,57 +1,378 @@
 
 $#include "cocos2d.h"
-$#include "SPArmature.h"
-$#include "SPArmatureDataManager.h"
-$#include "SPBatchNodeManager.h"
-$#include "SPSpriteDisplayData.h"
+$#include "CSArmatureDataManager.h"
+$#include "CSArmature.h"
 
 $using namespace cocos2d;
-$using namespace sp;
+$using namespace cs;
 
-class BatchNodeManager
+enum AnimationType
 {
-    static BatchNodeManager *sharedBatchNodeManager();
-    bool initWithLayer(CCLayer *_layer, std::string _layerName);
+    SINGLE_FRAME = -4,          //! the animation just have one frame
+    ANIMATION_NO_LOOP,          //! the animation isn't loop
 
-    void addBatchNode(std::string _name, BatchNode *_batchNode, int _zOrder = 0);
-    BatchNode *getBatchNode(std::string _name);
-    void setBatchNodeZOrder(std::string _name, int _zOrder);
-    void setBatchNodeBlendFunc(std::string _name, unsigned int _src, unsigned int _dst);
-    void removeBatchNodes(std::string _layerName);
-    CCLayer *getCurrentLayer();
+    ANIMATION_TO_LOOP_FRONT,    //! the animation loop from front
+    ANIMATION_TO_LOOP_BACK,     //! the animation loop from back
+
+    ANIMATION_LOOP_FRONT,       //! the animation loop from front
+    ANIMATION_LOOP_BACK,        //! the animation loop from back
+
+    ANIMATION_MAX,
 };
+
+enum TweenType{
+    TWEEN_EASING_MIN = -1,
+
+    Linear,
+
+    Sine_EaseIn,
+    Sine_EaseInOut,
+    Sine_EaseOut,
+
+
+    Quad_EaseIn,
+    Quad_EaseOut,
+    Quad_EaseInOut,
+
+    Cubic_EaseIn,
+    Cubic_EaseOut,
+    Cubic_EaseInOut,
+
+    Quart_EaseIn,
+    Quart_EaseOut,
+    Quart_EaseInOut,
+
+    Quint_EaseIn,
+    Quint_EaseOut,
+    Quint_EaseInOut,
+
+    Expo_EaseIn,
+    Expo_EaseOut,
+    Expo_EaseInOut,
+
+    Circ_EaseIn,
+    Circ_EaseOut,
+    Circ_EaseInOut,
+
+    Elastic_EaseIn,
+    Elastic_EaseOut,
+    Elastic_EaseInOut,
+
+    Back_EaseIn,
+    Back_EaseOut,
+    Back_EaseInOut,
+
+    Bounce_EaseIn,
+    Bounce_EaseOut,
+    Bounce_EaseInOut,
+
+    TWEEN_EASING_MAX = 10000
+};
+
+class ProcessBase : public CCObject
+{
+
+    /**
+     * Play animation by animation name.
+     *
+     * @param  animation  It will not used in the ProcessBase Class
+     * @param  durationTo The frames between two animation changing-over.
+     *         It's meaning is changing to this animation need how many frames
+     *
+     *         -1 : use the value from MovementData get from flash design panel
+     * @param  durationTween  The frame count you want to play in the game.
+     *         if  _durationTween is 80, then the animation will played 80 frames in a loop
+     *
+     *         -1 : use the value from MovementData get from flash design panel
+     *
+     * @param  loop   Whether the animation is loop
+     *
+     *         loop < 0 : use the value from MovementData get from flash design panel
+     *         loop = 0 : this animation is not loop
+     *         loop > 0 : this animation is loop
+     *
+     * @param  tweenEasing Tween easing is used for calculate easing effect
+     *
+     *         TWEEN_EASING_MAX : use the value from MovementData get from flash design panel
+     *         -1 : fade out
+     *         0  : line
+     *         1  : fade in
+     *         2  : fade in and out
+     *
+     */
+    void play(void * animation, int durationTo, int durationTween,  int loop, int tweenEasing);
+
+    /**
+     * Pause the Process
+     */
+    void pause();
+
+    /**
+     * Resume the Process
+     */
+    void resume();
+
+    /**
+     * Stop the Process
+     */
+    void stop();
+
+    void gotoFrame(int frameIndex);
+
+    int getCurrentFrameIndex();
+
+    //! Set and get whether the aniamtion is pause
+    bool getIsPause();
+    void setIsPause(bool value);
+
+    //! Set and get whether the aniamtion is complete
+    bool getIsComplete();
+    void setIsComplete(bool value);
+
+    //! Set and get whether the aniamtion is playing
+    bool getIsPlaying();
+    void setIsPlaying(bool value);
+
+    //! Current percent this process arrived
+    float getCurrentPercent();
+    void setCurrentPercent(float value);
+
+    //! The raw duration
+    int getRawDuration();
+    void setRawDuration(int value);
+
+    //! The animation whether or not loop
+    AnimationType getLoopType();
+    void setLoopType(AnimationType value);
+
+    //! The tween easing effect
+    TweenType getTweenEasing();
+    void setTweenEasing(TweenType value);
+
+    //! The animation update speed
+    float getAnimationInternal();
+    void setAnimationInternal(float value);
+
+    //! Scale the animation speed
+    float getAnimationScale();
+    void setAnimationScale(float value);
+};
+
+class Animation : public ProcessBase
+{
+    /**
+     * Create with a Armature
+     * @param armature The Armature Animation will bind to
+     */
+    static Animation *create(Armature *armature);
+
+    /**
+     * Scale animation play speed. value is bigger, speed is slower.
+     * @param animationScale Scale value
+     */
+    void setAnimationScale(float animationScale);
+
+    /**
+     * Play animation by animation name.
+     *
+     * @param  animationName  The animation name you want to play
+     * @param  durationTo The frames between two animation changing-over.
+     *         It's meaning is changing to this animation need how many frames
+     *
+     *         -1 : use the value from MovementData get from flash design panel
+     * @param  durationTween  The frame count you want to play in the game.
+     *         if  _durationTween is 80, then the animation will played 80 frames in a loop
+     *
+     *         -1 : use the value from MovementData get from flash design panel
+     *
+     * @param  loop   Whether the animation is loop
+     *
+     *         loop < 0 : use the value from MovementData get from flash design panel
+     *         loop = 0 : this animation is not loop
+     *         loop > 0 : this animation is loop
+     *
+     * @param  tweenEasing Tween easing is used for calculate easing effect
+     *
+     *         TWEEN_EASING_MAX : use the value from MovementData get from flash design panel
+     *         -1 : fade out
+     *         0  : line
+     *         1  : fade in
+     *         2  : fade in and out
+     *
+     */
+    void play(const char *animationName, int durationTo = -1, int durationTween = -1,  int loop = -1, int tweenEasing = TWEEN_EASING_MAX);
+
+    /**
+     * Play animation by index, the other param is the same to play.
+     * @param  _animationIndex  the animation index you want to play
+     */
+    void playByIndex(int animationIndex,  int durationTo = -1, int durationTween = -1,  int loop = -1, int tweenEasing = TWEEN_EASING_MAX);
+
+    /**
+     * Pause the Process
+     */
+    void pause();
+    /**
+     * Resume the Process
+     */
+    void resume();
+    /**
+     * Stop the Process
+     */
+    void stop();
+
+    /**
+     * Get movement count
+     */
+    int getMovementCount();
+};
+
 
 class ArmatureDataManager : public CCObject
 {
     static ArmatureDataManager *sharedArmatureDataManager();
-    void addArmatureFileInfo(const char *_armatureName, const char *_useExistFileInfo, const char *_imagePath, const char *_plistPath, const char *_configFilePath);
-    void addSpriteFrameFromFile(const char *_plistPath, const char *_imagePath);
-    const char *getDisplayImagePath(const char *_displayName);
+
+    void purgeArmatureSystem();
+
+    /**
+     *  @brief  Add ArmatureFileInfo, it is managed by ArmatureDataManager.
+     */
+    void addArmatureFileInfo(const char *armatureName, const char *useExistFileInfo, const char *imagePath, const char *plistPath, const char *configFilePath);
+    /**
+     *  @brief  Add ArmatureFileInfo, it is managed by ArmatureDataManager.
+     */
+    void addArmatureFileInfo(const char *imagePath, const char *plistPath, const char *configFilePath);
+
+    /**
+     *  @brief  Add sprite frame to CCSpriteFrameCache, it will save display name and it's relative image name
+     */
+    void addSpriteFrameFromFile(const char *plistPath, const char *imagePath);
+
+    /**
+     *  @brief  Clear the data in the m_pArmarureDatas and m_pAnimationDatas, and set m_pArmarureDatas and m_pAnimationDatas to NULL
+     */
     void removeAll();
 };
 
-class Armature : public CCNode
+class Bone : public CCNodeRGBA
 {
-    static Armature *create(const char* _name);
+    /**
+     * Allocates and initializes a bone.
+     *
+     * @param  name If name is not null, then set name to the bone's name
+     * @return A initialized bone which is marked as "autorelease".
+     */
+    static Bone *create(const char *name);
+
+    /**
+     * Allocates and initializes a bone.
+     * @return A initialized bone which is marked as "autorelease".
+     */
+    static Bone *create();
+
+    /**
+     * Add a child to this bone, and it will let this child call setParent(Bone *_parent) function to set self to it's parent
+     *  @param  _child  the child you want to add
+     */
+    void addChildBone(Bone* _child);
+
+    /**
+     * Set parent bone.
+     * If _parent is NUll, then also remove this bone from armature.
+     * It will not set the Armature, if you want to add the bone to a Armature, you should use Armature::addBone(Bone *bone, const char* _parentName).
+     *
+     * @param parent  the parent bone.
+     *          NULL : remove this bone from armature
+     */
+    void setParentBone(Bone *parent);
+
+    /**
+     * Get parent bone
+     *  @return parent bone
+     */
+    Bone *getParentBone();
+
+
+    /**
+     * Remove itself from its parent Bone.
+     *  @param  recursion    whether or not remove Child display
+     */
+    void removeFromParent(bool recursion);
+
+    /**
+     * Removes a child Bone
+     *  @param  bone   the bone you want to remove
+     */
+    void removeChildBone(Bone *bone, bool recursion);
+
+    CCArray *getChildren();
+
+    Armature* getArmature();
+    Armature* getChildArmature();
+
+    bool getIgnoreMovementBoneData(void);
+    void setIgnoreMovementBoneData(bool value);
+
+    string getName(void);
+    void setName(string name);
+};
+
+class Armature : public CCNodeRGBA
+{
+   /**
+    * Allocates a armature, and use the ArmatureData named name in ArmatureDataManager to initializes the armature.
+    *
+    * @param  name Armature will use the name to find to the ArmatureData to initializes it.
+    * @return A initialized armature which is marked as "autorelease".
+    */
+    static Armature *create(const char *name, Bone *parentBone);
+    static Armature *create(const char *name);
     static Armature *create();
 
-    void setZOrder(int _zOrder);
-    int getZOrder();
+    void setBlendFunc(ccBlendFunc blendFunc);
+    ccBlendFunc getBlendFunc(void);
 
-    void setPosition(float _x, float _y);
-    void setPositionX(float _x);
-    void setPositionY(float _y);
+    /**
+     * Add a Bone to this Armature,
+     *
+     * @param bone  The Bone you want to add to Armature
+     * @param parentName   The parent Bone's name you want to add to . If it's  NULL, then set Armature to it's parent
+     */
+    void addBone(Bone *bone, const char* parentName);
+    /**
+     * Get a bone with the specified name
+     *
+     * @param name The bone's name you want to get
+     */
+    Bone *getBone(const char *name);
+    /**
+     * Change a bone's parent with the specified parent name.
+     *
+     * @param bone The bone you want to change parent
+     * @param parentName The new parent's name.
+     */
+    void changeBoneParent(Bone *bone, const char *parentName);
 
-    void setRotation(float _r);
+    /**
+     * Remove a bone with the specified name. If recursion it will also remove child Bone recursionly.
+     *
+     * @param bone The bone you want to remove
+     * @param recursion Determine whether remove the bone's child  recursion.
+     */
+    void removeBone(Bone *bone, bool recursion);
 
-    void setScale(float _scale);
-    void setScaleX(float _scaleX);
-    void setScaleY(float _scaleY);
+    /**
+     * Get Armature's boneen
+      dictionary
+     * @return Armature's bone dictionary
+     */
+    CCDictionary *getBoneDic();
 
-    CCRect getBoundingBox();
+    Bone *getParentBone();
 
-    void update(float dt);
+    Animation *getAnimation(void);
+    void setAnimation(Animation *value);
 
-    bool getVisible(void);
-    void setVisible(bool visible);
+    string getName(void);
+    void setName(string name);
 };
