@@ -135,7 +135,7 @@ namespace cs {
 
 	void DataReaderHelper::addDataFromCache(const char *_pFileContent)
 	{
-		XMLDocument document;
+		tinyxml2::XMLDocument document;
 		document.Parse(_pFileContent);
 
 		XMLElement	*root = document.RootElement();
