@@ -57,6 +57,8 @@ LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite
     ../cocos2d-x/scripting/lua/cocos2dx_support/LuaCocos2d.cpp \
     ../cocos2d-x/scripting/lua/cocos2dx_support/tolua_fix.c \
     ../cocos2d-x/scripting/lua/cocos2dx_support/snapshot.c \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/platform/android/CCLuaJavaBridge.cpp \
+    ../cocos2d-x/scripting/lua/cocos2dx_support/platform/android/org_cocos2dx_lib_LuaJavaBridge.cpp \
     ../third_party/chipmunk/cocos2dx_support/CCPhysicsBody.cpp \
     ../third_party/chipmunk/cocos2dx_support/CCPhysicsDebugNode.cpp \
     ../third_party/chipmunk/cocos2dx_support/CCPhysicsShape.cpp \
@@ -106,6 +108,7 @@ LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
     $(QUICK_COCOS2DX_ROOT)/lib/luajit2/include \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua \
     $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support \
+    $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support/platform/android \
     $(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include \
     $(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding \
     $(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/cocos2dx_support
@@ -113,7 +116,7 @@ LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/ \
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES)
 
 LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
-LOCAL_CFLAGS := -std=c99 -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
+LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocosdenshion_static cocos_curl_static luajit2
 
