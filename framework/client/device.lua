@@ -108,14 +108,14 @@ else
 end
 
 device.language = language_
-device.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
+device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
 device.documentsPath = CCFileUtils:sharedFileUtils():getDocumentsPath()
 
 echoInfo("# device.platform              = " .. device.platform)
 echoInfo("# device.environment           = " .. device.environment)
 echoInfo("# device.model                 = " .. device.model)
 echoInfo("# device.language              = " .. device.language)
-echoInfo("# device.writeablePath         = " .. device.writeablePath)
+echoInfo("# device.writablePath          = " .. device.writablePath)
 echoInfo("# device.documentsPath         = " .. device.documentsPath)
 echoInfo("#")
 

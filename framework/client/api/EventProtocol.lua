@@ -55,10 +55,9 @@ function EventProtocol.extend(object)
         eventName = string.upper(eventName)
         if object.listeners[eventName] == nil then
             object.listeners[eventName] = {}
-            -- setmetatable(object.listeners[eventName], {__mode = "v"})
         end
-        local t = object.listeners[eventName]
-        t[#t + 1] = listener
+        local listenersForEvent = object.listeners[eventName]
+        listenersForEvent[#listenersForEvent + 1] = listener
     end
 
     --[[--
@@ -79,13 +78,14 @@ function EventProtocol.extend(object)
     ]]
     function object:dispatchEvent(event)
         event.name = string.upper(event.name)
-        event.target = object
         local eventName = event.name
         if object.listeners[eventName] == nil then return end
-        local t = object.listeners[eventName]
-        for i = #t, 1, -1 do
+
+        event.target = object
+        local listenersForEvent = object.listeners[eventName]
+        for i = #listenersForEvent, 1, -1 do
             local ret
-            local listener = t[i]
+            local listener = listenersForEvent[i]
             if type(listener) == "table" then
                 ret = listener[2](listener[1], event)
             else
@@ -108,14 +108,14 @@ function EventProtocol.extend(object)
     function object:removeEventListener(eventName, listener)
         eventName = string.upper(eventName)
         if object.listeners[eventName] == nil then return end
-        local t = object.listeners[eventName]
-        for i = #t, 1, -1 do
-            if t[i] == listener then
-                table.remove(t, i)
+        local listenersForEvent = object.listeners[eventName]
+        for i = #listenersForEvent, 1, -1 do
+            if listenersForEvent[i] == listener then
+                table.remove(listenersForEvent, i)
                 return
             end
         end
-        if #t == 0 then object.listeners[eventName] = nil end
+        if #listenersForEvent == 0 then object.listeners[eventName] = nil end
     end
 
     --[[--
