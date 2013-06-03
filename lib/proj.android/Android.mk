@@ -1,9 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := libquickcocos2dx
+LOCAL_MODULE := quickcocos2dx
 
-LOCAL_MODULE_FILENAME := libquickcocos2dx
+LOCAL_MODULE_FILENAME := quickcocos2dx
 
 LOCAL_SRC_FILES := ../cocos2d-x/extensions/GUI/CCControlExtension/CCScale9Sprite.cpp \
     ../cocos2d-x/extensions/GUI/CCControlExtension/CCControl.cpp \

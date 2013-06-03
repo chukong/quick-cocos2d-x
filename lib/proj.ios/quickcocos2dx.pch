@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'libquickcocos2dx' target in the 'libquickcocos2dx' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif

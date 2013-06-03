@@ -26,29 +26,29 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-    return LuaHostWin32::createAndRun();
+    return QuickXPlayer::createAndRun();
 }
 
-int LuaHostWin32::createAndRun(void)
+int QuickXPlayer::createAndRun(void)
 {
-    LuaHostWin32 *host = LuaHostWin32::sharedInstance();
+    QuickXPlayer *host = QuickXPlayer::sharedInstance();
     int ret = host->run();
-    LuaHostWin32::purgeSharedInstance();
+    QuickXPlayer::purgeSharedInstance();
     return ret;
 }
 
-LuaHostWin32 *LuaHostWin32::s_sharedInstance = NULL;
+QuickXPlayer *QuickXPlayer::s_sharedInstance = NULL;
 
-LuaHostWin32 *LuaHostWin32::sharedInstance(void)
+QuickXPlayer *QuickXPlayer::sharedInstance(void)
 {
     if (!s_sharedInstance)
     {
-        s_sharedInstance = new LuaHostWin32();
+        s_sharedInstance = new QuickXPlayer();
     }
     return s_sharedInstance;
 }
 
-void LuaHostWin32::purgeSharedInstance(void)
+void QuickXPlayer::purgeSharedInstance(void)
 {
     if (s_sharedInstance)
     {
@@ -57,7 +57,7 @@ void LuaHostWin32::purgeSharedInstance(void)
     }
 }
 
-LuaHostWin32::LuaHostWin32(void)
+QuickXPlayer::QuickXPlayer(void)
 : m_app(NULL)
 , m_hwnd(NULL)
 , m_exit(TRUE)
@@ -68,7 +68,7 @@ LuaHostWin32::LuaHostWin32(void)
     InitCommonControlsEx(&InitCtrls);
 }
 
-int LuaHostWin32::run(void)
+int QuickXPlayer::run(void)
 {
     loadProjectConfig();
 
@@ -107,7 +107,7 @@ int LuaHostWin32::run(void)
         CCFileUtils::sharedFileUtils()->setSearchRootPath(m_project.getProjectDir().c_str());
 
         // create opengl view
-        CCEGLView* eglView = CCEGLView::sharedOpenGLView();    
+        CCEGLView* eglView = CCEGLView::sharedOpenGLView();
         eglView->setMenuResource(MAKEINTRESOURCE(IDC_LUAHOSTWIN32));
         eglView->setWndProc(WindowProc);
         eglView->setFrameSize(m_project.getFrameSize().width, m_project.getFrameSize().height);
@@ -152,7 +152,7 @@ int LuaHostWin32::run(void)
     return 0;
 }
 
-void LuaHostWin32::loadProjectConfig(void)
+void QuickXPlayer::loadProjectConfig(void)
 {
     int index = 1;
     while (index < __argc)
@@ -206,11 +206,11 @@ void LuaHostWin32::loadProjectConfig(void)
     }
 }
 
-void LuaHostWin32::updateWindowTitle(void)
+void QuickXPlayer::updateWindowTitle(void)
 {
 }
 
-void LuaHostWin32::relaunch(void)
+void QuickXPlayer::relaunch(void)
 {
     RECT rect;
     GetWindowRect(m_hwnd, &rect);
@@ -220,11 +220,11 @@ void LuaHostWin32::relaunch(void)
 }
 
 // menu callback
-void LuaHostWin32::onFileNewProject(void)
+void QuickXPlayer::onFileNewProject(void)
 {
 }
 
-void LuaHostWin32::onFileOpenProject(void)
+void QuickXPlayer::onFileOpenProject(void)
 {
     if (ProjectConfigDialog::showModal(m_hwnd, &m_project))
     {
@@ -232,7 +232,7 @@ void LuaHostWin32::onFileOpenProject(void)
     }
 }
 
-void LuaHostWin32::onFileCreateProjectShortcut(void)
+void QuickXPlayer::onFileCreateProjectShortcut(void)
 {
     WCHAR shortcutPathBuff[MAX_PATH + 1] = {0};
 
@@ -252,10 +252,10 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
     IShellLink* psl;
     HRESULT hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
 
-    if (SUCCEEDED(hres)) 
+    if (SUCCEEDED(hres))
     {
         IPersistFile* ppf;
- 
+
         // args
         string args("-workdir ");
         args.append(m_project.getProjectDir());
@@ -277,19 +277,19 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
             args.append(" -disable-console");
         }
 
-        // Set the path to the shortcut target and add the description. 
+        // Set the path to the shortcut target and add the description.
         psl->SetPath(__wargv[0]);
         wstring wargs;
         wargs.assign(args.begin(), args.end());
         psl->SetArguments(wargs.c_str());
-        psl->SetDescription(L"LuaHostWin32"); 
- 
-        // Query IShellLink for the IPersistFile interface, used for saving the 
-        // shortcut in persistent storage. 
-        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf); 
- 
+        psl->SetDescription(L"QuickXPlayer");
+
+        // Query IShellLink for the IPersistFile interface, used for saving the
+        // shortcut in persistent storage.
+        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf);
+
         if (SUCCEEDED(hres))
-        { 
+        {
             // Save the link by calling IPersistFile::Save.
             size_t len = wcslen(shortcutPathBuff);
             if (_wcsicmp(shortcutPathBuff + len - 4, L".lnk") != 0)
@@ -303,7 +303,7 @@ void LuaHostWin32::onFileCreateProjectShortcut(void)
     }
 }
 
-void LuaHostWin32::onFileProjectConfig(void)
+void QuickXPlayer::onFileProjectConfig(void)
 {
     if (ProjectConfigDialog::showModal(m_hwnd, &m_project, "Change Project Config", "Relaunch"))
     {
@@ -311,17 +311,17 @@ void LuaHostWin32::onFileProjectConfig(void)
     }
 }
 
-void LuaHostWin32::onFileRelaunch(void)
+void QuickXPlayer::onFileRelaunch(void)
 {
     relaunch();
 }
 
-void LuaHostWin32::onFileExit(void)
+void QuickXPlayer::onFileExit(void)
 {
     DestroyWindow(m_hwnd);
 }
 
-void LuaHostWin32::onViewChangeFrameSize(int index)
+void QuickXPlayer::onViewChangeFrameSize(int index)
 {
     int w, h;
 
@@ -382,7 +382,7 @@ void LuaHostWin32::onViewChangeFrameSize(int index)
     relaunch();
 }
 
-void LuaHostWin32::onViewChangeDirection(int directionMode)
+void QuickXPlayer::onViewChangeDirection(int directionMode)
 {
     BOOL isLandscape = m_project.isLandscapeFrame();
     if ((directionMode == ID_VIEW_PORTRAIT && isLandscape) || (directionMode == ID_VIEW_LANDSCAPE && !isLandscape))
@@ -393,7 +393,7 @@ void LuaHostWin32::onViewChangeDirection(int directionMode)
     }
 }
 
-void LuaHostWin32::onViewChangeZoom(int scaleMode)
+void QuickXPlayer::onViewChangeZoom(int scaleMode)
 {
     float scale = 1.0f;
     if (scaleMode == ID_VIEW_ZOOM_OUT)
@@ -407,16 +407,16 @@ void LuaHostWin32::onViewChangeZoom(int scaleMode)
         m_project.getFrameSize().height * scale);
 }
 
-void LuaHostWin32::onHelpAbout(void)
+void QuickXPlayer::onHelpAbout(void)
 {
     DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUTBOX), m_hwnd, AboutDialogCallback);
 }
 
 // windows callback
-LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
+LRESULT QuickXPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
 {
     int wmId, wmEvent;
-    LuaHostWin32 *host = LuaHostWin32::sharedInstance();
+    QuickXPlayer *host = QuickXPlayer::sharedInstance();
     HWND hwnd = host->getWindowHandle();
 
     switch (message)
@@ -424,7 +424,7 @@ LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
     case WM_COMMAND:
         wmId    = LOWORD(wParam);
         wmEvent = HIWORD(wParam);
-        
+
         switch (wmId)
         {
         case ID_FILE_NEW_PROJECT:
@@ -499,7 +499,7 @@ LRESULT LuaHostWin32::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
     return 0;
 }
 
-INT_PTR CALLBACK LuaHostWin32::AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK QuickXPlayer::AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
     switch (message)
@@ -520,7 +520,7 @@ INT_PTR CALLBACK LuaHostWin32::AboutDialogCallback(HWND hDlg, UINT message, WPAR
 
 // helper
 
-const string LuaHostWin32::getCommandLineArg(int index)
+const string QuickXPlayer::getCommandLineArg(int index)
 {
     static string empty;
     if (index < 0 || index >= __argc) return empty;

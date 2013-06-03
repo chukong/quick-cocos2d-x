@@ -17,7 +17,7 @@
 #endif
 
 // physics
-#include "PhysicsWorld_luabinding.h"
+#include "CCPhysicsWorld_luabinding.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -63,7 +63,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #endif
     
     // physics
-    luaopen_PhysicsWorld_luabinding(L);
+    luaopen_CCPhysicsWorld_luabinding(L);
     
     string path("scripts/main.lua");
     path = CCFileUtils::sharedFileUtils()->fullPathForFilename(path.c_str());

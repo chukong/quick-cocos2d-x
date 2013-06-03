@@ -22,7 +22,7 @@ CODE LESS, PLAY MORE !
 
 ### 运行模拟器
 
-打开 quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, 或者 quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
+打开 quick-cocos2d-x/simulator/bin/mac/quick-x-player.app, 或者 quick-cocos2d-x/simulator/bin/win32/quick-x-player.exe
 
 1.  选择菜单: File -> Open Project
 2.  设置 Project Director 为 **quick-cocos2d-x/sample/CoinFlip**

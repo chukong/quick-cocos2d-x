@@ -14,7 +14,7 @@
 using namespace std;
 using namespace cocos2d;
 
-class LuaHostWin32
+class QuickXPlayer
 {
 public:
     static int createAndRun(void);
@@ -28,11 +28,11 @@ public:
     }
 
 private:
-    static LuaHostWin32 *s_sharedInstance;
-    static LuaHostWin32 *sharedInstance(void);
+    static QuickXPlayer *s_sharedInstance;
+    static QuickXPlayer *sharedInstance(void);
     static void purgeSharedInstance(void);
 
-    LuaHostWin32(void);
+    QuickXPlayer(void);
 
     AppDelegate *m_app;
     ProjectConfig m_project;
