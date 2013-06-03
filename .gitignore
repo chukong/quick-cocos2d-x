@@ -9,7 +9,7 @@
 *.so
 *.o
 
-simulator/proj.win32/LuaHostWin32/Debug
+player/proj.win32/Debug
 project.xcworkspace/
 xcuserdata/
 lib/proj.win32/Debug
