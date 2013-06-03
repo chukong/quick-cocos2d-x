@@ -265,7 +265,6 @@
 		F428272917575E24001479DC /* CSTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42826EA17575E24001479DC /* CSTweenFunction.cpp */; };
 		F428272A17575E24001479DC /* CSUtilMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42826EC17575E24001479DC /* CSUtilMath.cpp */; };
 		F428272B17575E24001479DC /* third_party_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42826EE17575E24001479DC /* third_party_luabinding.cpp */; };
-		F439920816816D0E00AE90D1 /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F439920716816D0E00AE90D1 /* libluajit2.a */; };
 		F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45A2BA0166B07B600760194 /* Foundation.framework */; };
 		F45A2D9A166B168100760194 /* CDAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F45A2D91166B168100760194 /* CDAudioManager.m */; };
 		F45A2D9B166B168100760194 /* CDOpenALSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = F45A2D94166B168100760194 /* CDOpenALSupport.m */; };
@@ -289,6 +288,7 @@
 		F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF8172806280057E1F0 /* luasocket_io.c */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
+		F4E0D439175CEBBC00CAB1BB /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E0D438175CEBBC00CAB1BB /* libluajit.a */; };
 		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
 		F4F26D2F1727E73D002D3935 /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D0F1727E73D002D3935 /* auxiliar.c */; };
 		F4F26D311727E73D002D3935 /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D131727E73D002D3935 /* except.c */; };
@@ -906,11 +906,6 @@
 		F42826ED17575E24001479DC /* CSUtilMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSUtilMath.h; sourceTree = "<group>"; };
 		F42826EE17575E24001479DC /* third_party_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = third_party_luabinding.cpp; sourceTree = "<group>"; };
 		F42826EF17575E24001479DC /* third_party_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = third_party_luabinding.h; sourceTree = "<group>"; };
-		F43991FD16816CD800AE90D1 /* lauxlib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
-		F43991FE16816CD800AE90D1 /* lua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
-		F439920016816CD800AE90D1 /* luaconf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
-		F439920216816CD800AE90D1 /* lualib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
-		F439920716816D0E00AE90D1 /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
 		F45A2B9D166B07B600760194 /* libquickcocos2dx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libquickcocos2dx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45A2BA0166B07B600760194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F45A2BB2166B07FC00760194 /* quickcocos2dx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = quickcocos2dx.pch; sourceTree = SOURCE_ROOT; };
@@ -956,6 +951,11 @@
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
 		F4D11009169FBF7C00305E28 /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
+		F4E0D433175CEBBC00CAB1BB /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
+		F4E0D434175CEBBC00CAB1BB /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
+		F4E0D435175CEBBC00CAB1BB /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
+		F4E0D436175CEBBC00CAB1BB /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
+		F4E0D438175CEBBC00CAB1BB /* libluajit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit.a; sourceTree = "<group>"; };
 		F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
 		F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F4F26D0F1727E73D002D3935 /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
@@ -1019,9 +1019,9 @@
 			files = (
 				F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */,
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
-				F439920816816D0E00AE90D1 /* libluajit2.a in Frameworks */,
 				F42825B917575DBE001479DC /* libcurl.a in Frameworks */,
 				F42825BA17575DBE001479DC /* libwebp.a in Frameworks */,
+				F4E0D439175CEBBC00CAB1BB /* libluajit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2224,34 +2224,6 @@
 			path = utils;
 			sourceTree = "<group>";
 		};
-		F43991FB16816CB700AE90D1 /* luajit2 */ = {
-			isa = PBXGroup;
-			children = (
-				F43991FC16816CD800AE90D1 /* include */,
-				F439920616816D0E00AE90D1 /* proj.ios */,
-			);
-			path = luajit2;
-			sourceTree = "<group>";
-		};
-		F43991FC16816CD800AE90D1 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				F43991FD16816CD800AE90D1 /* lauxlib.h */,
-				F43991FE16816CD800AE90D1 /* lua.h */,
-				F439920016816CD800AE90D1 /* luaconf.h */,
-				F439920216816CD800AE90D1 /* lualib.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		F439920616816D0E00AE90D1 /* proj.ios */ = {
-			isa = PBXGroup;
-			children = (
-				F439920716816D0E00AE90D1 /* libluajit2.a */,
-			);
-			path = proj.ios;
-			sourceTree = "<group>";
-		};
 		F45A2B92166B07B600760194 = {
 			isa = PBXGroup;
 			children = (
@@ -2286,7 +2258,6 @@
 				F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */,
 				F40AFDDA16BD15C600565A5E /* cocos2dx_extra */,
 				F40AFE8216BD160200565A5E /* lua_extensions */,
-				F43991FB16816CB700AE90D1 /* luajit2 */,
 				F4D7524F173886C20094A93B /* third_party */,
 			);
 			name = libquickcocos2dx;
@@ -2391,6 +2362,7 @@
 			isa = PBXGroup;
 			children = (
 				F45A2DA1166B16B100760194 /* cocos2dx_support */,
+				F4E0D431175CEBAF00CAB1BB /* luajit */,
 				F45A2DE1166B16B100760194 /* tolua */,
 			);
 			path = lua;
@@ -2463,6 +2435,34 @@
 				F42826EF17575E24001479DC /* third_party_luabinding.h */,
 			);
 			path = third_party;
+			sourceTree = "<group>";
+		};
+		F4E0D431175CEBAF00CAB1BB /* luajit */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0D432175CEBBC00CAB1BB /* include */,
+				F4E0D437175CEBBC00CAB1BB /* ios */,
+			);
+			path = luajit;
+			sourceTree = "<group>";
+		};
+		F4E0D432175CEBBC00CAB1BB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0D433175CEBBC00CAB1BB /* lauxlib.h */,
+				F4E0D434175CEBBC00CAB1BB /* lua.h */,
+				F4E0D435175CEBBC00CAB1BB /* luaconf.h */,
+				F4E0D436175CEBBC00CAB1BB /* lualib.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F4E0D437175CEBBC00CAB1BB /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0D438175CEBBC00CAB1BB /* libluajit.a */,
+			);
+			path = ios;
 			sourceTree = "<group>";
 		};
 		F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */ = {
@@ -2546,9 +2546,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F45A2B9C166B07B600760194 /* libquickcocos2dx */ = {
+		F45A2B9C166B07B600760194 /* quickcocos2dx */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F45A2BAB166B07B600760194 /* Build configuration list for PBXNativeTarget "libquickcocos2dx" */;
+			buildConfigurationList = F45A2BAB166B07B600760194 /* Build configuration list for PBXNativeTarget "quickcocos2dx" */;
 			buildPhases = (
 				F45A2B99166B07B600760194 /* Sources */,
 				F45A2B9A166B07B600760194 /* Frameworks */,
@@ -2557,7 +2557,7 @@
 			);
 			dependencies = (
 			);
-			name = libquickcocos2dx;
+			name = quickcocos2dx;
 			productName = libquickcocos2dx;
 			productReference = F45A2B9D166B07B600760194 /* libquickcocos2dx.a */;
 			productType = "com.apple.product-type.library.static";
@@ -2571,7 +2571,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = qeeplay.com;
 			};
-			buildConfigurationList = F45A2B97166B07B600760194 /* Build configuration list for PBXProject "libquickcocos2dx" */;
+			buildConfigurationList = F45A2B97166B07B600760194 /* Build configuration list for PBXProject "quickcocos2dx" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2583,7 +2583,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F45A2B9C166B07B600760194 /* libquickcocos2dx */,
+				F45A2B9C166B07B600760194 /* quickcocos2dx */,
 			);
 		};
 /* End PBXProject section */
@@ -2984,10 +2984,10 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
@@ -2997,7 +2997,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/proj.ios\"",
+					"\"$(SRCROOT)/../cocos2d-x/scripting/lua/luajit/ios\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3039,10 +3039,10 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/GUI/CCEditBox\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/cocos2dx_support\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/tolua\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extensions_luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
@@ -3052,7 +3052,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/proj.ios\"",
+					"\"$(SRCROOT)/../cocos2d-x/scripting/lua/luajit/ios\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3065,7 +3065,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F45A2B97166B07B600760194 /* Build configuration list for PBXProject "libquickcocos2dx" */ = {
+		F45A2B97166B07B600760194 /* Build configuration list for PBXProject "quickcocos2dx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F45A2BA9166B07B600760194 /* Debug */,
@@ -3074,7 +3074,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F45A2BAB166B07B600760194 /* Build configuration list for PBXNativeTarget "libquickcocos2dx" */ = {
+		F45A2BAB166B07B600760194 /* Build configuration list for PBXNativeTarget "quickcocos2dx" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F45A2BAC166B07B600760194 /* Debug */,
