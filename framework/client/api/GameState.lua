@@ -141,7 +141,7 @@ function GameState.save(newValues)
 end
 
 function GameState.getGameStatePath()
-    return string.gsub(device.documentsPath, "[\\\\/]+$", "") .. "/" .. stateFilename
+    return string.gsub(device.writablePath, "[\\\\/]+$", "") .. "/" .. stateFilename
 end
 
 return GameState

@@ -55,7 +55,7 @@ Following properties predefined:
     jp          | Japanese
     en          | English
 
--   **device.writeablePath** returns the writeable path.
+-   **device.writablePath** returns the writable path.
 
 ]]
 
@@ -109,14 +109,12 @@ end
 
 device.language = language_
 device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
-device.documentsPath = CCFileUtils:sharedFileUtils():getDocumentsPath()
 
 echoInfo("# device.platform              = " .. device.platform)
 echoInfo("# device.environment           = " .. device.environment)
 echoInfo("# device.model                 = " .. device.model)
 echoInfo("# device.language              = " .. device.language)
 echoInfo("# device.writablePath          = " .. device.writablePath)
-echoInfo("# device.documentsPath         = " .. device.documentsPath)
 echoInfo("#")
 
 --[[--
