@@ -16,9 +16,6 @@
     <Filter Include="lua_extensions">
       <UniqueIdentifier>{7b7140a8-68d7-440e-8bb8-0b1b23e1be79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="luajit2">
-      <UniqueIdentifier>{805d5bc8-3d5b-440b-bbd1-674cc4aa029a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocos2dx_extra\extra\crypto">
       <UniqueIdentifier>{cfcbc463-f931-4345-ac7a-0f035eb339e0}</UniqueIdentifier>
     </Filter>
@@ -51,9 +48,6 @@
     </Filter>
     <Filter Include="lua_extensions\zlib">
       <UniqueIdentifier>{8554a605-7cfd-433e-8c76-23814e55cbea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="luajit2\include">
-      <UniqueIdentifier>{36516e4b-ac2e-4532-880a-dcc607f9ced1}</UniqueIdentifier>
     </Filter>
     <Filter Include="cocos2d-x\cocos2dx">
       <UniqueIdentifier>{6013147b-433f-4a04-b85f-ebac33bd33f5}</UniqueIdentifier>
@@ -297,6 +291,12 @@
     </Filter>
     <Filter Include="third_party\CSArmature\external_tool\Json\lib_json">
       <UniqueIdentifier>{8be1fe40-fb14-4b83-b0f4-47828f8545e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\scripting\lua\luajit">
+      <UniqueIdentifier>{878d493e-17aa-47d1-a0a5-b7e7300ee88b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\scripting\lua\luajit\include">
+      <UniqueIdentifier>{52222938-250b-4b39-b01d-54e2e6299855}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1186,18 +1186,6 @@
     </ClInclude>
     <ClInclude Include="..\lua_extensions\zlib\lua_zlib.h">
       <Filter>lua_extensions\zlib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luajit2\include\lauxlib.h">
-      <Filter>luajit2\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luajit2\include\lua.h">
-      <Filter>luajit2\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luajit2\include\luaconf.h">
-      <Filter>luajit2\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luajit2\include\lualib.h">
-      <Filter>luajit2\include</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h">
       <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
@@ -2230,6 +2218,18 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\ccUTF8.h">
       <Filter>cocos2d-x\cocos2dx\support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lauxlib.h">
+      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lua.h">
+      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\luaconf.h">
+      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lualib.h">
+      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -111,6 +111,7 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
 
     updateProjectDir();
     updateScriptFile();
+    updateWritablePath();
     updatePackagePath();
 
     BOOL isLandscape = FALSE;
@@ -181,6 +182,7 @@ void ProjectConfigDialog::onSelectProjectDir(void)
         m_project.setProjectDir(dir);
         updateProjectDir();
         updateScriptFile();
+        updateWritablePath();
         updatePackagePath();
     }
 }
@@ -208,6 +210,16 @@ void ProjectConfigDialog::onSelectScriptFile(void)
     {
         m_project.setScriptFile(buff);
         updateScriptFile();
+    }
+}
+
+void ProjectConfigDialog::onSelectWritablePath(void)
+{
+    string dir = browseFolder(m_project.getWritablePath());
+    if (dir.length() > 0)
+    {
+        m_project.setWritablePath(dir);
+        updateWritablePath();
     }
 }
 
@@ -397,6 +409,19 @@ void ProjectConfigDialog::updateProjectDir(void)
 void ProjectConfigDialog::updateScriptFile(void)
 {
     SetDlgItemTextA(m_hwndDialog, IDC_EDIT_SCRIPT_FILE, m_project.getScriptFile().c_str());
+}
+
+void ProjectConfigDialog::updateWritablePath(void)
+{
+    const string writablePath = m_project.getWritablePath();
+    if (writablePath.length() != 0)
+    {
+        SetDlgItemTextA(m_hwndDialog, IDC_EDIT_WRITABLE_PATH, writablePath.c_str());
+    }
+    else
+    {
+        SetDlgItemTextA(m_hwndDialog, IDC_EDIT_WRITABLE_PATH, m_project.getProjectDir().c_str());
+    }
 }
 
 void ProjectConfigDialog::updatePackagePath(void)

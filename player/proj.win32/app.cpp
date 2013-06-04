@@ -105,6 +105,7 @@ int QuickXPlayer::run(void)
         // set environments
         SetCurrentDirectoryA(m_project.getProjectDir().c_str());
         CCFileUtils::sharedFileUtils()->setSearchRootPath(m_project.getProjectDir().c_str());
+        CCFileUtils::sharedFileUtils()->setWritablePath(m_project.getWritablePath().c_str());
 
         // create opengl view
         CCEGLView* eglView = CCEGLView::sharedOpenGLView();
@@ -167,6 +168,11 @@ void QuickXPlayer::loadProjectConfig(void)
         {
             index++;
             m_project.setScriptFile(getCommandLineArg(index).c_str());
+        }
+        else if (arg.compare("-writable") == 0)
+        {
+            index++;
+            m_project.setWritablePath(getCommandLineArg(index).c_str());
         }
         else if (arg.compare("-package.path") == 0)
         {
@@ -262,6 +268,9 @@ void QuickXPlayer::onFileCreateProjectShortcut(void)
 
         args.append(" -file ");
         args.append(m_project.getScriptFile());
+
+        args.append(" -writable ");
+        args.append(m_project.getWritablePath());
 
         args.append(" -size ");
         const CCSize frameSize = m_project.getFrameSize();

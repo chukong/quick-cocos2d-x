@@ -20,7 +20,8 @@ class ProjectConfig
 {
 public:
     ProjectConfig(void)
-    : m_scriptFile("$WORKDIR/scripts/main.lua")
+    : m_scriptFile("")
+    , m_writablePath("")
     , m_packagePath("")
     , m_frameSize(320, 480)
     , m_frameScale(1.0f)
@@ -30,64 +31,40 @@ public:
         normalize();
     }
 
-    const string getProjectDir(void) {
-        return m_projectDir;
-    }
+    const string getProjectDir(void);
     void setProjectDir(const string projectDir);
 
-    const string getScriptFile(void) {
-        return m_scriptFile;
-    }
+    const string getScriptFile(void);
     const string getScriptFilePath(void);
     void setScriptFile(const string scriptFile);
 
-    const string getPackagePath(void) {
-        return m_packagePath;
-    }
+    const string getPackagePath(void);
     const string getNormalizedPackagePath(void);
-    void setPackagePath(const string packagePath) {
-        m_packagePath = packagePath;
-    }
+    void setPackagePath(const string packagePath);
     void addPackagePath(const string packagePath);
     const vector<string> getPackagePathArray(void);
 
-    const CCSize getFrameSize(void) {
-        return m_frameSize;
-    }
-    void setFrameSize(CCSize frameSize) {
-        CCAssert(frameSize.width > 0 && frameSize.height > 0, "Invalid frameSize");
-        m_frameSize = frameSize;
-    }
-    bool isLandscapeFrame(void) {
-        return m_frameSize.width > m_frameSize.height;
-    }
+    const string getWritablePath(void);
+    void setWritablePath(const string writablePath);
 
-    const float getFrameScale(void) {
-        return m_frameScale;
-    }
-    void setFrameScale(float frameScale) {
-        CCAssert(frameScale > 0, "Invalid frameScale");
-        m_frameScale = frameScale;
-    }
+    const CCSize getFrameSize(void);
+    void setFrameSize(CCSize frameSize);
+    bool isLandscapeFrame(void);
 
-    const bool isShowConsole(void) {
-        return m_showConsole;
-    }
-    void setShowConsole(bool showConsole) {
-        m_showConsole = showConsole;
-    }
+    const float getFrameScale(void);
+    void setFrameScale(float frameScale);
 
-    const CCPoint getWindowOffset(void) {
-        return m_windowOffset;
-    }
-    void setWindowOffset(CCPoint windowOffset) {
-        m_windowOffset = windowOffset;
-    }
+    const bool isShowConsole(void);
+    void setShowConsole(bool showConsole);
+
+    const CCPoint getWindowOffset(void);
+    void setWindowOffset(CCPoint windowOffset);
 
 private:
     string	m_projectDir;
     string	m_scriptFile;
     string	m_packagePath;
+    string  m_writablePath;
     CCSize	m_frameSize;
     float	m_frameScale;
     bool	m_showConsole;

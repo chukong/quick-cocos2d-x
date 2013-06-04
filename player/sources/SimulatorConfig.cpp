@@ -5,10 +5,20 @@
 #define strcasecmp _stricmp
 #endif
 
+const string ProjectConfig::getProjectDir(void)
+{
+    return m_projectDir;
+}
+
 void ProjectConfig::setProjectDir(const string projectDir)
 {
     m_projectDir = projectDir;
     normalize();
+}
+
+const string ProjectConfig::getScriptFile(void)
+{
+    return m_scriptFile;
 }
 
 const string ProjectConfig::getScriptFilePath(void)
@@ -31,6 +41,11 @@ void ProjectConfig::setScriptFile(const string scriptFile)
     normalize();
 }
 
+const string ProjectConfig::getPackagePath(void)
+{
+    return m_packagePath;
+}
+
 const string ProjectConfig::getNormalizedPackagePath(void)
 {
     // replace $WORKDIR
@@ -48,6 +63,11 @@ const string ProjectConfig::getNormalizedPackagePath(void)
     path.append(";");
     SimulatorConfig::makeNormalizePath(&path, "/");
     return path;
+}
+
+void ProjectConfig::setPackagePath(const string packagePath)
+{
+    m_packagePath = packagePath;
 }
 
 void ProjectConfig::addPackagePath(const string packagePath)
@@ -80,10 +100,69 @@ const vector<string> ProjectConfig::getPackagePathArray(void)
     return arr;
 }
 
+const string ProjectConfig::getWritablePath(void)
+{
+    return m_writablePath;
+}
+
+void ProjectConfig::setWritablePath(const string writablePath)
+{
+    m_writablePath = writablePath;
+    normalize();
+}
+
+const CCSize ProjectConfig::getFrameSize(void)
+{
+    return m_frameSize;
+}
+
+void ProjectConfig::setFrameSize(CCSize frameSize)
+{
+    CCAssert(frameSize.width > 0 && frameSize.height > 0, "Invalid frameSize");
+    m_frameSize = frameSize;
+}
+
+bool ProjectConfig::isLandscapeFrame(void)
+{
+    return m_frameSize.width > m_frameSize.height;
+}
+
+const float ProjectConfig::getFrameScale(void)
+{
+    return m_frameScale;
+}
+
+void ProjectConfig::setFrameScale(float frameScale)
+{
+    CCAssert(frameScale > 0, "Invalid frameScale");
+    m_frameScale = frameScale;
+}
+
+const bool ProjectConfig::isShowConsole(void)
+{
+    return m_showConsole;
+}
+
+void ProjectConfig::setShowConsole(bool showConsole)
+{
+    m_showConsole = showConsole;
+}
+
+const CCPoint ProjectConfig::getWindowOffset(void)
+{
+    return m_windowOffset;
+}
+
+void ProjectConfig::setWindowOffset(CCPoint windowOffset)
+{
+    m_windowOffset = windowOffset;
+}
+
 void ProjectConfig::normalize(void)
 {
     SimulatorConfig::makeNormalizePath(&m_projectDir);
     SimulatorConfig::makeNormalizePath(&m_scriptFile);
+    SimulatorConfig::makeNormalizePath(&m_writablePath);
     SimulatorConfig::makeNormalizePath(&m_packagePath);
 
     int len = m_projectDir.length();
@@ -95,9 +174,9 @@ void ProjectConfig::normalize(void)
     int projectDirLength = m_projectDir.length();
     if (projectDirLength > 0)
     {
-        if (strcasecmp(m_scriptFile.substr(0, projectDirLength).c_str(), m_projectDir.c_str()) == 0)
+        if (m_writablePath.length() == 0)
         {
-            m_scriptFile = string("$WORKDIR\\").append(m_scriptFile.substr(projectDirLength));
+            m_writablePath = m_projectDir;
         }
 
         vector<string> arr = getPackagePathArray();
@@ -105,10 +184,6 @@ void ProjectConfig::normalize(void)
         for (vector<string>::iterator it = arr.begin(); it != arr.end(); ++it)
         {
             string path = *it;
-            if (strcasecmp(path.substr(0, projectDirLength).c_str(), m_projectDir.c_str()) == 0)
-            {
-                path = string("$WORKDIR\\").append(path.substr(projectDirLength));
-            }
             m_packagePath.append(path);
             m_packagePath.append(";");
         }

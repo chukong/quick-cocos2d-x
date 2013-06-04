@@ -11,10 +11,8 @@
 class ProjectConfigDialog
 {
 public:
-    static bool showModal(HWND hwnd,
-        ProjectConfig *project,
-        const string dialogCaption = string(""),
-        const string buttonCaption = string(""));
+    static bool showModal(HWND hwnd, ProjectConfig *project, const string dialogCaption = string(""), const string buttonCaption = string(""));
+
     ~ProjectConfigDialog(void) {
         s_sharedInstance = NULL;
     }
@@ -46,6 +44,7 @@ private:
     void onInitDialog(HWND hwndDialog);
     void onSelectProjectDir(void);
     void onSelectScriptFile(void);
+    void onSelectWritablePath(void);
     void onScreenSizeChanged(void);
     void onScreenDirectionChanged(void);
     void onListSelectChanged(void);
@@ -60,6 +59,7 @@ private:
     // update ui
     void updateProjectDir(void);
     void updateScriptFile(void);
+    void updateWritablePath(void);
     void updatePackagePath(void);
 
     // helper
