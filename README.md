@@ -3,52 +3,34 @@
 
 quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in Lua.
 
-CODE LESS, PLAY MORE !
+**CODE LESS, PLAY MORE !**
 
 > [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
 
 <br />
 
-## GET STARTED
+## Get Started
 
-#### SYSTEM AND SOFTWARE REQUIREMENTS
+-   [HOWTO: Setup development environment for Windows](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO:-Setup-development-environment-for-Windows)
+-   [HOWTO: Setup development environment for Mac](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO:-Setup-development-environment-for-Mac)
+-   [HOWTO: Create new project](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO:-Create-new-project)
+-   [API Documents](http://quick-x.com/docs/api/)
 
--   Latest Xcode (4.6 current) and iOS SDK (6.1 current)
--   Android SDK (2.2) and Android NDK (r8b, DON'T USE OTHER VERSION)
+<br />
 
-#### DOWNLOADS
+## Run Player
 
--   **LATEST**: [quick-cocos2d-x-20130509.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130509.zip)
--   **CHINA DOWNLOAD LINK**: [quick-cocos2d-x-20130509.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130509.zip)
-
-
-#### RUN SIMULATOR
-
-Open quick-cocos2d-x/simulator/bin/mac/quick-x-player.app, or quick-cocos2d-x/simulator/bin/win32/quick-x-player.exe
+Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/player/bin/win32/quick-x-player.exe
 
 1.  Select menu: File -> Open Project
-2.  Set Project Director to **quick-cocos2d-x/sample/CoinFlip**
-3.  Set Script File to **$WORKDIR/scripts/main.lua**
+2.  Set Project Director to **quick-cocos2d-x/sample/coinflip**
+3.  Set Script File to **scripts/main.lua**
 
     ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)
 
 4.  Click "Open Project" button.
 
 ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_02.png)
-
-#### BUILD
-
--   [Install Android SDK/NDK - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_MAC.md)
--   [Install Android SDK/NDK - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_WINDOWS.md)
--   [Build from source - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_MAC.md)
--   [Build from source - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_WINDOWS.md)
--   [Create new project](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/CREATE_NEW_PROJECT.md)
-
-
-#### DOCUMENTS
-
--   [API Documents](http://quick-x.com/docs/api/)
--   [Manual](http://quick-x.com/docs/manual/)
 
 <br />
 
