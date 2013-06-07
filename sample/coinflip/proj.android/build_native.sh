@@ -50,7 +50,7 @@ echo "  APP_ROOT            = $APP_ROOT"
 echo "  APP_ANDROID_ROOT    = $APP_ANDROID_ROOT"
 
 echo "- cleanup"
-chmod -R 755 "$APP_ANDROID_ROOT"
+find "$APP_ANDROID_ROOT" -type d | xargs chmod 755 $1
 if [ -d "$APP_ANDROID_ROOT"/bin ]; then
     rm -rf "$APP_ANDROID_ROOT"/bin/*.apk
 fi
