@@ -42,7 +42,7 @@ Call Java form Lua, and call Lua from Java.
 
 local luaj = {}
 
-local callJavaStaticMethod = LuaJavaBridge.callStaticMethod
+local callJavaStaticMethod = CCLuaJavaBridge.callStaticMethod
 
 local function checkArguments(args, sig)
     if type(args) ~= "table" then args = {} end
@@ -100,7 +100,7 @@ Call Java Class Static Method
 ]]
 function luaj.callStaticMethod(className, methodName, args, sig)
     local args, sig = checkArguments(args, sig)
-    echoInfo("luaj.callStaticMethod(\"%s\",\n\t\"%s\",\n\targs,\n\t\"%s", className, methodName, sig)
+    echoInfo("luaj.callStaticMethod(\"%s\",\n\t\"%s\",\n\targs,\n\t\"%s\"", className, methodName, sig)
     return callJavaStaticMethod(className, methodName, args, sig)
 end
 
