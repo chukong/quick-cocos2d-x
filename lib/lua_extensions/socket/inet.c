@@ -30,6 +30,25 @@ static luaL_Reg func[] = {
     { NULL, NULL}
 };
 
+/****luodx patch for windows xp start**/
+
+char* win32xp_inet_ntop(int family, PVOID src, char* dest, size_t length)
+{
+	char* result = inet_ntoa(*(IN_ADDR*)src);
+	if (result != NULL){
+		strcpy(dest, result);
+	}
+	return result;
+}
+
+int win32xp_inet_pton(int family, const char* string, PVOID dest) {
+	return inet_aton(string, (IN_ADDR*)dest);
+}
+
+/****luodx patch for windows xp end**/
+
+
+
 /*=========================================================================*\
 * Exported functions
 \*=========================================================================*/
@@ -241,7 +260,7 @@ int inet_meth_getpeername(lua_State *L, p_socket ps, int family)
                 lua_pushstring(L, socket_strerror(errno));
                 return 2;
             } else {
-                inet_ntop(family, &peer.sin_addr, name, sizeof(name));
+                my_inet_ntop(family, &peer.sin_addr, name, sizeof(name));
                 lua_pushstring(L, name); 
                 lua_pushnumber(L, ntohs(peer.sin_port));
                 lua_pushliteral(L, "inet");
@@ -257,7 +276,7 @@ int inet_meth_getpeername(lua_State *L, p_socket ps, int family)
                 lua_pushstring(L, socket_strerror(errno));
                 return 2;
             } else {
-                inet_ntop(family, &peer.sin6_addr, name, sizeof(name));
+                my_inet_ntop(family, &peer.sin6_addr, name, sizeof(name));
                 lua_pushstring(L, name); 
                 lua_pushnumber(L, ntohs(peer.sin6_port));
                 lua_pushliteral(L, "inet6");
@@ -286,7 +305,7 @@ int inet_meth_getsockname(lua_State *L, p_socket ps, int family)
                 lua_pushstring(L, socket_strerror(errno));
                 return 2;
             } else {
-                inet_ntop(family, &local.sin_addr, name, sizeof(name));
+                my_inet_ntop(family, &local.sin_addr, name, sizeof(name));
                 lua_pushstring(L, name); 
                 lua_pushnumber(L, ntohs(local.sin_port));
                 lua_pushliteral(L, "inet");
@@ -302,7 +321,7 @@ int inet_meth_getsockname(lua_State *L, p_socket ps, int family)
                 lua_pushstring(L, socket_strerror(errno));
                 return 2;
             } else {
-                inet_ntop(family, &local.sin6_addr, name, sizeof(name));
+                my_inet_ntop(family, &local.sin6_addr, name, sizeof(name));
                 lua_pushstring(L, name); 
                 lua_pushnumber(L, ntohs(local.sin6_port));
                 lua_pushliteral(L, "inet6");
