@@ -16,8 +16,8 @@
 #include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
 #endif
 
-// physics
-#include "CCPhysicsWorld_luabinding.h"
+// thrid_party
+#include "third_party_luabinding.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -62,8 +62,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_cocos2dx_extra_ios_iap_luabinding(L);
 #endif
     
-    // physics
-    luaopen_CCPhysicsWorld_luabinding(L);
+    // thrid_party
+    luaopen_third_party_luabinding(L);
     
     string path("scripts/main.lua");
     path = CCFileUtils::sharedFileUtils()->fullPathForFilename(path.c_str());

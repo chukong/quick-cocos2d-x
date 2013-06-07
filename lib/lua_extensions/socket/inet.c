@@ -30,8 +30,8 @@ static luaL_Reg func[] = {
     { NULL, NULL}
 };
 
+#ifdef _WINDOWS_
 /****luodx patch for windows xp start**/
-
 char* win32xp_inet_ntop(int family, PVOID src, char* dest, size_t length)
 {
 	char* result = inet_ntoa(*(IN_ADDR*)src);
@@ -44,9 +44,8 @@ char* win32xp_inet_ntop(int family, PVOID src, char* dest, size_t length)
 int win32xp_inet_pton(int family, const char* string, PVOID dest) {
 	return inet_aton(string, (IN_ADDR*)dest);
 }
-
 /****luodx patch for windows xp end**/
-
+#endif
 
 
 /*=========================================================================*\
