@@ -40,4 +40,4 @@ include $(BUILD_STATIC_LIBRARY)
 $(call import-module,cocos2dx) \
 $(call import-module,scripting/lua/proj.android) \
 $(call import-module,lib/third_party/chipmunk/proj.android) \
-$(call import-module,lib/third_party/CSArmature/proj.android) \
+$(call import-module,lib/third_party/CSArmature/proj.android)
