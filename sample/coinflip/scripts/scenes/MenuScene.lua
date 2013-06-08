@@ -32,7 +32,6 @@ function MenuScene:ctor()
         y = display.bottom + 300,
         sound = GAME_SFX.tapButton,
         prepare = function()
-            print("startButton prepare")
             self.menu:setEnabled(false)
             self.layer:setKeypadEnabled(false)
         end,

@@ -33,7 +33,7 @@ public class coinflip extends Cocos2dxActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
-
+	
     static {
     	System.loadLibrary("game");
     }

@@ -70,8 +70,7 @@ network    = require("framework.client.network")
 crypto     = require("framework.client.crypto")
 
 if device.platform == "android" then
-    -- luaj = require("framework.client.luaj")
-    -- jit.off()
+    luaj = require("framework.client.luaj")
 elseif device.platform == "ios" then
     luaoc = require("framework.client.luaoc")
 end
