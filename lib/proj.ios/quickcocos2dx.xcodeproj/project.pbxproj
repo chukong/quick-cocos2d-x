@@ -2970,7 +2970,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform\"",
@@ -2993,6 +2992,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/CSArmature\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -3025,7 +3026,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform\"",
@@ -3048,6 +3048,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/CSArmature\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (

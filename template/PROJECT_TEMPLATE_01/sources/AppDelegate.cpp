@@ -11,13 +11,12 @@
 // cocos2dx_extensions luabinding
 #include "cocos2dx_extensions_luabinding.h"
 // cocos2dx_extra luabinding
-#include "luabinding/cocos2dx_extra_luabinding.h"
+#include "cocos2dx_extra_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
+#include "cocos2dx_extra_ios_iap_luabinding.h"
 #endif
-
-// physics
-// #include "PhysicsWorld_luabinding.h"
+// third_party
+#include "third_party_luabinding.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -61,9 +60,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(L);
 #endif
-
-    // physics
-    // luaopen_PhysicsWorld_luabinding(L);
+    // third party
+    luaopen_third_party_luabinding(L);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");

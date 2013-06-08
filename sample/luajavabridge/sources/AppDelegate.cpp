@@ -11,9 +11,9 @@
 // cocos2dx_extensions luabinding
 #include "cocos2dx_extensions_luabinding.h"
 // cocos2dx_extra luabinding
-#include "luabinding/cocos2dx_extra_luabinding.h"
+#include "cocos2dx_extra_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
+#include "cocos2dx_extra_ios_iap_luabinding.h"
 #endif
 
 // physics
