@@ -1,0 +1,23 @@
+
+class CCCardinalSplineTo : public CCActionInterval
+{
+    CCCardinalSplineTo* reverse();
+    CCPointArray* getPoints();
+    void  setPoints(CCPointArray* points);
+	static CCCardinalSplineTo* create(float duration, CCPointArray* points, float tension);
+};
+
+class CCCardinalSplineBy : public CCCardinalSplineTo
+{
+	static CCCardinalSplineBy* create(float duration, CCPointArray* points, float tension);
+};
+
+class CCCatmullRomTo : public CCCardinalSplineTo
+{
+	static CCCatmullRomTo* create(float dt, CCPointArray* points);
+};
+
+class CCCatmullRomBy : public CCCardinalSplineBy
+{
+    static CCCatmullRomBy* create(float dt, CCPointArray* points);
+};

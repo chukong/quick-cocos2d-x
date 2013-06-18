@@ -1,0 +1,134 @@
+
+class CCActionEase : public CCActionInterval
+{
+	CCActionEase* reverse(void);
+    static CCActionEase* create(CCActionInterval *pAction);
+};
+
+class CCEaseRateAction : public CCActionEase
+{
+	CCEaseRateAction* reverse(void);
+    static CCEaseRateAction* create(CCActionInterval* pAction, float fRate);
+};
+
+class CCEaseIn : public CCEaseRateAction
+{
+	CCEaseIn* reverse(void);
+    static CCEaseIn* create(CCActionInterval* pAction, float fRate);
+};
+
+class CCEaseOut : public CCEaseRateAction
+{
+	CCEaseOut* reverse(void);
+    static CCEaseOut* create(CCActionInterval* pAction, float fRate);
+};
+
+class CCEaseInOut : public CCEaseRateAction
+{
+	CCEaseInOut* reverse(void);
+    static CCEaseInOut* create(CCActionInterval* pAction, float fRate);
+};
+
+class CCEaseExponentialIn : public CCActionEase
+{
+	CCEaseExponentialIn* reverse(void);
+    static CCEaseExponentialIn* create(CCActionInterval* pAction);
+};
+
+class CCEaseExponentialOut : public CCActionEase
+{
+	CCEaseExponentialOut* reverse(void);
+    static CCEaseExponentialOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseExponentialInOut : public CCActionEase
+{
+	CCEaseExponentialInOut* reverse(void);
+    static CCEaseExponentialInOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseSineIn : public CCActionEase
+{
+	CCEaseSineIn* reverse(void);
+    static CCEaseSineIn* create(CCActionInterval* pAction);
+};
+
+class CCEaseSineOut : public CCActionEase
+{
+	CCEaseSineOut* reverse(void);
+    static CCEaseSineOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseSineInOut : public CCActionEase
+{
+	CCEaseSineInOut* reverse(void);
+    static CCEaseSineInOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseElastic : public CCActionEase
+{
+	CCEaseElastic* reverse(void);
+	float getPeriod(void);
+	void setPeriod(float fPeriod);
+    static CCEaseElastic* create(CCActionInterval *pAction, float fPeriod = 0.3);
+};
+
+class CCEaseElasticIn : public CCEaseElastic
+{
+	CCEaseElasticIn* reverse(void);
+    static CCEaseElasticIn* create(CCActionInterval *pAction, float fPeriod = 0.3);
+};
+
+class CCEaseElasticOut : public CCEaseElastic
+{
+	CCEaseElasticOut* reverse(void);
+    static CCEaseElasticOut* create(CCActionInterval *pAction, float fPeriod = 0.3);
+};
+
+class CCEaseElasticInOut : public CCEaseElastic
+{
+	CCEaseElasticInOut* reverse(void);
+    static CCEaseElasticInOut* create(CCActionInterval *pAction, float fPeriod = 0.3);
+};
+
+class CCEaseBounce : public CCActionEase
+{
+	CCEaseBounce* reverse(void);
+    static CCEaseBounce* create(CCActionInterval* pAction);
+};
+
+class CCEaseBounceIn : public CCEaseBounce
+{
+	CCEaseBounceIn* reverse(void);
+    static CCEaseBounceIn* create(CCActionInterval* pAction);
+};
+
+class CCEaseBounceOut : public CCEaseBounce
+{
+	CCEaseBounceOut* reverse(void);
+    static CCEaseBounceOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseBounceInOut : public CCEaseBounce
+{
+	CCEaseBounceInOut* reverse(void);
+    static CCEaseBounceInOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseBackIn : public CCActionEase
+{
+	CCEaseBackIn* reverse(void);
+    static CCEaseBackIn* create(CCActionInterval* pAction);
+};
+
+class CCEaseBackOut : public CCActionEase
+{
+	CCEaseBackOut* reverse(void);
+    static CCEaseBackOut* create(CCActionInterval* pAction);
+};
+
+class CCEaseBackInOut : public CCActionEase
+{
+	CCEaseBackInOut* reverse(void);
+    static CCEaseBackInOut* create(CCActionInterval* pAction);
+};

@@ -1,0 +1,135 @@
+
+enum {
+    kCCNodeTagInvalid = -1,
+};
+
+enum {
+    kCCNodeOnEnter,
+    kCCNodeOnExit
+};
+
+typedef enum {
+      CC_GL_ALL = 0,
+} ccGLServerState;
+
+
+class CCNode : public CCObject
+{
+    int     getZOrder();
+    void    setZOrder(int zorder);
+    float   getVertexZ();
+    void    setVertexZ(float var);
+    float   getRotation();
+    void    setRotation(float newRotation);
+    float   getScale();
+    void    setScale(float scale);
+    float   getScaleX();
+    void    setScaleX(float newScaleX);
+    float   getScaleY();
+    void    setScaleY(float newScaleY);
+
+    void    getPosition(float* x = 0, float* y = 0);
+    float   getPositionX();
+    float   getPositionY();
+    void    setPosition(float x, float y);
+	void 	setPosition(CCPoint pos);
+    void    setPositionX(float x);
+    void    setPositionY(float y);
+
+    float   getSkewX();
+    void    setSkewX(float skewX);
+    float   getSkewY();
+    void    setSkewY(float skewY);
+
+    bool    isVisible();
+    void    setVisible(bool var);
+
+    CCPoint getAnchorPoint();
+    CCPoint getAnchorPointInPoints();
+    void    setAnchorPoint(CCPoint point);
+
+    CCSize  getContentSize();
+    void    setContentSize(const CCSize & size);
+
+    int     getTag();
+    void    setTag(int var);
+
+    CCCamera* getCamera();
+    bool    isRunning();
+
+    bool    isIgnoreAnchorPointForPosition();
+    void    ignoreAnchorPointForPosition(bool newValue);
+
+	CCObject* getUserObject();
+	void    setUserObject(CCObject* pObject);
+
+	int     getOrderOfArrival();
+	void    setOrderOfArrival(int order);
+
+    CCNode* getParent();
+    void    setParent(CCNode * var);
+
+    CCArray* getChildren();
+    unsigned int getChildrenCount(void);
+    CCNode* getChildByTag(int tag);
+
+    void    addChild(CCNode * child, int zOrder, int tag);
+    void    addChild(CCNode * child, int zOrder);
+    void    addChild(CCNode * child);
+    void    removeChild(CCNode* child, bool cleanup);
+    void    removeChildByTag(int tag, bool cleanup);
+    void    removeAllChildrenWithCleanup(bool cleanup);
+    void    reorderChild(CCNode * child, int zOrder);
+
+    void    cleanup(void);
+
+    void    visit(void);
+    void    transform(void);
+    void    transformAncestors(void);
+    CCRect  boundingBox(void);
+
+    CCAction* runAction(CCAction* action);
+    void    stopAllActions(void);
+    void    stopAction(CCAction* action);
+
+    void        stopActionByTag(int tag);
+    CCAction*   getActionByTag(int tag);
+    char *      description(void);
+
+    unsigned int numberOfRunningActions(void);
+
+    CCPoint convertToNodeSpace(CCPoint worldPoint);
+    CCPoint convertToWorldSpace(CCPoint nodePoint);
+    CCPoint convertToNodeSpaceAR(CCPoint worldPoint);
+    CCPoint convertToWorldSpaceAR(CCPoint nodePoint);
+    CCPoint convertTouchToNodeSpace(CCTouch * touch);
+    CCPoint convertTouchToNodeSpaceAR(CCTouch * touch);
+
+    void removeFromParentAndCleanup(bool cleanup);
+
+	void scheduleUpdateWithPriorityLua(LUA_FUNCTION nHandler, int priority);
+	void unscheduleUpdate(void);
+
+    void registerScriptHandler(LUA_FUNCTION funcID);
+    void unregisterScriptHandler(void);
+
+    static CCNode *create(void);
+};
+
+class CCNodeRGBA : public CCNode
+{
+    void setColor(const ccColor3B& color);
+    const ccColor3B& getColor(void);
+    const ccColor3B& getDisplayedColor(void);
+    GLubyte getDisplayedOpacity(void);
+    GLubyte getOpacity(void);
+    void setOpacity(GLubyte opacity);
+    void setOpacityModifyRGB(bool bValue);
+    bool isOpacityModifyRGB(void);
+    bool isCascadeColorEnabled(void);
+    void setCascadeColorEnabled(bool cascadeColorEnabled);
+    void updateDisplayedColor(const ccColor3B& color);
+    bool isCascadeOpacityEnabled(void);
+    void setCascadeOpacityEnabled(bool cascadeOpacityEnabled);
+    void updateDisplayedOpacity(GLubyte opacity);
+};
