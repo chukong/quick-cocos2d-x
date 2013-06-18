@@ -1,3 +1,0 @@
-[submodule "lib/cocos2d-x"]
-	path = lib/cocos2d-x
-	url = git://github.com/dualface/cocos2d-x.git
