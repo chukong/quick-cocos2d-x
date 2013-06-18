@@ -69,9 +69,6 @@ namespace cs {
 	void Skin::setSkinData(const Node& var)
 	{
 		m_sSkinData = var;
-		
-		setScaleX(m_sSkinData.scaleX);
-		setScaleY(m_sSkinData.scaleY);
 
 		setScaleX(m_sSkinData.scaleX);
 		setScaleY(m_sSkinData.scaleY);

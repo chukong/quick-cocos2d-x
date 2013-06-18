@@ -181,6 +181,8 @@ namespace cs {
 
 			textureXML = textureXML->NextSiblingElement(SUB_TEXTURE);
 		}
+
+		document.Clear();
 	}
 
 	ArmatureData *DataReaderHelper::decodeArmature(XMLElement *armatureXML)

@@ -129,6 +129,8 @@ bool Armature::init(const char *name)
     do
     {
         //cocos2d::CCLog("Armature (%s)  create.", name);
+		
+		removeAllChildren();
 
 		CC_SAFE_DELETE(m_pAnimation);
         m_pAnimation = new Animation();

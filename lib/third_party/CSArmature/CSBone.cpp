@@ -247,7 +247,7 @@ void Bone::removeChildBone(Bone *bone, bool recursion)
 
 		bone->setParentBone(NULL);
 
-		bone->getDisplayManager()->setDisplayRenderNode(NULL);
+		bone->getDisplayManager()->setCurrentDecorativeDisplay(NULL);
 
 		m_pChildren->removeObject(bone);
 

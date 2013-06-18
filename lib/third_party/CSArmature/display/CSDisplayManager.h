@@ -84,10 +84,11 @@ public:
 	void changeDisplayByIndex(int index, bool force);
     
     
-    void setDisplayRenderNode(cocos2d::CCNode *displayRenderNode);
     cocos2d::CCNode *getDisplayRenderNode();
     
     int getCurrentDisplayIndex();
+
+	void setCurrentDecorativeDisplay(DecorativeDisplay *decoDisplay);
 	DecorativeDisplay *getCurrentDecorativeDisplay();
     DecorativeDisplay *getDecorativeDisplayByIndex( int index);
     

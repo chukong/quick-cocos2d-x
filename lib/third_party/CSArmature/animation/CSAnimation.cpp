@@ -98,10 +98,16 @@ void Animation::setAnimationScale(float animationScale )
 
 	m_fAnimationScale = animationScale;
     
-	CCObject *object = NULL;
-	CCARRAY_FOREACH(m_pTweenList, object)
+	CCDictElement *element = NULL;
+	CCDictionary *dict = m_pArmature->getBoneDic();
+	CCDICT_FOREACH(dict, element)
 	{
-		((Tween*)object)->setAnimationScale(m_fAnimationScale);
+		Bone *bone = (Bone*)element->getObject();
+		bone->getTween()->setAnimationScale(m_fAnimationScale);
+		if (bone->getChildArmature())
+		{
+			bone->getChildArmature()->getAnimation()->setAnimationScale(m_fAnimationScale);
+		}
 	}
 }
 
@@ -165,6 +171,12 @@ void Animation::play(const char *animationName, int durationTo, int durationTwee
         {
 			m_pTweenList->addObject(tween);
             tween->play(movementBoneData, durationTo, durationTween, loop, tweenEasing);
+
+			tween->setAnimationScale(m_fAnimationScale);
+			if (bone->getChildArmature())
+			{
+				bone->getChildArmature()->getAnimation()->setAnimationScale(m_fAnimationScale);
+			}
         }
         else
         {

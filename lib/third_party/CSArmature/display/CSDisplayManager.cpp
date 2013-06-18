@@ -118,7 +118,7 @@ void DisplayManager::removeDisplay(int index)
     
     if(index == m_iDisplayIndex)
     {
-        setDisplayRenderNode(NULL);
+        setCurrentDecorativeDisplay(NULL);
     }
 }
     
@@ -141,18 +141,37 @@ void DisplayManager::changeDisplayByIndex(int index, bool force)
         if(m_pDisplayRenderNode)
         {
             m_pDisplayRenderNode->removeFromParentAndCleanup(true);
-            setDisplayRenderNode(NULL);
-            
+            setCurrentDecorativeDisplay(NULL);
         }
         return;
     }
     
-	m_pCurrentDecoDisplay = (DecorativeDisplay*)m_pDecoDisplayList->objectAtIndex(m_iDisplayIndex);
-	setDisplayRenderNode(m_pCurrentDecoDisplay->getDisplay());
+
+
+	DecorativeDisplay *decoDisplay = (DecorativeDisplay*)m_pDecoDisplayList->objectAtIndex(m_iDisplayIndex);
+
+	setCurrentDecorativeDisplay(decoDisplay);
 }
     
-void DisplayManager::setDisplayRenderNode(CCNode *displayRenderNode)
+void DisplayManager::setCurrentDecorativeDisplay(DecorativeDisplay *decoDisplay)
 {
+#if ENABLE_PHYSICS_DETECT
+	if (m_pCurrentDecoDisplay && m_pCurrentDecoDisplay->getColliderDetector())
+	{
+		m_pCurrentDecoDisplay->getColliderDetector()->setActive(false);
+	}
+#endif
+
+	m_pCurrentDecoDisplay = decoDisplay;
+
+#if ENABLE_PHYSICS_DETECT
+	if (m_pCurrentDecoDisplay && m_pCurrentDecoDisplay->getColliderDetector())
+	{
+		m_pCurrentDecoDisplay->getColliderDetector()->setActive(true);
+	}
+#endif
+
+	CCNode *displayRenderNode = m_pCurrentDecoDisplay == NULL ? NULL : m_pCurrentDecoDisplay->getDisplay();
     if (m_pDisplayRenderNode)
     {
 		if (dynamic_cast<Armature*>(m_pDisplayRenderNode) != NULL)
