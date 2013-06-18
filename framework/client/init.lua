@@ -54,25 +54,25 @@ Module | Descripton
 
 __FRAMEWORK_ENVIRONMENT__ = "client"
 
-require("framework.shared.debug")
-require("framework.shared.functions")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.debug")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.functions")
 
 echoInfo("")
 echoInfo("# DEBUG                        = "..DEBUG)
 echoInfo("#")
 
-device     = require("framework.client.device")
-transition = require("framework.client.transition")
-display    = require("framework.client.display")
-audio      = require("framework.client.audio")
-ui         = require("framework.client.ui")
-network    = require("framework.client.network")
-crypto     = require("framework.client.crypto")
+device     = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.device")
+transition = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.transition")
+display    = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.display")
+audio      = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.audio")
+ui         = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.ui")
+network    = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.network")
+crypto     = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.crypto")
 
 if device.platform == "android" then
-    luaj = require("framework.client.luaj")
+    luaj = import(".luaj")
 elseif device.platform == "ios" then
-    luaoc = require("framework.client.luaoc")
+    luaoc = import(".luaoc")
 end
 
 --[[--

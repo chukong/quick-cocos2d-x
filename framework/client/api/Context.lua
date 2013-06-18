@@ -9,7 +9,7 @@ local Context = class("Context")
 
 ]]
 function Context:ctor()
-    require("framework.client.api.EventProtocol").extend(self)
+    require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.api.EventProtocol").extend(self)
     self.config = {}
 end
 

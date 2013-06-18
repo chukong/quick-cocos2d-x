@@ -7,7 +7,7 @@ local LevelsList = class("LevelsList", PageControl)
 LevelsList.INDICATOR_MARGIN = 46
 
 function LevelsList:ctor(rect)
-    self.super.ctor(self, rect, PageControl.DIRECTION_HORIZONTAL)
+    LevelsList.super.ctor(self, rect, PageControl.DIRECTION_HORIZONTAL)
 
     -- add cells
     local rows, cols = 4, 4

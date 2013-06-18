@@ -5,8 +5,8 @@ GameState.ERROR_INVALID_FILE_CONTENTS = -1
 GameState.ERROR_HASH_MISS_MATCH       = -2
 GameState.ERROR_STATE_FILE_NOT_FOUND  = -3
 
-local crypto = require("framework.client.crypto")
-local json   = require("framework.shared.json")
+local crypto = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.crypto")
+local json   = require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.json")
 
 local encodeSign    = "=QP="
 local stateFilename = "state.txt"

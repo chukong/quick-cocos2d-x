@@ -36,11 +36,11 @@ The display module provides access to cocos2d-x core features.
 
 local display = {}
 
-require("framework.client.cocos2dx.CCNodeExtend")
-require("framework.client.cocos2dx.CCSpriteExtend")
-require("framework.client.cocos2dx.CCLayerExtend")
-require("framework.client.cocos2dx.CCSceneExtend")
-require("framework.client.cocos2dx.CCShapeNodeExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCNodeExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCSpriteExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCLayerExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCSceneExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCShapeNodeExtend")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
@@ -544,7 +544,7 @@ Creates a sprite, repeat sprite's texture to fill whole rect.
 
 ]]
 function display.newBackgroundTilesSprite(filename)
-    local rect = CCRectMake(0, 0, display.width, display.height)
+    local rect = CCRect(0, 0, display.width, display.height)
     local sprite = CCSprite:create(filename, rect)
     if not sprite then
         echoError("display.newBackgroundTilesSprite() - create sprite failure, filename %s", tostring(filename))
