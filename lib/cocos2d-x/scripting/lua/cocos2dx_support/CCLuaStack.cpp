@@ -33,6 +33,7 @@ extern "C" {
 #include "snapshot.h"
 }
 
+#include "ccMacros.h"
 #include "LuaCocos2d.h"
 #include "platform/CCZipFile.h"
 #include "platform/CCFileUtils.h"
@@ -45,6 +46,8 @@ extern "C" {
 #endif
 
 #include <string>
+
+using namespace std;
 
 NS_CC_BEGIN
 

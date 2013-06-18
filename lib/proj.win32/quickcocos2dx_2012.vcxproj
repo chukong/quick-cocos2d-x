@@ -34,10 +34,12 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCAffineTransform.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCArray.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCAutoreleasePool.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCDataVisitor.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCDictionary.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCGeometry.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCNS.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCPointArray.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCSet.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCString.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCZone.cpp" />
@@ -114,6 +116,8 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\ccUTF8.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\ccUtils.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\CCVertex.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\support\component\CCComponent.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\support\component\CCComponentContainer.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\data_support\ccCArray.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\image_support\TGAlib.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\tinyxml2\tinyxml2.cpp" />
@@ -125,6 +129,7 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\textures\CCTexture2D.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\textures\CCTextureAtlas.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\textures\CCTextureCache.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\textures\CCTextureETC.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\textures\CCTexturePVR.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\text_input_node\CCIMEDispatcher.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\text_input_node\CCTextFieldTTF.cpp" />
@@ -164,6 +169,10 @@
     <ClCompile Include="..\cocos2d-x\extensions\CCBReader\CCScale9SpriteLoader.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CCBReader\CCScrollViewLoader.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CCBReader\CCSpriteLoader.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\Components\CCComAttribute.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\Components\CCComAudio.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\Components\CCComController.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\Components\CCInputDelegate.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\GUI\CCControlExtension\CCControl.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\GUI\CCControlExtension\CCControlButton.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\GUI\CCControlExtension\CCControlColourPicker.cpp" />
@@ -183,11 +192,13 @@
     <ClCompile Include="..\cocos2d-x\extensions\GUI\CCScrollView\CCTableView.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\GUI\CCScrollView\CCTableViewCell.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\proj.win32\Win32InputBox.cpp" />
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCBProxy.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaStack.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaValue.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2d.cpp" />
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Lua_extensions_CCB.cpp" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.c">
       <FileType>CppCode</FileType>
     </ClCompile>
@@ -402,6 +413,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCArray.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCAutoreleasePool.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCBool.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCDataVisitor.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCDictionary.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCDouble.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCFloat.h" />
@@ -409,6 +421,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCInteger.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCNS.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCPointArray.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCSet.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCString.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCZone.h" />
@@ -549,6 +562,8 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\ccUTF8.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\ccUtils.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\CCVertex.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\support\component\CCComponent.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\support\component\CCComponentContainer.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\data_support\ccCArray.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\data_support\uthash.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\data_support\utlist.h" />
@@ -562,6 +577,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\textures\CCTexture2D.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\textures\CCTextureAtlas.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\textures\CCTextureCache.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\textures\CCTextureETC.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\textures\CCTexturePVR.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\text_input_node\CCIMEDelegate.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\text_input_node\CCIMEDispatcher.h" />
@@ -608,6 +624,11 @@
     <ClInclude Include="..\cocos2d-x\extensions\CCBReader\CCScale9SpriteLoader.h" />
     <ClInclude Include="..\cocos2d-x\extensions\CCBReader\CCScrollViewLoader.h" />
     <ClInclude Include="..\cocos2d-x\extensions\CCBReader\CCSpriteLoader.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\cocos-ext.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\Components\CCComAttribute.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\Components\CCComAudio.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\Components\CCComController.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\Components\CCInputDelegate.h" />
     <ClInclude Include="..\cocos2d-x\extensions\ExtensionMacros.h" />
     <ClInclude Include="..\cocos2d-x\extensions\GUI\CCControlExtension\CCControl.h" />
     <ClInclude Include="..\cocos2d-x\extensions\GUI\CCControlExtension\CCControlButton.h" />
@@ -630,11 +651,13 @@
     <ClInclude Include="..\cocos2d-x\extensions\GUI\CCScrollView\CCTableView.h" />
     <ClInclude Include="..\cocos2d-x\extensions\GUI\CCScrollView\CCTableViewCell.h" />
     <ClInclude Include="..\cocos2d-x\extensions\proj.win32\Win32InputBox.h" />
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCBProxy.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaStack.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaValue.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Cocos2dxLuaLoader.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2d.h" />
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Lua_extensions_CCB.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\snapshot.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\tolua_fix.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lauxlib.h" />
