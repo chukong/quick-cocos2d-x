@@ -35,6 +35,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import org.cocos2dx.lib.Cocos2dxETCLoader;
 
 public class Cocos2dxHelper {
 	// ===========================================================
