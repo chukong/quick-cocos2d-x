@@ -30,6 +30,10 @@ CCBReader/CCBSequenceProperty.cpp \
 CCBReader/CCBValue.cpp \
 CCBReader/CCData.cpp \
 CCBReader/CCNode+CCBRelativePositioning.cpp \
+Components/CCComAttribute.cpp \
+Components/CCComAudio.cpp \
+Components/CCComController.cpp \
+Components/CCInputDelegate.cpp \
 GUI/CCControlExtension/CCControl.cpp \
 GUI/CCControlExtension/CCControlButton.cpp \
 GUI/CCControlExtension/CCControlColourPicker.cpp \
@@ -53,11 +57,9 @@ LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
 
-LOCAL_CFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=1
-LOCAL_EXPORT_CFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=1
-
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCBReader \
+                           $(LOCAL_PATH)/Components \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
                            $(LOCAL_PATH)/GUI/CCScrollView \
                            $(LOCAL_PATH)/GUI/CCEditBox \
