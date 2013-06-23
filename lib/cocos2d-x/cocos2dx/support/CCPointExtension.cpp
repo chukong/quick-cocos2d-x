@@ -181,6 +181,13 @@ bool ccpLineIntersect(const CCPoint& A, const CCPoint& B,
     return true;
 }
 
+void ccpLineIntersect(const CCPoint& p1, const CCPoint& p2,
+                             const CCPoint& p3, const CCPoint& p4,
+                             bool *valid, float *s, float *t)
+{
+    *valid = ccpLineIntersect(p1, p2, p3, p4, s, t);
+}
+
 float ccpAngle(const CCPoint& a, const CCPoint& b)
 {
     float angle = acosf(ccpDot(ccpNormalize(a), ccpNormalize(b)));

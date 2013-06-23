@@ -134,13 +134,10 @@ int CCNotificationCenter::removeAllObservers(CCObject *target)
     return toRemove->count();
 }
 
-void CCNotificationCenter::registerScriptObserver( CCObject *target, int handler,const char* name)
+void CCNotificationCenter::registerScriptObserver(int handler,const char* name)
 {
     
-    if (this->observerExisted(target, name))
-        return;
-    
-    CCNotificationObserver *observer = new CCNotificationObserver(target, NULL, name, NULL);
+    CCNotificationObserver *observer = new CCNotificationObserver(NULL, NULL, name, NULL);
     if (!observer)
         return;
     
@@ -149,7 +146,7 @@ void CCNotificationCenter::registerScriptObserver( CCObject *target, int handler
     m_observers->addObject(observer);
 }
 
-void CCNotificationCenter::unregisterScriptObserver(CCObject *target,const char* name)
+void CCNotificationCenter::unregisterScriptObserver(const char* name)
 {        
     CCObject* obj = NULL;
     CCARRAY_FOREACH(m_observers, obj)
@@ -158,7 +155,7 @@ void CCNotificationCenter::unregisterScriptObserver(CCObject *target,const char*
         if (!observer)
             continue;
             
-        if ( !strcmp(observer->getName(),name) && observer->getTarget() == target)
+        if (!strcmp(observer->getName(),name))
         {
             m_observers->removeObject(observer);
         }

@@ -322,6 +322,11 @@ bool CC_DLL ccpLineIntersect(const CCPoint& p1, const CCPoint& p2,
                       const CCPoint& p3, const CCPoint& p4,
                       float *s, float *t);
 
+// for lua
+void CC_DLL ccpLineIntersect(const CCPoint& p1, const CCPoint& p2,
+                      const CCPoint& p3, const CCPoint& p4,
+                      bool *valid = false, float *s = 0, float *t = 0);
+
 /*
 ccpSegmentIntersect returns YES if Segment A-B intersects with segment C-D
 @since v1.0.0

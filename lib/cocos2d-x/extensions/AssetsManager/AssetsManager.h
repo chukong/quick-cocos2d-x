@@ -66,7 +66,7 @@ public:
          */
         kUncompress,
     };
-    
+
     /* @brief Creates a AssetsManager with new package url, version code url and storage path.
      *
      * @param packageUrl URL of new package, the package should be a zip file.
@@ -87,7 +87,7 @@ public:
      *        Ofcourse it will set search path that stores downloaded files.
      */
     virtual void update();
-    
+
     /* @brief Gets url of package.
      */
     const char* getPackageUrl() const;
@@ -126,6 +126,11 @@ public:
     /** @brief Sets delegate, the delegate will receive messages
      */
     void setDelegate(AssetsManagerDelegateProtocol *delegate);
+
+    /** @brief Register script handler, the hander will receive messages
+     */
+    void registerScriptHandler(int handler);
+    void unregisterScriptHandler(void);
     
     /** @brief Sets connection time out in seconds
      */
@@ -191,6 +196,7 @@ private:
     unsigned int _connectionTimeout;
     
     AssetsManagerDelegateProtocol *_delegate; // weak reference
+    int _scriptHandler; // script handler
 };
 
 class AssetsManagerDelegateProtocol

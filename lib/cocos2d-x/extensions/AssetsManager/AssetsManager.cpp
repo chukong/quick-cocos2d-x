@@ -37,6 +37,7 @@
 #endif
 
 #include "support/zip_support/unzip.h"
+#include "script_support/CCScriptSupport.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -81,6 +82,7 @@ AssetsManager::AssetsManager(const char* packageUrl/* =NULL */, const char* vers
 , _tid(NULL)
 , _connectionTimeout(0)
 , _delegate(NULL)
+, _scriptHandler(0)
 {
     checkStoragePath();
     _schedule = new Helper();
@@ -92,6 +94,7 @@ AssetsManager::~AssetsManager()
     {
         _schedule->release();
     }
+    unregisterScriptHandler();
 }
 
 void AssetsManager::checkStoragePath()
@@ -483,6 +486,18 @@ void AssetsManager::setDelegate(AssetsManagerDelegateProtocol *delegate)
     _delegate = delegate;
 }
 
+void AssetsManager::registerScriptHandler(int handler)
+{
+    unregisterScriptHandler();
+    _scriptHandler = handler;
+}
+
+void AssetsManager::unregisterScriptHandler(void)
+{
+    CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(_scriptHandler);
+    _scriptHandler = 0;
+}
+
 void AssetsManager::setConnectionTimeout(unsigned int timeout)
 {
     _connectionTimeout = timeout;
@@ -561,6 +576,10 @@ void AssetsManager::Helper::update(float dt)
             {
                 ((ProgressMessage*)msg->obj)->manager->_delegate->onProgress(((ProgressMessage*)msg->obj)->percent);
             }
+            if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
+            {
+                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, "progress");
+            }
             
             delete (ProgressMessage*)msg->obj;
             
@@ -571,7 +590,31 @@ void AssetsManager::Helper::update(float dt)
             {
                 ((ErrorMessage*)msg->obj)->manager->_delegate->onError(((ErrorMessage*)msg->obj)->code);
             }
-            
+            if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
+            {
+                std::string errorMessage = "errorUnknown";
+                switch ((int)((ErrorMessage*)msg->obj)->code)
+                {
+                    kCreateFile:
+                        errorMessage = "errorCreateFile";
+                        break;
+
+                    kNetwork:
+                        errorMessage = "errorNetwork";
+                        break;
+
+                    kNoNewVersion:
+                        errorMessage = "errorNoNewVersion";
+                        break;
+
+                    kUncompress:
+                        errorMessage = "errorUncompress";
+                        break;
+                }
+
+                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, errorMessage.c_str());
+            }
+
             delete ((ErrorMessage*)msg->obj);
             
             break;
@@ -603,7 +646,17 @@ void AssetsManager::Helper::handleUpdateSucceed(Message *msg)
         CCLOG("can not remove downloaded zip file %s", zipfileName.c_str());
     }
     
-    if (manager) manager->_delegate->onSuccess();
+    if (manager)
+    {
+        if (manager->_delegate)
+        {
+            manager->_delegate->onSuccess();
+        }
+        if (manager->_scriptHandler)
+        {
+            CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(manager->_scriptHandler, "success");
+        }
+    }
 }
 
 NS_CC_EXT_END;

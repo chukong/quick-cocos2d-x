@@ -72,10 +72,10 @@ public:
      *  @note Only supports Lua Binding now.
      *  @param handler The lua handler.
      */
-    void registerScriptObserver(CCObject *target,int handler,const char* name);
+    void registerScriptObserver(int handler,const char* name);
 
     /** Unregisters script observer */
-    void unregisterScriptObserver(CCObject *target,const char* name);
+    void unregisterScriptObserver(const char* name);
     
     /** @brief Posts one notification event by name.
      *  @param name The name of this notification.
