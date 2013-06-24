@@ -183,6 +183,8 @@ display.BOTTOM_LEFT   = 7; display.LEFT_BOTTOM   = 7
 display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
 
+ccp = CCPoint
+
 display.ANCHOR_POINTS = {
     ccp(0.5, 0.5),  -- CENTER
     ccp(0, 1),      -- TOP_LEFT
@@ -407,8 +409,14 @@ CCLayer is a subclass of CCNode. all features from CCNode are valid, plus the fo
 -   CCLayer
 
 ]]
-function display.newLayer()
-    return CCLayerExtend.extend(CCLayer:create())
+function display.newLayer(noRGBA)
+    local layer
+    if noRGBA then
+        layer = CCLayer:create()
+    else
+        layer = CCLayerRGBA:create()
+    end
+    return CCLayerExtend.extend(layer)
 end
 
 --[[--
@@ -448,8 +456,14 @@ Features of CCNode:
 -   CCNode
 
 ]]
-function display.newNode()
-    return CCNodeExtend.extend(CCNode:create())
+function display.newNode(noRGBA)
+    local node
+    if noRGBA then
+        node = CCNode:create()
+    else
+        node = CCNodeRGBA:create()
+    end
+    return CCNodeExtend.extend(node)
 end
 
 --[[--
