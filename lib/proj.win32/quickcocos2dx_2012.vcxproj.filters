@@ -4,9 +4,6 @@
     <Filter Include="cocos2d-x">
       <UniqueIdentifier>{34c4601e-403d-4fee-ab65-30178424db2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cocos2dx_extensions_luabinding">
-      <UniqueIdentifier>{be16ac26-7292-4317-b004-1b700421df89}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocos2dx_extra">
       <UniqueIdentifier>{be3c9499-a709-4fc2-bb32-05bb8fc0b721}</UniqueIdentifier>
     </Filter>
@@ -309,9 +306,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.cpp">
-      <Filter>cocos2dx_extensions_luabinding</Filter>
-    </ClCompile>
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\CCCrypto.cpp">
       <Filter>cocos2dx_extra\extra\crypto</Filter>
     </ClCompile>
@@ -1172,9 +1166,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.h">
-      <Filter>cocos2dx_extensions_luabinding</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2dx_extra\extra\cocos2dx_extra.h">
       <Filter>cocos2dx_extra\extra</Filter>
     </ClInclude>

@@ -208,7 +208,6 @@
     <ClCompile Include="..\cocos2d-x\scripting\lua\tolua\tolua_map.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\tolua\tolua_push.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\tolua\tolua_to.c" />
-    <ClCompile Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.cpp" />
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\base64\libb64.c" />
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\CCCrypto.cpp" />
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\md5\md5.c" />
@@ -666,7 +665,6 @@
     <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lualib.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\tolua\tolua++.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\tolua\tolua_event.h" />
-    <ClInclude Include="..\cocos2dx_extensions_luabinding\cocos2dx_extensions_luabinding.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\cocos2dx_extra.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\crypto\base64\libb64.h" />
     <ClInclude Include="..\cocos2dx_extra\extra\crypto\CCCrypto.h" />
