@@ -11,7 +11,7 @@ CCPhysicsShape *CCPhysicsShape::create(cpShape *shape)
 CCPhysicsShape::~CCPhysicsShape(void)
 {
     cpShapeFree(m_shape);
-    CCLOG("CCPhysicsShape::~CCPhysicsShape(void)");
+//    CCLOG("CCPhysicsShape::~CCPhysicsShape(void)");
 }
 
 cpShape *CCPhysicsShape::getShape(void)

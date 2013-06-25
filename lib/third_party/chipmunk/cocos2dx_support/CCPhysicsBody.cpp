@@ -45,7 +45,7 @@ CCPhysicsBody::~CCPhysicsBody(void)
     removeSelf();
     CC_SAFE_RELEASE(m_shapes);
     CC_SAFE_RELEASE(m_node);
-    CCLOG("CCPhysicsBody::~CCPhysicsBody(void)");
+//    CCLOG("CCPhysicsBody::~CCPhysicsBody(void)");
 }
 
 bool CCPhysicsBody::initWithDefaultStaticBody(void)
