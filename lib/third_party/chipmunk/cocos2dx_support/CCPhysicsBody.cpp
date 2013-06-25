@@ -34,7 +34,6 @@ CCPhysicsBody::CCPhysicsBody(CCPhysicsWorld *world)
 , m_node(NULL)
 , m_tag(0)
 , m_postIsSleeping(false)
-, m_isRemoved(false)
 {
     m_space = m_world->getSpace();
     m_shapes = CCArray::create();
@@ -43,15 +42,10 @@ CCPhysicsBody::CCPhysicsBody(CCPhysicsWorld *world)
 
 CCPhysicsBody::~CCPhysicsBody(void)
 {
-    removeAllShape();
-    if (!cpBodyIsStatic(m_body))
-    {
-        cpSpaceRemoveBody(m_space, m_body);
-        cpBodyFree(m_body);
-    }
+    removeSelf();
     CC_SAFE_RELEASE(m_shapes);
     CC_SAFE_RELEASE(m_node);
-//    CCLOG("CCPhysicsBody::~CCPhysicsBody(void)");
+    CCLOG("CCPhysicsBody::~CCPhysicsBody(void)");
 }
 
 bool CCPhysicsBody::initWithDefaultStaticBody(void)
@@ -69,7 +63,6 @@ bool CCPhysicsBody::initWithStaticBody(void)
 bool CCPhysicsBody::initWithBody(float mass, float moment)
 {
     m_body = cpBodyNew(mass, moment);
-    cpSpaceAddBody(m_space, m_body);
     return true;
 }
 
@@ -96,7 +89,7 @@ bool CCPhysicsBody::isSleeping(void)
 void CCPhysicsBody::activate(void)
 {
     m_postIsSleeping = cpFalse;
-    if (!cpSpaceIsLocked(m_space))
+    if (!m_world->isLocked())
     {
         cpBodyActivate(m_body);
     }
@@ -105,7 +98,7 @@ void CCPhysicsBody::activate(void)
 void CCPhysicsBody::sleep(void)
 {
     m_postIsSleeping = cpTrue;
-    if (!cpSpaceIsLocked(m_space))
+    if (!m_world->isLocked())
     {
         cpBodySleep(m_body);
     }
@@ -288,31 +281,22 @@ void CCPhysicsBody::getPosition(float *x, float *y)
 void CCPhysicsBody::setPosition(float x, float y)
 {
     cpBodySetPos(m_body, cpv(x, y));
-    if (!cpSpaceIsLocked(m_space)) cpSpaceReindexShapesForBody(m_space, m_body);
-    if (m_node)
-    {
-        m_node->setPosition(x, y);
-    }
+    if (!m_world->isLocked()) cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node) m_node->setPosition(x, y);
 }
 
 void CCPhysicsBody::setPosition(const CCPoint &pos)
 {
     cpBodySetPos(m_body, cpv(pos.x, pos.y));
-    if (!cpSpaceIsLocked(m_space)) cpSpaceReindexShapesForBody(m_space, m_body);
-    if (m_node)
-    {
-        m_node->setPosition(pos);
-    }
+    if (!m_world->isLocked()) cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node) m_node->setPosition(pos);
 }
 
 void CCPhysicsBody::setPosition(CCPhysicsVector *pos)
 {
     cpBodySetPos(m_body, pos->getVector());
-    if (!cpSpaceIsLocked(m_space)) cpSpaceReindexShapesForBody(m_space, m_body);
-    if (m_node)
-    {
-        m_node->setPosition(pos->getValue());
-    }
+    if (!m_world->isLocked()) cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node) m_node->setPosition(pos->getValue());
 }
 
 float CCPhysicsBody::getAngle(void)
@@ -323,10 +307,7 @@ float CCPhysicsBody::getAngle(void)
 void CCPhysicsBody::setAngle(float angle)
 {
     cpBodySetAngle(m_body, angle);
-    if (m_node)
-    {
-        m_node->setRotation(CC_RADIANS_TO_DEGREES(angle));
-    }
+    if (m_node) m_node->setRotation(CC_RADIANS_TO_DEGREES(angle));
 }
 
 float CCPhysicsBody::getRotation(void)
@@ -337,10 +318,7 @@ float CCPhysicsBody::getRotation(void)
 void CCPhysicsBody::setRotation(float rotation)
 {
     cpBodySetAngle(m_body, -CC_DEGREES_TO_RADIANS(rotation));
-    if (m_node)
-    {
-        m_node->setRotation(rotation);
-    }
+    if (m_node) m_node->setRotation(rotation);
 }
 
 float CCPhysicsBody::getElasticity(void)
@@ -523,26 +501,16 @@ void CCPhysicsBody::removeAllShape(void)
 	m_shapes->removeAllObjects();
 }
 
-void CCPhysicsBody::removeSelf(bool unbind/*= true*/)
+void CCPhysicsBody::removeSelf(bool unbindNow/*= true*/)
 {
-	if (unbind) this->unbind();
+	if (unbindNow) unbind();
     removeAllShape();
 	m_world->removeBody(this);
 }
 
-bool CCPhysicsBody::isMarkRemoved(void)
-{
-    return m_isRemoved;
-}
-
-void CCPhysicsBody::markRemoved(void)
-{
-    m_isRemoved = true;
-}
-
 void CCPhysicsBody::update(float dt)
 {
-    if (!m_node || m_isRemoved) return;
+    if (!m_node) return;
     m_node->setPosition(getPosition());
     m_node->setRotation(getRotation());
 
@@ -561,8 +529,8 @@ void CCPhysicsBody::update(float dt)
 
 CCPhysicsShape *CCPhysicsBody::addShape(cpShape *shape)
 {
-    cpSpaceAddShape(m_space, shape);
     CCPhysicsShape *shapeObject = CCPhysicsShape::create(shape);
+    m_world->addShape(shapeObject);
     m_shapes->addObject(shapeObject);
     return shapeObject;
 }

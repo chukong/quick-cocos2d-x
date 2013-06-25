@@ -38,6 +38,8 @@ public:
     
     float getDamping(void);
     void setDamping(float damping);
+
+    bool isLocked(void);
     
     // body management
     CCPhysicsBody *createCircleBody(float mass, float radius, float offsetX = 0, float offsetY = 0);
@@ -51,9 +53,9 @@ public:
     
     void addBody(CCPhysicsBody *body);
     CCPhysicsBody *getBodyByTag(int tag);
-    void removeBodyByTag(int tag, bool unbind = true);
-    void removeBody(CCPhysicsBody *body, bool unbind = true);
-    void removeAllBodies(bool unbind = true);
+    void removeBodyByTag(int tag, bool unbindNow = true);
+    void removeBody(CCPhysicsBody *body, bool unbindNow = true);
+    void removeAllBodies(bool unbindNow = true);
     
     CCPhysicsBody *getBodyByCpBody(cpBody *cpBody);
     
@@ -80,6 +82,8 @@ private:
     , m_defaultStaticBody(NULL)
     , m_removedBodies(NULL)
     , m_removedShapes(NULL)
+    , m_addedBodies(NULL)
+    , m_addedShapes(NULL)
     , m_listeners(NULL)
     {
     }
@@ -91,12 +95,15 @@ private:
     CCPhysicsBodyMap m_bodies;
     CCArray *m_removedBodies;
     CCArray *m_removedShapes;
+    CCArray *m_addedBodies;
+    CCArray *m_addedShapes;
     CCArray *m_listeners;
     
     static const char *POST_STEP_CALLBACK_KEY;
 
     // helper
     friend class CCPhysicsBody;
+    void addShape(CCPhysicsShape *shape);
     void removeShape(CCPhysicsShape *shape);
     
     // callbacks

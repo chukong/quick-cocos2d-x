@@ -11,7 +11,7 @@ CCPhysicsShape *CCPhysicsShape::create(cpShape *shape)
 CCPhysicsShape::~CCPhysicsShape(void)
 {
     cpShapeFree(m_shape);
-//    CCLOG("CCPhysicsShape::~CCPhysicsShape(void)");
+    CCLOG("CCPhysicsShape::~CCPhysicsShape(void)");
 }
 
 cpShape *CCPhysicsShape::getShape(void)
@@ -39,11 +39,13 @@ void CCPhysicsShape::setFriction(float friction)
     cpShapeSetFriction(m_shape, friction);
 }
 
-bool CCPhysicsShape::isSensor(void) {
+bool CCPhysicsShape::isSensor(void)
+{
     return cpShapeGetSensor(m_shape);
 }
 
-void CCPhysicsShape::setIsSensor(bool isSensor) {
+void CCPhysicsShape::setIsSensor(bool isSensor)
+{
     cpShapeSetSensor(m_shape, isSensor);
 }
 
@@ -75,14 +77,4 @@ int CCPhysicsShape::getCollisionLayers(void)
 void CCPhysicsShape::setCollisionLayers(int layers)
 {
     cpShapeSetLayers(m_shape, (cpLayers)layers);
-}
-
-bool CCPhysicsShape::isMarkRemoved(void)
-{
-	return m_isRemoved;
-}
-
-void CCPhysicsShape::markRemoved(void)
-{
-	m_isRemoved = true;
 }

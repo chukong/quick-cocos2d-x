@@ -124,10 +124,7 @@ public:
     void removeAllShape(void);
     
 	// cleanup
-	void removeSelf(bool unbind = true);
-    
-    bool isMarkRemoved(void);
-    void markRemoved(void);
+	void removeSelf(bool unbindNow = true);
     
     // delegate
     virtual void update(float dt);
@@ -147,7 +144,6 @@ private:
     string m_name;
     
     cpBool m_postIsSleeping;
-    bool m_isRemoved;
 
     // helper
     CCPhysicsShape *addShape(cpShape *shape);

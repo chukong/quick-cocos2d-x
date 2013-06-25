@@ -33,18 +33,13 @@ public:
     int getCollisionLayers(void);
     void setCollisionLayers(int layers);
 
-	bool isMarkRemoved(void);
-	void markRemoved(void);
-
 private:
     CCPhysicsShape(cpShape *shape)
     : m_shape(shape)
-	, m_isRemoved(false)
     {
     }
 
     cpShape *m_shape;
-	bool m_isRemoved;
 };
 
 #endif // __CCPHYSICS_SHAPE_H_
