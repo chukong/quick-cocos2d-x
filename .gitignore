@@ -9,6 +9,8 @@
 *.so
 *.o
 
+debug.log
+
 player/proj.win32/Debug
 project.xcworkspace/
 xcuserdata/
