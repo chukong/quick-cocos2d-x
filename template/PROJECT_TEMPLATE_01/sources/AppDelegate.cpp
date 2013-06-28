@@ -8,14 +8,10 @@
 
 // lua extensions
 #include "lua_extensions.h"
-// cocos2dx_extensions luabinding
-#include "cocos2dx_extensions_luabinding.h"
 // cocos2dx_extra luabinding
-#include "cocos2dx_extra_luabinding.h"
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "cocos2dx_extra_ios_iap_luabinding.h"
-#endif
-// third_party
+#include "luabinding/cocos2dx_extra_luabinding.h"
+
+// thrid_party
 #include "third_party_luabinding.h"
 
 using namespace std;
@@ -53,14 +49,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // load lua extensions
     luaopen_lua_extensions(L);
-    // load cocos2dx_extensions luabinding
-    luaopen_cocos2dx_extensions_luabinding(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    luaopen_cocos2dx_extra_ios_iap_luabinding(L);
-#endif
-    // third party
+
+    // thrid_party
     luaopen_third_party_luabinding(L);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -68,13 +60,12 @@ bool AppDelegate::applicationDidFinishLaunching()
 #else
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
 #endif
-    size_t p;
-    while ((p = path.find_first_of("\\")) != std::string::npos)
+    int pos;
+    while ((pos = path.find_first_of("\\")) != std::string::npos)
     {
-        path.replace(p, 1, "/");
+        path.replace(pos, 1, "/");
     }
-
-    p = path.find_last_of("/\\");
+    size_t p = path.find_last_of("/\\");
     if (p != path.npos)
     {
         const string dir = path.substr(0, p);

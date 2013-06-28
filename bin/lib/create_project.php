@@ -257,7 +257,12 @@ options:
     -t template path, eg: -t /quick-cocos2d-x/template/PROJECT_TEMPLATE_01
     -noproj skip create projects
 
-    package name, eg: -p com.quickx.games.physics
+    package name, eg: com.quickx.games.physics
+
+examples:
+
+    create_project com.quickx.game.physics
+
 
 
 EOT;
