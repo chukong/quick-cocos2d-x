@@ -128,7 +128,6 @@
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 		F4E0D439175CEBBC00CAB1BB /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E0D438175CEBBC00CAB1BB /* libluajit.a */; };
-		F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */; };
 		F4E882A6177015C400577406 /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E88184177015C300577406 /* CCAction.cpp */; };
 		F4E882A7177015C400577406 /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E88186177015C300577406 /* CCActionCamera.cpp */; };
 		F4E882A8177015C400577406 /* CCActionCatmullRom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E88188177015C300577406 /* CCActionCatmullRom.cpp */; };
@@ -607,8 +606,6 @@
 		F4E0D435175CEBBC00CAB1BB /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
 		F4E0D436175CEBBC00CAB1BB /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F4E0D438175CEBBC00CAB1BB /* libluajit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit.a; sourceTree = "<group>"; };
-		F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
-		F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F4E88184177015C300577406 /* CCAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAction.cpp; sourceTree = "<group>"; };
 		F4E88185177015C300577406 /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		F4E88186177015C300577406 /* CCActionCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionCamera.cpp; sourceTree = "<group>"; };
@@ -1668,7 +1665,6 @@
 			isa = PBXGroup;
 			children = (
 				F45A2BC0166B151300760194 /* cocos2d-x */,
-				F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */,
 				F40AFDDA16BD15C600565A5E /* cocos2dx_extra */,
 				F40AFE8216BD160200565A5E /* lua_extensions */,
 				F4D7524F173886C20094A93B /* third_party */,
@@ -1882,15 +1878,6 @@
 				F4E0D438175CEBBC00CAB1BB /* libluajit.a */,
 			);
 			path = ios;
-			sourceTree = "<group>";
-		};
-		F4E50FDB16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding */ = {
-			isa = PBXGroup;
-			children = (
-				F4E50FDD16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp */,
-				F4E50FDE16CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.h */,
-			);
-			path = cocos2dx_extensions_luabinding;
 			sourceTree = "<group>";
 		};
 		F4E88183177015C300577406 /* actions */ = {
@@ -2707,7 +2694,6 @@
 				F45FF34516C7D24200275222 /* lua_extensions.c in Sources */,
 				F4037FB516CA2BA10004E298 /* CCNetworkIOSMac.mm in Sources */,
 				F4037FB616CA2BA10004E298 /* ReachabilityIOSMac.m in Sources */,
-				F4E50FE016CF7AB200AA7E90 /* cocos2dx_extensions_luabinding.cpp in Sources */,
 				F4FBA51B16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp in Sources */,
 				F4FBA52616D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp in Sources */,
 				F4FBA52716D8C96600CD8EC1 /* CCStoreProduct.cpp in Sources */,

@@ -273,6 +273,26 @@ bool CCFileUtilsIOS::isFileExist(const std::string& strFilePath)
     return bRet;
 }
 
+bool CCFileUtilsIOS::isDirectoryExist(const std::string& strDirPath)
+{
+    if (0 == strDirPath.length())
+    {
+        return false;
+    }
+
+    bool bRet = false;
+
+    if (strDirPath[0] == '/')
+    {
+        BOOL isDirectory = NO;
+        if ([s_fileManager fileExistsAtPath:[NSString stringWithUTF8String:strDirPath.c_str()] isDirectory:&isDirectory]) {
+            bRet = isDirectory == YES;
+        }
+    }
+
+    return bRet;
+}
+
 std::string CCFileUtilsIOS::getFullPathForDirectoryAndFilename(const std::string& strDirectory, const std::string& strFilename)
 {
     if (strDirectory[0] != '/')

@@ -45,6 +45,7 @@ public:
     /* override funtions */
     virtual std::string getWritablePath();
     virtual bool isFileExist(const std::string& strFilePath);
+    virtual bool isDirectoryExist(const std::string& strDirPath);
     virtual bool isAbsolutePath(const std::string& strPath);
     virtual std::string getFullPathForDirectoryAndFilename(const std::string& strDirectory, const std::string& strFilename);
 
