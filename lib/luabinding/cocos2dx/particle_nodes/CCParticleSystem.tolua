@@ -101,8 +101,8 @@ emitter.startSpin = 0;
 class CCParticleSystem : public CCNode
 {
     // mode A
-    const CCPoint& getGravity();
-    void setGravity(const CCPoint& g);
+    CCPoint getGravity();
+    void setGravity(CCPoint g);
     float getSpeed();
     void setSpeed(float speed);
     float getSpeedVar();
@@ -155,20 +155,20 @@ class CCParticleSystem : public CCNode
     void setEndSizeVar(float v);
 
     /** start color of each particle */
-    ccColor4F& getStartColor();
-    void setStartColor(ccColor4F& color);
+    ccColor4F getStartColor();
+    void setStartColor(ccColor4F color);
 
     /** start color variance of each particle */
-    ccColor4F& getStartColorVar();
-    void setStartColorVar(ccColor4F& color);
+    ccColor4F getStartColorVar();
+    void setStartColorVar(ccColor4F color);
 
     /** end color and end color variation of each particle */
-    ccColor4F& getEndColor();
-    void setEndColor(ccColor4F& color);
+    ccColor4F getEndColor();
+    void setEndColor(ccColor4F color);
 
     /** end color variance of each particle */
-    ccColor4F& getEndColorVar();
-    void setEndColorVar(ccColor4F& color);
+    ccColor4F getEndColorVar();
+    void setEndColorVar(ccColor4F color);
 
     //* initial angle of each particle
     float getStartSpin();

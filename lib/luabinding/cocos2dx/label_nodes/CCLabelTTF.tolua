@@ -51,14 +51,14 @@ class CCLabelTTF : public CCSprite
      @since v2.0.1
      */
     static CCLabelTTF * create(const char *text, const char *fontName, float fontSize,
-                               CCSize& dimensions, CCTextAlignment hAlignment,
+                               CCSize dimensions, CCTextAlignment hAlignment,
                                CCVerticalTextAlignment vAlignment);
 
     /** creates a CCLabelTTF from a fontname, horizontal alignment, dimension in points,  and font size in points.
      @since v2.0.1
      */
     static CCLabelTTF * create(const char *text, const char *fontName, float fontSize,
-                               CCSize& dimensions, CCTextAlignment hAlignment);
+                               CCSize dimensions, CCTextAlignment hAlignment);
 
     /** creates a CCLabelTTF with a font name and font size in points
      @since v2.0.1
@@ -70,19 +70,19 @@ class CCLabelTTF : public CCSprite
     static CCLabelTTF * create();
 
     /** enable or disable shadow for the label */
-    void enableShadow(CCSize &shadowOffset, float shadowOpacity, float shadowBlur, bool mustUpdateTexture = true);
+    void enableShadow(CCSize shadowOffset, float shadowOpacity, float shadowBlur, bool mustUpdateTexture = true);
 
     /** disable shadow rendering */
     void disableShadow(bool mustUpdateTexture = true);
 
     /** enable or disable stroke */
-    void enableStroke(ccColor3B &strokeColor, float strokeSize, bool mustUpdateTexture = true);
+    void enableStroke(ccColor3B strokeColor, float strokeSize, bool mustUpdateTexture = true);
 
     /** disable stroke */
     void disableStroke(bool mustUpdateTexture = true);
 
     /** set text tinting */
-    void setFontFillColor(ccColor3B &tintColor, bool mustUpdateTexture = true);
+    void setFontFillColor(ccColor3B tintColor, bool mustUpdateTexture = true);
 
     /** changes the string to render
     * @warning Changing the string is as expensive as creating a new CCLabelTTF. To obtain better performance use CCLabelAtlas
@@ -97,7 +97,7 @@ class CCLabelTTF : public CCSprite
     void setVerticalAlignment(CCVerticalTextAlignment verticalAlignment);
 
     CCSize getDimensions();
-    void setDimensions(CCSize &dim);
+    void setDimensions(CCSize dim);
 
     float getFontSize();
     void setFontSize(float fontSize);

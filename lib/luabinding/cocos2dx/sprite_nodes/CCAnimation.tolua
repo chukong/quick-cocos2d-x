@@ -88,7 +88,7 @@ class CCAnimation : public CCObject
      The frame will be added with one "delay unit".
      Added to facilitate the migration from v0.8 to v0.9.
      */
-    void addSpriteFrameWithTexture(CCTexture2D* pobTexture, const CCRect& rect);
+    void addSpriteFrameWithTexture(CCTexture2D* pobTexture, CCRect rect);
 
 
     /** total Delay units of the CCAnimation. */

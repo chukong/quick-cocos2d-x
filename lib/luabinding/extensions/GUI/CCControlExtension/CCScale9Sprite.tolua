@@ -74,7 +74,7 @@ class CCScale9Sprite : public CCNodeRGBA
     float getInsetBottom();
     void setInsetBottom(float v);
 
-    void setContentSize(const CCSize & size);
+    void setContentSize(CCSize size);
 
     /**
      * Creates a 9-slice sprite with a texture file, a delimitation zone and
@@ -175,8 +175,8 @@ class CCScale9Sprite : public CCNodeRGBA
     bool isOpacityModifyRGB(void);
     void setOpacity(GLubyte opacity);
 	GLubyte getOpacity();
-    void setColor(ccColor3B& color);
-	ccColor3B& getColor();
+    void setColor(ccColor3B color);
+	ccColor3B getColor();
 
     void setSpriteFrame(CCSpriteFrame * spriteFrame);
 };

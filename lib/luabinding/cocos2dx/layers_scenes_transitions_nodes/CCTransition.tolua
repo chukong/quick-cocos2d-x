@@ -220,8 +220,8 @@ class CCTransitionFade : public CCTransitionScene
     /** creates the transition with a duration and with an RGB color
     * Example: FadeTransition::create(2, scene, ccc3(255,0,0); // red color
     */
-    static CCTransitionFade* create(float duration,CCScene* scene, ccColor3B& color);
-    static CCTransitionFade* create(float duration,CCScene* scene);
+    static CCTransitionFade* create(float duration, CCScene* scene, ccColor3B color);
+    static CCTransitionFade* create(float duration, CCScene* scene);
 };
 
 /**

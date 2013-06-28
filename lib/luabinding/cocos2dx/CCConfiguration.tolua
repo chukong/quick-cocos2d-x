@@ -73,7 +73,7 @@ class CCConfiguration : public CCObject
     bool supportsShareableVAO(void);
 
     /** returns whether or not an OpenGL is supported */
-    bool checkForGLExtension(std::string &searchName);
+    bool checkForGLExtension(const char *searchName);
 
     // ----------------------------------------
 

@@ -33,10 +33,10 @@ class CCPointArray : public CCObject
     void add(CCPoint point);
 
     /** inserts a point at index */
-    void insert(CCPoint &point, unsigned int index);
+    void insert(CCPoint point, unsigned int index);
 
     /** replaces an existing point at index */
-    void replace(CCPoint &point, unsigned int index);
+    void replace(CCPoint point, unsigned int index);
 
     /** get the value of a point at a given index */
     CCPoint get(unsigned int index);

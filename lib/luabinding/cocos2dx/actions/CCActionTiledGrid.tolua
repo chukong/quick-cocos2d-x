@@ -32,14 +32,14 @@ THE SOFTWARE.
 class CCShakyTiles3D : public CCTiledGrid3DAction
 {
     /** creates the action with a range, whether or not to shake Z vertices, a grid size, and duration */
-    static CCShakyTiles3D* create(float duration, const CCSize& gridSize, int nRange, bool bShakeZ);
+    static CCShakyTiles3D* create(float duration, CCSize gridSize, int nRange, bool bShakeZ);
 };
 
 /** @brief CCShatteredTiles3D action */
 class CCShatteredTiles3D : public CCTiledGrid3DAction
 {
     /** creates the action with a range, whether of not to shatter Z vertices, a grid size and duration */
-    static CCShatteredTiles3D* create(float duration, const CCSize& gridSize, int nRange, bool bShatterZ);
+    static CCShatteredTiles3D* create(float duration, CCSize gridSize, int nRange, bool bShatterZ);
 };
 
 /** @brief CCShuffleTiles action
@@ -48,7 +48,7 @@ class CCShatteredTiles3D : public CCTiledGrid3DAction
 class CCShuffleTiles : public CCTiledGrid3DAction
 {
     /** creates the action with a random seed, the grid size and the duration */
-    static CCShuffleTiles* create(float duration, const CCSize& gridSize, unsigned int seed);
+    static CCShuffleTiles* create(float duration, CCSize gridSize, unsigned int seed);
 };
 
 /** @brief CCFadeOutTRTiles action
@@ -57,7 +57,7 @@ class CCShuffleTiles : public CCTiledGrid3DAction
 class CCFadeOutTRTiles : public CCTiledGrid3DAction
 {
     /** creates the action with the grid size and the duration */
-    static CCFadeOutTRTiles* create(float duration, const CCSize& gridSize);
+    static CCFadeOutTRTiles* create(float duration, CCSize gridSize);
 };
 
 /** @brief CCFadeOutBLTiles action.
@@ -66,7 +66,7 @@ class CCFadeOutTRTiles : public CCTiledGrid3DAction
 class CCFadeOutBLTiles : public CCFadeOutTRTiles
 {
     /** creates the action with the grid size and the duration */
-    static CCFadeOutBLTiles* create(float duration, const CCSize& gridSize);
+    static CCFadeOutBLTiles* create(float duration, CCSize gridSize);
 };
 
 /** @brief CCFadeOutUpTiles action.
@@ -75,7 +75,7 @@ class CCFadeOutBLTiles : public CCFadeOutTRTiles
 class CCFadeOutUpTiles : public CCFadeOutTRTiles
 {
     /** creates the action with the grid size and the duration */
-    static CCFadeOutUpTiles* create(float duration, const CCSize& gridSize);
+    static CCFadeOutUpTiles* create(float duration, CCSize gridSize);
 };
 
 /** @brief CCFadeOutDownTiles action.
@@ -84,7 +84,7 @@ class CCFadeOutUpTiles : public CCFadeOutTRTiles
 class CCFadeOutDownTiles : public CCFadeOutUpTiles
 {
     /** creates the action with the grid size and the duration */
-    static CCFadeOutDownTiles* create(float duration, const CCSize& gridSize);
+    static CCFadeOutDownTiles* create(float duration, CCSize gridSize);
 };
 
 /** @brief CCTurnOffTiles action.
@@ -93,16 +93,16 @@ class CCFadeOutDownTiles : public CCFadeOutUpTiles
 class CCTurnOffTiles : public CCTiledGrid3DAction
 {
     /** creates the action with a random seed, the grid size and the duration */
-    static CCTurnOffTiles* create(float duration, const CCSize& gridSize, unsigned int seed);
+    static CCTurnOffTiles* create(float duration, CCSize gridSize, unsigned int seed);
     /** creates the action with the grid size and the duration */
-    static CCTurnOffTiles* create(float duration, const CCSize& gridSize);
+    static CCTurnOffTiles* create(float duration, CCSize gridSize);
 };
 
 /** @brief CCWavesTiles3D action. */
 class CCWavesTiles3D : public CCTiledGrid3DAction
 {
     /** creates the action with a number of waves, the waves amplitude, the grid size and the duration */
-    static CCWavesTiles3D* create(float duration, const CCSize& gridSize, unsigned int waves, float amplitude);
+    static CCWavesTiles3D* create(float duration, CCSize gridSize, unsigned int waves, float amplitude);
 };
 
 /** @brief CCJumpTiles3D action.
@@ -111,7 +111,7 @@ class CCWavesTiles3D : public CCTiledGrid3DAction
 class CCJumpTiles3D : public CCTiledGrid3DAction
 {
     /** creates the action with the number of jumps, the sin amplitude, the grid size and the duration */
-    static CCJumpTiles3D* create(float duration, const CCSize& gridSize, unsigned int numberOfJumps, float amplitude);
+    static CCJumpTiles3D* create(float duration, CCSize gridSize, unsigned int numberOfJumps, float amplitude);
 };
 
 /** @brief CCSplitRows action */

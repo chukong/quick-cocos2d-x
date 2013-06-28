@@ -25,10 +25,10 @@ THE SOFTWARE.
 class CCComponent : public CCObject
 {
     static CCComponent* create(void);
-    virtual bool isEnabled() const;
+    virtual bool isEnabled();
     virtual void setEnabled(bool b);
 
-    const char* getName() const;
+    const char* getName();
     void setOwner(CCNode *pOwner);
-    CCNode* getOwner() const;
+    CCNode* getOwner();
 };

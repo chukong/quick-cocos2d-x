@@ -65,7 +65,7 @@ class CCSprite : public CCNodeRGBA
      * @param   rect        Only the contents inside rect of pszFileName's texture will be applied for this sprite.
      * @return  A valid sprite object that is marked as autoreleased.
      */
-    static CCSprite* create(const char *pszFileName, CCRect& rect);
+    static CCSprite* create(const char *pszFileName, CCRect rect);
 
     /**
      * Creates a sprite with an image filename.
@@ -95,7 +95,7 @@ class CCSprite : public CCNodeRGBA
      * @param   rect        Only the contents inside the rect of this texture will be applied for this sprite.
      * @return  A valid sprite object that is marked as autoreleased.
      */
-    static CCSprite* createWithTexture(CCTexture2D *pTexture, CCRect& rect);
+    static CCSprite* createWithTexture(CCTexture2D *pTexture, CCRect rect);
 
     /**
      * Creates a sprite with an exsiting texture contained in a CCTexture2D object
@@ -144,13 +144,13 @@ class CCSprite : public CCNodeRGBA
      * Sets the texture rect, rectRotated and untrimmed size of the CCSprite in points.
      * It will update the texture coordinates and the vertex rectangle.
      */
-    void setTextureRect(CCRect& rect, bool rotated, CCSize& untrimmedSize);
+    void setTextureRect(CCRect rect, bool rotated, CCSize untrimmedSize);
 
     /**
      * Updates the texture rect of the CCSprite in points.
      * It will call setTextureRect:rotated:untrimmedSize with rotated = NO, and utrimmedSize = rect.size.
      */
-    void setTextureRect(CCRect& rect);
+    void setTextureRect(CCRect rect);
 
     /**
      * Sets the vertex rect.
@@ -158,7 +158,7 @@ class CCSprite : public CCNodeRGBA
      * Useful if you want to create 2x images from SD images in Retina Display.
      * Do not call it manually. Use setTextureRect instead.
      */
-    void setVertexRect(CCRect& rect);
+    void setVertexRect(CCRect rect);
 
     /// @} end of texture methods
 
@@ -223,12 +223,12 @@ class CCSprite : public CCNodeRGBA
     /**
      * Returns the rect of the CCSprite in points
      */
-    CCRect& getTextureRect(void);
+    CCRect getTextureRect(void);
 
     /**
      * Gets the offset position of the sprite. Calculated automatically by editors like Zwoptex.
      */
-    CCPoint& getOffsetPosition(void);
+    CCPoint getOffsetPosition(void);
 
     /**
      * Returns the flag which indicates whether the sprite is flipped horizontally or not.

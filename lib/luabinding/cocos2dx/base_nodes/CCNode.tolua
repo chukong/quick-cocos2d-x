@@ -217,7 +217,7 @@ class CCNode : public CCObject
      * @param y     Y coordinate for position
      */
     void setPosition(float x, float y);
-    void setPosition(CCPoint& point);
+    void setPosition(CCPoint point);
 
     /**
      * Gets position in a more efficient way, returns two number instead of a CCPoint object
@@ -287,7 +287,7 @@ class CCNode : public CCObject
      *
      * @param anchorPoint   The anchor point of node.
      */
-    void setAnchorPoint(CCPoint& anchorPoint);
+    void setAnchorPoint(CCPoint anchorPoint);
     /**
      * Returns the anchor point in percent.
      *
@@ -295,7 +295,7 @@ class CCNode : public CCObject
      *
      * @return The anchor point of node.
      */
-    CCPoint& getAnchorPoint();
+    CCPoint getAnchorPoint();
     /**
      * Returns the anchorPoint in absolute pixels.
      *
@@ -304,7 +304,7 @@ class CCNode : public CCObject
      *
      * @return The anchor point in absolute pixels.
      */
-    CCPoint& getAnchorPointInPoints();
+    CCPoint getAnchorPointInPoints();
 
 
     /**
@@ -315,7 +315,7 @@ class CCNode : public CCObject
      *
      * @param contentSize   The untransformed size of the node.
      */
-    void setContentSize(CCSize& contentSize);
+    void setContentSize(CCSize contentSize);
     /**
      * Returns the untransformed size of the node.
      *
@@ -323,7 +323,7 @@ class CCNode : public CCObject
      *
      * @return The untransformed size of the node.
      */
-    CCSize& getContentSize();
+    CCSize getContentSize();
 
 
     /**
@@ -830,24 +830,24 @@ class CCNode : public CCObject
     /**
      * Converts a Point to node (local) space coordinates. The result is in Points.
      */
-    CCPoint convertToNodeSpace(CCPoint& worldPoint);
+    CCPoint convertToNodeSpace(CCPoint worldPoint);
 
     /**
      * Converts a Point to world space coordinates. The result is in Points.
      */
-    CCPoint convertToWorldSpace(CCPoint& nodePoint);
+    CCPoint convertToWorldSpace(CCPoint nodePoint);
 
     /**
      * Converts a Point to node (local) space coordinates. The result is in Points.
      * treating the returned/received node point as anchor relative.
      */
-    CCPoint convertToNodeSpaceAR(CCPoint& worldPoint);
+    CCPoint convertToNodeSpaceAR(CCPoint worldPoint);
 
     /**
      * Converts a local Point to world space coordinates.The result is in Points.
      * treating the returned/received node point as anchor relative.
      */
-    CCPoint convertToWorldSpaceAR(CCPoint& nodePoint);
+    CCPoint convertToWorldSpaceAR(CCPoint nodePoint);
 
     /**
      * convenience methods which take a CCTouch instead of CCPoint
@@ -884,10 +884,10 @@ class CCNodeRGBA : public CCNode
     bool isCascadeOpacityEnabled();
     void setCascadeOpacityEnabled(bool cascadeOpacityEnabled);
 
-    ccColor3B& getColor(void);
-    ccColor3B& getDisplayedColor();
-    void setColor(ccColor3B& color);
-    void updateDisplayedColor(ccColor3B& parentColor);
+    ccColor3B getColor(void);
+    ccColor3B getDisplayedColor();
+    void setColor(ccColor3B color);
+    void updateDisplayedColor(ccColor3B parentColor);
     bool isCascadeColorEnabled();
     void setCascadeColorEnabled(bool cascadeColorEnabled);
 

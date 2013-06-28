@@ -182,7 +182,7 @@ class CCFileUtils
      *  @param strFilePath The path of the file, it could be a relative or absolute path.
      *  @return true if the file exists, otherwise it will return false.
      */
-    bool isFileExist(std::string& strFilePath);
+    bool isFileExist(const char *strFilePath);
 
     /**
      *  Checks whether the path is an absolute path.
@@ -193,7 +193,7 @@ class CCFileUtils
      *  @param strPath The path that needs to be checked.
      *  @return true if it's an absolute path, otherwise it will return false.
      */
-    bool isAbsolutePath(std::string& strPath);
+    bool isAbsolutePath(const char *strPath);
 
 
     /**

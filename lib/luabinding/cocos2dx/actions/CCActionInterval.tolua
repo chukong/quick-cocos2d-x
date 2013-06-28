@@ -119,7 +119,7 @@ class CCRotateBy : public CCActionInterval
 class CCMoveBy : public CCActionInterval
 {
     /** creates the action */
-    static CCMoveBy* create(float duration, const CCPoint& deltaPosition);
+    static CCMoveBy* create(float duration, CCPoint deltaPosition);
 };
 
 /** Moves a CCNode object to the position x,y. x and y are absolute coordinates by modifying it's position attribute.
@@ -130,7 +130,7 @@ class CCMoveBy : public CCActionInterval
 class CCMoveTo : public CCMoveBy
 {
     /** creates the action */
-    static CCMoveTo* create(float duration, const CCPoint& position);
+    static CCMoveTo* create(float duration, CCPoint position);
 };
 
 /** Skews a CCNode object to given angles by modifying it's skewX and skewY attributes
@@ -156,7 +156,7 @@ class CCSkewBy : public CCSkewTo
 class CCJumpBy : public CCActionInterval
 {
     /** creates the action */
-    static CCJumpBy* create(float duration, const CCPoint& position, float height, unsigned int jumps);
+    static CCJumpBy* create(float duration, CCPoint position, float height, unsigned int jumps);
 };
 
 /** @brief Moves a CCNode object to a parabolic position simulating a jump movement by modifying it's position attribute.
@@ -164,7 +164,7 @@ class CCJumpBy : public CCActionInterval
 class CCJumpTo : public CCJumpBy
 {
     /** creates the action */
-    static CCJumpTo* create(float duration, const CCPoint& position, float height, int jumps);
+    static CCJumpTo* create(float duration, CCPoint position, float height, int jumps);
 };
 
 /** @typedef bezier configuration structure
@@ -186,7 +186,7 @@ class ccBezierConfig
 class CCBezierBy : public CCActionInterval
 {
     /** creates the action with a duration and a bezier configuration */
-    static CCBezierBy* create(float t, const ccBezierConfig& c);
+    static CCBezierBy* create(float t, ccBezierConfig c);
 };
 
 /** @brief An action that moves the target with a cubic Bezier curve to a destination point.
@@ -195,7 +195,7 @@ class CCBezierBy : public CCActionInterval
 class CCBezierTo : public CCBezierBy
 {
     /** creates the action with a duration and a bezier configuration */
-    static CCBezierTo* create(float t, const ccBezierConfig& c);
+    static CCBezierTo* create(float t, ccBezierConfig c);
 };
 
 /** @brief Scales a CCNode object to a zoom factor by modifying it's scale attribute.

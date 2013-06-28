@@ -96,7 +96,7 @@ class CCFlipY : public CCActionInstant
 class CCPlace : public CCActionInstant //<NSCopying>
 {
     /** creates a Place action with a position */
-    static CCPlace * create(const CCPoint& pos);
+    static CCPlace * create(CCPoint pos);
 };
 
 /** @brief Calls a 'callback'

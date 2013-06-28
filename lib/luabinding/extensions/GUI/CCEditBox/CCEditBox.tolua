@@ -126,7 +126,7 @@ class CCEditBox : public CCControlButton
      * create a edit box with size.
      * @return An autorelease pointer of CCEditBox, you don't need to release it only if you retain it again.
      */
-    static CCEditBox* create(const CCSize& size, CCScale9Sprite* pNormal9SpriteBg, CCScale9Sprite* pPressed9SpriteBg = NULL, CCScale9Sprite* pDisabled9SpriteBg = NULL);
+    static CCEditBox* create(CCSize size, CCScale9Sprite* pNormal9SpriteBg, CCScale9Sprite* pPressed9SpriteBg = NULL, CCScale9Sprite* pDisabled9SpriteBg = NULL);
 
     /**
      * Registers a script function that will be called for EditBox events.
@@ -193,7 +193,7 @@ class CCEditBox : public CCControlButton
     /**
      * Set the font color of the widget's text.
      */
-    void setFontColor(const ccColor3B& color);
+    void setFontColor(ccColor3B color);
 
 	/**
 	 * Set the placeholder's font.
@@ -218,7 +218,7 @@ class CCEditBox : public CCControlButton
      * Set the font color of the placeholder text when the edit box is empty.
      * Not supported on IOS.
      */
-    void setPlaceholderFontColor(const ccColor3B& color);
+    void setPlaceholderFontColor(ccColor3B color);
 
     /**
      * Set a text in the edit box that acts as a placeholder when an

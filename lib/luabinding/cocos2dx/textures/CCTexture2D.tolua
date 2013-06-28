@@ -179,7 +179,7 @@ class CCTexture2D : public CCObject
     static void PVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied);
 
     /** content size */
-    CCSize& getContentSizeInPixels();
+    CCSize getContentSizeInPixels();
 
     bool hasPremultipliedAlpha();
     bool hasMipmaps();

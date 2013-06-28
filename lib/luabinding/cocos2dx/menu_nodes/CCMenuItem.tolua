@@ -74,8 +74,8 @@ class CCMenuItemLabel : public CCMenuItem
     static CCMenuItemLabel* create(CCNode *label);
 
     /** the color that will be used to disable the item */
-    ccColor3B& getDisabledColor();
-    void setDisabledColor(ccColor3B& color);
+    ccColor3B getDisabledColor();
+    void setDisabledColor(ccColor3B color);
 
     /** Label that is rendered. It can be any CCNode that implements the CCLabelProtocol */
     CCNode* getLabel();

@@ -43,7 +43,7 @@ class CCControlButton : public CCControl
     CCString* getCurrentTitle();
 
     /** The current color used to display the title. */
-    ccColor3B& getCurrentTitleColor();
+    ccColor3B getCurrentTitleColor();
 
     /** Adjust the background image. YES by default. If the property is set to NO, the
     background will use the prefered size of the background image. */

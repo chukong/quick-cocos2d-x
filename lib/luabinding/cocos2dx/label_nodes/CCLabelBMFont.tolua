@@ -108,10 +108,10 @@ class CCLabelBMFont : public CCSpriteBatchNode
     void updateDisplayedOpacity(GLubyte parentOpacity);
     bool isCascadeOpacityEnabled();
     void setCascadeOpacityEnabled(bool cascadeOpacityEnabled);
-    ccColor3B& getColor(void);
-    ccColor3B& getDisplayedColor();
-    void setColor(ccColor3B& color);
-    void updateDisplayedColor(ccColor3B& parentColor);
+    ccColor3B getColor(void);
+    ccColor3B getDisplayedColor();
+    void setColor(ccColor3B color);
+    void updateDisplayedColor(ccColor3B parentColor);
     bool isCascadeColorEnabled();
     void setCascadeColorEnabled(bool cascadeColorEnabled);
 

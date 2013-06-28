@@ -58,7 +58,7 @@ class CCControlUtils
 public:
     static HSV HSVfromRGB(RGBA value);
     static RGBA RGBfromHSV(HSV value);
-    static CCRect CCRectUnion(const CCRect& src1, const CCRect& src2);
+    static CCRect CCRectUnion(CCRect src1, CCRect src2);
 };
 
 // end of GUI group

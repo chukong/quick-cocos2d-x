@@ -60,7 +60,7 @@ class CCString : public CCObject
      *  @return A CCString pointer which is an autorelease object pointer,
      *          it means that you needn't do a release operation unless you retain it.
      */
-    static CCString* create(std::string& str);
+    static CCString* create(const char *str);
 
     /** create a string with a file,
      *  @return A CCString pointer which is an autorelease object pointer,

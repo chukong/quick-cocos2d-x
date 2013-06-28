@@ -26,8 +26,8 @@
 
 class CCShapeNode : public CCNode
 {
-    ccColor4F& getColor(void);
-    void setColor(ccColor4F& color);
+    ccColor4F getColor(void);
+    void setColor(ccColor4F color);
     float getLineWidth(void);
     void setLineWidth(float lineWidth);
     GLushort getLineStipple(void);
@@ -52,10 +52,10 @@ class CCCircleShape : public CCShapeNode
 
 class CCRectShape : public CCShapeNode
 {
-    static CCRectShape* create(CCSize& size);
+    static CCRectShape* create(CCSize size);
 
-    CCSize& getSize(void);
-    void setSize(CCSize& size);
+    CCSize getSize(void);
+    void setSize(CCSize size);
     bool isFill(void);
     void setFill(bool fill);
 };

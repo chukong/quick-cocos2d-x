@@ -38,7 +38,7 @@
 
 class CCControlColourPicker: public CCControl
 {
-    void setColor(const ccColor3B& colorValue);
+    void setColor(ccColor3B colorValue);
     static CCControlColourPicker* create();
 };
 

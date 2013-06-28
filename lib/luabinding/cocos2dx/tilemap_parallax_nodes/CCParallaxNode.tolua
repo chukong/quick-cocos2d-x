@@ -37,7 +37,7 @@ The children will be moved faster / slower than the parent according the the par
 class CCParallaxNode : public CCNode
 {
     static CCParallaxNode *create();
-    virtual void addChild(CCNode *child, unsigned int z, CCPoint& parallaxRatio, CCPoint& positionOffset);
+    void addChild(CCNode *child, unsigned int z, CCPoint parallaxRatio, CCPoint positionOffset);
 };
 
 // end of tilemap_parallax_nodes group

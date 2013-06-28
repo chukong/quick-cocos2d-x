@@ -103,7 +103,7 @@ class CCFollow : public CCAction
     /** creates the action with a set boundary,
     It will work with no boundary if @param rect is equal to CCRectZero.
     */
-    static CCFollow* create(CCNode *pFollowedNode, const CCRect& rect = CCRectZero);
+    static CCFollow* create(CCNode *pFollowedNode, CCRect rect = CCRect(0, 0, 0, 0));
 };
 
 // end of actions group

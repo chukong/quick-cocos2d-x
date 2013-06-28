@@ -111,10 +111,10 @@ class CCLayerRGBA : public CCLayer
     bool isCascadeOpacityEnabled();
     void setCascadeOpacityEnabled(bool cascadeOpacityEnabled);
 
-    ccColor3B& getColor();
-    ccColor3B& getDisplayedColor();
-    void setColor(ccColor3B& color);
-    void updateDisplayedColor(ccColor3B& parentColor);
+    ccColor3B getColor();
+    ccColor3B getDisplayedColor();
+    void setColor(ccColor3B color);
+    void updateDisplayedColor(ccColor3B parentColor);
     bool isCascadeColorEnabled();
     void setCascadeColorEnabled(bool cascadeColorEnabled);
 
@@ -134,9 +134,9 @@ All features from CCLayer are valid, plus the following new features:
 class CCLayerColor : public CCLayerRGBA
 {
     /** creates a CCLayer with color, width and height in Points */
-    static CCLayerColor * create(const ccColor4B& color, GLfloat width, GLfloat height);
+    static CCLayerColor * create(ccColor4B color, GLfloat width, GLfloat height);
     /** creates a CCLayer with color. Width and height are the window size. */
-    static CCLayerColor * create(const ccColor4B& color);
+    static CCLayerColor * create(ccColor4B color);
     static CCLayerColor* create();
 
     /** change width in Points*/
@@ -153,7 +153,7 @@ class CCLayerColor : public CCLayerRGBA
 
     void setOpacityModifyRGB(bool bValue);
     bool isOpacityModifyRGB(void);
-    void setColor(ccColor3B &color);
+    void setColor(ccColor3B color);
     void setOpacity(GLubyte opacity);
 };
 
@@ -182,16 +182,16 @@ If ' compressedInterpolation' is enabled (default mode) you will see both the st
 class CCLayerGradient : public CCLayerColor
 {
     /** Creates a full-screen CCLayer with a gradient between start and end in the direction of v. */
-    static CCLayerGradient* create(const ccColor4B& start, const ccColor4B& end, const CCPoint& v);
+    static CCLayerGradient* create(ccColor4B start, ccColor4B end, CCPoint v);
     /** Creates a full-screen CCLayer with a gradient between start and end. */
-    static CCLayerGradient* create(const ccColor4B& start, const ccColor4B& end);
+    static CCLayerGradient* create(ccColor4B start, ccColor4B end);
     static CCLayerGradient* create();
 
-    ccColor3B& getStartColor();
-    void setStartColor(ccColor3B& color);
+    ccColor3B getStartColor();
+    void setStartColor(ccColor3B color);
 
-    ccColor3B& getEndColor();
-    void setEndColor(ccColor3B& color);
+    ccColor3B getEndColor();
+    void setEndColor(ccColor3B color);
 
     GLubyte getStartOpacity();
     void setStartOpacity(GLubyte opacity);
@@ -199,8 +199,8 @@ class CCLayerGradient : public CCLayerColor
     GLubyte getEndOpacity();
     void setEndOpacity(GLubyte opacity);
 
-    CCPoint& getVector();
-    void setVector(CCPoint& vector);
+    CCPoint getVector();
+    void setVector(CCPoint vector);
 
     void setCompressedInterpolation(bool bCompressedInterpolation);
     bool isCompressedInterpolation();

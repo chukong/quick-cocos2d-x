@@ -35,16 +35,16 @@ class CCPoint
     float y;
 
     CCPoint(float x, float y);
-    CCPoint(CCPoint& other);
-    CCPoint(CCSize& size);
+    CCPoint(CCPoint other);
+    CCPoint(CCSize size);
     CCPoint();
     void setPoint(float x, float y);
-    bool equals(CCPoint& target);
+    bool equals(CCPoint target);
 
     /** @returns if points have fuzzy equality which means equal with some degree of variance.
      @since v2.1.4
      */
-    bool fuzzyEquals(CCPoint& target, float variance);
+    bool fuzzyEquals(CCPoint target, float variance);
 
     /** Calculates distance between point an origin
      @return float
@@ -62,13 +62,13 @@ class CCPoint
      @return float
      @since v2.1.4
     */
-    float getDistanceSq(CCPoint& other);
+    float getDistanceSq(CCPoint other);
 
     /** Calculates the distance between two points
      @return float
      @since v2.1.4
      */
-    float getDistance(CCPoint& other);
+    float getDistance(CCPoint other);
 
     /** @returns the angle in radians between this vector and the x axis
      @since v2.1.4
@@ -78,19 +78,19 @@ class CCPoint
     /** @returns the angle in radians between two vector directions
      @since v2.1.4
     */
-    float getAngle(CCPoint& other);
+    float getAngle(CCPoint other);
 
     /** Calculates dot product of two points.
      @return float
      @since v2.1.4
      */
-    float dot(CCPoint& other);
+    float dot(CCPoint other);
 
     /** Calculates cross product of two points.
      @return float
      @since v2.1.4
      */
-    float cross(CCPoint& other);
+    float cross(CCPoint other);
 
     /** Calculates perpendicular of v, rotated 90 degrees counter-clockwise -- cross(v, perp(v)) >= 0
      @return CCPoint
@@ -108,21 +108,21 @@ class CCPoint
      @return CCPoint
      @since v2.1.4
      */
-    CCPoint project(CCPoint& other);
+    CCPoint project(CCPoint other);
 
     /** Complex multiplication of two points ("rotates" two points).
      @return CCPoint vector with an angle of this.getAngle() + other.getAngle(),
      and a length of this.getLength() * other.getLength().
      @since v2.1.4
      */
-    CCPoint rotate(CCPoint& other);
+    CCPoint rotate(CCPoint other);
 
     /** Unrotates two points.
      @return CCPoint vector with an angle of this.getAngle() - other.getAngle(),
      and a length of this.getLength() * other.getLength().
      @since v2.1.4
      */
-    CCPoint unrotate(CCPoint& other);
+    CCPoint unrotate(CCPoint other);
 
     /** Returns point multiplied to a length of 1.
      * If the point is 0, it returns (1, 0)
@@ -138,7 +138,7 @@ class CCPoint
         otherwise a value between a..b
      @since v2.1.4
      */
-    CCPoint lerp(CCPoint& other, float alpha);
+    CCPoint lerp(CCPoint other, float alpha);
 
     /** Rotates a point counter clockwise by the angle around a pivot
      @param pivot is the pivot, naturally
@@ -146,9 +146,9 @@ class CCPoint
      @returns the rotated point
      @since v2.1.4
      */
-    CCPoint rotateByAngle(CCPoint& pivot, float angle);
+    CCPoint rotateByAngle(CCPoint pivot, float angle);
 
-    CCPoint forAngle(const float a);
+    CCPoint forAngle(float a);
 };
 
 class CCSize
@@ -157,11 +157,11 @@ class CCSize
     float height;
 
     CCSize(float width, float height);
-    CCSize(CCSize& other);
-    CCSize(CCPoint& point);
+    CCSize(CCSize other);
+    CCSize(CCPoint point);
     CCSize();
     void setSize(float width, float height);
-    bool equals(CCSize& target);
+    bool equals(CCSize target);
 };
 
 class CCRect
@@ -170,7 +170,7 @@ class CCRect
     CCSize  size;
 
     CCRect(float x, float y, float width, float height);
-    CCRect(CCRect& other);
+    CCRect(CCRect other);
     CCRect();
     void setRect(float x, float y, float width, float height);
     float getMinX(); /// return the leftmost x-value of current rect
@@ -179,9 +179,9 @@ class CCRect
     float getMinY(); /// return the bottommost y-value of current rect
     float getMidY(); /// return the midpoint y-value of current rect
     float getMaxY(); /// return the topmost y-value of current rect
-    bool equals(CCRect& rect);
-    bool containsPoint(CCPoint& point);
-    bool intersectsRect(CCRect& rect);
+    bool equals(CCRect rect);
+    bool containsPoint(CCPoint point);
+    bool intersectsRect(CCRect rect);
 };
 
 // end of data_structure group

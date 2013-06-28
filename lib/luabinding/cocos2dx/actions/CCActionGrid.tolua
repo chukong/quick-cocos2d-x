@@ -46,7 +46,7 @@ class CCGrid3DAction : public CCGridAction
 class CCTiledGrid3DAction : public CCGridAction
 {
     /** creates the action with size and duration */
-    static CCTiledGrid3DAction* create(float duration, CCSize& gridSize);
+    static CCTiledGrid3DAction* create(float duration, CCSize gridSize);
 };
 
 /** @brief CCAccelDeccelAmplitude action */

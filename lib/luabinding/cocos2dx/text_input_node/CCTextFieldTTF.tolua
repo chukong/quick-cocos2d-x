@@ -33,7 +33,7 @@ THE SOFTWARE.
 class CCTextFieldTTF : public CCLabelTTF
 {
     /** creates a CCTextFieldTTF from a fontname, alignment, dimension and font size */
-    static CCTextFieldTTF * textFieldWithPlaceHolder(const char *placeholder, CCSize& dimensions, CCTextAlignment alignment, const char *fontName, float fontSize);
+    static CCTextFieldTTF * textFieldWithPlaceHolder(const char *placeholder, CCSize dimensions, CCTextAlignment alignment, const char *fontName, float fontSize);
     /** creates a CCLabelTTF from a fontname and font size */
     static CCTextFieldTTF * textFieldWithPlaceHolder(const char *placeholder, const char *fontName, float fontSize);
 
@@ -53,8 +53,8 @@ class CCTextFieldTTF : public CCLabelTTF
 
     int getCharCount();
 
-    ccColor3B& getColorSpaceHolder();
-    void setColorSpaceHolder(ccColor3B& color);
+    ccColor3B getColorSpaceHolder();
+    void setColorSpaceHolder(ccColor3B color);
 
     // input text property
     void setString(const char *text);

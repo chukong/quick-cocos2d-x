@@ -108,8 +108,8 @@ class CCRenderTexture : public CCNode
     void setClearFlags(unsigned int uClearFlags);
 
     /** Clear color value. Valid only when "autoDraw" is true. */
-    ccColor4F& getClearColor();
-    void setClearColor(ccColor4F &clearColor);
+    ccColor4F getClearColor();
+    void setClearColor(ccColor4F clearColor);
 
     /** Value for clearDepth. Valid only when autoDraw is true. */
     float getClearDepth();
