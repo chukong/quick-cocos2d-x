@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Mon Jun 24 16:14:32 2013.
+** Generated automatically by tolua++-1.0.92 on Wed Jun 26 11:05:39 2013.
 */
 
 /****************************************************************************
@@ -48713,6 +48713,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setString",tolua_Cocos2d_CCLabelAtlas_setString00);
    tolua_function(tolua_S,"getString",tolua_Cocos2d_CCLabelAtlas_getString00);
   tolua_endmodule(tolua_S);
+  tolua_constant(tolua_S,"kCCLabelAutomaticWidth",kCCLabelAutomaticWidth);
   tolua_cclass(tolua_S,"CCLabelBMFont","CCLabelBMFont","CCSpriteBatchNode",NULL);
   tolua_beginmodule(tolua_S,"CCLabelBMFont");
    tolua_function(tolua_S,"purgeCachedData",tolua_Cocos2d_CCLabelBMFont_purgeCachedData00);

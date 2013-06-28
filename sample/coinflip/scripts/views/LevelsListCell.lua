@@ -70,7 +70,7 @@ function LevelsListCell:checkButton(x, y)
     local pos = ccp(x, y)
     for i = 1, #self.buttons do
         local button = self.buttons[i]
-        if button:boundingBox():containsPoint(pos) then
+        if button:getBoundingBox():containsPoint(pos) then
             return button
         end
     end

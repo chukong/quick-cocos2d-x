@@ -68,6 +68,10 @@ http://www.angelcode.com/products/bmfont/ (Free, Windows only)
 @since v0.8
 */
 
+enum {
+    kCCLabelAutomaticWidth = -1,
+};
+
 class CCLabelBMFont : public CCSpriteBatchNode
 {
     /** Purges the cached data.

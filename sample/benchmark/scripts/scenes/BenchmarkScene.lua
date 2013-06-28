@@ -14,11 +14,11 @@ function BenchmarkScene:ctor()
 
     local button = display.newSprite("#AddCoinButton.png", display.right - 100, display.bottom + 270)
     self:addChild(button)
-    self.addCoinButtonBoundingBox = button:boundingBox()
+    self.addCoinButtonBoundingBox = button:getBoundingBox()
 
     local button = display.newSprite("#RemoveCoinButton.png", display.right - 100, display.bottom + 100)
     self:addChild(button)
-    self.removeCoinButtonBoundingBox = button:boundingBox()
+    self.removeCoinButtonBoundingBox = button:getBoundingBox()
 
     local button = ui.newImageMenuItem({
         image = "#ExitButton.png",
