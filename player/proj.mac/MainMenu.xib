@@ -191,7 +191,7 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="136252569">
+								<object class="NSMenuItem" id="287591327">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">New Player</string>
 									<string key="NSKeyEquiv">N</string>
@@ -315,8 +315,7 @@
 									<reference key="NSMenu" ref="391298395"/>
 									<bool key="NSIsDisabled">YES</bool>
 									<string key="NSTitle">Create Launcher...</string>
-									<string key="NSKeyEquiv">N</string>
-									<int key="NSKeyEquivModMask">1048576</int>
+									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
@@ -725,7 +724,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">onFileNewPlayer:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="136252569"/>
+						<reference key="destination" ref="287591327"/>
 					</object>
 					<int key="connectionID">658</int>
 				</object>
@@ -891,7 +890,7 @@
 							<reference ref="967317374"/>
 							<reference ref="292680822"/>
 							<reference ref="182546496"/>
-							<reference ref="136252569"/>
+							<reference ref="287591327"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1246,7 +1245,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">656</int>
-						<reference key="object" ref="136252569"/>
+						<reference key="object" ref="287591327"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
 				</array>
@@ -1334,6 +1333,7 @@
 						<string key="onFileNewPlayer:">id</string>
 						<string key="onFileNewProject:">id</string>
 						<string key="onFileOpen:">id</string>
+						<string key="onFileOpenRecent:">id</string>
 						<string key="onFileOpenRecentClearMenu:">id</string>
 						<string key="onPlayerOpenDebugLog:">id</string>
 						<string key="onPlayerRelaunch:">id</string>
@@ -1362,6 +1362,10 @@
 						</object>
 						<object class="IBActionInfo" key="onFileOpen:">
 							<string key="name">onFileOpen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onFileOpenRecent:">
+							<string key="name">onFileOpenRecent:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onFileOpenRecentClearMenu:">
