@@ -79,6 +79,21 @@ bool CCFileUtilsWin32::isFileExist(const std::string& strFilePath)
     return GetFileAttributesA(strPath.c_str()) != -1 ? true : false;
 }
 
+bool CCFileUtilsWin32::isDirectoryExist(const std::string& strDirPath)
+{
+    if (0 == strDirPath.length())
+    {
+        return false;
+    }
+
+    if (isAbsolutePath(strDirPath))
+    {
+        return GetFileAttributesA(strDirPath.c_str()) == FILE_ATTRIBUTE_DIRECTORY ? true : false;
+    }
+
+    return false;
+}
+
 bool CCFileUtilsWin32::isAbsolutePath(const std::string& strPath)
 {
     if (   strPath.length() > 2 

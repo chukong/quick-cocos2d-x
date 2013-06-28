@@ -100,12 +100,12 @@ int QuickXPlayer::run(void)
 
         // create the application instance
         m_app = new AppDelegate();
-        m_app->setStartupScriptFilename(m_project.getScriptFilePath());
+        m_app->setStartupScriptFilename(m_project.getScriptFileRealPath());
 
         // set environments
         SetCurrentDirectoryA(m_project.getProjectDir().c_str());
         CCFileUtils::sharedFileUtils()->setSearchRootPath(m_project.getProjectDir().c_str());
-        CCFileUtils::sharedFileUtils()->setWritablePath(m_project.getWritablePath().c_str());
+        CCFileUtils::sharedFileUtils()->setWritablePath(m_project.getWritableRealPath().c_str());
 
         // create opengl view
         CCEGLView* eglView = CCEGLView::sharedOpenGLView();
@@ -120,7 +120,7 @@ int QuickXPlayer::run(void)
 
         // restore window position
         const CCPoint windowOffset = m_project.getWindowOffset();
-        if (windowOffset.x >= 0 || windowOffset.y >= 0)
+        if (windowOffset.x != 0 || windowOffset.y != 0)
         {
             eglView->moveWindow(windowOffset.x, windowOffset.y);
         }

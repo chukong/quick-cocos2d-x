@@ -46,7 +46,7 @@ bool ProjectConfigDialog::checkConfig(void)
             break;
         }
 
-        if (!FileExists(m_project.getScriptFilePath().c_str()))
+        if (!FileExists(m_project.getScriptFileRealPath().c_str()))
         {
             MessageBox(m_hwndDialog, L"Invalid Script File, please check it", L"Error", MB_OK);
             SetFocus(GetDlgItem(m_hwndDialog, IDC_EDIT_SCRIPT_FILE));
@@ -59,7 +59,7 @@ bool ProjectConfigDialog::checkConfig(void)
         SimulatorConfig *defaults = SimulatorConfig::sharedDefaults();
 
         int w, h;
-        if (index < defaults->numScreenSize())
+        if (index < defaults->getScreenSizeCount())
         {
             const SimulatorScreenSize &size = defaults->getScreenSize(index);
             w = size.width;
@@ -125,7 +125,7 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
         isLandscape = m_project.isLandscapeFrame();
     }
 
-    for (int i = 0; i < defaults->numScreenSize(); ++i)
+    for (int i = 0; i < defaults->getScreenSizeCount(); ++i)
     {
         const SimulatorScreenSize &size = defaults->getScreenSize(i);
         wstring title;
@@ -215,7 +215,7 @@ void ProjectConfigDialog::onSelectScriptFile(void)
 
 void ProjectConfigDialog::onSelectWritablePath(void)
 {
-    string dir = browseFolder(m_project.getWritablePath());
+    string dir = browseFolder(m_project.getWritableRealPath());
     if (dir.length() > 0)
     {
         m_project.setWritablePath(dir);
@@ -230,7 +230,7 @@ void ProjectConfigDialog::onScreenSizeChanged(void)
     SimulatorConfig *defaults = SimulatorConfig::sharedDefaults();
 
     int w, h;
-    if (index < defaults->numScreenSize())
+    if (index < defaults->getScreenSizeCount())
     {
         const SimulatorScreenSize &size = defaults->getScreenSize(index);
         w = size.width;
@@ -339,6 +339,10 @@ INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WP
 
         case IDC_BUTTON_SELECT_SCRIPT_FILE:
             sharedInstance()->onSelectScriptFile();
+            return (INT_PTR)TRUE;
+
+        case IDC_BUTTON_SELECT_WRITABLE_PATH:
+            sharedInstance()->onSelectWritablePath();
             return (INT_PTR)TRUE;
 
         case IDC_COMBO_SCREEN_SIZE:
