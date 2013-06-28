@@ -42,6 +42,15 @@ using namespace cocos2d;
 
 @synthesize menu;
 
+-(void) dealloc
+{
+    CCDirector::sharedDirector()->end();
+    [super dealloc];
+}
+
+#pragma mark -
+#pragma delegates
+
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     waitForRestart = NO;
@@ -52,7 +61,7 @@ using namespace cocos2d;
 
     app = new AppDelegate();
 
-    [self updateProjectConfigFromArgs];
+    [self updateProjectConfigFromCommandLineArgs];
     [self createWindowAndGLView];
     [self startup];
     [self updateOpenRect];
@@ -65,10 +74,19 @@ using namespace cocos2d;
     return YES;
 }
 
--(void) dealloc
+- (BOOL) applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
 {
-    CCDirector::sharedDirector()->end();
-    [super dealloc];
+    return NO;
+}
+
+- (BOOL) validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    return hasPopupDialog == NO;
+}
+
+- (void) windowWillClose:(NSNotification *)notification
+{
+    [[NSApplication sharedApplication] terminate:self];
 }
 
 #pragma mark -
@@ -102,14 +120,20 @@ using namespace cocos2d;
     glView = [[EAGLView alloc] initWithFrame:rect];
 
     // set window parameters
-    [window becomeFirstResponder];
     [window setContentView:glView];
     [window setTitle:@"quick-x-player"];
-    [window makeKeyAndOrderFront:self];
-    [window setAcceptsMouseMovedEvents:NO];
     [window center];
 
     [self setZoom:projectConfig.getFrameScale()];
+    CCPoint pos = projectConfig.getWindowOffset();
+    if (pos.x != 0 && pos.y != 0)
+    {
+        [window setFrameOrigin:NSMakePoint(pos.x, pos.y)];
+    }
+
+    [window becomeFirstResponder];
+    [window makeKeyAndOrderFront:self];
+    [window setAcceptsMouseMovedEvents:NO];
 }
 
 - (void) startup
@@ -143,12 +167,23 @@ using namespace cocos2d;
         }
     }
 
-    if (projectConfig.getProjectDir().length() > 0)
-    {
-        NSArray *args = [self makeCommandLineArgsFromProjectConfig];
-        NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding], @"title", args, @"args", nil];
+    NSString *title = [NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding];
 
-        [recents removeObject:item];
+    if ([title length] > 0)
+    {
+        for (int i = [recents count] - 1; i >= 0; --i)
+        {
+            id recentItem = [recents objectAtIndex:i];
+            if ([title compare:[recentItem objectForKey:@"title"]] == NSOrderedSame)
+            {
+                [recents removeObjectAtIndex:i];
+            }
+        }
+
+        NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig];
+        [args removeLastObject];
+        [args removeLastObject];
+        NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", args, @"args", nil];
         [recents insertObject:item atIndex:0];
     }
     [[NSUserDefaults standardUserDefaults] setObject:recents forKey:@"recents"];
@@ -257,7 +292,7 @@ using namespace cocos2d;
     CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeAllEffects();
 }
 
-- (NSArray *) makeCommandLineArgsFromProjectConfig
+- (NSMutableArray*) makeCommandLineArgsFromProjectConfig
 {
     NSMutableArray *args = [NSMutableArray array];
     [args addObject:@"-workdir"];
@@ -288,10 +323,13 @@ using namespace cocos2d;
         [args addObject:@"-write-debug-log"];
     }
 
+    [args addObject:@"-offset"];
+    [args addObject:[NSString stringWithFormat:@"{%0.0f,%0.0f}", window.frame.origin.x, window.frame.origin.y]];
+
     return args;
 }
 
-- (void) updateProjectConfigFromArgs
+- (void) updateProjectConfigFromCommandLineArgs
 {
     NSArray *args = [[NSProcessInfo processInfo] arguments];
 
@@ -348,6 +386,12 @@ using namespace cocos2d;
         {
             projectConfig.setWriteDebugLogToFile(true);
         }
+        else if ([arg compare:@"-offset"] == NSOrderedSame)
+        {
+            ++i;
+            CCPoint pos = CCPointFromString([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
+            projectConfig.setWindowOffset(pos);
+        }
 
         ++i;
     }
@@ -355,7 +399,7 @@ using namespace cocos2d;
     projectConfig.dump();
 }
 
-- (void) relaunch:(NSArray*)args
+- (void) launch:(NSArray*)args
 {
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments];
@@ -363,7 +407,17 @@ using namespace cocos2d;
     [[NSWorkspace sharedWorkspace] launchApplicationAtURL:url
                                                   options:NSWorkspaceLaunchNewInstance
                                             configuration:configuration error:&error];
+}
+
+- (void) relaunch:(NSArray*)args
+{
+    [self launch:args];
     [[NSApplication sharedApplication] terminate:self];
+}
+
+- (void) relaunch
+{
+    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
 }
 
 - (void) showAlert:(NSString*)message withTitle:(NSString*)title
@@ -422,23 +476,28 @@ using namespace cocos2d;
     projectConfig.setFrameScale(scale);
 }
 
-#pragma mark -
-#pragma delegates
-
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+-(void) setAlwaysOnTop:(BOOL)alwaysOnTop
 {
-    return hasPopupDialog == NO;
+    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"Window"];
+    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Always On Top"];
+    if (alwaysOnTop)
+    {
+        [window setLevel:NSFloatingWindowLevel];
+        [menuItem setState:NSOnState];
+    }
+    else
+    {
+        [window setLevel:NSNormalWindowLevel];
+        [menuItem setState:NSOffState];
+    }
+    isAlwaysOnTop = alwaysOnTop;
 }
 
-- (void)windowWillClose:(NSNotification *)notification
-{
-    [[NSApplication sharedApplication] terminate:self];
-}
 
 #pragma mark -
 #pragma mark IB Actions
 
-- (IBAction) fileNewProject:(id)sender
+- (IBAction) onFileNewProject:(id)sender
 {
     [self showAlert:@"Coming soon :-)" withTitle:@"quick-x-player"];
     //    [self showModelSheet];
@@ -449,7 +508,15 @@ using namespace cocos2d;
     //    }];
 }
 
-- (IBAction) fileOpen:(id)sender
+- (IBAction) onFileNewPlayer:(id)sender
+{
+    NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig];
+    [args removeLastObject];
+    [args removeLastObject];
+    [self launch:args];
+}
+
+- (IBAction) onFileOpen:(id)sender
 {
     [self showModelSheet];
     ProjectConfigDialogController *controller = [[ProjectConfigDialogController alloc] initWithWindowNibName:@"ProjectConfigDialog"];
@@ -460,7 +527,7 @@ using namespace cocos2d;
         {
             projectConfig = controller.projectConfig;
             projectConfig.dump();
-            [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+            [self relaunch];
         }
         [controller release];
     }];
@@ -488,12 +555,12 @@ using namespace cocos2d;
     [self updateUI];
 }
 
-- (IBAction) fileClose:(id)sender
+- (IBAction) onFileClose:(id)sender
 {
     [[NSApplication sharedApplication] terminate:self];
 }
 
-- (IBAction) playerWriteDebugLogToFile:(id)sender
+- (IBAction) onPlayerWriteDebugLogToFile:(id)sender
 {
     bool isWrite = projectConfig.isWriteDebugLogToFile();
     if (!isWrite)
@@ -512,23 +579,23 @@ using namespace cocos2d;
     }
 }
 
-- (IBAction) playerOpenDebugLog:(id)sender
+- (IBAction) onPlayerOpenDebugLog:(id)sender
 {
     const string path = [self getDebugLogFilePath];
     [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
 }
 
-- (IBAction) playerRelaunch:(id)sender
+- (IBAction) onPlayerRelaunch:(id)sender
 {
-    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+    [self relaunch];
 }
 
-- (IBAction) playerShowProjectSandbox:(id)sender
+- (IBAction) onPlayerShowProjectSandbox:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:CCFileUtils::sharedFileUtils()->getWritablePath().c_str() encoding:NSUTF8StringEncoding]];
 }
 
-- (IBAction) playerShowProjectFiles:(id)sender
+- (IBAction) onPlayerShowProjectFiles:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding]];
 }
@@ -540,7 +607,7 @@ using namespace cocos2d;
     {
         SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(i);
         projectConfig.setFrameSize(projectConfig.isLandscapeFrame() ? CCSize(size.height, size.width) : CCSize(size.width, size.height));
-        [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+        [self relaunch];
     }
 }
 
@@ -550,7 +617,7 @@ using namespace cocos2d;
     [sender setState:NSOnState];
     [[[[[window menu] itemWithTitle:@"Screen"] submenu] itemWithTitle:@"Landscape"] setState:NSOffState];
     projectConfig.changeFrameOrientationToPortait();
-    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+    [self relaunch];
 }
 
 - (IBAction) onScreenLandscape:(id)sender
@@ -559,7 +626,7 @@ using namespace cocos2d;
     [sender setState:NSOnState];
     [[[[[window menu] itemWithTitle:@"Screen"] submenu] itemWithTitle:@"Portait"] setState:NSOffState];
     projectConfig.changeFrameOrientationToLandscape();
-    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+    [self relaunch];
 }
 
 - (IBAction) onScreenActual:(id)sender
@@ -576,95 +643,9 @@ using namespace cocos2d;
     [self updateUI];
 }
 
-
-#pragma ----------------------------------------
-
--(IBAction) restart:(id)sender
-{
-    if (waitForRestart) return;
-    waitForRestart = YES;
-
-    CCDirector::sharedDirector()->end();
-    [NSTimer scheduledTimerWithTimeInterval:0.1
-                                     target:self
-                                   selector:@selector(restartComplete)
-                                   userInfo:nil
-                                    repeats:NO];
-}
-
--(void) restartComplete
-{
-    [self createWindowAndGLView];
-    [self startup];
-    [self setAlwaysOnTop:isAlwaysOnTop];
-    waitForRestart = NO;
-}
-
--(void) removeMaximize
-{
-    isMaximized = NO;
-    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"View"];
-    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Toggle Maximize"];
-    [menuItem setState:NSOffState];
-}
-
--(IBAction) toggleMaximize:(id)sender
-{
-    //    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"View"];
-    //    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Toggle Maximize"];
-    //    if (!isMaximized)
-    //    {
-    //        prevFrameSize = frameSize;
-    //        frameSize = [[NSScreen mainScreen] visibleFrame].size;
-    //        frameSize.height -= window.frame.size.height - [glView getHeight];
-    //        [menuItem setState:NSOnState];
-    //    }
-    //    else
-    //    {
-    //        frameSize = prevFrameSize;
-    //        [menuItem setState:NSOffState];
-    //    }
-    //    isMaximized = !isMaximized;
-    //    [self restart:sender];
-}
-
--(void) setAlwaysOnTop:(BOOL)alwaysOnTop
-{
-    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"Window"];
-    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Always On Top"];
-    if (alwaysOnTop)
-    {
-        [window setLevel:NSFloatingWindowLevel];
-        [menuItem setState:NSOnState];
-    }
-    else
-    {
-        [window setLevel:NSNormalWindowLevel];
-        [menuItem setState:NSOffState];
-    }
-    isAlwaysOnTop = alwaysOnTop;
-}
-
--(IBAction) toggleAlwaysOnTop:(id)sender
+-(IBAction) onWindowAlwaysOnTop:(id)sender
 {
     [self setAlwaysOnTop:!isAlwaysOnTop];
 }
-
--(IBAction) toggleFullScreen:(id)sender
-{
-    //    EAGLView* pView = [EAGLView sharedEGLView];
-    //    [pView setFullScreen:!pView.isFullScreen];
-}
-
--(IBAction) exitFullScreen:(id)sender
-{
-    //    [[EAGLView sharedEGLView] setFullScreen:NO];
-}
-
-//- (void)windowDidEndLiveResize:(NSNotification *)notification
-//{
-//    frameSize = window.frame.size;
-//    [self restart:nil];
-//}
 
 @end

@@ -27,7 +27,7 @@ public:
     , m_frameScale(1.0f)
     , m_showConsole(true)
     , m_writeDebugLogToFile(false)
-    , m_windowOffset(-1, -1)
+    , m_windowOffset(0, 0)
     {
         normalize();
     }

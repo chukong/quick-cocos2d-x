@@ -48,26 +48,23 @@
 
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
 
-- (IBAction) fileNewProject:(id)sender;
-- (IBAction) fileOpen:(id)sender;
+- (IBAction) onFileNewProject:(id)sender;
+- (IBAction) onFileNewPlayer:(id)sender;
+- (IBAction) onFileOpen:(id)sender;
 - (IBAction) onFileOpenRecentClearMenu:(id)sender;
-- (IBAction) fileClose:(id)sender;
+- (IBAction) onFileClose:(id)sender;
 
-- (IBAction) playerWriteDebugLogToFile:(id)sender;
-- (IBAction) playerOpenDebugLog:(id)sender;
-- (IBAction) playerRelaunch:(id)sender;
-- (IBAction) playerShowProjectSandbox:(id)sender;
-- (IBAction) playerShowProjectFiles:(id)sender;
+- (IBAction) onPlayerWriteDebugLogToFile:(id)sender;
+- (IBAction) onPlayerOpenDebugLog:(id)sender;
+- (IBAction) onPlayerRelaunch:(id)sender;
+- (IBAction) onPlayerShowProjectSandbox:(id)sender;
+- (IBAction) onPlayerShowProjectFiles:(id)sender;
 
 - (IBAction) onScreenPortait:(id)sender;
 - (IBAction) onScreenLandscape:(id)sender;
 - (IBAction) onScreenActual:(id)sender;
 - (IBAction) onScreenZoomOut:(id)sender;
 
-- (IBAction) toggleMaximize:(id)sender;
-- (IBAction) toggleAlwaysOnTop:(id)sender;
-
-- (IBAction) toggleFullScreen:(id)sender;
-- (IBAction) exitFullScreen:(id)sender;
+- (IBAction) onWindowAlwaysOnTop:(id)sender;
 
 @end

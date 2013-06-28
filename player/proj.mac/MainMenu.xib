@@ -191,6 +191,15 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="136252569">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">New Player</string>
+									<string key="NSKeyEquiv">N</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="967317374">
 									<reference key="NSMenu" ref="720053764"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -650,30 +659,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">fileOpen:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="776162233"/>
-					</object>
-					<int key="connectionID">618</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">fileNewProject:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="722745758"/>
-					</object>
-					<int key="connectionID">619</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">fileClose:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="182546496"/>
-					</object>
-					<int key="connectionID">626</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">fileUploadToDevice:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="329257296"/>
@@ -706,54 +691,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">playerWriteDebugLogToFile:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="774841100"/>
-					</object>
-					<int key="connectionID">638</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">playerOpenDebugLog:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="999632295"/>
-					</object>
-					<int key="connectionID">639</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">playerRelaunch:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="243228785"/>
-					</object>
-					<int key="connectionID">640</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">playerShowProjectSandbox:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="647000840"/>
-					</object>
-					<int key="connectionID">641</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">playerShowProjectFiles:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="922104502"/>
-					</object>
-					<int key="connectionID">642</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">onScreenPortait:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="29784598"/>
-					</object>
-					<int key="connectionID">646</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">onScreenLandscape:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="283517432"/>
@@ -778,11 +715,99 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">onFileNewProject:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="722745758"/>
+					</object>
+					<int key="connectionID">657</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onFileNewPlayer:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="136252569"/>
+					</object>
+					<int key="connectionID">658</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onFileOpen:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="776162233"/>
+					</object>
+					<int key="connectionID">659</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">onFileOpenRecentClearMenu:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="284160098"/>
 					</object>
-					<int key="connectionID">655</int>
+					<int key="connectionID">660</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onFileClose:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="182546496"/>
+					</object>
+					<int key="connectionID">661</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onPlayerWriteDebugLogToFile:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="774841100"/>
+					</object>
+					<int key="connectionID">662</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onPlayerOpenDebugLog:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="999632295"/>
+					</object>
+					<int key="connectionID">663</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onPlayerRelaunch:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="243228785"/>
+					</object>
+					<int key="connectionID">664</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onPlayerShowProjectSandbox:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="647000840"/>
+					</object>
+					<int key="connectionID">665</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onPlayerShowProjectFiles:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="922104502"/>
+					</object>
+					<int key="connectionID">666</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onScreenPortait:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="29784598"/>
+					</object>
+					<int key="connectionID">667</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onWindowAlwaysOnTop:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="3352501"/>
+					</object>
+					<int key="connectionID">668</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -791,14 +816,6 @@
 						<reference key="destination" ref="649796088"/>
 					</object>
 					<int key="connectionID">550</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleAlwaysOnTop:</string>
-						<reference key="source" ref="299735127"/>
-						<reference key="destination" ref="3352501"/>
-					</object>
-					<int key="connectionID">583</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -874,6 +891,7 @@
 							<reference ref="967317374"/>
 							<reference ref="292680822"/>
 							<reference ref="182546496"/>
+							<reference ref="136252569"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1226,6 +1244,11 @@
 						<reference key="object" ref="999632295"/>
 						<reference key="parent" ref="391298395"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">656</int>
+						<reference key="object" ref="136252569"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1288,6 +1311,7 @@
 				<string key="634.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="636.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="637.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="656.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1298,7 +1322,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">655</int>
+			<int key="maxID">668</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1306,45 +1330,62 @@
 					<string key="className">AppController</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="exitFullScreen:">id</string>
-						<string key="fileClose:">id</string>
-						<string key="fileNewProject:">id</string>
-						<string key="fileOpen:">id</string>
+						<string key="onFileClose:">id</string>
+						<string key="onFileNewPlayer:">id</string>
+						<string key="onFileNewProject:">id</string>
+						<string key="onFileOpen:">id</string>
 						<string key="onFileOpenRecentClearMenu:">id</string>
+						<string key="onPlayerOpenDebugLog:">id</string>
+						<string key="onPlayerRelaunch:">id</string>
+						<string key="onPlayerShowProjectFiles:">id</string>
+						<string key="onPlayerShowProjectSandbox:">id</string>
+						<string key="onPlayerWriteDebugLogToFile:">id</string>
 						<string key="onScreenActual:">id</string>
 						<string key="onScreenChangeFrameSize:">id</string>
 						<string key="onScreenLandscape:">id</string>
 						<string key="onScreenPortait:">id</string>
 						<string key="onScreenZoomOut:">id</string>
-						<string key="playerOpenDebugLog:">id</string>
-						<string key="playerRelaunch:">id</string>
-						<string key="playerShowProjectFiles:">id</string>
-						<string key="playerShowProjectSandbox:">id</string>
-						<string key="playerWriteDebugLogToFile:">id</string>
-						<string key="restart:">id</string>
-						<string key="toggleAlwaysOnTop:">id</string>
-						<string key="toggleFullScreen:">id</string>
-						<string key="toggleMaximize:">id</string>
+						<string key="onWindowAlwaysOnTop:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="exitFullScreen:">
-							<string key="name">exitFullScreen:</string>
+						<object class="IBActionInfo" key="onFileClose:">
+							<string key="name">onFileClose:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="fileClose:">
-							<string key="name">fileClose:</string>
+						<object class="IBActionInfo" key="onFileNewPlayer:">
+							<string key="name">onFileNewPlayer:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="fileNewProject:">
-							<string key="name">fileNewProject:</string>
+						<object class="IBActionInfo" key="onFileNewProject:">
+							<string key="name">onFileNewProject:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="fileOpen:">
-							<string key="name">fileOpen:</string>
+						<object class="IBActionInfo" key="onFileOpen:">
+							<string key="name">onFileOpen:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onFileOpenRecentClearMenu:">
 							<string key="name">onFileOpenRecentClearMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onPlayerOpenDebugLog:">
+							<string key="name">onPlayerOpenDebugLog:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onPlayerRelaunch:">
+							<string key="name">onPlayerRelaunch:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onPlayerShowProjectFiles:">
+							<string key="name">onPlayerShowProjectFiles:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onPlayerShowProjectSandbox:">
+							<string key="name">onPlayerShowProjectSandbox:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onPlayerWriteDebugLogToFile:">
+							<string key="name">onPlayerWriteDebugLogToFile:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onScreenActual:">
@@ -1367,40 +1408,8 @@
 							<string key="name">onScreenZoomOut:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="playerOpenDebugLog:">
-							<string key="name">playerOpenDebugLog:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playerRelaunch:">
-							<string key="name">playerRelaunch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playerShowProjectFiles:">
-							<string key="name">playerShowProjectFiles:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playerShowProjectSandbox:">
-							<string key="name">playerShowProjectSandbox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playerWriteDebugLogToFile:">
-							<string key="name">playerWriteDebugLogToFile:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="restart:">
-							<string key="name">restart:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleAlwaysOnTop:">
-							<string key="name">toggleAlwaysOnTop:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleFullScreen:">
-							<string key="name">toggleFullScreen:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleMaximize:">
-							<string key="name">toggleMaximize:</string>
+						<object class="IBActionInfo" key="onWindowAlwaysOnTop:">
+							<string key="name">onWindowAlwaysOnTop:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
