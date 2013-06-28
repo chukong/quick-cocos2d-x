@@ -217,12 +217,15 @@ class CCNode : public CCObject
      * @param y     Y coordinate for position
      */
     void setPosition(float x, float y);
+    void setPosition(CCPoint& point);
+
     /**
      * Gets position in a more efficient way, returns two number instead of a CCPoint object
      *
      * @see setPosition(float, float)
      */
     void getPosition(float* x = 0, float* y = 0);
+    CCPoint getPosition @ getPositionInCCPoint();
 
     /**
      * Gets/Sets x or y coordinate individually for position.
