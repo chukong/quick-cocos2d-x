@@ -38,6 +38,7 @@ extern std::string getFileDirectoryJNI();
 extern void enableAccelerometerJNI();
 extern void disableAccelerometerJNI();
 extern void setAccelerometerIntervalJNI(float interval);
+extern bool inDirectoryExistsJNI(const char* path);
 // functions for CCUserDefault
 extern bool getBoolForKeyJNI(const char* pKey, bool defaultValue);
 extern int getIntegerForKeyJNI(const char* pKey, int defaultValue);

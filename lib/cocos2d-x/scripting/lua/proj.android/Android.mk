@@ -39,6 +39,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/ \
                     $(LOCAL_PATH)/../../../extensions
 
 LOCAL_WHOLE_STATIC_LIBRARIES := luajit_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
 
 LOCAL_CFLAGS += -Wno-psabi -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
 

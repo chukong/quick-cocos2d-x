@@ -68,7 +68,7 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
     }
 
     bool bFound = false;
-    
+
     // Check whether file exists in apk.
     if (strFilePath[0] != '/')
     {
@@ -81,7 +81,7 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         if (s_pZipFile->fileExists(strPath))
         {
             bFound = true;
-        } 
+        }
     }
     else
     {
@@ -93,6 +93,11 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         }
     }
     return bFound;
+}
+
+bool CCFileUtilsAndroid::isDirectoryExist(const std::string& strDirPath)
+{
+    return inDirectoryExistsJNI(strDirPath.c_str());
 }
 
 bool CCFileUtilsAndroid::isAbsolutePath(const std::string& strPath)
@@ -110,7 +115,7 @@ bool CCFileUtilsAndroid::isAbsolutePath(const std::string& strPath)
 
 
 unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize)
-{    
+{
     unsigned char * pData = 0;
 
     if ((! pszFileName) || (! pszMode) || 0 == strlen(pszFileName))
@@ -127,7 +132,7 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
     }
     else
     {
-        do 
+        do
         {
             // read rrom other path than user set it
 	        //CCLOG("GETTING FILE ABSOLUTE DATA: %s", pszFileName);
@@ -145,8 +150,8 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
             if (pSize)
             {
                 *pSize = size;
-            }            
-        } while (0);        
+            }
+        } while (0);
     }
 
     if (! pData)

@@ -176,6 +176,7 @@ LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API -DDEBUG=1 -DCOCOS2D_DEBUG=1
 
 include $(BUILD_STATIC_LIBRARY)
 
+$(call import-module,libcurl)
 $(call import-module,libjpeg)
 $(call import-module,libpng)
 $(call import-module,libtiff)

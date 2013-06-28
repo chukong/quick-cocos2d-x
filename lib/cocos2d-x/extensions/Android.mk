@@ -63,9 +63,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
                            $(LOCAL_PATH)/GUI/CCScrollView \
                            $(LOCAL_PATH)/GUI/CCEditBox \
-                    
+
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,cocos2dx)
 $(call import-module,CocosDenshion/android)
-$(call import-module,cocos2dx/platform/third_party/android/prebuilt/libcurl)

@@ -31,8 +31,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += lua_extensions
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,cocos2dx) \
-$(call import-module,CocosDenshion/android) \
-$(call import-module,scripting/lua/proj.android) \
-$(call import-module,cocos2dx/platform/third_party/android/prebuilt/libcurl) \
+$(call import-module,cocos2dx)
+$(call import-module,CocosDenshion/android)
+$(call import-module,scripting/lua/proj.android)
 $(call import-module,lib/lua_extensions/proj.android)
