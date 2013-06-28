@@ -137,17 +137,20 @@ using namespace cocos2d;
     for (int i = [recents count] - 1; i >= 0; --i)
     {
         id recentItem = [recents objectAtIndex:i];
-        if (![[recentItem class] isSubclassOfClass:[NSDictionary class]])
+        if (![[recentItem class] isSubclassOfClass:[NSDictionary class]] || [[recentItem objectForKey:@"title"] length] == 0)
         {
             [recents removeObjectAtIndex:i];
         }
     }
 
-    NSArray *args = [self makeCommandLineArgsFromProjectConfig];
-    NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding], @"title", args, @"args", nil];
+    if (projectConfig.getProjectDir().length() > 0)
+    {
+        NSArray *args = [self makeCommandLineArgsFromProjectConfig];
+        NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding], @"title", args, @"args", nil];
 
-    [recents removeObject:item];
-    [recents insertObject:item atIndex:0];
+        [recents removeObject:item];
+        [recents insertObject:item atIndex:0];
+    }
     [[NSUserDefaults standardUserDefaults] setObject:recents forKey:@"recents"];
 }
 
