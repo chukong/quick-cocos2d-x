@@ -95,9 +95,8 @@
       <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\player\proj.win32\$(Configuration);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y /Q "$(OutDir)*.exe" "%QUICK_COCOS2DX_ROOT%\player\bin\win32\"
-xcopy /Y /Q "$(OutDir)*.dll" "%QUICK_COCOS2DX_ROOT%\player\bin\win32\"
-</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
