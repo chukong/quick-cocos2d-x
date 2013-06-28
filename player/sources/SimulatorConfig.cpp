@@ -1,5 +1,6 @@
 
 #include "SimulatorConfig.h"
+#include <sstream>
 
 #ifdef _MSC_VER
 #define strcasecmp _stricmp
@@ -21,23 +22,30 @@ const string ProjectConfig::getScriptFile(void)
     return m_scriptFile;
 }
 
-const string ProjectConfig::getScriptFilePath(void)
+const string ProjectConfig::getScriptFileRealPath(void)
 {
-    string path(m_scriptFile);
-    if (path.substr(0, 9).compare("$WORKDIR\\") == 0)
-    {
-        path = path.substr(9);
-    }
-    if (path.length() < 2 || path[1] != ':')
-    {
-        path = m_projectDir + path;
-    }
-    return path;
+    return replaceProjectDirToFullPath(m_scriptFile);
 }
 
 void ProjectConfig::setScriptFile(const string scriptFile)
 {
     m_scriptFile = scriptFile;
+    normalize();
+}
+
+const string ProjectConfig::getWritablePath(void)
+{
+    return m_writablePath;
+}
+
+const string ProjectConfig::getWritableRealPath(void)
+{
+    return replaceProjectDirToFullPath(m_writablePath);
+}
+
+void ProjectConfig::setWritablePath(const string writablePath)
+{
+    m_writablePath = writablePath;
     normalize();
 }
 
@@ -48,10 +56,10 @@ const string ProjectConfig::getPackagePath(void)
 
 const string ProjectConfig::getNormalizedPackagePath(void)
 {
-    // replace $WORKDIR
+    // replace $PROJDIR
     string path = m_packagePath;
     int pos = std::string::npos;
-    while ((pos = path.find("$WORKDIR")) != std::string::npos)
+    while ((pos = path.find("$PROJDIR")) != std::string::npos)
     {
         path = path.substr(0, pos) + m_projectDir + path.substr(pos + 8);
     }
@@ -100,17 +108,6 @@ const vector<string> ProjectConfig::getPackagePathArray(void)
     return arr;
 }
 
-const string ProjectConfig::getWritablePath(void)
-{
-    return m_writablePath;
-}
-
-void ProjectConfig::setWritablePath(const string writablePath)
-{
-    m_writablePath = writablePath;
-    normalize();
-}
-
 const CCSize ProjectConfig::getFrameSize(void)
 {
     return m_frameSize;
@@ -118,13 +115,30 @@ const CCSize ProjectConfig::getFrameSize(void)
 
 void ProjectConfig::setFrameSize(CCSize frameSize)
 {
-    CCAssert(frameSize.width > 0 && frameSize.height > 0, "Invalid frameSize");
+    if (frameSize.width <= 0 || frameSize.width > 2048 || frameSize.height <= 0 || frameSize.height > 2048) return;
     m_frameSize = frameSize;
 }
 
 bool ProjectConfig::isLandscapeFrame(void)
 {
     return m_frameSize.width > m_frameSize.height;
+}
+
+void ProjectConfig::changeFrameOrientation(void)
+{
+    float w = m_frameSize.width;
+    m_frameSize.width = m_frameSize.height;
+    m_frameSize.height = w;
+}
+
+void ProjectConfig::changeFrameOrientationToPortait(void)
+{
+    if (isLandscapeFrame()) changeFrameOrientation();
+}
+
+void ProjectConfig::changeFrameOrientationToLandscape(void)
+{
+    if (!isLandscapeFrame()) changeFrameOrientation();
 }
 
 const float ProjectConfig::getFrameScale(void)
@@ -148,6 +162,16 @@ void ProjectConfig::setShowConsole(bool showConsole)
     m_showConsole = showConsole;
 }
 
+const bool ProjectConfig::isWriteDebugLogToFile(void)
+{
+    return m_writeDebugLogToFile;
+}
+
+void ProjectConfig::setWriteDebugLogToFile(bool writeDebugLogToFile)
+{
+    m_writeDebugLogToFile = writeDebugLogToFile;
+}
+
 const CCPoint ProjectConfig::getWindowOffset(void)
 {
     return m_windowOffset;
@@ -158,6 +182,68 @@ void ProjectConfig::setWindowOffset(CCPoint windowOffset)
     m_windowOffset = windowOffset;
 }
 
+const string ProjectConfig::makeCommandLine(void)
+{
+    stringstream buff;
+
+    buff << "-workdir ";
+    buff << getProjectDir();
+    buff << " -file ";
+    buff << getScriptFileRealPath();
+    buff << " -writable ";
+    buff << getWritableRealPath();
+
+    const string packagePath = getPackagePath();
+    if (packagePath.length())
+    {
+        buff << " -package.path ";
+        buff << packagePath;
+    }
+
+    buff << " -size ";
+    buff << (int)getFrameSize().width;
+    buff << "x";
+    buff << (int)getFrameSize().height;
+
+    if (getFrameScale() < 1.0f)
+    {
+        buff << " -scale ";
+        buff.precision(3);
+        buff << getFrameScale();
+    }
+
+    if (isWriteDebugLogToFile())
+    {
+        buff << " -write-debug-log";
+    }
+
+    return buff.str();
+}
+
+bool ProjectConfig::validate(void)
+{
+    CCFileUtils *utils = CCFileUtils::sharedFileUtils();
+    if (!utils->isDirectoryExist(m_projectDir)) return false;
+    if (!utils->isDirectoryExist(getWritableRealPath())) return false;
+    if (!utils->isFileExist(getScriptFileRealPath())) return false;
+    return true;
+}
+
+void ProjectConfig::dump(void)
+{
+    CCLOG("----------------------------------------");
+    CCLOG("Project Config:");
+    CCLOG("  project dir: %s", m_projectDir.c_str());
+    CCLOG("  writable path: %s", m_writablePath.length() ? m_writablePath.c_str() : "-");
+    CCLOG("  script file: %s", m_scriptFile.c_str());
+    CCLOG("  package.path: %s", m_packagePath.length() ? m_packagePath.c_str() : "-");
+    CCLOG("  frame size: %0.0f x %0.0f", m_frameSize.width, m_frameSize.height);
+    CCLOG("  frame scale: %0.2f", m_frameScale);
+    CCLOG("  show console: %s", m_showConsole ? "YES" : "NO");
+    CCLOG("  write debug log: %s", m_writeDebugLogToFile ? "YES" : "NO");
+    CCLOG("----------------------------------------");
+}
+
 void ProjectConfig::normalize(void)
 {
     SimulatorConfig::makeNormalizePath(&m_projectDir);
@@ -165,34 +251,91 @@ void ProjectConfig::normalize(void)
     SimulatorConfig::makeNormalizePath(&m_writablePath);
     SimulatorConfig::makeNormalizePath(&m_packagePath);
 
+    // projectDir
     int len = m_projectDir.length();
     if (len > 0 && m_projectDir[len - 1] != DIRECTORY_SEPARATOR_CHAR)
     {
         m_projectDir.append(DIRECTORY_SEPARATOR);
+        len++;
     }
 
-    int projectDirLength = m_projectDir.length();
-    if (projectDirLength > 0)
+    // writablePath
+    if (len > 0 && m_writablePath.length() == 0)
     {
-        if (m_writablePath.length() == 0)
-        {
-            m_writablePath = m_projectDir;
-        }
-
-        vector<string> arr = getPackagePathArray();
-        m_packagePath = string("");
-        for (vector<string>::iterator it = arr.begin(); it != arr.end(); ++it)
-        {
-            string path = *it;
-            m_packagePath.append(path);
-            m_packagePath.append(";");
-        }
+        m_writablePath = m_projectDir;
     }
+    len = m_writablePath.length();
+    if (len > 0 && m_writablePath[len - 1] != DIRECTORY_SEPARATOR_CHAR)
+    {
+        m_writablePath.append(DIRECTORY_SEPARATOR);
+    }
+    m_writablePath = replaceProjectDirToMacro(m_writablePath);
 
+    // scriptFile
+    m_scriptFile = replaceProjectDirToMacro(m_scriptFile);
+
+    // package.path
+    vector<string> arr = getPackagePathArray();
+    m_packagePath = string("");
+    for (vector<string>::iterator it = arr.begin(); it != arr.end(); ++it)
+    {
+        string path = replaceProjectDirToMacro(*it);
+        m_packagePath.append(path);
+        m_packagePath.append(";");
+    }
     if (m_packagePath.length() > 0 && m_packagePath[m_packagePath.length() - 1] == ';')
     {
         m_packagePath = m_packagePath.substr(0, m_packagePath.length() - 1);
     }
+}
+
+const string ProjectConfig::replaceProjectDirToMacro(const string& path)
+{
+    if (!isAbsolutePath(path))
+    {
+        if (path.compare(0, 8, "$PROJDIR") == 0) return path;
+        string result("$PROJDIR");
+        result.append(DIRECTORY_SEPARATOR);
+        result.append(path);
+        return result;
+    }
+
+    string result = path;
+    int len = m_projectDir.length();
+    if (len > 0 && result.compare(0, len, m_projectDir) == 0)
+    {
+        result = "$PROJDIR";
+        result.append(DIRECTORY_SEPARATOR);
+        result.append(path.substr(len));
+    }
+    return result;
+}
+
+const string ProjectConfig::replaceProjectDirToFullPath(const string& path)
+{
+    if (isAbsolutePath(path)) return path;
+
+    string result = path;
+    if (path.compare(0, 8, "$PROJDIR") == 0)
+    {
+        result = m_projectDir;
+        string suffix = path.substr(8);
+        if (suffix[0] == DIRECTORY_SEPARATOR_CHAR)
+        {
+            suffix = suffix.substr(1);
+        }
+        result.append(suffix);
+    }
+    return result;
+}
+
+bool ProjectConfig::isAbsolutePath(const string& path)
+{
+    if (DIRECTORY_SEPARATOR_CHAR == '/')
+    {
+        return path.length() > 0 && path[0] == '/';
+    }
+    return path.length() > 2 && path[1] == ':';
 }
 
 
@@ -216,13 +359,26 @@ SimulatorConfig::SimulatorConfig(void)
     m_screenSizeArray.push_back(SimulatorScreenSize("iPhone 5 (640x1136)", 640, 1136));
     m_screenSizeArray.push_back(SimulatorScreenSize("iPad (768x1024)", 768, 1024));
     m_screenSizeArray.push_back(SimulatorScreenSize("iPad Retina (1536x2048)", 1536, 2048));
+    m_screenSizeArray.push_back(SimulatorScreenSize("Android (320x480)", 320, 480));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (480x800)", 480, 800));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (480x854)", 480, 854));
+    m_screenSizeArray.push_back(SimulatorScreenSize("Android (540x960)", 540, 960));
+    m_screenSizeArray.push_back(SimulatorScreenSize("Android (640x960)", 640, 960));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (600x1024)", 600, 1024));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (768x1024)", 768, 1024));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (720x1280)", 720, 1280));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (800x1280)", 800, 1280));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (1080x1920)", 1080, 1920));
+}
+
+int SimulatorConfig::getScreenSizeCount(void)
+{
+    return m_screenSizeArray.size();
+}
+
+const SimulatorScreenSize SimulatorConfig::getScreenSize(int index)
+{
+    return m_screenSizeArray.at(index);
 }
 
 int SimulatorConfig::checkScreenSize(const CCSize& size)

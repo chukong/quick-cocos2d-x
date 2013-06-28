@@ -220,6 +220,8 @@ static NSFileManager* s_fileManager = [NSFileManager defaultManager];
 
 std::string CCFileUtilsMac::getWritablePath()
 {
+    if (m_strWritablePath.length()) return m_strWritablePath;
+
     // save to document folder
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -261,7 +263,27 @@ bool CCFileUtilsMac::isFileExist(const std::string& strFilePath)
             bRet = true;
         }
     }
-    
+
+    return bRet;
+}
+
+bool CCFileUtilsMac::isDirectoryExist(const std::string& strDirPath)
+{
+    if (0 == strDirPath.length())
+    {
+        return false;
+    }
+
+    bool bRet = false;
+
+    if (strDirPath[0] == '/')
+    {
+        BOOL isDirectory = FALSE;
+        if ([s_fileManager fileExistsAtPath:[NSString stringWithUTF8String:strDirPath.c_str()] isDirectory:&isDirectory]) {
+            bRet = isDirectory == YES;
+        }
+    }
+
     return bRet;
 }
 

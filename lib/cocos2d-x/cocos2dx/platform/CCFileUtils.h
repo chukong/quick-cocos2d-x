@@ -285,6 +285,15 @@ public:
      *  @return true if the file exists, otherwise it will return false.
      */
     virtual bool isFileExist(const std::string& strFilePath) = 0;
+
+    /**
+     *  Checks whether a directory exists.
+     *
+     *  @note If a relative path was passed in, it will be inserted a default root path at the beginning.
+     *  @param strDirPath The path of the file, it could be a relative or absolute path.
+     *  @return true if the directory exists, otherwise it will return false.
+     */
+    virtual bool isDirectoryExist(const std::string& strDirPath) = 0;
     
     /**
      *  Checks whether the path is an absolute path.

@@ -8,7 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		F40EE898163F83E000090121 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957915F49004004D4151 /* AppKit.framework */; };
+		F432397B176433E5008C4624 /* ProjectConfigDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F432397A176433E5008C4624 /* ProjectConfigDialogController.mm */; };
 		F44C957715F49004004D4151 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957615F49004004D4151 /* Cocoa.framework */; };
+		F4703CBB177955C500A8A9E9 /* CreateNewProjectDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */; };
+		F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4703CBC177955E100A8A9E9 /* MainMenu.xib */; };
+		F4703CBF177955E200A8A9E9 /* ProjectConfigDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4703CBD177955E200A8A9E9 /* ProjectConfigDialog.xib */; };
+		F4703CC2177957F800A8A9E9 /* CreateNewProjectDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4703CC1177957F600A8A9E9 /* CreateNewProjectDialogController.mm */; };
+		F49DC887177C0C5E00D20226 /* NSApplication+SheetAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49DC886177C0C5E00D20226 /* NSApplication+SheetAdditions.m */; };
 		F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15816B7A35700A12606 /* AudioToolbox.framework */; };
 		F4A5C15F16B7A35700A12606 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15916B7A35700A12606 /* OpenAL.framework */; };
 		F4A5C16016B7A35700A12606 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15A16B7A35700A12606 /* OpenGL.framework */; };
@@ -16,8 +22,6 @@
 		F4A5C16F16B7A3EC00A12606 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16C16B7A3EC00A12606 /* libxml2.dylib */; };
 		F4A5C17016B7A3EC00A12606 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16D16B7A3EC00A12606 /* libz.dylib */; };
 		F4B0814A175C89050029F472 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B08140175C89050029F472 /* AppController.mm */; };
-		F4B0814B175C89050029F472 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4B08142175C89050029F472 /* InfoPlist.strings */; };
-		F4B0814C175C89050029F472 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4B08144175C89050029F472 /* MainMenu.xib */; };
 		F4B0814D175C89050029F472 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F4B08146175C89050029F472 /* Icon.icns */; };
 		F4B0814F175C89050029F472 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B08148175C89050029F472 /* main.m */; };
 		F4B08157175C89E90029F472 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B08156175C89E30029F472 /* libquickcocos2dx.a */; };
@@ -39,11 +43,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4323979176433E5008C4624 /* ProjectConfigDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectConfigDialogController.h; sourceTree = "<group>"; };
+		F432397A176433E5008C4624 /* ProjectConfigDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProjectConfigDialogController.mm; sourceTree = "<group>"; };
 		F44C957215F49004004D4151 /* quick-x-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "quick-x-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44C957915F49004004D4151 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F44C957A15F49004004D4151 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F44C957B15F49004004D4151 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateNewProjectDialog.xib; sourceTree = "<group>"; };
+		F4703CBC177955E100A8A9E9 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		F4703CBD177955E200A8A9E9 /* ProjectConfigDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectConfigDialog.xib; sourceTree = "<group>"; };
+		F4703CC0177957F500A8A9E9 /* CreateNewProjectDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewProjectDialogController.h; sourceTree = "<group>"; };
+		F4703CC1177957F600A8A9E9 /* CreateNewProjectDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CreateNewProjectDialogController.mm; sourceTree = "<group>"; };
+		F49DC885177C0C5E00D20226 /* NSApplication+SheetAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+SheetAdditions.h"; sourceTree = "<group>"; };
+		F49DC886177C0C5E00D20226 /* NSApplication+SheetAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+SheetAdditions.m"; sourceTree = "<group>"; };
 		F4A5C15816B7A35700A12606 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		F4A5C15916B7A35700A12606 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = "<absolute>"; };
 		F4A5C15A16B7A35700A12606 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
@@ -52,8 +65,6 @@
 		F4A5C16D16B7A3EC00A12606 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		F4B0813F175C89050029F472 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = SOURCE_ROOT; };
 		F4B08140175C89050029F472 /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppController.mm; sourceTree = SOURCE_ROOT; };
-		F4B08143175C89050029F472 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
-		F4B08145175C89050029F472 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainMenu.xib; sourceTree = "<group>"; };
 		F4B08146175C89050029F472 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = SOURCE_ROOT; };
 		F4B08147175C89050029F472 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		F4B08148175C89050029F472 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
@@ -140,15 +151,6 @@
 			name = "quick-x-player";
 			sourceTree = "<group>";
 		};
-		F4B08141175C89050029F472 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				F4B08142175C89050029F472 /* InfoPlist.strings */,
-				F4B08144175C89050029F472 /* MainMenu.xib */,
-			);
-			path = en.lproj;
-			sourceTree = SOURCE_ROOT;
-		};
 		F4B08152175C89E30029F472 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,11 +164,19 @@
 			children = (
 				F4B0813F175C89050029F472 /* AppController.h */,
 				F4B08140175C89050029F472 /* AppController.mm */,
-				F4B08141175C89050029F472 /* en.lproj */,
+				F4703CC0177957F500A8A9E9 /* CreateNewProjectDialogController.h */,
+				F4703CC1177957F600A8A9E9 /* CreateNewProjectDialogController.mm */,
+				F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */,
 				F4B08146175C89050029F472 /* Icon.icns */,
 				F4B08147175C89050029F472 /* Info.plist */,
 				F4B08148175C89050029F472 /* main.m */,
+				F4703CBC177955E100A8A9E9 /* MainMenu.xib */,
+				F49DC885177C0C5E00D20226 /* NSApplication+SheetAdditions.h */,
+				F49DC886177C0C5E00D20226 /* NSApplication+SheetAdditions.m */,
 				F4B08149175C89050029F472 /* Prefix.pch */,
+				F4703CBD177955E200A8A9E9 /* ProjectConfigDialog.xib */,
+				F4323979176433E5008C4624 /* ProjectConfigDialogController.h */,
+				F432397A176433E5008C4624 /* ProjectConfigDialogController.mm */,
 			);
 			name = mac;
 			sourceTree = "<group>";
@@ -250,9 +260,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4B0814B175C89050029F472 /* InfoPlist.strings in Resources */,
-				F4B0814C175C89050029F472 /* MainMenu.xib in Resources */,
 				F4B0814D175C89050029F472 /* Icon.icns in Resources */,
+				F4703CBB177955C500A8A9E9 /* CreateNewProjectDialog.xib in Resources */,
+				F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */,
+				F4703CBF177955E200A8A9E9 /* ProjectConfigDialog.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,29 +278,13 @@
 				F4B0814F175C89050029F472 /* main.m in Sources */,
 				F4B0815E175C8A1E0029F472 /* AppDelegate.cpp in Sources */,
 				F4B0815F175C8A1E0029F472 /* SimulatorConfig.cpp in Sources */,
+				F432397B176433E5008C4624 /* ProjectConfigDialogController.mm in Sources */,
+				F4703CC2177957F800A8A9E9 /* CreateNewProjectDialogController.mm in Sources */,
+				F49DC887177C0C5E00D20226 /* NSApplication+SheetAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F4B08142175C89050029F472 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4B08143175C89050029F472 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		F4B08144175C89050029F472 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F4B08145175C89050029F472 /* en */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F44C958E15F49004004D4151 /* Debug */ = {

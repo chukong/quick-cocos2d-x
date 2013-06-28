@@ -20,12 +20,13 @@ class ProjectConfig
 {
 public:
     ProjectConfig(void)
-    : m_scriptFile("")
+    : m_scriptFile("$PROJDIR/scripts/main.lua")
     , m_writablePath("")
     , m_packagePath("")
-    , m_frameSize(320, 480)
+    , m_frameSize(854, 480)
     , m_frameScale(1.0f)
     , m_showConsole(true)
+    , m_writeDebugLogToFile(false)
     , m_windowOffset(-1, -1)
     {
         normalize();
@@ -35,8 +36,12 @@ public:
     void setProjectDir(const string projectDir);
 
     const string getScriptFile(void);
-    const string getScriptFilePath(void);
+    const string getScriptFileRealPath(void);
     void setScriptFile(const string scriptFile);
+
+    const string getWritablePath(void);
+    const string getWritableRealPath(void);
+    void setWritablePath(const string writablePath);
 
     const string getPackagePath(void);
     const string getNormalizedPackagePath(void);
@@ -44,12 +49,12 @@ public:
     void addPackagePath(const string packagePath);
     const vector<string> getPackagePathArray(void);
 
-    const string getWritablePath(void);
-    void setWritablePath(const string writablePath);
-
     const CCSize getFrameSize(void);
     void setFrameSize(CCSize frameSize);
     bool isLandscapeFrame(void);
+    void changeFrameOrientation(void);
+    void changeFrameOrientationToPortait(void);
+    void changeFrameOrientationToLandscape(void);
 
     const float getFrameScale(void);
     void setFrameScale(float frameScale);
@@ -57,8 +62,16 @@ public:
     const bool isShowConsole(void);
     void setShowConsole(bool showConsole);
 
+    const bool isWriteDebugLogToFile(void);
+    void setWriteDebugLogToFile(bool writeDebugLogToFile);
+
     const CCPoint getWindowOffset(void);
     void setWindowOffset(CCPoint windowOffset);
+
+    const string makeCommandLine(void);
+
+    bool validate(void);
+    void dump(void);
 
 private:
     string	m_projectDir;
@@ -68,9 +81,13 @@ private:
     CCSize	m_frameSize;
     float	m_frameScale;
     bool	m_showConsole;
+    bool    m_writeDebugLogToFile;
     CCPoint	m_windowOffset;
 
     void normalize(void);
+    const string replaceProjectDirToMacro(const string& path);
+    const string replaceProjectDirToFullPath(const string& path);
+    bool isAbsolutePath(const string& path);
 };
 
 
@@ -89,29 +106,26 @@ typedef struct _SimulatorScreenSize {
     }
 } SimulatorScreenSize;
 
+typedef vector<SimulatorScreenSize> ScreenSizeArray;
+typedef ScreenSizeArray::iterator ScreenSizeArrayIterator;
+
 class SimulatorConfig
 {
 public:
     static SimulatorConfig *sharedDefaults(void);
-    
-    int numScreenSize(void) {
-        return m_screenSizeArray.size();
-    }
-    const SimulatorScreenSize getScreenSize(int index) {
-        return m_screenSizeArray.at(index);
-    }
+
+    int getScreenSizeCount(void);
+    const SimulatorScreenSize getScreenSize(int index);
     int checkScreenSize(const CCSize& size);
 
     // helper
     static void makeNormalizePath(string *path, const char *directorySeparator = NULL);
-    
+
 private:
     SimulatorConfig(void);
 
     static SimulatorConfig *s_sharedInstance;
 
-    typedef vector<SimulatorScreenSize> ScreenSizeArray;
-    typedef ScreenSizeArray::iterator ScreenSizeArrayIterator;
     ScreenSizeArray m_screenSizeArray;
 };
 

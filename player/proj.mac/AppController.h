@@ -23,7 +23,11 @@
  ****************************************************************************/
 
 #import "EAGLView.h"
+#import "NSApplication+SheetAdditions.h"
+
 #include <string>
+#include "SimulatorConfig.h"
+#include "AppDelegate.h"
 
 @interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>
 {
@@ -34,35 +38,36 @@
     BOOL waitForRestart;
     BOOL isAlwaysOnTop;
     BOOL isMaximized;
-    
-    NSSize frameSize;
-    NSSize prevFrameSize;
-    std::string workingDir;
-    std::string startupScriptFilename;
+
+    AppDelegate *app;
+    ProjectConfig projectConfig;
+    BOOL hasPopupDialog;
+
+    int debugLogFile;
 }
 
-@property (nonatomic, assign) IBOutlet NSWindow* window;
-@property (nonatomic, assign) IBOutlet EAGLView* glView;
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
 
--(IBAction) openWorkingDirectory:(id)sender;
--(IBAction) selectStartupScript:(id)sender;
--(IBAction) restart:(id)sender;
+- (IBAction) fileNewProject:(id)sender;
+- (IBAction) fileOpen:(id)sender;
+- (IBAction) onFileOpenRecentClearMenu:(id)sender;
+- (IBAction) fileClose:(id)sender;
 
--(IBAction) resize_iPhone3G:(id)sender;
--(IBAction) resize_iPhone4:(id)sender;
--(IBAction) resize_iPhone5:(id)sender;
--(IBAction) resize_iPad:(id)sender;
--(IBAction) resize_New_iPad:(id)sender;
--(IBAction) resize_Android_854_480:(id)sender;
--(IBAction) resize_Android_800_480:(id)sender;
--(IBAction) resize_Android_1024_600:(id)sender;
--(IBAction) resize_Android_1280_720:(id)sender;
--(IBAction) resize_Android_1280_800:(id)sender;
--(IBAction) toggleMaximize:(id)sender;
--(IBAction) toggleAlwaysOnTop:(id)sender;
+- (IBAction) playerWriteDebugLogToFile:(id)sender;
+- (IBAction) playerOpenDebugLog:(id)sender;
+- (IBAction) playerRelaunch:(id)sender;
+- (IBAction) playerShowProjectSandbox:(id)sender;
+- (IBAction) playerShowProjectFiles:(id)sender;
 
--(IBAction) toggleFullScreen:(id)sender;
--(IBAction) exitFullScreen:(id)sender;
+- (IBAction) onScreenPortait:(id)sender;
+- (IBAction) onScreenLandscape:(id)sender;
+- (IBAction) onScreenActual:(id)sender;
+- (IBAction) onScreenZoomOut:(id)sender;
+
+- (IBAction) toggleMaximize:(id)sender;
+- (IBAction) toggleAlwaysOnTop:(id)sender;
+
+- (IBAction) toggleFullScreen:(id)sender;
+- (IBAction) exitFullScreen:(id)sender;
 
 @end

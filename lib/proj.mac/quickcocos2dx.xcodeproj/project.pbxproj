@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F42B55E71727F1C7000379DE /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C51727F1C7000379DE /* auxiliar.c */; };
 		F42B55E91727F1C7000379DE /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C91727F1C7000379DE /* except.c */; };
@@ -316,8 +315,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extensions_luabinding.cpp; sourceTree = "<group>"; };
-		6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extensions_luabinding.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F411F3DC175CEAFC00EF549A /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -485,6 +482,7 @@
 		F46FBF45175726FA00E14613 /* CSTweenFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSTweenFunction.h; sourceTree = "<group>"; };
 		F46FBF46175726FA00E14613 /* CSUtilMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSUtilMath.cpp; sourceTree = "<group>"; };
 		F46FBF47175726FA00E14613 /* CSUtilMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSUtilMath.h; sourceTree = "<group>"; };
+		F4703CB81777F0D900A8A9E9 /* cocos-ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cocos-ext.h"; sourceTree = "<group>"; };
 		F477B7391757404200260C19 /* CCCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCamera.cpp; sourceTree = "<group>"; };
 		F477B73A1757404200260C19 /* CCCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCamera.h; sourceTree = "<group>"; };
 		F477B73B1757404200260C19 /* CCConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCConfiguration.cpp; sourceTree = "<group>"; };
@@ -1613,20 +1611,12 @@
 			children = (
 				F477B8F3175740BF00260C19 /* AssetsManager */,
 				F4E880F517700E5E00577406 /* CCBReader */,
+				F4703CB81777F0D900A8A9E9 /* cocos-ext.h */,
 				F4E8814217700E7200577406 /* Components */,
 				F477B92C175740BF00260C19 /* ExtensionMacros.h */,
 				F477B92D175740BF00260C19 /* GUI */,
 			);
 			path = extensions;
-			sourceTree = "<group>";
-		};
-		F4DCAD28168C153000679DBE /* cocos2dx_extensions_luabinding */ = {
-			isa = PBXGroup;
-			children = (
-				6CD6760709389A1C7769CB5D /* cocos2dx_extensions_luabinding.cpp */,
-				6CD679BEDBAD4D4FA4667CDB /* cocos2dx_extensions_luabinding.h */,
-			);
-			path = cocos2dx_extensions_luabinding;
 			sourceTree = "<group>";
 		};
 		F4DE081516800060005DB2DB = {
@@ -1660,7 +1650,6 @@
 			isa = PBXGroup;
 			children = (
 				F4DE084216800151005DB2DB /* cocos2d-x */,
-				F4DCAD28168C153000679DBE /* cocos2dx_extensions_luabinding */,
 				F425ABD016B7777A00A1C8DB /* cocos2dx_extra */,
 				F4B4EF3516C7E0AE00736FFE /* lua_extensions */,
 				F43D10441738DA2500B189FF /* third_party */,
@@ -2575,7 +2564,6 @@
 				F4B4EF5E16CA24C300736FFE /* ReachabilityIOSMac.m in Sources */,
 				F4B4EF6016CA25C000736FFE /* CCCryptoMac.mm in Sources */,
 				F4B4EF6216CA296E00736FFE /* CCNetworkIOSMac.mm in Sources */,
-				6CD67070318493CABFA1120D /* cocos2dx_extensions_luabinding.cpp in Sources */,
 				F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */,
 				F42B55E71727F1C7000379DE /* auxiliar.c in Sources */,
 				F42B55E91727F1C7000379DE /* except.c in Sources */,

@@ -23,72 +23,42 @@
  ****************************************************************************/
 
 #import "AppController.h"
+#import "CreateNewProjectDialogController.h"
+#import "ProjectConfigDialogController.h"
+
+#include <sys/stat.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 #include "AppDelegate.h"
 #include "CCDirector.h"
 #include "SimpleAudioEngine.h"
 #include "platform/CCFileUtils.h"
-#include "draw_nodes/CCDrawingPrimitives.h"
 
 using namespace std;
 using namespace cocos2d;
 
-static AppDelegate* s_sharedApplication = NULL;
-
 @implementation AppController
 
-@synthesize window, glView, menu;
+@synthesize menu;
 
--(void) applicationDidFinishLaunching:(NSNotification *)aNotification
+- (void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     waitForRestart = NO;
     isAlwaysOnTop = NO;
     isMaximized = NO;
+    hasPopupDialog = NO;
+    debugLogFile = 0;
 
-    NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
+    app = new AppDelegate();
 
-    int width = 960;
-    int height = 640;
-    NSString *nssize = [args stringForKey:@"size"];
-    if (nssize)
-    {
-        const char *csize = [nssize cStringUsingEncoding:NSUTF8StringEncoding];
-        string size(csize);
-        int pos = size.find('x');
-        if (pos != size.npos && pos > 0)
-        {
-            string widthStr, heightStr;
-            widthStr.assign(size, 0, pos);
-            heightStr.assign(size, pos + 1, size.length() - pos);
-            width = (float)atoi(widthStr.c_str());
-            height = (float)atoi(heightStr.c_str());
-            if (width < 480) width = 480;
-            if (height < 320) height = 320;
-        }
-    }
-    frameSize.width = width;
-    frameSize.height = height;
-
-    NSString *nsstartupScriptFilename = [args stringForKey:@"file"];
-    if (nsstartupScriptFilename)
-    {
-        startupScriptFilename = string([nsstartupScriptFilename cStringUsingEncoding:NSUTF8StringEncoding]);
-    }
-    else
-    {
-        startupScriptFilename = string("main.lua");
-    }
-
-    NSString *nsworkingDir = [args stringForKey:@"workdir"];
-    if (nsworkingDir)
-    {
-        workingDir = string([nsworkingDir cStringUsingEncoding:NSUTF8StringEncoding]);
-    }
-
+    [self updateProjectConfigFromArgs];
     [self createWindowAndGLView];
     [self startup];
+    [self updateOpenRect];
+    [self initUI];
+    [self updateUI];
 }
-
 
 -(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
 {
@@ -104,30 +74,17 @@ static AppDelegate* s_sharedApplication = NULL;
 #pragma mark -
 #pragma mark functions
 
--(void) createWindowAndGLView
+- (void) createWindowAndGLView
 {
-    if (s_sharedApplication)
+    if (projectConfig.isWriteDebugLogToFile())
     {
-        delete s_sharedApplication;
+        [self writeDebugLogToFile:[self getDebugLogFilePath]];
     }
-    s_sharedApplication = new AppDelegate();
 
+    const CCSize frameSize = projectConfig.getFrameSize();
     float left = 10;
     float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
     bottom -= [NSMenuView menuBarHeight] + 10;
-    if (window)
-    {
-        left = window.frame.origin.x;
-        bottom = window.frame.origin.y + ([glView getHeight] - frameSize.height);
-
-        [window setContentView:nil];
-        [glView release];
-        glView = nil;
-
-        [window setReleasedWhenClosed:YES];
-        [window close];
-        window = nil;
-    }
 
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
@@ -138,7 +95,6 @@ static AppDelegate* s_sharedApplication = NULL;
                                          styleMask:mask
                                            backing:NSBackingStoreBuffered
                                              defer:YES];
-
     window.delegate = self;
 
     // allocate our GL view
@@ -151,40 +107,474 @@ static AppDelegate* s_sharedApplication = NULL;
     [window setTitle:@"quick-x-player"];
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
+    [window center];
 
-    ccDrawInit();
+    [self setZoom:projectConfig.getFrameScale()];
 }
 
--(void) startup
+- (void) startup
 {
-    if (CCScriptEngineManager::sharedManager()->getScriptEngine())
+    const string projectDir = projectConfig.getProjectDir();
+    if (projectDir.length())
     {
-        CCScriptEngineManager::sharedManager()->removeScriptEngine();
-        CCScriptEngineManager::purgeSharedManager();
-    }
-    CocosDenshion::SimpleAudioEngine::end();
-
-    CCApplication* app = CCApplication::sharedApplication();
-    app->setStartupScriptFilename(startupScriptFilename);
-    if (workingDir.length() > 0)
-    {
-        CCFileUtils::sharedFileUtils()->setSearchRootPath(workingDir.c_str());
+        CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
     }
 
+    const string writablePath = projectConfig.getWritableRealPath();
+    if (writablePath.length())
+    {
+        CCFileUtils::sharedFileUtils()->setWritablePath(writablePath.c_str());
+    }
+
+    app->setStartupScriptFilename(projectConfig.getScriptFileRealPath());
     app->run();
+}
+
+- (void) updateOpenRect
+{
+    NSMutableArray *recents = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"]];
+
+    for (int i = [recents count] - 1; i >= 0; --i)
+    {
+        id recentItem = [recents objectAtIndex:i];
+        if (![[recentItem class] isSubclassOfClass:[NSDictionary class]])
+        {
+            [recents removeObjectAtIndex:i];
+        }
+    }
+
+    NSArray *args = [self makeCommandLineArgsFromProjectConfig];
+    NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding], @"title", args, @"args", nil];
+
+    [recents removeObject:item];
+    [recents insertObject:item atIndex:0];
+    [[NSUserDefaults standardUserDefaults] setObject:recents forKey:@"recents"];
+}
+
+- (void) initUI
+{
+    NSMenu *submenu = [[[window menu] itemWithTitle:@"Screen"] submenu];
+
+    SimulatorConfig *config = SimulatorConfig::sharedDefaults();
+    int current = config->checkScreenSize(projectConfig.getFrameSize());
+    for (int i = config->getScreenSizeCount() - 1; i >= 0; --i)
+    {
+        SimulatorScreenSize size = config->getScreenSize(i);
+        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithCString:size.title.c_str() encoding:NSUTF8StringEncoding]
+                                                       action:@selector(onScreenChangeFrameSize:)
+                                                keyEquivalent:@""] autorelease];
+        [item setTag:i];
+
+        if (i == current)
+        {
+            [item setState:NSOnState];
+        }
+        [submenu insertItem:item atIndex:0];
+    }
+
+    NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
+    submenu = [[[[[window menu] itemWithTitle:@"File"] submenu] itemWithTitle:@"Open Recent"] submenu];
+    for (int i = [recents count] - 1; i >= 0; --i)
+    {
+        NSDictionary *recentItem = [recents objectAtIndex:i];
+        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[recentItem objectForKey:@"title"]
+                                                       action:@selector(onFileOpenRecent:)
+                                                keyEquivalent:@""] autorelease];
+        [submenu insertItem:item atIndex:0];
+    }
+}
+
+- (void) updateUI
+{
+    NSMenu *menuPlayer = [[[window menu] itemWithTitle:@"Player"] submenu];
+    NSMenuItem *itemWriteDebugLogToFile = [menuPlayer itemWithTitle:@"Write Debug Log to File"];
+    [itemWriteDebugLogToFile setState:projectConfig.isWriteDebugLogToFile() ? NSOnState : NSOffState];
+
+    NSMenu *menuScreen = [[[window menu] itemWithTitle:@"Screen"] submenu];
+    NSMenuItem *itemPortait = [menuScreen itemWithTitle:@"Portait"];
+    NSMenuItem *itemLandscape = [menuScreen itemWithTitle:@"Landscape"];
+    if (projectConfig.isLandscapeFrame())
+    {
+        [itemPortait setState:NSOffState];
+        [itemLandscape setState:NSOnState];
+    }
+    else
+    {
+        [itemPortait setState:NSOnState];
+        [itemLandscape setState:NSOffState];
+    }
+
+    NSMenuItem *itemActual = [menuScreen itemWithTitle:@"Actual (100%)"];
+    NSMenuItem *itemZoomOut = [menuScreen itemWithTitle:@"Zoom Out (50%)"];
+    if (projectConfig.getFrameScale() > 0.5f)
+    {
+        [itemActual setState:NSOnState];
+        [itemZoomOut setState:NSOffState];
+    }
+    else
+    {
+        [itemActual setState:NSOffState];
+        [itemZoomOut setState:NSOnState];
+    }
+
+    NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
+    NSMenu *menuRecents = [[[[[window menu] itemWithTitle:@"File"] submenu] itemWithTitle:@"Open Recent"] submenu];
+    while (true)
+    {
+        NSMenuItem *item = [menuRecents itemAtIndex:0];
+        if ([item isSeparatorItem]) break;
+        [menuRecents removeItemAtIndex:0];
+    }
+
+    for (int i = [recents count] - 1; i >= 0; --i)
+    {
+        NSDictionary *recentItem = [recents objectAtIndex:i];
+        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[recentItem objectForKey:@"title"]
+                                                       action:@selector(onFileOpenRecent:)
+                                                keyEquivalent:@""] autorelease];
+        [menuRecents insertItem:item atIndex:0];
+    }
+
+    [window setTitle:[NSString stringWithFormat:@"quick-x-player (%0.0f%%)", projectConfig.getFrameScale() * 100]];
+}
+
+- (void) showModelSheet
+{
+    hasPopupDialog = YES;
+    CCDirector::sharedDirector()->pause();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+}
+
+- (void) stopModelSheet
+{
+    hasPopupDialog = NO;
+    CCDirector::sharedDirector()->resume();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+}
+
+- (NSArray *) makeCommandLineArgsFromProjectConfig
+{
+    NSMutableArray *args = [NSMutableArray array];
+    [args addObject:@"-workdir"];
+    [args addObject:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding]];
+    [args addObject:@"-file"];
+    [args addObject:[NSString stringWithCString:projectConfig.getScriptFileRealPath().c_str() encoding:NSUTF8StringEncoding]];
+    [args addObject:@"-writable"];
+    [args addObject:[NSString stringWithCString:projectConfig.getWritableRealPath().c_str() encoding:NSUTF8StringEncoding]];
+
+    const string packagePath = projectConfig.getPackagePath();
+    if (packagePath.length())
+    {
+        [args addObject:@"-package.path"];
+        [args addObject:[NSString stringWithCString:packagePath.c_str() encoding:NSUTF8StringEncoding]];
+    }
+
+    [args addObject:@"-size"];
+    [args addObject:[NSString stringWithFormat:@"%0.0fx%0.0f", projectConfig.getFrameSize().width, projectConfig.getFrameSize().height]];
+
+    if (projectConfig.getFrameScale() < 1.0f)
+    {
+        [args addObject:@"-scale"];
+        [args addObject:[NSString stringWithFormat:@"%0.2f", projectConfig.getFrameScale()]];
+    }
+
+    if (projectConfig.isWriteDebugLogToFile())
+    {
+        [args addObject:@"-write-debug-log"];
+    }
+
+    return args;
+}
+
+- (void) updateProjectConfigFromArgs
+{
+    NSArray *args = [[NSProcessInfo processInfo] arguments];
+
+    unsigned int i = 0;
+    while (i < [args count])
+    {
+        NSString *arg = [args objectAtIndex:i];
+        if ([arg compare:@"-workdir"] == NSOrderedSame)
+        {
+            ++i;
+            string workdir = string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
+            projectConfig.setProjectDir(workdir);
+            projectConfig.setWritablePath(workdir);
+        }
+        else if ([arg compare:@"-writable"] == NSOrderedSame)
+        {
+            ++i;
+            projectConfig.setWritablePath(string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]));
+        }
+        else if ([arg compare:@"-file"] == NSOrderedSame)
+        {
+            ++i;
+            projectConfig.setScriptFile(string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]));
+        }
+        else if ([arg compare:@"-package.path"] == NSOrderedSame)
+        {
+            ++i;
+            projectConfig.setPackagePath(string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]));
+        }
+        else if ([arg compare:@"-size"] == NSOrderedSame)
+        {
+            ++i;
+            string sizeStr([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
+            int pos = sizeStr.find('x');
+            int width = 0;
+            int height = 0;
+            if (pos != sizeStr.npos && pos > 0)
+            {
+                string widthStr, heightStr;
+                widthStr.assign(sizeStr, 0, pos);
+                heightStr.assign(sizeStr, pos + 1, sizeStr.length() - pos);
+                width = atoi(widthStr.c_str());
+                height = atoi(heightStr.c_str());
+                projectConfig.setFrameSize(CCSize(width, height));
+            }
+        }
+        else if ([arg compare:@"-scale"] == NSOrderedSame)
+        {
+            ++i;
+            float scale = atof([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
+            projectConfig.setFrameScale(scale);
+        }
+        else if ([arg compare:@"-write-debug-log"] == NSOrderedSame)
+        {
+            projectConfig.setWriteDebugLogToFile(true);
+        }
+
+        ++i;
+    }
+
+    projectConfig.dump();
+}
+
+- (void) relaunch:(NSArray*)args
+{
+    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments];
+    NSError *error = [[[NSError alloc] init] autorelease];
+    [[NSWorkspace sharedWorkspace] launchApplicationAtURL:url
+                                                  options:NSWorkspaceLaunchNewInstance
+                                            configuration:configuration error:&error];
+    [[NSApplication sharedApplication] terminate:self];
+}
+
+- (void) showAlert:(NSString*)message withTitle:(NSString*)title
+{
+
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	[alert setMessageText:message];
+	[alert setInformativeText:title];
+	[alert setAlertStyle:NSWarningAlertStyle];
+
+	[alert beginSheetModalForWindow:window
+					  modalDelegate:self
+					 didEndSelector:nil
+						contextInfo:nil];
+}
+
+- (const string) getDebugLogFilePath
+{
+    //    string path([NSTemporaryDirectory() cStringUsingEncoding:NSUTF8StringEncoding]);
+    string path(projectConfig.getProjectDir());
+    path.append("debug.log");
+    return path;
+}
+
+- (bool) writeDebugLogToFile:(const string)path
+{
+    if (debugLogFile) return true;
+
+    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+    debugLogFile = open(path.c_str(), O_WRONLY | O_APPEND | O_CREAT, mode);
+    if (dup2(debugLogFile, fileno(stderr)) != fileno(stderr) || dup2(debugLogFile, fileno(stdout)) != fileno(stdout))
+    {
+        perror("Unable to redirect output");
+        [self showAlert:[NSString stringWithFormat:@"Unable to redirect output to file \"%s\"", path.c_str()] withTitle:@"quick-x-player error"];
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+- (void) closeDebugLogFile
+{
+    if (debugLogFile)
+    {
+        close(debugLogFile);
+        debugLogFile = 0;
+    }
+}
+
+- (void) setZoom:(float)scale
+{
+    [glView setFrameZoomFactor:scale];
+    projectConfig.setFrameScale(scale);
+}
+
+#pragma mark -
+#pragma delegates
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    return hasPopupDialog == NO;
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    [[NSApplication sharedApplication] terminate:self];
 }
 
 #pragma mark -
 #pragma mark IB Actions
 
--(IBAction) openWorkingDirectory:(id)sender
+- (IBAction) fileNewProject:(id)sender
 {
-    CCLOG("openWorkdingDirectory");
+    [self showAlert:@"Coming soon :-)" withTitle:@"quick-x-player"];
+    //    [self showModelSheet];
+    //    CreateNewProjectDialogController *controller = [[CreateNewProjectDialogController alloc] initWithWindowNibName:@"CreateNewProjectDialog"];
+    //    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
+    //        [self stopModelSheet];
+    //        [controller release];
+    //    }];
 }
 
--(IBAction) selectStartupScript:(id)sender
+- (IBAction) fileOpen:(id)sender
 {
+    [self showModelSheet];
+    ProjectConfigDialogController *controller = [[ProjectConfigDialogController alloc] initWithWindowNibName:@"ProjectConfigDialog"];
+    [controller setProjectConfig:projectConfig];
+    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
+        [self stopModelSheet];
+        if (returnCode == NSRunStoppedResponse)
+        {
+            projectConfig = controller.projectConfig;
+            projectConfig.dump();
+            [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+        }
+        [controller release];
+    }];
 }
+
+- (IBAction) onFileOpenRecent:(id)sender
+{
+    NSArray *recents = [[NSUserDefaults standardUserDefaults] objectForKey:@"recents"];
+    NSDictionary *recentItem = nil;
+    NSString *title = [sender title];
+    for (int i = [recents count] - 1; i >= 0; --i)
+    {
+        recentItem = [recents objectAtIndex:i];
+        if ([title compare:[recentItem objectForKey:@"title"]] == NSOrderedSame)
+        {
+            [self relaunch:[recentItem objectForKey:@"args"]];
+            break;
+        }
+    }
+}
+
+- (IBAction) onFileOpenRecentClearMenu:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:@"recents"];
+    [self updateUI];
+}
+
+- (IBAction) fileClose:(id)sender
+{
+    [[NSApplication sharedApplication] terminate:self];
+}
+
+- (IBAction) playerWriteDebugLogToFile:(id)sender
+{
+    bool isWrite = projectConfig.isWriteDebugLogToFile();
+    if (!isWrite)
+    {
+        if ([self writeDebugLogToFile:[self getDebugLogFilePath]])
+        {
+            projectConfig.setWriteDebugLogToFile(true);
+            [(NSMenuItem*)sender setState:NSOnState];
+        }
+    }
+    else
+    {
+        projectConfig.setWriteDebugLogToFile(false);
+        [self closeDebugLogFile];
+        [(NSMenuItem*)sender setState:NSOffState];
+    }
+}
+
+- (IBAction) playerOpenDebugLog:(id)sender
+{
+    const string path = [self getDebugLogFilePath];
+    [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
+}
+
+- (IBAction) playerRelaunch:(id)sender
+{
+    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+}
+
+- (IBAction) playerShowProjectSandbox:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:CCFileUtils::sharedFileUtils()->getWritablePath().c_str() encoding:NSUTF8StringEncoding]];
+}
+
+- (IBAction) playerShowProjectFiles:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding]];
+}
+
+- (IBAction) onScreenChangeFrameSize:(id)sender
+{
+    int i = [sender tag];
+    if (i >= 0 && i < SimulatorConfig::sharedDefaults()->getScreenSizeCount())
+    {
+        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(i);
+        projectConfig.setFrameSize(projectConfig.isLandscapeFrame() ? CCSize(size.height, size.width) : CCSize(size.width, size.height));
+        [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+    }
+}
+
+- (IBAction) onScreenPortait:(id)sender
+{
+    if ([sender state] == NSOnState) return;
+    [sender setState:NSOnState];
+    [[[[[window menu] itemWithTitle:@"Screen"] submenu] itemWithTitle:@"Landscape"] setState:NSOffState];
+    projectConfig.changeFrameOrientationToPortait();
+    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+}
+
+- (IBAction) onScreenLandscape:(id)sender
+{
+    if ([sender state] == NSOnState) return;
+    [sender setState:NSOnState];
+    [[[[[window menu] itemWithTitle:@"Screen"] submenu] itemWithTitle:@"Portait"] setState:NSOffState];
+    projectConfig.changeFrameOrientationToLandscape();
+    [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+}
+
+- (IBAction) onScreenActual:(id)sender
+{
+    if ([sender state] == NSOnState) return;
+    [self setZoom:1.0f];
+    [self updateUI];
+}
+
+- (IBAction) onScreenZoomOut:(id)sender
+{
+    if ([sender state] == NSOnState) return;
+    [self setZoom:0.5f];
+    [self updateUI];
+}
+
+
+#pragma ----------------------------------------
 
 -(IBAction) restart:(id)sender
 {
@@ -215,104 +605,24 @@ static AppDelegate* s_sharedApplication = NULL;
     [menuItem setState:NSOffState];
 }
 
--(IBAction) resize_iPhone3G:(id)sender
-{
-    frameSize.width = 480;
-    frameSize.height = 320;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_iPhone4:(id)sender
-{
-    frameSize.width = 960;
-    frameSize.height = 640;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_iPhone5:(id)sender
-{
-    frameSize.width = 1136;
-    frameSize.height = 640;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_iPad:(id)sender
-{
-    frameSize.width = 1024;
-    frameSize.height = 768;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_New_iPad:(id)sender
-{
-    frameSize.width = 2048;
-    frameSize.height = 1536;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_Android_854_480:(id)sender
-{
-    frameSize.width = 854;
-    frameSize.height = 480;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_Android_800_480:(id)sender
-{
-    frameSize.width = 800;
-    frameSize.height = 480;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_Android_1024_600:(id)sender
-{
-    frameSize.width = 1024;
-    frameSize.height = 600;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_Android_1280_720:(id)sender
-{
-    frameSize.width = 1280;
-    frameSize.height = 720;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
--(IBAction) resize_Android_1280_800:(id)sender
-{
-    frameSize.width = 1280;
-    frameSize.height = 800;
-    [self removeMaximize];
-    [self restart:sender];
-}
-
 -(IBAction) toggleMaximize:(id)sender
 {
-    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"View"];
-    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Toggle Maximize"];
-    if (!isMaximized)
-    {
-        prevFrameSize = frameSize;
-        frameSize = [[NSScreen mainScreen] visibleFrame].size;
-        frameSize.height -= window.frame.size.height - [glView getHeight];
-        [menuItem setState:NSOnState];
-    }
-    else
-    {
-        frameSize = prevFrameSize;
-        [menuItem setState:NSOffState];
-    }
-    isMaximized = !isMaximized;
-    [self restart:sender];
+    //    NSMenuItem *windowMenu = [[window menu] itemWithTitle:@"View"];
+    //    NSMenuItem *menuItem = [[windowMenu submenu] itemWithTitle:@"Toggle Maximize"];
+    //    if (!isMaximized)
+    //    {
+    //        prevFrameSize = frameSize;
+    //        frameSize = [[NSScreen mainScreen] visibleFrame].size;
+    //        frameSize.height -= window.frame.size.height - [glView getHeight];
+    //        [menuItem setState:NSOnState];
+    //    }
+    //    else
+    //    {
+    //        frameSize = prevFrameSize;
+    //        [menuItem setState:NSOffState];
+    //    }
+    //    isMaximized = !isMaximized;
+    //    [self restart:sender];
 }
 
 -(void) setAlwaysOnTop:(BOOL)alwaysOnTop
@@ -339,13 +649,13 @@ static AppDelegate* s_sharedApplication = NULL;
 
 -(IBAction) toggleFullScreen:(id)sender
 {
-//    EAGLView* pView = [EAGLView sharedEGLView];
-//    [pView setFullScreen:!pView.isFullScreen];
+    //    EAGLView* pView = [EAGLView sharedEGLView];
+    //    [pView setFullScreen:!pView.isFullScreen];
 }
 
 -(IBAction) exitFullScreen:(id)sender
 {
-//    [[EAGLView sharedEGLView] setFullScreen:NO];
+    //    [[EAGLView sharedEGLView] setFullScreen:NO];
 }
 
 //- (void)windowDidEndLiveResize:(NSNotification *)notification
