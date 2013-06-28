@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jun 26 11:05:39 2013.
+** Generated automatically by tolua++-1.0.92 on Fri Jun 28 14:07:26 2013.
 */
 
 /****************************************************************************
@@ -19256,6 +19256,36 @@ static int tolua_Cocos2d_CCNode_convertTouchToNodeSpaceAR00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'convertTouchToNodeSpaceAR'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCNodeRGBA */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNodeRGBA_create00
+static int tolua_Cocos2d_CCNodeRGBA_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCNodeRGBA",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCNodeRGBA* tolua_ret = (CCNodeRGBA*)  CCNodeRGBA::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCNodeRGBA");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
  return 0;
 #endif
 }
@@ -48002,6 +48032,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCNodeRGBA","CCNodeRGBA","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCNodeRGBA");
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCNodeRGBA_create00);
    tolua_function(tolua_S,"getOpacity",tolua_Cocos2d_CCNodeRGBA_getOpacity00);
    tolua_function(tolua_S,"getDisplayedOpacity",tolua_Cocos2d_CCNodeRGBA_getDisplayedOpacity00);
    tolua_function(tolua_S,"setOpacity",tolua_Cocos2d_CCNodeRGBA_setOpacity00);

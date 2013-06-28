@@ -872,6 +872,8 @@ class CCNode : public CCObject
  */
 class CCNodeRGBA : public CCNode
 {
+    static CCNodeRGBA * create(void);
+
     GLubyte getOpacity();
     GLubyte getDisplayedOpacity();
     void setOpacity(GLubyte opacity);
