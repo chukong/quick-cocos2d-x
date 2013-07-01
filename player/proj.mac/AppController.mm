@@ -25,18 +25,24 @@
 #import "AppController.h"
 #import "CreateNewProjectDialogController.h"
 #import "ProjectConfigDialogController.h"
+#import "PlayerPreferencesDialogController.h"
 
 #include <sys/stat.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <string>
+#include <vector>
 
 #include "AppDelegate.h"
+#include "AppControllerBridge.h"
 #include "CCDirector.h"
 #include "SimpleAudioEngine.h"
 #include "platform/CCFileUtils.h"
+#include "native/CCNative.h"
 
 using namespace std;
 using namespace cocos2d;
+using namespace cocos2d::extra;
 
 @implementation AppController
 
@@ -60,6 +66,12 @@ using namespace cocos2d;
     debugLogFile = 0;
 
     app = new AppDelegate();
+    bridge = new AppControllerBridge(self);
+
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpen), "WELCOME_OPEN", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
     [self updateProjectConfigFromCommandLineArgs];
     [self createWindowAndGLView];
@@ -69,7 +81,7 @@ using namespace cocos2d;
     [self updateUI];
 }
 
--(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
 {
     return YES;
 }
@@ -94,7 +106,7 @@ using namespace cocos2d;
 
 - (void) createWindowAndGLView
 {
-    if (projectConfig.isWriteDebugLogToFile())
+    if (projectConfig.getProjectDir().length() > 0 && projectConfig.isWriteDebugLogToFile())
     {
         [self writeDebugLogToFile:[self getDebugLogFilePath]];
     }
@@ -124,11 +136,14 @@ using namespace cocos2d;
     [window setTitle:@"quick-x-player"];
     [window center];
 
-    [self setZoom:projectConfig.getFrameScale()];
-    CCPoint pos = projectConfig.getWindowOffset();
-    if (pos.x != 0 && pos.y != 0)
+    if (projectConfig.getProjectDir().length())
     {
-        [window setFrameOrigin:NSMakePoint(pos.x, pos.y)];
+        [self setZoom:projectConfig.getFrameScale()];
+        CCPoint pos = projectConfig.getWindowOffset();
+        if (pos.x != 0 && pos.y != 0)
+        {
+            [window setFrameOrigin:NSMakePoint(pos.x, pos.y)];
+        }
     }
 
     [window becomeFirstResponder];
@@ -138,11 +153,40 @@ using namespace cocos2d;
 
 - (void) startup
 {
+    NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
+    if (!path || [path length] == 0)
+    {
+        [self showAlert:@"Please set quick-cocos2d-x root path." withTitle:@"quick-x-player error"];
+        [self onServicePreferences:self];
+    }
+    else
+    {
+        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+
+    if (projectConfig.getProjectDir().length() == 0)
+    {
+        string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+        path.append("player/welcome");
+        SimulatorConfig::makeNormalizePath(&path);
+        projectConfig.setProjectDir(path);
+        projectConfig.setWritablePath(path);
+        projectConfig.setScriptFile("$PROJDIR/scripts/main.lua");
+        projectConfig.setFrameSize(CCSize(960, 540));
+        projectConfig.setFrameScale(1.0f);
+        projectConfig.setLoadPrecompiledFramework(true);
+        projectConfig.setPackagePath("");
+        projectConfig.setShowConsole(false);
+        projectConfig.setWindowOffset(CCPointZero);
+        projectConfig.setWriteDebugLogToFile(false);
+    }
+
     const string projectDir = projectConfig.getProjectDir();
     if (projectDir.length())
     {
         CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
     }
+
 
     const string writablePath = projectConfig.getWritableRealPath();
     if (writablePath.length())
@@ -150,7 +194,7 @@ using namespace cocos2d;
         CCFileUtils::sharedFileUtils()->setWritablePath(writablePath.c_str());
     }
 
-    app->setStartupScriptFilename(projectConfig.getScriptFileRealPath());
+    app->setProjectConfig(projectConfig);
     app->run();
 }
 
@@ -294,109 +338,20 @@ using namespace cocos2d;
 
 - (NSMutableArray*) makeCommandLineArgsFromProjectConfig
 {
-    NSMutableArray *args = [NSMutableArray array];
-    [args addObject:@"-workdir"];
-    [args addObject:[NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding]];
-    [args addObject:@"-file"];
-    [args addObject:[NSString stringWithCString:projectConfig.getScriptFileRealPath().c_str() encoding:NSUTF8StringEncoding]];
-    [args addObject:@"-writable"];
-    [args addObject:[NSString stringWithCString:projectConfig.getWritableRealPath().c_str() encoding:NSUTF8StringEncoding]];
-
-    const string packagePath = projectConfig.getPackagePath();
-    if (packagePath.length())
-    {
-        [args addObject:@"-package.path"];
-        [args addObject:[NSString stringWithCString:packagePath.c_str() encoding:NSUTF8StringEncoding]];
-    }
-
-    [args addObject:@"-size"];
-    [args addObject:[NSString stringWithFormat:@"%0.0fx%0.0f", projectConfig.getFrameSize().width, projectConfig.getFrameSize().height]];
-
-    if (projectConfig.getFrameScale() < 1.0f)
-    {
-        [args addObject:@"-scale"];
-        [args addObject:[NSString stringWithFormat:@"%0.2f", projectConfig.getFrameScale()]];
-    }
-
-    if (projectConfig.isWriteDebugLogToFile())
-    {
-        [args addObject:@"-write-debug-log"];
-    }
-
-    [args addObject:@"-offset"];
-    [args addObject:[NSString stringWithFormat:@"{%0.0f,%0.0f}", window.frame.origin.x, window.frame.origin.y]];
-
-    return args;
+    projectConfig.setWindowOffset(CCPoint(window.frame.origin.x, window.frame.origin.y));
+    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine().c_str() encoding:NSUTF8StringEncoding];
+    return [NSMutableArray arrayWithArray:[commandLine componentsSeparatedByString:@" "]];
 }
 
 - (void) updateProjectConfigFromCommandLineArgs
 {
-    NSArray *args = [[NSProcessInfo processInfo] arguments];
-
-    unsigned int i = 0;
-    while (i < [args count])
+    NSArray *nsargs = [[NSProcessInfo processInfo] arguments];
+    vector<string> args;
+    for (int i = 0; i < [nsargs count]; ++i)
     {
-        NSString *arg = [args objectAtIndex:i];
-        if ([arg compare:@"-workdir"] == NSOrderedSame)
-        {
-            ++i;
-            string workdir = string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
-            projectConfig.setProjectDir(workdir);
-            projectConfig.setWritablePath(workdir);
-        }
-        else if ([arg compare:@"-writable"] == NSOrderedSame)
-        {
-            ++i;
-            projectConfig.setWritablePath(string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]));
-        }
-        else if ([arg compare:@"-file"] == NSOrderedSame)
-        {
-            ++i;
-            projectConfig.setScriptFile(string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]));
-        }
-        else if ([arg compare:@"-package.path"] == NSOrderedSame)
-        {
-            ++i;
-            projectConfig.setPackagePath(string([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]));
-        }
-        else if ([arg compare:@"-size"] == NSOrderedSame)
-        {
-            ++i;
-            string sizeStr([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
-            int pos = sizeStr.find('x');
-            int width = 0;
-            int height = 0;
-            if (pos != sizeStr.npos && pos > 0)
-            {
-                string widthStr, heightStr;
-                widthStr.assign(sizeStr, 0, pos);
-                heightStr.assign(sizeStr, pos + 1, sizeStr.length() - pos);
-                width = atoi(widthStr.c_str());
-                height = atoi(heightStr.c_str());
-                projectConfig.setFrameSize(CCSize(width, height));
-            }
-        }
-        else if ([arg compare:@"-scale"] == NSOrderedSame)
-        {
-            ++i;
-            float scale = atof([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
-            projectConfig.setFrameScale(scale);
-        }
-        else if ([arg compare:@"-write-debug-log"] == NSOrderedSame)
-        {
-            projectConfig.setWriteDebugLogToFile(true);
-        }
-        else if ([arg compare:@"-offset"] == NSOrderedSame)
-        {
-            ++i;
-            CCPoint pos = CCPointFromString([[args objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
-            projectConfig.setWindowOffset(pos);
-        }
-
-        ++i;
+        args.push_back([[nsargs objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
-
-    projectConfig.dump();
+    projectConfig.parseCommandLine(args);
 }
 
 - (void) launch:(NSArray*)args
@@ -437,7 +392,6 @@ using namespace cocos2d;
 
 - (const string) getDebugLogFilePath
 {
-    //    string path([NSTemporaryDirectory() cStringUsingEncoding:NSUTF8StringEncoding]);
     string path(projectConfig.getProjectDir());
     path.append("debug.log");
     return path;
@@ -493,9 +447,47 @@ using namespace cocos2d;
     isAlwaysOnTop = alwaysOnTop;
 }
 
+#pragma mark -
+#pragma mark interfaces
+
+- (void) welcomeNewProject
+{
+    [self onFileNewProject:self];
+}
+
+- (void) welcomeOpen
+{
+    [self onFileOpen:self];
+}
+
+- (void) welcomeSamples
+{
+    string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+    if (path.length())
+    {
+        path.append("sample");
+        [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
+    }
+}
+
+- (void) welcomeGetStarted
+{
+    CCNative::openURL("https://github.com/dualface/quick-cocos2d-x/wiki");
+}
+
 
 #pragma mark -
 #pragma mark IB Actions
+
+- (IBAction) onServicePreferences:(id)sender
+{
+    [self showModelSheet];
+    PlayerPreferencesDialogController *controller = [[PlayerPreferencesDialogController alloc] initWithWindowNibName:@"PlayerPreferencesDialog"];
+    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
+        [self stopModelSheet];
+        [controller release];
+    }];
+}
 
 - (IBAction) onFileNewProject:(id)sender
 {

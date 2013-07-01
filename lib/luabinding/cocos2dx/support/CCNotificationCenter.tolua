@@ -31,7 +31,7 @@ class CCNotificationCenter : public CCObject
      *  @note Only supports Lua Binding now.
      *  @param handler The lua handler.
      */
-    void registerScriptObserver(int handler,const char* name);
+    void registerScriptObserver(LUA_FUNCTION handler,const char* name);
 
     /** Unregisters script observer */
     void unregisterScriptObserver(const char* name);

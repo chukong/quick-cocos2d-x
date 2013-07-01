@@ -809,6 +809,14 @@
 					<int key="connectionID">668</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onServicePreferences:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="609285721"/>
+					</object>
+					<int key="connectionID">671</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">menu</string>
 						<reference key="source" ref="299735127"/>
@@ -1321,7 +1329,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">668</int>
+			<int key="maxID">671</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1345,6 +1353,7 @@
 						<string key="onScreenLandscape:">id</string>
 						<string key="onScreenPortait:">id</string>
 						<string key="onScreenZoomOut:">id</string>
+						<string key="onServicePreferences:">id</string>
 						<string key="onWindowAlwaysOnTop:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -1410,6 +1419,10 @@
 						</object>
 						<object class="IBActionInfo" key="onScreenZoomOut:">
 							<string key="name">onScreenZoomOut:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onServicePreferences:">
+							<string key="name">onServicePreferences:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onWindowAlwaysOnTop:">

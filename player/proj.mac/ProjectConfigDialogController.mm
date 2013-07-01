@@ -42,6 +42,7 @@
 @synthesize matrixScreenOrientation;
 @synthesize buttonScreenOrientationPortait;
 @synthesize buttonScreenOrientationLandscape;
+@synthesize buttonLoadPrecompiledFramework;
 @synthesize buttonWriteDebugLogToFile;
 @synthesize buttonOpenProject;
 
@@ -116,6 +117,7 @@
         [buttonScreenOrientationLandscape setState:NSOffState];
     }
 
+    [buttonLoadPrecompiledFramework setState:projectConfig.isLoadPrecompiledFramework() ? NSOnState : NSOffState];
     [buttonWriteDebugLogToFile setState:projectConfig.isWriteDebugLogToFile() ? NSOnState : NSOffState];
     [buttonOpenProject setEnabled:projectConfig.validate()];
 }
@@ -215,6 +217,11 @@
         projectConfig.changeFrameOrientation();
         [self updateUI];
     }
+}
+
+- (IBAction) onLoadPrecompiledFrameworkChanged:(id)sender
+{
+    projectConfig.setLoadPrecompiledFramework([buttonLoadPrecompiledFramework state] == NSOnState);
 }
 
 - (IBAction) onWriteDebugLogToFileChanged:(id)sender

@@ -6,7 +6,7 @@
 #include "cocos2d.h"
 
 using namespace std;
-USING_NS_CC;
+using namespace cocos2d;
 
 #if defined(_WINDOWS)
 #define DIRECTORY_SEPARATOR "\\"
@@ -26,7 +26,8 @@ public:
     , m_frameSize(854, 480)
     , m_frameScale(1.0f)
     , m_showConsole(true)
-    , m_writeDebugLogToFile(false)
+    , m_loadPrecompiledFramework(true)
+    , m_writeDebugLogToFile(true)
     , m_windowOffset(0, 0)
     {
         normalize();
@@ -62,12 +63,16 @@ public:
     const bool isShowConsole(void);
     void setShowConsole(bool showConsole);
 
+    bool isLoadPrecompiledFramework(void);
+    void setLoadPrecompiledFramework(bool load);
+
     const bool isWriteDebugLogToFile(void);
     void setWriteDebugLogToFile(bool writeDebugLogToFile);
 
     const CCPoint getWindowOffset(void);
     void setWindowOffset(CCPoint windowOffset);
 
+    void parseCommandLine(vector<string>& args);
     const string makeCommandLine(void);
 
     bool validate(void);
@@ -81,6 +86,7 @@ private:
     CCSize	m_frameSize;
     float	m_frameScale;
     bool	m_showConsole;
+    bool    m_loadPrecompiledFramework;
     bool    m_writeDebugLogToFile;
     CCPoint	m_windowOffset;
 
@@ -114,9 +120,17 @@ class SimulatorConfig
 public:
     static SimulatorConfig *sharedDefaults(void);
 
+    // predefined screen size
     int getScreenSizeCount(void);
     const SimulatorScreenSize getScreenSize(int index);
     int checkScreenSize(const CCSize& size);
+
+    // set quick-cocos2d-x root path
+    void setQuickCocos2dxRootPath(const char *path);
+    const string getQuickCocos2dxRootPath(void);
+
+    // get precompiled framework path
+    const string getPrecompiledFrameworkPath(void);
 
     // helper
     static void makeNormalizePath(string *path, const char *directorySeparator = NULL);
@@ -127,6 +141,7 @@ private:
     static SimulatorConfig *s_sharedInstance;
 
     ScreenSizeArray m_screenSizeArray;
+    string m_quickCocos2dxRootPath;
 };
 
 #endif /* __PROJECT_CONFIG_H_ */

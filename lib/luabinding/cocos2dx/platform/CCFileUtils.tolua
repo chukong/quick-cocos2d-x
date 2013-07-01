@@ -171,9 +171,16 @@ class CCFileUtils
     std::string getWritablePath();
 
     /**
-     *  Set writable path (for debug).
+     *  Gets the cache path.
+     *  @return  The the cache path
+     */
+    std::string getCachePath();
+
+    /**
+     *  Set writable/cache path (for debug).
      */
     void setWritablePath(const char *writablePath);
+    void setCachePath(const char *cachePath);
 
     /**
      *  Checks whether a file exists.

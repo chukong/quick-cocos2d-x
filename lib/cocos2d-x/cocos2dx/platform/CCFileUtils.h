@@ -273,9 +273,16 @@ public:
     virtual std::string getWritablePath() = 0;
 
     /**
-     *  Set writable path (for debug).
+     *  Gets the cache path.
+     *  @return  The the cache path
+     */
+    virtual std::string getCachePath();
+
+    /**
+     *  Set writable/cache path (for debug).
      */
     virtual void setWritablePath(const char *writablePath);
+    virtual void setCachePath(const char *cachePath);
     
     /**
      *  Checks whether a file exists.
@@ -419,6 +426,11 @@ protected:
      * Writable path (for debug)
      */
     std::string m_strWritablePath;
+
+    /**
+     * Cache path (for debug)
+     */
+    std::string m_strCachePath;
     
     /**
      *  The singleton pointer of CCFileUtils.

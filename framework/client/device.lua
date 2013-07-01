@@ -109,12 +109,14 @@ end
 
 device.language = language_
 device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
+device.cachePath = CCFileUtils:sharedFileUtils():getCachePath()
 
 echoInfo("# device.platform              = " .. device.platform)
 echoInfo("# device.environment           = " .. device.environment)
 echoInfo("# device.model                 = " .. device.model)
 echoInfo("# device.language              = " .. device.language)
 echoInfo("# device.writablePath          = " .. device.writablePath)
+echoInfo("# device.cachePath             = " .. device.cachePath)
 echoInfo("#")
 
 --[[--

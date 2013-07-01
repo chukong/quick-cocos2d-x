@@ -750,9 +750,19 @@ std::string CCFileUtils::getFullPathForDirectoryAndFilename(const std::string& s
     return ret;
 }
 
+std::string CCFileUtils::getCachePath()
+{
+    return m_strCachePath.length() > 0 ? m_strCachePath : getWritablePath();
+}
+
 void CCFileUtils::setWritablePath(const char *writablePath)
 {
     m_strWritablePath = writablePath ? writablePath : "";
+}
+
+void CCFileUtils::setCachePath(const char *cachePath)
+{
+    m_strCachePath = cachePath ? cachePath : "";
 }
 
 bool CCFileUtils::isAbsolutePath(const std::string& strPath)

@@ -6,6 +6,7 @@
 #define strcasecmp _stricmp
 #endif
 
+
 const string ProjectConfig::getProjectDir(void)
 {
     return m_projectDir;
@@ -162,6 +163,16 @@ void ProjectConfig::setShowConsole(bool showConsole)
     m_showConsole = showConsole;
 }
 
+bool ProjectConfig::isLoadPrecompiledFramework(void)
+{
+    return m_loadPrecompiledFramework;
+}
+
+void ProjectConfig::setLoadPrecompiledFramework(bool load)
+{
+    m_loadPrecompiledFramework = load;
+}
+
 const bool ProjectConfig::isWriteDebugLogToFile(void)
 {
     return m_writeDebugLogToFile;
@@ -180,6 +191,83 @@ const CCPoint ProjectConfig::getWindowOffset(void)
 void ProjectConfig::setWindowOffset(CCPoint windowOffset)
 {
     m_windowOffset = windowOffset;
+}
+
+void ProjectConfig::parseCommandLine(vector<string>& args)
+{
+    for (vector<string>::iterator it = args.begin(); it != args.end(); ++it)
+    {
+        const string& arg = *it;
+
+        if (arg.compare("-workdir") == 0)
+        {
+            ++it;
+            setProjectDir(*it);
+            if (m_writablePath.length() == 0) setWritablePath(*it);
+        }
+        else if (arg.compare("-writable") == 0)
+        {
+            ++it;
+            setWritablePath(*it);
+        }
+        else if (arg.compare("-file") == 0)
+        {
+            ++it;
+            setScriptFile(*it);
+        }
+        else if (arg.compare("-package.path") == 0)
+        {
+            ++it;
+            setPackagePath(*it);
+        }
+        else if (arg.compare("-size") == 0)
+        {
+            ++it;
+            const string& sizeStr(*it);
+            int pos = sizeStr.find('x');
+            int width = 0;
+            int height = 0;
+            if (pos != sizeStr.npos && pos > 0)
+            {
+                string widthStr, heightStr;
+                widthStr.assign(sizeStr, 0, pos);
+                heightStr.assign(sizeStr, pos + 1, sizeStr.length() - pos);
+                width = atoi(widthStr.c_str());
+                height = atoi(heightStr.c_str());
+                setFrameSize(CCSize(width, height));
+            }
+        }
+        else if (arg.compare("-scale") == 0)
+        {
+            ++it;
+            float scale = atof((*it).c_str());
+            setFrameScale(scale);
+        }
+        else if (arg.compare("-write-debug-log") == 0)
+        {
+            setWriteDebugLogToFile(true);
+        }
+        else if (arg.compare("-disable-write-debug-log") == 0)
+        {
+            setWriteDebugLogToFile(false);
+        }
+        else if (arg.compare("-load-framework") == 0)
+        {
+            setLoadPrecompiledFramework(true);
+        }
+        else if (arg.compare("-disable-load-framework") == 0)
+        {
+            setLoadPrecompiledFramework(false);
+        }
+        else if (arg.compare("-offset") == 0)
+        {
+            ++it;
+            CCPoint pos = CCPointFromString((*it).c_str());
+            setWindowOffset(pos);
+        }
+    }
+
+    dump();
 }
 
 const string ProjectConfig::makeCommandLine(void)
@@ -208,13 +296,35 @@ const string ProjectConfig::makeCommandLine(void)
     if (getFrameScale() < 1.0f)
     {
         buff << " -scale ";
-        buff.precision(3);
+        buff.precision(2);
         buff << getFrameScale();
     }
 
     if (isWriteDebugLogToFile())
     {
         buff << " -write-debug-log";
+    }
+    else
+    {
+        buff << " -disable-write-debug-log";
+    }
+
+    if (isLoadPrecompiledFramework())
+    {
+        buff << " -load-framework";
+    }
+    else
+    {
+        buff << " -disable-load-framework";
+    }
+
+    if (m_windowOffset.x != 0 && m_windowOffset.y != 0)
+    {
+        buff << " -offset {";
+        buff << (int)m_windowOffset.x;
+        buff << ",";
+        buff << (int)m_windowOffset.y;
+        buff << "}";
     }
 
     return buff.str();
@@ -404,6 +514,37 @@ int SimulatorConfig::checkScreenSize(const CCSize& size)
     }
 
     return -1;
+}
+
+
+void SimulatorConfig::setQuickCocos2dxRootPath(const char *path)
+{
+    if (path)
+    {
+        m_quickCocos2dxRootPath = path;
+        makeNormalizePath(&m_quickCocos2dxRootPath);
+        if (m_quickCocos2dxRootPath[m_quickCocos2dxRootPath.length() - 1] != DIRECTORY_SEPARATOR_CHAR)
+        {
+            m_quickCocos2dxRootPath.append(DIRECTORY_SEPARATOR);
+        }
+    }
+}
+
+const string SimulatorConfig::getQuickCocos2dxRootPath(void)
+{
+    return m_quickCocos2dxRootPath;
+}
+
+// load framework
+const string SimulatorConfig::getPrecompiledFrameworkPath(void)
+{
+    string path = m_quickCocos2dxRootPath;
+    path.append("lib");
+    path.append(DIRECTORY_SEPARATOR);
+    path.append("framework_precompiled");
+    path.append(DIRECTORY_SEPARATOR);
+    path.append("framework_precompiled.zip");
+    return path;
 }
 
 

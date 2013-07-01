@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Fri Jun 28 16:56:27 2013.
+** Generated automatically by tolua++-1.0.92 on Mon Jul  1 10:25:37 2013.
 */
 
 /****************************************************************************
@@ -6997,6 +6997,38 @@ static int tolua_Cocos2d_CCFileUtils_getWritablePath00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getCachePath of class  CCFileUtils */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCFileUtils_getCachePath00
+static int tolua_Cocos2d_CCFileUtils_getCachePath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCFileUtils",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCFileUtils* self = (CCFileUtils*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCachePath'", NULL);
+#endif
+  {
+   std::string tolua_ret = (std::string)  self->getCachePath();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCachePath'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setWritablePath of class  CCFileUtils */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCFileUtils_setWritablePath00
 static int tolua_Cocos2d_CCFileUtils_setWritablePath00(lua_State* tolua_S)
@@ -7025,6 +7057,39 @@ static int tolua_Cocos2d_CCFileUtils_setWritablePath00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setWritablePath'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setCachePath of class  CCFileUtils */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCFileUtils_setCachePath00
+static int tolua_Cocos2d_CCFileUtils_setCachePath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCFileUtils",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCFileUtils* self = (CCFileUtils*)  tolua_tousertype(tolua_S,1,0);
+  const char* cachePath = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCachePath'", NULL);
+#endif
+  {
+   self->setCachePath(cachePath);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setCachePath'.",&tolua_err);
  return 0;
 #endif
 }
@@ -9285,7 +9350,7 @@ static int tolua_Cocos2d_CCNotificationCenter_registerScriptObserver00(lua_State
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCNotificationCenter",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isstring(tolua_S,3,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
@@ -9294,7 +9359,7 @@ static int tolua_Cocos2d_CCNotificationCenter_registerScriptObserver00(lua_State
 #endif
  {
   CCNotificationCenter* self = (CCNotificationCenter*)  tolua_tousertype(tolua_S,1,0);
-  int handler = ((int)  tolua_tonumber(tolua_S,2,0));
+  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,2,0));
   const char* name = ((const char*)  tolua_tostring(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptObserver'", NULL);
@@ -47682,7 +47747,9 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setSearchRootPath",tolua_Cocos2d_CCFileUtils_setSearchRootPath00);
    tolua_function(tolua_S,"addSearchPath",tolua_Cocos2d_CCFileUtils_addSearchPath00);
    tolua_function(tolua_S,"getWritablePath",tolua_Cocos2d_CCFileUtils_getWritablePath00);
+   tolua_function(tolua_S,"getCachePath",tolua_Cocos2d_CCFileUtils_getCachePath00);
    tolua_function(tolua_S,"setWritablePath",tolua_Cocos2d_CCFileUtils_setWritablePath00);
+   tolua_function(tolua_S,"setCachePath",tolua_Cocos2d_CCFileUtils_setCachePath00);
    tolua_function(tolua_S,"isFileExist",tolua_Cocos2d_CCFileUtils_isFileExist00);
    tolua_function(tolua_S,"isAbsolutePath",tolua_Cocos2d_CCFileUtils_isAbsolutePath00);
    tolua_function(tolua_S,"setPopupNotify",tolua_Cocos2d_CCFileUtils_setPopupNotify00);

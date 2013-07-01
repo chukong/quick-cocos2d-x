@@ -3,6 +3,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "CCApplication.h"
+#include "SimulatorConfig.h"
 
 /**
  @brief    The cocos2d Application.
@@ -33,6 +34,11 @@ public:
      @param  the pointer of the application
      */
     virtual void applicationWillEnterForeground();
+
+    void setProjectConfig(const ProjectConfig& config);
+
+private:
+    ProjectConfig m_projectConfig;
 };
 
 #endif // _APP_DELEGATE_H_

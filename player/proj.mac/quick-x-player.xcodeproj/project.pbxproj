@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F40EE898163F83E000090121 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957915F49004004D4151 /* AppKit.framework */; };
+		F416EF01177E8F1600653960 /* PlayerPreferencesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F416EF00177E8F1600653960 /* PlayerPreferencesDialog.xib */; };
+		F416EF04177E914600653960 /* PlayerPreferencesDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = F416EF03177E914600653960 /* PlayerPreferencesDialogController.m */; };
+		F416EF071781208800653960 /* AppControllerBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F416EF061781208800653960 /* AppControllerBridge.mm */; };
 		F432397B176433E5008C4624 /* ProjectConfigDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F432397A176433E5008C4624 /* ProjectConfigDialogController.mm */; };
 		F44C957715F49004004D4151 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957615F49004004D4151 /* Cocoa.framework */; };
 		F4703CBB177955C500A8A9E9 /* CreateNewProjectDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */; };
@@ -43,6 +46,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F416EF00177E8F1600653960 /* PlayerPreferencesDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerPreferencesDialog.xib; sourceTree = "<group>"; };
+		F416EF02177E914600653960 /* PlayerPreferencesDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPreferencesDialogController.h; sourceTree = "<group>"; };
+		F416EF03177E914600653960 /* PlayerPreferencesDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerPreferencesDialogController.m; sourceTree = "<group>"; };
+		F416EF051781208800653960 /* AppControllerBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppControllerBridge.h; sourceTree = "<group>"; };
+		F416EF061781208800653960 /* AppControllerBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppControllerBridge.mm; sourceTree = "<group>"; };
 		F4323979176433E5008C4624 /* ProjectConfigDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectConfigDialogController.h; sourceTree = "<group>"; };
 		F432397A176433E5008C4624 /* ProjectConfigDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProjectConfigDialogController.mm; sourceTree = "<group>"; };
 		F44C957215F49004004D4151 /* quick-x-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "quick-x-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,15 +172,20 @@
 			children = (
 				F4B0813F175C89050029F472 /* AppController.h */,
 				F4B08140175C89050029F472 /* AppController.mm */,
+				F416EF061781208800653960 /* AppControllerBridge.mm */,
+				F416EF051781208800653960 /* AppControllerBridge.h */,
+				F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */,
 				F4703CC0177957F500A8A9E9 /* CreateNewProjectDialogController.h */,
 				F4703CC1177957F600A8A9E9 /* CreateNewProjectDialogController.mm */,
-				F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */,
 				F4B08146175C89050029F472 /* Icon.icns */,
 				F4B08147175C89050029F472 /* Info.plist */,
 				F4B08148175C89050029F472 /* main.m */,
 				F4703CBC177955E100A8A9E9 /* MainMenu.xib */,
 				F49DC885177C0C5E00D20226 /* NSApplication+SheetAdditions.h */,
 				F49DC886177C0C5E00D20226 /* NSApplication+SheetAdditions.m */,
+				F416EF00177E8F1600653960 /* PlayerPreferencesDialog.xib */,
+				F416EF02177E914600653960 /* PlayerPreferencesDialogController.h */,
+				F416EF03177E914600653960 /* PlayerPreferencesDialogController.m */,
 				F4B08149175C89050029F472 /* Prefix.pch */,
 				F4703CBD177955E200A8A9E9 /* ProjectConfigDialog.xib */,
 				F4323979176433E5008C4624 /* ProjectConfigDialogController.h */,
@@ -264,6 +277,7 @@
 				F4703CBB177955C500A8A9E9 /* CreateNewProjectDialog.xib in Resources */,
 				F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */,
 				F4703CBF177955E200A8A9E9 /* ProjectConfigDialog.xib in Resources */,
+				F416EF01177E8F1600653960 /* PlayerPreferencesDialog.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +295,8 @@
 				F432397B176433E5008C4624 /* ProjectConfigDialogController.mm in Sources */,
 				F4703CC2177957F800A8A9E9 /* CreateNewProjectDialogController.mm in Sources */,
 				F49DC887177C0C5E00D20226 /* NSApplication+SheetAdditions.m in Sources */,
+				F416EF04177E914600653960 /* PlayerPreferencesDialogController.m in Sources */,
+				F416EF071781208800653960 /* AppControllerBridge.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

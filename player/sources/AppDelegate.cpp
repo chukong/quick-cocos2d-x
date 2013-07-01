@@ -55,11 +55,15 @@ bool AppDelegate::applicationDidFinishLaunching()
     // thrid_party
     luaopen_third_party_luabinding(L);
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
-#else
-    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
-#endif
+    // load framework
+    if (m_projectConfig.isLoadPrecompiledFramework())
+    {
+        const string precompiledFrameworkPath = SimulatorConfig::sharedDefaults()->getPrecompiledFrameworkPath();
+        pStack->loadChunksFromZip(precompiledFrameworkPath.c_str());
+    }
+
+    // load script
+    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(m_projectConfig.getScriptFileRealPath().c_str());
     int pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {
@@ -109,4 +113,9 @@ void AppDelegate::applicationWillEnterForeground()
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->resumeAllEffects();
     CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_FOREGROUND");
+}
+
+void AppDelegate::setProjectConfig(const ProjectConfig& config)
+{
+    m_projectConfig = config;
 }

@@ -29,6 +29,8 @@
 #include "SimulatorConfig.h"
 #include "AppDelegate.h"
 
+class AppControllerBridge;
+
 @interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>
 {
     NSWindow *window;
@@ -44,9 +46,18 @@
     BOOL hasPopupDialog;
 
     int debugLogFile;
+
+    AppControllerBridge *bridge;
 }
 
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
+
+- (void) welcomeNewProject;
+- (void) welcomeOpen;
+- (void) welcomeSamples;
+- (void) welcomeGetStarted;
+
+- (IBAction) onServicePreferences:(id)sender;
 
 - (IBAction) onFileNewProject:(id)sender;
 - (IBAction) onFileNewPlayer:(id)sender;
