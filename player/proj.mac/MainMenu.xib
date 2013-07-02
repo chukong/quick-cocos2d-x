@@ -261,6 +261,24 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="73886449">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Welcome</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="990488458">
+									<reference key="NSMenu" ref="720053764"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="182546496">
 									<reference key="NSMenu" ref="720053764"/>
 									<string key="NSTitle">Close</string>
@@ -817,6 +835,14 @@
 					<int key="connectionID">671</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">onFileWelcome:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="73886449"/>
+					</object>
+					<int key="connectionID">674</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">menu</string>
 						<reference key="source" ref="299735127"/>
@@ -899,6 +925,8 @@
 							<reference ref="292680822"/>
 							<reference ref="182546496"/>
 							<reference ref="287591327"/>
+							<reference ref="73886449"/>
+							<reference ref="990488458"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -1256,6 +1284,16 @@
 						<reference key="object" ref="287591327"/>
 						<reference key="parent" ref="720053764"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">672</int>
+						<reference key="object" ref="73886449"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">673</int>
+						<reference key="object" ref="990488458"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1319,6 +1357,8 @@
 				<string key="636.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="637.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="656.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="672.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="673.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1329,7 +1369,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">671</int>
+			<int key="maxID">674</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1343,6 +1383,7 @@
 						<string key="onFileOpen:">id</string>
 						<string key="onFileOpenRecent:">id</string>
 						<string key="onFileOpenRecentClearMenu:">id</string>
+						<string key="onFileWelcome:">id</string>
 						<string key="onPlayerOpenDebugLog:">id</string>
 						<string key="onPlayerRelaunch:">id</string>
 						<string key="onPlayerShowProjectFiles:">id</string>
@@ -1379,6 +1420,10 @@
 						</object>
 						<object class="IBActionInfo" key="onFileOpenRecentClearMenu:">
 							<string key="name">onFileOpenRecentClearMenu:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="onFileWelcome:">
+							<string key="name">onFileWelcome:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onPlayerOpenDebugLog:">

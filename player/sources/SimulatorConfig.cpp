@@ -6,6 +6,22 @@
 #define strcasecmp _stricmp
 #endif
 
+void ProjectConfig::resetToWelcome(void)
+{
+    string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+    path.append("player/welcome");
+    SimulatorConfig::makeNormalizePath(&path);
+    setProjectDir(path);
+    setWritablePath(path);
+    setScriptFile("$PROJDIR/scripts/main.lua");
+    setFrameSize(CCSize(960, 540));
+    setFrameScale(1.0f);
+    setLoadPrecompiledFramework(true);
+    setPackagePath("");
+    setShowConsole(false);
+    setWindowOffset(CCPointZero);
+    setWriteDebugLogToFile(false);
+}
 
 const string ProjectConfig::getProjectDir(void)
 {

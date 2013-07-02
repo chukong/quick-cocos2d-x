@@ -166,19 +166,7 @@ using namespace cocos2d::extra;
 
     if (projectConfig.getProjectDir().length() == 0)
     {
-        string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
-        path.append("player/welcome");
-        SimulatorConfig::makeNormalizePath(&path);
-        projectConfig.setProjectDir(path);
-        projectConfig.setWritablePath(path);
-        projectConfig.setScriptFile("$PROJDIR/scripts/main.lua");
-        projectConfig.setFrameSize(CCSize(960, 540));
-        projectConfig.setFrameScale(1.0f);
-        projectConfig.setLoadPrecompiledFramework(true);
-        projectConfig.setPackagePath("");
-        projectConfig.setShowConsole(false);
-        projectConfig.setWindowOffset(CCPointZero);
-        projectConfig.setWriteDebugLogToFile(false);
+        projectConfig.resetToWelcome();
     }
 
     const string projectDir = projectConfig.getProjectDir();
@@ -518,7 +506,6 @@ using namespace cocos2d::extra;
         if (returnCode == NSRunStoppedResponse)
         {
             projectConfig = controller.projectConfig;
-            projectConfig.dump();
             [self relaunch];
         }
         [controller release];
@@ -545,6 +532,12 @@ using namespace cocos2d::extra;
 {
     [[NSUserDefaults standardUserDefaults] setObject:[NSArray array] forKey:@"recents"];
     [self updateUI];
+}
+
+- (IBAction) onFileWelcome:(id)sender
+{
+    projectConfig.resetToWelcome();
+    [self relaunch];
 }
 
 - (IBAction) onFileClose:(id)sender
@@ -599,6 +592,7 @@ using namespace cocos2d::extra;
     {
         SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(i);
         projectConfig.setFrameSize(projectConfig.isLandscapeFrame() ? CCSize(size.height, size.width) : CCSize(size.width, size.height));
+        projectConfig.setFrameScale(1.0f);
         [self relaunch];
     }
 }

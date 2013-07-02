@@ -63,6 +63,7 @@ class AppControllerBridge;
 - (IBAction) onFileNewPlayer:(id)sender;
 - (IBAction) onFileOpen:(id)sender;
 - (IBAction) onFileOpenRecentClearMenu:(id)sender;
+- (IBAction) onFileWelcome:(id)sender;
 - (IBAction) onFileClose:(id)sender;
 
 - (IBAction) onPlayerWriteDebugLogToFile:(id)sender;

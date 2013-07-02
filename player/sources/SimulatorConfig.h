@@ -33,6 +33,8 @@ public:
         normalize();
     }
 
+    void resetToWelcome(void);
+
     const string getProjectDir(void);
     void setProjectDir(const string projectDir);
 
