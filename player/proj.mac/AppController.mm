@@ -191,18 +191,26 @@ using namespace cocos2d::extra;
 {
     NSMutableArray *recents = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"]];
 
+    NSString *welcomeTitle = [NSString stringWithFormat:@"%splayer/welcome/", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str()];
+
     for (int i = [recents count] - 1; i >= 0; --i)
     {
         id recentItem = [recents objectAtIndex:i];
-        if (![[recentItem class] isSubclassOfClass:[NSDictionary class]] || [[recentItem objectForKey:@"title"] length] == 0)
+        if (![[recentItem class] isSubclassOfClass:[NSDictionary class]])
+        {
+            [recents removeObjectAtIndex:i];
+            continue;
+        }
+
+        NSString *title = [recentItem objectForKey:@"title"];
+        if (!title || [title length] == 0 || [welcomeTitle compare:title] == NSOrderedSame || !CCFileUtils::sharedFileUtils()->isDirectoryExist([title cStringUsingEncoding:NSUTF8StringEncoding]))
         {
             [recents removeObjectAtIndex:i];
         }
     }
 
     NSString *title = [NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding];
-
-    if ([title length] > 0)
+    if ([title length] > 0 && [welcomeTitle compare:title] != NSOrderedSame)
     {
         for (int i = [recents count] - 1; i >= 0; --i)
         {

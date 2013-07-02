@@ -172,8 +172,8 @@
 			children = (
 				F4B0813F175C89050029F472 /* AppController.h */,
 				F4B08140175C89050029F472 /* AppController.mm */,
-				F416EF061781208800653960 /* AppControllerBridge.mm */,
 				F416EF051781208800653960 /* AppControllerBridge.h */,
+				F416EF061781208800653960 /* AppControllerBridge.mm */,
 				F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */,
 				F4703CC0177957F500A8A9E9 /* CreateNewProjectDialogController.h */,
 				F4703CC1177957F600A8A9E9 /* CreateNewProjectDialogController.mm */,
