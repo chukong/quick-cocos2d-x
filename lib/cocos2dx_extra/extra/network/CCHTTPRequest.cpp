@@ -74,7 +74,7 @@ bool CCHTTPRequest::initWithUrl(const char* url, int method)
 CCHTTPRequest::~CCHTTPRequest(void)
 {
     cleanup();
-    // CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
+    CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
 }
 
 void CCHTTPRequest::setRequestUrl(const char* url)
@@ -132,6 +132,8 @@ void CCHTTPRequest::setTimeout(float timeout)
 void CCHTTPRequest::start(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::start() - request not idle");    
+    retain();
+
     m_state = kCCHTTPRequestStateInProgress;
     
     curl_easy_setopt(m_curl, CURLOPT_HTTP_CONTENT_DECODING, 1);
@@ -302,6 +304,7 @@ void CCHTTPRequest::onRequest(void)
     m_errorMessage = (code == CURLE_OK) ? "" : curl_easy_strerror(code);
     
     m_state = (code == CURLE_OK) ? kCCHTTPRequestStateCompleted : kCCHTTPRequestStateFailed;
+    release();
 }
 
 size_t CCHTTPRequest::onWriteData(void* buffer, size_t bytes)
