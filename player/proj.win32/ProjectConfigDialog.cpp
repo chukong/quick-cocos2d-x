@@ -97,6 +97,8 @@ bool ProjectConfigDialog::checkConfig(void)
         // ok
         m_project.setFrameSize(CCSize(w, h));
         m_project.setShowConsole(IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE) == TRUE);
+        m_project.setWriteDebugLogToFile(IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_WRITE_DEBUG_LOG_TO_FILE) == TRUE);
+        m_project.setLoadPrecompiledFramework(IsDlgButtonChecked(m_hwndDialog, IDC_CHECK_LOAD_PRECOMPILED_FRAMEWORK) == TRUE);
         isOK = true;
     } while (false);
 
@@ -112,7 +114,6 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
     updateProjectDir();
     updateScriptFile();
     updateWritablePath();
-    updatePackagePath();
 
     BOOL isLandscape = FALSE;
     int currentSizeIndex = defaults->checkScreenSize(m_project.getFrameSize());
@@ -151,6 +152,8 @@ void ProjectConfigDialog::onInitDialog(HWND hwndDialog)
     CheckRadioButton(m_hwndDialog, IDC_RADIO_PORTRAIT, IDC_RADIO_LANDSCAPE, isLandscape ? IDC_RADIO_LANDSCAPE : IDC_RADIO_PORTRAIT);
 
     Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_SHOW_DEBUG_CONSOLE), m_project.isShowConsole());
+    Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_WRITE_DEBUG_LOG_TO_FILE), m_project.isWriteDebugLogToFile());
+    Button_SetCheck(GetDlgItem(m_hwndDialog, IDC_CHECK_LOAD_PRECOMPILED_FRAMEWORK), m_project.isLoadPrecompiledFramework());
 
     // set dialog caption, button caption
     SetWindowTextA(m_hwndDialog, m_dialogCaption.c_str());
@@ -183,7 +186,6 @@ void ProjectConfigDialog::onSelectProjectDir(void)
         updateProjectDir();
         updateScriptFile();
         updateWritablePath();
-        updatePackagePath();
     }
 }
 
@@ -285,32 +287,6 @@ void ProjectConfigDialog::onScreenDirectionChanged(void)
     }
 }
 
-void ProjectConfigDialog::onListSelectChanged(void)
-{
-    int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
-    Button_Enable(GetDlgItem(m_hwndDialog, IDC_BUTTON_REMOVE_SEARCH_PATH), index != LB_ERR);
-}
-
-void ProjectConfigDialog::onButtonAddSearchPathClicked(void)
-{
-    string dir = browseFolder(m_project.getProjectDir());
-    if (dir.length() > 0)
-    {
-        m_project.addPackagePath(dir);
-        updatePackagePath();
-    }
-}
-
-void ProjectConfigDialog::onButtonRemoveSearchPathClicked(void)
-{
-    int index = ListBox_GetCurSel(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS));
-    if (index != LB_ERR)
-    {
-        ListBox_DeleteString(GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS), index);
-        m_project.setPackagePath(makeSearchPath().c_str());
-    }
-}
-
 void ProjectConfigDialog::onOK(void)
 {
     if (checkConfig())
@@ -360,21 +336,6 @@ INT_PTR CALLBACK ProjectConfigDialog::DialogCallback(HWND hDlg, UINT message, WP
                 sharedInstance()->onScreenDirectionChanged();
                 return (INT_PTR)TRUE;
             }
-            break;
-
-        case IDC_LIST_PACKAGE_SEARCH_PATHS:
-            if (HIWORD(wParam) == LBN_SELCHANGE)
-            {
-                sharedInstance()->onListSelectChanged();
-            }
-            break;
-
-        case IDC_BUTTON_ADD_SEARCH_PATH:
-            sharedInstance()->onButtonAddSearchPathClicked();
-            break;
-
-        case IDC_BUTTON_REMOVE_SEARCH_PATH:
-            sharedInstance()->onButtonRemoveSearchPathClicked();
             break;
 
         case IDOK:
@@ -428,41 +389,7 @@ void ProjectConfigDialog::updateWritablePath(void)
     }
 }
 
-void ProjectConfigDialog::updatePackagePath(void)
-{
-    HWND listbox = GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS);
-    ListBox_ResetContent(listbox);
-
-    const vector<string> paths = m_project.getPackagePathArray();
-    for (vector<string>::const_iterator it = paths.begin(); it != paths.end(); ++it)
-    {
-        wstring item;
-        item.assign(it->begin(), it->end());
-        ListBox_AddString(listbox, item.c_str());
-    }
-}
-
 // helper
-
-const string ProjectConfigDialog::makeSearchPath(void)
-{
-    HWND listbox = GetDlgItem(m_hwndDialog, IDC_LIST_PACKAGE_SEARCH_PATHS);
-    int count = ListBox_GetCount(listbox);
-    string path;
-    for (int index = 0; index < count; ++index)
-    {
-        int buffsize = ListBox_GetTextLen(listbox, index);
-        WCHAR *wbuff = new WCHAR[buffsize + 1];
-        ListBox_GetText(listbox, index, wbuff);
-        char *buff = new char[buffsize * 2 + 1];
-        WideCharToMultiByte(CP_UTF8, 0, wbuff, -1, buff, buffsize * 2, NULL, NULL);
-        path.append(buff);
-        if (index < count - 1) path.append(";");
-        delete []buff;
-        delete []wbuff;
-    }
-    return path;
-}
 
 const string ProjectConfigDialog::browseFolder(const string baseDir)
 {

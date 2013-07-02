@@ -70,6 +70,9 @@ QuickXPlayer::QuickXPlayer(void)
 
 int QuickXPlayer::run(void)
 {
+    const char *QUICK_COCOS2DX_ROOT = getenv("QUICK_COCOS2DX_ROOT");
+    SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(QUICK_COCOS2DX_ROOT);
+
     loadProjectConfig();
 
     AllocConsole();
@@ -100,7 +103,7 @@ int QuickXPlayer::run(void)
 
         // create the application instance
         m_app = new AppDelegate();
-        m_app->setStartupScriptFilename(m_project.getScriptFileRealPath());
+        m_app->setProjectConfig(m_project);
 
         // set environments
         SetCurrentDirectoryA(m_project.getProjectDir().c_str());
@@ -130,6 +133,10 @@ int QuickXPlayer::run(void)
         SendMessage(m_hwnd, WM_SETICON, ICON_BIG, (LPARAM)icon);
         SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
 
+        // update menu
+        createViewMenu();
+        updateMenu();
+
         // run game
         CCLuaStack *stack = CCLuaEngine::defaultEngine()->getLuaStack();
         const vector<string> arr = m_project.getPackagePathArray();
@@ -155,60 +162,72 @@ int QuickXPlayer::run(void)
 
 void QuickXPlayer::loadProjectConfig(void)
 {
-    int index = 1;
-    while (index < __argc)
+    vector<string> args;
+    for (int i = 0; i < __argc; ++i)
     {
-        const string arg = getCommandLineArg(index);
-        if (arg.compare("-workdir") == 0)
-        {
-            index++;
-            m_project.setProjectDir(getCommandLineArg(index).c_str());
-        }
-        else if (arg.compare("-file") == 0)
-        {
-            index++;
-            m_project.setScriptFile(getCommandLineArg(index).c_str());
-        }
-        else if (arg.compare("-writable") == 0)
-        {
-            index++;
-            m_project.setWritablePath(getCommandLineArg(index).c_str());
-        }
-        else if (arg.compare("-package.path") == 0)
-        {
-            index++;
-            m_project.setPackagePath(getCommandLineArg(index).c_str());
-        }
-        else if (arg.compare("-size") == 0)
-        {
-            index++;
-            const string size = getCommandLineArg(index);
-            int pos = size.find('x');
-            if (pos != size.npos && pos > 0)
-            {
-                int frameWidth = atoi(size.substr(0, pos).c_str());
-                int frameHeight = atoi(size.substr(pos + 1).c_str());
-                if (frameWidth < 100) frameWidth = 100;
-                if (frameHeight < 100) frameHeight = 100;
-                m_project.setFrameSize(CCSize(frameWidth, frameHeight));
-            }
-        }
-        else if (arg.compare("-scale") == 0)
-        {
-            index++;
-            const string scale = getCommandLineArg(index);
-            float frameScale = atof(scale.c_str());
-            if (frameScale > 0)
-            {
-                m_project.setFrameScale(frameScale);
-            }
-        }
-        else if (arg.compare("-disable-console") == 0)
-        {
-            m_project.setShowConsole(FALSE);
-        }
+        wstring ws(__wargv[i]);
+        string s;
+        s.assign(ws.begin(), ws.end());
+        args.push_back(s);
+    }
+    m_project.parseCommandLine(args);
+}
 
-        index++;
+void QuickXPlayer::createViewMenu(void)
+{
+    HMENU menu = GetMenu(m_hwnd);
+    HMENU viewMenu = GetSubMenu(menu, 1);
+
+    for (int i = SimulatorConfig::sharedDefaults()->getScreenSizeCount() - 1; i >= 0; --i)
+    {
+        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(i);
+        wstring menuName;
+        menuName.assign(size.title.begin(), size.title.end());
+
+        MENUITEMINFO item;
+        ZeroMemory(&item, sizeof(item));
+        item.cbSize = sizeof(item);
+        item.fMask = MIIM_FTYPE | MIIM_ID | MIIM_STRING;
+        item.fType = MFT_STRING;
+        item.wID = ID_VIEW_SIZE + i;
+        item.dwTypeData = (LPTSTR)menuName.c_str();
+        item.cch = menuName.length();
+
+        InsertMenuItem(viewMenu, 0, TRUE, &item);
+    }
+}
+
+void QuickXPlayer::updateMenu(void)
+{
+    HMENU menu = GetMenu(m_hwnd);
+    HMENU viewMenu = GetSubMenu(menu, 1);
+
+    if (m_project.isLandscapeFrame())
+    {
+        CheckMenuItem(viewMenu, ID_VIEW_PORTRAIT, MF_BYCOMMAND | MF_UNCHECKED);
+        CheckMenuItem(viewMenu, ID_VIEW_LANDSCAPE, MF_BYCOMMAND | MF_CHECKED);
+    }
+    else
+    {
+        CheckMenuItem(viewMenu, ID_VIEW_PORTRAIT, MF_BYCOMMAND | MF_CHECKED);
+        CheckMenuItem(viewMenu, ID_VIEW_LANDSCAPE, MF_BYCOMMAND | MF_UNCHECKED);
+    }
+
+    if (m_project.getFrameScale() < 1.0f)
+    {
+        CheckMenuItem(viewMenu, ID_VIEW_RESET_ZOOM, MF_BYCOMMAND | MF_UNCHECKED);
+        CheckMenuItem(viewMenu, ID_VIEW_ZOOM_OUT, MF_BYCOMMAND | MF_CHECKED);
+    }
+    else
+    {
+        CheckMenuItem(viewMenu, ID_VIEW_RESET_ZOOM, MF_BYCOMMAND | MF_CHECKED);
+        CheckMenuItem(viewMenu, ID_VIEW_ZOOM_OUT, MF_BYCOMMAND | MF_UNCHECKED);
+    }
+
+    int current = SimulatorConfig::sharedDefaults()->checkScreenSize(m_project.getFrameSize());
+    for (int i = SimulatorConfig::sharedDefaults()->getScreenSizeCount() - 1; i >= 0; --i)
+    {
+        CheckMenuItem(viewMenu, i, MF_BYPOSITION | (i == current ? MF_CHECKED : MF_UNCHECKED));
     }
 }
 
@@ -263,28 +282,7 @@ void QuickXPlayer::onFileCreateProjectShortcut(void)
         IPersistFile* ppf;
 
         // args
-        string args("-workdir ");
-        args.append(m_project.getProjectDir());
-
-        args.append(" -file ");
-        args.append(m_project.getScriptFile());
-
-        args.append(" -writable ");
-        args.append(m_project.getWritablePath());
-
-        args.append(" -size ");
-        const CCSize frameSize = m_project.getFrameSize();
-        char buff[32] = {0};
-        sprintf_s(buff, "%d", (int)frameSize.width);
-        args.append(buff);
-        args.append("x");
-        sprintf_s(buff, "%d", (int)frameSize.height);
-        args.append(buff);
-
-        if (!m_project.isShowConsole())
-        {
-            args.append(" -disable-console");
-        }
+        string args = m_project.makeCommandLine();
 
         // Set the path to the shortcut target and add the description.
         psl->SetPath(__wargv[0]);
@@ -330,76 +328,44 @@ void QuickXPlayer::onFileExit(void)
     DestroyWindow(m_hwnd);
 }
 
-void QuickXPlayer::onViewChangeFrameSize(int index)
+void QuickXPlayer::onViewChangeFrameSize(int viewMenuID)
 {
-    int w, h;
+    int index = viewMenuID - ID_VIEW_SIZE;
 
-    switch (index)
+    if (index >= 0 && index < SimulatorConfig::sharedDefaults()->getScreenSizeCount())
     {
-        case ID_VIEW_640_960:
-            w = 640; h = 960;
-            break;
-
-        case ID_VIEW_640_1136:
-            w = 640; h = 1136;
-            break;
-
-        case ID_VIEW_768_1024:
-            w = 768; h = 1024;
-            break;
-
-        case ID_VIEW_1536_2048:
-            w = 1536; h = 2048;
-            break;
-
-        case ID_VIEW_480_800:
-            w = 480; h = 800;
-            break;
-
-        case ID_VIEW_480_854:
-            w = 480; h = 854;
-            break;
-
-        case ID_VIEW_600_1024:
-            w = 600; h = 1024;
-            break;
-
-        case ID_VIEW_720_1280:
-            w = 720; h = 1280;
-            break;
-
-        case ID_VIEW_800_1280:
-            w = 800; h = 1280;
-            break;
-
-        case ID_VIEW_1080_1920:
-            w = 1080; h = 1920;
-            break;
-
-        case ID_VIEW_320_480:
-        default:
-            w = 320; h = 480;
-    }
-    if (m_project.isLandscapeFrame())
-    {
-        int w2 = w;
-        w = h;
-        h = w2;
-    }
-    m_project.setFrameSize(CCSize(w, h));
-    m_project.setFrameScale(1.0f);
-    relaunch();
-}
-
-void QuickXPlayer::onViewChangeDirection(int directionMode)
-{
-    BOOL isLandscape = m_project.isLandscapeFrame();
-    if ((directionMode == ID_VIEW_PORTRAIT && isLandscape) || (directionMode == ID_VIEW_LANDSCAPE && !isLandscape))
-    {
-        CCSize frameSize = m_project.getFrameSize();
-        frameSize.setSize(frameSize.height, frameSize.width);
+        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(index);
+        bool isLandscape = m_project.isLandscapeFrame();
+        m_project.setFrameSize(CCSize(size.width, size.height));
+        if (isLandscape)
+        {
+            m_project.changeFrameOrientationToLandscape();
+        }
+        else
+        {
+            m_project.changeFrameOrientationToPortait();
+        }
+        m_project.setFrameScale(1.0f);
         relaunch();
     }
+}
+
+void QuickXPlayer::onViewChangeOrientation(int viewMenuID)
+{
+    bool isLandscape = m_project.isLandscapeFrame();
+    bool isNeedRelaunch = false;
+    if (viewMenuID == ID_VIEW_PORTRAIT && isLandscape)
+    {
+        m_project.changeFrameOrientationToPortait();
+        isNeedRelaunch = true;
+    }
+    else if (viewMenuID == ID_VIEW_LANDSCAPE && !isLandscape)
+    {
+        m_project.changeFrameOrientationToLandscape();
+        isNeedRelaunch = true;
+    }
+
+    if (isNeedRelaunch) relaunch();
 }
 
 void QuickXPlayer::onViewChangeZoom(int scaleMode)
@@ -414,6 +380,7 @@ void QuickXPlayer::onViewChangeZoom(int scaleMode)
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
     CCEGLView::sharedOpenGLView()->resize(m_project.getFrameSize().width * scale,
         m_project.getFrameSize().height * scale);
+    updateMenu();
 }
 
 void QuickXPlayer::onHelpAbout(void)
@@ -460,23 +427,9 @@ LRESULT QuickXPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
             host->onFileExit();
             break;
 
-        case ID_VIEW_320_480:
-        case ID_VIEW_640_960:
-        case ID_VIEW_640_1136:
-        case ID_VIEW_768_1024:
-        case ID_VIEW_1536_2048:
-        case ID_VIEW_480_800:
-        case ID_VIEW_480_854:
-        case ID_VIEW_600_1024:
-        case ID_VIEW_720_1280:
-        case ID_VIEW_800_1280:
-        case ID_VIEW_1080_1920:
-            host->onViewChangeFrameSize(wmId);
-            break;
-
         case ID_VIEW_PORTRAIT:
         case ID_VIEW_LANDSCAPE:
-            host->onViewChangeDirection(wmId);
+            host->onViewChangeOrientation(wmId);
             break;
 
         case ID_VIEW_RESET_ZOOM:
@@ -489,6 +442,12 @@ LRESULT QuickXPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
             break;
 
         default:
+            if (wmId >= ID_VIEW_SIZE && wmId <= ID_VIEW_SIZE + SimulatorConfig::sharedDefaults()->getScreenSizeCount() - 1)
+            {
+                host->onViewChangeFrameSize(wmId);
+                break;
+            }
+
             return 0;
         }
         break;
@@ -525,17 +484,4 @@ INT_PTR CALLBACK QuickXPlayer::AboutDialogCallback(HWND hDlg, UINT message, WPAR
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-// helper
-
-const string QuickXPlayer::getCommandLineArg(int index)
-{
-    static string empty;
-    if (index < 0 || index >= __argc) return empty;
-
-    wstring ws(__wargv[index]);
-    string s;
-    s.assign(ws.begin(), ws.end());
-    return s;
 }

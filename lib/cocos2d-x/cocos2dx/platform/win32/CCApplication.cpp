@@ -160,16 +160,6 @@ TargetPlatform CCApplication::getTargetPlatform()
     return kTargetWindows;
 }
 
-void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)
-{
-    m_startupScriptFilename = startupScriptFile;
-    int pos;
-    while ((pos = m_startupScriptFilename.find_first_of("\\")) != std::string::npos)
-    {
-        m_startupScriptFilename.replace(pos, 1, "/");
-    }
-}
-
 NS_CC_END
 
 //////////////////////////////////////////////////////////////////////////

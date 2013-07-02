@@ -47,9 +47,6 @@ private:
     void onSelectWritablePath(void);
     void onScreenSizeChanged(void);
     void onScreenDirectionChanged(void);
-    void onListSelectChanged(void);
-    void onButtonAddSearchPathClicked(void);
-    void onButtonRemoveSearchPathClicked(void);
     void onOK(void);
 
     // windows callback
@@ -60,10 +57,8 @@ private:
     void updateProjectDir(void);
     void updateScriptFile(void);
     void updateWritablePath(void);
-    void updatePackagePath(void);
 
     // helper
-    const string makeSearchPath(void);
     const string browseFolder(const string baseDir);
     static BOOL DirectoryExists(const string path);
     static BOOL FileExists(const string path);

@@ -42,6 +42,8 @@ private:
 
     int run(void);
     void loadProjectConfig(void);
+    void createViewMenu(void);
+    void updateMenu(void);
     void updateWindowTitle(void);
     void relaunch(void);
 
@@ -53,8 +55,8 @@ private:
     void onFileRelaunch(void);
     void onFileExit(void);
 
-    void onViewChangeFrameSize(int index);
-    void onViewChangeDirection(int directionMode);
+    void onViewChangeFrameSize(int viewMenuID);
+    void onViewChangeOrientation(int viewMenuID);
     void onViewChangeZoom(int scaleMode);
 
     void onHelpAbout(void);
@@ -63,7 +65,4 @@ private:
     static LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL *pProcessed);
     static INT_PTR CALLBACK AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
     static INT CALLBACK OpenProjectCallback(HWND hwnd, UINT uMsg, LPARAM lp, LPARAM pData);
-
-    // helper
-    const string getCommandLineArg(int index);
 };

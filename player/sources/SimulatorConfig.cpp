@@ -469,13 +469,10 @@ SimulatorConfig::SimulatorConfig(void)
     m_screenSizeArray.push_back(SimulatorScreenSize("iPhone 5 (640x1136)", 640, 1136));
     m_screenSizeArray.push_back(SimulatorScreenSize("iPad (768x1024)", 768, 1024));
     m_screenSizeArray.push_back(SimulatorScreenSize("iPad Retina (1536x2048)", 1536, 2048));
-    m_screenSizeArray.push_back(SimulatorScreenSize("Android (320x480)", 320, 480));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (480x800)", 480, 800));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (480x854)", 480, 854));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (540x960)", 540, 960));
-    m_screenSizeArray.push_back(SimulatorScreenSize("Android (640x960)", 640, 960));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (600x1024)", 600, 1024));
-    m_screenSizeArray.push_back(SimulatorScreenSize("Android (768x1024)", 768, 1024));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (720x1280)", 720, 1280));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (800x1280)", 800, 1280));
     m_screenSizeArray.push_back(SimulatorScreenSize("Android (1080x1920)", 1080, 1920));
