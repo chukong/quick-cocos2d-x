@@ -248,29 +248,39 @@ bool CCPhysicsVectorArray::initWithLuaTable(int vertexes)
     if (!lua_istable(L, vertexes)) return NULL;
 
     m_count = 0;
-    lua_pushnil(L);
-    while (lua_next(L, vertexes) != 0)
+    do
     {
-        if (lua_istable(L, -1)) m_count++;
+        lua_rawgeti(L, -1, m_count + 1);
+        if (lua_isnil(L, -1))
+        {
+            lua_pop(L, 1);
+            break;
+        }
         lua_pop(L, 1);
+        m_count++;
+    } while (true);
+
+    if (m_count == 0 || m_count % 2 != 0)
+    {
+        m_count = 0;
+        return false;
     }
 
     m_verts = (cpVect*)malloc(sizeof(cpVect) * m_count);
-    lua_pushnil(L);
-    int i = 0;
-    while (lua_next(L, vertexes) != 0)
+    int vertIndex = 0;
+    for (int i = 0; i < m_count; i += 2)
     {
-        if (!lua_istable(L, -1)) continue;
-        lua_rawgeti(L, -1, 1);
+        lua_rawgeti(L, -1, i + 1);
         float x = (float)lua_tonumber(L, -1);
         lua_pop(L, 1);
-        lua_rawgeti(L, -1, 2);
+        lua_rawgeti(L, -1, i + 2);
         float y = (float)lua_tonumber(L, -1);
         lua_pop(L, 1);
-        m_verts[i] = cpv(x, y);
-        i++;
-        lua_pop(L, 1);
+        m_verts[vertIndex] = cpv(x, y);
+        vertIndex++;
     }
+
+    m_count = m_count / 2;
     return true;
 }
 

@@ -176,7 +176,9 @@ CCPhysicsBody *CCPhysicsWorld::createPolygonBody(float mass, int numVertexes, cp
     }
     else
     {
+        CCAssert(cpPolyValidate(vertexes, numVertexes), "CCPhysicsWorld::createPolygonBody() - Invalid vertexes, Polygon is concave or has a reversed winding.");
         float moment = cpMomentForPoly(mass, numVertexes, vertexes, cpv(offsetX, offsetY));
+        CCAssert(moment == moment, "CCPhysicsWorld::createPolygonBody() - Invalid moment");
         body = CCPhysicsBody::create(this, mass, moment);
     }
     body->addPolygonShape(numVertexes, vertexes, offsetX, offsetY);
