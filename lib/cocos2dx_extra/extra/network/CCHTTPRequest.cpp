@@ -163,7 +163,7 @@ void CCHTTPRequest::start(void)
 void CCHTTPRequest::cancel(void)
 {
     m_delegate = NULL;
-    if (m_state == kCCHTTPRequestStateInProgress)
+    if (m_state == kCCHTTPRequestStateIdle || m_state == kCCHTTPRequestStateInProgress)
     {
         m_state = kCCHTTPRequestStateCancelled;
     }
