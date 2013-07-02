@@ -33,12 +33,16 @@ NS_CC_EXTRA_BEGIN
 #define kCCHTTPRequestAcceptEncodingGzip     1
 #define kCCHTTPRequestAcceptEncodingDeflate  2
 
-#define kCCHTTPRequestStateIdle       0
-#define kCCHTTPRequestStateCleared    1
-#define kCCHTTPRequestStateInProgress 2
-#define kCCHTTPRequestStateCompleted  3
-#define kCCHTTPRequestStateCancelled  4
-#define kCCHTTPRequestStateFailed     5
+#define kCCHTTPRequestStateIdle         0
+#define kCCHTTPRequestStateCleared      1
+#define kCCHTTPRequestStateInProgress   2
+#define kCCHTTPRequestStateCompleted    3
+#define kCCHTTPRequestStateCancelled    4
+#define kCCHTTPRequestStateFailed       5
+
+#define kCCHTTPRequestCURLStateIdle     0
+#define kCCHTTPRequestCURLStateBusy     1
+#define kCCHTTPRequestCURLStateClosed   2
 
 typedef vector<string> CCHTTPRequestHeaders;
 typedef CCHTTPRequestHeaders::iterator CCHTTPRequestHeadersIterator;
@@ -131,8 +135,9 @@ public:
     }
 
     /** @brief timer function. */
+    void checkCURLState(float dt);
     virtual void update(float dt);
-    
+
 private:
     CCHTTPRequest(void)
     : m_delegate(NULL)
@@ -143,6 +148,7 @@ private:
     , m_responseBuffer(NULL)
     , m_responseBufferLength(0)
     , m_responseDataLength(0)
+    , m_curlState(kCCHTTPRequestCURLStateIdle)
     {
     }
     bool initWithDelegate(CCHTTPRequestDelegate* delegate, const char* url, int method);
@@ -160,6 +166,7 @@ private:
     CURL* m_curl;
     CCHTTPRequestDelegate* m_delegate;
     int m_listener;
+    int m_curlState;
     
     int     m_state;
     int     m_errorCode;

@@ -132,10 +132,10 @@ void CCHTTPRequest::setTimeout(float timeout)
 void CCHTTPRequest::start(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::start() - request not idle");    
+    m_state = kCCHTTPRequestStateInProgress;
+    m_curlState = kCCHTTPRequestCURLStateBusy;
     retain();
 
-    m_state = kCCHTTPRequestStateInProgress;
-    
     curl_easy_setopt(m_curl, CURLOPT_HTTP_CONTENT_DECODING, 1);
     curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeDataCURL);
     curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
@@ -216,10 +216,24 @@ size_t CCHTTPRequest::saveResponseData(const char* filename)
     return writedBytes;
 }
 
+void CCHTTPRequest::checkCURLState(float dt)
+{
+    CC_UNUSED_PARAM(dt);
+    if (m_curlState != kCCHTTPRequestCURLStateBusy)
+    {
+        CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
+        release();
+    }
+}
+
 void CCHTTPRequest::update(float dt)
 {
     if (m_state == kCCHTTPRequestStateInProgress) return;
-    CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
+    CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
+    if (m_curlState == kCCHTTPRequestCURLStateBusy)
+    {
+        CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(CCHTTPRequest::checkCURLState), this, 0, false);
+    }
 
     if (m_state == kCCHTTPRequestStateCompleted)
     {
@@ -302,9 +316,8 @@ void CCHTTPRequest::onRequest(void)
     
     m_errorCode = code;
     m_errorMessage = (code == CURLE_OK) ? "" : curl_easy_strerror(code);
-    
     m_state = (code == CURLE_OK) ? kCCHTTPRequestStateCompleted : kCCHTTPRequestStateFailed;
-    release();
+    m_curlState = kCCHTTPRequestCURLStateClosed;
 }
 
 size_t CCHTTPRequest::onWriteData(void* buffer, size_t bytes)
