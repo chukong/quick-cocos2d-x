@@ -153,11 +153,12 @@ using namespace cocos2d::extra;
 
 - (void) startup
 {
+//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"QUICK_COCOS2DX_ROOT"];
     NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
     if (!path || [path length] == 0)
     {
-        [self showAlert:@"Please set quick-cocos2d-x root path." withTitle:@"quick-x-player error"];
         [self onServicePreferences:self];
+        [self showAlertWithoutSheet:@"Please set quick-cocos2d-x root path." withTitle:@"quick-x-player error"];
     }
     else
     {
@@ -361,6 +362,16 @@ using namespace cocos2d::extra;
 - (void) relaunch
 {
     [self relaunch:[self makeCommandLineArgsFromProjectConfig]];
+}
+
+- (void) showAlertWithoutSheet:(NSString*)message withTitle:(NSString*)title
+{
+    NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"OK"];
+	[alert setMessageText:message];
+	[alert setInformativeText:title];
+	[alert setAlertStyle:NSWarningAlertStyle];
+    [alert runModal];
 }
 
 - (void) showAlert:(NSString*)message withTitle:(NSString*)title
