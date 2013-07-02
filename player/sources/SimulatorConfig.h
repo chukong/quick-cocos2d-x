@@ -23,7 +23,7 @@ public:
     : m_scriptFile("$PROJDIR/scripts/main.lua")
     , m_writablePath("")
     , m_packagePath("")
-    , m_frameSize(854, 480)
+    , m_frameSize(960, 540)
     , m_frameScale(1.0f)
     , m_showConsole(true)
     , m_loadPrecompiledFramework(true)
