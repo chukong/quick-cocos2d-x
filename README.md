@@ -29,15 +29,12 @@ Step 2: Start your project
 
 Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/player/bin/win32/quick-x-player.exe
 
-1.  Select menu: File -> Open Project
-2.  Set Project Director to **quick-cocos2d-x/sample/coinflip**
+![](/doc/img/RUN_PLAYER_MAC_01.png)
+
+1.  Select menu: File -> Open
+2.  Set Project Directory to **quick-cocos2d-x/sample/coinflip**
 3.  Set Script File to **scripts/main.lua**
-
-    ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)
-
 4.  Click "Open Project" button.
-
-![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_02.png)
 
 <br />
 
