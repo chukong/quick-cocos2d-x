@@ -254,7 +254,7 @@ function import(moduleName, currentModuleName)
     while true do
         if string.byte(moduleName, offset) ~= 46 then -- .
             moduleFullName = string.sub(moduleName, offset)
-            if currentModuleNameParts then
+            if currentModuleNameParts and #currentModuleNameParts > 0 then
                 moduleFullName = table.concat(currentModuleNameParts, ".") .. "." .. moduleFullName
             end
             break
