@@ -42,4 +42,15 @@ int inet_optsocktype(lua_State* L, int narg, const char* def);
 int inet_aton(const char *cp, struct in_addr *inp);
 #endif
 
+#ifndef _WINDOWS_
+#define my_inet_ntop(a,b,c,d) inet_ntop(a,b,c,d)
+#define my_inet_pton(a,b,c) inet_pton(a,b,c)
+#else
+int win32xp_inet_pton(int family, const char* string, PVOID dest);
+char* win32xp_inet_ntop(int family, PVOID src, char* dest, size_t length);
+#define my_inet_ntop(a,b,c,d) win32xp_inet_ntop(a,b,c,d)
+#define my_inet_pton(a,b,c) win32xp_inet_pton(a,b,c)
+#endif
+
+
 #endif /* INET_H */

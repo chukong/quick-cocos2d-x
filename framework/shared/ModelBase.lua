@@ -251,7 +251,7 @@ ModelBase 并不会为类自动添加 getter 和 setter 方法，所以开发者
 
 ]]
 
-local json = require("framework.shared.json")
+local json = require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.json")
 
 local ModelBase = class("ModelBase")
 ModelBase.idkey = "id"

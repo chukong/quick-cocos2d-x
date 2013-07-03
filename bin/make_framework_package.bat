@@ -3,6 +3,4 @@ set DIR=%~dp0
 cd "%DIR%\..\"
 %DIR%win32\php.exe %DIR%\lib\compile_scripts.php -zip -x framework.server -p framework framework lib\framework_precompiled\framework_precompiled
 
-copy lib\framework_precompiled\framework_precompiled.zip sample\CoinFlip\res\
-copy lib\framework_precompiled\framework_precompiled.zip sample\Benchmark\res\
 copy lib\framework_precompiled\framework_precompiled.zip template\PROJECT_TEMPLATE_01\res\

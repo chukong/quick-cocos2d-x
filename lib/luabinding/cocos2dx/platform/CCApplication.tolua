@@ -1,0 +1,67 @@
+
+enum
+{
+    kTargetWindows,
+    kTargetLinux,
+    kTargetMacOS,
+    kTargetAndroid,
+    kTargetIphone,
+    kTargetIpad,
+    kTargetBlackBerry,
+    kTargetNaCl,
+    kTargetEmscripten,
+    kTargetTizen
+};
+
+/**
+@brief Enum the language type supported now
+*/
+enum
+{
+    kLanguageEnglish = 0,
+    kLanguageChinese,
+    kLanguageFrench,
+    kLanguageItalian,
+    kLanguageGerman,
+    kLanguageSpanish,
+    kLanguageRussian,
+    kLanguageKorean,
+    kLanguageJapanese,
+    kLanguageHungarian,
+    kLanguagePortuguese,
+    kLanguageArabic
+};
+
+/**
+ * @addtogroup platform
+ * @{
+ */
+
+class CCApplication
+{
+    /**
+    @brief  Get current applicaiton instance.
+    @return Current application instance pointer.
+    */
+    static CCApplication* sharedApplication();
+
+    /**
+    @brief    Callback by CCDirector for limit FPS.
+    @interval       The time, expressed in seconds, between current frame and next.
+    */
+    void setAnimationInterval(double interval);
+
+    /**
+    @brief Get current language config
+    @return Current language config
+    */
+    int getCurrentLanguage();
+
+    /**
+     @brief Get target platform
+     */
+    int getTargetPlatform();
+};
+
+// end of platform group
+/// @}

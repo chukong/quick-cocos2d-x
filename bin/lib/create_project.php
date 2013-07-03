@@ -261,7 +261,8 @@ options:
 
 examples:
 
-    create_project -o landscape com.mycomp.games.game01
+    create_project com.quickx.game.physics
+
 
 
 EOT;

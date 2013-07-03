@@ -36,7 +36,6 @@ Call Objective-C form Lua, and call Lua from Objective-C.
 ## HOW TO USE:
 
 ~~~
-local luaoc = require("framework.client.luaoc")
 
 local function onLogin(result)
     if result == "ok" then

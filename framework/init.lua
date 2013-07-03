@@ -38,8 +38,10 @@ math.random()
 math.random()
 math.random()
 
-__FRAMEWORK_VERSION__     = "2.0"
-__FRAMEWORK_GLOBALS__     = {}
-__FRAMEWORK_ENVIRONMENT__ = "unknown"
+local n = ...
+__FRAMEWORK_PACKAGE_NAME__ = string.sub(n, 1, -6)
+__FRAMEWORK_VERSION__      = "2.0"
+__FRAMEWORK_GLOBALS__      = {}
+__FRAMEWORK_ENVIRONMENT__  = "unknown"
 
 if type(DEBUG) ~= "number" then DEBUG = 1 end

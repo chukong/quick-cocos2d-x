@@ -1,60 +1,12 @@
 quick-cocos2d-x 是一个可以让您觉得“爽快”的 cocos2d-x 的扩展版。基于 cocos2d-x，完全的跨平台能力、优异的性能和可靠性。而 quick-cocos2d-x 在这一切的基础上，添加了完善的 Lua 脚本语言支持，让开发者可以使用 Lua 这种简单易用的脚本语言完成商业品质的移动游戏。
 
-CODE LESS, PLAY MORE !
-
-> [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
-
-<br />
 
 **中国区特别推荐： QQ 群 284148017**
 
 **如果你觉得 quick-cocos2d-x 靠谱，请点一下本页面上面的 "Star" 按钮，然后发发微博帮忙宣传吧**
 
-## 快速开始
-
-### 系统需求
-
--   最新版本 Xcode (当前为 4.6) 和最新的 iOS SDK (当前为 6.1)
--   Android SDK (2.2) 和 Android NDK (r8b, 不能使用其他版本)
-
-### 下载
-
--   **最新版本**: [quick-cocos2d-x-20130509.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130509.zip)
--   **中国大陆下载地址**: [quick-cocos2d-x-20130509.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130509.zip)
-
-
-### 运行模拟器
-
-打开 quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, 或者 quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
-
-1.  选择菜单: File -> Open Project
-2.  设置 Project Director 为 **quick-cocos2d-x/sample/CoinFlip**
-3.  设置 Script File 为 **$WORKDIR/scripts/main.lua**
-
-    ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)
-
-4.  点击 "Open Project" 按钮.
-
-![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_02.png)
-
-
-### 编译和创建新项目
-
--   [安装 Android SDK/NDK - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_MAC.md)
--   [安装 Android SDK/NDK - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_WINDOWS.md)
--   [从源代码编译 - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_MAC.md)
--   [从源代码编译 - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_WINDOWS.md)
--   [创建新项目](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/CREATE_NEW_PROJECT.md)
-
-
-### 文档
-
--   [API 文档](http://quick-x.com/docs/api/)
--   [开发者指南](http://quick-x.com/docs/manual/)
 
 <br />
-
-----
 
 ## 为什么选择 quick-cocos2d-x
 
@@ -75,15 +27,3 @@ CODE LESS, PLAY MORE !
 -   **最快的脚本引擎**: Lua 是“最快”的脚本语言之一，而 quick-cocos2d-x 集成了 LuaJIT，在支持 JIT 的设备上，可以将 Lua 脚本编译为机器码执行，性能无以伦比。
 
 -   **100% 开源**: cocos2d-x、Lua，以及 quick-cocos2d-x 都是 100% 开源的项目。这意味着更低的成本、自由修改的权利，以及快速发展的技术。
-
-<br />
-
-### 框架的主要特征:
-
--   display: creates scenes, display objects, animation ...
--   transition: moving, fades, creates animation programing easy ...
--   audio: play background music, effect sounds ...
--   ui: creates button, menu, label ...
--   luaoc: Lua call Objective-C, Objective-C call Lua ...
--   luaj: Lua call Java, Java call Lua ...
--   network: Asynchronous HTTP requests, JSON, check the network status ...

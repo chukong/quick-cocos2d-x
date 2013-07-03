@@ -36,11 +36,11 @@ The display module provides access to cocos2d-x core features.
 
 local display = {}
 
-require("framework.client.cocos2dx.CCNodeExtend")
-require("framework.client.cocos2dx.CCSpriteExtend")
-require("framework.client.cocos2dx.CCLayerExtend")
-require("framework.client.cocos2dx.CCSceneExtend")
-require("framework.client.cocos2dx.CCShapeNodeExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCNodeExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCSpriteExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCLayerExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCSceneExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.cocos2dx.CCShapeNodeExtend")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
@@ -54,29 +54,82 @@ display.sizeInPixels = {width = size.width, height = size.height}
 local w = display.sizeInPixels.width
 local h = display.sizeInPixels.height
 
-local scale = 1
-if CONFIG_SCREEN_AUTOSCALE then
-    -- set auto scale
-    CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
+if CONFIG_SCREEN_WIDTH == nil or CONFIG_SCREEN_HEIGHT == nil then
+    CONFIG_SCREEN_WIDTH = w
+    CONFIG_SCREEN_HEIGHT = h
+end
+
+local function checkScale(w, h)
+    local scale = 1
+    local wscale, hscale = w / CONFIG_SCREEN_WIDTH, h / CONFIG_SCREEN_HEIGHT
     if CONFIG_SCREEN_AUTOSCALE == "FIXED_WIDTH" then
-        scale = w / CONFIG_SCREEN_WIDTH;
-        CONFIG_SCREEN_HEIGHT = h / scale;
-    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT" then
-        scale = h / CONFIG_SCREEN_HEIGHT;
-        CONFIG_SCREEN_WIDTH = w / scale;
-    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT_ON_SMALL_SCREEN" then
-        if h < CONFIG_SCREEN_HEIGHT then
-            scale = h / CONFIG_SCREEN_HEIGHT;
-            CONFIG_SCREEN_WIDTH = w / scale;
+        scale = wscale
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_WIDTH_PRIOR" then
+        if wscale > hscale then
+            scale = wscale
         else
-            CONFIG_SCREEN_WIDTH = w
-            CONFIG_SCREEN_HEIGHT = h
+            scale = hscale
+        end
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT" then
+        scale = hscale
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT_PRIOR" then
+        if wscale < hscale then
+            scale = wscale
+        else
+            scale = hscale
         end
     end
+    return scale, wscale, hscale
+end
 
-    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH,
-                                   CONFIG_SCREEN_HEIGHT,
-                                   kResolutionNoBorder)
+local scale, wscale, hscale = 1, 1, 1
+if type(CONFIG_SCREEN_AUTOSCALE) == "function" then
+    CONFIG_SCREEN_AUTOSCALE(w, h)
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
+elseif CONFIG_SCREEN_AUTOSCALE then
+    scale, wscale, hscale = checkScale(w, h)
+
+    if type(CONFIG_RESOURCE_SIZE) == "table" then
+        local selectedSize, lastSize
+        for i, size in ipairs(CONFIG_RESOURCE_SIZE) do
+            local maxContentScale = size.scale or 99999
+            if scale <= maxContentScale then
+                selectedSize = size
+                break
+            end
+            lastSize = size
+        end
+
+        if not selectedSize and lastSize then selectedSize = lastSize end
+        CCFileUtils:sharedFileUtils():addSearchPath(selectedSize.path)
+
+        w = w / scale * selectedSize.scale
+        h = h / scale * selectedSize.scale
+        scale, wscale, hscale = checkScale(w, h)
+    end
+
+    CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
+    if CONFIG_SCREEN_AUTOSCALE == "FIXED_WIDTH" then
+        CONFIG_SCREEN_HEIGHT = h / scale
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_WIDTH_PRIOR" then
+        if wscale > hscale then
+            CONFIG_SCREEN_HEIGHT = h / scale
+        else
+            CONFIG_SCREEN_WIDTH = w / scale
+        end
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT" then
+        CONFIG_SCREEN_WIDTH = w / scale
+    elseif CONFIG_SCREEN_AUTOSCALE == "FIXED_HEIGHT_PRIOR" then
+        if wscale < hscale then
+            CONFIG_SCREEN_HEIGHT = h / scale
+        else
+            CONFIG_SCREEN_WIDTH = w / scale
+        end
+    else
+        echoError(format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
+    end
+
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
 end
 
 local winSize = sharedDirector:getWinSize()
@@ -97,6 +150,7 @@ display.bottom             = 0
 display.widthInPixels      = display.sizeInPixels.width
 display.heightInPixels     = display.sizeInPixels.height
 
+echoInfo(format("# CONFIG_SCREEN_AUTOSCALE      = %s", CONFIG_SCREEN_AUTOSCALE))
 echoInfo(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
 echoInfo(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
 echoInfo(format("# display.widthInPixels        = %0.2f", display.widthInPixels))
@@ -128,6 +182,8 @@ display.CENTER_RIGHT  = 6; display.RIGHT_CENTER  = 6
 display.BOTTOM_LEFT   = 7; display.LEFT_BOTTOM   = 7
 display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
+
+ccp = CCPoint
 
 display.ANCHOR_POINTS = {
     ccp(0.5, 0.5),  -- CENTER
@@ -353,8 +409,14 @@ CCLayer is a subclass of CCNode. all features from CCNode are valid, plus the fo
 -   CCLayer
 
 ]]
-function display.newLayer()
-    return CCLayerExtend.extend(CCLayer:create())
+function display.newLayer(noRGBA)
+    local layer
+    if noRGBA then
+        layer = CCLayer:create()
+    else
+        layer = CCLayerRGBA:create()
+    end
+    return CCLayerExtend.extend(layer)
 end
 
 --[[--
@@ -394,8 +456,14 @@ Features of CCNode:
 -   CCNode
 
 ]]
-function display.newNode()
-    return CCNodeExtend.extend(CCNode:create())
+function display.newNode(noRGBA)
+    local node
+    if noRGBA then
+        node = CCNode:create()
+    else
+        node = CCNodeRGBA:create()
+    end
+    return CCNodeExtend.extend(node)
 end
 
 --[[--
@@ -490,7 +558,7 @@ Creates a sprite, repeat sprite's texture to fill whole rect.
 
 ]]
 function display.newBackgroundTilesSprite(filename)
-    local rect = CCRectMake(0, 0, display.width, display.height)
+    local rect = CCRect(0, 0, display.width, display.height)
     local sprite = CCSprite:create(filename, rect)
     if not sprite then
         echoError("display.newBackgroundTilesSprite() - create sprite failure, filename %s", tostring(filename))

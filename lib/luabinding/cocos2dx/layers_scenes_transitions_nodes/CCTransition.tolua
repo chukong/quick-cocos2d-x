@@ -1,0 +1,293 @@
+/****************************************************************************
+Copyright (c) 2010-2012 cocos2d-x.org
+Copyright (c) 2008-2010 Ricardo Quesada
+Copyright (c) 2011      Zynga Inc.
+
+http://www.cocos2d-x.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+****************************************************************************/
+
+/**
+ * @addtogroup transition
+ * @{
+ */
+
+/** Orientation Type used by some transitions
+*/
+typedef enum {
+    /// An horizontal orientation where the Left is nearer
+    kCCTransitionOrientationLeftOver = 0,
+    /// An horizontal orientation where the Right is nearer
+    kCCTransitionOrientationRightOver = 1,
+    /// A vertical orientation where the Up is nearer
+    kCCTransitionOrientationUpOver = 0,
+    /// A vertical orientation where the Bottom is nearer
+    kCCTransitionOrientationDownOver = 1,
+
+    // Deprecated
+    //  kOrientationLeftOver = kCCTransitionOrientationLeftOver,
+    //  kOrientationRightOver = kCCTransitionOrientationRightOver,
+    //  kOrientationUpOver = kCCTransitionOrientationUpOver,
+    //  kOrientationDownOver = kCCTransitionOrientationDownOver,
+} tOrientation;
+
+
+/** @brief Base class for CCTransition scenes
+*/
+class CCTransitionScene : public CCScene
+{
+};
+
+/** @brief A CCTransition that supports orientation like.
+* Possible orientation: LeftOver, RightOver, UpOver, DownOver
+*/
+class CCTransitionSceneOriented : public CCTransitionScene
+{
+    /** creates a base transition with duration and incoming scene */
+    static CCTransitionSceneOriented * create(float t,CCScene* scene, tOrientation orientation);
+};
+
+/** @brief CCTransitionRotoZoom:
+Rotate and zoom out the outgoing scene, and then rotate and zoom in the incoming
+*/
+class CCTransitionRotoZoom : public CCTransitionScene
+{
+    static CCTransitionRotoZoom* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionJumpZoom:
+Zoom out and jump the outgoing scene, and then jump and zoom in the incoming
+*/
+class CCTransitionJumpZoom : public CCTransitionScene
+{
+    static CCTransitionJumpZoom* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionMoveInL:
+Move in from to the left the incoming scene.
+*/
+class CCTransitionMoveInL : public CCTransitionScene
+{
+    static CCTransitionMoveInL* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionMoveInR:
+Move in from to the right the incoming scene.
+*/
+class CCTransitionMoveInR : public CCTransitionMoveInL
+{
+    static CCTransitionMoveInR* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionMoveInT:
+Move in from to the top the incoming scene.
+*/
+class CCTransitionMoveInT : public CCTransitionMoveInL
+{
+    static CCTransitionMoveInT* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionMoveInB:
+Move in from to the bottom the incoming scene.
+*/
+class CCTransitionMoveInB : public CCTransitionMoveInL
+{
+    static CCTransitionMoveInB* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionSlideInL:
+Slide in the incoming scene from the left border.
+*/
+class CCTransitionSlideInL : public CCTransitionScene
+{
+    static CCTransitionSlideInL* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionSlideInR:
+Slide in the incoming scene from the right border.
+*/
+class CCTransitionSlideInR : public CCTransitionSlideInL
+{
+    static CCTransitionSlideInR* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionSlideInB:
+Slide in the incoming scene from the bottom border.
+*/
+class CCTransitionSlideInB : public CCTransitionSlideInL
+{
+    static CCTransitionSlideInB* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionSlideInT:
+Slide in the incoming scene from the top border.
+*/
+class CCTransitionSlideInT : public CCTransitionSlideInL
+{
+    static CCTransitionSlideInT* create(float t, CCScene* scene);
+};
+
+/**
+@brief Shrink the outgoing scene while grow the incoming scene
+*/
+class CCTransitionShrinkGrow : public CCTransitionScene
+{
+    static CCTransitionShrinkGrow* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionFlipX:
+Flips the screen horizontally.
+The front face is the outgoing scene and the back face is the incoming scene.
+*/
+class CCTransitionFlipX : public CCTransitionSceneOriented
+{
+    static CCTransitionFlipX* create(float t, CCScene* s, tOrientation o);
+    static CCTransitionFlipX* create(float t, CCScene* s);
+};
+
+/** @brief CCTransitionFlipY:
+Flips the screen vertically.
+The front face is the outgoing scene and the back face is the incoming scene.
+*/
+class CCTransitionFlipY : public CCTransitionSceneOriented
+{
+    static CCTransitionFlipY* create(float t, CCScene* s, tOrientation o);
+    static CCTransitionFlipY* create(float t, CCScene* s);
+};
+
+/** @brief CCTransitionFlipAngular:
+Flips the screen half horizontally and half vertically.
+The front face is the outgoing scene and the back face is the incoming scene.
+*/
+class CCTransitionFlipAngular : public CCTransitionSceneOriented
+{
+    static CCTransitionFlipAngular* create(float t, CCScene* s, tOrientation o);
+    static CCTransitionFlipAngular* create(float t, CCScene* s);
+};
+
+/** @brief CCTransitionZoomFlipX:
+Flips the screen horizontally doing a zoom out/in
+The front face is the outgoing scene and the back face is the incoming scene.
+*/
+class CCTransitionZoomFlipX : public CCTransitionSceneOriented
+{
+    static CCTransitionZoomFlipX* create(float t, CCScene* s, tOrientation o);
+    static CCTransitionZoomFlipX* create(float t, CCScene* s);
+};
+
+/** @brief CCTransitionZoomFlipY:
+Flips the screen vertically doing a little zooming out/in
+The front face is the outgoing scene and the back face is the incoming scene.
+*/
+class CCTransitionZoomFlipY : public CCTransitionSceneOriented
+{
+    static CCTransitionZoomFlipY* create(float t, CCScene* s, tOrientation o);
+    static CCTransitionZoomFlipY* create(float t, CCScene* s);
+};
+
+/** @brief CCTransitionZoomFlipAngular:
+Flips the screen half horizontally and half vertically doing a little zooming out/in.
+The front face is the outgoing scene and the back face is the incoming scene.
+*/
+class CCTransitionZoomFlipAngular : public CCTransitionSceneOriented
+{
+    static CCTransitionZoomFlipAngular* create(float t, CCScene* s, tOrientation o);
+    static CCTransitionZoomFlipAngular* create(float t, CCScene* s);
+};
+
+/** @brief CCTransitionFade:
+Fade out the outgoing scene and then fade in the incoming scene.'''
+*/
+class CCTransitionFade : public CCTransitionScene
+{
+    /** creates the transition with a duration and with an RGB color
+    * Example: FadeTransition::create(2, scene, ccc3(255,0,0); // red color
+    */
+    static CCTransitionFade* create(float duration, CCScene* scene, ccColor3B color);
+    static CCTransitionFade* create(float duration, CCScene* scene);
+};
+
+/**
+@brief CCTransitionCrossFade:
+Cross fades two scenes using the CCRenderTexture object.
+*/
+class CCTransitionCrossFade : public CCTransitionScene
+{
+    static CCTransitionCrossFade* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionTurnOffTiles:
+Turn off the tiles of the outgoing scene in random order
+*/
+class CCTransitionTurnOffTiles : public CCTransitionScene
+{
+    static CCTransitionTurnOffTiles* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionSplitCols:
+The odd columns goes upwards while the even columns goes downwards.
+*/
+class CCTransitionSplitCols : public CCTransitionScene
+{
+    static CCTransitionSplitCols* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionSplitRows:
+The odd rows goes to the left while the even rows goes to the right.
+*/
+class CCTransitionSplitRows : public CCTransitionSplitCols
+{
+    static CCTransitionSplitRows* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionFadeTR:
+Fade the tiles of the outgoing scene from the left-bottom corner the to top-right corner.
+*/
+class CCTransitionFadeTR : public CCTransitionScene
+{
+    static CCTransitionFadeTR* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionFadeBL:
+Fade the tiles of the outgoing scene from the top-right corner to the bottom-left corner.
+*/
+class CCTransitionFadeBL : public CCTransitionFadeTR
+{
+    static CCTransitionFadeBL* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionFadeUp:
+* Fade the tiles of the outgoing scene from the bottom to the top.
+*/
+class CCTransitionFadeUp : public CCTransitionFadeTR
+{
+    static CCTransitionFadeUp* create(float t, CCScene* scene);
+};
+
+/** @brief CCTransitionFadeDown:
+* Fade the tiles of the outgoing scene from the top to the bottom.
+*/
+class CCTransitionFadeDown : public CCTransitionFadeTR
+{
+    static CCTransitionFadeDown* create(float t, CCScene* scene);
+};
+
+// end of transition group
+/// @}
