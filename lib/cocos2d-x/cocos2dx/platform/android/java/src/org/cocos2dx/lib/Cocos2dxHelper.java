@@ -23,6 +23,7 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
@@ -35,7 +36,6 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
-import org.cocos2dx.lib.Cocos2dxETCLoader;
 
 public class Cocos2dxHelper {
 	// ===========================================================
@@ -279,7 +279,7 @@ public class Cocos2dxHelper {
 		return -1;
     }
 
-    public static bool inDirectoryExists(final String path) {
+    public static boolean inDirectoryExists(final String path) {
         File f = new File(path);
         return f.isDirectory();
     }
