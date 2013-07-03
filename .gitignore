@@ -11,6 +11,9 @@
 
 debug.log
 
+lib/cocos2d-x/cocos2dx/platform/android/java/bin
+lib/cocos2d-x/cocos2dx/platform/android/java/gen
+
 player/proj.win32/Debug
 project.xcworkspace/
 xcuserdata/
