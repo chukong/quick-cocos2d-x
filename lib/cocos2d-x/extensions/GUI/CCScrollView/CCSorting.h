@@ -31,7 +31,7 @@
 
 NS_CC_EXT_BEGIN
 
-class CCSortableObject
+class CC_DLL CCSortableObject
 {
 public:
     virtual ~CCSortableObject() {}
@@ -39,7 +39,7 @@ public:
     virtual unsigned int getObjectID() = 0;
 };
 
-class CCArrayForObjectSorting : public CCArray
+class CC_DLL CCArrayForObjectSorting : public CCArray
 {
 public:
     CCArrayForObjectSorting() : CCArray() {}

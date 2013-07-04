@@ -45,7 +45,7 @@ typedef enum {
 /**
  * Sole purpose of this delegate is to single touch event in this version.
  */
-class CCTableViewDelegate : public CCScrollViewDelegate
+class CC_DLL CCTableViewDelegate : public CCScrollViewDelegate
 {
 public:
     /**
@@ -88,7 +88,7 @@ public:
 /**
  * Data source that governs table backend data.
  */
-class CCTableViewDataSource
+class CC_DLL CCTableViewDataSource
 {
 public:
     virtual ~CCTableViewDataSource() {}
@@ -134,7 +134,7 @@ public:
  * this is a very basic, minimal implementation to bring UITableView-like component into cocos2d world.
  *
  */
-class CCTableView : public CCScrollView, public CCScrollViewDelegate
+class CC_DLL CCTableView : public CCScrollView, public CCScrollViewDelegate
 {
 public:
     CCTableView();

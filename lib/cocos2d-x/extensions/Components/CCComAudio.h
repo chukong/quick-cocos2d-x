@@ -30,7 +30,7 @@ THE SOFTWARE.
 
 NS_CC_EXT_BEGIN
 
-class CCComAudio : public cocos2d::CCComponent
+class CC_DLL CCComAudio : public cocos2d::CCComponent
 {
 protected:
     CCComAudio(void);

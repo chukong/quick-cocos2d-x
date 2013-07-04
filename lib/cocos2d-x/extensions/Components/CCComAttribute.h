@@ -31,7 +31,7 @@ THE SOFTWARE.
 
 NS_CC_EXT_BEGIN
 
-class CCComAttribute : public cocos2d::CCComponent
+class CC_DLL CCComAttribute : public cocos2d::CCComponent
 {
 protected:
     CCComAttribute(void);

@@ -592,24 +592,27 @@ void AssetsManager::Helper::update(float dt)
             }
             if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
             {
-                std::string errorMessage = "errorUnknown";
+                std::string errorMessage;
                 switch ((int)((ErrorMessage*)msg->obj)->code)
                 {
-                    kCreateFile:
-                        errorMessage = "errorCreateFile";
-                        break;
+                case kCreateFile:
+                    errorMessage = "errorCreateFile";
+                    break;
 
-                    kNetwork:
-                        errorMessage = "errorNetwork";
-                        break;
+                case kNetwork:
+                    errorMessage = "errorNetwork";
+                    break;
 
-                    kNoNewVersion:
-                        errorMessage = "errorNoNewVersion";
-                        break;
+                case kNoNewVersion:
+                    errorMessage = "errorNoNewVersion";
+                    break;
 
-                    kUncompress:
-                        errorMessage = "errorUncompress";
-                        break;
+                case kUncompress:
+                    errorMessage = "errorUncompress";
+                    break;
+
+                default:
+                    errorMessage = "errorUnknown";
                 }
 
                 CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, errorMessage.c_str());

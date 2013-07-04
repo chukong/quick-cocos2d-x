@@ -45,7 +45,7 @@ typedef enum {
 
 class CCScrollView;
 
-class CCScrollViewDelegate
+class CC_DLL CCScrollViewDelegate
 {
 public:
     virtual ~CCScrollViewDelegate() {}

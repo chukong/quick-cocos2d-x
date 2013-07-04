@@ -128,7 +128,7 @@ class CCEditBox;
 class CCEditBoxImpl;
 
 
-class CCEditBoxDelegate 
+class CC_DLL CCEditBoxDelegate 
 {
 public:
     virtual ~CCEditBoxDelegate() {};
@@ -168,7 +168,7 @@ public:
  * 
  */
  
-class CCEditBox
+class CC_DLL CCEditBox
 : public CCControlButton
 , public CCIMEDelegate
 {
