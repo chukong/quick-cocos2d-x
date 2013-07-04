@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Mon Jul  1 10:25:37 2013.
+** Generated automatically by tolua++-1.0.92 on Thu Jul  4 11:13:07 2013.
 */
 
 /****************************************************************************
@@ -23689,688 +23689,6 @@ static int tolua_Cocos2d_CCParticleBatchNode_getBlendFunc00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: createWithTotalParticles of class  CCParticleFire */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFire_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleFire_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleFire",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleFire* tolua_ret = (CCParticleFire*)  CCParticleFire::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFire");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleFire */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFire_create00
-static int tolua_Cocos2d_CCParticleFire_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleFire",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleFire* tolua_ret = (CCParticleFire*)  CCParticleFire::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFire");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleFireworks */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFireworks_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleFireworks_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleFireworks",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleFireworks* tolua_ret = (CCParticleFireworks*)  CCParticleFireworks::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFireworks");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleFireworks */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFireworks_create00
-static int tolua_Cocos2d_CCParticleFireworks_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleFireworks",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleFireworks* tolua_ret = (CCParticleFireworks*)  CCParticleFireworks::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFireworks");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleSun */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSun_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleSun_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSun",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleSun* tolua_ret = (CCParticleSun*)  CCParticleSun::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSun");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleSun */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSun_create00
-static int tolua_Cocos2d_CCParticleSun_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSun",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleSun* tolua_ret = (CCParticleSun*)  CCParticleSun::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSun");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleGalaxy */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleGalaxy_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleGalaxy_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleGalaxy",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleGalaxy* tolua_ret = (CCParticleGalaxy*)  CCParticleGalaxy::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleGalaxy");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleGalaxy */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleGalaxy_create00
-static int tolua_Cocos2d_CCParticleGalaxy_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleGalaxy",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleGalaxy* tolua_ret = (CCParticleGalaxy*)  CCParticleGalaxy::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleGalaxy");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleFlower */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFlower_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleFlower_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleFlower",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleFlower* tolua_ret = (CCParticleFlower*)  CCParticleFlower::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFlower");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleFlower */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFlower_create00
-static int tolua_Cocos2d_CCParticleFlower_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleFlower",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleFlower* tolua_ret = (CCParticleFlower*)  CCParticleFlower::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFlower");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleMeteor */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleMeteor_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleMeteor_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleMeteor",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleMeteor* tolua_ret = (CCParticleMeteor*)  CCParticleMeteor::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleMeteor");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleMeteor */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleMeteor_create00
-static int tolua_Cocos2d_CCParticleMeteor_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleMeteor",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleMeteor* tolua_ret = (CCParticleMeteor*)  CCParticleMeteor::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleMeteor");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleSpiral */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSpiral_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleSpiral_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSpiral",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleSpiral* tolua_ret = (CCParticleSpiral*)  CCParticleSpiral::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSpiral");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleSpiral */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSpiral_create00
-static int tolua_Cocos2d_CCParticleSpiral_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSpiral",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleSpiral* tolua_ret = (CCParticleSpiral*)  CCParticleSpiral::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSpiral");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleExplosion */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleExplosion_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleExplosion_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleExplosion",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleExplosion* tolua_ret = (CCParticleExplosion*)  CCParticleExplosion::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleExplosion");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleExplosion */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleExplosion_create00
-static int tolua_Cocos2d_CCParticleExplosion_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleExplosion",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleExplosion* tolua_ret = (CCParticleExplosion*)  CCParticleExplosion::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleExplosion");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleSmoke */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSmoke_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleSmoke_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSmoke",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleSmoke* tolua_ret = (CCParticleSmoke*)  CCParticleSmoke::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSmoke");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleSmoke */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSmoke_create00
-static int tolua_Cocos2d_CCParticleSmoke_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSmoke",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleSmoke* tolua_ret = (CCParticleSmoke*)  CCParticleSmoke::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSmoke");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleSnow */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSnow_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleSnow_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSnow",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleSnow* tolua_ret = (CCParticleSnow*)  CCParticleSnow::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSnow");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleSnow */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSnow_create00
-static int tolua_Cocos2d_CCParticleSnow_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleSnow",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleSnow* tolua_ret = (CCParticleSnow*)  CCParticleSnow::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSnow");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: createWithTotalParticles of class  CCParticleRain */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleRain_createWithTotalParticles00
-static int tolua_Cocos2d_CCParticleRain_createWithTotalParticles00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleRain",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-  {
-   CCParticleRain* tolua_ret = (CCParticleRain*)  CCParticleRain::createWithTotalParticles(numberOfParticles);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleRain");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCParticleRain */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleRain_create00
-static int tolua_Cocos2d_CCParticleRain_create00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCParticleRain",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   CCParticleRain* tolua_ret = (CCParticleRain*)  CCParticleRain::create();
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleRain");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getGravity of class  CCParticleSystem */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSystem_getGravity00
 static int tolua_Cocos2d_CCParticleSystem_getGravity00(lua_State* tolua_S)
@@ -27049,6 +26367,688 @@ static int tolua_Cocos2d_CCParticleSystemQuad_setTextureWithRect00(lua_State* to
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setTextureWithRect'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleFire */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFire_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleFire_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleFire",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleFire* tolua_ret = (CCParticleFire*)  CCParticleFire::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFire");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleFire */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFire_create00
+static int tolua_Cocos2d_CCParticleFire_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleFire",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleFire* tolua_ret = (CCParticleFire*)  CCParticleFire::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFire");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleFireworks */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFireworks_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleFireworks_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleFireworks",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleFireworks* tolua_ret = (CCParticleFireworks*)  CCParticleFireworks::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFireworks");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleFireworks */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFireworks_create00
+static int tolua_Cocos2d_CCParticleFireworks_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleFireworks",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleFireworks* tolua_ret = (CCParticleFireworks*)  CCParticleFireworks::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFireworks");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleSun */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSun_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleSun_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSun",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleSun* tolua_ret = (CCParticleSun*)  CCParticleSun::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSun");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleSun */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSun_create00
+static int tolua_Cocos2d_CCParticleSun_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSun",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleSun* tolua_ret = (CCParticleSun*)  CCParticleSun::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSun");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleGalaxy */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleGalaxy_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleGalaxy_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleGalaxy",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleGalaxy* tolua_ret = (CCParticleGalaxy*)  CCParticleGalaxy::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleGalaxy");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleGalaxy */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleGalaxy_create00
+static int tolua_Cocos2d_CCParticleGalaxy_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleGalaxy",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleGalaxy* tolua_ret = (CCParticleGalaxy*)  CCParticleGalaxy::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleGalaxy");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleFlower */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFlower_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleFlower_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleFlower",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleFlower* tolua_ret = (CCParticleFlower*)  CCParticleFlower::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFlower");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleFlower */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleFlower_create00
+static int tolua_Cocos2d_CCParticleFlower_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleFlower",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleFlower* tolua_ret = (CCParticleFlower*)  CCParticleFlower::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleFlower");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleMeteor */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleMeteor_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleMeteor_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleMeteor",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleMeteor* tolua_ret = (CCParticleMeteor*)  CCParticleMeteor::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleMeteor");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleMeteor */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleMeteor_create00
+static int tolua_Cocos2d_CCParticleMeteor_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleMeteor",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleMeteor* tolua_ret = (CCParticleMeteor*)  CCParticleMeteor::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleMeteor");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleSpiral */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSpiral_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleSpiral_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSpiral",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleSpiral* tolua_ret = (CCParticleSpiral*)  CCParticleSpiral::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSpiral");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleSpiral */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSpiral_create00
+static int tolua_Cocos2d_CCParticleSpiral_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSpiral",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleSpiral* tolua_ret = (CCParticleSpiral*)  CCParticleSpiral::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSpiral");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleExplosion */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleExplosion_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleExplosion_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleExplosion",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleExplosion* tolua_ret = (CCParticleExplosion*)  CCParticleExplosion::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleExplosion");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleExplosion */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleExplosion_create00
+static int tolua_Cocos2d_CCParticleExplosion_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleExplosion",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleExplosion* tolua_ret = (CCParticleExplosion*)  CCParticleExplosion::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleExplosion");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleSmoke */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSmoke_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleSmoke_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSmoke",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleSmoke* tolua_ret = (CCParticleSmoke*)  CCParticleSmoke::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSmoke");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleSmoke */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSmoke_create00
+static int tolua_Cocos2d_CCParticleSmoke_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSmoke",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleSmoke* tolua_ret = (CCParticleSmoke*)  CCParticleSmoke::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSmoke");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleSnow */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSnow_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleSnow_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSnow",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleSnow* tolua_ret = (CCParticleSnow*)  CCParticleSnow::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSnow");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleSnow */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleSnow_create00
+static int tolua_Cocos2d_CCParticleSnow_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleSnow",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleSnow* tolua_ret = (CCParticleSnow*)  CCParticleSnow::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleSnow");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createWithTotalParticles of class  CCParticleRain */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleRain_createWithTotalParticles00
+static int tolua_Cocos2d_CCParticleRain_createWithTotalParticles00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleRain",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  unsigned int numberOfParticles = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
+  {
+   CCParticleRain* tolua_ret = (CCParticleRain*)  CCParticleRain::createWithTotalParticles(numberOfParticles);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleRain");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createWithTotalParticles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: create of class  CCParticleRain */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCParticleRain_create00
+static int tolua_Cocos2d_CCParticleRain_create00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCParticleRain",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   CCParticleRain* tolua_ret = (CCParticleRain*)  CCParticleRain::create();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCParticleRain");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
  return 0;
 #endif
 }
@@ -48672,61 +48672,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setBlendFunc",tolua_Cocos2d_CCParticleBatchNode_setBlendFunc00);
    tolua_function(tolua_S,"getBlendFunc",tolua_Cocos2d_CCParticleBatchNode_getBlendFunc00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleFire","CCParticleFire","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleFire");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleFire_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleFire_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleFireworks","CCParticleFireworks","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleFireworks");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleFireworks_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleFireworks_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleSun","CCParticleSun","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleSun");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSun_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSun_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleGalaxy","CCParticleGalaxy","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleGalaxy");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleGalaxy_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleGalaxy_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleFlower","CCParticleFlower","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleFlower");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleFlower_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleFlower_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleMeteor","CCParticleMeteor","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleMeteor");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleMeteor_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleMeteor_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleSpiral","CCParticleSpiral","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleSpiral");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSpiral_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSpiral_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleExplosion","CCParticleExplosion","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleExplosion");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleExplosion_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleExplosion_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleSmoke","CCParticleSmoke","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleSmoke");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSmoke_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSmoke_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleSnow","CCParticleSnow","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleSnow");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSnow_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSnow_create00);
-  tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCParticleRain","CCParticleRain","CCParticleSystemQuad",NULL);
-  tolua_beginmodule(tolua_S,"CCParticleRain");
-   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleRain_createWithTotalParticles00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleRain_create00);
-  tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"kCCParticleModeGravity",kCCParticleModeGravity);
   tolua_constant(tolua_S,"kCCParticleModeRadius",kCCParticleModeRadius);
   tolua_constant(tolua_S,"kCCPositionTypeFree",kCCPositionTypeFree);
@@ -48818,6 +48763,61 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSystemQuad_createWithTotalParticles00);
    tolua_function(tolua_S,"setDisplayFrame",tolua_Cocos2d_CCParticleSystemQuad_setDisplayFrame00);
    tolua_function(tolua_S,"setTextureWithRect",tolua_Cocos2d_CCParticleSystemQuad_setTextureWithRect00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleFire","CCParticleFire","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleFire");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleFire_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleFire_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleFireworks","CCParticleFireworks","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleFireworks");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleFireworks_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleFireworks_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleSun","CCParticleSun","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleSun");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSun_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSun_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleGalaxy","CCParticleGalaxy","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleGalaxy");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleGalaxy_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleGalaxy_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleFlower","CCParticleFlower","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleFlower");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleFlower_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleFlower_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleMeteor","CCParticleMeteor","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleMeteor");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleMeteor_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleMeteor_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleSpiral","CCParticleSpiral","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleSpiral");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSpiral_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSpiral_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleExplosion","CCParticleExplosion","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleExplosion");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleExplosion_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleExplosion_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleSmoke","CCParticleSmoke","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleSmoke");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSmoke_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSmoke_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleSnow","CCParticleSnow","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleSnow");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleSnow_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleSnow_create00);
+  tolua_endmodule(tolua_S);
+  tolua_cclass(tolua_S,"CCParticleRain","CCParticleRain","CCParticleSystemQuad",NULL);
+  tolua_beginmodule(tolua_S,"CCParticleRain");
+   tolua_function(tolua_S,"createWithTotalParticles",tolua_Cocos2d_CCParticleRain_createWithTotalParticles00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCParticleRain_create00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCParallaxNode","CCParallaxNode","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCParallaxNode");

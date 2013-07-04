@@ -56,9 +56,9 @@ $pfile "cocos2dx/sprite_nodes/CCAnimation.tolua"
 $pfile "cocos2dx/sprite_nodes/CCAnimationCache.tolua"
 
 $pfile "cocos2dx/particle_nodes/CCParticleBatchNode.tolua"
-$pfile "cocos2dx/particle_nodes/CCParticleExamples.tolua"
 $pfile "cocos2dx/particle_nodes/CCParticleSystem.tolua"
 $pfile "cocos2dx/particle_nodes/CCParticleSystemQuad.tolua"
+$pfile "cocos2dx/particle_nodes/CCParticleExamples.tolua"
 
 $pfile "cocos2dx/tilemap_parallax_nodes/CCParallaxNode.tolua"
 $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXLayer.tolua"
