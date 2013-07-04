@@ -34,7 +34,6 @@ NS_CC_BEGIN
 static CCNotificationCenter *s_sharedNotifCenter = NULL;
 
 CCNotificationCenter::CCNotificationCenter()
-: m_scriptHandler(0)
 {
     m_observers = CCArray::createWithCapacity(3);
     m_observers->retain();
@@ -134,10 +133,13 @@ int CCNotificationCenter::removeAllObservers(CCObject *target)
     return toRemove->count();
 }
 
-void CCNotificationCenter::registerScriptObserver(int handler,const char* name)
+void CCNotificationCenter::registerScriptObserver( CCObject *target, int handler,const char* name)
 {
     
-    CCNotificationObserver *observer = new CCNotificationObserver(NULL, NULL, name, NULL);
+    if (this->observerExisted(target, name))
+        return;
+    
+    CCNotificationObserver *observer = new CCNotificationObserver(target, NULL, name, NULL);
     if (!observer)
         return;
     
@@ -146,7 +148,7 @@ void CCNotificationCenter::registerScriptObserver(int handler,const char* name)
     m_observers->addObject(observer);
 }
 
-void CCNotificationCenter::unregisterScriptObserver(const char* name)
+void CCNotificationCenter::unregisterScriptObserver(CCObject *target,const char* name)
 {        
     CCObject* obj = NULL;
     CCARRAY_FOREACH(m_observers, obj)
@@ -155,7 +157,7 @@ void CCNotificationCenter::unregisterScriptObserver(const char* name)
         if (!observer)
             continue;
             
-        if (!strcmp(observer->getName(),name))
+        if ( !strcmp(observer->getName(),name) && observer->getTarget() == target)
         {
             m_observers->removeObject(observer);
         }
