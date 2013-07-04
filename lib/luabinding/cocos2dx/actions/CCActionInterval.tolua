@@ -48,6 +48,7 @@ CCAction *pingPongAction = CCSequence::actions(action, action->reverse(), NULL);
 */
 class CCActionInterval : public CCFiniteTimeAction
 {
+    CCActionInterval *copy(void);
 };
 
 /** @brief Runs actions sequentially, one after another

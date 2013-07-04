@@ -151,6 +151,9 @@ class CCPoint
     CCPoint forAngle(float a);
 };
 
+CCPoint ccp(float x, float y);
+CCPoint CCPointMake(float x, float y);
+
 class CCSize
 {
     float width;
@@ -163,6 +166,8 @@ class CCSize
     void setSize(float width, float height);
     bool equals(CCSize target);
 };
+
+CCSize CCSizeMake(float width, float height);
 
 class CCRect
 {
@@ -183,6 +188,8 @@ class CCRect
     bool containsPoint(CCPoint point);
     bool intersectsRect(CCRect rect);
 };
+
+CCRect CCRectMake(float x, float y, float width, float height);
 
 // end of data_structure group
 /// @}

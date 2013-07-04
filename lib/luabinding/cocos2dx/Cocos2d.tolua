@@ -2,6 +2,7 @@
 $#include "LuaCocos2d.h"
 
 $pfile "cocos2dx/include/ccTypes.tolua"
+$pfile "cocos2dx/kazmath/kazmath.tolua"
 
 $pfile "cocos2dx/cocoa/CCObject.tolua"
 $pfile "cocos2dx/cocoa/CCString.tolua"
@@ -47,6 +48,7 @@ $pfile "cocos2dx/actions/CCActionTiledGrid.tolua"
 $pfile "cocos2dx/textures/CCTexture2D.tolua"
 $pfile "cocos2dx/textures/CCTextureCache.tolua"
 
+$pfile "cocos2dx/CCCamera.tolua"
 $pfile "cocos2dx/base_nodes/CCNode.tolua"
 $pfile "cocos2dx/sprite_nodes/CCSpriteFrame.tolua"
 $pfile "cocos2dx/sprite_nodes/CCSpriteFrameCache.tolua"
@@ -65,6 +67,7 @@ $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXLayer.tolua"
 $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXObjectGroup.tolua"
 $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXTiledMap.tolua"
 
+$pfile "cocos2dx/draw_nodes/CCDrawingPrimitives.tolua"
 $pfile "cocos2dx/draw_nodes/CCDrawNode.tolua"
 $pfile "cocos2dx/draw_nodes/CCShapeNode.tolua"
 

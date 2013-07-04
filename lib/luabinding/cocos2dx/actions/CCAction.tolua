@@ -65,6 +65,7 @@ class CCAction : public CCObject
  */
 class CCFiniteTimeAction : public CCAction
 {
+    CCFiniteTimeAction *copy(void);
     //! get duration in seconds of the action
     float getDuration(void);
     /** returns a reversed action */

@@ -112,6 +112,17 @@ class CCTMXTiledMap : public CCNode
 
     /** return properties dictionary for tile GID */
     CCDictionary* propertiesForGID(int GID);
+
+    /** the map's size property measured in tiles */
+    CCSize getMapSize();
+    /** the tiles's size property measured in pixels */
+    CCSize getTileSize();
+    /** map orientation */
+    int getMapOrientation();
+    /** object groups */
+    CCArray* getObjectGroups();
+    /** properties */
+    CCDictionary* getProperties();
 };
 
 // end of tilemap_parallax_nodes group

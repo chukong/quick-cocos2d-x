@@ -111,6 +111,8 @@ class CCAnimation : public CCObject
     /** how many times the animation is going to loop. 0 means animation is not animated. 1, animation is executed one time, ... */
     unsigned int getLoops();
     void setLoops(unsigned int loops);
+
+    CCAnimation *copy(void);
 };
 
 // end of sprite_nodes group

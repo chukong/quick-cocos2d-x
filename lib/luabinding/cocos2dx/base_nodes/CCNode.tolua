@@ -687,6 +687,19 @@ class CCNode : public CCObject
     /// @} end of Shader Program
 
     /**
+     * Returns a camera object that lets you move the node using a gluLookAt
+     *
+     * @code
+     * CCCamera* camera = node->getCamera();
+     * camera->setEyeXYZ(0, 0, 415/2);
+     * camera->setCenterXYZ(0, 0, 0);
+     * @endcode
+     *
+     * @return A CCCamera object that lets you move the node using a gluLookAt
+     */
+    CCCamera* getCamera();
+
+        /**
      * Returns whether or not the node accepts event callbacks.
      *
      * Running means the node accept event callbacks like onEnter(), onExit(), update()
@@ -812,15 +825,33 @@ class CCNode : public CCObject
     /// @name Scheduler and Timer
 
     /**
-     * Schedules for lua script.
+     * Schedules the "update" method.
+     *
+     * It will use the order number 0. This method will be called every frame.
+     * Scheduled methods with a lower order value will be called before the ones that have a higher order value.
+     * Only one "update" method could be scheduled per node.
      */
-    void scheduleUpdateWithPriorityLua(LUA_FUNCTION nHandler, int priority);
+    void scheduleUpdate(void);
+
+    /**
+     * Schedules the "update" method with a custom priority.
+     *
+     * This selector will be called every frame.
+     * Scheduled methods with a lower priority will be called before the ones that have a higher value.
+     * Only one "update" selector could be scheduled per node (You can't have 2 'update' selectors).
+     */
+    void scheduleUpdateWithPriority(int priority);
 
     /*
      * Unschedules the "update" method.
      * @see scheduleUpdate();
      */
     void unscheduleUpdate(void);
+
+    /**
+     * Schedules for lua script.
+     */
+    void scheduleUpdateWithPriorityLua(LUA_FUNCTION nHandler, int priority);
 
     /// @} end of Scheduler and Timer
 
