@@ -58,6 +58,7 @@ class CCControlButton : public CCControl
 
     /** The prefered size of the button, if label is larger it will be expanded. */
     CCSize getPreferredSize();
+    void setPreferredSize(CCSize s);
 
     /** Adjust the button zooming on touchdown. Default value is YES. */
     bool getZoomOnTouchDown();

@@ -32,7 +32,7 @@ THE SOFTWARE.
 /** @typedef ccDirectorProjection
  Possible OpenGL projections used by director
  */
-enum {
+typedef enum {
     /// sets a 2D projection (orthogonal projection)
     kCCDirectorProjection2D,
 
@@ -44,7 +44,7 @@ enum {
 
     /// Default projection is 3D projection
     kCCDirectorProjectionDefault = kCCDirectorProjection3D,
-};
+} ccDirectorProjection;
 
 /**
 @brief Class that creates and handle the main Window and manages how

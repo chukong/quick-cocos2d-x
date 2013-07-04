@@ -60,6 +60,27 @@ Tiles can have tile flags for additional properties. At the moment only flip hor
 
 class CCTMXLayer : public CCSpriteBatchNode
 {
+    CCTMXLayer();
+    ~CCTMXLayer();
+
+    /** creates a CCTMXLayer with an tileset info, a layer info and a map info */
+    static CCTMXLayer * create(CCTMXTilesetInfo *tilesetInfo, CCTMXLayerInfo *layerInfo, CCTMXMapInfo *mapInfo);
+
+    /** initializes a CCTMXLayer with a tileset info, a layer info and a map info */
+    bool initWithTilesetInfo(CCTMXTilesetInfo *tilesetInfo, CCTMXLayerInfo *layerInfo, CCTMXMapInfo *mapInfo);
+
+    /** size of the layer in tiles */
+    CCSize getLayerSize();
+    /** size of the map's tile (could be different from the tile's size) */
+    CCSize getMapTileSize();
+    /** Tileset information for the layer */
+    CCTMXTilesetInfo *getTileSet();
+    /** Layer orientation, which is the same as the map orientation */
+    unsigned int getLayerOrientation();
+    /** properties from the layer. They can be added using Tiled */
+    CCDictionary *getProperties();
+
+
     /** dealloc the map that contains the tile position from memory.
     Unless you want to know at runtime the tiles positions, you can safely call this method.
     If you are going to call layer->tileGIDAt() then, don't release the map

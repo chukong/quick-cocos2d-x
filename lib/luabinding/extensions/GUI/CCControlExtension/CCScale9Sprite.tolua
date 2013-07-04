@@ -49,6 +49,7 @@ class CCScale9Sprite : public CCNodeRGBA
 
     //if the preferredSize component is given as -1, it is ignored
     CCSize getPreferredSize();
+    void setPreferredSize(CCSize s);
 
     /**
      * The end-cap insets.

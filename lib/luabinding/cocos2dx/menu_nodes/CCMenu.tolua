@@ -30,6 +30,17 @@ THE SOFTWARE.
  * @{
  */
 
+typedef enum
+{
+    kCCMenuStateWaiting,
+    kCCMenuStateTrackingTouch
+} tCCMenuState;
+
+enum {
+    //* priority used by the menu for the event handler
+    kCCMenuHandlerPriority = -128,
+};
+
 /** @brief A CCMenu
 *
 * Features and Limitation:

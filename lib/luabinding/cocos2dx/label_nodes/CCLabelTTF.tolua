@@ -47,6 +47,9 @@ THE SOFTWARE.
  */
 class CCLabelTTF : public CCSprite
 {
+    CCLabelTTF();
+    ~CCLabelTTF();
+
     /** creates a CCLabel from a fontname, alignment, dimension in points and font size in points
      @since v2.0.1
      */
@@ -68,6 +71,30 @@ class CCLabelTTF : public CCSprite
     /** Creates an label.
      */
     static CCLabelTTF * create();
+
+    /** initializes the CCLabelTTF with a font name, alignment, dimension and font size */
+    bool initWithString(const char *text, const char *fontName, float fontSize,
+                        const CCSize& dimensions, CCTextAlignment hAlignment,
+                        CCVerticalTextAlignment vAlignment);
+
+    /** initializes the CCLabelTTF with a font name, alignment, dimension and font size */
+    bool initWithString(const char *text, const char *fontName, float fontSize,
+                        const CCSize& dimensions, CCTextAlignment hAlignment);
+
+    /** initializes the CCLabelTTF with a font name and font size */
+    bool initWithString(const char *text, const char *fontName, float fontSize);
+
+    /** initializes the CCLabelTTF with a font name, alignment, dimension and font size */
+    bool initWithStringAndTextDefinition(const char *text, ccFontDefinition &textDefinition);
+
+    /** initializes the CCLabelTTF */
+    bool init();
+
+    /** set the text definition used by this label */
+    void setTextDefinition(ccFontDefinition *theDefinition);
+
+    /** get the text definition used by this label */
+    ccFontDefinition * getTextDefinition();
 
     /** enable or disable shadow for the label */
     void enableShadow(CCSize shadowOffset, float shadowOpacity, float shadowBlur, bool mustUpdateTexture = true);

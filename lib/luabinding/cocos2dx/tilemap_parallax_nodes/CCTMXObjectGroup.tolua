@@ -44,6 +44,15 @@ class CCTMXObjectGroup : public CCObject
     It will return the 1st object found on the array for the given name.
     */
     CCDictionary* objectNamed(const char *objectName);
+
+    /** offset position of child objects */
+    CCPoint getPositionOffset();
+    void setPositionOffset(CCPoint p);
+
+    /** list of properties stored in a dictionary */
+    CCDictionary* getProperties();
+    /** array of the objects */
+    CCArray* getObjects();
 };
 
 // end of tilemap_parallax_nodes group

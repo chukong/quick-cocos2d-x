@@ -754,6 +754,8 @@ class CCNode : public CCObject
      */
     void visit(void);
 
+    void draw(void);
+
     /**
      * Returns a "local" axis aligned bounding box of the node.
      * The returned box is relative only to its parent.
@@ -764,6 +766,7 @@ class CCNode : public CCObject
      * @return A "local" axis aligned boudning box of the node.
      */
     CCRect boundingBox @ getBoundingBox(void);
+    CCRect boundingBox(void);
 
     /// @{
     /// @name Actions

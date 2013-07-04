@@ -97,7 +97,7 @@ class CCControl : public CCLayerRGBA
      */
     void sendActionsForControlEvents(CCControlEvent controlEvents);
 
-    void addHandleOfControlEvent(int nFunID,CCControlEvent controlEvent);
+    void addHandleOfControlEvent(LUA_FUNCTION nFunID,CCControlEvent controlEvent);
     void removeHandleOfControlEvent(CCControlEvent controlEvent);
 };
 

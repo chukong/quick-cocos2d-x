@@ -1,0 +1,17 @@
+
+/**
+ * @addtogroup data_structures
+ * @{
+ */
+
+class CCInteger : public CCObject
+{
+public:
+    CCInteger(int v);
+    int getValue();
+
+    static CCInteger* create(int v);
+};
+
+// end of data_structure group
+/// @}

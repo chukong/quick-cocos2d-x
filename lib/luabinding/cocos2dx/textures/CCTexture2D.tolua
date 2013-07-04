@@ -181,7 +181,29 @@ class CCTexture2D : public CCObject
     /** content size */
     CCSize getContentSizeInPixels();
 
+    /** pixel format of the texture */
+    CCTexture2DPixelFormat getPixelFormat();
+    /** width in pixels */
+    unsigned int getPixelsWide();
+    /** height in pixels */
+    unsigned int getPixelsHigh();
+
+    /** texture name */
+    GLuint getName();
+
+    /** texture max S */
+    GLfloat getMaxS();
+    /** texture max T */
+    GLfloat getMaxT();
+    /** content size */
+    CCSize getContentSize();
+
+    /** shader program used by drawAtPoint and drawInRect */
+    CCGLProgram *getShaderProgram();
+
+    /** whether or not the texture has their Alpha premultiplied */
     bool hasPremultipliedAlpha();
+
     bool hasMipmaps();
 };
 
