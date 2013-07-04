@@ -19,7 +19,7 @@ Step 1: Get quick-cocos2d-x
 
 Step 2: Start your project
 
--   [HOWTO: Create new project](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO:-Create-new-project)
+-   [HOWTO: Create new project](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Create-new-project)
 -   [More Documents](https://github.com/dualface/quick-cocos2d-x/wiki)
 -   [API Documents](http://quick-x.com/docs/api/)
 
