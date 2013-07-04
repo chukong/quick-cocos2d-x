@@ -26,3 +26,10 @@ sample/luajavabridge/proj.android/obj/
 sample/luajavabridge/proj.android/assets/
 sample/luajavabridge/proj.android/libs/
 
+sample/luatest/proj.android/bin/
+sample/luatest/proj.android/gen/
+sample/luatest/proj.android/lint.xml
+sample/luatest/proj.android/obj/
+sample/luatest/proj.android/assets/
+sample/luatest/proj.android/libs/
+
