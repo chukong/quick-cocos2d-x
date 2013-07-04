@@ -87,7 +87,7 @@ class CCDirector : public CCObject
     float getSecondsPerFrame();
 
     /** Get the CCEGLView, where everything is rendered */
-    CCEGLViewProtocol* getOpenGLView(void);
+    CCEGLView* getOpenGLView(void);
 
     bool isNextDeltaTimeZero(void);
     void setNextDeltaTimeZero(bool bNextDeltaTimeZero);

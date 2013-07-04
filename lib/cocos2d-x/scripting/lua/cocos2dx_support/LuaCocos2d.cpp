@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Thu Jul  4 16:46:21 2013.
+** Generated automatically by tolua++-1.0.92 on Thu Jul  4 17:13:40 2013.
 */
 
 /****************************************************************************
@@ -369,7 +369,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCTargetedAction");
  tolua_usertype(tolua_S,"CCGrid3DAction");
  tolua_usertype(tolua_S,"CCString");
- tolua_usertype(tolua_S,"CCEGLViewProtocol");
  tolua_usertype(tolua_S,"CCRemoveSelf");
  tolua_usertype(tolua_S,"CCTransitionMoveInR");
  tolua_usertype(tolua_S,"CCTransitionFade");
@@ -423,10 +422,10 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCCamera");
  tolua_usertype(tolua_S,"CCSequence");
  tolua_usertype(tolua_S,"CCControlSlider");
- tolua_usertype(tolua_S,"CCTMXObjectGroup");
  tolua_usertype(tolua_S,"CCParticleGalaxy");
- tolua_usertype(tolua_S,"CCHide");
  tolua_usertype(tolua_S,"CCTileMapAtlas");
+ tolua_usertype(tolua_S,"CCHide");
+ tolua_usertype(tolua_S,"CCTMXObjectGroup");
  tolua_usertype(tolua_S,"CCJumpTiles3D");
  tolua_usertype(tolua_S,"CCTransitionJumpZoom");
  tolua_usertype(tolua_S,"CCTMXLayer");
@@ -436,11 +435,11 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"AssetsManager");
  tolua_usertype(tolua_S,"CCScheduler");
  tolua_usertype(tolua_S,"CCEGLView");
- tolua_usertype(tolua_S,"SEL_MenuHandler");
  tolua_usertype(tolua_S,"CCMenuItemToggle");
  tolua_usertype(tolua_S,"CCFadeTo");
  tolua_usertype(tolua_S,"CCDouble");
  tolua_usertype(tolua_S,"CCMenuItemAtlasFont");
+ tolua_usertype(tolua_S,"SEL_MenuHandler");
  tolua_usertype(tolua_S,"CCParticleExplosion");
  tolua_usertype(tolua_S,"CCParticleSystem");
  tolua_usertype(tolua_S,"CCJumpTo");
@@ -46463,8 +46462,8 @@ static int tolua_Cocos2d_CCDirector_getOpenGLView00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOpenGLView'", NULL);
 #endif
   {
-   CCEGLViewProtocol* tolua_ret = (CCEGLViewProtocol*)  self->getOpenGLView();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCEGLViewProtocol");
+   CCEGLView* tolua_ret = (CCEGLView*)  self->getOpenGLView();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCEGLView");
   }
  }
  return 1;
