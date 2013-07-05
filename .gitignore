@@ -14,22 +14,15 @@ debug.log
 lib/cocos2d-x/cocos2dx/platform/android/java/bin
 lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
-player/proj.win32/Debug
+player/proj.win32/Debug/
 project.xcworkspace/
 xcuserdata/
-lib/proj.win32/Debug
+lib/proj.win32/Debug/
 
-sample/luajavabridge/proj.android/bin/
-sample/luajavabridge/proj.android/gen/
-sample/luajavabridge/proj.android/lint.xml
-sample/luajavabridge/proj.android/obj/
-sample/luajavabridge/proj.android/assets/
-sample/luajavabridge/proj.android/libs/
-
-sample/luatest/proj.android/bin/
-sample/luatest/proj.android/gen/
-sample/luatest/proj.android/lint.xml
-sample/luatest/proj.android/obj/
-sample/luatest/proj.android/assets/
-sample/luatest/proj.android/libs/
+*/*/proj.android/bin/
+*/*/proj.android/gen/
+*/*/proj.android/lint.xml
+*/*/proj.android/obj/
+*/*/proj.android/assets/
+*/*/proj.android/libs/
 
