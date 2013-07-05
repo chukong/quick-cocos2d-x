@@ -44,6 +44,55 @@ ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
 --[[--
 
+]]
+function ui.newEditBox(params)
+    local imageNormal = params.image
+    local imagePressed = params.imagePressed
+    local imageDisabled = params.imageDisabled
+    local listener = params.listener
+    local listenerType = type(listener)
+    local tag = params.tag
+    local x = params.x
+    local y = params.y
+    local size = params.size
+
+    if type(imageNormal) == "string" then
+        imageNormal = display.newScale9Sprite(imageNormal)
+    end
+    if type(imagePressed) == "string" then
+        imagePressed = display.newScale9Sprite(imagePressed)
+    end
+    if type(imageDisabled) == "string" then
+        imageDisabled = display.newScale9Sprite(imageDisabled)
+    end
+
+    local editbox = CCEditBox:create(size, imageNormal, imagePressed, imageDisabled)
+
+    if editbox then
+        CCNodeExtend.extend(editbox)
+        editbox:registerScriptEditBoxHandler(function(event, object)
+            if listenerType == "table" or listenerType == "userdata" then
+                if event == "began" then
+                    listener:onEditBoxBegan(object)
+                elseif event == "ended" then
+                    listener:onEditBoxEnded(object)
+                elseif event == "return" then
+                    listener:onEditBoxReturn(object)
+                elseif event == "changed" then
+                    listener:onEditBoxChanged(object)
+                end
+            elseif listenerType == "function" then
+                listener(event, object)
+            end
+        end)
+        if x and y then editbox:setPosition(x, y) end
+    end
+
+    return editbox
+end
+
+--[[--
+
 
 ]]
 function ui.newMenu(items)

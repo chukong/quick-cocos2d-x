@@ -527,6 +527,36 @@ function display.newSprite(filename, x, y)
     return sprite
 end
 
+--[[
+
+]]
+function display.newScale9Sprite(filename, x, y)
+    local sprite
+    if string.byte(filename) == 35 then -- first char is #
+        local frame = display.newSpriteFrame(string.sub(filename, 2))
+        if frame then
+            sprite = CCScale9Sprite:createWithSpriteFrame(frame)
+        end
+    else
+        if display.TEXTURES_PIXEL_FORMAT[filename] then
+            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+            sprite = CCScale9Sprite:create(filename)
+            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+        else
+            sprite = CCScale9Sprite:create(filename)
+        end
+    end
+
+    if sprite then
+        CCSpriteExtend.extend(sprite)
+        if x and y then sprite:setPosition(x, y) end
+    else
+        echoError("display.newScale9Sprite() - create sprite failure, filename %s", tostring(filename))
+    end
+
+    return sprite
+end
+
 --[[--
 
 Creates a sprite, set position to screen center.
