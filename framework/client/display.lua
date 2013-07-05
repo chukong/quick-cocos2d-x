@@ -1000,7 +1000,7 @@ create animate
 
 ### Example:
 
-    display.newAnimate(animation, isRestoreOriginalFrame)
+    display.newAnimate(animation)
 
 ### Example:
 

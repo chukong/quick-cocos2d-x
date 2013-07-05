@@ -354,7 +354,9 @@ function transition.sequence(actions)
     return prev
 end
 
+--[[--
 
+]]
 function transition.playAnimationOnce(target, animation, removeWhenFinished, onComplete, delay)
     local actions = {}
     if type(delay) == "number" and delay > 0 then
@@ -386,8 +388,11 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
     return action
 end
 
-function transition.playAnimationForever(target, animation, isRestoreOriginalFrame, delay)
-    local animate = display.newAnimate(animation, isRestoreOriginalFrame)
+--[[--
+
+]]
+function transition.playAnimationForever(target, animation, delay)
+    local animate = display.newAnimate(animation)
     local action
     if type(delay) == "number" and delay > 0 then
         target:setVisible(false)
