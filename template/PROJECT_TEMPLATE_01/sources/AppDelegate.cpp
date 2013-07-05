@@ -14,6 +14,9 @@
 // thrid_party
 #include "third_party_luabinding.h"
 
+// CCBReader
+#include "Lua_extensions_CCB.h"
+
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -55,11 +58,15 @@ bool AppDelegate::applicationDidFinishLaunching()
     // thrid_party
     luaopen_third_party_luabinding(L);
 
+    // CCBReader
+    tolua_extensions_ccb_open(L);
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
 #endif
+
     int pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {
