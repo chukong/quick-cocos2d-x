@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.quickx.sample.testlua"
+    package="com.quickx.sample.luatest"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -17,10 +17,10 @@
         android:allowBackup="true"
         android:icon="@drawable/icon" android:debuggable="true">
 
-        <activity android:name=".Testlua"
+        <activity android:name=".Luatest"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
