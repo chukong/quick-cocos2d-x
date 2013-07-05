@@ -223,28 +223,6 @@ void CCEditBoxImplWin::visit(void)
 {   
 }
 
-static void editBoxCallbackFunc(const char* pText, void* ctx)
-{
-    CCEditBoxImplWin* thiz = (CCEditBoxImplWin*)ctx;
-    thiz->setText(pText);
-
-    if (thiz->getDelegate() != NULL)
-    {
-        thiz->getDelegate()->editBoxTextChanged(thiz->getCCEditBox(), thiz->getText());
-        thiz->getDelegate()->editBoxEditingDidEnd(thiz->getCCEditBox());
-        thiz->getDelegate()->editBoxReturn(thiz->getCCEditBox());
-    }
-    
-    CCEditBox* pEditBox = thiz->getCCEditBox();
-    if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
-    {
-        cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "changed",pEditBox);
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "ended",pEditBox);
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
-    }
-}
-
 void CCEditBoxImplWin::openKeyboard()
 {
     if (m_pDelegate != NULL)
@@ -273,16 +251,22 @@ void CCEditBoxImplWin::openKeyboard()
 		setText(pText);
 
 	if (m_pDelegate != NULL) {
-		if (didChange)
-			m_pDelegate->editBoxTextChanged(m_pEditBox, getText());
+		if (didChange) m_pDelegate->editBoxTextChanged(m_pEditBox, getText());
 		m_pDelegate->editBoxEditingDidEnd(m_pEditBox);
 		m_pDelegate->editBoxReturn(m_pEditBox);
 	}
+
+    if (0 != pEditBox->getScriptEditBoxHandler())
+    {
+        cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
+        if (didChange) pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "changed",pEditBox);
+        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "ended",pEditBox);
+        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
+    }
 }
 
 void CCEditBoxImplWin::closeKeyboard()
 {
-
 }
 
 void CCEditBoxImplWin::onEnter(void)
