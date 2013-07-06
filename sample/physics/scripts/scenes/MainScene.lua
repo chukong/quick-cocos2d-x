@@ -3,10 +3,14 @@ local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
 
-local GRAVITY        = -200
-local COIN_MASS      = 10
-local COIN_RADIUS    = 46
-local WALL_THICKNESS = 64
+local GRAVITY         = -200
+local COIN_MASS       = 100
+local COIN_RADIUS     = 46
+local COIN_FRICTION   = 0.8
+local COIN_ELASTICITY = 0.8
+local WALL_THICKNESS  = 64
+local WALL_FRICTION   = 1.0
+local WALL_ELASTICITY = 0.5
 
 function MainScene:ctor()
     -- create touch layer
@@ -39,20 +43,26 @@ function MainScene:ctor()
     leftWallSprite:setScaleY(display.height / WALL_THICKNESS)
     self.batch:addChild(leftWallSprite)
     local leftWallBody = self.world:createBoxBody(0, WALL_THICKNESS, display.height)
+    leftWallBody:setFriction(WALL_FRICTION)
+    leftWallBody:setElasticity(WALL_ELASTICITY)
     leftWallBody:bind(leftWallSprite)
-    leftWallBody:setPosition(display.left + WALL_THICKNESS / 2, display.cy)
+    leftWallBody:setPosition(display.left + WALL_THICKNESS / 2, display.cy + WALL_THICKNESS)
 
     local rightWallSprite = display.newSprite("#Wall.png")
     rightWallSprite:setScaleY(display.height / WALL_THICKNESS)
     self.batch:addChild(rightWallSprite)
     local rightWallBody = self.world:createBoxBody(0, WALL_THICKNESS, display.height)
+    rightWallBody:setFriction(WALL_FRICTION)
+    rightWallBody:setElasticity(WALL_ELASTICITY)
     rightWallBody:bind(rightWallSprite)
-    rightWallBody:setPosition(display.right - WALL_THICKNESS / 2, display.cy)
+    rightWallBody:setPosition(display.right - WALL_THICKNESS / 2, display.cy + WALL_THICKNESS)
 
     local bottomWallSprite = display.newSprite("#Wall.png")
     bottomWallSprite:setScaleX(display.width / WALL_THICKNESS)
     self.batch:addChild(bottomWallSprite)
     local bottomWallBody = self.world:createBoxBody(0, display.width, WALL_THICKNESS)
+    bottomWallBody:setFriction(WALL_FRICTION)
+    bottomWallBody:setElasticity(WALL_ELASTICITY)
     bottomWallBody:bind(bottomWallSprite)
     bottomWallBody:setPosition(display.cx, display.bottom + WALL_THICKNESS / 2)
 
@@ -68,6 +78,8 @@ function MainScene:createCoin(x, y)
 
     -- create body
     local coinBody = self.world:createCircleBody(COIN_MASS, COIN_RADIUS)
+    coinBody:setFriction(COIN_FRICTION)
+    coinBody:setElasticity(COIN_ELASTICITY)
     -- binding sprite to body
     coinBody:bind(coinSprite)
     -- set body position
