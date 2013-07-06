@@ -578,7 +578,9 @@ void AssetsManager::Helper::update(float dt)
             }
             if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
             {
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, "progress");
+                char buff[10];
+                sprintf(buff, "%d", ((ProgressMessage*)msg->obj)->percent);
+                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, buff);
             }
             
             delete (ProgressMessage*)msg->obj;
