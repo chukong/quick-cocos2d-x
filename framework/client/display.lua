@@ -183,8 +183,6 @@ display.BOTTOM_LEFT   = 7; display.LEFT_BOTTOM   = 7
 display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
 
-ccp = CCPoint
-
 display.ANCHOR_POINTS = {
     ccp(0.5, 0.5),  -- CENTER
     ccp(0, 1),      -- TOP_LEFT
