@@ -15,12 +15,14 @@
     <ClCompile Include="ProjectConfigDialog.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="app.cpp" />
     <ClCompile Include="..\sources\AppDelegate.cpp">
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="..\sources\SimulatorConfig.cpp">
       <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="app.cpp">
+      <Filter>win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -36,18 +38,24 @@
     <ClInclude Include="ProjectConfigDialog.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="app.h" />
     <ClInclude Include="..\sources\AppDelegate.h">
       <Filter>sources</Filter>
     </ClInclude>
     <ClInclude Include="..\sources\SimulatorConfig.h">
       <Filter>sources</Filter>
     </ClInclude>
+    <ClInclude Include="app.h">
+      <Filter>win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="app.ico" />
+    <Image Include="app.ico">
+      <Filter>win32</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="app.rc" />
+    <ResourceCompile Include="app.rc">
+      <Filter>win32</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
