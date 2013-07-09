@@ -26,6 +26,7 @@
 #import "CreateNewProjectDialogController.h"
 #import "ProjectConfigDialogController.h"
 #import "PlayerPreferencesDialogController.h"
+#import "ConsoleWindowController.h"
 
 #include <sys/stat.h>
 #include <stdio.h>
@@ -75,6 +76,7 @@ using namespace cocos2d::extra;
 
     [self updateProjectConfigFromCommandLineArgs];
     [self createWindowAndGLView];
+    [self openConsoleWindow];
     [self startup];
     [self updateOpenRect];
     [self initUI];
@@ -99,6 +101,28 @@ using namespace cocos2d::extra;
 - (void) windowWillClose:(NSNotification *)notification
 {
     [[NSApplication sharedApplication] terminate:self];
+}
+
+- (void) openConsoleWindow
+{
+    if(nil == consoleController){
+        consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
+    }
+    [consoleController showWindow:self];
+    //set console pipe
+    pipe = [NSPipe pipe] ;
+    pipeReadHandle = [pipe fileHandleForReading] ;
+    
+    int outfd = [[pipe fileHandleForWriting] fileDescriptor];
+    if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
+    {
+        perror("Unable to redirect output");
+        [self showAlert:@"Unable to redirect output to console!" withTitle:@"quick-x-player error"];
+    }else{
+        
+        [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleNotification:) name: NSFileHandleReadCompletionNotification object: pipeReadHandle] ;
+        [pipeReadHandle readInBackgroundAndNotify] ;
+    }
 }
 
 #pragma mark -
@@ -407,27 +431,42 @@ using namespace cocos2d::extra;
 - (bool) writeDebugLogToFile:(const string)path
 {
     if (debugLogFile) return true;
+    //log to file
+    if(fileHandle) return true;
+    NSString *fPath = [NSString stringWithCString:path.c_str() encoding:[NSString defaultCStringEncoding]];
+    [[NSFileManager defaultManager] createFileAtPath:fPath contents:nil attributes:nil] ;
+    fileHandle = [NSFileHandle fileHandleForWritingAtPath:fPath];
+    [fileHandle retain];
+    return true;
+}
 
-    mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-    debugLogFile = open(path.c_str(), O_WRONLY | O_APPEND | O_CREAT, mode);
-    if (dup2(debugLogFile, fileno(stderr)) != fileno(stderr) || dup2(debugLogFile, fileno(stdout)) != fileno(stdout))
-    {
-        perror("Unable to redirect output");
-        [self showAlert:[NSString stringWithFormat:@"Unable to redirect output to file \"%s\"", path.c_str()] withTitle:@"quick-x-player error"];
-        return false;
+- (void)handleNotification:(NSNotification *)note
+{
+    //NSLog(@"Received notification: %@", note);
+    [pipeReadHandle readInBackgroundAndNotify] ;
+    NSData *data = [[note userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    NSString *str = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    //show log to console
+    [consoleController trace:str];
+    if(fileHandle!=nil){
+        [fileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];
     }
-    else
-    {
-        return true;
-    }
+     
 }
 
 - (void) closeDebugLogFile
 {
+    if(fileHandle){
+        [fileHandle closeFile];
+        [fileHandle release];
+        fileHandle = nil;
+    }
     if (debugLogFile)
     {
         close(debugLogFile);
         debugLogFile = 0;
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc removeObserver:self];
     }
 }
 
