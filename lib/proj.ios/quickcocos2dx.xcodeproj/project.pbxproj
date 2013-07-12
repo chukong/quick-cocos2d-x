@@ -26,6 +26,7 @@
 		F40AFE9C16BD160200565A5E /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE8816BD160200565A5E /* strbuf.c */; };
 		F40F45C616C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C416C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp */; };
 		F40F45CA16C76145000394B5 /* lua_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C816C76145000394B5 /* lua_zlib.c */; };
+		F4255C97178EBC4200E1C3C1 /* CCLinkPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4255C95178EBC4200E1C3C1 /* CCLinkPosition.cpp */; };
 		F42824FA17575D88001479DC /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EA17575D87001479DC /* CCCamera.cpp */; };
 		F42824FB17575D88001479DC /* CCConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EC17575D87001479DC /* CCConfiguration.cpp */; };
 		F42824FC17575D88001479DC /* CCDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EE17575D87001479DC /* CCDirector.cpp */; };
@@ -368,6 +369,8 @@
 		F40F45C516C75FD9000394B5 /* cocos2dx_extra_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra_luabinding.h; sourceTree = "<group>"; };
 		F40F45C816C76145000394B5 /* lua_zlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lua_zlib.c; sourceTree = "<group>"; };
 		F40F45C916C76145000394B5 /* lua_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_zlib.h; sourceTree = "<group>"; };
+		F4255C95178EBC4200E1C3C1 /* CCLinkPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLinkPosition.cpp; sourceTree = "<group>"; };
+		F4255C96178EBC4200E1C3C1 /* CCLinkPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLinkPosition.h; sourceTree = "<group>"; };
 		F42823EA17575D87001479DC /* CCCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCamera.cpp; sourceTree = "<group>"; };
 		F42823EB17575D87001479DC /* CCCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCamera.h; sourceTree = "<group>"; };
 		F42823EC17575D87001479DC /* CCConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCConfiguration.cpp; sourceTree = "<group>"; };
@@ -1909,6 +1912,8 @@
 				F4E8819B177015C400577406 /* CCActionTiledGrid.h */,
 				F4E8819C177015C400577406 /* CCActionTween.cpp */,
 				F4E8819D177015C400577406 /* CCActionTween.h */,
+				F4255C95178EBC4200E1C3C1 /* CCLinkPosition.cpp */,
+				F4255C96178EBC4200E1C3C1 /* CCLinkPosition.h */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -2972,6 +2977,7 @@
 				F4E883D11770163800577406 /* CCTableViewCell.cpp in Sources */,
 				F4E883D61770165600577406 /* CCBProxy.cpp in Sources */,
 				F4E883D71770165600577406 /* Lua_extensions_CCB.cpp in Sources */,
+				F4255C97178EBC4200E1C3C1 /* CCLinkPosition.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

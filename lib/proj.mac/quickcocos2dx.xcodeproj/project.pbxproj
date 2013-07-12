@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
+		F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */; };
 		F42B55E71727F1C7000379DE /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C51727F1C7000379DE /* auxiliar.c */; };
 		F42B55E91727F1C7000379DE /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C91727F1C7000379DE /* except.c */; };
 		F42B55EA1727F1C7000379DE /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55CB1727F1C7000379DE /* inet.c */; };
@@ -320,6 +321,8 @@
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
 		F411F3DE175CEAFC00EF549A /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F411F3E0175CEAFC00EF549A /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
+		F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLinkPosition.cpp; sourceTree = "<group>"; };
+		F4255C92178EB26B00E1C3C1 /* CCLinkPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLinkPosition.h; sourceTree = "<group>"; };
 		F42B55C51727F1C7000379DE /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
 		F42B55C61727F1C7000379DE /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliar.h; sourceTree = "<group>"; };
 		F42B55C91727F1C7000379DE /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = except.c; sourceTree = "<group>"; };
@@ -1835,6 +1838,8 @@
 				F4E87F2D177006E900577406 /* CCActionTiledGrid.h */,
 				F4E87F2E177006E900577406 /* CCActionTween.cpp */,
 				F4E87F2F177006E900577406 /* CCActionTween.h */,
+				F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */,
+				F4255C92178EB26B00E1C3C1 /* CCLinkPosition.h */,
 			);
 			path = actions;
 			sourceTree = "<group>";
@@ -2828,6 +2833,7 @@
 				F4E8817F17700E8A00577406 /* CCSorting.cpp in Sources */,
 				F4E8818017700E8A00577406 /* CCTableView.cpp in Sources */,
 				F4E8818117700E8A00577406 /* CCTableViewCell.cpp in Sources */,
+				F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

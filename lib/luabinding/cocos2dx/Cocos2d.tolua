@@ -48,6 +48,7 @@ $pfile "cocos2dx/actions/CCActionManager.tolua"
 $pfile "cocos2dx/actions/CCActionPageTurn3D.tolua"
 $pfile "cocos2dx/actions/CCActionProgressTimer.tolua"
 $pfile "cocos2dx/actions/CCActionTiledGrid.tolua"
+$pfile "cocos2dx/actions/CCLinkPosition.tolua"
 
 $pfile "cocos2dx/textures/CCTexture2D.tolua"
 $pfile "cocos2dx/textures/CCTextureCache.tolua"

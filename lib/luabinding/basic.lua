@@ -94,6 +94,7 @@ local CCObjectTypes = {
     "CCLayerMultiplex",
     "CCLayerRGBA",
     "CCLens3D",
+    "CCLinkPosition",
     "CCLiquid",
     "CCMenu",
     "CCMenuItem",
