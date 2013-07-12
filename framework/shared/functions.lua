@@ -277,6 +277,24 @@ end
 
 --[[--
 
+]]
+function handler(target, method)
+    return function(...) return method(target, ...) end
+end
+
+--[[--
+
+]]
+function handlerObject(object)
+    return function(event, ...)
+        if object[event] then
+            return object[event](object, ...)
+        end
+    end
+end
+
+--[[--
+
 Returns a associative table containing the matching values.
 
 @param table arr
