@@ -1164,6 +1164,9 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\textures\CCTextureETC.cpp">
       <Filter>cocos2d-x\cocos2dx\textures</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\actions\CCLinkPosition.cpp">
+      <Filter>cocos2d-x\cocos2dx\actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2dx_extra\extra\cocos2dx_extra.h">
@@ -2299,6 +2302,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\textures\CCTextureETC.h">
       <Filter>cocos2d-x\cocos2dx\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCLinkPosition.h">
+      <Filter>cocos2d-x\cocos2dx\actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

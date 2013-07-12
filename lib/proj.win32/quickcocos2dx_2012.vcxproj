@@ -24,6 +24,7 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\actions\CCActionProgressTimer.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\actions\CCActionTiledGrid.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\actions\CCActionTween.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\actions\CCLinkPosition.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\base_nodes\CCAtlasNode.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\base_nodes\CCNode.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\CCCamera.cpp" />
@@ -401,6 +402,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCActionProgressTimer.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCActionTiledGrid.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCActionTween.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCLinkPosition.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\base_nodes\CCAtlasNode.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\base_nodes\CCNode.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\CCCamera.h" />
