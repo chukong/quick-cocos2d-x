@@ -106,11 +106,6 @@ using namespace cocos2d::extra;
 
 - (void) createWindowAndGLView
 {
-    if (projectConfig.getProjectDir().length() > 0 && projectConfig.isWriteDebugLogToFile())
-    {
-        [self writeDebugLogToFile:[self getDebugLogFilePath]];
-    }
-
     const CCSize frameSize = projectConfig.getFrameSize();
     float left = 10;
     float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
@@ -135,7 +130,7 @@ using namespace cocos2d::extra;
     [window setContentView:glView];
     [window setTitle:@"quick-x-player"];
     [window center];
-
+    
     if (projectConfig.getProjectDir().length())
     {
         [self setZoom:projectConfig.getFrameScale()];
@@ -145,7 +140,7 @@ using namespace cocos2d::extra;
             [window setFrameOrigin:NSMakePoint(pos.x, pos.y)];
         }
     }
-
+    
     [window becomeFirstResponder];
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
@@ -157,7 +152,7 @@ using namespace cocos2d::extra;
     NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
     if (!path || [path length] == 0)
     {
-        [self onServicePreferences:self];
+        [self showPreferences:YES];
         [self showAlertWithoutSheet:@"Please set quick-cocos2d-x root path." withTitle:@"quick-x-player error"];
     }
     else
@@ -169,13 +164,15 @@ using namespace cocos2d::extra;
     {
         projectConfig.resetToWelcome();
     }
-
     const string projectDir = projectConfig.getProjectDir();
     if (projectDir.length())
     {
         CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
+        if (projectConfig.isWriteDebugLogToFile())
+        {
+            [self writeDebugLogToFile:[self getDebugLogFilePath]];
+        }
     }
-
 
     const string writablePath = projectConfig.getWritableRealPath();
     if (writablePath.length())
@@ -221,7 +218,7 @@ using namespace cocos2d::extra;
             }
         }
 
-        NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig];
+        NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig:kProjectConfigOpenRecent];
         [args removeLastObject];
         [args removeLastObject];
         NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", args, @"args", nil];
@@ -320,23 +317,34 @@ using namespace cocos2d::extra;
 - (void) showModelSheet
 {
     hasPopupDialog = YES;
-    CCDirector::sharedDirector()->pause();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+    if (app)
+    {
+        CCDirector::sharedDirector()->pause();
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+    }
 }
 
 - (void) stopModelSheet
 {
     hasPopupDialog = NO;
-    CCDirector::sharedDirector()->resume();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+    if (app)
+    {
+        CCDirector::sharedDirector()->resume();
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+    }
 }
 
 - (NSMutableArray*) makeCommandLineArgsFromProjectConfig
 {
+    return [self makeCommandLineArgsFromProjectConfig:kProjectConfigAll];
+}
+
+- (NSMutableArray*) makeCommandLineArgsFromProjectConfig:(unsigned int)mask
+{
     projectConfig.setWindowOffset(CCPoint(window.frame.origin.x, window.frame.origin.y));
-    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine().c_str() encoding:NSUTF8StringEncoding];
+    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine(mask).c_str() encoding:NSUTF8StringEncoding];
     return [NSMutableArray arrayWithArray:[commandLine componentsSeparatedByString:@" "]];
 }
 
@@ -454,6 +462,25 @@ using namespace cocos2d::extra;
     isAlwaysOnTop = alwaysOnTop;
 }
 
+- (void) showPreferences:(BOOL)relaunch
+{
+    [self showModelSheet];
+    PlayerPreferencesDialogController *controller = [[PlayerPreferencesDialogController alloc] initWithWindowNibName:@"PlayerPreferencesDialog"];
+    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
+        [self stopModelSheet];
+        [controller release];
+
+        NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
+        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
+
+        if (relaunch)
+        {
+            projectConfig.resetToWelcome();
+            [self relaunch];
+        }
+    }];
+}
+
 #pragma mark -
 #pragma mark interfaces
 
@@ -482,18 +509,12 @@ using namespace cocos2d::extra;
     CCNative::openURL("https://github.com/dualface/quick-cocos2d-x/wiki");
 }
 
-
 #pragma mark -
 #pragma mark IB Actions
 
 - (IBAction) onServicePreferences:(id)sender
 {
-    [self showModelSheet];
-    PlayerPreferencesDialogController *controller = [[PlayerPreferencesDialogController alloc] initWithWindowNibName:@"PlayerPreferencesDialog"];
-    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
-        [self stopModelSheet];
-        [controller release];
-    }];
+    [self showPreferences:NO];
 }
 
 - (IBAction) onFileNewProject:(id)sender

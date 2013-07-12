@@ -286,61 +286,88 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
     dump();
 }
 
-const string ProjectConfig::makeCommandLine(void)
+const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfigAll */)
 {
     stringstream buff;
 
-    buff << "-workdir ";
-    buff << getProjectDir();
-    buff << " -file ";
-    buff << getScriptFileRealPath();
-    buff << " -writable ";
-    buff << getWritableRealPath();
-
-    const string packagePath = getPackagePath();
-    if (packagePath.length())
+    if (mask & kProjectConfigProjectDir)
     {
-        buff << " -package.path ";
-        buff << packagePath;
+        buff << "-workdir ";
+        buff << getProjectDir();
+    }
+    if (mask & kProjectConfigScriptFile)
+    {
+        buff << " -file ";
+        buff << getScriptFileRealPath();
+    }
+    if (mask & kProjectConfigWritablePath)
+    {
+        buff << " -writable ";
+        buff << getWritableRealPath();
     }
 
-    buff << " -size ";
-    buff << (int)getFrameSize().width;
-    buff << "x";
-    buff << (int)getFrameSize().height;
-
-    if (getFrameScale() < 1.0f)
+    if (mask & kProjectConfigPackagePath)
     {
-        buff << " -scale ";
-        buff.precision(2);
-        buff << getFrameScale();
+        const string packagePath = getPackagePath();
+        if (packagePath.length())
+        {
+            buff << " -package.path ";
+            buff << packagePath;
+        }
     }
 
-    if (isWriteDebugLogToFile())
+    if (mask & kProjectConfigFrameSize)
     {
-        buff << " -write-debug-log";
-    }
-    else
-    {
-        buff << " -disable-write-debug-log";
-    }
-
-    if (isLoadPrecompiledFramework())
-    {
-        buff << " -load-framework";
-    }
-    else
-    {
-        buff << " -disable-load-framework";
+        buff << " -size ";
+        buff << (int)getFrameSize().width;
+        buff << "x";
+        buff << (int)getFrameSize().height;
     }
 
-    if (m_windowOffset.x != 0 && m_windowOffset.y != 0)
+    if (mask & kProjectConfigFrameScale)
     {
-        buff << " -offset {";
-        buff << (int)m_windowOffset.x;
-        buff << ",";
-        buff << (int)m_windowOffset.y;
-        buff << "}";
+        if (getFrameScale() < 1.0f)
+        {
+            buff << " -scale ";
+            buff.precision(2);
+            buff << getFrameScale();
+        }
+    }
+
+    if (mask & kProjectConfigWriteDebugLogToFile)
+    {
+        if (isWriteDebugLogToFile())
+        {
+            buff << " -write-debug-log";
+        }
+        else
+        {
+            buff << " -disable-write-debug-log";
+        }
+    }
+
+    if (mask & kProjectConfigLoadPrecompiledFramework)
+    {
+        if (isLoadPrecompiledFramework())
+        {
+            buff << " -load-framework";
+        }
+        else
+        {
+            buff << " -disable-load-framework";
+        }
+    }
+
+    if (mask & kProjectConfigWindowOffset)
+    {
+        if (m_windowOffset.x != 0 && m_windowOffset.y != 0)
+        {
+            buff << " -offset {";
+            buff << (int)m_windowOffset.x;
+            buff << ",";
+            buff << (int)m_windowOffset.y;
+            buff << "}";
+        }
     }
 
     return buff.str();

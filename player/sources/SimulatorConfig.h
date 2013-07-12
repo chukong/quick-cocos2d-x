@@ -16,6 +16,22 @@ using namespace cocos2d;
 #define DIRECTORY_SEPARATOR_CHAR '/'
 #endif
 
+#define kProjectConfigProjectDir                1
+#define kProjectConfigScriptFile                2
+#define kProjectConfigPackagePath               4
+#define kProjectConfigWritablePath              8
+#define kProjectConfigFrameSize                 16
+#define kProjectConfigFrameScale                32
+#define kProjectConfigShowConsole               64
+#define kProjectConfigLoadPrecompiledFramework  128
+#define kProjectConfigWriteDebugLogToFile       256
+#define kProjectConfigWindowOffset              1024
+
+#define kProjectConfigOpenRecent (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile)
+
+#define kProjectConfigAll (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset)
+
+
 class ProjectConfig
 {
 public:
@@ -75,7 +91,7 @@ public:
     void setWindowOffset(CCPoint windowOffset);
 
     void parseCommandLine(vector<string>& args);
-    const string makeCommandLine(void);
+    const string makeCommandLine(unsigned int mask = kProjectConfigAll);
 
     bool validate(void);
     void dump(void);
@@ -90,6 +106,7 @@ private:
     bool	m_showConsole;
     bool    m_loadPrecompiledFramework;
     bool    m_writeDebugLogToFile;
+    bool    m_restartProcess;
     CCPoint	m_windowOffset;
 
     void normalize(void);

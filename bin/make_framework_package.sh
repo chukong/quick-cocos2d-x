@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR/../"
 "$DIR/compile_scripts.sh" -zip -x framework.server -p framework framework lib/framework_precompiled/framework_precompiled

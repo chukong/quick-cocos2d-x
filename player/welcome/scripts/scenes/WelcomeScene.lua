@@ -58,7 +58,7 @@ and desktop operating systems like Linux, WindowsXP & Windows7.]],
         y = 44,
         align = ui.TEXT_ALIGN_LEFT,
         valign = ui.TEXT_VALIGN_CENTER,
-        dimensions = CCSize(680, 0),
+        dimensions = CCSize(680, 88),
     })
     bg:addChild(label)
 

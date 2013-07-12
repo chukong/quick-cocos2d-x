@@ -196,8 +196,9 @@ static EAGLView *view;
 
 - (void) dealloc
 {
-	CCLOGINFO(@"deallocing EAGLView %@", self);
+	NSLog(@"deallocing EAGLView %@", self);
 	[super dealloc];
+    view = nil;
 }
 
 -(int) getWidth

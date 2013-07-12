@@ -69,11 +69,12 @@ public:
 #define kCCHTTPRequestAcceptEncodingGzip     1
 #define kCCHTTPRequestAcceptEncodingDeflate  2
 
-#define kCCHTTPRequestStateIdle       0
-#define kCCHTTPRequestStateInProgress 1
-#define kCCHTTPRequestStateCompleted  2
-#define kCCHTTPRequestStateCancelled  3
-#define kCCHTTPRequestStateCleared    4
+#define kCCHTTPRequestStateIdle         0
+#define kCCHTTPRequestStateCleared      1
+#define kCCHTTPRequestStateInProgress   2
+#define kCCHTTPRequestStateCompleted    3
+#define kCCHTTPRequestStateCancelled    4
+#define kCCHTTPRequestStateFailed       5
 
 class CCHTTPRequest : public CCObject
 {
