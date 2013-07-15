@@ -924,6 +924,14 @@ end
 
 --[[--
 
+
+]]
+function display.newFrame(frameName)
+    return sharedSpriteFrameCache:spriteFrameByName(frameName)
+end
+
+--[[--
+
 Creates multiple frames by pattern.
 
 ### Example:
