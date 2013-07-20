@@ -8,16 +8,19 @@
 *.vcxproj.user
 *.so
 *.o
+*.log
 
-debug.log
+project.xcworkspace/
+xcuserdata/
 
 lib/cocos2d-x/cocos2dx/platform/android/java/bin
 lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
 player/proj.win32/Debug/
-project.xcworkspace/
-xcuserdata/
 lib/proj.win32/Debug/
+lib/cocos2dx_extra/proj.win32/Debug/
+lib/lua_extensions/proj.win32/Debug/
+lib/third_party/proj.win32/Debug/
 
 */*/proj.android/bin/
 */*/proj.android/gen/
@@ -25,4 +28,3 @@ lib/proj.win32/Debug/
 */*/proj.android/obj/
 */*/proj.android/assets/
 */*/proj.android/libs/
-

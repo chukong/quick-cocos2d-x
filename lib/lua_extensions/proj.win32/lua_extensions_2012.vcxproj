@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{03B2EE7D-EE37-4DEB-AFD3-A7805AB8D107}</ProjectGuid>
+    <RootNamespace>lua_extensions</RootNamespace>
+    <ProjectName>lua_extensions_2012</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>lua_extensions</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\luajit\include;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\filesystem;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996;4244</DisableSpecificWarnings>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_LUA_ENGINE_ENABLED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\cjson\fpconv.c" />
+    <ClCompile Include="..\cjson\lua_cjson.c" />
+    <ClCompile Include="..\cjson\strbuf.c" />
+    <ClCompile Include="..\filesystem\lfs.c" />
+    <ClCompile Include="..\lua_extensions.c" />
+    <ClCompile Include="..\socket\auxiliar.c" />
+    <ClCompile Include="..\socket\except.c" />
+    <ClCompile Include="..\socket\inet.c" />
+    <ClCompile Include="..\socket\luasocket.c" />
+    <ClCompile Include="..\socket\luasocket_buffer.c" />
+    <ClCompile Include="..\socket\luasocket_io.c" />
+    <ClCompile Include="..\socket\mime.c" />
+    <ClCompile Include="..\socket\options.c" />
+    <ClCompile Include="..\socket\select.c" />
+    <ClCompile Include="..\socket\socket_scripts.c" />
+    <ClCompile Include="..\socket\tcp.c" />
+    <ClCompile Include="..\socket\timeout.c" />
+    <ClCompile Include="..\socket\udp.c" />
+    <ClCompile Include="..\socket\wsocket.c" />
+    <ClCompile Include="..\zlib\lua_zlib.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\cjson\fpconv.h" />
+    <ClInclude Include="..\cjson\lua_cjson.h" />
+    <ClInclude Include="..\cjson\strbuf.h" />
+    <ClInclude Include="..\filesystem\lfs.h" />
+    <ClInclude Include="..\lua_extensions.h" />
+    <ClInclude Include="..\socket\auxiliar.h" />
+    <ClInclude Include="..\socket\except.h" />
+    <ClInclude Include="..\socket\inet.h" />
+    <ClInclude Include="..\socket\luasocket.h" />
+    <ClInclude Include="..\socket\luasocket_buffer.h" />
+    <ClInclude Include="..\socket\luasocket_io.h" />
+    <ClInclude Include="..\socket\mime.h" />
+    <ClInclude Include="..\socket\options.h" />
+    <ClInclude Include="..\socket\select.h" />
+    <ClInclude Include="..\socket\socket.h" />
+    <ClInclude Include="..\socket\socket_scripts.h" />
+    <ClInclude Include="..\socket\tcp.h" />
+    <ClInclude Include="..\socket\timeout.h" />
+    <ClInclude Include="..\socket\udp.h" />
+    <ClInclude Include="..\socket\wsocket.h" />
+    <ClInclude Include="..\zlib\lua_zlib.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

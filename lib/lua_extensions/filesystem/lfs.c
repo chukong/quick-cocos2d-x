@@ -229,7 +229,7 @@ static int _file_lock (lua_State *L, FILE *fh, const char *mode, const long star
 #ifdef __BORLANDC__
         code = locking (fileno(fh), lkmode, len);
 #else
-        code = _locking (fileno(fh), lkmode, len);
+        code = _locking (_fileno(fh), lkmode, len);
 #endif
 #else
         struct flock f;
@@ -262,7 +262,7 @@ static int lfs_lock_dir(lua_State *L) {
     lua_pushnil(L); lua_pushstring(L, strerror(errno)); return 2;
   }
   strcpy(ln, path); strcat(ln, lockfile);
-  if((fd = CreateFile(ln, GENERIC_WRITE, 0, NULL, CREATE_NEW,
+  if((fd = CreateFileA(ln, GENERIC_WRITE, 0, NULL, CREATE_NEW,
                 FILE_ATTRIBUTE_NORMAL | FILE_FLAG_DELETE_ON_CLOSE, NULL)) == INVALID_HANDLE_VALUE) {
         int en = GetLastError();
         free(ln); lua_pushnil(L);
@@ -409,6 +409,7 @@ static int make_link(lua_State *L)
                 (lua_toboolean(L,3) ? symlink : link)(oldpath, newpath), NULL);
 #else
         pusherror(L, "make_link is not supported on Windows");
+        return 0;
 #endif
 }
 

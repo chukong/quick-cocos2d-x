@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{67AA10BD-C741-4E1D-97FC-256559317268}</ProjectGuid>
+    <RootNamespace>third_party</RootNamespace>
+    <ProjectName>third_party_2010</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>third_party</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\support\tinyxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libwebp;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\luajit\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCScrollView;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\AssetsManager;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CCBReader;$(QUICK_COCOS2DX_ROOT)\lib\third_party\chipmunk\include;$(QUICK_COCOS2DX_ROOT)\lib\third_party\chipmunk\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\third_party\chipmunk\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\animation;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\datas;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\display;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\external_tool;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\external_tool\Json;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\external_tool\Json\json;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\external_tool\Json\lib_json;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\third_party\CSArmature\utils;$(QUICK_COCOS2DX_ROOT)\lib\third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4068;4251;4800;4305;4244;4018</DisableSpecificWarnings>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_LUA_ENGINE_ENABLED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\chipmunk\cocos2dx_support\CCPhysicsBody.cpp" />
+    <ClCompile Include="..\chipmunk\cocos2dx_support\CCPhysicsDebugNode.cpp" />
+    <ClCompile Include="..\chipmunk\cocos2dx_support\CCPhysicsShape.cpp" />
+    <ClCompile Include="..\chipmunk\cocos2dx_support\CCPhysicsSupport.cpp" />
+    <ClCompile Include="..\chipmunk\cocos2dx_support\CCPhysicsWorld.cpp" />
+    <ClCompile Include="..\chipmunk\luabinding\CCPhysicsWorld_luabinding.cpp" />
+    <ClCompile Include="..\chipmunk\src\chipmunk.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpConstraint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpDampedRotarySpring.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpDampedSpring.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpGearJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpGrooveJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpPinJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpPivotJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpRatchetJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpRotaryLimitJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpSimpleMotor.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\constraints\cpSlideJoint.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpArbiter.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpArray.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpBB.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpBBTree.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpBody.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpCollision.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpHashSet.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpPolyShape.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpShape.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSpace.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSpaceComponent.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSpaceHash.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSpaceQuery.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSpaceStep.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSpatialIndex.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpSweep1D.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\chipmunk\src\cpVect.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\CSArmature\animation\CSAnimation.cpp" />
+    <ClCompile Include="..\CSArmature\animation\CSProcessBase.cpp" />
+    <ClCompile Include="..\CSArmature\animation\CSTween.cpp" />
+    <ClCompile Include="..\CSArmature\CSArmature.cpp" />
+    <ClCompile Include="..\CSArmature\CSBone.cpp" />
+    <ClCompile Include="..\CSArmature\datas\CSDatas.cpp" />
+    <ClCompile Include="..\CSArmature\display\CSBatchNode.cpp" />
+    <ClCompile Include="..\CSArmature\display\CSDecorativeDisplay.cpp" />
+    <ClCompile Include="..\CSArmature\display\CSDisplayFactory.cpp" />
+    <ClCompile Include="..\CSArmature\display\CSDisplayManager.cpp" />
+    <ClCompile Include="..\CSArmature\display\CSShaderNode.cpp" />
+    <ClCompile Include="..\CSArmature\display\CSSkin.cpp" />
+    <ClCompile Include="..\CSArmature\external_tool\CCTexture2DMutable.cpp" />
+    <ClCompile Include="..\CSArmature\external_tool\Json\CSContentJsonDictionary.cpp" />
+    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_reader.cpp" />
+    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_value.cpp" />
+    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_writer.cpp" />
+    <ClCompile Include="..\CSArmature\luabinding\CSArmature_luabinding.cpp" />
+    <ClCompile Include="..\CSArmature\utils\CSArmatureDataManager.cpp" />
+    <ClCompile Include="..\CSArmature\utils\CSDataReaderHelper.cpp" />
+    <ClCompile Include="..\CSArmature\utils\CSSpriteFrameCacheHelper.cpp" />
+    <ClCompile Include="..\CSArmature\utils\CSTransformHelp.cpp" />
+    <ClCompile Include="..\CSArmature\utils\CSTweenFunction.cpp" />
+    <ClCompile Include="..\CSArmature\utils\CSUtilMath.cpp" />
+    <ClCompile Include="..\third_party_luabinding.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\chipmunk\cocos2dx_support\CCPhysicsBody.h" />
+    <ClInclude Include="..\chipmunk\cocos2dx_support\CCPhysicsDebugNode.h" />
+    <ClInclude Include="..\chipmunk\cocos2dx_support\CCPhysicsShape.h" />
+    <ClInclude Include="..\chipmunk\cocos2dx_support\CCPhysicsSupport.h" />
+    <ClInclude Include="..\chipmunk\cocos2dx_support\CCPhysicsWorld.h" />
+    <ClInclude Include="..\chipmunk\include\chipmunk.h" />
+    <ClInclude Include="..\chipmunk\include\chipmunk_ffi.h" />
+    <ClInclude Include="..\chipmunk\include\chipmunk_private.h" />
+    <ClInclude Include="..\chipmunk\include\chipmunk_types.h" />
+    <ClInclude Include="..\chipmunk\include\chipmunk_unsafe.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpConstraint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpDampedRotarySpring.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpDampedSpring.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpGearJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpGrooveJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpPinJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpPivotJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpRatchetJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpRotaryLimitJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpSimpleMotor.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\cpSlideJoint.h" />
+    <ClInclude Include="..\chipmunk\include\constraints\util.h" />
+    <ClInclude Include="..\chipmunk\include\cpArbiter.h" />
+    <ClInclude Include="..\chipmunk\include\cpBB.h" />
+    <ClInclude Include="..\chipmunk\include\cpBody.h" />
+    <ClInclude Include="..\chipmunk\include\cpPolyShape.h" />
+    <ClInclude Include="..\chipmunk\include\cpShape.h" />
+    <ClInclude Include="..\chipmunk\include\cpSpace.h" />
+    <ClInclude Include="..\chipmunk\include\cpSpatialIndex.h" />
+    <ClInclude Include="..\chipmunk\include\cpVect.h" />
+    <ClInclude Include="..\chipmunk\luabinding\CCPhysicsWorld_luabinding.h" />
+    <ClInclude Include="..\chipmunk\src\prime.h" />
+    <ClInclude Include="..\CSArmature\animation\CSAnimation.h" />
+    <ClInclude Include="..\CSArmature\animation\CSProcessBase.h" />
+    <ClInclude Include="..\CSArmature\animation\CSTween.h" />
+    <ClInclude Include="..\CSArmature\CSArmature.h" />
+    <ClInclude Include="..\CSArmature\CSBone.h" />
+    <ClInclude Include="..\CSArmature\datas\CSDatas.h" />
+    <ClInclude Include="..\CSArmature\display\CSBatchNode.h" />
+    <ClInclude Include="..\CSArmature\display\CSDecorativeDisplay.h" />
+    <ClInclude Include="..\CSArmature\display\CSDisplayFactory.h" />
+    <ClInclude Include="..\CSArmature\display\CSDisplayManager.h" />
+    <ClInclude Include="..\CSArmature\display\CSShaderNode.h" />
+    <ClInclude Include="..\CSArmature\display\CSSkin.h" />
+    <ClInclude Include="..\CSArmature\external_tool\CCTexture2DMutable.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\CSContentJsonDictionary.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\autolink.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\config.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\features.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\forwards.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\json_lib.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\reader.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\value.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\json\writer.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\lib_json\json_batchallocator.h" />
+    <ClInclude Include="..\CSArmature\external_tool\Json\lib_json\json_tool.h" />
+    <ClInclude Include="..\CSArmature\external_tool\sigslot.h" />
+    <ClInclude Include="..\CSArmature\luabinding\CSArmature_luabinding.h" />
+    <ClInclude Include="..\CSArmature\utils\CSArmatureDataManager.h" />
+    <ClInclude Include="..\CSArmature\utils\CSArmatureDefine.h" />
+    <ClInclude Include="..\CSArmature\utils\CSConstValue.h" />
+    <ClInclude Include="..\CSArmature\utils\CSDataReaderHelper.h" />
+    <ClInclude Include="..\CSArmature\utils\CSSpriteFrameCacheHelper.h" />
+    <ClInclude Include="..\CSArmature\utils\CSTransformHelp.h" />
+    <ClInclude Include="..\CSArmature\utils\CSTweenFunction.h" />
+    <ClInclude Include="..\CSArmature\utils\CSUtilMath.h" />
+    <ClInclude Include="..\third_party_luabinding.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\CSArmature\external_tool\Json\lib_json\json_internalarray.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\CSArmature\external_tool\Json\lib_json\json_internalmap.inl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\CSArmature\external_tool\Json\lib_json\json_valueiterator.inl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

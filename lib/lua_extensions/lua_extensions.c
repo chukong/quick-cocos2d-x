@@ -29,8 +29,6 @@ static luaL_Reg luax_exts[] = {
     {NULL, NULL}
 };
 
-#include "tolua_fix.h"
-
 void luaopen_lua_extensions(lua_State *L)
 {
     luaL_Reg* lib = luax_exts;

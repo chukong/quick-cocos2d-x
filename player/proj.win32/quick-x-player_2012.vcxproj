@@ -33,8 +33,17 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\proj.win32\quickcocos2dx_2012.vcxproj">
+    <ProjectReference Include="..\..\lib\cocos2dx_extra\proj.win32\cocos2dx_extra_2012.vcxproj">
+      <Project>{c0840924-5ce6-4c13-824b-4e1ae85ae84b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\lua_extensions\proj.win32\lua_extensions_2012.vcxproj">
+      <Project>{03b2ee7d-ee37-4deb-afd3-a7805ab8d107}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\proj.win32\cocos2dx_2012.vcxproj">
       <Project>{9e05aa4b-1a09-433c-b1df-bce6675ec0d5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\third_party\proj.win32\third_party_2012.vcxproj">
+      <Project>{67aa10bd-c741-4e1d-97fc-256559317268}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -87,11 +96,12 @@
       <DisableSpecificWarnings>4068;4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>quickcocos2dx.lib;opengl32.lib;ws2_32.lib;wsock32.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libzlib.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cocos2dx.lib;cocos2dx_extra.lib;lua_extensions.lib;third_party.lib;opengl32.lib;ws2_32.lib;wsock32.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libzlib.lib;libwebp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\player\proj.win32\$(Configuration);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
