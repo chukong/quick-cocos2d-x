@@ -34,7 +34,6 @@ function Timer.new()
     ]]
     local function onTimer(dt)
         timecount = timecount + dt
-        local removes = {}
         for eventName, cd in pairs(countdowns) do
             cd.countdown = cd.countdown - dt
             cd.nextstep  = cd.nextstep - dt
@@ -42,16 +41,12 @@ function Timer.new()
             if cd.countdown <= 0 then
                 print(string.format("[finish] %s", eventName))
                 timer:dispatchEvent({name = eventName, countdown = 0})
-                removes[#removes + 1] = eventName
+                timer:removeCountdown(eventName)
             elseif cd.nextstep <= 0 then
                 print(string.format("[step] %s", eventName))
                 cd.nextstep = cd.nextstep + cd.interval
                 timer:dispatchEvent({name = eventName, countdown = cd.countdown})
             end
-        end
-
-        for i, eventName in ipairs(removes) do
-            timer:removeTimer(eventName)
         end
     end
 

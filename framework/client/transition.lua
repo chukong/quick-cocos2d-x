@@ -367,15 +367,11 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
 
     actions[#actions + 1] = display.newAnimate(animation)
 
-    if removeWhenFinished or onComplete then
-        actions[#actions + 1] = CCCallFunc:create(function()
-            if removeWhenFinished then
-                target:removeFromParentAndCleanup(true)
-            end
-            if type(onComplete) == "function" then
-                onComplete()
-            end
-        end)
+    if removeWhenFinished then
+        actions[#actions + 1] = CCRemoveSelf:create()
+    end
+    if onComplete then
+        actions[#actions + 1] = CCCallFunc:create(onComplete)
     end
 
     local action
