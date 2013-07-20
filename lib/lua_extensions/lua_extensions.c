@@ -6,21 +6,25 @@ extern "C" {
 #endif
 
 // cjson
-#include "lua_cjson.h"
+#include "cjson/lua_cjson.h"
 
 // zlib
-#include "lua_zlib.h"
+#include "zlib/lua_zlib.h"
 
 // socket
-#include "luasocket.h"
-#include "mime.h"
-#include "socket_scripts.h"
+#include "socket/luasocket.h"
+#include "socket/mime.h"
+#include "socket/socket_scripts.h"
+
+// filesystem
+#include "filesystem/lfs.h"
 
 static luaL_Reg luax_exts[] = {
     {"cjson", luaopen_cjson},
     {"zlib", luaopen_zlib},
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},
+    {"lfs", luaopen_lfs},
 
     {NULL, NULL}
 };

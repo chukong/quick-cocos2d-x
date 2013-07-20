@@ -99,6 +99,7 @@
 		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
 		F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */; };
 		F4A9C09816BC3AF400088CF7 /* tolua_fix.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C08816BC3AF400088CF7 /* tolua_fix.c */; };
+		F4B2D8C7179A3E3E005DEAE1 /* lfs.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D8C5179A3E3E005DEAE1 /* lfs.c */; };
 		F4B4EEC216C7E05800736FFE /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC016C7E05800736FFE /* CCLuaBridge.cpp */; };
 		F4B4EEC716C7E05F00736FFE /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC616C7E05F00736FFE /* CCLuaObjcBridge.mm */; };
 		F4B4EECC16C7E06F00736FFE /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC816C7E06F00736FFE /* CCLuaStack.cpp */; };
@@ -516,6 +517,8 @@
 		F4A9C08816BC3AF400088CF7 /* tolua_fix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_fix.c; sourceTree = "<group>"; };
 		F4A9C08916BC3AF400088CF7 /* tolua_fix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_fix.h; sourceTree = "<group>"; };
 		F4B08150175C89880029F472 /* quickcocos2dx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = quickcocos2dx.pch; sourceTree = "<group>"; };
+		F4B2D8C5179A3E3E005DEAE1 /* lfs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lfs.c; sourceTree = "<group>"; };
+		F4B2D8C6179A3E3E005DEAE1 /* lfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lfs.h; sourceTree = "<group>"; };
 		F4B4EEC016C7E05800736FFE /* CCLuaBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaBridge.cpp; sourceTree = "<group>"; };
 		F4B4EEC116C7E05800736FFE /* CCLuaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaBridge.h; sourceTree = "<group>"; };
 		F4B4EEC516C7E05F00736FFE /* CCLuaObjcBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaObjcBridge.h; sourceTree = "<group>"; };
@@ -1435,6 +1438,15 @@
 			path = CCEditBox;
 			sourceTree = "<group>";
 		};
+		F4B2D8C4179A3E3E005DEAE1 /* filesystem */ = {
+			isa = PBXGroup;
+			children = (
+				F4B2D8C5179A3E3E005DEAE1 /* lfs.c */,
+				F4B2D8C6179A3E3E005DEAE1 /* lfs.h */,
+			);
+			path = filesystem;
+			sourceTree = "<group>";
+		};
 		F4B4EEC316C7E05F00736FFE /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -1568,10 +1580,11 @@
 		F4B4EF3516C7E0AE00736FFE /* lua_extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F42B55C41727F1C7000379DE /* socket */,
 				F4B4EF3616C7E0AE00736FFE /* cjson */,
+				F4B2D8C4179A3E3E005DEAE1 /* filesystem */,
 				F4B4EF3D16C7E0AE00736FFE /* lua_extensions.c */,
 				F4B4EF3E16C7E0AE00736FFE /* lua_extensions.h */,
+				F42B55C41727F1C7000379DE /* socket */,
 				F4B4EF3F16C7E0AE00736FFE /* zlib */,
 			);
 			path = lua_extensions;
@@ -2834,6 +2847,7 @@
 				F4E8818017700E8A00577406 /* CCTableView.cpp in Sources */,
 				F4E8818117700E8A00577406 /* CCTableViewCell.cpp in Sources */,
 				F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */,
+				F4B2D8C7179A3E3E005DEAE1 /* lfs.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

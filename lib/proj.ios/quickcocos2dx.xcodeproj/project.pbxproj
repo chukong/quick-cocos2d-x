@@ -124,6 +124,7 @@
 		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
 		F4778ADE1736085400EE1551 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4778ADD1736085400EE1551 /* xxtea.c */; };
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
+		F4B2D8CC179A401F005DEAE1 /* lfs.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B2D8CA179A401F005DEAE1 /* lfs.c */; };
 		F4B61CFA172806280057E1F0 /* luasocket_buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF6172806280057E1F0 /* luasocket_buffer.c */; };
 		F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF8172806280057E1F0 /* luasocket_io.c */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
@@ -596,6 +597,8 @@
 		F4778ADF1736085C00EE1551 /* xxtea.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		F47C66C116EB37DB00132435 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F47C66C216EB37DB00132435 /* snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
+		F4B2D8CA179A401F005DEAE1 /* lfs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lfs.c; sourceTree = "<group>"; };
+		F4B2D8CB179A401F005DEAE1 /* lfs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lfs.h; sourceTree = "<group>"; };
 		F4B61CF6172806280057E1F0 /* luasocket_buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_buffer.c; sourceTree = "<group>"; };
 		F4B61CF7172806280057E1F0 /* luasocket_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket_buffer.h; sourceTree = "<group>"; };
 		F4B61CF8172806280057E1F0 /* luasocket_io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_io.c; sourceTree = "<group>"; };
@@ -1226,10 +1229,11 @@
 		F40AFE8216BD160200565A5E /* lua_extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F4F26D0E1727E73D002D3935 /* socket */,
 				F40AFE8316BD160200565A5E /* cjson */,
+				F4B2D8C9179A401F005DEAE1 /* filesystem */,
 				F45FF34316C7D24200275222 /* lua_extensions.c */,
 				F45FF34416C7D24200275222 /* lua_extensions.h */,
+				F4F26D0E1727E73D002D3935 /* socket */,
 				F40F45C716C76145000394B5 /* zlib */,
 			);
 			path = lua_extensions;
@@ -1842,6 +1846,15 @@
 				F4778ADF1736085C00EE1551 /* xxtea.h */,
 			);
 			path = xxtea;
+			sourceTree = "<group>";
+		};
+		F4B2D8C9179A401F005DEAE1 /* filesystem */ = {
+			isa = PBXGroup;
+			children = (
+				F4B2D8CA179A401F005DEAE1 /* lfs.c */,
+				F4B2D8CB179A401F005DEAE1 /* lfs.h */,
+			);
+			path = filesystem;
 			sourceTree = "<group>";
 		};
 		F4D7524F173886C20094A93B /* third_party */ = {
@@ -2978,6 +2991,7 @@
 				F4E883D61770165600577406 /* CCBProxy.cpp in Sources */,
 				F4E883D71770165600577406 /* Lua_extensions_CCB.cpp in Sources */,
 				F4255C97178EBC4200E1C3C1 /* CCLinkPosition.cpp in Sources */,
+				F4B2D8CC179A401F005DEAE1 /* lfs.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3070,8 +3084,6 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/CSArmature\"",
@@ -3126,8 +3138,6 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2dx_extra/extra/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson\"",
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/chipmunk/luabinding\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party/CSArmature\"",
