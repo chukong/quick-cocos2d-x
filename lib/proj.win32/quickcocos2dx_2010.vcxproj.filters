@@ -304,6 +304,9 @@
     <Filter Include="cocos2d-x\cocos2dx\support\component">
       <UniqueIdentifier>{09df8f10-49fb-4afb-bc59-b0de00b252a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua_extensions\filesystem">
+      <UniqueIdentifier>{47704a44-945c-485d-9fe3-7ff356eb7de8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2dx_extra\extra\crypto\CCCrypto.cpp">
@@ -1166,6 +1169,9 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\actions\CCLinkPosition.cpp">
       <Filter>cocos2d-x\cocos2dx\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lua_extensions\filesystem\lfs.c">
+      <Filter>lua_extensions\filesystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2305,6 +2311,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\actions\CCLinkPosition.h">
       <Filter>cocos2d-x\cocos2dx\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lua_extensions\filesystem\lfs.h">
+      <Filter>lua_extensions\filesystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
