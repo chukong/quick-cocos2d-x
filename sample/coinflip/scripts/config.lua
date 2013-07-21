@@ -14,6 +14,8 @@ CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH"
 GAME_SFX = {
     tapButton  = "sfx/TapButtonSound.mp3",
     backButton = "sfx/BackButtonSound.mp3",
+    flipCoin = "sfx/ConFlipSound.mp3",
+    levelCompleted = "sfx/LevelWinSound.mp3",
 }
 
 GAME_TEXTURE_DATA_FILENAME  = "AllSprites.plist"

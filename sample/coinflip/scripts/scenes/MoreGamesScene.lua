@@ -7,31 +7,22 @@ function MoreGamesScene:ctor()
     self.bg = display.newBackgroundSprite("#MenuSceneBg.png")
     self:addChild(self.bg)
 
-    local editBoxBg = CCScale9Sprite:createWithSpriteFrameName("InputBox.png")
-    local editBox = CCEditBox:create(CCSize(400, 64), editBoxBg)
-    editBox:setPosition(display.cx, display.top - 100)
-    editBox:registerScriptEditBoxHandler(function(eventType)
-        self:onEdit({name = eventType, target = editBox})
-    end)
-    self:addChild(editBox)
-end
+    self.adBar = require("views.AdBar").new()
+    self:addChild(self.adBar)
 
-function MoreGamesScene:onEdit(event)
-    printf("EDITBOX %s, TEXT = %s", event.name, event.target:getText())
-end
+    local backButton = ui.newImageMenuItem({
+        image = "#BackButton.png",
+        imageSelected = "#BackButtonSelected.png",
+        x = display.right - 100,
+        y = display.bottom + 120,
+        sound = GAME_SFX.backButton,
+        listener = function()
+            game.enterMenuScene()
+        end
+    })
 
-function MoreGamesScene:onRequest(event)
-    local request = event.request
-    printf("REQUEST state = %s, code = %s", tostring(request:getState()), tostring(request:getResponseStatusCode()))
-    printf("REQUEST: %s", request:getResponseString())
-end
-
-function MoreGamesScene:onEnter()
-    local url = "http://dualface.github.com/javascripts/generate-toc.js"
-    local request = network.createHTTPRequest(function(event)
-        self:onRequest(event)
-    end, url)
-    request:start()
+    local menu = ui.newMenu({backButton})
+    self:addChild(menu)
 end
 
 return MoreGamesScene

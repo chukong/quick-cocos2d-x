@@ -16,7 +16,6 @@ function game.startup()
     end
 
     game.enterMenuScene()
-    -- game.playLevel(1)
 end
 
 function game.exit()

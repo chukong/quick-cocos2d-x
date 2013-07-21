@@ -1,6 +1,10 @@
 
 local Levels = {}
 
+Levels.NODE_IS_WHITE  = 1
+Levels.NODE_IS_BLACK  = 0
+Levels.NODE_IS_EMPTY  = "X"
+
 local levelsData = {}
 
 levelsData[1] = {

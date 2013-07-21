@@ -1,4 +1,7 @@
 
+local Levels = import("..data.Levels")
+local Board = import("..views.Board")
+
 local PlayLevelScene = class("PlayLevelScene", function()
     return display.newScene("PlayLevelScene")
 end)
@@ -13,35 +16,49 @@ function PlayLevelScene:ctor(levelIndex)
     title:setScale(0.5)
     self:addChild(title)
 
+    local adBar = require("views.AdBar").new()
+    self:addChild(adBar)
+
     local label = ui.newBMFontLabel({
         text  = string.format("Level: %s", tostring(levelIndex)),
         font  = "UIFont.fnt",
         x     = display.left + 10,
-        y     = display.bottom + 40,
+        y     = display.bottom + 120,
         align = ui.TEXT_ALIGN_LEFT,
     })
     self:addChild(label)
 
-    local Levels = require("data.Levels")
-    local levelData = Levels.get(levelIndex)
+    self.board = Board.new(Levels.get(levelIndex))
+    self.board:addEventListener("LEVEL_COMPLETED", handler(self, self.onLevelCompleted))
+    self:addChild(self.board)
 
-    -- keypad layer, for android
-    self.layer = display.newLayer()
-    self.layer:addKeypadEventListener(function(event)
-        if event == "back" then
-            audio.playSound(GAME_SFX.backButton)
-            self.layer:setKeypadEnabled(false)
+    -- create menu
+    local backButton = ui.newImageMenuItem({
+        image = "#BackButton.png",
+        imageSelected = "#BackButtonSelected.png",
+        x = display.right - 100,
+        y = display.bottom + 120,
+        sound = GAME_SFX.backButton,
+        listener = function()
             game.enterChooseLevelScene()
-        end
-    end)
-    self:addChild(self.layer)
+        end,
+    })
+
+    local menu = ui.newMenu({backButton})
+    self:addChild(menu)
+end
+
+function PlayLevelScene:onLevelCompleted()
+    audio.playEffect(GAME_SFX.levelCompleted)
+
+    local dialog = display.newSprite("#LevelCompletedDialogBg.png")
+    dialog:setPosition(display.cx, display.top + dialog:getContentSize().height / 2 + 40)
+    self:addChild(dialog)
+
+    transition.moveTo(dialog, {time = 0.7, y = display.top - dialog:getContentSize().height / 2 - 40, easing = "BOUNCEOUT"})
 end
 
 function PlayLevelScene:onEnter()
-    -- avoid unmeant back
-    self:performWithDelay(function()
-        self.layer:setKeypadEnabled(true)
-    end, 0.5)
 end
 
 return PlayLevelScene

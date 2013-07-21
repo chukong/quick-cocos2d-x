@@ -18,23 +18,10 @@ function ChooseLevelScene:ctor()
     -- create levels list
     local rect = CCRect(display.left, display.bottom + 180, display.width, display.height - 280)
     self.levelsList = require("views.LevelsList").new(rect)
-    self.levelsList:addEventListener("onTapLevelIcon", function(event)
-        return self:onTapLevelIcon(event)
-    end)
+    self.levelsList:addEventListener("onTapLevelIcon", handler(self, self.onTapLevelIcon))
     self:addChild(self.levelsList)
 
     -- create menu
-    local unlockAllButton = ui.newImageMenuItem({
-        image = "#UnlockAllButton.png",
-        imageSelected = "#UnlockAllButtonSelected.png",
-        x = display.left + 140,
-        y = display.bottom + 120,
-        sound = GAME_SFX.tapButton,
-        listener = function()
-            print("UNLOCK ALL")
-        end,
-    })
-
     local backButton = ui.newImageMenuItem({
         image = "#BackButton.png",
         imageSelected = "#BackButtonSelected.png",
@@ -42,24 +29,12 @@ function ChooseLevelScene:ctor()
         y = display.bottom + 120,
         sound = GAME_SFX.backButton,
         listener = function()
-            self.layer:setKeypadEnabled(false)
-            self:backToMenuScene()
+            game.enterMenuScene()
         end,
     })
 
-    local menu = ui.newMenu({unlockAllButton, backButton})
+    local menu = ui.newMenu({backButton})
     self:addChild(menu)
-
-    -- keypad layer, for android
-    self.layer = display.newLayer()
-    self.layer:addKeypadEventListener(function(event)
-        if event == "back" then
-            audio.playSound(GAME_SFX.backButton)
-            self.layer:setKeypadEnabled(false)
-            self:backToMenuScene()
-        end
-    end)
-    self:addChild(self.layer)
 end
 
 function ChooseLevelScene:onTapLevelIcon(event)
@@ -67,17 +42,8 @@ function ChooseLevelScene:onTapLevelIcon(event)
     game.playLevel(event.levelIndex)
 end
 
-function ChooseLevelScene:backToMenuScene()
-    game.enterMenuScene()
-end
-
 function ChooseLevelScene:onEnter()
     self.levelsList:setTouchEnabled(true)
-
-    -- avoid unmeant back
-    self:performWithDelay(function()
-        self.layer:setKeypadEnabled(true)
-    end, 0.5)
 end
 
 return ChooseLevelScene
