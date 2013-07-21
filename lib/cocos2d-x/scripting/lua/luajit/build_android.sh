@@ -2,10 +2,10 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 host_os=`uname -s | tr "[:upper:]" "[:lower:]"`
 
-SRCDIR=$DIR/LuaJit-2.0.1
+SRCDIR=$DIR/LuaJit-2.0.2
 cd "$SRCDIR"
 
-NDK=$NDK_ROOT
+NDK=$ANDROID_NDK_ROOT
 NDKABI=8
 NDKVER=$NDK/toolchains/arm-linux-androideabi-4.6
 NDKP=$NDKVER/prebuilt/${host_os}-x86/bin/arm-linux-androideabi-
