@@ -92,13 +92,13 @@ public class Cocos2dxBitmap {
 	public static void createTextBitmap(String pString, final String pFontName,
 			final int pFontSize, final int pAlignment, final int pWidth,
 			final int pHeight) {
-		
+
 		//
 		createTextBitmapShadowStroke( pString, pFontName, pFontSize, 1.0f, 1.0f, 1.0f,   	// text font and color
 									  pAlignment, pWidth, pHeight,							// alignment and size
 									  false, 0.0f, 0.0f, 0.0f,								// no shadow
 									  false, 1.0f, 1.0f, 1.0f, 1.0f);						// no stroke
-									 
+
 	}
 
 	public static void createTextBitmapShadowStroke(String pString,  final String pFontName, final int pFontSize,
@@ -107,87 +107,87 @@ public class Cocos2dxBitmap {
 													final float shadowDX, final float shadowDY, final float shadowBlur, final boolean stroke,
 													final float strokeR, final float strokeG, final float strokeB, final float strokeSize) {
 
-		
+
 		final int horizontalAlignment = pAlignment & 0x0F;
 		final int verticalAlignment   = (pAlignment >> 4) & 0x0F;
 
 		pString = Cocos2dxBitmap.refactorString(pString);
 		final Paint paint = Cocos2dxBitmap.newPaint(pFontName, pFontSize, horizontalAlignment);
-		
+
 		// set the paint color
 		paint.setARGB(255, (int)(255.0 * fontTintR), (int)(255.0 * fontTintG), (int)(255.0 * fontTintB));
 
 		final TextProperty textProperty = Cocos2dxBitmap.computeTextProperty(pString, pWidth, pHeight, paint);
 		final int bitmapTotalHeight = (pHeight == 0 ? textProperty.mTotalHeight: pHeight);
-		
+
 		// padding needed when using shadows (not used otherwise)
 		float bitmapPaddingX   = 0.0f;
 		float bitmapPaddingY   = 0.0f;
 		float renderTextDeltaX = 0.0f;
 		float renderTextDeltaY = 0.0f;
-		
+
 		if ( shadow ) {
 
 			int shadowColor = 0xff7d7d7d;
 			paint.setShadowLayer(shadowBlur, shadowDX, shadowDY, shadowColor);
-	
+
 			bitmapPaddingX = Math.abs(shadowDX);
 			bitmapPaddingY = Math.abs(shadowDY);
-					
+
 			if ( shadowDX < 0.0 )
 			{
 				renderTextDeltaX = bitmapPaddingX;
 			}
-			
+
 			if ( shadowDY < 0.0 )
 			{
 				renderTextDeltaY = 	bitmapPaddingY;
 			}
 		}
-		
+
 		final Bitmap bitmap = Bitmap.createBitmap(textProperty.mMaxWidth + (int)bitmapPaddingX,
 				bitmapTotalHeight + (int)bitmapPaddingY, Bitmap.Config.ARGB_8888);
-		
+
 		final Canvas canvas = new Canvas(bitmap);
 
 		/* Draw string. */
 		final FontMetricsInt fontMetricsInt = paint.getFontMetricsInt();
-		
+
 		int x = 0;
 		int y = Cocos2dxBitmap.computeY(fontMetricsInt, pHeight, textProperty.mTotalHeight, verticalAlignment);
-		
+
 		final String[] lines = textProperty.mLines;
-		
+
 		for (final String line : lines) {
-			
+
 			x = Cocos2dxBitmap.computeX(line, textProperty.mMaxWidth, horizontalAlignment);
 			canvas.drawText(line, x + renderTextDeltaX, y + renderTextDeltaY, paint);
 			y += textProperty.mHeightPerLine;
-			
+
 		}
-		 
-		// draw again with stroke on if needed 
+
+		// draw again with stroke on if needed
 		if ( stroke ) {
-			
+
 			final Paint paintStroke = Cocos2dxBitmap.newPaint(pFontName, pFontSize, horizontalAlignment);
 			paintStroke.setStyle(Paint.Style.STROKE);
 			paintStroke.setStrokeWidth(strokeSize * 0.5f);
 			paintStroke.setARGB(255, (int)strokeR * 255, (int)strokeG * 255, (int)strokeB * 255);
-			
+
 			x = 0;
 			y = Cocos2dxBitmap.computeY(fontMetricsInt, pHeight, textProperty.mTotalHeight, verticalAlignment);
 			final String[] lines2 = textProperty.mLines;
-			
+
 			for (final String line : lines2) {
-				
+
 				x = Cocos2dxBitmap.computeX(line, textProperty.mMaxWidth, horizontalAlignment);
 				canvas.drawText(line, x + renderTextDeltaX, y + renderTextDeltaY, paintStroke);
 				y += textProperty.mHeightPerLine;
-				
+
 			}
-			
+
 		}
-		
+
 		Cocos2dxBitmap.initNativeObject(bitmap);
 	}
 
@@ -195,7 +195,7 @@ public class Cocos2dxBitmap {
 			final int pHorizontalAlignment) {
 		final Paint paint = new Paint();
 		paint.setColor(Color.WHITE);
-		paint.setTextSize(pFontSize); 
+		paint.setTextSize(pFontSize);
 		paint.setAntiAlias(true);
 
 		/* Set type face for paint, now it support .ttf file. */
@@ -230,7 +230,7 @@ public class Cocos2dxBitmap {
 
 		return paint;
 	}
-	
+
 	private static TextProperty computeTextProperty(final String pString,
 			final int pWidth, final int pHeight, final Paint pPaint) {
 		final FontMetricsInt fm = pPaint.getFontMetricsInt();
@@ -390,7 +390,7 @@ public class Cocos2dxBitmap {
 				}
 
 				/* Remove spaces at the beginning of a new line. */
-				while (pString.charAt(i) == ' ') {
+				while (i < charLength && pString.charAt(i) == ' ') {
 					++i;
 				}
 
