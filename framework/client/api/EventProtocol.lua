@@ -95,16 +95,16 @@ function EventProtocol.extend(object)
 
     **Syntax:**
 
-        object:removeEventListener(eventName, listener)
-        object:removeEventListener(eventName, handle)
+        -- key is listener function or handle return by addEventListener()
+        object:removeEventListener(eventName, key)
 
     ]]
-    function object:removeEventListener(eventName, listener)
+    function object:removeEventListener(eventName, key)
         eventName = string.upper(eventName)
         if object.listeners[eventName] == nil then return end
 
-        for handle, l in pairs(object.listeners[eventName]) do
-            if l == listener or l == handle then
+        for handle, listener in pairs(object.listeners[eventName]) do
+            if key == listener or key == handle then
                 object.listeners[eventName][handle] = nil
                 break
             end
