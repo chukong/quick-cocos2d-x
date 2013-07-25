@@ -32,15 +32,15 @@ Bootstrap for client.
 
 Module | Descripton
 ------ | ----------
-[framework.device](framework.device) | Query information about the system
-[framework.transition](framework.transition) | Actions, Transformations and Effects
-[framework.display](framework.display) | Create scene, layer, sprite
-[framework.audio](framework.audio) | Play music, sound effect
-[framework.ui](framework.ui) | Create menu, label, widgets
-[framework.network](framework.network) | ...
-[framework.luaoc](framework.luaoc) | Call Objective-C from Lua, iOS platform only
-[framework.luaj](framework.luaj) | Call Java from Lua, Android platform only
-[framework.crypto](framework.crypto) | Crypto
+@see framework.device | Query information about the system
+@see framework.transition | Actions, Transformations and Effects
+@see framework.display | Create scene, layer, sprite
+@see framework.audio | Play music, sound effect
+@see framework.ui | Create menu, label, widgets
+@see framework.network | ...
+@see framework.luaoc | Call Objective-C from Lua, iOS platform only
+@see framework.luaj | Call Java from Lua, Android platform only
+@see framework.crypto | Crypto
 
 <br />
 
@@ -85,12 +85,10 @@ elseif device.platform == "ios" then
     luaoc = require(__FRAMEWORK_PACKAGE_NAME__ .. ".luaoc")
 end
 
---[[--
-
-@ignore
-
-]]
 local timeCount = 0
+--[[--
+@ignore
+]]
 local function showMemoryUsage(dt)
     timeCount = timeCount + dt
     echoInfo(string.format("MEMORY USED: %0.2f KB, UPTIME: %04.2fs", collectgarbage("count"), timeCount))

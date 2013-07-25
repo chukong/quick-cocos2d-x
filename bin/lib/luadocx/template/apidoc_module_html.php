@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title><?php echo htmlspecialchars($title ? sprintf('%s - %s', $title, $moduleName) : $moduleName); ?></title>
-<link rel="stylesheet" href="../template/luadocx-style.css" type="text/css" />
-<link rel="stylesheet" href="../template/luadocx-style-monokai.css" type="text/css" />
-<script src="../template/luadocx-highlight.min.js"></script>
+<title><?php echo htmlspecialchars($config->title ? sprintf('%s - %s', $config->title, $moduleName) : $moduleName); ?></title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
 <script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
@@ -23,12 +23,12 @@
           <h2>Modules</h2>
           <ul>
 <?php
-foreach ($modules as $module):
-if ($module['moduleName'] == $moduleName):
+foreach ($modules as $linkModule):
+if ($linkModule['moduleName'] == $moduleName):
 ?>
-            <li><strong><?php echo htmlspecialchars($module['moduleName']); ?></strong></li>
+            <li><strong><?php echo htmlspecialchars($config->packageName . $linkModule['moduleName']); ?></strong></li>
 <?php else: ?>
-            <li><a href="<?php echo $module['outputFilename']; ?>"><?php echo htmlspecialchars($module['moduleName']); ?></a></li>
+            <li><a href="<?php echo $linkModule['outputFilename']; ?>"><?php echo htmlspecialchars($config->packageName . $linkModule['moduleName']); ?></a></li>
 <?php
 endif;
 endforeach;
@@ -46,10 +46,10 @@ endforeach;
           <div id="module_doc">
 
 <?php
-foreach ($moduleDocs as $offset => $moduleDoc)
+foreach ($module['tags']['moduleDocs'] as $offset => $moduleDoc)
 {
-  $doc = makeCrossReferences(Markdown($moduleDoc), $modules) . "\n<br />\n\n";
-  echo $doc;
+  echo markdown($moduleDoc);
+  echo "\n<br />\n\n";
 }
 ?>
 
@@ -120,8 +120,7 @@ foreach ($functions as $offset => $function):
             <dd class="<?php echo $class; ?>">
 
 <?php
-$doc = makeCrossReferences(Markdown($function['doc']), $modules);
-echo $doc;
+echo markdown($function['doc']);
 ?>
 
             </dd>

@@ -16,7 +16,8 @@ class DirScanner
         $this->srcFilesDir = $params['srcFilesDir'];
         $this->destDir = $params['destDir'];
         $this->title = $config->title;
-        $this->packageName = $config->packageName;
+        $this->packageName = rtrim($config->packageName, '.');
+        if (!empty($this->packageName)) $this->packageName .= '.';
         $this->excludes = $config->excludes;
     }
 
@@ -33,7 +34,7 @@ class DirScanner
             $moduleName = str_replace(DS, '.', $filename);
             if (!empty($this->packageName))
             {
-                $moduleName = $this->packageName . '.' . $moduleName;
+                $moduleName = $this->packageName . $moduleName;
             }
 
             $skip = false;

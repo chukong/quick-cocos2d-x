@@ -38,18 +38,32 @@ $params = array(
     'command' => '',
     'configFilePath' => '',
     'srcFilesDir' => '',
-    'destDir' => ''
+    'destDir' => '',
+    'generateType' => '',
 );
 while ($arg = array_shift($argv))
 {
-    if (empty($params['command']))
-    {
-        $params['command'] = $arg;
-        continue;
-    }
     if ($arg == '-c')
     {
         $params['configFilePath'] = array_shift($argv);
+        continue;
+    }
+    if ($arg == '-t')
+    {
+        $params['generateType'] = array_shift($argv);
+        continue;
+    }
+
+    if ($arg[0] == '-')
+    {
+        printf("\nERROR: invalid option %s\n", $arg);
+        help();
+        return 1;
+    }
+
+    if (empty($params['command']))
+    {
+        $params['command'] = $arg;
         continue;
     }
     if (empty($params['srcFilesDir']))
@@ -120,7 +134,25 @@ if ($params['command'] == 'extract')
     $scanner = new DirScanner($config, $params);
     $modules = $scanner->execute();
 
-    require_once(__DIR__ . '/inc/APIDocumentsGenerator.php');
-    $generator = new APIDocumentsGenerator($config, $modules);
+    require_once(__DIR__ . '/inc/MarkdownGenerator.php');
+    $generator = new MarkdownGenerator($config, $modules);
     $generator->execute($params['destDir']);
+
+    $contents = json_encode($modules);
+    file_put_contents($params['destDir'] . DS . 'modules.json', $contents);
+}
+else if ($params['command'] == 'generate')
+{
+    if ($params['generateType'] != 'html' && $params['generateType'] != 'localhtml')
+    {
+        printf("\nERROR: invalid generate type %s\n", $params['generateType']);
+        help();
+        return 1;
+    }
+
+    $modules = json_decode(file_get_contents($params['srcFilesDir'] . DS . 'modules.json'), true);
+
+    require_once(__DIR__ . '/inc/LocalHTMLGenerator.php');
+    $generator = new LocalHTMLGenerator($config, $modules);
+    $generator->execute($params['srcFilesDir'], $params['destDir']);
 }
