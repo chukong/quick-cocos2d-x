@@ -13,7 +13,6 @@ CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
 CCLuaLoadChunksFromZip("framework_precompiled.zip")
 require("framework.init")
-require("framework.client.init")
 
 -- musics
 MUSIC = {

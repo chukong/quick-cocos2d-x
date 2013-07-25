@@ -1,7 +1,7 @@
 
 local Levels = require("data.Levels")
 local Coin   = require("views.Coin")
-local EventProtocol = require("framework.client.api.EventProtocol")
+local EventProtocol = require("framework.api.EventProtocol")
 
 local Board = class("Board", function()
     return display.newLayer()

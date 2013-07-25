@@ -1,10 +1,17 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DEST_DIR="$DIR/../doc/api"
-if [ -d "$DEST_DIR" ]; then
-    rm -fr "$DEST_DIR/*"
-fi
-mkdir -p "$DEST_DIR"
+LUADOCX="$DIR/lib/luadocx/luadocx.php"
+ROOT_DIR="`dirname $DIR`"
+SOURCE_DIR="$ROOT_DIR/framework"
+CONFIG_PATH="$ROOT_DIR/doc/apidoc_config.json"
+TEMP_DIR="$ROOT_DIR/tmp/apidoc"
 
-cd "$DIR/../"
-php "$DIR/lib/luadocx/luadocx.php" -t "quick-cocos2d-x API Documents" -r framework -i framework.init -x framework.client.cocos2dx,framework.server.resty,framework.shared.json framework/ "$DEST_DIR"
+if [ ! -d $TEMP_DIR ]; then
+    mkdir -p $TEMP_DIR
+fi
+
+if [ -f $TEMP_DIR/* ]; then
+    rm -fr $TEMP_DIR/*
+fi
+
+php "$LUADOCX" extract -c "$CONFIG_PATH" "$SOURCE_DIR" "$TEMP_DIR"
