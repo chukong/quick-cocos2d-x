@@ -365,7 +365,7 @@ void CCPhysicsWorld::step(float dt)
 
 void CCPhysicsWorld::update(float dt)
 {
-    step(m_stepInterval);
+    step(dt);
 }
 
 void CCPhysicsWorld::onExit(void)
