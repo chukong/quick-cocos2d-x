@@ -21,7 +21,7 @@
 	<key>guides</key>
 	<array/>
 	<key>jsControlled</key>
-	<false/>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
@@ -512,8 +512,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>0.0</real>
-							<real>0.0</real>
+							<real>1</real>
+							<real>-2</real>
 							<integer>1</integer>
 						</array>
 					</dict>
@@ -777,6 +777,8 @@
 		<string>TestButtonsLayer</string>
 		<key>displayName</key>
 		<string>TestButtons</string>
+		<key>jsController</key>
+		<string>TestButtonsLayer</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>

@@ -21,7 +21,7 @@
 	<key>guides</key>
 	<array/>
 	<key>jsControlled</key>
-	<false/>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>animatedProperties</key>
@@ -3996,6 +3996,8 @@
 		</array>
 		<key>displayName</key>
 		<string>HelloCocosBuilder</string>
+		<key>jsController</key>
+		<string>HelloCocosBuilderLayer</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
@@ -4067,6 +4069,8 @@
 				<true/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array>
