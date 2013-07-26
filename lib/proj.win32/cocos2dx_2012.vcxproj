@@ -106,6 +106,7 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\shaders\ccShaders.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCAnimation.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCAnimationCache.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCGraySprite.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCSprite.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCSpriteBatchNode.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCSpriteFrame.cpp" />
@@ -374,6 +375,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\shaders\ccShader_Position_uColor_vert.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCAnimation.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCAnimationCache.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCGraySprite.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCSprite.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCSpriteBatchNode.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\sprite_nodes\CCSpriteFrame.h" />
