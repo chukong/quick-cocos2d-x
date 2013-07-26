@@ -62,6 +62,7 @@ $pfile "cocos2dx/sprite_nodes/CCSprite.tolua"
 $pfile "cocos2dx/sprite_nodes/CCSpriteBatchNode.tolua"
 $pfile "cocos2dx/sprite_nodes/CCAnimation.tolua"
 $pfile "cocos2dx/sprite_nodes/CCAnimationCache.tolua"
+$pfile "cocos2dx/sprite_nodes/CCGraySprite.tolua"
 
 $pfile "cocos2dx/particle_nodes/CCParticleBatchNode.tolua"
 $pfile "cocos2dx/particle_nodes/CCParticleSystem.tolua"

@@ -23,6 +23,7 @@
 		F42B55F41727F1C7000379DE /* udp.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55DF1727F1C7000379DE /* udp.c */; };
 		F42B55F51727F1C7000379DE /* unix.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55E11727F1C7000379DE /* unix.c */; };
 		F42B55F61727F1C7000379DE /* usocket.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55E31727F1C7000379DE /* usocket.c */; };
+		F42F313817A26BED00A20E45 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42F313617A26BEC00A20E45 /* CCGraySprite.cpp */; };
 		F43A2B1D1737C3F2000244FC /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F43A2B1B1737C3F2000244FC /* xxtea.c */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
@@ -352,6 +353,8 @@
 		F42B55E21727F1C7000379DE /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
 		F42B55E31727F1C7000379DE /* usocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = usocket.c; sourceTree = "<group>"; };
 		F42B55E41727F1C7000379DE /* usocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usocket.h; sourceTree = "<group>"; };
+		F42F313617A26BEC00A20E45 /* CCGraySprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGraySprite.cpp; sourceTree = "<group>"; };
+		F42F313717A26BED00A20E45 /* CCGraySprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGraySprite.h; sourceTree = "<group>"; };
 		F43A2B1B1737C3F2000244FC /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		F43A2B1C1737C3F2000244FC /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
@@ -2151,6 +2154,8 @@
 				F4E87FEA1770071600577406 /* CCAnimation.h */,
 				F4E87FEB1770071600577406 /* CCAnimationCache.cpp */,
 				F4E87FEC1770071600577406 /* CCAnimationCache.h */,
+				F42F313617A26BEC00A20E45 /* CCGraySprite.cpp */,
+				F42F313717A26BED00A20E45 /* CCGraySprite.h */,
 				F4E87FED1770071600577406 /* CCSprite.cpp */,
 				F4E87FEE1770071600577406 /* CCSprite.h */,
 				F4E87FEF1770071600577406 /* CCSpriteBatchNode.cpp */,
@@ -2848,6 +2853,7 @@
 				F4E8818117700E8A00577406 /* CCTableViewCell.cpp in Sources */,
 				F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */,
 				F4B2D8C7179A3E3E005DEAE1 /* lfs.c in Sources */,
+				F42F313817A26BED00A20E45 /* CCGraySprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

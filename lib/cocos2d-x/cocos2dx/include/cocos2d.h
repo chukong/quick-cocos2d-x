@@ -235,6 +235,7 @@ THE SOFTWARE.
 #include "sprite_nodes/CCSpriteBatchNode.h"
 #include "sprite_nodes/CCSpriteFrame.h"
 #include "sprite_nodes/CCSpriteFrameCache.h"
+#include "sprite_nodes/CCGraySprite.h"
 
 // support
 #include "support/ccUTF8.h"

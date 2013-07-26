@@ -1,0 +1,5 @@
+
+class CCGraySprite: public CCSprite
+{
+    static CCGraySprite* create(const char *filename);
+};
