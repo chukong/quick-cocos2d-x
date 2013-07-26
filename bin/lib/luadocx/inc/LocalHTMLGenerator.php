@@ -9,13 +9,25 @@ class LocalHTMLGenerator extends GeneratorBase
     {
         $templateDir = dirname(__DIR__) . DS . 'template' . DS;
         $templatePath = $templateDir . 'apidoc_module_html.php';
-        $indexFilename = $this->getModulePath($destDir, 'index', '.html');
 
         $config = $this->config;
         $modules = $this->modules;
+        $indexFilename = '';
         foreach ($modules as $key => $module)
         {
-            $module['outputFilename'] = $this->getModulePath($destDir, $module['moduleName'], '.html');
+            if ($module['moduleName'] == $this->config->indexModule)
+            {
+                $module['outputFilename'] = $this->getModulePath($destDir, 'index', '.html');
+                $indexFilename = $module['outputFilename'];
+            }
+            else
+            {
+                $module['outputFilename'] = $this->getModulePath($destDir, $module['moduleName'], '.html');
+                if (empty($indexFilename))
+                {
+                    $indexFilename = $module['outputFilename'];
+                }
+            }
             $modules[$key] = $module;
         }
 

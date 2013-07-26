@@ -1,5 +1,6 @@
 {
     "title": "quick-cocos2d-x API Documents",
     "packageName": "",
+    "indexModule": "init",
     "excludes": ""
 }

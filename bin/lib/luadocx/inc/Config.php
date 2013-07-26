@@ -4,6 +4,7 @@ class Config
 {
     public $title;
     public $packageName;
+    public $indexModule;
     public $excludes;
 
     public function __construct($configFilePath)
@@ -16,6 +17,7 @@ class Config
             {
                 $this->title = !empty($config['title']) ? $config['title'] : '';
                 $this->packageName = !empty($config['packageName']) ? $config['packageName'] : '';
+                $this->indexModule = !empty($config['indexModule']) ? $config['indexModule'] : '';
                 $excludes = !empty($config['excludes']) ? $config['excludes'] : '';
                 $excludes = explode(',', $excludes);
                 foreach ($excludes as $key => $value)
