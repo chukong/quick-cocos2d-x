@@ -129,7 +129,7 @@ elseif CONFIG_SCREEN_AUTOSCALE then
             CONFIG_SCREEN_WIDTH = w / scale
         end
     else
-        echoError(format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
+        echoError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
 
     glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
@@ -153,24 +153,24 @@ display.bottom             = 0
 display.widthInPixels      = display.sizeInPixels.width
 display.heightInPixels     = display.sizeInPixels.height
 
-echoInfo(format("# CONFIG_SCREEN_AUTOSCALE      = %s", CONFIG_SCREEN_AUTOSCALE))
-echoInfo(format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
-echoInfo(format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
-echoInfo(format("# display.widthInPixels        = %0.2f", display.widthInPixels))
-echoInfo(format("# display.heightInPixels       = %0.2f", display.heightInPixels))
-echoInfo(format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
-echoInfo(format("# display.width                = %0.2f", display.width))
-echoInfo(format("# display.height               = %0.2f", display.height))
-echoInfo(format("# display.cx                   = %0.2f", display.cx))
-echoInfo(format("# display.cy                   = %0.2f", display.cy))
-echoInfo(format("# display.left                 = %0.2f", display.left))
-echoInfo(format("# display.right                = %0.2f", display.right))
-echoInfo(format("# display.top                  = %0.2f", display.top))
-echoInfo(format("# display.bottom               = %0.2f", display.bottom))
-echoInfo(format("# display.c_left               = %0.2f", display.c_left))
-echoInfo(format("# display.c_right              = %0.2f", display.c_right))
-echoInfo(format("# display.c_top                = %0.2f", display.c_top))
-echoInfo(format("# display.c_bottom             = %0.2f", display.c_bottom))
+echoInfo(string.format("# CONFIG_SCREEN_AUTOSCALE      = %s", CONFIG_SCREEN_AUTOSCALE))
+echoInfo(string.format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
+echoInfo(string.format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
+echoInfo(string.format("# display.widthInPixels        = %0.2f", display.widthInPixels))
+echoInfo(string.format("# display.heightInPixels       = %0.2f", display.heightInPixels))
+echoInfo(string.format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
+echoInfo(string.format("# display.width                = %0.2f", display.width))
+echoInfo(string.format("# display.height               = %0.2f", display.height))
+echoInfo(string.format("# display.cx                   = %0.2f", display.cx))
+echoInfo(string.format("# display.cy                   = %0.2f", display.cy))
+echoInfo(string.format("# display.left                 = %0.2f", display.left))
+echoInfo(string.format("# display.right                = %0.2f", display.right))
+echoInfo(string.format("# display.top                  = %0.2f", display.top))
+echoInfo(string.format("# display.bottom               = %0.2f", display.bottom))
+echoInfo(string.format("# display.c_left               = %0.2f", display.c_left))
+echoInfo(string.format("# display.c_right              = %0.2f", display.c_right))
+echoInfo(string.format("# display.c_top                = %0.2f", display.c_top))
+echoInfo(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
 echoInfo("#")
 
 display.COLOR_WHITE = ccc3(255, 255, 255)
