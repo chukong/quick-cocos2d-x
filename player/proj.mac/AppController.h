@@ -24,6 +24,7 @@
 
 #import "EAGLView.h"
 #import "NSApplication+SheetAdditions.h"
+#import "ConsoleWindowController.h"
 
 #include <string>
 #include "SimulatorConfig.h"
@@ -48,6 +49,13 @@ class AppControllerBridge;
     int debugLogFile;
 
     AppControllerBridge *bridge;
+    
+    //log file
+    ConsoleWindowController *consoleController;
+    NSFileHandle *fileHandle;
+    //console pipe
+    NSPipe *pipe;
+    NSFileHandle *pipeReadHandle;
 }
 
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
