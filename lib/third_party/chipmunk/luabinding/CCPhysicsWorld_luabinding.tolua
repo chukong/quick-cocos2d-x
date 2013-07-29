@@ -100,8 +100,12 @@ class CCPhysicsBody : public CCObject
     void applyImpulse(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
 
     void getPosition(float *x = 0, float *y = 0);
+    float getPositionX(void);
+    float getPositionY(void);
     void setPosition(float x, float y);
     void setPosition(const CCPoint &pos);
+    void setPositionX(float x);
+    void setPositionY(float y);
 
     float getAngle(void);
     void setAngle(float angle);

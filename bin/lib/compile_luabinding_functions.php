@@ -163,7 +163,6 @@ class Builder
         $this->outputSourcePath_    = $this->outputDir_ . $this->outputFilename_ . '.cpp';
         $this->outputHeaderPath_    = $this->outputDir_ . $this->outputFilename_ . '.h';
         $this->macros_              = $parameters['macros'];
-        $this->password_            = $parameters['password'];
         $this->luaopenFunctionName_ = str_replace('-', '_', sprintf('luaopen_%s', $parameters['output_filename']));
     }
 

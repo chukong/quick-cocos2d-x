@@ -76,10 +76,14 @@ public:
     
     CCPoint getPosition(void);
     void getPosition(float *x, float *y);
+    float getPositionX(void);
+    float getPositionY(void);
     void setPosition(const CCPoint &pos);
     void setPosition(CCPhysicsVector *pos);
     void setPosition(float x, float y);
-    
+    void setPositionX(float x);
+    void setPositionY(float y);
+
     float getAngle(void);
     void setAngle(float angle);
     
