@@ -75,8 +75,8 @@ using namespace cocos2d::extra;
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
     [self updateProjectConfigFromCommandLineArgs];
-    [self createWindowAndGLView];
     [self openConsoleWindow];
+    [self createWindowAndGLView];
     [self startup];
     [self updateOpenRect];
     [self initUI];
@@ -105,10 +105,12 @@ using namespace cocos2d::extra;
 
 - (void) openConsoleWindow
 {
-    if(nil == consoleController){
+    if(!consoleController)
+    {
         consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
     }
     [consoleController showWindow:self];
+
     //set console pipe
     pipe = [NSPipe pipe] ;
     pipeReadHandle = [pipe fileHandleForReading] ;
@@ -118,8 +120,9 @@ using namespace cocos2d::extra;
     {
         perror("Unable to redirect output");
         [self showAlert:@"Unable to redirect output to console!" withTitle:@"quick-x-player error"];
-    }else{
-        
+    }
+    else
+    {
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleNotification:) name: NSFileHandleReadCompletionNotification object: pipeReadHandle] ;
         [pipeReadHandle readInBackgroundAndNotify] ;
     }

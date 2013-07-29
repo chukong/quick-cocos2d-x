@@ -1,10 +1,3 @@
-//
-//  ConsoleWindowController.h
-//  quick-x-player
-//
-//  Created by fireyang on 13-7-5.
-//  Copyright (c) 2013年 qeeplay.com. All rights reserved.
-//
 
 #import <Cocoa/Cocoa.h>
 
