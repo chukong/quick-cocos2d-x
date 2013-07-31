@@ -34,7 +34,8 @@ Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/playe
 1.  Select menu: File -> Open
 2.  Set Project Directory to **quick-cocos2d-x/sample/coinflip**
 3.  Set Script File to **scripts/main.lua**
-4.  Click "Open Project" button.
+4.  Set Screen Direction to **Portrait**
+5.  Click "Open Project" button.
 
 <br />
 
