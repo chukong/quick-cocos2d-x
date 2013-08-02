@@ -165,7 +165,9 @@ Supported platform: ios, android, mac.
 
 ]]
 function device.showAlert(title, message, buttonLabels, listener)
-    buttonLabels = totable(buttonLabels)
+    if type(buttonLabels) ~= "table" then
+        buttonLabels = {tostring(buttonLabels)}
+    end
     local defaultLabel = ""
     if #buttonLabels > 0 then
         defaultLabel = buttonLabels[1]
