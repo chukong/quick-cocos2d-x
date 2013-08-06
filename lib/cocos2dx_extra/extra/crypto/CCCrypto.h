@@ -20,29 +20,43 @@ public:
     static int getAES256KeyLength(void);
     
     /** @brief Encrypt data with AES256 algorithm, return ciphertext length */
-    static int encryptAES256(const void* plaintext,
+    static int encryptAES256(unsigned char* plaintext,
                              int plaintextLength,
-                             void* ciphertext,
+                             unsigned char* ciphertext,
                              int ciphertextBufferLength,
-                             const void* key,
+                             unsigned char* key,
                              int keyLength)
     {
         return cryptAES256(false, plaintext, plaintextLength, ciphertext, ciphertextBufferLength, key, keyLength);
     }
     
     /** @brief Decrypt data with AES256 algorithm, return plaintext length */
-    static int decryptAES256(const void* ciphertext,
+    static int decryptAES256(unsigned char* ciphertext,
                              int ciphertextLength,
-                             void* plaintext,
+                             unsigned char* plaintext,
                              int plaintextBufferLength,
-                             const void* key,
+                             unsigned char* key,
                              int keyLength)
     {
         return cryptAES256(true, ciphertext, ciphertextLength, plaintext, plaintextBufferLength, key, keyLength);
     }
     
+    /** @brief Encrypt data with XXTEA algorithm, return ciphertext, free ciphertext after used */
+    static unsigned char* encryptXXTEA(unsigned char* plaintext,
+                                       int plaintextLength,
+                                       unsigned char* key,
+                                       int keyLength,
+                                       int* resultLength);
+    
+    /** @brief Decrypt data with XXTEA algorithm, return plaintext, free plaintext after used */
+    static unsigned char* decryptXXTEA(unsigned char* ciphertext,
+                                       int ciphertextLength,
+                                       unsigned char* key,
+                                       int keyLength,
+                                       int* resultLength);
+    
     /** @brief Encoding data with Base64 algorithm, return encoded string length */
-    static int encodeBase64(const void* input, int inputLength,
+    static int encodeBase64(unsigned char* input, int inputLength,
                             char* output, int outputBufferLength);
     
     
@@ -82,6 +96,18 @@ public:
         return cryptAES256Lua(true, ciphertext, ciphertextLength, key, keyLength);
     }
     
+    /** @brief Encrypt data with XXTEA algorithm, return ciphertext string and length, return nil if failed */
+    static LUA_STRING encryptXXTEALua(const char* plaintext,
+                                      int plaintextLength,
+                                      const char* key,
+                                      int keyLength);
+    
+    /** @brief Decrypt data with XXTEA algorithm, return plaintext string and length, return nil if failed */
+    static LUA_STRING decryptXXTEALua(const char* ciphertext,
+                                      int ciphertextLength,
+                                      const char* key,
+                                      int keyLength);
+    
     /** @brief Encoding data with Base64 algorithm, return encoded string */
     static LUA_STRING encodeBase64Lua(const char* input, int inputLength)
     {
@@ -109,18 +135,18 @@ private:
     CCCrypto(void) {}
     
     static int cryptAES256(bool isDecrypt,
-                           const void* input,
+                           unsigned char* input,
                            int inputLength,
-                           void* output,
+                           unsigned char* output,
                            int outputBufferLength,
-                           const void* key,
+                           unsigned char* key,
                            int keyLength);
     
 #if CC_LUA_ENGINE_ENABLED > 0
     static LUA_STRING cryptAES256Lua(bool isDecrypt,
-                                     const void* input,
+                                     const char* input,
                                      int inputLength,
-                                     const void* key,
+                                     const char* key,
                                      int keyLength);
     
     static LUA_STRING encodingBase64Lua(bool isDecoding,

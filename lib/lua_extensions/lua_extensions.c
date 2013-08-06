@@ -6,15 +6,18 @@ extern "C" {
 #endif
 
 // cjson
-#include "lua_cjson.h"
+#include "cjson/lua_cjson.h"
 
 // zlib
-#include "lua_zlib.h"
+#include "zlib/lua_zlib.h"
 
 // socket
-#include "luasocket.h"
-#include "mime.h"
-#include "socket_scripts.h"
+#include "socket/luasocket.h"
+#include "socket/mime.h"
+#include "socket/socket_scripts.h"
+
+// filesystem
+#include "filesystem/lfs.h"
 
 // lsqlite3
 #include "lsqlite3.h"
@@ -25,11 +28,10 @@ static luaL_Reg luax_exts[] = {
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},
     {"lsqlite3", luaopen_lsqlite3},
+    {"lfs", luaopen_lfs},
 
     {NULL, NULL}
 };
-
-#include "tolua_fix.h"
 
 void luaopen_lua_extensions(lua_State *L)
 {

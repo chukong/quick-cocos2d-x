@@ -1,0 +1,20 @@
+
+class CCRibbon: public CCNode
+{
+    void setTexture(CCTexture2D* val);
+    CCTexture2D* getTexture();
+
+    void  setTextureLength(float val);
+    float getTextureLength();
+
+    void setBlendFunc(ccBlendFunc val);
+    ccBlendFunc getBlendFunc();
+
+    void setColor(ccColor4B val);
+    ccColor4B getColor();
+
+    void addPointAt(CCPoint location, float width);
+    float sideOfLine(CCPoint p, CCPoint l1, CCPoint l2);
+
+    static CCRibbon * create(float w, const char *path, float length, ccColor4B color, float fade);
+};

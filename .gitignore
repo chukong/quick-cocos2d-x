@@ -8,41 +8,23 @@
 *.vcxproj.user
 *.so
 *.o
+*.log
 
-bin/Debug.win32/
-out/
 project.xcworkspace/
 xcuserdata/
-lib/luajit2/LuaJIT-2.0.0/src/*.lib
-lib/luajit2/LuaJIT-2.0.0/src/*.dll
-lib/luajit2/LuaJIT-2.0.0/src/*.exp
-lib/luajit2/LuaJIT-2.0.0/src/*.exe
-lib/luajit2/LuaJIT-2.0.0/src/*.a
-lib/luajit2/LuaJIT-2.0.0/src/host/buildvm
-lib/luajit2/LuaJIT-2.0.0/src/host/buildvm_arch.h
-lib/luajit2/LuaJIT-2.0.0/src/host/minilua
-lib/luajit2/LuaJIT-2.0.0/src/jit/vmdef.lua
-lib/luajit2/LuaJIT-2.0.0/src/lj_bcdef.h
-lib/luajit2/LuaJIT-2.0.0/src/lj_ffdef.h
-lib/luajit2/LuaJIT-2.0.0/src/lj_folddef.h
-lib/luajit2/LuaJIT-2.0.0/src/lj_libdef.h
-lib/luajit2/LuaJIT-2.0.0/src/lj_recdef.h
-lib/luajit2/LuaJIT-2.0.0/src/lj_vm.s
-lib/luajit2/LuaJIT-2.0.0/src/luajit
 
-samples/CoinFlip/proj.android/bin/
-samples/CoinFlip/proj.android/gen/
-samples/CoinFlip/proj.android/lint.xml
-samples/CoinFlip/proj.android/obj/
-samples/CoinFlip/proj.android/assets/
-samples/CoinFlip/proj.android/libs/
+lib/cocos2d-x/cocos2dx/platform/android/java/bin
+lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
-samples/Benchmark/proj.android/bin/
-samples/Benchmark/proj.android/gen/
-samples/Benchmark/proj.android/lint.xml
-samples/Benchmark/proj.android/obj/
-samples/Benchmark/proj.android/assets/
-samples/Benchmark/proj.android/libs/
+player/proj.win32/Debug/
+lib/proj.win32/Debug/
+lib/cocos2dx_extra/proj.win32/Debug/
+lib/lua_extensions/proj.win32/Debug/
+lib/third_party/proj.win32/Debug/
 
-lib/proj.win32/Debug
-simulator/proj.win32/LuaHostWin32/Debug
+*/*/proj.android/bin/
+*/*/proj.android/gen/
+*/*/proj.android/lint.xml
+*/*/proj.android/obj/
+*/*/proj.android/assets/
+*/*/proj.android/libs/

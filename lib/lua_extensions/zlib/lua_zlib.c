@@ -15,11 +15,18 @@
 
 #endif
 
+typedef uLong (*checksum_t)        (uLong crc, const Bytef *buf, uInt len);
+typedef uLong (*checksum_combine_t)(uLong crc1, uLong crc2, z_off_t len2);
+
 
 static int lz_deflate(lua_State *L);
 static int lz_deflate_delete(lua_State *L);
 static int lz_inflate_delete(lua_State *L);
 static int lz_inflate(lua_State *L);
+static int lz_checksum(lua_State *L);
+static int lz_checksum_new(lua_State *L, checksum_t checksum, checksum_combine_t combine);
+static int lz_adler32(lua_State *L);
+static int lz_crc32(lua_State *L);
 
 static int lz_version(lua_State *L) {
     const char* version = zlibVersion();
@@ -95,7 +102,7 @@ static int lz_filter_impl(lua_State *L, int (*filter)(z_streamp, int), int (*end
     int flush = Z_NO_FLUSH, result;
     z_stream* stream;
     luaL_Buffer buff;
-    size_t avail_in = 0;
+    size_t avail_in;
 
     if ( filter == deflate ) {
         const char *const opts[] = { "none", "sync", "full", "finish", NULL };
@@ -278,9 +285,80 @@ static int lz_inflate_delete(lua_State *L) {
     return 0;
 }
 
+static int lz_checksum(lua_State *L) {
+    if ( lua_gettop(L) <= 0 ) {
+        lua_pushvalue(L, lua_upvalueindex(3));
+        lua_pushvalue(L, lua_upvalueindex(4));
+    } else if ( lua_isfunction(L, 1) ) {
+        checksum_combine_t combine = (checksum_combine_t)
+            lua_touserdata(L, lua_upvalueindex(2));
+
+        lua_pushvalue(L, 1);
+        lua_call(L, 0, 2);
+        if ( ! lua_isnumber(L, -2) || ! lua_isnumber(L, -1) ) {
+            luaL_argerror(L, 1, "expected function to return two numbers");
+        }
+
+        /* Calculate and replace the checksum */
+        lua_pushnumber(L,
+                       combine((uLong)lua_tonumber(L, lua_upvalueindex(3)),
+                               (uLong)lua_tonumber(L, -2),
+                               (z_off_t)lua_tonumber(L, -1)));
+        lua_pushvalue(L, -1);
+        lua_replace(L, lua_upvalueindex(3));
+
+        /* Calculate and replace the length */
+        lua_pushnumber(L,
+                       lua_tonumber(L, lua_upvalueindex(4)) + lua_tonumber(L, -2));
+        lua_pushvalue(L, -1);
+        lua_replace(L, lua_upvalueindex(4));
+    } else {
+        const Bytef* str;
+        size_t       len;
+
+        checksum_t checksum = (checksum_t)
+            lua_touserdata(L, lua_upvalueindex(1));
+        str = (const Bytef*)luaL_checklstring(L, 1, &len);
+ 
+        /* Calculate and replace the checksum */
+        lua_pushnumber(L,
+                       checksum((uLong)lua_tonumber(L, lua_upvalueindex(3)),
+                                str,
+                                len));
+        lua_pushvalue(L, -1);
+        lua_replace(L, lua_upvalueindex(3));
+        
+        /* Calculate and replace the length */
+        lua_pushnumber(L,
+                       lua_tonumber(L, lua_upvalueindex(4)) + len);
+        lua_pushvalue(L, -1);
+        lua_replace(L, lua_upvalueindex(4));
+    }
+    return 2;
+}
+
+static int lz_checksum_new(lua_State *L, checksum_t checksum, checksum_combine_t combine) {
+    lua_pushlightuserdata(L, checksum);
+    lua_pushlightuserdata(L, combine);
+    lua_pushnumber(L, checksum(0L, Z_NULL, 0));
+    lua_pushnumber(L, 0);
+    lua_pushcclosure(L, lz_checksum, 4);
+    return 1;
+}
+
+static int lz_adler32(lua_State *L) {
+    return lz_checksum_new(L, adler32, adler32_combine);
+}
+
+static int lz_crc32(lua_State *L) {
+    return lz_checksum_new(L, crc32, crc32_combine);
+}
+
 static const luaL_Reg zlib_functions[] = {
     { "deflate", lz_deflate_new },
     { "inflate", lz_inflate_new },
+    { "adler32", lz_adler32     },
+    { "crc32",   lz_crc32       },
     { "version", lz_version     },
     { NULL,      NULL           }
 };
@@ -299,7 +377,7 @@ LUALIB_API int luaopen_zlib(lua_State * const L) {
 
     SETLITERAL("_COPYRIGHT", "Copyright (c) 2009-2010 Brian Maher");
     SETLITERAL("_DESCRIPTION", "Yet another binding to the zlib library");
-    SETLITERAL("_VERSION", "lua-zlib $Id: 513fe3bb9b9e36aac37da68db8a936c4847e7615 $ $Format:%d$");
+    SETLITERAL("_VERSION", "lua-zlib $Id: c9f86792ac86380927af9b2393a874e0a2c3f9e5 $  (HEAD, master)");
 
     /* Expose this to lua so we can do a test: */
     SETINT("_TEST_BUFSIZ", LUAL_BUFFERSIZE);

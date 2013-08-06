@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - framework.client.api.EventProtocol</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="index.html">framework.init</a></li>
+            <li><a href="framework.client.api.context.html">framework.client.api.Context</a></li>
+            <li><strong>framework.client.api.EventProtocol</strong></li>
+            <li><a href="framework.client.api.gamenetwork.html">framework.client.api.GameNetwork</a></li>
+            <li><a href="framework.client.api.gamestate.html">framework.client.api.GameState</a></li>
+            <li><a href="framework.client.api.localize.html">framework.client.api.Localize</a></li>
+            <li><a href="framework.client.api.store.html">framework.client.api.Store</a></li>
+            <li><a href="framework.client.api.timer.html">framework.client.api.Timer</a></li>
+            <li><a href="framework.client.api.gamenetwork.openfeint.html">framework.client.api.gamenetwork.OpenFeint</a></li>
+            <li><a href="framework.client.audio.html">framework.client.audio</a></li>
+            <li><a href="framework.client.crypto.html">framework.client.crypto</a></li>
+            <li><a href="framework.client.device.html">framework.client.device</a></li>
+            <li><a href="framework.client.display.html">framework.client.display</a></li>
+            <li><a href="framework.client.init.html">framework.client.init</a></li>
+            <li><a href="framework.client.luaj.html">framework.client.luaj</a></li>
+            <li><a href="framework.client.luaoc.html">framework.client.luaoc</a></li>
+            <li><a href="framework.client.network.html">framework.client.network</a></li>
+            <li><a href="framework.client.scheduler.html">framework.client.scheduler</a></li>
+            <li><a href="framework.client.transition.html">framework.client.transition</a></li>
+            <li><a href="framework.client.ui.html">framework.client.ui</a></li>
+            <li><a href="framework.server.mysqleasy.html">framework.server.MysqlEasy</a></li>
+            <li><a href="framework.server.rediseasy.html">framework.server.RedisEasy</a></li>
+            <li><a href="framework.server.serveraction.html">framework.server.ServerAction</a></li>
+            <li><a href="framework.server.serverapp.html">framework.server.ServerApp</a></li>
+            <li><a href="framework.server.session.html">framework.server.Session</a></li>
+            <li><a href="framework.server.init.html">framework.server.init</a></li>
+            <li><a href="framework.shared.modelbase.html">framework.shared.ModelBase</a></li>
+            <li><a href="framework.shared.debug.html">framework.shared.debug</a></li>
+            <li><a href="framework.shared.errors.html">framework.shared.errors</a></li>
+            <li><a href="framework.shared.functions.html">framework.shared.functions</a></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <h1>Module <code>framework.client.api.EventProtocol</code></h1>
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+<p>Events are the principal way in which you create interactive applications. They are a way of
+triggering responses in your program. For example, you can turn any display object into an
+interactive object.</p>
+
+<br />
+
+
+          </div>
+
+          <!-- END module doc -->
+
+
+          <!--  BEGIN functions index -->
+
+          <h2>Functions</h2>
+          <table class="function_list">
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_EventProtocol_extend">EventProtocol.extend&nbsp;(object)</a></td>
+              <td class="summary">Turn any object into an interactive object.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_object:addEventListener">object:addEventListener&nbsp;(eventName,&nbsp;listener)</a></td>
+              <td class="summary">Adds a listener to the object’s list of listeners. When the named event occurs, the listener will be invoked and be supplied with a table representing the event.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_object:dispatchEvent">object:dispatchEvent&nbsp;(event)</a></td>
+              <td class="summary">Dispatches event to object. The event parameter must be a table with a name property which is a</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_object:removeEventListener">object:removeEventListener&nbsp;(eventName,&nbsp;listener)</a></td>
+              <td class="summary">Removes the specified listener from the object's list of listeners so that it no longer is</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_object:removeAllEventListenersForEvent">object:removeAllEventListenersForEvent&nbsp;(eventName)</a></td>
+              <td class="summary">Removes all listeners for specified event from the object's list of listeners.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_object:removeAllEventListeners">object:removeAllEventListeners&nbsp;()</a></td>
+              <td class="summary">Removes all listeners from the object's list of listeners.</td>
+            </tr>
+
+
+          </table>
+
+          <!--  END functions index -->
+
+          <br />
+          <br />
+
+          <!-- BEGIN functions details -->
+
+          <h2>Functions</h2>
+          <dl class="function">
+
+
+            <dt class="">
+              <a name="anchor_EventProtocol_extend"></a>
+              <h3>EventProtocol.extend (object)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Turn any object into an interactive object.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">framework.client.api.EventProtocol.extend(object)
+</code></pre>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_object:addEventListener"></a>
+              <h3>object:addEventListener (eventName, listener)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>Adds a listener to the object’s list of listeners. When the named event occurs, the listener will be invoked and be supplied with a table representing the event.</p>
+
+<p><strong>Usage:</strong></p>
+
+
+<pre><code class="lua">-- Create an object that listens to events
+local player = Player.new()
+framework.client.api.EventProtocol.extend(player)
+
+-- Setup listener
+local function onPlayerDead(event)
+    -- event.name   == "PLAYER_DEAD"
+    -- event.object == player
+end
+player:addEventListener("PLAYER_DEAD", onPlayerDead)
+
+-- Sometime later, create an event and dispatch it
+player:dispatchEvent({name = "PLAYER_DEAD"})
+</code></pre>
+
+<p>~~</p>
+
+<p>@param eventName
+String specifying the name of the event to listen for.</p>
+
+<p>@tparam function listener
+If the event's event.name matches this string, listener will be invoked.</p>
+
+<p>@return Nothing.</p>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_object:dispatchEvent"></a>
+              <h3>object:dispatchEvent (event)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>Dispatches event to object. The event parameter must be a table with a name property which is a
+string identifying the type of event. Event include a object property to the event so that your listener can know which object
+received the event.</p>
+
+<p><strong>Syntax:</strong></p>
+
+
+<pre><code class="lua">object:dispatchEvent(event)
+</code></pre>
+
+<p><br /></p>
+
+<p>@param event
+contains event properties</p>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_object:removeEventListener"></a>
+              <h3>object:removeEventListener (eventName, listener)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>Removes the specified listener from the object's list of listeners so that it no longer is
+notified of events corresponding to the specified event.</p>
+
+<p><strong>Syntax:</strong></p>
+
+
+<pre><code class="lua">object:removeEventListener(eventName, listener)
+</code></pre>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_object:removeAllEventListenersForEvent"></a>
+              <h3>object:removeAllEventListenersForEvent (eventName)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>Removes all listeners for specified event from the object's list of listeners.</p>
+
+<p><strong>Syntax:</strong></p>
+
+
+<pre><code class="lua">object:removeAllEventListenersForEvent(eventName)
+</code></pre>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_object:removeAllEventListeners"></a>
+              <h3>object:removeAllEventListeners ()</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>Removes all listeners from the object's list of listeners.</p>
+
+<p><strong>Syntax:</strong></p>
+
+
+<pre><code class="lua">object:removeAllEventListeners()
+</code></pre>
+
+            </dd>
+
+
+          </dl>
+
+          <!-- BEGIN functions details -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2013-05-08 09:30:25, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.1</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>

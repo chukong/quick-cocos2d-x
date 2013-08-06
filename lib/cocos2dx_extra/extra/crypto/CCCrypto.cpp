@@ -5,6 +5,7 @@ extern "C" {
 #include "crypto/base64/libb64.h"
 #include "crypto/md5/md5.h"
 #include "crypto/sha1/sha1.h"
+#include "crypto/xxtea/xxtea.h"
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -18,7 +19,31 @@ extern "C" {
 
 NS_CC_EXTRA_BEGIN
 
-int CCCrypto::encodeBase64(const void* input,
+unsigned char* CCCrypto::encryptXXTEA(unsigned char* plaintext,
+                                      int plaintextLength,
+                                      unsigned char* key,
+                                      int keyLength,
+                                      int* resultLength)
+{
+    xxtea_long len;
+    unsigned char* result = xxtea_encrypt(plaintext, (xxtea_long)plaintextLength, key, (xxtea_long)keyLength, &len);
+    *resultLength = (int)len;
+    return result;
+}
+
+unsigned char* CCCrypto::decryptXXTEA(unsigned char* ciphertext,
+                                      int ciphertextLength,
+                                      unsigned char* key,
+                                      int keyLength,
+                                      int* resultLength)
+{
+    xxtea_long len;
+    unsigned char* result = xxtea_decrypt(ciphertext, (xxtea_long)ciphertextLength, key, (xxtea_long)keyLength, &len);
+    *resultLength = (int)len;
+    return result;
+}
+
+int CCCrypto::encodeBase64(unsigned char* input,
                            int inputLength,
                            char* output,
                            int outputBufferLength)
@@ -29,7 +54,7 @@ int CCCrypto::encodeBase64(const void* input,
     
     base64_encodestate state;
     base64_init_encodestate(&state);
-    int r1 = base64_encode_block(static_cast<const char*>(input), inputLength, buffer, &state);
+    int r1 = base64_encode_block((const char*)input, inputLength, buffer, &state);
     int r2 = base64_encode_blockend(buffer+ r1, &state);
     
     int dataUsed = r1 + r2;
@@ -79,9 +104,9 @@ void CCCrypto::sha1(unsigned char* input, int inputLength,
 #if CC_LUA_ENGINE_ENABLED > 0
 
 cocos2d::LUA_STRING CCCrypto::cryptAES256Lua(bool isDecrypt,
-                                             const void* input,
+                                             const char* input,
                                              int inputLength,
-                                             const void* key,
+                                             const char* key,
                                              int keyLength)
 {
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
@@ -94,7 +119,7 @@ cocos2d::LUA_STRING CCCrypto::cryptAES256Lua(bool isDecrypt,
     
     int bufferSize = inputLength + getAES256KeyLength();
     void* buffer = malloc(bufferSize);
-    int dataUsed = cryptAES256(isDecrypt, input, inputLength, buffer, bufferSize, key, keyLength);
+    int dataUsed = cryptAES256(isDecrypt, (unsigned char*)input, inputLength, (unsigned char*)buffer, bufferSize, (unsigned char*)key, keyLength);
     if (dataUsed > 0)
     {
         stack->pushString(static_cast<const char*>(buffer), dataUsed);
@@ -104,6 +129,52 @@ cocos2d::LUA_STRING CCCrypto::cryptAES256Lua(bool isDecrypt,
         stack->pushNil();
     }
     free(buffer);
+    return 1;
+}
+
+LUA_STRING CCCrypto::encryptXXTEALua(const char* plaintext,
+                                     int plaintextLength,
+                                     const char* key,
+                                     int keyLength)
+{
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+
+    int resultLength;
+    unsigned char* result = encryptXXTEA((unsigned char*)plaintext, plaintextLength, (unsigned char*)key, keyLength, &resultLength);
+    
+    if (resultLength <= 0)
+    {
+        lua_pushnil(stack->getLuaState());
+    }
+    else
+    {
+        lua_pushlstring(stack->getLuaState(), (const char*)result, resultLength);
+        free(result);
+    }
+    return 1;
+}
+
+LUA_STRING CCCrypto::decryptXXTEALua(const char* plaintext,
+                                     int plaintextLength,
+                                     const char* key,
+                                     int keyLength)
+{
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+    
+    int resultLength;
+    unsigned char* result = decryptXXTEA((unsigned char*)plaintext, plaintextLength, (unsigned char*)key, keyLength, &resultLength);
+    
+    if (resultLength <= 0)
+    {
+        lua_pushnil(stack->getLuaState());
+    }
+    else
+    {
+        lua_pushlstring(stack->getLuaState(), (const char*)result, resultLength);
+        free(result);
+    }
     return 1;
 }
 
@@ -124,7 +195,7 @@ LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
     }
     else
     {
-        dataUsed = encodeBase64(input, inputLength, output, outputLength);
+        dataUsed = encodeBase64((unsigned char*)input, inputLength, output, outputLength);
     }
     if (dataUsed > 0 && dataUsed < outputLength)
     {

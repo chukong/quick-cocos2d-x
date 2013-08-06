@@ -44,8 +44,8 @@ public:
 #if CC_LUA_ENGINE_ENABLED > 0
     void finishTransactionLua(const char* transactionIdentifier);
 #endif
-
-    CCStoreReceiptVerifyMode getReceiptVerifyMode(void);    
+    
+    CCStoreReceiptVerifyMode getReceiptVerifyMode(void);
     void setReceiptVerifyMode(CCStoreReceiptVerifyMode mode, CCStoreIsSandbox isSandbox = true);
     const char* getReceiptVerifyServerUrl(void);
     void setReceiptVerifyServerUrl(const char* url);

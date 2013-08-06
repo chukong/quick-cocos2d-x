@@ -10,11 +10,11 @@ int CCCrypto::getAES256KeyLength(void)
 }
 
 int CCCrypto::cryptAES256(bool isDecrypt,
-                          const void* input,
+                          unsigned char* input,
                           int inputLength,
-                          void* output,
+                          unsigned char* output,
                           int outputBufferLength,
-                          const void* key,
+                          unsigned char* key,
                           int keyLength)
 {
     CCLOG("CCCrypto::cryptAES256() - not support this platform.");

@@ -22,7 +22,7 @@ function EventProtocol.extend(object)
 
     --[[--
 
-    Adds a listener to the object’s list of listeners. When the named event occurs, the listener will be invoked and be supplied with a table representing the event.
+    Adds a listener to the object’s list of listeners, and return handle of listener. When the named event occurs, the listener will be invoked and be supplied with a table representing the event.
 
     **Usage:**
 
@@ -31,11 +31,13 @@ function EventProtocol.extend(object)
         framework.client.api.EventProtocol.extend(player)
 
         -- Setup listener
+        local handle
         local function onPlayerDead(event)
             -- event.name   == "PLAYER_DEAD"
             -- event.object == player
+            player:removeEventListener("PLAYER_DEAD", handle)
         end
-        player:addEventListener("PLAYER_DEAD", onPlayerDead)
+        handle = player:addEventListener("PLAYER_DEAD", onPlayerDead)
 
         -- Sometime later, create an event and dispatch it
         player:dispatchEvent({name = "PLAYER_DEAD"})
@@ -55,16 +57,15 @@ function EventProtocol.extend(object)
         eventName = string.upper(eventName)
         if object.listeners[eventName] == nil then
             object.listeners[eventName] = {}
-            -- setmetatable(object.listeners[eventName], {__mode = "v"})
         end
-        local t = object.listeners[eventName]
-        t[#t + 1] = listener
+        local handle = "_LISTENER_HANDLE_" .. tostring(listener)
+        object.listeners[eventName][handle] = listener
+        return handle
     end
 
     --[[--
 
-    Dispatches event to object. The event parameter must be a table with a name property which is a
-    string identifying the type of event. Event include a object property to the event so that your listener can know which object
+    Dispatches event to object. The event parameter must be a table with a name property which is a string identifying the type of event. Event include a object property to the event so that your listener can know which object
     received the event.
 
     **Syntax:**
@@ -79,43 +80,35 @@ function EventProtocol.extend(object)
     ]]
     function object:dispatchEvent(event)
         event.name = string.upper(event.name)
-        event.target = object
         local eventName = event.name
         if object.listeners[eventName] == nil then return end
-        local t = object.listeners[eventName]
-        for i = #t, 1, -1 do
-            local ret
-            local listener = t[i]
-            if type(listener) == "table" then
-                ret = listener[2](listener[1], event)
-            else
-                ret = listener(event)
-            end
-            if ret == false then break end
+
+        event.target = object
+        for _, listener in pairs(object.listeners[eventName]) do
+            if listener(event) == false then break end
         end
     end
 
     --[[--
 
-    Removes the specified listener from the object's list of listeners so that it no longer is
-    notified of events corresponding to the specified event.
+    Removes the specified listener (or by handle) from the object's list of listeners so that it no longer is notified of events corresponding to the specified event.
 
     **Syntax:**
 
-        object:removeEventListener(eventName, listener)
+        -- key is listener function or handle return by addEventListener()
+        object:removeEventListener(eventName, key)
 
     ]]
-    function object:removeEventListener(eventName, listener)
+    function object:removeEventListener(eventName, key)
         eventName = string.upper(eventName)
         if object.listeners[eventName] == nil then return end
-        local t = object.listeners[eventName]
-        for i = #t, 1, -1 do
-            if t[i] == listener then
-                table.remove(t, i)
-                return
+
+        for handle, listener in pairs(object.listeners[eventName]) do
+            if key == listener or key == handle then
+                object.listeners[eventName][handle] = nil
+                break
             end
         end
-        if #t == 0 then object.listeners[eventName] = nil end
     end
 
     --[[--

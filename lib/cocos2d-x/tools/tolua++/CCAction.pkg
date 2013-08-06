@@ -1,0 +1,238 @@
+
+enum {
+    kCCActionTagInvalid = -1,
+};
+
+class CCAction : public CCObject
+{
+	bool isDone(void);
+    CCNode* getTarget(void);
+    CCNode* getOriginalTarget(void);
+    int getTag(void);
+    void setTag(int nTag);
+};
+
+class CCFiniteTimeAction : public CCAction
+{
+    float getDuration(void);
+    void setDuration(float duration);
+    CCFiniteTimeAction* reverse(void);
+};
+
+class CCActionInterval : public CCFiniteTimeAction
+{
+    float getElapsed(void);
+    void setAmplitudeRate(float amp);
+    float getAmplitudeRate(void);
+};
+
+class CCSpeed : public CCAction
+{
+    float getSpeed(void);
+    void setSpeed(float fSpeed);
+    static CCSpeed* create(CCActionInterval *pAction, float fRate);
+};
+
+class CCFollow : public CCAction
+{
+    bool isBoundarySet(void);
+    void setBoudarySet(bool bValue);
+    static CCFollow* create(CCNode *pFollowedNode, CCRect rect);
+    static CCFollow* create(CCNode *pFollowedNode);
+};
+
+class CCSequence : public CCActionInterval
+{
+    static CCSequence* createWithTwoActions(CCFiniteTimeAction *pActionOne, CCFiniteTimeAction *pActionTwo);
+    static CCSequence* create(CCArray *actions);
+};
+
+class CCRepeat : public CCActionInterval
+{
+    static CCRepeat* create(CCActionInterval *pAction, unsigned int times);
+};
+
+class CCRepeatForever : public CCActionInterval
+{
+    static CCRepeatForever* create(CCActionInterval *pAction);
+};
+
+class CCSpawn : public CCActionInterval
+{
+    static CCSpawn* createWithTwoActions(CCFiniteTimeAction *pAction1, CCFiniteTimeAction *pAction2);
+    static CCSpawn* create(CCArray *actions);
+};
+
+class CCRotateTo : public CCActionInterval
+{
+    static CCRotateTo* create(float duration, float fDeltaAngle);
+};
+
+class CCRotateBy : public CCActionInterval
+{
+    static CCRotateBy* create(float duration, float fDeltaAngle);
+};
+
+class CCMoveTo : public CCActionInterval
+{
+    static CCMoveTo* create(float duration, CCPoint position);
+};
+
+class CCMoveBy : public CCActionInterval
+{
+    static CCMoveBy* create(float duration, CCPoint deltaPosition);
+};
+
+class CCSkewTo : public CCActionInterval
+{
+    static CCSkewTo* create(float t, float sx, float sy);
+};
+
+class CCSkewBy : public CCActionInterval
+{
+    static CCSkewBy* create(float t, float deltaSkewX, float deltaSkewY);
+};
+
+class CCJumpBy : public CCActionInterval
+{
+    static CCJumpBy* create(float duration, CCPoint position, float height, int jumps);
+};
+
+class CCJumpTo : public CCActionInterval
+{
+    static CCJumpTo* create(float duration, CCPoint position, float height, int jumps);
+};
+
+/*
+ There's a bug in tolua++
+ Can't use struct in lua after binding struct
+ So use class instead.
+*/
+struct ccBezierConfig {
+    ccBezierConfig(void);
+    CCPoint endPosition;
+    CCPoint controlPoint_1;
+    CCPoint controlPoint_2;
+};
+
+class CCBezierBy : public CCActionInterval
+{
+    static CCBezierBy* create(float t, ccBezierConfig c);
+};
+
+class CCBezierTo : public CCActionInterval
+{
+    static CCBezierTo* create(float t, ccBezierConfig c);
+};
+
+class CCScaleTo : public CCActionInterval
+{
+    static CCScaleTo* create(float duration, float sx, float sy);
+    static CCScaleTo* create(float duration, float s);
+};
+
+class CCScaleBy : public CCActionInterval
+{
+    static CCScaleBy* create(float duration, float s);
+    static CCScaleBy* create(float duration, float sx, float sy);
+};
+
+class CCBlink : public CCActionInterval
+{
+    static CCBlink* create(float duration, unsigned int uBlinks);
+};
+
+class CCFadeIn : public CCActionInterval
+{
+    static CCFadeIn* create(float d);
+};
+
+class CCFadeOut : public CCActionInterval
+{
+    static CCFadeOut* create(float d);
+};
+
+class CCFadeTo : public CCActionInterval
+{
+    static CCFadeTo* create(float duration, GLubyte opacity);
+};
+
+class CCTintTo : public CCActionInterval
+{
+    static CCTintTo* create(float duration, GLubyte red, GLubyte green, GLubyte blue);
+};
+
+class CCTintBy : public CCActionInterval
+{
+    static CCTintBy* create(float duration, GLshort deltaRed, GLshort deltaGreen, GLshort deltaBlue);
+};
+
+class CCDelayTime : public CCActionInterval
+{
+    static CCDelayTime* create(float d);
+};
+
+class CCReverseTime : public CCActionInterval
+{
+    static CCReverseTime* create(CCFiniteTimeAction *pAction);
+};
+
+class CCAnimate : public CCActionInterval
+{
+    CCAnimation* getAnimation(void);
+    void setAnimation(CCAnimation *pAnimation);
+    static CCAnimate* create(CCAnimation *pAnimation);
+};
+
+class CCTargetedAction : public CCActionInterval
+{
+	CCNode* getForcedTarget(void);
+	void setForcedTarget(CCNode* target);
+	static CCTargetedAction* create(CCNode* pTarget, CCFiniteTimeAction* pAction);
+};
+
+
+// CCActionInstant
+class CCActionInstant : public CCFiniteTimeAction
+{
+};
+
+class CCShow : public CCActionInstant
+{
+    static CCShow* create();
+};
+
+class CCHide : public CCActionInstant
+{
+    static CCHide* create();
+};
+
+class CCToggleVisibility : public CCActionInstant
+{
+    static CCToggleVisibility* create();
+};
+
+class CCFlipX : public CCActionInstant
+{
+    static CCFlipX* create(bool x);
+};
+
+class CCFlipY : public CCActionInstant
+{
+    static CCFlipY* create(bool y);
+};
+
+class CCPlace : public CCActionInstant //<NSCopying>
+{
+    static CCPlace* create(CCPoint pos);
+};
+
+class CCCallFunc : public CCActionInstant
+{
+	static CCCallFunc* create(LUA_FUNCTION funcID);
+};
+
+class CCCallFuncN : public CCCallFunc
+{
+	static CCCallFuncN* create(LUA_FUNCTION funcID);
+};

@@ -40,6 +40,7 @@ Module | Descripton
 [framework.client.network](framework.client.network.html) | ...
 [framework.client.luaoc](framework.client.luaoc.html) | Call Objective-C from Lua, iOS platform only
 [framework.client.luaj](framework.client.luaj.html) | Call Java from Lua, Android platform only
+[framework.client.crypto](framework.client.crypto.html) | Crypto
 
 <br />
 
@@ -47,33 +48,31 @@ Module | Descripton
 
 Module | Descripton
 ------ | ----------
-[framework.client.crypto](framework.client.crypto.html) | Crypto
-[framework.client.network](framework.client.network.html) | Network
 [framework.client.scheduler](framework.client.scheduler.html) | Scheduler
 
 ]]
 
 __FRAMEWORK_ENVIRONMENT__ = "client"
 
-require("framework.shared.debug")
-require("framework.shared.functions")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.debug")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.functions")
 
 echoInfo("")
 echoInfo("# DEBUG                        = "..DEBUG)
 echoInfo("#")
 
-device     = require("framework.client.device")
-transition = require("framework.client.transition")
-display    = require("framework.client.display")
-audio      = require("framework.client.audio")
-ui         = require("framework.client.ui")
-network    = require("framework.client.network")
+device     = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.device")
+transition = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.transition")
+display    = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.display")
+audio      = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.audio")
+ui         = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.ui")
+network    = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.network")
+crypto     = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.crypto")
 
 if device.platform == "android" then
-    -- luaj = require("framework.client.luaj")
-    -- jit.off()
+    luaj = import(".luaj")
 elseif device.platform == "ios" then
-    luaoc = require("framework.client.luaoc")
+    luaoc = import(".luaoc")
 end
 
 --[[--

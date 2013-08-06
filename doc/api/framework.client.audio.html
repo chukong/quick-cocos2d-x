@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - framework.client.audio</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="index.html">framework.init</a></li>
+            <li><a href="framework.client.api.context.html">framework.client.api.Context</a></li>
+            <li><a href="framework.client.api.eventprotocol.html">framework.client.api.EventProtocol</a></li>
+            <li><a href="framework.client.api.gamenetwork.html">framework.client.api.GameNetwork</a></li>
+            <li><a href="framework.client.api.gamestate.html">framework.client.api.GameState</a></li>
+            <li><a href="framework.client.api.localize.html">framework.client.api.Localize</a></li>
+            <li><a href="framework.client.api.store.html">framework.client.api.Store</a></li>
+            <li><a href="framework.client.api.timer.html">framework.client.api.Timer</a></li>
+            <li><a href="framework.client.api.gamenetwork.openfeint.html">framework.client.api.gamenetwork.OpenFeint</a></li>
+            <li><strong>framework.client.audio</strong></li>
+            <li><a href="framework.client.crypto.html">framework.client.crypto</a></li>
+            <li><a href="framework.client.device.html">framework.client.device</a></li>
+            <li><a href="framework.client.display.html">framework.client.display</a></li>
+            <li><a href="framework.client.init.html">framework.client.init</a></li>
+            <li><a href="framework.client.luaj.html">framework.client.luaj</a></li>
+            <li><a href="framework.client.luaoc.html">framework.client.luaoc</a></li>
+            <li><a href="framework.client.network.html">framework.client.network</a></li>
+            <li><a href="framework.client.scheduler.html">framework.client.scheduler</a></li>
+            <li><a href="framework.client.transition.html">framework.client.transition</a></li>
+            <li><a href="framework.client.ui.html">framework.client.ui</a></li>
+            <li><a href="framework.server.mysqleasy.html">framework.server.MysqlEasy</a></li>
+            <li><a href="framework.server.rediseasy.html">framework.server.RedisEasy</a></li>
+            <li><a href="framework.server.serveraction.html">framework.server.ServerAction</a></li>
+            <li><a href="framework.server.serverapp.html">framework.server.ServerApp</a></li>
+            <li><a href="framework.server.session.html">framework.server.Session</a></li>
+            <li><a href="framework.server.init.html">framework.server.init</a></li>
+            <li><a href="framework.shared.modelbase.html">framework.shared.ModelBase</a></li>
+            <li><a href="framework.shared.debug.html">framework.shared.debug</a></li>
+            <li><a href="framework.shared.errors.html">framework.shared.errors</a></li>
+            <li><a href="framework.shared.functions.html">framework.shared.functions</a></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <h1>Module <code>framework.client.audio</code></h1>
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+<p>Play music, sound effects.</p>
+
+<br />
+
+
+          </div>
+
+          <!-- END module doc -->
+
+
+          <!--  BEGIN functions index -->
+
+          <h2>Functions</h2>
+          <table class="function_list">
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_disable">audio.disable&nbsp;()</a></td>
+              <td class="summary">Disable audio sharedEngine.</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_enable">audio.enable&nbsp;()</a></td>
+              <td class="summary">Enable audio sharedEngine. (default is enabled)</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_getMusicVolume">audio.getMusicVolume&nbsp;()</a></td>
+              <td class="summary">The volume of the background music. max value is 1.0, the min value is 0.0</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_setMusicVolume">audio.setMusicVolume&nbsp;(volume)</a></td>
+              <td class="summary">Set the volume of background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_getSoundsVolume">audio.getSoundsVolume&nbsp;()</a></td>
+              <td class="summary">The volume of the effects. max value is 1.0, the min value is 0.0</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_setSoundsVolume">audio.setSoundsVolume&nbsp;(volume)</a></td>
+              <td class="summary">Set the volume of sound effecs</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_preloadMusic">audio.preloadMusic&nbsp;(filename)</a></td>
+              <td class="summary">Preload background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_playMusic">audio.playMusic&nbsp;(filename,&nbsp;isLoop)</a></td>
+              <td class="summary">Play background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_stopMusic">audio.stopMusic&nbsp;(isReleaseData)</a></td>
+              <td class="summary">Stop playing background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_pauseMusic">audio.pauseMusic&nbsp;()</a></td>
+              <td class="summary">Pause playing background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_resumeMusic">audio.resumeMusic&nbsp;()</a></td>
+              <td class="summary">Resume playing background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_rewindMusic">audio.rewindMusic&nbsp;()</a></td>
+              <td class="summary">Rewind playing background music</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_willPlayMusic">audio.willPlayMusic&nbsp;()</a></td>
+              <td class="summary">### Alias:</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_isMusicPlaying">audio.isMusicPlaying&nbsp;()</a></td>
+              <td class="summary">Whether the background music is playing</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_playSound">audio.playSound&nbsp;(filename,&nbsp;isLoop)</a></td>
+              <td class="summary">Play sound effect</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_pauseSound">audio.pauseSound&nbsp;(handle)</a></td>
+              <td class="summary">Pause playing sound effect</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_pauseAllSounds">audio.pauseAllSounds&nbsp;()</a></td>
+              <td class="summary">Pause all playing sound effect</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_resumeSound">audio.resumeSound&nbsp;(handle)</a></td>
+              <td class="summary">Resume paused sound effect</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_resumeAllSounds">audio.resumeAllSounds&nbsp;(handle)</a></td>
+              <td class="summary">Resume all paused sound effects</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_stopSound">audio.stopSound&nbsp;(handle)</a></td>
+              <td class="summary">Stop playing sound effect</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_stopAllSounds">audio.stopAllSounds&nbsp;()</a></td>
+              <td class="summary">Stop all playing sound effects</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_preloadSound">audio.preloadSound&nbsp;(filename)</a></td>
+              <td class="summary">Preload a sound effect</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_audio_unloadSound">audio.unloadSound&nbsp;(filename)</a></td>
+              <td class="summary">Unload the preloaded effect</td>
+            </tr>
+
+
+          </table>
+
+          <!--  END functions index -->
+
+          <br />
+          <br />
+
+          <!-- BEGIN functions details -->
+
+          <h2>Functions</h2>
+          <dl class="function">
+
+
+            <dt class="">
+              <a name="anchor_audio_disable"></a>
+              <h3>audio.disable ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Disable audio sharedEngine.</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_enable"></a>
+              <h3>audio.enable ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Enable audio sharedEngine. (default is enabled)</p>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_getMusicVolume"></a>
+              <h3>audio.getMusicVolume ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>The volume of the background music. max value is 1.0, the min value is 0.0</p>
+
+<h3>Returns:</h3>
+
+<ul>
+<li>The volume of the background music</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.getBackgroundMusicVolume()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_setMusicVolume"></a>
+              <h3>audio.setMusicVolume (volume)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Set the volume of background music</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>float <strong>volume</strong> must be in 0.0 ~ 1.0</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.setBackgroundMusicVolume()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_getSoundsVolume"></a>
+              <h3>audio.getSoundsVolume ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>The volume of the effects. max value is 1.0, the min value is 0.0</p>
+
+<h3>Returns:</h3>
+
+<ul>
+<li>The volume of the effects</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.getEffectsVolume()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_setSoundsVolume"></a>
+              <h3>audio.setSoundsVolume (volume)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Set the volume of sound effecs</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>float <strong>volume</strong> must be in 0.0 ~ 1.0</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.setEffectsVolume()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_preloadMusic"></a>
+              <h3>audio.preloadMusic (filename)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Preload background music</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>string <strong>filename</strong> The path of the background music file</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.preloadBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_playMusic"></a>
+              <h3>audio.playMusic (filename, isLoop)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Play background music</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>string <strong>filename</strong> The path of the background music file</li>
+<li>[<em>optional bool <strong>isLoop</strong></em>] Whether the background music loop or not</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.playBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_stopMusic"></a>
+              <h3>audio.stopMusic (isReleaseData)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Stop playing background music</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>bool <strong>isReleaseData</strong> If release the background music data or not. As default value is false</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.stopBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_pauseMusic"></a>
+              <h3>audio.pauseMusic ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Pause playing background music</p>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.pauseBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_resumeMusic"></a>
+              <h3>audio.resumeMusic ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Resume playing background music</p>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.resumeBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_rewindMusic"></a>
+              <h3>audio.rewindMusic ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Rewind playing background music</p>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.rewindBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_willPlayMusic"></a>
+              <h3>audio.willPlayMusic ()</h3>
+            </dt>
+
+            <dd class="">
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.willPlayBackgroundMusic()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_isMusicPlaying"></a>
+              <h3>audio.isMusicPlaying ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Whether the background music is playing</p>
+
+<h3>Returns:</h3>
+
+<ul>
+<li>If is playing return true,or return false</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.isBackgroundMusicPlaying()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_playSound"></a>
+              <h3>audio.playSound (filename, isLoop)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Play sound effect</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>string <strong>filename</strong> The path of the effect file</li>
+<li>[<em>optional bool <strong>isLoop</strong></em>] Whether to loop the effect playing, default value is false</li>
+</ul>
+
+<h3>Returns:</h3>
+
+<ul>
+<li>int: Handle of sound effect</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.playEffect()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_pauseSound"></a>
+              <h3>audio.pauseSound (handle)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Pause playing sound effect</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>int <strong>handle</strong> The return value of function playEffect</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.pauseEffect()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_pauseAllSounds"></a>
+              <h3>audio.pauseAllSounds ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Pause all playing sound effect</p>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.pauseAllEffects()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_resumeSound"></a>
+              <h3>audio.resumeSound (handle)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Resume paused sound effect</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>int <strong>handle</strong> The return value of function playEffect</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.resumeEffect()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_resumeAllSounds"></a>
+              <h3>audio.resumeAllSounds (handle)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Resume all paused sound effects</p>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.resumeAllEffects()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_stopSound"></a>
+              <h3>audio.stopSound (handle)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Stop playing sound effect</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>int <strong>handle</strong> The return value of function playEffect</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.stopEffect()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_stopAllSounds"></a>
+              <h3>audio.stopAllSounds ()</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Stop all playing sound effects</p>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.stopAllEffects()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_preloadSound"></a>
+              <h3>audio.preloadSound (filename)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Preload a sound effect</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>string <strong>filename</strong> The path of the effect file</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.preloadEffect()</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="">
+              <a name="anchor_audio_unloadSound"></a>
+              <h3>audio.unloadSound (filename)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>Unload the preloaded effect</p>
+
+<h3>Parameters:</h3>
+
+<ul>
+<li>string <strong>filename</strong> The path of the effect file</li>
+</ul>
+
+<h3>Alias:</h3>
+
+<ul>
+<li>audio.unloadEffect()</li>
+</ul>
+
+            </dd>
+
+
+          </dl>
+
+          <!-- BEGIN functions details -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2013-05-08 09:30:25, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.1</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>

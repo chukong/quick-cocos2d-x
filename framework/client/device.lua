@@ -55,7 +55,7 @@ Following properties predefined:
     jp          | Japanese
     en          | English
 
--   **device.writeablePath** returns the writeable path.
+-   **device.writablePath** returns the writable path.
 
 ]]
 
@@ -108,15 +108,15 @@ else
 end
 
 device.language = language_
-device.writeablePath = CCFileUtils:sharedFileUtils():getWriteablePath()
-device.documentsPath = CCFileUtils:sharedFileUtils():getDocumentsPath()
+device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
+device.cachePath = CCFileUtils:sharedFileUtils():getCachePath()
 
 echoInfo("# device.platform              = " .. device.platform)
 echoInfo("# device.environment           = " .. device.environment)
 echoInfo("# device.model                 = " .. device.model)
 echoInfo("# device.language              = " .. device.language)
-echoInfo("# device.writeablePath         = " .. device.writeablePath)
-echoInfo("# device.documentsPath         = " .. device.documentsPath)
+echoInfo("# device.writablePath          = " .. device.writablePath)
+echoInfo("# device.cachePath             = " .. device.cachePath)
 echoInfo("#")
 
 --[[--
@@ -165,7 +165,9 @@ Supported platform: ios, android, mac.
 
 ]]
 function device.showAlert(title, message, buttonLabels, listener)
-    buttonLabels = totable(buttonLabels)
+    if type(buttonLabels) ~= "table" then
+        buttonLabels = {tostring(buttonLabels)}
+    end
     local defaultLabel = ""
     if #buttonLabels > 0 then
         defaultLabel = buttonLabels[1]

@@ -5,8 +5,8 @@ GameState.ERROR_INVALID_FILE_CONTENTS = -1
 GameState.ERROR_HASH_MISS_MATCH       = -2
 GameState.ERROR_STATE_FILE_NOT_FOUND  = -3
 
-local crypto = require("framework.client.crypto")
-local json   = require("framework.shared.json")
+local crypto = require(__FRAMEWORK_PACKAGE_NAME__ .. ".client.crypto")
+local json   = require(__FRAMEWORK_PACKAGE_NAME__ .. ".shared.json")
 
 local encodeSign    = "=QP="
 local stateFilename = "state.txt"
@@ -80,7 +80,7 @@ function GameState.load()
     local filename = GameState.getGameStatePath()
 
     if not io.exists(filename) then
-        echoError("GameState.load() - file \"%s\" not found", filename)
+        echoInfo("GameState.load() - file \"%s\" not found", filename)
         return eventListener({name = "load", errorCode = GameState.ERROR_STATE_FILE_NOT_FOUND})
     end
 
@@ -141,7 +141,7 @@ function GameState.save(newValues)
 end
 
 function GameState.getGameStatePath()
-    return string.gsub(device.writeablePath, "[\\\\/]+$", "") .. "/" .. stateFilename
+    return string.gsub(device.writablePath, "[\\\\/]+$", "") .. "/" .. stateFilename
 end
 
 return GameState

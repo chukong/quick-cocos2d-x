@@ -26,14 +26,14 @@ Starts up the In-App Purchase engine and allows you to receive callbacks with th
         local transaction = event.transaction
         if transaction.state == "purchased" then
             print("Transaction succuessful!")
-            print("productId", transaction.productId)
+            print("productIdentifier", transaction.productIdentifier)
             print("quantity", transaction.quantity)
             print("transactionIdentifier", transaction.transactionIdentifier)
             print("date", os.date("%Y-%m-%d %H:%M:%S", transaction.date))
             print("receipt", transaction.receipt)
         elseif  transaction.state == "restored" then
             print("Transaction restored (from previous session)")
-            print("productId", transaction.productId)
+            print("productIdentifier", transaction.productIdentifier)
             print("receipt", transaction.receipt)
             print("transactionIdentifier", transaction.identifier)
             print("date", transaction.date)

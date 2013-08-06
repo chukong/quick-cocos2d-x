@@ -1,0 +1,12 @@
+
+class CCDrawNode : public CCNode
+{
+    static CCDrawNode* create();
+
+    void drawDot(const CCPoint &pos, float radius, const ccColor4F &color);
+    void drawSegment(const CCPoint &from, const CCPoint &to, float radius, const ccColor4F &color);
+    void drawPolygon(CCPointArray *verts, const ccColor4F &fillColor, float borderWidth, const ccColor4F &borderColor);
+    void clear();
+    ccBlendFunc getBlendFunc() const;
+    void setBlendFunc(const ccBlendFunc &blendFunc);
+};

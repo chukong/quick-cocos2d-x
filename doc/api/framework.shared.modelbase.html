@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - framework.shared.ModelBase</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="index.html">framework.init</a></li>
+            <li><a href="framework.client.api.context.html">framework.client.api.Context</a></li>
+            <li><a href="framework.client.api.eventprotocol.html">framework.client.api.EventProtocol</a></li>
+            <li><a href="framework.client.api.gamenetwork.html">framework.client.api.GameNetwork</a></li>
+            <li><a href="framework.client.api.gamestate.html">framework.client.api.GameState</a></li>
+            <li><a href="framework.client.api.localize.html">framework.client.api.Localize</a></li>
+            <li><a href="framework.client.api.store.html">framework.client.api.Store</a></li>
+            <li><a href="framework.client.api.timer.html">framework.client.api.Timer</a></li>
+            <li><a href="framework.client.api.gamenetwork.openfeint.html">framework.client.api.gamenetwork.OpenFeint</a></li>
+            <li><a href="framework.client.audio.html">framework.client.audio</a></li>
+            <li><a href="framework.client.crypto.html">framework.client.crypto</a></li>
+            <li><a href="framework.client.device.html">framework.client.device</a></li>
+            <li><a href="framework.client.display.html">framework.client.display</a></li>
+            <li><a href="framework.client.init.html">framework.client.init</a></li>
+            <li><a href="framework.client.luaj.html">framework.client.luaj</a></li>
+            <li><a href="framework.client.luaoc.html">framework.client.luaoc</a></li>
+            <li><a href="framework.client.network.html">framework.client.network</a></li>
+            <li><a href="framework.client.scheduler.html">framework.client.scheduler</a></li>
+            <li><a href="framework.client.transition.html">framework.client.transition</a></li>
+            <li><a href="framework.client.ui.html">framework.client.ui</a></li>
+            <li><a href="framework.server.mysqleasy.html">framework.server.MysqlEasy</a></li>
+            <li><a href="framework.server.rediseasy.html">framework.server.RedisEasy</a></li>
+            <li><a href="framework.server.serveraction.html">framework.server.ServerAction</a></li>
+            <li><a href="framework.server.serverapp.html">framework.server.ServerApp</a></li>
+            <li><a href="framework.server.session.html">framework.server.Session</a></li>
+            <li><a href="framework.server.init.html">framework.server.init</a></li>
+            <li><strong>framework.shared.ModelBase</strong></li>
+            <li><a href="framework.shared.debug.html">framework.shared.debug</a></li>
+            <li><a href="framework.shared.errors.html">framework.shared.errors</a></li>
+            <li><a href="framework.shared.functions.html">framework.shared.functions</a></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <h1>Module <code>framework.shared.ModelBase</code></h1>
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+
+          </div>
+
+          <!-- END module doc -->
+
+
+          <!--  BEGIN functions index -->
+
+          <h2>Functions</h2>
+          <table class="function_list">
+
+
+            <tr>
+              <td class="name" nowrap><a href="#anchor_filterProperties">filterProperties&nbsp;(properties,&nbsp;filter)</a></td>
+              <td class="summary">ModelBase 封装了一个模型对象的属性和行为。开发者应该从 ModelBase 继承自己的模型类，并添加模型的属性和行为。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_ModelBase:getId">ModelBase:getId&nbsp;()</a></td>
+              <td class="summary">返回对象的 ID 值。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_ModelBase:isValidId">ModelBase:isValidId&nbsp;()</a></td>
+              <td class="summary">确定对象是否设置了有效的 Id。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_ModelBase:setProperties">ModelBase:setProperties&nbsp;(properties)</a></td>
+              <td class="summary">修改对象的属性。</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap>&nbsp;-&nbsp;&nbsp;<a href="#anchor_ModelBase:getProperties">ModelBase:getProperties&nbsp;(fields,&nbsp;filter)</a></td>
+              <td class="summary">取得对象的属性值。</td>
+            </tr>
+
+
+          </table>
+
+          <!--  END functions index -->
+
+          <br />
+          <br />
+
+          <!-- BEGIN functions details -->
+
+          <h2>Functions</h2>
+          <dl class="function">
+
+
+            <dt class="">
+              <a name="anchor_filterProperties"></a>
+              <h3>filterProperties (properties, filter)</h3>
+            </dt>
+
+            <dd class="">
+
+<p>ModelBase 封装了一个模型对象的属性和行为。开发者应该从 ModelBase 继承自己的模型类，并添加模型的属性和行为。</p>
+
+<p>~</p>
+
+<h2>对象的 ID</h2>
+
+<p>每一个对象都必须有一个唯一的 ID。</p>
+
+<p>绝大多数情况下，用 id 属性存储对象的 ID。ModelBase 类的 idkey 设定用来指定模型用什么名称的属性存储对象的 ID。</p>
+
+<p>~</p>
+
+<h2>对象的属性</h2>
+
+<p>对象具备一系列属性，每个属性的名字和类型，以及该属性的默认值用 ModelBase 类 schema 设定来指定。</p>
+
+<ul>
+<li><p>setProperties() 会按照 schema 指定的名字和类型检查传入数组的值，并修改对象属性。
+如果值类型不对，或者值不存在，并且 schema 中没有为该属性指定默认值，将报告错误。</p></li>
+<li><p>getProperties() 提取对象属性，然后构造为一个数组返回。</p></li>
+</ul>
+
+<p>调用 setProperties() 时，传入数组的键名会追加一个下划线字符，然后再存入对象。例如：</p>
+
+
+<pre><code class="lua">local properties = {
+    title = "My First Post"
+}
+
+-- post 是一个 ModelBase 对象
+post:setProperties(properties)
+
+-- 数组中的 title 被存入了对象的 title_ 属性
+print(post.title_)
+</code></pre>
+
+<p>按照同样的规则，调用 getProperties() 读取对象的属性名都是附带下划线的，但最终返回的数组却是不带下划线的。
+采用这种设计的目的是保护对象属性值，因此除非在对象自己的方法内，否则不应该直接访问对象的属性。</p>
+
+<p>~</p>
+
+<h2>创建 ModelBase 继承类</h2>
+
+<p>ModelBase 并不能直接使用，开发者必须从 ModelBase 创建自己的继承类，例如下面的代码定义了一个基本的 User 模型：</p>
+
+
+<pre><code class="lua">-- 定义 User 的构造函数
+local function ctor(self, properties)
+end
+
+-- 创建 User 类
+local ModelBase = require("framework.shared.ModelBase")
+local User = class("User", ctor, ModelBase)
+
+-- schema 指定对象有哪些属性，以及属性的类型和默认值
+User.schema = {
+    id       = {"string"},      -- id 存储用户 ID
+    username = {"string"},      -- username 存储用户名
+    scores   = {"number", 0},   -- scores 存储用户的得分，默认为 0
+}
+
+-- fields 指定对象的哪些属性要存入数据库
+-- 如果未指定 fields，则对象的数据库操作被禁用
+User.fields = {"id", "username", "scores"}
+</code></pre>
+
+<p>~</p>
+
+<h2>在数据库中存取对象</h2>
+
+<p>ModelBase 并不提供数据库操作，下面假设使用 Redis 数据库来存取 User 对象：</p>
+
+
+<pre><code class="lua">local properties = {
+    id       = "user:1",
+    username = "dualface",
+}
+local user = User.new(properties)
+
+-- 将对象保存到数据库
+redis:save(user)
+
+-- 从数据库读取对象
+local user = redis:load(User, "user:1")
+</code></pre>
+
+<p>~</p>
+
+<h2>访问对象属性</h2>
+
+<p>ModelBase 并不会为类自动添加 getter 和 setter 方法，所以开发者需要自行定义这些方法：</p>
+
+
+<pre><code class="lua">function User:getUsername()
+    return self.username_
+end
+
+function User:getScores()
+    return self.scores_
+end
+
+function User:setScores(newScores)
+    assert(type(newScores) == "number" and newScores &gt;= 0,
+           string.format("%s [User:setScores] Invalid scores %s", tostring(self), tostring(newScores)))
+    self.scores_ = newScores
+end
+</code></pre>
+
+<p>虽然自行定义 getter 和 setter 增加一些工作量，但让开发者可以很容易的对属性访问做控制。
+上面的代码中，由于没有定义 setUsername()，所以实现了针对 username 属性的“只读”效果。
+同样，setScores() 还对传入的参数实行了有效性检查。</p>
+
+<p>~</p>
+
+<h2>更灵活的设定对象属性</h2>
+
+<p>有时候只需要存储部分属性到数据库中，此时修改 fields 设定就可以达到目的。
+问题在于不存入数据库的属性如果没有默认值，那么从数据库读取出来的对象，就是“残缺”的：</p>
+
+
+<pre><code class="lua">local function ctor(self, properties)
+end
+
+local ModelBase = require("framework.shared.ModelBase")
+local Ship = class("Ship", ctor, ModelBase)
+
+Ship.schema = {
+    id    = {"string"},
+    model = {"string"},
+    armor = {"number"},     -- 战舰的防御力
+    speed = {"number"},     -- 战舰的速度
+}
+
+Ship.fields = {"id", "model"}
+
+function Ship:getModel()
+    return self.model_
+end
+
+function Ship:getArmor()
+    return self.armor_
+end
+
+function Ship:getSpeed()
+    return self.speed_
+end
+
+-- 这里读取出来的 ship 对象，其 armor 和 speed 属性值都是无效的，因为数据库中没有包含这两个属性
+local ship = redis:load(Ship, "ship:1")
+print(ship:getArmor(), ship:getSpeed()) -- 将会输出 nil nil
+</code></pre>
+
+<p>这个问题需要开发者在自行处理：</p>
+
+
+<pre><code class="lua">local ShipModelProperties = require("app.models.ShipModelProperties")
+
+local function setShopModelProperties(ship)
+    -- 舰船的 armor 和 speed 属性保存在 ShipModelProperties 里
+    -- 根据 model 属性从战舰属性表格中读取数据
+    local shipProperties = ShipModelProperties.get(ship:getModel())
+    -- 更新对象属性
+    ship:setProperties(shipProperties)
+end
+
+-- 修改构造函数
+local function ctor(self, properties)
+    setShopModelProperties(self)
+end
+
+-- 覆盖 setProperties() 方法
+function Ship:setProperties(properties, filter)
+    -- 保存现在的 model_ 属性
+    local model = self.model_
+    -- 调用父类的 setProperties() 方法
+    Ship.super.setProperties(properties, filter)
+
+    -- 如果 model_ 属性有变化，则调用 setShopModelProperties() 更新舰船属性
+    if model ~= self.model_ then
+        setShopModelProperties(self)
+    end
+end
+</code></pre>
+
+<p>~</p>
+
+<h2>将对象从服务端传递到客户端</h2>
+
+<p>对象是无法从服务端直接传递给客户端的，所以只能传递对象的属性，然后在客户端重建对象或更新已有对象。</p>
+
+<p>假定使用 JSON 格式传递数据，那么从服务端返回对象属性的代码如下：</p>
+
+
+<pre><code class="lua">local ship = Ship.load("ship:1")
+-- getProperties() 默认返回对象 fields 设定中指定的属性
+local properties = ship:getProperties()
+return json.encode({ship = properties})
+</code></pre>
+
+<p>客户端拿到服务端返回的数据后，用如下代码在客户端重建对象：</p>
+
+
+<pre><code class="lua">local arr = json.decode(jsonString)
+local ship = Ship.new(arr.ship)
+
+-- 如果对象已经存在，只需更新属性
+ship:setProperties(arr.ship)
+</code></pre>
+
+<p>在一些情况下，需要过滤从服务端传递给客户端的数据。
+例如从服务端传递用户的属性到客户端时，保存密码的“password”属性值应该过滤掉：</p>
+
+
+<pre><code class="lua">local user = User.load("user:1")
+-- getProperties() 第二个参数用于指定要从结果中过滤掉哪些属性
+local properties = user:getProperties(nil, {"password"})
+retrun json.encode({user = properties})
+</code></pre>
+
+<p>~</p>
+
+<h2>使用插件</h2>
+
+<p>下面的代码创建了一个名为 UserPlugin 的插件，为 User 类增加了 login 方法和 increaseScores() 方法：</p>
+
+
+<pre><code class="lua">-- 创建一个名为 UserPlugin 的插件类
+local UserPlugin = {}
+
+-- 在这个方法里可以修改 ModelBase 继承类的行为
+function UserPlugin.bind(theClass)
+
+    -- 增加 login() 方法
+    function theClass.login(username)
+        if username == "dualface" then
+            return theClass.load("user:1")
+        else
+            return nil
+        end
+    end
+
+    -- 增加 increaseScores() 方法
+    function theClass:increaseScores(amount)
+        assert(type(amount) == "number" and amount &gt;= 0,
+           string.format("%s [UserPlugin:increaseScores] Invalid amount %s",
+                         tostring(self), tostring(amount)))
+        self.scores_ = self.scores_ + amount
+    end
+
+end
+</code></pre>
+
+<p>定义了插件后，只需要修改 User 的定义，增加下列代码：</p>
+
+
+<pre><code class="lua">-- 创建 User 类
+local User = class("User", ctor, ModelBase)
+
+-- 绑定插件到 User 类
+local UserPlugin = require("app.models.plugins.UserPlugin")
+UserPlugin.bind(User)
+</code></pre>
+
+<p>使用示例：</p>
+
+
+<pre><code class="lua">local user = User.login("dualface")
+user:increaseScores(100)
+print(string.format("new scores: %d", user:getScores())
+</code></pre>
+
+<p>合理使用插件，可以将与“业务”无关的逻辑代码从模型类中分离出来。</p>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_ModelBase:getId"></a>
+              <h3>ModelBase:getId ()</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>返回对象的 ID 值。</p>
+
+<p><strong>Returns:</strong></p>
+
+<ul>
+<li>ID 值</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_ModelBase:isValidId"></a>
+              <h3>ModelBase:isValidId ()</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>确定对象是否设置了有效的 Id。</p>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_ModelBase:setProperties"></a>
+              <h3>ModelBase:setProperties (properties)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>修改对象的属性。</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>properties: 包含属性值的数组</li>
+</ul>
+
+            </dd>
+
+
+            <dt class="member_method">
+              -&nbsp;&nbsp;<a name="anchor_ModelBase:getProperties"></a>
+              <h3>ModelBase:getProperties (fields, filter)</h3>
+            </dt>
+
+            <dd class="member_method">
+
+<p>取得对象的属性值。</p>
+
+<p><strong>Parameters:</strong></p>
+
+<ul>
+<li>fields: 要取得哪些属性的值，如果未指定该参数，则返回 fields 中设定的属性</li>
+<li>filter: 要从结果中过滤掉哪些属性，如果未指定则不过滤</li>
+</ul>
+
+<p><strong>Returns:</strong></p>
+
+<ul>
+<li>包含属性值的数组</li>
+</ul>
+
+            </dd>
+
+
+          </dl>
+
+          <!-- BEGIN functions details -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2013-05-08 09:30:25, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.1</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>

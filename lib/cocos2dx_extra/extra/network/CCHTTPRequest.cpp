@@ -74,7 +74,7 @@ bool CCHTTPRequest::initWithUrl(const char* url, int method)
 CCHTTPRequest::~CCHTTPRequest(void)
 {
     cleanup();
-    // CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
+    CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
 }
 
 void CCHTTPRequest::setRequestUrl(const char* url)
@@ -133,7 +133,9 @@ void CCHTTPRequest::start(void)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::start() - request not idle");    
     m_state = kCCHTTPRequestStateInProgress;
-    
+    m_curlState = kCCHTTPRequestCURLStateBusy;
+    retain();
+
     curl_easy_setopt(m_curl, CURLOPT_HTTP_CONTENT_DECODING, 1);
     curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, writeDataCURL);
     curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, this);
@@ -161,7 +163,7 @@ void CCHTTPRequest::start(void)
 void CCHTTPRequest::cancel(void)
 {
     m_delegate = NULL;
-    if (m_state == kCCHTTPRequestStateInProgress)
+    if (m_state == kCCHTTPRequestStateIdle || m_state == kCCHTTPRequestStateInProgress)
     {
         m_state = kCCHTTPRequestStateCancelled;
     }
@@ -214,47 +216,65 @@ size_t CCHTTPRequest::saveResponseData(const char* filename)
     return writedBytes;
 }
 
+void CCHTTPRequest::checkCURLState(float dt)
+{
+    CC_UNUSED_PARAM(dt);
+    if (m_curlState != kCCHTTPRequestCURLStateBusy)
+    {
+        CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
+        release();
+    }
+}
+
 void CCHTTPRequest::update(float dt)
 {
     if (m_state == kCCHTTPRequestStateInProgress) return;
-    CCDirector::sharedDirector()->getScheduler()->unscheduleUpdateForTarget(this);
+    CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
+    if (m_curlState == kCCHTTPRequestCURLStateBusy)
+    {
+        CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(CCHTTPRequest::checkCURLState), this, 0, false);
+    }
 
     if (m_state == kCCHTTPRequestStateCompleted)
     {
         // CCLOG("CCHTTPRequest[0x%04x] - request completed", s_id);
         if (m_delegate) m_delegate->requestFinished(this);
-        
-#if CC_LUA_ENGINE_ENABLED > 0
-        if (m_listener)
-        {
-            CCLuaValueDict dict;
-            dict["name"] = CCLuaValue::stringValue("completed");
-            dict["request"] = CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
-            CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
-            stack->clean();
-            stack->pushCCLuaValueDict(dict);
-            stack->executeFunctionByHandler(m_listener, 1);
-        }
-#endif
     }
-    else if (m_state == kCCHTTPRequestStateCancelled)
+    else
     {
-        // CCLOG("CCHTTPRequest[0x%04x] - request cancelled", s_id);
+        // CCLOG("CCHTTPRequest[0x%04x] - request failed", s_id);
         if (m_delegate) m_delegate->requestFailed(this);
-        
-#if CC_LUA_ENGINE_ENABLED > 0
-        if (m_listener)
-        {
-            CCLuaValueDict dict;
-            dict["name"] = CCLuaValue::stringValue("failed");
-            dict["request"] = CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
-            CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
-            stack->clean();
-            stack->pushCCLuaValueDict(dict);
-            stack->executeFunctionByHandler(m_listener, 1);
-        }
-#endif
     }
+
+#if CC_LUA_ENGINE_ENABLED > 0
+    if (m_listener)
+    {
+        CCLuaValueDict dict;
+
+        switch (m_state)
+        {
+            case kCCHTTPRequestStateCompleted:
+                dict["name"] = CCLuaValue::stringValue("completed");
+                break;
+                
+            case kCCHTTPRequestStateCancelled:
+                dict["name"] = CCLuaValue::stringValue("cancelled");
+                break;
+                
+            case kCCHTTPRequestStateFailed:
+                dict["name"] = CCLuaValue::stringValue("failed");
+                break;
+                
+            default:
+                dict["name"] = CCLuaValue::stringValue("unknown");
+        }
+        dict["request"] = CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
+        CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+        stack->clean();
+        stack->pushCCLuaValueDict(dict);
+        stack->executeFunctionByHandler(m_listener, 1);
+    }
+#endif
 }
 
 // instance callback
@@ -296,8 +316,8 @@ void CCHTTPRequest::onRequest(void)
     
     m_errorCode = code;
     m_errorMessage = (code == CURLE_OK) ? "" : curl_easy_strerror(code);
-    
-    m_state = kCCHTTPRequestStateCompleted;
+    m_state = (code == CURLE_OK) ? kCCHTTPRequestStateCompleted : kCCHTTPRequestStateFailed;
+    m_curlState = kCCHTTPRequestCURLStateClosed;
 }
 
 size_t CCHTTPRequest::onWriteData(void* buffer, size_t bytes)

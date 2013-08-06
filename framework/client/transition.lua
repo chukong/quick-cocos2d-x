@@ -143,6 +143,29 @@ end
 
 --[[--
 
+Rotate a sprite to the rotation.
+
+### Example:
+
+    -- rotate sprite to 200
+    transition.rotateTo(sprite, {time = 2.0, rotate = 200})
+
+### Parameters:
+
+-   CCNode **target**
+
+-   table **args**
+
+]]
+function transition.rotateTo(target, args)
+    assert(not tolua.isnull(target), "transition.rotateTo() - target is not CCNode")
+    -- local rotation = args.rotate
+    local action = CCRotateTo:create(args.time, args.rotate)
+    return transition.execute(target, action, args)
+end
+
+--[[--
+
 Moves a sprite to the position x,y. x and y are absolute coordinates by modifying it's position attribute.
 
 ### Example:
@@ -331,7 +354,9 @@ function transition.sequence(actions)
     return prev
 end
 
+--[[--
 
+]]
 function transition.playAnimationOnce(target, animation, removeWhenFinished, onComplete, delay)
     local actions = {}
     if type(delay) == "number" and delay > 0 then
@@ -342,15 +367,11 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
 
     actions[#actions + 1] = display.newAnimate(animation)
 
-    if removeWhenFinished or onComplete then
-        actions[#actions + 1] = CCCallFunc:create(function()
-            if removeWhenFinished then
-                target:removeFromParentAndCleanup(true)
-            end
-            if type(onComplete) == "function" then
-                onComplete()
-            end
-        end)
+    if removeWhenFinished then
+        actions[#actions + 1] = CCRemoveSelf:create()
+    end
+    if onComplete then
+        actions[#actions + 1] = CCCallFunc:create(onComplete)
     end
 
     local action
@@ -363,8 +384,11 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
     return action
 end
 
-function transition.playAnimationForever(target, animation, isRestoreOriginalFrame, delay)
-    local animate = display.newAnimate(animation, isRestoreOriginalFrame)
+--[[--
+
+]]
+function transition.playAnimationForever(target, animation, delay)
+    local animate = display.newAnimate(animation)
     local action
     if type(delay) == "number" and delay > 0 then
         target:setVisible(false)
