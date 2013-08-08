@@ -71,7 +71,7 @@ function Board:getCoin(row, col)
 end
 
 function Board:flipCoin(coin, includeNeighbour)
-    if not coin then return end
+    if not coin or coin == Levels.NODE_IS_EMPTY then return end
 
     self.flipAnimationCount = self.flipAnimationCount + 1
     coin:flip(function()
