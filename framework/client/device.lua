@@ -110,6 +110,12 @@ end
 device.language = language_
 device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
 device.cachePath = CCFileUtils:sharedFileUtils():getCachePath()
+device.directorySeparator = "/"
+device.pathSeparator = ":"
+if device.platform == "windows" then
+    device.directorySeparator = "\\"
+    device.pathSeparator = ";"
+end
 
 echoInfo("# device.platform              = " .. device.platform)
 echoInfo("# device.environment           = " .. device.environment)
