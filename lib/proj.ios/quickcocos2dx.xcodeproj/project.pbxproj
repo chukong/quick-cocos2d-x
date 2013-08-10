@@ -105,6 +105,7 @@
 		F428272917575E24001479DC /* CSTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42826EA17575E24001479DC /* CSTweenFunction.cpp */; };
 		F428272A17575E24001479DC /* CSUtilMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42826EC17575E24001479DC /* CSUtilMath.cpp */; };
 		F428272B17575E24001479DC /* third_party_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42826EE17575E24001479DC /* third_party_luabinding.cpp */; };
+		F42F313C17A272FA00A20E45 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */; };
 		F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45A2BA0166B07B600760194 /* Foundation.framework */; };
 		F45A2D9A166B168100760194 /* CDAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F45A2D91166B168100760194 /* CDAudioManager.m */; };
 		F45A2D9B166B168100760194 /* CDOpenALSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = F45A2D94166B168100760194 /* CDOpenALSupport.m */; };
@@ -560,6 +561,8 @@
 		F42826ED17575E24001479DC /* CSUtilMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSUtilMath.h; sourceTree = "<group>"; };
 		F42826EE17575E24001479DC /* third_party_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = third_party_luabinding.cpp; sourceTree = "<group>"; };
 		F42826EF17575E24001479DC /* third_party_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = third_party_luabinding.h; sourceTree = "<group>"; };
+		F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGraySprite.cpp; sourceTree = "<group>"; };
+		F42F313B17A272FA00A20E45 /* CCGraySprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGraySprite.h; sourceTree = "<group>"; };
 		F45A2B9D166B07B600760194 /* libquickcocos2dx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libquickcocos2dx.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45A2BA0166B07B600760194 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F45A2BB2166B07FC00760194 /* quickcocos2dx.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = quickcocos2dx.pch; sourceTree = SOURCE_ROOT; };
@@ -2225,6 +2228,8 @@
 				F4E88248177015C400577406 /* CCAnimation.h */,
 				F4E88249177015C400577406 /* CCAnimationCache.cpp */,
 				F4E8824A177015C400577406 /* CCAnimationCache.h */,
+				F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */,
+				F42F313B17A272FA00A20E45 /* CCGraySprite.h */,
 				F4E8824B177015C400577406 /* CCSprite.cpp */,
 				F4E8824C177015C400577406 /* CCSprite.h */,
 				F4E8824D177015C400577406 /* CCSpriteBatchNode.cpp */,
@@ -2992,6 +2997,7 @@
 				F4E883D71770165600577406 /* Lua_extensions_CCB.cpp in Sources */,
 				F4255C97178EBC4200E1C3C1 /* CCLinkPosition.cpp in Sources */,
 				F4B2D8CC179A401F005DEAE1 /* lfs.c in Sources */,
+				F42F313C17A272FA00A20E45 /* CCGraySprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

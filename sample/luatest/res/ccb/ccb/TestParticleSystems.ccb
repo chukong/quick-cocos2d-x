@@ -21,7 +21,7 @@
 	<key>guides</key>
 	<array/>
 	<key>jsControlled</key>
-	<false/>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
@@ -82,6 +82,26 @@
 					<dict>
 						<key>name</key>
 						<string>ignoreAnchorPointForPosition</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>touchEnabled</string>
+						<key>platform</key>
+						<string>iOS</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>mouseEnabled</string>
+						<key>platform</key>
+						<string>Mac</string>
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
@@ -944,14 +964,14 @@
 						<string>ccb/ccb/TestHeader.ccb</string>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
 		<string>TestParticleSystemsLayer</string>
 		<key>displayName</key>
 		<string>CCLayer</string>
+		<key>jsController</key>
+		<string>TestParticleSystemsLayer</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
@@ -1002,7 +1022,29 @@
 				<key>value</key>
 				<true/>
 			</dict>
+			<dict>
+				<key>name</key>
+				<string>touchEnabled</string>
+				<key>platform</key>
+				<string>iOS</string>
+				<key>type</key>
+				<string>Check</string>
+				<key>value</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>mouseEnabled</string>
+				<key>platform</key>
+				<string>Mac</string>
+				<key>type</key>
+				<string>Check</string>
+				<key>value</key>
+				<true/>
+			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

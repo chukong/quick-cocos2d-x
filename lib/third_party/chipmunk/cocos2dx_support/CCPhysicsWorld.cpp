@@ -271,7 +271,7 @@ CCPhysicsBody *CCPhysicsWorld::getBodyByCpBody(cpBody *cpBody)
 
 void CCPhysicsWorld::start(void)
 {
-    scheduleUpdate();
+    scheduleUpdateWithPriority(kCCPrioritySystem);
 }
 
 void CCPhysicsWorld::stop(void)

@@ -33,6 +33,8 @@
 		F4B4EF6616CA2A8B00736FFE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */; };
 		F4BA6EB315F499A300CE7A10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */; };
 		F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EBC15F499EE00CE7A10 /* Security.framework */; };
+		F4D73A5F17A6490A00FA7398 /* ConsoleWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D73A5C17A6490A00FA7398 /* ConsoleWindow.xib */; };
+		F4D73A6017A6490A00FA7398 /* ConsoleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D73A5E17A6490A00FA7398 /* ConsoleWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,9 @@
 		F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F4BA6EBA15F499CC00CE7A10 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F4BA6EBC15F499EE00CE7A10 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F4D73A5C17A6490A00FA7398 /* ConsoleWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsoleWindow.xib; sourceTree = "<group>"; };
+		F4D73A5D17A6490A00FA7398 /* ConsoleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleWindowController.h; sourceTree = "<group>"; };
+		F4D73A5E17A6490A00FA7398 /* ConsoleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsoleWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +179,9 @@
 				F4B08140175C89050029F472 /* AppController.mm */,
 				F416EF051781208800653960 /* AppControllerBridge.h */,
 				F416EF061781208800653960 /* AppControllerBridge.mm */,
+				F4D73A5C17A6490A00FA7398 /* ConsoleWindow.xib */,
+				F4D73A5D17A6490A00FA7398 /* ConsoleWindowController.h */,
+				F4D73A5E17A6490A00FA7398 /* ConsoleWindowController.m */,
 				F4703CBA177955C500A8A9E9 /* CreateNewProjectDialog.xib */,
 				F4703CC0177957F500A8A9E9 /* CreateNewProjectDialogController.h */,
 				F4703CC1177957F600A8A9E9 /* CreateNewProjectDialogController.mm */,
@@ -278,6 +286,7 @@
 				F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */,
 				F4703CBF177955E200A8A9E9 /* ProjectConfigDialog.xib in Resources */,
 				F416EF01177E8F1600653960 /* PlayerPreferencesDialog.xib in Resources */,
+				F4D73A5F17A6490A00FA7398 /* ConsoleWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +306,7 @@
 				F49DC887177C0C5E00D20226 /* NSApplication+SheetAdditions.m in Sources */,
 				F416EF04177E914600653960 /* PlayerPreferencesDialogController.m in Sources */,
 				F416EF071781208800653960 /* AppControllerBridge.mm in Sources */,
+				F4D73A6017A6490A00FA7398 /* ConsoleWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

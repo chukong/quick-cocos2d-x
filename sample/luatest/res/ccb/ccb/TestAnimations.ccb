@@ -15,7 +15,7 @@
 	<key>guides</key>
 	<array/>
 	<key>jsControlled</key>
-	<false/>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
@@ -237,8 +237,6 @@
 						<string>ccb/ccb/TestHeader.ccb</string>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>baseClass</key>
@@ -3292,6 +3290,8 @@
 		<string>TestAnimationsLayer</string>
 		<key>displayName</key>
 		<string>TestAnimations</string>
+		<key>jsController</key>
+		<string>TestAnimationsLayer</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
@@ -3363,6 +3363,8 @@
 				<true/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -3450,7 +3452,7 @@
 			<key>name</key>
 			<string>Idle</string>
 			<key>offset</key>
-			<real>6.2734375</real>
+			<real>5.734375</real>
 			<key>position</key>
 			<real>6.9000000953674316</real>
 			<key>resolution</key>

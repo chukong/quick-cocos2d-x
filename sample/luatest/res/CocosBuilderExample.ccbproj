@@ -29,11 +29,11 @@
 	<key>publishDirectory</key>
 	<string>.</string>
 	<key>publishDirectoryAndroid</key>
-	<string></string>
+	<string>.</string>
 	<key>publishDirectoryHTML5</key>
 	<string></string>
 	<key>publishEnabledAndroid</key>
-	<false/>
+	<true/>
 	<key>publishEnabledHTML5</key>
 	<false/>
 	<key>publishEnablediPhone</key>
@@ -53,15 +53,15 @@
 	<key>publishResolution_ipadhd</key>
 	<true/>
 	<key>publishResolution_large</key>
-	<false/>
+	<true/>
 	<key>publishResolution_medium</key>
-	<false/>
+	<true/>
 	<key>publishResolution_small</key>
-	<false/>
+	<true/>
 	<key>publishResolution_xlarge</key>
-	<false/>
+	<true/>
 	<key>publishResolution_xsmall</key>
-	<false/>
+	<true/>
 	<key>publishToZipFile</key>
 	<false/>
 	<key>resourceAutoScaleFactor</key>

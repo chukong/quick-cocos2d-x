@@ -20,7 +20,7 @@ extern "C" {
 #include "filesystem/lfs.h"
 
 static luaL_Reg luax_exts[] = {
-    {"cjson", luaopen_cjson},
+    {"cjson", luaopen_cjson_safe},
     {"zlib", luaopen_zlib},
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},

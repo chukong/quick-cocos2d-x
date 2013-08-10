@@ -278,11 +278,16 @@ void CCPhysicsBody::getPosition(float *x, float *y)
     *y = p.y;
 }
 
-void CCPhysicsBody::setPosition(float x, float y)
+float CCPhysicsBody::getPositionX(void)
 {
-    cpBodySetPos(m_body, cpv(x, y));
-    if (!m_world->isLocked()) cpSpaceReindexShapesForBody(m_space, m_body);
-    if (m_node) m_node->setPosition(x, y);
+    const cpVect p = cpBodyGetPos(m_body);
+    return p.x;
+}
+
+float CCPhysicsBody::getPositionY(void)
+{
+    const cpVect p = cpBodyGetPos(m_body);
+    return p.y;
 }
 
 void CCPhysicsBody::setPosition(const CCPoint &pos)
@@ -297,6 +302,23 @@ void CCPhysicsBody::setPosition(CCPhysicsVector *pos)
     cpBodySetPos(m_body, pos->getVector());
     if (!m_world->isLocked()) cpSpaceReindexShapesForBody(m_space, m_body);
     if (m_node) m_node->setPosition(pos->getValue());
+}
+
+void CCPhysicsBody::setPosition(float x, float y)
+{
+    cpBodySetPos(m_body, cpv(x, y));
+    if (!m_world->isLocked()) cpSpaceReindexShapesForBody(m_space, m_body);
+    if (m_node) m_node->setPosition(x, y);
+}
+
+void CCPhysicsBody::setPositionX(float x)
+{
+    setPosition(x, getPositionY());
+}
+
+void CCPhysicsBody::setPositionY(float y)
+{
+    setPosition(getPositionX(), y);
 }
 
 float CCPhysicsBody::getAngle(void)

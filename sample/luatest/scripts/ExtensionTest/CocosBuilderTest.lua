@@ -79,7 +79,7 @@ local function onMenuTestClicked()
     cclog("CCBMenuTest");
     local scene = CCScene:create()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/ccb/TestMenus.ccbi",proxy,true,"TestMenusLayerOwner")
+    local  node  = CCBReaderLoad("ccb/ccb/TestMenus.ccbi",proxy,true,"TestMenusLayerOwner")
     local  layer = tolua.cast(node,"CCLayer")
     if nil ~= TestMenusLayerOwner["mTestTitleLabelTTF"] then
         local ccLabelTTF = tolua.cast(TestMenusLayerOwner["mTestTitleLabelTTF"],"CCLabelTTF")
@@ -90,7 +90,7 @@ local function onMenuTestClicked()
     if nil ~= scene then
         scene:addChild(layer)
         scene:addChild(CreateBackMenuItem())
-        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0))); 
+        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0)));
     end
 end
 
@@ -108,7 +108,7 @@ local function onSpriteTestClicked()
     cclog("CCBSpriteTest");
     local scene  = CCScene:create()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/ccb/TestSprites.ccbi",proxy,true,"TestSpritesLayerOwner")
+    local  node  = CCBReaderLoad("ccb/ccb/TestSprites.ccbi",proxy,true,"TestSpritesLayerOwner")
     local  layer = tolua.cast(node,"CCLayer")
     if nil ~= TestSpritesLayerOwner["mTestTitleLabelTTF"] then
         local ccLabelTTF = tolua.cast(TestSpritesLayerOwner["mTestTitleLabelTTF"],"CCLabelTTF")
@@ -119,15 +119,15 @@ local function onSpriteTestClicked()
     if nil ~= scene then
         scene:addChild(layer)
         scene:addChild(CreateBackMenuItem())
-        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0))); 
-    end 
+        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0)));
+    end
 end
 
 local function onButtonTestClicked()
     cclog("CCBButtionTest");
     local scene  = CCScene:create()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/ccb/TestButtons.ccbi",proxy,true,"TestButtonsLayerOwner")
+    local  node  = CCBReaderLoad("ccb/ccb/TestButtons.ccbi",proxy,true,"TestButtonsLayerOwner")
     local  layer = tolua.cast(node,"CCLayer")
     if nil ~= TestButtonsLayerOwner["mTestTitleLabelTTF"] then
         local ccLabelTTF = tolua.cast(TestButtonsLayerOwner["mTestTitleLabelTTF"],"CCLabelTTF")
@@ -138,8 +138,8 @@ local function onButtonTestClicked()
     if nil ~= scene then
         scene:addChild(layer)
         scene:addChild(CreateBackMenuItem())
-        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0))); 
-    end 
+        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0)));
+    end
 end
 
 local function onCCControlButtonClicked()
@@ -154,7 +154,7 @@ local function onAnimationsTestClicked()
     cclog("CCBAnimationsTestTest");
     local scene  = CCScene:create()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/ccb/TestAnimations.ccbi",proxy,true,"TestAnimationsLayerOwner")
+    local  node  = CCBReaderLoad("ccb/ccb/TestAnimations.ccbi",proxy,true,"TestAnimationsLayerOwner")
     local  layer = tolua.cast(node,"CCLayer")
     if nil ~= TestAnimationsLayerOwner["mTestTitleLabelTTF"] then
         local ccLabelTTF = tolua.cast(TestAnimationsLayerOwner["mTestTitleLabelTTF"],"CCLabelTTF")
@@ -165,15 +165,15 @@ local function onAnimationsTestClicked()
     if nil ~= scene then
         scene:addChild(layer)
         scene:addChild(CreateBackMenuItem())
-        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0))); 
-    end 
+        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0)));
+    end
 end
 
 local function onParticleSystemTestClicked()
     cclog("CCBParticleSystemTest");
     local scene  = CCScene:create()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/ccb/TestParticleSystems.ccbi",proxy,true,"TestParticleSystemsLayer")
+    local  node  = CCBReaderLoad("ccb/ccb/TestParticleSystems.ccbi",proxy,true,"TestParticleSystemsLayer")
     local  layer = tolua.cast(node,"CCLayer")
     if nil ~= TestParticleSystemsLayer["mTestTitleLabelTTF"] then
         local ccLabelTTF = tolua.cast(TestParticleSystemsLayer["mTestTitleLabelTTF"],"CCLabelTTF")
@@ -184,8 +184,8 @@ local function onParticleSystemTestClicked()
     if nil ~= scene then
         scene:addChild(layer)
         scene:addChild(CreateBackMenuItem())
-        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0))); 
-    end 
+        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0)));
+    end
 end
 
 local function onCCControlButtonIdleClicked()
@@ -238,7 +238,7 @@ local function onTimelineCallbackSoundClicked()
     cclog("CCBTimelineTest");
     local scene  = CCScene:create()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/ccb/TestTimelineCallback.ccbi",proxy,true,"TestTimelineLayerOwner")
+    local  node  = CCBReaderLoad("ccb/ccb/TestTimelineCallback.ccbi",proxy,true,"TestTimelineLayerOwner")
     local  layer = tolua.cast(node,"CCLayer")
     if nil ~= TestTimelineLayerOwner["mTestTitleLabelTTF"] then
         local ccLabelTTF = tolua.cast(TestTimelineLayerOwner["mTestTitleLabelTTF"],"CCLabelTTF")
@@ -249,8 +249,8 @@ local function onTimelineCallbackSoundClicked()
     if nil ~= scene then
         scene:addChild(layer)
         scene:addChild(CreateBackMenuItem())
-        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0))); 
-    end 
+        CCDirector:sharedDirector():pushScene(CCTransitionFade:create(0.5, scene, ccc3(0,0,0)));
+    end
 end
 
 function onCallback1()
@@ -287,7 +287,7 @@ HelloCocosBuilderLayer["onTimelineCallbackSoundClicked"] = onTimelineCallbackSou
 
 local function HelloCCBTestMainLayer()
     local  proxy = CCBProxy:create()
-    local  node  = CCBReaderLoad("cocosbuilderRes/ccb/HelloCocosBuilder.ccbi",proxy,true,"HelloCocosBuilderLayerOwner")
+    local  node  = CCBReaderLoad("ccb/HelloCocosBuilder.ccbi",proxy,true,"HelloCocosBuilderLayerOwner")
     local  layer = tolua.cast(node,"CCLayer")
     return layer
 end

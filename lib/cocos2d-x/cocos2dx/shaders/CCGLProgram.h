@@ -57,11 +57,12 @@ enum {
 	kCCUniformCosTime,
 	kCCUniformRandom01,
 	kCCUniformSampler,
-    
+
 	kCCUniform_MAX,
 };
 
 #define kCCShader_PositionTextureColor              "ShaderPositionTextureColor"
+#define kCCShader_PositionTextureGray               "ShaderPositionTextureGray"
 #define kCCShader_PositionTextureColorAlphaTest     "ShaderPositionTextureColorAlphaTest"
 #define kCCShader_PositionColor                     "ShaderPositionColor"
 #define kCCShader_PositionTexture                   "ShaderPositionTexture"

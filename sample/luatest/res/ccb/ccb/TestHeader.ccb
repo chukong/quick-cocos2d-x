@@ -21,7 +21,7 @@
 	<key>guides</key>
 	<array/>
 	<key>jsControlled</key>
-	<false/>
+	<true/>
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
@@ -469,6 +469,8 @@
 		<string>TestHeaderLayer</string>
 		<key>displayName</key>
 		<string>TestHeader</string>
+		<key>jsController</key>
+		<string>TestHeaderLayer</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
@@ -540,6 +542,8 @@
 				<true/>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

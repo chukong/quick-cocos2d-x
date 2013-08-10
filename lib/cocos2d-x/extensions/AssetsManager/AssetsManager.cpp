@@ -274,14 +274,22 @@ bool AssetsManager::uncompress()
         const size_t filenameLength = strlen(fileName);
         if (fileName[filenameLength-1] == '/')
         {
-            // Entry is a direcotry, so create it.
-            // If the directory exists, it will failed scilently.
-            if (!createDirectory(fullPath.c_str()))
-            {
-                CCLOG("can not create directory %s", fullPath.c_str());
-                unzClose(zipfile);
-                return false;
-            }
+			// get all dir
+			string fileNameStr = string(fileName);
+			int position = 0;
+			while((position=fileNameStr.find_first_of("/",position))!=string::npos)
+			{
+				string dirPath =_storagePath + fileNameStr.substr(0, position);
+				// Entry is a direcotry, so create it.
+				// If the directory exists, it will failed scilently.
+				if (!createDirectory(dirPath.c_str()))
+				{
+					CCLOG("can not create directory %s", dirPath.c_str());
+					//unzClose(zipfile);
+					//return false;
+				}
+				position++;
+			}
         }
         else
         {

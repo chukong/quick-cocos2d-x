@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed May 29 12:00:51 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Jul 30 00:25:04 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -2115,6 +2115,70 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPosition00(lua_State
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getPositionX of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPositionX00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPositionX00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPositionX'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getPositionX();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPositionX'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getPositionY of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPositionY00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPositionY00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPositionY'", NULL);
+#endif
+  {
+   float tolua_ret = (float)  self->getPositionY();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getPositionY'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setPosition of class  CCPhysicsBody */
 #ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPosition00
 static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPosition00(lua_State* tolua_S)
@@ -2175,6 +2239,72 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPosition01(lua_State
  return 0;
 tolua_lerror:
  return tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPosition00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPositionX of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPositionX00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPositionX00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPositionX'", NULL);
+#endif
+  {
+   self->setPositionX(x);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPositionX'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setPositionY of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPositionY00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPositionY00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+  float y = ((float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPositionY'", NULL);
+#endif
+  {
+   self->setPositionY(y);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setPositionY'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -5271,8 +5401,12 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"applyImpulse",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_applyImpulse01);
    tolua_function(tolua_S,"applyImpulse",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_applyImpulse02);
    tolua_function(tolua_S,"getPosition",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPosition00);
+   tolua_function(tolua_S,"getPositionX",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPositionX00);
+   tolua_function(tolua_S,"getPositionY",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getPositionY00);
    tolua_function(tolua_S,"setPosition",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPosition00);
    tolua_function(tolua_S,"setPosition",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPosition01);
+   tolua_function(tolua_S,"setPositionX",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPositionX00);
+   tolua_function(tolua_S,"setPositionY",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setPositionY00);
    tolua_function(tolua_S,"getAngle",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getAngle00);
    tolua_function(tolua_S,"setAngle",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_setAngle00);
    tolua_function(tolua_S,"getRotation",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_getRotation00);

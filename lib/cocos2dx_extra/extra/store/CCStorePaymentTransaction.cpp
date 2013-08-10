@@ -113,6 +113,7 @@ const CCLuaValueDict CCStorePaymentTransaction::convertToLuaTable(void)
     
     if (m_receiptDataLength > 0)
     {
+        // http://stackoverflow.com/questions/11242667/how-to-parse-apples-iap-receipt-mal-formatted-json
         transaction_["receipt"] = CCLuaValue::stringValue((const char*)(m_receiptData));
     }
     

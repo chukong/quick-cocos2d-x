@@ -95,6 +95,7 @@
 		F477B982175740BF00260C19 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B949175740BF00260C19 /* CCEditBox.cpp */; };
 		F477B985175740BF00260C19 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F477B951175740BF00260C19 /* CCEditBoxImplMac.mm */; };
 		F477B98E175750FF00260C19 /* CSArmature_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B98C175750FF00260C19 /* CSArmature_luabinding.cpp */; };
+		F49C3B2117A905930018B8B1 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49C3B1F17A905930018B8B1 /* CCGraySprite.cpp */; };
 		F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */; };
 		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
 		F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */; };
@@ -508,6 +509,9 @@
 		F477B951175740BF00260C19 /* CCEditBoxImplMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplMac.mm; sourceTree = "<group>"; };
 		F477B98C175750FF00260C19 /* CSArmature_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CSArmature_luabinding.cpp; sourceTree = "<group>"; };
 		F477B98D175750FF00260C19 /* CSArmature_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSArmature_luabinding.h; sourceTree = "<group>"; };
+		F49C3B1E17A8FEEE0018B8B1 /* ccShader_PositionTextureGray_frag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccShader_PositionTextureGray_frag.h; sourceTree = "<group>"; };
+		F49C3B1F17A905930018B8B1 /* CCGraySprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGraySprite.cpp; sourceTree = "<group>"; };
+		F49C3B2017A905930018B8B1 /* CCGraySprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGraySprite.h; sourceTree = "<group>"; };
 		F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaEngine.cpp; sourceTree = "<group>"; };
 		F4A9C07416BC3AF400088CF7 /* CCLuaEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaEngine.h; sourceTree = "<group>"; };
 		F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaLoader.cpp; sourceTree = "<group>"; };
@@ -2135,6 +2139,7 @@
 				F4E87FE01770071600577406 /* ccShader_PositionTextureColor_frag.h */,
 				F4E87FE11770071600577406 /* ccShader_PositionTextureColor_vert.h */,
 				F4E87FE21770071600577406 /* ccShader_PositionTextureColorAlphaTest_frag.h */,
+				F49C3B1E17A8FEEE0018B8B1 /* ccShader_PositionTextureGray_frag.h */,
 				F4E87FE31770071600577406 /* CCShaderCache.cpp */,
 				F4E87FE41770071600577406 /* CCShaderCache.h */,
 				F4E87FE51770071600577406 /* ccShaderEx_SwitchMask_frag.h */,
@@ -2151,6 +2156,8 @@
 				F4E87FEA1770071600577406 /* CCAnimation.h */,
 				F4E87FEB1770071600577406 /* CCAnimationCache.cpp */,
 				F4E87FEC1770071600577406 /* CCAnimationCache.h */,
+				F49C3B1F17A905930018B8B1 /* CCGraySprite.cpp */,
+				F49C3B2017A905930018B8B1 /* CCGraySprite.h */,
 				F4E87FED1770071600577406 /* CCSprite.cpp */,
 				F4E87FEE1770071600577406 /* CCSprite.h */,
 				F4E87FEF1770071600577406 /* CCSpriteBatchNode.cpp */,
@@ -2848,6 +2855,7 @@
 				F4E8818117700E8A00577406 /* CCTableViewCell.cpp in Sources */,
 				F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */,
 				F4B2D8C7179A3E3E005DEAE1 /* lfs.c in Sources */,
+				F49C3B2117A905930018B8B1 /* CCGraySprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
