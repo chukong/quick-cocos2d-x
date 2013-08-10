@@ -889,7 +889,7 @@ void CCDirector::createStatsLabel()
      Secondly, the size of this image is 480*320, to display the FPS label with correct size, 
      a factor of design resolution ratio of 480x320 is also needed.
      */
-    float factor = CCEGLView::sharedOpenGLView()->getDesignResolutionSize().height / 320.0f;
+    float factor = 1.0f; // CCEGLView::sharedOpenGLView()->getDesignResolutionSize().height / 320.0f;
 
     m_pFPSLabel = new CCLabelAtlas();
     m_pFPSLabel->setIgnoreContentScaleFactor(true);
