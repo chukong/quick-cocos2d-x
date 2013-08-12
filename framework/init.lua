@@ -38,6 +38,7 @@ Module | Descripton
 @see framework.audio | Play music, sound effect
 @see framework.ui | Create menu, label, widgets
 @see framework.network | ...
+@see framework.json | ...
 @see framework.luaoc | Call Objective-C from Lua, iOS platform only
 @see framework.luaj | Call Java from Lua, Android platform only
 @see framework.crypto | Crypto
@@ -78,6 +79,7 @@ audio      = require(__FRAMEWORK_PACKAGE_NAME__ .. ".audio")
 ui         = require(__FRAMEWORK_PACKAGE_NAME__ .. ".ui")
 network    = require(__FRAMEWORK_PACKAGE_NAME__ .. ".network")
 crypto     = require(__FRAMEWORK_PACKAGE_NAME__ .. ".crypto")
+json       = require(__FRAMEWORK_PACKAGE_NAME__ .. ".json")
 
 if device.platform == "android" then
     luaj = require(__FRAMEWORK_PACKAGE_NAME__ .. ".luaj")
