@@ -1,7 +1,8 @@
 <?php
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-define('TOLUA_BIN', (DS == '\\') ? 'tolua++.exe' : '/usr/local/bin/tolua++');
+define('BIN_DIR', rtrim(dirname(__DIR__), '/\\'));
+define('TOLUA_BIN', (DS == '\\') ?  BIN_DIR . '\\win32\\tolua++.exe' : BIN_DIR . '/mac/tolua++');
 define('CONFIG_PATH', rtrim(__DIR__, '/\\') . DS . 'compile_luabinding_config.lua');
 
 // ----------------------------------------

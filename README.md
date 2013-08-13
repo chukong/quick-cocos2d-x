@@ -10,6 +10,9 @@ quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in 
 
 ## Get Started
 
+quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/)
+
+
 Step 1: Get quick-cocos2d-x
 
 -   [HOWTO: Setup development environment for Windows](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Setup-development-environment-for-Windows)
@@ -29,7 +32,7 @@ Step 2: Start your project
 
 Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/player/bin/win32/quick-x-player.exe
 
-![](/doc/img/RUN_PLAYER_MAC_01.png)
+![](http://cn.quick-x.com/wp-content/uploads/2013/08/player_01.png)
 
 1.  Select menu: File -> Open
 2.  Set Project Directory to **quick-cocos2d-x/sample/coinflip**

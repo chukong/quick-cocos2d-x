@@ -1,7 +1,6 @@
 
 require("config")
 require("framework.init")
-require("framework.client.init")
 
 -- define global module
 game = {}

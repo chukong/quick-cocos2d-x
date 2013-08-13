@@ -1,7 +1,17 @@
 <?php
 
 define('DS', DIRECTORY_SEPARATOR);
-define('LUAJIT', true);
+define('BIN_DIR', rtrim(dirname(__DIR__), '/\\'));
+define('LUAJIT_ENABLED', true);
+
+if (DS == '/')
+{
+    define('LUAJIT_BIN', 'luajit');
+}
+else
+{
+    define('LUAJIT_BIN', BIN_DIR . '\\win32\\luajit.exe');
+}
 
 class LuaPackager
 {
@@ -222,9 +232,9 @@ EOT;
         $tmpfile = $path . '.bytes';
         if (file_exists($tmpfile)) unlink($tmpfile);
 
-        if (LUAJIT)
+        if (LUAJIT_ENABLED)
         {
-            $command = sprintf('luajit -b -s "%s" "%s"', $path, $tmpfile);
+            $command = sprintf('%s -b -s "%s" "%s"', LUAJIT_BIN, $path, $tmpfile);
         }
         else
         {
