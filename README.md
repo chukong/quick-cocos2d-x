@@ -10,11 +10,12 @@ quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in 
 
 ## Get Started
 
-quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/)
+quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/), [cn.quick-x.com](http://cn.quick-x.com/)
 
+Step 1: Get Started
 
-Step 1: Get quick-cocos2d-x
-
+-   [Download stable-2.1.4-20130808.zip](https://github.com/dualface/quick-cocos2d-x/archive/stable-2.1.4-20130808.zip)
+-   [HOWTO: Setup development environment for Windows - Chinese](http://cn.quick-x.com/?p=253)
 -   [HOWTO: Setup development environment for Windows](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Setup-development-environment-for-Windows)
 -   [HOWTO: Setup development environment for Mac](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Setup-development-environment-for-Mac)
 
@@ -23,8 +24,7 @@ Step 1: Get quick-cocos2d-x
 Step 2: Start your project
 
 -   [HOWTO: Create new project](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Create-new-project)
--   [More Documents](https://github.com/dualface/quick-cocos2d-x/wiki)
--   [API Documents](http://quick-x.com/docs/api/)
+-   [Documents](http://wiki.quick-x.com/)
 
 <br />
 
