@@ -1,36 +1,10 @@
 --[[
 
-Copyright (c) 2011-2012 qeeplay.com
-
-http://dualface.github.com/quick-cocos2d-x/
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
 ]]
 
 local tonumber_ = tonumber
+
 --[[--
-
-Convert to number.
-
-@param mixed v
-@return number
 
 ]]
 function tonumber(v, base)
@@ -39,22 +13,12 @@ end
 
 --[[--
 
-Convert to integer.
-
-@param mixed v
-@return number(integer)
-
 ]]
 function toint(v)
     return math.round(tonumber(v))
 end
 
 --[[--
-
-Convert to boolean.
-
-@param mixed v
-@return boolean
 
 ]]
 function tobool(v)
@@ -63,11 +27,6 @@ end
 
 --[[--
 
-Convert to table.
-
-@param mixed v
-@return table
-
 ]]
 function totable(v)
     if type(v) ~= "table" then v = {} end
@@ -75,24 +34,6 @@ function totable(v)
 end
 
 --[[--
-
-Creating a copy of an table with fully replicated properties.
-
-**Usage:**
-
-    -- Creating a reference of an table:
-    local t1 = {a = 1, b = 2}
-    local t2 = t1
-    t2.b = 3    -- t1 = {a = 1, b = 3} <-- t1.b changed
-
-    -- Createing a copy of an table:
-    local t1 = {a = 1, b = 2}
-    local t2 = clone(t1)
-    t2.b = 3    -- t1 = {a = 1, b = 2} <-- t1.b no change
-
-
-@param mixed object
-@return mixed
 
 ]]
 function clone(object)
@@ -114,61 +55,6 @@ function clone(object)
 end
 
 --[[--
-
-Create an class.
-
-**Usage:**
-
-    local Shape = class("Shape")
-
-    -- base class
-    function Shape:ctor(shapeName)
-        self.shapeName = shapeName
-        printf("Shape:ctor(%s)", self.shapeName)
-    end
-
-    function Shape:draw()
-        printf("draw %s", self.shapeName)
-    end
-
-    --
-
-    local Circle = class("Circle", Shape)
-
-    function Circle:ctor()
-        Circle.super.ctor(self, "circle")   -- call super-class method
-        self.radius = 100
-    end
-
-    function Circle:setRadius(radius)
-        self.radius = radius
-    end
-
-    function Circle:draw()                  -- overrideing super-class method
-        printf("draw %s, raidus = %0.2f", self.shapeName, self.raidus)
-    end
-
-    --
-
-    local Rectangle = class("Rectangle", Shape)
-
-    function Rectangle:ctor()
-        Rectangle.super.ctor(self, "rectangle")
-    end
-
-    --
-
-    local circle = Circle.new()             -- output: Shape:ctor(circle)
-    circle:setRaidus(200)
-    circle:draw()                           -- output: draw circle, radius = 200.00
-
-    local rectangle = Rectangle.new()       -- output: Shape:ctor(rectangle)
-    rectangle:draw()                        -- output: draw rectangle
-
-
-@param string classname
-@param table|function super-class
-@return table
 
 ]]
 function class(classname, super)
@@ -267,27 +153,6 @@ end
 ]]
 function handler(target, method)
     return function(...) return method(target, ...) end
-end
-
---[[--
-
-Returns a associative table containing the matching values.
-
-@param table arr
-@param table names
-@return array
-
-]]
-function export(arr, names)
-    local args = {}
-    for k, def in pairs(names) do
-        if type(k) == "number" then
-            args[def] = arr[def]
-        else
-            args[k] = arr[k] or def
-        end
-    end
-    return args
 end
 
 --[[--
