@@ -40,25 +40,18 @@
 #include <string.h>
 #include <math.h>
 #include <limits.h>
+
 #include "lua.h"
 #include "lauxlib.h"
-
 #include "strbuf.h"
 #include "fpconv.h"
-
-#ifdef _MSC_VER
-#include <float.h>
-#define isinf(x) (!_finite(x))
-#define isnan _isnan
-#define strncasecmp _strnicmp
-#endif
 
 #ifndef CJSON_MODNAME
 #define CJSON_MODNAME   "cjson"
 #endif
 
 #ifndef CJSON_VERSION
-#define CJSON_VERSION   "2.1.0"
+#define CJSON_VERSION   "2.1devel"
 #endif
 
 /* Workaround for Solaris platforms missing isinf() */
@@ -75,6 +68,7 @@
 #define DEFAULT_DECODE_INVALID_NUMBERS 1
 #define DEFAULT_ENCODE_KEEP_BUFFER 1
 #define DEFAULT_ENCODE_NUMBER_PRECISION 14
+#define DEFAULT_DECODE_LUA_NIL 1
 
 #ifdef DISABLE_INVALID_NUMBERS
 #undef DEFAULT_DECODE_INVALID_NUMBERS
@@ -134,6 +128,7 @@ typedef struct {
 
     int decode_invalid_numbers;
     int decode_max_depth;
+    int decode_lua_nil;             /* 1 => use Lua nil for NULL */
 } json_config_t;
 
 typedef struct {
@@ -363,6 +358,15 @@ static int json_cfg_decode_invalid_numbers(lua_State *l)
     return 1;
 }
 
+static int json_cfg_decode_lua_nil(lua_State *l)
+{
+    json_config_t *cfg = json_arg_init(l, 1);
+
+    json_enum_option(l, 1, &cfg->decode_lua_nil, NULL, 1);
+
+    return 1;
+}
+
 static int json_destroy_config(lua_State *l)
 {
     json_config_t *cfg;
@@ -397,6 +401,7 @@ static void json_create_config(lua_State *l)
     cfg->decode_invalid_numbers = DEFAULT_DECODE_INVALID_NUMBERS;
     cfg->encode_keep_buffer = DEFAULT_ENCODE_KEEP_BUFFER;
     cfg->encode_number_precision = DEFAULT_ENCODE_NUMBER_PRECISION;
+    cfg->decode_lua_nil = DEFAULT_DECODE_LUA_NIL;
 
 #if DEFAULT_ENCODE_KEEP_BUFFER > 0
     strbuf_init(&cfg->encode_buf, 0);
@@ -468,7 +473,7 @@ static void json_encode_exception(lua_State *l, json_config_t *cfg, strbuf_t *js
 static void json_append_string(lua_State *l, strbuf_t *json, int lindex)
 {
     const char *escstr;
-    size_t i;
+    int i;
     const char *str;
     size_t len;
 
@@ -599,12 +604,20 @@ static void json_append_number(lua_State *l, json_config_t *cfg,
     if (cfg->encode_invalid_numbers == 0) {
         /* Prevent encoding invalid numbers */
         if (isinf(num) || isnan(num))
-            json_encode_exception(l, cfg, json, lindex, "must not be NaN or Inf");
+            json_encode_exception(l, cfg, json, lindex,
+                                  "must not be NaN or Infinity");
     } else if (cfg->encode_invalid_numbers == 1) {
-        /* Encode invalid numbers, but handle "nan" separately
-         * since some platforms may encode as "-nan". */
+        /* Encode NaN/Infinity separately to ensure Javascript compatible
+         * values are used. */
         if (isnan(num)) {
-            strbuf_append_mem(json, "nan", 3);
+            strbuf_append_mem(json, "NaN", 3);
+            return;
+        }
+        if (isinf(num)) {
+            if (num < 0)
+                strbuf_append_mem(json, "-Infinity", 9);
+            else
+                strbuf_append_mem(json, "Infinity", 8);
             return;
         }
     } else {
@@ -1246,9 +1259,16 @@ static void json_process_value(lua_State *l, json_parse_t *json,
         json_parse_array_context(l, json);
         break;;
     case T_NULL:
-        /* In Lua, setting "t[k] = nil" will delete k from the table.
-         * Hence a NULL pointer lightuserdata object is used instead */
-        lua_pushlightuserdata(l, NULL);
+        if (json->cfg->decode_lua_nil)
+        {
+            lua_pushnil(l);
+        }
+        else
+        {
+            /* In Lua, setting "t[k] = nil" will delete k from the table.
+             * Hence a NULL pointer lightuserdata object is used instead */
+            lua_pushlightuserdata(l, NULL);
+        }
         break;;
     default:
         json_throw_parse_error(l, json, "value", token);
@@ -1358,6 +1378,7 @@ static int lua_cjson_new(lua_State *l)
         { "encode_keep_buffer", json_cfg_encode_keep_buffer },
         { "encode_invalid_numbers", json_cfg_encode_invalid_numbers },
         { "decode_invalid_numbers", json_cfg_decode_invalid_numbers },
+        { "decode_lua_nil", json_cfg_decode_lua_nil },
         { "new", lua_cjson_new },
         { NULL, NULL }
     };
