@@ -38,5 +38,5 @@ cp -rf "$APP_ROOT"/res "$APP_ANDROID_ROOT"/assets/
 
 # build
 echo "Using prebuilt externals"
-"$ANDROID_NDK_ROOT"/ndk-build -j -C "$APP_ANDROID_ROOT" $* \
+"$ANDROID_NDK_ROOT"/ndk-build $ANDROID_NDK_BUILD_FLAGS -C "$APP_ANDROID_ROOT" $* \
 "NDK_MODULE_PATH=${QUICK_COCOS2DX_ROOT}:${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/prebuilt"
