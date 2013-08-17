@@ -909,7 +909,6 @@ end
 
 --[[--
 
-
 ]]
 function display.newFrame(frameName)
     return sharedSpriteFrameCache:spriteFrameByName(frameName)

@@ -47,18 +47,28 @@ function EventProtocol.extend(object)
     @param eventName
     String specifying the name of the event to listen for.
 
-    @tparam function listener
+    @param function listener
     If the event's event.name matches this string, listener will be invoked.
+
+    @param name handle
 
     @return Nothing.
 
     ]]
-    function object:addEventListener(eventName, listener)
+    function object:addEventListener(eventName, listener, handle)
         eventName = string.upper(eventName)
         if object.listeners[eventName] == nil then
             object.listeners[eventName] = {}
         end
-        local handle = "_LISTENER_HANDLE_" .. tostring(listener)
+
+        if not handle then
+            handle = "_LISTENER_HANDLE_" .. tostring(listener)
+        end
+        if object.listeners[eventName][handle] then
+            echoError("EventProtocol:addEventListener() - handle \"%s\" already exists", handle)
+            return
+        end
+
         object.listeners[eventName][handle] = listener
         return handle
     end

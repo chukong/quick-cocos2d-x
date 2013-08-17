@@ -38,15 +38,19 @@ Debug functions.
 ]]
 
 io.output():setvbuf('no')
-if CCLuaLog then print = CCLuaLog end
 
+--[[--
+
+]]
 function echo(...)
     local arr = {}
     for i, a in ipairs({...}) do
         arr[#arr + 1] = tostring(a)
     end
-    print(table.concat(arr, "\t"))
+    CCLuaLog(table.concat(arr, "\t"))
 end
+
+print = echo
 
 --[[--
 
@@ -64,14 +68,23 @@ function printf(fmt, ...)
     echo(string.format(tostring(fmt), ...))
 end
 
+--[[--
+
+]]
 function echoError(fmt, ...)
     echo(string.format("[ERR] %s%s", string.format(tostring(fmt), ...), debug.traceback("", 2)))
 end
 
+--[[--
+
+]]
 function echoInfo(fmt, ...)
     echo("[INFO] " .. string.format(tostring(fmt), ...))
 end
 
+--[[--
+
+]]
 function echoLog(tag, fmt, ...)
     echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(tostring(fmt), ...)))
 end
