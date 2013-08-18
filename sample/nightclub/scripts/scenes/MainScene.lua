@@ -63,7 +63,7 @@ end
 ]]
 function MainScene:genObject(resId, actionId, x, y, isFixed)
     local frames = display.newFrames(resId .. "_" .. self.actionNames[actionId] .."_%02d.png", 1, self.actionNums[actionId])
-    local sprite = display.newSpriteWithFrame(frames[1], x, y)
+    local sprite = display.newSprite(frames[1], x, y)
     -- 一定概率水平翻转
     if math.random(1, 2) == 1 then
         sprite:setFlipX(true)
@@ -114,7 +114,7 @@ end
 ]]
 function MainScene:genStageObject(x, y)
     local frames = display.newFrames("bg%02d.png", 1, 4);
-    local sprite = display.newSpriteWithFrame(frames[1], x, y)
+    local sprite = display.newSprite(frames[1], x, y)
     self.stageNode:addChild(sprite);
     local animation = display.newAnimation(frames, math.random(1, 2) / 10)
     sprite:playAnimationForever(animation)
