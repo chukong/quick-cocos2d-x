@@ -1,32 +1,5 @@
---[[
-
-Copyright (c) 2011-2012 qeeplay.com
-
-http://dualface.github.com/quick-cocos2d-x/
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-]]
 
 --[[--
-
-Actions, Transformations and Effects
 
 ]]
 
@@ -79,32 +52,6 @@ end
 
 --[[--
 
-Execute an action with a target.
-
-### Example:
-
-    -- moving right target 100 points, durations of 2.0 seconds.
-    local action = CCMoveBy:create(ccp(100, 0), 0.2)
-
-    local args = {
-        delay = 3.0,                        -- before moving, delay 3.0 seconds
-        easing = "CCEaseBackInOut",         -- use CCEaseBackInOut for easing
-        onComplete = function()             -- call function after moving completed
-            echo("MOVING COMPLETED")
-        end,
-    }
-    transition.execute(sprite, action, args)
-
-Note: **Other transiton methods can also use the same args parameters.**
-
-### Parameters:
-
--   CCNode **target**
-
--   CCAction **action**
-
--   [_optional table **args**_]
-
 ]]
 function transition.execute(target, action, args)
     assert(not tolua.isnull(target), "transition.execute() - target is not CCNode")
@@ -143,19 +90,6 @@ end
 
 --[[--
 
-Rotate a sprite to the rotation.
-
-### Example:
-
-    -- rotate sprite to 200
-    transition.rotateTo(sprite, {time = 2.0, rotate = 200})
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
-
 ]]
 function transition.rotateTo(target, args)
     assert(not tolua.isnull(target), "transition.rotateTo() - target is not CCNode")
@@ -165,19 +99,6 @@ function transition.rotateTo(target, args)
 end
 
 --[[--
-
-Moves a sprite to the position x,y. x and y are absolute coordinates by modifying it's position attribute.
-
-### Example:
-
-    -- Moving sprite to 100, 100
-    transition.moveTo(sprite, {time = 2.0, x = 100, y = 100})
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
 
 ]]
 function transition.moveTo(target, args)
@@ -191,19 +112,6 @@ end
 
 --[[--
 
-Moves a sprite x,y points by modifying it's position attribute. x and y are relative to the position of the object.
-
-### Example:
-
-    -- Moving right and up
-    transition.moveBy(sprite, {time = 2.0, x = 100, y = 100})
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
-
 ]]
 function transition.moveBy(target, args)
     assert(not tolua.isnull(target), "transition.moveBy() - target is not CCNode")
@@ -215,18 +123,6 @@ end
 
 --[[--
 
-Fades In an sprite. It modifies the opacity from 0 to 255. The "reverse" of this action is transition.fadeOut() .
-
-### Example:
-
-    transition.fadeIn(sprite, {time = 1.0})
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
-
 ]]
 function transition.fadeIn(target, args)
     assert(not tolua.isnull(target), "transition.fadeIn() - target is not CCNode")
@@ -237,14 +133,6 @@ end
 
 --[[--
 
-Fades Out an sprite. It modifies the opacity from 255 to 0. The "reverse" of this action is transition.fadeIn() .
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
-
 ]]
 function transition.fadeOut(target, args)
     assert(not tolua.isnull(target), "transition.fadeOut() - target is not CCNode")
@@ -254,18 +142,6 @@ function transition.fadeOut(target, args)
 end
 
 --[[--
-
-Fades an sprite. It modifies the opacity from the current value to a custom one.
-
-### Example:
-
-    transition.fadeTo(sprite, {time = 2.0, opacity = 200})
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
 
 ]]
 function transition.fadeTo(target, args)
@@ -281,20 +157,6 @@ function transition.fadeTo(target, args)
 end
 
 --[[--
-
-Scales a sprite to a zoom factor by modifying it's scale attribute.
-
-### Example:
-
-    transition.scaleTo(sprite1, {time = 2.0, scale = 2.0})      -- zoom sprite
-    transition.scaleTo(sprite2, {time = 2.0, scaleX = 2.0})     -- zoom horizontal
-    transition.scaleTo(sprite3, {time = 2.0, scaleY = 2.0})     -- zoom vertical
-
-### Parameters:
-
--   CCNode **target**
-
--   table **args**
 
 ]]
 function transition.scaleTo(target, args)
@@ -321,27 +183,6 @@ end
 
 --[[--
 
-Create an array of sequenceable actions given an table.
-
-### Example:
-
-    local function onComplete()
-        echo("SEQUENCE COMPLETED")
-    end
-
-    local action = transition.sequence({
-        CCMoveBy:create(sprite, ccp(100, 0)),   -- moving right
-        CCDelayTime:create(1.0),                -- delay 1 seconds
-        CCMoveBy:create(sprite, ccp(0, 100)),   -- moving up
-        CCCallFunc:create(onComplete),          -- call function
-    })
-
-    sprite:runAction(action)
-
-### Parameters:
-
--   table **actions**
-
 ]]
 function transition.sequence(actions)
     if #actions < 1 then return end
@@ -365,7 +206,7 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
         actions[#actions + 1] = CCShow:create()
     end
 
-    actions[#actions + 1] = display.newAnimate(animation)
+    actions[#actions + 1] = CCAnimate:create(animation)
 
     if removeWhenFinished then
         actions[#actions + 1] = CCRemoveSelf:create()
@@ -388,7 +229,7 @@ end
 
 ]]
 function transition.playAnimationForever(target, animation, delay)
-    local animate = display.newAnimate(animation)
+    local animate = CCAnimate:create(animation)
     local action
     if type(delay) == "number" and delay > 0 then
         target:setVisible(false)
@@ -407,18 +248,6 @@ end
 
 --[[--
 
-Stop the action.
-
-### Example:
-
-    local action = transition.moveTo(sprite, {time = 2.0, x = 100, y = 100})
-    ....
-    transition.removeAction(action) -- stop moving
-
-### Parameters:
-
--   CCAction **action**
-
 ]]
 function transition.removeAction(action)
     if not tolua.isnull(action) then
@@ -427,20 +256,6 @@ function transition.removeAction(action)
 end
 
 --[[--
-
-Stop all actions for the target.
-
-### Example:
-
-    transition.moveTo(sprite, {time = 2.0, x = 100, y = 100})
-    transition.fadeOut(sprite, {time = 2.0})
-    ....
-    transition.stopTarget(sprite) -- stop moving, stop fades
-
-
-### Parameters:
-
--   CCNode **target**
 
 ]]
 function transition.stopTarget(target)
@@ -451,12 +266,6 @@ end
 
 --[[--
 
-Pauses the target, all running actions and newly added actions will be paused.
-
-### Parameters:
-
--   CCNode **target**
-
 ]]
 function transition.pauseTarget(target)
     if not tolua.isnull(target) then
@@ -465,12 +274,6 @@ function transition.pauseTarget(target)
 end
 
 --[[--
-
-Resumes the target.
-
-### Parameters:
-
--   CCNode **target**
 
 ]]
 function transition.resumeTarget(target)

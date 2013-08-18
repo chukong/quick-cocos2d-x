@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul 31 17:14:13 2013.
+** Generated automatically by tolua++-1.0.92 on Mon Aug 19 00:08:38 2013.
 */
 
 /****************************************************************************
@@ -38232,73 +38232,9 @@ static int tolua_Cocos2d_CCLayer_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: registerScriptAccelerateHandler of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_registerScriptAccelerateHandler00
-static int tolua_Cocos2d_CCLayer_registerScriptAccelerateHandler00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-  LUA_FUNCTION nHandler = (  toluafix_ref_function(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptAccelerateHandler'", NULL);
-#endif
-  {
-   self->registerScriptAccelerateHandler(nHandler);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'registerScriptAccelerateHandler'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: unregisterScriptAccelerateHandler of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_unregisterScriptAccelerateHandler00
-static int tolua_Cocos2d_CCLayer_unregisterScriptAccelerateHandler00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterScriptAccelerateHandler'", NULL);
-#endif
-  {
-   self->unregisterScriptAccelerateHandler();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'unregisterScriptAccelerateHandler'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: registerScriptTouchHandler of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_registerScriptTouchHandler00
-static int tolua_Cocos2d_CCLayer_registerScriptTouchHandler00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_addTouchEventListener00
+static int tolua_Cocos2d_CCLayer_addTouchEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -38329,15 +38265,15 @@ static int tolua_Cocos2d_CCLayer_registerScriptTouchHandler00(lua_State* tolua_S
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'registerScriptTouchHandler'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addTouchEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: unregisterScriptTouchHandler of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_unregisterScriptTouchHandler00
-static int tolua_Cocos2d_CCLayer_unregisterScriptTouchHandler00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_removeTouchEventListener00
+static int tolua_Cocos2d_CCLayer_removeTouchEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -38360,39 +38296,7 @@ static int tolua_Cocos2d_CCLayer_unregisterScriptTouchHandler00(lua_State* tolua
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'unregisterScriptTouchHandler'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isTouchEnabled of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_isTouchEnabled00
-static int tolua_Cocos2d_CCLayer_isTouchEnabled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isTouchEnabled'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isTouchEnabled();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isTouchEnabled'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeTouchEventListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -38431,6 +38335,70 @@ static int tolua_Cocos2d_CCLayer_setTouchEnabled00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: isTouchEnabled of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_isTouchEnabled00
+static int tolua_Cocos2d_CCLayer_isTouchEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isTouchEnabled'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isTouchEnabled();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isTouchEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getTouchMode of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_getTouchMode00
+static int tolua_Cocos2d_CCLayer_getTouchMode00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTouchMode'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->getTouchMode();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getTouchMode'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setTouchMode of class  CCLayer */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_setTouchMode00
 static int tolua_Cocos2d_CCLayer_setTouchMode00(lua_State* tolua_S)
@@ -38464,9 +38432,9 @@ static int tolua_Cocos2d_CCLayer_setTouchMode00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getTouchMode of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_getTouchMode00
-static int tolua_Cocos2d_CCLayer_getTouchMode00(lua_State* tolua_S)
+/* method: getTouchPriority of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_getTouchPriority00
+static int tolua_Cocos2d_CCLayer_getTouchPriority00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -38480,17 +38448,17 @@ static int tolua_Cocos2d_CCLayer_getTouchMode00(lua_State* tolua_S)
  {
   CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTouchMode'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTouchPriority'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->getTouchMode();
+   int tolua_ret = (int)  self->getTouchPriority();
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTouchMode'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getTouchPriority'.",&tolua_err);
  return 0;
 #endif
 }
@@ -38529,79 +38497,15 @@ static int tolua_Cocos2d_CCLayer_setTouchPriority00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getTouchPriority of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_getTouchPriority00
-static int tolua_Cocos2d_CCLayer_getTouchPriority00(lua_State* tolua_S)
+/* method: registerScriptKeypadHandler of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_addKeypadEventListener00
+static int tolua_Cocos2d_CCLayer_addKeypadEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getTouchPriority'", NULL);
-#endif
-  {
-   int tolua_ret = (int)  self->getTouchPriority();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getTouchPriority'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isAccelerometerEnabled of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_isAccelerometerEnabled00
-static int tolua_Cocos2d_CCLayer_isAccelerometerEnabled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isAccelerometerEnabled'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isAccelerometerEnabled();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isAccelerometerEnabled'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setAccelerometerEnabled of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_setAccelerometerEnabled00
-static int tolua_Cocos2d_CCLayer_setAccelerometerEnabled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -38609,59 +38513,26 @@ static int tolua_Cocos2d_CCLayer_setAccelerometerEnabled00(lua_State* tolua_S)
 #endif
  {
   CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-  bool value = ((bool)  tolua_toboolean(tolua_S,2,0));
+  LUA_FUNCTION nHandler = (  toluafix_ref_function(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAccelerometerEnabled'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptKeypadHandler'", NULL);
 #endif
   {
-   self->setAccelerometerEnabled(value);
+   self->registerScriptKeypadHandler(nHandler);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setAccelerometerEnabled'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addKeypadEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setAccelerometerInterval of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_setAccelerometerInterval00
-static int tolua_Cocos2d_CCLayer_setAccelerometerInterval00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
-  double interval = ((double)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAccelerometerInterval'", NULL);
-#endif
-  {
-   self->setAccelerometerInterval(interval);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setAccelerometerInterval'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isKeypadEnabled of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_isKeypadEnabled00
-static int tolua_Cocos2d_CCLayer_isKeypadEnabled00(lua_State* tolua_S)
+/* method: unregisterScriptKeypadHandler of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_removeKeypadEventListener00
+static int tolua_Cocos2d_CCLayer_removeKeypadEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -38675,17 +38546,16 @@ static int tolua_Cocos2d_CCLayer_isKeypadEnabled00(lua_State* tolua_S)
  {
   CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isKeypadEnabled'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterScriptKeypadHandler'", NULL);
 #endif
   {
-   bool tolua_ret = (bool)  self->isKeypadEnabled();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   self->unregisterScriptKeypadHandler();
   }
  }
- return 1;
+ return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isKeypadEnabled'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeKeypadEventListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -38724,9 +38594,41 @@ static int tolua_Cocos2d_CCLayer_setKeypadEnabled00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: registerScriptKeypadHandler of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_registerScriptKeypadHandler00
-static int tolua_Cocos2d_CCLayer_registerScriptKeypadHandler00(lua_State* tolua_S)
+/* method: isKeypadEnabled of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_isKeypadEnabled00
+static int tolua_Cocos2d_CCLayer_isKeypadEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isKeypadEnabled'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isKeypadEnabled();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isKeypadEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: registerScriptAccelerateHandler of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_addAccelerateEventListener00
+static int tolua_Cocos2d_CCLayer_addAccelerateEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -38742,24 +38644,24 @@ static int tolua_Cocos2d_CCLayer_registerScriptKeypadHandler00(lua_State* tolua_
   CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
   LUA_FUNCTION nHandler = (  toluafix_ref_function(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptKeypadHandler'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptAccelerateHandler'", NULL);
 #endif
   {
-   self->registerScriptKeypadHandler(nHandler);
+   self->registerScriptAccelerateHandler(nHandler);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'registerScriptKeypadHandler'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addAccelerateEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: unregisterScriptKeypadHandler of class  CCLayer */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_unregisterScriptKeypadHandler00
-static int tolua_Cocos2d_CCLayer_unregisterScriptKeypadHandler00(lua_State* tolua_S)
+/* method: unregisterScriptAccelerateHandler of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_removeAccelerateEventListener00
+static int tolua_Cocos2d_CCLayer_removeAccelerateEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -38773,16 +38675,114 @@ static int tolua_Cocos2d_CCLayer_unregisterScriptKeypadHandler00(lua_State* tolu
  {
   CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterScriptKeypadHandler'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterScriptAccelerateHandler'", NULL);
 #endif
   {
-   self->unregisterScriptKeypadHandler();
+   self->unregisterScriptAccelerateHandler();
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'unregisterScriptKeypadHandler'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeAccelerateEventListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAccelerometerEnabled of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_setAccelerometerEnabled00
+static int tolua_Cocos2d_CCLayer_setAccelerometerEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
+  bool value = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAccelerometerEnabled'", NULL);
+#endif
+  {
+   self->setAccelerometerEnabled(value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAccelerometerEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isAccelerometerEnabled of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_isAccelerometerEnabled00
+static int tolua_Cocos2d_CCLayer_isAccelerometerEnabled00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isAccelerometerEnabled'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isAccelerometerEnabled();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isAccelerometerEnabled'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAccelerometerInterval of class  CCLayer */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCLayer_setAccelerometerInterval00
+static int tolua_Cocos2d_CCLayer_setAccelerometerInterval00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCLayer",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
+  double interval = ((double)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAccelerometerInterval'", NULL);
+#endif
+  {
+   self->setAccelerometerInterval(interval);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setAccelerometerInterval'.",&tolua_err);
  return 0;
 #endif
 }
@@ -57196,23 +57196,23 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCLayer","CCLayer","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCLayer");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCLayer_create00);
-   tolua_function(tolua_S,"registerScriptAccelerateHandler",tolua_Cocos2d_CCLayer_registerScriptAccelerateHandler00);
-   tolua_function(tolua_S,"unregisterScriptAccelerateHandler",tolua_Cocos2d_CCLayer_unregisterScriptAccelerateHandler00);
-   tolua_function(tolua_S,"registerScriptTouchHandler",tolua_Cocos2d_CCLayer_registerScriptTouchHandler00);
-   tolua_function(tolua_S,"unregisterScriptTouchHandler",tolua_Cocos2d_CCLayer_unregisterScriptTouchHandler00);
-   tolua_function(tolua_S,"isTouchEnabled",tolua_Cocos2d_CCLayer_isTouchEnabled00);
+   tolua_function(tolua_S,"addTouchEventListener",tolua_Cocos2d_CCLayer_addTouchEventListener00);
+   tolua_function(tolua_S,"removeTouchEventListener",tolua_Cocos2d_CCLayer_removeTouchEventListener00);
    tolua_function(tolua_S,"setTouchEnabled",tolua_Cocos2d_CCLayer_setTouchEnabled00);
-   tolua_function(tolua_S,"setTouchMode",tolua_Cocos2d_CCLayer_setTouchMode00);
+   tolua_function(tolua_S,"isTouchEnabled",tolua_Cocos2d_CCLayer_isTouchEnabled00);
    tolua_function(tolua_S,"getTouchMode",tolua_Cocos2d_CCLayer_getTouchMode00);
-   tolua_function(tolua_S,"setTouchPriority",tolua_Cocos2d_CCLayer_setTouchPriority00);
+   tolua_function(tolua_S,"setTouchMode",tolua_Cocos2d_CCLayer_setTouchMode00);
    tolua_function(tolua_S,"getTouchPriority",tolua_Cocos2d_CCLayer_getTouchPriority00);
-   tolua_function(tolua_S,"isAccelerometerEnabled",tolua_Cocos2d_CCLayer_isAccelerometerEnabled00);
-   tolua_function(tolua_S,"setAccelerometerEnabled",tolua_Cocos2d_CCLayer_setAccelerometerEnabled00);
-   tolua_function(tolua_S,"setAccelerometerInterval",tolua_Cocos2d_CCLayer_setAccelerometerInterval00);
-   tolua_function(tolua_S,"isKeypadEnabled",tolua_Cocos2d_CCLayer_isKeypadEnabled00);
+   tolua_function(tolua_S,"setTouchPriority",tolua_Cocos2d_CCLayer_setTouchPriority00);
+   tolua_function(tolua_S,"addKeypadEventListener",tolua_Cocos2d_CCLayer_addKeypadEventListener00);
+   tolua_function(tolua_S,"removeKeypadEventListener",tolua_Cocos2d_CCLayer_removeKeypadEventListener00);
    tolua_function(tolua_S,"setKeypadEnabled",tolua_Cocos2d_CCLayer_setKeypadEnabled00);
-   tolua_function(tolua_S,"registerScriptKeypadHandler",tolua_Cocos2d_CCLayer_registerScriptKeypadHandler00);
-   tolua_function(tolua_S,"unregisterScriptKeypadHandler",tolua_Cocos2d_CCLayer_unregisterScriptKeypadHandler00);
+   tolua_function(tolua_S,"isKeypadEnabled",tolua_Cocos2d_CCLayer_isKeypadEnabled00);
+   tolua_function(tolua_S,"addAccelerateEventListener",tolua_Cocos2d_CCLayer_addAccelerateEventListener00);
+   tolua_function(tolua_S,"removeAccelerateEventListener",tolua_Cocos2d_CCLayer_removeAccelerateEventListener00);
+   tolua_function(tolua_S,"setAccelerometerEnabled",tolua_Cocos2d_CCLayer_setAccelerometerEnabled00);
+   tolua_function(tolua_S,"isAccelerometerEnabled",tolua_Cocos2d_CCLayer_isAccelerometerEnabled00);
+   tolua_function(tolua_S,"setAccelerometerInterval",tolua_Cocos2d_CCLayer_setAccelerometerInterval00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCLayerRGBA","CCLayerRGBA","CCLayer",NULL);
   tolua_beginmodule(tolua_S,"CCLayerRGBA");

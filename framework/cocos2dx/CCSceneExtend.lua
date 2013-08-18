@@ -44,7 +44,7 @@ function CCSceneExtend.extend(target)
     return target
 end
 
-function CCSceneExtend:addAutoCleanImage(imageName)
+function CCSceneExtend:markAutoCleanupImage(imageName)
     if not self.AUTO_CLEANUP_IMAGES then self.AUTO_CLEANUP_IMAGES = {} end
     self.AUTO_CLEANUP_IMAGES[imageName] = true
 end

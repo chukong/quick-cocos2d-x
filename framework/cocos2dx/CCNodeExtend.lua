@@ -47,14 +47,6 @@ function CCNodeExtend:align(anchorPoint, x, y)
     if x and y then self:setPosition(x, y) end
 end
 
-function CCNodeExtend:pixels(x, y)
-    if not x or not y then
-        x, y = self:getPosition()
-    end
-    x, y = display.pixels(x, y)
-    self:setPosition(x, y)
-end
-
 --[[--
 
 ]]

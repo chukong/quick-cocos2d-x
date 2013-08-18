@@ -1,39 +1,7 @@
---[[
-
-Copyright (c) 2011-2012 qeeplay.com
-
-http://dualface.github.com/quick-cocos2d-x/
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-]]
 
 --[[--
 
-The display module provides access to cocos2d-x core features.
-
--   Query display screen information.
--   Mange scenes.
--   Creates display objects.
-
 ]]
-
 local display = {}
 
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
@@ -233,26 +201,6 @@ display.TEXTURES_PIXEL_FORMAT = {}
 --[[--
 
 ]]
-function display.setTexturePixelFormat(filename, format)
-    display.TEXTURES_PIXEL_FORMAT[filename] = format
-end
-
---[[--
-
-Creates a scene.
-
-A scene (implemented with the CCScene object) is more or less an independent piece of the app workflow. Some people may call them “screens” or “stages”. Your app can have many scenes, but only one of them is active at a given time.
-
-@example
-
-    local scene = display.newScene("HelloScene")
-    display.replaceScene(scene) -- setup running scene
-
-@optional string name name of scene
-
-@return CCScene
-
-]]
 function display.newScene(name)
     local scene = CCSceneExtend.extend(CCScene:create())
     scene.name = name or "<unknown-scene>"
@@ -290,50 +238,6 @@ end
 
 --[[--
 
-Replaces the running scene with a new one.
-
-@example
-
-    display.replaceScene(scene1)
-    display.replaceScene(scene2, "CROSSFADE", 0.5)
-    display.replaceScene(scene3, "FADE", 0.5, ccc3(255, 255, 255))
-
-@param CCScene newScene scene of want to display
-@optional string transitionType is one of the following:
-
-Transition Type | Note
---------------- | ----
-CROSSFADE       | Cross fades two scenes using the CCRenderTexture object
-FADE            | Fade out the outgoing scene and then fade in the incoming scene
-FADEBL          | Fade the tiles of the outgoing scene from the top-right corner to the bottom-left corner
-FADEDOWN        | Fade the tiles of the outgoing scene from the top to the bottom
-FADETR          | Fade the tiles of the outgoing scene from the left-bottom corner the to top-right corner
-FADEUP          | Fade the tiles of the outgoing scene from the bottom to the top
-FLIPANGULAR     | Flips the screen half horizontally and half vertically
-FLIPX           | Flips the screen horizontally
-FLIPY           | Flips the screen vertically
-JUMPZOOM        | Zoom out and jump the outgoing scene, and then jump and zoom in the incoming
-MOVEINB         | Move in from to the bottom the incoming scene
-MOVEINL         | Move in from to the left the incoming scene
-MOVEINR         | Move in from to the right the incoming scene
-MOVEINT         | Move in from to the top the incoming scene
-PAGETURN        | A transition which peels back the bottom right hand corner of a scene to transition to the scene beneath it simulating a page turn
-ROTOZOOM        | Rotate and zoom out the outgoing scene, and then rotate and zoom in the incoming
-SHRINKGROW      | Shrink the outgoing scene while grow the incoming scene
-SLIDEINB        | Slide in the incoming scene from the bottom border
-SLIDEINL        | Slide in the incoming scene from the left border
-SLIDEINR        | Slide in the incoming scene from the right border
-SLIDEINT        | Slide in the incoming scene from the top border
-SPLITCOLS       | The odd columns goes upwards while the even columns goes downwards
-SPLITROWS       | The odd rows goes to the left while the even rows goes to the right
-TURNOFFTILES    | Turn off the tiles of the outgoing scene in random order
-ZOOMFLIPANGULAR | Flips the screen half horizontally and half vertically doing a little zooming out/in
-ZOOMFLIPX       | Flips the screen horizontally doing a zoom out/in The front face is the outgoing scene and the back face is the incoming scene
-ZOOMFLIPY       | Flips the screen vertically doing a little zooming out/in The front face is the outgoing scene and the back face is the incoming scene
-
-@optional float time duration of the transition
-@optional mixed more parameter for the transition
-
 ]]
 function display.replaceScene(newScene, transitionType, time, more)
     if sharedDirector:getRunningScene() then
@@ -348,18 +252,12 @@ end
 
 --[[--
 
-Get current running scene.
-
-@return CCScene
-
 ]]
 function display.getRunningScene()
     return sharedDirector:getRunningScene()
 end
 
 --[[--
-
-Pauses the running scene.
 
 ]]
 function display.pause()
@@ -368,8 +266,6 @@ end
 
 --[[--
 
-Resumes the paused scene.
-
 ]]
 function display.resume()
     sharedDirector:resume()
@@ -377,80 +273,16 @@ end
 
 --[[--
 
-Creates CCLayer object.
-
-CCLayer is a subclass of CCNode. all features from CCNode are valid, plus the following new features:
-
--   It can receive touches
--   It can receive Accelerometer input
--   It can receive device hardward keypad input
-
-@example
-
-    local function onTouch(event, x, y)
-        printf("touch %s, x = %0.2f, y = %0.2f", event, x, y)
-    end
-
-    local layer = display.newLayer()
-    layer:addTouchEventListener(onTouch)
-    layer:setTouchEnabled(true)
-
-@return CCLayer
-
 ]]
-function display.newLayer(noRGBA)
-    local layer
-    if noRGBA then
-        layer = CCLayer:create()
-    else
-        layer = CCLayerRGBA:create()
-    end
-    return CCLayerExtend.extend(layer)
+function display.newLayer()
+    return CCLayerExtend.extend(CCLayerRGBA:create())
 end
 
 --[[--
 
-Creates a node object.
-
-Anything thats gets drawn or contains things that get drawn is a CCNode. The most popular CCNodes are: CCScene, CCLayer, CCSprite, CCMenu.
-
-A CCNode is a "void" object. It doesn't have a texture
-
-The main features of a CCNode are:
-
--   They can contain other CCNode nodes (addChild, getChildByTag, removeChild, etc)
--   They can schedule periodic callback (schedule, unschedule, etc)
--   They can execute actions (runAction, stopAction, etc)
-
-Features of CCNode:
-
--   position
--   scale (x, y)
--   rotation (in degrees, clockwise)
--   CCGridBase (to do mesh transformations)
--   anchor point
--   size
--   visible
--   z-order
-
-@example
-
-    local group = display.newNode()     -- create container
-    group:addChild(sprite1)             -- add sprites to container
-    group:addChild(sprite2)             -- add sprites to container
-    transition.moveBy(group, {time = 2.0, x = 100})
-
-@return CCNode
-
 ]]
-function display.newNode(noRGBA)
-    local node
-    if noRGBA then
-        node = CCNode:create()
-    else
-        node = CCNodeRGBA:create()
-    end
-    return CCNodeExtend.extend(node)
+function display.newNode()
+    return CCNodeExtend.extend(CCNodeRGBA:create())
 end
 
 --[[--
@@ -462,29 +294,13 @@ end
 
 --[[--
 
-Creates a CCSprite object.
-
-CCSprite can be created with an image, or with a sprite frame.
-
-@example
-
-    -- create with an image
-    local sprite1 = display.newSprite("hello1.png")
-
-    -- create with a sprite frame
-    local sprite2 = display.newSprite("#frame0001.png")
-
-@param string filename image filename or sprite frame name. sprite frame name have prefix character '#'.
-@optional float x
-@optional float y initial position or the sprite
-
-@return CCSprite
-
 ]]
 function display.newSprite(filename, x, y)
     local sprite
     if not filename then
         sprite = CCSprite:create()
+    elseif type(filename) == "userdata" then
+        sprite = CCSprite:createWithSpriteFrame(filename)
     elseif string.byte(filename) == 35 then -- first char is #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
         if frame then
@@ -510,7 +326,7 @@ function display.newSprite(filename, x, y)
     return sprite
 end
 
---[[
+--[[--
 
 ]]
 function display.newScale9Sprite(filename, x, y)
@@ -542,36 +358,11 @@ end
 
 --[[--
 
-Creates a sprite, set position to screen center.
-
-### Parameters:
-
--   string **filename** image filename or sprite frame name.
-
-@return
-
--   CCSprite
-
 ]]
-function display.newBackgroundSprite(filename)
-    return display.newSprite(filename, display.cx, display.cy)
-end
-
---[[--
-
-Creates a sprite, repeat sprite's texture to fill whole rect.
-
-### Parameters:
-
--   string **filename** image filename or sprite frame name.
-
-@return
-
--   CCSprite
-
-]]
-function display.newBackgroundTilesSprite(filename)
-    local rect = CCRect(0, 0, display.width, display.height)
+function display.newBackgroundTilesSprite(filename, rect)
+    if not rect then
+        rect = CCRect(0, 0, display.width, display.height)
+    end
     local sprite = CCSprite:create(filename, rect)
     if not sprite then
         echoError("display.newBackgroundTilesSprite() - create sprite failure, filename %s", tostring(filename))
@@ -592,82 +383,12 @@ end
 
 --[[--
 
-Creates a CCCircleShape object, draw a circle on screen.
-
-CCCircleShape is a subclass of CCShapeNode.
-
-CCShapeNode is a subclass of CCNode. all features from CCNode are valid, plus the following new features:
-
--   draw shape to screen
--   set shape line color
--   set shape line width
-
-CCShapeNode have the following new methods:
-
--   ccColor4F getColor()
--   setColor(ccColor4F color)
--   int getLineWidth()
--   setLineWidth(int width)
-
-CCCircleShape have the following new methods:
-
--   float getRadius()
--   setRadius(float radius)
--   float getAngle()
--   setAngle(float angle)
--   int getSegments()
--   setSegments(int segments)
--   bool isDrawLineToCenter()
--   setDrawLineToCenter(bool drawLineToCenter)
--   float getScaleX()
--   setScaleX(float scaleX)
--   float getScaleY()
--   setScaleY(float scaleY)
-
-@example
-
-    local circle = display.newCircle(100) -- raidus = 100 points
-    circle:setColor(255, 255, 255)        -- RGB = 0xffffff, white color
-    circle:setSegments(128)               -- more segments appear smoother, default 32
-    circle:setScaleY(0.8)                 -- Draw an ellipse
-
-### Parameters:
-
--   float **radius**
-
-@return
-
--   CCCircleShape
-
 ]]
 function display.newCircle(radius)
     return CCShapeNodeExtend.extend(CCCircleShape:create(radius))
 end
 
 --[[--
-
-Creates a CCRectShape object, draw a rectangle on screen.
-
-CCRectShape is a subclass of CCShapeNode, see [display.newCircle()](#anchor_display_newCircle) .
-
-CCRectShape have the following new methods:
-
--   setSize(const CCSize& size)
--   bool isFill()
--   setFill(bool isFill)
-
-@example
-
-    local rect = display.newRect(200, 100)
-    rect:setFill(true)
-
-### Parameters:
-
--   float **width**, float **height** size of rectangle
-
-@return
-
--   CCRectShape
 
 ]]
 function display.newRect(width, height)
@@ -684,37 +405,6 @@ function display.newRect(width, height)
 end
 
 --[[--
-
-Creates a CCPolygon object, draw a polygon on screen.
-
-CCPolygon is a subclass of CCShapeNode, see [display.newCircle()](#anchor_display_newCircle) .
-
-CCPolygon have the following new methods:
-
--   bool isFill()
--   setFill(bool isFill)
--   bool isClose()
--   setClose(bool isClose)
-
-@example
-
-    local points = {
-        {10, 10},  -- point 1
-        {50, 50},  -- point 2
-        {100, 10}, -- point 3
-    }
-    local polygon = display.newPolygon(points) -- draw a triangle
-    polygon:setClose(true) -- draw line from last point to first point
-
-### Parameters:
-
--   table **points** array of points
-
--   [_optional float **scale**_]
-
-@return
-
--   CCPolygonShape
 
 ]]
 function display.newPolygon(points, scale)
@@ -741,34 +431,6 @@ local round = math.round
 --[[--
 
 ]]
-function display.pixels(x, y)
-    local scale = 1 / display.contentScaleFactor
-    if x then x = round(x / scale) * scale end
-    if y then y = round(y / scale) * scale end
-    return x, y
-end
-
---[[--
-
-Adds multiple Sprite Frames from image and plist file.
-
-Creates sprite sheet tools:
-
--   [Texture Packer](http://www.codeandweb.com/texturepacker)
--   [Zwoptex](http://www.zwopple.com/zwoptex/)
-
-@example
-
-    display.addSpriteFramesWithFile("sprites.plist", "sprites.png")
-    local sprite1 = display.newSprite("#sprite0001.png")
-
-### Parameters:
-
--   string **plistFilename** filename of plist file
-
--   string **image** filename of image
-
-]]
 function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
@@ -781,20 +443,19 @@ end
 
 --[[--
 
-Removes multiple Sprite Frames from a plist file.
-
-Sprite Frames stored in this file will be removed. It is convinient to call this method when a specific texture needs to be removed.
-
-### Parameters:
-
--   string **plistFilename** filename of plist file
-
 ]]
 function display.removeSpriteFramesWithFile(plistFilename, imageName)
     sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
     if imageName then
         display.removeSpriteFrameByImageName(imageName)
     end
+end
+
+--[[--
+
+]]
+function display.setTexturePixelFormat(filename, format)
+    display.TEXTURES_PIXEL_FORMAT[filename] = format
 end
 
 --[[--
@@ -807,78 +468,12 @@ end
 
 --[[--
 
-Creates CCSpriteBatchNode object from an image.
-
-CCSpriteBatchNode is like a batch node: if it contains children, it will draw them in 1 single OpenGL call (often known as "batch draw").
-
-A CCSpriteBatchNode can reference one and only one texture (one image file, one texture atlas). Only the CCSprites that are contained in that texture can be added to the CCSpriteBatchNode. All CCSprites added to a CCSpriteBatchNode are drawn in one OpenGL ES draw call. If the CCSprites are not added to a CCSpriteBatchNode then an OpenGL ES draw call will be needed for each one, which is less efficient.
-
-Limitations:
-
--   The only object that is accepted as child (or grandchild, grand-grandchild, etc...) is CCSprite or any subclass of CCSprite. eg: particles, labels and layer can't be added to a CCSpriteBatchNode.
--   Either all its children are Aliased or Antialiased. It can't be a mix. This is because "alias" is a property of the texture, and all the sprites share the same texture.
-
-@example
-
-    local imageName = "sprites.png"
-    display.addSpriteFramesWithFile("sprites.plist", imageName) -- load sprite frames
-
-    -- it will draw them in 1 single OpenGL call
-    local batch = display.newBatch(imageName)
-    for i = 1, 100 do
-        local sprite = display.newSprite("#sprite0001.png")
-        batch:addChild(sprite)
-    end
-
-    --
-
-    -- it will draw them use 100 OpenGL call
-    local group = display.newNode()
-    for i = 1, 100 do
-        local sprite = display.newSprite("#sprite0001.png")
-        group:addChild(sprite)
-    end
-
-### Parameters:
-
--   string **image** filename of image
-
--   [_optional int **capacity**_] estimated capacity of batch
-
-@return
-
--   CCSpriteBatchNode
-
 ]]
 function display.newBatchNode(image, capacity)
     return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 29))
 end
 
 --[[--
-
-Returns an Sprite Frame that was previously added.
-
-@example
-
-    display.addSpriteFramesWithFile("sprites.plist", "sprites.png")
-    local sprite = display.newSprite("#sprite0001")
-
-    local frame2 = display.newSpriteFrame("sprite0002.png")
-    local frame3 = display.newSpriteFrame("sprite0003.png")
-
-    ....
-
-    sprite:setDisplayFrame(frame2)  -- change sprite texture without recreate
-    -- or
-    sprite:setDisplayFrame(frame3)
-
-### Parameters:
-
--   string **frameName** name of sprite frame, without prefix character '#'.
-
-@return
-
--   CCSpriteFrame
 
 ]]
 function display.newSpriteFrame(frameName)
@@ -890,52 +485,6 @@ function display.newSpriteFrame(frameName)
 end
 
 --[[--
-
-
-
-@example
-
-### Parameters:
-
-@return
-
-]]
-function display.newSpriteWithFrame(frame, x, y)
-    local sprite = CCSprite:createWithSpriteFrame(frame)
-    if sprite then CCSpriteExtend.extend(sprite) end
-    if x and y then sprite:setPosition(x, y) end
-    return sprite
-end
-
---[[--
-
-]]
-function display.newFrame(frameName)
-    return sharedSpriteFrameCache:spriteFrameByName(frameName)
-end
-
---[[--
-
-Creates multiple frames by pattern.
-
-@example
-
-    -- create array of CCSpriteFrame [walk0001.png -> walk0020.png]
-    local frames = display.newFrames("walk%04d.png", 1, 20)
-
-### Parameters:
-
--   string **pattern**
-
--   int **begin**
-
--   int **length**
-
--   [_optional bool **isReversed**_]
-
-@return
-
--   table
 
 ]]
 function display.newFrames(pattern, begin, length, isReversed)
@@ -962,17 +511,6 @@ end
 
 --[[--
 
-create animation
-
-@example
-
-    display.newAnimation(frames, time)
-
-@example
-
-    local frames    = display.newFrames("walk_%02d.png", 1, 20)
-    local animation = display.newAnimation(frames, 0.5 / 20) -- 0.5s play 20 frames
-
 ]]
 function display.newAnimation(frames, time)
     local count = #frames
@@ -982,31 +520,6 @@ function display.newAnimation(frames, time)
     end
     time = time or 1.0 / count
     return CCAnimation:createWithSpriteFrames(array, time)
-end
-
---[[
-
-create animate
-
-@example
-
-    display.newAnimate(animation)
-
-@example
-
-    local frames = display.newFrames("walk_%02d.png", 1, 20)
-    local sprite = display.newSpriteWithFrame(frames[1])
-
-    local animation = display.newAnimation(frames, 0.5 / 20) -- 0.5s play 20 frames
-    local animate = display.newAnimate(animation)
-
-    sprite:playAnimationOnce(animate)
-    -- or
-    sprite:playAnimationForever(animate)
-
-]]
-function display.newAnimate(animation)
-    return CCAnimate:create(animation)
 end
 
 return display

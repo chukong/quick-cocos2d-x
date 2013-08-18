@@ -26,15 +26,6 @@ THE SOFTWARE.
 
 --[[--
 
-Debug functions.
-
-## Functions ##
-
--   echo
--   echoInfo
--   echoError
--   printf
-
 ]]
 
 io.output():setvbuf('no')
@@ -53,15 +44,6 @@ end
 print = echo
 
 --[[--
-
-Output a formatted string.
-
-Depends on the platform, output to console or log file. @see echo().
-
-@param string format
-@param mixed ...
-
-@see echo
 
 ]]
 function printf(fmt, ...)
@@ -90,14 +72,6 @@ function echoLog(tag, fmt, ...)
 end
 
 --[[--
-
-Dumps information about a variable.
-
-@param mixed object
-@param string label
-@param bool isReturnContents
-@param int nesting
-@return nil|string
 
 ]]
 function dump(object, label, isReturnContents, nesting)
@@ -169,12 +143,6 @@ function dump(object, label, isReturnContents, nesting)
 end
 
 --[[--
-
-Outputs or returns a parsable string representation of a variable.
-
-@param mixed object
-@param string label
-@return string
 
 ]]
 function vardump(object, label)
