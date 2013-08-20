@@ -959,7 +959,7 @@ local function runEditBoxTest()
     EditName:setMaxLength(8)
     EditName:setReturnType(kKeyboardReturnTypeDone)
 	--Handler
-	EditName:registerScriptEditBoxHandler(editBoxTextEventHandle)
+	EditName:addEditBoxEventListener(editBoxTextEventHandle)
     newLayer:addChild(EditName)
 
     --middle
@@ -977,7 +977,7 @@ local function runEditBoxTest()
     EditPassword:setMaxLength(6)
     EditPassword:setInputFlag(kEditBoxInputFlagPassword)
     EditPassword:setInputMode(kEditBoxInputModeSingleLine)
-	EditPassword:registerScriptEditBoxHandler(editBoxTextEventHandle)
+	EditPassword:addEditBoxEventListener(editBoxTextEventHandle)
     newLayer:addChild(EditPassword)
 
     --bottom
@@ -986,7 +986,7 @@ local function runEditBoxTest()
     EditEmail:setAnchorPoint(ccp(0.5, 1.0))
     EditEmail:setPlaceHolder("Email:")
     EditEmail:setInputMode(kEditBoxInputModeEmailAddr)
-    EditEmail:registerScriptEditBoxHandler(editBoxTextEventHandle)
+    EditEmail:addEditBoxEventListener(editBoxTextEventHandle)
     newLayer:addChild(EditEmail)
     newLayer:setPosition(ccp(10, 20))
 

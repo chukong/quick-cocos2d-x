@@ -18,7 +18,7 @@ local function checkAnim(dt)
         return
     end
 
-    if s2:numberOfRunningActions() == 0 then
+    if s2:getNumberOfRunningActions() == 0 then
         if s2:getGrid() ~= nil then
             s2:setGrid(nil)
         end

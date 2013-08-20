@@ -35,7 +35,7 @@ local function IntervalLayer()
         m_label0:setString(str)
     end
 
-    ret:scheduleUpdateWithPriorityLua(update, 0)
+    ret:scheduleUpdate(update, 0)
 
     local function step1(dt)
         m_time1 = m_time1 + dt

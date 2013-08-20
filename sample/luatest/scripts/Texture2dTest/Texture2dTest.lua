@@ -1343,7 +1343,7 @@ local function TextureMemoryAlloc()
     local function updateImage(tag,sender)
         if m_pBackground ~= nil then
             cclog("updateImage"..tag)
-            m_pBackground:removeFromParentAndCleanup(true)
+            m_pBackground:removeSelf()
         end
         CCTextureCache:sharedTextureCache():removeUnusedTextures()
 

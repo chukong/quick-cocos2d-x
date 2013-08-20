@@ -4,22 +4,21 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    local editBox1 = ui.newEditBox({
-        image = "EditBoxBg.png",
-        size = CCSize(400, 96),
-        x = display.cx,
-        y = display.cy + 200,
-        listener = self
-    })
-    self:addChild(editBox1)
-
     local editBox2 = ui.newEditBox({
         image = "EditBoxBg.png",
         size = CCSize(400, 96),
         x = display.cx,
         y = display.cy,
         listener = function(event, editbox)
-            printf("editBox2 event %s : text = %s", event, editbox:getText())
+            if event == "began" then
+                self:onEditBoxBegan(editbox)
+            elseif event == "ended" then
+                self:onEditBoxEnded(editbox)
+            elseif event == "return" then
+                self:onEditBoxReturn(editbox)
+            elseif event == "changed" then
+                self:onEditBoxChanged(editbox)
+            end
         end
     })
     self:addChild(editBox2)

@@ -149,7 +149,7 @@ local function Parallax2()
             prev.y = y
         end
     end
-    ret:registerScriptTouchHandler(onTouchEvent)
+    ret:addTouchEventListener(onTouchEvent)
 
     return ret
 end

@@ -10,7 +10,7 @@ local Timer = require("utils.Timer")
 ]]
 function MainScene:ctor()
     -- 创建背景层
-    local sprite = display.newBackgroundTilesSprite("bgTile.png")
+    local sprite = display.newTilesSprite("bgTile.png")
     self:addChild(sprite)
 
     -- touchLayer 用于接收触摸事件
@@ -156,7 +156,7 @@ function MainScene:updateFrame(dt)
     self.frame = self.frame + 1
     if self.frame % 5 == 0 then -- 更新top bar文字
         local str = "Object=%d FPS=%0.2f DT=%0.6f (Touch top bar to increase object) - Version %s"
-        self.label:setString(format(str, self.playerNode:getChildrenCount(), 1 / dt, dt, self.VERSION))
+        self.label:setString(string.format(str, self.playerNode:getChildrenCount(), 1 / dt, dt, self.VERSION))
         self.label:setPosition(display.cx, display.top - 10)
     end
 
@@ -202,7 +202,7 @@ function MainScene:onEnter()
         self:genInitObjects()
         self:genObjects(91)
         -- 注册touch事件处理函数
-        self.touchLayer:registerScriptTouchHandler(function(event, x, y)
+        self.touchLayer:addTouchEventListener(function(event, x, y)
             return self:onTouch(event, x, y)
         end)
         self.touchLayer:setTouchEnabled(true)

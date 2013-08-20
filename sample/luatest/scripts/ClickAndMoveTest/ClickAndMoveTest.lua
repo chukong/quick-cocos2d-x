@@ -45,7 +45,7 @@ local function initWithLayer()
     end
 
     layer:setTouchEnabled(true)
-    layer:registerScriptTouchHandler(onTouch)
+    layer:addTouchEventListener(onTouch)
 
     return layer
 end
