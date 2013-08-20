@@ -29,7 +29,7 @@ THE SOFTWARE.
 #define  LOG_TAG    "JniHelper"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 #else
-#define  LOGD(...) 
+#define  LOGD(...)
 #endif
 
 #define JAVAVM    cocos2d::JniHelper::getJavaVM()
@@ -47,22 +47,22 @@ extern "C"
     {
         bool bRet = false;
 
-        do 
+        do
         {
             if (JAVAVM->GetEnv((void**)env, JNI_VERSION_1_4) != JNI_OK)
             {
-                LOGD("Failed to get the environment using GetEnv()");
+                LOGD("%s", "Failed to get the environment using GetEnv()");
                 break;
             }
 
             if (JAVAVM->AttachCurrentThread(env, 0) < 0)
             {
-                LOGD("Failed to get the environment using AttachCurrentThread()");
+                LOGD("%s", "Failed to get the environment using AttachCurrentThread()");
                 break;
             }
 
             bRet = true;
-        } while (0);        
+        } while (0);
 
         return bRet;
     }
@@ -72,7 +72,7 @@ extern "C"
         JNIEnv *pEnv = env;
         jclass ret = 0;
 
-        do 
+        do
         {
             if (! pEnv)
             {
@@ -81,7 +81,7 @@ extern "C"
                     break;
                 }
             }
-            
+
             ret = pEnv->FindClass(className);
             if (! ret)
             {
@@ -99,7 +99,7 @@ extern "C"
         JNIEnv *pEnv = 0;
         bool bRet = false;
 
-        do 
+        do
         {
             if (! getEnv(&pEnv))
             {
@@ -131,7 +131,7 @@ extern "C"
         JNIEnv *pEnv = 0;
         bool bRet = false;
 
-        do 
+        do
         {
             if (! getEnv(&pEnv))
             {
@@ -163,7 +163,7 @@ extern "C"
         {
             return "";
         }
-        
+
         JNIEnv *env = 0;
 
         if (! getEnv(&env))
