@@ -55,8 +55,13 @@
 #endif
 
 /* Workaround for Solaris platforms missing isinf() */
-#if !defined(isinf) && (defined(USE_INTERNAL_ISINF) || defined(MISSING_ISINF))
-#define isinf(x) (!isnan(x) && isnan((x) - (x)))
+#if !defined(isinf)
+#define isnan(x) ((x) != (x))
+#define isinf(x) (!isnan(x) && isnan(x - x))
+#endif
+
+#if !defined(strncasecmp)
+#define strncasecmp(s1, s2, n) strnicmp(s1, s2, n)
 #endif
 
 #define DEFAULT_SPARSE_CONVERT 0
