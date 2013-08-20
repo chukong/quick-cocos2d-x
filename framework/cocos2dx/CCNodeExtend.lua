@@ -47,29 +47,6 @@ function CCNodeExtend:align(anchorPoint, x, y)
     if x and y then self:setPosition(x, y) end
 end
 
---[[--
-
-]]
-function CCNodeExtend:removeFromParentAndCleanup(isCleanup)
-    if not tolua.isnull(self) then
-        if type(isCleanup) ~= "boolean" then isCleanup = true end
-        CCNode.removeFromParentAndCleanup(self, isCleanup)
-    end
-end
-
---[[--
-
-]]
-function CCNodeExtend:removeSelf(isCleanup)
-    self:removeFromParentAndCleanup(isCleanup)
-end
-
---[[--
-
-]]
-function CCNodeExtend:scheduleUpdate(callback, priority)
-    self:scheduleUpdateWithPriorityLua(callback, toint(priority))
-end
 
 --[[--
 
@@ -96,19 +73,6 @@ function CCNodeExtend:performWithDelay(callback, delay)
     return action
 end
 
-local actionManager = CCDirector:sharedDirector():getActionManager()
-function CCNodeExtend:removeAction(action)
-    if not tolua.isnull(action) then
-        actionManager:removeAction(action)
-    end
-end
-
-function CCNodeExtend:stopAllActions()
-    if not tolua.isnull(self) then
-        actionManager:removeAllActionsFromTarget(self)
-    end
-end
-
 function CCNodeExtend:onEnter()
 end
 
@@ -124,25 +88,28 @@ end
 function CCNodeExtend:onCleanup()
 end
 
-function CCNodeExtend:registerNodeEvent(handler)
-    if not handler then
-        handler = function(event)
-            if event == "enter" then
-                self:onEnter()
-            elseif event == "exit" then
-                self:onExit()
-            elseif event == "enterTransitionFinish" then
-                self:onEnterTransitionFinish()
-            elseif event == "exitTransitionStart" then
-                self:onExitTransitionStart()
-            elseif event == "cleanup" then
-                self:onCleanup()
+function CCNodeExtend:setNodeEventEnabled(enabled, handler)
+    if enabled then
+        if not handler then
+            handler = function(event)
+                if event == "enter" then
+                    self:onEnter()
+                elseif event == "exit" then
+                    self:onExit()
+                elseif event == "enterTransitionFinish" then
+                    self:onEnterTransitionFinish()
+                elseif event == "exitTransitionStart" then
+                    self:onExitTransitionStart()
+                elseif event == "cleanup" then
+                    self:onCleanup()
+                end
             end
         end
+        self:registerScriptHandler(handler)
+    else
+        self:unregisterScriptHandler()
     end
-    self:registerScriptHandler(handler)
 end
 
-function CCNodeExtend:unregisterNodeEvent()
-    self:unregisterScriptHandler()
+function CCNodeExtend:registerNodeEvent(handler)
 end

@@ -152,12 +152,12 @@ class CCEditBox : public CCControlButton
      *
      * @param handler A number that indicates a lua function.
      */
-    void registerScriptEditBoxHandler(LUA_FUNCTION handler);
+    void registerScriptEditBoxHandler @ addEditBoxEventListener (LUA_FUNCTION handler);
 
     /**
      * Unregisters a script function that will be called for EditBox events.
      */
-    void unregisterScriptEditBoxHandler(void);
+    void unregisterScriptEditBoxHandler @ removeEditBoxEventListener (void);
 
     /**
      * Set the text entered in the edit box.

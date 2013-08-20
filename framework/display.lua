@@ -6,13 +6,12 @@ local display = {}
 
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCLayerExtend")
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSceneExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCShapeNodeExtend")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
 local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
+local sharedAnimationCache   = CCAnimationCache:sharedAnimationCache()
 
 -- check device screen size
 local glview = sharedDirector:getOpenGLView()
@@ -275,14 +274,14 @@ end
 
 ]]
 function display.newLayer()
-    return CCLayerExtend.extend(CCLayerRGBA:create())
+    return CCNodeExtend.extend(CCLayer:create())
 end
 
 --[[--
 
 ]]
 function display.newNode()
-    return CCNodeExtend.extend(CCNodeRGBA:create())
+    return CCNodeExtend.extend(CCNode:create())
 end
 
 --[[--
@@ -296,24 +295,32 @@ end
 
 ]]
 function display.newSprite(filename, x, y)
+    local t = typen(filename)
+    if t == LUA_TUSERDATA then t = tolua.type(filename) end
     local sprite
+
     if not filename then
         sprite = CCSprite:create()
-    elseif type(filename) == "userdata" then
-        sprite = CCSprite:createWithSpriteFrame(filename)
-    elseif string.byte(filename) == 35 then -- first char is #
-        local frame = display.newSpriteFrame(string.sub(filename, 2))
-        if frame then
-            sprite = CCSprite:createWithSpriteFrame(frame)
-        end
-    else
-        if display.TEXTURES_PIXEL_FORMAT[filename] then
-            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-            sprite = CCSprite:create(filename)
-            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+    elseif t == LUA_TSTRING then
+        if string.byte(filename) == 35 then -- first char is #
+            local frame = display.newSpriteFrame(string.sub(filename, 2))
+            if frame then
+                sprite = CCSprite:createWithSpriteFrame(frame)
+            end
         else
-            sprite = CCSprite:create(filename)
+            if display.TEXTURES_PIXEL_FORMAT[filename] then
+                CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+                sprite = CCSprite:create(filename)
+                CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+            else
+                sprite = CCSprite:create(filename)
+            end
         end
+    elseif t == "CCSpriteFrame" then
+        sprite = CCSprite:createWithSpriteFrame(filename)
+    else
+        echoError("display.newSprite() - invalid filename value type")
+        return
     end
 
     if sprite then
@@ -329,7 +336,13 @@ end
 --[[--
 
 ]]
-function display.newScale9Sprite(filename, x, y)
+function display.newScale9Sprite(filename, x, y, size)
+    local t = typen(filename)
+    if t ~= LUA_TSTRING then
+        echoError("display.newScale9Sprite() - invalid filename type")
+        return
+    end
+
     local sprite
     if string.byte(filename) == 35 then -- first char is #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
@@ -349,6 +362,7 @@ function display.newScale9Sprite(filename, x, y)
     if sprite then
         CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
+        if size then sprite:setContentSize(size) end
     else
         echoError("display.newScale9Sprite() - create sprite failure, filename %s", tostring(filename))
     end
@@ -359,13 +373,13 @@ end
 --[[--
 
 ]]
-function display.newBackgroundTilesSprite(filename, rect)
+function display.newTilesSprite(filename, rect)
     if not rect then
         rect = CCRect(0, 0, display.width, display.height)
     end
     local sprite = CCSprite:create(filename, rect)
     if not sprite then
-        echoError("display.newBackgroundTilesSprite() - create sprite failure, filename %s", tostring(filename))
+        echoError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
     end
 
@@ -375,6 +389,7 @@ function display.newBackgroundTilesSprite(filename, rect)
     tp.wrapS = 10497
     tp.wrapT = 10497
     sprite:getTexture():setTexParameters(tp)
+    CCSpriteExtend.extend(sprite)
 
     display.align(sprite, display.LEFT_BOTTOM, 0, 0)
 
@@ -385,7 +400,7 @@ end
 
 ]]
 function display.newCircle(radius)
-    return CCShapeNodeExtend.extend(CCCircleShape:create(radius))
+    return CCNodeExtend.extend(CCCircleShape:create(radius))
 end
 
 --[[--
@@ -393,13 +408,23 @@ end
 ]]
 function display.newRect(width, height)
     local x, y = 0, 0
-    if type(width) == "userdata" then
-        x = width.origin.x
-        y = width.origin.y
-        height = width.size.height
-        width = width.size.width
+    if typen(width) == LUA_TUSERDATA then
+        local t = tolua.type(width)
+        if t == "CCRect" then
+            x = width.origin.x
+            y = width.origin.y
+            height = width.size.height
+            width = width.size.width
+        elseif t == "CCSize" then
+            height = width.height
+            width = width.width
+        else
+            echoError("display.newRect() - invalid parameters")
+            return
+        end
     end
-    local rect = CCShapeNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
+
+    local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
     rect:setPosition(x, y)
     return rect
 end
@@ -415,7 +440,7 @@ function display.newPolygon(points, scale)
         arr:add(p)
     end
 
-    return CCShapeNodeExtend.extend(CCPolygonShape:create(arr))
+    return CCNodeExtend.extend(CCPolygonShape:create(arr))
 end
 
 --[[--
@@ -425,8 +450,6 @@ function display.align(target, anchorPoint, x, y)
     target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then target:setPosition(x, y) end
 end
-
-local round = math.round
 
 --[[--
 
@@ -470,7 +493,7 @@ end
 
 ]]
 function display.newBatchNode(image, capacity)
-    return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 29))
+    return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
 end
 
 --[[--
@@ -479,7 +502,7 @@ end
 function display.newSpriteFrame(frameName)
     local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
     if not frame then
-        echoError("display.newSpriteFrame() - invalid frame, name %s", tostring(frameName))
+        echoError("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
     end
     return frame
 end
@@ -521,5 +544,27 @@ function display.newAnimation(frames, time)
     time = time or 1.0 / count
     return CCAnimation:createWithSpriteFrames(array, time)
 end
+
+--[[--
+
+]]
+function display.setAnimationCache(name, animation)
+    sharedAnimationCache:addAnimation(animation, name)
+end
+
+--[[--
+
+]]
+function display.getAnimationCache(name)
+    return sharedAnimationCache:animationByName(name)
+end
+
+--[[--
+
+]]
+function display.removeAnimationCache(name)
+    sharedAnimationCache:removeAnimationByName(name)
+end
+
 
 return display

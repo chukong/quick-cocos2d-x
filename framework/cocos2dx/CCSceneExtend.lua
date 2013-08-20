@@ -39,7 +39,7 @@ function CCSceneExtend.extend(target)
             target:onCleanup()
         end
     end
-    target:registerNodeEvent(handler)
+    target:setNodeEventEnabled(true, handler)
 
     return target
 end

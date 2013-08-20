@@ -37,7 +37,7 @@ function ui.newEditBox(params)
 
     if editbox then
         CCNodeExtend.extend(editbox)
-        editbox:registerScriptEditBoxHandler(params.listener)
+        editbox:addEditBoxEventListener(params.listener)
         if params.x and params.y then
             editbox:setPosition(params.x, params.y)
         end
