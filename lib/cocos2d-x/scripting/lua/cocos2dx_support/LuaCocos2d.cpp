@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Aug 21 14:35:23 2013.
+** Generated automatically by tolua++-1.0.92 on Wed Aug 21 14:40:35 2013.
 */
 
 /****************************************************************************
@@ -38157,7 +38157,7 @@ static int tolua_Cocos2d_CCLayer_addTouchEventListener00(lua_State* tolua_S)
   CCLayer* self = (CCLayer*)  tolua_tousertype(tolua_S,1,0);
   LUA_FUNCTION nHandler = (  toluafix_ref_function(tolua_S,2,0));
   bool bIsMultiTouches = ((bool)  tolua_toboolean(tolua_S,3,false));
-  int nPriority = ((int)  tolua_tonumber(tolua_S,4,INT_MIN));
+  int nPriority = ((int)  tolua_tonumber(tolua_S,4,0));
   bool bSwallowsTouches = ((bool)  tolua_toboolean(tolua_S,5,false));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptTouchHandler'", NULL);

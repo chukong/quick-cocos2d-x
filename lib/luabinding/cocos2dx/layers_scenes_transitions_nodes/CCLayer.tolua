@@ -47,7 +47,7 @@ class CCLayer : public CCNode
 {
     static CCLayer *create(void);
 
-    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
+    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
     void unregisterScriptTouchHandler @ removeTouchEventListener (void);
     void setTouchEnabled(bool value);
     bool isTouchEnabled();
