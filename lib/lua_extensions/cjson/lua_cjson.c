@@ -55,7 +55,7 @@
 #endif
 
 #ifdef _WIN32
-#define strncasecmp strnicmp
+#define __strncasecmp strnicmp
 #define isnan(x) ((x) != (x))
 #define isinf(x) (!isnan(x) && isnan(x - x))
 #else
