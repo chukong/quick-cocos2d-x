@@ -54,14 +54,12 @@
 #define CJSON_VERSION   "2.1devel"
 #endif
 
-/* Workaround for Solaris platforms missing isinf() */
-#if !defined(isinf)
+#ifdef _WIN32
+#define strncasecmp strnicmp
 #define isnan(x) ((x) != (x))
 #define isinf(x) (!isnan(x) && isnan(x - x))
-#endif
-
-#if !defined(strncasecmp)
-#define strncasecmp(s1, s2, n) strnicmp(s1, s2, n)
+#else
+#define __strncasecmp strncasecmp
 #endif
 
 #define DEFAULT_SPARSE_CONVERT 0
@@ -1006,9 +1004,9 @@ static int json_is_invalid_number(json_parse_t *json)
     }
 
     /* Reject inf/nan */
-    if (!strncasecmp(p, "inf", 3))
+    if (!__strncasecmp(p, "inf", 3))
         return 1;
-    if (!strncasecmp(p, "nan", 3))
+    if (!__strncasecmp(p, "nan", 3))
         return 1;
 
     /* Pass all other numbers which may still be invalid, but
