@@ -8,17 +8,6 @@ quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in 
 
 <br />
 
-## Get Started
-
-quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/), [cn.quick-x.com](http://cn.quick-x.com/)
-
--   [HOWTO: Setup development environment for Windows - Chinese](http://cn.quick-x.com/?p=253)
--   [HOWTO: Setup development environment for Windows](http://wiki.quick-x.com/doku.php?id=en:manual_setup_env_windows)
--   [HOWTO: Setup development environment for Mac](http://wiki.quick-x.com/doku.php?id=en:manual_setup_env_mac)
--   [More Documents](http://wiki.quick-x.com/)
-
-<br />
-
 ## Run Player
 
 Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/player/bin/win32/quick-x-player.exe
@@ -30,6 +19,12 @@ Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/playe
 3.  Set Script File to **scripts/main.lua**
 4.  Set Screen Direction to **Portrait**
 5.  Click "Open Project" button.
+
+Get Started: 
+
+-   quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/)
+-   chinese official site: [cn.quick-x.com](http://cn.quick-x.com/)
+
 
 <br />
 
