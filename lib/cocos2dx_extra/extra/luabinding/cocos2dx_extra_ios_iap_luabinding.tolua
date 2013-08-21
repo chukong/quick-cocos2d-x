@@ -5,20 +5,6 @@ $using namespace std;
 $using namespace cocos2d;
 $using namespace cocos2d::extra;
 
-typedef enum {
-    CCStoreReceiptVerifyModeNone = 0,
-    CCStoreReceiptVerifyModeDevice = 1,
-    CCStoreReceiptVerifyModeServer
-} CCStoreReceiptVerifyMode;
-
-
-#define CCStoreReceiptVerifyStatusUnknownError -5
-#define CCStoreReceiptVerifyStatusInvalidReceipt -4
-#define CCStoreReceiptVerifyStatusRequestFailed -3
-#define CCStoreReceiptVerifyStatusInvalidResult -2
-#define CCStoreReceiptVerifyStatusNone -1
-#define CCStoreReceiptVerifyStatusOK 0
-
 class CCStore
 {
 public:
@@ -34,10 +20,6 @@ public:
     bool isProductLoaded(const char* productId);
 
     bool purchase(const char* productId);
+    void restore(void);
     void finishTransactionLua(const char* transactionIdentifier);
-
-    CCStoreReceiptVerifyMode getReceiptVerifyMode(void);
-    void setReceiptVerifyMode(CCStoreReceiptVerifyMode mode, bool isSandbox = true);
-    const char* getReceiptVerifyServerUrl(void);
-    void setReceiptVerifyServerUrl(const char* url);
 };

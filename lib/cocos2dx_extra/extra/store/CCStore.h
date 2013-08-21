@@ -10,8 +10,6 @@
 
 NS_CC_EXTRA_BEGIN
 
-typedef bool CCStoreIsSandbox;
-
 typedef std::map<const std::string, CCStorePaymentTransaction*> CCStorePaymentTransactions;
 typedef CCStorePaymentTransactions::iterator                    CCStorePaymentTransactionsIterator;
 
@@ -40,16 +38,12 @@ public:
     void cancelLoadProducts(void);
     bool isProductLoaded(const char* productId);
     bool purchase(const char* productId);
+    void restore(void);
     void finishTransaction(CCStorePaymentTransaction *transaction);
 #if CC_LUA_ENGINE_ENABLED > 0
     void finishTransactionLua(const char* transactionIdentifier);
 #endif
-    
-    CCStoreReceiptVerifyMode getReceiptVerifyMode(void);
-    void setReceiptVerifyMode(CCStoreReceiptVerifyMode mode, CCStoreIsSandbox isSandbox = true);
-    const char* getReceiptVerifyServerUrl(void);
-    void setReceiptVerifyServerUrl(const char* url);
-    
+
 #pragma mark -
 #pragma mark delegates
     

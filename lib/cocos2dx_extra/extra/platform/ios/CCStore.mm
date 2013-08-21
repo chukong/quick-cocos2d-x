@@ -145,6 +145,11 @@ bool CCStore::purchase(const char* productId)
     return false;
 }
 
+void CCStore::restore(void)
+{
+    [[CCStoreIOS sharedStore] restore];
+}
+
 void CCStore::finishTransaction(CCStorePaymentTransaction *transaction)
 {
     CCStorePaymentTransactionWrapper* wrapper = transaction->getTransactionWrapper();
@@ -176,27 +181,6 @@ void CCStore::finishTransactionLua(const char* transactionIdentifier)
     }
 }
 #endif
-
-CCStoreReceiptVerifyMode CCStore::getReceiptVerifyMode(void)
-{
-    return [CCStoreIOS sharedStore].receiptVerifyMode;
-}
-
-void CCStore::setReceiptVerifyMode(CCStoreReceiptVerifyMode mode, CCStoreIsSandbox isSandbox)
-{
-    [CCStoreIOS sharedStore].receiptVerifyMode = mode;
-    [CCStoreIOS sharedStore].isSandbox = isSandbox;
-}
-
-const char* CCStore::getReceiptVerifyServerUrl(void)
-{
-    return [[CCStoreIOS sharedStore].receiptVerifyServerUrl cStringUsingEncoding:NSUTF8StringEncoding];
-}
-
-void CCStore::setReceiptVerifyServerUrl(const char* url)
-{
-    [CCStoreIOS sharedStore].receiptVerifyServerUrl = [NSString stringWithUTF8String:url];
-}
 
 #pragma mark -
 #pragma mark delegates
