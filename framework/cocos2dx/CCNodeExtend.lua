@@ -117,6 +117,3 @@ function CCNodeExtend:removeSelf(cleanup)
         self:removeFromParentAndCleanup(cleanup)
     end
 end
-
-function CCNodeExtend:registerNodeEvent(handler)
-end

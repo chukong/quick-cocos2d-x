@@ -54,8 +54,13 @@ function CCNodeExtend:removeAction(action)
 end
 
 function CCNodeExtend:numberOfRunningActions()
-    replaceTip("CCNodeExtend.numberOfRunningActions()", "getNumberOfRunningActions()")
+    replaceTip("CCNode:numberOfRunningActions()", "getNumberOfRunningActions()")
     return self:getNumberOfRunningActions()
+end
+
+function CCNodeExtend:registerNodeEvent(handler)
+    replaceTip("CCNode:registerNodeEvent(handler)", "setNodeEventEnabled(true, handler)")
+    self:setNodeEventEnabled(true, handler)
 end
 
 function CCNodeExtend:addScriptAccelerateHandler(...)
