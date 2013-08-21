@@ -42,6 +42,10 @@ function BenchmarkScene:ctor()
     self.coins = {}
     self.state = "IDLE"
 
+    local frames = display.newFrames("CoinSpin%02d.png", 1, 8)
+    local animation = display.newAnimation(frames, 0.4 / 8)
+    display.setAnimationCache("Coin", animation)
+
     self.left   = display.left   + display.width / 4
     self.right  = display.right  - display.width / 4
     self.top    = display.top    - display.height / 3
@@ -65,12 +69,8 @@ function BenchmarkScene:onTouch(event, x, y)
 end
 
 function BenchmarkScene:addCoin()
-    if not self.coinAnimation or tolua.isnull(self.coinAnimation) then
-        self.coinFrames = display.newFrames("CoinSpin%02d.png", 1, 8)
-        self.coinAnimation = display.newAnimation(self.coinFrames, 0.4 / 8)
-    end
-    local coin = display.newSprite(self.coinFrames[1])
-    coin:playAnimationForever(self.coinAnimation)
+    local coin = display.newSprite("#CoinSpin01.png")
+    coin:playAnimationForever(display.getAnimationCache("Coin"))
     coin:setPosition(random(self.left, self.right), random(self.bottom, self.top))
     self.batch:addChild(coin)
 
