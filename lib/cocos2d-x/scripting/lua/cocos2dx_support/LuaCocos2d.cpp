@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Aug 20 16:43:56 2013.
+** Generated automatically by tolua++-1.0.92 on Wed Aug 21 14:35:23 2013.
 */
 
 /****************************************************************************
@@ -20608,8 +20608,8 @@ static int tolua_Cocos2d_CCNode_removeFromParent00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: removeFromParentAndCleanup of class  CCNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_removeSelf00
-static int tolua_Cocos2d_CCNode_removeSelf00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_removeFromParentAndCleanup00
+static int tolua_Cocos2d_CCNode_removeFromParentAndCleanup00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -20634,7 +20634,7 @@ static int tolua_Cocos2d_CCNode_removeSelf00(lua_State* tolua_S)
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeSelf'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeFromParentAndCleanup'.",&tolua_err);
  return 0;
 #endif
 }
@@ -56371,7 +56371,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setParent",tolua_Cocos2d_CCNode_setParent00);
    tolua_function(tolua_S,"getParent",tolua_Cocos2d_CCNode_getParent00);
    tolua_function(tolua_S,"removeFromParent",tolua_Cocos2d_CCNode_removeFromParent00);
-   tolua_function(tolua_S,"removeSelf",tolua_Cocos2d_CCNode_removeSelf00);
+   tolua_function(tolua_S,"removeFromParentAndCleanup",tolua_Cocos2d_CCNode_removeFromParentAndCleanup00);
    tolua_function(tolua_S,"removeChild",tolua_Cocos2d_CCNode_removeChild00);
    tolua_function(tolua_S,"removeChildByTag",tolua_Cocos2d_CCNode_removeChildByTag00);
    tolua_function(tolua_S,"removeAllChildren",tolua_Cocos2d_CCNode_removeAllChildren00);

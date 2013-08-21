@@ -274,14 +274,14 @@ end
 
 ]]
 function display.newLayer()
-    return CCNodeExtend.extend(CCLayer:create())
+    return CCNodeExtend.extend(CCLayerRGBA:create())
 end
 
 --[[--
 
 ]]
 function display.newNode()
-    return CCNodeExtend.extend(CCNode:create())
+    return CCNodeExtend.extend(CCNodeRGBA:create())
 end
 
 --[[--
