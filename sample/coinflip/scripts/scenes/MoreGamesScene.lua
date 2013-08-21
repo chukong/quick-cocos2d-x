@@ -4,7 +4,7 @@ local MoreGamesScene = class("MoreGamesScene", function()
 end)
 
 function MoreGamesScene:ctor()
-    self.bg = display.newBackgroundSprite("#MenuSceneBg.png")
+    self.bg = display.newSprite("#MenuSceneBg.png", display.cx, display.cy)
     self:addChild(self.bg)
 
     self.adBar = require("views.AdBar").new()

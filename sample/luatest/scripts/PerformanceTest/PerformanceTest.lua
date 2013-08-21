@@ -267,13 +267,13 @@ local function runNodeChildrenTest()
 
     local function NodeChildrenScheduleUpdate()
     	if 0 == nCurCase then
-	   		pNewscene:scheduleUpdateWithPriorityLua(IterateSpriteSheetCArrayUpdate,0)
+	   		pNewscene:scheduleUpdate(IterateSpriteSheetCArrayUpdate,0)
     	elseif 1 == nCurCase then
-    		pNewscene:scheduleUpdateWithPriorityLua(AddSpriteSheetUpdate,0)
+    		pNewscene:scheduleUpdate(AddSpriteSheetUpdate,0)
     	elseif 2 == nCurCase then
-    		pNewscene:scheduleUpdateWithPriorityLua(RemoveSpriteSheetUpdate,0)
+    		pNewscene:scheduleUpdate(RemoveSpriteSheetUpdate,0)
     	elseif 3 == nCurCase then
-			pNewscene:scheduleUpdateWithPriorityLua(ReorderSpriteSheetUpdate,0)
+			pNewscene:scheduleUpdate(ReorderSpriteSheetUpdate,0)
 		end
     end
 
@@ -1618,7 +1618,7 @@ local function runTouchesTest()
    		pLabel:setPosition(ccp(s.width/2, s.height-32))
 	   	pLabel:setColor(ccc3(255,255,40))
 
-    	pLayer:scheduleUpdateWithPriorityLua(update,0)
+    	pLayer:scheduleUpdate(update,0)
 
     	pClassLabel = CCLabelBMFont:create("00.0", "fonts/arial16.fnt")
     	pClassLabel:setPosition(ccp(s.width/2, s.height/2))
@@ -1631,7 +1631,7 @@ local function runTouchesTest()
     	nNumberOfTouchesC = 0
     	pLayer:setTouchEnabled(true)
 
-    	pLayer:registerScriptTouchHandler(onTouch,true)
+    	pLayer:addTouchEventListener(onTouch,true)
     end
 
     function ShowCurrentTest()

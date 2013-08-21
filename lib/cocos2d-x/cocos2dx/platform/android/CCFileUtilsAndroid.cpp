@@ -158,7 +158,7 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
     {
         std::string msg = "Get data from file(";
         msg.append(pszFileName).append(") failed!");
-        CCLOG(msg.c_str());
+        CCLOG("%s", msg.c_str());
     }
 
     return pData;

@@ -45,51 +45,27 @@ All features from CCNode are valid, plus the following new features:
 */
 class CCLayer : public CCNode
 {
-    /** create one layer */
     static CCLayer *create(void);
 
-    void registerScriptAccelerateHandler(LUA_FUNCTION nHandler);
-    void unregisterScriptAccelerateHandler(void);
-
-    /** Register script touch events handler */
-    void registerScriptTouchHandler(LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
-    /** Unregister script touch events handler */
-    void unregisterScriptTouchHandler(void);
-
-    /** whether or not it will receive Touch events.
-    You can enable / disable touch events with this property.
-    Only the touches of this node will be affected. This "method" is not propagated to it's children.
-    @since v0.8.1
-    */
-    bool isTouchEnabled();
+    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
+    void unregisterScriptTouchHandler @ removeTouchEventListener (void);
     void setTouchEnabled(bool value);
-
-    void setTouchMode(ccTouchesMode mode);
+    bool isTouchEnabled();
     int getTouchMode();
-
-    /** priority of the touch events. Default is 0 */
-    void setTouchPriority(int priority);
+    void setTouchMode(ccTouchesMode mode);
     int getTouchPriority();
+    void setTouchPriority(int priority);
 
-    /** whether or not it will receive Accelerometer events
-    You can enable / disable accelerometer events with this property.
-    @since v0.8.1
-    */
-    bool isAccelerometerEnabled();
-    void setAccelerometerEnabled(bool value);
-    void setAccelerometerInterval(double interval);
-
-    /** whether or not it will receive keypad events
-    You can enable / disable accelerometer events with this property.
-    it's new in cocos2d-x
-    */
-    bool isKeypadEnabled();
+    void registerScriptKeypadHandler @ addKeypadEventListener (LUA_FUNCTION nHandler);
+    void unregisterScriptKeypadHandler @ removeKeypadEventListener (void);
     void setKeypadEnabled(bool value);
+    bool isKeypadEnabled();
 
-    /** Register keypad events handler */
-    void registerScriptKeypadHandler(LUA_FUNCTION nHandler);
-    /** Unregister keypad events handler */
-    void unregisterScriptKeypadHandler(void);
+    void registerScriptAccelerateHandler @ addAccelerateEventListener (LUA_FUNCTION nHandler);
+    void unregisterScriptAccelerateHandler @ removeAccelerateEventListener (void);
+    void setAccelerometerEnabled(bool value);
+    bool isAccelerometerEnabled();
+    void setAccelerometerInterval(double interval);
 };
 
 

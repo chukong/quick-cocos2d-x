@@ -31,7 +31,7 @@ local function createTileDemoLayer(title, subtitle)
         end
     end
     layer:setTouchEnabled(true)
-    layer:registerScriptTouchHandler(onTouchEvent)
+    layer:addTouchEventListener(onTouchEvent)
     return layer
 end
 --------------------------------------------------------------------

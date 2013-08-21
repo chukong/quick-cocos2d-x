@@ -105,9 +105,9 @@ local function CreateTouchesLayer()
     end
 
     -- schedule
-    layer:scheduleUpdateWithPriorityLua(doStep, 0)
+    layer:scheduleUpdate(doStep, 0)
 	layer:setTouchEnabled(true)
-    layer:registerScriptTouchHandler(onTouch)
+    layer:addTouchEventListener(onTouch)
 
     return layer
 end

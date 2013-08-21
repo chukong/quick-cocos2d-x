@@ -168,7 +168,7 @@ local function getBaseLayer()
     end
 
 	layer:setTouchEnabled(true)
-    layer:registerScriptTouchHandler(onTouch)
+    layer:addTouchEventListener(onTouch)
 	layer:registerScriptHandler(baseLayer_onEnterOrExit)
 
 	return layer
@@ -286,7 +286,7 @@ local function switchRender(dt)
 	update(dt)
 
 	local cond = (emitter:getBatchNode() ~= nil)
-	emitter:removeFromParentAndCleanup(false)
+	emitter:removeSelf(false)
 	local str = "Particle: Using new parent: "
 	local newParent = nil
 	if cond == true then

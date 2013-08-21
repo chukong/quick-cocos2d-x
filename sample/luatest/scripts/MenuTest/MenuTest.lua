@@ -53,7 +53,7 @@ local function MenuLayerMainMenu()
     local function allowTouches(dt)
         local  pDirector = CCDirector:sharedDirector()
         --pDirector:getTouchDispatcher():setPriority(kCCMenuHandlerPriority+1, ret)
-        if nil ~=  schedulerEntry then 
+        if nil ~=  schedulerEntry then
             scheduler:unscheduleScriptEntry(schedulerEntry)
             schedulerEntry = nil
         end
@@ -647,14 +647,14 @@ local function RemoveMenuItemWhenMove()
             return true
         elseif  eventType == "moved" then
             if item ~= nil then
-                item:removeFromParentAndCleanup(true)
+                item:removeSelf()
                 --item:release()
                 --item = nil
             end
         end
     end
 
-    ret:registerScriptTouchHandler(onTouchEvent,false,-129,false)
+    ret:addTouchEventListener(onTouchEvent,false,-129,false)
     return ret
 end
 

@@ -537,7 +537,7 @@ local function CameraZoomTest()
     CameraZoomTest_layer:addChild(sprite, 0, 20)
     sprite:setPosition(ccp(s.width / 4 * 3, s.height / 2))
 
-	CameraZoomTest_layer:scheduleUpdateWithPriorityLua(CameraZoomTest_update, 0)
+	CameraZoomTest_layer:scheduleUpdate(CameraZoomTest_update, 0)
 	CameraZoomTest_layer:registerScriptHandler(CameraZoomTest_onEnterOrExit)
 
 	Helper.titleLabel:setString("Camera Zoom test")
@@ -598,7 +598,7 @@ local function ConvertToNode()
     end
 
 	ConvertToNode_layer:setTouchEnabled(true)
-    ConvertToNode_layer:registerScriptTouchHandler(onTouch)
+    ConvertToNode_layer:addTouchEventListener(onTouch)
 
 	Helper.titleLabel:setString("Convert To Node Space")
 	Helper.subtitleLabel:setString("testing convertToNodeSpace / AR. Touch and see console")
@@ -615,7 +615,7 @@ local function NodeOpaqueTest()
         local background = CCSprite:create("Images/background1.png")
         local blendFunc = ccBlendFunc:new()
         blendFunc.src = GL_ONE
-        blendFunc.dst = GL_ONE_MINUS_SRC_ALPHA 
+        blendFunc.dst = GL_ONE_MINUS_SRC_ALPHA
         background:setBlendFunc(blendFunc)
         background:setAnchorPoint(ccp(0, 0))
         layer:addChild(background)

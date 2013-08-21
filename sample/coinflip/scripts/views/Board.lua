@@ -49,7 +49,7 @@ function Board:ctor(levelData)
     end
 
     self:addTouchEventListener(handler(self, self.onTouch))
-    self:registerNodeEvent()
+    self:setNodeEventEnabled(true)
 end
 
 function Board:checkLevelCompleted()

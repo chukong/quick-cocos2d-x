@@ -71,17 +71,17 @@ SimpleAudioEngine::SimpleAudioEngine()
 		jstr = (jstring)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID);
 	}
 	methodInfo.env->DeleteLocalRef(methodInfo.classID);
-	
+
 	const char* deviceModel = methodInfo.env->GetStringUTFChars(jstr, NULL);
-    
-	LOGD(deviceModel);
-    
+
+	LOGD("deviceModel = %s", deviceModel);
+
 	if (strcmp(I9100_MODEL, deviceModel) == 0)
 	{
 		// LOGD("i9100 model\nSwitch to OpenSLES");
 		// s_bI9100 = true;
 	}
-    
+
 	methodInfo.env->ReleaseStringUTFChars(jstr, deviceModel);
 	methodInfo.env->DeleteLocalRef(jstr);
 }
@@ -100,7 +100,7 @@ SimpleAudioEngine* SimpleAudioEngine::sharedEngine()
     {
         s_pEngine = new SimpleAudioEngine();
     }
-    
+
     return s_pEngine;
 }
 
@@ -141,7 +141,7 @@ void SimpleAudioEngine::pauseBackgroundMusic()
 void SimpleAudioEngine::resumeBackgroundMusic()
 {
     resumeBackgroundMusicJNI();
-} 
+}
 
 void SimpleAudioEngine::rewindBackgroundMusic()
 {
@@ -199,7 +199,7 @@ unsigned int SimpleAudioEngine::playEffect(const char* pszFilePath, bool bLoop)
 	{
 		return SimpleAudioEngineOpenSL::sharedEngine()->playEffect(fullPath.c_str(), bLoop);
 	}
-	else 
+	else
 	{
 		return playEffectJNI(fullPath.c_str(), bLoop);
 	}

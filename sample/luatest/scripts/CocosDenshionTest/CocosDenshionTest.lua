@@ -1,4 +1,4 @@
-require "AudioEngine" 
+require "AudioEngine"
 local EFFECT_FILE = "effect1.wav"
 local MUSIC_FILE  = "background.mp3"
 
@@ -159,7 +159,7 @@ local function CocosDenshionTest()
         end
     end
 
-    ret:registerScriptTouchHandler(onTouchEvent)
+    ret:addTouchEventListener(onTouchEvent)
     return ret
 end
 

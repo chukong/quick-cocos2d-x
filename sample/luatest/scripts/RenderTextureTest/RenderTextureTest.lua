@@ -113,7 +113,7 @@ local function RenderTextureSave()
     end
 
     ret:setTouchEnabled(true)
-    ret:registerScriptTouchHandler(onTouchEvent)
+    ret:addTouchEventListener(onTouchEvent)
     -- Save Image menu
     CCMenuItemFont:setFontSize(16)
     local item1 = CCMenuItemFont:create("Save Image")

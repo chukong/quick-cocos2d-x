@@ -10,7 +10,7 @@ local Timer = require("utils.Timer")
 ]]
 function MainScene:ctor()
     -- 创建背景层
-    local sprite = display.newBackgroundTilesSprite("bgTile.png")
+    local sprite = display.newTilesSprite("bgTile.png")
     self:addChild(sprite)
 
     -- touchLayer 用于接收触摸事件
@@ -63,7 +63,7 @@ end
 ]]
 function MainScene:genObject(resId, actionId, x, y, isFixed)
     local frames = display.newFrames(resId .. "_" .. self.actionNames[actionId] .."_%02d.png", 1, self.actionNums[actionId])
-    local sprite = display.newSpriteWithFrame(frames[1], x, y)
+    local sprite = display.newSprite(frames[1], x, y)
     -- 一定概率水平翻转
     if math.random(1, 2) == 1 then
         sprite:setFlipX(true)
@@ -114,7 +114,7 @@ end
 ]]
 function MainScene:genStageObject(x, y)
     local frames = display.newFrames("bg%02d.png", 1, 4);
-    local sprite = display.newSpriteWithFrame(frames[1], x, y)
+    local sprite = display.newSprite(frames[1], x, y)
     self.stageNode:addChild(sprite);
     local animation = display.newAnimation(frames, math.random(1, 2) / 10)
     sprite:playAnimationForever(animation)
@@ -156,7 +156,7 @@ function MainScene:updateFrame(dt)
     self.frame = self.frame + 1
     if self.frame % 5 == 0 then -- 更新top bar文字
         local str = "Object=%d FPS=%0.2f DT=%0.6f (Touch top bar to increase object) - Version %s"
-        self.label:setString(format(str, self.playerNode:getChildrenCount(), 1 / dt, dt, self.VERSION))
+        self.label:setString(string.format(str, self.playerNode:getChildrenCount(), 1 / dt, dt, self.VERSION))
         self.label:setPosition(display.cx, display.top - 10)
     end
 
@@ -202,7 +202,7 @@ function MainScene:onEnter()
         self:genInitObjects()
         self:genObjects(91)
         -- 注册touch事件处理函数
-        self.touchLayer:registerScriptTouchHandler(function(event, x, y)
+        self.touchLayer:addTouchEventListener(function(event, x, y)
             return self:onTouch(event, x, y)
         end)
         self.touchLayer:setTouchEnabled(true)

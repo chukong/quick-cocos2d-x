@@ -181,7 +181,7 @@ function CreateTestMenu()
     end
 
     menuLayer:setTouchEnabled(true)
-    menuLayer:registerScriptTouchHandler(onTouch)
+    menuLayer:addTouchEventListener(onTouch)
 
     return menuLayer
 end

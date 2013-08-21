@@ -127,7 +127,7 @@ local function MotionStreakTest2()
 
 	firstTick = true
 	layer:setTouchEnabled(true)
-    layer:registerScriptTouchHandler(onTouch)
+    layer:addTouchEventListener(onTouch)
 
 	Helper.titleLabel:setString("MotionStreak test")
 	return layer

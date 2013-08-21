@@ -69,7 +69,7 @@ function BenchmarkScene:addCoin()
         self.coinFrames = display.newFrames("CoinSpin%02d.png", 1, 8)
         self.coinAnimation = display.newAnimation(self.coinFrames, 0.4 / 8)
     end
-    local coin = display.newSpriteWithFrame(self.coinFrames[1])
+    local coin = display.newSprite(self.coinFrames[1])
     coin:playAnimationForever(self.coinAnimation)
     coin:setPosition(random(self.left, self.right), random(self.bottom, self.top))
     self.batch:addChild(coin)

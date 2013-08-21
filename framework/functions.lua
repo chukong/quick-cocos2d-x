@@ -157,22 +157,12 @@ end
 
 --[[--
 
-Rounds a float.
-
-@param number num
-@return number(integer)
-
 ]]
 function math.round(num)
     return math.floor(num + 0.5)
 end
 
 --[[--
-
-Checks whether a file exists.
-
-@param string path
-@return boolean
 
 ]]
 function io.exists(path)
@@ -185,11 +175,6 @@ function io.exists(path)
 end
 
 --[[--
-
-Reads entire file into a string, or return FALSE on failure.
-
-@param string path
-@return string
 
 ]]
 function io.readfile(path)
@@ -204,25 +189,9 @@ end
 
 --[[--
 
-Write a string to a file, or return FALSE on failure.
-
-@param string path
-@param string content
-@param string mode
-@return boolean
-
-### Note:
-The mode string can be any of the following:
-    "r": read mode
-    "w": write mode;
-    "a": append mode;
-    "r+": update mode, all previous data is preserved;
-    "w+": update mode, all previous data is erased; (the default);
-    "a+": append update mode, previous data is preserved, writing is only allowed at the end of file.
-
 ]]
 function io.writefile(path, content, mode)
-    mode = mode or "w+"
+    mode = mode or "w+b"
     local file = io.open(path, mode)
     if file then
         if file:write(content) == nil then return false end
@@ -234,21 +203,6 @@ function io.writefile(path, content, mode)
 end
 
 --[[--
-
-Returns information about a file path.
-
-**Usage:**
-
-    local path = "/var/app/test/abc.png"
-    local pathinfo  = io.pathinfo(path)
-    -- pathinfo.dirname  = "/var/app/test/"
-    -- pathinfo.filename = "abc.png"
-    -- pathinfo.basename = "abc"
-    -- pathinfo.extname  = ".png"
-
-
-@param string path
-@return table
 
 ]]
 function io.pathinfo(path)
@@ -279,11 +233,6 @@ end
 
 --[[--
 
-Gets file size, or return FALSE on failure.
-
-@param string path
-@return number(integer)
-
 ]]
 function io.filesize(path)
     local size = false
@@ -299,11 +248,6 @@ end
 
 --[[--
 
-Count all elements in an table.
-
-@param table t
-@return number(integer)
-
 ]]
 function table.nums(t)
     local count = 0
@@ -314,18 +258,6 @@ function table.nums(t)
 end
 
 --[[--
-
-Return all the keys or a subset of the keys of an table.
-
-**Usage:**
-
-    local t = {a = 1, b = 2, c = 3}
-    local keys = table.keys(t)
-    -- keys = {"a", "b", "c"}
-
-
-@param table t
-@return table
 
 ]]
 function table.keys(t)
@@ -338,18 +270,6 @@ end
 
 --[[--
 
-Return all the values of an table.
-
-**Usage:**
-
-    local t = {a = "1", b = "2", c = "3"}
-    local values = table.values(t)
-    -- values = {1, 2, 3}
-
-
-@param table t
-@return table
-
 ]]
 function table.values(t)
     local values = {}
@@ -361,19 +281,6 @@ end
 
 --[[--
 
-Merge tables.
-
-**Usage:**
-
-    local dest = {a = 1, b = 2}
-    local src  = {c = 3, d = 4}
-    table.merge(dest, src)
-    -- dest = {a = 1, b = 2, c = 3, d = 4}
-
-
-@param table dest
-@param table src
-
 ]]
 function table.merge(dest, src)
     for k, v in pairs(src) do
@@ -382,19 +289,6 @@ function table.merge(dest, src)
 end
 
 --[[--
-
-Convert special characters to HTML entities.
-
-The translations performed are:
-
--   '&' (ampersand) becomes '&amp;'
--   '"' (double quote) becomes '&quot;'
--   "'" (single quote) becomes '&#039;'
--   '<' (less than) becomes '&lt;'
--   '>' (greater than) becomes '&gt;'
-
-@param string input
-@return string
 
 ]]
 function string.htmlspecialchars(input)
@@ -412,24 +306,12 @@ string._htmlspecialchars_set[">"] = "&gt;"
 
 --[[--
 
-Inserts HTML line breaks before all newlines in a string.
-
-Returns string with '<br />' inserted before all newlines (\n).
-
-@param string input
-@return string
-
 ]]
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
 end
 
 --[[--
-
-Returns a HTML entities formatted version of string.
-
-@param string input
-@return string
 
 ]]
 function string.text2html(input)
@@ -441,12 +323,6 @@ function string.text2html(input)
 end
 
 --[[--
-
-Split a string by string.
-
-@param string str
-@param string delimiter
-@return table
 
 ]]
 function string.split(str, delimiter)
@@ -463,11 +339,6 @@ end
 
 --[[--
 
-Strip whitespace (or other characters) from the beginning of a string.
-
-@param string str
-@return string
-
 ]]
 function string.ltrim(str)
     return string.gsub(str, "^[ \t\n\r]+", "")
@@ -475,22 +346,12 @@ end
 
 --[[--
 
-Strip whitespace (or other characters) from the end of a string.
-
-@param string str
-@return string
-
 ]]
 function string.rtrim(str)
     return string.gsub(str, "[ \t\n\r]+$", "")
 end
 
 --[[--
-
-Strip whitespace (or other characters) from the beginning and end of a string.
-
-@param string str
-@return string
 
 ]]
 function string.trim(str)
@@ -500,49 +361,31 @@ end
 
 --[[--
 
-Make a string's first character uppercase.
-
-@param string str
-@return string
-
 ]]
 function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
 
 --[[--
-
-@param string str
-@return string
-
+@ignore
 ]]
-function string.urlencodeChar(char)
+local function urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
 
 --[[--
-
-URL-encodes string.
-
-@param string str
-@return string
 
 ]]
 function string.urlencode(str)
     -- convert line endings
     str = string.gsub(tostring(str), "\n", "\r\n")
     -- escape all characters but alphanumeric, '.' and '-'
-    str = string.gsub(str, "([^%w%.%- ])", string.urlencodeChar)
+    str = string.gsub(str, "([^%w%.%- ])", urlencodeChar)
     -- convert spaces to "+" symbols
     return string.gsub(str, " ", "+")
 end
 
 --[[--
-
-Get UTF8 string length.
-
-@param string str
-@return int
 
 ]]
 function string.utf8len(str)
@@ -567,19 +410,10 @@ end
 
 --[[--
 
-Return formatted string with a comma (",") between every group of thousands.
-
-**Usage:**
-
-    local value = math.comma("232423.234") -- value = "232,423.234"
-
-
-@param number num
-@return string
-
 ]]
 function string.formatNumberThousands(num)
     local formatted = tostring(tonumber(num))
+    local k
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
         if k == 0 then break end

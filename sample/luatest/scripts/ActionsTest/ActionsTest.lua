@@ -172,9 +172,9 @@ local function ActionRotationalSkewVSStandardSkew()
     local layer = CCLayer:create()
 	initWithLayer(layer)
 
-    tamara:removeFromParentAndCleanup(true);
-    grossini:removeFromParentAndCleanup(true);
-    kathia:removeFromParentAndCleanup(true);
+    tamara:removeSelf();
+    grossini:removeSelf();
+    kathia:removeSelf();
 
     local s = CCDirector:sharedDirector():getWinSize();
     local boxSize = CCSizeMake(100.0, 100.0);
@@ -218,9 +218,9 @@ local function ActionSkewRotate()
 	local layer = CCLayer:create()
 	initWithLayer(layer)
 
-	tamara:removeFromParentAndCleanup(true)
-    grossini:removeFromParentAndCleanup(true)
-    kathia:removeFromParentAndCleanup(true)
+	tamara:removeSelf()
+    grossini:removeSelf()
+    kathia:removeSelf()
 
     local boxSize = CCSizeMake(100.0, 100.0)
 
@@ -831,7 +831,7 @@ local function ActionCallFuncND()
 
 
 	Helper.titleLabel:setString("CallFuncND + auto remove")
-	Helper.subtitleLabel:setString("CallFuncND + removeFromParentAndCleanup. Grossini dissapears in 2s")
+	Helper.subtitleLabel:setString("CallFuncND + removeSelf. Grossini dissapears in 2s")
 	return layer
 end
 

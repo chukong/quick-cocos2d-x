@@ -28,7 +28,7 @@ local function createLayerDemoLayer(title, subtitle)
     --     end
     -- end
     -- layer:setTouchEnabled(true)
-    -- layer:registerScriptTouchHandler(onTouchEvent)
+    -- layer:addTouchEventListener(onTouchEvent)
     return layer
 end
 
@@ -374,7 +374,7 @@ local function LayerTest1()
             updateSize(x, y)
         end
     end
-    ret:registerScriptTouchHandler(onTouchEvent)
+    ret:addTouchEventListener(onTouchEvent)
     return ret
 end
 
@@ -518,7 +518,7 @@ local function LayerGradient()
         end
     end
 
-    ret:registerScriptTouchHandler(onTouchEvent)
+    ret:addTouchEventListener(onTouchEvent)
     return ret
 end
 

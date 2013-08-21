@@ -331,6 +331,13 @@ end
 
 --[[--
 
+]]
+function Store.restore()
+    store:restore()
+end
+
+--[[--
+
 Notifies the App Store that a transaction is complete.
 
 After you finish handling a transaction, you must call framework.api.Store.finishTransaction() on the transaction object. If you don't do this, the App Store will think your transaction was interrupted and will attempt to resume it on the next application launch.
