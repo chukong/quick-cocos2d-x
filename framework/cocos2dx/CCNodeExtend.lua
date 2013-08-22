@@ -111,5 +111,9 @@ function CCNodeExtend:setNodeEventEnabled(enabled, handler)
     end
 end
 
-function CCNodeExtend:registerNodeEvent(handler)
+function CCNodeExtend:removeSelf(cleanup)
+    if not tolua.isnull(self) then
+        if cleanup ~= false then cleanup = true end
+        self:removeFromParentAndCleanup(cleanup)
+    end
 end

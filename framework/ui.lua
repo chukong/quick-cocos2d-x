@@ -263,7 +263,6 @@ function ui.newTTFLabelWithShadow(params)
 
     if x and y then
         g:setPosition(x, y)
-        g:pixels()
     end
 
     return g
@@ -335,7 +334,6 @@ function ui.newTTFLabelWithOutline(params)
 
     if x and y then
         g:setPosition(x, y)
-        g:pixels()
     end
 
     return g

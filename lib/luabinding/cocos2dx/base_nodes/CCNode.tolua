@@ -534,7 +534,7 @@ class CCNode : public CCObject
      * If the node orphan, then nothing happens.
      * @param cleanup   true if all actions and callbacks on this node should be removed, false otherwise.
      */
-    void removeFromParentAndCleanup @ removeSelf (bool cleanup = true);
+    void removeFromParentAndCleanup(bool cleanup = true);
     /**
      * Removes a child from the container. It will also cleanup all running actions depending on the cleanup parameter.
      *

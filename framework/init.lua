@@ -87,6 +87,8 @@ elseif device.platform == "ios" then
     luaoc = require(__FRAMEWORK_PACKAGE_NAME__ .. ".luaoc")
 end
 
+require(__FRAMEWORK_PACKAGE_NAME__ .. '.deprecated')
+
 local timeCount = 0
 --[[--
 @ignore

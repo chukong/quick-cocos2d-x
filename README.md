@@ -8,26 +8,6 @@ quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in 
 
 <br />
 
-## Get Started
-
-quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/), [cn.quick-x.com](http://cn.quick-x.com/)
-
-Step 1: Get Started
-
--   [Download stable-2.1.4-20130808.zip](https://github.com/dualface/quick-cocos2d-x/archive/stable-2.1.4-20130808.zip)
--   [HOWTO: Setup development environment for Windows - Chinese](http://cn.quick-x.com/?p=253)
--   [HOWTO: Setup development environment for Windows](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Setup-development-environment-for-Windows)
--   [HOWTO: Setup development environment for Mac](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Setup-development-environment-for-Mac)
-
-<br />
-
-Step 2: Start your project
-
--   [HOWTO: Create new project](https://github.com/dualface/quick-cocos2d-x/wiki/HOWTO-~-Create-new-project)
--   [Documents](http://wiki.quick-x.com/)
-
-<br />
-
 ## Run Player
 
 Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/player/bin/win32/quick-x-player.exe
@@ -39,6 +19,12 @@ Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/playe
 3.  Set Script File to **scripts/main.lua**
 4.  Set Screen Direction to **Portrait**
 5.  Click "Open Project" button.
+
+Get Started: 
+
+-   quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/)
+-   chinese official site: [cn.quick-x.com](http://cn.quick-x.com/)
+
 
 <br />
 
