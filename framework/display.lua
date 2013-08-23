@@ -5,8 +5,9 @@
 local display = {}
 
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSceneExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCLayerExtend")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
@@ -274,7 +275,7 @@ end
 
 ]]
 function display.newLayer()
-    return CCNodeExtend.extend(CCLayerRGBA:create())
+    return CCLayerExtend.extend(CCLayerRGBA:create())
 end
 
 --[[--
@@ -566,5 +567,20 @@ function display.removeAnimationCache(name)
     sharedAnimationCache:removeAnimationByName(name)
 end
 
+display.PROGRESS_TIMER_BAR = kCCProgressTimerTypeBar
+display.PROGRESS_TIMER_RADIAL = kCCProgressTimerTypeRadial
+
+--[[--
+
+]]
+function display.newProgressTimer(image, progresssType)
+    if typen(image) == LUA_TSTRING then
+        image = display.newSprite(image)
+    end
+
+    local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
+    progress:setType(progresssType)
+    return progress
+end
 
 return display

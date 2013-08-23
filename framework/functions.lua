@@ -95,7 +95,8 @@ function class(classname, super)
     else
         -- inherited from Lua Object
         if super then
-            cls = clone(super)
+            cls = {}
+            setmetatable(cls, {__index = super})
             cls.super = super
         else
             cls = {ctor = function() end}

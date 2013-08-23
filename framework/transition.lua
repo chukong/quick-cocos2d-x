@@ -53,9 +53,7 @@ end
 --[[--
 
 ]]
-function transition.execute(target, action, args)
-    assert(not tolua.isnull(target), "transition.execute() - target is not CCNode")
-
+function transition.create(action, args)
     args = totable(args)
     if args.easing then
         if type(args.easing) == "table" then
@@ -79,12 +77,19 @@ function transition.execute(target, action, args)
     end
 
     if #actions > 1 then
-        action = transition.sequence(actions)
-        target:runAction(action)
+        return transition.sequence(actions)
     else
-        target:runAction(actions[1])
+        return actions[1]
     end
+end
 
+--[[--
+
+]]
+function transition.execute(target, action, args)
+    assert(not tolua.isnull(target), "transition.execute() - target is not CCNode")
+    local action = transition.create(action, args)
+    target:runAction(action)
     return action
 end
 
