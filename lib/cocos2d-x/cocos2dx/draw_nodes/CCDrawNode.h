@@ -31,9 +31,7 @@
 #define __CCDRAWNODES_CCDRAW_NODE_H__
 
 #include "base_nodes/CCNode.h"
-#include "cocoa/CCPointArray.h"
 #include "ccTypes.h"
-#include <vector>
 
 NS_CC_BEGIN
 
@@ -72,7 +70,6 @@ public:
     
     /** draw a polygon with a fill color and line color */
     void drawPolygon(CCPoint *verts, unsigned int count, const ccColor4F &fillColor, float borderWidth, const ccColor4F &borderColor);
-    void drawPolygon(CCPointArray *verts, const ccColor4F &fillColor, float borderWidth, const ccColor4F &borderColor);
     
     /** Clear the geometry in the node's buffer. */
     void clear();
@@ -82,6 +79,8 @@ public:
     
     CCDrawNode();
     
+    /** listen the event that coming to foreground on Android  */
+    void listenBackToForeground(CCObject *obj);
 private:
     void ensureCapacity(unsigned int count);
     void render();
