@@ -289,7 +289,7 @@ float CCTweenFunction::elasticEaseIn(float t, float b, float c, float d, float a
         return b + c;
     if (!p)
         p = d * .3;
-    if (!a || a < abs(c))
+    if (!a || a < fabsf(c))
     {
         a = c;
         s = p / 4;
@@ -309,7 +309,7 @@ float CCTweenFunction::elasticEaseOut(float t, float b, float c, float d, float 
         return b + c;
     if (!p)
         p = d * .3;
-    if (!a || a < abs(c))
+    if (!a || a < fabsf(c))
     {
         a = c;
         s = p / 4;
@@ -328,7 +328,7 @@ float CCTweenFunction::elasticEaseInOut(float t, float b, float c, float d, floa
         return b + c;
     if (!p)
         p = d * (.3 * 1.5);
-    if (!a || a < abs(c))
+    if (!a || a < fabsf(c))
     {
         a = c;
         s = p / 4;
