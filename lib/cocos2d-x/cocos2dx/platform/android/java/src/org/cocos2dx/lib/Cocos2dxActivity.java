@@ -97,14 +97,14 @@ public abstract class Cocos2dxActivity extends Activity implements
 	private boolean mIsOnPause = false;
 
 	@Override
-	public void onResume() {
+	protected void onResume() {
 		super.onResume();
 		Log.d(TAG, "ACTIVITY ON RESUME");
 		mIsOnPause = false;
 	}
 
 	@Override
-	public void onPause() {
+	protected void onPause() {
 		super.onPause();
 		Log.d(TAG, "ACTIVITY ON PAUSE");
 		mIsOnPause = true;
