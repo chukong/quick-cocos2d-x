@@ -414,29 +414,29 @@ extern "C"
     void resumeAllEffectsJNI()
     {
         // void resumeAllEffects()
-
+        
         JniMethodInfo methodInfo;
-
+        
         if (! getStaticMethodInfo(methodInfo, "resumeAllEffects", "()V"))
         {
             return ;
         }
-
+        
         methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
         methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
-
+    
     void stopAllEffectsJNI()
     {
         // void stopAllEffects()
-
+        
         JniMethodInfo methodInfo;
-
+        
         if (! getStaticMethodInfo(methodInfo, "stopAllEffects", "()V"))
         {
             return ;
         }
-
+        
         methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
         methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }

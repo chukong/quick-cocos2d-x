@@ -52,11 +52,6 @@ GUI/CCScrollView/CCTableViewCell.cpp \
 GUI/CCScrollView/CCSorting.cpp \
 GUI/CCEditBox/CCEditBox.cpp \
 GUI/CCEditBox/CCEditBoxImplAndroid.cpp \
-network/HttpClient.cpp \
-network/WebSocket.cpp \
-physics_nodes/CCPhysicsDebugNode.cpp \
-physics_nodes/CCPhysicsSprite.cpp \
-LocalStorage/LocalStorageAndroid.cpp \
 CCArmature/CCArmature.cpp \
 CCArmature/CCBone.cpp \
 CCArmature/animation/CCArmatureAnimation.cpp \
@@ -69,53 +64,20 @@ CCArmature/display/CCDisplayFactory.cpp \
 CCArmature/display/CCDisplayManager.cpp \
 CCArmature/display/CCShaderNode.cpp \
 CCArmature/display/CCSkin.cpp \
-CCArmature/external_tool/GLES-Render.cpp \
-CCArmature/external_tool/Json/CSContentJsonDictionary.cpp \
-CCArmature/external_tool/Json/lib_json/json_value.cpp \
-CCArmature/external_tool/Json/lib_json/json_reader.cpp \
-CCArmature/external_tool/Json/lib_json/json_writer.cpp \
-CCArmature/physics/CCColliderDetector.cpp \
-CCArmature/physics/CCPhysicsWorld.cpp \
 CCArmature/utils/CCArmatureDataManager.cpp \
 CCArmature/utils/CCDataReaderHelper.cpp \
 CCArmature/utils/CCSpriteFrameCacheHelper.cpp \
 CCArmature/utils/CCTransformHelp.cpp \
 CCArmature/utils/CCTweenFunction.cpp \
 CCArmature/utils/CCUtilMath.cpp \
-spine/Animation.cpp \
-spine/AnimationState.cpp \
-spine/AnimationStateData.cpp \
-spine/Atlas.cpp \
-spine/AtlasAttachmentLoader.cpp \
-spine/Attachment.cpp \
-spine/AttachmentLoader.cpp \
-spine/Bone.cpp \
-spine/BoneData.cpp \
-spine/Json.cpp \
-spine/RegionAttachment.cpp \
-spine/Skeleton.cpp \
-spine/SkeletonData.cpp \
-spine/SkeletonJson.cpp \
-spine/Skin.cpp \
-spine/Slot.cpp \
-spine/SlotData.cpp \
-spine/extension.cpp \
-spine/CCSkeletonAnimation.cpp \
-spine/CCSkeleton.cpp \
-spine/spine-cocos2dx.cpp \
-Components/CCComAttribute.cpp \
-Components/CCComAudio.cpp \
-Components/CCComController.cpp \
-Components/CCInputDelegate.cpp
+CCArmature/external_tool/Json/CSContentJsonDictionary.cpp \
+CCArmature/external_tool/Json/lib_json/json_reader.cpp \
+CCArmature/external_tool/Json/lib_json/json_value.cpp \
+CCArmature/external_tool/Json/lib_json/json_writer.cpp
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
-
-LOCAL_CFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=0
-LOCAL_EXPORT_CFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=0
-LOCAL_CPPFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=0
-LOCAL_EXPORT_CPPFLAGS += -DCC_ENABLE_CHIPMUNK_INTEGRATION=0
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCBReader \

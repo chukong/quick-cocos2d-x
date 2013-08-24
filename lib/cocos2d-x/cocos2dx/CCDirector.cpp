@@ -69,7 +69,7 @@ THE SOFTWARE.
 
 /**
  Position of the FPS
- 
+
  Default: 0,0 (bottom-left corner)
  */
 #ifndef CC_DIRECTOR_STATS_POSITION
@@ -102,7 +102,7 @@ CCDirector* CCDirector::sharedDirector(void)
 
 CCDirector::CCDirector(void)
 {
-
+    CCLOG("alloc CCDirector %p", this);
 }
 
 bool CCDirector::init(void)
@@ -133,11 +133,11 @@ bool CCDirector::init(void)
 
     // paused ?
     m_bPaused = false;
-   
+
     // purge ?
     m_bPurgeDirecotorInNextLoop = false;
 
-    m_obWinSizeInPoints = CCSizeZero;    
+    m_obWinSizeInPoints = CCSizeZero;
 
     m_pobOpenGLView = NULL;
 
@@ -163,15 +163,15 @@ bool CCDirector::init(void)
 
     return true;
 }
-    
+
 CCDirector::~CCDirector(void)
 {
-    CCLOG("cocos2d: deallocing CCDirector %p", this);
+    CCLOG("deallocing CCDirector %p", this);
 
     CC_SAFE_RELEASE(m_pFPSLabel);
     CC_SAFE_RELEASE(m_pSPFLabel);
     CC_SAFE_RELEASE(m_pDrawsLabel);
-    
+
     CC_SAFE_RELEASE(m_pRunningScene);
     CC_SAFE_RELEASE(m_pNotificationNode);
     CC_SAFE_RELEASE(m_pobScenesStack);
@@ -278,7 +278,7 @@ void CCDirector::drawScene(void)
     {
         m_pNotificationNode->visit();
     }
-    
+
     if (m_bDisplayStats)
     {
         showStats();
@@ -293,7 +293,7 @@ void CCDirector::drawScene(void)
     {
         m_pobOpenGLView->swapBuffers();
     }
-    
+
     if (m_bDisplayStats)
     {
         calculateMPF();
@@ -306,7 +306,7 @@ void CCDirector::calculateDeltaTime(void)
 
     if (CCTime::gettimeofdayCocos2d(&now, NULL) != 0)
     {
-        CCLOG("error in gettimeofday");
+        CCLOG("CCDirector: error in gettimeofday");
         m_fDeltaTime = 0;
         return;
     }
@@ -354,14 +354,14 @@ void CCDirector::setOpenGLView(CCEGLView *pobOpenGLView)
 
         // set size
         m_obWinSizeInPoints = m_pobOpenGLView->getDesignResolutionSize();
-        
+
         createStatsLabel();
-        
+
         if (m_pobOpenGLView)
         {
             setGLDefaultValues();
-        }  
-        
+        }
+
         CHECK_GL_ERROR_DEBUG();
 
         m_pobOpenGLView->setTouchDelegate(m_pTouchDispatcher);
@@ -427,16 +427,16 @@ void CCDirector::setProjection(ccDirectorProjection kProjection)
             kmGLMultMatrix(&matrixLookup);
         }
         break;
-            
+
     case kCCDirectorProjectionCustom:
         if (m_pProjectionDelegate)
         {
             m_pProjectionDelegate->updateProjection();
         }
         break;
-            
+
     default:
-        CCLOG("cocos2d: Director: unrecognized projection");
+        CCLOG("CCDirector: unrecognized projection");
         break;
     }
 
@@ -494,10 +494,10 @@ GLToClipTransform(kmMat4 *transformOut)
 {
 	kmMat4 projection;
 	kmGLGetMatrix(KM_GL_PROJECTION, &projection);
-	
+
 	kmMat4 modelview;
 	kmGLGetMatrix(KM_GL_MODELVIEW, &modelview);
-	
+
 	kmMat4Multiply(transformOut, &projection, &modelview);
 }
 
@@ -505,19 +505,19 @@ CCPoint CCDirector::convertToGL(const CCPoint& uiPoint)
 {
     kmMat4 transform;
 	GLToClipTransform(&transform);
-	
+
 	kmMat4 transformInv;
 	kmMat4Inverse(&transformInv, &transform);
-	
+
 	// Calculate z=0 using -> transform*[0, 0, 0, 1]/w
 	kmScalar zClip = transform.mat[14]/transform.mat[15];
-	
+
     CCSize glSize = m_pobOpenGLView->getDesignResolutionSize();
 	kmVec3 clipCoord = {2.0f*uiPoint.x/glSize.width - 1.0f, 1.0f - 2.0f*uiPoint.y/glSize.height, zClip};
-	
+
 	kmVec3 glCoord;
 	kmVec3TransformCoord(&glCoord, &clipCoord, &transformInv);
-	
+
 	return ccp(glCoord.x, glCoord.y);
 }
 
@@ -525,12 +525,12 @@ CCPoint CCDirector::convertToUI(const CCPoint& glPoint)
 {
     kmMat4 transform;
 	GLToClipTransform(&transform);
-    
+
 	kmVec3 clipCoord;
 	// Need to calculate the zero depth from the transform.
 	kmVec3 glCoord = {glPoint.x, glPoint.y, 0.0};
 	kmVec3TransformCoord(&clipCoord, &glCoord, &transform);
-	
+
 	CCSize glSize = m_pobOpenGLView->getDesignResolutionSize();
 	return ccp(glSize.width*(clipCoord.x*0.5 + 0.5), glSize.height*(-clipCoord.y*0.5 + 0.5));
 }
@@ -551,7 +551,7 @@ CCSize CCDirector::getVisibleSize()
     {
         return m_pobOpenGLView->getVisibleSize();
     }
-    else 
+    else
     {
         return CCSizeZero;
     }
@@ -563,7 +563,7 @@ CCPoint CCDirector::getVisibleOrigin()
     {
         return m_pobOpenGLView->getVisibleOrigin();
     }
-    else 
+    else
     {
         return CCPointZero;
     }
@@ -671,7 +671,7 @@ void CCDirector::purgeDirector()
 {
     // cleanup scheduler
     getScheduler()->unscheduleAll();
-    
+
     // don't release the event handlers
     // They are needed in case the director is run again
     m_pTouchDispatcher->removeAllDelegates();
@@ -683,7 +683,7 @@ void CCDirector::purgeDirector()
         m_pRunningScene->cleanup();
         m_pRunningScene->release();
     }
-    
+
     m_pRunningScene = NULL;
     m_pNextScene = NULL;
 
@@ -714,9 +714,9 @@ void CCDirector::purgeDirector()
     CCNotificationCenter::purgeNotificationCenter();
 
     ccGLInvalidateStateCache();
-    
+
     CHECK_GL_ERROR_DEBUG();
-    
+
     // OpenGL view
     m_pobOpenGLView->end();
     m_pobOpenGLView = NULL;
@@ -738,7 +738,7 @@ void CCDirector::setNextScene(void)
              m_pRunningScene->onExitTransitionDidStart();
              m_pRunningScene->onExit();
          }
- 
+
          // issue #709. the root node (scene) should receive the cleanup message too
          // otherwise it might be leaked.
          if (m_bSendCleanupToScene && m_pRunningScene)
@@ -787,7 +787,7 @@ void CCDirector::resume(void)
 
     if (CCTime::gettimeofdayCocos2d(m_pLastUpdate, NULL) != 0)
     {
-        CCLOG("cocos2d: Director: Error in gettimeofday");
+        CCLOG("CCDirector: Error in gettimeofday");
     }
 
     m_bPaused = false;
@@ -800,7 +800,7 @@ void CCDirector::showStats(void)
 {
     m_uFrames++;
     m_fAccumDt += m_fDeltaTime;
-    
+
     if (m_bDisplayStats)
     {
         if (m_pFPSLabel && m_pSPFLabel && m_pDrawsLabel)
@@ -809,24 +809,24 @@ void CCDirector::showStats(void)
             {
                 sprintf(m_pszFPS, "%.3f", m_fSecondsPerFrame);
                 m_pSPFLabel->setString(m_pszFPS);
-                
+
                 m_fFrameRate = m_uFrames / m_fAccumDt;
                 m_uFrames = 0;
                 m_fAccumDt = 0;
-                
+
                 sprintf(m_pszFPS, "%.1f", m_fFrameRate);
                 m_pFPSLabel->setString(m_pszFPS);
-                
+
                 sprintf(m_pszFPS, "%4lu", (unsigned long)g_uNumberOfDraws);
                 m_pDrawsLabel->setString(m_pszFPS);
             }
-            
+
             m_pDrawsLabel->visit();
             m_pFPSLabel->visit();
             m_pSPFLabel->visit();
         }
-    }    
-    
+    }
+
     g_uNumberOfDraws = 0;
 }
 
@@ -834,14 +834,14 @@ void CCDirector::calculateMPF()
 {
     struct cc_timeval now;
     CCTime::gettimeofdayCocos2d(&now, NULL);
-    
+
     m_fSecondsPerFrame = (now.tv_sec - m_pLastUpdate->tv_sec) + (now.tv_usec - m_pLastUpdate->tv_usec) / 1000000.0f;
 }
 
 // returns the FPS image data pointer and len
 void CCDirector::getFPSImageData(unsigned char** datapointer, unsigned int* length)
 {
-    // XXX fixed me if it should be used 
+    // XXX fixed me if it should be used
     *datapointer = cc_fps_images_png;
 	*length = cc_fps_images_len();
 }
@@ -877,16 +877,16 @@ void CCDirector::createStatsLabel()
     CC_SAFE_RELEASE(image);
 
     /*
-     We want to use an image which is stored in the file named ccFPSImage.c 
-     for any design resolutions and all resource resolutions. 
-     
+     We want to use an image which is stored in the file named ccFPSImage.c
+     for any design resolutions and all resource resolutions.
+
      To achieve this,
-     
+
      Firstly, we need to ignore 'contentScaleFactor' in 'CCAtlasNode' and 'CCLabelAtlas'.
      So I added a new method called 'setIgnoreContentScaleFactor' for 'CCAtlasNode',
      this is not exposed to game developers, it's only used for displaying FPS now.
-     
-     Secondly, the size of this image is 480*320, to display the FPS label with correct size, 
+
+     Secondly, the size of this image is 480*320, to display the FPS label with correct size,
      a factor of design resolution ratio of 480x320 is also needed.
      */
     float factor = 1.0f; // CCEGLView::sharedOpenGLView()->getDesignResolutionSize().height / 320.0f;
@@ -927,9 +927,9 @@ void CCDirector::setContentScaleFactor(float scaleFactor)
     }
 }
 
-CCNode* CCDirector::getNotificationNode() 
-{ 
-    return m_pNotificationNode; 
+CCNode* CCDirector::getNotificationNode()
+{
+    return m_pNotificationNode;
 }
 
 void CCDirector::setNotificationNode(CCNode *node)
@@ -971,7 +971,7 @@ void CCDirector::setActionManager(CCActionManager* pActionManager)
         CC_SAFE_RETAIN(pActionManager);
         CC_SAFE_RELEASE(m_pActionManager);
         m_pActionManager = pActionManager;
-    }    
+    }
 }
 
 CCActionManager* CCDirector::getActionManager()
@@ -986,7 +986,7 @@ void CCDirector::setTouchDispatcher(CCTouchDispatcher* pTouchDispatcher)
         CC_SAFE_RETAIN(pTouchDispatcher);
         CC_SAFE_RELEASE(m_pTouchDispatcher);
         m_pTouchDispatcher = pTouchDispatcher;
-    }    
+    }
 }
 
 CCTouchDispatcher* CCDirector::getTouchDispatcher()
@@ -1050,9 +1050,9 @@ void CCDisplayLinkDirector::mainLoop(void)
     else if (! m_bInvalid)
      {
          drawScene();
-     
+
          // release the objects
-         CCPoolManager::sharedPoolManager()->pop();        
+         CCPoolManager::sharedPoolManager()->pop();
      }
 }
 
@@ -1068,7 +1068,7 @@ void CCDisplayLinkDirector::setAnimationInterval(double dValue)
     {
         stopAnimation();
         startAnimation();
-    }    
+    }
 }
 
 NS_CC_END

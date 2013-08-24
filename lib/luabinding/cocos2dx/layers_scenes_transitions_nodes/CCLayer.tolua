@@ -47,8 +47,12 @@ class CCLayer : public CCNode
 {
     static CCLayer *create(void);
 
+    void registerScriptTouchHandler(LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
     void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
+
+    void unregisterScriptTouchHandler(void);
     void unregisterScriptTouchHandler @ removeTouchEventListener (void);
+
     void setTouchEnabled(bool value);
     bool isTouchEnabled();
     int getTouchMode();
@@ -56,13 +60,19 @@ class CCLayer : public CCNode
     int getTouchPriority();
     void setTouchPriority(int priority);
 
+    void registerScriptKeypadHandler(LUA_FUNCTION nHandler);
     void registerScriptKeypadHandler @ addKeypadEventListener (LUA_FUNCTION nHandler);
+    void unregisterScriptKeypadHandler(void);
     void unregisterScriptKeypadHandler @ removeKeypadEventListener (void);
+
     void setKeypadEnabled(bool value);
     bool isKeypadEnabled();
 
+    void registerScriptAccelerateHandler(LUA_FUNCTION nHandler);
     void registerScriptAccelerateHandler @ addAccelerateEventListener (LUA_FUNCTION nHandler);
+    void unregisterScriptAccelerateHandler(void);
     void unregisterScriptAccelerateHandler @ removeAccelerateEventListener (void);
+
     void setAccelerometerEnabled(bool value);
     bool isAccelerometerEnabled();
     void setAccelerometerInterval(double interval);
