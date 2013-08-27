@@ -1,5 +1,7 @@
 
 #import "platform/ios/CCStoreIOS.h"
+#import "platform/ios/CCStoreReceiptVerifyRequestIOS.h"
+#import "platform/ios/json/SBJSON.h"
 
 #include "crypto/CCCrypto.h"
 #include <string>
@@ -11,6 +13,12 @@
 @implementation CCStoreIOS
 
 static CCStoreIOS *s_sharedStore;
+static const char* const APPSTORE_RECEIPT_VERIFY_URL = "https://buy.itunes.apple.com/verifyReceipt";
+static const char* const SANDBOX_RECEIPT_VERIFY_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
+
+@synthesize isSandbox = isSandbox_;
+@synthesize receiptVerifyMode = receiptVerifyMode_;
+@synthesize receiptVerifyServerUrl = receiptVerifyServerUrl_;
 
 #pragma mark -
 #pragma mark init
@@ -40,6 +48,7 @@ static CCStoreIOS *s_sharedStore;
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
         loadedProducts_ = [NSMutableDictionary dictionaryWithCapacity:50];
         [loadedProducts_ retain];
+        receiptVerifyMode_ = CCStoreReceiptVerifyModeNone;
     }
     return self;
 }
@@ -74,6 +83,7 @@ static CCStoreIOS *s_sharedStore;
 
 - (void)restore
 {
+    CCLOG("[CCStore_obj] restore()");
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -94,14 +104,14 @@ static CCStoreIOS *s_sharedStore;
                                         "CCStoreProductsRequestErrorPreviousRequestNotCompleted");
         return;
     }
-    
+
 #if COCOS2D_DEBUG > 0
     for (id productId in productsId)
     {
         CCLOG("[CCStore_obj] requestProductData() pid: %s", utf8cstr(productId));
     }
 #endif
-    
+
     productRequestDelegate_ = delegate;
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productsId];
     request.delegate = self;
@@ -145,7 +155,7 @@ static CCStoreIOS *s_sharedStore;
         // cache loaded product
         SKProduct* product = [response.products objectAtIndex:i];
         [loadedProducts_ setObject:product forKey:product.productIdentifier];
-        
+
         // convert SKProduct to CCStoreProduct
         CCStoreProduct* ccproduct = CCStoreProduct::productWithId(utf8cstr(product.productIdentifier),
                                                                   utf8cstr(product.localizedTitle),
@@ -155,7 +165,7 @@ static CCStoreIOS *s_sharedStore;
         ccproducts->addObject(ccproduct);
         CCLOG("[CCStore_obj] productsRequestDidReceiveResponse() get pid: %s", utf8cstr(product.productIdentifier));
     }
-    
+
     cocos2d::CCArray* ccinvalidProductsId = NULL;
     if (response.invalidProductIdentifiers.count > 0)
     {
@@ -169,7 +179,7 @@ static CCStoreIOS *s_sharedStore;
             CCLOG("[CCStore_obj] productsRequestDidReceiveResponse() invalid pid: %s", utf8cstr(productId));
         }
     }
-    
+
     request.delegate = nil;
     productRequest_ = nil;
     productRequestDelegate_->requestProductsCompleted(ccproducts, ccinvalidProductsId);
@@ -197,26 +207,26 @@ static CCStoreIOS *s_sharedStore;
             CCLOG("[CCStore_obj] paymentQueueUpdatedTransactions() tid: %s",
                   utf8cstr(transaction.transactionIdentifier));
         }
-        
+
         /**
          enum {
-             SKPaymentTransactionStatePurchasing,
-             SKPaymentTransactionStatePurchased,
-             SKPaymentTransactionStateFailed,
-             SKPaymentTransactionStateRestored
+         SKPaymentTransactionStatePurchasing,
+         SKPaymentTransactionStatePurchased,
+         SKPaymentTransactionStateFailed,
+         SKPaymentTransactionStateRestored
          };
          typedef NSInteger SKPaymentTransactionState;
-         
+
          SKPaymentTransactionStatePurchasing:
          The transaction is being processed by the App Store.
-         
+
          SKPaymentTransactionStatePurchased:
          The App Store successfully processed payment. Your application should provide
          the content the user purchased.
-         
+
          SKPaymentTransactionStateFailed:
          The transaction failed. Check the error property to determine what happened.
-         
+
          SKPaymentTransactionStateRestored:
          This transaction restores content previously purchased by the user.
          Read the originalTransaction property to obtain information about the original purchase.
@@ -224,46 +234,217 @@ static CCStoreIOS *s_sharedStore;
         switch (transaction.transactionState)
         {
             case SKPaymentTransactionStatePurchased:
-                CCLOG("transaction '%s' SKPaymentTransactionStatePurchased", [transaction.transactionIdentifier cStringUsingEncoding:NSUTF8StringEncoding]);
-                [self transactionCompleted:transaction];
+                CCLOG("transaction '%s' SKPaymentTransactionStatePurchased",
+                      [transaction.transactionIdentifier cStringUsingEncoding:NSUTF8StringEncoding]);
+                if (receiptVerifyMode_ != CCStoreReceiptVerifyModeNone)
+                {
+                    [self verifyTransactionReceipt:transaction];
+                }
+                else
+                {
+                    [self transactionCompleted:transaction andReceiptVerifyStatus:CCStoreReceiptVerifyStatusNone];
+                }
                 break;
             case SKPaymentTransactionStateFailed:
-                CCLOG("transaction '%s' SKPaymentTransactionStateFailed", [transaction.transactionIdentifier cStringUsingEncoding:NSUTF8StringEncoding]);
-                CCLOG("error: %s", [[transaction.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
-                [self transactionFailed:transaction];
+                CCLOG("transaction '%s' SKPaymentTransactionStateFailed",
+                      [transaction.transactionIdentifier cStringUsingEncoding:NSUTF8StringEncoding]);
+                CCLOG("error: %s",
+                      [[transaction.error localizedDescription] cStringUsingEncoding:NSUTF8StringEncoding]);
+                [self transactionFailed:transaction andReceiptVerifyStatus:CCStoreReceiptVerifyStatusNone];
                 break;
             case SKPaymentTransactionStateRestored:
-                CCLOG("transaction '%s' SKPaymentTransactionStateRestored", [transaction.transactionIdentifier cStringUsingEncoding:NSUTF8StringEncoding]);
-                [self transactionRestored:transaction];
+                CCLOG("transaction '%s' SKPaymentTransactionStateRestored",
+                      [transaction.transactionIdentifier cStringUsingEncoding:NSUTF8StringEncoding]);
+                [self transactionRestored:transaction andReceiptVerifyStatus:CCStoreReceiptVerifyStatusNone];
                 break;
         }
     }
 }
 - (void)transactionCompleted:(SKPaymentTransaction *)transaction
+      andReceiptVerifyStatus:(int)receiptVerifyStatus
 {
-    transactionObserver_->transactionCompleted([self createCCStorePaymentTransaction:transaction]);
+    transactionObserver_->transactionCompleted([self createCCStorePaymentTransaction:transaction
+                                                              andReceiptVerifyStatus:receiptVerifyStatus]);
 }
 
 - (void)transactionFailed:(SKPaymentTransaction *)transaction
+   andReceiptVerifyStatus:(int)receiptVerifyStatus
 {
-    transactionObserver_->transactionFailed([self createCCStorePaymentTransaction:transaction]);
+    transactionObserver_->transactionFailed([self createCCStorePaymentTransaction:transaction
+                                                           andReceiptVerifyStatus:receiptVerifyStatus]);
 }
 
 - (void)transactionRestored:(SKPaymentTransaction *)transaction
+     andReceiptVerifyStatus:(int)receiptVerifyStatus;
 {
-    transactionObserver_->transactionRestored([self createCCStorePaymentTransaction:transaction]);
+    transactionObserver_->transactionRestored([self createCCStorePaymentTransaction:transaction
+                                                             andReceiptVerifyStatus:receiptVerifyStatus]);
 }
+
+#pragma mark -
+#pragma mark Verifying Store Receipts
+
+- (void)verifyTransactionReceipt:(SKPaymentTransaction *)transaction
+{
+    if (transaction.transactionState != SKPaymentTransactionStatePurchased) return;
+
+    CCLOG("[CCStore_obj] verifyTransactionReceipt() tid: %s", utf8cstr(transaction.transactionIdentifier));
+
+    // convert receipt to JSON string
+    int length = [transaction.transactionReceipt length];
+    char buffer[2 * length];
+    int dataUsed = CCCrypto::encodeBase64((unsigned char*)[transaction.transactionReceipt bytes], length, buffer, 2 * length);
+    if (dataUsed <= 0)
+    {
+        [self transactionCompleted:transaction andReceiptVerifyStatus:CCStoreReceiptVerifyStatusUnknownError];
+        return;
+    }
+
+    NSMutableDictionary* verifyData = [NSMutableDictionary dictionary];
+    [verifyData setObject:[NSString stringWithUTF8String:buffer] forKey:@"receipt-data"];
+
+    BOOL verifyOnServer = (receiptVerifyMode_ == CCStoreReceiptVerifyModeServer) && receiptVerifyServerUrl_ && ![receiptVerifyServerUrl_ isEqual:@""];
+    if (verifyOnServer)
+    {
+        [verifyData setObject:isSandbox_ ? @"true" : @"false" forKey:@"receipt-issandbox"];
+    }
+
+    SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+    NSString *postData = [writer stringWithObject:verifyData];
+    [writer release];
+
+    // create request
+    const char* url = NULL;
+    if (verifyOnServer)
+    {
+        url = [receiptVerifyServerUrl_ UTF8String];
+    }
+    else
+    {
+        url = isSandbox_ ? SANDBOX_RECEIPT_VERIFY_URL : APPSTORE_RECEIPT_VERIFY_URL;
+    }
+    CCStoreReceiptVerifyRequestIOS* handler = CCStoreReceiptVerifyRequestIOS::create(self, transaction, url);
+
+    handler->getRequest()->addRequestHeader("Content-Type: application/json");
+    handler->getRequest()->setPOSTData([postData cStringUsingEncoding:NSUTF8StringEncoding]);
+    handler->getRequest()->start();
+}
+
+- (void)verifyReceiptRequestFinished:(CCStoreReceiptVerifyRequestIOS *)handler
+{
+    SKPaymentTransaction* transaction = handler->getTransaction();
+    const string responseString = handler->getRequest()->getResponseString();
+
+    CCLOG("[CCStore_obj] verify receipt finished, pid: %s\n  response:\n%s\n\n",
+          utf8cstr(transaction.payment.productIdentifier),
+          responseString.c_str());
+
+    // parser JSON string
+    NSString* nsresponseString = [NSString stringWithCString:responseString.c_str() encoding:NSUTF8StringEncoding];
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    NSDictionary *jsonData = [parser objectWithString:nsresponseString];
+    [parser release];
+
+    // check result
+    if (jsonData == nil || [jsonData count] == 0)
+    {
+        // invalid JSON string
+        [self transactionFailed:transaction andReceiptVerifyStatus:CCStoreReceiptVerifyStatusInvalidResult];
+    }
+    else if ([jsonData objectForKey:@"status"] && [[jsonData objectForKey:@"status"] intValue] == 0)
+    {
+        // status is ok, do more checks
+        BOOL isValidReceipt = NO;
+        /**
+         AppStore receipt format, 2012-06-13:
+
+         {
+         "receipt":{
+         "original_purchase_date_pst":"2012-06-12 20:06:51 America/Los_Angeles",
+         "original_transaction_id":"1000000051068416",
+         "original_purchase_date_ms":"1339556811043",
+         "transaction_id":"1000000051068416",
+         "quantity":"1",
+         "product_id":"com.qeeplay.games.XXX.YYY",
+         "bvrs":"0000",
+         "purchase_date_ms":"1339556811043",
+         "purchase_date":"2012-06-13 03:06:51 Etc/GMT",
+         "original_purchase_date":"2012-06-13 03:06:51 Etc/GMT",
+         "purchase_date_pst":"2012-06-12 20:06:51 America/Los_Angeles",
+         "bid":"com.qeeplay.games.XXX",
+         "item_id":"11111111"
+         },
+         "status":0
+         }
+         */
+        do
+        {
+            NSDictionary *receiptData = [jsonData objectForKey:@"receipt"];
+            if (receiptData == nil)
+            {
+                break;
+            }
+
+            // SKPaymentTransaction *transaction = transaction;
+            NSString *transactionId = [receiptData objectForKey:@"transaction_id"];
+            if (!transactionId || [transaction.transactionIdentifier compare:transactionId] != NSOrderedSame)
+            {
+                // check failed
+                break;
+            }
+
+            NSString *productIdentifier = [receiptData objectForKey:@"product_id"];
+            if (!productIdentifier || [transaction.payment.productIdentifier compare:productIdentifier] != NSOrderedSame)
+            {
+                break;
+            }
+
+            // receipt is valid
+            isValidReceipt = YES;
+        } while (NO);
+
+        if (isValidReceipt)
+        {
+            [self transactionCompleted:transaction
+                andReceiptVerifyStatus:CCStoreReceiptVerifyStatusOK];
+        }
+        else
+        {
+            [self transactionFailed:transaction
+             andReceiptVerifyStatus:CCStoreReceiptVerifyStatusInvalidReceipt];
+        }
+    }
+    else
+    {
+        [self transactionFailed:transaction
+         andReceiptVerifyStatus:[[jsonData objectForKey:@"status"] intValue]];
+    }
+}
+
+- (void)verifyReceiptRequestFailed:(CCStoreReceiptVerifyRequestIOS *)handler
+{
+    SKPaymentTransaction* transaction = handler->getTransaction();
+    const string responseString = handler->getRequest()->getResponseString();
+
+    CCLOG("[CCStore_obj] WARN, verify receipt failed(), pid: %s\n  response:\n%s\n\n",
+          utf8cstr(transaction.payment.productIdentifier),
+          responseString.c_str());
+
+    [self transactionFailed:transaction andReceiptVerifyStatus:CCStoreReceiptVerifyStatusRequestFailed];
+}
+
 
 #pragma mark -
 #pragma mark helper
 
 - (CCStorePaymentTransaction *)createCCStorePaymentTransaction:(SKPaymentTransaction *)transaction
+                                        andReceiptVerifyStatus:(int)receiptVerifyStatus
 {
     CCStorePaymentTransactionWrapper* transactionWapper
-;
+    ;
     transactionWapper
- = CCStorePaymentTransactionWrapper::createWithTransaction(transaction);
-    
+    = CCStorePaymentTransactionWrapper::createWithTransaction(transaction);
+
     const char *ccid        = utf8cstr(transaction.transactionIdentifier);
     const char *ccproductId = utf8cstr(transaction.payment.productIdentifier);
     int quantity            = transaction.payment.quantity;
@@ -272,7 +453,7 @@ static CCStoreIOS *s_sharedStore;
     const void *receiptData = NULL;
     int errorCode           = 0;
     const char *errorDescription = NULL;
-    
+
     CCStorePaymentTransactionState ccstate = CCStorePaymentTransactionStateNull;
     switch (transaction.transactionState)
     {
@@ -280,11 +461,11 @@ static CCStoreIOS *s_sharedStore;
             errorCode = transaction.error.code;
             /**
              enum {
-                 SKErrorUnknown,
-                 SKErrorClientInvalid,       // client is not allowed to issue the request, etc.
-                 SKErrorPaymentCancelled,    // user cancelled the request, etc.
-                 SKErrorPaymentInvalid,      // purchase identifier was invalid, etc.
-                 SKErrorPaymentNotAllowed    // this device is not allowed to make the payment
+             SKErrorUnknown,
+             SKErrorClientInvalid,       // client is not allowed to issue the request, etc.
+             SKErrorPaymentCancelled,    // user cancelled the request, etc.
+             SKErrorPaymentInvalid,      // purchase identifier was invalid, etc.
+             SKErrorPaymentNotAllowed    // this device is not allowed to make the payment
              };
              */
             if (errorCode == SKErrorPaymentCancelled)
@@ -308,11 +489,12 @@ static CCStoreIOS *s_sharedStore;
         case SKPaymentTransactionStateRestored:
             ccstate = CCStorePaymentTransactionStateRestored;
     }
-    
+
     if (transaction.originalTransaction)
     {
         CCStorePaymentTransaction *ccoriginalTransaction;
-        ccoriginalTransaction = [self createCCStorePaymentTransaction:transaction.originalTransaction];
+        ccoriginalTransaction = [self createCCStorePaymentTransaction:transaction.originalTransaction
+                                               andReceiptVerifyStatus:CCStoreReceiptVerifyStatusNone];
         return CCStorePaymentTransaction::transactionWithState(transactionWapper,
                                                                ccstate,
                                                                ccid,
@@ -323,7 +505,9 @@ static CCStoreIOS *s_sharedStore;
                                                                receiptData,
                                                                errorCode,
                                                                errorDescription,
-                                                               ccoriginalTransaction);
+                                                               ccoriginalTransaction,
+                                                               receiptVerifyMode_,
+                                                               receiptVerifyStatus);
     }
     else
     {
@@ -337,7 +521,9 @@ static CCStoreIOS *s_sharedStore;
                                                                receiptData,
                                                                errorCode,
                                                                errorDescription,
-                                                               NULL);
+                                                               NULL,
+                                                               receiptVerifyMode_,
+                                                               receiptVerifyStatus);
     }
 }
 

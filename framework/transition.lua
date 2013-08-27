@@ -1,8 +1,4 @@
 
---[[--
-
-]]
-
 local transition = {}
 
 local ACTION_EASING = {}
@@ -30,9 +26,6 @@ ACTION_EASING["SINEOUT"]          = {CCEaseSineOut, 1}
 
 local actionManager = CCDirector:sharedDirector():getActionManager()
 
---[[--
-@ignore
-]]
 local function newEasing(action, easingName, more)
     local key = string.upper(tostring(easingName))
     if string.sub(key, 1, 6) == "CCEASE" then
@@ -50,12 +43,7 @@ local function newEasing(action, easingName, more)
     return easing or action
 end
 
---[[--
-
-]]
-function transition.execute(target, action, args)
-    assert(not tolua.isnull(target), "transition.execute() - target is not CCNode")
-
+function transition.create(action, args)
     args = totable(args)
     if args.easing then
         if type(args.easing) == "table" then
@@ -79,18 +67,19 @@ function transition.execute(target, action, args)
     end
 
     if #actions > 1 then
-        action = transition.sequence(actions)
-        target:runAction(action)
+        return transition.sequence(actions)
     else
-        target:runAction(actions[1])
+        return actions[1]
     end
+end
 
+function transition.execute(target, action, args)
+    assert(not tolua.isnull(target), "transition.execute() - target is not CCNode")
+    local action = transition.create(action, args)
+    target:runAction(action)
     return action
 end
 
---[[--
-
-]]
 function transition.rotateTo(target, args)
     assert(not tolua.isnull(target), "transition.rotateTo() - target is not CCNode")
     -- local rotation = args.rotate
@@ -98,9 +87,6 @@ function transition.rotateTo(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.moveTo(target, args)
     assert(not tolua.isnull(target), "transition.moveTo() - target is not CCNode")
     local tx, ty = target:getPosition()
@@ -110,9 +96,6 @@ function transition.moveTo(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.moveBy(target, args)
     assert(not tolua.isnull(target), "transition.moveBy() - target is not CCNode")
     local x = args.x or 0
@@ -121,9 +104,6 @@ function transition.moveBy(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.fadeIn(target, args)
     assert(not tolua.isnull(target), "transition.fadeIn() - target is not CCNode")
     local action = CCFadeIn:create(args.time)
@@ -131,9 +111,6 @@ function transition.fadeIn(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.fadeOut(target, args)
     assert(not tolua.isnull(target), "transition.fadeOut() - target is not CCNode")
     local action = CCFadeOut:create(args.time)
@@ -141,9 +118,6 @@ function transition.fadeOut(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.fadeTo(target, args)
     assert(not tolua.isnull(target), "transition.fadeTo() - target is not CCNode")
     local opacity = toint(args.opacity)
@@ -156,9 +130,6 @@ function transition.fadeTo(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.scaleTo(target, args)
     assert(not tolua.isnull(target), "transition.scaleTo() - target is not CCNode")
     local action
@@ -181,9 +152,6 @@ function transition.scaleTo(target, args)
     return transition.execute(target, action, args)
 end
 
---[[--
-
-]]
 function transition.sequence(actions)
     if #actions < 1 then return end
     if #actions < 2 then return actions[1] end
@@ -195,9 +163,6 @@ function transition.sequence(actions)
     return prev
 end
 
---[[--
-
-]]
 function transition.playAnimationOnce(target, animation, removeWhenFinished, onComplete, delay)
     local actions = {}
     if type(delay) == "number" and delay > 0 then
@@ -225,9 +190,6 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
     return action
 end
 
---[[--
-
-]]
 function transition.playAnimationForever(target, animation, delay)
     local animate = CCAnimate:create(animation)
     local action
@@ -246,36 +208,24 @@ function transition.playAnimationForever(target, animation, delay)
     return action
 end
 
---[[--
-
-]]
 function transition.removeAction(action)
     if not tolua.isnull(action) then
         actionManager:removeAction(action)
     end
 end
 
---[[--
-
-]]
 function transition.stopTarget(target)
     if not tolua.isnull(target) then
         actionManager:removeAllActionsFromTarget(target)
     end
 end
 
---[[--
-
-]]
 function transition.pauseTarget(target)
     if not tolua.isnull(target) then
         actionManager:pauseTarget(target)
     end
 end
 
---[[--
-
-]]
 function transition.resumeTarget(target)
     if not tolua.isnull(target) then
         actionManager:resumeTarget(target)

@@ -24,15 +24,8 @@ THE SOFTWARE.
 
 ]]
 
---[[--
-
-]]
-
 io.output():setvbuf('no')
 
---[[--
-
-]]
 function echo(...)
     local arr = {}
     for i, a in ipairs({...}) do
@@ -43,37 +36,22 @@ end
 
 print = echo
 
---[[--
-
-]]
 function printf(fmt, ...)
     echo(string.format(tostring(fmt), ...))
 end
 
---[[--
-
-]]
 function echoError(fmt, ...)
     echo(string.format("[ERR] %s%s", string.format(tostring(fmt), ...), debug.traceback("", 2)))
 end
 
---[[--
-
-]]
 function echoInfo(fmt, ...)
     echo("[INFO] " .. string.format(tostring(fmt), ...))
 end
 
---[[--
-
-]]
 function echoLog(tag, fmt, ...)
     echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(tostring(fmt), ...)))
 end
 
---[[--
-
-]]
 function dump(object, label, isReturnContents, nesting)
     if type(nesting) ~= "number" then nesting = 99 end
 
@@ -142,9 +120,6 @@ function dump(object, label, isReturnContents, nesting)
     end
 end
 
---[[--
-
-]]
 function vardump(object, label)
     local lookupTable = {}
     local result = {}

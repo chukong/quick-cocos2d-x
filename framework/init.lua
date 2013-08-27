@@ -90,9 +90,6 @@ end
 require(__FRAMEWORK_PACKAGE_NAME__ .. '.deprecated')
 
 local timeCount = 0
---[[--
-@ignore
-]]
 local function showMemoryUsage(dt)
     timeCount = timeCount + dt
     echoInfo(string.format("MEMORY USED: %0.2f KB, UPTIME: %04.2fs", collectgarbage("count"), timeCount))

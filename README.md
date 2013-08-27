@@ -84,6 +84,7 @@ Common:
 - upgrade LuaJIT to 2.0.2
 - add LuaJavaBridge
 - add LuaObjectiveCBridge
+- add LuaProxy
 - add Chipmunk Lua support
 - add CCArmature Lua support
 - add AssetsManager Lua support

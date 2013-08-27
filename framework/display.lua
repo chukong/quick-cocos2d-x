@@ -1,12 +1,10 @@
 
---[[--
-
-]]
 local display = {}
 
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSceneExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCLayerExtend")
 
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
@@ -26,9 +24,6 @@ if CONFIG_SCREEN_WIDTH == nil or CONFIG_SCREEN_HEIGHT == nil then
     CONFIG_SCREEN_HEIGHT = h
 end
 
---[[--
-@ignore
-]]
 local function checkScale(w, h)
     local scale = 1
     local wscale, hscale = w / CONFIG_SCREEN_WIDTH, h / CONFIG_SCREEN_HEIGHT
@@ -197,18 +192,12 @@ display.SCENE_TRANSITIONS = {
 
 display.TEXTURES_PIXEL_FORMAT = {}
 
---[[--
-
-]]
 function display.newScene(name)
     local scene = CCSceneExtend.extend(CCScene:create())
     scene.name = name or "<unknown-scene>"
     return scene
 end
 
---[[--
-
-]]
 function display.wrapSceneWithTransition(scene, transitionType, time, more)
     local key = string.upper(tostring(transitionType))
     if string.sub(key, 1, 12) == "CCTRANSITION" then
@@ -235,9 +224,6 @@ function display.wrapSceneWithTransition(scene, transitionType, time, more)
     return scene
 end
 
---[[--
-
-]]
 function display.replaceScene(newScene, transitionType, time, more)
     if sharedDirector:getRunningScene() then
         if transitionType then
@@ -249,51 +235,30 @@ function display.replaceScene(newScene, transitionType, time, more)
     end
 end
 
---[[--
-
-]]
 function display.getRunningScene()
     return sharedDirector:getRunningScene()
 end
 
---[[--
-
-]]
 function display.pause()
     sharedDirector:pause()
 end
 
---[[--
-
-]]
 function display.resume()
     sharedDirector:resume()
 end
 
---[[--
-
-]]
 function display.newLayer()
-    return CCNodeExtend.extend(CCLayerRGBA:create())
+    return CCLayerExtend.extend(CCLayerRGBA:create())
 end
 
---[[--
-
-]]
 function display.newNode()
     return CCNodeExtend.extend(CCNodeRGBA:create())
 end
 
---[[--
-
-]]
 function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
---[[--
-
-]]
 function display.newSprite(filename, x, y)
     local t = typen(filename)
     if t == LUA_TUSERDATA then t = tolua.type(filename) end
@@ -333,9 +298,6 @@ function display.newSprite(filename, x, y)
     return sprite
 end
 
---[[--
-
-]]
 function display.newScale9Sprite(filename, x, y, size)
     local t = typen(filename)
     if t ~= LUA_TSTRING then
@@ -370,9 +332,6 @@ function display.newScale9Sprite(filename, x, y, size)
     return sprite
 end
 
---[[--
-
-]]
 function display.newTilesSprite(filename, rect)
     if not rect then
         rect = CCRect(0, 0, display.width, display.height)
@@ -396,16 +355,10 @@ function display.newTilesSprite(filename, rect)
     return sprite
 end
 
---[[--
-
-]]
 function display.newCircle(radius)
     return CCNodeExtend.extend(CCCircleShape:create(radius))
 end
 
---[[--
-
-]]
 function display.newRect(width, height)
     local x, y = 0, 0
     if typen(width) == LUA_TUSERDATA then
@@ -429,9 +382,6 @@ function display.newRect(width, height)
     return rect
 end
 
---[[--
-
-]]
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
     local arr = CCPointArray:create(#points)
@@ -443,17 +393,11 @@ function display.newPolygon(points, scale)
     return CCNodeExtend.extend(CCPolygonShape:create(arr))
 end
 
---[[--
-
-]]
 function display.align(target, anchorPoint, x, y)
     target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then target:setPosition(x, y) end
 end
 
---[[--
-
-]]
 function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
@@ -464,9 +408,6 @@ function display.addSpriteFramesWithFile(plistFilename, image)
     end
 end
 
---[[--
-
-]]
 function display.removeSpriteFramesWithFile(plistFilename, imageName)
     sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
     if imageName then
@@ -474,31 +415,19 @@ function display.removeSpriteFramesWithFile(plistFilename, imageName)
     end
 end
 
---[[--
-
-]]
 function display.setTexturePixelFormat(filename, format)
     display.TEXTURES_PIXEL_FORMAT[filename] = format
 end
 
---[[--
-
-]]
 function display.removeSpriteFrameByImageName(imageName)
     sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
     CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
 
---[[--
-
-]]
 function display.newBatchNode(image, capacity)
     return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
 end
 
---[[--
-
-]]
 function display.newSpriteFrame(frameName)
     local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
     if not frame then
@@ -507,9 +436,6 @@ function display.newSpriteFrame(frameName)
     return frame
 end
 
---[[--
-
-]]
 function display.newFrames(pattern, begin, length, isReversed)
     local frames = {}
     local step = 1
@@ -532,9 +458,6 @@ function display.newFrames(pattern, begin, length, isReversed)
     return frames
 end
 
---[[--
-
-]]
 function display.newAnimation(frames, time)
     local count = #frames
     local array = CCArray:create()
@@ -545,33 +468,34 @@ function display.newAnimation(frames, time)
     return CCAnimation:createWithSpriteFrames(array, time)
 end
 
---[[--
-
-]]
 function display.setAnimationCache(name, animation)
     sharedAnimationCache:addAnimation(animation, name)
 end
 
---[[--
-
-]]
 function display.getAnimationCache(name)
     return sharedAnimationCache:animationByName(name)
 end
 
---[[--
-
-]]
 function display.removeAnimationCache(name)
     sharedAnimationCache:removeAnimationByName(name)
 end
 
---[[--
-
-]]
 function display.removeUnusedSpriteFrames()
     sharedSpriteFrameCache:removeUnusedSpriteFrames()
     sharedTextureCache:removeUnusedTextures()
+end
+
+display.PROGRESS_TIMER_BAR = kCCProgressTimerTypeBar
+display.PROGRESS_TIMER_RADIAL = kCCProgressTimerTypeRadial
+
+function display.newProgressTimer(image, progresssType)
+    if typen(image) == LUA_TSTRING then
+        image = display.newSprite(image)
+    end
+
+    local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
+    progress:setType(progresssType)
+    return progress
 end
 
 return display

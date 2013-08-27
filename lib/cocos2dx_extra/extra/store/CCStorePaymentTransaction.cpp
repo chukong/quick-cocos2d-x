@@ -14,7 +14,9 @@ CCStorePaymentTransaction::transactionWithState(CCStorePaymentTransactionWrapper
                                                 const void* receiptData,
                                                 int errorCode,
                                                 const char* errorDescription,
-                                                CCStorePaymentTransaction* originalTransaction)
+                                                CCStorePaymentTransaction* originalTransaction,
+                                                CCStoreReceiptVerifyMode receiptVerifyMode,
+                                                CCStoreReceiptVerifyStatus receiptVerifyStatus)
 {
     CCStorePaymentTransaction* transaction = new CCStorePaymentTransaction();
     transaction->initWithState(transactionWapper,
@@ -27,7 +29,9 @@ CCStorePaymentTransaction::transactionWithState(CCStorePaymentTransactionWrapper
                                receiptData,
                                errorCode,
                                errorDescription,
-                               originalTransaction);
+                               originalTransaction,
+                               receiptVerifyMode,
+                               receiptVerifyStatus);
     transaction->autorelease();
     return transaction;
 }
@@ -57,7 +61,9 @@ bool CCStorePaymentTransaction::initWithState(CCStorePaymentTransactionWrapper* 
                                               const void* receiptData,
                                               int errorCode,
                                               const char* errorDescription,
-                                              CCStorePaymentTransaction* originalTransaction)
+                                              CCStorePaymentTransaction* originalTransaction,
+                                              CCStoreReceiptVerifyMode receiptVerifyMode,
+                                              CCStoreReceiptVerifyStatus receiptVerifyStatus)
 {
     m_transactionWapper = transactionWapper;
     m_transactionState = state;
@@ -84,6 +90,9 @@ bool CCStorePaymentTransaction::initWithState(CCStorePaymentTransactionWrapper* 
         m_originalTransaction->retain();
     }
     
+    m_receiptVerifyMode = receiptVerifyMode;
+    m_receiptVerifyStatus = receiptVerifyStatus;
+    
     return true;
 }
 
@@ -99,6 +108,8 @@ const CCLuaValueDict CCStorePaymentTransaction::convertToLuaTable(void)
     transaction_["date"] = CCLuaValue::floatValue(m_dateTime);
     transaction_["errorCode"] = CCLuaValue::intValue(m_errorCode);
     transaction_["errorString"] = CCLuaValue::stringValue(m_errorDescription);
+    transaction_["receiptVerifyMode"] = CCLuaValue::intValue(m_receiptVerifyMode);
+    transaction_["receiptVerifyStatus"] = CCLuaValue::intValue(m_receiptVerifyStatus);
     
     if (m_receiptDataLength > 0)
     {
