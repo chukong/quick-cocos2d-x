@@ -98,7 +98,7 @@ class CCArmatureDisplayData  : public CCDisplayData
 {
     static CCArmatureDisplayData *create();
 
-    setParam(const char *displayName);
+    void setParam(const char *displayName);
     void copy(CCArmatureDisplayData *displayData);
 
     /**
@@ -143,7 +143,7 @@ class CCBoneData : public CCBaseData
     CCDisplayData *getDisplayData(int index);
     std::string name;           //! the bone's name
     std::string parentName;     //! the bone parent's name
-    CCArray displayDataList;    //! save CCDisplayData informations for the CCBone
+    // CCArray displayDataList;    //! save CCDisplayData informations for the CCBone
 };
 
 /**
@@ -158,8 +158,8 @@ class CCArmatureData : public CCObject
     void addBoneData(CCBoneData *boneData);
     CCBoneData *getBoneData(const char *boneName);
     std::string name;
-    CCDictionary boneDataDic;
-    CCArray boneList;
+    // CCDictionary boneDataDic;
+    // CCArray boneList;
 };
 
 class CCFrameData : public CCBaseData
@@ -196,7 +196,7 @@ class CCMovementBoneData : public CCObject
     float duration;     //! this CCBone in this movement will last m_iDuration frames
     std::string name;   //! bone name
 
-    CCArray frameList;
+    // CCArray frameList;
 };
 
 
@@ -238,7 +238,7 @@ class CCMovementData : public CCObject
     * @key  std::string
     * @value    CCMovementBoneData *
     */
-    CCDictionary movBoneDataDic;
+    // CCDictionary movBoneDataDic;
 };
 
 
@@ -255,6 +255,6 @@ class CCAnimationData : public CCObject
     CCMovementData *getMovement(const char *movementName);
     int getMovementCount();
     std::string name;
-    CCDictionary movementDataDic;
-    std::vector<std::string> movementNames;
+    // CCDictionary movementDataDic;
+    // std::vector<std::string> movementNames;
 };

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Aug 27 09:59:44 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Aug 27 10:07:18 2013.
 */
 
 /****************************************************************************
@@ -47,6 +47,7 @@ using namespace CocosDenshion;
 #include "AssetsManager/AssetsManager.h"
 #include "CCArmature/CCArmature.h"
 using namespace cocos2d::extension;
+#include "CCArmature/utils/CCArmatureDataManager.h"
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -428,19 +429,18 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCActionEase");
  tolua_usertype(tolua_S,"CCParallaxNode");
  tolua_usertype(tolua_S,"CCRotateTo");
- tolua_usertype(tolua_S,"CCBone");
  tolua_usertype(tolua_S,"CCShakyTiles3D");
  tolua_usertype(tolua_S,"CCArmatureDisplayData");
  tolua_usertype(tolua_S,"CCNode");
+ tolua_usertype(tolua_S,"CCBone");
  tolua_usertype(tolua_S,"CCArmature");
  tolua_usertype(tolua_S,"CCBatchNode");
- tolua_usertype(tolua_S,"CCSpriteDisplayData");
  tolua_usertype(tolua_S,"CCBezierTo");
  tolua_usertype(tolua_S,"CCDeccelAmplitude");
  tolua_usertype(tolua_S,"CCMovementBoneData");
  tolua_usertype(tolua_S,"CCBoneData");
  tolua_usertype(tolua_S,"CCArmatureData");
- tolua_usertype(tolua_S,"std::vector<std::string>");
+ tolua_usertype(tolua_S,"CCSpriteDisplayData");
  tolua_usertype(tolua_S,"CCPointShape");
  tolua_usertype(tolua_S,"CCArmatureAnimation");
  tolua_usertype(tolua_S,"CCEditBox");
@@ -57677,36 +57677,6 @@ static int tolua_set_CCBoneData_parentName(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: displayDataList of class  CCBoneData */
-#ifndef TOLUA_DISABLE_tolua_get_CCBoneData_displayDataList
-static int tolua_get_CCBoneData_displayDataList(lua_State* tolua_S)
-{
-  CCBoneData* self = (CCBoneData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'displayDataList'",NULL);
-#endif
-   toluafix_pushusertype_ccobject(tolua_S,(void*)&self->displayDataList,"CCArray");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: displayDataList of class  CCBoneData */
-#ifndef TOLUA_DISABLE_tolua_set_CCBoneData_displayDataList
-static int tolua_set_CCBoneData_displayDataList(lua_State* tolua_S)
-{
-  CCBoneData* self = (CCBoneData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'displayDataList'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->displayDataList = *((CCArray*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: create of class  CCArmatureData */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCArmatureData_create00
 static int tolua_Cocos2d_CCArmatureData_create00(lua_State* tolua_S)
@@ -57827,66 +57797,6 @@ static int tolua_set_CCArmatureData_name(lua_State* tolua_S)
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
   self->name = ((std::string)  tolua_tocppstring(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: boneDataDic of class  CCArmatureData */
-#ifndef TOLUA_DISABLE_tolua_get_CCArmatureData_boneDataDic
-static int tolua_get_CCArmatureData_boneDataDic(lua_State* tolua_S)
-{
-  CCArmatureData* self = (CCArmatureData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'boneDataDic'",NULL);
-#endif
-   toluafix_pushusertype_ccobject(tolua_S,(void*)&self->boneDataDic,"CCDictionary");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: boneDataDic of class  CCArmatureData */
-#ifndef TOLUA_DISABLE_tolua_set_CCArmatureData_boneDataDic
-static int tolua_set_CCArmatureData_boneDataDic(lua_State* tolua_S)
-{
-  CCArmatureData* self = (CCArmatureData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'boneDataDic'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCDictionary",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->boneDataDic = *((CCDictionary*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: boneList of class  CCArmatureData */
-#ifndef TOLUA_DISABLE_tolua_get_CCArmatureData_boneList
-static int tolua_get_CCArmatureData_boneList(lua_State* tolua_S)
-{
-  CCArmatureData* self = (CCArmatureData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'boneList'",NULL);
-#endif
-   toluafix_pushusertype_ccobject(tolua_S,(void*)&self->boneList,"CCArray");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: boneList of class  CCArmatureData */
-#ifndef TOLUA_DISABLE_tolua_set_CCArmatureData_boneList
-static int tolua_set_CCArmatureData_boneList(lua_State* tolua_S)
-{
-  CCArmatureData* self = (CCArmatureData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'boneList'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->boneList = *((CCArray*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -58378,36 +58288,6 @@ static int tolua_set_CCMovementBoneData_name(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: frameList of class  CCMovementBoneData */
-#ifndef TOLUA_DISABLE_tolua_get_CCMovementBoneData_frameList
-static int tolua_get_CCMovementBoneData_frameList(lua_State* tolua_S)
-{
-  CCMovementBoneData* self = (CCMovementBoneData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'frameList'",NULL);
-#endif
-   toluafix_pushusertype_ccobject(tolua_S,(void*)&self->frameList,"CCArray");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: frameList of class  CCMovementBoneData */
-#ifndef TOLUA_DISABLE_tolua_set_CCMovementBoneData_frameList
-static int tolua_set_CCMovementBoneData_frameList(lua_State* tolua_S)
-{
-  CCMovementBoneData* self = (CCMovementBoneData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'frameList'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCArray",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->frameList = *((CCArray*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: create of class  CCMovementData */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCMovementData_create00
 static int tolua_Cocos2d_CCMovementData_create00(lua_State* tolua_S)
@@ -58683,36 +58563,6 @@ static int tolua_set_CCMovementData_tweenEasing(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: movBoneDataDic of class  CCMovementData */
-#ifndef TOLUA_DISABLE_tolua_get_CCMovementData_movBoneDataDic
-static int tolua_get_CCMovementData_movBoneDataDic(lua_State* tolua_S)
-{
-  CCMovementData* self = (CCMovementData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'movBoneDataDic'",NULL);
-#endif
-   toluafix_pushusertype_ccobject(tolua_S,(void*)&self->movBoneDataDic,"CCDictionary");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: movBoneDataDic of class  CCMovementData */
-#ifndef TOLUA_DISABLE_tolua_set_CCMovementData_movBoneDataDic
-static int tolua_set_CCMovementData_movBoneDataDic(lua_State* tolua_S)
-{
-  CCMovementData* self = (CCMovementData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'movBoneDataDic'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCDictionary",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->movBoneDataDic = *((CCDictionary*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: create of class  CCAnimationData */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCAnimationData_create00
 static int tolua_Cocos2d_CCAnimationData_create00(lua_State* tolua_S)
@@ -58865,66 +58715,6 @@ static int tolua_set_CCAnimationData_name(lua_State* tolua_S)
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
   self->name = ((std::string)  tolua_tocppstring(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: movementDataDic of class  CCAnimationData */
-#ifndef TOLUA_DISABLE_tolua_get_CCAnimationData_movementDataDic
-static int tolua_get_CCAnimationData_movementDataDic(lua_State* tolua_S)
-{
-  CCAnimationData* self = (CCAnimationData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'movementDataDic'",NULL);
-#endif
-   toluafix_pushusertype_ccobject(tolua_S,(void*)&self->movementDataDic,"CCDictionary");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: movementDataDic of class  CCAnimationData */
-#ifndef TOLUA_DISABLE_tolua_set_CCAnimationData_movementDataDic
-static int tolua_set_CCAnimationData_movementDataDic(lua_State* tolua_S)
-{
-  CCAnimationData* self = (CCAnimationData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'movementDataDic'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCDictionary",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->movementDataDic = *((CCDictionary*)  tolua_tousertype(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: movementNames of class  CCAnimationData */
-#ifndef TOLUA_DISABLE_tolua_get_CCAnimationData_movementNames
-static int tolua_get_CCAnimationData_movementNames(lua_State* tolua_S)
-{
-  CCAnimationData* self = (CCAnimationData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'movementNames'",NULL);
-#endif
-   tolua_pushusertype(tolua_S,(void*)&self->movementNames,"std::vector<std::string>");
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: movementNames of class  CCAnimationData */
-#ifndef TOLUA_DISABLE_tolua_set_CCAnimationData_movementNames
-static int tolua_set_CCAnimationData_movementNames(lua_State* tolua_S)
-{
-  CCAnimationData* self = (CCAnimationData*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'movementNames'",NULL);
-  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"std::vector<std::string>",0,&tolua_err)))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  self->movementNames = *((std::vector<std::string>*)  tolua_tousertype(tolua_S,2,0))
 ;
  return 0;
 }
@@ -62945,7 +62735,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getDisplayData",tolua_Cocos2d_CCBoneData_getDisplayData00);
    tolua_variable(tolua_S,"name",tolua_get_CCBoneData_name,tolua_set_CCBoneData_name);
    tolua_variable(tolua_S,"parentName",tolua_get_CCBoneData_parentName,tolua_set_CCBoneData_parentName);
-   tolua_variable(tolua_S,"displayDataList",tolua_get_CCBoneData_displayDataList,tolua_set_CCBoneData_displayDataList);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCArmatureData","CCArmatureData","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCArmatureData");
@@ -62953,8 +62742,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"addBoneData",tolua_Cocos2d_CCArmatureData_addBoneData00);
    tolua_function(tolua_S,"getBoneData",tolua_Cocos2d_CCArmatureData_getBoneData00);
    tolua_variable(tolua_S,"name",tolua_get_CCArmatureData_name,tolua_set_CCArmatureData_name);
-   tolua_variable(tolua_S,"boneDataDic",tolua_get_CCArmatureData_boneDataDic,tolua_set_CCArmatureData_boneDataDic);
-   tolua_variable(tolua_S,"boneList",tolua_get_CCArmatureData_boneList,tolua_set_CCArmatureData_boneList);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCFrameData","CCFrameData","CCBaseData",NULL);
   tolua_beginmodule(tolua_S,"CCFrameData");
@@ -62977,7 +62764,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"scale",tolua_get_CCMovementBoneData_scale,tolua_set_CCMovementBoneData_scale);
    tolua_variable(tolua_S,"duration",tolua_get_CCMovementBoneData_duration,tolua_set_CCMovementBoneData_duration);
    tolua_variable(tolua_S,"name",tolua_get_CCMovementBoneData_name,tolua_set_CCMovementBoneData_name);
-   tolua_variable(tolua_S,"frameList",tolua_get_CCMovementBoneData_frameList,tolua_set_CCMovementBoneData_frameList);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCMovementData","CCMovementData","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCMovementData");
@@ -62990,7 +62776,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"durationTween",tolua_get_CCMovementData_durationTween,tolua_set_CCMovementData_durationTween);
    tolua_variable(tolua_S,"loop",tolua_get_CCMovementData_loop,tolua_set_CCMovementData_loop);
    tolua_variable(tolua_S,"tweenEasing",tolua_get_CCMovementData_tweenEasing,tolua_set_CCMovementData_tweenEasing);
-   tolua_variable(tolua_S,"movBoneDataDic",tolua_get_CCMovementData_movBoneDataDic,tolua_set_CCMovementData_movBoneDataDic);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCAnimationData","CCAnimationData","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCAnimationData");
@@ -62999,8 +62784,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getMovement",tolua_Cocos2d_CCAnimationData_getMovement00);
    tolua_function(tolua_S,"getMovementCount",tolua_Cocos2d_CCAnimationData_getMovementCount00);
    tolua_variable(tolua_S,"name",tolua_get_CCAnimationData_name,tolua_set_CCAnimationData_name);
-   tolua_variable(tolua_S,"movementDataDic",tolua_get_CCAnimationData_movementDataDic,tolua_set_CCAnimationData_movementDataDic);
-   tolua_variable(tolua_S,"movementNames",tolua_get_CCAnimationData_movementNames,tolua_set_CCAnimationData_movementNames);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCBatchNode","CCBatchNode","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCBatchNode");
