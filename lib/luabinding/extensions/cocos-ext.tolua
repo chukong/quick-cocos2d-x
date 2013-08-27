@@ -1,6 +1,7 @@
 
 $#include "cocos-ext.h"
 $#include "AssetsManager/AssetsManager.h"
+$#include "CCArmature/CCArmature.h"
 
 $using namespace cocos2d::extension;
 
@@ -18,3 +19,11 @@ $pfile "extensions/GUI/CCControlExtension/CCControlUtils.tolua"
 $pfile "extensions/GUI/CCControlExtension/CCScale9Sprite.tolua"
 
 $pfile "extensions/GUI/CCEditBox/CCEditBox.tolua"
+
+$pfile "extensions/CCArmature/animation/CCArmatureAnimation.tolua"
+$pfile "extensions/CCArmature/animation/CCProcessBase.tolua"
+$pfile "extensions/CCArmature/datas/CCDatas.tolua"
+$pfile "extensions/CCArmature/display/CCBatchNode.tolua"
+$pfile "extensions/CCArmature/utils/CCArmatureDataManager.tolua"
+$pfile "extensions/CCArmature/CCArmature.tolua"
+$pfile "extensions/CCArmature/CCBone.tolua"
