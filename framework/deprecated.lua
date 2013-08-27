@@ -63,32 +63,32 @@ function CCNodeExtend:registerNodeEvent(handler)
     self:setNodeEventEnabled(true, handler)
 end
 
-function CCNodeExtend:addScriptAccelerateHandler(...)
+function CCLayerExtend:addScriptAccelerateHandler(...)
     replaceTip("CCLayer:addScriptAccelerateHandler(...)", "addAccelerateEventListener()")
     return self:addAccelerateEventListener(...)
 end
 
-function CCNodeExtend:removeScriptAccelerateListener()
+function CCLayerExtend:removeScriptAccelerateListener()
     replaceTip("CCLayer:removeScriptAccelerateListener()", "removeAccelerateEventHandler()")
     return self:removeAccelerateEventHandler()
 end
 
-function CCNodeExtend:registerScriptTouchHandler(...)
+function CCLayerExtend:registerScriptTouchHandler(...)
     replaceTip("CCLayer:registerScriptTouchHandler(...)", "addTouchEventListener()")
     return self:addTouchEventListener(...)
 end
 
-function CCNodeExtend:unregisterScriptTouchHandler()
+function CCLayerExtend:unregisterScriptTouchHandler()
     replaceTip("CCLayer:unregisterScriptTouchHandler()", "removeTouchEventListener()")
     return self:removeTouchEventListener()
 end
 
-function CCNodeExtend:registerScriptKeypadHandler(...)
+function CCLayerExtend:registerScriptKeypadHandler(...)
     replaceTip("CCLayer:registerScriptKeypadHandler(...)", "addKeypadEventListener()")
     return self:addKeypadEventListener(...)
 end
 
-function CCNodeExtend:unregisterScriptKeypadHandler()
+function CCLayerExtend:unregisterScriptKeypadHandler()
     replaceTip("CCLayer:unregisterScriptKeypadHandler()", "removeKeypadEventListener()")
     return self:removeKeypadEventListener()
 end

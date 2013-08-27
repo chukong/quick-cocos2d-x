@@ -5,6 +5,7 @@
 local display = {}
 
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
+require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCLayerExtend")
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
 require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSceneExtend")
 
@@ -274,7 +275,7 @@ end
 
 ]]
 function display.newLayer()
-    return CCNodeExtend.extend(CCLayerRGBA:create())
+    return CCLayerExtend.extend(CCLayerRGBA:create())
 end
 
 --[[--
