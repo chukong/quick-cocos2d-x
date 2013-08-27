@@ -10,11 +10,19 @@ class CCStoreReceiptVerifyRequestIOS;
 
 @interface CCStoreIOS : NSObject < SKPaymentTransactionObserver, SKProductsRequestDelegate >
 {
+    CCStoreIsSandbox isSandbox_;
+    CCStoreReceiptVerifyMode receiptVerifyMode_;
+    NSString *receiptVerifyServerUrl_;
+
     CCStoreTransactionObserver *transactionObserver_;
     CCStoreProductsRequestDelegate *productRequestDelegate_;
     NSMutableDictionary *loadedProducts_;
     SKProductsRequest *productRequest_;
 }
+
+@property (nonatomic, assign) CCStoreIsSandbox isSandbox;
+@property (nonatomic, assign) CCStoreReceiptVerifyMode receiptVerifyMode;
+@property (nonatomic, retain) NSString *receiptVerifyServerUrl;
 
 #pragma mark -
 #pragma mark init
@@ -48,13 +56,23 @@ class CCStoreReceiptVerifyRequestIOS;
 #pragma mark Handling Transactions
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
-- (void)transactionCompleted:(SKPaymentTransaction *)transaction;
-- (void)transactionFailed:(SKPaymentTransaction *)transaction;
-- (void)transactionRestored:(SKPaymentTransaction *)transaction;
+- (void)transactionCompleted:(SKPaymentTransaction *)transaction andReceiptVerifyStatus:(int)receiptVerifyStatus;
+- (void)transactionFailed:(SKPaymentTransaction *)transaction andReceiptVerifyStatus:(int)receiptVerifyStatus;
+- (void)transactionRestored:(SKPaymentTransaction *)transaction andReceiptVerifyStatus:(int)receiptVerifyStatus;
+
+#pragma mark -
+#pragma mark Verifying Store Receipts
+
+- (void)verifyTransactionReceipt:(SKPaymentTransaction *)transaction;
+
+/* CCStoreReceiptVerifyRequestIOS */
+- (void)verifyReceiptRequestFinished:(CCStoreReceiptVerifyRequestIOS *)handler;
+- (void)verifyReceiptRequestFailed:(CCStoreReceiptVerifyRequestIOS *)handler;
 
 #pragma mark -
 #pragma mark helper
 
-- (CCStorePaymentTransaction *)createCCStorePaymentTransaction:(SKPaymentTransaction *)transaction;
+- (CCStorePaymentTransaction *)createCCStorePaymentTransaction:(SKPaymentTransaction *)transaction
+                                        andReceiptVerifyStatus:(int)receiptVerifyStatus;
 
 @end

@@ -12,6 +12,20 @@
 NS_CC_EXTRA_BEGIN
 
 typedef enum {
+    CCStoreReceiptVerifyModeNone = 0,
+    CCStoreReceiptVerifyModeDevice = 1,
+    CCStoreReceiptVerifyModeServer
+} CCStoreReceiptVerifyMode;
+
+static const int CCStoreReceiptVerifyStatusUnknownError = -5;
+static const int CCStoreReceiptVerifyStatusInvalidReceipt = -4;
+static const int CCStoreReceiptVerifyStatusRequestFailed = -3;
+static const int CCStoreReceiptVerifyStatusInvalidResult = -2;
+static const int CCStoreReceiptVerifyStatusNone = -1;
+static const int CCStoreReceiptVerifyStatusOK = 0;
+typedef int CCStoreReceiptVerifyStatus;
+
+typedef enum {
     CCStorePaymentTransactionStateNull = 0,
     CCStorePaymentTransactionStatePurchasing = 1,
     CCStorePaymentTransactionStatePurchased,
@@ -42,7 +56,9 @@ public:
                                                            const void* receiptData,
                                                            int errorCode,
                                                            const char* errorDescription,
-                                                           CCStorePaymentTransaction* originalTransaction);
+                                                           CCStorePaymentTransaction* originalTransaction,
+                                                           CCStoreReceiptVerifyMode receiptVerifyMode,
+                                                           CCStoreReceiptVerifyStatus receiptVerifyStatus);
     ~CCStorePaymentTransaction(void);
     
     CCStorePaymentTransactionWrapper* getTransactionWrapper(void)
@@ -100,6 +116,16 @@ public:
         return m_originalTransaction;
     }
         
+    CCStoreReceiptVerifyMode getReceiptVerifyMode(void)
+    {
+        return m_receiptVerifyMode;
+    }
+    
+    int getReceiptVerifyStatus(void)
+    {
+        return m_receiptVerifyStatus;
+    }
+    
 #if CC_LUA_ENGINE_ENABLED > 0
     const cocos2d::CCLuaValueDict convertToLuaTable(void);
 #endif
@@ -117,7 +143,9 @@ private:
                        const void* receiptData,
                        int errorCode,
                        const char* errorDescription,
-                       CCStorePaymentTransaction* originalTransaction);
+                       CCStorePaymentTransaction* originalTransaction,
+                       CCStoreReceiptVerifyMode receiptVerifyMode,
+                       CCStoreReceiptVerifyStatus receiptVerifyStatus);
     
     CCStorePaymentTransactionWrapper*   m_transactionWapper;
     CCStorePaymentTransactionState      m_transactionState;
@@ -130,6 +158,8 @@ private:
     int                                 m_errorCode;
     std::string                         m_errorDescription;
     CCStorePaymentTransaction*          m_originalTransaction;
+    CCStoreReceiptVerifyMode            m_receiptVerifyMode;
+    CCStoreReceiptVerifyStatus          m_receiptVerifyStatus;
 };
 
 NS_CC_EXTRA_END

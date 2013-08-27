@@ -321,6 +321,10 @@
 		F4F26D3C1727E73D002D3935 /* unix.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D291727E73D002D3935 /* unix.c */; };
 		F4F26D3D1727E73D002D3935 /* usocket.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D2B1727E73D002D3935 /* usocket.c */; };
 		F4F26D411727E887002D3935 /* socket_scripts.c in Sources */ = {isa = PBXBuildFile; fileRef = F4F26D3F1727E887002D3935 /* socket_scripts.c */; };
+		F4F95FDA17CC99BC0036E60D /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F95FD317CC99BC0036E60D /* SBJSON.m */; };
+		F4F95FDB17CC99BC0036E60D /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F95FD517CC99BC0036E60D /* SBJsonBase.m */; };
+		F4F95FDC17CC99BC0036E60D /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F95FD717CC99BC0036E60D /* SBJsonParser.m */; };
+		F4F95FDD17CC99BC0036E60D /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F95FD917CC99BC0036E60D /* SBJsonWriter.m */; };
 		F4FBA51B16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA51916D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp */; };
 		F4FBA52616D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA51F16D8C96600CD8EC1 /* CCStorePaymentTransaction.cpp */; };
 		F4FBA52716D8C96600CD8EC1 /* CCStoreProduct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FBA52216D8C96600CD8EC1 /* CCStoreProduct.cpp */; };
@@ -1043,6 +1047,14 @@
 		F4F26D2C1727E73D002D3935 /* usocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usocket.h; sourceTree = "<group>"; };
 		F4F26D3F1727E887002D3935 /* socket_scripts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = socket_scripts.c; sourceTree = "<group>"; };
 		F4F26D401727E887002D3935 /* socket_scripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket_scripts.h; sourceTree = "<group>"; };
+		F4F95FD217CC99BC0036E60D /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
+		F4F95FD317CC99BC0036E60D /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
+		F4F95FD417CC99BC0036E60D /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		F4F95FD517CC99BC0036E60D /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		F4F95FD617CC99BC0036E60D /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		F4F95FD717CC99BC0036E60D /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		F4F95FD817CC99BC0036E60D /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		F4F95FD917CC99BC0036E60D /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		F4FBA51916D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extra_ios_iap_luabinding.cpp; sourceTree = "<group>"; };
 		F4FBA51A16D8C8B100CD8EC1 /* cocos2dx_extra_ios_iap_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra_ios_iap_luabinding.h; sourceTree = "<group>"; };
 		F4FBA51E16D8C96600CD8EC1 /* CCStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStore.h; sourceTree = "<group>"; };
@@ -1216,6 +1228,7 @@
 				F4FBA52816D8C97900CD8EC1 /* CCStoreIOS.h */,
 				F4FBA52916D8C97900CD8EC1 /* CCStoreIOS.mm */,
 				F4FBA52B16D8C97900CD8EC1 /* CCStorePaymentTransactionWrapper.mm */,
+				F4F95FD117CC99BC0036E60D /* json */,
 				F40AFE4016BD15C600565A5E /* openudid */,
 			);
 			path = ios;
@@ -2626,6 +2639,21 @@
 			path = socket;
 			sourceTree = "<group>";
 		};
+		F4F95FD117CC99BC0036E60D /* json */ = {
+			isa = PBXGroup;
+			children = (
+				F4F95FD217CC99BC0036E60D /* SBJSON.h */,
+				F4F95FD317CC99BC0036E60D /* SBJSON.m */,
+				F4F95FD417CC99BC0036E60D /* SBJsonBase.h */,
+				F4F95FD517CC99BC0036E60D /* SBJsonBase.m */,
+				F4F95FD617CC99BC0036E60D /* SBJsonParser.h */,
+				F4F95FD717CC99BC0036E60D /* SBJsonParser.m */,
+				F4F95FD817CC99BC0036E60D /* SBJsonWriter.h */,
+				F4F95FD917CC99BC0036E60D /* SBJsonWriter.m */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
 		F4FBA51D16D8C96600CD8EC1 /* store */ = {
 			isa = PBXGroup;
 			children = (
@@ -3006,6 +3034,10 @@
 				F433D27C17CC6D8700F72B1F /* CCTransformHelp.cpp in Sources */,
 				F433D27D17CC6D8700F72B1F /* CCTweenFunction.cpp in Sources */,
 				F433D27E17CC6D8700F72B1F /* CCUtilMath.cpp in Sources */,
+				F4F95FDA17CC99BC0036E60D /* SBJSON.m in Sources */,
+				F4F95FDB17CC99BC0036E60D /* SBJsonBase.m in Sources */,
+				F4F95FDC17CC99BC0036E60D /* SBJsonParser.m in Sources */,
+				F4F95FDD17CC99BC0036E60D /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
