@@ -180,6 +180,7 @@ class CCSprite : public CCNodeRGBA
     /**
      * Returns the current displayed frame.
      */
+    CCSpriteFrame* displayFrame(void);
     CCSpriteFrame* displayFrame @ getDisplayFrame (void);
 
     /// @} End of frames methods

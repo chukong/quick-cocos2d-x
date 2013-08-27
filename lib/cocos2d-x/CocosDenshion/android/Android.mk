@@ -18,7 +18,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../include \
                     $(LOCAL_PATH)/../../cocos2dx/kazmath/include \
                     $(LOCAL_PATH)/../../cocos2dx/platform/android
 
-LOCAL_CFLAGS += -Wno-psabi -DDEBUG=1 -DCOCOS2D_DEBUG=1
-LOCAL_EXPORT_CFLAGS += -Wno-psabi -DDEBUG=1 -DCOCOS2D_DEBUG=1
+LOCAL_CFLAGS += -Wno-psabi $(ANDROID_COCOS2D_BUILD_FLAGS)
+LOCAL_EXPORT_CFLAGS += -Wno-psabi
 
 include $(BUILD_STATIC_LIBRARY)

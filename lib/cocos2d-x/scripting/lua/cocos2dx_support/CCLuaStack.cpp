@@ -80,6 +80,10 @@ bool CCLuaStack::init(void)
     addLuaLoader(cocos2dx_lua_loader);
     CCLuaJavaBridge::luaopen_luaj(m_state);
 #endif
+
+    // register lua print
+    lua_pushcfunction(m_state, lua_print);
+    lua_setglobal(m_state, "print");
     
     // register CCLuaLoadChunksFromZip
     lua_pushcfunction(m_state, lua_loadChunksFromZip);
@@ -441,6 +445,48 @@ int CCLuaStack::reallocateScriptHandler(int nHandler)
 */
     return nNewHandle;
 
+}
+
+int CCLuaStack::lua_print(lua_State *L)
+{
+    int nargs = lua_gettop(L);
+
+    std::string t;
+    for (int i=1; i <= nargs; i++)
+    {
+        if (lua_istable(L, i))
+            t += "table";
+        else if (lua_isnone(L, i))
+            t += "none";
+        else if (lua_isnil(L, i))
+            t += "nil";
+        else if (lua_isboolean(L, i))
+        {
+            if (lua_toboolean(L, i) != 0)
+                t += "true";
+            else
+                t += "false";
+        }
+        else if (lua_isfunction(L, i))
+            t += "function";
+        else if (lua_islightuserdata(L, i))
+            t += "lightuserdata";
+        else if (lua_isthread(L, i))
+            t += "thread";
+        else
+        {
+            const char * str = lua_tostring(L, i);
+            if (str)
+                t += lua_tostring(L, i);
+            else
+                t += lua_typename(L, lua_type(L, i));
+        }
+        if (i!=nargs)
+            t += "\t";
+    }
+    CCLOG("[LUA-print] %s", t.c_str());
+
+    return 0;
 }
 
 int CCLuaStack::lua_loadChunksFromZip(lua_State *L)

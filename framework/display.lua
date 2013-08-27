@@ -566,5 +566,12 @@ function display.removeAnimationCache(name)
     sharedAnimationCache:removeAnimationByName(name)
 end
 
+--[[--
+
+]]
+function display.removeUnusedSpriteFrames()
+    sharedSpriteFrameCache:removeUnusedSpriteFrames()
+    sharedTextureCache:removeUnusedTextures()
+end
 
 return display

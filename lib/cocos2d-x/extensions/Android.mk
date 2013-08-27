@@ -51,7 +51,29 @@ GUI/CCScrollView/CCTableView.cpp \
 GUI/CCScrollView/CCTableViewCell.cpp \
 GUI/CCScrollView/CCSorting.cpp \
 GUI/CCEditBox/CCEditBox.cpp \
-GUI/CCEditBox/CCEditBoxImplAndroid.cpp
+GUI/CCEditBox/CCEditBoxImplAndroid.cpp \
+CCArmature/CCArmature.cpp \
+CCArmature/CCBone.cpp \
+CCArmature/animation/CCArmatureAnimation.cpp \
+CCArmature/animation/CCProcessBase.cpp \
+CCArmature/animation/CCTween.cpp \
+CCArmature/datas/CCDatas.cpp \
+CCArmature/display/CCBatchNode.cpp \
+CCArmature/display/CCDecorativeDisplay.cpp \
+CCArmature/display/CCDisplayFactory.cpp \
+CCArmature/display/CCDisplayManager.cpp \
+CCArmature/display/CCShaderNode.cpp \
+CCArmature/display/CCSkin.cpp \
+CCArmature/utils/CCArmatureDataManager.cpp \
+CCArmature/utils/CCDataReaderHelper.cpp \
+CCArmature/utils/CCSpriteFrameCacheHelper.cpp \
+CCArmature/utils/CCTransformHelp.cpp \
+CCArmature/utils/CCTweenFunction.cpp \
+CCArmature/utils/CCUtilMath.cpp \
+CCArmature/external_tool/Json/CSContentJsonDictionary.cpp \
+CCArmature/external_tool/Json/lib_json/json_reader.cpp \
+CCArmature/external_tool/Json/lib_json/json_value.cpp \
+CCArmature/external_tool/Json/lib_json/json_writer.cpp
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
@@ -63,6 +85,9 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
                            $(LOCAL_PATH)/GUI/CCScrollView \
                            $(LOCAL_PATH)/GUI/CCEditBox \
+                           $(LOCAL_PATH)/CCArmature
+
+LOCAL_CFLAGS := -fexceptions
 
 include $(BUILD_STATIC_LIBRARY)
 

@@ -662,7 +662,7 @@ void CCTextureCache::dumpCachedTextureInfo()
         unsigned int bytes = tex->getPixelsWide() * tex->getPixelsHigh() * bpp / 8;
         totalBytes += bytes;
         count++;
-        CCLOG("\"%s\" rc=%lu id=%lu %lu x %lu @ %ld bpp => %lu KB",
+        CCLOG("cocos2d: \"%s\" rc=%lu id=%lu %lu x %lu @ %ld bpp => %lu KB",
                pElement->getStrKey(),
                (long)tex->retainCount(),
                (long)tex->getName(),
@@ -672,7 +672,7 @@ void CCTextureCache::dumpCachedTextureInfo()
                (long)bytes / 1024);
     }
 
-    CCLOG("CCTextureCache dumpDebugInfo: %ld textures, for %lu KB (%.2f MB)", (long)count, (long)totalBytes / 1024, totalBytes / (1024.0f*1024.0f));
+    CCLOG("cocos2d: CCTextureCache dumpDebugInfo: %ld textures, for %lu KB (%.2f MB)", (long)count, (long)totalBytes / 1024, totalBytes / (1024.0f*1024.0f));
 }
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA
@@ -687,9 +687,14 @@ VolatileTexture::VolatileTexture(CCTexture2D *t)
 , m_PixelFormat(kTexture2DPixelFormat_RGBA8888)
 , m_strFileName("")
 , m_FmtImage(CCImage::kFmtPng)
-, m_text("")
+, m_alignment(kCCTextAlignmentCenter)
+, m_vAlignment(kCCVerticalTextAlignmentCenter)
+, m_strFontName("")
+, m_strText("")
 , uiImage(NULL)
+, m_fFontSize(0.0f)
 {
+    m_size = CCSizeMake(0, 0);
     m_texParams.minFilter = GL_LINEAR;
     m_texParams.magFilter = GL_LINEAR;
     m_texParams.wrapS = GL_CLAMP_TO_EDGE;
@@ -763,7 +768,8 @@ void VolatileTexture::addDataTexture(CCTexture2D *tt, void* data, CCTexture2DPix
     vt->m_TextureSize = contentSize;
 }
 
-void VolatileTexture::addStringTexture(CCTexture2D *tt, const char* text, const ccFontDefinition& fontDefinition)
+void VolatileTexture::addStringTexture(CCTexture2D *tt, const char* text, const CCSize& dimensions, CCTextAlignment alignment,
+                                       CCVerticalTextAlignment vAlignment, const char *fontName, float fontSize)
 {
     if (isReloading)
     {
@@ -773,8 +779,12 @@ void VolatileTexture::addStringTexture(CCTexture2D *tt, const char* text, const 
     VolatileTexture *vt = findVolotileTexture(tt);
 
     vt->m_eCashedImageType = kString;
-    vt->m_text = text;
-    vt->m_fontDefinition = fontDefinition;
+    vt->m_size        = dimensions;
+    vt->m_strFontName = fontName;
+    vt->m_alignment   = alignment;
+    vt->m_vAlignment  = vAlignment;
+    vt->m_fFontSize   = fontSize;
+    vt->m_strText     = text;
 }
 
 void VolatileTexture::setTexParameters(CCTexture2D *t, ccTexParams *texParams)
@@ -808,7 +818,6 @@ void VolatileTexture::removeTexture(CCTexture2D *t)
 
 void VolatileTexture::reloadAllTextures()
 {
-    CCLOG("VolatileTexture::reloadAllTextures()");
     isReloading = true;
 
     CCLOG("reload all texture");
@@ -866,7 +875,13 @@ void VolatileTexture::reloadAllTextures()
             break;
         case kString:
             {
-                vt->texture->initWithString(vt->m_text.c_str(), &vt->m_fontDefinition);
+                vt->texture->initWithString(vt->m_strText.c_str(),
+                                            vt->m_strFontName.c_str(),
+                                            vt->m_fFontSize,
+                                            vt->m_size,
+                                            vt->m_alignment,
+                                            vt->m_vAlignment
+                                            );
             }
             break;
         case kImage:
