@@ -274,7 +274,7 @@ CCNode * UIUtil::changeParent(CCNode *n, CCNode *np, int zOrd, int tag){
 	if(n && np){
 		n->retain();
 		if(n->getParent()){ n->removeFromParentAndCleanup(true);}
-		np->addChild(n, zOrd || 0, tag || -1);
+		np->addChild(n, zOrd ? zOrd : 0, tag ? tag : -1);
 		n->release();
 	}
 	return n;

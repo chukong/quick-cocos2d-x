@@ -79,7 +79,7 @@ bool CCBProxy::onAssignCCBMemberVariable(CCObject * t, const char * v, CCNode * 
 	if(n && v && strlen(v) > 0){
 		_memVars->setObject(n, v);
 	}else{
-		printf("CCBProxy assigned node (%s:%x) not saved\n", v, n);
+		printf("CCBProxy assigned node (%s:%p) not saved\n", v, n);
 	}
 	return true;
 }
