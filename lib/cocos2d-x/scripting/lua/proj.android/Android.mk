@@ -14,8 +14,6 @@ LOCAL_SRC_FILES := ../cocos2dx_support/CCLuaEngine.cpp \
     ../cocos2dx_support/snapshot.c \
     ../cocos2dx_support/platform/android/CCLuaJavaBridge.cpp \
     ../cocos2dx_support/platform/android/org_cocos2dx_lib_Cocos2dxLuaJavaBridge.cpp \
-    ../cocos2dx_support/CCBProxy.cpp \
-    ../cocos2dx_support/Lua_extensions_CCB.cpp \
     ../tolua/tolua_event.c \
     ../tolua/tolua_is.c \
     ../tolua/tolua_map.c \

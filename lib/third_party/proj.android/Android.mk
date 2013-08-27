@@ -11,6 +11,12 @@ LOCAL_SRC_FILES := ../chipmunk/cocos2dx_support/CCPhysicsBody.cpp \
     ../chipmunk/cocos2dx_support/CCPhysicsSupport.cpp \
     ../chipmunk/cocos2dx_support/CCPhysicsWorld.cpp \
     ../chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp \
+    ../luaproxy/tolua/CCBProxy.cpp \
+    ../luaproxy/tolua/LuaEventHandler.cpp \
+    ../luaproxy/tolua/luaopen_LuaProxy.cpp \
+    ../luaproxy/tolua/LuaTableView.cpp \
+    ../luaproxy/ui/CursorTextField.cpp \
+    ../luaproxy/ui/UIUtil.cpp \
     ../third_party_luabinding.cpp
 
 LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/third_party
@@ -23,6 +29,8 @@ LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 $(ANDROID_C
 LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_lua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_chipmunk_static
 
