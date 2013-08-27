@@ -2,9 +2,6 @@
 CCNodeExtend = class("CCNodeExtend")
 CCNodeExtend.__index = CCNodeExtend
 
---[[--
-
-]]
 function CCNodeExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
@@ -15,18 +12,12 @@ function CCNodeExtend.extend(target)
     return target
 end
 
---[[--
-
-]]
 function CCNodeExtend:align(anchorPoint, x, y)
     self:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then self:setPosition(x, y) end
+    return self
 end
 
-
---[[--
-
-]]
 function CCNodeExtend:schedule(callback, interval)
     local seq = transition.sequence({
         CCDelayTime:create(interval),
@@ -37,9 +28,6 @@ function CCNodeExtend:schedule(callback, interval)
     return action
 end
 
---[[--
-
-]]
 function CCNodeExtend:performWithDelay(callback, delay)
     local action = transition.sequence({
         CCDelayTime:create(delay),
@@ -85,6 +73,7 @@ function CCNodeExtend:setNodeEventEnabled(enabled, handler)
     else
         self:unregisterScriptHandler()
     end
+    return self
 end
 
 function CCNodeExtend:removeSelf(cleanup)

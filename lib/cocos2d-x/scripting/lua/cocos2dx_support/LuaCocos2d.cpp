@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Aug 27 10:07:18 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Aug 27 16:01:35 2013.
 */
 
 /****************************************************************************
@@ -20209,74 +20209,9 @@ static int tolua_Cocos2d_CCNode_getRotationY00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setOrderOfArrival of class  CCNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_setOrderOfArrival00
-static int tolua_Cocos2d_CCNode_setOrderOfArrival00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCNode",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCNode* self = (CCNode*)  tolua_tousertype(tolua_S,1,0);
-  unsigned int uOrderOfArrival = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOrderOfArrival'", NULL);
-#endif
-  {
-   self->setOrderOfArrival(uOrderOfArrival);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setOrderOfArrival'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getOrderOfArrival of class  CCNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_getOrderOfArrival00
-static int tolua_Cocos2d_CCNode_getOrderOfArrival00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCNode* self = (CCNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getOrderOfArrival'", NULL);
-#endif
-  {
-   unsigned int tolua_ret = (unsigned int)  self->getOrderOfArrival();
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getOrderOfArrival'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: ignoreAnchorPointForPosition of class  CCNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_ignoreAnchorPointForPosition00
-static int tolua_Cocos2d_CCNode_ignoreAnchorPointForPosition00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_setIgnoreAnchorPointForPosition00
+static int tolua_Cocos2d_CCNode_setIgnoreAnchorPointForPosition00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -20301,7 +20236,7 @@ static int tolua_Cocos2d_CCNode_ignoreAnchorPointForPosition00(lua_State* tolua_
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'ignoreAnchorPointForPosition'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setIgnoreAnchorPointForPosition'.",&tolua_err);
  return 0;
 #endif
 }
@@ -61083,9 +61018,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getRotationX",tolua_Cocos2d_CCNode_getRotationX00);
    tolua_function(tolua_S,"setRotationY",tolua_Cocos2d_CCNode_setRotationY00);
    tolua_function(tolua_S,"getRotationY",tolua_Cocos2d_CCNode_getRotationY00);
-   tolua_function(tolua_S,"setOrderOfArrival",tolua_Cocos2d_CCNode_setOrderOfArrival00);
-   tolua_function(tolua_S,"getOrderOfArrival",tolua_Cocos2d_CCNode_getOrderOfArrival00);
-   tolua_function(tolua_S,"ignoreAnchorPointForPosition",tolua_Cocos2d_CCNode_ignoreAnchorPointForPosition00);
+   tolua_function(tolua_S,"setIgnoreAnchorPointForPosition",tolua_Cocos2d_CCNode_setIgnoreAnchorPointForPosition00);
    tolua_function(tolua_S,"isIgnoreAnchorPointForPosition",tolua_Cocos2d_CCNode_isIgnoreAnchorPointForPosition00);
    tolua_function(tolua_S,"addChild",tolua_Cocos2d_CCNode_addChild00);
    tolua_function(tolua_S,"addChild",tolua_Cocos2d_CCNode_addChild01);

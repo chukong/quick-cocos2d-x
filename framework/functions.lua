@@ -1,41 +1,23 @@
---[[
-
-]]
 
 local tonumber_ = tonumber
 
---[[--
-
-]]
 function tonumber(v, base)
     return tonumber_(v, base) or 0
 end
 
---[[--
-
-]]
 function toint(v)
     return math.round(tonumber(v))
 end
 
---[[--
-
-]]
 function tobool(v)
     return (v ~= nil and v ~= false)
 end
 
---[[--
-
-]]
 function totable(v)
     if type(v) ~= "table" then v = {} end
     return v
 end
 
---[[--
-
-]]
 function clone(object)
     local lookup_table = {}
     local function _copy(object)
@@ -54,9 +36,6 @@ function clone(object)
     return _copy(object)
 end
 
---[[--
-
-]]
 function class(classname, super)
     local superType = type(super)
     local cls
@@ -95,7 +74,8 @@ function class(classname, super)
     else
         -- inherited from Lua Object
         if super then
-            cls = clone(super)
+            cls = {}
+            setmetatable(cls, {__index = super})
             cls.super = super
         else
             cls = {ctor = function() end}
@@ -116,9 +96,6 @@ function class(classname, super)
     return cls
 end
 
---[[--
-
-]]
 function import(moduleName, currentModuleName)
     local currentModuleNameParts
     local moduleFullName = moduleName
@@ -148,23 +125,14 @@ function import(moduleName, currentModuleName)
     return require(moduleFullName)
 end
 
---[[--
-
-]]
 function handler(target, method)
     return function(...) return method(target, ...) end
 end
 
---[[--
-
-]]
 function math.round(num)
     return math.floor(num + 0.5)
 end
 
---[[--
-
-]]
 function io.exists(path)
     local file = io.open(path, "r")
     if file then
@@ -174,9 +142,6 @@ function io.exists(path)
     return false
 end
 
---[[--
-
-]]
 function io.readfile(path)
     local file = io.open(path, "r")
     if file then
@@ -187,9 +152,6 @@ function io.readfile(path)
     return nil
 end
 
---[[--
-
-]]
 function io.writefile(path, content, mode)
     mode = mode or "w+b"
     local file = io.open(path, mode)
@@ -202,9 +164,6 @@ function io.writefile(path, content, mode)
     end
 end
 
---[[--
-
-]]
 function io.pathinfo(path)
     local pos = string.len(path)
     local extpos = pos + 1
@@ -231,9 +190,6 @@ function io.pathinfo(path)
     }
 end
 
---[[--
-
-]]
 function io.filesize(path)
     local size = false
     local file = io.open(path, "r")
@@ -246,9 +202,6 @@ function io.filesize(path)
     return size
 end
 
---[[--
-
-]]
 function table.nums(t)
     local count = 0
     for k, v in pairs(t) do
@@ -257,9 +210,6 @@ function table.nums(t)
     return count
 end
 
---[[--
-
-]]
 function table.keys(t)
     local keys = {}
     for k, v in pairs(t) do
@@ -268,9 +218,6 @@ function table.keys(t)
     return keys
 end
 
---[[--
-
-]]
 function table.values(t)
     local values = {}
     for k, v in pairs(t) do
@@ -279,18 +226,12 @@ function table.values(t)
     return values
 end
 
---[[--
-
-]]
 function table.merge(dest, src)
     for k, v in pairs(src) do
         dest[k] = v
     end
 end
 
---[[--
-
-]]
 function string.htmlspecialchars(input)
     for k, v in pairs(string._htmlspecialchars_set) do
         input = string.gsub(input, k, v)
@@ -304,16 +245,10 @@ string._htmlspecialchars_set["'"] = "&#039;"
 string._htmlspecialchars_set["<"] = "&lt;"
 string._htmlspecialchars_set[">"] = "&gt;"
 
---[[--
-
-]]
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
 end
 
---[[--
-
-]]
 function string.text2html(input)
     input = string.gsub(input, "\t", "    ")
     input = string.htmlspecialchars(input)
@@ -322,9 +257,6 @@ function string.text2html(input)
     return input
 end
 
---[[--
-
-]]
 function string.split(str, delimiter)
     if (delimiter=='') then return false end
     local pos,arr = 0, {}
@@ -337,31 +269,19 @@ function string.split(str, delimiter)
     return arr
 end
 
---[[--
-
-]]
 function string.ltrim(str)
     return string.gsub(str, "^[ \t\n\r]+", "")
 end
 
---[[--
-
-]]
 function string.rtrim(str)
     return string.gsub(str, "[ \t\n\r]+$", "")
 end
 
---[[--
-
-]]
 function string.trim(str)
     str = string.gsub(str, "^[ \t\n\r]+", "")
     return string.gsub(str, "[ \t\n\r]+$", "")
 end
 
---[[--
-
-]]
 function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
@@ -373,9 +293,6 @@ local function urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
 
---[[--
-
-]]
 function string.urlencode(str)
     -- convert line endings
     str = string.gsub(tostring(str), "\n", "\r\n")
@@ -385,9 +302,6 @@ function string.urlencode(str)
     return string.gsub(str, " ", "+")
 end
 
---[[--
-
-]]
 function string.utf8len(str)
     local len  = #str
     local left = len
@@ -408,9 +322,6 @@ function string.utf8len(str)
     return cnt
 end
 
---[[--
-
-]]
 function string.formatNumberThousands(num)
     local formatted = tostring(tonumber(num))
     local k
@@ -420,4 +331,3 @@ function string.formatNumberThousands(num)
     end
     return formatted
 end
-

@@ -1,8 +1,4 @@
 
---[[--
-
-]]
-
 local ui = {}
 
 ui.DEFAULT_TTF_FONT      = "Arial"
@@ -15,9 +11,6 @@ ui.TEXT_VALIGN_TOP    = kCCVerticalTextAlignmentTop
 ui.TEXT_VALIGN_CENTER = kCCVerticalTextAlignmentCenter
 ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
---[[--
-
-]]
 function ui.newEditBox(params)
     local imageNormal = params.image
     local imagePressed = params.imagePressed
@@ -46,9 +39,6 @@ function ui.newEditBox(params)
     return editbox
 end
 
---[[--
-
-]]
 function ui.newMenu(items)
     local menu
     menu = CCNodeExtend.extend(CCMenu:create())
@@ -63,9 +53,6 @@ function ui.newMenu(items)
     return menu
 end
 
---[[--
-
-]]
 function ui.newImageMenuItem(params)
     local imageNormal   = params.image
     local imageSelected = params.imageSelected
@@ -102,9 +89,6 @@ function ui.newImageMenuItem(params)
     return item
 end
 
---[[--
-
-]]
 function ui.newTTFLabelMenuItem(params)
     local p = clone(params)
     p.x, p.y = nil, nil
@@ -132,9 +116,6 @@ function ui.newTTFLabelMenuItem(params)
     return item
 end
 
---[[--
-
-]]
 function ui.newBMFontLabel(params)
     assert(type(params) == "table",
            "[framework.ui] newBMFontLabel() invalid params")
@@ -164,9 +145,6 @@ function ui.newBMFontLabel(params)
     return label
 end
 
---[[--
-
-]]
 function ui.newTTFLabel(params)
     assert(type(params) == "table",
            "[framework.ui] newTTFLabel() invalid params")
@@ -210,9 +188,6 @@ function ui.newTTFLabel(params)
     return label
 end
 
---[[--
-
-]]
 function ui.newTTFLabelWithShadow(params)
     assert(type(params) == "table",
            "[framework.ui] newTTFLabelWithShadow() invalid params")
@@ -268,9 +243,6 @@ function ui.newTTFLabelWithShadow(params)
     return g
 end
 
---[[--
-
-]]
 function ui.newTTFLabelWithOutline(params)
     assert(type(params) == "table",
            "[framework.ui] newTTFLabelWithShadow() invalid params")

@@ -400,28 +400,6 @@ class CCNode : public CCObject
      */
     float getRotationY();
 
-
-    /**
-     * Sets the arrival order when this node has a same ZOrder with other children.
-     *
-     * A node which called addChild subsequently will take a larger arrival order,
-     * If two children have the same Z order, the child with larger arrival order will be drawn later.
-     *
-     * @warning This method is used internally for zOrder sorting, don't change this manually
-     *
-     * @param uOrderOfArrival   The arrival order.
-     */
-    void setOrderOfArrival(unsigned int uOrderOfArrival);
-    /**
-     * Returns the arrival order, indecates which children is added previously.
-     *
-     * @see setOrderOfArrival(unsigned int)
-     *
-     * @return The arrival order.
-     */
-    unsigned int getOrderOfArrival();
-
-
     /**
      * Sets whether the anchor point will be (0,0) when you position this node.
      *
@@ -431,7 +409,7 @@ class CCNode : public CCObject
      * @param ignore    true if anchor point will be (0,0) when you position this node
      * @todo This method shoud be renamed as setIgnoreAnchorPointForPosition(bool) or something with "set"
      */
-    void ignoreAnchorPointForPosition(bool ignore);
+    void ignoreAnchorPointForPosition @ setIgnoreAnchorPointForPosition (bool ignore);
     /**
      * Gets whether the anchor point will be (0,0) when you position this node.
      *

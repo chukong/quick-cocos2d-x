@@ -1,8 +1,4 @@
 
---[[--
-
-]]
-
 local device = {}
 
 device.platform    = "unknown"
@@ -61,23 +57,14 @@ echoInfo("# device.directorySeparator    = " .. device.directorySeparator)
 echoInfo("# device.pathSeparator         = " .. device.pathSeparator)
 echoInfo("#")
 
---[[--
-
-]]
 function device.showActivityIndicator()
     CCNative:showActivityIndicator()
 end
 
---[[--
-
-]]
 function device.hideActivityIndicator()
     CCNative:hideActivityIndicator()
 end
 
---[[--
-
-]]
 function device.showAlert(title, message, buttonLabels, listener)
     if type(buttonLabels) ~= "table" then
         buttonLabels = {tostring(buttonLabels)}
@@ -100,30 +87,18 @@ function device.showAlert(title, message, buttonLabels, listener)
     CCNative:showAlertLua(listener)
 end
 
---[[--
-
-]]
 function device.cancelAlert()
     CCNative:cancelAlert()
 end
 
---[[--
-
-]]
 function device.getOpenUDID()
     return CCNative:getOpenUDID()
 end
 
---[[--
-
-]]
 function device.openURL(url)
     CCNative:openURL(url)
 end
 
---[[--
-
-]]
 function device.showInputBox(title, message, defaultValue)
     title = title or "INPUT TEXT"
     message = message or "INPUT TEXT, CLICK OK BUTTON"
