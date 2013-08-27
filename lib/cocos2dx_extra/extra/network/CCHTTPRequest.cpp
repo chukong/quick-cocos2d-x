@@ -143,6 +143,7 @@ void CCHTTPRequest::start(void)
     curl_easy_setopt(m_curl, CURLOPT_WRITEHEADER, this);
     curl_easy_setopt(m_curl, CURLOPT_PROGRESSFUNCTION, progressCURL);
     curl_easy_setopt(m_curl, CURLOPT_PROGRESSDATA, this);
+    curl_easy_setopt(m_curl, CURLOPT_COOKIEFILE, "");
     
 #ifdef _WINDOWS_
     CreateThread(NULL,          // default security attributes
