@@ -61,6 +61,15 @@ int CCCrypto::encodeBase64(unsigned char* input,
     memset(output, 0, outputBufferLength);
     int cp = dataUsed < outputBufferLength ? dataUsed : outputBufferLength - 1;
     memcpy(output, buffer, cp);
+
+    for (int e = outputBufferLength - 1; e >= 0; --e)
+    {
+        if (output[e] == '\n')
+        {
+            output[e] = '\0';
+        }
+    }
+
     free(buffer);
     return cp;
 }
