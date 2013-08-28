@@ -24,11 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-typedef enum {
-    kCCTouchesAllAtOnce,
-    kCCTouchesOneByOne,
-} ccTouchesMode;
-
 /**
  * @addtogroup layer
  * @{
@@ -46,19 +41,6 @@ All features from CCNode are valid, plus the following new features:
 class CCLayer : public CCNode
 {
     static CCLayer *create(void);
-
-    void registerScriptTouchHandler(LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
-    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
-
-    void unregisterScriptTouchHandler(void);
-    void unregisterScriptTouchHandler @ removeTouchEventListener (void);
-
-    void setTouchEnabled(bool value);
-    bool isTouchEnabled();
-    int getTouchMode();
-    void setTouchMode(ccTouchesMode mode);
-    int getTouchPriority();
-    void setTouchPriority(int priority);
 
     void registerScriptKeypadHandler(LUA_FUNCTION nHandler);
     void registerScriptKeypadHandler @ addKeypadEventListener (LUA_FUNCTION nHandler);

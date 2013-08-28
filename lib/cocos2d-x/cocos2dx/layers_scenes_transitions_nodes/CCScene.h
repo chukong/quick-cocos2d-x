@@ -54,17 +54,20 @@ public:
 
     static CCScene *create(void);
 
+    void addTouchableNode(CCNode *node);
+    void removeTouchableNode(CCNode *node);
+
     // default implements are used to call script callback if exist
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
-    // default implements are used to call script callback if exist
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
+protected:
+    CCArray *m_touchableNodes;
+    CCNode *m_touchNode;
+
+    void sortAllTouchableNodes();
 };
 
 // end of scene group

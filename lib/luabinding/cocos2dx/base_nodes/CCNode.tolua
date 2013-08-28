@@ -25,6 +25,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+typedef enum {
+    kCCTouchesAllAtOnce,
+    kCCTouchesOneByOne,
+} ccTouchesMode;
+
 /**
  * @addtogroup base_nodes
  * @{
@@ -752,7 +757,7 @@ class CCNode : public CCObject
     /**
      * This boundingBox will calculate all children's boundingBox every time
      */
-    CCRect getCascadeBoundingBox(void);
+    CCRect getCascadeBoundingBox(bool convertToWorld = true);
 
     /// @{
     /// @name Actions
@@ -954,7 +959,20 @@ class CCNode : public CCObject
     void updateDisplayedOpacity(GLubyte opacity);
     /// @}
 
-    int getDrawDepth();
+    CCScene *getScene();
+
+    void registerScriptTouchHandler(LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
+    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
+
+    void unregisterScriptTouchHandler(void);
+    void unregisterScriptTouchHandler @ removeTouchEventListener (void);
+
+    void setTouchEnabled(bool value);
+    bool isTouchEnabled();
+    int getTouchMode();
+    void setTouchMode(ccTouchesMode mode);
+    int getTouchPriority();
+    void setTouchPriority(int priority);
 };
 
 // end of base_node group

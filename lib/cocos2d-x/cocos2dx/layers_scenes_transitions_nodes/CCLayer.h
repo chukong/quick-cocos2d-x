@@ -39,17 +39,10 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-typedef enum {
-	kCCTouchesAllAtOnce,
-	kCCTouchesOneByOne,
-} ccTouchesMode;
-
 /**
  * @addtogroup layer
  * @{
  */
-
-class CCTouchScriptHandlerEntry;
 
 //
 // CCLayer
@@ -60,7 +53,7 @@ All features from CCNode are valid, plus the following new features:
 - It can receive iPhone Touches
 - It can receive Accelerometer input
 */
-class CC_DLL CCLayer : public CCNode, public CCTouchDelegate, public CCAccelerometerDelegate, public CCKeypadDelegate
+class CC_DLL CCLayer : public CCNode, public CCAccelerometerDelegate, public CCKeypadDelegate
 {
 public:
     CCLayer();
@@ -101,26 +94,7 @@ public:
     @since v0.8.0
     */
     virtual void registerWithTouchDispatcher(void);
-
-    /** Register script touch events handler */
-    virtual void registerScriptTouchHandler(int nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
-    /** Unregister script touch events handler */
-    virtual void unregisterScriptTouchHandler(void);
-
-    /** whether or not it will receive Touch events.
-    You can enable / disable touch events with this property.
-    Only the touches of this node will be affected. This "method" is not propagated to it's children.
-    @since v0.8.1
-    */
-    virtual bool isTouchEnabled();
-    virtual void setTouchEnabled(bool value);
-
-    virtual void setTouchMode(ccTouchesMode mode);
-    virtual int getTouchMode();
-
-    /** priority of the touch events. Default is 0 */
-    virtual void setTouchPriority(int priority);
-    virtual int getTouchPriority();
+    virtual void unregisterWithTouchDispatcher(void);
 
     /** whether or not it will receive Accelerometer events
     You can enable / disable accelerometer events with this property.
@@ -145,24 +119,15 @@ public:
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
 
-    inline CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry() { return m_pScriptTouchHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
 protected:
-    bool m_bTouchEnabled;
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
 
     // Script touch events handler
-    CCTouchScriptHandlerEntry* m_pScriptTouchHandlerEntry;
     CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;
     CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
-
-    int m_nTouchPriority;
-    ccTouchesMode m_eTouchMode;
-
-    int  excuteScriptTouchHandler(int nEventType, CCTouch *pTouch);
-    int  excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
 };
 
 //

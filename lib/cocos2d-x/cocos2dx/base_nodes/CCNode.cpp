@@ -33,9 +33,11 @@ THE SOFTWARE.
 #include "CCDirector.h"
 #include "CCScheduler.h"
 #include "touch_dispatcher/CCTouch.h"
+#include "touch_dispatcher/CCTouchDispatcher.h"
 #include "actions/CCActionManager.h"
 #include "script_support/CCScriptSupport.h"
 #include "shaders/CCGLProgram.h"
+#include "layers_scenes_transitions_nodes/CCScene.h"
 // externals
 #include "kazmath/GL/matrix.h"
 #include "support/component/CCComponent.h"
@@ -98,7 +100,12 @@ CCNode::CCNode(void)
 , m_realColor(ccWHITE)
 , m_cascadeColorEnabled(false)
 , m_cascadeOpacityEnabled(false)
-, m_drawDepth(0)
+, m_drawOrder(0)
+, m_drawDepth(-1)
+, m_bTouchEnabled(false)
+, m_pScriptTouchHandlerEntry(NULL)
+, m_nTouchPriority(0)
+, m_eTouchMode(kCCTouchesOneByOne)
 {
     // set default scheduler and actionManager
     CCDirector *director = CCDirector::sharedDirector();
@@ -121,6 +128,7 @@ CCNode::~CCNode(void)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nUpdateScriptHandler);
     }
+    unregisterScriptTouchHandler();
 
     CC_SAFE_RELEASE(m_pActionManager);
     CC_SAFE_RELEASE(m_pScheduler);
@@ -147,7 +155,7 @@ CCNode::~CCNode(void)
     // children
     CC_SAFE_RELEASE(m_pChildren);
 
-          // m_pComsContainer
+    // m_pComsContainer
     m_pComponentContainer->removeAll();
     CC_SAFE_DELETE(m_pComponentContainer);
 }
@@ -438,8 +446,21 @@ CCNode * CCNode::getParent()
 /// parent setter
 void CCNode::setParent(CCNode * var)
 {
+    if (m_drawDepth == -1 && var)
+    {
+        m_drawDepth = var->m_drawDepth + 1;
+    }
+    else if (!var)
+    {
+        if (m_bTouchEnabled)
+        {
+            CCScene *scene = getScene();
+            scene->removeTouchableNode(this);
+            m_bTouchEnabled = false;
+        }
+        m_drawDepth = -1;
+    }
     m_pParent = var;
-    m_drawDepth = var ? var->m_drawDepth + 1 : 0;
 }
 
 /// isRelativeAnchorPoint getter
@@ -489,6 +510,7 @@ unsigned int CCNode::getOrderOfArrival()
 void CCNode::setOrderOfArrival(unsigned int uOrderOfArrival)
 {
     m_uOrderOfArrival = uOrderOfArrival;
+    m_drawOrder = uOrderOfArrival;
 }
 
 CCGLProgram* CCNode::getShaderProgram()
@@ -531,7 +553,7 @@ CCRect CCNode::boundingBox()
     return CCRectApplyAffineTransform(rect, nodeToParentTransform());
 }
 
-CCRect CCNode::getCascadeBoundingBox()
+CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
 {
     float minx, miny, maxx, maxy = 0;
 
@@ -541,7 +563,7 @@ CCRect CCNode::getCascadeBoundingBox()
     CCObject *object = NULL;
     CCARRAY_FOREACH(m_pChildren, object)
     {
-        CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox();
+        CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false);
         if (r.size.width == 0 || r.size.height == 0) continue;
         r = CCRectApplyAffineTransform(r, nodeToParentTransform());
         
@@ -577,6 +599,11 @@ CCRect CCNode::getCascadeBoundingBox()
             maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
             box.setRect(minx, miny, maxx - minx, maxy - miny);
         }
+    }
+
+    if (convertToWorld && m_pParent)
+    {
+        box = CCRectApplyAffineTransform(box, m_pParent->nodeToWorldTransform());
     }
     return box;
 }
@@ -961,11 +988,17 @@ void CCNode::transform()
 
 void CCNode::onEnter()
 {
+    m_drawDepth = m_pParent ? m_pParent->m_drawDepth + 1 : 0;
     arrayMakeObjectsPerformSelector(m_pChildren, onEnter, CCNode*);
 
     this->resumeSchedulerAndActions();
 
     m_bRunning = true;
+
+    if (m_bTouchEnabled)
+    {
+        this->registerWithTouchDispatcher();
+    }
 
     if (m_eScriptType != kScriptTypeNone)
     {
@@ -996,6 +1029,11 @@ void CCNode::onExitTransitionDidStart()
 void CCNode::onExit()
 {
     this->pauseSchedulerAndActions();
+
+    if( m_bTouchEnabled )
+    {
+        unregisterWithTouchDispatcher();
+    }
 
     m_bRunning = false;
 
@@ -1475,6 +1513,228 @@ bool CCNode::isCascadeColorEnabled(void)
 void CCNode::setCascadeColorEnabled(bool cascadeColorEnabled)
 {
     m_cascadeColorEnabled = cascadeColorEnabled;
+}
+
+// ----------------------------------------
+
+CCScene *CCNode::getScene()
+{
+    if (!m_bRunning) return NULL;
+    CCNode *parent = getParent();
+    if (!parent) return NULL;
+    
+    CCNode *scene = parent;
+    while (parent)
+    {
+        parent = parent->getParent();
+        if (parent) scene = parent;
+    }
+    return dynamic_cast<CCScene*>(scene);
+}
+
+
+void CCNode::registerWithTouchDispatcher()
+{
+    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCScene *scene = getScene();
+    if (scene)
+    {
+        scene->addTouchableNode(this);
+    }
+}
+
+void CCNode::unregisterWithTouchDispatcher()
+{
+    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCScene *scene = getScene();
+    if (scene)
+    {
+        scene->removeTouchableNode(this);
+    }
+}
+
+void CCNode::registerScriptTouchHandler(int nHandler, bool bIsMultiTouches, int nPriority, bool bSwallowsTouches)
+{
+    unregisterScriptTouchHandler();
+    m_pScriptTouchHandlerEntry = CCTouchScriptHandlerEntry::create(nHandler, bIsMultiTouches, nPriority, bSwallowsTouches);
+    m_pScriptTouchHandlerEntry->retain();
+}
+
+void CCNode::unregisterScriptTouchHandler(void)
+{
+    CC_SAFE_RELEASE_NULL(m_pScriptTouchHandlerEntry);
+}
+
+int CCNode::excuteScriptTouchHandler(int nEventType, CCTouch *pTouch)
+{
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchEvent(this, nEventType, pTouch);
+}
+
+int CCNode::excuteScriptTouchHandler(int nEventType, CCSet *pTouches)
+{
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches);
+}
+
+/// isTouchEnabled getter
+bool CCNode::isTouchEnabled()
+{
+    return m_bTouchEnabled;
+}
+/// isTouchEnabled setter
+
+void CCNode::setTouchEnabled(bool enabled)
+{
+    if (m_bTouchEnabled != enabled)
+    {
+        m_bTouchEnabled = enabled;
+        if (m_bRunning)
+        {
+            if (enabled)
+            {
+                registerWithTouchDispatcher();
+            }
+            else
+            {
+                unregisterWithTouchDispatcher();
+            }
+        }
+    }
+}
+
+void CCNode::setTouchMode(ccTouchesMode mode)
+{
+    if(m_eTouchMode != mode)
+    {
+        m_eTouchMode = mode;
+
+		if( m_bTouchEnabled)
+        {
+			setTouchEnabled(false);
+			setTouchEnabled(true);
+		}
+    }
+}
+
+void CCNode::setTouchPriority(int priority)
+{
+    if (m_nTouchPriority != priority)
+    {
+        m_nTouchPriority = priority;
+
+		if( m_bTouchEnabled)
+        {
+			setTouchEnabled(false);
+			setTouchEnabled(true);
+		}
+    }
+}
+
+int CCNode::getTouchPriority()
+{
+    return m_nTouchPriority;
+}
+
+int CCNode::getTouchMode()
+{
+    return m_eTouchMode;
+}
+
+
+bool CCNode::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        return excuteScriptTouchHandler(CCTOUCHBEGAN, pTouch) == 0 ? false : true;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+    CCAssert(false, "Layer#ccTouchBegan override me");
+    return true;
+}
+
+void CCNode::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHENDED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHBEGAN, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHMOVED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHENDED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
 }
 
 NS_CC_END

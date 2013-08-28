@@ -43,22 +43,18 @@ NS_CC_BEGIN
 
 // CCLayer
 CCLayer::CCLayer()
-: m_bTouchEnabled(false)
-, m_bAccelerometerEnabled(false)
+: m_bAccelerometerEnabled(false)
 , m_bKeypadEnabled(false)
-, m_pScriptTouchHandlerEntry(NULL)
 , m_pScriptKeypadHandlerEntry(NULL)
 , m_pScriptAccelerateHandlerEntry(NULL)
-, m_nTouchPriority(0)
-, m_eTouchMode(kCCTouchesAllAtOnce)
 {
     m_bIgnoreAnchorPointForPosition = true;
+    m_eTouchMode = kCCTouchesOneByOne;
     setAnchorPoint(ccp(0.5f, 0.5f));
 }
 
 CCLayer::~CCLayer()
 {
-    unregisterScriptTouchHandler();
     unregisterScriptKeypadHandler();
     unregisterScriptAccelerateHandler();
 }
@@ -98,6 +94,7 @@ CCLayer *CCLayer::create()
 
 void CCLayer::registerWithTouchDispatcher()
 {
+    CCLOG("CCLAYER: REGISTER WITH TOUCH DISPATHCER");
     CCTouchDispatcher* pDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
 
     // Using LuaBindings
@@ -126,90 +123,10 @@ void CCLayer::registerWithTouchDispatcher()
     }
 }
 
-void CCLayer::registerScriptTouchHandler(int nHandler, bool bIsMultiTouches, int nPriority, bool bSwallowsTouches)
+void CCLayer::unregisterWithTouchDispatcher()
 {
-    unregisterScriptTouchHandler();
-    m_pScriptTouchHandlerEntry = CCTouchScriptHandlerEntry::create(nHandler, bIsMultiTouches, nPriority, bSwallowsTouches);
-    m_pScriptTouchHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptTouchHandler(void)
-{
-    CC_SAFE_RELEASE_NULL(m_pScriptTouchHandlerEntry);
-    }
-
-int CCLayer::excuteScriptTouchHandler(int nEventType, CCTouch *pTouch)
-{
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerTouchEvent(this, nEventType, pTouch);
-}
-
-int CCLayer::excuteScriptTouchHandler(int nEventType, CCSet *pTouches)
-{
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerTouchesEvent(this, nEventType, pTouches);
-}
-
-/// isTouchEnabled getter
-bool CCLayer::isTouchEnabled()
-{
-    return m_bTouchEnabled;
-}
-/// isTouchEnabled setter
-void CCLayer::setTouchEnabled(bool enabled)
-{
-    if (m_bTouchEnabled != enabled)
-    {
-        m_bTouchEnabled = enabled;
-        if (m_bRunning)
-        {
-            if (enabled)
-            {
-                this->registerWithTouchDispatcher();
-            }
-            else
-            {
-                // have problems?
-                CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-            }
-        }
-    }
-}
-
-void CCLayer::setTouchMode(ccTouchesMode mode)
-{
-    if(m_eTouchMode != mode)
-    {
-        m_eTouchMode = mode;
-        
-		if( m_bTouchEnabled)
-        {
-			setTouchEnabled(false);
-			setTouchEnabled(true);
-		}
-    }
-}
-
-void CCLayer::setTouchPriority(int priority)
-{
-    if (m_nTouchPriority != priority)
-    {
-        m_nTouchPriority = priority;
-        
-		if( m_bTouchEnabled)
-        {
-			setTouchEnabled(false);
-			setTouchEnabled(true);
-		}
-    }
-}
-
-int CCLayer::getTouchPriority()
-{
-    return m_nTouchPriority;
-}
-
-int CCLayer::getTouchMode()
-{
-    return m_eTouchMode;
+    CCLOG("CCLAYER: UNREGISTER WITH TOUCH DISPATHCER");
+    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }
 
 /// isAccelerometerEnabled getter
@@ -332,12 +249,6 @@ void CCLayer::keyMenuClicked(void)
 void CCLayer::onEnter()
 {
     CCDirector* pDirector = CCDirector::sharedDirector();
-    // register 'parent' nodes first
-    // since events are propagated in reverse order
-    if (m_bTouchEnabled)
-    {
-        this->registerWithTouchDispatcher();
-    }
 
     // then iterate over all the children
     CCNode::onEnter();
@@ -358,12 +269,6 @@ void CCLayer::onEnter()
 void CCLayer::onExit()
 {
     CCDirector* pDirector = CCDirector::sharedDirector();
-    if( m_bTouchEnabled )
-    {
-        pDirector->getTouchDispatcher()->removeDelegate(this);
-        // [lua]:don't unregister script touch handler, or the handler will be destroyed
-        // unregisterScriptTouchHandler();
-    }
 
     // remove this layer from the delegates who concern Accelerometer Sensor
     if (m_bAccelerometerEnabled)

@@ -36,6 +36,7 @@
 #include "shaders/CCGLProgram.h"
 #include "kazmath/kazmath.h"
 #include "script_support/CCScriptSupport.h"
+#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "CCProtocols.h"
 
 NS_CC_BEGIN
@@ -51,6 +52,7 @@ class CCActionManager;
 class CCComponent;
 class CCDictionary;
 class CCComponentContainer;
+class CCScene;
 
 /**
  * @addtogroup base_nodes
@@ -68,6 +70,13 @@ enum {
     kCCNodeOnExitTransitionDidStart,
     kCCNodeOnCleanup
 };
+
+typedef enum {
+	kCCTouchesAllAtOnce,
+	kCCTouchesOneByOne,
+} ccTouchesMode;
+
+class CCTouchScriptHandlerEntry;
 
 /** @brief CCNode is the main element. Anything that gets drawn or contains things that get drawn is a CCNode.
  The most popular CCNodes are: CCScene, CCLayer, CCSprite, CCMenu.
@@ -124,7 +133,7 @@ enum {
  - Each node has a camera. By default it points to the center of the CCNode.
  */
 
-class CC_DLL CCNode : public CCObject
+class CC_DLL CCNode : public CCObject, public CCTouchDelegate
 {
 public:
     /// @{
@@ -977,7 +986,7 @@ public:
     /**
      * This boundingBox will calculate all children's boundingBox every time
      */
-    virtual CCRect getCascadeBoundingBox(void);
+    virtual CCRect getCascadeBoundingBox(bool convertToWorld = true);
 
     /// @{
     /// @name Actions
@@ -1422,7 +1431,44 @@ public:
 
     /// @{
 
-    int getDrawDepth() { return m_drawDepth; }
+    virtual CCScene *getScene();
+
+    virtual void registerWithTouchDispatcher(void);
+    virtual void unregisterWithTouchDispatcher(void);
+
+    /** Register script touch events handler */
+    virtual void registerScriptTouchHandler(int nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
+    /** Unregister script touch events handler */
+    virtual void unregisterScriptTouchHandler(void);
+
+    /** whether or not it will receive Touch events.
+     You can enable / disable touch events with this property.
+     Only the touches of this node will be affected. This "method" is not propagated to it's children.
+     @since v0.8.1
+     */
+    virtual bool isTouchEnabled();
+    virtual void setTouchEnabled(bool value);
+
+    virtual void setTouchMode(ccTouchesMode mode);
+    virtual int getTouchMode();
+
+    /** priority of the touch events. Default is 0 */
+    virtual void setTouchPriority(int priority);
+    virtual int getTouchPriority();
+
+    inline CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry() { return m_pScriptTouchHandlerEntry; };
+
+    // default implements are used to call script callback if exist
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
+
+    // default implements are used to call script callback if exist
+    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
 
     /// @}
 
@@ -1515,6 +1561,18 @@ protected:
     bool m_cascadeOpacityEnabled;
 
     int m_drawDepth;
+    unsigned int m_drawOrder;
+
+    // touch events
+    bool m_bTouchEnabled;
+    int m_nTouchPriority;
+    ccTouchesMode m_eTouchMode;
+    CCTouchScriptHandlerEntry* m_pScriptTouchHandlerEntry;
+
+    virtual int excuteScriptTouchHandler(int nEventType, CCTouch *pTouch);
+    virtual int excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
+
+    friend class CCScene;
 };
 
 // end of base_node group
