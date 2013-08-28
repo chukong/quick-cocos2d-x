@@ -153,7 +153,6 @@ protected:
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
 
-private:
     // Script touch events handler
     CCTouchScriptHandlerEntry* m_pScriptTouchHandlerEntry;
     CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;

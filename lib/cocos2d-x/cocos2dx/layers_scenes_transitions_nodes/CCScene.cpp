@@ -25,33 +25,19 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "CCScene.h"
+#include "touch_dispatcher/CCTouchDispatcher.h"
 #include "support/CCPointExtension.h"
+#include "script_support/CCScriptSupport.h"
 #include "CCDirector.h"
 
 NS_CC_BEGIN
 
 CCScene::CCScene()
 {
-    m_bIgnoreAnchorPointForPosition = true;
-    setAnchorPoint(ccp(0.5f, 0.5f));
 }
 
 CCScene::~CCScene()
 {
-}
-
-bool CCScene::init()
-{
-    bool bRet = false;
-     do 
-     {
-         CCDirector * pDirector;
-         CC_BREAK_IF( ! (pDirector = CCDirector::sharedDirector()) );
-         this->setContentSize(pDirector->getWinSize());
-         // success
-         bRet = true;
-     } while (0);
-     return bRet;
 }
 
 CCScene *CCScene::create()
@@ -67,6 +53,104 @@ CCScene *CCScene::create()
         CC_SAFE_DELETE(pRet);
         return NULL;
     }
+}
+
+
+bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        return excuteScriptTouchHandler(CCTOUCHBEGAN, pTouch) == 0 ? false : true;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+    CCAssert(false, "Layer#ccTouchBegan override me");
+    return true;
+}
+
+void CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHENDED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCScene::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHBEGAN, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCScene::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHMOVED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCScene::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHENDED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCScene::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
 }
 
 NS_CC_END
