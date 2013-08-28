@@ -94,7 +94,7 @@ CCLayer *CCLayer::create()
 
 void CCLayer::registerWithTouchDispatcher()
 {
-    CCLOG("CCLAYER: REGISTER WITH TOUCH DISPATHCER");
+//    CCLOG("CCLAYER: REGISTER WITH TOUCH DISPATHCER");
     CCTouchDispatcher* pDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
 
     // Using LuaBindings
@@ -125,7 +125,7 @@ void CCLayer::registerWithTouchDispatcher()
 
 void CCLayer::unregisterWithTouchDispatcher()
 {
-    CCLOG("CCLAYER: UNREGISTER WITH TOUCH DISPATHCER");
+//    CCLOG("CCLAYER: UNREGISTER WITH TOUCH DISPATHCER");
     CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }
 

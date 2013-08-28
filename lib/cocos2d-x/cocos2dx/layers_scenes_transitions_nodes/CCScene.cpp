@@ -65,8 +65,7 @@ void CCScene::addTouchableNode(CCNode *node)
     if (!m_touchableNodes->containsObject(node))
     {
         m_touchableNodes->addObject(node);
-        CCLOG("ADD TOUCHABLE NODE: %p", node);
-
+//        CCLOG("ADD TOUCHABLE NODE: %p", node);
         if (!isTouchEnabled())
         {
             setTouchEnabled(true);
@@ -77,7 +76,7 @@ void CCScene::addTouchableNode(CCNode *node)
 void CCScene::removeTouchableNode(CCNode *node)
 {
     m_touchableNodes->removeObject(node);
-    CCLOG("REMOVE TOUCHABLE NODE: %p", node);
+//    CCLOG("REMOVE TOUCHABLE NODE: %p", node);
     if (m_touchableNodes->count() == 0 && isTouchEnabled())
     {
         setTouchEnabled(false);
@@ -93,13 +92,14 @@ bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     sortAllTouchableNodes();
     CCARRAY_FOREACH(m_touchableNodes, node)
     {
-        const CCRect boundingBox = dynamic_cast<CCNode*>(node)->getCascadeBoundingBox();
+        touchNode = dynamic_cast<CCNode*>(node);
+        if (!touchNode->isVisible()) continue;
+        const CCRect boundingBox = touchNode->getCascadeBoundingBox();
         if (boundingBox.containsPoint(p))
         {
-            CCLOG("CCScene:ccTouchBegan hit node - x = %0.2f, y = %0.2f, w = %0.2f, h = %0.2f",
-                  boundingBox.origin.x, boundingBox.origin.y,
-                  boundingBox.size.width, boundingBox.size.height);
-            touchNode = dynamic_cast<CCNode*>(node);
+//            CCLOG("CCScene:ccTouchBegan hit node - x = %0.2f, y = %0.2f, w = %0.2f, h = %0.2f",
+//                  boundingBox.origin.x, boundingBox.origin.y,
+//                  boundingBox.size.width, boundingBox.size.height);
             if (touchNode->ccTouchBegan(pTouch, pEvent))
             {
                 m_touchNode = touchNode;

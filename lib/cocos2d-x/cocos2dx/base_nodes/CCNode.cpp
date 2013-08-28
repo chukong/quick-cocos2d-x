@@ -566,7 +566,7 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
         CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false);
         if (r.size.width == 0 || r.size.height == 0) continue;
         r = CCRectApplyAffineTransform(r, nodeToParentTransform());
-        
+
         if (first)
         {
             box = r;
@@ -1535,7 +1535,7 @@ CCScene *CCNode::getScene()
 
 void CCNode::registerWithTouchDispatcher()
 {
-    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+//    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
     CCScene *scene = getScene();
     if (scene)
     {
@@ -1545,7 +1545,7 @@ void CCNode::registerWithTouchDispatcher()
 
 void CCNode::unregisterWithTouchDispatcher()
 {
-    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+//    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
     CCScene *scene = getScene();
     if (scene)
     {
