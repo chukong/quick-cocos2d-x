@@ -40,7 +40,6 @@
 		F428259517575DA8001479DC /* CCThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428256C17575DA8001479DC /* CCThread.cpp */; };
 		F428259617575DA8001479DC /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428256E17575DA8001479DC /* CCZipFile.cpp */; };
 		F42825A517575DA8001479DC /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428258F17575DA8001479DC /* platform.cpp */; };
-		F42825B917575DBE001479DC /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42825B317575DBE001479DC /* libcurl.a */; };
 		F42825BA17575DBE001479DC /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42825B417575DBE001479DC /* libwebp.a */; };
 		F428262517575DD7001479DC /* AssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42825BC17575DD7001479DC /* AssetsManager.cpp */; };
 		F428264A17575DD7001479DC /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428261117575DD7001479DC /* CCEditBox.cpp */; };
@@ -135,6 +134,7 @@
 		F4B61CFB172806280057E1F0 /* luasocket_io.c in Sources */ = {isa = PBXBuildFile; fileRef = F4B61CF8172806280057E1F0 /* luasocket_io.c */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
+		F4D1C3E017CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4D1C3DF17CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.mm */; };
 		F4E0D439175CEBBC00CAB1BB /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E0D438175CEBBC00CAB1BB /* libluajit.a */; };
 		F4E882A6177015C400577406 /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E88184177015C300577406 /* CCAction.cpp */; };
 		F4E882A7177015C400577406 /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E88186177015C300577406 /* CCActionCamera.cpp */; };
@@ -632,6 +632,8 @@
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
 		F4D11009169FBF7C00305E28 /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
+		F4D1C3DE17CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStoreReceiptVerifyRequestIOS.h; sourceTree = "<group>"; };
+		F4D1C3DF17CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCStoreReceiptVerifyRequestIOS.mm; sourceTree = "<group>"; };
 		F4E0D433175CEBBC00CAB1BB /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F4E0D434175CEBBC00CAB1BB /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F4E0D435175CEBBC00CAB1BB /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -1078,7 +1080,6 @@
 			files = (
 				F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */,
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
-				F42825B917575DBE001479DC /* libcurl.a in Frameworks */,
 				F42825BA17575DBE001479DC /* libwebp.a in Frameworks */,
 				F4E0D439175CEBBC00CAB1BB /* libluajit.a in Frameworks */,
 			);
@@ -1228,6 +1229,8 @@
 				F4FBA52816D8C97900CD8EC1 /* CCStoreIOS.h */,
 				F4FBA52916D8C97900CD8EC1 /* CCStoreIOS.mm */,
 				F4FBA52B16D8C97900CD8EC1 /* CCStorePaymentTransactionWrapper.mm */,
+				F4D1C3DE17CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.h */,
+				F4D1C3DF17CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.mm */,
 				F4F95FD117CC99BC0036E60D /* json */,
 				F40AFE4016BD15C600565A5E /* openudid */,
 			);
@@ -2694,7 +2697,7 @@
 		F45A2B94166B07B600760194 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = qeeplay.com;
 			};
 			buildConfigurationList = F45A2B97166B07B600760194 /* Build configuration list for PBXProject "quickcocos2dx" */;
@@ -3038,6 +3041,7 @@
 				F4F95FDB17CC99BC0036E60D /* SBJsonBase.m in Sources */,
 				F4F95FDC17CC99BC0036E60D /* SBJsonParser.m in Sources */,
 				F4F95FDD17CC99BC0036E60D /* SBJsonWriter.m in Sources */,
+				F4D1C3E017CCD8A000D8A9E8 /* CCStoreReceiptVerifyRequestIOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
