@@ -89,7 +89,7 @@ protected:
     virtual void afterDraw(void);
 
     inline const CCPoint getDrawPosition(void) {
-        const CCSize& size = getParent()->getContentSize();
+        const CCSize& size = getContentSize();
         return CCPointMake(size.width / 2, size.height / 2);
     }
 };

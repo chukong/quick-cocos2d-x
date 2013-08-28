@@ -317,6 +317,7 @@ void CCSprite::setTextureRect(const CCRect& rect, bool rotated, const CCSize& un
     m_bRectRotated = rotated;
 
     setContentSize(untrimmedSize);
+    m_obTextureSize = untrimmedSize;
     setVertexRect(rect);
     setTextureCoords(rect);
 

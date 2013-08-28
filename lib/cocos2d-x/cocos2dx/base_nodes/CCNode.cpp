@@ -64,6 +64,7 @@ CCNode::CCNode(void)
 , m_obAnchorPointInPoints(CCPointZero)
 , m_obAnchorPoint(CCPointZero)
 , m_obContentSize(CCSizeZero)
+, m_obTextureSize(CCSizeZero)
 , m_sAdditionalTransform(CCAffineTransformMakeIdentity())
 , m_pCamera(NULL)
 // children (lazy allocs)
@@ -526,6 +527,56 @@ CCRect CCNode::boundingBox()
 {
     CCRect rect = CCRectMake(0, 0, m_obContentSize.width, m_obContentSize.height);
     return CCRectApplyAffineTransform(rect, nodeToParentTransform());
+}
+
+CCRect CCNode::getCascadeBoundingBox()
+{
+    float minx, miny, maxx, maxy = 0;
+
+    bool first = true;
+
+    CCRect box = CCRect(0, 0, 0, 0);
+    CCObject *object = NULL;
+    CCARRAY_FOREACH(m_pChildren, object)
+    {
+        CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox();
+        if (r.size.width == 0 || r.size.height == 0) continue;
+        r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+        
+        if (first)
+        {
+            box = r;
+            first = false;
+        }
+        else
+        {
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+
+    if (m_obTextureSize.width > 0 && m_obTextureSize.height > 0)
+    {
+        CCRect r = CCRectMake(0, 0, m_obTextureSize.width, m_obTextureSize.height);
+        r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+
+        if (first)
+        {
+            box = r;
+        }
+        else
+        {
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+    return box;
 }
 
 CCNode * CCNode::create(void)

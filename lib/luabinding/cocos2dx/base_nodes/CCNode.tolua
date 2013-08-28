@@ -749,6 +749,11 @@ class CCNode : public CCObject
     CCRect boundingBox(void);
     CCRect boundingBox @ getBoundingBox(void);
 
+    /**
+     * This boundingBox will calculate all children's boundingBox every time
+     */
+    CCRect getCascadeBoundingBox(void);
+
     /// @{
     /// @name Actions
 

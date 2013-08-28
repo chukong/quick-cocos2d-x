@@ -971,7 +971,14 @@ public:
      *
      * @return A "local" axis aligned boudning box of the node.
      */
-    CCRect boundingBox(void);
+    virtual CCRect boundingBox(void);
+
+    virtual const CCSize getTextureSize(void) { return m_obTextureSize; };
+
+    /**
+     * This boundingBox will calculate all children's boundingBox every time
+     */
+    virtual CCRect getCascadeBoundingBox(void);
 
     /// @{
     /// @name Actions
@@ -1445,6 +1452,7 @@ protected:
     CCPoint m_obAnchorPoint;            ///< anchor point normalized (NOT in points)
 
     CCSize m_obContentSize;             ///< untransformed size of the node
+    CCSize m_obTextureSize;
 
 
     CCAffineTransform m_sAdditionalTransform; ///< transform
