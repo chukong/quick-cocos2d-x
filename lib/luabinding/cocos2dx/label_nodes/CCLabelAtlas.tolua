@@ -42,7 +42,7 @@ CCLabelAtlas versus CCLabel:
 
 A more flexible class is CCLabelBMFont. It supports variable width characters and it also has a nice editor.
 */
-class CCLabelAtlas : public CCNodeRGBA
+class CCLabelAtlas : public CCNode
 {
     /** creates the CCLabelAtlas with a string, a char map file(the atlas), the width and height of each element and the starting char of the atlas */
     static CCLabelAtlas * create(const char *text, const char *charMapFile, unsigned int itemWidth, unsigned int itemHeight, unsigned int startCharMap);

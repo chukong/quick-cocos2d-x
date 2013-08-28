@@ -42,7 +42,7 @@ THE SOFTWARE.
  *
  * @see http://yannickloriot.com/library/ios/cccontrolextension/Classes/CCScale9Sprite.html
  */
-class CCScale9Sprite : public CCNodeRGBA
+class CCScale9Sprite : public CCNode
 {
     /** Original sprite's size. */
     CCSize getOriginalSize();

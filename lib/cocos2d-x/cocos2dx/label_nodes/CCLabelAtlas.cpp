@@ -74,7 +74,7 @@ bool CCLabelAtlas::initWithString(const char *string, CCTexture2D* texture, unsi
 }
 
 CCLabelAtlas* CCLabelAtlas::create(const char *string, const char *fntFile)
-{    
+{
     CCLabelAtlas *ret = new CCLabelAtlas();
     if (ret)
     {
@@ -82,12 +82,12 @@ CCLabelAtlas* CCLabelAtlas::create(const char *string, const char *fntFile)
         {
             ret->autorelease();
         }
-        else 
+        else
         {
             CC_SAFE_RELEASE_NULL(ret);
         }
     }
-    
+
     return ret;
 }
 
@@ -96,18 +96,18 @@ bool CCLabelAtlas::initWithString(const char *theString, const char *fntFile)
   std::string pathStr = CCFileUtils::sharedFileUtils()->fullPathForFilename(fntFile);
   std::string relPathStr = pathStr.substr(0, pathStr.find_last_of("/"))+"/";
   CCDictionary *dict = CCDictionary::createWithContentsOfFile(pathStr.c_str());
-  
+
   CCAssert(((CCString*)dict->objectForKey("version"))->intValue() == 1, "Unsupported version. Upgrade cocos2d version");
-    
+
   std::string texturePathStr = relPathStr + ((CCString*)dict->objectForKey("textureFilename"))->getCString();
   CCString *textureFilename = CCString::create(texturePathStr);
   unsigned int width = ((CCString*)dict->objectForKey("itemWidth"))->intValue() / CC_CONTENT_SCALE_FACTOR();
   unsigned int height = ((CCString*)dict->objectForKey("itemHeight"))->intValue() / CC_CONTENT_SCALE_FACTOR();
   unsigned int startChar = ((CCString*)dict->objectForKey("firstChar"))->intValue();
-  
+
 
   this->initWithString(theString, textureFilename->getCString(), width, height, startChar);
-    
+
   return true;
 }
 
@@ -171,7 +171,7 @@ void CCLabelAtlas::updateAtlasValues()
         quads[i].tr.vertices.x = (float)(i * m_uItemWidth + m_uItemWidth);
         quads[i].tr.vertices.y = (float)(m_uItemHeight);
         quads[i].tr.vertices.z = 0.0f;
-        ccColor4B c = { _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity };
+        ccColor4B c = { m_displayedColor.r, m_displayedColor.g, m_displayedColor.b, m_displayedOpacity};
         quads[i].tl.colors = c;
         quads[i].tr.colors = c;
         quads[i].bl.colors = c;
@@ -212,7 +212,7 @@ const char* CCLabelAtlas::getString(void)
 
 //CCLabelAtlas - draw
 
-#if CC_LABELATLAS_DEBUG_DRAW    
+#if CC_LABELATLAS_DEBUG_DRAW
 void CCLabelAtlas::draw()
 {
     CCAtlasNode::draw();

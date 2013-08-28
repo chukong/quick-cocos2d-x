@@ -121,13 +121,13 @@ CCSprite* CCSprite::createWithSpriteFrame(CCSpriteFrame *pSpriteFrame)
 CCSprite* CCSprite::createWithSpriteFrameName(const char *pszSpriteFrameName)
 {
     CCSpriteFrame *pFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(pszSpriteFrameName);
-    
+
 #if COCOS2D_DEBUG > 0
     char msg[256] = {0};
     sprintf(msg, "Invalid spriteFrameName: %s", pszSpriteFrameName);
     CCAssert(pFrame != NULL, msg);
 #endif
-    
+
     return createWithSpriteFrame(pFrame);
 }
 
@@ -151,49 +151,49 @@ bool CCSprite::init(void)
 // designated initializer
 bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
 {
-    if (CCNodeRGBA::init())
+    if (CCNode::init())
     {
         m_pobBatchNode = NULL;
-        
+
         m_bRecursiveDirty = false;
         setDirty(false);
-        
+
         m_bOpacityModifyRGB = true;
-        
+
         m_sBlendFunc.src = CC_BLEND_SRC;
         m_sBlendFunc.dst = CC_BLEND_DST;
-        
+
         m_bFlipX = m_bFlipY = false;
-        
+
         // default transform anchor: center
         setAnchorPoint(ccp(0.5f, 0.5f));
-        
+
         // zwoptex default values
         m_obOffsetPosition = CCPointZero;
-        
+
         m_bHasChildren = false;
-        
+
         // clean the Quad
         memset(&m_sQuad, 0, sizeof(m_sQuad));
-        
+
         // Atlas: Color
         ccColor4B tmpColor = { 255, 255, 255, 255 };
         m_sQuad.bl.colors = tmpColor;
         m_sQuad.br.colors = tmpColor;
         m_sQuad.tl.colors = tmpColor;
         m_sQuad.tr.colors = tmpColor;
-        
+
         // shader program
         setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor));
-        
+
         // update texture (calls updateBlendFunc)
         setTexture(pTexture);
         setTextureRect(rect, rotated, rect.size);
-        
+
         // by default use "Self Render".
         // if the sprite is added to a batchnode, then it will automatically switch to "batchnode Render"
         setBatchNode(NULL);
-        
+
         return true;
     }
     else
@@ -213,7 +213,7 @@ bool CCSprite::initWithTexture(CCTexture2D *pTexture)
 
     CCRect rect = CCRectZero;
     rect.size = pTexture->getContentSize();
-    
+
     return initWithTexture(pTexture, rect);
 }
 
@@ -231,7 +231,7 @@ bool CCSprite::initWithFile(const char *pszFilename)
 
     // don't release here.
     // when load texture failed, it's better to get a "transparent" sprite then a crashed program
-    // this->release(); 
+    // this->release();
     return false;
 }
 
@@ -247,7 +247,7 @@ bool CCSprite::initWithFile(const char *pszFilename, const CCRect& rect)
 
     // don't release here.
     // when load texture failed, it's better to get a "transparent" sprite then a crashed program
-    // this->release(); 
+    // this->release();
     return false;
 }
 
@@ -344,7 +344,7 @@ void CCSprite::setTextureRect(const CCRect& rect, bool rotated, const CCSize& un
     else
     {
         // self rendering
-        
+
         // Atlas: Vertex
         float x1 = 0 + m_obOffsetPosition.x;
         float y1 = 0 + m_obOffsetPosition.y;
@@ -461,7 +461,7 @@ void CCSprite::updateTransform(void)
             m_sQuad.br.vertices = m_sQuad.tl.vertices = m_sQuad.tr.vertices = m_sQuad.bl.vertices = vertex3(0,0,0);
             m_bShouldBeHidden = true;
         }
-        else 
+        else
         {
             m_bShouldBeHidden = false;
 
@@ -469,7 +469,7 @@ void CCSprite::updateTransform(void)
             {
                 m_transformToBatch = nodeToParentTransform();
             }
-            else 
+            else
             {
                 CCAssert( dynamic_cast<CCSprite*>(m_pParent), "Logic error in CCSprite. Parent must be a CCSprite");
                 m_transformToBatch = CCAffineTransformConcat( nodeToParentTransform() , ((CCSprite*)m_pParent)->m_transformToBatch );
@@ -516,14 +516,14 @@ void CCSprite::updateTransform(void)
 		{
             m_pobTextureAtlas->updateQuad(&m_sQuad, m_uAtlasIndex);
         }
-		
+
         m_bRecursiveDirty = false;
         setDirty(false);
     }
 
     // MARMALADE CHANGED
     // recursively iterate over children
-/*    if( m_bHasChildren ) 
+/*    if( m_bHasChildren )
     {
         // MARMALADE: CHANGED TO USE CCNode*
         // NOTE THAT WE HAVE ALSO DEFINED virtual CCNode::updateTransform()
@@ -573,7 +573,7 @@ void CCSprite::draw(void)
         // texCoods
         diff = offsetof( ccV3F_C4B_T2F, texCoords);
         glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
-    
+
     // color
     diff = offsetof( ccV3F_C4B_T2F, colors);
     glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, kQuadSize, (void*)(offset + diff));
@@ -670,7 +670,7 @@ void CCSprite::removeChild(CCNode *pChild, bool bCleanup)
     }
 
     CCNode::removeChild(pChild, bCleanup);
-    
+
 }
 
 void CCSprite::removeAllChildrenWithCleanup(bool bCleanup)
@@ -689,7 +689,7 @@ void CCSprite::removeAllChildrenWithCleanup(bool bCleanup)
     }
 
     CCNode::removeAllChildrenWithCleanup(bCleanup);
-    
+
     m_bHasChildren = false;
 }
 
@@ -887,14 +887,14 @@ bool CCSprite::isFlipY(void)
 
 void CCSprite::updateColor(void)
 {
-    ccColor4B color4 = { _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity };
-    
+    ccColor4B color4 = { m_displayedColor.r, m_displayedColor.g, m_displayedColor.b, m_displayedOpacity};
+
     // special opacity for premultiplied textures
 	if (m_bOpacityModifyRGB)
     {
-		color4.r *= _displayedOpacity/255.0f;
-		color4.g *= _displayedOpacity/255.0f;
-		color4.b *= _displayedOpacity/255.0f;
+		color4.r *= m_displayedOpacity /255.0f;
+		color4.g *= m_displayedOpacity /255.0f;
+		color4.b *= m_displayedOpacity /255.0f;
     }
 
     m_sQuad.bl.colors = color4;
@@ -923,14 +923,14 @@ void CCSprite::updateColor(void)
 
 void CCSprite::setOpacity(GLubyte opacity)
 {
-    CCNodeRGBA::setOpacity(opacity);
+    CCNode::setOpacity(opacity);
 
     updateColor();
 }
 
 void CCSprite::setColor(const ccColor3B& color3)
 {
-    CCNodeRGBA::setColor(color3);
+    CCNode::setColor(color3);
 
     updateColor();
 }
@@ -951,15 +951,15 @@ bool CCSprite::isOpacityModifyRGB(void)
 
 void CCSprite::updateDisplayedColor(const ccColor3B& parentColor)
 {
-    CCNodeRGBA::updateDisplayedColor(parentColor);
-    
+    CCNode::updateDisplayedColor(parentColor);
+
     updateColor();
 }
 
 void CCSprite::updateDisplayedOpacity(GLubyte opacity)
 {
-    CCNodeRGBA::updateDisplayedOpacity(opacity);
-    
+    CCNode::updateDisplayedOpacity(opacity);
+
     updateColor();
 }
 
@@ -1111,7 +1111,7 @@ void CCSprite::setTexture(CCTexture2D *texture)
             CC_SAFE_RELEASE(image);
     }
     }
-    
+
     if (!m_pobBatchNode && m_pobTexture != texture)
     {
         CC_SAFE_RETAIN(texture);
