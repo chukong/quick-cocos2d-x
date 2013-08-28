@@ -512,7 +512,6 @@ public:
      */
     virtual unsigned int getOrderOfArrival();
 
-
     /**
      * Sets the state of OpenGL server side.
      *
@@ -1421,6 +1420,12 @@ public:
     virtual void updateDisplayedOpacity(GLubyte opacity);
     /// @}
 
+    /// @{
+
+    int getDrawDepth() { return m_drawDepth; }
+
+    /// @}
+
 private:
     /// lazy allocs
     void childrenAlloc(void);
@@ -1508,6 +1513,8 @@ protected:
     ccColor3B m_realColor;
     bool m_cascadeColorEnabled;
     bool m_cascadeOpacityEnabled;
+
+    int m_drawDepth;
 };
 
 // end of base_node group

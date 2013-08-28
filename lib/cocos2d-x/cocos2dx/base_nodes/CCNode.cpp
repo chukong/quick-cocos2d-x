@@ -98,6 +98,7 @@ CCNode::CCNode(void)
 , m_realColor(ccWHITE)
 , m_cascadeColorEnabled(false)
 , m_cascadeOpacityEnabled(false)
+, m_drawDepth(0)
 {
     // set default scheduler and actionManager
     CCDirector *director = CCDirector::sharedDirector();
@@ -438,6 +439,7 @@ CCNode * CCNode::getParent()
 void CCNode::setParent(CCNode * var)
 {
     m_pParent = var;
+    m_drawDepth = var ? var->m_drawDepth + 1 : 0;
 }
 
 /// isRelativeAnchorPoint getter
@@ -844,14 +846,13 @@ void CCNode::sortAllChildren()
     }
 }
 
-
- void CCNode::draw()
- {
-     //CCAssert(0);
-     // override me
-     // Only use- this function to draw your stuff.
-     // DON'T draw your stuff outside this method
- }
+void CCNode::draw()
+{
+    //CCAssert(0);
+    // override me
+    // Only use- this function to draw your stuff.
+    // DON'T draw your stuff outside this method
+}
 
 void CCNode::visit()
 {

@@ -954,6 +954,7 @@ class CCNode : public CCObject
     void updateDisplayedOpacity(GLubyte opacity);
     /// @}
 
+    int getDrawDepth();
 };
 
 // end of base_node group
