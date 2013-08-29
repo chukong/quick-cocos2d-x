@@ -99,7 +99,7 @@ class CCScale9Sprite : public CCNode
      *
      * @see initWithFile:capInsets:
      */
-    static CCScale9Sprite* create(CCRect capInsets, const char* file);
+    static CCScale9Sprite* create @ createWithInsets (CCRect capInsets, const char* file);
 
     /**
      * Creates a 9-slice sprite with a texture file. The whole texture will be
