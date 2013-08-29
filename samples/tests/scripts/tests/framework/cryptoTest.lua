@@ -22,32 +22,32 @@ function CryptoTestScene:runTest(name)
 end
 
 function CryptoTestScene:encryptXXTEATest()
-    local p = "Hello"
+    local p = string.rep("Hello ", 20)
     local k = "KEYKEY"
     printf("encryptXXTEATest: %s -> %s", p, bin2hex(crypto.encryptXXTEA(p, k)))
 end
 
 function CryptoTestScene:decryptXXTEATest()
-    local p = "Hello"
+    local p = string.rep("Hello ", 20)
     local k = "KEYKEY"
     local c = crypto.encryptXXTEA(p, k)
     printf("decryptXXTEATest: %s -> %s", bin2hex(c), crypto.decryptXXTEA(c, k))
 end
 
 function CryptoTestScene:encodeBase64Test()
-    local p = "Hello"
+    local p = string.rep("Hello ", 20)
     local c = crypto.encodeBase64(p)
     printf("encodeBase64Test: %s -> %s", p, c)
 end
 
 function CryptoTestScene:decodeBase64Test()
-    local p = "Hello"
+    local p = string.rep("Hello ", 20)
     local c = crypto.encodeBase64(p)
     printf("decodeBase64Test: %s -> %s", c, crypto.decodeBase64(c))
 end
 
 function CryptoTestScene:md5Test()
-    local p = "Hello"
+    local p = string.rep("Hello ", 20)
     printf("md5Test: %s -> %s", p, crypto.md5(p))
 end
 
