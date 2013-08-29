@@ -37,7 +37,7 @@ If you are going to render a TextureAtlas consider subclassing CCAtlasNode (or a
 All features from CCNode are valid, plus the following features:
 - opacity and RGB colors
 */
-class CCAtlasNode : public CCNodeRGBA
+class CCAtlasNode : public CCNode
 {
     CCTextureAtlas* getTextureAtlas();
 

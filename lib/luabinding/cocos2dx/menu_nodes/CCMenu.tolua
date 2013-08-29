@@ -47,7 +47,7 @@ enum {
 *  - You can add MenuItem objects in runtime using addChild:
 *  - But the only accepted children are MenuItem objects
 */
-class CCMenu : public CCLayerRGBA
+class CCMenu : public CCLayer
 {
     /** creates an empty CCMenu */
     static CCMenu* create();

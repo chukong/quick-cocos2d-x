@@ -39,17 +39,10 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-typedef enum {
-	kCCTouchesAllAtOnce,
-	kCCTouchesOneByOne,
-} ccTouchesMode;
-
 /**
  * @addtogroup layer
  * @{
  */
-
-class CCTouchScriptHandlerEntry;
 
 //
 // CCLayer
@@ -60,20 +53,20 @@ All features from CCNode are valid, plus the following new features:
 - It can receive iPhone Touches
 - It can receive Accelerometer input
 */
-class CC_DLL CCLayer : public CCNode, public CCTouchDelegate, public CCAccelerometerDelegate, public CCKeypadDelegate
+class CC_DLL CCLayer : public CCNode, public CCAccelerometerDelegate, public CCKeypadDelegate
 {
 public:
     CCLayer();
     virtual ~CCLayer();
     virtual bool init();
-    
+
     /** create one layer */
     static CCLayer *create(void);
 
     virtual void onEnter();
     virtual void onExit();
     virtual void onEnterTransitionDidFinish();
-    
+
     // default implements are used to call script callback if exist
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
@@ -85,7 +78,7 @@ public:
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-    
+
     virtual void didAccelerate(CCAcceleration* pAccelerationValue);
     void registerScriptAccelerateHandler(int nHandler);
     void unregisterScriptAccelerateHandler(void);
@@ -101,26 +94,7 @@ public:
     @since v0.8.0
     */
     virtual void registerWithTouchDispatcher(void);
-    
-    /** Register script touch events handler */
-    virtual void registerScriptTouchHandler(int nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
-    /** Unregister script touch events handler */
-    virtual void unregisterScriptTouchHandler(void);
-
-    /** whether or not it will receive Touch events.
-    You can enable / disable touch events with this property.
-    Only the touches of this node will be affected. This "method" is not propagated to it's children.
-    @since v0.8.1
-    */
-    virtual bool isTouchEnabled();
-    virtual void setTouchEnabled(bool value);
-    
-    virtual void setTouchMode(ccTouchesMode mode);
-    virtual int getTouchMode();
-    
-    /** priority of the touch events. Default is 0 */
-    virtual void setTouchPriority(int priority);
-    virtual int getTouchPriority();
+    virtual void unregisterWithTouchDispatcher(void);
 
     /** whether or not it will receive Accelerometer events
     You can enable / disable accelerometer events with this property.
@@ -144,70 +118,16 @@ public:
 
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
-    
-    inline CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry() { return m_pScriptTouchHandlerEntry; };
+
     inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
-protected:   
-    bool m_bTouchEnabled;
+protected:
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
-    
-private:
+
     // Script touch events handler
-    CCTouchScriptHandlerEntry* m_pScriptTouchHandlerEntry;
     CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;
     CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
-    
-    int m_nTouchPriority;
-    ccTouchesMode m_eTouchMode;
-    
-    int  excuteScriptTouchHandler(int nEventType, CCTouch *pTouch);
-    int  excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
-};
-
-#ifdef __apple__
-#pragma mark -
-#pragma mark CCLayerRGBA
-#endif
-
-/** CCLayerRGBA is a subclass of CCLayer that implements the CCRGBAProtocol protocol using a solid color as the background.
- 
- All features from CCLayer are valid, plus the following new features that propagate into children that conform to the CCRGBAProtocol:
- - opacity
- - RGB colors
- @since 2.1
- */
-class CC_DLL CCLayerRGBA : public CCLayer, public CCRGBAProtocol
-{
-public:
-    CREATE_FUNC(CCLayerRGBA);
-    
-    CCLayerRGBA();
-    virtual ~CCLayerRGBA();
-    
-    virtual bool init();
-    
-    virtual GLubyte getOpacity();
-    virtual GLubyte getDisplayedOpacity();
-    virtual void setOpacity(GLubyte opacity);
-    virtual void updateDisplayedOpacity(GLubyte parentOpacity);
-    virtual bool isCascadeOpacityEnabled();
-    virtual void setCascadeOpacityEnabled(bool cascadeOpacityEnabled);
-    
-    virtual const ccColor3B& getColor();
-    virtual const ccColor3B& getDisplayedColor();
-    virtual void setColor(const ccColor3B& color);
-    virtual void updateDisplayedColor(const ccColor3B& parentColor);
-    virtual bool isCascadeColorEnabled();
-    virtual void setCascadeColorEnabled(bool cascadeColorEnabled);
-    
-    virtual void setOpacityModifyRGB(bool bValue) {}
-    virtual bool isOpacityModifyRGB() { return false; }
-protected:
-	GLubyte		_displayedOpacity, _realOpacity;
-	ccColor3B	_displayedColor, _realColor;
-	bool		_cascadeOpacityEnabled, _cascadeColorEnabled;
 };
 
 //
@@ -219,7 +139,7 @@ All features from CCLayer are valid, plus the following new features:
 - opacity
 - RGB colors
 */
-class CC_DLL CCLayerColor : public CCLayerRGBA, public CCBlendProtocol
+class CC_DLL CCLayerColor : public CCLayer, public CCBlendProtocol
 #ifdef EMSCRIPTEN
 , public CCGLBufferedNode
 #endif // EMSCRIPTEN
@@ -234,9 +154,9 @@ public:
 
     virtual void draw();
     virtual void setContentSize(const CCSize & var);
-    
+
     static CCLayerColor* create();
-    
+
     /** creates a CCLayer with color, width and height in Points */
     static CCLayerColor * create(const ccColor4B& color, GLfloat width, GLfloat height);
     /** creates a CCLayer with color. Width and height are the window size. */
@@ -322,7 +242,7 @@ protected:
 public:
     virtual void setCompressedInterpolation(bool bCompressedInterpolation);
     virtual bool isCompressedInterpolation();
-    
+
     static CCLayerGradient* create();
 
 protected:
@@ -343,9 +263,9 @@ protected:
 public:
     CCLayerMultiplex();
     virtual ~CCLayerMultiplex();
-    
+
     static CCLayerMultiplex* create();
-    
+
     /** creates a CCMultiplexLayer with an array of layers.
      @since v2.1
      */
@@ -364,7 +284,7 @@ public:
 
     /** initializes a MultiplexLayer with one or more layers using a variable argument list. */
     bool initWithLayers(CCLayer* layer, va_list params);
-    /** switches to a certain layer indexed by n. 
+    /** switches to a certain layer indexed by n.
     The current (old) layer will be removed from it's parent with 'cleanup:YES'.
     */
 

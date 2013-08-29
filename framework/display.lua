@@ -248,11 +248,11 @@ function display.resume()
 end
 
 function display.newLayer()
-    return CCLayerExtend.extend(CCLayerRGBA:create())
+    return CCLayerExtend.extend(CCLayer:create())
 end
 
 function display.newNode()
-    return CCNodeExtend.extend(CCNodeRGBA:create())
+    return CCNodeExtend.extend(CCNode:create())
 end
 
 function display.newClippingRegionNode(rect)

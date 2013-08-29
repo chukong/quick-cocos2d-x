@@ -42,7 +42,7 @@ THE SOFTWARE.
  *
  * @see http://yannickloriot.com/library/ios/cccontrolextension/Classes/CCScale9Sprite.html
  */
-class CCScale9Sprite : public CCNodeRGBA
+class CCScale9Sprite : public CCNode
 {
     /** Original sprite's size. */
     CCSize getOriginalSize();
@@ -99,7 +99,7 @@ class CCScale9Sprite : public CCNodeRGBA
      *
      * @see initWithFile:capInsets:
      */
-    static CCScale9Sprite* create(CCRect capInsets, const char* file);
+    static CCScale9Sprite* create @ createWithInsets (CCRect capInsets, const char* file);
 
     /**
      * Creates a 9-slice sprite with a texture file. The whole texture will be

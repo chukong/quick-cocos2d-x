@@ -27,7 +27,7 @@ THE SOFTWARE.
 #ifndef __CCSCENE_H__
 #define __CCSCENE_H__
 
-#include "base_nodes/CCNode.h"
+#include "layers_scenes_transitions_nodes/CCLayer.h"
 
 NS_CC_BEGIN
 
@@ -46,14 +46,28 @@ additional logic.
 
 It is a good practice to use and CCScene as the parent of all your nodes.
 */
-class CC_DLL CCScene : public CCNode
+class CC_DLL CCScene : public CCLayer
 {
 public:
     CCScene();
     virtual ~CCScene();
-    bool init();
 
     static CCScene *create(void);
+
+    void addTouchableNode(CCNode *node);
+    void removeTouchableNode(CCNode *node);
+
+    // default implements are used to call script callback if exist
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
+
+protected:
+    CCArray *m_touchableNodes;
+    CCNode *m_touchNode;
+
+    void sortAllTouchableNodes();
 };
 
 // end of scene group
