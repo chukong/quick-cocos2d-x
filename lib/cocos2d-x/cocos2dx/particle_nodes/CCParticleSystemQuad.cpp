@@ -66,11 +66,13 @@ bool CCParticleSystemQuad::initWithTotalParticles(unsigned int numberOfParticles
         setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor));
         
         
+#if CC_ENABLE_CACHE_TEXTURE_DATA
         // Need to listen the event only when not use batchnode, because it will use VBO
         CCNotificationCenter::sharedNotificationCenter()->addObserver(this,
                                                                       callfuncO_selector(CCParticleSystemQuad::listenBackToForeground),
-                                                                      EVNET_COME_TO_FOREGROUND,
+                                                                      EVENT_COME_TO_FOREGROUND,
                                                                       NULL);
+#endif
         
         return true;
     }
@@ -96,10 +98,13 @@ CCParticleSystemQuad::~CCParticleSystemQuad()
         glDeleteBuffers(2, &m_pBuffersVBO[0]);
 #if CC_TEXTURE_ATLAS_USE_VAO
         glDeleteVertexArrays(1, &m_uVAOname);
+        ccGLBindVAO(0);
 #endif
     }
     
-    CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, EVNET_COME_TO_FOREGROUND);
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+    CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, EVENT_COME_TO_FOREGROUND);
+#endif
 }
 
 // implementation CCParticleSystemQuad
@@ -464,6 +469,11 @@ void CCParticleSystemQuad::setTotalParticles(unsigned int tp)
 #if CC_TEXTURE_ATLAS_USE_VAO
 void CCParticleSystemQuad::setupVBOandVAO()
 {
+    // clean VAO
+    glDeleteBuffers(2, &m_pBuffersVBO[0]);
+    glDeleteVertexArrays(1, &m_uVAOname);
+    ccGLBindVAO(0);
+    
     glGenVertexArrays(1, &m_uVAOname);
     ccGLBindVAO(m_uVAOname);
 
@@ -585,6 +595,8 @@ void CCParticleSystemQuad::setBatchNode(CCParticleBatchNode * batchNode)
             memset(m_pBuffersVBO, 0, sizeof(m_pBuffersVBO));
 #if CC_TEXTURE_ATLAS_USE_VAO
             glDeleteVertexArrays(1, &m_uVAOname);
+            ccGLBindVAO(0);
+            m_uVAOname = 0;
 #endif
         }
     }

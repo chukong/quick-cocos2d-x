@@ -148,7 +148,7 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
         std::string title = "Notification";
         std::string msg = "Get data from file(";
         msg.append(pszFileName).append(") failed!");
-        CCMessageBox(msg.c_str(), title.c_str());
+        CCLOG("%s", msg.c_str());
     }
 
     return pData;

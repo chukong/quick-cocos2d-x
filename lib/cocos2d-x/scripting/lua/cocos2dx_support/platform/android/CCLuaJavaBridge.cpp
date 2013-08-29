@@ -213,7 +213,7 @@ bool CCLuaJavaBridge::CallInfo::getMethodInfo(void)
         case JNI_EDETACHED :
             if (jvm->AttachCurrentThread(&m_env, NULL) < 0)
             {
-                LOGD("Failed to get the environment using AttachCurrentThread()");
+                LOGD("%s", "Failed to get the environment using AttachCurrentThread()");
                 m_error = LUAJ_ERR_VM_THREAD_DETACHED;
                 return false;
             }
@@ -221,7 +221,7 @@ bool CCLuaJavaBridge::CallInfo::getMethodInfo(void)
 
         case JNI_EVERSION :
         default :
-            LOGD("Failed to get the environment using GetEnv()");
+            LOGD("%s", "Failed to get the environment using GetEnv()");
             m_error = LUAJ_ERR_VM_FAILURE;
             return false;
     }
@@ -273,7 +273,7 @@ int CCLuaJavaBridge::callJavaStaticMethod(lua_State *L)
     	return 2;
     }
 
-    LOGD("CCLuaJavaBridge::callJavaStaticMethod(lua_State *L)");
+    LOGD("%s", "CCLuaJavaBridge::callJavaStaticMethod(lua_State *L)");
 
     const char *className  = lua_tostring(L, -4);
     const char *methodName = lua_tostring(L, -3);
@@ -396,7 +396,7 @@ int CCLuaJavaBridge::releaseLuaFunctionById(int functionId)
     if (!lua_istable(L, -1))
     {
         lua_pop(L, 1);
-        LOGD("luajreleaseLuaFunctionById() - LUAJ_REGISTRY_FUNCTION not exists");
+        LOGD("%s", "luajreleaseLuaFunctionById() - LUAJ_REGISTRY_FUNCTION not exists");
         return 0;
     }
 
@@ -405,7 +405,7 @@ int CCLuaJavaBridge::releaseLuaFunctionById(int functionId)
     if (!lua_istable(L, -1))
     {
         lua_pop(L, 2);
-        LOGD("luajreleaseLuaFunctionById() - LUAJ_REGISTRY_RETAIN not exists");
+        LOGD("%s", "luajreleaseLuaFunctionById() - LUAJ_REGISTRY_RETAIN not exists");
         return 0;
     }
 

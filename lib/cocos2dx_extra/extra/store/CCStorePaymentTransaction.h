@@ -115,7 +115,7 @@ public:
     {
         return m_originalTransaction;
     }
-    
+        
     CCStoreReceiptVerifyMode getReceiptVerifyMode(void)
     {
         return m_receiptVerifyMode;

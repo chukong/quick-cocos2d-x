@@ -443,14 +443,96 @@ bool CCTexture2D::initWithString(const char *text, const char *fontName, float f
     {
         eAlign = (kCCTextAlignmentCenter == hAlignment) ? CCImage::kAlignBottom
             : (kCCTextAlignmentLeft == hAlignment) ? CCImage::kAlignBottomLeft : CCImage::kAlignBottomRight;
-    }
-    else
-    {
-        CCAssert(false, "Not supported alignment format!");
-    }
-    
-    do 
-    {
+        }
+        else
+        {
+            CCAssert(false, "Not supported alignment format!");
+            return false;
+        }
+
+        do
+        {
+            CCImage* pImage = new CCImage();
+            CC_BREAK_IF(NULL == pImage);
+            bRet = pImage->initWithString(text, (int)dimensions.width, (int)dimensions.height, eAlign, fontName, (int)fontSize);
+            CC_BREAK_IF(!bRet);
+            bRet = initWithImage(pImage);
+            CC_SAFE_RELEASE(pImage);
+        } while (0);
+
+
+        return bRet;
+
+
+    #endif
+
+}
+
+bool CCTexture2D::initWithString(const char *text, ccFontDefinition *textDefinition)
+{
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+
+    #if CC_ENABLE_CACHE_TEXTURE_DATA
+        // cache the texture data
+        VolatileTexture::addStringTexture(this, text, textDefinition->m_dimensions, textDefinition->m_alignment, textDefinition->m_vertAlignment, textDefinition->m_fontName.c_str(), textDefinition->m_fontSize);
+    #endif
+
+        bool bRet = false;
+        CCImage::ETextAlign eAlign;
+
+        if (kCCVerticalTextAlignmentTop == textDefinition->m_vertAlignment)
+        {
+            eAlign = (kCCTextAlignmentCenter == textDefinition->m_alignment) ? CCImage::kAlignTop
+            : (kCCTextAlignmentLeft == textDefinition->m_alignment) ? CCImage::kAlignTopLeft : CCImage::kAlignTopRight;
+        }
+        else if (kCCVerticalTextAlignmentCenter == textDefinition->m_vertAlignment)
+        {
+            eAlign = (kCCTextAlignmentCenter == textDefinition->m_alignment) ? CCImage::kAlignCenter
+            : (kCCTextAlignmentLeft == textDefinition->m_alignment) ? CCImage::kAlignLeft : CCImage::kAlignRight;
+        }
+        else if (kCCVerticalTextAlignmentBottom == textDefinition->m_vertAlignment)
+        {
+            eAlign = (kCCTextAlignmentCenter == textDefinition->m_alignment) ? CCImage::kAlignBottom
+            : (kCCTextAlignmentLeft == textDefinition->m_alignment) ? CCImage::kAlignBottomLeft : CCImage::kAlignBottomRight;
+        }
+        else
+        {
+            CCAssert(false, "Not supported alignment format!");
+            return false;
+        }
+
+        // handle shadow parameters
+        bool  shadowEnabled =  false;
+        float shadowDX      = 0.0;
+        float shadowDY      = 0.0;
+        float shadowBlur    = 0.0;
+        float shadowOpacity = 0.0;
+
+        if ( textDefinition->m_shadow.m_shadowEnabled )
+        {
+            shadowEnabled =  true;
+            shadowDX      = textDefinition->m_shadow.m_shadowOffset.width;
+            shadowDY      = textDefinition->m_shadow.m_shadowOffset.height;
+            shadowBlur    = textDefinition->m_shadow.m_shadowBlur;
+            shadowOpacity = textDefinition->m_shadow.m_shadowOpacity;
+        }
+
+        // handle stroke parameters
+        bool strokeEnabled = false;
+        float strokeColorR = 0.0;
+        float strokeColorG = 0.0;
+        float strokeColorB = 0.0;
+        float strokeSize   = 0.0;
+
+        if ( textDefinition->m_stroke.m_strokeEnabled )
+        {
+            strokeEnabled = true;
+            strokeColorR = textDefinition->m_stroke.m_strokeColor.r / 255;
+            strokeColorG = textDefinition->m_stroke.m_strokeColor.g / 255;
+            strokeColorB = textDefinition->m_stroke.m_strokeColor.b / 255;
+            strokeSize   = textDefinition->m_stroke.m_strokeSize;
+        }
+
         CCImage* pImage = new CCImage();
         CC_BREAK_IF(NULL == pImage);
         bRet = pImage->initWithString(text, (int)dimensions.width, (int)dimensions.height, eAlign, fontName, (int)fontSize);

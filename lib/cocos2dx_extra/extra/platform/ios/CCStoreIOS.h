@@ -37,6 +37,7 @@ class CCStoreReceiptVerifyRequestIOS;
 
 - (BOOL)canMakePurchases;
 - (void)purchase:(SKProduct *)product;
+- (void)restore;
 - (void)finishTransaction:(SKPaymentTransaction *)transaction;
 
 #pragma mark -

@@ -2,9 +2,6 @@
 CCNodeExtend = class("CCNodeExtend")
 CCNodeExtend.__index = CCNodeExtend
 
---[[--
-
-]]
 function CCNodeExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
@@ -15,73 +12,12 @@ function CCNodeExtend.extend(target)
     return target
 end
 
---[[--
-
-Set node object anchorPoint and position.
-
-### Example:
-
-    sprite:align(display.LEFT_TOP, 100, 100)
-
-### Parameters:
-
--   enum **anchorPoint** is one of the following:
-
-    enum                                              | Value
-    ------------------------------------------------- | ----------------------
-    display.CENTER                                    | CCPoint(0.5, 0.5)
-    display.TOP_LEFT,<br />display.LEFT_TOP           | CCPoint(  0,   1)
-    display.TOP_CENTER,<br />display.CENTER_TOP       | CCPoint(0.5,   1)
-    display.TOP_RIGHT,<br />display.RIGHT_TOP         | CCPoint(  1,   1)
-    display.CENTER_LEFT,<br />display.LEFT_CENTER     | CCPoint(  0, 0.5)
-    display.CENTER_RIGHT,<br />display.RIGHT_CENTER   | CCPoint(  1, 0.5)
-    display.BOTTOM_LEFT,<br />display.LEFT_BOTTOM     | CCPoint(  0,   0)
-    display.BOTTOM_RIGHT,<br />display.RIGHT_BOTTOM   | CCPoint(  1,   0)
-    display.BOTTOM_CENTER,<br />display.CENTER_BOTTOM | CCPoint(0.5,   0)
-
--   [_optional float **x**, float **y**_] position of the node
-
-]]
 function CCNodeExtend:align(anchorPoint, x, y)
     self:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then self:setPosition(x, y) end
+    return self
 end
 
-function CCNodeExtend:pixels(x, y)
-    if not x or not y then
-        x, y = self:getPosition()
-    end
-    x, y = display.pixels(x, y)
-    self:setPosition(x, y)
-end
-
---[[--
-
-]]
-function CCNodeExtend:removeFromParentAndCleanup(isCleanup)
-    if not tolua.isnull(self) then
-        if type(isCleanup) ~= "boolean" then isCleanup = true end
-        CCNode.removeFromParentAndCleanup(self, isCleanup)
-    end
-end
-
---[[--
-
-]]
-function CCNodeExtend:removeSelf(isCleanup)
-    self:removeFromParentAndCleanup(isCleanup)
-end
-
---[[--
-
-]]
-function CCNodeExtend:scheduleUpdate(callback, priority)
-    self:scheduleUpdateWithPriorityLua(callback, toint(priority))
-end
-
---[[--
-
-]]
 function CCNodeExtend:schedule(callback, interval)
     local seq = transition.sequence({
         CCDelayTime:create(interval),
@@ -92,9 +28,6 @@ function CCNodeExtend:schedule(callback, interval)
     return action
 end
 
---[[--
-
-]]
 function CCNodeExtend:performWithDelay(callback, delay)
     local action = transition.sequence({
         CCDelayTime:create(delay),
@@ -102,19 +35,6 @@ function CCNodeExtend:performWithDelay(callback, delay)
     })
     self:runAction(action)
     return action
-end
-
-local actionManager = CCDirector:sharedDirector():getActionManager()
-function CCNodeExtend:removeAction(action)
-    if not tolua.isnull(action) then
-        actionManager:removeAction(action)
-    end
-end
-
-function CCNodeExtend:stopAllActions()
-    if not tolua.isnull(self) then
-        actionManager:removeAllActionsFromTarget(self)
-    end
 end
 
 function CCNodeExtend:onEnter()
@@ -132,25 +52,33 @@ end
 function CCNodeExtend:onCleanup()
 end
 
-function CCNodeExtend:registerNodeEvent(handler)
-    if not handler then
-        handler = function(event)
-            if event == "enter" then
-                self:onEnter()
-            elseif event == "exit" then
-                self:onExit()
-            elseif event == "enterTransitionFinish" then
-                self:onEnterTransitionFinish()
-            elseif event == "exitTransitionStart" then
-                self:onExitTransitionStart()
-            elseif event == "cleanup" then
-                self:onCleanup()
+function CCNodeExtend:setNodeEventEnabled(enabled, handler)
+    if enabled then
+        if not handler then
+            handler = function(event)
+                if event == "enter" then
+                    self:onEnter()
+                elseif event == "exit" then
+                    self:onExit()
+                elseif event == "enterTransitionFinish" then
+                    self:onEnterTransitionFinish()
+                elseif event == "exitTransitionStart" then
+                    self:onExitTransitionStart()
+                elseif event == "cleanup" then
+                    self:onCleanup()
+                end
             end
         end
+        self:registerScriptHandler(handler)
+    else
+        self:unregisterScriptHandler()
     end
-    self:registerScriptHandler(handler)
+    return self
 end
 
-function CCNodeExtend:unregisterNodeEvent()
-    self:unregisterScriptHandler()
+function CCNodeExtend:removeSelf(cleanup)
+    if not tolua.isnull(self) then
+        if cleanup ~= false then cleanup = true end
+        self:removeFromParentAndCleanup(cleanup)
+    end
 end

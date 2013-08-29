@@ -24,42 +24,18 @@ THE SOFTWARE.
 
 ]]
 
---[[--
-
-Debug functions.
-
-## Functions ##
-
--   echo
--   echoInfo
--   echoError
--   printf
-
-]]
-
 io.output():setvbuf('no')
-if CCLuaLog then print = CCLuaLog end
 
 function echo(...)
     local arr = {}
     for i, a in ipairs({...}) do
         arr[#arr + 1] = tostring(a)
     end
-    print(table.concat(arr, "\t"))
+    CCLuaLog(table.concat(arr, "\t"))
 end
 
---[[--
+print = echo
 
-Output a formatted string.
-
-Depends on the platform, output to console or log file. @see echo().
-
-@param string format
-@param mixed ...
-
-@see echo
-
-]]
 function printf(fmt, ...)
     echo(string.format(tostring(fmt), ...))
 end
@@ -76,17 +52,6 @@ function echoLog(tag, fmt, ...)
     echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(tostring(fmt), ...)))
 end
 
---[[--
-
-Dumps information about a variable.
-
-@param mixed object
-@param string label
-@param bool isReturnContents
-@param int nesting
-@return nil|string
-
-]]
 function dump(object, label, isReturnContents, nesting)
     if type(nesting) ~= "number" then nesting = 99 end
 
@@ -155,15 +120,6 @@ function dump(object, label, isReturnContents, nesting)
     end
 end
 
---[[--
-
-Outputs or returns a parsable string representation of a variable.
-
-@param mixed object
-@param string label
-@return string
-
-]]
 function vardump(object, label)
     local lookupTable = {}
     local result = {}

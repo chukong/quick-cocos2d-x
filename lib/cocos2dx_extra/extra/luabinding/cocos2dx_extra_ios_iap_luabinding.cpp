@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_ios_iap_luabinding
-** Generated automatically by tolua++-1.0.92 on Thu Jul 11 11:58:34 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Aug 27 16:26:28 2013.
 */
 
 #include "cocos2dx_extra_ios_iap_luabinding.h"
@@ -278,6 +278,37 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purchase00(lua_State*
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: restore of class  CCStore */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_restore00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_restore00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCStore",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCStore* self = (CCStore*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'restore'", NULL);
+#endif
+  {
+   self->restore();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'restore'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: finishTransactionLua of class  CCStore */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_finishTransactionLua00
 static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_finishTransactionLua00(lua_State* tolua_S)
@@ -469,6 +500,7 @@ TOLUA_API int tolua_cocos2dx_extra_ios_iap_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"cancelLoadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_cancelLoadProducts00);
    tolua_function(tolua_S,"isProductLoaded",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_isProductLoaded00);
    tolua_function(tolua_S,"purchase",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purchase00);
+   tolua_function(tolua_S,"restore",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_restore00);
    tolua_function(tolua_S,"finishTransactionLua",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_finishTransactionLua00);
    tolua_function(tolua_S,"getReceiptVerifyMode",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyMode00);
    tolua_function(tolua_S,"setReceiptVerifyMode",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyMode00);

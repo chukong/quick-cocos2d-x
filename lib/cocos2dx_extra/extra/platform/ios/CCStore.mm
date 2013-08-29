@@ -145,6 +145,11 @@ bool CCStore::purchase(const char* productId)
     return false;
 }
 
+void CCStore::restore(void)
+{
+    [[CCStoreIOS sharedStore] restore];
+}
+
 void CCStore::finishTransaction(CCStorePaymentTransaction *transaction)
 {
     CCStorePaymentTransactionWrapper* wrapper = transaction->getTransactionWrapper();

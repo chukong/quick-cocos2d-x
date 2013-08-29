@@ -129,4 +129,163 @@ bool CCConfiguration::checkForGLExtension(const string &searchName)
     return bRet;
 }
 
+//
+// getters for specific variables.
+// Mantained for backward compatiblity reasons only.
+//
+int CCConfiguration::getMaxTextureSize(void) const
+{
+	return m_nMaxTextureSize;
+}
+
+int CCConfiguration::getMaxModelviewStackDepth(void) const
+{
+	return m_nMaxModelviewStackDepth;
+}
+
+int CCConfiguration::getMaxTextureUnits(void) const
+{
+	return m_nMaxTextureUnits;
+}
+
+bool CCConfiguration::supportsNPOT(void) const
+{
+	return m_bSupportsNPOT;
+}
+
+bool CCConfiguration::supportsPVRTC(void) const
+{
+	return m_bSupportsPVRTC;
+}
+
+bool CCConfiguration::supportsBGRA8888(void) const
+{
+	return m_bSupportsBGRA8888;
+}
+
+bool CCConfiguration::supportsDiscardFramebuffer(void) const
+{
+	return m_bSupportsDiscardFramebuffer;
+}
+
+bool CCConfiguration::supportsShareableVAO(void) const
+{
+	return m_bSupportsShareableVAO;
+}
+
+//
+// generic getters for properties
+//
+const char *CCConfiguration::getCString( const char *key, const char *default_value ) const
+{
+	CCObject *ret = m_pValueDict->objectForKey(key);
+	if( ret ) {
+		if( CCString *str=dynamic_cast<CCString*>(ret) )
+			return str->getCString();
+
+		CCAssert(false, "Key found, but from different type");
+	}
+
+	// XXX: Should it throw an exception ?
+	return default_value;
+}
+
+/** returns the value of a given key as a boolean */
+bool CCConfiguration::getBool( const char *key, bool default_value ) const
+{
+	CCObject *ret = m_pValueDict->objectForKey(key);
+	if( ret ) {
+		if( CCBool *boolobj=dynamic_cast<CCBool*>(ret) )
+			return boolobj->getValue();
+		if( CCString *strobj=dynamic_cast<CCString*>(ret) )
+			return strobj->boolValue();
+		CCAssert(false, "Key found, but from different type");
+	}
+
+	// XXX: Should it throw an exception ?
+	return default_value;
+}
+
+/** returns the value of a given key as a double */
+double CCConfiguration::getNumber( const char *key, double default_value ) const
+{
+	CCObject *ret = m_pValueDict->objectForKey(key);
+	if( ret ) {
+		if( CCDouble *obj=dynamic_cast<CCDouble*>(ret) )
+			return obj->getValue();
+
+		if( CCInteger *obj=dynamic_cast<CCInteger*>(ret) )
+			return obj->getValue();
+
+		if( CCString *strobj=dynamic_cast<CCString*>(ret) )
+			return strobj->doubleValue();
+
+		CCAssert(false, "Key found, but from different type");
+	}
+
+	// XXX: Should it throw an exception ?
+	return default_value;
+}
+
+CCObject * CCConfiguration::getObject( const char *key ) const
+{
+	return m_pValueDict->objectForKey(key);
+}
+
+void CCConfiguration::setObject( const char *key, CCObject *value )
+{
+	m_pValueDict->setObject(value, key);
+}
+
+
+//
+// load file
+//
+void CCConfiguration::loadConfigFile( const char *filename )
+{
+	CCDictionary *dict = CCDictionary::createWithContentsOfFile(filename);
+	CCAssert(dict, "cannot create dictionary");
+
+	// search for metadata
+	bool metadata_ok = false;
+	CCObject *metadata = dict->objectForKey("metadata");
+	if( metadata && dynamic_cast<CCDictionary*>(metadata) ) {
+		CCObject *format_o = static_cast<CCDictionary*>(metadata)->objectForKey("format");
+
+		// XXX: cocos2d-x returns CCStrings when importing from .plist. This bug will be addressed in cocos2d-x v3.x
+		if( format_o && dynamic_cast<CCString*>(format_o) ) {
+			int format = static_cast<CCString*>(format_o)->intValue();
+
+			// Support format: 1
+			if( format == 1 ) {
+				metadata_ok = true;
+			}
+		}
+	}
+
+	if( ! metadata_ok ) {
+		CCLOG("Invalid config format for file: %s", filename);
+		return;
+	}
+
+	CCObject *data = dict->objectForKey("data");
+	if( !data || !dynamic_cast<CCDictionary*>(data) ) {
+		CCLOG("Expected 'data' dict, but not found. Config file: %s", filename);
+		return;
+	}
+
+	// Add all keys in the existing dictionary
+	CCDictionary *data_dict = static_cast<CCDictionary*>(data);
+    CCDictElement* element;
+    CCDICT_FOREACH(data_dict, element)
+    {
+		if( ! m_pValueDict->objectForKey( element->getStrKey() ) )
+			m_pValueDict->setObject(element->getObject(), element->getStrKey() );
+		else
+			CCLOG("Key already present. Ignoring '%s'", element->getStrKey() );
+    }
+    
+    CCDirector::sharedDirector()->setDefaultValues();
+}
+
 NS_CC_END

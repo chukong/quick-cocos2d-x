@@ -164,30 +164,12 @@
     <ClCompile Include="..\chipmunk\src\cpVect.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\animation\CSAnimation.cpp" />
-    <ClCompile Include="..\CSArmature\animation\CSProcessBase.cpp" />
-    <ClCompile Include="..\CSArmature\animation\CSTween.cpp" />
-    <ClCompile Include="..\CSArmature\CSArmature.cpp" />
-    <ClCompile Include="..\CSArmature\CSBone.cpp" />
-    <ClCompile Include="..\CSArmature\datas\CSDatas.cpp" />
-    <ClCompile Include="..\CSArmature\display\CSBatchNode.cpp" />
-    <ClCompile Include="..\CSArmature\display\CSDecorativeDisplay.cpp" />
-    <ClCompile Include="..\CSArmature\display\CSDisplayFactory.cpp" />
-    <ClCompile Include="..\CSArmature\display\CSDisplayManager.cpp" />
-    <ClCompile Include="..\CSArmature\display\CSShaderNode.cpp" />
-    <ClCompile Include="..\CSArmature\display\CSSkin.cpp" />
-    <ClCompile Include="..\CSArmature\external_tool\CCTexture2DMutable.cpp" />
-    <ClCompile Include="..\CSArmature\external_tool\Json\CSContentJsonDictionary.cpp" />
-    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_reader.cpp" />
-    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_value.cpp" />
-    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_writer.cpp" />
-    <ClCompile Include="..\CSArmature\luabinding\CSArmature_luabinding.cpp" />
-    <ClCompile Include="..\CSArmature\utils\CSArmatureDataManager.cpp" />
-    <ClCompile Include="..\CSArmature\utils\CSDataReaderHelper.cpp" />
-    <ClCompile Include="..\CSArmature\utils\CSSpriteFrameCacheHelper.cpp" />
-    <ClCompile Include="..\CSArmature\utils\CSTransformHelp.cpp" />
-    <ClCompile Include="..\CSArmature\utils\CSTweenFunction.cpp" />
-    <ClCompile Include="..\CSArmature\utils\CSUtilMath.cpp" />
+    <ClCompile Include="..\luaproxy\tolua\CCBProxy.cpp" />
+    <ClCompile Include="..\luaproxy\tolua\LuaEventHandler.cpp" />
+    <ClCompile Include="..\luaproxy\tolua\luaopen_LuaProxy.cpp" />
+    <ClCompile Include="..\luaproxy\tolua\LuaTableView.cpp" />
+    <ClCompile Include="..\luaproxy\ui\CursorTextField.cpp" />
+    <ClCompile Include="..\luaproxy\ui\UIUtil.cpp" />
     <ClCompile Include="..\third_party_luabinding.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -223,52 +205,23 @@
     <ClInclude Include="..\chipmunk\include\cpVect.h" />
     <ClInclude Include="..\chipmunk\luabinding\CCPhysicsWorld_luabinding.h" />
     <ClInclude Include="..\chipmunk\src\prime.h" />
-    <ClInclude Include="..\CSArmature\animation\CSAnimation.h" />
-    <ClInclude Include="..\CSArmature\animation\CSProcessBase.h" />
-    <ClInclude Include="..\CSArmature\animation\CSTween.h" />
-    <ClInclude Include="..\CSArmature\CSArmature.h" />
-    <ClInclude Include="..\CSArmature\CSBone.h" />
-    <ClInclude Include="..\CSArmature\datas\CSDatas.h" />
-    <ClInclude Include="..\CSArmature\display\CSBatchNode.h" />
-    <ClInclude Include="..\CSArmature\display\CSDecorativeDisplay.h" />
-    <ClInclude Include="..\CSArmature\display\CSDisplayFactory.h" />
-    <ClInclude Include="..\CSArmature\display\CSDisplayManager.h" />
-    <ClInclude Include="..\CSArmature\display\CSShaderNode.h" />
-    <ClInclude Include="..\CSArmature\display\CSSkin.h" />
-    <ClInclude Include="..\CSArmature\external_tool\CCTexture2DMutable.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\CSContentJsonDictionary.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\autolink.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\config.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\features.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\forwards.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\json_lib.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\reader.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\value.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\writer.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\lib_json\json_batchallocator.h" />
-    <ClInclude Include="..\CSArmature\external_tool\Json\lib_json\json_tool.h" />
-    <ClInclude Include="..\CSArmature\external_tool\sigslot.h" />
-    <ClInclude Include="..\CSArmature\luabinding\CSArmature_luabinding.h" />
-    <ClInclude Include="..\CSArmature\utils\CSArmatureDataManager.h" />
-    <ClInclude Include="..\CSArmature\utils\CSArmatureDefine.h" />
-    <ClInclude Include="..\CSArmature\utils\CSConstValue.h" />
-    <ClInclude Include="..\CSArmature\utils\CSDataReaderHelper.h" />
-    <ClInclude Include="..\CSArmature\utils\CSSpriteFrameCacheHelper.h" />
-    <ClInclude Include="..\CSArmature\utils\CSTransformHelp.h" />
-    <ClInclude Include="..\CSArmature\utils\CSTweenFunction.h" />
-    <ClInclude Include="..\CSArmature\utils\CSUtilMath.h" />
+    <ClInclude Include="..\luaproxy\tolua\CCBProxy.h" />
+    <ClInclude Include="..\luaproxy\tolua\LuaEventHandler.h" />
+    <ClInclude Include="..\luaproxy\tolua\luaopen_LuaProxy.h" />
+    <ClInclude Include="..\luaproxy\tolua\LuaTableView.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCBAnimationManager.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCBProxy.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCControl.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCEditBox.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCGLProgram.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCScale9Sprite.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCScrollView.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCTableView.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CC_Extension.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_CursorTextField.h" />
+    <ClInclude Include="..\luaproxy\ui\CursorTextField.h" />
+    <ClInclude Include="..\luaproxy\ui\UIUtil.h" />
     <ClInclude Include="..\third_party_luabinding.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\CSArmature\external_tool\Json\lib_json\json_internalarray.inl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="..\CSArmature\external_tool\Json\lib_json\json_internalmap.inl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="..\CSArmature\external_tool\Json\lib_json\json_valueiterator.inl">
-      <FileType>Document</FileType>
-    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

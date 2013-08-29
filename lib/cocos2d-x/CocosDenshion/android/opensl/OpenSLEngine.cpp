@@ -33,7 +33,7 @@ extern "C" {
 
 		JavaVM* jvm = cocos2d::JniHelper::getJavaVM();
 		if (NULL == jvm) {
-			LOGD("Failed to get JNIEnv. JniHelper::getJavaVM() is NULL");
+			LOGD("%s", "Failed to get JNIEnv. JniHelper::getJavaVM() is NULL");
 			return NULL;
 		}
 
@@ -55,7 +55,7 @@ extern "C" {
 
 			if (jvm->AttachCurrentThread(&env, NULL) < 0)
 			{
-				LOGD("Failed to get the environment using AttachCurrentThread()");
+				LOGD("%s", "Failed to get the environment using AttachCurrentThread()");
 				return NULL;
 			} else {
 				// Success : Attached and obtained JNIEnv!
@@ -64,9 +64,9 @@ extern "C" {
 
 		case JNI_EVERSION :
 			// Cannot recover from this error
-			LOGD("JNI interface version 1.4 not supported");
+			LOGD("%s", "JNI interface version 1.4 not supported");
 		default :
-			LOGD("Failed to get the environment using GetEnv()");
+			LOGD("%s", "Failed to get the environment using GetEnv()");
 			return NULL;
 		}
 	}
@@ -88,7 +88,7 @@ extern "C" {
 		JNIEnv *pEnv = 0;
 		bool bRet = false;
 
-		do 
+		do
 		{
 			pEnv = getJNIEnv();
 			if (! pEnv)
@@ -278,7 +278,7 @@ bool createAudioPlayerBySource(AudioPlayer* player)
 	return true;
 }
 
-bool initAudioPlayer(AudioPlayer* player, const char* filename) 
+bool initAudioPlayer(AudioPlayer* player, const char* filename)
 {
 	// configure audio source
 	off_t start, length;
@@ -322,7 +322,7 @@ void OpenSLEngine::createEngine(void* pHandle)
 	const char* errorInfo = dlerror();
 	if (errorInfo)
 	{
-		LOGD(errorInfo);
+		LOGD("%s", errorInfo);
 		return;
 	}
 
@@ -391,7 +391,7 @@ void OpenSLEngine::closeEngine()
 		s_pEngineEngine = NULL;
 	}
 
-	LOGD("engine destory");
+	LOGD("%s", "engine destory");
 }
 
 
@@ -474,7 +474,7 @@ bool OpenSLEngine::recreatePlayer(const char* filename)
 	AudioPlayer* newPlayer = new AudioPlayer();
 	if (!initAudioPlayer(newPlayer, filename))
 	{
-		LOGD("failed to recreate");
+		LOGD("%s", "failed to recreate");
 		return false;
 	}
 	vec->push_back(newPlayer);
@@ -490,7 +490,7 @@ bool OpenSLEngine::recreatePlayer(const char* filename)
 	result = (*(newPlayer->fdPlayerPlay))->SetCallbackEventsMask(newPlayer->fdPlayerPlay, SL_PLAYEVENT_HEADATEND);
 	assert(SL_RESULT_SUCCESS == result);
 
-	// set volume 
+	// set volume
 	setSingleEffectVolume(newPlayer, m_effectVolume);
 	setSingleEffectState(newPlayer, SL_PLAYSTATE_STOPPED);
 	setSingleEffectState(newPlayer, SL_PLAYSTATE_PLAYING);
@@ -515,7 +515,7 @@ unsigned int OpenSLEngine::preloadEffect(const char * filename)
 		free(player);
 		return FILE_NOT_FOUND;
 	}
-	
+
 	// set the new player's volume as others'
 	setSingleEffectVolume(player, m_effectVolume);
 
@@ -642,7 +642,7 @@ void OpenSLEngine::setEffectLooping(unsigned int effectID, bool isLooping)
 	vector<AudioPlayer*>::iterator iter = vec->begin();
 	AudioPlayer * player = *iter;
 
-	if (player && player->fdPlayerSeek) 
+	if (player && player->fdPlayerSeek)
 	{
 		result = (*(player->fdPlayerSeek))->SetLoop(player->fdPlayerSeek, (SLboolean) isLooping, 0, SL_TIME_UNKNOWN);
 		assert(SL_RESULT_SUCCESS == result);
@@ -653,7 +653,7 @@ void OpenSLEngine::setEffectsVolume(float volume)
 {
 	assert(volume <= 1.0f && volume >= 0.0f);
 	m_effectVolume = int (RANGE_VOLUME_MILLIBEL * volume) + MIN_VOLUME_MILLIBEL;
-	
+
 	SLresult result;
 	EffectList::iterator p;
 	AudioPlayer * player;

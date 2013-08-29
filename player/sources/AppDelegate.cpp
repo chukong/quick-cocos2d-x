@@ -14,9 +14,6 @@
 // thrid_party
 #include "third_party_luabinding.h"
 
-// CCBReader
-#include "Lua_extensions_CCB.h"
-
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -57,9 +54,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // thrid_party
     luaopen_third_party_luabinding(L);
-
-    // CCBReader
-    tolua_extensions_ccb_open(L);
 
     // load framework
     if (m_projectConfig.isLoadPrecompiledFramework())

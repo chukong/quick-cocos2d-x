@@ -25,35 +25,14 @@
     <Filter Include="third_party\chipmunk\src\constraints">
       <UniqueIdentifier>{f7759fa5-2a8d-4d03-af3b-32f5e970f379}</UniqueIdentifier>
     </Filter>
-    <Filter Include="third_party\CSArmature">
-      <UniqueIdentifier>{7c7f90da-4ebf-4a20-a57a-7b1cb65a11a0}</UniqueIdentifier>
+    <Filter Include="third_party\luaproxy">
+      <UniqueIdentifier>{47ae87ef-dcd3-4e1f-af7d-0198ad6704a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="third_party\CSArmature\animation">
-      <UniqueIdentifier>{34d7e1c4-f84e-4e6d-a04b-52fe0df84a97}</UniqueIdentifier>
+    <Filter Include="third_party\luaproxy\tolua">
+      <UniqueIdentifier>{2e4f58db-d2b7-48c9-a346-b0cb99d49c11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="third_party\CSArmature\datas">
-      <UniqueIdentifier>{3c9eb970-84e7-4182-8d83-0e4cbc49ac85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\display">
-      <UniqueIdentifier>{96a7449b-0dc1-4aef-a1dd-822e948f7cc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\external_tool">
-      <UniqueIdentifier>{c382a019-ff12-4e3d-89d0-1d9143cb760b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\external_tool\Json">
-      <UniqueIdentifier>{8cb20edd-02f2-4852-bea0-3adef9b62f37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\external_tool\Json\json">
-      <UniqueIdentifier>{9fbede51-1a0f-4d36-8946-9b2a5e6b0870}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\external_tool\Json\lib_json">
-      <UniqueIdentifier>{556c897f-27fb-4c6b-beb4-81d3dbef256b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\luabinding">
-      <UniqueIdentifier>{f7cb5100-0ec9-4cec-af41-3f19f56e14c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="third_party\CSArmature\utils">
-      <UniqueIdentifier>{81f71618-812a-42ac-aa4a-d1a48940547b}</UniqueIdentifier>
+    <Filter Include="third_party\luaproxy\ui">
+      <UniqueIdentifier>{2eafdd1d-a52e-4788-9f3a-5415f57f6bbd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,77 +144,23 @@
     <ClCompile Include="..\chipmunk\src\constraints\cpSlideJoint.c">
       <Filter>third_party\chipmunk\src\constraints</Filter>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\CSArmature.cpp">
-      <Filter>third_party\CSArmature</Filter>
+    <ClCompile Include="..\luaproxy\tolua\CCBProxy.cpp">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\CSBone.cpp">
-      <Filter>third_party\CSArmature</Filter>
+    <ClCompile Include="..\luaproxy\tolua\LuaEventHandler.cpp">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\animation\CSAnimation.cpp">
-      <Filter>third_party\CSArmature\animation</Filter>
+    <ClCompile Include="..\luaproxy\tolua\luaopen_LuaProxy.cpp">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\animation\CSProcessBase.cpp">
-      <Filter>third_party\CSArmature\animation</Filter>
+    <ClCompile Include="..\luaproxy\tolua\LuaTableView.cpp">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\animation\CSTween.cpp">
-      <Filter>third_party\CSArmature\animation</Filter>
+    <ClCompile Include="..\luaproxy\ui\CursorTextField.cpp">
+      <Filter>third_party\luaproxy\ui</Filter>
     </ClCompile>
-    <ClCompile Include="..\CSArmature\datas\CSDatas.cpp">
-      <Filter>third_party\CSArmature\datas</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\display\CSBatchNode.cpp">
-      <Filter>third_party\CSArmature\display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\display\CSDecorativeDisplay.cpp">
-      <Filter>third_party\CSArmature\display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\display\CSDisplayFactory.cpp">
-      <Filter>third_party\CSArmature\display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\display\CSDisplayManager.cpp">
-      <Filter>third_party\CSArmature\display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\display\CSShaderNode.cpp">
-      <Filter>third_party\CSArmature\display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\display\CSSkin.cpp">
-      <Filter>third_party\CSArmature\display</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\external_tool\CCTexture2DMutable.cpp">
-      <Filter>third_party\CSArmature\external_tool</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\external_tool\Json\CSContentJsonDictionary.cpp">
-      <Filter>third_party\CSArmature\external_tool\Json</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_reader.cpp">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_value.cpp">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\external_tool\Json\lib_json\json_writer.cpp">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\luabinding\CSArmature_luabinding.cpp">
-      <Filter>third_party\CSArmature\luabinding</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\utils\CSArmatureDataManager.cpp">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\utils\CSDataReaderHelper.cpp">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\utils\CSSpriteFrameCacheHelper.cpp">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\utils\CSTransformHelp.cpp">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\utils\CSTweenFunction.cpp">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CSArmature\utils\CSUtilMath.cpp">
-      <Filter>third_party\CSArmature\utils</Filter>
+    <ClCompile Include="..\luaproxy\ui\UIUtil.cpp">
+      <Filter>third_party\luaproxy\ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -338,118 +263,53 @@
     <ClInclude Include="..\chipmunk\src\prime.h">
       <Filter>third_party\chipmunk\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\CSArmature.h">
-      <Filter>third_party\CSArmature</Filter>
+    <ClInclude Include="..\luaproxy\tolua\CCBProxy.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\CSBone.h">
-      <Filter>third_party\CSArmature</Filter>
+    <ClInclude Include="..\luaproxy\tolua\LuaEventHandler.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\animation\CSAnimation.h">
-      <Filter>third_party\CSArmature\animation</Filter>
+    <ClInclude Include="..\luaproxy\tolua\luaopen_LuaProxy.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\animation\CSProcessBase.h">
-      <Filter>third_party\CSArmature\animation</Filter>
+    <ClInclude Include="..\luaproxy\tolua\LuaTableView.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\animation\CSTween.h">
-      <Filter>third_party\CSArmature\animation</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CC_Extension.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\datas\CSDatas.h">
-      <Filter>third_party\CSArmature\datas</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCBAnimationManager.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\display\CSBatchNode.h">
-      <Filter>third_party\CSArmature\display</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCBProxy.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\display\CSDecorativeDisplay.h">
-      <Filter>third_party\CSArmature\display</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCControl.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\display\CSDisplayFactory.h">
-      <Filter>third_party\CSArmature\display</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCEditBox.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\display\CSDisplayManager.h">
-      <Filter>third_party\CSArmature\display</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCGLProgram.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\display\CSShaderNode.h">
-      <Filter>third_party\CSArmature\display</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCScale9Sprite.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\display\CSSkin.h">
-      <Filter>third_party\CSArmature\display</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCScrollView.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\CCTexture2DMutable.h">
-      <Filter>third_party\CSArmature\external_tool</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CCTableView.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\sigslot.h">
-      <Filter>third_party\CSArmature\external_tool</Filter>
+    <ClInclude Include="..\luaproxy\tolua\tolua_CursorTextField.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\CSContentJsonDictionary.h">
-      <Filter>third_party\CSArmature\external_tool\Json</Filter>
+    <ClInclude Include="..\luaproxy\ui\CursorTextField.h">
+      <Filter>third_party\luaproxy\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\autolink.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
+    <ClInclude Include="..\luaproxy\ui\UIUtil.h">
+      <Filter>third_party\luaproxy\ui</Filter>
     </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\config.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\features.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\forwards.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\json_lib.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\reader.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\value.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\json\writer.h">
-      <Filter>third_party\CSArmature\external_tool\Json\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\lib_json\json_batchallocator.h">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\external_tool\Json\lib_json\json_tool.h">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\luabinding\CSArmature_luabinding.h">
-      <Filter>third_party\CSArmature\luabinding</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSArmatureDataManager.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSArmatureDefine.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSConstValue.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSDataReaderHelper.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSSpriteFrameCacheHelper.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSTransformHelp.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSTweenFunction.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CSArmature\utils\CSUtilMath.h">
-      <Filter>third_party\CSArmature\utils</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\CSArmature\external_tool\Json\lib_json\json_internalarray.inl">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </None>
-    <None Include="..\CSArmature\external_tool\Json\lib_json\json_internalmap.inl">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </None>
-    <None Include="..\CSArmature\external_tool\Json\lib_json\json_valueiterator.inl">
-      <Filter>third_party\CSArmature\external_tool\Json\lib_json</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -74,11 +74,39 @@ bool CCLuaStack::init(void)
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     addLuaLoader(loader_Android);
 #endif
+
+    // register lua print
+    lua_pushcfunction(m_state, lua_print);
+    lua_setglobal(m_state, "print");
     
     // register CCLuaLoadChunksFromZip
-    lua_pushcfunction(m_state, loadChunksFromZip);
+    lua_pushcfunction(m_state, lua_loadChunksFromZip);
     lua_setglobal(m_state, "CCLuaLoadChunksFromZip");
-    
+    lua_pushcfunction(m_state, lua_loadChunksFromZip);
+    lua_setglobal(m_state, "CCLuaLoadChunksFromZIP");
+
+    // faster value type check
+    lua_pushcfunction(m_state, lua_typen);
+    lua_setglobal(m_state, "typen");
+    lua_pushinteger(m_state, LUA_TNIL);
+    lua_setglobal(m_state, "LUA_TNIL");
+    lua_pushinteger(m_state, 1);
+    lua_setglobal(m_state, "LUA_TBOOLEAN");
+    lua_pushinteger(m_state, 2);
+    lua_setglobal(m_state, "LUA_TLIGHTUSERDATA");
+    lua_pushinteger(m_state, 3);
+    lua_setglobal(m_state, "LUA_TNUMBER");
+    lua_pushinteger(m_state, 4);
+    lua_setglobal(m_state, "LUA_TSTRING");
+    lua_pushinteger(m_state, 5);
+    lua_setglobal(m_state, "LUA_TTABLE");
+    lua_pushinteger(m_state, 6);
+    lua_setglobal(m_state, "LUA_TFUNCTION");
+    lua_pushinteger(m_state, 7);
+    lua_setglobal(m_state, "LUA_TUSERDATA");
+    lua_pushinteger(m_state, 8);
+    lua_setglobal(m_state, "LUA_TTHREAD");
+
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
     
@@ -367,7 +395,7 @@ bool CCLuaStack::executeAssert(bool cond, const char *msg)
 int CCLuaStack::loadChunksFromZip(const char *zipFilePath)
 {
     pushString(zipFilePath);
-    loadChunksFromZip(m_state);
+    lua_loadChunksFromZip(m_state);
     int ret = lua_toboolean(m_state, -1);
     lua_pop(m_state, 1);
     return ret;
@@ -380,7 +408,49 @@ int cc_lua_require(lua_State *L)
     return 1;
 }
 
-int CCLuaStack::loadChunksFromZip(lua_State *L)
+int CCLuaStack::lua_print(lua_State *L)
+{
+    int nargs = lua_gettop(L);
+
+    std::string t;
+    for (int i=1; i <= nargs; i++)
+    {
+        if (lua_istable(L, i))
+            t += "table";
+        else if (lua_isnone(L, i))
+            t += "none";
+        else if (lua_isnil(L, i))
+            t += "nil";
+        else if (lua_isboolean(L, i))
+        {
+            if (lua_toboolean(L, i) != 0)
+                t += "true";
+            else
+                t += "false";
+        }
+        else if (lua_isfunction(L, i))
+            t += "function";
+        else if (lua_islightuserdata(L, i))
+            t += "lightuserdata";
+        else if (lua_isthread(L, i))
+            t += "thread";
+        else
+        {
+            const char * str = lua_tostring(L, i);
+            if (str)
+                t += lua_tostring(L, i);
+            else
+                t += lua_typename(L, lua_type(L, i));
+        }
+        if (i!=nargs)
+            t += "\t";
+    }
+    CCLOG("[LUA-print] %s", t.c_str());
+
+    return 0;
+}
+
+int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
 {
     const char *zipFilename = lua_tostring(L, -1);
     CCFileUtils *utils = CCFileUtils::sharedFileUtils();
@@ -475,6 +545,12 @@ int CCLuaStack::loadChunksFromZip(lua_State *L)
 #endif
     } while (0);
     
+    return 1;
+}
+
+int CCLuaStack::lua_typen(lua_State *L)
+{
+    lua_pushinteger(L, lua_type(L, -1));
     return 1;
 }
 

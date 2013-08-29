@@ -14,8 +14,6 @@ LOCAL_SRC_FILES := ../cocos2dx_support/CCLuaEngine.cpp \
     ../cocos2dx_support/snapshot.c \
     ../cocos2dx_support/platform/android/CCLuaJavaBridge.cpp \
     ../cocos2dx_support/platform/android/org_cocos2dx_lib_Cocos2dxLuaJavaBridge.cpp \
-    ../cocos2dx_support/CCBProxy.cpp \
-    ../cocos2dx_support/Lua_extensions_CCB.cpp \
     ../tolua/tolua_event.c \
     ../tolua/tolua_is.c \
     ../tolua/tolua_map.c \
@@ -43,7 +41,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/ \
 LOCAL_WHOLE_STATIC_LIBRARIES := luajit_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
 
-LOCAL_CFLAGS += -Wno-psabi -DCC_LUA_ENGINE_ENABLED=1 -DDEBUG=1 -DCOCOS2D_DEBUG=1
+LOCAL_CFLAGS += -Wno-psabi -DCC_LUA_ENGINE_ENABLED=1 $(ANDROID_COCOS2D_BUILD_FLAGS)
 
 include $(BUILD_STATIC_LIBRARY)
 

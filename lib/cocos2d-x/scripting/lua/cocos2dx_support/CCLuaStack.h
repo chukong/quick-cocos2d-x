@@ -124,8 +124,10 @@ protected:
     
     lua_State *m_state;
     int m_callFromLua;
-    
-    static int loadChunksFromZip(lua_State *L);
+
+    static int lua_print(lua_State *L);
+    static int lua_loadChunksFromZip(lua_State *L);
+    static int lua_typen(lua_State *L);
 };
 
 NS_CC_END

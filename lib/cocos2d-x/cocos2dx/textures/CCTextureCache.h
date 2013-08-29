@@ -222,7 +222,7 @@ protected:
     std::string m_strFileName;
     CCImage::EImageFormat m_FmtImage;
 
-    ccTexParams     m_texParams;
+    ccTexParams      m_texParams;
     CCSize          m_size;
     CCTextAlignment m_alignment;
     CCVerticalTextAlignment m_vAlignment;
