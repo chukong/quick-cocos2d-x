@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "support/ccUtils.h"
 #include "CCScheduler.h"
 #include "cocoa/CCString.h"
+#include "script_support/CCScriptSupport.h"
 #include <errno.h>
 #include <stack>
 #include <string>
@@ -52,6 +53,7 @@ typedef struct _AsyncStruct
     std::string            filename;
     CCObject    *target;
     SEL_CallFuncO        selector;
+    int handler;
 } AsyncStruct;
 
 typedef struct _ImageInfo
@@ -238,6 +240,16 @@ CCDictionary* CCTextureCache::snapshotTextures()
 
 void CCTextureCache::addImageAsync(const char *path, CCObject *target, SEL_CallFuncO selector)
 {
+    addImageAsyncImpl(path, target, selector);
+}
+
+void CCTextureCache::addImageAsync(const char *path, int handler)
+{
+    addImageAsyncImpl(path, NULL, NULL, handler);
+}
+
+void CCTextureCache::addImageAsyncImpl(const char *path, CCObject *target, SEL_CallFuncO selector, int handler)
+{
 #ifdef EMSCRIPTEN
     CCLOGWARN("Cannot load image %s asynchronously in Emscripten builds.", path);
     return;
@@ -260,6 +272,10 @@ void CCTextureCache::addImageAsync(const char *path, CCObject *target, SEL_CallF
         if (target && selector)
         {
             (target->*selector)(texture);
+        }
+        if (handler)
+        {
+            CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(handler, "addImageAsync", texture, "CCTexture2D");
         }
 
         return;
@@ -297,12 +313,13 @@ void CCTextureCache::addImageAsync(const char *path, CCObject *target, SEL_CallF
     data->filename = fullpath.c_str();
     data->target = target;
     data->selector = selector;
+    data->handler = handler;
 
     // add async struct into queue
     pthread_mutex_lock(&s_asyncStructQueueMutex);
     s_pAsyncStructQueue->push(data);
     pthread_mutex_unlock(&s_asyncStructQueueMutex);
-
+    
     pthread_cond_signal(&s_SleepCondition);
 }
 
@@ -328,6 +345,7 @@ void CCTextureCache::addImageAsyncCallBack(float dt)
         CCObject *target = pAsyncStruct->target;
         SEL_CallFuncO selector = pAsyncStruct->selector;
         const char* filename = pAsyncStruct->filename.c_str();
+        int handler = pAsyncStruct->handler;
 
         // generate texture in render thread
         CCTexture2D *texture = new CCTexture2D();
@@ -350,6 +368,10 @@ void CCTextureCache::addImageAsyncCallBack(float dt)
         {
             (target->*selector)(texture);
             target->release();
+        }
+        if (handler)
+        {
+            CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(handler, "addImageAsync", texture, "CCTexture2D");
         }
 
         pImage->release();
