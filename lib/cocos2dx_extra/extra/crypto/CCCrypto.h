@@ -66,6 +66,8 @@ public:
     /** @brief Calculate MD5, get MD5 code (not string) */
     static void MD5(void* input, int inputLength,
                     unsigned char* output);
+
+    static const string MD5String(void* input, int inputLength);
     
 #pragma mark -
 #pragma mark for Lua

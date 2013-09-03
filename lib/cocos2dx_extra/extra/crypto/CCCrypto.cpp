@@ -95,6 +95,20 @@ void CCCrypto::MD5(void* input, int inputLength, unsigned char* output)
     MD5_Final(output, &ctx);
 }
 
+const string CCCrypto::MD5String(void* input, int inputLength)
+{
+    unsigned char buffer[MD5_BUFFER_LENGTH];
+    MD5(static_cast<void*>(input), inputLength, buffer);
+
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+
+    char* hex = bin2hex(buffer, MD5_BUFFER_LENGTH);
+    string ret(hex);
+    delete[] hex;
+    return ret;
+}
+
 #if CC_LUA_ENGINE_ENABLED > 0
 
 cocos2d::LUA_STRING CCCrypto::cryptAES256Lua(bool isDecrypt,
