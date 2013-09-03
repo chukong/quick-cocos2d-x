@@ -246,12 +246,11 @@ using namespace cocos2d::extra;
         }
 
         NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig:kProjectConfigOpenRecent];
-        [args removeLastObject];
-        [args removeLastObject];
         NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", args, @"args", nil];
         [recents insertObject:item atIndex:0];
     }
     [[NSUserDefaults standardUserDefaults] setObject:recents forKey:@"recents"];
+
 }
 
 - (void) initUI

@@ -97,6 +97,8 @@ public:
     */
 
     void addImageAsync(const char *path, CCObject *target, SEL_CallFuncO selector);
+    void addImageAsync(const char *path, int handler);
+    void addImageAsyncImpl(const char *path, CCObject *target, SEL_CallFuncO selector, int handler = 0);
 
     /* Returns a Texture2D object given an CGImageRef image
     * If the image was not previously loaded, it will create a new CCTexture2D object and it will return it.
