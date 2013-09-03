@@ -398,6 +398,10 @@ function display.align(target, anchorPoint, x, y)
     if x and y then target:setPosition(x, y) end
 end
 
+function display.addImageAsync(imagePath, callback)
+    sharedTextureCache:addImageAsync(imagePath, callback)
+end
+
 function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
