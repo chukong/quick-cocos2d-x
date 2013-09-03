@@ -5,6 +5,7 @@ end)
 
 function MainScene:ctor()
     local items = {
+        "framework.display",
         "framework.crypto",
     }
 
