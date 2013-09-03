@@ -51,5 +51,4 @@ function CryptoTestScene:md5Test()
     printf("md5Test: %s -> %s", p, crypto.md5(p))
 end
 
-
 return CryptoTestScene

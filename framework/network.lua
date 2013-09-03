@@ -28,7 +28,7 @@ function network.createHTTPRequest(callback, url, method)
     else
         method = kCCHTTPRequestMethodPOST
     end
-    return CCHTTPRequest:createWithUrlLua(callback, url, method)
+    return CCHTTPRequest:createWithUrl(callback, url, method)
 end
 
 return network

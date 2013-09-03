@@ -16,9 +16,6 @@
     <Filter Include="cocos2dx_extra\extra\crypto\md5">
       <UniqueIdentifier>{5d979bc6-8223-408c-986e-023770d34e0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cocos2dx_extra\extra\crypto\sha1">
-      <UniqueIdentifier>{d059eea8-4644-4d86-aa24-2f628763f209}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocos2dx_extra\extra\crypto\xxtea">
       <UniqueIdentifier>{a8486a5e-3a52-4cb5-865a-ce06141d394e}</UniqueIdentifier>
     </Filter>
@@ -50,9 +47,6 @@
     </ClInclude>
     <ClInclude Include="..\extra\crypto\md5\md5.h">
       <Filter>cocos2dx_extra\extra\crypto\md5</Filter>
-    </ClInclude>
-    <ClInclude Include="..\extra\crypto\sha1\sha1.h">
-      <Filter>cocos2dx_extra\extra\crypto\sha1</Filter>
     </ClInclude>
     <ClInclude Include="..\extra\crypto\xxtea\xxtea.h">
       <Filter>cocos2dx_extra\extra\crypto\xxtea</Filter>
@@ -91,9 +85,6 @@
     </ClCompile>
     <ClCompile Include="..\extra\crypto\md5\md5.c">
       <Filter>cocos2dx_extra\extra\crypto\md5</Filter>
-    </ClCompile>
-    <ClCompile Include="..\extra\crypto\sha1\sha1.cpp">
-      <Filter>cocos2dx_extra\extra\crypto\sha1</Filter>
     </ClCompile>
     <ClCompile Include="..\extra\crypto\xxtea\xxtea.c">
       <Filter>cocos2dx_extra\extra\crypto\xxtea</Filter>

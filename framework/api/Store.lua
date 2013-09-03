@@ -80,7 +80,7 @@ function Store.init(listener)
 
     store = CCStore:sharedStore()
     __FRAMEWORK_GLOBALS__["api.Store"] = store    -- avoid gc
-    return store:postInitWithTransactionListenerLua(listener)
+    return store:postInitWithTransactionListener(listener)
 end
 
 --[[--
@@ -261,7 +261,7 @@ function Store.loadProducts(productsId, listener)
         end
     end
 
-    store:loadProductsLua(productsId, listener)
+    store:loadProducts(productsId, listener)
     return true
 end
 
@@ -365,7 +365,7 @@ function Store.finishTransaction(transaction)
         return false
     end
 
-    return store:finishTransactionLua(transaction.transactionIdentifier)
+    return store:finishTransaction(transaction.transactionIdentifier)
 end
 
 return Store
