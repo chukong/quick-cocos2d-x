@@ -78,6 +78,16 @@ function game.createSceneClass(name)
         end
     end
 
+
+    function cls:runTest(name)
+        printf("----------------------------------------")
+        printf("-- run test %s", name)
+        print("--")
+        name = string.gsub(name, " ", "_")
+        local m = self[name .. "Test"]
+        m(self)
+    end
+
     return cls
 end
 

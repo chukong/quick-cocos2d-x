@@ -14,7 +14,6 @@
 		F40AFE5B16BD15C700565A5E /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDF916BD15C600565A5E /* libb64.c */; };
 		F40AFE5C16BD15C700565A5E /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDFB16BD15C600565A5E /* CCCrypto.cpp */; };
 		F40AFE5D16BD15C700565A5E /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDFE16BD15C600565A5E /* md5.c */; };
-		F40AFE5E16BD15C700565A5E /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE0116BD15C600565A5E /* sha1.cpp */; };
 		F40AFE6B16BD15C700565A5E /* CCHTTPRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2416BD15C600565A5E /* CCHTTPRequest.cpp */; };
 		F40AFE6C16BD15C700565A5E /* CCNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2716BD15C600565A5E /* CCNetwork.cpp */; };
 		F40AFE6D16BD15C700565A5E /* CCCryptoIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFE2C16BD15C600565A5E /* CCCryptoIOS.mm */; };
@@ -348,8 +347,6 @@
 		F40AFDFC16BD15C600565A5E /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
 		F40AFDFE16BD15C600565A5E /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
 		F40AFDFF16BD15C600565A5E /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		F40AFE0116BD15C600565A5E /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
-		F40AFE0216BD15C600565A5E /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
 		F40AFE2116BD15C600565A5E /* CCAlertViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAlertViewDelegate.h; sourceTree = "<group>"; };
 		F40AFE2216BD15C600565A5E /* CCNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCNative.h; sourceTree = "<group>"; };
 		F40AFE2416BD15C600565A5E /* CCHTTPRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCHTTPRequest.cpp; sourceTree = "<group>"; };
@@ -1144,7 +1141,6 @@
 				F40AFDFB16BD15C600565A5E /* CCCrypto.cpp */,
 				F40AFDFC16BD15C600565A5E /* CCCrypto.h */,
 				F40AFDFD16BD15C600565A5E /* md5 */,
-				F40AFE0016BD15C600565A5E /* sha1 */,
 				F4778ADC1736080E00EE1551 /* xxtea */,
 			);
 			path = crypto;
@@ -1166,15 +1162,6 @@
 				F40AFDFF16BD15C600565A5E /* md5.h */,
 			);
 			path = md5;
-			sourceTree = "<group>";
-		};
-		F40AFE0016BD15C600565A5E /* sha1 */ = {
-			isa = PBXGroup;
-			children = (
-				F40AFE0116BD15C600565A5E /* sha1.cpp */,
-				F40AFE0216BD15C600565A5E /* sha1.h */,
-			);
-			path = sha1;
 			sourceTree = "<group>";
 		};
 		F40AFE0316BD15C600565A5E /* luabinding */ = {
@@ -2743,7 +2730,6 @@
 				F40AFE5B16BD15C700565A5E /* libb64.c in Sources */,
 				F40AFE5C16BD15C700565A5E /* CCCrypto.cpp in Sources */,
 				F40AFE5D16BD15C700565A5E /* md5.c in Sources */,
-				F40AFE5E16BD15C700565A5E /* sha1.cpp in Sources */,
 				F40AFE6B16BD15C700565A5E /* CCHTTPRequest.cpp in Sources */,
 				F40AFE6C16BD15C700565A5E /* CCNetwork.cpp in Sources */,
 				F40AFE6D16BD15C700565A5E /* CCCryptoIOS.mm in Sources */,

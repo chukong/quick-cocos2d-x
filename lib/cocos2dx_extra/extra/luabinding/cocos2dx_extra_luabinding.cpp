@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Tue Aug 27 16:26:28 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Sep  3 16:35:10 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -66,8 +66,8 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_getAES256KeyLength00(lua_Sta
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: encryptAES256Lua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES256Lua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES256Lua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES25600
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES25600(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -95,15 +95,15 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES256Lua00(lua_State
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'encryptAES256Lua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'encryptAES256'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: decryptAES256Lua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES256Lua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES256Lua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES25600
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES25600(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -131,15 +131,15 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES256Lua00(lua_State
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'decryptAES256Lua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'decryptAES256'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: encryptXXTEALua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEALua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEALua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEA00
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEA00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -167,15 +167,15 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEALua00(lua_State*
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'encryptXXTEALua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'encryptXXTEA'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: decryptXXTEALua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEALua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEALua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEA00
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEA00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -203,15 +203,15 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEALua00(lua_State*
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'decryptXXTEALua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'decryptXXTEA'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: encodeBase64Lua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase64Lua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase64Lua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase6400
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase6400(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -235,15 +235,15 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase64Lua00(lua_State*
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'encodeBase64Lua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'encodeBase64'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: decodeBase64Lua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase64Lua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase64Lua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase6400
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase6400(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -265,15 +265,15 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase64Lua00(lua_State*
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'decodeBase64Lua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'decodeBase64'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: MD5Lua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_MD5Lua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_MD5Lua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_MD500
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_MD500(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -297,41 +297,7 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_MD5Lua00(lua_State* tolua_S)
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'MD5Lua'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: sha1Lua of class  CCCrypto */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_sha1Lua00
-static int tolua_cocos2dx_extra_luabinding_CCCrypto_sha1Lua00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCCrypto",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  char* input = ((char*)  tolua_tostring(tolua_S,2,0));
-  char* key = ((char*)  tolua_tostring(tolua_S,3,0));
-  bool isRawOutput = ((bool)  tolua_toboolean(tolua_S,4,0));
-  {
-     CCCrypto::sha1Lua(input,key,isRawOutput);
-   
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'sha1Lua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'MD5'.",&tolua_err);
  return 0;
 #endif
 }
@@ -455,8 +421,8 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_addAlertButton00(lua_State* 
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: showAlertLua of class  CCNative */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCNative_showAlertLua00
-static int tolua_cocos2dx_extra_luabinding_CCNative_showAlertLua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCNative_showAlert00
+static int tolua_cocos2dx_extra_luabinding_CCNative_showAlert00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -477,7 +443,7 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_showAlertLua00(lua_State* to
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'showAlertLua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'showAlert'.",&tolua_err);
  return 0;
 #endif
 }
@@ -525,7 +491,7 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_getOpenUDID00(lua_State* tol
 #endif
  {
   {
-   const string tolua_ret = (const string)  CCNative::getOpenUDID();
+   string tolua_ret = (string)  CCNative::getOpenUDID();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -588,7 +554,7 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_getInputText00(lua_State* to
   const char* message = ((const char*)  tolua_tostring(tolua_S,3,0));
   const char* defaultValue = ((const char*)  tolua_tostring(tolua_S,4,0));
   {
-   const string tolua_ret = (const string)  CCNative::getInputText(title,message,defaultValue);
+   string tolua_ret = (string)  CCNative::getInputText(title,message,defaultValue);
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -657,8 +623,8 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_vibrate00(lua_State* tolua_S
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: createWithUrlLua of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrlLua00
-static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrlLua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrl00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -686,7 +652,7 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCHTTPReq
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createWithUrlLua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'createWithUrl'.",&tolua_err);
  return 0;
 #endif
 }
@@ -821,6 +787,71 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setPOSTData00(lua_State
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setPOSTData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setCookieString of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setCookieString00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setCookieString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* cookie = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setCookieString'", NULL);
+#endif
+  {
+   self->setCookieString(cookie);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setCookieString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getCookieString of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getCookieString00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getCookieString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCookieString'", NULL);
+#endif
+  {
+   string tolua_ret = (string)  self->getCookieString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getCookieString'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1018,6 +1049,38 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseStatusCode00
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getResponseHeadersString of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseHeadersString00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseHeadersString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResponseHeadersString'", NULL);
+#endif
+  {
+   string tolua_ret = (string)  self->getResponseHeadersString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getResponseHeadersString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getResponseString of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00
 static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00(lua_State* tolua_S)
@@ -1037,7 +1100,7 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00(lua
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResponseString'", NULL);
 #endif
   {
-   const string tolua_ret = (const string)  self->getResponseString();
+   string tolua_ret = (string)  self->getResponseString();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -1051,8 +1114,8 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00(lua
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getResponseDataLua of class  CCHTTPRequest */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseDataLua00
-static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseDataLua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseData00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseData00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -1076,7 +1139,7 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseDataLua00(lu
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getResponseDataLua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getResponseData'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1327,8 +1390,8 @@ static int tolua_cocos2dx_extra_luabinding_CCNetwork_getInternetConnectionStatus
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: createHTTPRequestLua of class  CCNetwork */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCNetwork_createHTTPRequestLua00
-static int tolua_cocos2dx_extra_luabinding_CCNetwork_createHTTPRequestLua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCNetwork_createHTTPRequest00
+static int tolua_cocos2dx_extra_luabinding_CCNetwork_createHTTPRequest00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -1356,7 +1419,7 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCHTTPReq
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'createHTTPRequestLua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'createHTTPRequest'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1372,14 +1435,13 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCCrypto","CCCrypto","",NULL);
   tolua_beginmodule(tolua_S,"CCCrypto");
    tolua_function(tolua_S,"getAES256KeyLength",tolua_cocos2dx_extra_luabinding_CCCrypto_getAES256KeyLength00);
-   tolua_function(tolua_S,"encryptAES256Lua",tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES256Lua00);
-   tolua_function(tolua_S,"decryptAES256Lua",tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES256Lua00);
-   tolua_function(tolua_S,"encryptXXTEALua",tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEALua00);
-   tolua_function(tolua_S,"decryptXXTEALua",tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEALua00);
-   tolua_function(tolua_S,"encodeBase64Lua",tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase64Lua00);
-   tolua_function(tolua_S,"decodeBase64Lua",tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase64Lua00);
-   tolua_function(tolua_S,"MD5Lua",tolua_cocos2dx_extra_luabinding_CCCrypto_MD5Lua00);
-   tolua_function(tolua_S,"sha1Lua",tolua_cocos2dx_extra_luabinding_CCCrypto_sha1Lua00);
+   tolua_function(tolua_S,"encryptAES256",tolua_cocos2dx_extra_luabinding_CCCrypto_encryptAES25600);
+   tolua_function(tolua_S,"decryptAES256",tolua_cocos2dx_extra_luabinding_CCCrypto_decryptAES25600);
+   tolua_function(tolua_S,"encryptXXTEA",tolua_cocos2dx_extra_luabinding_CCCrypto_encryptXXTEA00);
+   tolua_function(tolua_S,"decryptXXTEA",tolua_cocos2dx_extra_luabinding_CCCrypto_decryptXXTEA00);
+   tolua_function(tolua_S,"encodeBase64",tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase6400);
+   tolua_function(tolua_S,"decodeBase64",tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase6400);
+   tolua_function(tolua_S,"MD5",tolua_cocos2dx_extra_luabinding_CCCrypto_MD500);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCNative","CCNative","",NULL);
   tolua_beginmodule(tolua_S,"CCNative");
@@ -1387,7 +1449,7 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"hideActivityIndicator",tolua_cocos2dx_extra_luabinding_CCNative_hideActivityIndicator00);
    tolua_function(tolua_S,"createAlert",tolua_cocos2dx_extra_luabinding_CCNative_createAlert00);
    tolua_function(tolua_S,"addAlertButton",tolua_cocos2dx_extra_luabinding_CCNative_addAlertButton00);
-   tolua_function(tolua_S,"showAlertLua",tolua_cocos2dx_extra_luabinding_CCNative_showAlertLua00);
+   tolua_function(tolua_S,"showAlert",tolua_cocos2dx_extra_luabinding_CCNative_showAlert00);
    tolua_function(tolua_S,"cancelAlert",tolua_cocos2dx_extra_luabinding_CCNative_cancelAlert00);
    tolua_function(tolua_S,"getOpenUDID",tolua_cocos2dx_extra_luabinding_CCNative_getOpenUDID00);
    tolua_function(tolua_S,"openURL",tolua_cocos2dx_extra_luabinding_CCNative_openURL00);
@@ -1408,19 +1470,22 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"kCCHTTPRequestStateFailed",kCCHTTPRequestStateFailed);
   tolua_cclass(tolua_S,"CCHTTPRequest","CCHTTPRequest","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCHTTPRequest");
-   tolua_function(tolua_S,"createWithUrlLua",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrlLua00);
+   tolua_function(tolua_S,"createWithUrl",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrl00);
    tolua_function(tolua_S,"setRequestUrl",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setRequestUrl00);
    tolua_function(tolua_S,"addRequestHeader",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addRequestHeader00);
    tolua_function(tolua_S,"addPOSTValue",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addPOSTValue00);
    tolua_function(tolua_S,"setPOSTData",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setPOSTData00);
+   tolua_function(tolua_S,"setCookieString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setCookieString00);
+   tolua_function(tolua_S,"getCookieString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getCookieString00);
    tolua_function(tolua_S,"setAcceptEncoding",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setAcceptEncoding00);
    tolua_function(tolua_S,"setTimeout",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setTimeout00);
    tolua_function(tolua_S,"start",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_start00);
    tolua_function(tolua_S,"cancel",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_cancel00);
    tolua_function(tolua_S,"getState",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getState00);
    tolua_function(tolua_S,"getResponseStatusCode",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseStatusCode00);
+   tolua_function(tolua_S,"getResponseHeadersString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseHeadersString00);
    tolua_function(tolua_S,"getResponseString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00);
-   tolua_function(tolua_S,"getResponseDataLua",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseDataLua00);
+   tolua_function(tolua_S,"getResponseData",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseData00);
    tolua_function(tolua_S,"getResponseDataLength",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseDataLength00);
    tolua_function(tolua_S,"saveResponseData",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_saveResponseData00);
    tolua_function(tolua_S,"getErrorCode",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getErrorCode00);
@@ -1435,7 +1500,7 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"isInternetConnectionAvailable",tolua_cocos2dx_extra_luabinding_CCNetwork_isInternetConnectionAvailable00);
    tolua_function(tolua_S,"isHostNameReachable",tolua_cocos2dx_extra_luabinding_CCNetwork_isHostNameReachable00);
    tolua_function(tolua_S,"getInternetConnectionStatus",tolua_cocos2dx_extra_luabinding_CCNetwork_getInternetConnectionStatus00);
-   tolua_function(tolua_S,"createHTTPRequestLua",tolua_cocos2dx_extra_luabinding_CCNetwork_createHTTPRequestLua00);
+   tolua_function(tolua_S,"createHTTPRequest",tolua_cocos2dx_extra_luabinding_CCNetwork_createHTTPRequest00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

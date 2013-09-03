@@ -14,7 +14,6 @@ class CCCrypto
 {
 public:
     static const int MD5_BUFFER_LENGTH = 16;
-    static const int SHA1_BUFFER_LENGTH = 20;
     
     /** @brief Return AES256 key length */
     static int getAES256KeyLength(void);
@@ -67,11 +66,8 @@ public:
     /** @brief Calculate MD5, get MD5 code (not string) */
     static void MD5(void* input, int inputLength,
                     unsigned char* output);
-    
-    /** @brief Calculate SHA1 with a secret key. */
-    static void sha1(unsigned char* input, int inputLength,
-                     unsigned char* key, int keyLength,
-                     unsigned char* buffer, int bufferLength);
+
+    static const string MD5String(void* input, int inputLength);
     
 #pragma mark -
 #pragma mark for Lua
@@ -122,10 +118,7 @@ public:
     
     /** @brief Calculate MD5, return MD5 string */
     static LUA_STRING MD5Lua(char* input, bool isRawOutput);
-    
-    /** @brief Calculate SHA1 with a secret key, return digest string */
-    static LUA_STRING sha1Lua(char* input, char* key, bool isRawOutput);
-    
+
 #endif /* CC_LUA_ENGINE_ENABLED */
     
 #pragma mark -

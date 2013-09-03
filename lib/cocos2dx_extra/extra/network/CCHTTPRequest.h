@@ -50,29 +50,33 @@ typedef CCHTTPRequestHeaders::iterator CCHTTPRequestHeadersIterator;
 class CCHTTPRequest : public CCObject
 {
 public:
-    static CCHTTPRequest* createWithUrl(CCHTTPRequestDelegate* delegate,
-                                        const char* url,
+    static CCHTTPRequest *createWithUrl(CCHTTPRequestDelegate *delegate,
+                                        const char *url,
                                         int method = kCCHTTPRequestMethodGET);
     
 #if CC_LUA_ENGINE_ENABLED > 0
     static CCHTTPRequest* createWithUrlLua(LUA_FUNCTION listener,
-                                           const char* url,
+                                           const char *url,
                                            int method = kCCHTTPRequestMethodGET);
 #endif
     
     ~CCHTTPRequest(void);
     
     /** @brief Set request url. */
-    void setRequestUrl(const char* url);
+    void setRequestUrl(const char *url);
     
     /** @brief Add a custom header to the request. */
-    void addRequestHeader(const char* header);
+    void addRequestHeader(const char *header);
     
     /** @brief Add a POST variable to the request, POST only. */
-    void addPOSTValue(const char* key, const char* value);
+    void addPOSTValue(const char *key, const char *value);
     
     /** @brief Set POST data to the request body, POST only. */
-    void setPOSTData(const char* data);
+    void setPOSTData(const char *data);
+
+    /** @brief Set/Get cookie string. */
+    void setCookieString(const char *cookie);
+    const string getCookieString(void);
     
     /** @brief Set accept encoding. */
     void setAcceptEncoding(int acceptEncoding);
@@ -87,50 +91,57 @@ public:
     void cancel(void);
     
     /** @brief Get the request state. */
-    int getState(void) {
+    int getState(void)
+    {
         return m_state;
     }
     
     /** @brief Return HTTP status code. */
-    int getResponseStatusCode(void) {
+    int getResponseStatusCode(void)
+    {
         CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
         return m_responseCode;
     }
     
     /** @brief Return HTTP response headers. */
-    const CCHTTPRequestHeaders& getResponseHeaders(void);
-    
+    const CCHTTPRequestHeaders &getResponseHeaders(void);
+    const string getResponseHeadersString(void);
+
     /** @brief Returns the contents of the result. */
     const string getResponseString(void);
     
     /** @brief Alloc memory block, return response data. use free() release memory block */
-    void* getResponseData(void);
+    void *getResponseData(void);
     
 #if CC_LUA_ENGINE_ENABLED > 0
     LUA_STRING getResponseDataLua(void);
 #endif
     
     /** @brief Get response data length (bytes). */
-    int getResponseDataLength(void) {
+    int getResponseDataLength(void)
+    {
         CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
         return m_responseDataLength;
     }
     
     /** @brief Save response data to file. */
-    size_t saveResponseData(const char* filename);
+    size_t saveResponseData(const char *filename);
     
     /** @brief Get error code. */
-    int getErrorCode(void) {
+    int getErrorCode(void)
+    {
         return m_errorCode;
     }
     
     /** @brief Get error message. */
-    const char* getErrorMessage(void) {
+    const char *getErrorMessage(void)
+    {
         return m_errorMessage.c_str();
     }
     
     /** @brief Return CCHTTPRequestDelegate delegate. */
-    CCHTTPRequestDelegate* getDelegate(void) {
+    CCHTTPRequestDelegate* getDelegate(void)
+    {
         return m_delegate;
     }
 
@@ -151,11 +162,11 @@ private:
     , m_curlState(kCCHTTPRequestCURLStateIdle)
     {
     }
-    bool initWithDelegate(CCHTTPRequestDelegate* delegate, const char* url, int method);
+    bool initWithDelegate(CCHTTPRequestDelegate* delegate, const char *url, int method);
 #if CC_LUA_ENGINE_ENABLED > 0
-    bool initWithListener(LUA_FUNCTION listener, const char* url, int method);
+    bool initWithListener(LUA_FUNCTION listener, const char *url, int method);
 #endif
-    bool initWithUrl(const char* url, int method);
+    bool initWithUrl(const char *url, int method);
 
     enum {
         DEFAULT_TIMEOUT = 10, // 10 seconds
@@ -163,7 +174,7 @@ private:
     };
     
     static unsigned int s_id;
-    CURL* m_curl;
+    CURL *m_curl;
     CCHTTPRequestDelegate* m_delegate;
     int m_listener;
     int m_curlState;
@@ -178,11 +189,12 @@ private:
     CCHTTPRequestHeaders m_headers;
 
     // response
-    int     m_responseCode;
+    int m_responseCode;
     CCHTTPRequestHeaders m_responseHeaders;
-    void*   m_responseBuffer;
-    size_t  m_responseBufferLength;
-    size_t  m_responseDataLength;
+    void *m_responseBuffer;
+    size_t m_responseBufferLength;
+    size_t m_responseDataLength;
+    string m_responseCookies;
 
     // private methods
     void cleanup(void);
@@ -190,8 +202,8 @@ private:
 
     // instance callback
     void onRequest(void);
-    size_t onWriteData(void* buffer, size_t bytes);
-    size_t onWriteHeader(void* buffer, size_t bytes);
+    size_t onWriteData(void *buffer, size_t bytes);
+    size_t onWriteHeader(void *buffer, size_t bytes);
     int onProgress(double dltotal, double dlnow, double ultotal, double ulnow);
 
     // curl callback
@@ -199,11 +211,11 @@ private:
     static DWORD WINAPI requestCURL(LPVOID userdata);
 #else
     pthread_t m_thread;
-    static void* requestCURL(void *userdata);
+    static void *requestCURL(void *userdata);
 #endif
-    static size_t writeDataCURL(void* buffer, size_t size, size_t nmemb, void* userdata);
-    static size_t writeHeaderCURL(void* buffer, size_t size, size_t nmemb, void* userdata);
-    static int progressCURL(void* userdata, double dltotal, double dlnow, double ultotal, double ulnow);
+    static size_t writeDataCURL(void *buffer, size_t size, size_t nmemb, void *userdata);
+    static size_t writeHeaderCURL(void *buffer, size_t size, size_t nmemb, void *userdata);
+    static int progressCURL(void *userdata, double dltotal, double dlnow, double ultotal, double ulnow);
 };
 
 NS_CC_EXTRA_END
