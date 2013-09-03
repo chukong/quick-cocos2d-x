@@ -1,15 +1,10 @@
 
 local display = {}
 
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSceneExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCLayerExtend")
-
-local sharedDirector         = CCDirector:sharedDirector()
-local sharedTextureCache     = CCTextureCache:sharedTextureCache()
-local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
-local sharedAnimationCache   = CCAnimationCache:sharedAnimationCache()
+local sharedDirector         = cc.CCDirector:sharedDirector()
+local sharedTextureCache     = cc.CCTextureCache:sharedTextureCache()
+local sharedSpriteFrameCache = cc.CCSpriteFrameCache:sharedSpriteFrameCache()
+local sharedAnimationCache   = cc.CCAnimationCache:sharedAnimationCache()
 
 -- check device screen size
 local glview = sharedDirector:getOpenGLView()
@@ -50,7 +45,7 @@ end
 local scale, wscale, hscale = 1, 1, 1
 if type(CONFIG_SCREEN_AUTOSCALE) == "function" then
     CONFIG_SCREEN_AUTOSCALE(w, h)
-    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, cc.kResolutionNoBorder)
 elseif CONFIG_SCREEN_AUTOSCALE then
     scale, wscale, hscale = checkScale(w, h)
 
@@ -66,7 +61,7 @@ elseif CONFIG_SCREEN_AUTOSCALE then
         end
 
         if not selectedSize and lastSize then selectedSize = lastSize end
-        CCFileUtils:sharedFileUtils():addSearchPath(selectedSize.path)
+        cc.CCFileUtils:sharedFileUtils():addSearchPath(selectedSize.path)
 
         w = w / scale * selectedSize.scale
         h = h / scale * selectedSize.scale
@@ -94,7 +89,7 @@ elseif CONFIG_SCREEN_AUTOSCALE then
         echoError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
 
-    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, cc.kResolutionNoBorder)
 end
 
 local winSize = sharedDirector:getWinSize()
@@ -135,8 +130,8 @@ echoInfo(string.format("# display.c_top                = %0.2f", display.c_top))
 echoInfo(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
 echoInfo("#")
 
-display.COLOR_WHITE = ccc3(255, 255, 255)
-display.COLOR_BLACK = ccc3(0, 0, 0)
+display.COLOR_WHITE = cc.c3(255, 255, 255)
+display.COLOR_BLACK = cc.c3(0, 0, 0)
 
 display.CENTER        = 1
 display.LEFT_TOP      = 2; display.TOP_LEFT      = 2
@@ -149,20 +144,20 @@ display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
 
 display.ANCHOR_POINTS = {
-    CCPoint(0.5, 0.5),  -- CENTER
-    CCPoint(0, 1),      -- TOP_LEFT
-    CCPoint(0.5, 1),    -- TOP_CENTER
-    CCPoint(1, 1),      -- TOP_RIGHT
-    CCPoint(0, 0.5),    -- CENTER_LEFT
-    CCPoint(1, 0.5),    -- CENTER_RIGHT
-    CCPoint(0, 0),      -- BOTTOM_LEFT
-    CCPoint(1, 0),      -- BOTTOM_RIGHT
-    CCPoint(0.5, 0),    -- BOTTOM_CENTER
+    cc.p(0.5, 0.5),  -- CENTER
+    cc.p(0, 1),      -- TOP_LEFT
+    cc.p(0.5, 1),    -- TOP_CENTER
+    cc.p(1, 1),      -- TOP_RIGHT
+    cc.p(0, 0.5),    -- CENTER_LEFT
+    cc.p(1, 0.5),    -- CENTER_RIGHT
+    cc.p(0, 0),      -- BOTTOM_LEFT
+    cc.p(1, 0),      -- BOTTOM_RIGHT
+    cc.p(0.5, 0),    -- BOTTOM_CENTER
 }
 
 display.SCENE_TRANSITIONS = {
     CROSSFADE       = {CCTransitionCrossFade, 2},
-    FADE            = {CCTransitionFade, 3, ccc3(0, 0, 0)},
+    FADE            = {CCTransitionFade, 3, cc.c3(0, 0, 0)},
     FADEBL          = {CCTransitionFadeBL, 2},
     FADEDOWN        = {CCTransitionFadeDown, 2},
     FADETR          = {CCTransitionFadeTR, 2},
@@ -193,7 +188,7 @@ display.SCENE_TRANSITIONS = {
 display.TEXTURES_PIXEL_FORMAT = {}
 
 function display.newScene(name)
-    local scene = CCSceneExtend.extend(CCScene:create())
+    local scene = cc.CCSceneExtend.extend(cc.CCScene:create())
     scene.name = name or "<unknown-scene>"
     return scene
 end
@@ -248,15 +243,15 @@ function display.resume()
 end
 
 function display.newLayer()
-    return CCLayerExtend.extend(CCLayer:create())
+    return cc.CCLayerExtend.extend(cc.CCLayer:create())
 end
 
 function display.newNode()
-    return CCNodeExtend.extend(CCNode:create())
+    return cc.CCNodeExtend.extend(cc.CCNode:create())
 end
 
 function display.newClippingRegionNode(rect)
-    return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
+    return cc.CCNodeExtend.extend(cc.CCClippingRegionNode:create(rect))
 end
 
 function display.newSprite(filename, x, y)
@@ -265,31 +260,31 @@ function display.newSprite(filename, x, y)
     local sprite
 
     if not filename then
-        sprite = CCSprite:create()
+        sprite = cc.CCSprite:create()
     elseif t == LUA_TSTRING then
         if string.byte(filename) == 35 then -- first char is #
             local frame = display.newSpriteFrame(string.sub(filename, 2))
             if frame then
-                sprite = CCSprite:createWithSpriteFrame(frame)
+                sprite = cc.CCSprite:createWithSpriteFrame(frame)
             end
         else
             if display.TEXTURES_PIXEL_FORMAT[filename] then
-                CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-                sprite = CCSprite:create(filename)
-                CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+                cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+                sprite = cc.CCSprite:create(filename)
+                cc.CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
-                sprite = CCSprite:create(filename)
+                sprite = cc.CCSprite:create(filename)
             end
         end
     elseif t == "CCSpriteFrame" then
-        sprite = CCSprite:createWithSpriteFrame(filename)
+        sprite = cc.CCSprite:createWithSpriteFrame(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
         return
     end
 
     if sprite then
-        CCSpriteExtend.extend(sprite)
+        cc.CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
     else
         echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
@@ -309,20 +304,20 @@ function display.newScale9Sprite(filename, x, y, size)
     if string.byte(filename) == 35 then -- first char is #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
         if frame then
-            sprite = CCScale9Sprite:createWithSpriteFrame(frame)
+            sprite = cc.CCScale9Sprite:createWithSpriteFrame(frame)
         end
     else
         if display.TEXTURES_PIXEL_FORMAT[filename] then
-            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-            sprite = CCScale9Sprite:create(filename)
-            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+            cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+            sprite = cc.CCScale9Sprite:create(filename)
+            cc.CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
         else
-            sprite = CCScale9Sprite:create(filename)
+            sprite = cc.CCScale9Sprite:create(filename)
         end
     end
 
     if sprite then
-        CCSpriteExtend.extend(sprite)
+        cc.CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
         if size then sprite:setContentSize(size) end
     else
@@ -334,9 +329,9 @@ end
 
 function display.newTilesSprite(filename, rect)
     if not rect then
-        rect = CCRect(0, 0, display.width, display.height)
+        rect = cc.CCRect(0, 0, display.width, display.height)
     end
-    local sprite = CCSprite:create(filename, rect)
+    local sprite = cc.CCSprite:create(filename, rect)
     if not sprite then
         echoError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
@@ -348,7 +343,7 @@ function display.newTilesSprite(filename, rect)
     tp.wrapS = 10497
     tp.wrapT = 10497
     sprite:getTexture():setTexParameters(tp)
-    CCSpriteExtend.extend(sprite)
+    cc.CCSpriteExtend.extend(sprite)
 
     display.align(sprite, display.LEFT_BOTTOM, 0, 0)
 
@@ -356,7 +351,7 @@ function display.newTilesSprite(filename, rect)
 end
 
 function display.newCircle(radius)
-    return CCNodeExtend.extend(CCCircleShape:create(radius))
+    return cc.CCNodeExtend.extend(cc.CCCircleShape:create(radius))
 end
 
 function display.newRect(width, height)
@@ -377,20 +372,20 @@ function display.newRect(width, height)
         end
     end
 
-    local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
+    local rect = cc.CCNodeExtend.extend(cc.CCRectShape:create(cc.size(width, height)))
     rect:setPosition(x, y)
     return rect
 end
 
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
-    local arr = CCPointArray:create(#points)
+    local arr = cc.CCPointArray:create(#points)
     for i, p in ipairs(points) do
-        p = CCPoint(p[1] * scale, p[2] * scale)
+        p = cc.p(p[1] * scale, p[2] * scale)
         arr:add(p)
     end
 
-    return CCNodeExtend.extend(CCPolygonShape:create(arr))
+    return cc.CCNodeExtend.extend(cc.CCPolygonShape:create(arr))
 end
 
 function display.align(target, anchorPoint, x, y)
@@ -404,9 +399,9 @@ end
 
 function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
-        CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
+        cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
-        CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+        cc.CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
     else
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
     end
@@ -425,11 +420,11 @@ end
 
 function display.removeSpriteFrameByImageName(imageName)
     sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
-    CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
+    cc.CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
 
 function display.newBatchNode(image, capacity)
-    return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
+    return cc.CCNodeExtend.extend(cc.CCSpriteBatchNode:create(image, capacity or 100))
 end
 
 function display.newSpriteFrame(frameName)
@@ -464,12 +459,12 @@ end
 
 function display.newAnimation(frames, time)
     local count = #frames
-    local array = CCArray:create()
+    local array = cc.CCArray:create()
     for i = 1, count do
         array:addObject(frames[i])
     end
     time = time or 1.0 / count
-    return CCAnimation:createWithSpriteFrames(array, time)
+    return cc.CCAnimation:createWithSpriteFrames(array, time)
 end
 
 function display.setAnimationCache(name, animation)
@@ -497,7 +492,7 @@ function display.newProgressTimer(image, progresssType)
         image = display.newSprite(image)
     end
 
-    local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
+    local progress = cc.CCNodeExtend.extend(cc.CCProgressTimer:create(image))
     progress:setType(progresssType)
     return progress
 end

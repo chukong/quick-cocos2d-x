@@ -1,21 +1,21 @@
 
-CCSpriteExtend = class("CCSpriteExtend", CCNodeExtend)
-CCSpriteExtend.__index = CCSpriteExtend
+cc.CCSpriteExtend = class("CCSpriteExtend", cc.CCNodeExtend)
+cc.CCSpriteExtend.__index = cc.CCSpriteExtend
 
-function CCSpriteExtend.extend(target)
+function cc.CCSpriteExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
         t = {}
         tolua.setpeer(target, t)
     end
-    setmetatable(t, CCSpriteExtend)
+    setmetatable(t, cc.CCSpriteExtend)
     return target
 end
 
-function CCSpriteExtend:playAnimationOnce(animation, removeWhenFinished, onComplete, delay)
+function cc.CCSpriteExtend:playAnimationOnce(animation, removeWhenFinished, onComplete, delay)
     return transition.playAnimationOnce(self, animation, removeWhenFinished, onComplete, delay)
 end
 
-function CCSpriteExtend:playAnimationForever(animation, delay)
+function cc.CCSpriteExtend:playAnimationForever(animation, delay)
     return transition.playAnimationForever(self, animation, delay)
 end

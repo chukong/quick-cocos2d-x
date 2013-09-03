@@ -1,18 +1,18 @@
 
-CCSceneExtend = class("CCSceneExtend", CCNodeExtend)
-CCSceneExtend.__index = CCSceneExtend
+cc.CCSceneExtend = class("CCSceneExtend", cc.CCNodeExtend)
+cc.CCSceneExtend.__index = cc.CCSceneExtend
 
-function CCSceneExtend.extend(target)
+function cc.CCSceneExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
         t = {}
         tolua.setpeer(target, t)
     end
-    setmetatable(t, CCSceneExtend)
+    setmetatable(t, cc.CCSceneExtend)
 
     local function handler(event)
         if event == "enter" then
-            echoInfo("Scene \"%s:onEnter()\"", target.name or (target.className or "unknown"))
+            echoInfo("Scene \"%s:onEnter()\"", target.name or (target.__cname or "unknown"))
             target:onEnter()
         elseif event == "enterTransitionFinish" then
             target:onEnterTransitionFinish()
@@ -21,19 +21,19 @@ function CCSceneExtend.extend(target)
         elseif event == "cleanup" then
             target:onCleanup()
         elseif event == "exit" then
-            echoInfo("Scene \"%s:onExit()\"", target.name or (target.className or "unknown"))
+            echoInfo("Scene \"%s:onExit()\"", target.name or (target.__cname or "unknown"))
 
-            if target.AUTO_CLEANUP_IMAGES then
-                for imageName, v in pairs(target.AUTO_CLEANUP_IMAGES) do
+            if target.autoCleanupImages_ then
+                for imageName, v in pairs(target.autoCleanupImages_) do
                     display.removeSpriteFrameByImageName(imageName)
                 end
-                target.AUTO_CLEANUP_IMAGES = nil
+                target.autoCleanupImages_ = nil
             end
 
             target:onExit()
 
             if DEBUG_MEM then
-                CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
+                cc.CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
             end
         elseif event == "cleanup" then
             target:onCleanup()
@@ -44,8 +44,8 @@ function CCSceneExtend.extend(target)
     return target
 end
 
-function CCSceneExtend:markAutoCleanupImage(imageName)
-    if not self.AUTO_CLEANUP_IMAGES then self.AUTO_CLEANUP_IMAGES = {} end
-    self.AUTO_CLEANUP_IMAGES[imageName] = true
+function cc.CCSceneExtend:markAutoCleanupImage(imageName)
+    if not self.autoCleanupImages_ then self.autoCleanupImages_ = {} end
+    self.autoCleanupImages_[imageName] = true
     return self
 end

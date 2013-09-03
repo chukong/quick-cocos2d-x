@@ -7,6 +7,9 @@ $using namespace std;
 $using namespace cocos2d;
 $using namespace cocos2d::extra;
 
+module cc
+{
+
 class CCCrypto
 {
 public:
@@ -120,3 +123,5 @@ class CCNetwork
                                                const char* url,
                                                int method = kCCHTTPRequestMethodGET);
 };
+
+} // module cc

@@ -26,15 +26,7 @@ THE SOFTWARE.
 
 io.output():setvbuf('no')
 
-function echo(...)
-    local arr = {}
-    for i, a in ipairs({...}) do
-        arr[#arr + 1] = tostring(a)
-    end
-    CCLuaLog(table.concat(arr, "\t"))
-end
-
-print = echo
+echo = print
 
 function printf(fmt, ...)
     echo(string.format(tostring(fmt), ...))

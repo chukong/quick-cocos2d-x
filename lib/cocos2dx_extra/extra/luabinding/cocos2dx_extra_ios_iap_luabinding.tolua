@@ -5,6 +5,9 @@ $using namespace std;
 $using namespace cocos2d;
 $using namespace cocos2d::extra;
 
+module cc
+{
+
 typedef enum {
     CCStoreReceiptVerifyModeNone = 0,
     CCStoreReceiptVerifyModeDevice = 1,
@@ -42,3 +45,5 @@ public:
     const char* getReceiptVerifyServerUrl(void);
     void setReceiptVerifyServerUrl(const char* url);
 };
+
+} // module cc

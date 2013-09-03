@@ -1,7 +1,7 @@
 
 local scheduler = {}
 
-local sharedScheduler = CCDirector:sharedDirector():getScheduler()
+local sharedScheduler = cc.CCDirector:sharedDirector():getScheduler()
 
 function scheduler.scheduleUpdateGlobal(listener)
     return sharedScheduler:scheduleScriptFunc(listener, 0, false)

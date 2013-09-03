@@ -4,7 +4,7 @@ local device = {}
 device.platform    = "unknown"
 device.model       = "unknown"
 
-local sharedApplication = CCApplication:sharedApplication()
+local sharedApplication = cc.CCApplication:sharedApplication()
 local target = sharedApplication:getTargetPlatform()
 if target == kTargetWindows then
     device.platform = "windows"
@@ -39,8 +39,8 @@ else
 end
 
 device.language = language_
-device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
-device.cachePath = CCFileUtils:sharedFileUtils():getCachePath()
+device.writablePath = cc.CCFileUtils:sharedFileUtils():getWritablePath()
+device.cachePath = cc.CCFileUtils:sharedFileUtils():getCachePath()
 device.directorySeparator = "/"
 device.pathSeparator = ":"
 if device.platform == "windows" then
@@ -58,11 +58,11 @@ echoInfo("# device.pathSeparator         = " .. device.pathSeparator)
 echoInfo("#")
 
 function device.showActivityIndicator()
-    CCNative:showActivityIndicator()
+    cc.CCNative:showActivityIndicator()
 end
 
 function device.hideActivityIndicator()
-    CCNative:hideActivityIndicator()
+    cc.CCNative:hideActivityIndicator()
 end
 
 function device.showAlert(title, message, buttonLabels, listener)
@@ -75,35 +75,35 @@ function device.showAlert(title, message, buttonLabels, listener)
         table.remove(buttonLabels, 1)
     end
 
-    CCNative:createAlert(title, message, defaultLabel)
+    cc.CCNative:createAlert(title, message, defaultLabel)
     for i, label in ipairs(buttonLabels) do
-        CCNative:addAlertButton(label)
+        cc.CCNative:addAlertButton(label)
     end
 
     if type(listener) ~= "function" then
         listener = function() end
     end
 
-    CCNative:showAlert(listener)
+    cc.CCNative:showAlert(listener)
 end
 
 function device.cancelAlert()
-    CCNative:cancelAlert()
+    cc.CCNative:cancelAlert()
 end
 
 function device.getOpenUDID()
-    return CCNative:getOpenUDID()
+    return cc.CCNative:getOpenUDID()
 end
 
 function device.openURL(url)
-    CCNative:openURL(url)
+    cc.CCNative:openURL(url)
 end
 
 function device.showInputBox(title, message, defaultValue)
     title = title or "INPUT TEXT"
     message = message or "INPUT TEXT, CLICK OK BUTTON"
     defaultValue = defaultValue or ""
-    return CCNative:getInputText(title, message, defaultValue)
+    return cc.CCNative:getInputText(title, message, defaultValue)
 end
 
 return device

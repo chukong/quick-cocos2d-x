@@ -1,58 +1,58 @@
 
-CCNodeExtend = class("CCNodeExtend")
-CCNodeExtend.__index = CCNodeExtend
+cc.CCNodeExtend = class("CCNodeExtend")
+cc.CCNodeExtend.__index = cc.CCNodeExtend
 
-function CCNodeExtend.extend(target)
+function cc.CCNodeExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
         t = {}
         tolua.setpeer(target, t)
     end
-    setmetatable(t, CCNodeExtend)
+    setmetatable(t, cc.CCNodeExtend)
     return target
 end
 
-function CCNodeExtend:align(anchorPoint, x, y)
+function cc.CCNodeExtend:align(anchorPoint, x, y)
     self:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then self:setPosition(x, y) end
     return self
 end
 
-function CCNodeExtend:schedule(callback, interval)
+function cc.CCNodeExtend:schedule(callback, interval)
     local seq = transition.sequence({
-        CCDelayTime:create(interval),
-        CCCallFunc:create(callback),
+        cc.CCDelayTime:create(interval),
+        cc.CCCallFunc:create(callback),
     })
-    local action = CCRepeatForever:create(seq)
+    local action = cc.CCRepeatForever:create(seq)
     self:runAction(action)
     return action
 end
 
-function CCNodeExtend:performWithDelay(callback, delay)
+function cc.CCNodeExtend:performWithDelay(callback, delay)
     local action = transition.sequence({
-        CCDelayTime:create(delay),
-        CCCallFunc:create(callback),
+        cc.CCDelayTime:create(delay),
+        cc.CCCallFunc:create(callback),
     })
     self:runAction(action)
     return action
 end
 
-function CCNodeExtend:onEnter()
+function cc.CCNodeExtend:onEnter()
 end
 
-function CCNodeExtend:onExit()
+function cc.CCNodeExtend:onExit()
 end
 
-function CCNodeExtend:onEnterTransitionFinish()
+function cc.CCNodeExtend:onEnterTransitionFinish()
 end
 
-function CCNodeExtend:onExitTransitionStart()
+function cc.CCNodeExtend:onExitTransitionStart()
 end
 
-function CCNodeExtend:onCleanup()
+function cc.CCNodeExtend:onCleanup()
 end
 
-function CCNodeExtend:setNodeEventEnabled(enabled, handler)
+function cc.CCNodeExtend:setNodeEventEnabled(enabled, handler)
     if enabled then
         if not handler then
             handler = function(event)
@@ -76,7 +76,7 @@ function CCNodeExtend:setNodeEventEnabled(enabled, handler)
     return self
 end
 
-function CCNodeExtend:removeSelf(cleanup)
+function cc.CCNodeExtend:removeSelf(cleanup)
     if not tolua.isnull(self) then
         if cleanup ~= false then cleanup = true end
         self:removeFromParentAndCleanup(cleanup)

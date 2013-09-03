@@ -1,13 +1,13 @@
 
-CCLayerExtend = class("CCLayerExtend", CCNodeExtend)
-CCLayerExtend.__index = CCLayerExtend
+cc.CCLayerExtend = class("CCLayerExtend", cc.CCNodeExtend)
+cc.CCLayerExtend.__index = cc.CCLayerExtend
 
-function CCLayerExtend.extend(target)
+function cc.CCLayerExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
         t = {}
         tolua.setpeer(target, t)
     end
-    setmetatable(t, CCLayerExtend)
+    setmetatable(t, cc.CCLayerExtend)
     return target
 end

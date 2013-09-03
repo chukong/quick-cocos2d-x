@@ -2,11 +2,11 @@
 local network = {}
 
 function network.isLocalWiFiAvailable()
-    return CCNetwork:isLocalWiFiAvailable()
+    return cc.CCNetwork:isLocalWiFiAvailable()
 end
 
 function network.isInternetConnectionAvailable()
-    return CCNetwork:isInternetConnectionAvailable()
+    return cc.CCNetwork:isInternetConnectionAvailable()
 end
 
 function network.isHostNameReachable(hostname)
@@ -14,21 +14,21 @@ function network.isHostNameReachable(hostname)
         echoError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
         return false
     end
-    return CCNetwork:isHostNameReachable(hostname)
+    return cc.CCNetwork:isHostNameReachable(hostname)
 end
 
 function network.getInternetConnectionStatus()
-    return CCNetwork:getInternetConnectionStatus()
+    return cc.CCNetwork:getInternetConnectionStatus()
 end
 
 function network.createHTTPRequest(callback, url, method)
     if not method then method = "GET" end
     if string.upper(tostring(method)) == "GET" then
-        method = kCCHTTPRequestMethodGET
+        method = cc.kCCHTTPRequestMethodGET
     else
-        method = kCCHTTPRequestMethodPOST
+        method = cc.kCCHTTPRequestMethodPOST
     end
-    return CCHTTPRequest:createWithUrl(callback, url, method)
+    return cc.CCHTTPRequest:createWithUrl(callback, url, method)
 end
 
 local function parseTrueFalse(t)

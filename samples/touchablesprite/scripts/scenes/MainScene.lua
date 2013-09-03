@@ -29,7 +29,7 @@ local function newButton(imageName, listener)
             return true -- 返回 true，表示响应该次触摸，阻止触摸事件继续传递给其他对象
         end
 
-        local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+        local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(cc.p(x, y))
         if event == "moved" then
             if touchInSprite then -- 手指移动时，判断是否移出了图像区域
                 sprite:setOpacity(128) -- 在图像区域内，设置图像为半透明
