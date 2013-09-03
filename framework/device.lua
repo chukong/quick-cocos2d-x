@@ -6,15 +6,15 @@ device.model       = "unknown"
 
 local sharedApplication = cc.CCApplication:sharedApplication()
 local target = sharedApplication:getTargetPlatform()
-if target == kTargetWindows then
+if target == cc.kTargetWindows then
     device.platform = "windows"
-elseif target == kTargetMacOS then
+elseif target == cc.kTargetMacOS then
     device.platform = "mac"
-elseif target == kTargetAndroid then
+elseif target == cc.kTargetAndroid then
     device.platform = "android"
-elseif target == kTargetIphone or target == kTargetIpad then
+elseif target == cc.kTargetIphone or target == cc.kTargetIpad then
     device.platform = "ios"
-    if target == kTargetIphone then
+    if target == cc.kTargetIphone then
         device.model = "iphone"
     else
         device.model = "ipad"
