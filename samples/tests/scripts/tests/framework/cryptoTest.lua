@@ -16,11 +16,6 @@ function CryptoTestScene:ctor()
     self:addChild(game.createMenu(items, handler(self, self.runTest)))
 end
 
-function CryptoTestScene:runTest(name)
-    local m = self[name .. "Test"]
-    m(self)
-end
-
 function CryptoTestScene:encryptXXTEATest()
     local p = string.rep("Hello ", 20)
     local k = "KEYKEY"

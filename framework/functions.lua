@@ -245,6 +245,13 @@ string._htmlspecialchars_set["'"] = "&#039;"
 string._htmlspecialchars_set["<"] = "&lt;"
 string._htmlspecialchars_set[">"] = "&gt;"
 
+function string.htmlspecialcharsDecode(input)
+    for k, v in pairs(string._htmlspecialchars_set) do
+        input = string.gsub(input, v, k)
+    end
+    return input
+end
+
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
 end
@@ -286,9 +293,6 @@ function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
 
---[[--
-@ignore
-]]
 local function urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
@@ -300,6 +304,13 @@ function string.urlencode(str)
     str = string.gsub(str, "([^%w%.%- ])", urlencodeChar)
     -- convert spaces to "+" symbols
     return string.gsub(str, " ", "+")
+end
+
+function string.urldecode(str)
+    str = string.gsub (str, "+", " ")
+    str = string.gsub (str, "%%(%x%x)", function(h) return string.char(tonumber(h,16)) end)
+    str = string.gsub (str, "\r\n", "\n")
+    return str
 end
 
 function string.utf8len(str)

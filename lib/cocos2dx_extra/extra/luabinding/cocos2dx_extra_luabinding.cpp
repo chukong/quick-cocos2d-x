@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Tue Sep  3 15:22:50 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Sep  3 16:35:10 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -491,7 +491,7 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_getOpenUDID00(lua_State* tol
 #endif
  {
   {
-   const string tolua_ret = (const string)  CCNative::getOpenUDID();
+   string tolua_ret = (string)  CCNative::getOpenUDID();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -554,7 +554,7 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_getInputText00(lua_State* to
   const char* message = ((const char*)  tolua_tostring(tolua_S,3,0));
   const char* defaultValue = ((const char*)  tolua_tostring(tolua_S,4,0));
   {
-   const string tolua_ret = (const string)  CCNative::getInputText(title,message,defaultValue);
+   string tolua_ret = (string)  CCNative::getInputText(title,message,defaultValue);
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -844,7 +844,7 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getCookieString00(lua_S
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCookieString'", NULL);
 #endif
   {
-   const string tolua_ret = (const string)  self->getCookieString();
+   string tolua_ret = (string)  self->getCookieString();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -1049,6 +1049,38 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseStatusCode00
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getResponseHeadersString of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseHeadersString00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseHeadersString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResponseHeadersString'", NULL);
+#endif
+  {
+   string tolua_ret = (string)  self->getResponseHeadersString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getResponseHeadersString'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getResponseString of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00
 static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00(lua_State* tolua_S)
@@ -1068,7 +1100,7 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00(lua
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getResponseString'", NULL);
 #endif
   {
-   const string tolua_ret = (const string)  self->getResponseString();
+   string tolua_ret = (string)  self->getResponseString();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -1451,6 +1483,7 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"cancel",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_cancel00);
    tolua_function(tolua_S,"getState",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getState00);
    tolua_function(tolua_S,"getResponseStatusCode",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseStatusCode00);
+   tolua_function(tolua_S,"getResponseHeadersString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseHeadersString00);
    tolua_function(tolua_S,"getResponseString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseString00);
    tolua_function(tolua_S,"getResponseData",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseData00);
    tolua_function(tolua_S,"getResponseDataLength",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getResponseDataLength00);

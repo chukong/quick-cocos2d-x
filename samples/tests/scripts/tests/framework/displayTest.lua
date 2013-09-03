@@ -12,11 +12,6 @@ function DisplayTestScene:ctor()
     self:addChild(game.createMenu(items, handler(self, self.runTest)))
 end
 
-function DisplayTestScene:runTest(name)
-    local m = self[name .. "Test"]
-    m(self)
-end
-
 function DisplayTestScene:addImageAsyncTest()
     if self.coin then
         self.coin:removeSelf()

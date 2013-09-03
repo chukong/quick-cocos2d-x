@@ -55,9 +55,9 @@ public:
 
     static void cancelAlert(void);
 
-    static const string getOpenUDID(void);
+    static string getOpenUDID(void);
     static void openURL(const char* url);
-    static const string getInputText(const char* title, const char* message, const char* defaultValue);
+    static string getInputText(const char* title, const char* message, const char* defaultValue);
 
     static const string getDeviceName(void);
     static void vibrate();
@@ -89,14 +89,15 @@ class CCHTTPRequest : public CCObject
     void addPOSTValue(const char* key, const char* value);
     void setPOSTData(const char* data);
     void setCookieString(const char *cookie);
-    const string getCookieString(void);
+    string getCookieString(void);
     void setAcceptEncoding(int acceptEncoding);
     void setTimeout(float timeout);
     void start(void);
     void cancel(void);
     int getState(void);
     int getResponseStatusCode(void);
-    const string getResponseString(void);
+    string getResponseHeadersString(void);
+    string getResponseString(void);
     LUA_STRING getResponseDataLua @ getResponseData (void);
     int getResponseDataLength(void);
     int saveResponseData(const char* filename);

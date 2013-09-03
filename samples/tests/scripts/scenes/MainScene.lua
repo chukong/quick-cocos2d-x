@@ -7,6 +7,7 @@ function MainScene:ctor()
     local items = {
         "framework.display",
         "framework.crypto",
+        "framework.network",
     }
 
     self:addChild(game.createMenu(items, handler(self, self.openTest)))
