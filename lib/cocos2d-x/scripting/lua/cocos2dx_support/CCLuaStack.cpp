@@ -451,7 +451,7 @@ int CCLuaStack::lua_print(lua_State *L)
 {
     int nargs = lua_gettop(L);
 
-    std::string t;
+    std::string t("Cocos2d: ");
     for (int i=1; i <= nargs; i++)
     {
         if (lua_istable(L, i))
@@ -484,7 +484,7 @@ int CCLuaStack::lua_print(lua_State *L)
         if (i!=nargs)
             t += "\t";
     }
-    CCLOG("[LUA-print] %s", t.c_str());
+    CCLuaLog(t.c_str());
 
     return 0;
 }

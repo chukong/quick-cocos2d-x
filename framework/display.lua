@@ -329,7 +329,7 @@ end
 
 function display.newTilesSprite(filename, rect)
     if not rect then
-        rect = cc.CCRect(0, 0, display.width, display.height)
+        rect = cc.rect(0, 0, display.width, display.height)
     end
     local sprite = cc.CCSprite:create(filename, rect)
     if not sprite then

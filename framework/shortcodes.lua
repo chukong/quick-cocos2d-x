@@ -82,12 +82,12 @@ function cc.CCNodeExtend:fadeTo(time, opacity)
 end
 
 function cc.CCNodeExtend:moveTo(time, x, y)
-    self:runAction(cc.CCMoveTo:create(time, cc.CCPoint(x or self:getPositionX(), y or self:getPositionY())))
+    self:runAction(cc.CCMoveTo:create(time, cc.p(x or self:getPositionX(), y or self:getPositionY())))
     return self
 end
 
 function cc.CCNodeExtend:moveBy(time, x, y)
-    self:runAction(cc.CCMoveBy:create(time, cc.CCPoint(x or 0, y or 0)))
+    self:runAction(cc.CCMoveBy:create(time, cc.p(x or 0, y or 0)))
     return self
 end
 

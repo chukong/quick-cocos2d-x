@@ -8,10 +8,6 @@ math.random()
 if type(DEBUG) ~= "number" then DEBUG = 1 end
 local CURRENT_MODULE_NAME = ...
 
-for k, _ in pairs(_G) do
-    print("GLOBAL: ", k)
-end
-
 cc = cc or {}
 cc.packageName = string.sub(CURRENT_MODULE_NAME, 1, -6)
 cc.version = "2.5.0"

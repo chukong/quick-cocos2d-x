@@ -1,6 +1,6 @@
 
 local ScrollView = class("ScrollView", function(rect)
-    if not rect then rect = CCRect(0, 0, 0, 0) end
+    if not rect then rect = cc.rect(0, 0, 0, 0) end
     local node = display.newClippingRegionNode(rect)
     node:setNodeEventEnabled(true)
     require("framework.api.EventProtocol").extend(node)
