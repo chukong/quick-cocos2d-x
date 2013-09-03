@@ -14,7 +14,7 @@ function game.startup()
 end
 
 function game.exit()
-    cc.CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()

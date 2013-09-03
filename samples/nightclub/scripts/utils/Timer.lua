@@ -3,7 +3,7 @@
 @author xianlinli@gmail.com
 ]]
 local Timer = {
-    _scheduler = CCDirector:sharedDirector():getScheduler(),
+    _scheduler = cc.CCDirector:sharedDirector():getScheduler(),
     _timers = {}
 }
 

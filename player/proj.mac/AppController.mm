@@ -114,7 +114,7 @@ using namespace cocos2d::extra;
     //set console pipe
     pipe = [NSPipe pipe] ;
     pipeReadHandle = [pipe fileHandleForReading] ;
-    
+
     int outfd = [[pipe fileHandleForWriting] fileDescriptor];
     if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
     {
@@ -157,7 +157,7 @@ using namespace cocos2d::extra;
     [window setContentView:glView];
     [window setTitle:@"quick-x-player"];
     [window center];
-    
+
     if (projectConfig.getProjectDir().length())
     {
         [self setZoom:projectConfig.getFrameScale()];
@@ -167,7 +167,7 @@ using namespace cocos2d::extra;
             [window setFrameOrigin:NSMakePoint(pos.x, pos.y)];
         }
     }
-    
+
     [window becomeFirstResponder];
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
@@ -461,7 +461,7 @@ using namespace cocos2d::extra;
     if(fileHandle!=nil){
         [fileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];
     }
-     
+
 }
 
 - (void) closeDebugLogFile
@@ -540,14 +540,14 @@ using namespace cocos2d::extra;
     string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
     if (path.length())
     {
-        path.append("sample");
+        path.append("samples");
         [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
     }
 }
 
 - (void) welcomeGetStarted
 {
-    CCNative::openURL("https://github.com/dualface/quick-cocos2d-x/wiki");
+    CCNative::openURL("http://quick-x.com/");
 }
 
 #pragma mark -

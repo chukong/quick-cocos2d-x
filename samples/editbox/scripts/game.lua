@@ -6,13 +6,13 @@ require("framework.init")
 game = {}
 
 function game.startup()
-    CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
     game.enterMainScene()
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()

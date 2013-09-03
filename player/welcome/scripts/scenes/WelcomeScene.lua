@@ -6,7 +6,7 @@ end)
 function WelcomeScene:ctor()
     self.menu = nil -- self:createButtons()
 
-    local bg = CCLayerColor:create(ccc4(255, 255, 255, 255))
+    local bg = cc.CCLayerColor:create(cc.c4(255, 255, 255, 255))
     self:addChild(bg)
 
     self:createTitle()
@@ -18,7 +18,7 @@ function WelcomeScene:ctor()
 end
 
 function WelcomeScene:createTitle()
-    local color = ccc3(102, 102, 102)
+    local color = cc.c3(102, 102, 102)
     local label = ui.newTTFLabel({
         text = "Welcome to quick-cocos2d-x",
         color = color,
@@ -41,13 +41,13 @@ function WelcomeScene:createTitle()
 end
 
 function WelcomeScene:createDescription()
-    local bg = CCLayerColor:create(ccc4(249, 249, 249, 255), 678, 88)
+    local bg = cc.CCLayerColor:create(cc.c4(249, 249, 249, 255), 678, 88)
     bg:setPosition(display.left + 40, display.top - 240)
 
-    local bar = CCLayerColor:create(ccc4(247, 123, 0, 255), 2, 88)
+    local bar = cc.CCLayerColor:create(cc.c4(247, 123, 0, 255), 2, 88)
     bg:addChild(bar)
 
-    local color = ccc3(102, 102, 102)
+    local color = cc.c3(102, 102, 102)
     local label = ui.newTTFLabel({
         text = [[cocos2d-x is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed
 under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade
@@ -58,7 +58,7 @@ and desktop operating systems like Linux, WindowsXP & Windows7.]],
         y = 44,
         align = ui.TEXT_ALIGN_LEFT,
         valign = ui.TEXT_VALIGN_CENTER,
-        dimensions = CCSize(680, 88),
+        dimensions = cc.size(680, 88),
     })
     bg:addChild(label)
 
@@ -72,7 +72,7 @@ function WelcomeScene:createLogo()
 end
 
 function WelcomeScene:createLine()
-    local line = CCLayerColor:create(ccc4(238, 238, 238, 255), display.width - 80, 1)
+    local line = cc.CCLayerColor:create(cc.c4(238, 238, 238, 255), display.width - 80, 1)
     line:setPosition(display.left + 20, display.top - 280)
     self:addChild(line)
 end
@@ -122,7 +122,7 @@ function WelcomeScene:createCopyright()
     local label = ui.newTTFLabel({
         text = "Copyright (c) 2012-2013 quick-x.com, licensed under MIT.",
         size = 14,
-        color = ccc3(180, 180, 180),
+        color = cc.c3(180, 180, 180),
         x = display.cx,
         y = display.bottom + 30,
         align = ui.TEXT_ALIGN_CENTER,
@@ -133,19 +133,19 @@ end
 -- listeners
 
 function WelcomeScene:onNewProjectButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
+    cc.CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
 end
 
 function WelcomeScene:onOpenButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
+    cc.CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
 end
 
 function WelcomeScene:onSamplesButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_SAMPLES")
+    cc.CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_SAMPLES")
 end
 
 function WelcomeScene:onGetStartedButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
+    cc.CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end
 
 -- helper
@@ -156,7 +156,7 @@ function WelcomeScene:createButtonSprite(imageName, text, textOffsetX, textOffse
     local sprite = display.newSprite(imageName)
     sprite:addChild(ui.newTTFLabel({
         text = text,
-        color = ccc3(255, 255, 255),
+        color = cc.c3(255, 255, 255),
         x = sprite:getContentSize().width / 2 + textOffsetX,
         y = 30 + textOffsetY,
         size = 22,

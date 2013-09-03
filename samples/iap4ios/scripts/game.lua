@@ -17,12 +17,12 @@ function game.startup()
     game.store:addEventListener(Store.TRANSACTION_UNKNOWN_ERROR,
                                 game.onTransactionUnknownError)
 
-    CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
     game.enterMainScene()
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()

@@ -22,7 +22,7 @@ function Store.init(listener)
         return false
     end
 
-    cc.storeProvider = CCStore:sharedStore() -- avoid gc
+    cc.storeProvider = cc.CCStore:sharedStore() -- avoid gc
     return cc.storeProvider:postInitWithTransactionListener(listener)
 end
 

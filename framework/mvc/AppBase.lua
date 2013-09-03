@@ -22,8 +22,6 @@ function AppBase:run()
 end
 
 function AppBase:exit()
-    audio.stopMusic()
-    cc.CCDirector:sharedDirector():endToLua()
     os.exit()
 end
 

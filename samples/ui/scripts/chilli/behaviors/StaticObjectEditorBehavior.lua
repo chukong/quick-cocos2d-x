@@ -74,8 +74,8 @@ function StaticObjectEditorBehavior:bind(object)
             object.playerIdLabel_ = ui.newTTFLabelWithOutline({
                 text         = "Player",
                 size         = 24,
-                outlineColor = ccc3(10, 115, 107),
-                color        = ccc3(255, 255, 255),
+                outlineColor = cc.c3(10, 115, 107),
+                color        = cc.c3(255, 255, 255),
                 align        = ui.TEXT_ALIGN_CENTER,
             })
             debugLayer:addChild(object.playerIdLabel_)
@@ -141,10 +141,10 @@ function StaticObjectEditorBehavior:bind(object)
 
         object.flagSprite_:setPosition(x, y)
         if object.isSelected_ then
-            object.idLabel_:setColor(ccc3(unpack(EditorConstants.SELECTED_LABEL_COLOR)))
+            object.idLabel_:setColor(cc.c3(unpack(EditorConstants.SELECTED_LABEL_COLOR)))
             object.radiusCircle_:setColor(unpack(EditorConstants.SELECTED_COLOR))
         else
-            object.idLabel_:setColor(ccc3(unpack(EditorConstants.UNSELECTED_LABEL_COLOR)))
+            object.idLabel_:setColor(cc.c3(unpack(EditorConstants.UNSELECTED_LABEL_COLOR)))
             object.radiusCircle_:setColor(unpack(EditorConstants.UNSELECTED_COLOR))
         end
         object.flagSprite_:setScale(scale)

@@ -86,10 +86,10 @@ function RangeEditorBehavior:bind(object)
         object.handler_:setScale(scale)
 
         if object.isSelected_ then
-            object.idLabel_:setColor(ccc3(unpack(RangeEditorBehavior.SELECTED_LABEL_COLOR)))
+            object.idLabel_:setColor(cc.c3(unpack(RangeEditorBehavior.SELECTED_LABEL_COLOR)))
             object.radiusCircle_:setColor(unpack(RangeEditorBehavior.SELECTED_COLOR))
         else
-            object.idLabel_:setColor(ccc3(unpack(RangeEditorBehavior.UNSELECTED_LABEL_COLOR)))
+            object.idLabel_:setColor(cc.c3(unpack(RangeEditorBehavior.UNSELECTED_LABEL_COLOR)))
             object.radiusCircle_:setColor(unpack(RangeEditorBehavior.UNSELECTED_COLOR))
         end
     end

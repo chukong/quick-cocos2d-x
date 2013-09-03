@@ -4,6 +4,8 @@ $#include "CCPhysicsBody.h"
 $#include "CCPhysicsWorld.h"
 $#include "CCPhysicsDebugNode.h"
 
+module cc {
+
 class CCPhysicsWorld : public CCNode
 {
     static CCPhysicsWorld *create(float gravityX, float gravityY);
@@ -285,3 +287,5 @@ class CCPhysicsVector : public CCObject
     // Returns the sum of abs(x) nad abs(y).
     float sum(void);
 };
+
+} // module cc

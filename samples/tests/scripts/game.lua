@@ -6,7 +6,7 @@ require("framework.init")
 game = {}
 
 function game.startup()
-    CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
     game.enterMainScene()
 end
@@ -28,7 +28,7 @@ function game.createMenu(items, callback)
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()
@@ -46,7 +46,7 @@ function game.createSceneClass(name)
 
         local label = ui.newTTFLabelMenuItem({
             text = "RETURN",
-            color = ccc3(255, 0, 0),
+            color = cc.c3(255, 0, 0),
             x = display.right - 80,
             y = display.bottom + 30,
             listener = function()
@@ -58,7 +58,7 @@ function game.createSceneClass(name)
         local label = ui.newTTFLabel({
             text = "====   " .. cls.__cname .. "   ====",
             size = 24,
-            color = ccc3(0, 255, 0),
+            color = cc.c3(0, 255, 0),
             x = display.cx,
             y = display.top - 30,
             align = ui.TEXT_ALIGN_CENTER,
@@ -69,7 +69,7 @@ function game.createSceneClass(name)
             local label = ui.newTTFLabel({
                 text = args.description,
                 size = 20,
-                color = ccc3(0, 160, 0),
+                color = cc.c3(0, 160, 0),
                 x = display.cx,
                 y = display.top - 60,
                 align = ui.TEXT_ALIGN_CENTER,

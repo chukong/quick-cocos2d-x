@@ -212,7 +212,7 @@ function ScrollView:onTouch(event, x, y)
     if self.currentIndex < 1 then return end
 
     if event == "began" then
-        if not self.touchRect:containsPoint(ccp(x, y)) then return false end
+        if not self.touchRect:containsPoint(cc.p(x, y)) then return false end
         return self:onTouchBegan(x, y)
     elseif event == "moved" then
         self:onTouchMoved(x, y)
@@ -255,9 +255,9 @@ function ScrollView:reorderAllCells()
 
     local size
     if self.direction == ScrollView.DIRECTION_HORIZONTAL then
-        size = CCSize(x, maxHeight)
+        size = cc.size(x, maxHeight)
     else
-        size = CCSize(maxWidth, math.abs(y))
+        size = cc.size(maxWidth, math.abs(y))
     end
     self.view:setContentSize(size)
 end

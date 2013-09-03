@@ -44,7 +44,7 @@ function cc.CCNodeExtend:size(width, height)
     if typen(width) == LUA_TUSERDATA then
         self:setContentSize(width)
     else
-        self:setContentSize(cc.CCSize(width, height))
+        self:setContentSize(cc.size(width, height))
     end
     return self
 end

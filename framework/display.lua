@@ -156,33 +156,33 @@ display.ANCHOR_POINTS = {
 }
 
 display.SCENE_TRANSITIONS = {
-    CROSSFADE       = {CCTransitionCrossFade, 2},
-    FADE            = {CCTransitionFade, 3, cc.c3(0, 0, 0)},
-    FADEBL          = {CCTransitionFadeBL, 2},
-    FADEDOWN        = {CCTransitionFadeDown, 2},
-    FADETR          = {CCTransitionFadeTR, 2},
-    FADEUP          = {CCTransitionFadeUp, 2},
-    FLIPANGULAR     = {CCTransitionFlipAngular, 3, kCCTransitionOrientationLeftOver},
-    FLIPX           = {CCTransitionFlipX, 3, kCCTransitionOrientationLeftOver},
-    FLIPY           = {CCTransitionFlipY, 3, kCCTransitionOrientationUpOver},
-    JUMPZOOM        = {CCTransitionJumpZoom, 2},
-    MOVEINB         = {CCTransitionMoveInB, 2},
-    MOVEINL         = {CCTransitionMoveInL, 2},
-    MOVEINR         = {CCTransitionMoveInR, 2},
-    MOVEINT         = {CCTransitionMoveInT, 2},
-    PAGETURN        = {CCTransitionPageTurn, 3, false},
-    ROTOZOOM        = {CCTransitionRotoZoom, 2},
-    SHRINKGROW      = {CCTransitionShrinkGrow, 2},
-    SLIDEINB        = {CCTransitionSlideInB, 2},
-    SLIDEINL        = {CCTransitionSlideInL, 2},
-    SLIDEINR        = {CCTransitionSlideInR, 2},
-    SLIDEINT        = {CCTransitionSlideInT, 2},
-    SPLITCOLS       = {CCTransitionSplitCols, 2},
-    SPLITROWS       = {CCTransitionSplitRows, 2},
-    TURNOFFTILES    = {CCTransitionTurnOffTiles, 2},
-    ZOOMFLIPANGULAR = {CCTransitionZoomFlipAngular, 2},
-    ZOOMFLIPX       = {CCTransitionZoomFlipX, 3, kCCTransitionOrientationLeftOver},
-    ZOOMFLIPY       = {CCTransitionZoomFlipY, 3, kCCTransitionOrientationUpOver},
+    CROSSFADE       = {cc.CCTransitionCrossFade, 2},
+    FADE            = {cc.CCTransitionFade, 3, cc.c3(0, 0, 0)},
+    FADEBL          = {cc.CCTransitionFadeBL, 2},
+    FADEDOWN        = {cc.CCTransitionFadeDown, 2},
+    FADETR          = {cc.CCTransitionFadeTR, 2},
+    FADEUP          = {cc.CCTransitionFadeUp, 2},
+    FLIPANGULAR     = {cc.CCTransitionFlipAngular, 3, cc.kCCTransitionOrientationLeftOver},
+    FLIPX           = {cc.CCTransitionFlipX, 3, cc.kCCTransitionOrientationLeftOver},
+    FLIPY           = {cc.CCTransitionFlipY, 3, cc.kCCTransitionOrientationUpOver},
+    JUMPZOOM        = {cc.CCTransitionJumpZoom, 2},
+    MOVEINB         = {cc.CCTransitionMoveInB, 2},
+    MOVEINL         = {cc.CCTransitionMoveInL, 2},
+    MOVEINR         = {cc.CCTransitionMoveInR, 2},
+    MOVEINT         = {cc.CCTransitionMoveInT, 2},
+    PAGETURN        = {cc.CCTransitionPageTurn, 3, false},
+    ROTOZOOM        = {cc.CCTransitionRotoZoom, 2},
+    SHRINKGROW      = {cc.CCTransitionShrinkGrow, 2},
+    SLIDEINB        = {cc.CCTransitionSlideInB, 2},
+    SLIDEINL        = {cc.CCTransitionSlideInL, 2},
+    SLIDEINR        = {cc.CCTransitionSlideInR, 2},
+    SLIDEINT        = {cc.CCTransitionSlideInT, 2},
+    SPLITCOLS       = {cc.CCTransitionSplitCols, 2},
+    SPLITROWS       = {cc.CCTransitionSplitRows, 2},
+    TURNOFFTILES    = {cc.CCTransitionTurnOffTiles, 2},
+    ZOOMFLIPANGULAR = {cc.CCTransitionZoomFlipAngular, 2},
+    ZOOMFLIPX       = {cc.CCTransitionZoomFlipX, 3, cc.kCCTransitionOrientationLeftOver},
+    ZOOMFLIPY       = {cc.CCTransitionZoomFlipY, 3, cc.kCCTransitionOrientationUpOver},
 }
 
 display.TEXTURES_PIXEL_FORMAT = {}
@@ -271,7 +271,7 @@ function display.newSprite(filename, x, y)
             if display.TEXTURES_PIXEL_FORMAT[filename] then
                 cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
                 sprite = cc.CCSprite:create(filename)
-                cc.CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+                cc.CCTexture2D:setDefaultAlphaPixelFormat(cc.kCCTexture2DPixelFormat_RGBA8888)
             else
                 sprite = cc.CCSprite:create(filename)
             end
@@ -310,7 +310,7 @@ function display.newScale9Sprite(filename, x, y, size)
         if display.TEXTURES_PIXEL_FORMAT[filename] then
             cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
             sprite = cc.CCScale9Sprite:create(filename)
-            cc.CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+            cc.CCTexture2D:setDefaultAlphaPixelFormat(cc.kCCTexture2DPixelFormat_RGBA8888)
         else
             sprite = cc.CCScale9Sprite:create(filename)
         end
@@ -337,7 +337,7 @@ function display.newTilesSprite(filename, rect)
         return
     end
 
-    local tp = ccTexParams()
+    local tp = cc.ccTexParams()
     tp.minFilter = 9729
     tp.magFilter = 9729
     tp.wrapS = 10497
@@ -401,7 +401,7 @@ function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
         cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
-        cc.CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+        cc.CCTexture2D:setDefaultAlphaPixelFormat(cc.kCCTexture2DPixelFormat_RGBA8888)
     else
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
     end
@@ -484,8 +484,8 @@ function display.removeUnusedSpriteFrames()
     sharedTextureCache:removeUnusedTextures()
 end
 
-display.PROGRESS_TIMER_BAR = kCCProgressTimerTypeBar
-display.PROGRESS_TIMER_RADIAL = kCCProgressTimerTypeRadial
+display.PROGRESS_TIMER_BAR = cc.kCCProgressTimerTypeBar
+display.PROGRESS_TIMER_RADIAL = cc.kCCProgressTimerTypeRadial
 
 function display.newProgressTimer(image, progresssType)
     if typen(image) == LUA_TSTRING then

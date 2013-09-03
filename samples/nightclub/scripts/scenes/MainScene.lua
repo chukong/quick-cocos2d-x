@@ -26,8 +26,8 @@ function MainScene:ctor()
     self:addChild(topBarBg, self.MAX_ZORDER - 1)
 
     -- topBar标签
-    local label = CCLabelTTF:create("loading...", "Courier New", 16);
-    label:setColor(ccc3(255, 255, 255))
+    local label = cc.CCLabelTTF:create("loading...", "Courier New", 16);
+    label:setColor(cc.c3(255, 255, 255))
     label:setPosition(display.cx, display.top - 10)
     self:addChild(label, self.MAX_ZORDER)
     self.label = label
@@ -101,7 +101,7 @@ end
 function MainScene:moveObjects(x, y)
     for k, v in pairs(self.objs) do
         if math.random(1, 5) == 1 then
-            local action = CCMoveTo:create(math.random(1, 5), ccp(x, y))
+            local action = cc.CCMoveTo:create(math.random(1, 5), cc.p(x, y))
             v:runAction(action)
         end
     end

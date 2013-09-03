@@ -342,3 +342,9 @@ function string.formatNumberThousands(num)
     end
     return formatted
 end
+
+local exit = os.exit
+function os.exit()
+    cc.CCDirector:sharedDirector():endToLua()
+    exit()
+end

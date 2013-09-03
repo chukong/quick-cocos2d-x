@@ -6,14 +6,14 @@ require("framework.init")
 game = {}
 
 function game.startup()
-    CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
     display.addSpriteFramesWithFile(GAME_TEXTURE_DATA_FILENAME, GAME_TEXTURE_IMAGE_FILENAME)
 
     game.enterMainScene()
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()

@@ -9,9 +9,8 @@ CONFIG_SCREEN_HEIGHT = 640
 -- auto scale mode
 CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH"
 
-CCFileUtils:sharedFileUtils():addSearchPath("res/")
+cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
-CCLuaLoadChunksFromZip("framework_precompiled.zip")
 require("framework.init")
 
 -- musics
