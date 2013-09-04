@@ -51,6 +51,8 @@ using namespace std;
 
 NS_CC_BEGIN
 
+struct cc_timeval CCLuaStack::m_lasttime = {0};
+
 CCLuaStack *CCLuaStack::create(void)
 {
     CCLuaStack *stack = new CCLuaStack();
@@ -449,9 +451,33 @@ int CCLuaStack::reallocateScriptHandler(int nHandler)
 
 int CCLuaStack::lua_print(lua_State *L)
 {
-    int nargs = lua_gettop(L);
+    struct cc_timeval now;
 
-    std::string t("Cocos2d: ");
+    float deltatime = 0;
+    if (CCTime::gettimeofdayCocos2d(&now, NULL) != 0)
+    {
+        CCLOG("CCLuaStack:lua_print() - error in gettimeofday");
+    }
+    else
+    {
+        if (m_lasttime.tv_sec)
+        {
+            deltatime = now.tv_sec - m_lasttime.tv_sec + (now.tv_usec - m_lasttime.tv_usec) / 1000000.0f;
+        }
+        else
+        {
+            m_lasttime = now;
+            deltatime = 0;
+        }
+    }
+
+    int nargs = lua_gettop(L);
+    std::string t("Cocos2d: [");
+    char timestr[32];
+    memset(timestr, 0, sizeof(timestr));
+    sprintf(timestr, "%.4f", deltatime);
+    t += timestr;
+    t += "] ";
     for (int i=1; i <= nargs; i++)
     {
         if (lua_istable(L, i))

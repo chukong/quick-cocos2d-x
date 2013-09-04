@@ -32,6 +32,7 @@ extern "C" {
 #include "ccTypes.h"
 #include "cocoa/CCObject.h"
 #include "CCLuaValue.h"
+#include "platform/platform.h"
 
 NS_CC_BEGIN
 
@@ -131,6 +132,7 @@ protected:
     
     lua_State *m_state;
     int m_callFromLua;
+    static struct cc_timeval m_lasttime;
 
     static int lua_print(lua_State *L);
     static int lua_loadChunksFromZip(lua_State *L);
