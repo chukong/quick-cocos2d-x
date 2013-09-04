@@ -1,10 +1,10 @@
 
 local display = {}
 
-local sharedDirector         = cc.CCDirector:sharedDirector()
-local sharedTextureCache     = cc.CCTextureCache:sharedTextureCache()
-local sharedSpriteFrameCache = cc.CCSpriteFrameCache:sharedSpriteFrameCache()
-local sharedAnimationCache   = cc.CCAnimationCache:sharedAnimationCache()
+local sharedDirector         = CCDirector:sharedDirector()
+local sharedTextureCache     = CCTextureCache:sharedTextureCache()
+local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
+local sharedAnimationCache   = CCAnimationCache:sharedAnimationCache()
 
 -- check device screen size
 local glview = sharedDirector:getOpenGLView()
@@ -45,7 +45,7 @@ end
 local scale, wscale, hscale = 1, 1, 1
 if type(CONFIG_SCREEN_AUTOSCALE) == "function" then
     CONFIG_SCREEN_AUTOSCALE(w, h)
-    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, cc.kResolutionNoBorder)
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
 elseif CONFIG_SCREEN_AUTOSCALE then
     scale, wscale, hscale = checkScale(w, h)
 
@@ -61,7 +61,7 @@ elseif CONFIG_SCREEN_AUTOSCALE then
         end
 
         if not selectedSize and lastSize then selectedSize = lastSize end
-        cc.CCFileUtils:sharedFileUtils():addSearchPath(selectedSize.path)
+        CCFileUtils:sharedFileUtils():addSearchPath(selectedSize.path)
 
         w = w / scale * selectedSize.scale
         h = h / scale * selectedSize.scale
@@ -89,7 +89,7 @@ elseif CONFIG_SCREEN_AUTOSCALE then
         echoError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
 
-    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, cc.kResolutionNoBorder)
+    glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
 end
 
 local winSize = sharedDirector:getWinSize()
@@ -130,8 +130,8 @@ echoInfo(string.format("# display.c_top                = %0.2f", display.c_top))
 echoInfo(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
 echoInfo("#")
 
-display.COLOR_WHITE = cc.c3(255, 255, 255)
-display.COLOR_BLACK = cc.c3(0, 0, 0)
+display.COLOR_WHITE = ccc3(255, 255, 255)
+display.COLOR_BLACK = ccc3(0, 0, 0)
 
 display.CENTER        = 1
 display.LEFT_TOP      = 2; display.TOP_LEFT      = 2
@@ -144,51 +144,51 @@ display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
 
 display.ANCHOR_POINTS = {
-    cc.p(0.5, 0.5),  -- CENTER
-    cc.p(0, 1),      -- TOP_LEFT
-    cc.p(0.5, 1),    -- TOP_CENTER
-    cc.p(1, 1),      -- TOP_RIGHT
-    cc.p(0, 0.5),    -- CENTER_LEFT
-    cc.p(1, 0.5),    -- CENTER_RIGHT
-    cc.p(0, 0),      -- BOTTOM_LEFT
-    cc.p(1, 0),      -- BOTTOM_RIGHT
-    cc.p(0.5, 0),    -- BOTTOM_CENTER
+    CCPoint(0.5, 0.5),  -- CENTER
+    CCPoint(0, 1),      -- TOP_LEFT
+    CCPoint(0.5, 1),    -- TOP_CENTER
+    CCPoint(1, 1),      -- TOP_RIGHT
+    CCPoint(0, 0.5),    -- CENTER_LEFT
+    CCPoint(1, 0.5),    -- CENTER_RIGHT
+    CCPoint(0, 0),      -- BOTTOM_LEFT
+    CCPoint(1, 0),      -- BOTTOM_RIGHT
+    CCPoint(0.5, 0),    -- BOTTOM_CENTER
 }
 
 display.SCENE_TRANSITIONS = {
-    CROSSFADE       = {cc.CCTransitionCrossFade, 2},
-    FADE            = {cc.CCTransitionFade, 3, cc.c3(0, 0, 0)},
-    FADEBL          = {cc.CCTransitionFadeBL, 2},
-    FADEDOWN        = {cc.CCTransitionFadeDown, 2},
-    FADETR          = {cc.CCTransitionFadeTR, 2},
-    FADEUP          = {cc.CCTransitionFadeUp, 2},
-    FLIPANGULAR     = {cc.CCTransitionFlipAngular, 3, cc.kCCTransitionOrientationLeftOver},
-    FLIPX           = {cc.CCTransitionFlipX, 3, cc.kCCTransitionOrientationLeftOver},
-    FLIPY           = {cc.CCTransitionFlipY, 3, cc.kCCTransitionOrientationUpOver},
-    JUMPZOOM        = {cc.CCTransitionJumpZoom, 2},
-    MOVEINB         = {cc.CCTransitionMoveInB, 2},
-    MOVEINL         = {cc.CCTransitionMoveInL, 2},
-    MOVEINR         = {cc.CCTransitionMoveInR, 2},
-    MOVEINT         = {cc.CCTransitionMoveInT, 2},
-    PAGETURN        = {cc.CCTransitionPageTurn, 3, false},
-    ROTOZOOM        = {cc.CCTransitionRotoZoom, 2},
-    SHRINKGROW      = {cc.CCTransitionShrinkGrow, 2},
-    SLIDEINB        = {cc.CCTransitionSlideInB, 2},
-    SLIDEINL        = {cc.CCTransitionSlideInL, 2},
-    SLIDEINR        = {cc.CCTransitionSlideInR, 2},
-    SLIDEINT        = {cc.CCTransitionSlideInT, 2},
-    SPLITCOLS       = {cc.CCTransitionSplitCols, 2},
-    SPLITROWS       = {cc.CCTransitionSplitRows, 2},
-    TURNOFFTILES    = {cc.CCTransitionTurnOffTiles, 2},
-    ZOOMFLIPANGULAR = {cc.CCTransitionZoomFlipAngular, 2},
-    ZOOMFLIPX       = {cc.CCTransitionZoomFlipX, 3, cc.kCCTransitionOrientationLeftOver},
-    ZOOMFLIPY       = {cc.CCTransitionZoomFlipY, 3, cc.kCCTransitionOrientationUpOver},
+    CROSSFADE       = {CCTransitionCrossFade, 2},
+    FADE            = {CCTransitionFade, 3, ccc3(0, 0, 0)},
+    FADEBL          = {CCTransitionFadeBL, 2},
+    FADEDOWN        = {CCTransitionFadeDown, 2},
+    FADETR          = {CCTransitionFadeTR, 2},
+    FADEUP          = {CCTransitionFadeUp, 2},
+    FLIPANGULAR     = {CCTransitionFlipAngular, 3, kCCTransitionOrientationLeftOver},
+    FLIPX           = {CCTransitionFlipX, 3, kCCTransitionOrientationLeftOver},
+    FLIPY           = {CCTransitionFlipY, 3, kCCTransitionOrientationUpOver},
+    JUMPZOOM        = {CCTransitionJumpZoom, 2},
+    MOVEINB         = {CCTransitionMoveInB, 2},
+    MOVEINL         = {CCTransitionMoveInL, 2},
+    MOVEINR         = {CCTransitionMoveInR, 2},
+    MOVEINT         = {CCTransitionMoveInT, 2},
+    PAGETURN        = {CCTransitionPageTurn, 3, false},
+    ROTOZOOM        = {CCTransitionRotoZoom, 2},
+    SHRINKGROW      = {CCTransitionShrinkGrow, 2},
+    SLIDEINB        = {CCTransitionSlideInB, 2},
+    SLIDEINL        = {CCTransitionSlideInL, 2},
+    SLIDEINR        = {CCTransitionSlideInR, 2},
+    SLIDEINT        = {CCTransitionSlideInT, 2},
+    SPLITCOLS       = {CCTransitionSplitCols, 2},
+    SPLITROWS       = {CCTransitionSplitRows, 2},
+    TURNOFFTILES    = {CCTransitionTurnOffTiles, 2},
+    ZOOMFLIPANGULAR = {CCTransitionZoomFlipAngular, 2},
+    ZOOMFLIPX       = {CCTransitionZoomFlipX, 3, kCCTransitionOrientationLeftOver},
+    ZOOMFLIPY       = {CCTransitionZoomFlipY, 3, kCCTransitionOrientationUpOver},
 }
 
 display.TEXTURES_PIXEL_FORMAT = {}
 
 function display.newScene(name)
-    local scene = cc.CCSceneExtend.extend(cc.CCScene:create())
+    local scene = CCSceneExtend.extend(CCScene:create())
     scene.name = name or "<unknown-scene>"
     return scene
 end
@@ -243,15 +243,15 @@ function display.resume()
 end
 
 function display.newLayer()
-    return cc.CCLayerExtend.extend(cc.CCLayer:create())
+    return CCLayerExtend.extend(CCLayer:create())
 end
 
 function display.newNode()
-    return cc.CCNodeExtend.extend(cc.CCNode:create())
+    return CCNodeExtend.extend(CCNode:create())
 end
 
 function display.newClippingRegionNode(rect)
-    return cc.CCNodeExtend.extend(cc.CCClippingRegionNode:create(rect))
+    return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
 function display.newSprite(filename, x, y)
@@ -260,31 +260,31 @@ function display.newSprite(filename, x, y)
     local sprite
 
     if not filename then
-        sprite = cc.CCSprite:create()
+        sprite = CCSprite:create()
     elseif t == LUA_TSTRING then
         if string.byte(filename) == 35 then -- first char is #
             local frame = display.newSpriteFrame(string.sub(filename, 2))
             if frame then
-                sprite = cc.CCSprite:createWithSpriteFrame(frame)
+                sprite = CCSprite:createWithSpriteFrame(frame)
             end
         else
             if display.TEXTURES_PIXEL_FORMAT[filename] then
-                cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-                sprite = cc.CCSprite:create(filename)
-                cc.CCTexture2D:setDefaultAlphaPixelFormat(cc.kCCTexture2DPixelFormat_RGBA8888)
+                CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+                sprite = CCSprite:create(filename)
+                CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
-                sprite = cc.CCSprite:create(filename)
+                sprite = CCSprite:create(filename)
             end
         end
     elseif t == "CCSpriteFrame" then
-        sprite = cc.CCSprite:createWithSpriteFrame(filename)
+        sprite = CCSprite:createWithSpriteFrame(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
         return
     end
 
     if sprite then
-        cc.CCSpriteExtend.extend(sprite)
+        CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
     else
         echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
@@ -304,20 +304,20 @@ function display.newScale9Sprite(filename, x, y, size)
     if string.byte(filename) == 35 then -- first char is #
         local frame = display.newSpriteFrame(string.sub(filename, 2))
         if frame then
-            sprite = cc.CCScale9Sprite:createWithSpriteFrame(frame)
+            sprite = CCScale9Sprite:createWithSpriteFrame(frame)
         end
     else
         if display.TEXTURES_PIXEL_FORMAT[filename] then
-            cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-            sprite = cc.CCScale9Sprite:create(filename)
-            cc.CCTexture2D:setDefaultAlphaPixelFormat(cc.kCCTexture2DPixelFormat_RGBA8888)
+            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
+            sprite = CCScale9Sprite:create(filename)
+            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
         else
-            sprite = cc.CCScale9Sprite:create(filename)
+            sprite = CCScale9Sprite:create(filename)
         end
     end
 
     if sprite then
-        cc.CCSpriteExtend.extend(sprite)
+        CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
         if size then sprite:setContentSize(size) end
     else
@@ -329,21 +329,21 @@ end
 
 function display.newTilesSprite(filename, rect)
     if not rect then
-        rect = cc.rect(0, 0, display.width, display.height)
+        rect = CCRect(0, 0, display.width, display.height)
     end
-    local sprite = cc.CCSprite:create(filename, rect)
+    local sprite = CCSprite:create(filename, rect)
     if not sprite then
         echoError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
     end
 
-    local tp = cc.ccTexParams()
+    local tp = ccTexParams()
     tp.minFilter = 9729
     tp.magFilter = 9729
     tp.wrapS = 10497
     tp.wrapT = 10497
     sprite:getTexture():setTexParameters(tp)
-    cc.CCSpriteExtend.extend(sprite)
+    CCSpriteExtend.extend(sprite)
 
     display.align(sprite, display.LEFT_BOTTOM, 0, 0)
 
@@ -351,7 +351,7 @@ function display.newTilesSprite(filename, rect)
 end
 
 function display.newCircle(radius)
-    return cc.CCNodeExtend.extend(cc.CCCircleShape:create(radius))
+    return CCNodeExtend.extend(CCCircleShape:create(radius))
 end
 
 function display.newRect(width, height)
@@ -372,20 +372,20 @@ function display.newRect(width, height)
         end
     end
 
-    local rect = cc.CCNodeExtend.extend(cc.CCRectShape:create(cc.size(width, height)))
+    local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
     rect:setPosition(x, y)
     return rect
 end
 
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
-    local arr = cc.CCPointArray:create(#points)
+    local arr = CCPointArray:create(#points)
     for i, p in ipairs(points) do
-        p = cc.p(p[1] * scale, p[2] * scale)
+        p = CCPoint(p[1] * scale, p[2] * scale)
         arr:add(p)
     end
 
-    return cc.CCNodeExtend.extend(cc.CCPolygonShape:create(arr))
+    return CCNodeExtend.extend(CCPolygonShape:create(arr))
 end
 
 function display.align(target, anchorPoint, x, y)
@@ -399,9 +399,9 @@ end
 
 function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
-        cc.CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
+        CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
-        cc.CCTexture2D:setDefaultAlphaPixelFormat(cc.kCCTexture2DPixelFormat_RGBA8888)
+        CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
     else
         sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
     end
@@ -420,11 +420,11 @@ end
 
 function display.removeSpriteFrameByImageName(imageName)
     sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
-    cc.CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
+    CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
 
 function display.newBatchNode(image, capacity)
-    return cc.CCNodeExtend.extend(cc.CCSpriteBatchNode:create(image, capacity or 100))
+    return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
 end
 
 function display.newSpriteFrame(frameName)
@@ -459,12 +459,12 @@ end
 
 function display.newAnimation(frames, time)
     local count = #frames
-    local array = cc.CCArray:create()
+    local array = CCArray:create()
     for i = 1, count do
         array:addObject(frames[i])
     end
     time = time or 1.0 / count
-    return cc.CCAnimation:createWithSpriteFrames(array, time)
+    return CCAnimation:createWithSpriteFrames(array, time)
 end
 
 function display.setAnimationCache(name, animation)
@@ -484,15 +484,15 @@ function display.removeUnusedSpriteFrames()
     sharedTextureCache:removeUnusedTextures()
 end
 
-display.PROGRESS_TIMER_BAR = cc.kCCProgressTimerTypeBar
-display.PROGRESS_TIMER_RADIAL = cc.kCCProgressTimerTypeRadial
+display.PROGRESS_TIMER_BAR = kCCProgressTimerTypeBar
+display.PROGRESS_TIMER_RADIAL = kCCProgressTimerTypeRadial
 
 function display.newProgressTimer(image, progresssType)
     if typen(image) == LUA_TSTRING then
         image = display.newSprite(image)
     end
 
-    local progress = cc.CCNodeExtend.extend(cc.CCProgressTimer:create(image))
+    local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
     progress:setType(progresssType)
     return progress
 end

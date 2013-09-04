@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_ios_iap_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed Sep  4 02:10:46 2013.
+** Generated automatically by tolua++-1.0.92 on Wed Sep  4 21:16:33 2013.
 */
 
 #include "cocos2dx_extra_ios_iap_luabinding.h"
@@ -25,8 +25,8 @@ static void tolua_reg_types (lua_State* tolua_S)
 }
 
 /* method: sharedStore of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_sharedStore00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_sharedStore00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_sharedStore00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_sharedStore00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -53,8 +53,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_sharedStore00(lua_
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: purgeSharedStore of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purgeSharedStore00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purgeSharedStore00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purgeSharedStore00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purgeSharedStore00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -80,8 +80,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purgeSharedStore00
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: postInitWithTransactionListenerLua of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_postInitWithTransactionListenerLua00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_postInitWithTransactionListenerLua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListenerLua00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListenerLua00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -113,8 +113,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_postInitWithTransa
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: canMakePurchases of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_canMakePurchases00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_canMakePurchases00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_canMakePurchases00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_canMakePurchases00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -145,8 +145,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_canMakePurchases00
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: loadProductsLua of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_loadProducts00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_loadProducts00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_loadProducts00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_loadProducts00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -180,8 +180,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_loadProducts00(lua
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: cancelLoadProducts of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_cancelLoadProducts00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_cancelLoadProducts00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_cancelLoadProducts00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_cancelLoadProducts00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -211,8 +211,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_cancelLoadProducts
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: isProductLoaded of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_isProductLoaded00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_isProductLoaded00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_isProductLoaded00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_isProductLoaded00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -245,8 +245,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_isProductLoaded00(
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: purchase of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purchase00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purchase00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purchase00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purchase00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -279,8 +279,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purchase00(lua_Sta
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: restore of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_restore00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_restore00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_restore00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_restore00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -310,8 +310,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_restore00(lua_Stat
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: finishTransactionLua of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_finishTransaction00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_finishTransaction00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_finishTransaction00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_finishTransaction00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -343,8 +343,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_finishTransaction0
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getReceiptVerifyMode of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyMode00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyMode00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyMode00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyMode00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -375,8 +375,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyMo
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setReceiptVerifyMode of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyMode00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyMode00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyMode00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyMode00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -410,8 +410,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyMo
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: getReceiptVerifyServerUrl of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyServerUrl00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyServerUrl00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyServerUrl00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyServerUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -442,8 +442,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifySe
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: setReceiptVerifyServerUrl of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyServerUrl00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyServerUrl00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyServerUrl00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyServerUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -481,34 +481,31 @@ TOLUA_API int tolua_cocos2dx_extra_ios_iap_luabinding_open (lua_State* tolua_S)
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
  tolua_beginmodule(tolua_S,NULL);
-  tolua_module(tolua_S,"cc",0);
-  tolua_beginmodule(tolua_S,"cc");
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyModeNone",CCStoreReceiptVerifyModeNone);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyModeDevice",CCStoreReceiptVerifyModeDevice);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyModeServer",CCStoreReceiptVerifyModeServer);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusUnknownError",CCStoreReceiptVerifyStatusUnknownError);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusInvalidReceipt",CCStoreReceiptVerifyStatusInvalidReceipt);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusRequestFailed",CCStoreReceiptVerifyStatusRequestFailed);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusInvalidResult",CCStoreReceiptVerifyStatusInvalidResult);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusNone",CCStoreReceiptVerifyStatusNone);
-   tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusOK",CCStoreReceiptVerifyStatusOK);
-   tolua_cclass(tolua_S,"CCStore","CCStore","",NULL);
-   tolua_beginmodule(tolua_S,"CCStore");
-    tolua_function(tolua_S,"sharedStore",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_sharedStore00);
-    tolua_function(tolua_S,"purgeSharedStore",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purgeSharedStore00);
-    tolua_function(tolua_S,"postInitWithTransactionListenerLua",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_postInitWithTransactionListenerLua00);
-    tolua_function(tolua_S,"canMakePurchases",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_canMakePurchases00);
-    tolua_function(tolua_S,"loadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_loadProducts00);
-    tolua_function(tolua_S,"cancelLoadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_cancelLoadProducts00);
-    tolua_function(tolua_S,"isProductLoaded",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_isProductLoaded00);
-    tolua_function(tolua_S,"purchase",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_purchase00);
-    tolua_function(tolua_S,"restore",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_restore00);
-    tolua_function(tolua_S,"finishTransaction",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_finishTransaction00);
-    tolua_function(tolua_S,"getReceiptVerifyMode",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyMode00);
-    tolua_function(tolua_S,"setReceiptVerifyMode",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyMode00);
-    tolua_function(tolua_S,"getReceiptVerifyServerUrl",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_getReceiptVerifyServerUrl00);
-    tolua_function(tolua_S,"setReceiptVerifyServerUrl",tolua_cocos2dx_extra_ios_iap_luabinding_cc_CCStore_setReceiptVerifyServerUrl00);
-   tolua_endmodule(tolua_S);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyModeNone",CCStoreReceiptVerifyModeNone);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyModeDevice",CCStoreReceiptVerifyModeDevice);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyModeServer",CCStoreReceiptVerifyModeServer);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusUnknownError",CCStoreReceiptVerifyStatusUnknownError);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusInvalidReceipt",CCStoreReceiptVerifyStatusInvalidReceipt);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusRequestFailed",CCStoreReceiptVerifyStatusRequestFailed);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusInvalidResult",CCStoreReceiptVerifyStatusInvalidResult);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusNone",CCStoreReceiptVerifyStatusNone);
+  tolua_constant(tolua_S,"CCStoreReceiptVerifyStatusOK",CCStoreReceiptVerifyStatusOK);
+  tolua_cclass(tolua_S,"CCStore","CCStore","",NULL);
+  tolua_beginmodule(tolua_S,"CCStore");
+   tolua_function(tolua_S,"sharedStore",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_sharedStore00);
+   tolua_function(tolua_S,"purgeSharedStore",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purgeSharedStore00);
+   tolua_function(tolua_S,"postInitWithTransactionListenerLua",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListenerLua00);
+   tolua_function(tolua_S,"canMakePurchases",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_canMakePurchases00);
+   tolua_function(tolua_S,"loadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_loadProducts00);
+   tolua_function(tolua_S,"cancelLoadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_cancelLoadProducts00);
+   tolua_function(tolua_S,"isProductLoaded",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_isProductLoaded00);
+   tolua_function(tolua_S,"purchase",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purchase00);
+   tolua_function(tolua_S,"restore",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_restore00);
+   tolua_function(tolua_S,"finishTransaction",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_finishTransaction00);
+   tolua_function(tolua_S,"getReceiptVerifyMode",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyMode00);
+   tolua_function(tolua_S,"setReceiptVerifyMode",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyMode00);
+   tolua_function(tolua_S,"getReceiptVerifyServerUrl",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_getReceiptVerifyServerUrl00);
+   tolua_function(tolua_S,"setReceiptVerifyServerUrl",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_setReceiptVerifyServerUrl00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

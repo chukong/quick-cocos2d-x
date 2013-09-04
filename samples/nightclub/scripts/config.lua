@@ -9,7 +9,7 @@ CONFIG_SCREEN_HEIGHT = 640
 -- auto scale mode
 CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH"
 
-cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
+CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
 require("framework.init")
 

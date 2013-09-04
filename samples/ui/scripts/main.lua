@@ -1,9 +1,9 @@
 
 function __G__TRACKBACK__(errorMessage)
-    cc.CCLuaLog("----------------------------------------")
-    cc.CCLuaLog("LUA ERROR: " .. tostring(errorMessage) .. "\n")
-    cc.CCLuaLog(debug.traceback("", 2))
-    cc.CCLuaLog("----------------------------------------")
+    CCLuaLog("----------------------------------------")
+    CCLuaLog("LUA ERROR: " .. tostring(errorMessage) .. "\n")
+    CCLuaLog(debug.traceback("", 2))
+    CCLuaLog("----------------------------------------")
 end
 
 xpcall(function()

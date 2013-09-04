@@ -5,7 +5,7 @@ end)
 
 function MainScene:ctor()
     self.animationNames = {"walk", "jump", "fall"}
-    local manager = cc.CCArmatureDataManager:sharedArmatureDataManager()
+    local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Dragon.png", "Dragon.plist", "Dragon.xml")
 
     self.layer = display.newLayer()
@@ -44,7 +44,7 @@ end
 
 function MainScene:onTouch(event, x, y)
     if event == "began" then
-        local p = cc.p(x, y)
+        local p = CCPoint(x, y)
         if self.addButtonBoundingBox:containsPoint(p) then
             self.state = "ADD"
         elseif self.removeButtonBoundingBox:containsPoint(p) then
@@ -59,7 +59,7 @@ function MainScene:onTouch(event, x, y)
 end
 
 function MainScene:addDragon()
-    local dragon = cc.CCNodeExtend.extend(cc.CCArmature:create("Dragon"))
+    local dragon = CCNodeExtend.extend(CCArmature:create("Dragon"))
     local animation = dragon:getAnimation()
     animation:setAnimationScale(24 / 60) -- Flash fps is 24, cocos2d-x is 60
     animation:play("walk")

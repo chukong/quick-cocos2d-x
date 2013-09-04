@@ -2,8 +2,8 @@
 local Store = {}
 
 local function checkCCStore()
-    if not cc.CCStore then
-        echoError("framework.api.Store - cc.CCStore not exists.")
+    if not CCStore then
+        echoError("framework.api.Store - CCStore not exists.")
         return false
     end
     return true
@@ -22,7 +22,7 @@ function Store.init(listener)
         return false
     end
 
-    cc.storeProvider = cc.CCStore:sharedStore() -- avoid gc
+    cc.storeProvider = CCStore:sharedStore() -- avoid gc
     return cc.storeProvider:postInitWithTransactionListener(listener)
 end
 
@@ -35,9 +35,9 @@ function Store.setReceiptVerifyMode(mode, isSandbox)
     if not checkCCStore() then return false end
 
     if type(mode) ~= "number"
-        or (mode ~= cc.CCStoreReceiptVerifyModeNone
-            and mode ~= cc.CCStoreReceiptVerifyModeDevice
-            and mode ~= cc.CCStoreReceiptVerifyModeServer) then
+        or (mode ~= CCStoreReceiptVerifyModeNone
+            and mode ~= CCStoreReceiptVerifyModeDevice
+            and mode ~= CCStoreReceiptVerifyModeServer) then
         echoError("Store.setReceiptVerifyMode() - invalid mode")
         return false
     end

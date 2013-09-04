@@ -1,6 +1,6 @@
 
 local ScrollView = class("ScrollView", function(rect)
-    if not rect then rect = cc.rect(0, 0, 0, 0) end
+    if not rect then rect = CCRect(0, 0, 0, 0) end
     local node = display.newClippingRegionNode(rect)
     node:setNodeEventEnabled(true)
     require("framework.api.EventProtocol").extend(node)
@@ -212,7 +212,7 @@ function ScrollView:onTouch(event, x, y)
     if self.currentIndex < 1 then return end
 
     if event == "began" then
-        if not self.touchRect:containsPoint(cc.p(x, y)) then return false end
+        if not self.touchRect:containsPoint(CCPoint(x, y)) then return false end
         return self:onTouchBegan(x, y)
     elseif event == "moved" then
         self:onTouchMoved(x, y)
@@ -255,9 +255,9 @@ function ScrollView:reorderAllCells()
 
     local size
     if self.direction == ScrollView.DIRECTION_HORIZONTAL then
-        size = cc.size(x, maxHeight)
+        size = CCSize(x, maxHeight)
     else
-        size = cc.size(maxWidth, math.abs(y))
+        size = CCSize(maxWidth, math.abs(y))
     end
     self.view:setContentSize(size)
 end

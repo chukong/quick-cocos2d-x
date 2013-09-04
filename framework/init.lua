@@ -36,8 +36,8 @@ elseif device.platform == "ios" then
 end
 
 local timeCount = 0
-local sharedTextureCache = cc.CCTextureCache:sharedTextureCache()
-local sharedDirector = cc.CCDirector:sharedDirector()
+local sharedTextureCache = CCTextureCache:sharedTextureCache()
+local sharedDirector = CCDirector:sharedDirector()
 local function showMemoryUsage(dt)
     timeCount = timeCount + dt
     echoInfo("----------------------------------------")

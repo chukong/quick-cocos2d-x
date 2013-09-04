@@ -1,7 +1,7 @@
 
 local audio = {}
 
-local sharedEngine = cc.SimpleAudioEngine:sharedEngine()
+local sharedEngine = SimpleAudioEngine:sharedEngine()
 
 function audio.getMusicVolume()
     return sharedEngine:getBackgroundMusicVolume()

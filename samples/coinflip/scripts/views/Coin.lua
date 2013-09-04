@@ -17,19 +17,19 @@ function Coin:flip(onComplete)
     self:playAnimationOnce(animation, false, onComplete)
 
     self:runAction(transition.sequence({
-        cc.CCScaleTo:create(0.15, 1.5),
-        cc.CCScaleTo:create(0.1, 1.0),
-        cc.CCCallFunc:create(function()
+        CCScaleTo:create(0.15, 1.5),
+        CCScaleTo:create(0.1, 1.0),
+        CCCallFunc:create(function()
             local actions = {}
             local scale = 1.1
             local time = 0.04
             for i = 1, 5 do
-                actions[#actions + 1] = cc.CCScaleTo:create(time, scale, 1.0)
-                actions[#actions + 1] = cc.CCScaleTo:create(time, 1.0, scale)
+                actions[#actions + 1] = CCScaleTo:create(time, scale, 1.0)
+                actions[#actions + 1] = CCScaleTo:create(time, 1.0, scale)
                 scale = scale * 0.95
                 time = time * 0.8
             end
-            actions[#actions + 1] = cc.CCScaleTo:create(0, 1.0, 1.0)
+            actions[#actions + 1] = CCScaleTo:create(0, 1.0, 1.0)
             self:runAction(transition.sequence(actions))
         end)
     }))

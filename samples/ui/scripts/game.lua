@@ -8,7 +8,7 @@ require("chilli.init")
 game = {}
 
 function game.startup()
-    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
     game.enterMainScene()
 end

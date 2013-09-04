@@ -16,7 +16,7 @@ function ChooseLevelScene:ctor()
     self:addChild(adBar)
 
     -- create levels list
-    local rect = cc.rect(display.left, display.bottom + 180, display.width, display.height - 280)
+    local rect = CCRect(display.left, display.bottom + 180, display.width, display.height - 280)
     self.levelsList = require("views.LevelsList").new(rect)
     self.levelsList:addEventListener("onTapLevelIcon", handler(self, self.onTapLevelIcon))
     self:addChild(self.levelsList)

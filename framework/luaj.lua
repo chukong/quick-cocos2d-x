@@ -1,7 +1,7 @@
 
 local luaj = {}
 
-local callJavaStaticMethod = cc.CCLuaJavaBridge.callStaticMethod
+local callJavaStaticMethod = CCLuaJavaBridge.callStaticMethod
 
 local function checkArguments(args, sig)
     if type(args) ~= "table" then args = {} end

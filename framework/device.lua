@@ -4,17 +4,17 @@ local device = {}
 device.platform    = "unknown"
 device.model       = "unknown"
 
-local sharedApplication = cc.CCApplication:sharedApplication()
+local sharedApplication = CCApplication:sharedApplication()
 local target = sharedApplication:getTargetPlatform()
-if target == cc.kTargetWindows then
+if target == kTargetWindows then
     device.platform = "windows"
-elseif target == cc.kTargetMacOS then
+elseif target == kTargetMacOS then
     device.platform = "mac"
-elseif target == cc.kTargetAndroid then
+elseif target == kTargetAndroid then
     device.platform = "android"
-elseif target == cc.kTargetIphone or target == cc.kTargetIpad then
+elseif target == kTargetIphone or target == kTargetIpad then
     device.platform = "ios"
-    if target == cc.kTargetIphone then
+    if target == kTargetIphone then
         device.model = "iphone"
     else
         device.model = "ipad"
@@ -39,8 +39,8 @@ else
 end
 
 device.language = language_
-device.writablePath = cc.CCFileUtils:sharedFileUtils():getWritablePath()
-device.cachePath = cc.CCFileUtils:sharedFileUtils():getCachePath()
+device.writablePath = CCFileUtils:sharedFileUtils():getWritablePath()
+device.cachePath = CCFileUtils:sharedFileUtils():getCachePath()
 device.directorySeparator = "/"
 device.pathSeparator = ":"
 if device.platform == "windows" then
@@ -58,11 +58,11 @@ echoInfo("# device.pathSeparator         = " .. device.pathSeparator)
 echoInfo("#")
 
 function device.showActivityIndicator()
-    cc.CCNative:showActivityIndicator()
+    CCNative:showActivityIndicator()
 end
 
 function device.hideActivityIndicator()
-    cc.CCNative:hideActivityIndicator()
+    CCNative:hideActivityIndicator()
 end
 
 function device.showAlert(title, message, buttonLabels, listener)
@@ -75,35 +75,35 @@ function device.showAlert(title, message, buttonLabels, listener)
         table.remove(buttonLabels, 1)
     end
 
-    cc.CCNative:createAlert(title, message, defaultLabel)
+    CCNative:createAlert(title, message, defaultLabel)
     for i, label in ipairs(buttonLabels) do
-        cc.CCNative:addAlertButton(label)
+        CCNative:addAlertButton(label)
     end
 
     if type(listener) ~= "function" then
         listener = function() end
     end
 
-    cc.CCNative:showAlert(listener)
+    CCNative:showAlert(listener)
 end
 
 function device.cancelAlert()
-    cc.CCNative:cancelAlert()
+    CCNative:cancelAlert()
 end
 
 function device.getOpenUDID()
-    return cc.CCNative:getOpenUDID()
+    return CCNative:getOpenUDID()
 end
 
 function device.openURL(url)
-    cc.CCNative:openURL(url)
+    CCNative:openURL(url)
 end
 
 function device.showInputBox(title, message, defaultValue)
     title = title or "INPUT TEXT"
     message = message or "INPUT TEXT, CLICK OK BUTTON"
     defaultValue = defaultValue or ""
-    return cc.CCNative:getInputText(title, message, defaultValue)
+    return CCNative:getInputText(title, message, defaultValue)
 end
 
 return device

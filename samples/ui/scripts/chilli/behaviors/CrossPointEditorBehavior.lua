@@ -21,7 +21,7 @@ function CrossPointEditorBehavior:bind(object)
             text  = object:getId(),
             font  = EditorConstants.LABEL_FONT,
             size  = EditorConstants.LABEL_FONT_SIZE,
-            color = cc.c3(unpack(EditorConstants.UNSELECTED_LABEL_COLOR)),
+            color = ccc3(unpack(EditorConstants.UNSELECTED_LABEL_COLOR)),
             align = ui.TEXT_ALIGN_CENTER,
         })
         debugLayer:addChild(object.idLabel_, EditorConstants.LABEL_ZORDER)

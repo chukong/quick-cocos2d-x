@@ -68,7 +68,7 @@ function Button:onTouch_(event, x, y)
         return true
     end
 
-    local touchInTarget = self.target_:getCascadeBoundingBox():containsPoint(cc.p(x, y))
+    local touchInTarget = self.target_:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
     if event == "moved" then
         if touchInTarget then
             if not self.pressed_ then

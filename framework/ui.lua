@@ -4,12 +4,12 @@ local ui = {}
 ui.DEFAULT_TTF_FONT      = "Arial"
 ui.DEFAULT_TTF_FONT_SIZE = 24
 
-ui.TEXT_ALIGN_LEFT    = cc.kCCTextAlignmentLeft
-ui.TEXT_ALIGN_CENTER  = cc.kCCTextAlignmentCenter
-ui.TEXT_ALIGN_RIGHT   = cc.kCCTextAlignmentRight
-ui.TEXT_VALIGN_TOP    = cc.kCCVerticalTextAlignmentTop
-ui.TEXT_VALIGN_CENTER = cc.kCCVerticalTextAlignmentCenter
-ui.TEXT_VALIGN_BOTTOM = cc.kCCVerticalTextAlignmentBottom
+ui.TEXT_ALIGN_LEFT    = kCCTextAlignmentLeft
+ui.TEXT_ALIGN_CENTER  = kCCTextAlignmentCenter
+ui.TEXT_ALIGN_RIGHT   = kCCTextAlignmentRight
+ui.TEXT_VALIGN_TOP    = kCCVerticalTextAlignmentTop
+ui.TEXT_VALIGN_CENTER = kCCVerticalTextAlignmentCenter
+ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
 function ui.newEditBox(params)
     local imageNormal = params.image
@@ -26,10 +26,10 @@ function ui.newEditBox(params)
         imageDisabled = display.newScale9Sprite(imageDisabled)
     end
 
-    local editbox = cc.CCEditBox:create(params.size, imageNormal, imagePressed, imageDisabled)
+    local editbox = CCEditBox:create(params.size, imageNormal, imagePressed, imageDisabled)
 
     if editbox then
-        cc.CCNodeExtend.extend(editbox)
+        CCNodeExtend.extend(editbox)
         editbox:addEditBoxEventListener(params.listener)
         if params.x and params.y then
             editbox:setPosition(params.x, params.y)
@@ -41,7 +41,7 @@ end
 
 function ui.newMenu(items)
     local menu
-    menu = cc.CCNodeExtend.extend(cc.CCMenu:create())
+    menu = CCNodeExtend.extend(CCMenu:create())
 
     for k, item in pairs(items) do
         if not tolua.isnull(item) then
@@ -73,9 +73,9 @@ function ui.newImageMenuItem(params)
         imageDisabled = display.newSprite(imageDisabled)
     end
 
-    local item = cc.CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
+    local item = CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
     if item then
-        cc.CCNodeExtend.extend(item)
+        CCNodeExtend.extend(item)
         if type(listener) == "function" then
             item:registerScriptTapHandler(function(tag)
                 if sound then audio.playSound(sound) end
@@ -100,9 +100,9 @@ function ui.newTTFLabelMenuItem(params)
     local y        = params.y
     local sound    = params.sound
 
-    local item = cc.CCMenuItemLabel:create(label)
+    local item = CCMenuItemLabel:create(label)
     if item then
-        cc.CCNodeExtend.extend(item)
+        CCNodeExtend.extend(item)
         if type(listener) == "function" then
             item:registerScriptTapHandler(function(tag)
                 if sound then audio.playSound(sound) end
@@ -126,10 +126,10 @@ function ui.newBMFontLabel(params)
     local x, y      = params.x, params.y
     assert(font ~= nil, "ui.newBMFontLabel() - not set font")
 
-    local label = cc.CCLabelBMFont:create(text, font, cc.kCCLabelAutomaticWidth, textAlign)
+    local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
     if not label then return end
 
-    cc.CCNodeExtend.extend(label)
+    CCNodeExtend.extend(label)
     if type(x) == "number" and type(y) == "number" then
         label:setPosition(x, y)
     end
@@ -163,13 +163,13 @@ function ui.newTTFLabel(params)
 
     local label
     if dimensions then
-        label = cc.CCLabelTTF:create(text, font, size, dimensions, textAlign, textValign)
+        label = CCLabelTTF:create(text, font, size, dimensions, textAlign, textValign)
     else
-        label = cc.CCLabelTTF:create(text, font, size)
+        label = CCLabelTTF:create(text, font, size)
     end
 
     if label then
-        cc.CCNodeExtend.extend(label)
+        CCNodeExtend.extend(label)
         label:setColor(color)
 
         function label:realign(x, y)

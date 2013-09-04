@@ -6,7 +6,7 @@ require("framework.init")
 game = {}
 
 function game.startup()
-    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    CCFileUtils:sharedFileUtils():addSearchPath("res/")
     display.addSpriteFramesWithFile(GAME_TEXTURE_DATA_FILENAME, GAME_TEXTURE_IMAGE_FILENAME)
 
     -- preload all sounds

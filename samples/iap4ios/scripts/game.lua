@@ -17,7 +17,7 @@ function game.startup()
     game.store:addEventListener(Store.TRANSACTION_UNKNOWN_ERROR,
                                 game.onTransactionUnknownError)
 
-    cc.CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    CCFileUtils:sharedFileUtils():addSearchPath("res/")
     game.enterMainScene()
 end
 

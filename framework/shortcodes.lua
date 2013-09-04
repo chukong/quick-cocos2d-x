@@ -1,142 +1,142 @@
 
 ----------------------------------------
--- cc.CCNode
+-- CCNode
 ----------------------------------------
 
-cc.CCNodeExtend.remove = cc.CCNodeExtend.removeSelf
+CCNodeExtend.remove = CCNodeExtend.removeSelf
 
-function cc.CCNodeExtend:addTo(target, zorder, tag)
+function CCNodeExtend:addTo(target, zorder, tag)
     target:addChild(self, zorder or 0, tag or 0)
     return self
 end
 
-function cc.CCNodeExtend:show()
+function CCNodeExtend:show()
     self:setVisible(true)
     return self
 end
 
-function cc.CCNodeExtend:hide()
+function CCNodeExtend:hide()
     self:setVisible(false)
     return self
 end
 
-function cc.CCNodeExtend:pos(x, y)
+function CCNodeExtend:pos(x, y)
     self:setPosition(x, y)
     return self
 end
 
-function cc.CCNodeExtend:center()
+function CCNodeExtend:center()
     self:setPosition(display.cx, display.cy)
     return self
 end
 
-function cc.CCNodeExtend:scale(scale)
+function CCNodeExtend:scale(scale)
     self:setScale(scale)
     return self
 end
 
-function cc.CCNodeExtend:rotation(r)
+function CCNodeExtend:rotation(r)
     self:setRotation(r)
     return self
 end
 
-function cc.CCNodeExtend:size(width, height)
+function CCNodeExtend:size(width, height)
     if typen(width) == LUA_TUSERDATA then
         self:setContentSize(width)
     else
-        self:setContentSize(cc.size(width, height))
+        self:setContentSize(CCSize(width, height))
     end
     return self
 end
 
-function cc.CCNodeExtend:opacity(opacity)
+function CCNodeExtend:opacity(opacity)
     self:setOpacity(opacity)
     return self
 end
 
-function cc.CCNodeExtend:zorder(z)
+function CCNodeExtend:zorder(z)
     self:setZOrder(z)
     return self
 end
 
 -- actions
 
-function cc.CCNodeExtend:stop()
+function CCNodeExtend:stop()
     self:stopAllActions()
     return self
 end
 
-function cc.CCNodeExtend:fadeIn(time)
-    self:runAction(cc.CCFadeIn:create(time))
+function CCNodeExtend:fadeIn(time)
+    self:runAction(CCFadeIn:create(time))
     return self
 end
 
-function cc.CCNodeExtend:fadeOut(time)
-    self:runAction(cc.CCFadeOut:create(time))
+function CCNodeExtend:fadeOut(time)
+    self:runAction(CCFadeOut:create(time))
     return self
 end
 
-function cc.CCNodeExtend:fadeTo(time, opacity)
-    self:runAction(cc.CCFadeTo:create(time, opacity))
+function CCNodeExtend:fadeTo(time, opacity)
+    self:runAction(CCFadeTo:create(time, opacity))
     return self
 end
 
-function cc.CCNodeExtend:moveTo(time, x, y)
-    self:runAction(cc.CCMoveTo:create(time, cc.p(x or self:getPositionX(), y or self:getPositionY())))
+function CCNodeExtend:moveTo(time, x, y)
+    self:runAction(CCMoveTo:create(time, CCPoint(x or self:getPositionX(), y or self:getPositionY())))
     return self
 end
 
-function cc.CCNodeExtend:moveBy(time, x, y)
-    self:runAction(cc.CCMoveBy:create(time, cc.p(x or 0, y or 0)))
+function CCNodeExtend:moveBy(time, x, y)
+    self:runAction(CCMoveBy:create(time, CCPoint(x or 0, y or 0)))
     return self
 end
 
-function cc.CCNodeExtend:rotateTo(time, rotation)
-    self:runAction(cc.CCRotateTo:create(time, rotation))
+function CCNodeExtend:rotateTo(time, rotation)
+    self:runAction(CCRotateTo:create(time, rotation))
     return self
 end
 
-function cc.CCNodeExtend:rotateBy(time, rotation)
-    self:runAction(cc.CCRotateBy:create(time, rotation))
+function CCNodeExtend:rotateBy(time, rotation)
+    self:runAction(CCRotateBy:create(time, rotation))
     return self
 end
 
-function cc.CCNodeExtend:scaleTo(time, scale)
-    self:runAction(cc.CCScaleTo:create(time, scale))
+function CCNodeExtend:scaleTo(time, scale)
+    self:runAction(CCScaleTo:create(time, scale))
     return self
 end
 
-function cc.CCNodeExtend:scaleBy(time, scale)
-    self:runAction(cc.CCScaleBy:create(time, scale))
+function CCNodeExtend:scaleBy(time, scale)
+    self:runAction(CCScaleBy:create(time, scale))
     return self
 end
 
-function cc.CCNodeExtend:skewTo(time, sx, sy)
-    self:runAction(cc.CCSkewTo:create(time, sx or self:getSkewX(), sy or self:getSkewY()))
+function CCNodeExtend:skewTo(time, sx, sy)
+    self:runAction(CCSkewTo:create(time, sx or self:getSkewX(), sy or self:getSkewY()))
 end
 
-function cc.CCNodeExtend:skewBy(time, sx, sy)
-    self:runAction(cc.CCSkewBy:create(time, sx or 0, sy or 0))
+function CCNodeExtend:skewBy(time, sx, sy)
+    self:runAction(CCSkewBy:create(time, sx or 0, sy or 0))
 end
 
-function cc.CCNodeExtend:tintTo(time, r, g, b)
-    self:runAction(cc.CCTintTo:create(time, r or 0, g or 0, b or 0))
+function CCNodeExtend:tintTo(time, r, g, b)
+    self:runAction(CCTintTo:create(time, r or 0, g or 0, b or 0))
     return self
 end
 
-function cc.CCNodeExtend:tintBy(time, r, g, b)
-    self:runAction(cc.CCTintBy:create(time, r or 0, g or 0, b or 0))
+function CCNodeExtend:tintBy(time, r, g, b)
+    self:runAction(CCTintBy:create(time, r or 0, g or 0, b or 0))
     return self
 end
 
 ----------------------------------------
--- cc.CCSprite
+-- CCSprite
 ----------------------------------------
 
-cc.CCSpriteExtend.playOnce = cc.CCSpriteExtend.playAnimationOnce
-cc.CCSpriteExtend.playForever = cc.CCSpriteExtend.playAnimationForever
+CCSpriteExtend.playOnce = CCSpriteExtend.playAnimationOnce
+CCSpriteExtend.playForever = CCSpriteExtend.playAnimationForever
 
-function cc.CCSpriteExtend:displayFrame(frame, index)
+function CCSpriteExtend:displayFrame(frame, index)
     if typen(frame) == LUA_TSTRING then
         self:setDisplayFrame(frame, index or 0)
     else
@@ -145,46 +145,46 @@ function cc.CCSpriteExtend:displayFrame(frame, index)
     return self
 end
 
-function cc.CCSpriteExtend:flipX(b)
+function CCSpriteExtend:flipX(b)
     self:setFlipX(b)
     return self
 end
 
-function cc.CCSpriteExtend:flipY(b)
+function CCSpriteExtend:flipY(b)
     self:setFlipY(b)
     return self
 end
 
 ----------------------------------------
--- cc.CCLayer
+-- CCLayer
 ----------------------------------------
 
-function cc.CCLayerExtend:onTouch(listener, isMultiTouches, priority, swallowsTouches)
+function CCLayerExtend:onTouch(listener, isMultiTouches, priority, swallowsTouches)
     self:addTouchEventListener(listener, tobool(isMultiTouches), toint(priority), tobool(swallowsTouches))
     return self
 end
 
-function cc.CCLayerExtend:enableTouch(enabled)
+function CCLayerExtend:enableTouch(enabled)
     self:setTouchEnabled(enabled)
     return self
 end
 
-function cc.CCLayerExtend:onKeypad(listener)
+function CCLayerExtend:onKeypad(listener)
     self:addKeypadEventListener(listener)
     return self
 end
 
-function cc.CCLayerExtend:enableKeypad(enabled)
+function CCLayerExtend:enableKeypad(enabled)
     self:setKeypadEnabled(enabled)
     return self
 end
 
-function cc.CCLayerExtend:onAccelerate()
+function CCLayerExtend:onAccelerate()
     self:addAccelerateEventListener(listener)
     return self
 end
 
-function cc.CCLayerExtend:enableAccelerometer(enabled)
+function CCLayerExtend:enableAccelerometer(enabled)
     self:setAccelerometerEnabled(enabled)
     return self
 end

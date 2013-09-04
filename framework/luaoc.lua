@@ -1,7 +1,7 @@
 
 local luaoc = {}
 
-local callStaticMethod = cc.CCLuaObjcBridge.callStaticMethod
+local callStaticMethod = CCLuaObjcBridge.callStaticMethod
 
 function luaoc.callStaticMethod(className, methodName, args)
     local ok, ret = callStaticMethod(className, methodName, args)

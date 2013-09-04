@@ -2,29 +2,29 @@
 local transition = {}
 
 local ACTION_EASING = {}
-ACTION_EASING["BACKIN"]           = {cc.CCEaseBackIn, 1}
-ACTION_EASING["BACKINOUT"]        = {cc.CCEaseBackInOut, 1}
-ACTION_EASING["BACKOUT"]          = {cc.CCEaseBackOut, 1}
-ACTION_EASING["BOUNCE"]           = {cc.CCEaseBounce, 1}
-ACTION_EASING["BOUNCEIN"]         = {cc.CCEaseBounceIn, 1}
-ACTION_EASING["BOUNCEINOUT"]      = {cc.CCEaseBounceInOut, 1}
-ACTION_EASING["BOUNCEOUT"]        = {cc.CCEaseBounceOut, 1}
-ACTION_EASING["ELASTIC"]          = {cc.CCEaseElastic, 2, 0.3}
-ACTION_EASING["ELASTICIN"]        = {cc.CCEaseElasticIn, 2, 0.3}
-ACTION_EASING["ELASTICINOUT"]     = {cc.CCEaseElasticInOut, 2, 0.3}
-ACTION_EASING["ELASTICOUT"]       = {cc.CCEaseElasticOut, 2, 0.3}
-ACTION_EASING["EXPONENTIALIN"]    = {cc.CCEaseExponentialIn, 1}
-ACTION_EASING["EXPONENTIALINOUT"] = {cc.CCEaseExponentialInOut, 1}
-ACTION_EASING["EXPONENTIALOUT"]   = {cc.CCEaseExponentialOut, 1}
-ACTION_EASING["IN"]               = {cc.CCEaseIn, 2, 1}
-ACTION_EASING["INOUT"]            = {cc.CCEaseInOut, 2, 1}
-ACTION_EASING["OUT"]              = {cc.CCEaseOut, 2, 1}
-ACTION_EASING["RATEACTION"]       = {cc.CCEaseRateAction, 2, 1}
-ACTION_EASING["SINEIN"]           = {cc.CCEaseSineIn, 1}
-ACTION_EASING["SINEINOUT"]        = {cc.CCEaseSineInOut, 1}
-ACTION_EASING["SINEOUT"]          = {cc.CCEaseSineOut, 1}
+ACTION_EASING["BACKIN"]           = {CCEaseBackIn, 1}
+ACTION_EASING["BACKINOUT"]        = {CCEaseBackInOut, 1}
+ACTION_EASING["BACKOUT"]          = {CCEaseBackOut, 1}
+ACTION_EASING["BOUNCE"]           = {CCEaseBounce, 1}
+ACTION_EASING["BOUNCEIN"]         = {CCEaseBounceIn, 1}
+ACTION_EASING["BOUNCEINOUT"]      = {CCEaseBounceInOut, 1}
+ACTION_EASING["BOUNCEOUT"]        = {CCEaseBounceOut, 1}
+ACTION_EASING["ELASTIC"]          = {CCEaseElastic, 2, 0.3}
+ACTION_EASING["ELASTICIN"]        = {CCEaseElasticIn, 2, 0.3}
+ACTION_EASING["ELASTICINOUT"]     = {CCEaseElasticInOut, 2, 0.3}
+ACTION_EASING["ELASTICOUT"]       = {CCEaseElasticOut, 2, 0.3}
+ACTION_EASING["EXPONENTIALIN"]    = {CCEaseExponentialIn, 1}
+ACTION_EASING["EXPONENTIALINOUT"] = {CCEaseExponentialInOut, 1}
+ACTION_EASING["EXPONENTIALOUT"]   = {CCEaseExponentialOut, 1}
+ACTION_EASING["IN"]               = {CCEaseIn, 2, 1}
+ACTION_EASING["INOUT"]            = {CCEaseInOut, 2, 1}
+ACTION_EASING["OUT"]              = {CCEaseOut, 2, 1}
+ACTION_EASING["RATEACTION"]       = {CCEaseRateAction, 2, 1}
+ACTION_EASING["SINEIN"]           = {CCEaseSineIn, 1}
+ACTION_EASING["SINEINOUT"]        = {CCEaseSineInOut, 1}
+ACTION_EASING["SINEOUT"]          = {CCEaseSineOut, 1}
 
-local actionManager = cc.CCDirector:sharedDirector():getActionManager()
+local actionManager = CCDirector:sharedDirector():getActionManager()
 
 function transition.newEasing(action, easingName, more)
     local key = string.upper(tostring(easingName))
@@ -56,14 +56,14 @@ function transition.create(action, args)
     local actions = {}
     local delay = tonumber(args.delay)
     if delay > 0 then
-        actions[#actions + 1] = cc.CCDelayTime:create(delay)
+        actions[#actions + 1] = CCDelayTime:create(delay)
     end
     actions[#actions + 1] = action
 
     local onComplete = args.onComplete
     if type(onComplete) ~= "function" then onComplete = nil end
     if onComplete then
-        actions[#actions + 1] = cc.CCCallFunc:create(onComplete)
+        actions[#actions + 1] = CCCallFunc:create(onComplete)
     end
 
     if #actions > 1 then
@@ -83,7 +83,7 @@ end
 function transition.rotateTo(target, args)
     assert(not tolua.isnull(target), "transition.rotateTo() - target is not CCNode")
     -- local rotation = args.rotate
-    local action = cc.CCRotateTo:create(args.time, args.rotate)
+    local action = CCRotateTo:create(args.time, args.rotate)
     return transition.execute(target, action, args)
 end
 
@@ -92,7 +92,7 @@ function transition.moveTo(target, args)
     local tx, ty = target:getPosition()
     local x = args.x or tx
     local y = args.y or ty
-    local action = cc.CCMoveTo:create(args.time, cc.p(x, y))
+    local action = CCMoveTo:create(args.time, CCPoint(x, y))
     return transition.execute(target, action, args)
 end
 
@@ -100,20 +100,20 @@ function transition.moveBy(target, args)
     assert(not tolua.isnull(target), "transition.moveBy() - target is not CCNode")
     local x = args.x or 0
     local y = args.y or 0
-    local action = cc.CCMoveBy:create(args.time, cc.p(x, y))
+    local action = CCMoveBy:create(args.time, CCPoint(x, y))
     return transition.execute(target, action, args)
 end
 
 function transition.fadeIn(target, args)
     assert(not tolua.isnull(target), "transition.fadeIn() - target is not CCNode")
-    local action = cc.CCFadeIn:create(args.time)
+    local action = CCFadeIn:create(args.time)
     target:setOpacity(0)
     return transition.execute(target, action, args)
 end
 
 function transition.fadeOut(target, args)
     assert(not tolua.isnull(target), "transition.fadeOut() - target is not CCNode")
-    local action = cc.CCFadeOut:create(args.time)
+    local action = CCFadeOut:create(args.time)
     target:setOpacity(255)
     return transition.execute(target, action, args)
 end
@@ -126,7 +126,7 @@ function transition.fadeTo(target, args)
     elseif opacity > 255 then
         opacity = 255
     end
-    local action = cc.CCFadeTo:create(args.time, opacity)
+    local action = CCFadeTo:create(args.time, opacity)
     return transition.execute(target, action, args)
 end
 
@@ -134,7 +134,7 @@ function transition.scaleTo(target, args)
     assert(not tolua.isnull(target), "transition.scaleTo() - target is not CCNode")
     local action
     if args.scale then
-        action = cc.CCScaleTo:create(tonumber(args.time), tonumber(args.scale))
+        action = CCScaleTo:create(tonumber(args.time), tonumber(args.scale))
     elseif args.scaleX or args.scaleY then
         local scaleX, scaleY
         if args.scaleX then
@@ -147,7 +147,7 @@ function transition.scaleTo(target, args)
         else
             scaleY = target:getScaleY()
         end
-        action = cc.CCScaleTo:create(tonumber(args.time), scaleX, scaleY)
+        action = CCScaleTo:create(tonumber(args.time), scaleX, scaleY)
     end
     return transition.execute(target, action, args)
 end
@@ -158,7 +158,7 @@ function transition.sequence(actions)
 
     local prev = actions[1]
     for i = 2, #actions do
-        prev = cc.CCSequence:createWithTwoActions(prev, actions[i])
+        prev = CCSequence:createWithTwoActions(prev, actions[i])
     end
     return prev
 end
@@ -167,17 +167,17 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
     local actions = {}
     if type(delay) == "number" and delay > 0 then
         target:setVisible(false)
-        actions[#actions + 1] = cc.CCDelayTime:create(delay)
-        actions[#actions + 1] = cc.CCShow:create()
+        actions[#actions + 1] = CCDelayTime:create(delay)
+        actions[#actions + 1] = CCShow:create()
     end
 
-    actions[#actions + 1] = cc.CCAnimate:create(animation)
+    actions[#actions + 1] = CCAnimate:create(animation)
 
     if removeWhenFinished then
-        actions[#actions + 1] = cc.CCRemoveSelf:create()
+        actions[#actions + 1] = CCRemoveSelf:create()
     end
     if onComplete then
-        actions[#actions + 1] = cc.CCCallFunc:create(onComplete)
+        actions[#actions + 1] = CCCallFunc:create(onComplete)
     end
 
     local action
@@ -191,18 +191,18 @@ function transition.playAnimationOnce(target, animation, removeWhenFinished, onC
 end
 
 function transition.playAnimationForever(target, animation, delay)
-    local animate = cc.CCAnimate:create(animation)
+    local animate = CCAnimate:create(animation)
     local action
     if type(delay) == "number" and delay > 0 then
         target:setVisible(false)
         local sequence = transition.sequence({
-            cc.CCDelayTime:create(delay),
-            cc.CCShow:create(),
+            CCDelayTime:create(delay),
+            CCShow:create(),
             animate,
         })
-        action = cc.CCRepeatForever:create(sequence)
+        action = CCRepeatForever:create(sequence)
     else
-        action = cc.CCRepeatForever:create(animate)
+        action = CCRepeatForever:create(animate)
     end
     target:runAction(action)
     return action

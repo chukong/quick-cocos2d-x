@@ -34,7 +34,7 @@ function MainScene:ctor()
     self:addChild(self.batch)
 
     -- create physics world
-    self.world = cc.CCPhysicsWorld:create(0, GRAVITY)
+    self.world = CCPhysicsWorld:create(0, GRAVITY)
     -- add world to scene
     self:addChild(self.world)
 

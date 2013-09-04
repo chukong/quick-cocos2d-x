@@ -345,6 +345,6 @@ end
 
 local exit = os.exit
 function os.exit()
-    cc.CCDirector:sharedDirector():endToLua()
+    CCDirector:sharedDirector():endToLua()
     exit()
 end

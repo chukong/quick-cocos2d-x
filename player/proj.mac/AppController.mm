@@ -547,7 +547,7 @@ using namespace cocos2d::extra;
 
 - (void) welcomeGetStarted
 {
-    CCNative::openURL("http://quick-x.com/");
+    CCNative::openURL("http://wiki.quick-x.com/");
 }
 
 #pragma mark -

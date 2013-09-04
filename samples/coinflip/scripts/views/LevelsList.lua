@@ -22,7 +22,7 @@ function LevelsList:ctor(rect)
         if endLevelIndex > Levels.numLevels() then
             endLevelIndex = Levels.numLevels()
         end
-        local cell = LevelsListCell.new(cc.size(display.width, rect.size.height), levelIndex, endLevelIndex, rows, cols)
+        local cell = LevelsListCell.new(CCSize(display.width, rect.size.height), levelIndex, endLevelIndex, rows, cols)
         cell:addEventListener("onTapLevelIcon", function(event) return self:onTapLevelIcon(event) end)
         self:addCell(cell)
         levelIndex = endLevelIndex + 1

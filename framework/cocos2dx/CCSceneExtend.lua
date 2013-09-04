@@ -1,14 +1,14 @@
 
-cc.CCSceneExtend = class("CCSceneExtend", cc.CCNodeExtend)
-cc.CCSceneExtend.__index = cc.CCSceneExtend
+CCSceneExtend = class("CCSceneExtend", CCNodeExtend)
+CCSceneExtend.__index = CCSceneExtend
 
-function cc.CCSceneExtend.extend(target)
+function CCSceneExtend.extend(target)
     local t = tolua.getpeer(target)
     if not t then
         t = {}
         tolua.setpeer(target, t)
     end
-    setmetatable(t, cc.CCSceneExtend)
+    setmetatable(t, CCSceneExtend)
 
     local function handler(event)
         if event == "enter" then
@@ -33,7 +33,7 @@ function cc.CCSceneExtend.extend(target)
             target:onExit()
 
             if DEBUG_MEM then
-                cc.CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
+                CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
             end
         elseif event == "cleanup" then
             target:onCleanup()
@@ -44,7 +44,7 @@ function cc.CCSceneExtend.extend(target)
     return target
 end
 
-function cc.CCSceneExtend:markAutoCleanupImage(imageName)
+function CCSceneExtend:markAutoCleanupImage(imageName)
     if not self.autoCleanupImages_ then self.autoCleanupImages_ = {} end
     self.autoCleanupImages_[imageName] = true
     return self
