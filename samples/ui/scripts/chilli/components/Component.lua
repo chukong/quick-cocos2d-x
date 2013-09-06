@@ -18,16 +18,18 @@ function Component:getTarget()
     return self.target_
 end
 
-function Component:exportMethods(methods)
+function Component:exportMethods_(methods)
+    self.exportedMethods_ = methods
     local target = self.target_
     local name = self.name_
+    local com = self
     for _, key in ipairs(methods) do
-        target[key] = function(__, ...)
-            local r = {target:com(name)[key](self, ...)}
-            if r[1] == self then
-                r[1] = target
+        if not target[key] then
+            target[key] = function(__, ...)
+                local r = {com[key](self, ...)}
+                if r[1] == self then r[1] = target end
+                return unpack(r)
             end
-            return unpack(r)
         end
     end
     return self
@@ -44,6 +46,13 @@ function Component:bind_(target)
 end
 
 function Component:unbind_()
+    if self.exportedMethods_ then
+        local target = self.target_
+        for _, key in ipairs(self.exportedMethods_) do
+            target[key] = nil
+        end
+    end
+    self:onUnbind_()
 end
 
 function Component:onBind_()

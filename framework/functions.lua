@@ -18,6 +18,11 @@ function totable(v)
     return v
 end
 
+function isset(arr, key)
+    local t = typen(arr)
+    return (t == LUA_TTABLE or t == LUA_TUSERDATA) and arr[k] ~= nil
+end
+
 function clone(object)
     local lookup_table = {}
     local function _copy(object)

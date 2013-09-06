@@ -1,5 +1,5 @@
 
-local Component = import(".Component")
+local Component = import("..Component")
 local Button = class("Button", Component)
 
 local NORMAL = 0
@@ -10,17 +10,17 @@ function Button:ctor()
     Button.super.ctor(self, "Button")
 end
 
-function Button:onClicked(callback)
+function Button:onButtonClicked(callback)
     self.onClickedCallback_ = callback
     return self
 end
 
-function Button:onPressed(callback)
+function Button:onButtonPressed(callback)
     self.onPressedCallback_ = callback
     return self
 end
 
-function Button:onRelease(callback)
+function Button:onButtonRelease(callback)
     self.onReleaseCallback_ = callback
     return self
 end
@@ -46,11 +46,11 @@ function Button:setButtonImage(image, imagePressed, imageDisabled)
     return self
 end
 
-function Button:isEnabled()
+function Button:isButtonEnabled()
     return self.target_:isTouchEnabled()
 end
 
-function Button:setEnabled(enabled)
+function Button:setButtonEnabled(enabled)
     self.target_:setTouchEnabled(enabled)
     if enabled then
         self:setDisplayFrame_(NORMAL)
@@ -58,6 +58,17 @@ function Button:setEnabled(enabled)
         self:setDisplayFrame_(DISABLED)
     end
     return self
+end
+
+function Button:exportMethods()
+    self:exportMethods_({
+        "onButtonClicked",
+        "onButtonPressed",
+        "onButtonRelease",
+        "setButtonImage",
+        "isButtonEnabled",
+        "setButtonEnabled"
+    })
 end
 
 function Button:onTouch_(event, x, y)

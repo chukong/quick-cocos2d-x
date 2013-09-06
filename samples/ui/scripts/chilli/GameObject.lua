@@ -26,6 +26,8 @@ function GameObject.extend(target)
     function target:com(name)
         return self.components_[name]
     end
+
+    return target
 end
 
 return GameObject
