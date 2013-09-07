@@ -144,7 +144,7 @@ void CCLuaStack::addLuaLoader(lua_CFunction func)
     lua_getglobal(m_state, "package");                                  /* L: package */
     lua_getfield(m_state, -1, "loaders");                               /* L: package, loaders */
     lua_pushcfunction(m_state, func);                                   /* L: package, loaders, func */
-    for (int i = lua_objlen(m_state, -2) + 1; i > 2; --i)
+    for (int i = (int)lua_objlen(m_state, -2) + 1; i > 2; --i)
     {
         lua_rawgeti(m_state, -2, i - 1);                                /* L: package, loaders, func, function */
         lua_rawseti(m_state, -3, i);                                    /* L: package, loaders, func */
