@@ -103,7 +103,7 @@ end
 function Store.purchase(productId)
     if not checkCCStore() then return false end
 
-    if not store then
+    if not cc.storeProvider then
         echoError("Store.purchase() - store not init")
         return false
     end
@@ -124,7 +124,7 @@ end
 function Store.finishTransaction(transaction)
     if not checkCCStore() then return false end
 
-    if not store then
+    if not cc.storeProvider then
         echoError("Store.finishTransaction() - store not init")
         return false
     end
