@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed Sep  4 21:16:33 2013.
+** Generated automatically by tolua++-1.0.92 on Sat Sep  7 11:37:30 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
