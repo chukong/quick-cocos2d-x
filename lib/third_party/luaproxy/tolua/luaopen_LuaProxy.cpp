@@ -1,7 +1,7 @@
+
 #include "luaopen_LuaProxy.h"
-#include "CCBProxy.h"
-#include "tolua_CC_Extension.h"
-#include "tolua_CCBProxy.h"
+#include "../LuaProxy.hpp"
+#include "tolua_LuaProxy.h"
 #include "tolua_CursorTextField.h"
 #include "../ui/UIUtil.h"
 
@@ -13,10 +13,17 @@ const char * getFullPathForFile(const char *p){
 #endif
 }
 
-// Require encoded lua file
-// require(path)
-static int tolua_LuaProxy_require(lua_State *l){
-	
+// isFileExist
+static int tolua_LuaProxy_isFileExist(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isstring(l, 1, 0, &err)){
+		tolua_error(l,"#ferror in function 'isFileExist'.",&err);
+		return 0;
+	}
+#endif
+	const char *f = tolua_tostring(l, 1, NULL);
+	tolua_pushboolean(l, f? CCFileUtils::sharedFileUtils()->isFileExist(f) : false);
 	return 1;
 }
 
@@ -80,9 +87,7 @@ static int tolua_LuaProxy_touchedNodesChild(lua_State *l){
 			}
 		}
 	}
-	const char *t = tolua_tostring(l, 4, NULL);
-	if(r){CCBProxy::nodeToTypeForLua(l, r, t);}
-	else{	tolua_pushusertype(l, NULL, t);}
+	if(r){	tolua_pushusertype(l, r, tolua_tostring(l, 4, NULL));}
 	return 1;
 }
 /*
@@ -322,9 +327,8 @@ static int tolua_CCCameraEyeAction_setStart(lua_State *l){
 }
 
 TOLUA_API int luaopen_LuaProxy(lua_State* l){
-	tolua_CC_Extension_open(l);
 	tolua_open(l);
-	tolua_usertype(l, "CCBProxy");
+	tolua_usertype(l, "LuaProxy");
 	tolua_usertype(l, "CCCameraEyeAction");
 	tolua_usertype(l, "CursorTextField");
 	tolua_usertype(l, "LuaCallFuncInterval");
@@ -337,6 +341,7 @@ TOLUA_API int luaopen_LuaProxy(lua_State* l){
 		tolua_function(l, "touchedNodesChild", tolua_LuaProxy_touchedNodesChild);
 //		tolua_function(l, "repeatTexParams", tolua_LuaProxy_repeatTexParams);
 		tolua_function(l, "fileContentsForPath", tolua_LuaProxy_fileContentsForPath);
+		tolua_function(l, "isFileExist", tolua_LuaProxy_isFileExist);
 		tolua_constant(l, "GL_LINEAR", GL_LINEAR);
 		tolua_constant(l, "GL_REPEAT", GL_REPEAT);
 		tolua_constant(l, "GL_NEAREST", GL_NEAREST);
@@ -352,32 +357,30 @@ TOLUA_API int luaopen_LuaProxy(lua_State* l){
 		tolua_constant(l, "CC_PLATFORM_MAC", CC_PLATFORM_MAC);
 		tolua_constant(l, "CC_PLATFORM_LINUX", CC_PLATFORM_LINUX);
 		tolua_constant(l, "CC_PLATFORM_UNKNOW", CC_PLATFORM_UNKNOWN);
-		tolua_cclass(l,"CCBProxy","CCBProxy","CCLayer",NULL);
-		tolua_beginmodule(l,"CCBProxy");
-			tolua_function(l, "create", tolua_CCBProxy_create);
-			tolua_function(l, "releaseMembers", tolua_CCBProxy_releaseMembers);
-			tolua_function(l, "getMemberName", tolua_CCBProxy_getMemberName);
-			tolua_function(l, "getMemberVariables", tolua_CCBProxy_getMemberVariables);
-			tolua_function(l, "getNode", tolua_CCBProxy_getNode);
-			tolua_function(l, "getNodeWithType", tolua_CCBProxy_getNodeWithType);
-			tolua_function(l, "nodeToType", tolua_CCBProxy_nodeToType);
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-			tolua_function(l, "handleEditEvent", tolua_CCBProxy_handleEditEvent);
+		tolua_cclass(l,"LuaProxy","LuaProxy","CCLayer",NULL);
+		tolua_beginmodule(l,"LuaProxy");
+			tolua_function(l, "create", tolua_LuaProxy_create);
+			tolua_function(l, "releaseMembers", tolua_LuaProxy_releaseMembers);
+			tolua_function(l, "getMemberName", tolua_LuaProxy_getMemberName);
+			tolua_function(l, "getMemberVariables", tolua_LuaProxy_getMemberVariables);
+			tolua_function(l, "getNode", tolua_LuaProxy_getNode);
+#ifdef LUAPROXY_CCEDITBOX_ENABLED
+			tolua_function(l, "handleEditEvent", tolua_LuaProxy_handleEditEvent);
 #endif
 			// Kept for compatible
-			tolua_function(l, "handleButtonEvent", tolua_CCBProxy_handleControlEvent);
-			tolua_function(l, "handleControlEvent", tolua_CCBProxy_handleControlEvent);
-			tolua_function(l, "handleKeypad", tolua_CCBProxy_handleKeypad);
-			tolua_function(l, "handleMenuEvent", tolua_CCBProxy_handleMenuEvent);
-			tolua_function(l, "handleAnimationComplate", tolua_CCBProxy_handleAnimationComplate);
-			tolua_function(l, "handleSelector", tolua_CCBProxy_handleSelector);
-			tolua_function(l, "removeHandler", tolua_CCBProxy_removeHandler);
-			tolua_function(l, "removeFunction", tolua_CCBProxy_removeFunction);
-			tolua_function(l, "removeKeypadHandler", tolua_CCBProxy_removeKeypadHandler);
-			tolua_function(l, "getSelectorHandler", tolua_CCBProxy_getSelectorHandler);
-			tolua_function(l, "setSelectorHandler", tolua_CCBProxy_setSelectorHandler);
-			tolua_function(l, "deliverChildren", tolua_CCBProxy_deliverChildren);
-			tolua_function(l, "readCCBFromFile", tolua_CCBProxy_readCCBFromFile);
+			tolua_function(l, "handleButtonEvent", tolua_LuaProxy_handleControlEvent);
+			tolua_function(l, "handleControlEvent", tolua_LuaProxy_handleControlEvent);
+			tolua_function(l, "handleKeypad", tolua_LuaProxy_handleKeypad);
+			tolua_function(l, "handleMenuEvent", tolua_LuaProxy_handleMenuEvent);
+			tolua_function(l, "handleAnimationComplate", tolua_LuaProxy_handleAnimationComplate);
+			tolua_function(l, "handleSelector", tolua_LuaProxy_handleSelector);
+			tolua_function(l, "removeHandler", tolua_LuaProxy_removeHandler);
+			tolua_function(l, "removeFunction", tolua_LuaProxy_removeFunction);
+			tolua_function(l, "removeKeypadHandler", tolua_LuaProxy_removeKeypadHandler);
+			tolua_function(l, "getSelectorHandler", tolua_LuaProxy_getSelectorHandler);
+			tolua_function(l, "setSelectorHandler", tolua_LuaProxy_setSelectorHandler);
+			tolua_function(l, "deliverChildren", tolua_LuaProxy_deliverChildren);
+			tolua_function(l, "readCCBFromFile", tolua_LuaProxy_readCCBFromFile);
 		tolua_endmodule(l);
 		tolua_cclass(l, "CCCameraEyeAction", "CCCameraEyeAction", "CCActionInterval", NULL);
 		tolua_beginmodule(l, "CCCameraEyeAction");
@@ -398,10 +401,10 @@ TOLUA_API int luaopen_LuaProxy(lua_State* l){
 			tolua_function(l, "getRect", tolua_CursorTextField_getRect);
 			tolua_function(l, "setString", tolua_CursorTextField_setString);
 		tolua_endmodule(l);
-		tolua_constant(l, "kLuaEventKeyBack", kLuaEventKeyBack);
-		tolua_constant(l, "kLuaEventKeyMenu", kLuaEventKeyMenu);
-		tolua_constant(l, "kLuaEventAppEnterBackground", kLuaEventAppEnterBackground);
-		tolua_constant(l, "kLuaEventAppEnterForeground", kLuaEventAppEnterForeground);
+		tolua_constant(l, "kLuaEventKeyBack", (int)LuaEventHandler::Events::KeyBack);
+		tolua_constant(l, "kLuaEventKeyMenu", (int)LuaEventHandler::Events::KeyMenu);
+		tolua_constant(l, "kLuaEventAppEnterBackground", (int)LuaEventHandler::Events::AppEnterBackground);
+		tolua_constant(l, "kLuaEventAppEnterForeground", (int)LuaEventHandler::Events::AppEnterForeground);
 		tolua_cclass(l, "LuaCallFuncInterval", "LuaCallFuncInterval", "CCActionInterval", NULL);
 		tolua_beginmodule(l, "LuaCallFuncInterval");
 			tolua_function(l, "create", tolua_LuaCallFuncInterval_create);

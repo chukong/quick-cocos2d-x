@@ -61,7 +61,7 @@ void CursorTextField::onEnter(){
 //	UIEventDispatcher::sharedDispatcher()->addListener(this);
 #endif
 	CCTextFieldTTF::onEnter();
-	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, -128, false);
+    setTouchEnabled(true);
 	setDelegate(this);
 	_cursor->runAction(_cursorAction);
 }
@@ -72,7 +72,7 @@ void CursorTextField::onExit(){
 	_cursor->stopAction(_cursorAction);
 	detachWithIME();
 	CCTextFieldTTF::onExit();
-	CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+    setTouchEnabled(false);
 }
 bool CursorTextField::ccTouchBegan(CCTouch *t, CCEvent *e){
 	_touchBeginPos = CCDirector::sharedDirector()->convertToGL(t->getLocationInView());

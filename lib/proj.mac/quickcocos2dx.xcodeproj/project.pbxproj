@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F4110EC917CC54D80062C519 /* CCBProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EB117CC54D80062C519 /* CCBProxy.cpp */; };
-		F4110ECA17CC54D80062C519 /* LuaEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EB317CC54D80062C519 /* LuaEventHandler.cpp */; };
-		F4110ECB17CC54D80062C519 /* luaopen_LuaProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EB517CC54D80062C519 /* luaopen_LuaProxy.cpp */; };
-		F4110ECC17CC54D80062C519 /* LuaTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EB717CC54D80062C519 /* LuaTableView.cpp */; };
 		F4110ECD17CC54D80062C519 /* CursorTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EC517CC54D80062C519 /* CursorTextField.cpp */; };
 		F4110ECE17CC54D80062C519 /* UIUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EC717CC54D80062C519 /* UIUtil.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
@@ -55,6 +51,8 @@
 		F44F48FB17C710DF00798F77 /* CCTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44F48DF17C710DF00798F77 /* CCTweenFunction.cpp */; };
 		F44F48FC17C710DF00798F77 /* CCUtilMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44F48E117C710DF00798F77 /* CCUtilMath.cpp */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
+		F46E1B9917DC813C0030D4B7 /* LuaEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46E1B8617DC813C0030D4B7 /* LuaEventHandler.cpp */; };
+		F46E1B9A17DC813C0030D4B7 /* luaopen_LuaProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46E1B8B17DC813C0030D4B7 /* luaopen_LuaProxy.cpp */; };
 		F46FBECF175724C900E14613 /* CCPhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBE81175724C900E14613 /* CCPhysicsBody.cpp */; };
 		F46FBED0175724C900E14613 /* CCPhysicsDebugNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBE83175724C900E14613 /* CCPhysicsDebugNode.cpp */; };
 		F46FBED1175724C900E14613 /* CCPhysicsShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46FBE85175724C900E14613 /* CCPhysicsShape.cpp */; };
@@ -320,24 +318,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F4110EB117CC54D80062C519 /* CCBProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCBProxy.cpp; sourceTree = "<group>"; };
-		F4110EB217CC54D80062C519 /* CCBProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCBProxy.h; sourceTree = "<group>"; };
-		F4110EB317CC54D80062C519 /* LuaEventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaEventHandler.cpp; sourceTree = "<group>"; };
-		F4110EB417CC54D80062C519 /* LuaEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaEventHandler.h; sourceTree = "<group>"; };
-		F4110EB517CC54D80062C519 /* luaopen_LuaProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = luaopen_LuaProxy.cpp; sourceTree = "<group>"; };
-		F4110EB617CC54D80062C519 /* luaopen_LuaProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaopen_LuaProxy.h; sourceTree = "<group>"; };
-		F4110EB717CC54D80062C519 /* LuaTableView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaTableView.cpp; sourceTree = "<group>"; };
-		F4110EB817CC54D80062C519 /* LuaTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaTableView.h; sourceTree = "<group>"; };
-		F4110EB917CC54D80062C519 /* tolua_CC_Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CC_Extension.h; sourceTree = "<group>"; };
-		F4110EBA17CC54D80062C519 /* tolua_CCBAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCBAnimationManager.h; sourceTree = "<group>"; };
-		F4110EBB17CC54D80062C519 /* tolua_CCBProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCBProxy.h; sourceTree = "<group>"; };
-		F4110EBC17CC54D80062C519 /* tolua_CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCControl.h; sourceTree = "<group>"; };
-		F4110EBD17CC54D80062C519 /* tolua_CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCEditBox.h; sourceTree = "<group>"; };
-		F4110EBE17CC54D80062C519 /* tolua_CCGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCGLProgram.h; sourceTree = "<group>"; };
-		F4110EC017CC54D80062C519 /* tolua_CCScale9Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCScale9Sprite.h; sourceTree = "<group>"; };
-		F4110EC117CC54D80062C519 /* tolua_CCScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCScrollView.h; sourceTree = "<group>"; };
-		F4110EC217CC54D80062C519 /* tolua_CCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCTableView.h; sourceTree = "<group>"; };
-		F4110EC317CC54D80062C519 /* tolua_CursorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CursorTextField.h; sourceTree = "<group>"; };
 		F4110EC517CC54D80062C519 /* CursorTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CursorTextField.cpp; sourceTree = "<group>"; };
 		F4110EC617CC54D80062C519 /* CursorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CursorTextField.h; sourceTree = "<group>"; };
 		F4110EC717CC54D80062C519 /* UIUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIUtil.cpp; sourceTree = "<group>"; };
@@ -438,6 +418,20 @@
 		F44F48E117C710DF00798F77 /* CCUtilMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCUtilMath.cpp; sourceTree = "<group>"; };
 		F44F48E217C710DF00798F77 /* CCUtilMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtilMath.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
+		F46E1B8617DC813C0030D4B7 /* LuaEventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaEventHandler.cpp; sourceTree = "<group>"; };
+		F46E1B8717DC813C0030D4B7 /* LuaEventHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaEventHandler.hpp; sourceTree = "<group>"; };
+		F46E1B8817DC813C0030D4B7 /* LuaProxy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaProxy.hpp; sourceTree = "<group>"; };
+		F46E1B8917DC813C0030D4B7 /* LuaTableView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LuaTableView.hpp; sourceTree = "<group>"; };
+		F46E1B8B17DC813C0030D4B7 /* luaopen_LuaProxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = luaopen_LuaProxy.cpp; sourceTree = "<group>"; };
+		F46E1B8C17DC813C0030D4B7 /* luaopen_LuaProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaopen_LuaProxy.h; sourceTree = "<group>"; };
+		F46E1B8E17DC813C0030D4B7 /* tolua_CCBAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCBAnimationManager.h; sourceTree = "<group>"; };
+		F46E1B8F17DC813C0030D4B7 /* tolua_CCControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCControl.h; sourceTree = "<group>"; };
+		F46E1B9117DC813C0030D4B7 /* tolua_CCGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCGLProgram.h; sourceTree = "<group>"; };
+		F46E1B9417DC813C0030D4B7 /* tolua_CCScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCScrollView.h; sourceTree = "<group>"; };
+		F46E1B9517DC813C0030D4B7 /* tolua_CCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CCTableView.h; sourceTree = "<group>"; };
+		F46E1B9617DC813C0030D4B7 /* tolua_CursorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_CursorTextField.h; sourceTree = "<group>"; };
+		F46E1B9717DC813C0030D4B7 /* tolua_LuaProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_LuaProxy.h; sourceTree = "<group>"; };
+		F46E1B9817DC813C0030D4B7 /* tolua_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_util.h; sourceTree = "<group>"; };
 		F46FBE81175724C900E14613 /* CCPhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsBody.cpp; sourceTree = "<group>"; };
 		F46FBE82175724C900E14613 /* CCPhysicsBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsBody.h; sourceTree = "<group>"; };
 		F46FBE83175724C900E14613 /* CCPhysicsDebugNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsDebugNode.cpp; sourceTree = "<group>"; };
@@ -1030,35 +1024,14 @@
 		F4110EAF17CC54D80062C519 /* luaproxy */ = {
 			isa = PBXGroup;
 			children = (
-				F4110EB017CC54D80062C519 /* tolua */,
+				F46E1B8617DC813C0030D4B7 /* LuaEventHandler.cpp */,
+				F46E1B8717DC813C0030D4B7 /* LuaEventHandler.hpp */,
+				F46E1B8817DC813C0030D4B7 /* LuaProxy.hpp */,
+				F46E1B8917DC813C0030D4B7 /* LuaTableView.hpp */,
+				F46E1B8A17DC813C0030D4B7 /* tolua */,
 				F4110EC417CC54D80062C519 /* ui */,
 			);
 			path = luaproxy;
-			sourceTree = "<group>";
-		};
-		F4110EB017CC54D80062C519 /* tolua */ = {
-			isa = PBXGroup;
-			children = (
-				F4110EB117CC54D80062C519 /* CCBProxy.cpp */,
-				F4110EB217CC54D80062C519 /* CCBProxy.h */,
-				F4110EB317CC54D80062C519 /* LuaEventHandler.cpp */,
-				F4110EB417CC54D80062C519 /* LuaEventHandler.h */,
-				F4110EB517CC54D80062C519 /* luaopen_LuaProxy.cpp */,
-				F4110EB617CC54D80062C519 /* luaopen_LuaProxy.h */,
-				F4110EB717CC54D80062C519 /* LuaTableView.cpp */,
-				F4110EB817CC54D80062C519 /* LuaTableView.h */,
-				F4110EB917CC54D80062C519 /* tolua_CC_Extension.h */,
-				F4110EBA17CC54D80062C519 /* tolua_CCBAnimationManager.h */,
-				F4110EBB17CC54D80062C519 /* tolua_CCBProxy.h */,
-				F4110EBC17CC54D80062C519 /* tolua_CCControl.h */,
-				F4110EBD17CC54D80062C519 /* tolua_CCEditBox.h */,
-				F4110EBE17CC54D80062C519 /* tolua_CCGLProgram.h */,
-				F4110EC017CC54D80062C519 /* tolua_CCScale9Sprite.h */,
-				F4110EC117CC54D80062C519 /* tolua_CCScrollView.h */,
-				F4110EC217CC54D80062C519 /* tolua_CCTableView.h */,
-				F4110EC317CC54D80062C519 /* tolua_CursorTextField.h */,
-			);
-			path = tolua;
 			sourceTree = "<group>";
 		};
 		F4110EC417CC54D80062C519 /* ui */ = {
@@ -1284,6 +1257,23 @@
 				F44F48E217C710DF00798F77 /* CCUtilMath.h */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		F46E1B8A17DC813C0030D4B7 /* tolua */ = {
+			isa = PBXGroup;
+			children = (
+				F46E1B8B17DC813C0030D4B7 /* luaopen_LuaProxy.cpp */,
+				F46E1B8C17DC813C0030D4B7 /* luaopen_LuaProxy.h */,
+				F46E1B8E17DC813C0030D4B7 /* tolua_CCBAnimationManager.h */,
+				F46E1B8F17DC813C0030D4B7 /* tolua_CCControl.h */,
+				F46E1B9117DC813C0030D4B7 /* tolua_CCGLProgram.h */,
+				F46E1B9417DC813C0030D4B7 /* tolua_CCScrollView.h */,
+				F46E1B9517DC813C0030D4B7 /* tolua_CCTableView.h */,
+				F46E1B9617DC813C0030D4B7 /* tolua_CursorTextField.h */,
+				F46E1B9717DC813C0030D4B7 /* tolua_LuaProxy.h */,
+				F46E1B9817DC813C0030D4B7 /* tolua_util.h */,
+			);
+			path = tolua;
 			sourceTree = "<group>";
 		};
 		F46FBE7F175724C900E14613 /* chipmunk */ = {
@@ -2874,12 +2864,10 @@
 				F44F48FA17C710DF00798F77 /* CCTransformHelp.cpp in Sources */,
 				F44F48FB17C710DF00798F77 /* CCTweenFunction.cpp in Sources */,
 				F44F48FC17C710DF00798F77 /* CCUtilMath.cpp in Sources */,
-				F4110EC917CC54D80062C519 /* CCBProxy.cpp in Sources */,
-				F4110ECA17CC54D80062C519 /* LuaEventHandler.cpp in Sources */,
-				F4110ECB17CC54D80062C519 /* luaopen_LuaProxy.cpp in Sources */,
-				F4110ECC17CC54D80062C519 /* LuaTableView.cpp in Sources */,
 				F4110ECD17CC54D80062C519 /* CursorTextField.cpp in Sources */,
 				F4110ECE17CC54D80062C519 /* UIUtil.cpp in Sources */,
+				F46E1B9917DC813C0030D4B7 /* LuaEventHandler.cpp in Sources */,
+				F46E1B9A17DC813C0030D4B7 /* luaopen_LuaProxy.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

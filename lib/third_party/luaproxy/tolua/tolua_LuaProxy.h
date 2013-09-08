@@ -1,269 +1,238 @@
-#ifndef __TOLUA_CCBPROXY__
-#define __TOLUA_CCBPROXY__
+#ifndef __TOLUA_LuaProxy__
+#define __TOLUA_LuaProxy__
 
-extern "C" {
-#include "tolua++.h"
-#include "tolua_fix.h"
-}
-#include "CCBProxy.h"
-#include "LuaTableView.h"
+#include "../LuaProxy.hpp"
+#include "../LuaTableView.hpp"
+#include "tolua_util.h"
 
-//######################################## CCBProxy ##########################
-//CCBProxy::create
-static int tolua_CCBProxy_create(lua_State *l){
-	CCBProxy *p = CCBProxy::create();
+//######################################## LuaProxy ##########################
+//LuaProxy::create
+static int tolua_LuaProxy_create(lua_State *l){
+	LuaProxy *p = LuaProxy::create();
 	p->initProxy(l);
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::releaseMembers
-static int tolua_CCBProxy_releaseMembers(lua_State *l){
+//LuaProxy::releaseMembers
+static int tolua_LuaProxy_releaseMembers(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.releaseMembers'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.releaseMembers'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){
 		p->releaseMembers();
-		tolua_pushusertype(l, p, "CCBProxy");
+		tolua_pushusertype(l, p, "LuaProxy");
 	}
 	return 1;
 }
-//CCBProxy::getMemberName
-static int tolua_CCBProxy_getMemberName(lua_State *l){
+//LuaProxy::getMemberName
+static int tolua_LuaProxy_getMemberName(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "CCObject", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.getMemberName'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCObject", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.getMemberName'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	CCObject *n = (CCObject *)tolua_tousertype(l, 2, NULL);
 	tolua_pushstring(l, p && n? p->getMemberName(n) : "");
 	return 1;
 }
-//CCBProxy::getMemberVariables
-static int tolua_CCBProxy_getMemberVariables(lua_State *l){
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+//LuaProxy::getMemberVariables
+static int tolua_LuaProxy_getMemberVariables(lua_State *l){
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	tolua_pushusertype(l, p->getMemberVariables(), "CCDictionary");
 	return 1;
 }
-//CCBProxy::getNode
-static int tolua_CCBProxy_getNode(lua_State *l){
+//LuaProxy::getNode
+static int tolua_LuaProxy_getNode(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.getNode'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.getNode'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p)tolua_pushusertype(l, p->getNode(tolua_tostring(l, 2, NULL)), "CCNode");
 	return 1;
 }
-//CCBProxy::getNodeWithType
-static int tolua_CCBProxy_getNodeWithType(lua_State *l){
+//LuaProxy::handleButtonEvent
+static int tolua_LuaProxy_handleControlEvent(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err) || !tolua_isstring(l, 3, 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.getNodeWithType'.",&err);
-		return 0;
-	}
-#endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
-	CCNode *n = p->getNode(tolua_tostring(l, 2, NULL));
-	if(p){p->nodeToTypeForLua(l, n, tolua_tostring(l, 3, NULL));}
-	return 1;
-}
-//CCBProxy::nodeToType
-static int tolua_CCBProxy_nodeToType(lua_State *l){
-#ifndef TOLUA_RELEASE
-	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "CCObject", 0, &err) || !tolua_isstring(l, 3, 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.nodeToType'.",&err);
-		return 0;
-	}
-#endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
-	CCObject *o = (CCObject *)tolua_tousertype(l, 2, NULL);
-	if(p && o){p->nodeToTypeForLua(l, o, tolua_tostring(l, 3, NULL));}
-	return 1;
-}
-//CCBProxy::handleButtonEvent
-static int tolua_CCBProxy_handleControlEvent(lua_State *l){
-#ifndef TOLUA_RELEASE
-	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "CCControl", 0, &err) ||
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCControl", 0, &err) ||
 		!toluafix_isfunction(l, 3, "LUA_FUNCTION", 0, &err) || !tolua_isnumber(l, 4, 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.handleButtonEvent'.",&err);
+		tolua_error(l,"#ferror in function 'LuaProxy.handleButtonEvent'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	CCControl *n = (CCControl *)tolua_tousertype(l, 2, NULL);
 	CCControlEvent e = tolua_tonumber(l, 4, 0);
 	if(p && n){
 		p->handleEvent(n, toluafix_ref_function(l, 3, 0), false, e > 0? e : CCControlEventTouchUpInside);}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::handleKeypad
-static int tolua_CCBProxy_handleKeypad(lua_State *l){
+//LuaProxy::handleKeypad
+static int tolua_LuaProxy_handleKeypad(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.handleKeypad'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.handleKeypad'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){p->handleKeypad(toluafix_ref_function(l, 2, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::handleMenuEvent
-static int tolua_CCBProxy_handleMenuEvent(lua_State *l){
+//LuaProxy::handleMenuEvent
+static int tolua_LuaProxy_handleMenuEvent(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "CCObject", 0, &err) ||
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCObject", 0, &err) ||
 		!toluafix_isfunction(l, 3, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.handleMenuEvent'.",&err);
+		tolua_error(l,"#ferror in function 'LuaProxy.handleMenuEvent'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	CCMenuItem *i = dynamic_cast<CCMenuItem *>((CCObject *)tolua_tousertype(l, 2, NULL));
 	if(i){i->registerScriptTapHandler(toluafix_ref_function(l, 3, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::handleEditEvent
-static int tolua_CCBProxy_handleEditEvent(lua_State *l){
+//LuaProxy::handleEditEvent
+static int tolua_LuaProxy_handleEditEvent(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "CCEditBox", 0, &err) ||
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCEditBox", 0, &err) ||
 		!toluafix_isfunction(l, 3, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.handleEditEvent'.",&err);
+		tolua_error(l,"#ferror in function 'LuaProxy.handleEditEvent'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	CCEditBox *n = (CCEditBox *)tolua_tousertype(l, 2, NULL);
 	if(p && n){p->handleEvent(n, toluafix_ref_function(l, 3, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::handleAnimationComplate
-static int tolua_CCBProxy_handleAnimationComplate(lua_State *l){
+//LuaProxy::handleAnimationComplate
+static int tolua_LuaProxy_handleAnimationComplate(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "CCBAnimationManager", 0, &err) ||
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCBAnimationManager", 0, &err) ||
 		!toluafix_isfunction(l, 3, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.handleAnimationComplate'.",&err);
+		tolua_error(l,"#ferror in function 'LuaProxy.handleAnimationComplate'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	CCBAnimationManager *m = (CCBAnimationManager *)tolua_tousertype(l, 2, NULL);
 	if(p && m){p->handleEvent(m, toluafix_ref_function(l, 3, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::handleSelector
-static int tolua_CCBProxy_handleSelector(lua_State *l){
+//LuaProxy::handleSelector
+static int tolua_LuaProxy_handleSelector(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.handleSelector'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.handleSelector'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){p->handleSelector(toluafix_ref_function(l, 2, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::removeFunction
-static int tolua_CCBProxy_removeFunction(lua_State *l){
+//LuaProxy::removeFunction
+static int tolua_LuaProxy_removeFunction(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.removeFunction'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.removeFunction'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){p->removeFunction(toluafix_ref_function(l, 3, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::removeHandler
-static int tolua_CCBProxy_removeHandler(lua_State *l){
+//LuaProxy::removeHandler
+static int tolua_LuaProxy_removeHandler(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "LuaEventHandler", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.removeHandler'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "LuaEventHandler", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.removeHandler'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	LuaEventHandler *h = (LuaEventHandler *)tolua_tousertype(l, 2, NULL);
 	if(p && h){p->removeHandler(h);}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::removeKeypadHandler
-static int tolua_CCBProxy_removeKeypadHandler(lua_State *l){
+//LuaProxy::removeKeypadHandler
+static int tolua_LuaProxy_removeKeypadHandler(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.removeKeypadHandler'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !toluafix_isfunction(l, 2, "LUA_FUNCTION", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.removeKeypadHandler'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){p->removeKeypadHandler(toluafix_ref_function(l, 3, 0));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//CCBProxy::getSelectorHandler
-static int tolua_CCBProxy_getSelectorHandler(lua_State *l){
+//LuaProxy::getSelectorHandler
+static int tolua_LuaProxy_getSelectorHandler(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.getSelectorHandler'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.getSelectorHandler'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){tolua_pushusertype(l, p->getSelectorHandler(), "LuaEventHandler");}
 	return 1;
 }
-//CCBProxy::setSelectorHandler
-static int tolua_CCBProxy_setSelectorHandler(lua_State *l){
+//LuaProxy::setSelectorHandler
+static int tolua_LuaProxy_setSelectorHandler(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isusertype(l, 2, "LuaEventHandler", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.setSelectorHandler'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "LuaEventHandler", 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.setSelectorHandler'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	if(p){p->setSelectorHandler((LuaEventHandler *)tolua_tousertype(l, 2, NULL));}
-	tolua_pushusertype(l, p, "CCBProxy");
+	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
 // Remove every children in "nf", and add them to "nt"
-//CCBProxy::deliverChildren(CCNode *nf, CCNode *nt)
-static int tolua_CCBProxy_deliverChildren(lua_State *l){
+//LuaProxy::deliverChildren(CCNode *nf, CCNode *nt)
+static int tolua_LuaProxy_deliverChildren(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
 	if(!tolua_isusertype(l, 2, "CCNode", 0, &err) || !tolua_isusertype(l, 3, "CCNode", 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.deliverChildren'.",&err);
+		tolua_error(l,"#ferror in function 'LuaProxy.deliverChildren'.",&err);
 		return 0;
 	}
 #endif
@@ -280,16 +249,16 @@ static int tolua_CCBProxy_deliverChildren(lua_State *l){
 	}
 	return 1;
 }
-//CCBProxy::readCCBFromFile(const char *f)
-static int tolua_CCBProxy_readCCBFromFile(lua_State *l){
+//LuaProxy::readCCBFromFile(const char *f)
+static int tolua_LuaProxy_readCCBFromFile(lua_State *l){
 #ifndef TOLUA_RELEASE
 	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "CCBProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err)){
-		tolua_error(l,"#ferror in function 'CCBProxy.readCCBFromFile'.",&err);
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.readCCBFromFile'.",&err);
 		return 0;
 	}
 #endif
-	CCBProxy *p = (CCBProxy *)tolua_tousertype(l, 1, NULL);
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
 	const char *f = tolua_tostring(l, 2, 0);
 	if(p){
 		tolua_pushusertype(l, p->readCCBFromFile(f), "CCNode");
@@ -439,4 +408,4 @@ static int tolua_LuaTableView_setScrollOffset(lua_State *l){
 	return 1;
 }
 
-#endif //__TOLUA_CCBPROXY__
+#endif //__TOLUA_LuaProxy__

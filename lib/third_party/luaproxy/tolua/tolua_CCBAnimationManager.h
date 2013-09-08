@@ -205,5 +205,142 @@ static int tolua_CCBAnimationManager_runAnimationsForSequenceIdTweenDuration(lua
 	tolua_pushusertype(l, m, "CCBAnimationManager");
 	return 1;
 }
+//######################################## CCBFile ##########################
+//CCBFile::getCCBFileNode
+static int tolua_CCBFile_getCCBFileNode(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBFile", 0, &err) || !tolua_isnoobj(l, 2, &err)){
+		tolua_error(l,"#ferror in function 'CCBFile.getCCBFileNode'.",&err);
+		return 0;
+	}
+#endif
+	CCBFile *o = (CCBFile *)tolua_tousertype(l, 1, NULL);
+	tolua_pushusertype(l, o? o->getCCBFileNode() : 0, "CCNode");
+	return 1;
+}
+//CCBFile::setCCBFileNode
+static int tolua_CCBFile_setCCBFileNode(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBFile", 0, &err) || !tolua_isusertype(l, 2, "CCNode", 0, &err) || !tolua_isnoobj(l, 3, &err)){
+		tolua_error(l,"#ferror in function 'CCBFile.setDuration'.",&err);
+		return 0;
+	}
+#endif
+	CCBFile *o = (CCBFile *)tolua_tousertype(l, 1, NULL);
+	if(o)o->setCCBFileNode((CCNode *)tolua_tousertype(l, 2, 0));
+	tolua_pushusertype(l, o, "CCBFile");
+	return 1;
+}
+//######################################## CCBSequence ##########################
+//CCBSequence::getDuration
+static int tolua_CCBSequence_getDuration(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnoobj(l, 2, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.getDuration'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	tolua_pushnumber(l, o? o->getDuration() : 0);
+	return 1;
+}
+//CCBSequence::setDuration
+static int tolua_CCBSequence_setDuration(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnumber(l, 2, 0, &err) || !tolua_isnoobj(l, 3, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.setDuration'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	if(o)o->setDuration(tolua_tonumber(l, 2, 0));
+	tolua_pushusertype(l, o, "CCBSequence");
+	return 1;
+}
+//CCBSequence::getName
+static int tolua_CCBSequence_getName(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnoobj(l, 2, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.getName'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	tolua_pushstring(l, o? o->getName() : "");
+	return 1;
+}
+//CCBSequence::setName
+static int tolua_CCBSequence_setName(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnumber(l, 2, 0, &err) || !tolua_isnoobj(l, 3, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.setName'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	if(o)o->setName(tolua_tostring(l, 2, ""));
+	tolua_pushusertype(l, o, "CCBSequence");
+	return 1;
+}
+//CCBSequence::getSequenceId
+static int tolua_CCBSequence_getSequenceId(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnoobj(l, 2, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.getSequenceId'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	tolua_pushnumber(l, o? o->getSequenceId() : 0);
+	return 1;
+}
+//CCBSequence::setSequenceId
+static int tolua_CCBSequence_setSequenceId(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnumber(l, 2, 0, &err) || !tolua_isnoobj(l, 3, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.setSequenceId'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	if(o)o->setSequenceId(tolua_tonumber(l, 2, 0));
+	tolua_pushusertype(l, o, "CCBSequence");
+	return 1;
+}
+//CCBSequence::getChainedSequenceId
+static int tolua_CCBSequence_getChainedSequenceId(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnoobj(l, 2, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.getChainedSequenceId'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	tolua_pushnumber(l, o? o->getChainedSequenceId() : 0);
+	return 1;
+}
+//CCBSequence::setChainedSequenceId
+static int tolua_CCBSequence_setChainedSequenceId(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "CCBSequence", 0, &err) || !tolua_isnumber(l, 2, 0, &err) || !tolua_isnoobj(l, 3, &err)){
+		tolua_error(l,"#ferror in function 'CCBSequence.setChainedSequenceId'.",&err);
+		return 0;
+	}
+#endif
+	CCBSequence *o = (CCBSequence *)tolua_tousertype(l, 1, NULL);
+	if(o)o->setChainedSequenceId(tolua_tonumber(l, 2, 0));
+	tolua_pushusertype(l, o, "CCBSequence");
+	return 1;
+}
 
 #endif //__TOLUA_CCBANIMATIONMANAGER__
