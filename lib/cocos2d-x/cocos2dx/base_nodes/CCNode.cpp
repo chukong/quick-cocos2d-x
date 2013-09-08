@@ -450,7 +450,7 @@ void CCNode::setParent(CCNode * var)
     {
         m_drawDepth = var->m_drawDepth + 1;
     }
-    else if (!var)
+    else if (var == NULL)
     {
         if (m_bTouchEnabled)
         {
