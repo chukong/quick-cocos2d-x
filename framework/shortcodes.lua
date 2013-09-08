@@ -179,7 +179,7 @@ function CCLayerExtend:enableKeypad(enabled)
     return self
 end
 
-function CCLayerExtend:onAccelerate()
+function CCLayerExtend:onAccelerate(listener)
     self:addAccelerateEventListener(listener)
     return self
 end
