@@ -39,6 +39,7 @@ function LayoutProtocol:setLayoutSize(width, height)
         self.layoutSize_.width = width.width
         self.layoutSize_.height = width.height
     end
+    self:setLayout(self.layout_)
     return self
 end
 
@@ -126,7 +127,13 @@ function LayoutProtocol:setLayoutMargin(top, right, bottom, left)
 end
 
 function LayoutProtocol:setLayout(layout)
-    layout:apply(self.target_)
+    self.layout_ = layout
+    if layout then layout:apply(self.target_) end
+    return self
+end
+
+function LayoutProtocol:getLayout()
+    return self.layout_
 end
 
 function LayoutProtocol:exportMethods()
@@ -146,6 +153,7 @@ function LayoutProtocol:exportMethods()
         "getLayoutMargin",
         "setLayoutMargin",
         "setLayout",
+        "getLayout",
     })
 end
 

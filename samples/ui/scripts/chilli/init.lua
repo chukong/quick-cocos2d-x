@@ -20,4 +20,5 @@ cc.ui.PREFERRED_SIZE_POLICY = 1
 cc.ui.UIGroup      = import(".ui.UIGroup")
 cc.ui.UIImage      = import(".ui.UIImage")
 cc.ui.UIButton     = import(".ui.UIButton")
+cc.ui.UIBoxLayout  = import(".ui.UIBoxLayout")
 cc.ui.UIHBoxLayout = import(".ui.UIHBoxLayout")

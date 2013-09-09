@@ -1,23 +1,6 @@
 
-local UIHBoxLayout = class("UIHBoxLayout")
-
-function UIHBoxLayout:ctor()
-    self.order_ = 0
-    self.widgets_ = {}
-    local m = {__mode = "k"}
-    setmetatable(self.widgets_, m)
-end
-
-function UIHBoxLayout:addWidget(widget, weight)
-    self.order_ = self.order_ + 1
-    self.widgets_[widget] = {weight = weight or 1, order = self.order_}
-    return self
-end
-
-function UIHBoxLayout:removeWidget(widget)
-    self.widgets_[widget] = nil
-    return self
-end
+local UILayout = import(".UILayout")
+local UIHBoxLayout = class("UIHBoxLayout", UILayout)
 
 function UIHBoxLayout:apply(container)
     local widgets = {}

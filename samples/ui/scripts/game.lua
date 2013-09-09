@@ -18,5 +18,5 @@ function game.exit()
 end
 
 function game.enterMainScene()
-    display.replaceScene(require("scenes.MainScene").new(), "fade", 0.6, display.COLOR_WHITE)
+    display.replaceScene(require("scenes.CharacterScene").new(), "fade", 0.6, display.COLOR_WHITE)
 end

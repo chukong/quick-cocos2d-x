@@ -97,12 +97,14 @@ function Button:onTouch_(event, x, y)
     elseif event == "ended" then
         self:setDisplayFrame_(NORMAL)
         self.pressed_ = false
+        if self.onReleaseCallback_ then self.onReleaseCallback_(x, y) end
         if touchInTarget then
             if self.onClickedCallback_ then self.onClickedCallback_(x, y) end
         end
     else
         self:setDisplayFrame_(NORMAL)
         self.pressed_ = false
+        if self.onReleaseCallback_ then self.onReleaseCallback_(x, y) end
     end
 end
 
