@@ -45,5 +45,7 @@
 	<array>
 		__SCREEN_ORIENTATION_IOS__
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
