@@ -28,7 +28,7 @@ function game.createMenu(items, callback)
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()

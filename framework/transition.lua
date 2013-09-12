@@ -26,7 +26,7 @@ ACTION_EASING["SINEOUT"]          = {CCEaseSineOut, 1}
 
 local actionManager = CCDirector:sharedDirector():getActionManager()
 
-local function newEasing(action, easingName, more)
+function transition.newEasing(action, easingName, more)
     local key = string.upper(tostring(easingName))
     if string.sub(key, 1, 6) == "CCEASE" then
         key = string.sub(key, 7)
@@ -47,9 +47,9 @@ function transition.create(action, args)
     args = totable(args)
     if args.easing then
         if type(args.easing) == "table" then
-            action = newEasing(action, unpack(args.easing))
+            action = transition.newEasing(action, unpack(args.easing))
         else
-            action = newEasing(action, args.easing)
+            action = transition.newEasing(action, args.easing)
         end
     end
 

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_ios_iap_luabinding
-** Generated automatically by tolua++-1.0.92 on Tue Sep  3 16:35:10 2013.
+** Generated automatically by tolua++-1.0.92 on Sat Sep  7 11:37:30 2013.
 */
 
 #include "cocos2dx_extra_ios_iap_luabinding.h"
@@ -80,8 +80,8 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purgeSharedStore00(lu
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: postInitWithTransactionListenerLua of class  CCStore */
-#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListenerLua00
-static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListenerLua00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListener00
+static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -106,7 +106,7 @@ static int tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransacti
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'postInitWithTransactionListenerLua'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'postInitWithTransactionListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -494,7 +494,7 @@ TOLUA_API int tolua_cocos2dx_extra_ios_iap_luabinding_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"CCStore");
    tolua_function(tolua_S,"sharedStore",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_sharedStore00);
    tolua_function(tolua_S,"purgeSharedStore",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_purgeSharedStore00);
-   tolua_function(tolua_S,"postInitWithTransactionListenerLua",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListenerLua00);
+   tolua_function(tolua_S,"postInitWithTransactionListener",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_postInitWithTransactionListener00);
    tolua_function(tolua_S,"canMakePurchases",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_canMakePurchases00);
    tolua_function(tolua_S,"loadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_loadProducts00);
    tolua_function(tolua_S,"cancelLoadProducts",tolua_cocos2dx_extra_ios_iap_luabinding_CCStore_cancelLoadProducts00);

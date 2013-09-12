@@ -968,6 +968,7 @@ void CCSprite::updateDisplayedOpacity(GLubyte opacity)
 
 void CCSprite::setDisplayFrame(CCSpriteFrame *pNewFrame)
 {
+    CCAssert(pNewFrame != NULL, "CCSprite::setDisplayFrame() - Invalid frame");
     m_obUnflippedOffsetPositionFromCenter = pNewFrame->getOffset();
 
     CCTexture2D *pNewTexture = pNewFrame->getTexture();

@@ -100,10 +100,18 @@ bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 //            CCLOG("CCScene:ccTouchBegan hit node - x = %0.2f, y = %0.2f, w = %0.2f, h = %0.2f",
 //                  boundingBox.origin.x, boundingBox.origin.y,
 //                  boundingBox.size.width, boundingBox.size.height);
+            touchNode->retain();
             if (touchNode->ccTouchBegan(pTouch, pEvent))
             {
-                m_touchNode = touchNode;
-                m_touchNode->retain();
+                if (touchNode->isRunning())
+                {
+                    m_touchNode = touchNode;
+                    m_touchNode->retain();
+                }
+                else
+                {
+                    touchNode->release();
+                }
                 return true;
             }
         }

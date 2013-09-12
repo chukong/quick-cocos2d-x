@@ -25,7 +25,7 @@ public:
     static CCStore* sharedStore(void);
     static void purgeSharedStore(void);
 
-    void postInitWithTransactionListenerLua @ postInitWithTransactionListenerLua (LUA_FUNCTION listener);
+    void postInitWithTransactionListenerLua @ postInitWithTransactionListener (LUA_FUNCTION listener);
 
     bool canMakePurchases(void);
 

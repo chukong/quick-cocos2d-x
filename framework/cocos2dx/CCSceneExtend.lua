@@ -12,7 +12,7 @@ function CCSceneExtend.extend(target)
 
     local function handler(event)
         if event == "enter" then
-            echoInfo("Scene \"%s:onEnter()\"", target.name or (target.className or "unknown"))
+            echoInfo("Scene \"%s:onEnter()\"", target.name or (target.__cname or "unknown"))
             target:onEnter()
         elseif event == "enterTransitionFinish" then
             target:onEnterTransitionFinish()
@@ -21,13 +21,13 @@ function CCSceneExtend.extend(target)
         elseif event == "cleanup" then
             target:onCleanup()
         elseif event == "exit" then
-            echoInfo("Scene \"%s:onExit()\"", target.name or (target.className or "unknown"))
+            echoInfo("Scene \"%s:onExit()\"", target.name or (target.__cname or "unknown"))
 
-            if target.AUTO_CLEANUP_IMAGES then
-                for imageName, v in pairs(target.AUTO_CLEANUP_IMAGES) do
+            if target.autoCleanupImages_ then
+                for imageName, v in pairs(target.autoCleanupImages_) do
                     display.removeSpriteFrameByImageName(imageName)
                 end
-                target.AUTO_CLEANUP_IMAGES = nil
+                target.autoCleanupImages_ = nil
             end
 
             target:onExit()
@@ -45,7 +45,7 @@ function CCSceneExtend.extend(target)
 end
 
 function CCSceneExtend:markAutoCleanupImage(imageName)
-    if not self.AUTO_CLEANUP_IMAGES then self.AUTO_CLEANUP_IMAGES = {} end
-    self.AUTO_CLEANUP_IMAGES[imageName] = true
+    if not self.autoCleanupImages_ then self.autoCleanupImages_ = {} end
+    self.autoCleanupImages_[imageName] = true
     return self
 end

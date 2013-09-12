@@ -450,12 +450,15 @@ void CCNode::setParent(CCNode * var)
     {
         m_drawDepth = var->m_drawDepth + 1;
     }
-    else if (!var)
+    else if (var == NULL)
     {
         if (m_bTouchEnabled)
         {
             CCScene *scene = getScene();
-            scene->removeTouchableNode(this);
+            if (scene)
+            {
+                scene->removeTouchableNode(this);
+            }
             m_bTouchEnabled = false;
         }
         m_drawDepth = -1;
