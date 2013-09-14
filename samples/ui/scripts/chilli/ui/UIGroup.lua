@@ -8,8 +8,9 @@ end)
 
 function UIGroup:ctor()
     cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
-    self:setLayout(UIBoxLayout.new())
+    self:setLayout(UIBoxLayout.new(display.LEFT_TO_RIGHT))
     self:align(display.LEFT_BOTTOM)
+    self:setLayoutAlignment(display.LEFT_BOTTOM)
 end
 
 function UIGroup:setLayoutSize(width, height)
@@ -20,25 +21,10 @@ function UIGroup:setLayoutSize(width, height)
     return self
 end
 
-function UIGroup:setBackgroundImage(filename, isScale9)
-    self.backgroundSprite_ = UIImage.new(filename, isScale9):setLayoutSize(self:getLayoutSize())
+function UIGroup:setBackgroundImage(filename, args)
+    self.backgroundSprite_ = UIImage.new(filename, args):setLayoutSize(self:getLayoutSize())
     self:addChild(self.backgroundSprite_)
     return self
 end
-
--- function UIGroup:setLayoutSize(width, height)
---     self:com("components.ui.LayoutProtocol"):setLayoutSize(width, height)
-
---     if self.isScale9_ then
---         self:setContentSize(CCSize(width, height))
---     else
---         local sx = width / (w / self:getScaleX())
---         local sy = height / (h / self:getScaleY())
---         self:setScaleX(sx)
---         self:setScaleY(sy)
---     end
-
---     return self
--- end
 
 return UIGroup
