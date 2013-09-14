@@ -71,6 +71,7 @@ CCLuaStack *CCLuaStack::attach(lua_State *L)
 
 bool CCLuaStack::init(void)
 {
+    CCTime::gettimeofdayCocos2d(&m_lasttime, NULL);
     m_state = lua_open();
     luaL_openlibs(m_state);
     toluafix_open(m_state);
@@ -508,7 +509,7 @@ int CCLuaStack::lua_print(lua_State *L)
                 t += lua_typename(L, lua_type(L, i));
         }
         if (i!=nargs)
-            t += "\t";
+            t += "  ";
     }
     CCLuaLog(t.c_str());
 
