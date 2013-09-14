@@ -101,6 +101,26 @@ function class(classname, super)
     return cls
 end
 
+function iskindof(obj, className)
+    local t = typen(obj)
+
+    if t == LUA_TTABLE then
+        local mt = getmetatable(obj)
+        while mt and mt.__index do
+            if mt.__index.__cname == className then
+                return true
+            end
+            mt = mt.super
+        end
+        return false
+
+    elseif t == LUA_TUSERDATA then
+
+    else
+        return false
+    end
+end
+
 function import(moduleName, currentModuleName)
     local currentModuleNameParts
     local moduleFullName = moduleName
