@@ -46,11 +46,6 @@ function UIBoxLayout:apply(container)
         widgets[#widgets + 1] = item
     end
 
-    -- for layout, v in pairs(self.layouts_) do
-    --     local item = {layout = layout, weight = v.weight, order = v.order}
-
-    -- end
-
     -- sort all widgets by order
     table.sort(widgets, function(a, b)
         return a.order < b.order
@@ -95,6 +90,12 @@ function UIBoxLayout:apply(container)
         return
     end
 
+    if iskindof(container, "UILayout") then
+        local cx, cy = container:getPosition()
+        x = x + cx
+        y = y + cy
+    end
+
     -- step 3
     local containerWidth = containerLayoutSize.width - fixedWidth
     local remainingWidth = containerWidth
@@ -102,6 +103,7 @@ function UIBoxLayout:apply(container)
     local remainingHeight = containerHeight
     local count = #widgets
     local lastWidth, lastHeight = 0, 0
+    local actualSize = {}
     for index, item in ipairs(widgets) do
         local width, height
 
@@ -113,10 +115,10 @@ function UIBoxLayout:apply(container)
                     width = item.weight / totalWeightH * containerWidth
                 else
                     width = remainingWidth
-                    lastWidth = width
                 end
                 remainingWidth = remainingWidth - width
             end
+            if index == count then lastWidth = width end
             height = item.height or maxHeight
         else
             if item.height then
@@ -126,10 +128,10 @@ function UIBoxLayout:apply(container)
                     height = item.weight / totalWeightV * containerHeight
                 else
                     height = remainingHeight
-                    lastHeight = height
                 end
                 remainingHeight = remainingHeight - height
             end
+            if index == count then lastHeight = height end
             width = item.width or maxWidth
         end
 
@@ -137,15 +139,19 @@ function UIBoxLayout:apply(container)
         local margin = widget:getLayoutMargin()
         local actualWidth = width - margin.left - margin.right
         local actualHeight = height - margin.top - margin.bottom
-
         local wx = x + margin.left
+        if self.direction_ == display.RIGHT_TO_LEFT then
+            wx = x - margin.right
+        end
         local wy = y + margin.bottom
-        -- if widget.setPosition then
-            widget:setPosition(wx, wy)
-        -- end
+        if self.direction_ == display.TOP_TO_BOTTOM then
+            wy = y - margin.top
+        end
+        widget:setPosition(wx, wy)
         widget:setLayoutSize(actualWidth, actualHeight)
+        actualSize[#actualSize + 1] = {width = actualWidth, height = actualHeight}
 
-        -- print(widget.__cname, widget.name, wx, wy, actualWidth, actualHeight)
+        -- printf("x = %0.2f, y = %0.2f, width = %0.2f, height =  %0.2f, weight = %d, total weight = %d", wx, wy, actualWidth, actualHeight, item.weight, totalWeightH)
 
         if isHBox then
             x = x + width * negativeX
@@ -157,12 +163,19 @@ function UIBoxLayout:apply(container)
     if self.direction_ == display.TOP_TO_BOTTOM then
         for index, item in ipairs(widgets) do
             local widget = item.widget
-            widget:setPositionY(widget:getPositionY() - lastHeight)
+            widget:setPositionY(widget:getPositionY() - actualSize[index].height)
         end
     elseif self.direction_ == display.RIGHT_TO_LEFT then
         for index, item in ipairs(widgets) do
             local widget = item.widget
-            widget:setPositionX(widget:getPositionX() - lastWidth)
+            widget:setPositionX(widget:getPositionX() - actualSize[index].width)
+        end
+    end
+
+    for index, item in ipairs(widgets) do
+        local widget = item.widget
+        if iskindof(widget, "UILayout") then
+            widget:apply(widget)
         end
     end
 end
