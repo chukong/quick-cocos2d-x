@@ -14,7 +14,7 @@ function tobool(v)
 end
 
 function totable(v)
-    if type(v) ~= "table" then v = {} end
+    if typen(v) ~= LUA_TTABLE then v = {} end
     return v
 end
 
@@ -26,7 +26,7 @@ end
 function clone(object)
     local lookup_table = {}
     local function _copy(object)
-        if type(object) ~= "table" then
+        if typen(object) ~= LUA_TTABLE then
             return object
         elseif lookup_table[object] then
             return lookup_table[object]
@@ -42,19 +42,19 @@ function clone(object)
 end
 
 function class(classname, super)
-    local superType = type(super)
+    local superType = typen(super)
     local cls
 
-    if superType ~= "function" and superType ~= "table" then
+    if superType ~= LUA_TFUNCTION and superType ~= LUA_TTABLE then
         superType = nil
         super = nil
     end
 
-    if superType == "function" or (super and super.__ctype == 1) then
+    if superType == LUA_TFUNCTION or (super and super.__ctype == 1) then
         -- inherited from native C++ Object
         cls = {}
 
-        if superType == "table" then
+        if superType == LUA_TTABLE then
             -- copy fields from super
             for k,v in pairs(super) do cls[k] = v end
             cls.__create = super.__create
