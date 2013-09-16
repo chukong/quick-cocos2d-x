@@ -93,6 +93,7 @@ end
 
 function BasicLayoutProtocol:setLayoutAlignment(alignment)
     self.alignment_ = alignment
+    return self
 end
 
 function BasicLayoutProtocol:getLayoutPadding()
@@ -159,7 +160,7 @@ function BasicLayoutProtocol:onBind_()
     self.layoutSize_ = {width = 0, height = 0}
     self.minSize_    = {width = 0, height = 0}
     self.maxSize_    = {width = MAX, height = MAX}
-    self.sizePolicy_ = {h = display.AUTO_SIZE, v = display.AUTO_SIZE}
+    self.sizePolicy_ = {h = display.PREFERRED_SIZE, v = display.PREFERRED_SIZE}
     self.alignment_  = display.LEFT_BOTTOM
     self.padding_    = {top = 0, right = 0, bottom = 0, left = 0}
     self.margin_     = {top = 0, right = 0, bottom = 0, left = 0}

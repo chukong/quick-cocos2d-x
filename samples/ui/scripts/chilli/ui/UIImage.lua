@@ -14,6 +14,9 @@ function UIImage:ctor(filename, args)
     local contentSize = self:getContentSize()
     self:com("components.ui.LayoutProtocol"):setLayoutSize(contentSize.width, contentSize.height)
     self.isScale9_ = tobool(totable(args).scale9)
+    if self.isScale9_ then
+        self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
+    end
 end
 
 function UIImage:setLayoutSize(width, height)
@@ -29,8 +32,10 @@ function UIImage:setLayoutSize(width, height)
         local boundingSize = self:getBoundingBox().size
         local sx = width / (boundingSize.width / self:getScaleX())
         local sy = height / (boundingSize.height / self:getScaleY())
-        if sx ~= 0 then self:setScaleX(sx) end
-        if sy ~= 0 then self:setScaleY(sy) end
+        if sx > 0 and sy > 0 then
+            self:setScaleX(sx)
+            self:setScaleY(sy)
+        end
     end
 
     if self.layout_ then

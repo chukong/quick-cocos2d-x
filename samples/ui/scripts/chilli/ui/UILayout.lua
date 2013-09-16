@@ -1,26 +1,36 @@
 
+local UIStretch = import(".UIStretch")
+
 local UILayout = class("UILayout")
 
-function UILayout:ctor()
+local nameIndex_ = 1
+
+function UILayout:ctor(name)
     cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
     self:setLayoutAlignment(display.LEFT_BOTTOM)
+    self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
+    if not name then
+        name = string.format("layout-%d", nameIndex_)
+        nameIndex_ = nameIndex_ + 1
+    end
+    self.name_ = name
     self.position_ = {x = 0, y = 0}
     self.order_ = 0
-    self.layouts_ = {}
+
     self.widgets_ = {}
     local m = {__mode = "k"}
     setmetatable(self.widgets_, m)
+
+    self.persistent_ = {}
+end
+
+function UILayout:getName()
+    return self.name_
 end
 
 function UILayout:addLayout(layout, weight)
     self:addWidget(layout, weight)
-    self.layouts_[layout] = true
-    return self
-end
-
-function UILayout:removeLayout(layout)
-    self:removeWidget(layout)
-    self.layouts_[layout] = nil
+    self.persistent_[#self.persistent_ + 1] = layout
     return self
 end
 
@@ -30,8 +40,10 @@ function UILayout:addWidget(widget, weight)
     return self
 end
 
-function UILayout:removeWidget(widget)
-    self.widgets_[widget] = nil
+function UILayout:addStretch(weight)
+    local stretch = UIStretch.new()
+    self:addWidget(stretch, weight)
+    self.persistent_[#self.persistent_ + 1] = stretch
     return self
 end
 

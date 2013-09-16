@@ -2,13 +2,21 @@
 local UILayout = import(".UILayout")
 local UIBoxLayout = class("UIBoxLayout", UILayout)
 
-function UIBoxLayout:ctor(direction)
-    UIBoxLayout.super.ctor(self)
+function UIBoxLayout:ctor(direction, name)
+    UIBoxLayout.super.ctor(self, name)
     self.direction_ = direction or display.LEFT_TO_RIGHT
 end
 
+local depth_ = 0
+
 function UIBoxLayout:apply(container)
     if table.nums(self.widgets_) == 0 then return end
+    if not container then container = self end
+
+    if DEBUG > 1 then
+        local prefix = string.rep("  ", depth_)
+        echoInfo("%sAPPLY LAYOUT %s", prefix, self:getName())
+    end
 
     -- step 1
     -- 1. calculate total weight for all widgets
@@ -22,14 +30,14 @@ function UIBoxLayout:apply(container)
         local item = {widget = widget, weight = v.weight, order = v.order}
         local widgetSize = widget:getLayoutSize()
         local widgetSizePolicy = widget:getLayoutSizePolicy()
-        if widgetSizePolicy.h == display.FIXED_SIZE then
+        if widgetSizePolicy.h == display.FIXED_SIZE or widgetSizePolicy.h == display.PREFERRED_SIZE then
             fixedWidth = fixedWidth + widgetSize.width
             item.width = widgetSize.width
         else
             totalWeightH = totalWeightH + v.weight
         end
 
-        if widgetSizePolicy.v == display.FIXED_SIZE then
+        if widgetSizePolicy.v == display.FIXED_SIZE or widgetSizePolicy.v == display.PREFERRED_SIZE then
             fixedHeight = fixedHeight + widgetSize.height
             item.height = widgetSize.height
         else
@@ -148,10 +156,10 @@ function UIBoxLayout:apply(container)
             wy = y - margin.top
         end
         widget:setPosition(wx, wy)
+        depth_ = depth_ + 1
         widget:setLayoutSize(actualWidth, actualHeight)
+        depth_ = depth_ - 1
         actualSize[#actualSize + 1] = {width = actualWidth, height = actualHeight}
-
-        -- printf("x = %0.2f, y = %0.2f, width = %0.2f, height =  %0.2f, weight = %d, total weight = %d", wx, wy, actualWidth, actualHeight, item.weight, totalWeightH)
 
         if isHBox then
             x = x + width * negativeX
@@ -172,12 +180,14 @@ function UIBoxLayout:apply(container)
         end
     end
 
+    depth_ = depth_ + 1
     for index, item in ipairs(widgets) do
         local widget = item.widget
         if iskindof(widget, "UILayout") then
-            widget:apply(widget)
+            widget:apply()
         end
     end
+    depth_ = depth_ - 1
 end
 
 return UIBoxLayout
