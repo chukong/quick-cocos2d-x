@@ -97,23 +97,15 @@ bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         const CCRect boundingBox = touchNode->getCascadeBoundingBox();
         if (boundingBox.containsPoint(p))
         {
-//            CCLOG("CCScene:ccTouchBegan hit node - x = %0.2f, y = %0.2f, w = %0.2f, h = %0.2f",
-//                  boundingBox.origin.x, boundingBox.origin.y,
-//                  boundingBox.size.width, boundingBox.size.height);
             touchNode->retain();
-            if (touchNode->ccTouchBegan(pTouch, pEvent))
+            bool ret = touchNode->ccTouchBegan(pTouch, pEvent);
+            if (ret && touchNode->isRunning())
             {
-                if (touchNode->isRunning())
-                {
-                    m_touchNode = touchNode;
-                    m_touchNode->retain();
-                }
-                else
-                {
-                    touchNode->release();
-                }
-                return true;
+                m_touchNode = touchNode;
+                m_touchNode->retain();
             }
+            touchNode->release();
+            if (ret) return true;
         }
     }
 

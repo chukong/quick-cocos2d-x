@@ -136,7 +136,7 @@ using namespace cocos2d::extra;
     const CCSize frameSize = projectConfig.getFrameSize();
     float left = 10;
     float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
-    bottom -= [NSMenuView menuBarHeight] + 10;
+    bottom -= [[[NSApplication sharedApplication] menu] menuBarHeight] + 10;
 
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
