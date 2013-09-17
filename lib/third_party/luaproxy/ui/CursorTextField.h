@@ -7,7 +7,7 @@
 #endif
 USING_NS_CC;
 
-class CursorTextField : public CCTextFieldTTF, public CCTextFieldDelegate, public CCTouchDelegate
+class CursorTextField : public CCTextFieldTTF, public CCTextFieldDelegate
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	, public UIEventDelegate
 #endif
