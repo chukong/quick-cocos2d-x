@@ -57,9 +57,10 @@ bool CCHTTPRequest::initWithUrl(const char *url, int method)
     m_curl = curl_easy_init();
     curl_easy_setopt(m_curl, CURLOPT_URL, url);
     curl_easy_setopt(m_curl, CURLOPT_USERAGENT, "libcurl");
-    curl_easy_setopt(m_curl, CURLOPT_TIMEOUT_MS, DEFAULT_TIMEOUT * 1000);
-    curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL,1L);
-    
+    curl_easy_setopt(m_curl, CURLOPT_CONNECTTIMEOUT, DEFAULT_TIMEOUT);
+    curl_easy_setopt(m_curl, CURLOPT_TIMEOUT, DEFAULT_TIMEOUT);
+    curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1L);
+
     if (method == kCCHTTPRequestMethodPOST)
     {
         curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
@@ -135,10 +136,11 @@ void CCHTTPRequest::setAcceptEncoding(int acceptEncoding)
     }
 }
 
-void CCHTTPRequest::setTimeout(float timeout)
+void CCHTTPRequest::setTimeout(int timeout)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::setTimeout() - request not idle");
-    curl_easy_setopt(m_curl, CURLOPT_TIMEOUT_MS, timeout * 1000);
+    curl_easy_setopt(m_curl, CURLOPT_CONNECTTIMEOUT, timeout);
+    curl_easy_setopt(m_curl, CURLOPT_TIMEOUT, timeout);
 }
 
 void CCHTTPRequest::start(void)

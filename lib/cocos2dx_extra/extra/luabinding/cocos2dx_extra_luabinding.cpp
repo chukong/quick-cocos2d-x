@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Sat Sep  7 11:37:30 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Sep 17 14:05:10 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -906,7 +906,7 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setTimeout00(lua_State*
 #endif
  {
   CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
-  float timeout = ((float)  tolua_tonumber(tolua_S,2,0));
+  int timeout = ((int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setTimeout'", NULL);
 #endif
