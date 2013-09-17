@@ -6,6 +6,8 @@
 
 NS_CC_BEGIN
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+
 static char logbuff[sizeof(char) * (kMaxLogLen + 1)];
 
 void CCLog(const char * pszFormat, ...)
@@ -13,6 +15,7 @@ void CCLog(const char * pszFormat, ...)
     printf("Cocos2d: ");
     va_list ap;
     va_start(ap, pszFormat);
+    memset(logbuff, 0, sizeof(logbuff));
     vsnprintf(logbuff, kMaxLogLen, pszFormat, ap);
     va_end(ap);
     printf("%s", logbuff);
@@ -35,5 +38,7 @@ void CCLuaLog(const char * pszLog)
         puts(pszLog);
     }
 }
+
+#endif
 
 NS_CC_END
