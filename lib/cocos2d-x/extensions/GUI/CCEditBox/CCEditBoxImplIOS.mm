@@ -1,19 +1,19 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
  Copyright (c) 2012 James Chen
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -64,7 +64,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
 -(id) initWithFrame: (CGRect) frameRect editBox: (void*) editBox
 {
     self = [super init];
-    
+
     do
     {
         if (self == nil) break;
@@ -80,12 +80,10 @@ static const int CC_EDIT_BOX_PADDING = 5;
         textField_.returnKeyType = UIReturnKeyDefault;
         [textField_ addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
         self.editBox = editBox;
-        
-		
-        
+
         return self;
     }while(0);
-    
+
     return nil;
 }
 
@@ -111,7 +109,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
 
 -(void) visit
 {
-    
+
 }
 
 -(void) openKeyboard
@@ -142,7 +140,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)sender        // return NO to disallow editing.
 {
-    CCLOG("textFieldShouldBeginEditing...");
+    //    CCLOG("textFieldShouldBeginEditing...");
     editState_ = YES;
     id eglView = [EAGLView sharedEGLView];
     if ([eglView isKeyboardShown])
@@ -154,7 +152,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
     {
         pDelegate->editBoxEditingDidBegin(getEditBoxImplIOS()->getCCEditBox());
     }
-    
+
     cocos2d::extension::CCEditBox*  pEditBox= getEditBoxImplIOS()->getCCEditBox();
     if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
     {
@@ -166,25 +164,47 @@ static const int CC_EDIT_BOX_PADDING = 5;
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)sender
 {
-    CCLOG("textFieldShouldEndEditing...");
+    //    CCLOG("textFieldShouldEndEditing...");
     editState_ = NO;
     getEditBoxImplIOS()->setText(getEditBoxImplIOS()->getText());
-    
+
     cocos2d::extension::CCEditBoxDelegate* pDelegate = getEditBoxImplIOS()->getDelegate();
     if (pDelegate != NULL)
     {
         pDelegate->editBoxEditingDidEnd(getEditBoxImplIOS()->getCCEditBox());
         pDelegate->editBoxReturn(getEditBoxImplIOS()->getCCEditBox());
     }
-    
+
     cocos2d::extension::CCEditBox*  pEditBox= getEditBoxImplIOS()->getCCEditBox();
     if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
     {
         cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "ended",pEditBox);
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
+
+        cocos2d::extension::KeyboardReturnType returnType = getEditBoxImplIOS()->getCCEditBox()->getReturnType();
+        int handler = pEditBox->getScriptEditBoxHandler();
+        if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
+        {
+            pEngine->executeEvent(handler, "returnDone", pEditBox);
+        }
+        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
+        {
+            pEngine->executeEvent(handler, "returnSend", pEditBox);
+        }
+        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSearch)
+        {
+            pEngine->executeEvent(handler, "returnSearch", pEditBox);
+        }
+        else if (returnType == cocos2d::extension::kKeyboardReturnTypeGo)
+        {
+            pEngine->executeEvent(handler, "returnGo", pEditBox);
+        }
+        else
+        {
+            pEngine->executeEvent(handler, "return", pEditBox);
+        }
+        pEngine->executeEvent(handler, "ended",pEditBox);
     }
-	
+
 	if(editBox_ != nil)
 	{
 		getEditBoxImplIOS()->onEndEditing();
@@ -205,13 +225,13 @@ static const int CC_EDIT_BOX_PADDING = 5;
     {
         return YES;
     }
-    
+
     NSUInteger oldLength = [textField.text length];
     NSUInteger replacementLength = [string length];
     NSUInteger rangeLength = range.length;
-    
+
     NSUInteger newLength = oldLength - rangeLength + replacementLength;
-    
+
     return newLength <= getEditBoxImplIOS()->getMaxLength();
 }
 
@@ -226,7 +246,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
     {
         pDelegate->editBoxTextChanged(getEditBoxImplIOS()->getCCEditBox(), getEditBoxImplIOS()->getText());
     }
-    
+
     cocos2d::extension::CCEditBox*  pEditBox= getEditBoxImplIOS()->getCCEditBox();
     if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
     {
@@ -272,7 +292,7 @@ void CCEditBoxImplIOS::doAnimationWhenKeyboardMove(float duration, float distanc
 
 bool CCEditBoxImplIOS::initWithSize(const CCSize& size)
 {
-    do 
+    do
     {
         CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
 
@@ -283,16 +303,16 @@ bool CCEditBoxImplIOS::initWithSize(const CCSize& size)
             rect.size.width /= 2.0f;
             rect.size.height /= 2.0f;
         }
-        
+
         m_systemControl = [[EditBoxImplIOS alloc] initWithFrame:rect editBox:this];
         if (!m_systemControl) break;
-        
+
 		initInactiveLabels(size);
         setContentSize(size);
-		
+
         return true;
     }while (0);
-    
+
     return false;
 }
 
@@ -305,13 +325,13 @@ void CCEditBoxImplIOS::initInactiveLabels(const CCSize& size)
     m_pLabel->setColor(ccWHITE);
     m_pLabel->setVisible(false);
     m_pEditBox->addChild(m_pLabel, kLabelZOrder);
-	
+
     m_pLabelPlaceHolder = CCLabelTTF::create("", "", 0.0f);
 	// align the text vertically center
     m_pLabelPlaceHolder->setAnchorPoint(ccp(0, 0.5f));
     m_pLabelPlaceHolder->setColor(ccGRAY);
     m_pEditBox->addChild(m_pLabelPlaceHolder, kLabelZOrder);
-    
+
     setFont(pDefaultFontName, size.height*2/3);
     setPlaceholderFont(pDefaultFontName, size.height*2/3);
 }
@@ -332,7 +352,7 @@ void CCEditBoxImplIOS::setInactiveText(const char* pText)
 	}
 	else
 		m_pLabel->setString(getText());
-	
+
 	// Clip the text width to fit to the text box
 	float fMaxWidth = m_pEditBox->getContentSize().width - CC_EDIT_BOX_PADDING * 2;
 	CCRect clippingRect = m_pLabel->getTextureRect();
@@ -356,7 +376,7 @@ void CCEditBoxImplIOS::setFont(const char* pFontName, int fontSize)
     if (isValidFontName) {
         textFont = [UIFont fontWithName:fntName size:fontSize * scaleFactor / retinaFactor];
     }
-    
+
     if (!isValidFontName || textFont == nil){
         textFont = [UIFont systemFontOfSize:fontSize * scaleFactor / retinaFactor];
     }
@@ -511,18 +531,18 @@ static CGPoint convertDesignCoordToScreenCoord(const CCPoint& designCoord, bool 
 {
     CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
     float viewH = (float)[[EAGLView sharedEGLView] getHeight];
-    
+
     CCPoint visiblePos = ccp(designCoord.x * eglView->getScaleX(), designCoord.y * eglView->getScaleY());
     CCPoint screenGLPos = ccpAdd(visiblePos, eglView->getViewPortRect().origin);
-    
+
     CGPoint screenPos = CGPointMake(screenGLPos.x, viewH - screenGLPos.y);
-    
+
     if (bInRetinaMode)
     {
         screenPos.x = screenPos.x / 2.0f;
         screenPos.y = screenPos.y / 2.0f;
     }
-    CCLOG("[EditBox] pos x = %f, y = %f", screenGLPos.x, screenGLPos.y);
+    //    CCLOG("[EditBox] pos x = %f, y = %f", screenGLPos.x, screenGLPos.y);
     return screenPos;
 }
 
@@ -534,17 +554,17 @@ void CCEditBoxImplIOS::setPosition(const CCPoint& pos)
 
 void CCEditBoxImplIOS::setVisible(bool visible)
 {
-//    m_systemControl.textField.hidden = !visible;
+    //    m_systemControl.textField.hidden = !visible;
 }
 
 void CCEditBoxImplIOS::setContentSize(const CCSize& size)
 {
     m_tContentSize = size;
-    CCLOG("[Edit text] content size = (%f, %f)", size.width, size.height);
+    //    CCLOG("[Edit text] content size = (%f, %f)", size.width, size.height);
     placeInactiveLabels();
     CCEGLViewProtocol* eglView = CCEGLView::sharedOpenGLView();
     CGSize controlSize = CGSizeMake(size.width * eglView->getScaleX(),size.height * eglView->getScaleY());
-    
+
     if (m_bInRetinaMode)
     {
         controlSize.width /= 2.0f;
@@ -555,14 +575,14 @@ void CCEditBoxImplIOS::setContentSize(const CCSize& size)
 
 void CCEditBoxImplIOS::setAnchorPoint(const CCPoint& anchorPoint)
 {
-    CCLOG("[Edit text] anchor point = (%f, %f)", anchorPoint.x, anchorPoint.y);
+    //    CCLOG("[Edit text] anchor point = (%f, %f)", anchorPoint.x, anchorPoint.y);
 	m_obAnchorPoint = anchorPoint;
 	setPosition(m_obPosition);
 }
 
 void CCEditBoxImplIOS::visit(void)
 {
-    
+
 }
 
 void CCEditBoxImplIOS::onEnter(void)
@@ -579,7 +599,7 @@ void CCEditBoxImplIOS::adjustTextFieldPosition()
 	CCSize contentSize = m_pEditBox->getContentSize();
 	CCRect rect = CCRectMake(0, 0, contentSize.width, contentSize.height);
     rect = CCRectApplyAffineTransform(rect, m_pEditBox->nodeToWorldTransform());
-	
+
 	CCPoint designCoord = ccp(rect.origin.x, rect.origin.y + rect.size.height);
     [m_systemControl setPosition:convertDesignCoordToScreenCoord(designCoord, m_bInRetinaMode)];
 }
