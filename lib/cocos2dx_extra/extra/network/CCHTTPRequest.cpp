@@ -75,6 +75,10 @@ bool CCHTTPRequest::initWithUrl(const char *url, int method)
 CCHTTPRequest::~CCHTTPRequest(void)
 {
     cleanup();
+    if (m_listener)
+    {
+        CCLuaEngine::defaultEngine()->removeScriptHandler(m_listener);
+    }
     CCLOG("CCHTTPRequest[0x%04x] - request removed", s_id);
 }
 
