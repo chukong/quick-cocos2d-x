@@ -8,136 +8,138 @@ function BasicLayoutProtocol:ctor()
     BasicLayoutProtocol.super.ctor(self, "BasicLayoutProtocol")
 end
 
-function BasicLayoutProtocol:getLayoutPreferredSize()
-    if self.preferredSize_ then
-        return clone(self.preferredSize_)
-    else
-        return cc.size2t(self.target_:getCascadeBoundingBox().size)
-    end
-end
-
-function BasicLayoutProtocol:setLayoutPreferredSize(width, height)
-    if height then
-        self.preferredSize_.width = tonumber(width)
-        self.preferredSize_.height = tonumber(height)
-    else
-        self.preferredSize_.width = width.width
-        self.preferredSize_.height = width.height
-    end
-    return self
-end
-
 function BasicLayoutProtocol:getLayoutSize()
-    return clone(self.layoutSize_)
+    if self.layoutSize_ then
+        return self.layoutSize_.width, self.layoutSize_.height
+    else
+        if self.target_.getCascadeBoundingBox then
+            local size = self.target_:getCascadeBoundingBox().size
+            return size.width, size.height
+        else
+            return 0, 0
+        end
+    end
 end
 
 function BasicLayoutProtocol:setLayoutSize(width, height)
-    if height then
-        self.layoutSize_.width = tonumber(width)
-        self.layoutSize_.height = tonumber(height)
+    if width == 0 and height == 0 then
+        self.layoutSize_ = nil
     else
-        self.layoutSize_.width = width.width
-        self.layoutSize_.height = width.height
+        self.layoutSize_ = {width = tonumber(width), height = tonumber(height)}
     end
     return self
 end
 
 function BasicLayoutProtocol:getLayoutMinSize()
-    return clone(self.minSize_)
+    return self.minSize_.width, self.minSize_.height
 end
 
 function BasicLayoutProtocol:setLayoutMinSize(width, height)
-    if height then
-        self.minSize_.width = tonumber(width)
-        self.minSize_.height = tonumber(height)
-    else
-        self.minSize_.width = width.width
-        self.minSize_.height = width.height
-    end
+    self.minSize_.width = tonumber(width)
+    self.minSize_.height = tonumber(height)
     return self
 end
 
 function BasicLayoutProtocol:getLayoutMaxSize()
-    return clone(self.maxSize_)
+    return self.maxSize_.width, self.maxSize_.height
 end
 
 function BasicLayoutProtocol:setLayoutMaxSize(width, height)
-    if height then
-        self.maxSize_.width = tonumber(width)
-        self.maxSize_.height = tonumber(height)
-    else
-        self.maxSize_.width = width.width
-        self.maxSize_.height = width.height
-    end
+    self.maxSize_.width = tonumber(width)
+    self.maxSize_.height = tonumber(height)
     return self
 end
 
 function BasicLayoutProtocol:getLayoutSizePolicy()
-    return clone(self.sizePolicy_)
+    return self.sizePolicy_.horizontal, self.sizePolicy_.vertical
 end
 
-function BasicLayoutProtocol:setLayoutSizePolicy(h, v)
-    if v then
-        self.sizePolicy_.h = h
-        self.sizePolicy_.v = v
+local function checkSizePolicy(p)
+    if p ~= display.AUTO_SIZE and p ~= display.FIXED_SIZE then
+        echoError("BasicLayoutProtocol - invalid size policy")
+        return display.AUTO_SIZE
     else
-        self.sizePolicy_.h = h.h
-        self.sizePolicy_.v = h.v
+        return p
     end
+end
+
+function BasicLayoutProtocol:setLayoutSizePolicy(horizontal, vertical)
+    self.sizePolicy_.horizontal = checkSizePolicy(horizontal)
+    self.sizePolicy_.vertical = checkSizePolicy(vertical)
     return self
 end
 
 function BasicLayoutProtocol:getLayoutAlignment()
-    return clone(self.alignment_)
+    return self.alignment_
+end
+
+local function checkAlignment(a)
+    a = toint(a)
+    if a < 1 or a > 9 then
+        echoError("BasicLayoutProtocol - invalid alignment")
+        return display.CENTER
+    else
+        return a
+    end
 end
 
 function BasicLayoutProtocol:setLayoutAlignment(alignment)
-    self.alignment_ = alignment
+    self.alignment_ = checkAlignment(alignment)
     return self
 end
 
 function BasicLayoutProtocol:getLayoutPadding()
-    return clone(self.padding_)
+    return self.padding_.top, self.padding_.right, self.padding_.bottom, self.padding_.left
 end
 
 function BasicLayoutProtocol:setLayoutPadding(top, right, bottom, left)
-    if right then
-        self.padding_.top = tonumber(top)
-        self.padding_.right = tonumber(right)
-        self.padding_.bottom = tonumber(bottom)
-        self.padding_.left = tonumber(left)
-    else
-        self.padding_.top = top.top
-        self.padding_.right = top.right
-        self.padding_.bottom = top.bottom
-        self.padding_.left = top.left
-    end
+    self.padding_.top = tonumber(top)
+    self.padding_.right = tonumber(right)
+    self.padding_.bottom = tonumber(bottom)
+    self.padding_.left = tonumber(left)
     return self
 end
 
 function BasicLayoutProtocol:getLayoutMargin()
-    return clone(self.margin_)
+    return self.margin_.top, self.margin_.right, self.margin_.bottom, self.margin_.left
 end
 
 function BasicLayoutProtocol:setLayoutMargin(top, right, bottom, left)
-    if right then
-        self.margin_.top = tonumber(top)
-        self.margin_.right = tonumber(right)
-        self.margin_.bottom = tonumber(bottom)
-        self.margin_.left = tonumber(left)
-    else
-        self.margin_.top = top.top
-        self.margin_.right = top.right
-        self.margin_.bottom = top.bottom
-        self.margin_.left = top.left
-    end
+    self.margin_.top = tonumber(top)
+    self.margin_.right = tonumber(right)
+    self.margin_.bottom = tonumber(bottom)
+    self.margin_.left = tonumber(left)
     return self
 end
 
+-- function BasicLayoutProtocol:getLayoutScale()
+--     if self.scale_ then
+--         return self.scale_.horizontal, self.scale_.vertical
+--     elseif self.target_.getScaleX then
+--         return self.target_:getScaleX(), self.target_:getScaleY()
+--     else
+--         return 1, 1
+--     end
+-- end
+
+-- function BasicLayoutProtocol:setLayoutScale(horizontal, vertical)
+--     horizontal_v = tonumber(horizontal)
+--     vertical_v = tonumber(vertical)
+--     if horizontal_v == 0 and vertical_v == 0 then
+--         self.scale_ = nil
+--     else
+--         if not vertical then vertical_v = horizontal_v end
+--         self.scale_ = {horizontal = horizontal_v, vertical = vertical_v}
+--         if self.target_.setScaleX then
+--             self.target_:setScaleX(horizontal_v)
+--             self.target_:setScaleY(vertical_v)
+--         end
+--     end
+--     return self
+-- end
+
 function BasicLayoutProtocol:exportMethods()
     self:exportMethods_({
-        "getLayoutPreferredSize",
-        "setLayoutPreferredSize",
         "getLayoutSize",
         "setLayoutSize",
         "getLayoutMinSize",
@@ -152,18 +154,20 @@ function BasicLayoutProtocol:exportMethods()
         "setLayoutPadding",
         "getLayoutMargin",
         "setLayoutMargin",
+        -- "getLayoutScale",
+        -- "setLayoutScale",
     })
 end
 
 function BasicLayoutProtocol:onBind_()
-    self.preferredSize_ = nil
-    self.layoutSize_ = {width = 0, height = 0}
+    self.layoutSize_ = nil
     self.minSize_    = {width = 0, height = 0}
     self.maxSize_    = {width = MAX, height = MAX}
     self.sizePolicy_ = {h = display.PREFERRED_SIZE, v = display.PREFERRED_SIZE}
     self.alignment_  = display.LEFT_BOTTOM
     self.padding_    = {top = 0, right = 0, bottom = 0, left = 0}
     self.margin_     = {top = 0, right = 0, bottom = 0, left = 0}
+    self.scale_      = nil
 end
 
 function BasicLayoutProtocol:onUnbind_()

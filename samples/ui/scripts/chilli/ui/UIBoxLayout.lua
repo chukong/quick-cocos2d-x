@@ -29,31 +29,27 @@ function UIBoxLayout:apply(container)
     local widgets = {}
     for widget, v in pairs(self.widgets_) do
         local item = {widget = widget, weight = v.weight, order = v.order}
-        local widgetSize = widget:getLayoutSize()
-        -- if widgetSize.width == 0 and widgetSize.height == 0 then
-        --     widgetSize = widget:getLayoutPreferredSize()
-        -- end
-        printf("name = %s, ww = %0.2f, wh = %0.2f", widget.name_, widgetSize.width, widgetSize.height)
-        local widgetSizePolicy = widget:getLayoutSizePolicy()
-        if widgetSizePolicy.h == display.FIXED_SIZE then
-            fixedWidth = fixedWidth + widgetSize.width
-            item.width = widgetSize.width
+        local widgetSizeWidth, widgetSizeHeight = widget:getLayoutSize()
+        local widgetSizePolicyH, widgetSizePolicyV = widget:getLayoutSizePolicy()
+        if widgetSizePolicyH == display.FIXED_SIZE then
+            fixedWidth = fixedWidth + widgetSizeWidth
+            item.width = widgetSizeWidth
         else
             totalWeightH = totalWeightH + v.weight
         end
 
-        if widgetSizePolicy.v == display.FIXED_SIZE then
-            fixedHeight = fixedHeight + widgetSize.height
-            item.height = widgetSize.height
+        if widgetSizePolicyV == display.FIXED_SIZE then
+            fixedHeight = fixedHeight + widgetSizeHeight
+            item.height = widgetSizeHeight
         else
             totalWeightV = totalWeightV + v.weight
         end
 
-        if widgetSize.width > maxWidth then
-            maxWidth = widgetSize.width
+        if widgetSizeWidth > maxWidth then
+            maxWidth = widgetSizeWidth
         end
-        if widgetSize.height > maxHeight then
-            maxHeight = widgetSize.height
+        if widgetSizeHeight > maxHeight then
+            maxHeight = widgetSizeHeight
         end
 
         widgets[#widgets + 1] = item
@@ -65,22 +61,22 @@ function UIBoxLayout:apply(container)
     end)
 
     -- step 2
-    local containerLayoutSize = container:getLayoutSize()
-    local containerPadding = container:getLayoutPadding()
-    containerLayoutSize.width = containerLayoutSize.width - containerPadding.left - containerPadding.right
-    containerLayoutSize.height = containerLayoutSize.height - containerPadding.top - containerPadding.bottom
+    local containerLayoutSizeWidth, containerLayoutSizeHeight = container:getLayoutSize()
+    local containerPaddingTop, containerPaddingRight, containerPaddingBottom, containerPaddingLeft = container:getLayoutPadding()
+    containerLayoutSizeWidth = containerLayoutSizeWidth - containerPaddingLeft - containerPaddingRight
+    containerLayoutSizeHeight = containerLayoutSizeHeight - containerPaddingTop - containerPaddingBottom
 
     if isHBox then
-        maxHeight = containerLayoutSize.height
+        maxHeight = containerLayoutSizeHeight
     else
-        maxWidth = containerLayoutSize.width
+        maxWidth = containerLayoutSizeWidth
     end
 
     local x, y, negativeX, negativeY
-    local left = containerPadding.left
-    local top = containerLayoutSize.height + containerPadding.bottom
-    local right = containerLayoutSize.width + containerPadding.left
-    local bottom = containerPadding.bottom
+    local left = containerPaddingLeft
+    local top = containerLayoutSizeHeight + containerPaddingBottom
+    local right = containerLayoutSizeWidth + containerPaddingLeft
+    local bottom = containerPaddingBottom
     if self.direction_ == display.LEFT_TO_RIGHT then
         x = left
         y = bottom
@@ -109,9 +105,9 @@ function UIBoxLayout:apply(container)
     end
 
     -- step 3
-    local containerWidth = containerLayoutSize.width - fixedWidth
+    local containerWidth = containerLayoutSizeWidth - fixedWidth
     local remainingWidth = containerWidth
-    local containerHeight = containerLayoutSize.height - fixedHeight
+    local containerHeight = containerLayoutSizeHeight - fixedHeight
     local remainingHeight = containerHeight
     local count = #widgets
     local lastWidth, lastHeight = 0, 0
@@ -148,17 +144,22 @@ function UIBoxLayout:apply(container)
         end
 
         local widget = item.widget
-        local margin = widget:getLayoutMargin()
-        local actualWidth = width - margin.left - margin.right
-        local actualHeight = height - margin.top - margin.bottom
-        local wx = x + margin.left
+        local marginTop, marginRight, marginBottom, marginLeft = widget:getLayoutMargin()
+        local actualWidth = width - marginLeft - marginRight
+        local actualHeight = height - marginTop - marginBottom
+        local wx = x + marginLeft
         if self.direction_ == display.RIGHT_TO_LEFT then
-            wx = x - margin.right
+            wx = x - marginRight
         end
-        local wy = y + margin.bottom
+        local wy = y + marginBottom
         if self.direction_ == display.TOP_TO_BOTTOM then
-            wy = y - margin.top
+            wy = y - marginTop
         end
+
+        local widgetAnchorPoint = display.ANCHOR_POINTS[widget:getLayoutAlignment()]
+        wx = wx + actualWidth * widgetAnchorPoint.x
+        wy = wy + actualHeight * widgetAnchorPoint.y
+
         widget:setPosition(wx, wy)
         depth_ = depth_ + 1
         widget:setLayoutSize(actualWidth, actualHeight)

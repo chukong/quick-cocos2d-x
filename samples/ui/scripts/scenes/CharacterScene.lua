@@ -11,6 +11,7 @@ local CharacterScene = class("CharacterScene", function()
     return display.newScene("CharacterScene")
 end)
 
+
 function CharacterScene:createLeftPanel()
     -- 左侧面板
     local leftPanel = cc.ui.UIGroup.new()
@@ -19,10 +20,25 @@ function CharacterScene:createLeftPanel()
         :setLayoutPadding(10, 10, 10, 10)
         :setBackgroundImage("PinkScale9Block.png", {scale9 = true})
 
-    local button = cc.ui.UIImage.new("Button01.png"):addTo(leftPanel)
+    local button1 = cc.ui.UIButton.new("Button01.png", "Button01Pressed.png")
+        :setButtonEnabled(true)
+        :addTo(leftPanel)
+    local button2 = cc.ui.UIButton.new("Button01.png", "Button01Pressed.png")
+        :setButtonEnabled(true)
+        :addTo(leftPanel)
+    local button3 = cc.ui.UIButton.new("Button01.png", "Button01Pressed.png")
+        :setButtonEnabled(true)
+        :addTo(leftPanel)
+
+    button1:setScale(0.5)
+    button2:setScale(0.5)
+    button3:setScale(0.5)
+
     local leftPanelLayout = cc.ui.UIBoxLayout.new(display.LEFT_TO_RIGHT, "left")
-        :setLayoutAlignment(display.CENTER)
-        :addWidget(button)
+        :addWidget(button1)
+        :addWidget(button2)
+        :addStretch()
+        :addWidget(button3)
     leftPanel:setLayout(leftPanelLayout)
 
     return leftPanel

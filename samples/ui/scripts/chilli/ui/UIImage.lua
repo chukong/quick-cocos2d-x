@@ -21,13 +21,13 @@ end
 
 function UIImage:setLayoutSize(width, height)
     self:com("components.ui.LayoutProtocol"):setLayoutSize(width, height)
-    local size = self:getLayoutSize()
-    local padding = self:getLayoutPadding()
-    size.width = size.width - padding.left - padding.right
-    size.height = size.height - padding.top - padding.bottom
+    local width, height = self:getLayoutSize()
+    local top, right, bottom, left = self:getLayoutPadding()
+    width = width - left - right
+    height = height - top - bottom
 
     if self.isScale9_ then
-        self:setContentSize(CCSize(size.width, size.height))
+        self:setContentSize(CCSize(width, height))
     else
         local boundingSize = self:getBoundingBox().size
         local sx = width / (boundingSize.width / self:getScaleX())
