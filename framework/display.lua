@@ -135,7 +135,6 @@ display.COLOR_BLACK = ccc3(0, 0, 0)
 
 display.AUTO_SIZE      = 0
 display.FIXED_SIZE     = 1
-display.PREFERRED_SIZE = 2
 display.LEFT_TO_RIGHT  = 0
 display.RIGHT_TO_LEFT  = 1
 display.TOP_TO_BOTTOM  = 2
