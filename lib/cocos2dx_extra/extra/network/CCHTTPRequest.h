@@ -82,7 +82,7 @@ public:
     void setAcceptEncoding(int acceptEncoding);
     
     /** @brief Number of seconds to wait before timing out - default is 10. */
-    void setTimeout(float timeout);
+    void setTimeout(int timeout);
     
     /** @brief Execute an asynchronous request. */
     void start(void);

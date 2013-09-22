@@ -306,17 +306,31 @@ using namespace cocos2d::extra;
         [itemLandscape setState:NSOffState];
     }
 
-    NSMenuItem *itemActual = [menuScreen itemWithTitle:@"Actual (100%)"];
-    NSMenuItem *itemZoomOut = [menuScreen itemWithTitle:@"Zoom Out (50%)"];
-    if (projectConfig.getFrameScale() > 0.5f)
+    int scale = projectConfig.getFrameScale() * 100;
+
+    NSMenuItem *itemZoom100 = [menuScreen itemWithTitle:@"Actual (100%)"];
+    NSMenuItem *itemZoom75 = [menuScreen itemWithTitle:@"Zoom Out (75%)"];
+    NSMenuItem *itemZoom50 = [menuScreen itemWithTitle:@"Zoom Out (50%)"];
+    NSMenuItem *itemZoom25 = [menuScreen itemWithTitle:@"Zoom Out (25%)"];
+    [itemZoom100 setState:NSOffState];
+    [itemZoom75 setState:NSOffState];
+    [itemZoom50 setState:NSOffState];
+    [itemZoom25 setState:NSOffState];
+    if (scale == 100)
     {
-        [itemActual setState:NSOnState];
-        [itemZoomOut setState:NSOffState];
+        [itemZoom100 setState:NSOnState];
     }
-    else
+    else if (scale == 75)
     {
-        [itemActual setState:NSOffState];
-        [itemZoomOut setState:NSOnState];
+        [itemZoom75 setState:NSOnState];
+    }
+    else if (scale == 50)
+    {
+        [itemZoom50 setState:NSOnState];
+    }
+    else if (scale == 25)
+    {
+        [itemZoom25 setState:NSOnState];
     }
 
     NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
@@ -696,18 +710,13 @@ using namespace cocos2d::extra;
     [self relaunch];
 }
 
-- (IBAction) onScreenActual:(id)sender
-{
-    if ([sender state] == NSOnState) return;
-    [self setZoom:1.0f];
-    [self updateUI];
-}
-
 - (IBAction) onScreenZoomOut:(id)sender
 {
     if ([sender state] == NSOnState) return;
-    [self setZoom:0.5f];
+    float scale = (float)[sender tag] / 100.0f;
+    [self setZoom:scale];
     [self updateUI];
+    [self updateOpenRect];
 }
 
 -(IBAction) onWindowAlwaysOnTop:(id)sender

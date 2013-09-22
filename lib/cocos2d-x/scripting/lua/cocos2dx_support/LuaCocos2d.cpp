@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Sep  4 21:16:26 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Sep 17 14:39:07 2013.
 */
 
 /****************************************************************************
@@ -54848,6 +54848,38 @@ static int tolua_Cocos2d_CCEditBox_setReturnType00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getReturnType of class  CCEditBox */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCEditBox_getReturnType00
+static int tolua_Cocos2d_CCEditBox_getReturnType00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCEditBox",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCEditBox* self = (CCEditBox*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getReturnType'", NULL);
+#endif
+  {
+   KeyboardReturnType tolua_ret = (KeyboardReturnType)  self->getReturnType();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getReturnType'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: create of class  CCArmatureAnimation */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCArmatureAnimation_create00
 static int tolua_Cocos2d_CCArmatureAnimation_create00(lua_State* tolua_S)
@@ -62165,6 +62197,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getMaxLength",tolua_Cocos2d_CCEditBox_getMaxLength00);
    tolua_function(tolua_S,"setInputFlag",tolua_Cocos2d_CCEditBox_setInputFlag00);
    tolua_function(tolua_S,"setReturnType",tolua_Cocos2d_CCEditBox_setReturnType00);
+   tolua_function(tolua_S,"getReturnType",tolua_Cocos2d_CCEditBox_getReturnType00);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"START",START);
   tolua_constant(tolua_S,"COMPLETE",COMPLETE);

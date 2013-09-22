@@ -26,6 +26,7 @@
 		F40F45C616C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C416C75FD9000394B5 /* cocos2dx_extra_luabinding.cpp */; };
 		F40F45CA16C76145000394B5 /* lua_zlib.c in Sources */ = {isa = PBXBuildFile; fileRef = F40F45C816C76145000394B5 /* lua_zlib.c */; };
 		F4255C97178EBC4200E1C3C1 /* CCLinkPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4255C95178EBC4200E1C3C1 /* CCLinkPosition.cpp */; };
+		F426146B17E817B400D37B8D /* CCCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F426146A17E817B400D37B8D /* CCCommon.cpp */; };
 		F42824FA17575D88001479DC /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EA17575D87001479DC /* CCCamera.cpp */; };
 		F42824FB17575D88001479DC /* CCConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EC17575D87001479DC /* CCConfiguration.cpp */; };
 		F42824FC17575D88001479DC /* CCDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EE17575D87001479DC /* CCDirector.cpp */; };
@@ -370,6 +371,7 @@
 		F40F45C916C76145000394B5 /* lua_zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_zlib.h; sourceTree = "<group>"; };
 		F4255C95178EBC4200E1C3C1 /* CCLinkPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLinkPosition.cpp; sourceTree = "<group>"; };
 		F4255C96178EBC4200E1C3C1 /* CCLinkPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLinkPosition.h; sourceTree = "<group>"; };
+		F426146A17E817B400D37B8D /* CCCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCommon.cpp; sourceTree = "<group>"; };
 		F42823EA17575D87001479DC /* CCCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCamera.cpp; sourceTree = "<group>"; };
 		F42823EB17575D87001479DC /* CCCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCamera.h; sourceTree = "<group>"; };
 		F42823EC17575D87001479DC /* CCConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCConfiguration.cpp; sourceTree = "<group>"; };
@@ -1267,6 +1269,7 @@
 			children = (
 				F428255D17575DA8001479DC /* CCAccelerometerDelegate.h */,
 				F428255E17575DA8001479DC /* CCApplicationProtocol.h */,
+				F426146A17E817B400D37B8D /* CCCommon.cpp */,
 				F428255F17575DA8001479DC /* CCCommon.h */,
 				F428256017575DA8001479DC /* CCDevice.h */,
 				F428256117575DA8001479DC /* CCEGLViewProtocol.cpp */,
@@ -2674,7 +2677,7 @@
 		F45A2B94166B07B600760194 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = qeeplay.com;
 			};
 			buildConfigurationList = F45A2B97166B07B600760194 /* Build configuration list for PBXProject "quickcocos2dx" */;
@@ -2959,6 +2962,7 @@
 				F4E883951770162500577406 /* CCNodeLoaderLibrary.cpp in Sources */,
 				F4E883961770162500577406 /* CCParticleSystemQuadLoader.cpp in Sources */,
 				F4E883971770162500577406 /* CCScale9SpriteLoader.cpp in Sources */,
+				F426146B17E817B400D37B8D /* CCCommon.cpp in Sources */,
 				F4E883981770162500577406 /* CCScrollViewLoader.cpp in Sources */,
 				F4E883991770162500577406 /* CCSpriteLoader.cpp in Sources */,
 				F4E8839A1770162500577406 /* CCComAttribute.cpp in Sources */,

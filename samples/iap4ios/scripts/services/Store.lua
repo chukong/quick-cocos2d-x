@@ -8,9 +8,9 @@ Store.TRANSACTION_FAILED        = "TRANSACTION_FAILED"
 Store.TRANSACTION_UNKNOWN_ERROR = "TRANSACTION_UNKNOWN_ERROR"
 
 function Store:ctor()
-    require("framework.client.api.EventProtocol").extend(self)
+    require("framework.api.EventProtocol").extend(self)
 
-    self.provider = require("framework.client.api.Store")
+    self.provider = require("framework.api.Store")
     self.provider.init(handler(self, self.transactionCallback))
     self.products = {}
 end

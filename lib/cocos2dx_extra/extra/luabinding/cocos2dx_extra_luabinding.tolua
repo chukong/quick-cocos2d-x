@@ -91,7 +91,7 @@ class CCHTTPRequest : public CCObject
     void setCookieString(const char *cookie);
     string getCookieString(void);
     void setAcceptEncoding(int acceptEncoding);
-    void setTimeout(float timeout);
+    void setTimeout(int timeout);
     void start(void);
     void cancel(void);
     int getState(void);

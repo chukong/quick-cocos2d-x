@@ -11,6 +11,7 @@
 		F4110ECE17CC54D80062C519 /* UIUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EC717CC54D80062C519 /* UIUtil.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */; };
+		F426146717E816FE00D37B8D /* CCCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F426146617E816FE00D37B8D /* CCCommon.cpp */; };
 		F42B55E71727F1C7000379DE /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C51727F1C7000379DE /* auxiliar.c */; };
 		F42B55E91727F1C7000379DE /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C91727F1C7000379DE /* except.c */; };
 		F42B55EA1727F1C7000379DE /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55CB1727F1C7000379DE /* inet.c */; };
@@ -329,6 +330,7 @@
 		F411F3E0175CEAFC00EF549A /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
 		F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLinkPosition.cpp; sourceTree = "<group>"; };
 		F4255C92178EB26B00E1C3C1 /* CCLinkPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLinkPosition.h; sourceTree = "<group>"; };
+		F426146617E816FE00D37B8D /* CCCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCommon.cpp; sourceTree = "<group>"; };
 		F42B55C51727F1C7000379DE /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
 		F42B55C61727F1C7000379DE /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliar.h; sourceTree = "<group>"; };
 		F42B55C91727F1C7000379DE /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = except.c; sourceTree = "<group>"; };
@@ -1403,6 +1405,7 @@
 			children = (
 				F4E880A91770074500577406 /* CCAccelerometerDelegate.h */,
 				F4E880AA1770074500577406 /* CCApplicationProtocol.h */,
+				F426146617E816FE00D37B8D /* CCCommon.cpp */,
 				F4E880AB1770074500577406 /* CCCommon.h */,
 				F4E880AC1770074500577406 /* CCDevice.h */,
 				F4E880AD1770074500577406 /* CCEGLViewProtocol.cpp */,
@@ -2565,6 +2568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4DE0AA516800201005DB2DB /* CDAudioManager.m in Sources */,
+				F426146717E816FE00D37B8D /* CCCommon.cpp in Sources */,
 				F4DE0AA816800201005DB2DB /* CDOpenALSupport.m in Sources */,
 				F4DE0AAA16800201005DB2DB /* CDXMacOSXSupport.mm in Sources */,
 				F4DE0AAC16800201005DB2DB /* CocosDenshion.m in Sources */,

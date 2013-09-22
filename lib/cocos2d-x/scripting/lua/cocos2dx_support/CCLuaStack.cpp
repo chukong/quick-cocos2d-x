@@ -473,7 +473,7 @@ int CCLuaStack::lua_print(lua_State *L)
     }
 
     int nargs = lua_gettop(L);
-    std::string t("Cocos2d: [");
+    std::string t("[");
     char timestr[32];
     memset(timestr, 0, sizeof(timestr));
     sprintf(timestr, "%.4f", deltatime);

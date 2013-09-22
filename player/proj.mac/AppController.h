@@ -82,7 +82,6 @@ class AppControllerBridge;
 
 - (IBAction) onScreenPortait:(id)sender;
 - (IBAction) onScreenLandscape:(id)sender;
-- (IBAction) onScreenActual:(id)sender;
 - (IBAction) onScreenZoomOut:(id)sender;
 
 - (IBAction) onWindowAlwaysOnTop:(id)sender;

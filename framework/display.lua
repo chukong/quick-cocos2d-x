@@ -133,12 +133,12 @@ echoInfo("#")
 display.COLOR_WHITE = ccc3(255, 255, 255)
 display.COLOR_BLACK = ccc3(0, 0, 0)
 
-display.AUTO_SIZE  = 0
-display.FIXED_SIZE = 1
-display.LEFT_TO_RIGHT = 0
-display.RIGHT_TO_LEFT = 1
-display.TOP_TO_BOTTOM = 2
-display.BOTTOM_TO_TOP = 3
+display.AUTO_SIZE      = 0
+display.FIXED_SIZE     = 1
+display.LEFT_TO_RIGHT  = 0
+display.RIGHT_TO_LEFT  = 1
+display.TOP_TO_BOTTOM  = 2
+display.BOTTOM_TO_TOP  = 3
 
 display.CENTER        = 1
 display.LEFT_TOP      = 2; display.TOP_LEFT      = 2

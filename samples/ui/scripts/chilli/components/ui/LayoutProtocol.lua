@@ -14,7 +14,9 @@ end
 
 function LayoutProtocol:setLayout(layout)
     self.layout_ = layout
-    if layout then layout:apply(self.target_) end
+    if layout then
+        layout:apply(self.target_)
+    end
     return self
 end
 
@@ -28,20 +30,6 @@ function LayoutProtocol:exportMethods()
         "setLayout",
         "getLayout",
     })
-end
-
-function LayoutProtocol:onBind_()
-    self.preferredSize_ = nil
-    self.layoutSize_ = {width = 0, height = 0}
-    self.minSize_    = {width = 0, height = 0}
-    self.maxSize_    = {width = MAX, height = MAX}
-    self.sizePolicy_ = {h = display.AUTO_SIZE, v = display.AUTO_SIZE}
-    self.alignment_  = display.LEFT_BOTTOM
-    self.padding_    = {top = 0, right = 0, bottom = 0, left = 0}
-    self.margin_     = {top = 0, right = 0, bottom = 0, left = 0}
-end
-
-function LayoutProtocol:onUnbind_()
 end
 
 return LayoutProtocol
