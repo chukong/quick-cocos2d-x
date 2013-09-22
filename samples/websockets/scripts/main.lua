@@ -6,7 +6,12 @@ function __G__TRACKBACK__(errorMessage)
     CCLuaLog("----------------------------------------")
 end
 
-xpcall(function()
-    require("game")
-    game.startup()
-end, __G__TRACKBACK__)
+local lanes = require("lanes").configure({
+    verbose_errors = true,
+    protect_allocator = true,
+})
+
+-- xpcall(function()
+--     require("game")
+--     game.startup()
+-- end, __G__TRACKBACK__)

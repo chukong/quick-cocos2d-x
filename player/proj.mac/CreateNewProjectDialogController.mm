@@ -56,10 +56,10 @@
 
 - (IBAction) onCreate:(id)sender
 {
-    NSString *projectLocation = [textFieldProjetLocation stringValue];
-    NSString *packageName = [textFieldPackageName stringValue];
-
-    NSString *commandLine = [NSString stringWithFormat:@"", packageName];
+//    NSString *projectLocation = [textFieldProjetLocation stringValue];
+//    NSString *packageName = [textFieldPackageName stringValue];
+//
+//    NSString *commandLine = [NSString stringWithFormat:@"", packageName];
 }
 
 @end

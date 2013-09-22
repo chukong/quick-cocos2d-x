@@ -190,7 +190,7 @@ EOT;
                 {
                     print("ok.\n");
                 }
-                $bytesName = 'lua_m_' . strtolower(str_replace('.', '_', $moduleName));
+                $bytesName = 'lua_m_' . strtolower(str_replace(array('.', '-'), '_', $moduleName));
                 $this->modules[] = array(
                     'moduleName'    => $moduleName,
                     'bytesName'     => $bytesName,
@@ -269,10 +269,6 @@ extern "C" {
 
 void luaopen_${outputFileBasename}(lua_State* L);
 
-#if __cplusplus
-}
-#endif
-
 EOT;
 
         $contents[] = '/*';
@@ -285,6 +281,10 @@ EOT;
         $contents[] = '*/';
 
         $contents[] = <<<EOT
+
+#if __cplusplus
+}
+#endif
 
 #endif /* ${headerSign} */
 

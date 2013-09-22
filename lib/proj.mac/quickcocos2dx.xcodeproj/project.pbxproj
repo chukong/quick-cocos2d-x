@@ -99,6 +99,15 @@
 		F477B95D175740BF00260C19 /* AssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B8F4175740BF00260C19 /* AssetsManager.cpp */; };
 		F477B982175740BF00260C19 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B949175740BF00260C19 /* CCEditBox.cpp */; };
 		F477B985175740BF00260C19 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F477B951175740BF00260C19 /* CCEditBoxImplMac.mm */; };
+		F47FCAE417EDF00E000A3E0D /* websockets.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAE117EDF00E000A3E0D /* websockets.c */; };
+		F47FCAE817EDF9CD000A3E0D /* lpack.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAE617EDF9CD000A3E0D /* lpack.c */; };
+		F47FCAF717EE60F3000A3E0D /* keeper.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAEF17EE60F3000A3E0D /* keeper.c */; };
+		F47FCAF817EE60F3000A3E0D /* lanes.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAF117EE60F3000A3E0D /* lanes.c */; };
+		F47FCAF917EE60F3000A3E0D /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAF317EE60F3000A3E0D /* threading.c */; };
+		F47FCAFA17EE60F3000A3E0D /* tools.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAF517EE60F3000A3E0D /* tools.c */; };
+		F47FCAFD17EE6255000A3E0D /* lanes_scripts.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAFB17EE6255000A3E0D /* lanes_scripts.c */; };
+		F47FCB0417EE650E000A3E0D /* copas.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCAFF17EE650E000A3E0D /* copas.c */; };
+		F47FCB0517EE650E000A3E0D /* coxpcall.c in Sources */ = {isa = PBXBuildFile; fileRef = F47FCB0217EE650E000A3E0D /* coxpcall.c */; };
 		F49C3B2117A905930018B8B1 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49C3B1F17A905930018B8B1 /* CCGraySprite.cpp */; };
 		F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */; };
 		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
@@ -523,6 +532,25 @@
 		F477B94B175740BF00260C19 /* CCEditBoxImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImpl.h; sourceTree = "<group>"; };
 		F477B950175740BF00260C19 /* CCEditBoxImplMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBoxImplMac.h; sourceTree = "<group>"; };
 		F477B951175740BF00260C19 /* CCEditBoxImplMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplMac.mm; sourceTree = "<group>"; };
+		F47FCAE117EDF00E000A3E0D /* websockets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = websockets.c; sourceTree = "<group>"; };
+		F47FCAE217EDF00E000A3E0D /* websockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = websockets.h; sourceTree = "<group>"; };
+		F47FCAE617EDF9CD000A3E0D /* lpack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpack.c; sourceTree = "<group>"; };
+		F47FCAE717EDF9CD000A3E0D /* lpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lpack.h; sourceTree = "<group>"; };
+		F47FCAEE17EE60F3000A3E0D /* deep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deep.h; sourceTree = "<group>"; };
+		F47FCAEF17EE60F3000A3E0D /* keeper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = keeper.c; sourceTree = "<group>"; };
+		F47FCAF017EE60F3000A3E0D /* keeper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = keeper.h; sourceTree = "<group>"; };
+		F47FCAF117EE60F3000A3E0D /* lanes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lanes.c; sourceTree = "<group>"; };
+		F47FCAF217EE60F3000A3E0D /* lanes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lanes.h; sourceTree = "<group>"; };
+		F47FCAF317EE60F3000A3E0D /* threading.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
+		F47FCAF417EE60F3000A3E0D /* threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
+		F47FCAF517EE60F3000A3E0D /* tools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tools.c; sourceTree = "<group>"; };
+		F47FCAF617EE60F3000A3E0D /* tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tools.h; sourceTree = "<group>"; };
+		F47FCAFB17EE6255000A3E0D /* lanes_scripts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lanes_scripts.c; sourceTree = "<group>"; };
+		F47FCAFC17EE6255000A3E0D /* lanes_scripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lanes_scripts.h; sourceTree = "<group>"; };
+		F47FCAFF17EE650E000A3E0D /* copas.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = copas.c; sourceTree = "<group>"; };
+		F47FCB0017EE650E000A3E0D /* copas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = copas.h; sourceTree = "<group>"; };
+		F47FCB0217EE650E000A3E0D /* coxpcall.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = coxpcall.c; sourceTree = "<group>"; };
+		F47FCB0317EE650E000A3E0D /* coxpcall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coxpcall.h; sourceTree = "<group>"; };
 		F49C3B1E17A8FEEE0018B8B1 /* ccShader_PositionTextureGray_frag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccShader_PositionTextureGray_frag.h; sourceTree = "<group>"; };
 		F49C3B1F17A905930018B8B1 /* CCGraySprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGraySprite.cpp; sourceTree = "<group>"; };
 		F49C3B2017A905930018B8B1 /* CCGraySprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGraySprite.h; sourceTree = "<group>"; };
@@ -1470,6 +1498,60 @@
 			path = CCEditBox;
 			sourceTree = "<group>";
 		};
+		F47FCAE017EDF00E000A3E0D /* websockets */ = {
+			isa = PBXGroup;
+			children = (
+				F47FCAE117EDF00E000A3E0D /* websockets.c */,
+				F47FCAE217EDF00E000A3E0D /* websockets.h */,
+			);
+			path = websockets;
+			sourceTree = "<group>";
+		};
+		F47FCAE517EDF9CD000A3E0D /* lpack */ = {
+			isa = PBXGroup;
+			children = (
+				F47FCAE617EDF9CD000A3E0D /* lpack.c */,
+				F47FCAE717EDF9CD000A3E0D /* lpack.h */,
+			);
+			path = lpack;
+			sourceTree = "<group>";
+		};
+		F47FCAED17EE60F3000A3E0D /* lanes */ = {
+			isa = PBXGroup;
+			children = (
+				F47FCAEE17EE60F3000A3E0D /* deep.h */,
+				F47FCAEF17EE60F3000A3E0D /* keeper.c */,
+				F47FCAF017EE60F3000A3E0D /* keeper.h */,
+				F47FCAF117EE60F3000A3E0D /* lanes.c */,
+				F47FCAF217EE60F3000A3E0D /* lanes.h */,
+				F47FCAFB17EE6255000A3E0D /* lanes_scripts.c */,
+				F47FCAFC17EE6255000A3E0D /* lanes_scripts.h */,
+				F47FCAF317EE60F3000A3E0D /* threading.c */,
+				F47FCAF417EE60F3000A3E0D /* threading.h */,
+				F47FCAF517EE60F3000A3E0D /* tools.c */,
+				F47FCAF617EE60F3000A3E0D /* tools.h */,
+			);
+			path = lanes;
+			sourceTree = "<group>";
+		};
+		F47FCAFE17EE650E000A3E0D /* copas */ = {
+			isa = PBXGroup;
+			children = (
+				F47FCAFF17EE650E000A3E0D /* copas.c */,
+				F47FCB0017EE650E000A3E0D /* copas.h */,
+			);
+			path = copas;
+			sourceTree = "<group>";
+		};
+		F47FCB0117EE650E000A3E0D /* coxpcall */ = {
+			isa = PBXGroup;
+			children = (
+				F47FCB0217EE650E000A3E0D /* coxpcall.c */,
+				F47FCB0317EE650E000A3E0D /* coxpcall.h */,
+			);
+			path = coxpcall;
+			sourceTree = "<group>";
+		};
 		F4B2D8C4179A3E3E005DEAE1 /* filesystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -1603,10 +1685,15 @@
 			isa = PBXGroup;
 			children = (
 				F4B4EF3616C7E0AE00736FFE /* cjson */,
+				F47FCAFE17EE650E000A3E0D /* copas */,
+				F47FCB0117EE650E000A3E0D /* coxpcall */,
 				F4B2D8C4179A3E3E005DEAE1 /* filesystem */,
+				F47FCAED17EE60F3000A3E0D /* lanes */,
+				F47FCAE517EDF9CD000A3E0D /* lpack */,
 				F4B4EF3D16C7E0AE00736FFE /* lua_extensions.c */,
 				F4B4EF3E16C7E0AE00736FFE /* lua_extensions.h */,
 				F42B55C41727F1C7000379DE /* socket */,
+				F47FCAE017EDF00E000A3E0D /* websockets */,
 				F4B4EF3F16C7E0AE00736FFE /* zlib */,
 			);
 			path = lua_extensions;
@@ -2567,10 +2654,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F47FCB0417EE650E000A3E0D /* copas.c in Sources */,
 				F4DE0AA516800201005DB2DB /* CDAudioManager.m in Sources */,
 				F426146717E816FE00D37B8D /* CCCommon.cpp in Sources */,
 				F4DE0AA816800201005DB2DB /* CDOpenALSupport.m in Sources */,
 				F4DE0AAA16800201005DB2DB /* CDXMacOSXSupport.mm in Sources */,
+				F47FCAF817EE60F3000A3E0D /* lanes.c in Sources */,
+				F47FCAE417EDF00E000A3E0D /* websockets.c in Sources */,
 				F4DE0AAC16800201005DB2DB /* CocosDenshion.m in Sources */,
 				F4DE0AAD16800201005DB2DB /* SimpleAudioEngine.mm in Sources */,
 				F4DE0AAF16800201005DB2DB /* SimpleAudioEngine_objc.m in Sources */,
@@ -2583,6 +2673,8 @@
 				F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */,
 				F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */,
 				F4A9C09816BC3AF400088CF7 /* tolua_fix.c in Sources */,
+				F47FCAFD17EE6255000A3E0D /* lanes_scripts.c in Sources */,
+				F47FCAF917EE60F3000A3E0D /* threading.c in Sources */,
 				F4B4EEC216C7E05800736FFE /* CCLuaBridge.cpp in Sources */,
 				F4B4EEC716C7E05F00736FFE /* CCLuaObjcBridge.mm in Sources */,
 				F4B4EECC16C7E06F00736FFE /* CCLuaStack.cpp in Sources */,
@@ -2624,6 +2716,7 @@
 				F43A2B1D1737C3F2000244FC /* xxtea.c in Sources */,
 				F46FBECF175724C900E14613 /* CCPhysicsBody.cpp in Sources */,
 				F46FBED0175724C900E14613 /* CCPhysicsDebugNode.cpp in Sources */,
+				F47FCAE817EDF9CD000A3E0D /* lpack.c in Sources */,
 				F46FBED1175724C900E14613 /* CCPhysicsShape.cpp in Sources */,
 				F46FBED2175724C900E14613 /* CCPhysicsSupport.cpp in Sources */,
 				F46FBED3175724C900E14613 /* CCPhysicsWorld.cpp in Sources */,
@@ -2646,6 +2739,7 @@
 				F46FBEE4175724C900E14613 /* cpBBTree.c in Sources */,
 				F46FBEE5175724C900E14613 /* cpBody.c in Sources */,
 				F46FBEE6175724C900E14613 /* cpCollision.c in Sources */,
+				F47FCAFA17EE60F3000A3E0D /* tools.c in Sources */,
 				F46FBEE7175724C900E14613 /* cpHashSet.c in Sources */,
 				F46FBEE8175724C900E14613 /* cpPolyShape.c in Sources */,
 				F46FBEE9175724C900E14613 /* cpShape.c in Sources */,
@@ -2729,6 +2823,7 @@
 				F4E880731770071600577406 /* CCClippingRegionNode.cpp in Sources */,
 				F4E880741770071600577406 /* CCMotionStreak.cpp in Sources */,
 				F4E880751770071600577406 /* CCProgressTimer.cpp in Sources */,
+				F47FCB0517EE650E000A3E0D /* coxpcall.c in Sources */,
 				F4E880761770071600577406 /* CCRenderTexture.cpp in Sources */,
 				F4E880771770071600577406 /* CCParticleBatchNode.cpp in Sources */,
 				F4E880781770071600577406 /* CCParticleExamples.cpp in Sources */,
@@ -2866,6 +2961,7 @@
 				F44F48F817C710DF00798F77 /* CCDataReaderHelper.cpp in Sources */,
 				F44F48F917C710DF00798F77 /* CCSpriteFrameCacheHelper.cpp in Sources */,
 				F44F48FA17C710DF00798F77 /* CCTransformHelp.cpp in Sources */,
+				F47FCAF717EE60F3000A3E0D /* keeper.c in Sources */,
 				F44F48FB17C710DF00798F77 /* CCTweenFunction.cpp in Sources */,
 				F44F48FC17C710DF00798F77 /* CCUtilMath.cpp in Sources */,
 				F4110ECD17CC54D80062C519 /* CursorTextField.cpp in Sources */,
@@ -2977,9 +3073,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/proj.mac\"",
-					"\"$(SRCROOT)/../cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
-					"\"$(SRCROOT)/../cocos2d-x/scripting/lua/luajit/mac\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/mac\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3030,9 +3125,8 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/third_party\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(QUICK_COCOS2DX_ROOT)/lib/luajit2/proj.mac\"",
-					"\"$(SRCROOT)/../cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
-					"\"$(SRCROOT)/../cocos2d-x/scripting/lua/luajit/mac\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/mac\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
