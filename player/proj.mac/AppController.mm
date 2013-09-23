@@ -75,12 +75,14 @@ using namespace cocos2d::extra;
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
     [self updateProjectConfigFromCommandLineArgs];
-    [self openConsoleWindow];
     [self createWindowAndGLView];
     [self startup];
     [self updateOpenRect];
     [self initUI];
     [self updateUI];
+
+    [window orderFrontRegardless];
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
@@ -105,11 +107,11 @@ using namespace cocos2d::extra;
 
 - (void) openConsoleWindow
 {
-    if(!consoleController)
+    if (!consoleController)
     {
         consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
     }
-    [consoleController showWindow:self];
+    [consoleController.window orderFrontRegardless];
 
     //set console pipe
     pipe = [NSPipe pipe] ;
@@ -191,6 +193,7 @@ using namespace cocos2d::extra;
     {
         projectConfig.resetToWelcome();
     }
+    
     const string projectDir = projectConfig.getProjectDir();
     if (projectDir.length())
     {
@@ -205,6 +208,11 @@ using namespace cocos2d::extra;
     if (writablePath.length())
     {
         CCFileUtils::sharedFileUtils()->setWritablePath(writablePath.c_str());
+    }
+
+    if (projectConfig.isShowConsole())
+    {
+        [self openConsoleWindow];
     }
 
     app->setProjectConfig(projectConfig);

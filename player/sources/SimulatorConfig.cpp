@@ -267,6 +267,14 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
         {
             setWriteDebugLogToFile(false);
         }
+        else if (arg.compare("-console") == 0)
+        {
+            setShowConsole(true);
+        }
+        else if (arg.compare("-disable-console") == 0)
+        {
+            setShowConsole(false);
+        }
         else if (arg.compare("-load-framework") == 0)
         {
             setLoadPrecompiledFramework(true);
@@ -343,6 +351,18 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
         else
         {
             buff << " -disable-write-debug-log";
+        }
+    }
+
+    if (mask & kProjectConfigShowConsole)
+    {
+        if (isShowConsole())
+        {
+            buff << " -console";
+        }
+        else
+        {
+            buff << " -disable-console";
         }
     }
 
