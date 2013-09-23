@@ -1,12 +1,17 @@
 
-local lanes = require("lanes").configure({
-    verbose_errors = true,
-    protect_allocator = true,
-})
+local WebSockets = require("WebSockets")
 
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
+
+local function bin2hex(binary)
+    local t = {}
+    for i = 1, string.len(binary) do
+        t[#t + 1] = string.format("0x%02x", string.byte(binary, i))
+    end
+    return table.concat(t, " ")
+end
 
 function MainScene:ctor()
     local connectLabel = ui.newTTFLabelMenuItem({
@@ -17,51 +22,81 @@ function MainScene:ctor()
         listener = handler(self, self.onConnectClicked),
     })
 
-    local sendLabel = ui.newTTFLabelMenuItem({
-        text = "send number",
+    local sendTextLabel = ui.newTTFLabelMenuItem({
+        text = "send text",
         size = 32,
         x = display.cx,
         y = display.top - 64,
-        listener = handler(self, self.onSendNumberClicked),
+        listener = handler(self, self.onSendTextClicked),
     })
 
-    self:addChild(ui.newMenu({connectLabel, sendLabel}))
+    local sendBinaryLabel = ui.newTTFLabelMenuItem({
+        text = "send binary",
+        size = 32,
+        x = display.cx,
+        y = display.top - 96,
+        listener = handler(self, self.onSendBinaryClicked),
+    })
 
-    -- init websockets
-    local websocket = require("websocket")
-    self.client = websocket.client.sync({timeout = 2})
+    self:addChild(ui.newMenu({connectLabel, sendTextLabel, sendBinaryLabel}))
+end
+
+function MainScene:onOpen(event)
+    print("connected")
+end
+
+function MainScene:onMessage(event)
+    if event.messageLength then
+        printf("receive binary msg: len = %s, binary = %s", event.messageLength, bin2hex(event.message))
+    else
+        printf("receive text msg: %s", event.message)
+    end
+end
+
+function MainScene:onClose(event)
+    self.websocket = nil
+end
+
+function MainScene:onError(event)
+    printf("error %s", event.error)
+    self.websocket = nil
 end
 
 function MainScene:onConnectClicked()
-    local f = lanes.gen(function(n) return 2*n end)
-    local a = f(1)
-    local b = f(2)
-    print( a[1], b[1] )
+    if self.websocket then return end
+    self.websocket = WebSockets.new("ws://localhost:8088/s")
+    self.websocket:addEventListener(WebSockets.OPEN_EVENT, handler(self, self.onOpen))
+    self.websocket:addEventListener(WebSockets.MESSAGE_EVENT, handler(self, self.onMessage))
+    self.websocket:addEventListener(WebSockets.CLOSE_EVENT, handler(self, self.onClose))
+    self.websocket:addEventListener(WebSockets.ERROR_EVENT, handler(self, self.onError))
+end
 
-    local ok,err = self.client:connect("ws://localhost:8088/s")
-    if ok then
-        print("connected")
-        self:startListener()
-    else
-        print("could not connect", err)
+function MainScene:onSendTextClicked()
+    if not self.websocket then
+        print("not connected")
+        return
+    end
+
+    local text = "hello " .. tostring(math.random())
+    if self.websocket:send(text) then
+        printf("send text msg: %s", text)
     end
 end
 
-function MainScene:onSendNumberClicked()
-    local ok = self.client:send("hello " .. tostring(math.random()))
-    if ok then
-       print("msg sent")
-    else
-       print("connection closed")
+function MainScene:onSendBinaryClicked()
+    if not self.websocket then
+        print("not connected")
+        return
     end
 
-end
-
-function MainScene:startListener()
-
-end
-
-function MainScene:onEnter()
+    local t = {}
+    for i = 1, math.random(4, 8) do
+        t[#t + 1] = string.char(math.random(0, 31))
+    end
+    local binary = table.concat(t)
+    if self.websocket:send(binary, WebSockets.BINARY_MESSAGE) then
+        printf("send binary msg: len = %d, binary = %s", string.len(binary), bin2hex(binary))
+    end
 end
 
 return MainScene

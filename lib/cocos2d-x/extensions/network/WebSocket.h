@@ -148,7 +148,7 @@ private:
 private:
 	State        _readyState;
     std::string  _host;
-    unsigned int _port;
+    int          _port;
     std::string  _path;
     
     friend class WsThreadHelper;

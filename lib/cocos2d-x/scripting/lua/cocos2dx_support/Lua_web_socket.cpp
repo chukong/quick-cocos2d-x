@@ -128,7 +128,11 @@ public:
             if (data.isBinary) {
                 int nHandler = luaWs->getScriptHandler(LuaWebSocket::kWebSocketScriptHandlerMessage);
                 if (-1 != nHandler) {
-                    SendBinaryMessageToLua(nHandler, (const unsigned char*)data.bytes, data.len);
+                    CCLuaStack *pStack = CCLuaEngine::defaultEngine()->getLuaStack();
+                    pStack->pushFunctionByHandler(nHandler);
+                    pStack->pushString(data.bytes, data.len);
+                    pStack->pushInt(data.len);
+                    pStack->executeFunction(2);
                 }
             }
             else{
@@ -157,8 +161,21 @@ public:
         LuaWebSocket* luaWs = dynamic_cast<LuaWebSocket*>(ws);
         if (NULL != luaWs) {
             int nHandler = luaWs->getScriptHandler(LuaWebSocket::kWebSocketScriptHandlerError);
+            string errorMsg = "";
+            if (error == kErrorTimeout)
+            {
+                errorMsg = "timeout";
+            }
+            else if (error == kErrorConnectionFailure)
+            {
+                errorMsg = "connection";
+            }
+            else
+            {
+                errorMsg = "unknown";
+            }
             if (-1 != nHandler) {
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler,"");
+                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler, errorMsg.c_str());
             }
         }
     }
@@ -350,6 +367,37 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: sendTextMsg of class WebSocket */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_WebSocket_sendBinaryStringMsg00
+static int tolua_Cocos2d_WebSocket_sendBinaryStringMsg00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+    tolua_Error tolua_err;
+    if (
+        !tolua_isusertype(tolua_S,1,"WebSocket",0,&tolua_err) ||
+        !tolua_isstring(tolua_S,2,0,&tolua_err)               ||
+        !tolua_isnoobj(tolua_S,3,&tolua_err)
+        )
+        goto tolua_lerror;
+    else
+#endif
+    {
+        LuaWebSocket* self    = (LuaWebSocket*)  tolua_tousertype(tolua_S,1,0);
+        size_t len = 0;
+        const unsigned char *pData  = ((const unsigned char*)  lua_tolstring(tolua_S,2,&len));
+        if (NULL != self && NULL != pData && len > 0) {
+            self->send(pData, (unsigned int)len);
+        }
+    }
+    return 0;
+#ifndef TOLUA_RELEASE
+tolua_lerror:
+    tolua_error(tolua_S,"#ferror in function 'sendBinaryStringMsg'.",&tolua_err);
+    return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: close of class WebSocket */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_WebSocket_close00
 static int tolua_Cocos2d_WebSocket_close00(lua_State* tolua_S)
@@ -504,6 +552,7 @@ TOLUA_API int tolua_web_socket_open(lua_State* tolua_S){
         tolua_function(tolua_S, "createByProtocolArray", tolua_Cocos2d_WebSocket_createByProtocolArray00);
         tolua_function(tolua_S, "getReadyState", tolua_Cocos2d_WebSocket_getReadyState00);
         tolua_function(tolua_S, "sendTextMsg", tolua_Cocos2d_WebSocket_sendTextMsg00);
+        tolua_function(tolua_S, "sendBinaryStringMsg", tolua_Cocos2d_WebSocket_sendBinaryStringMsg00);
         tolua_function(tolua_S, "close", tolua_Cocos2d_WebSocket_close00);
         tolua_function(tolua_S, "registerScriptHandler", tolua_Cocos2d_WebSocket_registerScriptHandler00);
         tolua_function(tolua_S, "unregisterScriptHandler", tolua_Cocos2d_WebSocket_unregisterScriptHandler00);
