@@ -576,7 +576,6 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
             lua_getglobal(L, "package");
             lua_getfield(L, -1, "preload");
 
-            CCLOG("CCLoadChunksFromZip() - began");
             int count = 0;
             string filename = zip->getFirstFilename();
             while (filename.length())
@@ -586,8 +585,6 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
                 if (bufferSize)
                 {
                     luaL_loadbuffer(L, (char*)buffer, bufferSize, filename.c_str());
-                    lua_pushstring(L, filename.c_str());
-                    lua_pushcclosure(L, &cc_lua_require, 2);
                     lua_setfield(L, -2, filename.c_str());
                     delete []buffer;
                     ++count;
@@ -596,7 +593,7 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
                 filename = zip->getNextFilename();
             }
 
-            CCLOG("CCLoadChunksFromZip() - ended, chunks count %d", count);
+            CCLOG("CCLoadChunksFromZip() - loaded chunks count: %d", count);
 
             lua_pop(L, 2);
             lua_pushboolean(L, 1);

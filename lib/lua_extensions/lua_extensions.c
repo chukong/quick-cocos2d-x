@@ -14,23 +14,10 @@ extern "C" {
 // lpack
 #include "lpack/lpack.h"
 
-// lanes
-#include "lanes/lanes.h"
-#include "lanes/lanes_scripts.h"
-
-// coxpcall
-#include "coxpcall/coxpcall.h"
-
 // socket
 #include "socket/luasocket.h"
 #include "socket/mime.h"
 #include "socket/socket_scripts.h"
-
-// copas
-#include "copas/copas.h"
-
-// websockets
-#include "websockets/websockets.h"
 
 // filesystem
 #include "filesystem/lfs.h"
@@ -48,22 +35,19 @@ static luaL_Reg luax_exts[] = {
 
 void luaopen_lua_extensions(lua_State *L)
 {
-//    luaL_Reg* lib = luax_exts;
-//    lua_getglobal(L, "package");
-//    lua_getfield(L, -1, "loaders");
-//    for (; lib->func; lib++)
-//    {
-//        lua_pushcfunction(L, lib->func);
-//        lua_setfield(L, -2, lib->name);
-//    }
-//    lua_pop(L, 2);
+    // load extensions
+    luaL_Reg* lib = luax_exts;
+    lua_getglobal(L, "package");
+    lua_getfield(L, -1, "preload");
+    for (; lib->func; lib++)
+    {
+        lua_pushcfunction(L, lib->func);
+        lua_setfield(L, -2, lib->name);
+    }
+    lua_pop(L, 2);
 
     // load extensions script
-    luaopen_lanes_embedded(L, luaopen_lua_m_lanes);
-//    luaopen_coxpcall(L);
-//    luaopen_socket_scripts(L);
-//    luaopen_copas(L);
-//    luaopen_websockets(L);
+    luaopen_socket_scripts(L);
 }
 
 #if __cplusplus
