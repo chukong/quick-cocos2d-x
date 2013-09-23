@@ -74,7 +74,7 @@ int CCCrypto::decodeBase64(const char* input,
                            void* output,
                            int outputBufferLength)
 {
-    int bufferSize = strlen(input) + 1;
+    int bufferSize = (int)strlen(input) + 1;
     char* buffer = (char*)malloc(bufferSize);
     memset(buffer, 0, bufferSize);
     base64_decodestate state;
@@ -222,7 +222,7 @@ LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
 LUA_STRING CCCrypto::MD5Lua(char* input, bool isRawOutput)
 {
     unsigned char buffer[MD5_BUFFER_LENGTH];
-    MD5(static_cast<void*>(input), strlen(input), buffer);
+    MD5(static_cast<void*>(input), (int)strlen(input), buffer);
     
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
     stack->clean();

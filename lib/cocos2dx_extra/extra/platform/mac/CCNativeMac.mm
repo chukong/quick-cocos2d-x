@@ -78,7 +78,7 @@ static CCNativeMac *s_sharedInstance;
     }
 
     CCLOG("CCNative::showAlertViewWithDelegate()");
-    NSInteger buttonIndex = [alertView_ runModal];    
+    int buttonIndex = (int)[alertView_ runModal];
     if (delegate)
     {
         delegate->alertViewClickedButtonAtIndex(buttonIndex);
@@ -124,7 +124,7 @@ static CCNativeMac *s_sharedInstance;
     }
     
     CCLOG("CCNative::showAlertViewWithLuaListener()");
-    NSInteger buttonIndex = [alertView_ runModal];
+    int buttonIndex = (int)[alertView_ runModal];
     
     CCLuaValueDict event;
     event["action"] = CCLuaValue::stringValue("clicked");

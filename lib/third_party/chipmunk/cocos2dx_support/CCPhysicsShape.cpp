@@ -51,7 +51,7 @@ void CCPhysicsShape::setIsSensor(bool isSensor)
 
 int CCPhysicsShape::getCollisionType(void)
 {
-    return cpShapeGetCollisionType(m_shape);
+    return (int)cpShapeGetCollisionType(m_shape);
 }
 
 void CCPhysicsShape::setCollisionType(int collisionType)

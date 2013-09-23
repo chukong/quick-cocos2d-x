@@ -10,6 +10,9 @@
 		F4110ECD17CC54D80062C519 /* CursorTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EC517CC54D80062C519 /* CursorTextField.cpp */; };
 		F4110ECE17CC54D80062C519 /* UIUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4110EC717CC54D80062C519 /* UIUtil.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
+		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
+		F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D98FB17F08B9E007171D8 /* libwebsockets.a */; };
+		F41D98FF17F08BEB007171D8 /* Lua_web_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98FD17F08BEB007171D8 /* Lua_web_socket.cpp */; };
 		F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */; };
 		F426146717E816FE00D37B8D /* CCCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F426146617E816FE00D37B8D /* CCCommon.cpp */; };
 		F42B55E71727F1C7000379DE /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = F42B55C51727F1C7000379DE /* auxiliar.c */; };
@@ -329,6 +332,12 @@
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
 		F411F3DE175CEAFC00EF549A /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F411F3E0175CEAFC00EF549A /* libluajit2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit2.a; sourceTree = "<group>"; };
+		F41D98F217F08B85007171D8 /* WebSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocket.cpp; sourceTree = "<group>"; };
+		F41D98F317F08B85007171D8 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
+		F41D98F917F08B9E007171D8 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
+		F41D98FB17F08B9E007171D8 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebsockets.a; sourceTree = "<group>"; };
+		F41D98FD17F08BEB007171D8 /* Lua_web_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lua_web_socket.cpp; sourceTree = "<group>"; };
+		F41D98FE17F08BEB007171D8 /* Lua_web_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lua_web_socket.h; sourceTree = "<group>"; };
 		F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLinkPosition.cpp; sourceTree = "<group>"; };
 		F4255C92178EB26B00E1C3C1 /* CCLinkPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLinkPosition.h; sourceTree = "<group>"; };
 		F426146617E816FE00D37B8D /* CCCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCommon.cpp; sourceTree = "<group>"; };
@@ -1018,6 +1027,7 @@
 			files = (
 				F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */,
 				F4DE082416800061005DB2DB /* Cocoa.framework in Frameworks */,
+				F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */,
 				F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */,
 				F4E880EE1770075400577406 /* libwebp.a in Frameworks */,
 			);
@@ -1076,6 +1086,57 @@
 				F411F3E0175CEAFC00EF549A /* libluajit2.a */,
 			);
 			path = mac;
+			sourceTree = "<group>";
+		};
+		F41D98F117F08B85007171D8 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				F41D98F217F08B85007171D8 /* WebSocket.cpp */,
+				F41D98F317F08B85007171D8 /* WebSocket.h */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		F41D98F517F08B90007171D8 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				F41D98F617F08B96007171D8 /* libwebsockets */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		F41D98F617F08B96007171D8 /* libwebsockets */ = {
+			isa = PBXGroup;
+			children = (
+				F41D98F717F08B9E007171D8 /* mac */,
+			);
+			name = libwebsockets;
+			sourceTree = "<group>";
+		};
+		F41D98F717F08B9E007171D8 /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				F41D98F817F08B9E007171D8 /* include */,
+				F41D98FA17F08B9E007171D8 /* lib */,
+			);
+			name = mac;
+			path = external/libwebsockets/mac;
+			sourceTree = "<group>";
+		};
+		F41D98F817F08B9E007171D8 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F41D98F917F08B9E007171D8 /* libwebsockets.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F41D98FA17F08B9E007171D8 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				F41D98FB17F08B9E007171D8 /* libwebsockets.a */,
+			);
+			path = lib;
 			sourceTree = "<group>";
 		};
 		F425ABD016B7777A00A1C8DB /* cocos2dx_extra */ = {
@@ -1667,6 +1728,7 @@
 				F4E8814217700E7200577406 /* Components */,
 				F477B92C175740BF00260C19 /* ExtensionMacros.h */,
 				F477B92D175740BF00260C19 /* GUI */,
+				F41D98F117F08B85007171D8 /* network */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1716,6 +1778,7 @@
 				F4DE084316800187005DB2DB /* cocos2dx */,
 				F4DE0A91168001EE005DB2DB /* CocosDenshion */,
 				F4DCACDF168C0F5900679DBE /* extensions */,
+				F41D98F517F08B90007171D8 /* external */,
 				F4DE0AB01680023C005DB2DB /* scripting */,
 			);
 			path = "cocos2d-x";
@@ -1829,6 +1892,8 @@
 				F4B4EECB16C7E06F00736FFE /* CCLuaValue.h */,
 				F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */,
 				F4A9C07A16BC3AF400088CF7 /* Cocos2dxLuaLoader.h */,
+				F41D98FD17F08BEB007171D8 /* Lua_web_socket.cpp */,
+				F41D98FE17F08BEB007171D8 /* Lua_web_socket.h */,
 				F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */,
 				F4A9C07C16BC3AF400088CF7 /* LuaCocos2d.h */,
 				F4B4EEC316C7E05F00736FFE /* platform */,
@@ -2720,6 +2785,7 @@
 				F4E8805C1770071600577406 /* mat3.c in Sources */,
 				F4E8805D1770071600577406 /* mat4.c in Sources */,
 				F4E8805E1770071600577406 /* neon_matrix_impl.c in Sources */,
+				F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */,
 				F4E8805F1770071600577406 /* plane.c in Sources */,
 				F4E880601770071600577406 /* quaternion.c in Sources */,
 				F4E880611770071600577406 /* ray2.c in Sources */,
@@ -2853,6 +2919,7 @@
 				F4E8817C17700E8A00577406 /* CCInvocation.cpp in Sources */,
 				F4E8817D17700E8A00577406 /* CCScale9Sprite.cpp in Sources */,
 				F4E8817E17700E8A00577406 /* CCScrollView.cpp in Sources */,
+				F41D98FF17F08BEB007171D8 /* Lua_web_socket.cpp in Sources */,
 				F4E8817F17700E8A00577406 /* CCSorting.cpp in Sources */,
 				F4E8818017700E8A00577406 /* CCTableView.cpp in Sources */,
 				F4E8818117700E8A00577406 /* CCTableViewCell.cpp in Sources */,
@@ -2896,7 +2963,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2919,7 +2986,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
 		};
@@ -2927,7 +2994,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2943,14 +3010,14 @@
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
 		};
 		F4DE083216800061005DB2DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -2993,17 +3060,18 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/mac\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/external/libwebsockets/mac/lib\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
 		};
 		F4DE083316800061005DB2DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -3045,10 +3113,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/mac\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/external/libwebsockets/mac/lib\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
 		};

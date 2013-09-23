@@ -225,7 +225,7 @@ using namespace cocos2d::extra;
 
     NSString *welcomeTitle = [NSString stringWithFormat:@"%splayer/welcome/", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str()];
 
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         id recentItem = [recents objectAtIndex:i];
         if (![[recentItem class] isSubclassOfClass:[NSDictionary class]])
@@ -244,7 +244,7 @@ using namespace cocos2d::extra;
     NSString *title = [NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding];
     if ([title length] > 0 && [welcomeTitle compare:title] != NSOrderedSame)
     {
-        for (int i = [recents count] - 1; i >= 0; --i)
+        for (NSInteger i = [recents count] - 1; i >= 0; --i)
         {
             id recentItem = [recents objectAtIndex:i];
             if ([title compare:[recentItem objectForKey:@"title"]] == NSOrderedSame)
@@ -284,7 +284,7 @@ using namespace cocos2d::extra;
 
     NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
     submenu = [[[[[window menu] itemWithTitle:@"File"] submenu] itemWithTitle:@"Open Recent"] submenu];
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         NSDictionary *recentItem = [recents objectAtIndex:i];
         NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[recentItem objectForKey:@"title"]
@@ -350,7 +350,7 @@ using namespace cocos2d::extra;
         [menuRecents removeItemAtIndex:0];
     }
 
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         NSDictionary *recentItem = [recents objectAtIndex:i];
         NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[recentItem objectForKey:@"title"]
@@ -620,7 +620,7 @@ using namespace cocos2d::extra;
     NSArray *recents = [[NSUserDefaults standardUserDefaults] objectForKey:@"recents"];
     NSDictionary *recentItem = nil;
     NSString *title = [sender title];
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         recentItem = [recents objectAtIndex:i];
         if ([title compare:[recentItem objectForKey:@"title"]] == NSOrderedSame)
@@ -690,10 +690,10 @@ using namespace cocos2d::extra;
 
 - (IBAction) onScreenChangeFrameSize:(id)sender
 {
-    int i = [sender tag];
+    NSInteger i = [sender tag];
     if (i >= 0 && i < SimulatorConfig::sharedDefaults()->getScreenSizeCount())
     {
-        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(i);
+        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize((int)i);
         projectConfig.setFrameSize(projectConfig.isLandscapeFrame() ? CCSize(size.height, size.width) : CCSize(size.width, size.height));
         projectConfig.setFrameScale(1.0f);
         [self relaunch];
