@@ -74,7 +74,7 @@ using namespace cocos2d::extra;
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
-    [self updateProjectConfigFromCommandLineArgs];
+    [self updateProjectConfigFromCommandLineArgs:&projectConfig];
     [self createWindowAndGLView];
     [self startup];
     [self updateOpenRect];
@@ -396,7 +396,7 @@ using namespace cocos2d::extra;
     return [NSMutableArray arrayWithArray:[commandLine componentsSeparatedByString:@" "]];
 }
 
-- (void) updateProjectConfigFromCommandLineArgs
+- (void) updateProjectConfigFromCommandLineArgs:(ProjectConfig *)config
 {
     NSArray *nsargs = [[NSProcessInfo processInfo] arguments];
     vector<string> args;
@@ -404,7 +404,7 @@ using namespace cocos2d::extra;
     {
         args.push_back([[nsargs objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
-    projectConfig.parseCommandLine(args);
+    config->parseCommandLine(args);
 }
 
 - (void) launch:(NSArray*)args
@@ -603,7 +603,9 @@ using namespace cocos2d::extra;
 {
     [self showModelSheet];
     ProjectConfigDialogController *controller = [[ProjectConfigDialogController alloc] initWithWindowNibName:@"ProjectConfigDialog"];
-    [controller setProjectConfig:projectConfig];
+    ProjectConfig config;
+    [self updateProjectConfigFromCommandLineArgs:&config];
+    [controller setProjectConfig:config];
     [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
         [self stopModelSheet];
         if (returnCode == NSRunStoppedResponse)
