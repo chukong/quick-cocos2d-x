@@ -66,7 +66,6 @@ CCBone::CCBone()
     m_pChildArmature = NULL;
     m_pBoneData = NULL;
     m_pTween = NULL;
-    m_pTween = NULL;
     m_pChildren = NULL;
     m_pDisplayManager = NULL;
     m_bIgnoreMovementBoneData = false;
