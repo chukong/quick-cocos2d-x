@@ -224,7 +224,7 @@ LUA_STRING CCHTTPRequest::getResponseDataLua(void)
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::getResponseDataLua() - request not completed");
     CCLuaStack *stack = CCLuaEngine::defaultEngine()->getLuaStack();
     stack->clean();
-    stack->pushString(static_cast<char*>(m_responseBuffer), m_responseDataLength);
+    stack->pushString(static_cast<char*>(m_responseBuffer), (int)m_responseDataLength);
     return 1;
 }
 #endif

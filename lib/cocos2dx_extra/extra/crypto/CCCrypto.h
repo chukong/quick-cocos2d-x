@@ -113,7 +113,7 @@ public:
     /** @brief Decoding Base64 string to data, return decoded data length */
     static LUA_STRING decodeBase64Lua(const char* input)
     {
-        return encodingBase64Lua(true, input, strlen(input));
+        return encodingBase64Lua(true, input, (int)strlen(input));
     }
     
     /** @brief Calculate MD5, return MD5 string */

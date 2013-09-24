@@ -37,7 +37,7 @@ void CCNative::createAlert(const char* title,
 int CCNative::addAlertButton(const char* buttonTitle)
 {
     NSString *buttonTitle_ = [NSString stringWithUTF8String:buttonTitle ? buttonTitle : "Button"];
-    return [[CCNativeMac sharedInstance] addAlertButton:buttonTitle_];
+    return (int)[[CCNativeMac sharedInstance] addAlertButton:buttonTitle_];
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0

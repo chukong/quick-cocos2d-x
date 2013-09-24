@@ -121,7 +121,7 @@ public:
     int getResponseDataLength(void)
     {
         CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
-        return m_responseDataLength;
+        return (int)m_responseDataLength;
     }
     
     /** @brief Save response data to file. */
