@@ -78,6 +78,15 @@ kmPlane* const kmPlaneFromPointNormal(kmPlane* pOut, const kmVec3* pPoint, const
  */
 kmPlane* const kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* p2, const kmVec3* p3)
 {
+    /*
+    v = (B − A) × (C − A)
+    n = 1⁄|v| v
+    Outa = nx
+    Outb = ny
+    Outc = nz
+    Outd = −n⋅A
+    */
+
     kmVec3 n, v1, v2;
     kmVec3Subtract(&v1, p2, p1); //Create the vectors for the 2 sides of the triangle
     kmVec3Subtract(&v2, p3, p1);
@@ -95,6 +104,11 @@ kmPlane* const kmPlaneFromPoints(kmPlane* pOut, const kmVec3* p1, const kmVec3* 
 
 kmVec3* const kmPlaneIntersectLine(kmVec3* pOut, const kmPlane* pP, const kmVec3* pV1, const kmVec3* pV2)
 {
+    /*
+        n = (Planea, Planeb, Planec)
+        d = V − U
+        Out = U − d⋅(Pd + n⋅U)⁄(d⋅n) [iff d⋅n ≠ 0]
+    */
     kmVec3 d;
     assert(0 && "Not implemented");
 
@@ -158,3 +172,4 @@ const POINT_CLASSIFICATION kmPlaneClassifyPoint(const kmPlane* pIn, const kmVec3
 
    return POINT_ON_PLANE;
 }
+

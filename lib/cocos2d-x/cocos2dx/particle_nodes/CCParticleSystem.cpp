@@ -112,7 +112,6 @@ CCParticleSystem::CCParticleSystem()
 , m_uTotalParticles(0)
 , m_pTexture(NULL)
 , m_bOpacityModifyRGB(false)
-, m_timeScale(1.0f)
 , m_bIsBlendAdditive(false)
 , m_ePositionType(kCCPositionTypeFree)
 , m_bIsAutoRemoveOnFinish(false)
@@ -603,7 +602,6 @@ bool CCParticleSystem::isFull()
 // ParticleSystem - MainLoop
 void CCParticleSystem::update(float dt)
 {
-    dt *= m_timeScale;
     CC_PROFILER_START_CATEGORY(kCCProfilerCategoryParticles , "CCParticleSystem - update");
 
     if (m_bIsActive && m_fEmissionRate)
@@ -1269,16 +1267,6 @@ bool CCParticleSystem::getOpacityModifyRGB()
 void CCParticleSystem::setOpacityModifyRGB(bool bOpacityModifyRGB)
 {
     m_bOpacityModifyRGB = bOpacityModifyRGB;
-}
-
-float CCParticleSystem::getTimeScale()
-{
-    return m_timeScale;
-}
-
-void CCParticleSystem::setTimeScale(float timeScale)
-{
-    m_timeScale = timeScale;
 }
 
 tCCPositionType CCParticleSystem::getPositionType()

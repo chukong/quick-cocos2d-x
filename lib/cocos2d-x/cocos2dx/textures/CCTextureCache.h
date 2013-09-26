@@ -2,6 +2,7 @@
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
+Copyright (c) Microsoft Open Technologies, Inc.
 
 http://www.cocos2d-x.org
 
@@ -62,17 +63,30 @@ protected:
 private:
     /// todo: void addImageWithAsyncObject(CCAsyncObject* async);
     void addImageAsyncCallBack(float dt);
-
 public:
-
+    /**
+     *  @js ctor
+     *  @lua NA
+     */
     CCTextureCache();
+    /**
+     *  @js NA
+     *  @lua NA
+     */
     virtual ~CCTextureCache();
-
+    /**
+     *  @js NA
+     *  @lua NA
+     */
     const char* description(void);
-
+    /**
+     *  @js NA
+     */
     CCDictionary* snapshotTextures();
 
-    /** Returns the shared instance of the cache */
+    /** Returns the shared instance of the cache 
+     *  @js getInstance
+     */
     static CCTextureCache * sharedTextureCache();
 
     /** purges the cache. It releases the retained instance.
@@ -94,8 +108,9 @@ public:
     * The callback will be called from the main thread, so it is safe to create any cocos2d object from the callback.
     * Supported image extensions: .png, .jpg
     * @since v0.8
+    * @lua NA
     */
-
+    
     void addImageAsync(const char *path, CCObject *target, SEL_CallFuncO selector);
     void addImageAsync(const char *path, int handler);
     void addImageAsyncImpl(const char *path, CCObject *target, SEL_CallFuncO selector, int handler = 0);
@@ -150,16 +165,17 @@ public:
     * @since v1.0
     */
     void dumpCachedTextureInfo();
-
+    
     /** Returns a Texture2D object given an PVR filename
     * If the file image was not previously loaded, it will create a new CCTexture2D
     *  object and it will return it. Otherwise it will return a reference of a previously loaded image
     */
     CCTexture2D* addPVRImage(const char* filename);
-
+    
     /** Returns a Texture2D object given an ETC filename
      * If the file image was not previously loaded, it will create a new CCTexture2D
      *  object and it will return it. Otherwise it will return a reference of a previously loaded image
+     *  @lua NA
      */
     CCTexture2D* addETCImage(const char* filename);
 
@@ -198,7 +214,7 @@ public:
 public:
     static std::list<VolatileTexture*> textures;
     static bool isReloading;
-
+    
 private:
     // find VolatileTexture by CCTexture2D*
     // if not found, create a new one
@@ -206,7 +222,7 @@ private:
 
 protected:
     CCTexture2D *texture;
-
+    
     CCImage *uiImage;
 
     ccCachedImageType m_eCashedImageType;
@@ -218,7 +234,7 @@ protected:
     std::string m_strFileName;
     CCImage::EImageFormat m_FmtImage;
 
-    ccTexParams      m_texParams;
+    ccTexParams     m_texParams;
     CCSize          m_size;
     CCTextAlignment m_alignment;
     CCVerticalTextAlignment m_vAlignment;

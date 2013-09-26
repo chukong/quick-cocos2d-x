@@ -8,7 +8,7 @@
 #if defined(_USRDLL)
     #define CC_DLL     __declspec(dllexport)
 #else         /* use a DLL library */
-    #define CC_DLL     
+    #define CC_DLL     /*__declspec(dllimport)*/
 #endif
 
 #include <assert.h>

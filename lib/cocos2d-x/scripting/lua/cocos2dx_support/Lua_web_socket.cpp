@@ -155,9 +155,10 @@ public:
             }
         }
     }
-    
+
     virtual void onError(WebSocket* ws, const WebSocket::ErrorCode& error)
     {
+		using namespace std;
         LuaWebSocket* luaWs = dynamic_cast<LuaWebSocket*>(ws);
         if (NULL != luaWs) {
             int nHandler = luaWs->getScriptHandler(LuaWebSocket::kWebSocketScriptHandlerError);

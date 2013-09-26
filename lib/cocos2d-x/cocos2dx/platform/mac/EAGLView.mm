@@ -1,26 +1,26 @@
 /****************************************************************************
- Copyright (c) 2010 cocos2d-x.org
+Copyright (c) 2010 cocos2d-x.org
 
- http://www.cocos2d-x.org
+http://www.cocos2d-x.org
 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+****************************************************************************/
 
 /*
  * Idea of subclassing NSOpenGLView was taken from  "TextureUpload" Apple's sample
@@ -46,16 +46,9 @@ static EAGLView *view;
 
 @implementation EAGLView
 
-@synthesize eventDelegate = eventDelegate_, isFullScreen = isFullScreen_, frameZoomFactor = frameZoomFactor_;
+@synthesize eventDelegate = eventDelegate_, isFullScreen = isFullScreen_, frameZoomFactor=frameZoomFactor_;
 
-- (NSSize)makeSizeEven:(NSSize)size
-{
-    size.width = (int)(size.width / 2) * 2;
-    size.height = (int)(size.height / 2) * 2;
-    return size;
-}
-
-+ (id) sharedEGLView
++(id) sharedEGLView
 {
 	return view;
 }
@@ -74,59 +67,69 @@ static EAGLView *view;
 //		NSOpenGLPFANoRecovery,
 		NSOpenGLPFADoubleBuffer,
 		NSOpenGLPFADepthSize, 24,
+		
 		0
     };
-    frameRect.size = [self makeSizeEven:frameRect.size];
-
-	NSOpenGLPixelFormat *pixelFormat = [[[NSOpenGLPixelFormat alloc] initWithAttributes:attribs] autorelease];
+	
+	NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attribs];
+	
 	if (!pixelFormat)
-    {
-        NSLog(@"No OpenGL pixel format");
-    }
-	else if ((self = [super initWithFrame:frameRect pixelFormat:pixelFormat]))
-    {
-		if(context) [self setOpenGLContext:context];
+		NSLog(@"No OpenGL pixel format");
+	
+	if( (self = [super initWithFrame:frameRect pixelFormat:[pixelFormat autorelease]]) ) {
+		
+		if( context )
+			[self setOpenGLContext:context];
+
+		// event delegate
 		eventDelegate_ = [CCEventDispatcher sharedDispatcher];
 	}
-
+    
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
+    
     frameZoomFactor_ = 1.0f;
-    originalWinRect_ = frameRect;
-
+	
 	view = self;
 	return self;
 }
 
-- (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format
-{
-    frameRect.size = [self makeSizeEven:frameRect.size];
-    if ((self = [super initWithFrame:frameRect pixelFormat:format]))
-    {
-        eventDelegate_ = [CCEventDispatcher sharedDispatcher];
-    }
-
+- (id) initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat *)format{
+    // event delegate
+    eventDelegate_ = [CCEventDispatcher sharedDispatcher];
+    
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
+    
     frameZoomFactor_ = 1.0f;
-    originalWinRect_ = frameRect;
-
+	
 	view = self;
+    
+    [super initWithFrame:frameRect pixelFormat:format];
+
     return self;
+}
+
+- (void) update
+{
+	// XXX: Should I do something here ?
+	[super update];
 }
 
 - (void) prepareOpenGL
 {
-	[super prepareOpenGL];
+	// XXX: Initialize OpenGL context
 
+	[super prepareOpenGL];
+	
 	// Make this openGL context current to the thread
 	// (i.e. all openGL on this thread calls will go to this context)
 	[[self openGLContext] makeCurrentContext];
-
+	
 	// Synchronize buffer swaps with vertical refresh rate
 	GLint swapInt = 1;
-	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
+	[[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];	
 
-    //	GLint order = -1;
-    //	[[self openGLContext] setValues:&order forParameter:NSOpenGLCPSurfaceOrder];
+//	GLint order = -1;
+//	[[self openGLContext] setValues:&order forParameter:NSOpenGLCPSurfaceOrder];
 }
 
 - (NSUInteger) depthFormat
@@ -137,29 +140,24 @@ static EAGLView *view;
 - (void) setFrameZoomFactor:(float)frameZoomFactor
 {
     frameZoomFactor_ = frameZoomFactor;
-
+    
     NSRect winRect = [[self window] frame];
     NSRect viewRect = [self frame];
-
+    
     // compute the margin width and margin height
     float diffX = winRect.size.width - viewRect.size.width;
     float diffY = winRect.size.height - viewRect.size.height;
-
-    // new opengl frame width and height
-    NSSize frameSize = NSMakeSize(originalWinRect_.size.width * frameZoomFactor, originalWinRect_.size.height * frameZoomFactor);
-    frameSize = [self makeSizeEven:frameSize];
-
+    
     // new window width and height
-    int newWindowWidth = frameSize.width + diffX;
-    int newWindowHeight = frameSize.height + diffY;
-
+    float newWindowWidth = (int)(viewRect.size.width * frameZoomFactor + diffX);
+    float newWindowHeight = (int)(viewRect.size.height * frameZoomFactor + diffY);
+    
     // display window in the center of the screen
     NSRect screenRect = [[NSScreen mainScreen] frame];
     float originX = (screenRect.size.width - newWindowWidth) / 2;
     float originY = (screenRect.size.height - newWindowHeight) / 2;
-
+    
     [[self window] setFrame:NSMakeRect(originX, originY, newWindowWidth, newWindowHeight) display:true];
-    [self setFrameSize:NSMakeSize(frameSize.width, frameSize.height)];
 }
 
 - (void) reshape
@@ -167,15 +165,20 @@ static EAGLView *view;
 	// We draw on a secondary thread through the display link
 	// When resizing the view, -reshape is called automatically on the main thread
 	// Add a mutex around to avoid the threads accessing the context simultaneously when resizing
+
 	[self lockOpenGLContext];
-
-    // resize gl view
-    glViewport(0, 0, self.frame.size.width, self.frame.size.height);
-
-	// avoid flicker
+	
+//	NSRect rect = [self bounds];
+	
 	cocos2d::CCDirector *director = cocos2d::CCDirector::sharedDirector();
+//	CGSize size = NSSizeToCGSize(rect.size);
+//	cocos2d::CCSize ccsize = cocos2d::CCSizeMake(size.width, size.height);
+	//director->reshapeProjection(ccsize);
+	
+	// avoid flicker
 	director->drawScene();
-
+//	[self setNeedsDisplay:YES];
+	
 	[self unlockOpenGLContext];
 }
 
@@ -183,6 +186,7 @@ static EAGLView *view;
 {
 	NSOpenGLContext *glContext = [self openGLContext];
 	NSAssert( glContext, @"FATAL: could not get openGL context");
+
 	[glContext makeCurrentContext];
 	CGLLockContext((CGLContextObj)[glContext CGLContextObj]);
 }
@@ -191,16 +195,16 @@ static EAGLView *view;
 {
 	NSOpenGLContext *glContext = [self openGLContext];
 	NSAssert( glContext, @"FATAL: could not get openGL context");
+
 	CGLUnlockContext((CGLContextObj)[glContext CGLContextObj]);
 }
 
 - (void) dealloc
 {
-	NSLog(@"deallocing EAGLView %@", self);
+	CCLOGINFO(@"cocos2d: deallocing EAGLView %@", self);
 	[super dealloc];
-    view = nil;
 }
-
+	
 -(int) getWidth
 {
 	NSSize bound = [self bounds].size;
@@ -280,7 +284,7 @@ static EAGLView *view;
         [windowGLView_ makeKeyAndOrderFront:self];
 		[windowGLView_ makeMainWindow];
     }
-
+	
 	// issue #1189
 	[windowGLView_ makeFirstResponder:openGLview];
 
@@ -306,11 +310,11 @@ static EAGLView *view;
 #define DISPATCH_EVENT(__event__, __selector__) [eventDelegate_ queueEvent:__event__ selector:__selector__];
 #else
 #define DISPATCH_EVENT(__event__, __selector__)												\
-id obj = eventDelegate_;																\
-[obj performSelector:__selector__														\
-onThread:[(cocos2d::CCDirector*)[CCDirector sharedDirector] runningThread]			\
-withObject:__event__																\
-waitUntilDone:NO];
+	id obj = eventDelegate_;																\
+	[obj performSelector:__selector__														\
+			onThread:[(cocos2d::CCDirector*)[CCDirector sharedDirector] runningThread]			\
+		  withObject:__event__																\
+	   waitUntilDone:NO];
 #endif
 
 #pragma mark EAGLView - Mouse events
@@ -319,14 +323,14 @@ waitUntilDone:NO];
 {
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
-
+	
 	float x = local_point.x;
 	float y = [self getHeight] - local_point.y;
-
+	
     int ids[1] = {0};
     float xs[1] = {0.0f};
     float ys[1] = {0.0f};
-
+    
 	ids[0] = [theEvent eventNumber];
 	xs[0] = x / frameZoomFactor_;
 	ys[0] = y / frameZoomFactor_;
@@ -343,14 +347,14 @@ waitUntilDone:NO];
 {
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
-
+	
 	float x = local_point.x;
 	float y = [self getHeight] - local_point.y;
 
     int ids[1] = {0};
     float xs[1] = {0.0f};
     float ys[1] = {0.0f};
-
+    
 	ids[0] = [theEvent eventNumber];
 	xs[0] = x / frameZoomFactor_;
 	ys[0] = y / frameZoomFactor_;
@@ -362,14 +366,14 @@ waitUntilDone:NO];
 {
 	NSPoint event_location = [theEvent locationInWindow];
 	NSPoint local_point = [self convertPoint:event_location fromView:nil];
-
+	
 	float x = local_point.x;
 	float y = [self getHeight] - local_point.y;
 
     int ids[1] = {0};
     float xs[1] = {0.0f};
     float ys[1] = {0.0f};
-
+    
 	ids[0] = [theEvent eventNumber];
 	xs[0] = x / frameZoomFactor_;
 	ys[0] = y / frameZoomFactor_;
@@ -444,7 +448,7 @@ waitUntilDone:NO];
 - (void)keyDown:(NSEvent *)theEvent
 {
 	DISPATCH_EVENT(theEvent, _cmd);
-
+	
 	// pass the event along to the next responder (like your NSWindow subclass)
 	[super keyDown:theEvent];
 }
@@ -482,5 +486,4 @@ waitUntilDone:NO];
 {
 	DISPATCH_EVENT(theEvent, _cmd);
 }
-
 @end

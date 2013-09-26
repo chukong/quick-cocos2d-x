@@ -67,7 +67,6 @@ void CCEGLView::end(void)
     
     // destroy EAGLView
     [[EAGLView sharedEGLView] removeFromSuperview];
-    [[EAGLView sharedEGLView] release];
     
     delete this;
 }

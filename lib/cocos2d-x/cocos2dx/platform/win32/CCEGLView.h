@@ -47,28 +47,31 @@ public:
     virtual void end();
     virtual void swapBuffers();
     virtual void setFrameSize(float width, float height);
+	virtual void setEditorFrameSize(float width, float height,HWND hWnd); 
     virtual void setIMEKeyboardState(bool bOpen);
 
     void setMenuResource(LPCWSTR menu);
     void setWndProc(CUSTOM_WND_PROC proc);
 
-private:
+protected:
     virtual bool Create();
+public:
     bool initGL();
     void destroyGL();
-public:
+
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 
+	void setHWnd(HWND hWnd);
     // win32 platform function
     HWND getHWnd();
-    void resize(int width, int height);
+    virtual void resize(int width, int height);
+	
     /* 
      * Set zoom factor for frame. This method is for debugging big resolution (e.g.new ipad) app on desktop.
      */
     void setFrameZoomFactor(float fZoomFactor);
 	float getFrameZoomFactor();
-    void centerWindow();
-    void moveWindow(int left, int top);
+    virtual void centerWindow();
 
     typedef void (*LPFN_ACCELEROMETER_KEYHOOK)( UINT message,WPARAM wParam, LPARAM lParam );
     void setAccelerometerKeyHook( LPFN_ACCELEROMETER_KEYHOOK lpfnAccelerometerKeyHook );
@@ -81,11 +84,9 @@ public:
     @brief    get the shared main open gl window
     */
     static CCEGLView* sharedOpenGLView();
-    static void purgeSharedOpenGLView();
 
 protected:
-
-private:
+	static CCEGLView* s_pEglView;
     bool m_bCaptured;
     HWND m_hWnd;
     HDC  m_hDC;

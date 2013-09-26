@@ -801,9 +801,6 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.cpp">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCPointArray.cpp">
-      <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
-    </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCSet.cpp">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClCompile>
@@ -1710,9 +1707,6 @@
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.h">
-      <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCPointArray.h">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCSet.h">

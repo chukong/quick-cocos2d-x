@@ -390,14 +390,8 @@ bool CCImage::initWithString(
         SIZE size = {nWidth, nHeight};
         CC_BREAK_IF(! dc.drawText(pText, size, eAlignMask));
 
-        // calc image size
-        int width = (size.cx / 2) * 2 + 2;
-        int height = (size.cy / 2) * 2 + 2;
-
-        // alloc image data buffer
-        m_pData = new unsigned char[width * height * 4];
+        m_pData = new unsigned char[size.cx * size.cy * 4];
         CC_BREAK_IF(! m_pData);
-        memset(m_pData, 0, width * height * 4);
 
         struct
         {
@@ -408,8 +402,8 @@ bool CCImage::initWithString(
         CC_BREAK_IF(! GetDIBits(dc.getDC(), dc.getBitmap(), 0, 0, 
             NULL, (LPBITMAPINFO)&bi, DIB_RGB_COLORS));
 
-        m_nWidth    = (short)width;
-        m_nHeight   = (short)height;
+        m_nWidth    = (short)size.cx;
+        m_nHeight   = (short)size.cy;
         m_bHasAlpha = true;
         m_bPreMulti = false;
         m_nBitsPerComponent = 8;
@@ -420,29 +414,18 @@ bool CCImage::initWithString(
             (LPBITMAPINFO)&bi, DIB_RGB_COLORS);
 
         // change pixel's alpha value to 255, when it's RGB != 0
-        int offset = width - size.cx;
-        COLORREF *src = (COLORREF*)m_pData + (size.cy - 1) * size.cx + size.cx - 1;
-        COLORREF *dest = (COLORREF*)m_pData + (size.cy - 1) * width + width - 1 - offset;
-        int counter = size.cx;
-        while (src >= (COLORREF*)m_pData)
+        COLORREF * pPixel = NULL;
+        for (int y = 0; y < m_nHeight; ++y)
+        {
+            pPixel = (COLORREF *)m_pData + y * m_nWidth;
+            for (int x = 0; x < m_nWidth; ++x)
             {
-            COLORREF& clr = *src;
+                COLORREF& clr = *pPixel;
                 if (GetRValue(clr) || GetGValue(clr) || GetBValue(clr))
                 {
                     clr |= 0xff000000;
                 }
-            *dest = clr;
-            --src;
-            --dest;
-            --counter;
-            if (counter <= 0)
-            {
-                for (int i = 0; i < offset && dest > src; ++i)
-                {
-                    *dest = 0;
-                    --dest;
-                }
-                counter = size.cx;
+                ++pPixel;
             }
         }
 

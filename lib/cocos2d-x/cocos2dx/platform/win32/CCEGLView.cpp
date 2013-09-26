@@ -163,7 +163,7 @@ static bool glew_dynamic_binding()
 //////////////////////////////////////////////////////////////////////////
 static CCEGLView* s_pMainWindow = NULL;
 static const WCHAR* kWindowClassName = L"Cocos2dxWin32";
-
+CCEGLView* CCEGLView::s_pEglView = NULL;
 static LRESULT CALLBACK _WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     if (s_pMainWindow && s_pMainWindow->getHWnd() == hWnd)
@@ -187,7 +187,7 @@ CCEGLView::CCEGLView()
 , m_fFrameZoomFactor(1.0f)
 , m_bSupportTouch(false)
 {
-    strcpy(m_szViewName, "quick-x-player");
+    strcpy(m_szViewName, "Cocos2dxWin32");
 }
 
 CCEGLView::~CCEGLView()
@@ -271,8 +271,6 @@ bool CCEGLView::Create()
     {
         CC_BREAK_IF(m_hWnd);
 
-        s_pMainWindow = this;
-
         HINSTANCE hInstance = GetModuleHandle( NULL );
         WNDCLASS  wc;        // Windows Class Structure
 
@@ -318,6 +316,7 @@ bool CCEGLView::Create()
 		if(!bRet) destroyGL();
         CC_BREAK_IF(!bRet);
 
+        s_pMainWindow = this;
         bRet = true;
     } while (0);
 
@@ -606,6 +605,11 @@ HWND CCEGLView::getHWnd()
     return m_hWnd;
 }
 
+void CCEGLView::setHWnd(HWND hWnd)
+{
+	m_hWnd = hWnd;
+}
+
 void CCEGLView::resize(int width, int height)
 {
     if (! m_hWnd)
@@ -670,6 +674,24 @@ void CCEGLView::setFrameSize(float width, float height)
     centerWindow();
 }
 
+void CCEGLView::setEditorFrameSize(float width, float height,HWND hWnd)
+{
+	m_hWnd=hWnd;
+
+	bool bRet = false;
+	do 
+	{	
+		resize(width, height);
+
+		bRet = initGL();
+		CC_BREAK_IF(!bRet);
+
+		s_pMainWindow = this;
+		bRet = true;
+	} while (0);
+
+	CCEGLViewProtocol::setFrameSize(width, height);
+}
 void CCEGLView::centerWindow()
 {
     if (! m_hWnd)
@@ -702,11 +724,6 @@ void CCEGLView::centerWindow()
     SetWindowPos(m_hWnd, 0, offsetX, offsetY, 0, 0, SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 }
 
-void CCEGLView::moveWindow(int left, int top)
-{
-    SetWindowPos(m_hWnd, 0, left, top, 0, 0, SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);
-}
-
 void CCEGLView::setViewPortInPoints(float x , float y , float w , float h)
 {
     glViewport((GLint)(x * m_fScaleX * m_fFrameZoomFactor + m_obViewPortRect.origin.x * m_fFrameZoomFactor),
@@ -725,16 +742,18 @@ void CCEGLView::setScissorInPoints(float x , float y , float w , float h)
 
 CCEGLView* CCEGLView::sharedOpenGLView()
 {
-    if (s_pMainWindow == NULL)
+  
+    if (s_pEglView == NULL)
     {
-        CCEGLView *view = new CCEGLView();
-		if(!view->Create())
+        s_pEglView = new CCEGLView();
+		if(!s_pEglView->Create())
 		{
-			delete view;
+			delete s_pEglView;
+			s_pEglView = NULL;
 		}
     }
 
-    return s_pMainWindow;
+    return s_pEglView;
 }
 
 NS_CC_END

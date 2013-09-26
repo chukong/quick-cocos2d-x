@@ -269,9 +269,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             dim.height = constrainSize.height;
         }
         
-        dim.width = (int)(dim.width / 2) * 2 + 2;
-        dim.height = (int)(dim.height / 2) * 2 + 2;
-
+        
         // compute the padding needed by shadow and stroke
         float shadowStrokePaddingX = 0.0f;
         float shadowStrokePaddingY = 0.0f;
@@ -291,6 +289,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         // add the padding (this could be 0 if no shadow and no stroke)
         dim.width  += shadowStrokePaddingX;
         dim.height += shadowStrokePaddingY;
+        
         
         unsigned char* data = new unsigned char[(int)(dim.width * dim.height * 4)];
         memset(data, 0, (int)(dim.width * dim.height * 4));

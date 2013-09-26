@@ -40,7 +40,6 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCGeometry.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCNS.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.cpp" />
-    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCPointArray.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCSet.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCString.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCZone.cpp" />
@@ -268,7 +267,6 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCInteger.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCNS.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.h" />
-    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCPointArray.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCSet.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCString.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCZone.h" />

@@ -65,7 +65,7 @@ CCMotionStreak::~CCMotionStreak()
     CC_SAFE_FREE(m_pTexCoords);
 }
 
-CCMotionStreak* CCMotionStreak::create(float fade, float minSeg, float stroke, ccColor3B color, const char* path)
+CCMotionStreak* CCMotionStreak::create(float fade, float minSeg, float stroke, const ccColor3B& color, const char* path)
 {
     CCMotionStreak *pRet = new CCMotionStreak();
     if (pRet && pRet->initWithFade(fade, minSeg, stroke, color, path))
@@ -78,7 +78,7 @@ CCMotionStreak* CCMotionStreak::create(float fade, float minSeg, float stroke, c
     return NULL;
 }
 
-CCMotionStreak* CCMotionStreak::create(float fade, float minSeg, float stroke, ccColor3B color, CCTexture2D* texture)
+CCMotionStreak* CCMotionStreak::create(float fade, float minSeg, float stroke, const ccColor3B& color, CCTexture2D* texture)
 {
     CCMotionStreak *pRet = new CCMotionStreak();
     if (pRet && pRet->initWithFade(fade, minSeg, stroke, color, texture))
@@ -91,7 +91,7 @@ CCMotionStreak* CCMotionStreak::create(float fade, float minSeg, float stroke, c
     return NULL;
 }
 
-bool CCMotionStreak::initWithFade(float fade, float minSeg, float stroke, ccColor3B color, const char* path)
+bool CCMotionStreak::initWithFade(float fade, float minSeg, float stroke, const ccColor3B& color, const char* path)
 {
     CCAssert(path != NULL, "Invalid filename");
 
@@ -99,7 +99,7 @@ bool CCMotionStreak::initWithFade(float fade, float minSeg, float stroke, ccColo
     return initWithFade(fade, minSeg, stroke, color, texture);
 }
 
-bool CCMotionStreak::initWithFade(float fade, float minSeg, float stroke, ccColor3B color, CCTexture2D* texture)
+bool CCMotionStreak::initWithFade(float fade, float minSeg, float stroke, const ccColor3B& color, CCTexture2D* texture)
 {
     CCNode::setPosition(CCPointZero);
     setAnchorPoint(CCPointZero);
@@ -148,7 +148,7 @@ void CCMotionStreak::tintWithColor(ccColor3B colors)
     setColor(colors);
 
     // Fast assignation
-    for(unsigned int i = 0; i<m_uNuPoints*2; i++)
+    for(unsigned int i = 0; i<m_uNuPoints*2; i++) 
     {
         *((ccColor3B*) (m_pColorPointer+i*4)) = colors;
     }
@@ -206,7 +206,7 @@ void CCMotionStreak::update(float delta)
     {
         return;
     }
-
+    
     delta *= m_fFadeDelta;
 
     unsigned int newIdx, newIdx2, i, i2;
@@ -280,8 +280,8 @@ void CCMotionStreak::update(float delta)
 
         // Color assignment
         const unsigned int offset = m_uNuPoints*8;
-        *((ccColor3B*)(m_pColorPointer + offset)) = m_displayedColor;
-        *((ccColor3B*)(m_pColorPointer + offset+4)) = m_displayedColor;
+        *((ccColor3B*)(m_pColorPointer + offset)) = _displayedColor;
+        *((ccColor3B*)(m_pColorPointer + offset+4)) = _displayedColor;
 
         // Opacity
         m_pColorPointer[offset+3] = 255;

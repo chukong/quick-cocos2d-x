@@ -34,6 +34,7 @@ NS_CC_BEGIN
 static CCNotificationCenter *s_sharedNotifCenter = NULL;
 
 CCNotificationCenter::CCNotificationCenter()
+: m_scriptHandler(0)
 {
     m_observers = CCArray::createWithCapacity(3);
     m_observers->retain();
