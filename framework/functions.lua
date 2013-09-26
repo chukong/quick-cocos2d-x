@@ -250,6 +250,7 @@ function table.nums(t)
     end
     return count
 end
+table.getn = table.nums
 
 function table.keys(t)
     local keys = {}
@@ -382,10 +383,4 @@ function string.formatNumberThousands(num)
         if k == 0 then break end
     end
     return formatted
-end
-
-local exit = os.exit
-function os.exit()
-    CCDirector:sharedDirector():endToLua()
-    exit()
 end

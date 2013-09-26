@@ -12,6 +12,12 @@ cc = cc or {}
 cc.packageName = string.sub(CURRENT_MODULE_NAME, 1, -6)
 cc.version = "2.5.0"
 
+local exit = os.exit
+function os.exit()
+    CCDirector:sharedDirector():endToLua()
+    exit()
+end
+
 require(cc.packageName .. ".debug")
 require(cc.packageName .. ".functions")
 require(cc.packageName .. ".cocos2dx")
