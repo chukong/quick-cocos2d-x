@@ -226,6 +226,24 @@
     <Filter Include="cocos2d-x\extensions\CCArmature\utils">
       <UniqueIdentifier>{edd20763-f7fc-428f-b2fd-cec7850697a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\extensions\network">
+      <UniqueIdentifier>{86424ba1-eadc-4db4-8277-f05489283974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\external">
+      <UniqueIdentifier>{8da5984a-b64a-4023-ad0b-b9c7d5805de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\external\libwebsockets">
+      <UniqueIdentifier>{6d504a7b-442e-41d1-8612-09aca46eff04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\external\libwebsockets\win32">
+      <UniqueIdentifier>{c64602bf-2c06-4be8-9e09-a866ad1eb26d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\external\libwebsockets\win32\include">
+      <UniqueIdentifier>{26cb354e-e807-448f-a072-bf09ec4415d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\external\libwebsockets\win32\include\win32helpers">
+      <UniqueIdentifier>{bee186ef-8646-46b3-8fbf-ca3119a547db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -881,6 +899,12 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CCArmature\utils\CCArmatureDataManager.cpp">
       <Filter>cocos2d-x\extensions\CCArmature\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\network\WebSocket.cpp">
+      <Filter>cocos2d-x\extensions\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Lua_web_socket.cpp">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1813,6 +1837,21 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CCArmature\utils\CCArmatureDataManager.h">
       <Filter>cocos2d-x\extensions\CCArmature\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\network\WebSocket.h">
+      <Filter>cocos2d-x\extensions\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\libwebsockets\win32\include\win32helpers\gettimeofday.h">
+      <Filter>cocos2d-x\external\libwebsockets\win32\include\win32helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\libwebsockets\win32\include\win32helpers\websock-w32.h">
+      <Filter>cocos2d-x\external\libwebsockets\win32\include\win32helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\libwebsockets\win32\include\libwebsockets.h">
+      <Filter>cocos2d-x\external\libwebsockets\win32\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\Lua_web_socket.h">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
