@@ -16,6 +16,9 @@
     <Filter Include="lua_extensions\filesystem">
       <UniqueIdentifier>{4100f0f7-9265-4aa9-9fb6-5216f09f3893}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua_extensions\lpack">
+      <UniqueIdentifier>{1f17afca-c681-4876-a94b-8d39600c4cc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lua_extensions.c">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="..\filesystem\lfs.c">
       <Filter>lua_extensions\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lpack\lpack.c">
+      <Filter>lua_extensions\lpack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="..\filesystem\lfs.h">
       <Filter>lua_extensions\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lpack\lpack.h">
+      <Filter>lua_extensions\lpack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
