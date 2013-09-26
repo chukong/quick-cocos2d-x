@@ -75,7 +75,7 @@ const string ProjectConfig::getNormalizedPackagePath(void)
 {
     // replace $PROJDIR
     string path = m_packagePath;
-    int pos = std::string::npos;
+    size_t pos = std::string::npos;
     while ((pos = path.find("$PROJDIR")) != std::string::npos)
     {
         path = path.substr(0, pos) + m_projectDir + path.substr(pos + 8);
@@ -112,8 +112,8 @@ const vector<string> ProjectConfig::getPackagePathArray(void)
 {
     vector<string> arr;
 
-    int pos = std::string::npos;
-    int prev = 0;
+    size_t pos = std::string::npos;
+    size_t prev = 0;
     while ((pos = m_packagePath.find_first_of(";", pos + 1)) != std::string::npos)
     {
         string path = m_packagePath.substr(prev, pos - prev);
@@ -240,7 +240,7 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
         {
             ++it;
             const string& sizeStr(*it);
-            int pos = sizeStr.find('x');
+            size_t pos = sizeStr.find('x');
             int width = 0;
             int height = 0;
             if (pos != sizeStr.npos && pos > 0)
@@ -266,6 +266,14 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
         else if (arg.compare("-disable-write-debug-log") == 0)
         {
             setWriteDebugLogToFile(false);
+        }
+        else if (arg.compare("-console") == 0)
+        {
+            setShowConsole(true);
+        }
+        else if (arg.compare("-disable-console") == 0)
+        {
+            setShowConsole(false);
         }
         else if (arg.compare("-load-framework") == 0)
         {
@@ -346,6 +354,18 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
         }
     }
 
+    if (mask & kProjectConfigShowConsole)
+    {
+        if (isShowConsole())
+        {
+            buff << " -console";
+        }
+        else
+        {
+            buff << " -disable-console";
+        }
+    }
+
     if (mask & kProjectConfigLoadPrecompiledFramework)
     {
         if (isLoadPrecompiledFramework())
@@ -405,7 +425,7 @@ void ProjectConfig::normalize(void)
     SimulatorConfig::makeNormalizePath(&m_packagePath);
 
     // projectDir
-    int len = m_projectDir.length();
+    size_t len = m_projectDir.length();
     if (len > 0 && m_projectDir[len - 1] != DIRECTORY_SEPARATOR_CHAR)
     {
         m_projectDir.append(DIRECTORY_SEPARATOR);
@@ -454,7 +474,7 @@ const string ProjectConfig::replaceProjectDirToMacro(const string& path)
     }
 
     string result = path;
-    int len = m_projectDir.length();
+    size_t len = m_projectDir.length();
     if (len > 0 && result.compare(0, len, m_projectDir) == 0)
     {
         result = "$PROJDIR";
@@ -523,7 +543,7 @@ SimulatorConfig::SimulatorConfig(void)
 
 int SimulatorConfig::getScreenSizeCount(void)
 {
-    return m_screenSizeArray.size();
+    return (int)m_screenSizeArray.size();
 }
 
 const SimulatorScreenSize SimulatorConfig::getScreenSize(int index)
@@ -593,7 +613,7 @@ const string SimulatorConfig::getPrecompiledFrameworkPath(void)
 void SimulatorConfig::makeNormalizePath(string *path, const char *directorySeparator/* = NULL*/)
 {
     if (!directorySeparator) directorySeparator = DIRECTORY_SEPARATOR;
-    int pos = std::string::npos;
+    size_t pos = std::string::npos;
     while ((pos = path->find_first_of("/\\", pos + 1)) != std::string::npos)
     {
         path->replace(pos, 1, directorySeparator);

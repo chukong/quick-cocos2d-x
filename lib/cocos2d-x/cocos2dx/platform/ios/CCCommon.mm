@@ -31,18 +31,6 @@
 
 NS_CC_BEGIN
 
-void CCLog(const char * pszFormat, ...)
-{
-    printf("Cocos2d: ");
-    char szBuf[kMaxLogLen+1] = {0};
-    va_list ap;
-    va_start(ap, pszFormat);
-    vsnprintf(szBuf, kMaxLogLen, pszFormat, ap);
-    va_end(ap);
-    printf("%s", szBuf);
-    printf("\n");
-}
-
 // ios no MessageBox, use CCLog instead
 void CCMessageBox(const char * pszMsg, const char * pszTitle)
 {
@@ -55,11 +43,6 @@ void CCMessageBox(const char * pszMsg, const char * pszTitle)
                                                 otherButtonTitles: nil];
     [messageBox autorelease];
     [messageBox show];
-}
-
-void CCLuaLog(const char * pszFormat)
-{
-    puts(pszFormat);
 }
 
 NS_CC_END

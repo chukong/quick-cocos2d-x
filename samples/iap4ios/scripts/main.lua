@@ -1,12 +1,10 @@
 
 function __G__TRACKBACK__(errorMessage)
-    CCLuaLog("----------------------------------------")
-    CCLuaLog("LUA ERROR: " .. tostring(errorMessage) .. "\n")
-    CCLuaLog(debug.traceback("", 2))
-    CCLuaLog("----------------------------------------")
+    print("----------------------------------------")
+    print("LUA ERROR: " .. tostring(errorMessage) .. "\n")
+    print(debug.traceback("", 2))
+    print("----------------------------------------")
 end
-
-CCLuaLoadChunksFromZip("res/framework_precompiled.zip")
 
 xpcall(function()
     require("game")

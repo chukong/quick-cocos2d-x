@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2011 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -51,6 +51,8 @@ using namespace std;
 
 NS_CC_BEGIN
 
+struct cc_timeval CCLuaStack::m_lasttime = {0};
+
 CCLuaStack *CCLuaStack::create(void)
 {
     CCLuaStack *stack = new CCLuaStack();
@@ -69,7 +71,9 @@ CCLuaStack *CCLuaStack::attach(lua_State *L)
 
 bool CCLuaStack::init(void)
 {
+    CCTime::gettimeofdayCocos2d(&m_lasttime, NULL);
     m_state = lua_open();
+    CCAssert(m_state, "create Lua VM failed");
     luaL_openlibs(m_state);
     toluafix_open(m_state);
     tolua_Cocos2d_open(m_state);
@@ -84,7 +88,7 @@ bool CCLuaStack::init(void)
     // register lua print
     lua_pushcfunction(m_state, lua_print);
     lua_setglobal(m_state, "print");
-    
+
     // register CCLuaLoadChunksFromZip
     lua_pushcfunction(m_state, lua_loadChunksFromZip);
     lua_setglobal(m_state, "CCLuaLoadChunksFromZip");
@@ -138,18 +142,18 @@ void CCLuaStack::addSearchPath(const char* path)
 void CCLuaStack::addLuaLoader(lua_CFunction func)
 {
     if (!func) return;
-    
+
     lua_getglobal(m_state, "package");                                  /* L: package */
     lua_getfield(m_state, -1, "loaders");                               /* L: package, loaders */
     lua_pushcfunction(m_state, func);                                   /* L: package, loaders, func */
-    for (int i = lua_objlen(m_state, -2) + 1; i > 2; --i)
+    for (int i = (int)lua_objlen(m_state, -2) + 1; i > 2; --i)
     {
         lua_rawgeti(m_state, -2, i - 1);                                /* L: package, loaders, func, function */
         lua_rawseti(m_state, -3, i);                                    /* L: package, loaders, func */
     }
     lua_rawseti(m_state, -2, 2);                                        /* L: package, loaders */
     lua_setfield(m_state, -2, "loaders");                               /* L: package */
-    
+
     lua_pop(m_state, 1);
 }
 
@@ -183,7 +187,7 @@ int CCLuaStack::executeScriptFile(const char* filename)
     --m_callFromLua;
     CC_ASSERT(m_callFromLua >= 0);
     // lua_gc(m_state, LUA_GCCOLLECT, 0);
-    
+
     if (nRet != 0)
     {
         CCLOG("[LUA ERROR] %s", lua_tostring(m_state, -1));
@@ -335,7 +339,7 @@ int execute_lua_function(lua_State *L, int numArgs, bool removeResult)
         lua_insert(L, functionIndex - 1);                         /* L: ... G func arg1 arg2 ... */
         traceback = functionIndex - 1;
     }
-    
+
     int error = 0;
     error = lua_pcall(L, numArgs, 1, traceback);                  /* L: ... [G] ret */
     if (error)
@@ -351,31 +355,31 @@ int execute_lua_function(lua_State *L, int numArgs, bool removeResult)
         }
         return 0;
     }
-    
+
     int ret = 0;
     if (removeResult)
     {
         if (lua_isnumber(L, -1))
         {
-            ret = lua_tointeger(L, -1);
-    }
+            ret = (int)lua_tointeger(L, -1);
+        }
         else if (lua_isboolean(L, -1))
-    {
+        {
             ret = lua_toboolean(L, -1);
-    }
-    // remove return value from stack
+        }
+        // remove return value from stack
         lua_pop(L, 1);                                            /* L: ... [G] */
     }
     else
     {
         ret = 1;
     }
-    
+
     if (traceback)
     {
         lua_remove(L, removeResult ? -1 : -2);
     }
-    
+
     return ret;
 }
 
@@ -405,7 +409,7 @@ int CCLuaStack::executeFunctionByHandler(int nHandler, int numArgs)
 bool CCLuaStack::handleAssert(const char *msg)
 {
     if (m_callFromLua == 0) return false;
-    
+
     lua_pushfstring(m_state, "ASSERT FAILED ON LUA EXECUTE: %s", msg ? msg : "unknown");
     lua_error(m_state);
     return true;
@@ -430,28 +434,52 @@ int cc_lua_require(lua_State *L)
 int CCLuaStack::reallocateScriptHandler(int nHandler)
 {
     LUA_FUNCTION  nNewHandle = -1;
-    
+
     if (pushFunctionByHandler(nHandler))
     {
-       nNewHandle = toluafix_ref_function(m_state,lua_gettop(m_state),0);
+        nNewHandle = toluafix_ref_function(m_state,lua_gettop(m_state),0);
     }
-/*
-    toluafix_get_function_by_refid(m_state,nNewHandle);
-    if (!lua_isfunction(m_state, -1))
-    {
-        CCLOG("Error!");
-    }
-    lua_settop(m_state, 0);
-*/
+    /*
+     toluafix_get_function_by_refid(m_state,nNewHandle);
+     if (!lua_isfunction(m_state, -1))
+     {
+     CCLOG("Error!");
+     }
+     lua_settop(m_state, 0);
+     */
     return nNewHandle;
 
 }
 
 int CCLuaStack::lua_print(lua_State *L)
 {
-    int nargs = lua_gettop(L);
+    struct cc_timeval now;
 
-    std::string t;
+    float deltatime = 0;
+    if (CCTime::gettimeofdayCocos2d(&now, NULL) != 0)
+    {
+        CCLOG("CCLuaStack:lua_print() - error in gettimeofday");
+    }
+    else
+    {
+        if (m_lasttime.tv_sec)
+        {
+            deltatime = now.tv_sec - m_lasttime.tv_sec + (now.tv_usec - m_lasttime.tv_usec) / 1000000.0f;
+        }
+        else
+        {
+            m_lasttime = now;
+            deltatime = 0;
+        }
+    }
+
+    int nargs = lua_gettop(L);
+    std::string t("[");
+    char timestr[32];
+    memset(timestr, 0, sizeof(timestr));
+    sprintf(timestr, "%.4f", deltatime);
+    t += timestr;
+    t += "] ";
     for (int i=1; i <= nargs; i++)
     {
         if (lua_istable(L, i))
@@ -482,9 +510,9 @@ int CCLuaStack::lua_print(lua_State *L)
                 t += lua_typename(L, lua_type(L, i));
         }
         if (i!=nargs)
-            t += "\t";
+            t += "  ";
     }
-    CCLOG("[LUA-print] %s", t.c_str());
+    CCLuaLog(t.c_str());
 
     return 0;
 }
@@ -549,7 +577,6 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
             lua_getglobal(L, "package");
             lua_getfield(L, -1, "preload");
 
-            CCLOG("CCLoadChunksFromZip() - began");
             int count = 0;
             string filename = zip->getFirstFilename();
             while (filename.length())
@@ -559,8 +586,6 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
                 if (bufferSize)
                 {
                     luaL_loadbuffer(L, (char*)buffer, bufferSize, filename.c_str());
-                    lua_pushstring(L, filename.c_str());
-                    lua_pushcclosure(L, &cc_lua_require, 2);
                     lua_setfield(L, -2, filename.c_str());
                     delete []buffer;
                     ++count;
@@ -569,7 +594,7 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
                 filename = zip->getNextFilename();
             }
 
-            CCLOG("CCLoadChunksFromZip() - ended, chunks count %d", count);
+            CCLOG("CCLoadChunksFromZip() - loaded chunks count: %d", count);
 
             lua_pop(L, 2);
             lua_pushboolean(L, 1);
@@ -584,7 +609,7 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
         unlink(tmpFilePath.c_str());
 #endif
     } while (0);
-
+    
     return 1;
 }
 

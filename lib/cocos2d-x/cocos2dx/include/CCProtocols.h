@@ -33,99 +33,6 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 /**
- * RGBA protocol that affects CCNode's color and opacity
- */
-class CC_DLL CCRGBAProtocol
-{
-public:
-    /** 
-     * Changes the color with R,G,B bytes
-     *
-     * @param color Example: ccc3(255,100,0) means R=255, G=100, B=0
-     */
-    virtual void setColor(const ccColor3B& color) = 0;
-
-    /**
-     * Returns color that is currently used.
-     *
-     * @return The ccColor3B contains R,G,B bytes.
-     */
-    virtual const ccColor3B& getColor(void) = 0;
-    
-    /**
-     * Returns the displayed color.
-     *
-     * @return The ccColor3B contains R,G,B bytes.
-     */
-    virtual const ccColor3B& getDisplayedColor(void) = 0;
-    
-    /**
-     * Returns the displayed opacity.
-     *
-     * @return  The opacity of sprite, from 0 ~ 255
-     */
-    virtual GLubyte getDisplayedOpacity(void) = 0;
-    /**
-     * Returns the opacity.
-     *
-     * The opacity which indicates how transparent or opaque this node is.
-     * 0 indicates fully transparent and 255 is fully opaque.
-     *
-     * @return  The opacity of sprite, from 0 ~ 255
-     */
-    virtual GLubyte getOpacity(void) = 0;
-
-    /**
-     * Changes the opacity.
-     *
-     * @param   value   Goes from 0 to 255, where 255 means fully opaque and 0 means fully transparent.
-     */
-    virtual void setOpacity(GLubyte opacity) = 0;
-
-    // optional
-
-    /**
-     * Changes the OpacityModifyRGB property. 
-     * If thie property is set to true, then the rendered color will be affected by opacity.
-     * Normally, r = r * opacity/255, g = g * opacity/255, b = b * opacity/255.
-     *
-     * @param   bValue  true then the opacity will be applied as: glColor(R,G,B,opacity);
-     *                  false then the opacity will be applied as: glColor(opacity, opacity, opacity, opacity);
-     */
-    virtual void setOpacityModifyRGB(bool bValue) = 0;
-
-    /**
-     * Returns whether or not the opacity will be applied using glColor(R,G,B,opacity) 
-     * or glColor(opacity, opacity, opacity, opacity)
-     *
-     * @return  Returns opacity modify flag.
-     */
-    virtual bool isOpacityModifyRGB(void) = 0;
-    
-    /**
-     *  whether or not color should be propagated to its children.
-     */
-    virtual bool isCascadeColorEnabled(void) = 0;
-    virtual void setCascadeColorEnabled(bool cascadeColorEnabled) = 0;
-    
-    /** 
-     *  recursive method that updates display color 
-     */
-    virtual void updateDisplayedColor(const ccColor3B& color) = 0;
-    
-    /** 
-     *  whether or not opacity should be propagated to its children.
-     */
-    virtual bool isCascadeOpacityEnabled(void) = 0;
-    virtual void setCascadeOpacityEnabled(bool cascadeOpacityEnabled) = 0;
-    
-    /**
-     *  recursive method that updates the displayed opacity.
-     */
-    virtual void updateDisplayedOpacity(GLubyte opacity) = 0;
-};
-
-/**
  * Specify the blending function according glBlendFunc
  * Please refer to glBlendFunc in OpenGL ES Manual
  * http://www.khronos.org/opengles/sdk/docs/man/xhtml/glBlendFunc.xml for more details.
@@ -136,7 +43,7 @@ public:
     /**
      * Sets the source blending function.
      *
-     * @param blendFunc A structure with source and destination factor to specify pixel arithmetic, 
+     * @param blendFunc A structure with source and destination factor to specify pixel arithmetic,
      *                  e.g. {GL_ONE, GL_ONE}, {GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA}.
      *
      */
@@ -144,13 +51,13 @@ public:
 
     /**
      * Returns the blending function that is currently being used.
-     * 
+     *
      * @return A ccBlendFunc structure with source and destination factor which specified pixel arithmetic.
      */
     virtual ccBlendFunc getBlendFunc(void) = 0;
 };
 
-/** 
+/**
  * CCNode objects that uses a CCTexture2D to render the images.
  * The texture can have a blending function.
  * If the texture has alpha premultiplied the default blending function is:
@@ -186,25 +93,25 @@ public:
     /**
      * Sets a new label using an string
      *
-     * @param A null terminated string 
+     * @param A null terminated string
      */
     virtual void setString(const char *label) = 0;
 
-    /** 
-     * Returns the string that is currently being used in this label 
+    /**
+     * Returns the string that is currently being used in this label
      *
      * @return The string that is currently being used in this label
      */
     virtual const char* getString(void) = 0;
 };
 
-/** 
- * OpenGL projection protocol 
+/**
+ * OpenGL projection protocol
  */
 class CC_DLL CCDirectorDelegate
 {
 public:
-    /** 
+    /**
      * Will be called by CCDirector when the projection is updated, and "custom" projection is used
      */
     virtual void updateProjection(void) = 0;

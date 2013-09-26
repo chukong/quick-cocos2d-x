@@ -11,7 +11,6 @@ CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH"
 
 CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
-CCLuaLoadChunksFromZip("framework_precompiled.zip")
 require("framework.init")
 
 -- musics

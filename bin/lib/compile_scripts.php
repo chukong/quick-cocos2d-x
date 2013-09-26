@@ -23,6 +23,7 @@ class LuaPackager
     private $files          = array();
     private $modules        = array();
     private $excludes       = array();
+    private $exportModuleFuntion = false;
 
     function __construct($config)
     {
@@ -32,6 +33,7 @@ class LuaPackager
         $this->packageName   = trim($config['packageName'], '.');
         $this->suffixName    = $config['suffixName'];
         $this->excludes      = $config['excludes'];
+        $this->exportModuleFuntion = $config['exportModuleFuntion'];
         if (!empty($this->packageName))
         {
             $this->packageName = $this->packageName . '.';
@@ -126,7 +128,9 @@ EOT;
 
         $outputFileBasename = basename($outputFileBasename);
 
-        print <<<EOT
+        if (!$this->quiet)
+        {
+            print <<<EOT
 
 
 ### HOW TO USE ###
@@ -146,6 +150,7 @@ EOT;
 
 
 EOT;
+        }
 
     }
 
@@ -190,7 +195,7 @@ EOT;
                 {
                     print("ok.\n");
                 }
-                $bytesName = 'lua_m_' . strtolower(str_replace('.', '_', $moduleName));
+                $bytesName = 'lua_m_' . strtolower(str_replace(array('.', '-'), '_', $moduleName));
                 $this->modules[] = array(
                     'moduleName'    => $moduleName,
                     'bytesName'     => $bytesName,
@@ -250,7 +255,7 @@ EOT;
 
     private function renderHeaderFile($outputFileBasename)
     {
-        $headerSign = '__LUA_MODULES_' . strtoupper(md5(time())) . '_H_';
+        $headerSign = '__LUA_MODULES_' . strtoupper(md5($outputFileBasename . time())) . '_H_';
         $outputFileBasename = basename($outputFileBasename);
 
         $contents = array();
@@ -269,22 +274,28 @@ extern "C" {
 
 void luaopen_${outputFileBasename}(lua_State* L);
 
-#if __cplusplus
-}
-#endif
-
 EOT;
 
-        $contents[] = '/*';
+        if (!$this->exportModuleFuntion)
+        {
+            $contents[] = '/*';
+        }
 
         foreach ($this->modules as $module)
         {
             $contents[] = sprintf('int %s(lua_State* L);', $module['functionName']);
         }
 
-        $contents[] = '*/';
+        if (!$this->exportModuleFuntion)
+        {
+            $contents[] = '*/';
+        }
 
         $contents[] = <<<EOT
+
+#if __cplusplus
+}
+#endif
 
 #endif /* ${headerSign} */
 
@@ -311,9 +322,9 @@ EOT;
         foreach ($this->modules as $module)
         {
             $contents[] = sprintf('/* %s, %s.lua */', $module['moduleName'], $module['basename']);
-            $contents[] = sprintf('static const unsigned char %s[] = {', $module['bytesName']);
-            // $contents[] = $this->encodeBytes($module['bytes']);
-            $contents[] = $this->encodeBytesFast($module['bytes']);
+            $contents[] = sprintf('static const char %s[] = {', $module['bytesName']);
+            $contents[] = $this->encodeBytes($module['bytes']);
+            // $contents[] = $this->encodeBytesFast($module['bytes']);
             $contents[] = '};';
             $contents[] = '';
         }
@@ -329,13 +340,10 @@ EOT;
             $contents[] = <<<EOT
 
 int ${functionName}(lua_State *L) {
-    int arg = lua_gettop(L);
     luaL_loadbuffer(L,
                     (const char*)${bytesName},
                     sizeof(${bytesName}),
-                    "${basename}.lua");
-    lua_insert(L,1);
-    lua_call(L,arg,1);
+                    "${basename}");
     return 1;
 }
 
@@ -360,14 +368,14 @@ EOT;
 void luaopen_${outputFileBasename}(lua_State* L)
 {
     luaL_Reg* lib = ${outputFileBasename}_modules;
+    lua_getglobal(L, "package");
+    lua_getfield(L, -1, "preload");
     for (; lib->func; lib++)
     {
-        lua_getglobal(L, "package");
-        lua_getfield(L, -1, "preload");
-        lua_pushcfunction(L, lib->func);
+        lib->func(L);
         lua_setfield(L, -2, lib->name);
-        lua_pop(L, 2);
     }
+    lua_pop(L, 2);
 }
 
 EOT;
@@ -387,14 +395,14 @@ EOT;
             $buffer[] = ord(substr($bytes, $offset, 1));
             if (count($buffer) == 16)
             {
-                $contents[] = $this->encodeBytesBlock($buffer);
+                $contents[] = '    ' . $this->encodeBytesBlock($buffer);
                 $buffer = array();
             }
             $offset++;
         }
         if (!empty($buffer))
         {
-            $contents[] = $this->encodeBytesBlock($buffer);
+            $contents[] = '    ' . $this->encodeBytesBlock($buffer);
         }
 
         return implode("\n", $contents);
@@ -417,7 +425,7 @@ EOT;
         $len = count($buffer);
         for ($i = 0; $i < $len; $i++)
         {
-            $output[] = sprintf('%d,', $buffer[$i]);
+            $output[] = sprintf('0x%02x,', $buffer[$i]);
         }
         return implode('', $output);
     }
@@ -434,6 +442,7 @@ options:
     -suffix package file extension name
     -p prefix package name
     -x exclude packages, eg: -x framework.server, framework.tests
+    -m export module functions
     -q quiet
 
 examples:
@@ -454,13 +463,14 @@ if ($argc < 3)
 array_shift($argv);
 
 $config = array(
-    'packageName'        => '',
-    'excludes'           => array(),
-    'srcdir'             => '',
-    'outputFileBasename' => '',
-    'zip'                => false,
-    'suffixName'         => 'zip',
-    'quiet'              => false,
+    'packageName'         => '',
+    'excludes'            => array(),
+    'srcdir'              => '',
+    'outputFileBasename'  => '',
+    'zip'                 => false,
+    'suffixName'          => 'zip',
+    'quiet'               => false,
+    'exportModuleFuntion' => false,
 );
 
 do
@@ -487,6 +497,10 @@ do
         }
         $config['excludes'] = $excludes;
         array_shift($argv);
+    }
+    else if ($argv[0] == '-m')
+    {
+        $config['exportModuleFuntion'] = true;
     }
     else if ($argv[0] == '-q')
     {

@@ -44,7 +44,7 @@ end
 
 function MainScene:onTouch(event, x, y)
     if event == "began" then
-        local p = ccp(x, y)
+        local p = CCPoint(x, y)
         if self.addButtonBoundingBox:containsPoint(p) then
             self.state = "ADD"
         elseif self.removeButtonBoundingBox:containsPoint(p) then

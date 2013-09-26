@@ -56,8 +56,8 @@ extern "C"
         lua_getfield(L, -1, "path");
         std::string searchpath(lua_tostring(L, -1));
         lua_pop(L, 1);
-        int begin = 0;
-        int next = searchpath.find_first_of(";", 0);
+        size_t begin = 0;
+        size_t next = searchpath.find_first_of(";", 0);
         
         do
         {

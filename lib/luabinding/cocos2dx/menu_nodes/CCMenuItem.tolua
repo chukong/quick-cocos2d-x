@@ -35,7 +35,7 @@ THE SOFTWARE.
  *
  *  Subclass CCMenuItem (or any subclass) to create your custom CCMenuItem objects.
  */
-class CCMenuItem : public CCNodeRGBA
+class CCMenuItem : public CCNode
 {
     /** Creates a CCMenuItem with no target/selector */
     static CCMenuItem* create();

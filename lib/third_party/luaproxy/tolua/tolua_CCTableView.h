@@ -5,7 +5,7 @@ extern "C" {
 #include "tolua++.h"
 #include "tolua_fix.h"
 }
-#include "CCBProxy.h"
+#include "LuaProxy.hpp"
 
 //######################################## CCTableView ##########################
 //CCTableView::create

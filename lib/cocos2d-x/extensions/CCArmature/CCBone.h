@@ -36,7 +36,7 @@ NS_CC_EXT_BEGIN
 
 class CCArmature;
 
-class CCBone : public CCNodeRGBA
+class CCBone : public CCNode
 {
 public:
     /**

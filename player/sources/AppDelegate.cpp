@@ -10,7 +10,8 @@
 #include "lua_extensions.h"
 // cocos2dx_extra luabinding
 #include "luabinding/cocos2dx_extra_luabinding.h"
-
+// WebSockets luabinding
+#include "Lua_web_socket.h"
 // thrid_party
 #include "third_party_luabinding.h"
 
@@ -51,7 +52,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_lua_extensions(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
-
+    // load WebSockets luabinding
+    tolua_web_socket_open(L);
     // thrid_party
     luaopen_third_party_luabinding(L);
 
@@ -64,7 +66,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // load script
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(m_projectConfig.getScriptFileRealPath().c_str());
-    int pos;
+    size_t pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {
         path.replace(pos, 1, "/");
