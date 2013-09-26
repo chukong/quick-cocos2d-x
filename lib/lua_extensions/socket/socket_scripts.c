@@ -2187,9 +2187,9 @@ static luaL_Reg socket_scripts_modules[] = {
 
 void luaopen_socket_scripts(lua_State* L)
 {
+    luaL_Reg* lib = socket_scripts_modules;
     lua_getglobal(L, "package");
     lua_getfield(L, -1, "preload");
-    luaL_Reg* lib = socket_scripts_modules;
     for (; lib->func; lib++)
     {
         lib->func(L);

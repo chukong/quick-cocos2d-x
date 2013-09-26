@@ -367,9 +367,9 @@ EOT;
 
 void luaopen_${outputFileBasename}(lua_State* L)
 {
+    luaL_Reg* lib = ${outputFileBasename}_modules;
     lua_getglobal(L, "package");
     lua_getfield(L, -1, "preload");
-    luaL_Reg* lib = ${outputFileBasename}_modules;
     for (; lib->func; lib++)
     {
         lib->func(L);
