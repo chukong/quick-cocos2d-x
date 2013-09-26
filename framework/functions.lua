@@ -150,8 +150,24 @@ function import(moduleName, currentModuleName)
     return require(moduleFullName)
 end
 
+function weakhandler(target, method)
+    local t = {target, method}
+    setmetatable(t, {__mode = "v"})
+    return function(...)
+        if not t then return "__REMOVE__" end
+        if t[1] and t[2] then
+            return t[2](t[1], ...)
+        else
+            t = nil
+            return "__REMOVE__"
+        end
+    end
+end
+
 function handler(target, method)
-    return function(...) return method(target, ...) end
+    return function(...)
+        return method(target, ...)
+    end
 end
 
 function math.round(num)
