@@ -23,7 +23,6 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
@@ -34,7 +33,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -64,9 +62,7 @@ public class Cocos2dxHelper {
 
 	public static void init(final Context pContext, final Cocos2dxHelperListener pCocos2dxHelperListener) {
 		final ApplicationInfo applicationInfo = pContext.getApplicationInfo();
-
-		Log.d("Cocos2dxHelper", "COCOS2DX HELPER INIT");
-
+		
 		Cocos2dxHelper.sContext = pContext;
 		Cocos2dxHelper.sCocos2dxHelperListener = pCocos2dxHelperListener;
 
@@ -76,13 +72,7 @@ public class Cocos2dxHelper {
 
 		Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(pContext);
 		Cocos2dxHelper.sCocos2dMusic = new Cocos2dxMusic(pContext);
-
-		int simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_DEFAULT;
-		if (Cocos2dxHelper.getDeviceModel().indexOf("GT-I9100") != -1) {
-			simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_I9100;
-		}
-
-		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(pContext, simultaneousStreams);
+		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(pContext);
 		Cocos2dxHelper.sAssetManager = pContext.getAssets();
 		Cocos2dxBitmap.setContext(pContext);
 		Cocos2dxETCLoader.setContext(pContext);
@@ -115,10 +105,10 @@ public class Cocos2dxHelper {
 	public static String getCurrentLanguage() {
 		return Locale.getDefault().getLanguage();
 	}
-
-	public static String getDeviceModel() {
+	
+	public static String getDeviceModel(){
 		return Build.MODEL;
-	}
+    }
 
 	public static AssetManager getAssetManager() {
 		return Cocos2dxHelper.sAssetManager;
@@ -128,6 +118,7 @@ public class Cocos2dxHelper {
 		Cocos2dxHelper.sAccelerometerEnabled = true;
 		Cocos2dxHelper.sCocos2dxAccelerometer.enable();
 	}
+
 
 	public static void setAccelerometerInterval(float interval) {
 		Cocos2dxHelper.sCocos2dxAccelerometer.setInterval(interval);
@@ -262,99 +253,97 @@ public class Cocos2dxHelper {
 		}
 	}
 
-	public static int getDPI() {
-		if (sContext != null) {
+    public static int getDPI()
+    {
+		if (sContext != null)
+		{
 			DisplayMetrics metrics = new DisplayMetrics();
-			WindowManager wm = ((Activity) sContext).getWindowManager();
-			if (wm != null) {
+			WindowManager wm = ((Activity)sContext).getWindowManager();
+			if (wm != null)
+			{
 				Display d = wm.getDefaultDisplay();
-				if (d != null) {
+				if (d != null)
+				{
 					d.getMetrics(metrics);
-					return (int) (metrics.density * 160.0f);
+					return (int)(metrics.density*160.0f);
 				}
 			}
 		}
 		return -1;
-	}
-
-	public static boolean inDirectoryExists(final String path) {
-		File f = new File(path);
-		return f.isDirectory();
-	}
-
-	// ===========================================================
-	// Functions for CCUserDefault
-	// ===========================================================
-
-	public static boolean getBoolForKey(String key, boolean defaultValue) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		return settings.getBoolean(key, defaultValue);
-	}
-
-	public static int getIntegerForKey(String key, int defaultValue) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		return settings.getInt(key, defaultValue);
-	}
-
-	public static float getFloatForKey(String key, float defaultValue) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		return settings.getFloat(key, defaultValue);
-	}
-
-	public static double getDoubleForKey(String key, double defaultValue) {
-		// SharedPreferences doesn't support saving double value
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		return settings.getFloat(key, (float) defaultValue);
-	}
-
-	public static String getStringForKey(String key, String defaultValue) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		return settings.getString(key, defaultValue);
-	}
-
-	public static void setBoolForKey(String key, boolean value) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putBoolean(key, value);
-		editor.commit();
-	}
-
-	public static void setIntegerForKey(String key, int value) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putInt(key, value);
-		editor.commit();
-	}
-
-	public static void setFloatForKey(String key, float value) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putFloat(key, value);
-		editor.commit();
-	}
-
-	public static void setDoubleForKey(String key, double value) {
-		// SharedPreferences doesn't support recording double value
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putFloat(key, (float) value);
-		editor.commit();
-	}
-
-	public static void setStringForKey(String key, String value) {
-		SharedPreferences settings = ((Activity) sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putString(key, value);
-		editor.commit();
-	}
-
+    }
+    
+    // ===========================================================
+ 	// Functions for CCUserDefault
+ 	// ===========================================================
+    
+    public static boolean getBoolForKey(String key, boolean defaultValue) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	return settings.getBoolean(key, defaultValue);
+    }
+    
+    public static int getIntegerForKey(String key, int defaultValue) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	return settings.getInt(key, defaultValue);
+    }
+    
+    public static float getFloatForKey(String key, float defaultValue) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	return settings.getFloat(key, defaultValue);
+    }
+    
+    public static double getDoubleForKey(String key, double defaultValue) {
+    	// SharedPreferences doesn't support saving double value
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	return settings.getFloat(key, (float)defaultValue);
+    }
+    
+    public static String getStringForKey(String key, String defaultValue) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	return settings.getString(key, defaultValue);
+    }
+    
+    public static void setBoolForKey(String key, boolean value) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.putBoolean(key, value);
+    	editor.commit();
+    }
+    
+    public static void setIntegerForKey(String key, int value) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.putInt(key, value);
+    	editor.commit();
+    }
+    
+    public static void setFloatForKey(String key, float value) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.putFloat(key, value);
+    	editor.commit();
+    }
+    
+    public static void setDoubleForKey(String key, double value) {
+    	// SharedPreferences doesn't support recording double value
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.putFloat(key, (float)value);
+    	editor.commit();
+    }
+    
+    public static void setStringForKey(String key, String value) {
+    	SharedPreferences settings = ((Activity)sContext).getSharedPreferences(Cocos2dxHelper.PREFS_NAME, 0);
+    	SharedPreferences.Editor editor = settings.edit();
+    	editor.putString(key, value);
+    	editor.commit();
+    }
+	
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
 
 	public static interface Cocos2dxHelperListener {
 		public void showDialog(final String pTitle, final String pMessage);
-
 		public void showEditTextDialog(final String pTitle, final String pMessage, final int pInputMode, final int pInputFlag, final int pReturnType, final int pMaxLength);
 
 		public void runOnGLThread(final Runnable pRunnable);

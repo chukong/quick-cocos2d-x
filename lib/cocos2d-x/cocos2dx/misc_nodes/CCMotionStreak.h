@@ -43,24 +43,31 @@ NS_CC_BEGIN
 /** MotionStreak.
  Creates a trailing path.
  */
-class CC_DLL CCMotionStreak : public CCNode, public CCTextureProtocol
+class CC_DLL CCMotionStreak : public CCNodeRGBA, public CCTextureProtocol
 #ifdef EMSCRIPTEN
 , public CCGLBufferedNode
 #endif // EMSCRIPTEN
 {
 public:
+    /**
+     * @js ctor
+     */
     CCMotionStreak();
+    /**
+     * @js NA
+     * @lua NA
+     */
     virtual ~CCMotionStreak();
 
     /** creates and initializes a motion streak with fade in seconds, minimum segments, stroke's width, color, texture filename */
-    static CCMotionStreak* create(float fade, float minSeg, float stroke, ccColor3B color, const char* path);
+    static CCMotionStreak* create(float fade, float minSeg, float stroke, const ccColor3B& color, const char* path);
     /** creates and initializes a motion streak with fade in seconds, minimum segments, stroke's width, color, texture */
-    static CCMotionStreak* create(float fade, float minSeg, float stroke, ccColor3B color, CCTexture2D* texture);
+    static CCMotionStreak* create(float fade, float minSeg, float stroke, const ccColor3B& color, CCTexture2D* texture);
 
     /** initializes a motion streak with fade in seconds, minimum segments, stroke's width, color and texture filename */
-    bool initWithFade(float fade, float minSeg, float stroke, ccColor3B color, const char* path);
+    bool initWithFade(float fade, float minSeg, float stroke, const ccColor3B& color, const char* path);
     /** initializes a motion streak with fade in seconds, minimum segments, stroke's width, color and texture  */
-    bool initWithFade(float fade, float minSeg, float stroke, ccColor3B color, CCTexture2D* texture);
+    bool initWithFade(float fade, float minSeg, float stroke, const ccColor3B& color, CCTexture2D* texture);
 
     /** color used for the tint */
     void tintWithColor(ccColor3B colors);
@@ -76,7 +83,13 @@ public:
     /* Implement interfaces */
     virtual CCTexture2D* getTexture(void);
     virtual void setTexture(CCTexture2D *texture);
+    /**
+     * @js NA
+     */
     virtual void setBlendFunc(ccBlendFunc blendFunc);
+    /**
+     * @js NA
+     */
     virtual ccBlendFunc getBlendFunc(void);
     virtual GLubyte getOpacity(void);
     virtual void setOpacity(GLubyte opacity);
@@ -88,9 +101,9 @@ public:
     inline void setFastMode(bool bFastMode) { m_bFastMode = bFastMode; }
 
     inline bool isStartingPositionInitialized() { return m_bStartingPositionInitialized; }
-    inline void setStartingPositionInitialized(bool bStartingPositionInitialized)
-    {
-        m_bStartingPositionInitialized = bStartingPositionInitialized;
+    inline void setStartingPositionInitialized(bool bStartingPositionInitialized) 
+    { 
+        m_bStartingPositionInitialized = bStartingPositionInitialized; 
     }
 protected:
     bool m_bFastMode;

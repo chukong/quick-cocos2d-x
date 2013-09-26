@@ -231,16 +231,6 @@ std::string CCFileUtilsIOS::getWritablePath()
     return strRet;
 }
 
-std::string CCFileUtilsIOS::getCachePath()
-{
-    // save to lib/cache folder
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    std::string strRet = [documentsDirectory UTF8String];
-    strRet.append("/");
-    return strRet;
-}
-
 bool CCFileUtilsIOS::isFileExist(const std::string& strFilePath)
 {
     if (0 == strFilePath.length())
@@ -280,26 +270,6 @@ bool CCFileUtilsIOS::isFileExist(const std::string& strFilePath)
         }
     }
     
-    return bRet;
-}
-
-bool CCFileUtilsIOS::isDirectoryExist(const std::string& strDirPath)
-{
-    if (0 == strDirPath.length())
-    {
-        return false;
-    }
-
-    bool bRet = false;
-
-    if (strDirPath[0] == '/')
-    {
-        BOOL isDirectory = NO;
-        if ([s_fileManager fileExistsAtPath:[NSString stringWithUTF8String:strDirPath.c_str()] isDirectory:&isDirectory]) {
-            bRet = isDirectory == YES;
-        }
-    }
-
     return bRet;
 }
 

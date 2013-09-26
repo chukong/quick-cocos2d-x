@@ -446,10 +446,10 @@ void ccDrawCardinalSpline( CCPointArray *config, float tension,  unsigned int se
         }
 
         // Interpolate
-        CCPoint pp0 = config->get(p-1);
-        CCPoint pp1 = config->get(p+0);
-        CCPoint pp2 = config->get(p+1);
-        CCPoint pp3 = config->get(p+2);
+        CCPoint pp0 = config->getControlPointAtIndex(p-1);
+        CCPoint pp1 = config->getControlPointAtIndex(p+0);
+        CCPoint pp2 = config->getControlPointAtIndex(p+1);
+        CCPoint pp3 = config->getControlPointAtIndex(p+2);
 
         CCPoint newPos = ccCardinalSplineAt( pp0, pp1, pp2, pp3, tension, lt);
         vertices[i].x = newPos.x;

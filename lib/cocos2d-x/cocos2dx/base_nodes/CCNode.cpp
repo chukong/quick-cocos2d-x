@@ -124,7 +124,7 @@ CCNode::CCNode(void)
 CCNode::~CCNode(void)
 {
     CCLOGINFO( "cocos2d: deallocing" );
-
+    
     unregisterScriptHandler();
     if (m_nUpdateScriptHandler)
     {
@@ -156,8 +156,8 @@ CCNode::~CCNode(void)
 
     // children
     CC_SAFE_RELEASE(m_pChildren);
-
-    // m_pComsContainer
+    
+          // m_pComsContainer
     m_pComponentContainer->removeAll();
     CC_SAFE_DELETE(m_pComponentContainer);
 }
@@ -197,7 +197,7 @@ int CCNode::getZOrder()
 }
 
 /// zOrder setter : private method
-/// used internally to alter the zOrder variable. DON'T call this method manually
+/// used internally to alter the zOrder variable. DON'T call this method manually 
 void CCNode::_setZOrder(int z)
 {
     m_nZOrder = z;
@@ -273,6 +273,14 @@ float CCNode::getScale(void)
 void CCNode::setScale(float scale)
 {
     m_fScaleX = m_fScaleY = scale;
+    m_bTransformDirty = m_bInverseDirty = true;
+}
+
+/// scale setter
+void CCNode::setScale(float fScaleX,float fScaleY)
+{
+    m_fScaleX = fScaleX;
+    m_fScaleY = fScaleY;
     m_bTransformDirty = m_bInverseDirty = true;
 }
 
@@ -364,7 +372,7 @@ CCCamera* CCNode::getCamera()
     {
         m_pCamera = new CCCamera();
     }
-
+    
     return m_pCamera;
 }
 
@@ -476,7 +484,7 @@ bool CCNode::isIgnoreAnchorPointForPosition()
 /// isRelativeAnchorPoint setter
 void CCNode::ignoreAnchorPointForPosition(bool newValue)
 {
-    if (newValue != m_bIgnoreAnchorPointForPosition)
+    if (newValue != m_bIgnoreAnchorPointForPosition) 
     {
 		m_bIgnoreAnchorPointForPosition = newValue;
 		m_bTransformDirty = m_bInverseDirty = true;
@@ -631,12 +639,12 @@ void CCNode::cleanup()
     // actions
     this->stopAllActions();
     this->unscheduleAllSelectors();
-
+    
     if ( m_eScriptType != kScriptTypeNone)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnCleanup);
     }
-
+    
     // timers
     arrayMakeObjectsPerformSelector(m_pChildren, cleanup, CCNode*);
 }
@@ -676,7 +684,7 @@ CCNode* CCNode::getChildByTag(int aTag)
 * to override this method
 */
 void CCNode::addChild(CCNode *child, int zOrder, int tag)
-{
+{    
     CCAssert( child != NULL, "Argument must be non-nil");
     CCAssert( child->m_pParent == NULL, "child already added. It can't be added again");
 
@@ -721,7 +729,7 @@ void CCNode::removeFromParentAndCleanup(bool cleanup)
     if (m_pParent != NULL)
     {
         m_pParent->removeChild(this,cleanup);
-    }
+    } 
 }
 
 void CCNode::removeChild(CCNode* child)
@@ -801,10 +809,10 @@ void CCNode::removeAllChildrenWithCleanup(bool cleanup)
                 pNode->setParent(NULL);
             }
         }
-
+        
         m_pChildren->removeAllObjects();
     }
-
+    
 }
 
 void CCNode::detachChild(CCNode *child, bool doCleanup)
@@ -877,13 +885,13 @@ void CCNode::sortAllChildren()
     }
 }
 
-void CCNode::draw()
-{
-    //CCAssert(0);
-    // override me
-    // Only use- this function to draw your stuff.
-    // DON'T draw your stuff outside this method
-}
+ void CCNode::draw()
+ {
+     //CCAssert(0);
+     // override me
+     // Only use- this function to draw your stuff.
+     // DON'T draw your stuff outside this method
+ }
 
 void CCNode::visit()
 {
@@ -915,7 +923,7 @@ void CCNode::visit()
         {
             pNode = (CCNode*) arrayData->arr[i];
 
-            if ( pNode && pNode->m_nZOrder < 0 )
+            if ( pNode && pNode->m_nZOrder < 0 ) 
             {
                 pNode->visit();
             }
@@ -934,7 +942,7 @@ void CCNode::visit()
             {
                 pNode->visit();
             }
-        }
+        }        
     }
     else
     {
@@ -948,7 +956,7 @@ void CCNode::visit()
      {
          m_pGrid->afterDraw(this);
     }
-
+ 
     kmGLPopMatrix();
 }
 
@@ -962,7 +970,7 @@ void CCNode::transformAncestors()
 }
 
 void CCNode::transform()
-{
+{    
     kmMat4 transfrom4x4;
 
     // Convert 3x3 into 4x4 matrix
@@ -1048,7 +1056,7 @@ void CCNode::onExit()
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
     }
 
-    arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);
+    arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);    
 }
 
 void CCNode::registerScriptHandler(int nHandler)
@@ -1217,7 +1225,7 @@ void CCNode::update(float fDelta)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeSchedule(m_nUpdateScriptHandler, fDelta, this);
     }
-
+    
     if (m_pComponentContainer && !m_pComponentContainer->isEmpty())
     {
         m_pComponentContainer->visit(fDelta);
@@ -1226,14 +1234,14 @@ void CCNode::update(float fDelta)
 
 CCAffineTransform CCNode::nodeToParentTransform(void)
 {
-    if (m_bTransformDirty)
+    if (m_bTransformDirty) 
     {
 
         // Translate values
         float x = m_obPosition.x;
         float y = m_obPosition.y;
 
-        if (m_bIgnoreAnchorPointForPosition)
+        if (m_bIgnoreAnchorPointForPosition) 
         {
             x += m_obAnchorPointInPoints.x;
             y += m_obAnchorPointInPoints.y;
@@ -1274,7 +1282,7 @@ CCAffineTransform CCNode::nodeToParentTransform(void)
 
         // XXX: Try to inline skew
         // If skew is needed, apply skew and then anchor point
-        if (needsSkewMatrix)
+        if (needsSkewMatrix) 
         {
             CCAffineTransform skewMatrix = CCAffineTransformMake(1.0f, tanf(CC_DEGREES_TO_RADIANS(m_fSkewY)),
                 tanf(CC_DEGREES_TO_RADIANS(m_fSkewX)), 1.0f,
@@ -1287,7 +1295,7 @@ CCAffineTransform CCNode::nodeToParentTransform(void)
                 m_sTransform = CCAffineTransformTranslate(m_sTransform, -m_obAnchorPointInPoints.x, -m_obAnchorPointInPoints.y);
             }
         }
-
+        
         if (m_bAdditionalTransformDirty)
         {
             m_sTransform = CCAffineTransformConcat(m_sTransform, m_sAdditionalTransform);
@@ -1741,6 +1749,155 @@ void CCNode::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
 
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+}
+
+// CCNodeRGBA
+CCNodeRGBA::CCNodeRGBA()
+: _displayedOpacity(255)
+, _realOpacity(255)
+, _displayedColor(ccWHITE)
+, _realColor(ccWHITE)
+, _cascadeColorEnabled(false)
+, _cascadeOpacityEnabled(false)
+{}
+
+CCNodeRGBA::~CCNodeRGBA() {}
+
+bool CCNodeRGBA::init()
+{
+    if (CCNode::init())
+    {
+        _displayedOpacity = _realOpacity = 255;
+        _displayedColor = _realColor = ccWHITE;
+        _cascadeOpacityEnabled = _cascadeColorEnabled = false;
+        return true;
+    }
+    return false;
+}
+
+CCNodeRGBA * CCNodeRGBA::create(void)
+{
+	CCNodeRGBA * pRet = new CCNodeRGBA();
+    if (pRet && pRet->init())
+    {
+        pRet->autorelease();
+    }
+    else
+    {
+        CC_SAFE_DELETE(pRet);
+    }
+	return pRet;
+}
+
+GLubyte CCNodeRGBA::getOpacity(void)
+{
+	return _realOpacity;
+}
+
+GLubyte CCNodeRGBA::getDisplayedOpacity(void)
+{
+	return _displayedOpacity;
+}
+
+void CCNodeRGBA::setOpacity(GLubyte opacity)
+{
+    _displayedOpacity = _realOpacity = opacity;
+    
+	if (_cascadeOpacityEnabled)
+    {
+		GLubyte parentOpacity = 255;
+        CCRGBAProtocol* pParent = dynamic_cast<CCRGBAProtocol*>(m_pParent);
+        if (pParent && pParent->isCascadeOpacityEnabled())
+        {
+            parentOpacity = pParent->getDisplayedOpacity();
+        }
+        this->updateDisplayedOpacity(parentOpacity);
+	}
+}
+
+void CCNodeRGBA::updateDisplayedOpacity(GLubyte parentOpacity)
+{
+	_displayedOpacity = _realOpacity * parentOpacity/255.0;
+	
+    if (_cascadeOpacityEnabled)
+    {
+        CCObject* pObj;
+        CCARRAY_FOREACH(m_pChildren, pObj)
+        {
+            CCRGBAProtocol* item = dynamic_cast<CCRGBAProtocol*>(pObj);
+            if (item)
+            {
+                item->updateDisplayedOpacity(_displayedOpacity);
+            }
+        }
+    }
+}
+
+bool CCNodeRGBA::isCascadeOpacityEnabled(void)
+{
+    return _cascadeOpacityEnabled;
+}
+
+void CCNodeRGBA::setCascadeOpacityEnabled(bool cascadeOpacityEnabled)
+{
+    _cascadeOpacityEnabled = cascadeOpacityEnabled;
+}
+
+const ccColor3B& CCNodeRGBA::getColor(void)
+{
+	return _realColor;
+}
+
+const ccColor3B& CCNodeRGBA::getDisplayedColor()
+{
+	return _displayedColor;
+}
+
+void CCNodeRGBA::setColor(const ccColor3B& color)
+{
+	_displayedColor = _realColor = color;
+	
+	if (_cascadeColorEnabled)
+    {
+		ccColor3B parentColor = ccWHITE;
+        CCRGBAProtocol *parent = dynamic_cast<CCRGBAProtocol*>(m_pParent);
+		if (parent && parent->isCascadeColorEnabled())
+        {
+            parentColor = parent->getDisplayedColor(); 
+        }
+        
+        updateDisplayedColor(parentColor);
+	}
+}
+
+void CCNodeRGBA::updateDisplayedColor(const ccColor3B& parentColor)
+{
+	_displayedColor.r = _realColor.r * parentColor.r/255.0;
+	_displayedColor.g = _realColor.g * parentColor.g/255.0;
+	_displayedColor.b = _realColor.b * parentColor.b/255.0;
+    
+    if (_cascadeColorEnabled)
+    {
+        CCObject *obj = NULL;
+        CCARRAY_FOREACH(m_pChildren, obj)
+        {
+            CCRGBAProtocol *item = dynamic_cast<CCRGBAProtocol*>(obj);
+            if (item)
+            {
+                item->updateDisplayedColor(_displayedColor);
+            }
+        }
+    }
+}
+
+bool CCNodeRGBA::isCascadeColorEnabled(void)
+{
+    return _cascadeColorEnabled;
+}
+
+void CCNodeRGBA::setCascadeColorEnabled(bool cascadeColorEnabled)
+{
+    _cascadeColorEnabled = cascadeColorEnabled;
 }
 
 NS_CC_END
