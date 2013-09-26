@@ -63,6 +63,8 @@ public:
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
+    virtual void visit();
+
 protected:
     CCArray *m_touchableNodes;
     CCNode *m_touchNode;

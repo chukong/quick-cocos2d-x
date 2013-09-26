@@ -1562,6 +1562,7 @@ protected:
 
     int m_drawDepth;
     unsigned int m_drawOrder;
+    static unsigned int g_drawOrder;
 
     // touch events
     bool m_bTouchEnabled;

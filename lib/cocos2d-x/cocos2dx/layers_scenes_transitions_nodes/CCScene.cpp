@@ -147,6 +147,12 @@ void CCScene::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
     }
 }
 
+void CCScene::visit()
+{
+    g_drawOrder = 0;
+    CCLayer::visit();
+}
+
 void CCScene::sortAllTouchableNodes()
 {
     int i,j,length = m_touchableNodes->data->num;
@@ -170,6 +176,7 @@ void CCScene::sortAllTouchableNodes()
     }
 
 //    // debug
+//    CCLOG("----------------------------------------");
 //    for(i=0; i<length; i++)
 //    {
 //        tempItem = x[i];

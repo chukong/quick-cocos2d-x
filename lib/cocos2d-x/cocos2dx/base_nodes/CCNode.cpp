@@ -54,6 +54,8 @@ NS_CC_BEGIN
 // XXX: Yes, nodes might have a sort problem once every 15 days if the game runs at 60 FPS and each frame sprites are reordered.
 static int s_globalOrderOfArrival = 1;
 
+unsigned int CCNode::g_drawOrder = 0;
+
 CCNode::CCNode(void)
 : m_fRotationX(0.0f)
 , m_fRotationY(0.0f)
@@ -513,7 +515,6 @@ unsigned int CCNode::getOrderOfArrival()
 void CCNode::setOrderOfArrival(unsigned int uOrderOfArrival)
 {
     m_uOrderOfArrival = uOrderOfArrival;
-    m_drawOrder = uOrderOfArrival;
 }
 
 CCGLProgram* CCNode::getShaderProgram()
@@ -889,9 +890,11 @@ void CCNode::visit()
     // quick return if not visible. children won't be drawn.
     if (!m_bVisible)
     {
+        m_drawOrder = 0;
         return;
     }
     kmGLPushMatrix();
+    m_drawOrder = ++g_drawOrder;
 
      if (m_pGrid && m_pGrid->isActive())
      {
