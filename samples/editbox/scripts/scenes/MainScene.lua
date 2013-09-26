@@ -18,9 +18,12 @@ function MainScene:ctor()
                 self:onEditBoxReturn(editbox)
             elseif event == "changed" then
                 self:onEditBoxChanged(editbox)
+            else
+                printf("EditBox event %s", tostring(event))
             end
         end
     })
+    editBox2:setReturnType(kKeyboardReturnTypeSend)
     self:addChild(editBox2)
 end
 

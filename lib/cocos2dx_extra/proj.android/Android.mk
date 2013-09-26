@@ -7,7 +7,6 @@ LOCAL_MODULE_FILENAME := libcocos2dx_extra
 
 LOCAL_SRC_FILES := ../extra/crypto/CCCrypto.cpp \
     ../extra/crypto/base64/libb64.c \
-    ../extra/crypto/sha1/sha1.cpp \
     ../extra/crypto/xxtea/xxtea.c \
     ../extra/network/CCHTTPRequest.cpp \
     ../extra/network/CCNetwork.cpp \

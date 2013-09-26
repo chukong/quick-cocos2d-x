@@ -5,6 +5,11 @@
 
 CCNodeExtend.remove = CCNodeExtend.removeSelf
 
+function CCNodeExtend:add(child, zorder, tag)
+    self:addChild(child, zorder or 0, tag or 0)
+    return self
+end
+
 function CCNodeExtend:addTo(target, zorder, tag)
     target:addChild(self, zorder or 0, tag or 0)
     return self
@@ -179,7 +184,7 @@ function CCLayerExtend:enableKeypad(enabled)
     return self
 end
 
-function CCLayerExtend:onAccelerate()
+function CCLayerExtend:onAccelerate(listener)
     self:addAccelerateEventListener(listener)
     return self
 end

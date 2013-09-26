@@ -170,8 +170,29 @@
     if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
     {
         cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "ended",pEditBox);
-        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
+        cocos2d::extension::KeyboardReturnType returnType = pEditBox->getReturnType();
+        int handler = pEditBox->getScriptEditBoxHandler();
+        if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
+        {
+            pEngine->executeEvent(handler, "returnDone", pEditBox);
+        }
+        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
+        {
+            pEngine->executeEvent(handler, "returnSend", pEditBox);
+        }
+        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSearch)
+        {
+            pEngine->executeEvent(handler, "returnSearch", pEditBox);
+        }
+        else if (returnType == cocos2d::extension::kKeyboardReturnTypeGo)
+        {
+            pEngine->executeEvent(handler, "returnGo", pEditBox);
+        }
+        else
+        {
+            pEngine->executeEvent(handler, "return", pEditBox);
+        }
+        pEngine->executeEvent(handler, "ended",pEditBox);
     }
     return YES;
 }

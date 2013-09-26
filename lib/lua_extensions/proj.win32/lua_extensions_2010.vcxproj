@@ -47,7 +47,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\luajit\include;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\filesystem;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\luajit\include;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\filesystem;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\lua_extensions\lpack;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4244</DisableSpecificWarnings>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_LUA_ENGINE_ENABLED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -75,7 +75,10 @@
     <ClCompile Include="..\cjson\lua_cjson.c" />
     <ClCompile Include="..\cjson\strbuf.c" />
     <ClCompile Include="..\filesystem\lfs.c" />
-    <ClCompile Include="..\lua_extensions.c" />
+    <ClCompile Include="..\lpack\lpack.c" />
+    <ClCompile Include="..\lua_extensions.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Default</CompileAs>
+    </ClCompile>
     <ClCompile Include="..\socket\auxiliar.c" />
     <ClCompile Include="..\socket\except.c" />
     <ClCompile Include="..\socket\inet.c" />
@@ -97,6 +100,7 @@
     <ClInclude Include="..\cjson\lua_cjson.h" />
     <ClInclude Include="..\cjson\strbuf.h" />
     <ClInclude Include="..\filesystem\lfs.h" />
+    <ClInclude Include="..\lpack\lpack.h" />
     <ClInclude Include="..\lua_extensions.h" />
     <ClInclude Include="..\socket\auxiliar.h" />
     <ClInclude Include="..\socket\except.h" />

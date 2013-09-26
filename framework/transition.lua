@@ -26,7 +26,7 @@ ACTION_EASING["SINEOUT"]          = {CCEaseSineOut, 1}
 
 local actionManager = CCDirector:sharedDirector():getActionManager()
 
-local function newEasing(action, easingName, more)
+function transition.newEasing(action, easingName, more)
     local key = string.upper(tostring(easingName))
     if string.sub(key, 1, 6) == "CCEASE" then
         key = string.sub(key, 7)
@@ -47,9 +47,9 @@ function transition.create(action, args)
     args = totable(args)
     if args.easing then
         if type(args.easing) == "table" then
-            action = newEasing(action, unpack(args.easing))
+            action = transition.newEasing(action, unpack(args.easing))
         else
-            action = newEasing(action, args.easing)
+            action = transition.newEasing(action, args.easing)
         end
     end
 
@@ -92,7 +92,7 @@ function transition.moveTo(target, args)
     local tx, ty = target:getPosition()
     local x = args.x or tx
     local y = args.y or ty
-    local action = CCMoveTo:create(args.time, ccp(x, y))
+    local action = CCMoveTo:create(args.time, CCPoint(x, y))
     return transition.execute(target, action, args)
 end
 
@@ -100,7 +100,7 @@ function transition.moveBy(target, args)
     assert(not tolua.isnull(target), "transition.moveBy() - target is not CCNode")
     local x = args.x or 0
     local y = args.y or 0
-    local action = CCMoveBy:create(args.time, ccp(x, y))
+    local action = CCMoveBy:create(args.time, CCPoint(x, y))
     return transition.execute(target, action, args)
 end
 

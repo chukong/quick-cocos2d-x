@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-class  CCArmature : public CCNodeRGBA
+class  CCArmature : public CCNode
 {
     static CCArmature *create(const char *name, CCBone *parentBone);
 

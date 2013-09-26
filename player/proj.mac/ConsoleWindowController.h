@@ -7,8 +7,8 @@
     IBOutlet NSButton *checkScroll;
     IBOutlet NSButton *topCheckBox;
 }
-@property (assign) IBOutlet NSTextView *textView;
 
+@property (assign) IBOutlet NSTextView *textView;
 
 - (void) trace:(NSString*) msg;
 - (IBAction)onClear:(id)sender;

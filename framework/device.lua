@@ -84,7 +84,7 @@ function device.showAlert(title, message, buttonLabels, listener)
         listener = function() end
     end
 
-    CCNative:showAlertLua(listener)
+    CCNative:showAlert(listener)
 end
 
 function device.cancelAlert()

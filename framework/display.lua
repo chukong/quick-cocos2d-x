@@ -1,11 +1,6 @@
 
 local display = {}
 
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCNodeExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSceneExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCSpriteExtend")
-require(__FRAMEWORK_PACKAGE_NAME__ .. ".cocos2dx.CCLayerExtend")
-
 local sharedDirector         = CCDirector:sharedDirector()
 local sharedTextureCache     = CCTextureCache:sharedTextureCache()
 local sharedSpriteFrameCache = CCSpriteFrameCache:sharedSpriteFrameCache()
@@ -138,6 +133,13 @@ echoInfo("#")
 display.COLOR_WHITE = ccc3(255, 255, 255)
 display.COLOR_BLACK = ccc3(0, 0, 0)
 
+display.AUTO_SIZE      = 0
+display.FIXED_SIZE     = 1
+display.LEFT_TO_RIGHT  = 0
+display.RIGHT_TO_LEFT  = 1
+display.TOP_TO_BOTTOM  = 2
+display.BOTTOM_TO_TOP  = 3
+
 display.CENTER        = 1
 display.LEFT_TOP      = 2; display.TOP_LEFT      = 2
 display.CENTER_TOP    = 3; display.TOP_CENTER    = 3
@@ -149,15 +151,15 @@ display.BOTTOM_RIGHT  = 8; display.RIGHT_BOTTOM  = 8
 display.BOTTOM_CENTER = 9; display.CENTER_BOTTOM = 9
 
 display.ANCHOR_POINTS = {
-    ccp(0.5, 0.5),  -- CENTER
-    ccp(0, 1),      -- TOP_LEFT
-    ccp(0.5, 1),    -- TOP_CENTER
-    ccp(1, 1),      -- TOP_RIGHT
-    ccp(0, 0.5),    -- CENTER_LEFT
-    ccp(1, 0.5),    -- CENTER_RIGHT
-    ccp(0, 0),      -- BOTTOM_LEFT
-    ccp(1, 0),      -- BOTTOM_RIGHT
-    ccp(0.5, 0),    -- BOTTOM_CENTER
+    CCPoint(0.5, 0.5),  -- CENTER
+    CCPoint(0, 1),      -- TOP_LEFT
+    CCPoint(0.5, 1),    -- TOP_CENTER
+    CCPoint(1, 1),      -- TOP_RIGHT
+    CCPoint(0, 0.5),    -- CENTER_LEFT
+    CCPoint(1, 0.5),    -- CENTER_RIGHT
+    CCPoint(0, 0),      -- BOTTOM_LEFT
+    CCPoint(1, 0),      -- BOTTOM_RIGHT
+    CCPoint(0.5, 0),    -- BOTTOM_CENTER
 }
 
 display.SCENE_TRANSITIONS = {
@@ -248,11 +250,11 @@ function display.resume()
 end
 
 function display.newLayer()
-    return CCLayerExtend.extend(CCLayerRGBA:create())
+    return CCLayerExtend.extend(CCLayer:create())
 end
 
 function display.newNode()
-    return CCNodeExtend.extend(CCNodeRGBA:create())
+    return CCNodeExtend.extend(CCNode:create())
 end
 
 function display.newClippingRegionNode(rect)
@@ -386,7 +388,7 @@ function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
     local arr = CCPointArray:create(#points)
     for i, p in ipairs(points) do
-        p = ccp(p[1] * scale, p[2] * scale)
+        p = CCPoint(p[1] * scale, p[2] * scale)
         arr:add(p)
     end
 
@@ -396,6 +398,10 @@ end
 function display.align(target, anchorPoint, x, y)
     target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then target:setPosition(x, y) end
+end
+
+function display.addImageAsync(imagePath, callback)
+    sharedTextureCache:addImageAsync(imagePath, callback)
 end
 
 function display.addSpriteFramesWithFile(plistFilename, image)

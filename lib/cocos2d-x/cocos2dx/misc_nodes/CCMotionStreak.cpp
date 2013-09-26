@@ -148,7 +148,7 @@ void CCMotionStreak::tintWithColor(ccColor3B colors)
     setColor(colors);
 
     // Fast assignation
-    for(unsigned int i = 0; i<m_uNuPoints*2; i++) 
+    for(unsigned int i = 0; i<m_uNuPoints*2; i++)
     {
         *((ccColor3B*) (m_pColorPointer+i*4)) = colors;
     }
@@ -206,7 +206,7 @@ void CCMotionStreak::update(float delta)
     {
         return;
     }
-    
+
     delta *= m_fFadeDelta;
 
     unsigned int newIdx, newIdx2, i, i2;
@@ -280,8 +280,8 @@ void CCMotionStreak::update(float delta)
 
         // Color assignment
         const unsigned int offset = m_uNuPoints*8;
-        *((ccColor3B*)(m_pColorPointer + offset)) = _displayedColor;
-        *((ccColor3B*)(m_pColorPointer + offset+4)) = _displayedColor;
+        *((ccColor3B*)(m_pColorPointer + offset)) = m_displayedColor;
+        *((ccColor3B*)(m_pColorPointer + offset+4)) = m_displayedColor;
 
         // Opacity
         m_pColorPointer[offset+3] = 255;

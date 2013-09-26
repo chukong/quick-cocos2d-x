@@ -179,7 +179,9 @@ class Builder
         }
         $macros = implode(' ', $macros);
 
-        $command = sprintf('"%s" %s -L "%s" -o "%s" "%s"', TOLUA_BIN, $macros, CONFIG_PATH, $this->outputSourcePath_, $this->inputPath_);
+        chdir(dirname($this->inputPath_));
+        $inputFilename = pathinfo($this->inputPath_, PATHINFO_BASENAME);
+        $command = sprintf('"%s" %s -L "%s" -o "%s" "%s"', TOLUA_BIN, $macros, CONFIG_PATH, $this->outputSourcePath_, $inputFilename);
         printf("\ncommand: %s\n\n", $command);
 
         printf("creating file: %s\n\n", $this->outputSourcePath_);
@@ -320,7 +322,7 @@ function long2str($v, $w) {
 }
 
 function str2long($s, $w) {
-    $v = unpack("V*", $s. str_repeat("\0", (4 - strlen($s) % 4) & 3));
+    $v = unpack("V*", $s . str_repeat("\0", (4 - strlen($s) % 4) & 3));
     $v = array_values($v);
     if ($w) {
         $v[count($v)] = strlen($s);

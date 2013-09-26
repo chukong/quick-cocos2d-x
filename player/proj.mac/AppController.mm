@@ -74,13 +74,15 @@ using namespace cocos2d::extra;
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
-    [self updateProjectConfigFromCommandLineArgs];
-    [self openConsoleWindow];
+    [self updateProjectConfigFromCommandLineArgs:&projectConfig];
     [self createWindowAndGLView];
     [self startup];
     [self updateOpenRect];
     [self initUI];
     [self updateUI];
+
+    [window orderFrontRegardless];
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
@@ -105,16 +107,16 @@ using namespace cocos2d::extra;
 
 - (void) openConsoleWindow
 {
-    if(!consoleController)
+    if (!consoleController)
     {
         consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
     }
-    [consoleController showWindow:self];
+    [consoleController.window orderFrontRegardless];
 
     //set console pipe
     pipe = [NSPipe pipe] ;
     pipeReadHandle = [pipe fileHandleForReading] ;
-    
+
     int outfd = [[pipe fileHandleForWriting] fileDescriptor];
     if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
     {
@@ -136,7 +138,7 @@ using namespace cocos2d::extra;
     const CCSize frameSize = projectConfig.getFrameSize();
     float left = 10;
     float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
-    bottom -= [NSMenuView menuBarHeight] + 10;
+    bottom -= [[[NSApplication sharedApplication] menu] menuBarHeight] + 10;
 
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
@@ -157,7 +159,7 @@ using namespace cocos2d::extra;
     [window setContentView:glView];
     [window setTitle:@"quick-x-player"];
     [window center];
-    
+
     if (projectConfig.getProjectDir().length())
     {
         [self setZoom:projectConfig.getFrameScale()];
@@ -167,7 +169,7 @@ using namespace cocos2d::extra;
             [window setFrameOrigin:NSMakePoint(pos.x, pos.y)];
         }
     }
-    
+
     [window becomeFirstResponder];
     [window makeKeyAndOrderFront:self];
     [window setAcceptsMouseMovedEvents:NO];
@@ -191,6 +193,7 @@ using namespace cocos2d::extra;
     {
         projectConfig.resetToWelcome();
     }
+    
     const string projectDir = projectConfig.getProjectDir();
     if (projectDir.length())
     {
@@ -207,6 +210,11 @@ using namespace cocos2d::extra;
         CCFileUtils::sharedFileUtils()->setWritablePath(writablePath.c_str());
     }
 
+    if (projectConfig.isShowConsole())
+    {
+        [self openConsoleWindow];
+    }
+
     app->setProjectConfig(projectConfig);
     app->run();
 }
@@ -217,7 +225,7 @@ using namespace cocos2d::extra;
 
     NSString *welcomeTitle = [NSString stringWithFormat:@"%splayer/welcome/", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str()];
 
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         id recentItem = [recents objectAtIndex:i];
         if (![[recentItem class] isSubclassOfClass:[NSDictionary class]])
@@ -236,7 +244,7 @@ using namespace cocos2d::extra;
     NSString *title = [NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding];
     if ([title length] > 0 && [welcomeTitle compare:title] != NSOrderedSame)
     {
-        for (int i = [recents count] - 1; i >= 0; --i)
+        for (NSInteger i = [recents count] - 1; i >= 0; --i)
         {
             id recentItem = [recents objectAtIndex:i];
             if ([title compare:[recentItem objectForKey:@"title"]] == NSOrderedSame)
@@ -246,12 +254,11 @@ using namespace cocos2d::extra;
         }
 
         NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig:kProjectConfigOpenRecent];
-        [args removeLastObject];
-        [args removeLastObject];
         NSDictionary *item = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", args, @"args", nil];
         [recents insertObject:item atIndex:0];
     }
     [[NSUserDefaults standardUserDefaults] setObject:recents forKey:@"recents"];
+
 }
 
 - (void) initUI
@@ -277,7 +284,7 @@ using namespace cocos2d::extra;
 
     NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
     submenu = [[[[[window menu] itemWithTitle:@"File"] submenu] itemWithTitle:@"Open Recent"] submenu];
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         NSDictionary *recentItem = [recents objectAtIndex:i];
         NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[recentItem objectForKey:@"title"]
@@ -307,17 +314,31 @@ using namespace cocos2d::extra;
         [itemLandscape setState:NSOffState];
     }
 
-    NSMenuItem *itemActual = [menuScreen itemWithTitle:@"Actual (100%)"];
-    NSMenuItem *itemZoomOut = [menuScreen itemWithTitle:@"Zoom Out (50%)"];
-    if (projectConfig.getFrameScale() > 0.5f)
+    int scale = projectConfig.getFrameScale() * 100;
+
+    NSMenuItem *itemZoom100 = [menuScreen itemWithTitle:@"Actual (100%)"];
+    NSMenuItem *itemZoom75 = [menuScreen itemWithTitle:@"Zoom Out (75%)"];
+    NSMenuItem *itemZoom50 = [menuScreen itemWithTitle:@"Zoom Out (50%)"];
+    NSMenuItem *itemZoom25 = [menuScreen itemWithTitle:@"Zoom Out (25%)"];
+    [itemZoom100 setState:NSOffState];
+    [itemZoom75 setState:NSOffState];
+    [itemZoom50 setState:NSOffState];
+    [itemZoom25 setState:NSOffState];
+    if (scale == 100)
     {
-        [itemActual setState:NSOnState];
-        [itemZoomOut setState:NSOffState];
+        [itemZoom100 setState:NSOnState];
     }
-    else
+    else if (scale == 75)
     {
-        [itemActual setState:NSOffState];
-        [itemZoomOut setState:NSOnState];
+        [itemZoom75 setState:NSOnState];
+    }
+    else if (scale == 50)
+    {
+        [itemZoom50 setState:NSOnState];
+    }
+    else if (scale == 25)
+    {
+        [itemZoom25 setState:NSOnState];
     }
 
     NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
@@ -329,7 +350,7 @@ using namespace cocos2d::extra;
         [menuRecents removeItemAtIndex:0];
     }
 
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         NSDictionary *recentItem = [recents objectAtIndex:i];
         NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[recentItem objectForKey:@"title"]
@@ -375,7 +396,7 @@ using namespace cocos2d::extra;
     return [NSMutableArray arrayWithArray:[commandLine componentsSeparatedByString:@" "]];
 }
 
-- (void) updateProjectConfigFromCommandLineArgs
+- (void) updateProjectConfigFromCommandLineArgs:(ProjectConfig *)config
 {
     NSArray *nsargs = [[NSProcessInfo processInfo] arguments];
     vector<string> args;
@@ -383,7 +404,7 @@ using namespace cocos2d::extra;
     {
         args.push_back([[nsargs objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
-    projectConfig.parseCommandLine(args);
+    config->parseCommandLine(args);
 }
 
 - (void) launch:(NSArray*)args
@@ -462,7 +483,7 @@ using namespace cocos2d::extra;
     if(fileHandle!=nil){
         [fileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];
     }
-     
+
 }
 
 - (void) closeDebugLogFile
@@ -541,14 +562,14 @@ using namespace cocos2d::extra;
     string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
     if (path.length())
     {
-        path.append("sample");
+        path.append("samples");
         [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
     }
 }
 
 - (void) welcomeGetStarted
 {
-    CCNative::openURL("https://github.com/dualface/quick-cocos2d-x/wiki");
+    CCNative::openURL("http://wiki.quick-x.com/");
 }
 
 #pragma mark -
@@ -582,7 +603,9 @@ using namespace cocos2d::extra;
 {
     [self showModelSheet];
     ProjectConfigDialogController *controller = [[ProjectConfigDialogController alloc] initWithWindowNibName:@"ProjectConfigDialog"];
-    [controller setProjectConfig:projectConfig];
+    ProjectConfig config;
+    [self updateProjectConfigFromCommandLineArgs:&config];
+    [controller setProjectConfig:config];
     [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
         [self stopModelSheet];
         if (returnCode == NSRunStoppedResponse)
@@ -599,7 +622,7 @@ using namespace cocos2d::extra;
     NSArray *recents = [[NSUserDefaults standardUserDefaults] objectForKey:@"recents"];
     NSDictionary *recentItem = nil;
     NSString *title = [sender title];
-    for (int i = [recents count] - 1; i >= 0; --i)
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
     {
         recentItem = [recents objectAtIndex:i];
         if ([title compare:[recentItem objectForKey:@"title"]] == NSOrderedSame)
@@ -669,10 +692,10 @@ using namespace cocos2d::extra;
 
 - (IBAction) onScreenChangeFrameSize:(id)sender
 {
-    int i = [sender tag];
+    NSInteger i = [sender tag];
     if (i >= 0 && i < SimulatorConfig::sharedDefaults()->getScreenSizeCount())
     {
-        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize(i);
+        SimulatorScreenSize size = SimulatorConfig::sharedDefaults()->getScreenSize((int)i);
         projectConfig.setFrameSize(projectConfig.isLandscapeFrame() ? CCSize(size.height, size.width) : CCSize(size.width, size.height));
         projectConfig.setFrameScale(1.0f);
         [self relaunch];
@@ -697,18 +720,13 @@ using namespace cocos2d::extra;
     [self relaunch];
 }
 
-- (IBAction) onScreenActual:(id)sender
-{
-    if ([sender state] == NSOnState) return;
-    [self setZoom:1.0f];
-    [self updateUI];
-}
-
 - (IBAction) onScreenZoomOut:(id)sender
 {
     if ([sender state] == NSOnState) return;
-    [self setZoom:0.5f];
+    float scale = (float)[sender tag] / 100.0f;
+    [self setZoom:scale];
     [self updateUI];
+    [self updateOpenRect];
 }
 
 -(IBAction) onWindowAlwaysOnTop:(id)sender

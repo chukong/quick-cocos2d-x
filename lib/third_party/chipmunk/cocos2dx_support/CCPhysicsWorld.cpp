@@ -265,7 +265,7 @@ CCPhysicsBody *CCPhysicsWorld::getBodyByCpBody(cpBody *cpBody)
         }
     }
 
-    CCLOG("NOT FOUND BODY 0x%08x", (unsigned int)cpBody);
+    CCLOG("NOT FOUND BODY %p", cpBody);
     return NULL;
 }
 

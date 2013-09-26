@@ -1,7 +1,6 @@
 
 require("config")
 require("framework.init")
-require("framework.client.init")
 
 local Store = require("services.Store")
 
@@ -22,7 +21,7 @@ function game.startup()
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()

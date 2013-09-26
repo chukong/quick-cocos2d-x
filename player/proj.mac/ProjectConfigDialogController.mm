@@ -184,7 +184,7 @@
 
 - (IBAction) onScreenSizeChanged:(id)sender
 {
-    int i = [popupScreenSize indexOfSelectedItem];
+    int i = (int)[popupScreenSize indexOfSelectedItem];
     SimulatorConfig *config = SimulatorConfig::sharedDefaults();
     if (i >= 0 && i < config->getScreenSizeCount())
     {

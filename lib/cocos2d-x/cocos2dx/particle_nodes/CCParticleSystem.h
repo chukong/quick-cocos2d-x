@@ -339,6 +339,8 @@ public:
     CC_PROPERTY(ccBlendFunc, m_tBlendFunc, BlendFunc)
     /** does the alpha value modify color */
     CC_PROPERTY(bool, m_bOpacityModifyRGB, OpacityModifyRGB)
+    /** time scale */
+    CC_PROPERTY(float, m_timeScale, TimeScale);
 
     /** whether or not the particles are using blend additive.
     If enabled, the following blending function will be used.

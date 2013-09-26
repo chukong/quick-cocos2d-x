@@ -101,7 +101,7 @@ end
 function MainScene:moveObjects(x, y)
     for k, v in pairs(self.objs) do
         if math.random(1, 5) == 1 then
-            local action = CCMoveTo:create(math.random(1, 5), ccp(x, y))
+            local action = CCMoveTo:create(math.random(1, 5), CCPoint(x, y))
             v:runAction(action)
         end
     end

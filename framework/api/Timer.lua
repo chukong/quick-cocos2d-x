@@ -1,5 +1,5 @@
 
-local scheduler = require(__FRAMEWORK_PACKAGE_NAME__ .. ".scheduler")
+local scheduler = require(cc.packageName .. ".scheduler")
 
 --[[--
 
@@ -19,7 +19,7 @@ local Timer = {}
 ]]
 function Timer.new()
     local timer = {}
-    require(__FRAMEWORK_PACKAGE_NAME__ .. ".api.EventProtocol").extend(timer)
+    require(cc.packageName .. ".api.EventProtocol").extend(timer)
 
     ----
 

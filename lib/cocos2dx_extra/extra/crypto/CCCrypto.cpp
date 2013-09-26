@@ -4,7 +4,6 @@
 extern "C" {
 #include "crypto/base64/libb64.h"
 #include "crypto/md5/md5.h"
-#include "crypto/sha1/sha1.h"
 #include "crypto/xxtea/xxtea.h"
 }
 
@@ -49,6 +48,7 @@ int CCCrypto::encodeBase64(unsigned char* input,
                            int outputBufferLength)
 {
     int bufferSize = 2 * inputLength;
+    if (bufferSize < 16) bufferSize = 16;
     char* buffer = (char*)malloc(bufferSize);
     memset(buffer, 0, bufferSize);
     
@@ -74,7 +74,7 @@ int CCCrypto::decodeBase64(const char* input,
                            void* output,
                            int outputBufferLength)
 {
-    int bufferSize = strlen(input) + 1;
+    int bufferSize = (int)strlen(input) + 1;
     char* buffer = (char*)malloc(bufferSize);
     memset(buffer, 0, bufferSize);
     base64_decodestate state;
@@ -96,14 +96,18 @@ void CCCrypto::MD5(void* input, int inputLength, unsigned char* output)
     MD5_Final(output, &ctx);
 }
 
-void CCCrypto::sha1(unsigned char* input, int inputLength,
-                    unsigned char* key, int keyLength,
-                    unsigned char* buffer, int bufferLength)
+const string CCCrypto::MD5String(void* input, int inputLength)
 {
-    SHA1 sha1;
-    sha1.addBytes(input, inputLength);
-    sha1.addBytes(key, keyLength);
-    sha1.getDigest(buffer, bufferLength);
+    unsigned char buffer[MD5_BUFFER_LENGTH];
+    MD5(static_cast<void*>(input), inputLength, buffer);
+
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+
+    char* hex = bin2hex(buffer, MD5_BUFFER_LENGTH);
+    string ret(hex);
+    delete[] hex;
+    return ret;
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
@@ -191,6 +195,7 @@ LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
     stack->clean();
     
     int outputLength = inputLength * 2;
+    if (outputLength < 16) outputLength = 16;
     char* output = static_cast<char*>(malloc(outputLength));
     int dataUsed = -1;
     
@@ -217,7 +222,7 @@ LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
 LUA_STRING CCCrypto::MD5Lua(char* input, bool isRawOutput)
 {
     unsigned char buffer[MD5_BUFFER_LENGTH];
-    MD5(static_cast<void*>(input), strlen(input), buffer);
+    MD5(static_cast<void*>(input), (int)strlen(input), buffer);
     
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
     stack->clean();
@@ -229,28 +234,6 @@ LUA_STRING CCCrypto::MD5Lua(char* input, bool isRawOutput)
     else
     {
         char* hex = bin2hex(buffer, MD5_BUFFER_LENGTH);
-        stack->pushString(hex);
-        delete[] hex;
-    }
-    
-    return 1;
-}
-
-LUA_STRING CCCrypto::sha1Lua(char* input, char* key, bool isRawOutput)
-{
-    unsigned char buffer[SHA1_BUFFER_LENGTH];
-    MD5(static_cast<void*>(input), strlen(input), buffer);
-    
-    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
-    stack->clean();
-    
-    if (isRawOutput)
-    {
-        stack->pushString((char*)buffer, SHA1_BUFFER_LENGTH);
-    }
-    else
-    {
-        char* hex = bin2hex(buffer, SHA1_BUFFER_LENGTH);
         stack->pushString(hex);
         delete[] hex;
     }

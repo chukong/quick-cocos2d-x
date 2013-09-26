@@ -70,7 +70,7 @@ typedef unsigned int CCControlState;
  *
  * To use the CCControl you have to subclass it.
  */
-class CCControl : public CCLayerRGBA
+class CCControl : public CCLayer
 {
     /** The current control state constant. */
     CCControlState getState();

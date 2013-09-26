@@ -217,8 +217,8 @@ public:
     virtual int executeSchedule(int nHandler, float dt, CCNode* pNode = NULL) = 0;
     
     /** functions for executing touch event */
-    virtual int executeLayerTouchesEvent(CCLayer* pLayer, int eventType, CCSet *pTouches) = 0;
-    virtual int executeLayerTouchEvent(CCLayer* pLayer, int eventType, CCTouch *pTouch) = 0;
+    virtual int executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches) = 0;
+    virtual int executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch) = 0;
 
     /** functions for keypad event */
     virtual int executeLayerKeypadEvent(CCLayer* pLayer, int eventType) = 0;

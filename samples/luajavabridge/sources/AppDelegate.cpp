@@ -56,6 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_third_party_luabinding(L);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    pStack->loadChunksFromZip("res/framework_precompiled.zip");
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());

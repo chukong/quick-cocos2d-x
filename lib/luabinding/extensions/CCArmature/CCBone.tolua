@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-class CCBone : public CCNodeRGBA
+class CCBone : public CCNode
 {
     /**
      * Allocates and initializes a bone.
@@ -37,6 +37,21 @@ class CCBone : public CCNodeRGBA
      * @return A initialized bone which is marked as "autorelease".
      */
     static CCBone *create();
+
+    /**
+     * Add display and use  _DisplayData init the display.
+     * If index already have a display, then replace it.
+     * If index is current display index, then also change display to _index
+     *
+     * @param displayData it include the display information, like DisplayType.
+     *          If you want to create a sprite display, then create a CCSpriteDisplayData param
+     *
+     *  @param  _index the index of the display you want to replace or add to
+     *          -1 : append display from back
+     */
+    void addDisplay(CCDisplayData *displayData, int index);
+
+    void changeDisplayByIndex(int index, bool force);
 
     /**
      * Add a child to this bone, and it will let this child call setParent(CCBone *_parent) function to set self to it's parent

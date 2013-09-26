@@ -2,7 +2,7 @@
 #define __UIUTIL_H__
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "../tolua/LuaEventHandler.h"
+#include "../LuaEventHandler.hpp"
 
 USING_NS_CC;
 USING_NS_CC_EXT;

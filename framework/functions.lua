@@ -14,14 +14,19 @@ function tobool(v)
 end
 
 function totable(v)
-    if type(v) ~= "table" then v = {} end
+    if typen(v) ~= LUA_TTABLE then v = {} end
     return v
+end
+
+function isset(arr, key)
+    local t = typen(arr)
+    return (t == LUA_TTABLE or t == LUA_TUSERDATA) and arr[k] ~= nil
 end
 
 function clone(object)
     local lookup_table = {}
     local function _copy(object)
-        if type(object) ~= "table" then
+        if typen(object) ~= LUA_TTABLE then
             return object
         elseif lookup_table[object] then
             return lookup_table[object]
@@ -37,19 +42,19 @@ function clone(object)
 end
 
 function class(classname, super)
-    local superType = type(super)
+    local superType = typen(super)
     local cls
 
-    if superType ~= "function" and superType ~= "table" then
+    if superType ~= LUA_TFUNCTION and superType ~= LUA_TTABLE then
         superType = nil
         super = nil
     end
 
-    if superType == "function" or (super and super.__ctype == 1) then
+    if superType == LUA_TFUNCTION or (super and super.__ctype == 1) then
         -- inherited from native C++ Object
         cls = {}
 
-        if superType == "table" then
+        if superType == LUA_TTABLE then
             -- copy fields from super
             for k,v in pairs(super) do cls[k] = v end
             cls.__create = super.__create
@@ -96,6 +101,26 @@ function class(classname, super)
     return cls
 end
 
+function iskindof(obj, className)
+    local t = typen(obj)
+
+    if t == LUA_TTABLE then
+        local mt = getmetatable(obj)
+        while mt and mt.__index do
+            if mt.__index.__cname == className then
+                return true
+            end
+            mt = mt.super
+        end
+        return false
+
+    elseif t == LUA_TUSERDATA then
+
+    else
+        return false
+    end
+end
+
 function import(moduleName, currentModuleName)
     local currentModuleNameParts
     local moduleFullName = moduleName
@@ -125,8 +150,24 @@ function import(moduleName, currentModuleName)
     return require(moduleFullName)
 end
 
+function weakhandler(target, method)
+    local t = {target, method}
+    setmetatable(t, {__mode = "v"})
+    return function(...)
+        if not t then return "__REMOVE__" end
+        if t[1] and t[2] then
+            return t[2](t[1], ...)
+        else
+            t = nil
+            return "__REMOVE__"
+        end
+    end
+end
+
 function handler(target, method)
-    return function(...) return method(target, ...) end
+    return function(...)
+        return method(target, ...)
+    end
 end
 
 function math.round(num)
@@ -209,6 +250,7 @@ function table.nums(t)
     end
     return count
 end
+table.getn = table.nums
 
 function table.keys(t)
     local keys = {}
@@ -244,6 +286,13 @@ string._htmlspecialchars_set["\""] = "&quot;"
 string._htmlspecialchars_set["'"] = "&#039;"
 string._htmlspecialchars_set["<"] = "&lt;"
 string._htmlspecialchars_set[">"] = "&gt;"
+
+function string.htmlspecialcharsDecode(input)
+    for k, v in pairs(string._htmlspecialchars_set) do
+        input = string.gsub(input, v, k)
+    end
+    return input
+end
 
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
@@ -286,9 +335,6 @@ function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
 
---[[--
-@ignore
-]]
 local function urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
@@ -300,6 +346,13 @@ function string.urlencode(str)
     str = string.gsub(str, "([^%w%.%- ])", urlencodeChar)
     -- convert spaces to "+" symbols
     return string.gsub(str, " ", "+")
+end
+
+function string.urldecode(str)
+    str = string.gsub (str, "+", " ")
+    str = string.gsub (str, "%%(%x%x)", function(h) return string.char(tonumber(h,16)) end)
+    str = string.gsub (str, "\r\n", "\n")
+    return str
 end
 
 function string.utf8len(str)

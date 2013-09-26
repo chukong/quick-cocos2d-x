@@ -73,6 +73,7 @@ CCSpriteBatchNode* CCSpriteBatchNode::create(const char *fileImage, unsigned int
 */
 bool CCSpriteBatchNode::initWithTexture(CCTexture2D *tex, unsigned int capacity)
 {
+    CCAssert(tex, "CCSpriteBatchNode::initWithTexture() - invalid tex");
     m_blendFunc.src = CC_BLEND_SRC;
     m_blendFunc.dst = CC_BLEND_DST;
     m_pobTextureAtlas = new CCTextureAtlas();

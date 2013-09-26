@@ -26,13 +26,15 @@ LOCAL_SRC_FILES := ../cjson/fpconv.c \
     ../socket/unix.c \
     ../socket/usocket.c \
     ../filesystem/lfs.c \
+    ../lpack/lpack.c \
     ../lua_extensions.c
 
 LOCAL_EXPORT_C_INCLUDES := $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/cjson \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/zlib \
     $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/socket \
-    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/filesystem
+    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/filesystem \
+    $(QUICK_COCOS2DX_ROOT)/lib/lua_extensions/lpack
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES)
 
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 $(ANDROID_COCOS2D_BUILD_FLAGS)

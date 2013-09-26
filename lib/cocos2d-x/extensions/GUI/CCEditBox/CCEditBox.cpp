@@ -268,10 +268,16 @@ void CCEditBox::setInputFlag(EditBoxInputFlag inputFlag)
 
 void CCEditBox::setReturnType(KeyboardReturnType returnType)
 {
+    m_eKeyboardReturnType = returnType;
     if (m_pEditBoxImpl != NULL)
     {
         m_pEditBoxImpl->setReturnType(returnType);
     }
+}
+
+KeyboardReturnType CCEditBox::getReturnType()
+{
+    return m_eKeyboardReturnType;
 }
 
 /* override function */

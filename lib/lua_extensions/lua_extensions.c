@@ -11,6 +11,9 @@ extern "C" {
 // zlib
 #include "zlib/lua_zlib.h"
 
+// lpack
+#include "lpack/lpack.h"
+
 // socket
 #include "socket/luasocket.h"
 #include "socket/mime.h"
@@ -22,6 +25,7 @@ extern "C" {
 static luaL_Reg luax_exts[] = {
     {"cjson", luaopen_cjson_safe},
     {"zlib", luaopen_zlib},
+    {"pack", luaopen_pack},
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},
     {"lfs", luaopen_lfs},
@@ -31,6 +35,7 @@ static luaL_Reg luax_exts[] = {
 
 void luaopen_lua_extensions(lua_State *L)
 {
+    // load extensions
     luaL_Reg* lib = luax_exts;
     lua_getglobal(L, "package");
     lua_getfield(L, -1, "preload");

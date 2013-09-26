@@ -164,10 +164,8 @@
     <ClCompile Include="..\chipmunk\src\cpVect.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\luaproxy\tolua\CCBProxy.cpp" />
-    <ClCompile Include="..\luaproxy\tolua\LuaEventHandler.cpp" />
+    <ClCompile Include="..\luaproxy\LuaEventHandler.cpp" />
     <ClCompile Include="..\luaproxy\tolua\luaopen_LuaProxy.cpp" />
-    <ClCompile Include="..\luaproxy\tolua\LuaTableView.cpp" />
     <ClCompile Include="..\luaproxy\ui\CursorTextField.cpp" />
     <ClCompile Include="..\luaproxy\ui\UIUtil.cpp" />
     <ClCompile Include="..\third_party_luabinding.cpp" />
@@ -205,20 +203,18 @@
     <ClInclude Include="..\chipmunk\include\cpVect.h" />
     <ClInclude Include="..\chipmunk\luabinding\CCPhysicsWorld_luabinding.h" />
     <ClInclude Include="..\chipmunk\src\prime.h" />
-    <ClInclude Include="..\luaproxy\tolua\CCBProxy.h" />
-    <ClInclude Include="..\luaproxy\tolua\LuaEventHandler.h" />
+    <ClInclude Include="..\luaproxy\LuaEventHandler.hpp" />
+    <ClInclude Include="..\luaproxy\LuaProxy.hpp" />
+    <ClInclude Include="..\luaproxy\LuaTableView.hpp" />
     <ClInclude Include="..\luaproxy\tolua\luaopen_LuaProxy.h" />
-    <ClInclude Include="..\luaproxy\tolua\LuaTableView.h" />
     <ClInclude Include="..\luaproxy\tolua\tolua_CCBAnimationManager.h" />
-    <ClInclude Include="..\luaproxy\tolua\tolua_CCBProxy.h" />
     <ClInclude Include="..\luaproxy\tolua\tolua_CCControl.h" />
-    <ClInclude Include="..\luaproxy\tolua\tolua_CCEditBox.h" />
     <ClInclude Include="..\luaproxy\tolua\tolua_CCGLProgram.h" />
-    <ClInclude Include="..\luaproxy\tolua\tolua_CCScale9Sprite.h" />
     <ClInclude Include="..\luaproxy\tolua\tolua_CCScrollView.h" />
     <ClInclude Include="..\luaproxy\tolua\tolua_CCTableView.h" />
-    <ClInclude Include="..\luaproxy\tolua\tolua_CC_Extension.h" />
     <ClInclude Include="..\luaproxy\tolua\tolua_CursorTextField.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_LuaProxy.h" />
+    <ClInclude Include="..\luaproxy\tolua\tolua_util.h" />
     <ClInclude Include="..\luaproxy\ui\CursorTextField.h" />
     <ClInclude Include="..\luaproxy\ui\UIUtil.h" />
     <ClInclude Include="..\third_party_luabinding.h" />

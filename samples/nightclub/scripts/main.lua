@@ -1,7 +1,7 @@
 function __G__TRACKBACK__(errorMessage)
-    CCLuaLog("---------------------------------------------------------")
-    CCLuaLog(debug.traceback("LUA ERROR: " .. tostring(errorMessage), 2))
-    CCLuaLog("---------------------------------------------------------")
+    print("---------------------------------------------------------")
+    print(debug.traceback("LUA ERROR: " .. tostring(errorMessage), 2))
+    print("---------------------------------------------------------")
 end
 
 function main()

@@ -53,7 +53,7 @@ THE SOFTWARE.
  *
  * The default anchorPoint in CCSprite is (0.5, 0.5).
  */
-class CCSprite : public CCNodeRGBA
+class CCSprite : public CCNode
 {
     /// @{
     /// @name Creators
