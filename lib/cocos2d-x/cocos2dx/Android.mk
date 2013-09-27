@@ -24,6 +24,7 @@ actions/CCActionPageTurn3D.cpp \
 actions/CCActionProgressTimer.cpp \
 actions/CCActionTiledGrid.cpp \
 actions/CCActionTween.cpp \
+actions/CCLinkPosition.cpp \
 base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \
@@ -41,6 +42,7 @@ cocos2d.cpp \
 CCDirector.cpp \
 draw_nodes/CCDrawingPrimitives.cpp \
 draw_nodes/CCDrawNode.cpp \
+draw_nodes/CCShapeNode.cpp \
 effects/CCGrabber.cpp \
 effects/CCGrid.cpp \
 kazmath/src/aabb.c \
@@ -69,6 +71,7 @@ layers_scenes_transitions_nodes/CCTransitionProgress.cpp \
 menu_nodes/CCMenu.cpp \
 menu_nodes/CCMenuItem.cpp \
 misc_nodes/CCClippingNode.cpp \
+misc_nodes/CCClippingRegionNode.cpp \
 misc_nodes/CCMotionStreak.cpp \
 misc_nodes/CCProgressTimer.cpp \
 misc_nodes/CCRenderTexture.cpp \
@@ -76,10 +79,12 @@ particle_nodes/CCParticleExamples.cpp \
 particle_nodes/CCParticleSystem.cpp \
 particle_nodes/CCParticleBatchNode.cpp \
 particle_nodes/CCParticleSystemQuad.cpp \
+platform/CCCommon.cpp \
 platform/CCImageCommonWebp.cpp \
 platform/CCSAXParser.cpp \
 platform/CCThread.cpp \
 platform/CCFileUtils.cpp \
+platform/CCZipFile.cpp \
 platform/platform.cpp \
 platform/CCEGLViewProtocol.cpp \
 platform/android/CCDevice.cpp \
@@ -108,6 +113,7 @@ sprite_nodes/CCSprite.cpp \
 sprite_nodes/CCSpriteBatchNode.cpp \
 sprite_nodes/CCSpriteFrame.cpp \
 sprite_nodes/CCSpriteFrameCache.cpp \
+sprite_nodes/CCGraySprite.cpp \
 support/ccUTF8.cpp \
 support/CCNotificationCenter.cpp \
 support/CCProfiling.cpp \
@@ -172,6 +178,7 @@ LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API
 
 include $(BUILD_STATIC_LIBRARY)
 
+$(call import-module,libcurl)
 $(call import-module,libjpeg)
 $(call import-module,libpng)
 $(call import-module,libtiff)
