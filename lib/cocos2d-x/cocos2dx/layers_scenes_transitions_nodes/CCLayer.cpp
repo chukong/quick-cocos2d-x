@@ -249,12 +249,6 @@ void CCLayer::keyMenuClicked(void)
 void CCLayer::onEnter()
 {
     CCDirector* pDirector = CCDirector::sharedDirector();
-    // register 'parent' nodes first
-    // since events are propagated in reverse order
-    if (m_bTouchEnabled)
-    {
-        this->registerWithTouchDispatcher();
-    }
 
     // then iterate over all the children
     CCNode::onEnter();
@@ -275,12 +269,6 @@ void CCLayer::onEnter()
 void CCLayer::onExit()
 {
     CCDirector* pDirector = CCDirector::sharedDirector();
-    if( m_bTouchEnabled )
-    {
-        pDirector->getTouchDispatcher()->removeDelegate(this);
-        // [lua]:don't unregister script touch handler, or the handler will be destroyed
-        // unregisterScriptTouchHandler();
-    }
 
     // remove this layer from the delegates who concern Accelerometer Sensor
     if (m_bAccelerometerEnabled)

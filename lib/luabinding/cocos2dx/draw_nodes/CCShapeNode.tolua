@@ -67,7 +67,8 @@ class CCPointShape : public CCShapeNode
 
 class CCPolygonShape : public CCShapeNode
 {
-    static CCPolygonShape* create(CCPointArray* vertices);
+    //static CCPolygonShape* create(CCPointArray* vertices);
+    static CCPolygonShape* create(CCPoint* vertices, unsigned int numVertices);
     bool isFill(void);
     void setFill(bool fill);
     bool isClose(void);

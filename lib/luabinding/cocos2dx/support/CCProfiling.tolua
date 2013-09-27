@@ -50,8 +50,6 @@ class CCProfiler : public CCObject
 class CCProfilingTimer : public CCObject
 {
     cc_timeval* getStartTime(void);
-    void setAverageTime(double value);
-    double getAverageTime(void);
     /** resets the timer properties */
     void reset();
 

@@ -223,7 +223,7 @@ bool CCPhysicsVectorArray::initWithCCPointArray(CCPointArray *points)
     m_verts = (cpVect*)malloc(sizeof(cpVect) * m_count);
     for (unsigned int i = 0; i < m_count; ++i)
     {
-        const CCPoint pos = points->get(i);
+        const CCPoint pos = points->getControlPointAtIndex(i);
         m_verts[i] = cpv(pos.x, pos.y);
     }
     return true;

@@ -51,6 +51,7 @@ THE SOFTWARE.
 #include "actions/CCActionInstant.h"
 #include "actions/CCActionTween.h"
 #include "actions/CCActionCatmullRom.h"
+#include "actions/CCLinkPosition.h"
 
 // base_nodes
 #include "base_nodes/CCNode.h"
@@ -75,6 +76,7 @@ THE SOFTWARE.
 // draw nodes
 #include "draw_nodes/CCDrawingPrimitives.h"
 #include "draw_nodes/CCDrawNode.h"
+#include "draw_nodes/CCShapeNode.h"
 
 // effects
 #include "effects/CCGrabber.h"
@@ -113,6 +115,7 @@ THE SOFTWARE.
 
 // misc_nodes
 #include "misc_nodes/CCClippingNode.h"
+#include "misc_nodes/CCClippingRegionNode.h"
 #include "misc_nodes/CCMotionStreak.h"
 #include "misc_nodes/CCProgressTimer.h"
 #include "misc_nodes/CCRenderTexture.h"
@@ -252,6 +255,7 @@ THE SOFTWARE.
 #include "sprite_nodes/CCSpriteBatchNode.h"
 #include "sprite_nodes/CCSpriteFrame.h"
 #include "sprite_nodes/CCSpriteFrameCache.h"
+#include "sprite_nodes/CCGraySprite.h"
 
 // support
 #include "support/ccUTF8.h"
