@@ -758,6 +758,7 @@ class CCNode : public CCObject
      * This boundingBox will calculate all children's boundingBox every time
      */
     CCRect getCascadeBoundingBox(bool convertToWorld = true);
+    void setCascadeBoundingBox(CCRect boundingBox);
 
     /// @{
     /// @name Actions
