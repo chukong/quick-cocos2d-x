@@ -144,16 +144,10 @@
     <ClCompile Include="..\chipmunk\src\constraints\cpSlideJoint.c">
       <Filter>third_party\chipmunk\src\constraints</Filter>
     </ClCompile>
-    <ClCompile Include="..\luaproxy\tolua\CCBProxy.cpp">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\luaproxy\tolua\LuaEventHandler.cpp">
-      <Filter>third_party\luaproxy\tolua</Filter>
+    <ClCompile Include="..\luaproxy\LuaEventHandler.cpp">
+      <Filter>third_party\luaproxy</Filter>
     </ClCompile>
     <ClCompile Include="..\luaproxy\tolua\luaopen_LuaProxy.cpp">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClCompile>
-    <ClCompile Include="..\luaproxy\tolua\LuaTableView.cpp">
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClCompile>
     <ClCompile Include="..\luaproxy\ui\CursorTextField.cpp">
@@ -263,37 +257,25 @@
     <ClInclude Include="..\chipmunk\src\prime.h">
       <Filter>third_party\chipmunk\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\CCBProxy.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
+    <ClInclude Include="..\luaproxy\LuaEventHandler.hpp">
+      <Filter>third_party\luaproxy</Filter>
     </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\LuaEventHandler.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
+    <ClInclude Include="..\luaproxy\LuaProxy.hpp">
+      <Filter>third_party\luaproxy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\luaproxy\LuaTableView.hpp">
+      <Filter>third_party\luaproxy</Filter>
     </ClInclude>
     <ClInclude Include="..\luaproxy\tolua\luaopen_LuaProxy.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\LuaTableView.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\tolua_CC_Extension.h">
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
     <ClInclude Include="..\luaproxy\tolua\tolua_CCBAnimationManager.h">
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\tolua_CCBProxy.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClInclude>
     <ClInclude Include="..\luaproxy\tolua\tolua_CCControl.h">
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\tolua_CCEditBox.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClInclude>
     <ClInclude Include="..\luaproxy\tolua\tolua_CCGLProgram.h">
-      <Filter>third_party\luaproxy\tolua</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luaproxy\tolua\tolua_CCScale9Sprite.h">
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
     <ClInclude Include="..\luaproxy\tolua\tolua_CCScrollView.h">
@@ -303,6 +285,12 @@
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
     <ClInclude Include="..\luaproxy\tolua\tolua_CursorTextField.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\luaproxy\tolua\tolua_LuaProxy.h">
+      <Filter>third_party\luaproxy\tolua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\luaproxy\tolua\tolua_util.h">
       <Filter>third_party\luaproxy\tolua</Filter>
     </ClInclude>
     <ClInclude Include="..\luaproxy\ui\CursorTextField.h">
