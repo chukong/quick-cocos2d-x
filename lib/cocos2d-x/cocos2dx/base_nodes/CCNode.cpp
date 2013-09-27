@@ -103,7 +103,6 @@ CCNode::CCNode(void)
 , m_cascadeColorEnabled(false)
 , m_cascadeOpacityEnabled(false)
 , m_drawOrder(0)
-, m_drawDepth(-1)
 , m_bTouchEnabled(false)
 , m_pScriptTouchHandlerEntry(NULL)
 , m_nTouchPriority(0)
@@ -448,11 +447,7 @@ CCNode * CCNode::getParent()
 /// parent setter
 void CCNode::setParent(CCNode * var)
 {
-    if (m_drawDepth == -1 && var)
-    {
-        m_drawDepth = var->m_drawDepth + 1;
-    }
-    else if (var == NULL)
+    if (var == NULL)
     {
         if (m_bTouchEnabled)
         {
@@ -463,7 +458,6 @@ void CCNode::setParent(CCNode * var)
             }
             m_bTouchEnabled = false;
         }
-        m_drawDepth = -1;
     }
     m_pParent = var;
 }
@@ -586,11 +580,21 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
         }
     }
 
-    if (m_obTextureSize.width > 0 && m_obTextureSize.height > 0)
+    CCRect r;
+    bool mergeRect = false;
+    if (m_cascadeBoundingBox.size.width > 0 && m_cascadeBoundingBox.size.height > 0)
     {
-        CCRect r = CCRectMake(0, 0, m_obTextureSize.width, m_obTextureSize.height);
-        r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+        r = CCRectApplyAffineTransform(m_cascadeBoundingBox, nodeToParentTransform());
+        mergeRect = true;
+    }
+    else if (m_obTextureSize.width > 0 && m_obTextureSize.height > 0)
+    {
+        r = CCRectApplyAffineTransform(CCRectMake(0, 0, m_obTextureSize.width, m_obTextureSize.height), nodeToParentTransform());
+        mergeRect = true;
+    }
 
+    if (mergeRect)
+    {
         if (first)
         {
             box = r;
@@ -610,6 +614,11 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
         box = CCRectApplyAffineTransform(box, m_pParent->nodeToWorldTransform());
     }
     return box;
+}
+
+void CCNode::setCascadeBoundingBox(const cocos2d::CCRect &boundingBox)
+{
+    m_cascadeBoundingBox = boundingBox;
 }
 
 CCNode * CCNode::create(void)
@@ -994,7 +1003,6 @@ void CCNode::transform()
 
 void CCNode::onEnter()
 {
-    m_drawDepth = m_pParent ? m_pParent->m_drawDepth + 1 : 0;
     arrayMakeObjectsPerformSelector(m_pChildren, onEnter, CCNode*);
 
     this->resumeSchedulerAndActions();

@@ -987,6 +987,7 @@ public:
      * This boundingBox will calculate all children's boundingBox every time
      */
     virtual CCRect getCascadeBoundingBox(bool convertToWorld = true);
+    virtual void setCascadeBoundingBox(const CCRect &boundingBox);
 
     /// @{
     /// @name Actions
@@ -1504,7 +1505,7 @@ protected:
 
     CCSize m_obContentSize;             ///< untransformed size of the node
     CCSize m_obTextureSize;
-
+    CCRect m_cascadeBoundingBox;
 
     CCAffineTransform m_sAdditionalTransform; ///< transform
     CCAffineTransform m_sTransform;     ///< transform
@@ -1560,7 +1561,6 @@ protected:
     bool m_cascadeColorEnabled;
     bool m_cascadeOpacityEnabled;
 
-    int m_drawDepth;
     unsigned int m_drawOrder;
     static unsigned int g_drawOrder;
 
