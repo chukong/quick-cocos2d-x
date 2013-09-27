@@ -166,9 +166,6 @@ void CCScene::sortAllTouchableNodes()
         j = i-1;
 
         while(j>=0 && (tempItem->m_drawOrder > x[j]->m_drawOrder))
-//        while(j>=0 && (tempItem->m_drawDepth > x[j]->m_drawDepth
-//                       || (tempItem->m_drawDepth == x[j]->m_drawDepth && tempItem->m_nZOrder > x[j]->m_nZOrder)
-//                       || (tempItem->m_drawDepth == x[j]->m_drawDepth && tempItem->m_nZOrder == x[j]->m_nZOrder &&  tempItem->m_drawOrder > x[j]->m_drawOrder)))
         {
             x[j+1] = x[j];
             j = j-1;
@@ -177,12 +174,12 @@ void CCScene::sortAllTouchableNodes()
     }
 
     // debug
-//    CCLOG("----------------------------------------");
-//    for(i=0; i<length; i++)
-//    {
-//        tempItem = x[i];
-//        CCLOG("[%03d] m_drawDepth = %d, m_nZOrder = %d, m_drawOrder = %u, w = %0.2f, h = %0.2f", i, tempItem->m_drawDepth, tempItem->m_nZOrder, tempItem->m_drawOrder, tempItem->getCascadeBoundingBox().size.width, tempItem->getCascadeBoundingBox().size.height);
-//    }
+    //CCLOG("----------------------------------------");
+    //for(i=0; i<length; i++)
+    //{
+    //    tempItem = x[i];
+    //    CCLOG("[%03d] m_drawOrder = %u, w = %0.2f, h = %0.2f", i, tempItem->m_drawOrder, tempItem->getCascadeBoundingBox().size.width, tempItem->getCascadeBoundingBox().size.height);
+    //}
 }
 
 NS_CC_END
