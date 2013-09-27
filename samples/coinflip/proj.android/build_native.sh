@@ -4,10 +4,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
 
-ANDROID_NDK_ROOT="/cygdrive/d/android-ndk-r9"
-QUICK_COCOS2DX_ROOT="/cygdrive/e/yq/cocos2dx/yquickx"
-COCOS2DX_ROOT=$QUICK_COCOS2DX_ROOT"/lib/cocos2d-x"
-
 if [ -d "/cygdrive/" ]; then
     ANDROID_NDK_ROOT=`cygpath "$ANDROID_NDK_ROOT"`
     QUICK_COCOS2DX_ROOT=`cygpath "$QUICK_COCOS2DX_ROOT"`

@@ -14,20 +14,11 @@ function game.startup()
         audio.preloadSound(v)
     end
 
-    CCLuaLog("-- CCLuaLog --")
-    CCLuaLog(device.writablePath)
-
-    echoInfo("-- echoInfo --")
-    echoInfo(device.writablePath)
-
-    log("-- log --")
-    log(device.writablePath)
-
     game.enterMenuScene()
 end
 
 function game.exit()
-    os.exit()
+    CCDirector:sharedDirector():endToLua()
 end
 
 function game.enterMenuScene()

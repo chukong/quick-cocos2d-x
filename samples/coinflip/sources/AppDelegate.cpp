@@ -10,9 +10,7 @@
 #include "lua_extensions.h"
 // cocos2dx_extra luabinding
 #include "luabinding/cocos2dx_extra_luabinding.h"
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
-#endif
+
 // thrid_party
 #include "third_party_luabinding.h"
 
@@ -53,14 +51,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     luaopen_lua_extensions(L);
     // load cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(L);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    luaopen_cocos2dx_extra_ios_iap_luabinding(L);
-#endif
+
     // thrid_party
     luaopen_third_party_luabinding(L);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    pStack->loadChunksFromZip("res/framework_precompiled.zip");
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
