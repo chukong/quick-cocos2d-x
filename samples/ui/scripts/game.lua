@@ -2,7 +2,7 @@
 require("config")
 require("framework.init")
 require("framework.shortcodes")
-require("framework.chilli.init")
+require("framework.cc.init")
 
 -- define global module
 game = {}

@@ -31,8 +31,10 @@ function UIBoxLayout:apply(container)
         local item = {widget = widget, weight = v.weight, order = v.order}
         local widgetSizeWidth, widgetSizeHeight = widget:getLayoutSize()
         local widgetSizePolicyH, widgetSizePolicyV = widget:getLayoutSizePolicy()
+        local marginTop, marginRight, marginBottom, marginLeft = widget:getLayoutMargin()
+
         if widgetSizePolicyH == display.FIXED_SIZE then
-            fixedWidth = fixedWidth + widgetSizeWidth
+            fixedWidth = fixedWidth + widgetSizeWidth + marginLeft + marginRight
             item.width = widgetSizeWidth
         else
             totalWeightH = totalWeightH + v.weight

@@ -66,10 +66,10 @@ function CharacterScene:createRightPanel()
             if col == 1 or col == 4 then
                 -- 其中两个格子的为固定宽度
                 box:setLayoutSizePolicy(display.FIXED_SIZE, display.AUTO_SIZE)
-                    :setLayoutSize(100, 0)
+                    :setLayoutSize(50, 0)
             end
             hboxLayout:addWidget(box, colWeight) -- 每一行的格子都水平布局
-            colWeight = colWeight + 0.4
+            colWeight = colWeight + 1
         end
 
         if row == 1 or row == 3 then
