@@ -211,8 +211,11 @@ void CCBone::updateDisplayedOpacity(GLubyte parentOpacity)
 void CCBone::updateColor()
 {
     CCNode *display = m_pDisplayManager->getDisplayRenderNode();
-    display->setColor(ccc3(m_displayedColor.r * m_pTweenData->r / 255, m_displayedColor.g * m_pTweenData->g / 255, m_displayedColor.b * m_pTweenData->b / 255));
-    display->setOpacity(m_displayedOpacity * m_pTweenData->a / 255);
+    if (NULL != display)
+    {
+	display->setColor(ccc3(m_displayedColor.r * m_pTweenData->r / 255, m_displayedColor.g * m_pTweenData->g / 255, m_displayedColor.b * m_pTweenData->b / 255));
+	display->setOpacity(m_displayedOpacity * m_pTweenData->a / 255);
+    }
 }
 
 void CCBone::addChildBone(CCBone *child)
