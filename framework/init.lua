@@ -41,6 +41,14 @@ elseif device.platform == "ios" then
     luaoc = require(cc.packageName .. ".luaoc")
 end
 
+if not NO_GAMEOBJETS then
+    require(cc.packageName .. ".cc.init")
+end
+
+if not NO_SHORTCODES then
+    require(cc.packageName .. ".shortcodes")
+end
+
 local timeCount = 0
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
