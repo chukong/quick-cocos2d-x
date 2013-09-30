@@ -73,6 +73,10 @@ function StateMachine:setupState(cfg)
     return self
 end
 
+function StateMachine:isReady()
+    return self.current_ ~= "none"
+end
+
 function StateMachine:getState()
     return self.current_
 end
@@ -88,13 +92,13 @@ function StateMachine:isState(state)
     end
 end
 
-function StateMachine:canEvent(eventName)
+function StateMachine:canDoEvent(eventName)
     return not self.transition_
         and (self.map_[eventName][self.current_] ~= nil or self.map_[eventName][StateMachine.WILDCARD] ~= nil)
 end
 
-function StateMachine:cannotEvent(eventName)
-    return not self:canEvent(eventName)
+function StateMachine:cannotDoEvent(eventName)
+    return not self:canDoEvent(eventName)
 end
 
 function StateMachine:isFinishedState()
@@ -121,7 +125,7 @@ function StateMachine:doEvent(name, ...)
         return StateMachine.FAILURE
     end
 
-    if self:cannotEvent(name) then
+    if self:cannotDoEvent(name) then
         self:onError_(event,
                       StateMachine.INVALID_TRANSITION_ERROR,
                       "event " .. name .. " inappropriate in current state " .. self.current_)
@@ -177,13 +181,15 @@ end
 function StateMachine:exportMethods()
     self:exportMethods_({
         "setupState",
+        "isReady",
         "getState",
         "isState",
-        "canEvent",
-        "cannotEvent",
+        "canDoEvent",
+        "cannotDoEvent",
         "isFinishedState",
         "doEvent",
     })
+    return self
 end
 
 function StateMachine:onBind_()
@@ -280,7 +286,7 @@ function StateMachine:enterState_(event)
 end
 
 function StateMachine:onError_(event, error, message)
-    printf("ERROR: error %s, event %s, from %s to %s", tostring(error), event.name, event.form, event.to)
+    printf("ERROR: error %s, event %s, from %s to %s", tostring(error), event.name, event.from, event.to)
     echoError(message)
 end
 
