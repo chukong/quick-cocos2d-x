@@ -36,7 +36,17 @@ function MainScene:ctor()
             onleaveyellow = function(event) self:log("[FSM] LEAVE   STATE: yellow") end,
             onleavered    = function(event)
                 self:log("[FSM] LEAVE   STATE: red")
-                self:async(event)
+                self:pending(event, 3)
+                self:performWithDelay(function()
+                    self:pending(event, 2)
+                    self:performWithDelay(function()
+                        self:pending(event, 1)
+                        self:performWithDelay(function()
+                            self.pendingLabel_:setString("")
+                            event.transition()
+                        end, 1)
+                    end, 1)
+                end, 1)
                 return "async"
             end,
             ongreen       = function(event) self:log("[FSM] ENTER   STATE: green") end,
@@ -141,24 +151,10 @@ function MainScene:log(msg, separate)
         self.stateImage_:setDisplayFrame(display.newSpriteFrame("YellowState.png"))
     end
 
-    self.clearButton_:setEnabled(self.fsm_:canEvent("clear"))
-    self.calmButton_:setEnabled(self.fsm_:canEvent("calm"))
-    self.warnButton_:setEnabled(self.fsm_:canEvent("warn"))
-    self.panicButton_:setEnabled(self.fsm_:canEvent("panic"))
-end
-
-function MainScene:async(event)
-    self:pending(event, 3)
-    self:performWithDelay(function()
-        self:pending(event, 2)
-        self:performWithDelay(function()
-            self:pending(event, 1)
-            self:performWithDelay(function()
-                self.pendingLabel_:setString("")
-                event.transition()
-            end, 1)
-        end, 1)
-    end, 1)
+    self.clearButton_:setEnabled(self.fsm_:canDoEvent("clear"))
+    self.calmButton_:setEnabled(self.fsm_:canDoEvent("calm"))
+    self.warnButton_:setEnabled(self.fsm_:canDoEvent("warn"))
+    self.panicButton_:setEnabled(self.fsm_:canDoEvent("panic"))
 end
 
 function MainScene:onEnter()

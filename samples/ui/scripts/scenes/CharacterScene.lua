@@ -20,19 +20,31 @@ function CharacterScene:createLeftPanel()
         :setLayoutPadding(10, 10, 10, 10)
         :setBackgroundImage("PinkScale9Block.png", {scale9 = true})
 
-    local button1 = cc.ui.UIButton.new("Button01.png", "Button01Pressed.png")
-        :setButtonEnabled(true)
-        :addTo(leftPanel)
-    local button2 = cc.ui.UIButton.new("Button01.png", "Button01Pressed.png")
-        :setButtonEnabled(true)
-        :addTo(leftPanel)
-    local button3 = cc.ui.UIButton.new("Button01.png", "Button01Pressed.png")
-        :setButtonEnabled(true)
-        :addTo(leftPanel)
+    local button1 = cc.ui.UIPushButton.new({
+            normal = "Button01.png",
+            pressed = "Button01Pressed.png",
+            disabled = "Button01Disabled.png",
+        }):addTo(leftPanel)
+    local button2 = cc.ui.UIPushButton.new({
+            normal = "Button01.png",
+            pressed = "Button01Pressed.png",
+            disabled = "Button01Disabled.png",
+        }):addTo(leftPanel)
+    local button3 = cc.ui.UICheckBoxButton.new({
+            off = "SwitchOffButton.png",
+            on = "SwitchOnButton.png",
+        }):addTo(leftPanel)
 
     button1:setScale(0.5)
     button2:setScale(0.5)
+    button2:setButtonEnabled(false)
     button3:setScale(0.5)
+    button3:onButtonClicked(function()
+        print("button3:isButtonSelected() = ", button3:isButtonSelected())
+        self:performWithDelay(function()
+            button3:setButtonSelected(not button3:isButtonSelected())
+        end, 0.2)
+    end)
 
     local leftPanelLayout = cc.ui.UIBoxLayout.new(display.LEFT_TO_RIGHT, "left")
         :addWidget(button1)
@@ -94,7 +106,7 @@ function CharacterScene:ctor()
         :addTo(self)
 
     -- 设置左右面板的布局
-    local detailsGroupLayout = cc.ui.UIBoxLayout.new(display.LEFT_TO_RIGHT, "details")
+    self.detailsGroupLayout = cc.ui.UIBoxLayout.new(display.LEFT_TO_RIGHT, "details")
         :addWidget(leftPanel)
         :addWidget(rightPanel)
 
@@ -103,10 +115,13 @@ function CharacterScene:ctor()
     local sceneLayout = cc.ui.UIBoxLayout.new(display.TOP_TO_BOTTOM, "scene")
         :setLayoutSize(display.width, display.height)
         :setLayoutPadding(30, 30, 30, 30)
-        :addLayout(detailsGroupLayout)
+        :addLayout(self.detailsGroupLayout)
     sceneLayout:apply()
 
     self.leftPanel = leftPanel
+end
+
+function CharacterScene:onEnter()
 end
 
 return CharacterScene

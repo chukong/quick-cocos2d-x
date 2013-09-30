@@ -9,8 +9,9 @@ if type(DEBUG) ~= "number" then DEBUG = 1 end
 local CURRENT_MODULE_NAME = ...
 
 cc = cc or {}
-cc.packageName = string.sub(CURRENT_MODULE_NAME, 1, -6)
-cc.version = "2.5.0"
+cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
+cc.VERSION = "2.5.0"
+cc.REMOVE_HANDLER_SIGN = "__REMOVE_HANDLER__"
 
 local exit = os.exit
 function os.exit()
@@ -18,35 +19,35 @@ function os.exit()
     exit()
 end
 
-require(cc.packageName .. ".debug")
-require(cc.packageName .. ".functions")
-require(cc.packageName .. ".cocos2dx")
+require(cc.PACKAGE_NAME .. ".debug")
+require(cc.PACKAGE_NAME .. ".functions")
+require(cc.PACKAGE_NAME .. ".cocos2dx")
 
 echoInfo("")
 echoInfo("# DEBUG                        = "..DEBUG)
 echoInfo("#")
 
-device     = require(cc.packageName .. ".device")
-transition = require(cc.packageName .. ".transition")
-display    = require(cc.packageName .. ".display")
-audio      = require(cc.packageName .. ".audio")
-network    = require(cc.packageName .. ".network")
-ui         = require(cc.packageName .. ".ui")
-crypto     = require(cc.packageName .. ".crypto")
-json       = require(cc.packageName .. ".json")
+device     = require(cc.PACKAGE_NAME .. ".device")
+transition = require(cc.PACKAGE_NAME .. ".transition")
+display    = require(cc.PACKAGE_NAME .. ".display")
+audio      = require(cc.PACKAGE_NAME .. ".audio")
+network    = require(cc.PACKAGE_NAME .. ".network")
+ui         = require(cc.PACKAGE_NAME .. ".ui")
+crypto     = require(cc.PACKAGE_NAME .. ".crypto")
+json       = require(cc.PACKAGE_NAME .. ".json")
 
 if device.platform == "android" then
-    luaj = require(cc.packageName .. ".luaj")
+    luaj = require(cc.PACKAGE_NAME .. ".luaj")
 elseif device.platform == "ios" then
-    luaoc = require(cc.packageName .. ".luaoc")
+    luaoc = require(cc.PACKAGE_NAME .. ".luaoc")
 end
 
 if not NO_GAMEOBJETS then
-    require(cc.packageName .. ".cc.init")
+    require(cc.PACKAGE_NAME .. ".cc.init")
 end
 
 if not NO_SHORTCODES then
-    require(cc.packageName .. ".shortcodes")
+    require(cc.PACKAGE_NAME .. ".shortcodes")
 end
 
 local timeCount = 0

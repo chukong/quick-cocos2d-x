@@ -157,6 +157,7 @@ function BasicLayoutProtocol:exportMethods()
         -- "getLayoutScale",
         -- "setLayoutScale",
     })
+    return self
 end
 
 function BasicLayoutProtocol:onBind_()
