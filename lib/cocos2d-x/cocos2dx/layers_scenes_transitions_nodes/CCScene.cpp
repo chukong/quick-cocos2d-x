@@ -89,11 +89,22 @@ bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     const CCPoint p = pTouch->getLocation();
     CCObject *node;
     CCNode *touchNode = NULL;
+    CCNode *checkNode = NULL;
+    bool visible = true;
     sortAllTouchableNodes();
     CCARRAY_FOREACH(m_touchableNodes, node)
     {
-        touchNode = dynamic_cast<CCNode*>(node);
-        if (!touchNode->isVisible()) continue;
+        checkNode = touchNode = dynamic_cast<CCNode*>(node);
+
+        // check node is visible
+        visible = true;
+        do
+        {
+            visible = visible && checkNode->isVisible();
+            checkNode = checkNode->getParent();
+        } while (checkNode && visible);
+        if (!visible) continue;
+
         const CCRect boundingBox = touchNode->getCascadeBoundingBox();
         if (boundingBox.containsPoint(p))
         {
