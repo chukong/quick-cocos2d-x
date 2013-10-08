@@ -20,7 +20,7 @@ function UICheckBoxButton:ctor(images)
         {name = "release",  from = "OFF_PRESSED", to = "OFF"},
         {name = "release",  from = "ON_PRESSED", to = "ON"},
         {name = "select",   from = "OFF", to = "ON"},
-        {name = "unselect", from = "ON",  to = "OFF"},
+        {name = "unselect", from = "ON", to = "OFF"},
     }, "OFF")
     self:setButtonImage(UICheckBoxButton.OFF, images["off"], true)
     self:setButtonImage(UICheckBoxButton.OFF_PRESSED, images["offpressed"], true)
@@ -70,9 +70,9 @@ end
 function UICheckBoxButton:setButtonSelected(selected)
     if self:isButtonSelected() ~= selected then
         if selected then
-            self.fsm_:doEvent("select")
+            self.fsm_:doEventForce("select")
         else
-            self.fsm_:doEvent("unselect")
+            self.fsm_:doEventForce("unselect")
         end
     end
 end
