@@ -14,6 +14,17 @@ function UIGroup:ctor()
     self:setLayoutAlignment(display.LEFT_BOTTOM)
 end
 
+function UIGroup:onTouch(listener)
+    if not listener then listener = function() return true end end
+    self:addTouchEventListener(listener)
+    return self
+end
+
+function UIGroup:enableTouch(enabled)
+    self:setTouchEnabled(enabled)
+    return self
+end
+
 function UIGroup:setLayoutSize(width, height)
     self:com("components.ui.LayoutProtocol"):setLayoutSize(width, height)
     if self.backgroundSprite_ then

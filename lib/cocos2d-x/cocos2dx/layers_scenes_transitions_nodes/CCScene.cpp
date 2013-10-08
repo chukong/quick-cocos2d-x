@@ -89,11 +89,22 @@ bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     const CCPoint p = pTouch->getLocation();
     CCObject *node;
     CCNode *touchNode = NULL;
+    CCNode *checkNode = NULL;
+    bool visible = true;
     sortAllTouchableNodes();
     CCARRAY_FOREACH(m_touchableNodes, node)
     {
-        touchNode = dynamic_cast<CCNode*>(node);
-        if (!touchNode->isVisible()) continue;
+        checkNode = touchNode = dynamic_cast<CCNode*>(node);
+
+        // check node is visible
+        visible = true;
+        do
+        {
+            visible = visible && checkNode->isVisible();
+            checkNode = checkNode->getParent();
+        } while (checkNode && visible);
+        if (!visible) continue;
+
         const CCRect boundingBox = touchNode->getCascadeBoundingBox();
         if (boundingBox.containsPoint(p))
         {
@@ -165,9 +176,7 @@ void CCScene::sortAllTouchableNodes()
         tempItem = x[i];
         j = i-1;
 
-        while(j>=0 && (tempItem->m_drawDepth > x[j]->m_drawDepth
-                       || (tempItem->m_drawDepth == x[j]->m_drawDepth && tempItem->m_nZOrder > x[j]->m_nZOrder)
-                       || (tempItem->m_drawDepth == x[j]->m_drawDepth && tempItem->m_nZOrder == x[j]->m_nZOrder &&  tempItem->m_drawOrder > x[j]->m_drawOrder)))
+        while(j>=0 && (tempItem->m_drawOrder > x[j]->m_drawOrder))
         {
             x[j+1] = x[j];
             j = j-1;
@@ -175,13 +184,13 @@ void CCScene::sortAllTouchableNodes()
         x[j+1] = tempItem;
     }
 
-//    // debug
-//    CCLOG("----------------------------------------");
-//    for(i=0; i<length; i++)
-//    {
-//        tempItem = x[i];
-//        CCLOG("[%03d] m_drawDepth = %d, m_nZOrder = %d, m_drawOrder = %u", i, tempItem->m_drawDepth, tempItem->m_nZOrder, tempItem->m_drawOrder);
-//    }
+    // debug
+    //CCLOG("----------------------------------------");
+    //for(i=0; i<length; i++)
+    //{
+    //    tempItem = x[i];
+    //    CCLOG("[%03d] m_drawOrder = %u, w = %0.2f, h = %0.2f", i, tempItem->m_drawOrder, tempItem->getCascadeBoundingBox().size.width, tempItem->getCascadeBoundingBox().size.height);
+    //}
 }
 
 NS_CC_END

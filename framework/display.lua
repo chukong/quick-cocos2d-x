@@ -253,6 +253,10 @@ function display.newLayer()
     return CCLayerExtend.extend(CCLayer:create())
 end
 
+function display.newColorLayer(color)
+    return CCLayerExtend.extend(CCLayerColor:create(color))
+end
+
 function display.newNode()
     return CCNodeExtend.extend(CCNode:create())
 end

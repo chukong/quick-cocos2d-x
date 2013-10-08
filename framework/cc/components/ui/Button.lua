@@ -69,6 +69,7 @@ function Button:exportMethods()
         "isButtonEnabled",
         "setButtonEnabled"
     })
+    return self
 end
 
 function Button:onTouch_(event, x, y)

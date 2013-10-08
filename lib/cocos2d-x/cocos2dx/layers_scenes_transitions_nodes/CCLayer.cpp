@@ -66,7 +66,9 @@ bool CCLayer::init()
     {        
         CCDirector * pDirector;
         CC_BREAK_IF(!(pDirector = CCDirector::sharedDirector()));
-        this->setContentSize(pDirector->getWinSize());
+        const CCSize &winSize = pDirector->getWinSize();
+        this->setContentSize(winSize);
+        setCascadeBoundingBox(CCRect(0, 0, winSize.width, winSize.height));
         m_bTouchEnabled = false;
         m_bAccelerometerEnabled = false;
         // success
