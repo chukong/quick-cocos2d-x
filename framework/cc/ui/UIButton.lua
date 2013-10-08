@@ -40,9 +40,9 @@ end
 function UIButton:setButtonEnabled(enabled)
     self:setTouchEnabled(enabled)
     if enabled and self.fsm_:canDoEvent("enable") then
-        self.fsm_:doEvent("enable")
+        self.fsm_:doEventForce("enable")
     elseif not enabled and self.fsm_:canDoEvent("disable") then
-        self.fsm_:doEvent("disable")
+        self.fsm_:doEventForce("disable")
     end
     return self
 end
