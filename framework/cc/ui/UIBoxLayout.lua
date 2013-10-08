@@ -168,8 +168,13 @@ function UIBoxLayout:apply(container)
         end
 
         local widgetAnchorPoint = display.ANCHOR_POINTS[widget:getLayoutAlignment()]
-        wx = wx + actualWidth * widgetAnchorPoint.x
-        wy = wy + actualHeight * widgetAnchorPoint.y
+        if isHBox then
+            wx = wx + actualWidth * widgetAnchorPoint.x
+            wy = wy + maxHeight * widgetAnchorPoint.y
+        else
+            wx = wx + maxWidth * widgetAnchorPoint.x
+            wy = wy + actualHeight * widgetAnchorPoint.y
+        end
 
         widget:setPosition(wx, wy)
         depth_ = depth_ + 1
