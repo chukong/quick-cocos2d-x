@@ -23,7 +23,7 @@ function GameObject.extend(target)
         self.components_[name] = nil
     end
 
-    function target:com(name)
+    function target:getComponent(name)
         return self.components_[name]
     end
 

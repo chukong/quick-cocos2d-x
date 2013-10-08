@@ -1,26 +1,26 @@
 
-local UIImage = class("UIImage", function(filename, isScale9)
-    if isScale9 then
+local UIImage = class("UIImage", function(filename, options)
+    if options and options.scale9 then
         return display.newScale9Sprite(filename)
     else
         return display.newSprite(filename)
     end
 end)
 
-function UIImage:ctor(filename, args)
+function UIImage:ctor(filename, options)
     cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
     self:align(display.LEFT_BOTTOM)
     self:setLayoutAlignment(display.LEFT_BOTTOM)
     local contentSize = self:getContentSize()
-    self:com("components.ui.LayoutProtocol"):setLayoutSize(contentSize.width, contentSize.height)
-    self.isScale9_ = tobool(totable(args).scale9)
+    self:getComponent("components.ui.LayoutProtocol"):setLayoutSize(contentSize.width, contentSize.height)
+    self.isScale9_ = options and options.scale9
     if self.isScale9_ then
         self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     end
 end
 
 function UIImage:setLayoutSize(width, height)
-    self:com("components.ui.LayoutProtocol"):setLayoutSize(width, height)
+    self:getComponent("components.ui.LayoutProtocol"):setLayoutSize(width, height)
     local width, height = self:getLayoutSize()
     local top, right, bottom, left = self:getLayoutPadding()
     width = width - left - right

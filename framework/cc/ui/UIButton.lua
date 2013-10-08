@@ -3,10 +3,6 @@ local UIButton = class("UIButton", function()
     return display.newSprite()
 end)
 
-UIButton.CHECKED          = "CHECKED"
-UIButton.CHECKED_PRESSED  = "CHECKED_PRESSED"
-UIButton.CHECKED_DISABLED = "CHECKED_DISABLED"
-
 function UIButton:ctor(events, initialState)
     self.fsm_ = {}
     cc.GameObject.extend(self.fsm_):addComponent("components.behavior.StateMachine"):exportMethods()
@@ -64,7 +60,7 @@ function UIButton:updateButtonImage_()
     local image = self.images_[state]
 
     if image then
-        self:setDisplayFrame(CCSprite:create(image):getDisplayFrame())
+        self:setDisplayFrame(display.newSprite(image):getDisplayFrame())
     else
         echoError("UIButton:updateButtonImage_() - not set image for state %s", state)
     end

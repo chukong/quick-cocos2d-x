@@ -26,7 +26,7 @@ function UIGroup:enableTouch(enabled)
 end
 
 function UIGroup:setLayoutSize(width, height)
-    self:com("components.ui.LayoutProtocol"):setLayoutSize(width, height)
+    self:getComponent("components.ui.LayoutProtocol"):setLayoutSize(width, height)
     if self.backgroundSprite_ then
         self.backgroundSprite_:setLayoutSize(self:getLayoutSize())
     end
