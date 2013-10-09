@@ -10,6 +10,7 @@ cc.GameObject = import(".GameObject")
 -- init components
 local components = {
     "components.behavior.StateMachine",
+    "components.behavior.EventProtocol",
     "components.ui.BasicLayoutProtocol",
     "components.ui.LayoutProtocol",
 }
