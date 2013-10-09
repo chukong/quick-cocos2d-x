@@ -7,7 +7,7 @@ local UIGroup = class("UIGroup", function()
 end)
 
 function UIGroup:ctor()
-    cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
+    makeUIControl_(self)
     self:setLayout(UIBoxLayout.new(display.LEFT_TO_RIGHT))
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     self:align(display.LEFT_BOTTOM)

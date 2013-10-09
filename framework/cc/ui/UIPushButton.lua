@@ -2,17 +2,17 @@
 local UIButton = import(".UIButton")
 local UIPushButton = class("UIPushButton", UIButton)
 
-UIPushButton.NORMAL   = "NORMAL"
-UIPushButton.PRESSED  = "PRESSED"
-UIPushButton.DISABLED = "DISABLED"
+UIPushButton.NORMAL   = "normal"
+UIPushButton.PRESSED  = "pressed"
+UIPushButton.DISABLED = "disabled"
 
-function UIPushButton:ctor(images)
+function UIPushButton:ctor(images, options)
     UIPushButton.super.ctor(self, {
-        {name = "disable", from = {"NORMAL", "PRESSED"}, to = "DISABLED"},
-        {name = "enable",  from = {"DISABLED"}, to = "NORMAL"},
-        {name = "press",   from = "NORMAL",  to = "PRESSED"},
-        {name = "release", from = "PRESSED", to = "NORMAL"},
-    }, "NORMAL")
+        {name = "disable", from = {"normal", "pressed"}, to = "disabled"},
+        {name = "enable",  from = {"disabled"}, to = "normal"},
+        {name = "press",   from = "normal",  to = "pressed"},
+        {name = "release", from = "pressed", to = "normal"},
+    }, "normal", options)
     self:setButtonImage(UIPushButton.NORMAL, images["normal"], true)
     self:setButtonImage(UIPushButton.PRESSED, images["pressed"], true)
     self:setButtonImage(UIPushButton.DISABLED, images["disabled"], true)
@@ -37,48 +37,29 @@ function UIPushButton:setButtonImage(state, image, ignoreEmpty)
     return self
 end
 
-function UIPushButton:onButtonClicked(callback)
-    self.onClickedCallback_ = callback
-    return self
-end
-
-function UIPushButton:onButtonPressed(callback)
-    self.onPressedCallback_ = callback
-    return self
-end
-
-function UIPushButton:onButtonRelease(callback)
-    self.onReleaseCallback_ = callback
-    return self
-end
-
 function UIPushButton:onTouch_(event, x, y)
     if event == "began" then
         self.fsm_:doEvent("press")
-        self:callHandler_("onPressedCallback_", x, y, true)
+        self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         return true
     end
 
     local touchInTarget = self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
     if event == "moved" then
-        if touchInTarget then
-            if self.fsm_:canDoEvent("press") then
-                self.fsm_:doEvent("press")
-                self:callHandler_("onPressedCallback_", x, y, touchInTarget)
-            end
-        else
-            if self.fsm_:canDoEvent("release") then
-                self.fsm_:doEvent("release")
-                self:callHandler_("onReleaseCallback_", x, y, touchInTarget)
-            end
+        if touchInTarget and self.fsm_:canDoEvent("press") then
+            self.fsm_:doEvent("press")
+            self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
+        elseif not touchInTarget and self.fsm_:canDoEvent("release") then
+            self.fsm_:doEvent("release")
+            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = false})
         end
     else
         if self.fsm_:canDoEvent("release") then
             self.fsm_:doEvent("release")
-            self:callHandler_("onReleaseCallback_", x, y, touchInTarget)
+            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = touchInTarget})
         end
         if event == "ended" and touchInTarget then
-            self:callHandler_("onClickedCallback_", x, y, touchInTarget)
+            self:dispatchEvent({name = UIButton.CLICKED_EVENT, x = x, y = y, touchInTarget = true})
         end
     end
 end

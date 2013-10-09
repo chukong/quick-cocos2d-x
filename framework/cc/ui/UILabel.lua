@@ -4,10 +4,10 @@ local UILabel = class("UILabel", function(options)
 end)
 
 function UILabel:ctor(options)
-    cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
+    makeUIControl_(self)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
-    self:align(display.LEFT_CENTER)
     self:setLayoutAlignment(display.LEFT_CENTER)
+    self:align(display.LEFT_CENTER)
 end
 
 function UILabel:setLayoutSize(width, height)
