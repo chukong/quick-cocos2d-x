@@ -1,10 +1,6 @@
 
-local UIButton = class("UIButton", function(images, options)
-    if options and options.scale9 then
-        return display.newNode()
-    else
-        return display.newSprite()
-    end
+local UIButton = class("UIButton", function()
+    return display.newNode()
 end)
 
 UIButton.CLICKED_EVENT = "CLICKED_EVENT"
@@ -35,8 +31,8 @@ function UIButton:ctor(events, initialState, options)
     self:addTouchEventListener(handler(self, self.onTouch_))
     self:setNodeEventEnabled(true)
     self.images_ = {}
+    self.sprite_ = nil
     self.scale9_ = options and options.scale9
-    self.scale9Sprite_ = nil
     self.scale9Size_ = nil
     self.labels_ = {}
     self.labelOffset_ = {0, 0}
@@ -103,8 +99,8 @@ end
 function UIButton:setButtonSize(width, height)
     assert(self.scale9_, "UIButton:setButtonSize() - can't change size for non-scale9 button")
     self.scale9Size_ = {width, height}
-    if self.scale9Sprite_ then
-        self.scale9Sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
+    if self.sprite_ then
+        self.sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
     end
     return self
 end
@@ -183,23 +179,23 @@ function UIButton:updateButtonImage_()
         end
     end
     if image then
-        if self.scale9_ then
-            if self.scale9Sprite_ then
-                self.scale9Sprite_:removeFromParentAndCleanup(true)
-                self.scale9Sprite_ = nil
-            end
+        if self.sprite_ then
+            self.sprite_:removeFromParentAndCleanup(true)
+            self.sprite_ = nil
+        end
 
-            self.scale9Sprite_ = CCScale9Sprite:create(image)
+        if self.scale9_ then
+            self.sprite_ = display.newScale9Sprite(image)
             if not self.scale9Size_ then
-                local size = self.scale9Sprite_:getContentSize()
+                local size = self.sprite_:getContentSize()
                 self.scale9Size_ = {size.width, size.height}
             else
-                self.scale9Sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
+                self.sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
             end
-            self:addChild(self.scale9Sprite_, UIButton.IMAGE_ZORDER)
         else
-            self:setDisplayFrame(display.newSprite(image):getDisplayFrame())
+            self.sprite_ = display.newSprite(image)
         end
+        self:addChild(self.sprite_, UIButton.IMAGE_ZORDER)
     else
         echoError("UIButton:updateButtonImage_() - not set image for state %s", state)
     end
