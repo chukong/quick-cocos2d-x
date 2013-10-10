@@ -27,24 +27,24 @@ function WelcomeScene:ctor()
         on_pressed = "CheckBoxButtonOnPressed.png",
         on_disabled = "CheckBoxButtonOnDisabled.png",
     }
-    checkBoxButton1 = cc.ui.UICheckBoxButton.new(checkBoxButtonImages, {scale9 = false})
+    checkBoxButton1 = cc.ui.UICheckBoxButton.new(checkBoxButtonImages)
         :setButtonLabel(cc.ui.UILabel.new({text = "", size = 24,  color = ccc3(96, 96, 255)}))
         :setButtonLabelOffset(100, 0)
         :onButtonStateChanged(function(event)
             updateCheckBoxButtonLabel(event.target)
         end)
-        :pos(display.cx - 100, display.cy - 160)
+        :pos(display.cx - 80, display.cy - 160)
         :addTo(self)
     updateCheckBoxButtonLabel(checkBoxButton1)
 
-    checkBoxButton2 = cc.ui.UICheckBoxButton.new(checkBoxButtonImages, {scale9 = false})
+    checkBoxButton2 = cc.ui.UICheckBoxButton.new(checkBoxButtonImages)
         :setButtonSelected(true)
         :setButtonLabel(cc.ui.UILabel.new({text = "", size = 24, color = ccc3(96, 255, 96)}))
         :setButtonLabelOffset(100, 0)
         :onButtonStateChanged(function(event)
             updateCheckBoxButtonLabel(event.target)
         end)
-        :pos(display.cx - 100, display.cy - 100)
+        :pos(display.cx - 80, display.cy - 100)
         :addTo(self)
     updateCheckBoxButtonLabel(checkBoxButton2)
 
@@ -54,17 +54,17 @@ function WelcomeScene:ctor()
         disabled = "Button01Disabled.png",
     }
     pushButton = cc.ui.UIPushButton.new(pushButtonImages, {scale9 = true})
-        :setButtonSize(300, 60)
-        :setButtonLabel(cc.ui.UIPushButton.NORMAL, ui.newTTFLabel({
+        :setButtonSize(300, 80)
+        :setButtonLabel("normal", ui.newTTFLabel({
             text = "This is a PushButton",
             size = 24
         }))
-        :setButtonLabel(cc.ui.UIPushButton.PRESSED, ui.newTTFLabel({
+        :setButtonLabel("pressed", ui.newTTFLabel({
             text = "Button Pressed",
             size = 24,
             color = ccc3(255, 64, 64)
         }))
-        :setButtonLabel(cc.ui.UIPushButton.DISABLED, ui.newTTFLabel({
+        :setButtonLabel("disabled", ui.newTTFLabel({
             text = "Button Disabled",
             size = 24,
             color = ccc3(0, 0, 0)
@@ -78,9 +78,9 @@ function WelcomeScene:ctor()
 
             local button = event.target
             button:setButtonEnabled(false)
-            button:setButtonLabelString(cc.ui.UIPushButton.DISABLED, "Button Enable after 1s")
+            button:setButtonLabelString("disabled", "Button Enable after 1s")
             self:performWithDelay(function()
-                button:setButtonLabelString(cc.ui.UIPushButton.DISABLED, "Button Disabled")
+                button:setButtonLabelString("disabled", "Button Disabled")
                 button:setButtonEnabled(true)
             end, 1.0)
         end)
