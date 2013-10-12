@@ -7,7 +7,7 @@ local UIGroup = class("UIGroup", function()
 end)
 
 function UIGroup:ctor()
-    cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
+    makeUIControl_(self)
     self:setLayout(UIBoxLayout.new(display.LEFT_TO_RIGHT))
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     self:align(display.LEFT_BOTTOM)
@@ -26,7 +26,7 @@ function UIGroup:enableTouch(enabled)
 end
 
 function UIGroup:setLayoutSize(width, height)
-    self:com("components.ui.LayoutProtocol"):setLayoutSize(width, height)
+    self:getComponent("components.ui.LayoutProtocol"):setLayoutSize(width, height)
     if self.backgroundSprite_ then
         self.backgroundSprite_:setLayoutSize(self:getLayoutSize())
     end

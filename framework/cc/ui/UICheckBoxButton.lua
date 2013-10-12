@@ -2,32 +2,33 @@
 local UIButton = import(".UIButton")
 local UICheckBoxButton = class("UICheckBoxButton", UIButton)
 
-UICheckBoxButton.OFF          = "OFF"
-UICheckBoxButton.OFF_PRESSED  = "OFF_PRESSED"
-UICheckBoxButton.OFF_DISABLED = "OFF_DISABLED"
-UICheckBoxButton.ON           = "ON"
-UICheckBoxButton.ON_PRESSED   = "ON_PRESSED"
-UICheckBoxButton.ON_DISABLED  = "ON_DISABLED"
+UICheckBoxButton.OFF          = "off"
+UICheckBoxButton.OFF_PRESSED  = "off_pressed"
+UICheckBoxButton.OFF_DISABLED = "off_disabled"
+UICheckBoxButton.ON           = "on"
+UICheckBoxButton.ON_PRESSED   = "on_pressed"
+UICheckBoxButton.ON_DISABLED  = "on_disabled"
 
-function UICheckBoxButton:ctor(images)
+function UICheckBoxButton:ctor(images, options)
     UICheckBoxButton.super.ctor(self, {
-        {name = "disable",  from = {"OFF", "OFF_PRESSED"}, to = "OFF_DISABLED"},
-        {name = "disable",  from = {"ON", "ON_PRESSED"},   to = "ON_DISABLED"},
-        {name = "enable",   from = {"OFF_DISABLED"}, to = "OFF"},
-        {name = "enable",   from = {"ON_DISABLED"},  to = "ON"},
-        {name = "press",    from = "OFF", to = "OFF_PRESSED"},
-        {name = "press",    from = "ON",  to = "ON_PRESSED"},
-        {name = "release",  from = "OFF_PRESSED", to = "OFF"},
-        {name = "release",  from = "ON_PRESSED", to = "ON"},
-        {name = "select",   from = "OFF", to = "ON"},
-        {name = "unselect", from = "ON",  to = "OFF"},
-    }, "OFF")
+        {name = "disable",  from = {"off", "off_pressed"}, to = "off_disabled"},
+        {name = "disable",  from = {"on", "on_pressed"},   to = "on_disabled"},
+        {name = "enable",   from = {"off_disabled"}, to = "off"},
+        {name = "enable",   from = {"on_disabled"},  to = "on"},
+        {name = "press",    from = "off", to = "off_pressed"},
+        {name = "press",    from = "on",  to = "on_pressed"},
+        {name = "release",  from = "off_pressed", to = "off"},
+        {name = "release",  from = "on_pressed", to = "on"},
+        {name = "select",   from = "off", to = "on"},
+        {name = "unselect", from = "on", to = "off"},
+    }, "off", options)
     self:setButtonImage(UICheckBoxButton.OFF, images["off"], true)
-    self:setButtonImage(UICheckBoxButton.OFF_PRESSED, images["offpressed"], true)
-    self:setButtonImage(UICheckBoxButton.OFF_DISABLED, images["offdisabled"], true)
+    self:setButtonImage(UICheckBoxButton.OFF_PRESSED, images["off_pressed"], true)
+    self:setButtonImage(UICheckBoxButton.OFF_DISABLED, images["off_disabled"], true)
     self:setButtonImage(UICheckBoxButton.ON, images["on"], true)
-    self:setButtonImage(UICheckBoxButton.ON_PRESSED, images["onpressed"], true)
-    self:setButtonImage(UICheckBoxButton.ON_DISABLED, images["ondisabled"], true)
+    self:setButtonImage(UICheckBoxButton.ON_PRESSED, images["on_pressed"], true)
+    self:setButtonImage(UICheckBoxButton.ON_DISABLED, images["on_disabled"], true)
+    self.labelAlign_ = display.LEFT_CENTER
 end
 
 function UICheckBoxButton:setButtonImage(state, image, ignoreEmpty)
@@ -62,54 +63,52 @@ function UICheckBoxButton:isButtonSelected()
     return self.fsm_:canDoEvent("unselect")
 end
 
-function UICheckBoxButton:onButtonClicked(callback)
-    self.onClickedCallback_ = callback
-    return self
-end
-
 function UICheckBoxButton:setButtonSelected(selected)
     if self:isButtonSelected() ~= selected then
         if selected then
-            self.fsm_:doEvent("select")
+            self.fsm_:doEventForce("select")
         else
-            self.fsm_:doEvent("unselect")
+            self.fsm_:doEventForce("unselect")
         end
+        self:dispatchEvent({name = UIButton.STATE_CHANGED_EVENT, state = self.fsm_:getState()})
     end
+    return self
 end
 
 function UICheckBoxButton:onTouch_(event, x, y)
     if event == "began" then
         self.fsm_:doEvent("press")
-        self:callHandler_("onPressedCallback_", x, y, true)
+        self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         return true
     end
 
     local touchInTarget = self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
     if event == "moved" then
-        if touchInTarget then
-            if self.fsm_:canDoEvent("press") then
-                self.fsm_:doEvent("press")
-                self:callHandler_("onPressedCallback_", x, y, touchInTarget)
-            end
-        else
-            if self.fsm_:canDoEvent("release") then
-                self.fsm_:doEvent("release")
-                self:callHandler_("onReleaseCallback_", x, y, touchInTarget)
-            end
+        if touchInTarget and self.fsm_:canDoEvent("press") then
+            self.fsm_:doEvent("press")
+            self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
+        elseif not touchInTarget and self.fsm_:canDoEvent("release") then
+            self.fsm_:doEvent("release")
+            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = false})
         end
     else
         if self.fsm_:canDoEvent("release") then
             self.fsm_:doEvent("release")
-            self:callHandler_("onReleaseCallback_", x, y, touchInTarget)
+            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = touchInTarget})
         end
         if event == "ended" and touchInTarget then
-            if self.fsm_:canDoEvent("select") then
-                self.fsm_:doEvent("select")
-            else
-                self.fsm_:doEvent("unselect")
-            end
-            self:callHandler_("onClickedCallback_", x, y, touchInTarget)
+            self:setButtonSelected(self.fsm_:canDoEvent("select"))
+            self:dispatchEvent({name = UIButton.CLICKED_EVENT, x = x, y = y, touchInTarget = true})
         end
+    end
+end
+
+function UICheckBoxButton:getDefaultState_()
+    local state = self.fsm_:getState()
+    if state == UICheckBoxButton.ON or state == UICheckBoxButton.ON_DISABLED or state == UICheckBoxButton.ON_PRESSED then
+        return {UICheckBoxButton.ON, UICheckBoxButton.OFF}
+    else
+        return {UICheckBoxButton.OFF, UICheckBoxButton.ON}
     end
 end
 

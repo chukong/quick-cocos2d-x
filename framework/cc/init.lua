@@ -1,6 +1,8 @@
 
 local CURRENT_MODULE_NAME = ...
 
+cc = cc or {}
+
 -- init base classes
 cc.Registry = import(".Registry")
 cc.GameObject = import(".GameObject")
@@ -8,7 +10,7 @@ cc.GameObject = import(".GameObject")
 -- init components
 local components = {
     "components.behavior.StateMachine",
-    "components.ui.Button",
+    "components.behavior.EventProtocol",
     "components.ui.BasicLayoutProtocol",
     "components.ui.LayoutProtocol",
 }

@@ -48,12 +48,14 @@ function MenuScene:ctor()
         print("GreenButton TAP")
     end):addTo(self):pos(display.right - 100, display.bottom + 200)
 
-    local p = newButton("PinkButton.png", function()
+    local parentButton = newButton("PinkButton.png", function()
         print("PinkButton TAP")
     end):addTo(self):pos(display.right - 200, display.bottom + 300):zorder(1000)
+
     newButton("BlueButton.png", function()
         print("BlueButton TAP")
-    end):addTo(p):scale(0.5):pos(100, 100)
+        parentButton:setVisible(false)
+    end):addTo(parentButton):scale(0.5):pos(100, 100)
 
     newButton("WhiteButton.png", function()
         print("WhiteButton TAP")

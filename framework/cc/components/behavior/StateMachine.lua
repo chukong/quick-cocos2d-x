@@ -105,6 +105,33 @@ function StateMachine:isFinishedState()
     return self:isState(self.terminal_)
 end
 
+function StateMachine:doEventForce(name, ...)
+    local from = self.current_
+    local map = self.map_[name]
+    local to = (map[from] or map[StateMachine.WILDCARD]) or from
+    local args = {...}
+
+    local event = {
+        name = name,
+        from = from,
+        to = to,
+        args = args,
+    }
+
+    if self.transition_ then self.transition_ = false end
+    self:beforeEvent_(event)
+    if from == to then
+        self:afterEvent_(event)
+        return StateMachine.NOTRANSITION
+    end
+
+    self.current_ = to
+    self:enterState_(event)
+    self:changeState_(event)
+    self:afterEvent_(event)
+    return StateMachine.SUCCEEDED
+end
+
 function StateMachine:doEvent(name, ...)
     local from = self.current_
     local map = self.map_[name]
@@ -174,8 +201,6 @@ function StateMachine:doEvent(name, ...)
             self.transition_ = false
         end
     end
-
-    return self
 end
 
 function StateMachine:exportMethods()
@@ -187,6 +212,7 @@ function StateMachine:exportMethods()
         "canDoEvent",
         "cannotDoEvent",
         "isFinishedState",
+        "doEventForce",
         "doEvent",
     })
     return self

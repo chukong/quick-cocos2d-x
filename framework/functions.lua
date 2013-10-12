@@ -250,7 +250,6 @@ function table.nums(t)
     end
     return count
 end
-table.getn = table.nums
 
 function table.keys(t)
     local keys = {}
