@@ -14,6 +14,7 @@ function UILayout:ctor(name)
     end
     self.name_ = name
     self.position_ = {x = 0, y = 0}
+    self.anchorPoint_ = display.ANCHOR_POINTS[display.CENTER]
     self.order_ = 0
 
     self.widgets_ = {}
@@ -78,6 +79,14 @@ end
 
 function UILayout:setPositionY(y)
     self.position_.y = y
+end
+
+function UILayout:getAnchorPoint()
+    return self.anchorPoint_
+end
+
+function UILayout:setAnchorPoint(ap)
+    self.anchorPoint_ = ap
 end
 
 function UILayout:apply(container)

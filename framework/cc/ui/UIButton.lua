@@ -42,6 +42,8 @@ function UIButton:ctor(events, initialState, options)
     self.labelOffset_ = {0, 0}
     self.labelAlign_ = display.CENTER
     self.initialState_ = initialState
+
+    display.align(self, display.CENTER)
 end
 
 function UIButton:align(align, x, y)
