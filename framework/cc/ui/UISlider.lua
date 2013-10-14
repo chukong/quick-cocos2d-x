@@ -45,8 +45,8 @@ function UISlider:ctor(direction, images, options)
     self.images_ = clone(images)
     self.scale9_ = options.scale9
     self.scale9Size_ = nil
-    self.min_ = tonumber(options.min or 0)
-    self.max_ = tonumber(options.max or 100)
+    self.min_ = tonum(options.min or 0)
+    self.max_ = tonum(options.max or 100)
     self.value_ = self.min_
     self.buttonPositionRange_ = {min = 0, max = 0}
     self.buttonPositionOffset_ = {x = 0, y = 0}
