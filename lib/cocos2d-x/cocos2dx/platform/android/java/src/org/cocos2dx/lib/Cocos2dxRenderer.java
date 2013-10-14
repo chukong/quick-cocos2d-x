@@ -67,10 +67,13 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
+	private boolean isReady = false;
+	
 	@Override
 	public void onSurfaceCreated(final GL10 pGL10, final EGLConfig pEGLConfig) {
 		Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
 		this.mLastTickInNanoSeconds = System.nanoTime();
+		isReady = true;
 	}
 
 	@Override
@@ -122,30 +125,37 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 	private static native void nativeOnResume();
 
 	public void handleActionDown(final int pID, final float pX, final float pY) {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeTouchesBegin(pID, pX, pY);
 	}
 
 	public void handleActionUp(final int pID, final float pX, final float pY) {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeTouchesEnd(pID, pX, pY);
 	}
 
 	public void handleActionCancel(final int[] pIDs, final float[] pXs, final float[] pYs) {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeTouchesCancel(pIDs, pXs, pYs);
 	}
 
 	public void handleActionMove(final int[] pIDs, final float[] pXs, final float[] pYs) {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeTouchesMove(pIDs, pXs, pYs);
 	}
 
 	public void handleKeyDown(final int pKeyCode) {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeKeyDown(pKeyCode);
 	}
 
 	public void handleOnPause() {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeOnPause();
 	}
 
 	public void handleOnResume() {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeOnResume();
 	}
 
@@ -154,10 +164,12 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 	private static native String nativeGetContentText();
 
 	public void handleInsertText(final String pText) {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeInsertText(pText);
 	}
 
 	public void handleDeleteBackward() {
+		if (!isReady) return;
 		Cocos2dxRenderer.nativeDeleteBackward();
 	}
 
