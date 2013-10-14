@@ -54,7 +54,7 @@ function MenuScene:ctor()
 
     newButton("BlueButton.png", function()
         print("BlueButton TAP")
-        parentButton:setVisible(false)
+        -- parentButton:setVisible(false)
     end):addTo(parentButton):scale(0.5):pos(100, 100)
 
     newButton("WhiteButton.png", function()
@@ -64,6 +64,32 @@ function MenuScene:ctor()
     newButton("BlueButton.png", function()
         print("BlueButton TAP")
     end):addTo(self):pos(display.right - 400, display.bottom + 500)
+
+    ----
+
+    local batch = display.newBatchNode(GAME_TEXTURE_IMAGE_FILENAME):addTo(self)
+
+    newButton("#GreenButton2.png", function()
+        print("GreenButton2 TAP")
+    end):addTo(batch):pos(display.right - 100, display.bottom + 600)
+
+    local parentButton2 = newButton("#PinkButton2.png", function()
+        print("PinkButton2 TAP")
+    end):addTo(batch):pos(display.right - 200, display.bottom + 700):zorder(1000)
+
+    newButton("#BlueButton2.png", function()
+        print("BlueButton2 TAP")
+        -- parentButton2:setVisible(false)
+    end):addTo(parentButton2):scale(0.5):pos(100, 100)
+
+    newButton("#WhiteButton2.png", function()
+        print("WhiteButton2 TAP")
+    end):addTo(batch):pos(display.right - 300, display.bottom + 800)
+
+    newButton("#BlueButton2.png", function()
+        print("BlueButton2 TAP")
+    end):addTo(batch):pos(display.right - 400, display.bottom + 900)
+
 end
 
 return MenuScene
