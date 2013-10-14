@@ -214,7 +214,6 @@ function TestUIButtonScene:createButtonGroup3()
         :setButtonLabelAlignment(display.CENTER)
         :align(display.CENTER, x, y)
         :addTo(self)
-
 end
 
 return TestUIButtonScene
