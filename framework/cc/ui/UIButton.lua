@@ -25,12 +25,9 @@ function UIButton:ctor(events, initialState, options)
     })
 
     makeUIControl_(self)
-    self:setCascadeOpacityEnabled(true)
-    self:setCascadeColorEnabled(true)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
     self:setButtonEnabled(true)
     self:addTouchEventListener(handler(self, self.onTouch_))
-    self:setNodeEventEnabled(true)
 
     self.touchInSpriteOnly_ = options and options.touchInSprite
     self.currentImage_ = nil
