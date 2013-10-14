@@ -75,6 +75,11 @@ int QuickXPlayer::run(void)
 
     loadProjectConfig();
 
+	if (!m_project.getProjectDir().length())
+	{
+		m_project.resetToWelcome();
+	}
+
     AllocConsole();
     freopen("CONOUT$", "wt", stdout);
     freopen("CONOUT$", "wt", stderr);
@@ -237,11 +242,30 @@ void QuickXPlayer::updateWindowTitle(void)
 
 void QuickXPlayer::relaunch(void)
 {
-    RECT rect;
-    GetWindowRect(m_hwnd, &rect);
-    m_project.setWindowOffset(CCPoint(rect.left, rect.top));
-    m_exit = false;
-    CCDirector::sharedDirector()->end();
+	string commandLine = m_project.makeCommandLine(kProjectConfigAll);
+	TCHAR moduleName[MAX_PATH];
+	ZeroMemory(moduleName, sizeof(moduleName));
+	GetModuleFileName(NULL, moduleName, MAX_PATH);
+
+	wstring ws;
+	ws.append(L"\"");
+	ws.append(moduleName);
+	ws.append(L"\" ");
+	ws.append(commandLine.begin(), commandLine.end());
+
+	STARTUPINFO si = {0};
+	PROCESS_INFORMATION pi = {0};
+	lstrcpyW(moduleName, ws.c_str());
+	if (CreateProcess(NULL, moduleName, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi))
+	{
+		ExitProcess(0);
+	}
+
+    //RECT rect;
+    //GetWindowRect(m_hwnd, &rect);
+    //m_project.setWindowOffset(CCPoint(rect.left, rect.top));
+    //m_exit = false;
+    //CCDirector::sharedDirector()->end();
 }
 
 // menu callback
