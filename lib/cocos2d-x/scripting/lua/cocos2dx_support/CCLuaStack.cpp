@@ -182,19 +182,8 @@ int CCLuaStack::executeScriptFile(const char* filename)
     return executeString(code.c_str());
 #else
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename);
-    ++m_callFromLua;
-    int nRet = luaL_dofile(m_state, fullPath.c_str());
-    --m_callFromLua;
-    CC_ASSERT(m_callFromLua >= 0);
-    // lua_gc(m_state, LUA_GCCOLLECT, 0);
-
-    if (nRet != 0)
-    {
-        CCLOG("[LUA ERROR] %s", lua_tostring(m_state, -1));
-        lua_pop(m_state, 1);
-        return nRet;
-    }
-    return 0;
+    luaL_loadfile(m_state, fullPath.c_str());
+    return executeFunction(0);
 #endif
 }
 
