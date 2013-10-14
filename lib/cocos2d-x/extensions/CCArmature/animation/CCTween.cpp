@@ -273,13 +273,13 @@ void CCTween::setBetween(CCFrameData *from, CCFrameData *to)
 {
     do
     {
-        if(to->displayIndex < 0 && from->displayIndex > 0)
+        if(to->displayIndex < 0 && from->displayIndex >= 0)
         {
             m_pFrom->copy(from);
             m_pBetween->subtract(to, to);
             break;
         }
-        else if(from->displayIndex < 0 && to->displayIndex > 0)
+        else if(from->displayIndex < 0 && to->displayIndex >= 0)
         {
             m_pFrom->copy(to);
             m_pBetween->subtract(to, to);

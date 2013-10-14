@@ -25,7 +25,7 @@ function BasicLayoutProtocol:setLayoutSize(width, height)
     if width == 0 and height == 0 then
         self.layoutSize_ = nil
     else
-        self.layoutSize_ = {width = tonumber(width), height = tonumber(height)}
+        self.layoutSize_ = {width = tonum(width), height = tonum(height)}
     end
     return self
 end
@@ -35,8 +35,8 @@ function BasicLayoutProtocol:getLayoutMinSize()
 end
 
 function BasicLayoutProtocol:setLayoutMinSize(width, height)
-    self.minSize_.width = tonumber(width)
-    self.minSize_.height = tonumber(height)
+    self.minSize_.width = tonum(width)
+    self.minSize_.height = tonum(height)
     return self
 end
 
@@ -45,8 +45,8 @@ function BasicLayoutProtocol:getLayoutMaxSize()
 end
 
 function BasicLayoutProtocol:setLayoutMaxSize(width, height)
-    self.maxSize_.width = tonumber(width)
-    self.maxSize_.height = tonumber(height)
+    self.maxSize_.width = tonum(width)
+    self.maxSize_.height = tonum(height)
     return self
 end
 
@@ -74,10 +74,10 @@ function BasicLayoutProtocol:getLayoutPadding()
 end
 
 function BasicLayoutProtocol:setLayoutPadding(top, right, bottom, left)
-    self.padding_.top = tonumber(top)
-    self.padding_.right = tonumber(right)
-    self.padding_.bottom = tonumber(bottom)
-    self.padding_.left = tonumber(left)
+    self.padding_.top = tonum(top)
+    self.padding_.right = tonum(right)
+    self.padding_.bottom = tonum(bottom)
+    self.padding_.left = tonum(left)
     return self
 end
 
@@ -86,10 +86,10 @@ function BasicLayoutProtocol:getLayoutMargin()
 end
 
 function BasicLayoutProtocol:setLayoutMargin(top, right, bottom, left)
-    self.margin_.top = tonumber(top)
-    self.margin_.right = tonumber(right)
-    self.margin_.bottom = tonumber(bottom)
-    self.margin_.left = tonumber(left)
+    self.margin_.top = tonum(top)
+    self.margin_.right = tonum(right)
+    self.margin_.bottom = tonum(bottom)
+    self.margin_.left = tonum(left)
     return self
 end
 

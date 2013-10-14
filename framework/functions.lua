@@ -1,12 +1,10 @@
 
-local tonumber_ = tonumber
-
-function tonumber(v, base)
-    return tonumber_(v, base) or 0
+function tonum(v, base)
+    return tonumber(v, base) or 0
 end
 
 function toint(v)
-    return math.round(tonumber(v))
+    return math.round(tonum(v))
 end
 
 function tobool(v)
@@ -349,7 +347,7 @@ end
 
 function string.urldecode(str)
     str = string.gsub (str, "+", " ")
-    str = string.gsub (str, "%%(%x%x)", function(h) return string.char(tonumber(h,16)) end)
+    str = string.gsub (str, "%%(%x%x)", function(h) return string.char(tonum(h,16)) end)
     str = string.gsub (str, "\r\n", "\n")
     return str
 end
@@ -375,7 +373,7 @@ function string.utf8len(str)
 end
 
 function string.formatNumberThousands(num)
-    local formatted = tostring(tonumber(num))
+    local formatted = tostring(tonum(num))
     local k
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
