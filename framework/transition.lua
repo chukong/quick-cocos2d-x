@@ -54,7 +54,7 @@ function transition.create(action, args)
     end
 
     local actions = {}
-    local delay = tonumber(args.delay)
+    local delay = tonum(args.delay)
     if delay > 0 then
         actions[#actions + 1] = CCDelayTime:create(delay)
     end
@@ -134,20 +134,20 @@ function transition.scaleTo(target, args)
     assert(not tolua.isnull(target), "transition.scaleTo() - target is not CCNode")
     local action
     if args.scale then
-        action = CCScaleTo:create(tonumber(args.time), tonumber(args.scale))
+        action = CCScaleTo:create(tonum(args.time), tonum(args.scale))
     elseif args.scaleX or args.scaleY then
         local scaleX, scaleY
         if args.scaleX then
-            scaleX = tonumber(args.scaleX)
+            scaleX = tonum(args.scaleX)
         else
             scaleX = target:getScaleX()
         end
         if args.scaleY then
-            scaleY = tonumber(args.scaleY)
+            scaleY = tonum(args.scaleY)
         else
             scaleY = target:getScaleY()
         end
-        action = CCScaleTo:create(tonumber(args.time), scaleX, scaleY)
+        action = CCScaleTo:create(tonum(args.time), scaleX, scaleY)
     end
     return transition.execute(target, action, args)
 end
