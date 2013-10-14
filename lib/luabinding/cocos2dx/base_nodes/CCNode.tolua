@@ -415,6 +415,8 @@ class CCNode : public CCObject
      * @todo This method shoud be renamed as setIgnoreAnchorPointForPosition(bool) or something with "set"
      */
     void ignoreAnchorPointForPosition @ setIgnoreAnchorPointForPosition (bool ignore);
+    void ignoreAnchorPointForPosition(bool ignore);
+
     /**
      * Gets whether the anchor point will be (0,0) when you position this node.
      *

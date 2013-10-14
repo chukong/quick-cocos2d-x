@@ -37,7 +37,7 @@ NS_CC_EXT_BEGIN
 /**
  *  @lua NA
  */
-class  CCArmature : public CCNodeRGBA, public CCBlendProtocol
+class  CCArmature : public CCNode, public CCBlendProtocol
 {
 
 public:
