@@ -7,6 +7,5 @@ function __G__TRACKBACK__(errorMessage)
 end
 
 xpcall(function()
-    require("game")
-    game.startup()
+    require("app.UIDemoApp").new():run()
 end, __G__TRACKBACK__)

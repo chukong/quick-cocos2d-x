@@ -69,25 +69,6 @@ function BasicLayoutProtocol:setLayoutSizePolicy(horizontal, vertical)
     return self
 end
 
-function BasicLayoutProtocol:getLayoutAlignment()
-    return self.alignment_
-end
-
-local function checkAlignment(a)
-    a = toint(a)
-    if a < 1 or a > 9 then
-        echoError("BasicLayoutProtocol - invalid alignment")
-        return display.CENTER
-    else
-        return a
-    end
-end
-
-function BasicLayoutProtocol:setLayoutAlignment(alignment)
-    self.alignment_ = checkAlignment(alignment)
-    return self
-end
-
 function BasicLayoutProtocol:getLayoutPadding()
     return self.padding_.top, self.padding_.right, self.padding_.bottom, self.padding_.left
 end
@@ -112,32 +93,6 @@ function BasicLayoutProtocol:setLayoutMargin(top, right, bottom, left)
     return self
 end
 
--- function BasicLayoutProtocol:getLayoutScale()
---     if self.scale_ then
---         return self.scale_.horizontal, self.scale_.vertical
---     elseif self.target_.getScaleX then
---         return self.target_:getScaleX(), self.target_:getScaleY()
---     else
---         return 1, 1
---     end
--- end
-
--- function BasicLayoutProtocol:setLayoutScale(horizontal, vertical)
---     horizontal_v = tonumber(horizontal)
---     vertical_v = tonumber(vertical)
---     if horizontal_v == 0 and vertical_v == 0 then
---         self.scale_ = nil
---     else
---         if not vertical then vertical_v = horizontal_v end
---         self.scale_ = {horizontal = horizontal_v, vertical = vertical_v}
---         if self.target_.setScaleX then
---             self.target_:setScaleX(horizontal_v)
---             self.target_:setScaleY(vertical_v)
---         end
---     end
---     return self
--- end
-
 function BasicLayoutProtocol:exportMethods()
     self:exportMethods_({
         "getLayoutSize",
@@ -148,15 +103,12 @@ function BasicLayoutProtocol:exportMethods()
         "setLayoutMaxSize",
         "getLayoutSizePolicy",
         "setLayoutSizePolicy",
-        "getLayoutAlignment",
-        "setLayoutAlignment",
         "getLayoutPadding",
         "setLayoutPadding",
         "getLayoutMargin",
         "setLayoutMargin",
-        -- "getLayoutScale",
-        -- "setLayoutScale",
     })
+    return self
 end
 
 function BasicLayoutProtocol:onBind_()
@@ -164,10 +116,8 @@ function BasicLayoutProtocol:onBind_()
     self.minSize_    = {width = 0, height = 0}
     self.maxSize_    = {width = MAX, height = MAX}
     self.sizePolicy_ = {h = display.PREFERRED_SIZE, v = display.PREFERRED_SIZE}
-    self.alignment_  = display.LEFT_BOTTOM
     self.padding_    = {top = 0, right = 0, bottom = 0, left = 0}
     self.margin_     = {top = 0, right = 0, bottom = 0, left = 0}
-    self.scale_      = nil
 end
 
 function BasicLayoutProtocol:onUnbind_()

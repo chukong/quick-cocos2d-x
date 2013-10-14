@@ -30,6 +30,7 @@ function LayoutProtocol:exportMethods()
         "setLayout",
         "getLayout",
     })
+    return self
 end
 
 return LayoutProtocol

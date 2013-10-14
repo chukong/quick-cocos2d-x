@@ -132,6 +132,9 @@ echoInfo("#")
 
 display.COLOR_WHITE = ccc3(255, 255, 255)
 display.COLOR_BLACK = ccc3(0, 0, 0)
+display.COLOR_RED   = ccc3(255, 0, 0)
+display.COLOR_GREEN = ccc3(0, 255, 0)
+display.COLOR_BLUE  = ccc3(0, 0, 255)
 
 display.AUTO_SIZE      = 0
 display.FIXED_SIZE     = 1
@@ -251,6 +254,10 @@ end
 
 function display.newLayer()
     return CCLayerExtend.extend(CCLayer:create())
+end
+
+function display.newColorLayer(color)
+    return CCLayerExtend.extend(CCLayerColor:create(color))
 end
 
 function display.newNode()

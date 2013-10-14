@@ -154,12 +154,12 @@ function weakhandler(target, method)
     local t = {target, method}
     setmetatable(t, {__mode = "v"})
     return function(...)
-        if not t then return "__REMOVE__" end
+        if not t then return cc.REMOVE_HANDLER_SIGN end
         if t[1] and t[2] then
             return t[2](t[1], ...)
         else
             t = nil
-            return "__REMOVE__"
+            return cc.REMOVE_HANDLER_SIGN
         end
     end
 end
@@ -250,7 +250,6 @@ function table.nums(t)
     end
     return count
 end
-table.getn = table.nums
 
 function table.keys(t)
     local keys = {}

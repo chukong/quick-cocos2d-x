@@ -23,7 +23,7 @@ cc.t2rect = function(t)
     return CCRect(t.origin.x, t.origin.y, t.size.width, t.size.height)
 end
 
-require(cc.packageName .. ".cocos2dx.CCNodeExtend")
-require(cc.packageName .. ".cocos2dx.CCSceneExtend")
-require(cc.packageName .. ".cocos2dx.CCSpriteExtend")
-require(cc.packageName .. ".cocos2dx.CCLayerExtend")
+require(cc.PACKAGE_NAME .. ".cocos2dx.CCNodeExtend")
+require(cc.PACKAGE_NAME .. ".cocos2dx.CCSceneExtend")
+require(cc.PACKAGE_NAME .. ".cocos2dx.CCSpriteExtend")
+require(cc.PACKAGE_NAME .. ".cocos2dx.CCLayerExtend")

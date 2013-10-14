@@ -17,6 +17,13 @@ end
 
 function Registry.newObject(name)
     local cls = Registry.classes_[name]
+    if not cls then
+        -- auto load
+        pcall(function()
+            cls = require(name)
+            Registry.add(name)
+        end)
+    end
     assert(cls ~= nil, string.format("Registry.newObject() - invalid class \"%s\"", tostring(name)))
     return cls.new()
 end

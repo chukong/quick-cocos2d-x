@@ -5,14 +5,17 @@ AppBase.APP_ENTER_BACKGROUND_EVENT = "APP_ENTER_BACKGROUND_EVENT"
 AppBase.APP_ENTER_FOREGROUND_EVENT = "APP_ENTER_FOREGROUND_EVENT"
 
 function AppBase:ctor(appName, packageRoot)
-    require("framework.api.EventProtocol").extend(self)
+    cc.GameObject.extend(self)
+    self:addComponent("components.behavior.EventProtocol"):exportMethods()
 
     self.name = appName
     self.packageRoot = packageRoot or "app"
 
     local notificationCenter = CCNotificationCenter:sharedNotificationCenter()
-    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterBackground), "APP_ENTER_BACKGROUND_EVENT")
-    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterForeground), "APP_ENTER_FOREGROUND_EVENT")
+    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterBackground_), "APP_ENTER_BACKGROUND_EVENT")
+    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterForeground_), "APP_ENTER_FOREGROUND_EVENT")
+
+    self.snapshots_ = {}
 
     -- set global app
     app = self
@@ -30,6 +33,8 @@ function AppBase:enterScene(sceneName, ...)
     local sceneClass = require(scenePackageName)
     local scene = sceneClass.new(...)
     display.replaceScene(scene)
+    collectgarbage("collect")
+    collectgarbage("collect")
 end
 
 function AppBase:createView(viewName, ...)
@@ -38,11 +43,29 @@ function AppBase:createView(viewName, ...)
     return viewClass.new(...)
 end
 
-function AppBase:onEnterBackground()
+function AppBase:makeLuaVMSnapshot()
+    self.snapshots_[#self.snapshots_ + 1] = CCLuaStackSnapshot()
+    while #self.snapshots_ > 2 do
+        table.remove(self.snapshots_, 1)
+    end
+end
+
+function AppBase:checkLuaVMLeaks()
+    assert(#self.snapshots_ >= 2, "AppBase:checkLuaVMLeaks() - need least 2 snapshots")
+    local s1 = self.snapshots_[1]
+    local s2 = self.snapshots_[2]
+    for k, v in pairs(s2) do
+        if s1[k] == nil then
+            print(k, v)
+        end
+    end
+end
+
+function AppBase:onEnterBackground_()
     self:dispatchEvent({name = AppBase.APP_ENTER_BACKGROUND_EVENT})
 end
 
-function AppBase:onEnterForeground()
+function AppBase:onEnterForeground_()
     self:dispatchEvent({name = AppBase.APP_ENTER_FOREGROUND_EVENT})
 end
 
