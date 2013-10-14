@@ -185,12 +185,12 @@ void CCScene::sortAllTouchableNodes()
     }
 
     // debug
-    //CCLOG("----------------------------------------");
-    //for(i=0; i<length; i++)
-    //{
-    //    tempItem = x[i];
-    //    CCLOG("[%03d] m_drawOrder = %u, w = %0.2f, h = %0.2f", i, tempItem->m_drawOrder, tempItem->getCascadeBoundingBox().size.width, tempItem->getCascadeBoundingBox().size.height);
-    //}
+//    CCLOG("----------------------------------------");
+//    for(i=0; i<length; i++)
+//    {
+//        tempItem = x[i];
+//        CCLOG("[%03d] m_drawOrder = %u, w = %0.2f, h = %0.2f", i, tempItem->m_drawOrder, tempItem->getCascadeBoundingBox().size.width, tempItem->getCascadeBoundingBox().size.height);
+//    }
 }
 
 NS_CC_END
