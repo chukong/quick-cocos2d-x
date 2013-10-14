@@ -1,4 +1,3 @@
-
 local tonumber_ = tonumber
 
 function tonumber(v, base)
@@ -229,6 +228,88 @@ end
 function table.merge(dest, src)
     for k, v in pairs(src) do
         dest[k] = v
+    end
+end
+
+--[[--
+
+insert list.
+
+**Usage:**
+
+    local dest = {1, 2, 3}
+    local src  = {4, 5, 6}
+    table.insertList(dest, src)
+    -- dest = {1, 2, 3, 4, 5, 6}
+	dest = {1, 2, 3}
+	table.insertList(dest, src, 5)
+    -- dest = {1, 2, 3, nil, 4, 5, 6}
+
+
+@param table dest
+@param table src
+@param table beginPos insert position for dest
+]]
+function table.insertList(dest, src, beginPos)
+	beginPos = tonumber_(beginPos)
+	if beginPos == nil then
+		beginPos = #dest + 1
+	end
+	
+	local len = #src
+	for i = 0, len - 1 do
+		dest[i + beginPos] = src[i + 1]
+	end
+end
+
+--[[
+search target index at list.
+
+@param table list
+@param * target
+@param int from idx, default 1
+@param bool useNaxN, the len use table.maxn(true) or #(false) default:false
+@param return index of target at list, if not return -1
+]]
+function table.indexOf(list, target, from, useMaxN)
+	local len = (useMaxN and #list) or table.maxn(list)
+	if from == nil then
+		from = 1
+	end
+	for i = from, len do
+		if list[i] == target then
+			return i
+		end
+	end
+	return -1
+end
+
+function table.indexOfKey(list, key, value, from, useMaxN)
+	local len = (useMaxN and #list) or table.maxn(list)
+	if from == nil then
+		from = 1
+	end
+	local item = nil
+	for i = from, len do
+		item = list[i]
+		if item ~= nil and item[key] == value then
+			return i
+		end
+	end
+	return -1
+end
+
+function table.removeItem(list, item, removeAll)
+    local rmCount = 0
+    for i = 1, #list do
+        if list[i - rmCount] == item then
+            table.remove(list, i - rmCount)
+            if removeAll then
+                rmCount = rmCount + 1
+            else 
+                break
+            end
+        end
     end
 end
 
