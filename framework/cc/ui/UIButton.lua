@@ -214,6 +214,7 @@ function UIButton:updateButtonImage_()
                 self.sprite_:removeFromParentAndCleanup(true)
                 self.sprite_ = nil
             end
+            self.currentImage_ = image
 
             if self.scale9_ then
                 self.sprite_ = display.newScale9Sprite(image)
