@@ -7,7 +7,6 @@ local nameIndex_ = 1
 
 function UILayout:ctor(name)
     cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
-    self:setLayoutAlignment(display.LEFT_BOTTOM)
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     if not name then
         name = string.format("layout-%d", nameIndex_)
@@ -37,6 +36,16 @@ end
 function UILayout:addWidget(widget, weight)
     self.order_ = self.order_ + 1
     self.widgets_[widget] = {weight = weight or 1, order = self.order_}
+    return self
+end
+
+function UILayout:removeWidget(widget)
+    for w, _ in pairs(self.widgets_) do
+        if w == widget then
+            self.widgets_[w] = nil
+            break
+        end
+    end
     return self
 end
 

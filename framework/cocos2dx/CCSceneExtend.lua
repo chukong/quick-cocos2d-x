@@ -33,7 +33,10 @@ function CCSceneExtend.extend(target)
             target:onExit()
 
             if DEBUG_MEM then
+                echoInfo("----------------------------------------")
+                echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
                 CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
+                echoInfo("----------------------------------------")
             end
         elseif event == "cleanup" then
             target:onCleanup()

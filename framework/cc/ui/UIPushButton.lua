@@ -13,6 +13,7 @@ function UIPushButton:ctor(images, options)
         {name = "press",   from = "normal",  to = "pressed"},
         {name = "release", from = "pressed", to = "normal"},
     }, "normal", options)
+    if type(images) ~= "table" then images = {normal = images} end
     self:setButtonImage(UIPushButton.NORMAL, images["normal"], true)
     self:setButtonImage(UIPushButton.PRESSED, images["pressed"], true)
     self:setButtonImage(UIPushButton.DISABLED, images["disabled"], true)
@@ -39,12 +40,13 @@ end
 
 function UIPushButton:onTouch_(event, x, y)
     if event == "began" then
+        if not self:checkTouchInSprite_(x, y) then return false end
         self.fsm_:doEvent("press")
         self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         return true
     end
 
-    local touchInTarget = self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+    local touchInTarget = self:checkTouchInSprite_(x, y)
     if event == "moved" then
         if touchInTarget and self.fsm_:canDoEvent("press") then
             self.fsm_:doEvent("press")

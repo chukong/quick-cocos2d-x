@@ -20,7 +20,9 @@ function UICheckBoxButton:ctor(images, options)
         {name = "release",  from = "off_pressed", to = "off"},
         {name = "release",  from = "on_pressed", to = "on"},
         {name = "select",   from = "off", to = "on"},
+        {name = "select",   from = "off_disabled", to = "on_disabled"},
         {name = "unselect", from = "on", to = "off"},
+        {name = "unselect", from = "on_disabled", to = "off_disabled"},
     }, "off", options)
     self:setButtonImage(UICheckBoxButton.OFF, images["off"], true)
     self:setButtonImage(UICheckBoxButton.OFF_PRESSED, images["off_pressed"], true)
@@ -77,12 +79,13 @@ end
 
 function UICheckBoxButton:onTouch_(event, x, y)
     if event == "began" then
+        if not self:checkTouchInSprite_(x, y) then return false end
         self.fsm_:doEvent("press")
         self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         return true
     end
 
-    local touchInTarget = self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+    local touchInTarget = self:checkTouchInSprite_(x, y)
     if event == "moved" then
         if touchInTarget and self.fsm_:canDoEvent("press") then
             self.fsm_:doEvent("press")

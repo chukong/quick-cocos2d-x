@@ -9,7 +9,6 @@ end)
 
 function UIImage:ctor(filename, options)
     makeUIControl_(self)
-    self:setLayoutAlignment(display.LEFT_BOTTOM)
     self:align(display.LEFT_BOTTOM)
     local contentSize = self:getContentSize()
     self:getComponent("components.ui.LayoutProtocol"):setLayoutSize(contentSize.width, contentSize.height)

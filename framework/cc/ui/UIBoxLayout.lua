@@ -7,6 +7,15 @@ function UIBoxLayout:ctor(direction, name)
     self.direction_ = direction or display.LEFT_TO_RIGHT
 end
 
+function UIBoxLayout:getDirection()
+    return self.direction_
+end
+
+function UIBoxLayout:setDirection(direction)
+    self.direction_ = direction
+    return self
+end
+
 local depth_ = 0
 
 function UIBoxLayout:apply(container)
@@ -167,7 +176,7 @@ function UIBoxLayout:apply(container)
             wy = y - marginTop
         end
 
-        local widgetAnchorPoint = display.ANCHOR_POINTS[widget:getLayoutAlignment()]
+        local widgetAnchorPoint = widget:getAnchorPoint()
         if isHBox then
             wx = wx + actualWidth * widgetAnchorPoint.x
             wy = wy + maxHeight * widgetAnchorPoint.y

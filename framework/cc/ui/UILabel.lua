@@ -6,7 +6,6 @@ end)
 function UILabel:ctor(options)
     makeUIControl_(self)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
-    self:setLayoutAlignment(display.LEFT_CENTER)
     self:align(display.LEFT_CENTER)
 end
 

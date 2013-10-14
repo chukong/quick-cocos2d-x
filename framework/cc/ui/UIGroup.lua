@@ -11,7 +11,12 @@ function UIGroup:ctor()
     self:setLayout(UIBoxLayout.new(display.LEFT_TO_RIGHT))
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     self:align(display.LEFT_BOTTOM)
-    self:setLayoutAlignment(display.LEFT_BOTTOM)
+end
+
+function UIGroup:addWidget(widget)
+    self:addChild(widget)
+    self:getLayout():addWidget(widget)
+    return self
 end
 
 function UIGroup:onTouch(listener)

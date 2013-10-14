@@ -4,7 +4,6 @@ local UIStretch = class("UIStretch")
 function UIStretch:ctor()
     cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
-    self:setLayoutAlignment(display.LEFT_BOTTOM)
     self.position_ = {x = 0, y = 0}
 end
 
