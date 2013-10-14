@@ -78,14 +78,12 @@ public class Cocos2dxSound {
 	// ===========================================================
 
 	public Cocos2dxSound(final Context pContext, final int simultaneousStreams) {
-
+		this.mContext = pContext;
 		this.initData(simultaneousStreams);
-		this.initData();
+	}
+	
 	private void initData(final int simultaneousStreams) {
-		this.mSoundPool = new SoundPool(simultaneousStreams,
-				AudioManager.STREAM_MUSIC, Cocos2dxSound.SOUND_QUALITY);
-	private void initData() {
-		this.mSoundPool = new SoundPool(Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_DEFAULT, AudioManager.STREAM_MUSIC, Cocos2dxSound.SOUND_QUALITY);
+		this.mSoundPool = new SoundPool(simultaneousStreams, AudioManager.STREAM_MUSIC, Cocos2dxSound.SOUND_QUALITY);
 		this.mSoundPool.setOnLoadCompleteListener(new OnLoadCompletedListener());
 
 		this.mLeftVolume = 0.5f;
@@ -264,7 +262,7 @@ public class Cocos2dxSound {
 		this.mLeftVolume = 0.5f;
 		this.mRightVolume = 0.5f;
 		
-		this.initData();
+		this.initData(this.simultaneousStreams);
 	}
 
 	public int createSoundIDFromAsset(final String pPath) {
