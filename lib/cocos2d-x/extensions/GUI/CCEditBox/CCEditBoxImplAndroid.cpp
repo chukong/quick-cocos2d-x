@@ -292,7 +292,7 @@ void CCEditBoxImplAndroid::openKeyboard()
 
 void CCEditBoxImplAndroid::closeKeyboard()
 {
-	
+	releaseEdit();
 }
 
 NS_CC_EXT_END

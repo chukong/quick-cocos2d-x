@@ -75,6 +75,11 @@ void showDialogJNI(const char * pszMsg, const char * pszTitle) {
     }
 }
 
+void releaseEdit(){
+    s_pfEditTextCallback = NULL;
+    s_ctx = NULL;
+}
+
 void showEditTextDialogJNI(const char* pszTitle, const char* pszMessage, int nInputMode, int nInputFlag, int nReturnType, int nMaxLength, EditTextCallback pfEditTextCallback, void* ctx) {
     if (pszMessage == NULL) {
         return;
