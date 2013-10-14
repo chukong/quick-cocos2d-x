@@ -4,6 +4,7 @@
 #include "tolua_LuaProxy.h"
 #include "tolua_CursorTextField.h"
 #include "../ui/UIUtil.h"
+#include "tolua_CC_Extension.h"
 
 const char * getFullPathForFile(const char *p){
 #if COCOS2D_VERSION < 0x00020100
@@ -327,6 +328,7 @@ static int tolua_CCCameraEyeAction_setStart(lua_State *l){
 }
 
 TOLUA_API int luaopen_LuaProxy(lua_State* l){
+    tolua_CC_Extension_open(l);
 	tolua_open(l);
 	tolua_usertype(l, "LuaProxy");
 	tolua_usertype(l, "CCCameraEyeAction");
