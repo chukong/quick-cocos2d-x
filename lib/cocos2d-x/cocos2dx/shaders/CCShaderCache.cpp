@@ -447,6 +447,14 @@ void CCShaderCache::loadDefaultShader(CCGLProgram *p, int type)
             p->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
 
             break;
+        case kCCShaderType_PositionTextureGray:
+            p->initWithVertexShaderByteArray(ccPositionTextureColor_vert, ccPositionTextureGray_frag);
+
+            p->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
+            p->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
+            p->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
+
+            break;
         case kCCShaderType_PositionTextureColorAlphaTest:
             p->initWithVertexShaderByteArray(ccPositionTextureColor_vert, ccPositionTextureColorAlphaTest_frag);
             
