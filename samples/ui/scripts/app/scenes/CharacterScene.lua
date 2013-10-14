@@ -16,15 +16,10 @@ function CharacterScene:createLeftPanel()
             pressed = "Button01Pressed.png",
             disabled = "Button01Disabled.png",
         }):addTo(leftPanel)
-    local button2 = cc.ui.UICheckBoxButton.new({
-            off = "SwitchOffButton.png",
-            on = "SwitchOnButton.png",
-        }):addTo(leftPanel)
 
     local label = cc.ui.UILabel.new({text = "HELLO"})
-        :setLayoutAlignment(display.CENTER)
-        :addTo(leftPanel)
         :align(display.CENTER)
+        :addTo(leftPanel)
 
     button1:setScale(0.5)
     button1:onButtonPressed(function(event)
@@ -38,50 +33,14 @@ function CharacterScene:createLeftPanel()
         print("---------------")
     end)
 
-    button2:setScale(0.5)
-    button2:onButtonPressed(function(event)
-        print("button2 pressed")
-    end)
-    button2:onButtonRelease(function(event)
-        print("button2 release")
-    end)
-    button2:onButtonClicked(function(event)
-        print("button2 clicked")
-        print("---------------")
-        self:performWithDelay(function()
-            button2:setButtonSelected(not button2:isButtonSelected())
-        end, 1)
-    end)
-    button2:onButtonStateChanged(function(event)
-        printf("button2 state changed, current state is %s", tostring(event.state))
-    end)
 
-    local row1Layout = cc.ui.UIBoxLayout.new(display.TOP_TO_BOTTOM, "leftRow1")
-        :addStretch()
+    local row1Layout = cc.ui.UIBoxLayout.new(display.LEFT_TO_RIGHT, "leftRow1")
         :addWidget(button1)
-        :addStretch()
         :addWidget(label)
-        :addStretch()
-        :addWidget(button2)
-        :addStretch()
-
-    ----
-
-    local images = {off = "SwitchOffButton.png", on = "SwitchOnButton.png"}
-    local buttonGroup = cc.ui.UICheckBoxButtonGroup.new(display.TOP_TO_BOTTOM)
-        :addButton(cc.ui.UICheckBoxButton.new(images):scale(0.5))
-        :addButton(cc.ui.UICheckBoxButton.new(images):scale(0.5))
-        :addButton(cc.ui.UICheckBoxButton.new(images):scale(0.5))
-        :addTo(leftPanel)
-
-    local row2Layout = cc.ui.UIBoxLayout.new(display.LEFT_TO_RIGHT, "leftRow2")
-        :addStretch()
-        :addWidget(buttonGroup)
         :addStretch()
 
     local leftPanelLayout = cc.ui.UIBoxLayout.new(display.TOP_TO_BOTTOM, "left")
         :addLayout(row1Layout)
-        :addLayout(row2Layout)
     leftPanel:setLayout(leftPanelLayout)
 
     return leftPanel
