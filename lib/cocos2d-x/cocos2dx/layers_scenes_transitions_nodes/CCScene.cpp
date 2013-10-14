@@ -38,11 +38,27 @@ CCScene::CCScene()
 {
     m_touchableNodes = CCArray::createWithCapacity(100);
     m_touchableNodes->retain();
+    m_bIgnoreAnchorPointForPosition = true;
+    setAnchorPoint(ccp(0.5f, 0.5f));
 }
 
 CCScene::~CCScene()
 {
     CC_SAFE_RELEASE(m_touchableNodes);
+}
+
+bool CCScene::init()
+{
+    bool bRet = false;
+     do 
+     {
+         CCDirector * pDirector;
+         CC_BREAK_IF( ! (pDirector = CCDirector::sharedDirector()) );
+         this->setContentSize(pDirector->getWinSize());
+         // success
+         bRet = true;
+     } while (0);
+     return bRet;
 }
 
 CCScene *CCScene::create()

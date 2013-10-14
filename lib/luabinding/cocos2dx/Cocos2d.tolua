@@ -28,7 +28,6 @@ $pfile "cocos2dx/platform/CCAccelerometer.tolua"
 
 $pfile "cocos2dx/support/CCPointExtension.tolua"
 $pfile "cocos2dx/support/CCNotificationCenter.tolua"
-$pfile "cocos2dx/support/CCProfiling.tolua"
 $pfile "cocos2dx/support/user_default/CCUserDefault.tolua"
 $pfile "cocos2dx/support/component/CCComponent.tolua"
 $pfile "cocos2dx/support/component/CCComponentContainer.tolua"

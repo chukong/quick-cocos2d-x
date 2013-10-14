@@ -116,6 +116,16 @@ bool CCFileUtilsAndroid::isAbsolutePath(const std::string& strPath)
 
 unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize)
 {
+    return doGetFileData(pszFileName, pszMode, pSize, false);
+}
+
+unsigned char* CCFileUtilsAndroid::getFileDataForAsync(const char* pszFileName, const char* pszMode, unsigned long * pSize)
+{
+    return doGetFileData(pszFileName, pszMode, pSize, true);
+}
+
+unsigned char* CCFileUtilsAndroid::doGetFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize, bool forAsync)
+{
     unsigned char * pData = 0;
 
     if ((! pszFileName) || (! pszMode) || 0 == strlen(pszFileName))
@@ -127,8 +137,14 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
 
     if (fullPath[0] != '/')
     {
-        //CCLOG("GETTING FILE RELATIVE DATA: %s", pszFileName);
+        if (forAsync)
+        {
+            pData = s_pZipFile->getFileData(fullPath.c_str(), pSize, s_pZipFile->_dataThread);
+        }
+        else
+        {
         pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
+    }
     }
     else
     {
