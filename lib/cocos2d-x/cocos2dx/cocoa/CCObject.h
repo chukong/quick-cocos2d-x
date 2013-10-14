@@ -25,11 +25,7 @@ THE SOFTWARE.
 #ifndef __CCOBJECT_H__
 #define __CCOBJECT_H__
 
-#include "CCDataVisitor.h"
-
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#endif // EMSCRIPTEN
+#include "platform/CCPlatformMacros.h"
 
 NS_CC_BEGIN
 
@@ -69,11 +65,9 @@ public:
     void retain(void);
     CCObject* autorelease(void);
     CCObject* copy(void);
-    bool isSingleReference(void) const;
-    unsigned int retainCount(void) const;
+    bool isSingleReference(void);
+    unsigned int retainCount(void);
     virtual bool isEqual(const CCObject* pObject);
-
-    virtual void acceptVisitor(CCDataVisitor &visitor);
 
     virtual void update(float dt) {CC_UNUSED_PARAM(dt);};
     

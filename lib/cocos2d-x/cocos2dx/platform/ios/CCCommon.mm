@@ -34,7 +34,8 @@ NS_CC_BEGIN
 void CCLog(const char * pszFormat, ...)
 {
     printf("Cocos2d: ");
-    char szBuf[kMaxLogLen+1] = {0};
+    char szBuf[kMaxLogLen];
+
     va_list ap;
     va_start(ap, pszFormat);
     vsnprintf(szBuf, kMaxLogLen, pszFormat, ap);

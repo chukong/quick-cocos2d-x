@@ -35,36 +35,36 @@ NS_CC_BEGIN
 float
 ccpLength(const CCPoint& v)
 {
-    return v.getLength();
+    return sqrtf(ccpLengthSQ(v));
 }
 
 float
 ccpDistance(const CCPoint& v1, const CCPoint& v2)
 {
-    return (v1 - v2).getLength();
+    return ccpLength(ccpSub(v1, v2));
 }
 
 CCPoint
 ccpNormalize(const CCPoint& v)
 {
-    return v.normalize();
+    return ccpMult(v, 1.0f/ccpLength(v));
 }
 
 CCPoint
 ccpForAngle(const float a)
 {
-    return CCPoint::forAngle(a);
+    return ccp(cosf(a), sinf(a));
 }
 
 float
 ccpToAngle(const CCPoint& v)
 {
-    return v.getAngle();
+    return atan2f(v.y, v.x);
 }
 
 CCPoint ccpLerp(const CCPoint& a, const CCPoint& b, float alpha)
 {
-    return a.lerp(b, alpha);
+    return ccpAdd(ccpMult(a, 1.f - alpha), ccpMult(b, alpha));
 }
 
 float clampf(float value, float min_inclusive, float max_inclusive)
@@ -82,7 +82,7 @@ CCPoint ccpClamp(const CCPoint& p, const CCPoint& min_inclusive, const CCPoint& 
 
 CCPoint ccpFromSize(const CCSize& s)
 {
-    return CCPoint(s);
+    return ccp(s.width, s.height);
 }
 
 CCPoint ccpCompOp(const CCPoint& p, float (*opFunc)(float))
@@ -92,7 +92,10 @@ CCPoint ccpCompOp(const CCPoint& p, float (*opFunc)(float))
 
 bool ccpFuzzyEqual(const CCPoint& a, const CCPoint& b, float var)
 {
-	return a.fuzzyEquals(b, var);
+    if(a.x - var <= b.x && b.x <= a.x + var)
+        if(a.y - var <= b.y && b.y <= a.y + var)
+            return true;
+    return false;
 }
 
 CCPoint ccpCompMult(const CCPoint& a, const CCPoint& b)
@@ -102,12 +105,21 @@ CCPoint ccpCompMult(const CCPoint& a, const CCPoint& b)
 
 float ccpAngleSigned(const CCPoint& a, const CCPoint& b)
 {
-	return a.getAngle(b);
+    CCPoint a2 = ccpNormalize(a);
+    CCPoint b2 = ccpNormalize(b);
+    float angle = atan2f(a2.x * b2.y - a2.y * b2.x, ccpDot(a2, b2));
+    if( fabs(angle) < kCCPointEpsilon ) return 0.f;
+    return angle;
 }
 
 CCPoint ccpRotateByAngle(const CCPoint& v, const CCPoint& pivot, float angle)
 {
-	return v.rotateByAngle(pivot, angle);
+    CCPoint r = ccpSub(v, pivot);
+    float cosa = cosf(angle), sina = sinf(angle);
+    float t = r.x;
+    r.x = t*cosa - r.y*sina + pivot.x;
+    r.y = t*sina + r.y*cosa + pivot.y;
+    return r;
 }
 
 

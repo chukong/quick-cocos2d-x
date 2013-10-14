@@ -57,12 +57,11 @@ enum {
 	kCCUniformCosTime,
 	kCCUniformRandom01,
 	kCCUniformSampler,
-
+    
 	kCCUniform_MAX,
 };
 
 #define kCCShader_PositionTextureColor              "ShaderPositionTextureColor"
-#define kCCShader_PositionTextureGray               "ShaderPositionTextureGray"
 #define kCCShader_PositionTextureColorAlphaTest     "ShaderPositionTextureColorAlphaTest"
 #define kCCShader_PositionColor                     "ShaderPositionColor"
 #define kCCShader_PositionTexture                   "ShaderPositionTexture"
@@ -123,31 +122,8 @@ public:
 
  */
     void updateUniforms();
-    
-    /** calls retrieves the named uniform location for this shader program. */
-    GLint getUniformLocationForName(const char* name);
-    
     /** calls glUniform1i only if the values are different than the previous call for this same shader program. */
     void setUniformLocationWith1i(GLint location, GLint i1);
-    
-    /** calls glUniform2i only if the values are different than the previous call for this same shader program. */
-    void setUniformLocationWith2i(GLint location, GLint i1, GLint i2);
-    
-    /** calls glUniform3i only if the values are different than the previous call for this same shader program. */
-    void setUniformLocationWith3i(GLint location, GLint i1, GLint i2, GLint i3);
-    
-    /** calls glUniform4i only if the values are different than the previous call for this same shader program. */
-    void setUniformLocationWith4i(GLint location, GLint i1, GLint i2, GLint i3, GLint i4);
-    
-    /** calls glUniform2iv only if the values are different than the previous call for this same shader program. */
-    void setUniformLocationWith2iv(GLint location, GLint* ints, unsigned int numberOfArrays);
-    
-    /** calls glUniform3iv only if the values are different than the previous call for this same shader program. */
-    void setUniformLocationWith3iv(GLint location, GLint* ints, unsigned int numberOfArrays);
-    
-    /** calls glUniform4iv only if the values are different than the previous call for this same shader program. */
-    
-    void setUniformLocationWith4iv(GLint location, GLint* ints, unsigned int numberOfArrays);
 
     /** calls glUniform1f only if the values are different than the previous call for this same shader program. */
     void setUniformLocationWith1f(GLint location, GLfloat f1);

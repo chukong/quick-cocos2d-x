@@ -151,11 +151,11 @@ public:
     // Querying an Array
 
     /** Returns element count of the array */
-    unsigned int count() const;
+    unsigned int count();
     /** Returns capacity of the array */
-    unsigned int capacity() const;
+    unsigned int capacity();
     /** Returns index of a certain object, return UINT_MAX if doesn't contain the object */
-    unsigned int indexOfObject(CCObject* object) const;
+    unsigned int indexOfObject(CCObject* object);
     /** Returns an element with a certain index */
     CCObject* objectAtIndex(unsigned int index);
     /** Returns last element */
@@ -163,7 +163,7 @@ public:
     /** Returns a random element */
     CCObject* randomObject();
     /** Returns a Boolean value that indicates whether object is present in array. */
-    bool containsObject(CCObject* object) const;
+    bool containsObject(CCObject* object);
     /** @since 1.1 */
     bool isEqualToArray(CCArray* pOtherArray);
     // Adding Objects
@@ -209,9 +209,6 @@ public:
   
     /* override functions */
     virtual CCObject* copyWithZone(CCZone* pZone);
-
-    /* override functions */
-    virtual void acceptVisitor(CCDataVisitor &visitor);
 
 public:
     ccArray* data;

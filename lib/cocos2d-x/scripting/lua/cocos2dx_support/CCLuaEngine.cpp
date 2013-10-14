@@ -88,9 +88,9 @@ int CCLuaEngine::executeScriptFile(const char* filename)
     return ret;
 }
 
-int CCLuaEngine::executeGlobalFunction(const char* functionName, int numArgs /* = 0 */)
+int CCLuaEngine::executeGlobalFunction(const char* functionName)
 {
-    int ret = m_stack->executeGlobalFunction(functionName, numArgs);
+    int ret = m_stack->executeGlobalFunction(functionName);
     m_stack->clean();
     return ret;
 }
@@ -144,7 +144,7 @@ int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
 
 int CCLuaEngine::executeNotificationEvent(CCNotificationCenter* pNotificationCenter, const char* pszName)
 {
-    int nHandler = pNotificationCenter->getObserverHandlerByName(pszName);
+    int nHandler = pNotificationCenter->getScriptHandler();
     if (!nHandler) return 0;
     
     m_stack->pushString(pszName);
@@ -169,7 +169,6 @@ int CCLuaEngine::executeCallFuncActionEvent(CCCallFunc* pAction, CCObject* pTarg
 
 int CCLuaEngine::executeSchedule(int nHandler, float dt, CCNode* pNode/* = NULL*/)
 {
-    if (!nHandler) return 0;
     m_stack->pushFloat(dt);
     int ret = m_stack->executeFunctionByHandler(nHandler, 1);
     m_stack->clean();
@@ -265,8 +264,6 @@ int CCLuaEngine::executeLayerTouchesEvent(CCLayer* pLayer, int eventType, CCSet 
 int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
 {
     CCScriptHandlerEntry* pScriptHandlerEntry = pLayer->getScriptKeypadHandlerEntry();
-    if (!pScriptHandlerEntry)
-        return 0;
     int nHandler = pScriptHandlerEntry->getHandler();
     if (!nHandler) return 0;
     
@@ -291,8 +288,6 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
 int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue)
 {
     CCScriptHandlerEntry* pScriptHandlerEntry = pLayer->getScriptAccelerateHandlerEntry();
-    if (!pScriptHandlerEntry)
-        return 0;
     int nHandler = pScriptHandlerEntry->getHandler();
     if (!nHandler) return 0;
     
@@ -317,18 +312,11 @@ int CCLuaEngine::executeEvent(int nHandler, const char* pEventName, CCObject* pE
     return ret;
 }
 
-bool CCLuaEngine::handleAssert(const char *msg)
+bool CCLuaEngine::executeAssert(bool cond, const char *msg/* = NULL */)
 {
-    bool ret = m_stack->handleAssert(msg);
+    bool ret = m_stack->executeAssert(cond, msg);
     m_stack->clean();
     return ret;
-}
-
-int CCLuaEngine::reallocateScriptHandler(int nHandler)
-{    
-    int nRet = m_stack->reallocateScriptHandler(nHandler);
-    m_stack->clean();
-    return nRet;
 }
 
 NS_CC_END

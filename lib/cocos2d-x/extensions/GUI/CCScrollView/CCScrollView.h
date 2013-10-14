@@ -26,7 +26,7 @@
 #ifndef __CCSCROLLVIEW_H__
 #define __CCSCROLLVIEW_H__
 
-#include "cocos2d.h"
+#include "layers_scenes_transitions_nodes/CCLayer.h"
 #include "ExtensionMacros.h"
 
 NS_CC_EXT_BEGIN
@@ -45,7 +45,7 @@ typedef enum {
 
 class CCScrollView;
 
-class CC_DLL CCScrollViewDelegate
+class CCScrollViewDelegate
 {
 public:
     virtual ~CCScrollViewDelegate() {}
@@ -58,7 +58,7 @@ public:
  * ScrollView support for cocos2d for iphone.
  * It provides scroll view functionalities to cocos2d projects natively.
  */
-class CC_DLL CCScrollView : public CCLayer
+class CCScrollView : public CCLayer
 {
 public:
     CCScrollView();
@@ -187,7 +187,7 @@ public:
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
     virtual void setContentSize(const CCSize & size);
-    virtual const CCSize& getContentSize() const;
+    virtual const CCSize& getContentSize();
 
 	void updateInset();
     /**
@@ -202,6 +202,13 @@ public:
     virtual void addChild(CCNode * child);
     void setTouchEnabled(bool e);
 private:
+    /**
+     * Init this object with a given size to clip its content.
+     *
+     * @param size view size
+     * @return initialized scroll view object
+     */
+    bool initWithViewSize(CCSize size);
     /**
      * Relocates the container at the proper offset, in bounds of max/min offsets.
      *
@@ -238,8 +245,6 @@ private:
     void handleZoom();
 
 protected:
-    CCRect getViewRect();
-    
     /**
      * current zoom scale
      */
@@ -317,11 +322,6 @@ protected:
      * max and min scale
      */
     float m_fMinScale, m_fMaxScale;
-    /**
-     * scissor rect for parent, just for restoring GL_SCISSOR_BOX
-     */
-    CCRect m_tParentScissorRect;
-    bool m_bScissorRestored;
 };
 
 // end of GUI group

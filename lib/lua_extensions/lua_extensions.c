@@ -19,11 +19,15 @@ extern "C" {
 // filesystem
 #include "filesystem/lfs.h"
 
+// lsqlite3
+#include "lsqlite3.h"
+
 static luaL_Reg luax_exts[] = {
     {"cjson", luaopen_cjson_safe},
     {"zlib", luaopen_zlib},
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},
+    {"lsqlite3", luaopen_lsqlite3},
     {"lfs", luaopen_lfs},
 
     {NULL, NULL}

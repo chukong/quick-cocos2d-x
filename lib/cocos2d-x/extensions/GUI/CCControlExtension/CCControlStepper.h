@@ -46,7 +46,7 @@ typedef enum
     kCCControlStepperPartNone,
 } CCControlStepperPart;
 
-class CC_DLL CCControlStepper : public CCControl
+class CCControlStepper : public CCControl
 {
 public:
     CCControlStepper();

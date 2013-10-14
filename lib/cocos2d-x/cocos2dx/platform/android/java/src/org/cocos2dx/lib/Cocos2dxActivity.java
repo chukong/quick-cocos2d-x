@@ -27,11 +27,9 @@ import org.cocos2dx.lib.Cocos2dxHelper.Cocos2dxHelperListener;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.ViewGroup;
-import android.util.Log;
 import android.widget.FrameLayout;
 
 public abstract class Cocos2dxActivity extends Activity implements
@@ -45,20 +43,20 @@ public abstract class Cocos2dxActivity extends Activity implements
 	// ===========================================================
 	// Fields
 	// ===========================================================
-
+	
 	private Cocos2dxGLSurfaceView mGLSurfaceView;
 	private Cocos2dxHandler mHandler;
 
 	private static Context sContext = null;
-
+	
 	public static Context getContext() {
 		return sContext;
 	}
-
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
-
+	
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -140,7 +138,7 @@ public abstract class Cocos2dxActivity extends Activity implements
 				pInputMode, pInputFlag, pReturnType, pMaxLength);
 		this.mHandler.sendMessage(msg);
 	}
-
+	
 	@Override
 	public void runOnGLThread(final Runnable pRunnable) {
 		this.mGLSurfaceView.queueEvent(pRunnable);

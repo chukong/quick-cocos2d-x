@@ -1,0 +1,11 @@
+
+class CCObject
+{
+    void release(void);
+    void retain(void);
+    bool isSingleReference(void);
+    unsigned int retainCount(void);
+    bool isEqual(const CCObject* pObject);
+	CCObject* copy();
+	CCObject* autorelease();
+};

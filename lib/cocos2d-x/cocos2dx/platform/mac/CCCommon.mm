@@ -43,7 +43,6 @@ void CCLog(const char * pszFormat, ...)
     va_end(ap);
     printf("%s", szBuf);
     printf("\n");
-    fflush(stdout);
 }
 
 void CCLuaLog(const char * pszFormat)

@@ -126,11 +126,6 @@ CCActionInterval* CCActionEase::reverse(void)
     return CCActionEase::create(m_pInner->reverse());
 }
 
-CCActionInterval* CCActionEase::getInnerAction()
-{
-    return m_pInner;
-}
-
 //
 // EaseRateAction
 //

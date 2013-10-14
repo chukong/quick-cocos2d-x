@@ -29,7 +29,6 @@
 
 #include "draw_nodes/CCDrawingPrimitives.h"
 #include "base_nodes/CCNode.h"
-#include "cocoa/CCPointArray.h"
 
 NS_CC_BEGIN
 

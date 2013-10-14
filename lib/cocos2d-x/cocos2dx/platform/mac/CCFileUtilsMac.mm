@@ -36,7 +36,6 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 static void addValueToCCDict(id key, id value, CCDictionary* pDict);
-static void addCCObjectToNSDict(const char*key, CCObject* object, NSMutableDictionary *dict);
 
 static void addItemToCCArray(id item, CCArray *pArray)
 {
@@ -82,40 +81,6 @@ static void addItemToCCArray(id item, CCArray *pArray)
         pArrayItem->release();
         return;
     }
-}
-
-static void addCCObjectToNSArray(CCObject *object, NSMutableArray *array)
-{
-    // add string into array
-    if (CCString *ccString = dynamic_cast<CCString *>(object)) {
-        NSString *strElement = [NSString stringWithCString:ccString->getCString() encoding:NSUTF8StringEncoding];
-        [array addObject:strElement];
-        return;
-    }
-    
-    // add array into array
-    if (CCArray *ccArray = dynamic_cast<CCArray *>(object)) {
-        NSMutableArray *arrElement = [NSMutableArray array];
-        CCObject *element = NULL;
-        CCARRAY_FOREACH(ccArray, element)
-        {
-            addCCObjectToNSArray(element, arrElement);
-        }
-        [array addObject:arrElement];
-        return;
-    }
-    
-    // add dictionary value into array
-    if (CCDictionary *ccDict = dynamic_cast<CCDictionary *>(object)) {
-        NSMutableDictionary *dictElement = [NSMutableDictionary dictionary];
-        CCDictElement *element = NULL;
-        CCDICT_FOREACH(ccDict, element)
-        {
-            addCCObjectToNSDict(element->getStrKey(), element->getObject(), dictElement);
-        }
-        [array addObject:dictElement];
-    }
-    
 }
 
 static void addValueToCCDict(id key, id value, CCDictionary* pDict)
@@ -168,43 +133,6 @@ static void addValueToCCDict(id key, id value, CCDictionary* pDict)
     }
 }
 
-static void addCCObjectToNSDict(const char * key, CCObject* object, NSMutableDictionary *dict)
-{
-    NSString *NSkey = [NSString stringWithCString:key encoding:NSUTF8StringEncoding];
-    
-    // the object is a CCDictionary
-    if (CCDictionary *ccDict = dynamic_cast<CCDictionary *>(object)) {
-        NSMutableDictionary *dictElement = [NSMutableDictionary dictionary];
-        CCDictElement *element = NULL;
-        CCDICT_FOREACH(ccDict, element)
-        {
-            addCCObjectToNSDict(element->getStrKey(), element->getObject(), dictElement);
-        }
-        
-        [dict setObject:dictElement forKey:NSkey];
-        return;
-    }
-    
-    // the object is a CCString
-    if (CCString *element = dynamic_cast<CCString *>(object)) {
-        NSString *strElement = [NSString stringWithCString:element->getCString() encoding:NSUTF8StringEncoding];
-        [dict setObject:strElement forKey:NSkey];
-        return;
-    }
-    
-    // the object is a CCArray
-    if (CCArray *ccArray = dynamic_cast<CCArray *>(object)) {
-        NSMutableArray *arrElement = [NSMutableArray array];
-        CCObject *element = NULL;
-        CCARRAY_FOREACH(ccArray, element)
-        {
-            addCCObjectToNSArray(element, arrElement);
-        }
-        [dict setObject:arrElement forKey:NSkey];
-        return;
-    }
-}
-
 CCFileUtils* CCFileUtils::sharedFileUtils()
 {
     if (s_sharedFileUtils == NULL)
@@ -218,10 +146,8 @@ CCFileUtils* CCFileUtils::sharedFileUtils()
 
 static NSFileManager* s_fileManager = [NSFileManager defaultManager];
 
-std::string CCFileUtilsMac::getWritablePath()
+std::string CCFileUtilsMac::getWriteablePath()
 {
-    if (m_strWritablePath.length()) return m_strWritablePath;
-
     // save to document folder
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -232,11 +158,6 @@ std::string CCFileUtilsMac::getWritablePath()
 
 bool CCFileUtilsMac::isFileExist(const std::string& strFilePath)
 {
-    if (0 == strFilePath.length())
-    {
-        return false;
-    }
-    
     bool bRet = false;
     
     if (strFilePath[0] != '/')
@@ -263,27 +184,7 @@ bool CCFileUtilsMac::isFileExist(const std::string& strFilePath)
             bRet = true;
         }
     }
-
-    return bRet;
-}
-
-bool CCFileUtilsMac::isDirectoryExist(const std::string& strDirPath)
-{
-    if (0 == strDirPath.length())
-    {
-        return false;
-    }
-
-    bool bRet = false;
-
-    if (strDirPath[0] == '/')
-    {
-        BOOL isDirectory = FALSE;
-        if ([s_fileManager fileExistsAtPath:[NSString stringWithUTF8String:strDirPath.c_str()] isDirectory:&isDirectory]) {
-            bRet = isDirectory == YES;
-        }
-    }
-
+    
     return bRet;
 }
 
@@ -328,22 +229,6 @@ CCDictionary* CCFileUtilsMac::createCCDictionaryWithContentsOfFile(const std::st
     }
     
     return pRet;
-}
-
-bool CCFileUtilsMac::writeToFile(CCDictionary *dict, const std::string &fullPath)
-{
-    CCLOG("iOS||Mac CCDictionary %d write to file %s", dict->m_uID, fullPath.c_str());
-    NSMutableDictionary *nsDict = [NSMutableDictionary dictionary];
-    
-    CCDictElement *element = NULL;
-    CCDICT_FOREACH(dict, element)
-    {
-        addCCObjectToNSDict(element->getStrKey(), element->getObject(), nsDict);
-    }
-    
-    NSString *file = [NSString stringWithUTF8String:fullPath.c_str()];
-    // do it atomically
-    return [nsDict writeToFile:file atomically:YES];
 }
 
 CCArray* CCFileUtilsMac::createCCArrayWithContentsOfFile(const std::string& filename)

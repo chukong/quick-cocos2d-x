@@ -103,10 +103,10 @@ static bool glew_dynamic_binding()
 	// If the current opengl driver doesn't have framebuffers methods, check if an extension exists
 	if (glGenFramebuffers == NULL)
 	{
-		CCLog("OpenGL: glGenFramebuffers is NULL, try to detect an extension");
+		CCLog("OpenGL: glGenFramebuffers is NULL, try to detect an extension\n");
 		if (strstr(gl_extensions, "ARB_framebuffer_object"))
 		{
-			CCLog("OpenGL: ARB_framebuffer_object is supported");
+			CCLog("OpenGL: ARB_framebuffer_object is supported\n");
 
 			glIsRenderbuffer = (PFNGLISRENDERBUFFERPROC) wglGetProcAddress("glIsRenderbuffer");
 			glBindRenderbuffer = (PFNGLBINDRENDERBUFFERPROC) wglGetProcAddress("glBindRenderbuffer");
@@ -129,7 +129,7 @@ static bool glew_dynamic_binding()
 		else
 		if (strstr(gl_extensions, "EXT_framebuffer_object"))
 		{
-			CCLog("OpenGL: EXT_framebuffer_object is supported");
+			CCLog("OpenGL: EXT_framebuffer_object is supported\n");
 			glIsRenderbuffer = (PFNGLISRENDERBUFFERPROC) wglGetProcAddress("glIsRenderbufferEXT");
 			glBindRenderbuffer = (PFNGLBINDRENDERBUFFERPROC) wglGetProcAddress("glBindRenderbufferEXT");
 			glDeleteRenderbuffers = (PFNGLDELETERENDERBUFFERSPROC) wglGetProcAddress("glDeleteRenderbuffersEXT");
@@ -150,8 +150,8 @@ static bool glew_dynamic_binding()
 		}
 		else
 		{
-			CCLog("OpenGL: No framebuffers extension is supported");
-			CCLog("OpenGL: Any call to Fbo will crash!");
+			CCLog("OpenGL: No framebuffers extension is supported\n");
+			CCLog("OpenGL: Any call to Fbo will crash!\n");
 			return false;
 		}
 	}
@@ -187,7 +187,7 @@ CCEGLView::CCEGLView()
 , m_fFrameZoomFactor(1.0f)
 , m_bSupportTouch(false)
 {
-    strcpy(m_szViewName, "quick-x-player");
+    strcpy(m_szViewName, "quick-cocos2d-x LuaHostWin32");
 }
 
 CCEGLView::~CCEGLView()
@@ -694,9 +694,9 @@ void CCEGLView::centerWindow()
     }
     GetWindowRect(m_hWnd, &rcWindow);
 
-    int offsetX = rcDesktop.left + (rcDesktop.right - rcDesktop.left - (rcWindow.right - rcWindow.left)) / 2;
+    int offsetX = (rcDesktop.right - rcDesktop.left - (rcWindow.right - rcWindow.left)) / 2;
     offsetX = (offsetX > 0) ? offsetX : rcDesktop.left;
-    int offsetY = rcDesktop.top + (rcDesktop.bottom - rcDesktop.top - (rcWindow.bottom - rcWindow.top)) / 2;
+    int offsetY = (rcDesktop.bottom - rcDesktop.top - (rcWindow.bottom - rcWindow.top)) / 2;
     offsetY = (offsetY > 0) ? offsetY : rcDesktop.top;
 
     SetWindowPos(m_hWnd, 0, offsetX, offsetY, 0, 0, SWP_NOCOPYBITS | SWP_NOSIZE | SWP_NOOWNERZORDER | SWP_NOZORDER);

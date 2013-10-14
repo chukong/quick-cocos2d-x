@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2010-2013 cocos2d-x.org
+Copyright (c) 2010-2011 cocos2d-x.org
 
 http://www.cocos2d-x.org
 
@@ -23,13 +23,10 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.os.Build;
@@ -42,7 +39,6 @@ public class Cocos2dxHelper {
 	// ===========================================================
 	// Constants
 	// ===========================================================
-	private static final String PREFS_NAME = "Cocos2dxPrefsFile";
 
 	// ===========================================================
 	// Fields
@@ -54,8 +50,8 @@ public class Cocos2dxHelper {
 	private static Cocos2dxAccelerometer sCocos2dxAccelerometer;
 	private static boolean sAccelerometerEnabled;
 	private static String sPackageName;
-	private static String sFileDirectory;
-	private static Context sContext = null;
+	private static String sCacheDirectory;
+
 	private static Cocos2dxHelperListener sCocos2dxHelperListener;
 
 	// ===========================================================
@@ -71,21 +67,21 @@ public class Cocos2dxHelper {
 		Cocos2dxHelper.sCocos2dxHelperListener = pCocos2dxHelperListener;
 
 		Cocos2dxHelper.sPackageName = applicationInfo.packageName;
-		Cocos2dxHelper.sFileDirectory = pContext.getFilesDir().getAbsolutePath();
+		Cocos2dxHelper.sCacheDirectory = pContext.getCacheDir().getAbsolutePath();
 		Cocos2dxHelper.nativeSetApkPath(applicationInfo.sourceDir);
+		Cocos2dxHelper.nativeSetExternalAssetPath(Cocos2dxHelper.getAbsolutePathOnExternalStorage(applicationInfo, "assets/"));
 
 		Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(pContext);
 		Cocos2dxHelper.sCocos2dMusic = new Cocos2dxMusic(pContext);
-
+		
 		int simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_DEFAULT;
 		if (Cocos2dxHelper.getDeviceModel().indexOf("GT-I9100") != -1) {
 			simultaneousStreams = Cocos2dxSound.MAX_SIMULTANEOUS_STREAMS_I9100;
 		}
-
+		
 		Cocos2dxHelper.sCocos2dSound = new Cocos2dxSound(pContext, simultaneousStreams);
 		Cocos2dxHelper.sAssetManager = pContext.getAssets();
 		Cocos2dxBitmap.setContext(pContext);
-		Cocos2dxETCLoader.setContext(pContext);
 	}
 
 	// ===========================================================
@@ -102,14 +98,16 @@ public class Cocos2dxHelper {
 
 	private static native void nativeSetApkPath(final String pApkPath);
 
+	private static native void nativeSetExternalAssetPath(final String pExternalAssetPath);
+
 	private static native void nativeSetEditTextDialogResult(final byte[] pBytes);
 
 	public static String getCocos2dxPackageName() {
 		return Cocos2dxHelper.sPackageName;
 	}
 
-	public static String getCocos2dxWritablePath() {
-		return Cocos2dxHelper.sFileDirectory;
+	public static String getCocos2dxCacheDirectory() {
+		return Cocos2dxHelper.sCacheDirectory;
 	}
 
 	public static String getCurrentLanguage() {

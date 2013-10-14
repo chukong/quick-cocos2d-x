@@ -36,9 +36,9 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
     
-static unsigned int _globalFontSize = kCCItemSize;
-static std::string _globalFontName = "Marker Felt";
-static bool _globalFontNameRelease = false;
+static unsigned int _fontSize = kCCItemSize;
+static std::string _fontName = "Marker Felt";
+static bool _fontNameRelease = false;
 
 const unsigned int    kCurrentItem = 0xc0c05001;
 const unsigned int    kZoomActionTag = 0xc0c05002;
@@ -68,8 +68,8 @@ bool CCMenuItem::initWithTarget(CCObject *rec, SEL_MenuHandler selector)
     setAnchorPoint(ccp(0.5f, 0.5f));
     m_pListener = rec;
     m_pfnSelector = selector;
-    m_bEnabled = true;
-    m_bSelected = false;
+    m_bIsEnabled = true;
+    m_bIsSelected = false;
     return true;
 }
 
@@ -80,12 +80,12 @@ CCMenuItem::~CCMenuItem()
 
 void CCMenuItem::selected()
 {
-    m_bSelected = true;
+    m_bIsSelected = true;
 }
 
 void CCMenuItem::unselected()
 {
-    m_bSelected = false;
+    m_bIsSelected = false;
 }
 
 void CCMenuItem::registerScriptTapHandler(int nHandler)
@@ -107,7 +107,7 @@ void CCMenuItem::unregisterScriptTapHandler(void)
 
 void CCMenuItem::activate()
 {
-    if (m_bEnabled)
+    if (m_bIsEnabled)
     {
         if (m_pListener && m_pfnSelector)
         {
@@ -123,12 +123,12 @@ void CCMenuItem::activate()
 
 void CCMenuItem::setEnabled(bool enabled)
 {
-    m_bEnabled = enabled;
+    m_bIsEnabled = enabled;
 }
 
 bool CCMenuItem::isEnabled()
 {
-    return m_bEnabled;
+    return m_bIsEnabled;
 }
 
 CCRect CCMenuItem::rect()
@@ -140,7 +140,7 @@ CCRect CCMenuItem::rect()
 
 bool CCMenuItem::isSelected()
 {
-    return m_bSelected;
+    return m_bIsSelected;
 }
 
 void CCMenuItem::setTarget(CCObject *rec, SEL_MenuHandler selector)
@@ -203,12 +203,8 @@ bool CCMenuItemLabel::initWithLabel(CCNode* label, CCObject* target, SEL_MenuHan
     CCMenuItem::initWithTarget(target, selector);
     m_fOriginalScale = 1.0f;
     m_tColorBackup = ccWHITE;
-    setDisabledColor(ccc3(126,126,126));
+    m_tDisabledColor = ccc3(126,126,126);
     this->setLabel(label);
-    
-    setCascadeColorEnabled(true);
-    setCascadeOpacityEnabled(true);
-    
     return true;
 }
 
@@ -224,7 +220,7 @@ void CCMenuItemLabel::setString(const char * label)
 
 void CCMenuItemLabel::activate()
 {
-    if(m_bEnabled)
+    if(m_bIsEnabled)
     {
         this->stopAllActions();
         this->setScale( m_fOriginalScale );
@@ -235,7 +231,7 @@ void CCMenuItemLabel::activate()
 void CCMenuItemLabel::selected()
 {
     // subclass to change the default action
-    if(m_bEnabled)
+    if(m_bIsEnabled)
     {
         CCMenuItem::selected();
         
@@ -258,7 +254,7 @@ void CCMenuItemLabel::selected()
 void CCMenuItemLabel::unselected()
 {
     // subclass to change the default action
-    if(m_bEnabled)
+    if(m_bIsEnabled)
     {
         CCMenuItem::unselected();
         this->stopActionByTag(kZoomActionTag);
@@ -270,7 +266,7 @@ void CCMenuItemLabel::unselected()
 
 void CCMenuItemLabel::setEnabled(bool enabled)
 {
-    if( m_bEnabled != enabled ) 
+    if( m_bIsEnabled != enabled ) 
     {
         if(enabled == false)
         {
@@ -283,6 +279,26 @@ void CCMenuItemLabel::setEnabled(bool enabled)
         }
     }
     CCMenuItem::setEnabled(enabled);
+}
+
+void CCMenuItemLabel::setOpacity(GLubyte opacity)
+{
+    dynamic_cast<CCRGBAProtocol*>(m_pLabel)->setOpacity(opacity);
+}
+
+GLubyte CCMenuItemLabel::getOpacity()
+{
+    return dynamic_cast<CCRGBAProtocol*>(m_pLabel)->getOpacity();
+}
+
+void CCMenuItemLabel::setColor(const ccColor3B& color)
+{
+    dynamic_cast<CCRGBAProtocol*>(m_pLabel)->setColor(color);
+}
+
+const ccColor3B& CCMenuItemLabel::getColor()
+{
+    return dynamic_cast<CCRGBAProtocol*>(m_pLabel)->getColor();
 }
 
 //
@@ -320,27 +336,27 @@ bool CCMenuItemAtlasFont::initWithString(const char *value, const char *charMapF
 
 void CCMenuItemFont::setFontSize(unsigned int s)
 {
-    _globalFontSize = s;
+    _fontSize = s;
 }
 
 unsigned int CCMenuItemFont::fontSize()
 {
-    return _globalFontSize;
+    return _fontSize;
 }
 
 void CCMenuItemFont::setFontName(const char *name)
 {
-    if (_globalFontNameRelease)
+    if( _fontNameRelease )
     {
-        _globalFontName.clear();
+        _fontName.clear();
     }
-    _globalFontName = name;
-    _globalFontNameRelease = true;
+    _fontName = name;
+    _fontNameRelease = true;
 }
 
 const char * CCMenuItemFont::fontName()
 {
-    return _globalFontName.c_str();
+    return _fontName.c_str();
 }
 
 CCMenuItemFont * CCMenuItemFont::create(const char *value, CCObject* target, SEL_MenuHandler selector)
@@ -363,8 +379,8 @@ bool CCMenuItemFont::initWithString(const char *value, CCObject* target, SEL_Men
 {
     CCAssert( value != NULL && strlen(value) != 0, "Value length must be greater than 0");
     
-    m_strFontName = _globalFontName;
-    m_uFontSize = _globalFontSize;
+    m_strFontName = _fontName;
+    m_uFontSize = _fontSize;
     
     CCLabelTTF *label = CCLabelTTF::create(value, m_strFontName.c_str(), (float)m_uFontSize);
     if (CCMenuItemLabel::initWithLabel(label, target, selector))
@@ -484,8 +500,48 @@ void CCMenuItemSprite::setDisabledImage(CCNode* pImage)
 }
 
 //
-//CCMenuItemSprite
+//CCMenuItemSprite - CCRGBAProtocol protocol
 //
+
+void CCMenuItemSprite::setOpacity(GLubyte opacity)
+{
+    dynamic_cast<CCRGBAProtocol*>(m_pNormalImage)->setOpacity(opacity);
+    
+    if (m_pSelectedImage)
+    {
+        dynamic_cast<CCRGBAProtocol*>(m_pSelectedImage)->setOpacity(opacity);
+    }
+    
+    if (m_pDisabledImage)
+    {
+        dynamic_cast<CCRGBAProtocol*>(m_pDisabledImage)->setOpacity(opacity);
+    }
+}
+
+void CCMenuItemSprite::setColor(const ccColor3B& color)
+{
+    dynamic_cast<CCRGBAProtocol*>(m_pNormalImage)->setColor(color);
+    
+    if (m_pSelectedImage)
+    {
+        dynamic_cast<CCRGBAProtocol*>(m_pSelectedImage)->setColor(color);
+    }    
+    
+    if (m_pDisabledImage)
+    {
+        dynamic_cast<CCRGBAProtocol*>(m_pDisabledImage)->setColor(color);
+    }
+}
+
+GLubyte CCMenuItemSprite::getOpacity()
+{
+    return dynamic_cast<CCRGBAProtocol*>(m_pNormalImage)->getOpacity();
+}
+
+const ccColor3B& CCMenuItemSprite::getColor()
+{
+    return dynamic_cast<CCRGBAProtocol*>(m_pNormalImage)->getColor();
+}
 
 CCMenuItemSprite * CCMenuItemSprite::create(CCNode* normalSprite, CCNode* selectedSprite, CCNode* disabledSprite)
 {
@@ -516,10 +572,6 @@ bool CCMenuItemSprite::initWithNormalSprite(CCNode* normalSprite, CCNode* select
     {
         this->setContentSize(m_pNormalImage->getContentSize());
     }
-    
-    setCascadeColorEnabled(true);
-    setCascadeOpacityEnabled(true);
-    
     return true;
 }
 
@@ -570,7 +622,7 @@ void CCMenuItemSprite::unselected()
 
 void CCMenuItemSprite::setEnabled(bool bEnabled)
 {
-    if( m_bEnabled != bEnabled ) 
+    if( m_bIsEnabled != bEnabled ) 
     {
         CCMenuItem::setEnabled(bEnabled);
         this->updateImagesVisibility();
@@ -580,7 +632,7 @@ void CCMenuItemSprite::setEnabled(bool bEnabled)
 // Helper 
 void CCMenuItemSprite::updateImagesVisibility()
 {
-    if (m_bEnabled)
+    if (m_bIsEnabled)
     {
         if (m_pNormalImage)   m_pNormalImage->setVisible(true);
         if (m_pSelectedImage) m_pSelectedImage->setVisible(false);
@@ -714,24 +766,6 @@ CCArray* CCMenuItemToggle::getSubItems()
     return m_pSubItems;
 }
 
-CCMenuItemToggle * CCMenuItemToggle::createWithTarget(CCObject* target, SEL_MenuHandler selector, CCArray* menuItems)
-{
-    CCMenuItemToggle *pRet = new CCMenuItemToggle();
-    pRet->CCMenuItem::initWithTarget(target, selector);
-    pRet->m_pSubItems = CCArray::create();
-    pRet->m_pSubItems->retain();
-    
-    for (unsigned int z=0; z < menuItems->count(); z++)
-    {
-        CCMenuItem* menuItem = (CCMenuItem*)menuItems->objectAtIndex(z);
-        pRet->m_pSubItems->addObject(menuItem);
-    }
-    
-    pRet->m_uSelectedIndex = UINT_MAX;
-    pRet->setSelectedIndex(0);
-    return pRet;
-}
-
 CCMenuItemToggle * CCMenuItemToggle::createWithTarget(CCObject* target, SEL_MenuHandler selector, CCMenuItem* item, ...)
 {
     va_list args;
@@ -782,16 +816,11 @@ bool CCMenuItemToggle::initWithItem(CCMenuItem *item)
     CCMenuItem::initWithTarget(NULL, NULL);
     setSubItems(CCArray::create());
 
-    if (item)
-    {
+    if (item) {
         m_pSubItems->addObject(item);
     }
     m_uSelectedIndex = UINT_MAX;
     this->setSelectedIndex(0);
-    
-    setCascadeColorEnabled(true);
-    setCascadeOpacityEnabled(true);
-    
     return true;
 }
 
@@ -839,7 +868,7 @@ void CCMenuItemToggle::unselected()
 void CCMenuItemToggle::activate()
 {
     // update index
-    if( m_bEnabled ) 
+    if( m_bIsEnabled ) 
     {
         unsigned int newIndex = (m_uSelectedIndex + 1) % m_pSubItems->count();
         this->setSelectedIndex(newIndex);
@@ -848,7 +877,7 @@ void CCMenuItemToggle::activate()
 }
 void CCMenuItemToggle::setEnabled(bool enabled)
 {
-    if (m_bEnabled != enabled)
+    if (m_bIsEnabled != enabled)
     {
         CCMenuItem::setEnabled(enabled);
 
@@ -867,6 +896,45 @@ void CCMenuItemToggle::setEnabled(bool enabled)
 CCMenuItem* CCMenuItemToggle::selectedItem()
 {
     return (CCMenuItem*)m_pSubItems->objectAtIndex(m_uSelectedIndex);
+}
+//
+//CCMenuItemToggle - CCRGBAProtocol protocol
+//
+GLubyte CCMenuItemToggle::getOpacity()
+{
+    return m_cOpacity;
+}
+void CCMenuItemToggle::setOpacity(GLubyte opacity)
+{
+    m_cOpacity = opacity;
+    if(m_pSubItems && m_pSubItems->count() > 0)
+    {
+        CCObject* pObj = NULL;
+        CCARRAY_FOREACH(m_pSubItems, pObj)
+        {
+            CCMenuItem* pItem = (CCMenuItem*)pObj;
+            dynamic_cast<CCRGBAProtocol*>(pItem)->setOpacity(opacity);
+        }
+    }
+}
+
+const ccColor3B& CCMenuItemToggle::getColor()
+{
+    return m_tColor;
+}
+
+void CCMenuItemToggle::setColor(const ccColor3B& color)
+{
+    m_tColor = color;
+    if(m_pSubItems && m_pSubItems->count() > 0)
+    {
+        CCObject* pObj = NULL;
+        CCARRAY_FOREACH(m_pSubItems, pObj)
+        {
+            CCMenuItem* pItem = (CCMenuItem*)pObj;
+            dynamic_cast<CCRGBAProtocol*>(pItem)->setColor(color);
+        }
+    }
 }
 
 NS_CC_END

@@ -50,19 +50,19 @@ class CCSpriteFrame;
  *
  *  Subclass CCMenuItem (or any subclass) to create your custom CCMenuItem objects.
  */
-class CC_DLL CCMenuItem : public CCNodeRGBA
+class CC_DLL CCMenuItem : public CCNode
 {
 protected:
     /** whether or not the item is selected
      @since v0.8.2
      */
-    bool m_bSelected;
-    bool m_bEnabled;
+    bool m_bIsSelected;
+    bool m_bIsEnabled;
 
 public:
     CCMenuItem()
-    : m_bSelected(false)
-    , m_bEnabled(false)            
+    : m_bIsSelected(false)
+    , m_bIsEnabled(false)            
     , m_pListener(NULL)            
     , m_pfnSelector(NULL)
     , m_nScriptTapHandler(0)
@@ -94,9 +94,6 @@ public:
     virtual void setEnabled(bool value);
     virtual bool isSelected();
     
-    virtual void setOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
-    virtual bool isOpacityModifyRGB(void) { return false;}
-    
     /** set the target/selector of the menu item*/
     void setTarget(CCObject *rec, SEL_MenuHandler selector);
 
@@ -113,7 +110,7 @@ protected:
  - CCLabelAtlas
  - CCLabelTTF
  */
-class CC_DLL CCMenuItemLabel : public CCMenuItem
+class CC_DLL CCMenuItemLabel : public CCMenuItem, public CCRGBAProtocol
 {
     /** the color that will be used to disable the item */
     CC_PROPERTY_PASS_BY_REF(ccColor3B, m_tDisabledColor, DisabledColor);
@@ -143,7 +140,13 @@ public:
      @warning setEnabled changes the RGB color of the font
      */
     virtual void setEnabled(bool enabled);
+    virtual void setOpacity(GLubyte opacity);
+    virtual GLubyte getOpacity();
+    virtual void setColor(const ccColor3B& color);
+    virtual const ccColor3B& getColor();
     
+    virtual void setOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
+    virtual bool isOpacityModifyRGB(void) { return false;}
 protected:
     ccColor3B    m_tColorBackup;
     float        m_fOriginalScale;
@@ -226,7 +229,7 @@ protected:
  
  @since v0.8.0
  */
-class CC_DLL CCMenuItemSprite : public CCMenuItem
+class CC_DLL CCMenuItemSprite : public CCMenuItem, public CCRGBAProtocol
 {
     /** the image used when the item is not selected */
     CC_PROPERTY(CCNode*, m_pNormalImage, NormalImage);
@@ -250,6 +253,11 @@ public:
 
     /** initializes a menu item with a normal, selected  and disabled image with target/selector */
     bool initWithNormalSprite(CCNode* normalSprite, CCNode* selectedSprite, CCNode* disabledSprite, CCObject* target, SEL_MenuHandler selector);
+    // super methods
+    virtual void setColor(const ccColor3B& color);
+    virtual const ccColor3B& getColor();
+    virtual void setOpacity(GLubyte opacity);
+    virtual GLubyte getOpacity();
     
     /**
      @since v0.99.5
@@ -308,8 +316,12 @@ public:
  A simple container class that "toggles" it's inner items
  The inner items can be any MenuItem
  */
-class CC_DLL CCMenuItemToggle : public CCMenuItem
+class CC_DLL CCMenuItemToggle : public CCMenuItem, public CCRGBAProtocol
 {
+    /** conforms with CCRGBAProtocol protocol */
+    CC_PROPERTY(GLubyte, m_cOpacity, Opacity);
+    /** conforms with CCRGBAProtocol protocol */
+    CC_PROPERTY_PASS_BY_REF(ccColor3B, m_tColor, Color);
     /** returns the selected item */
     CC_PROPERTY(unsigned int, m_uSelectedIndex, SelectedIndex);
     /** CCMutableArray that contains the subitems. You can add/remove items in runtime, and you can replace the array with a new one.
@@ -318,13 +330,11 @@ class CC_DLL CCMenuItemToggle : public CCMenuItem
     CC_PROPERTY(CCArray*, m_pSubItems, SubItems);
 public:
     CCMenuItemToggle()
-    : m_uSelectedIndex(0)
+    : m_cOpacity(0)
+    , m_uSelectedIndex(0)
     , m_pSubItems(NULL)            
     {}
     virtual ~CCMenuItemToggle();
-    
-    /** creates a menu item from a CCArray with a target selector */
-    static CCMenuItemToggle * createWithTarget(CCObject* target, SEL_MenuHandler selector, CCArray* menuItems);
 
     /** creates a menu item from a list of items with a target/selector */
     static CCMenuItemToggle* createWithTarget(CCObject* target, SEL_MenuHandler selector, CCMenuItem* item, ...);  

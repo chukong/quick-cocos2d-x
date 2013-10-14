@@ -56,6 +56,7 @@ bool CCTileMapAtlas::initWithTileFile(const char *tile, const char *mapFile, int
 
     if( CCAtlasNode::initWithTileFile(tile, tileWidth, tileHeight, m_nItemsToRender) )
     {
+        m_tColor = ccWHITE;
         m_pPosToAtlasIndex = new CCDictionary();
         this->updateAtlasValues();
         this->setContentSize(CCSizeMake((float)(m_pTGAInfo->width*m_uItemWidth),
@@ -134,11 +135,11 @@ void CCTileMapAtlas::loadTGAfile(const char *file)
 // CCTileMapAtlas - Atlas generation / updates
 void CCTileMapAtlas::setTile(const ccColor3B& tile, const CCPoint& position)
 {
-    CCAssert(m_pTGAInfo != NULL, "tgaInfo must not be nil");
-    CCAssert(m_pPosToAtlasIndex != NULL, "posToAtlasIndex must not be nil");
-    CCAssert(position.x < m_pTGAInfo->width, "Invalid position.x");
-    CCAssert(position.y < m_pTGAInfo->height, "Invalid position.x");
-    CCAssert(tile.r != 0, "R component must be non 0");
+    CCAssert( m_pTGAInfo != NULL, "tgaInfo must not be nil");
+    CCAssert( m_pPosToAtlasIndex != NULL, "posToAtlasIndex must not be nil");
+    CCAssert( position.x < m_pTGAInfo->width, "Invalid position.x");
+    CCAssert( position.y < m_pTGAInfo->height, "Invalid position.x");
+    CCAssert( tile.r != 0, "R component must be non 0");
 
     ccColor3B *ptr = (ccColor3B*)m_pTGAInfo->imageData;
     ccColor3B value = ptr[(unsigned int)(position.x + position.y * m_pTGAInfo->width)];
@@ -173,9 +174,7 @@ ccColor3B CCTileMapAtlas::tileAt(const CCPoint& position)
 
 void CCTileMapAtlas::updateAtlasValueAt(const CCPoint& pos, const ccColor3B& value, unsigned int index)
 {
-    CCAssert( index >= 0 && index < m_pTextureAtlas->getCapacity(), "updateAtlasValueAt: Invalid index");
-
-    ccV3F_C4B_T2F_Quad* quad = &((m_pTextureAtlas->getQuads())[index]);
+    ccV3F_C4B_T2F_Quad quad;
 
     int x = pos.x;
     int y = pos.y;
@@ -200,39 +199,35 @@ void CCTileMapAtlas::updateAtlasValueAt(const CCPoint& pos, const ccColor3B& val
     float bottom      = top + itemHeightInPixels / textureHigh;
 #endif
 
-    quad->tl.texCoords.u = left;
-    quad->tl.texCoords.v = top;
-    quad->tr.texCoords.u = right;
-    quad->tr.texCoords.v = top;
-    quad->bl.texCoords.u = left;
-    quad->bl.texCoords.v = bottom;
-    quad->br.texCoords.u = right;
-    quad->br.texCoords.v = bottom;
+    quad.tl.texCoords.u = left;
+    quad.tl.texCoords.v = top;
+    quad.tr.texCoords.u = right;
+    quad.tr.texCoords.v = top;
+    quad.bl.texCoords.u = left;
+    quad.bl.texCoords.v = bottom;
+    quad.br.texCoords.u = right;
+    quad.br.texCoords.v = bottom;
 
-    quad->bl.vertices.x = (float) (x * m_uItemWidth);
-    quad->bl.vertices.y = (float) (y * m_uItemHeight);
-    quad->bl.vertices.z = 0.0f;
-    quad->br.vertices.x = (float)(x * m_uItemWidth + m_uItemWidth);
-    quad->br.vertices.y = (float)(y * m_uItemHeight);
-    quad->br.vertices.z = 0.0f;
-    quad->tl.vertices.x = (float)(x * m_uItemWidth);
-    quad->tl.vertices.y = (float)(y * m_uItemHeight + m_uItemHeight);
-    quad->tl.vertices.z = 0.0f;
-    quad->tr.vertices.x = (float)(x * m_uItemWidth + m_uItemWidth);
-    quad->tr.vertices.y = (float)(y * m_uItemHeight + m_uItemHeight);
-    quad->tr.vertices.z = 0.0f;
+    quad.bl.vertices.x = (float) (x * m_uItemWidth);
+    quad.bl.vertices.y = (float) (y * m_uItemHeight);
+    quad.bl.vertices.z = 0.0f;
+    quad.br.vertices.x = (float)(x * m_uItemWidth + m_uItemWidth);
+    quad.br.vertices.y = (float)(y * m_uItemHeight);
+    quad.br.vertices.z = 0.0f;
+    quad.tl.vertices.x = (float)(x * m_uItemWidth);
+    quad.tl.vertices.y = (float)(y * m_uItemHeight + m_uItemHeight);
+    quad.tl.vertices.z = 0.0f;
+    quad.tr.vertices.x = (float)(x * m_uItemWidth + m_uItemWidth);
+    quad.tr.vertices.y = (float)(y * m_uItemHeight + m_uItemHeight);
+    quad.tr.vertices.z = 0.0f;
 
-    ccColor4B color = { _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity };
-    quad->tr.colors = color;
-    quad->tl.colors = color;
-    quad->br.colors = color;
-    quad->bl.colors = color;
+    ccColor4B color = { m_tColor.r, m_tColor.g, m_tColor.b, m_cOpacity };
+    quad.tr.colors = color;
+    quad.tl.colors = color;
+    quad.br.colors = color;
+    quad.bl.colors = color;
 
-    m_pTextureAtlas->setDirty(true);
-    unsigned int totalQuads = m_pTextureAtlas->getTotalQuads();
-    if (index + 1 > totalQuads) {
-        m_pTextureAtlas->increaseTotalQuadsWith(index + 1 - totalQuads);
-    }
+    m_pTextureAtlas->updateQuad(&quad, index);
 }
 
 void CCTileMapAtlas::updateAtlasValues()

@@ -296,8 +296,8 @@ CCSprite* CCSprite::initWithCGImage(CGImageRef pImage, const char *pszKey)
 */
 
 CCSprite::CCSprite(void)
-: m_bShouldBeHidden(false),
-m_pobTexture(NULL)
+: m_pobTexture(NULL)
+, m_bShouldBeHidden(false)
 {
 }
 
@@ -559,12 +559,7 @@ void CCSprite::draw(void)
         ccGLEnableVertexAttribs( kCCVertexAttribFlag_PosColorTex );
 
 #define kQuadSize sizeof(m_sQuad.bl)
-#ifdef EMSCRIPTEN
-    long offset = 0;
-    setGLBufferData(&m_sQuad, 4 * kQuadSize, 0);
-#else
     long offset = (long)&m_sQuad;
-#endif // EMSCRIPTEN
 
     // vertex
     int diff = offsetof( ccV3F_C4B_T2F, vertices);
@@ -887,15 +882,7 @@ bool CCSprite::isFlipY(void)
 
 void CCSprite::updateColor(void)
 {
-    ccColor4B color4 = { _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity };
-    
-    // special opacity for premultiplied textures
-	if (m_bOpacityModifyRGB)
-    {
-		color4.r *= _displayedOpacity/255.0f;
-		color4.g *= _displayedOpacity/255.0f;
-		color4.b *= _displayedOpacity/255.0f;
-    }
+    ccColor4B color4 = { m_sColor.r, m_sColor.g, m_sColor.b, m_nOpacity };
 
     m_sQuad.bl.colors = color4;
     m_sQuad.br.colors = color4;
@@ -923,44 +910,51 @@ void CCSprite::updateColor(void)
 
 void CCSprite::setOpacity(GLubyte opacity)
 {
-    CCNodeRGBA::setOpacity(opacity);
+    m_nOpacity = opacity;
+
+    // special opacity for premultiplied textures
+    if (m_bOpacityModifyRGB)
+    {
+        setColor(m_sColorUnmodified);
+    }
 
     updateColor();
+}
+
+const ccColor3B& CCSprite::getColor(void)
+{
+    if (m_bOpacityModifyRGB)
+    {
+        return m_sColorUnmodified;
+    }
+
+    return m_sColor;
 }
 
 void CCSprite::setColor(const ccColor3B& color3)
 {
-    CCNodeRGBA::setColor(color3);
+    m_sColor = m_sColorUnmodified = color3;
+
+    if (m_bOpacityModifyRGB)
+    {
+        m_sColor.r = color3.r * m_nOpacity/255.0f;
+        m_sColor.g = color3.g * m_nOpacity/255.0f;
+        m_sColor.b = color3.b * m_nOpacity/255.0f;
+    }
 
     updateColor();
 }
 
-void CCSprite::setOpacityModifyRGB(bool modify)
+void CCSprite::setOpacityModifyRGB(bool bValue)
 {
-    if (m_bOpacityModifyRGB != modify)
-    {
-        m_bOpacityModifyRGB = modify;
-        updateColor();
-    }
+    ccColor3B oldColor = m_sColor;
+    m_bOpacityModifyRGB = bValue;
+    m_sColor = oldColor;
 }
 
 bool CCSprite::isOpacityModifyRGB(void)
 {
     return m_bOpacityModifyRGB;
-}
-
-void CCSprite::updateDisplayedColor(const ccColor3B& parentColor)
-{
-    CCNodeRGBA::updateDisplayedColor(parentColor);
-    
-    updateColor();
-}
-
-void CCSprite::updateDisplayedOpacity(GLubyte opacity)
-{
-    CCNodeRGBA::updateDisplayedOpacity(opacity);
-    
-    updateColor();
 }
 
 // Frames

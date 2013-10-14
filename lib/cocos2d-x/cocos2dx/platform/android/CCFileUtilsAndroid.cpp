@@ -62,13 +62,8 @@ bool CCFileUtilsAndroid::init()
 
 bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
 {
-    if (0 == strFilePath.length())
-    {
-        return false;
-    }
-
     bool bFound = false;
-
+    
     // Check whether file exists in apk.
     if (strFilePath[0] != '/')
     {
@@ -81,7 +76,7 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         if (s_pZipFile->fileExists(strPath))
         {
             bFound = true;
-        }
+        } 
     }
     else
     {
@@ -93,11 +88,6 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         }
     }
     return bFound;
-}
-
-bool CCFileUtilsAndroid::isDirectoryExist(const std::string& strDirPath)
-{
-    return inDirectoryExistsJNI(strDirPath.c_str());
 }
 
 bool CCFileUtilsAndroid::isAbsolutePath(const std::string& strPath)
@@ -115,7 +105,7 @@ bool CCFileUtilsAndroid::isAbsolutePath(const std::string& strPath)
 
 
 unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize)
-{
+{    
     unsigned char * pData = 0;
 
     if ((! pszFileName) || (! pszMode) || 0 == strlen(pszFileName))
@@ -123,20 +113,19 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
         return 0;
     }
 
-    string fullPath = fullPathForFilename(pszFileName);
-
-    if (fullPath[0] != '/')
+    if (pszFileName[0] != '/')
     {
         //CCLOG("GETTING FILE RELATIVE DATA: %s", pszFileName);
+        string fullPath = fullPathForFilename(pszFileName);
         pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
     }
     else
     {
-        do
+        do 
         {
             // read rrom other path than user set it
 	        //CCLOG("GETTING FILE ABSOLUTE DATA: %s", pszFileName);
-            FILE *fp = fopen(fullPath.c_str(), pszMode);
+            FILE *fp = fopen(pszFileName, pszMode);
             CC_BREAK_IF(!fp);
 
             unsigned long size;
@@ -150,12 +139,13 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
             if (pSize)
             {
                 *pSize = size;
-            }
-        } while (0);
+            }            
+        } while (0);        
     }
 
-    if (! pData)
+    if (! pData && isPopupNotify())
     {
+        std::string title = "Notification";
         std::string msg = "Get data from file(";
         msg.append(pszFileName).append(") failed!");
         CCLOG("%s", msg.c_str());
@@ -164,14 +154,14 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
     return pData;
 }
 
-string CCFileUtilsAndroid::getWritablePath()
+string CCFileUtilsAndroid::getWriteablePath()
 {
     // Fix for Nexus 10 (Android 4.2 multi-user environment)
     // the path is retrieved through Java Context.getCacheDir() method
     string dir("");
-    string tmp = getFileDirectoryJNI();
+    const char *tmp = getCacheDirectoryJNI();
 
-    if (tmp.length() > 0)
+    if (tmp)
     {
         dir.append(tmp).append("/");
 

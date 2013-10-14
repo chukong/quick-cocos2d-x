@@ -4,13 +4,7 @@
 Game Network allows access to 3rd party libraries that enables social gaming features
 such as public leaderboards and achievements.
 
-Currently, the OpenFeint and Game Center (iOS only) libraries are supported.
-
-If you want to use both OpenFeint and Game Center, iOS OpenFeint will post achievement
-updates and leaderboard updates to Game Center provided OFGameCenter.plist is present
-in the project folder.
-
-See http://support.openfeint.com/dev/game-center-compatibility/ for details.
+Currently, Game Center (iOS only) libraries are supported.
 
 @module framework.api.GameNetwork
 
@@ -72,15 +66,9 @@ different providers).
 <br />
 
 @param providerName
-String of the game network provider. ("openfeint" or "gamecenter", case insensitive)
+String of the game network provider. ("gamecenter", case insensitive)
 
 @param params
-Additional parameters required by the "openfeint" provider.
-
--   **productKey**: String of your application's OpenFeint product key (provided by OpenFeint).
--   **secret**: String of your application's product secret (provided by OpenFeint).
--   **displayName**: String of the name to display in OpenFeint leaderboards and other views.
-
 If using GameCenter, the params.listener allows you to specify a callback function.
 (Instead of secret keys, your bundle identifier is used automatically to identify your app.)
 On successful login, event.data will be 'true'. On unsuccessful init, event.data will be false.
@@ -204,8 +192,6 @@ end
 
 --[[--
 Shows (displays) information from game network provider on the screen.
-
-For OpenFeint provider, launches the OpenFeint dashboard in one of the following configurations: leaderboards, challenges, achievements, friends, playing or high score.
 
 **Syntax:**
 

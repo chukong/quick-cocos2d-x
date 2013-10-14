@@ -718,12 +718,6 @@ static EAGLView *view = 0;
     return nil;
 }
 
-- (NSArray *)selectionRectsForRange:(UITextRange *)range
-{
-    CCLOG("selectionRectsForRange");
-    return nil;
-}
-
 #pragma mark -
 #pragma mark UIKeyboard notification
 

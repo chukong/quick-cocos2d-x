@@ -36,7 +36,10 @@
 NS_CC_EXT_BEGIN
 
 CCControl::CCControl()
-: m_bIsOpacityModifyRGB(false)
+: m_cOpacity(0)
+, m_tColor(ccBLACK)
+, m_bIsOpacityModifyRGB(false)
+, m_nDefaultTouchPriority(0)
 , m_eState(CCControlStateNormal)
 , m_hasVisibleParents(false)
 , m_bEnabled(false)
@@ -75,12 +78,11 @@ bool CCControl::init()
         setHighlighted(false);
 
         // Set the touch dispatcher priority by default to 1
-        this->setTouchPriority(1);
+        setDefaultTouchPriority(1);
+        this->setDefaultTouchPriority(m_nDefaultTouchPriority);
         // Initialise the tables
         m_pDispatchTable = new CCDictionary(); 
-        // Initialise the mapHandleOfControlEvents
-        m_mapHandleOfControlEvent.clear();
-        
+
         return true;
     }
     else
@@ -97,7 +99,7 @@ CCControl::~CCControl()
     //Menu - Events
 void CCControl::registerWithTouchDispatcher()
 {
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), true);
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, m_nDefaultTouchPriority, true);
 }
 
 void CCControl::onEnter()
@@ -126,14 +128,6 @@ void CCControl::sendActionsForControlEvents(CCControlEvent controlEvents)
             {
                 CCInvocation* invocation = (CCInvocation*)pObj;
                 invocation->invoke(this);
-            }
-            //Call ScriptFunc
-            if (kScriptTypeNone != m_eScriptType)
-            {
-                int nHandler = this->getHandleOfControlEvent(controlEvents);
-                if (-1 != nHandler) {
-                    CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler,"",this);
-                }
             }
         }
     }
@@ -230,6 +224,50 @@ void CCControl::removeTargetWithActionForControlEvent(CCObject* target, SEL_CCCo
 
 
 //CRGBA protocol
+void CCControl::setColor(const ccColor3B& color)
+{
+    m_tColor=color;
+    CCObject* child;
+    CCArray* children=getChildren();
+    CCARRAY_FOREACH(children, child)
+    {
+        CCRGBAProtocol* pNode = dynamic_cast<CCRGBAProtocol*>(child);        
+        if (pNode)
+        {
+            pNode->setColor(m_tColor);
+        }
+    }
+}
+
+const ccColor3B& CCControl::getColor(void)
+{
+    return m_tColor;
+}
+
+
+void CCControl::setOpacity(GLubyte opacity)
+{
+    m_cOpacity = opacity;
+    
+    CCObject* child;
+    CCArray* children=getChildren();
+    CCARRAY_FOREACH(children, child)
+    {
+        CCRGBAProtocol* pNode = dynamic_cast<CCRGBAProtocol*>(child);        
+        if (pNode)
+        {
+            pNode->setOpacity(opacity);
+        }
+    }
+
+}
+
+GLubyte CCControl::getOpacity()
+{
+    return m_cOpacity;
+}
+
+
 void CCControl::setOpacityModifyRGB(bool bOpacityModifyRGB)
 {
     m_bIsOpacityModifyRGB=bOpacityModifyRGB;
@@ -336,29 +374,4 @@ bool CCControl::hasVisibleParents()
     return true;
 }
 
-void CCControl::addHandleOfControlEvent(int nFunID,CCControlEvent controlEvent)
-{
-    m_mapHandleOfControlEvent[controlEvent] = nFunID;
-}
-
-void CCControl::removeHandleOfControlEvent(CCControlEvent controlEvent)
-{
-    std::map<int,int>::iterator Iter = m_mapHandleOfControlEvent.find(controlEvent);
-    
-    if (m_mapHandleOfControlEvent.end() != Iter)
-    {
-        m_mapHandleOfControlEvent.erase(Iter);
-    }
-    
-}
-
-int  CCControl::getHandleOfControlEvent(CCControlEvent controlEvent)
-{
-    std::map<int,int>::iterator Iter = m_mapHandleOfControlEvent.find(controlEvent);
-    
-    if (m_mapHandleOfControlEvent.end() != Iter)
-        return Iter->second;
-    
-    return -1;
-}
 NS_CC_EXT_END

@@ -55,8 +55,8 @@ CCControlButton::CCControlButton()
 , m_titleColorDispatchTable(NULL)
 , m_titleLabelDispatchTable(NULL)
 , m_backgroundSpriteDispatchTable(NULL)
-, m_marginV(CCControlButtonMarginTB)
 , m_marginH(CCControlButtonMarginLR)
+, m_marginV(CCControlButtonMarginTB)
 {
 
 }
@@ -184,8 +184,8 @@ CCControlButton* CCControlButton::create(CCScale9Sprite* sprite)
 
 void CCControlButton::setMargins(int marginH, int marginV)
 {
-    m_marginV = marginV;
-    m_marginH = marginH;
+    m_marginV=marginV;
+    m_marginH=marginH;
     needsLayout();
 }
 
@@ -203,18 +203,9 @@ void CCControlButton::setSelected(bool enabled)
 
 void CCControlButton::setHighlighted(bool enabled)
 {
-    if (enabled == true)
-    {
-        m_eState = CCControlStateHighlighted;
-    }
-    else
-    {
-        m_eState = CCControlStateNormal;
-    }
-    
     CCControl::setHighlighted(enabled);
 
-    CCAction *action = getActionByTag(kZoomActionTag);
+    CCAction *action =getActionByTag(kZoomActionTag);
     if (action)
     {
         stopAction(action);        
@@ -223,7 +214,7 @@ void CCControlButton::setHighlighted(bool enabled)
     if( m_zoomOnTouchDown )
     {
         float scaleValue = (isHighlighted() && isEnabled() && !isSelected()) ? 1.1f : 1.0f;
-        CCAction *zoomAction = CCScaleTo::create(0.05f, scaleValue);
+        CCAction *zoomAction =CCScaleTo::create(0.05f, scaleValue);
         zoomAction->setTag(kZoomActionTag);
         runAction(zoomAction);
     }
@@ -330,14 +321,14 @@ const ccColor3B CCControlButton::getTitleColorForState(CCControlState state)
         CCColor3bObject* colorObject=(CCColor3bObject*)m_titleColorDispatchTable->objectForKey(state);    
         if (colorObject)
         {
-            returnColor = colorObject->value;
+            returnColor= colorObject->value;
             break;
         }
 
-        colorObject = (CCColor3bObject*)m_titleColorDispatchTable->objectForKey(CCControlStateNormal);   
+        colorObject=(CCColor3bObject*)m_titleColorDispatchTable->objectForKey(CCControlStateNormal);   
         if (colorObject)
         {
-            returnColor = colorObject->value;
+            returnColor=colorObject->value;
         }
     } while (0);
 
@@ -361,7 +352,7 @@ void CCControlButton::setTitleColorForState(ccColor3B color, CCControlState stat
 
 CCNode* CCControlButton::getTitleLabelForState(CCControlState state)
 {
-    CCNode* titleLabel = (CCNode*)m_titleLabelDispatchTable->objectForKey(state);    
+    CCNode* titleLabel=(CCNode*)m_titleLabelDispatchTable->objectForKey(state);    
     if (titleLabel)
     {
         return titleLabel;
@@ -468,7 +459,7 @@ const char * CCControlButton::getTitleBMFontForState(CCControlState state)
 
 CCScale9Sprite* CCControlButton::getBackgroundSpriteForState(CCControlState state)
 {
-    CCScale9Sprite* backgroundSprite = (CCScale9Sprite*)m_backgroundSpriteDispatchTable->objectForKey(state);    
+    CCScale9Sprite* backgroundSprite=(CCScale9Sprite*)m_backgroundSpriteDispatchTable->objectForKey(state);    
     if (backgroundSprite)
     {
         return backgroundSprite;
@@ -538,7 +529,7 @@ void CCControlButton::needsLayout()
     m_currentTitle = getTitleForState(m_eState);
     CC_SAFE_RETAIN(m_currentTitle);
 
-    m_currentTitleColor = getTitleColorForState(m_eState);
+    m_currentTitleColor=getTitleColorForState(m_eState);
 
     this->setTitleLabel(getTitleLabelForState(m_eState));
 
@@ -633,20 +624,13 @@ void CCControlButton::needsLayout()
 
 bool CCControlButton::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (!isTouchInside(pTouch) || !isEnabled() || !isVisible() || !hasVisibleParents() )
+    if (!isTouchInside(pTouch) || !isEnabled() || !isVisible())
     {
         return false;
     }
     
-    for (CCNode *c = this->m_pParent; c != NULL; c = c->getParent())
-    {
-        if (c->isVisible() == false)
-        {
-            return false;
-        }
-    }
-    
-    m_isPushed = true;
+    m_eState=CCControlStateHighlighted;
+    m_isPushed=true;
     this->setHighlighted(true);
     sendActionsForControlEvents(CCControlEventTouchDown);
     return true;
@@ -666,6 +650,7 @@ void CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     bool isTouchMoveInside = isTouchInside(pTouch);
     if (isTouchMoveInside && !isHighlighted())
     {
+        m_eState = CCControlStateHighlighted;
         setHighlighted(true);
         sendActionsForControlEvents(CCControlEventTouchDragEnter);
     }
@@ -675,6 +660,7 @@ void CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     }
     else if (!isTouchMoveInside && isHighlighted())
     {
+        m_eState = CCControlStateNormal;
         setHighlighted(false);
         
         sendActionsForControlEvents(CCControlEventTouchDragExit);        
@@ -686,6 +672,7 @@ void CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 }
 void CCControlButton::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
+    m_eState = CCControlStateNormal;
     m_isPushed = false;
     setHighlighted(false);
     
@@ -702,20 +689,18 @@ void CCControlButton::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 
 void CCControlButton::setOpacity(GLubyte opacity)
 {
-    // XXX fixed me if not correct
-    CCControl::setOpacity(opacity);
-//    m_cOpacity = opacity;
-//    
-//    CCObject* child;
-//    CCArray* children=getChildren();
-//    CCARRAY_FOREACH(children, child)
-//    {
-//        CCRGBAProtocol* pNode = dynamic_cast<CCRGBAProtocol*>(child);        
-//        if (pNode)
-//        {
-//            pNode->setOpacity(opacity);
-//        }
-//    }
+    m_cOpacity = opacity;
+    
+    CCObject* child;
+    CCArray* children=getChildren();
+    CCARRAY_FOREACH(children, child)
+    {
+        CCRGBAProtocol* pNode = dynamic_cast<CCRGBAProtocol*>(child);        
+        if (pNode)
+        {
+            pNode->setOpacity(opacity);
+        }
+    }
     CCDictElement * item = NULL;
     CCDICT_FOREACH(m_backgroundSpriteDispatchTable, item)
     {
@@ -726,28 +711,12 @@ void CCControlButton::setOpacity(GLubyte opacity)
 
 GLubyte CCControlButton::getOpacity()
 {
-    return _realOpacity;
-}
-
-void CCControlButton::setColor(const ccColor3B & color)
-{
-	CCControl::setColor(color);
-	
-	CCDictElement * item = NULL;
-    CCDICT_FOREACH(m_backgroundSpriteDispatchTable, item)
-    {
-        CCScale9Sprite* sprite = (CCScale9Sprite*)item->getObject();
-        sprite->setColor(color);
-    }
-}
-
-const ccColor3B& CCControlButton::getColor()
-{
-	return _realColor;
+    return m_cOpacity;
 }
 
 void CCControlButton::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
+    m_eState = CCControlStateNormal;
     m_isPushed = false;
     setHighlighted(false);
     sendActionsForControlEvents(CCControlEventTouchCancel);

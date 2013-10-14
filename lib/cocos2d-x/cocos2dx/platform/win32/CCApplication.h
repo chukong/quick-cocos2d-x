@@ -36,10 +36,16 @@ public:
      */
     virtual TargetPlatform getTargetPlatform();
 
+    const std::string& getStartupScriptFilename(void) {
+        return m_startupScriptFilename;
+    }
+    void setStartupScriptFilename(const std::string& startupScriptFile);
+
 protected:
     HINSTANCE           m_hInstance;
     HACCEL              m_hAccelTable;
     LARGE_INTEGER       m_nAnimationInterval;
+    std::string         m_startupScriptFilename;
 
     static CCApplication * sm_pSharedApplication;
 };

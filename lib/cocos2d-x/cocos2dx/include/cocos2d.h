@@ -50,7 +50,6 @@ THE SOFTWARE.
 #include "actions/CCActionInstant.h"
 #include "actions/CCActionTween.h"
 #include "actions/CCActionCatmullRom.h"
-#include "actions/CCLinkPosition.h"
 
 // base_nodes
 #include "base_nodes/CCNode.h"
@@ -71,7 +70,6 @@ THE SOFTWARE.
 #include "cocoa/CCString.h"
 #include "cocoa/CCNS.h"
 #include "cocoa/CCZone.h"
-#include "cocoa/CCPointArray.h"
 
 // draw nodes
 #include "draw_nodes/CCDrawingPrimitives.h"
@@ -127,7 +125,7 @@ THE SOFTWARE.
 #include "particle_nodes/CCParticleSystemQuad.h"
 
 // platform
-#include "platform/CCDevice.h"
+
 #include "platform/CCCommon.h"
 #include "platform/CCFileUtils.h"
 #include "platform/CCImage.h"
@@ -195,29 +193,6 @@ THE SOFTWARE.
 	#include "platform/Marmalade/CCStdC.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_NACL)
-    #include "platform/nacl/CCAccelerometer.h"
-    #include "platform/nacl/CCApplication.h"
-    #include "platform/nacl/CCEGLView.h"
-    #include "platform/nacl/CCGL.h"
-    #include "platform/nacl/CCStdC.h"
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
-    #include "platform/emscripten/CCAccelerometer.h"
-    #include "platform/emscripten/CCApplication.h"
-    #include "platform/emscripten/CCEGLView.h"
-    #include "platform/emscripten/CCGL.h"
-    #include "platform/emscripten/CCStdC.h"
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN)
-    #include "platform/tizen/CCAccelerometer.h"
-    #include "platform/tizen/CCApplication.h"
-    #include "platform/tizen/CCEGLView.h"
-    #include "platform/tizen/CCGL.h"
-    #include "platform/tizen/CCStdC.h"
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
 
 // script_support
 #include "script_support/CCScriptSupport.h"
@@ -235,16 +210,13 @@ THE SOFTWARE.
 #include "sprite_nodes/CCSpriteBatchNode.h"
 #include "sprite_nodes/CCSpriteFrame.h"
 #include "sprite_nodes/CCSpriteFrameCache.h"
-#include "sprite_nodes/CCGraySprite.h"
 
 // support
-#include "support/ccUTF8.h"
 #include "support/CCNotificationCenter.h"
 #include "support/CCPointExtension.h"
 #include "support/CCProfiling.h"
-#include "support/user_default/CCUserDefault.h"
+#include "support/CCUserDefault.h"
 #include "support/CCVertex.h"
-#include "support/tinyxml2/tinyxml2.h"
 
 // text_input_node
 #include "text_input_node/CCIMEDelegate.h"
@@ -276,10 +248,6 @@ THE SOFTWARE.
 #include "CCConfiguration.h"
 #include "CCDirector.h"
 #include "CCScheduler.h"
-
-// component
-#include "support/component/CCComponent.h"
-#include "support/component/CCComponentContainer.h"
 
 NS_CC_BEGIN
 

@@ -10,7 +10,6 @@ LOCAL_SRC_FILES := \
 CCConfiguration.cpp \
 CCScheduler.cpp \
 CCCamera.cpp \
-ccFPSImages.c \
 actions/CCAction.cpp \
 actions/CCActionCamera.cpp \
 actions/CCActionCatmullRom.cpp \
@@ -24,7 +23,6 @@ actions/CCActionPageTurn3D.cpp \
 actions/CCActionProgressTimer.cpp \
 actions/CCActionTiledGrid.cpp \
 actions/CCActionTween.cpp \
-actions/CCLinkPosition.cpp \
 base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \
@@ -37,8 +35,6 @@ cocoa/CCSet.cpp \
 cocoa/CCString.cpp \
 cocoa/CCZone.cpp \
 cocoa/CCArray.cpp \
-cocoa/CCDataVisitor.cpp \
-cocoa/CCPointArray.cpp \
 cocos2d.cpp \
 CCDirector.cpp \
 draw_nodes/CCDrawingPrimitives.cpp \
@@ -87,7 +83,6 @@ platform/CCFileUtils.cpp \
 platform/CCZipFile.cpp \
 platform/platform.cpp \
 platform/CCEGLViewProtocol.cpp \
-platform/android/CCDevice.cpp \
 platform/android/CCEGLView.cpp \
 platform/android/CCAccelerometer.cpp \
 platform/android/CCApplication.cpp \
@@ -101,7 +96,56 @@ platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxAccelerometer.cpp \
 platform/android/jni/JniHelper.cpp \
 platform/android/jni/IMEJni.cpp \
 platform/android/jni/TouchesJni.cpp \
-platform/android/jni/DPIJni.cpp \
+platform/third_party/common/webp/dec/alpha.c \
+platform/third_party/common/webp/dec/buffer.c \
+platform/third_party/common/webp/dec/frame.c \
+platform/third_party/common/webp/dec/idec.c \
+platform/third_party/common/webp/dec/io.c \
+platform/third_party/common/webp/dec/layer.c \
+platform/third_party/common/webp/dec/quant.c \
+platform/third_party/common/webp/dec/tree.c \
+platform/third_party/common/webp/dec/vp8.c \
+platform/third_party/common/webp/dec/vp8l.c \
+platform/third_party/common/webp/dec/webp.c \
+platform/third_party/common/webp/dsp/dec.c \
+platform/third_party/common/webp/dsp/dec_neon.c \
+platform/third_party/common/webp/dsp/dec_sse2.c \
+platform/third_party/common/webp/dsp/enc.c \
+platform/third_party/common/webp/dsp/enc_sse2.c \
+platform/third_party/common/webp/dsp/lossless.c \
+platform/third_party/common/webp/dsp/upsampling.c \
+platform/third_party/common/webp/dsp/upsampling_sse2.c \
+platform/third_party/common/webp/dsp/yuv.c \
+platform/third_party/common/webp/enc/alpha.c \
+platform/third_party/common/webp/enc/analysis.c \
+platform/third_party/common/webp/enc/backward_references.c \
+platform/third_party/common/webp/enc/config.c \
+platform/third_party/common/webp/enc/cost.c \
+platform/third_party/common/webp/enc/filter.c \
+platform/third_party/common/webp/enc/frame.c \
+platform/third_party/common/webp/enc/histogram.c \
+platform/third_party/common/webp/enc/iterator.c \
+platform/third_party/common/webp/enc/layer.c \
+platform/third_party/common/webp/enc/picture.c \
+platform/third_party/common/webp/enc/quant.c \
+platform/third_party/common/webp/enc/syntax.c \
+platform/third_party/common/webp/enc/tree.c \
+platform/third_party/common/webp/enc/vp8l.c \
+platform/third_party/common/webp/enc/webpenc.c \
+platform/third_party/common/webp/mux/demux.c \
+platform/third_party/common/webp/mux/muxedit.c \
+platform/third_party/common/webp/mux/muxinternal.c \
+platform/third_party/common/webp/mux/muxread.c \
+platform/third_party/common/webp/utils/bit_reader.c \
+platform/third_party/common/webp/utils/bit_writer.c \
+platform/third_party/common/webp/utils/color_cache.c \
+platform/third_party/common/webp/utils/filters.c \
+platform/third_party/common/webp/utils/huffman.c \
+platform/third_party/common/webp/utils/huffman_encode.c \
+platform/third_party/common/webp/utils/quant_levels.c \
+platform/third_party/common/webp/utils/rescaler.c \
+platform/third_party/common/webp/utils/thread.c \
+platform/third_party/common/webp/utils/utils.c \
 script_support/CCScriptSupport.cpp \
 shaders/ccShaders.cpp \
 shaders/CCGLProgram.cpp \
@@ -113,30 +157,24 @@ sprite_nodes/CCSprite.cpp \
 sprite_nodes/CCSpriteBatchNode.cpp \
 sprite_nodes/CCSpriteFrame.cpp \
 sprite_nodes/CCSpriteFrameCache.cpp \
-sprite_nodes/CCGraySprite.cpp \
-support/ccUTF8.cpp \
 support/CCNotificationCenter.cpp \
 support/CCProfiling.cpp \
 support/CCPointExtension.cpp \
 support/TransformUtils.cpp \
-support/user_default/CCUserDefaultAndroid.cpp \
+support/CCUserDefault.cpp \
 support/base64.cpp \
 support/ccUtils.cpp \
 support/CCVertex.cpp \
 support/data_support/ccCArray.cpp \
 support/image_support/TGAlib.cpp \
-support/tinyxml2/tinyxml2.cpp \
 support/zip_support/ZipUtils.cpp \
 support/zip_support/ioapi.cpp \
 support/zip_support/unzip.cpp \
-support/component/CCComponent.cpp \
-support/component/CCComponentContainer.cpp \
 text_input_node/CCIMEDispatcher.cpp \
 text_input_node/CCTextFieldTTF.cpp \
 textures/CCTexture2D.cpp \
 textures/CCTextureAtlas.cpp \
 textures/CCTextureCache.cpp \
-textures/CCTextureETC.cpp \
 textures/CCTexturePVR.cpp \
 tilemap_parallax_nodes/CCParallaxNode.cpp \
 tilemap_parallax_nodes/CCTMXLayer.cpp \
@@ -153,6 +191,11 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/kazmath/include \
                     $(LOCAL_PATH)/platform/android
 
+
+LOCAL_EXPORT_LDLIBS := -llog\
+                       -lz \
+                       -lGLESv2
+
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
@@ -166,7 +209,6 @@ LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
 
 # define the macro to compile through support/zip_support/ioapi.c
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API $(ANDROID_COCOS2D_BUILD_FLAGS)
@@ -174,8 +216,7 @@ LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,libcurl)
 $(call import-module,libjpeg)
 $(call import-module,libpng)
+$(call import-module,libxml2)
 $(call import-module,libtiff)
-$(call import-module,libwebp)

@@ -29,7 +29,7 @@ THE SOFTWARE.
 #define __CCScale9Sprite_H__
 
 #include "cocos2d.h"
-#include "../../ExtensionMacros.h"
+#include "ExtensionMacros.h"
 
 NS_CC_EXT_BEGIN
 
@@ -40,17 +40,7 @@ NS_CC_EXT_BEGIN
  * @{
  */
 
-/**
- * A 9-slice sprite for cocos2d.
- *
- * 9-slice scaling allows you to specify how scaling is applied
- * to specific areas of a sprite. With 9-slice scaling (3x3 grid),
- * you can ensure that the sprite does not become distorted when
- * scaled.
- *
- * @see http://yannickloriot.com/library/ios/cccontrolextension/Classes/CCScale9Sprite.html
- */
-class CC_DLL CCScale9Sprite : public CCNodeRGBA
+class CC_DLL CCScale9Sprite : public CCNode, public CCRGBAProtocol
 {
 public:
     CCScale9Sprite();
@@ -78,6 +68,11 @@ public:
     /** Sets the bottom side inset */
     CC_PROPERTY(float, m_insetBottom, InsetBottom);
 
+    /** Opacity: conforms to CCRGBAProtocol protocol */
+    CC_PROPERTY(GLubyte, m_cOpacity, Opacity)
+    /** Color: conforms to CCRGBAProtocol protocol */
+    CC_PROPERTY_PASS_BY_REF(ccColor3B, m_tColor, Color)
+
 protected:
     bool m_bSpritesGenerated;
     CCRect m_spriteRect;
@@ -85,21 +80,21 @@ protected:
     CCRect m_capInsetsInternal;
     bool m_positionsAreDirty;
     
-    CCSpriteBatchNode* _scale9Image;
-    CCSprite* _topLeft;
-    CCSprite* _top;
-    CCSprite* _topRight;
-    CCSprite* _left;
-    CCSprite* _centre;
-    CCSprite* _right;
-    CCSprite* _bottomLeft;
-    CCSprite* _bottom;
-    CCSprite* _bottomRight;
-
-    bool _opacityModifyRGB;
-    GLubyte _opacity;
-    ccColor3B _color;
+    CCSpriteBatchNode* scale9Image;
+    CCSprite* topLeft;
+    CCSprite* top;
+    CCSprite* topRight;
+    CCSprite* left;
+    CCSprite* centre;
+    CCSprite* right;
+    CCSprite* bottomLeft;
+    CCSprite* bottom;
+    CCSprite* bottomRight;
     
+    /** Conforms to CocosNodeRGBA protocol. */
+    ccColor3B m_sColorUnmodified;
+    bool m_bIsOpacityModifyRGB;
+
     void updateCapInset();
     void updatePositions();
 
@@ -307,10 +302,6 @@ public:
      @since v0.8
      */
     virtual bool isOpacityModifyRGB(void);
-    virtual void setOpacity(GLubyte opacity);
-	virtual GLubyte getOpacity();
-    virtual void setColor(const ccColor3B& color);
-	virtual const ccColor3B& getColor();
 
     virtual bool updateWithBatchNode(CCSpriteBatchNode* batchnode, CCRect rect, bool rotated, CCRect capInsets);
 

@@ -1,14 +1,11 @@
 #ifndef __CCPLATFORMDEFINE_H__
 #define __CCPLATFORMDEFINE_H__
 
-#ifdef __MINGW32__
-#include <string.h>
-#endif
 
 #if defined(_USRDLL)
     #define CC_DLL     __declspec(dllexport)
 #else         /* use a DLL library */
-    #define CC_DLL     
+    #define CC_DLL     __declspec(dllimport)
 #endif
 
 #include <assert.h>

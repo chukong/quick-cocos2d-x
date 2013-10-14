@@ -144,12 +144,6 @@ ccLanguageType CCApplication::getCurrentLanguage()
         case LANG_HUNGARIAN:
             ret = kLanguageHungarian;
             break;
-        case LANG_PORTUGUESE:
-            ret = kLanguagePortuguese;
-            break;
-        case LANG_ARABIC:
-            ret = kLanguageArabic;
-            break;
     }
 
     return ret;
@@ -158,6 +152,16 @@ ccLanguageType CCApplication::getCurrentLanguage()
 TargetPlatform CCApplication::getTargetPlatform()
 {
     return kTargetWindows;
+}
+
+void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)
+{
+    m_startupScriptFilename = startupScriptFile;
+    int pos;
+    while ((pos = m_startupScriptFilename.find_first_of("\\")) != std::string::npos)
+    {
+        m_startupScriptFilename.replace(pos, 1, "/");
+    }
 }
 
 NS_CC_END

@@ -37,8 +37,21 @@
 #include "GUI/CCScrollView/CCTableView.h"
 #include "GUI/CCEditBox/CCEditBox.h"
 
-#include "Components/CCComAttribute.h"
-#include "Components/CCComAudio.h"
-#include "Components/CCComController.h"
+#include "network/HttpRequest.h"
+#include "network/HttpResponse.h"
+#include "network/HttpClient.h"
+
+// Physics integration
+#if CC_ENABLE_CHIPMUNK_INTEGRATION
+#include "physics_nodes/CCPhysicsDebugNode.h"
+#include "physics_nodes/CCPhysicsSprite.h"
+#endif
+
+#if CC_ENABLE_BOX2D_INTEGRATION
+#include "physics_nodes/CCPhysicsDebugNode.h"
+#include "physics_nodes/CCPhysicsSprite.h"
+#endif
+
 
 #endif /* __COCOS2D_EXT_H__ */
+

@@ -26,9 +26,4 @@ unsigned char* CCData::getBytes()
     return m_pBytes;
 }
 
-unsigned long CCData::getSize()
-{
-    return m_nSize;
-}
-
 NS_CC_EXT_END

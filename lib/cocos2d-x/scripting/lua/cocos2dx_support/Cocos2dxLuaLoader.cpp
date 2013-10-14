@@ -29,10 +29,10 @@ using namespace cocos2d;
 
 extern "C"
 {
-    int cocos2dx_lua_loader(lua_State *L)
+    int loader_Android(lua_State *L)
     {
         std::string filename(luaL_checkstring(L, 1));
-        size_t pos = filename.rfind(".lua");
+        int pos = filename.rfind(".lua");
         if (pos != std::string::npos)
         {
             filename = filename.substr(0, pos);

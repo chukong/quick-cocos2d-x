@@ -51,7 +51,6 @@ static id s_sharedDirectorCaller;
 +(void) destroy
 {
     [s_sharedDirectorCaller release];
-    s_sharedDirectorCaller = nil;
 }
 
 -(void) alloc

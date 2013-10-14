@@ -63,8 +63,6 @@ class CCSprite;
 class CC_DLL CCSpriteBatchNode : public CCNode, public CCTextureProtocol
 {
 public:
-
-    CCSpriteBatchNode();
     ~CCSpriteBatchNode();
 
     // property

@@ -34,7 +34,7 @@ THE SOFTWARE.
 #include "cocoa/CCArray.h"
 #include "CCGL.h"
 #include "kazmath/mat4.h"
-#include "label_nodes/CCLabelAtlas.h"
+#include "label_nodes/CCLabelTTF.h"
 #include "ccTypeInfo.h"
 
 
@@ -141,9 +141,6 @@ public:
      */
     inline ccDirectorProjection getProjection(void) { return m_eProjection; }
     void setProjection(ccDirectorProjection kProjection);
-    
-    /** Sets the glViewport*/
-    void setViewport();
 
     /** How many frames were called since the director started */
     
@@ -204,7 +201,7 @@ public:
 
     // Scene Management
 
-    /** Enters the Director's main loop with the given Scene.
+    /**Enters the Director's main loop with the given Scene. 
      * Call it to run only your FIRST scene.
      * Don't call it if there is already a running scene.
      *
@@ -212,32 +209,26 @@ public:
      */
     void runWithScene(CCScene *pScene);
 
-    /** Suspends the execution of the running scene, pushing it on the stack of suspended scenes.
+    /**Suspends the execution of the running scene, pushing it on the stack of suspended scenes.
      * The new scene will be executed.
      * Try to avoid big stacks of pushed scenes to reduce memory allocation. 
      * ONLY call it if there is a running scene.
      */
     void pushScene(CCScene *pScene);
 
-    /** Pops out a scene from the queue.
+    /**Pops out a scene from the queue.
      * This scene will replace the running one.
      * The running scene will be deleted. If there are no more scenes in the stack the execution is terminated.
      * ONLY call it if there is a running scene.
      */
     void popScene(void);
 
-    /** Pops out all scenes from the queue until the root scene in the queue.
+    /**Pops out all scenes from the queue until the root scene in the queue.
      * This scene will replace the running one.
-     * Internally it will call `popToSceneStackLevel(1)`
+     * The running scene will be deleted. If there are no more scenes in the stack the execution is terminated.
+     * ONLY call it if there is a running scene.
      */
     void popToRootScene(void);
-
-    /** Pops out all scenes from the queue until it reaches `level`.
-     If level is 0, it will end the director.
-     If level is 1, it will pop all scenes until it reaches to root scene.
-     If level is <= than the current stack level, it won't do anything.
-     */
- 	void popToSceneStackLevel(int level);
 
     /** Replaces the running scene with a new one. The running scene is terminated.
      * ONLY call it if there is a running scene.
@@ -284,9 +275,6 @@ public:
      @since v0.99.3
      */
     void purgeCachedData(void);
-
-	/** sets the default values based on the CCConfiguration info */
-    void setDefaultValues(void);
 
     // OpenGL Helper
 
@@ -335,10 +323,6 @@ public:
      */
     CC_PROPERTY(CCAccelerometer*, m_pAccelerometer, Accelerometer);
 
-    /* delta time since last tick to main loop */
-	CC_PROPERTY_READONLY(float, m_fDeltaTime, DeltaTime);
-	
-public:
     /** returns a shared instance of the director */
     static CCDirector* sharedDirector(void);
 
@@ -352,8 +336,7 @@ protected:
     void showStats();
     void createStatsLabel();
     void calculateMPF();
-    void getFPSImageData(unsigned char** datapointer, unsigned int* length);
-    
+
     /** calculates delta time since last time it was called */    
     void calculateDeltaTime();
 protected:
@@ -370,9 +353,9 @@ protected:
     float m_fAccumDt;
     float m_fFrameRate;
     
-    CCLabelAtlas *m_pFPSLabel;
-    CCLabelAtlas *m_pSPFLabel;
-    CCLabelAtlas *m_pDrawsLabel;
+    CCLabelTTF *m_pFPSLabel;
+    CCLabelTTF *m_pSPFLabel;
+    CCLabelTTF *m_pDrawsLabel;
     
     /** Whether or not the Director is paused */
     bool m_bPaused;
@@ -397,6 +380,9 @@ protected:
     
     /* last time the main loop was updated */
     struct cc_timeval *m_pLastUpdate;
+
+    /* delta time since last tick to main loop */
+    float m_fDeltaTime;
 
     /* whether or not the next delta time will be zero */
     bool m_bNextDeltaTimeZero;

@@ -375,6 +375,7 @@ bool CCImage::initWithString(
                                int             nSize/* = 0*/)
 {
     bool bRet = false;
+    unsigned char * pImageData = 0;
     do 
     {
         CC_BREAK_IF(! pText);       
@@ -393,11 +394,11 @@ bool CCImage::initWithString(
         // calc image size
         int width = (size.cx / 2) * 2 + 2;
         int height = (size.cy / 2) * 2 + 2;
-
+        
         // alloc image data buffer
-        m_pData = new unsigned char[width * height * 4];
-        CC_BREAK_IF(! m_pData);
-        memset(m_pData, 0, width * height * 4);
+        pImageData = new unsigned char[width * height * 4];
+        CC_BREAK_IF(! pImageData);
+        memset(pImageData, 0, width * height * 4);
 
         struct
         {
@@ -408,10 +409,12 @@ bool CCImage::initWithString(
         CC_BREAK_IF(! GetDIBits(dc.getDC(), dc.getBitmap(), 0, 0, 
             NULL, (LPBITMAPINFO)&bi, DIB_RGB_COLORS));
 
-        m_nWidth    = (short)width;
-        m_nHeight   = (short)height;
+        m_nWidth    = width;
+        m_nHeight   = height;
         m_bHasAlpha = true;
         m_bPreMulti = false;
+        m_pData     = pImageData;
+        pImageData  = 0;
         m_nBitsPerComponent = 8;
         // copy pixed data
         bi.bmiHeader.biHeight = (bi.bmiHeader.biHeight > 0)

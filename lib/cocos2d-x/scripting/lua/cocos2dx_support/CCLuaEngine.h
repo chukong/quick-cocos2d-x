@@ -78,11 +78,6 @@ public:
     virtual void removeScriptHandler(int nHandler);
     
     /**
-     @brief Reallocate Lua function reference
-     */
-    virtual int reallocateScriptHandler(int nHandler);
-    
-    /**
      @brief Execute script code contained in the given string.
      @param codes holding the valid script code that should be executed.
      @return 0 if the string is excuted correctly.
@@ -100,10 +95,9 @@ public:
      @brief Execute a scripted global function.
      @brief The function should not take any parameters and should return an integer.
      @param functionName String object holding the name of the function, in the global script environment, that is to be executed.
-     @param numArgs
      @return The integer value returned from the script function.
      */
-    virtual int executeGlobalFunction(const char* functionName, int numArgs = 0);
+    virtual int executeGlobalFunction(const char* functionName);
 
     virtual int executeNodeEvent(CCNode* pNode, int nAction);
     virtual int executeMenuItemEvent(CCMenuItem* pMenuItem);
@@ -116,8 +110,7 @@ public:
     /** execute a accelerometer event */
     virtual int executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue);
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL);
-
-    virtual bool handleAssert(const char *msg);
+    virtual bool executeAssert(bool cond, const char *msg = NULL);
     
 private:
     CCLuaEngine(void)

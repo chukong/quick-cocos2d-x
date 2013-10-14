@@ -72,7 +72,7 @@ public:
     static CCParticleSystemQuad * create(const char *plistFile);
 
     /** initializes the indices for the vertices*/
-    void initIndices();
+    void setupIndices();
 
     /** initializes the texture with a rectangle measured Points */
     void initTexCoordsWithRect(const CCRect& rect);

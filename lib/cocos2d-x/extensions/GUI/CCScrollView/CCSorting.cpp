@@ -37,7 +37,6 @@ private:
     unsigned int objectID;
 };
 
-#if 0
 static int _compareObject(const void * val1, const void * val2)
 {
     CCSortableObject* operand1;
@@ -55,7 +54,6 @@ static int _compareObject(const void * val1, const void * val2)
     }
     return 0;
 }
-#endif
 
 
 void CCArrayForObjectSorting::insertSortedObject(CCSortableObject* object)

@@ -1,0 +1,81 @@
+
+class CCLayer : public CCNode
+{
+    void setTouchEnabled(bool bValue);
+    bool isTouchEnabled();
+
+    void setAccelerometerEnabled(bool bValue);
+    bool isAccelerometerEnabled();
+
+    void setKeypadEnabled(bool bValue);
+    bool isKeypadEnabled();
+
+    void setTouchPriority(int priority);
+    int getTouchPriority();
+
+    void registerScriptTouchHandler(LUA_FUNCTION nHandler,
+                                    bool bIsMultiTouches = false,
+                                    int nPriority = 0,
+                                    bool bSwallowsTouches = false);
+    void unregisterScriptTouchHandler();
+
+    void registerScriptKeypadHandler(LUA_FUNCTION nHandler);
+    void unregisterScriptKeypadHandler(void);
+
+    void registerScriptAccelerateHandler(LUA_FUNCTION nHandler);
+    void unregisterScriptAccelerateHandler(void);
+
+    static CCLayer *create(void);
+};
+
+class CCLayerColor : public CCLayer
+{
+    void changeWidth(GLfloat w);
+    void changeHeight(GLfloat h);
+    void changeWidthAndHeight(GLfloat w ,GLfloat h);
+
+	void setContentSize(const CCSize & var);
+
+    void setOpacity(GLubyte var);
+    GLubyte getOpacity(void);
+    void setColor(ccColor3B Value);
+    ccColor3B getColor(void);
+    void setBlendFunc(ccBlendFunc Value);
+    ccBlendFunc getBlendFunc(void);
+
+	void setOpacityModifyRGB(bool bValue);
+    bool isOpacityModifyRGB(void);
+
+    static CCLayerColor* create(ccColor4B color, GLfloat width, GLfloat height);
+    static CCLayerColor* create(ccColor4B color);
+};
+
+class CCLayerGradient : public CCLayerColor
+{
+    void setStartColor(ccColor3B colors);
+    ccColor3B getStartColor();
+    void setEndColor(ccColor3B Value);
+    ccColor3B getEndColor(void);
+    void setStartOpacity(GLubyte Value);
+    GLubyte getStartOpacity(void);
+    void setEndOpacity(GLubyte Value);
+    GLubyte getEndOpacity(void);
+    void setVector(CCPoint Value);
+    CCPoint getVector(void);
+
+    void setCompressedInterpolation(bool Value);
+    bool isCompressedInterpolation(void);
+
+    static CCLayerGradient* create(ccColor4B start, ccColor4B end, CCPoint v);
+    static CCLayerGradient* create(ccColor4B start, ccColor4B end);
+};
+
+class CCLayerMultiplex : public CCLayer
+{
+    void addLayer(CCLayer* layer);
+    void switchTo(unsigned int n);
+    void switchToAndReleaseMe(unsigned int n);
+
+	static CCLayerMultiplex * create(CCLayer* layer);
+    static CCLayerMultiplex * createWithLayer(CCLayer* layer);
+};

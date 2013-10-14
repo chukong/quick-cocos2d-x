@@ -5,8 +5,6 @@
 #include "ExtensionMacros.h"
 #include <string>
 #include <vector>
-#include "CCBSequence.h"
-
 
 #define CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(T, METHOD) static T * METHOD() { \
     T * ptr = new T(); \
@@ -28,7 +26,7 @@
     return NULL; \
 }
 
-#define kCCBVersion 5
+#define kCCBVersion 4
 
 enum {
     kCCBPropTypePosition = 0,
@@ -57,8 +55,7 @@ enum {
     kCCBPropTypeCCBFile,
     kCCBPropTypeString,
     kCCBPropTypeBlockCCControl,
-    kCCBPropTypeFloatScale,
-    kCCBPropTypeFloatXY
+    kCCBPropTypeFloatScale
 };
 
 enum {
@@ -170,6 +167,7 @@ class CCBReader : public CCObject
 {
 private:
     
+    bool jsControlled;
     CCData *mData;
     unsigned char *mBytes;
     int mCurrentByte;
@@ -198,11 +196,8 @@ private:
     std::vector<std::string> mOwnerCallbackNames;
     CCArray* mOwnerCallbackNodes;
     std::string mCCBRootPath;
-    bool hasScriptingOwner;    
     bool init();
 public:
-    
-    bool jsControlled;
     CCBReader(CCNodeLoaderLibrary *pCCNodeLoaderLibrary, CCBMemberVariableAssigner *pCCBMemberVariableAssigner = NULL, CCBSelectorResolver *pCCBSelectorResolver = NULL, CCNodeLoaderListener *pCCNodeLoaderListener = NULL);
     CCBReader(CCBReader *pCCBReader);
     virtual ~CCBReader();
@@ -248,11 +243,6 @@ public:
     bool isJSControlled();
             
     
-    bool readCallbackKeyframesForSeq(CCBSequence* seq);
-    bool readSoundKeyframesForSeq(CCBSequence* seq);
-
-
-    
     CCArray* getOwnerCallbackNames();
     CCArray* getOwnerCallbackNodes();
     CCArray* getOwnerOutletNames();
@@ -270,12 +260,9 @@ public:
     void addDocumentCallbackNode(CCNode *node);
     
     static float getResolutionScale();
-    static void setResolutionScale(float scale);
     
     CCNode* readFileWithCleanUp(bool bCleanUp, CCDictionary* am);
-    
-    void addOwnerOutletName(std::string name);
-    void addOwnerOutletNode(CCNode *node);
+    bool hasScriptingOwner;    
 
 private:
     void cleanUpNodeGraph(CCNode *pNode);

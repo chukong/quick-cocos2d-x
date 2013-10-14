@@ -62,20 +62,14 @@ public:
      */
     void removeObserver(CCObject *target,const char *name);
     
-    /** @brief Removes all notifications registered by this target
-     *  @param target The target of this notification.
-     *  @returns the number of observers removed
-     */
-    int removeAllObservers(CCObject *target);
-
     /** @brief Registers one hander for script binding.
      *  @note Only supports Lua Binding now.
      *  @param handler The lua handler.
      */
-    void registerScriptObserver(CCObject *target,int handler,const char* name);
+    void registerScriptObserver(int handler);
 
     /** Unregisters script observer */
-    void unregisterScriptObserver(CCObject *target,const char* name);
+    void unregisterScriptObserver(void);
     
     /** @brief Posts one notification event by name.
      *  @param name The name of this notification.
@@ -87,12 +81,12 @@ public:
      *  @param object The extra parameter.
      */
     void postNotification(const char *name, CCObject *object);
-
-    /** @brief Gets observer script handler.
-     *  @param name The name of this notification.
-     *  @return The observer script handle.
+    
+    /** @brief Gets script handler.
+     *  @note Only supports Lua Binding now.
+     *  @return The script handle.
      */
-    int getObserverHandlerByName(const char* name);
+    inline int getScriptHandler() { return m_scriptHandler; };
 private:
     // internal functions
 
@@ -102,6 +96,7 @@ private:
     // variables
     //
     CCArray *m_observers;
+    int     m_scriptHandler;
 };
 
 class CC_DLL CCNotificationObserver : public CCObject
@@ -128,7 +123,6 @@ private:
     CC_PROPERTY_READONLY(SEL_CallFuncO, m_selector, Selector);
     CC_PROPERTY_READONLY(char *, m_name, Name);
     CC_PROPERTY_READONLY(CCObject *, m_object, Object);
-    CC_PROPERTY(int, m_nHandler,Handler);
 };
 
 NS_CC_END

@@ -1,0 +1,10 @@
+
+class CCActionCamera : public CCActionInterval
+{
+};
+
+class CCOrbitCamera : public CCActionCamera
+{
+    void sphericalRadius(float *r, float *zenith, float *azimuth);
+    static CCOrbitCamera * create(float t, float radius, float deltaRadius, float angleZ, float deltaAngleZ, float angleX, float deltaAngleX);
+};

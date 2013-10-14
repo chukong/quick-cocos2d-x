@@ -25,14 +25,13 @@
 #include "CCScriptSupport.h"
 #include "CCScheduler.h"
 
-bool CC_DLL cc_assert_script_compatible(const char *msg)
+void CC_DLL cc_assert_script_compatible(bool cond, const char *msg)
 {
     cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
-    if (pEngine && pEngine->handleAssert(msg))
+    if (!cond && pEngine && pEngine->executeAssert(cond, msg))
     {
-        return true;
+        return;
     }
-    return false;
 }
 
 NS_CC_BEGIN

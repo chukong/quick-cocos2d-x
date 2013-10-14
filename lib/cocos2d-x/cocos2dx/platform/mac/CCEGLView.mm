@@ -47,7 +47,7 @@ CCEGLView::CCEGLView(void)
 
 CCEGLView::~CCEGLView(void)
 {
-    CCLOG("cocos2d: deallocing CCEGLView %p", this);
+    CCLOG("cocos2d: deallocing CCEGLView %0x", this);
     s_sharedView = NULL;
 }
 
@@ -67,7 +67,6 @@ void CCEGLView::end(void)
     
     // destroy EAGLView
     [[EAGLView sharedEGLView] removeFromSuperview];
-    [[EAGLView sharedEGLView] release];
     
     delete this;
 }

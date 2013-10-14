@@ -53,7 +53,7 @@ public:
 
 public:
     /** creates the action with size and duration */
-    // We can't make this create function compatible with previous version, bindings-generator will be confused since they
+    // We can't make this create function compatible with previous version, cxx-generator will be confused since they
     // have the same function name and the same number of arguments. So sorry about that.
     //CC_DEPRECATED_ATTRIBUTE static CCGridAction* create(const CCSize& gridSize, float duration);
 
@@ -78,10 +78,6 @@ public:
     ccVertex3F originalVertex(const CCPoint& position);
     /** sets a new vertex to a certain position of the grid */
     void setVertex(const CCPoint& position, const ccVertex3F& vertex);
-
-public:
-    /** creates the action with size and duration */
-    static CCGrid3DAction* create(float duration, const CCSize& gridSize);
 };
 
 /** @brief Base class for CCTiledGrid3D actions */

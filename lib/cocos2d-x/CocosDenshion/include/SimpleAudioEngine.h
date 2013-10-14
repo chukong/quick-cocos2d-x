@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include <typeinfo>
 #include <ctype.h>
 #include <string.h>
-#include "CCPlatformDefine.h"
 
 namespace CocosDenshion {
 
@@ -60,7 +59,7 @@ static inline unsigned int getHashCodeByString(const char *key)
 @brief          offer a VERY simple interface to play background music & sound effect
 */
 
-class CC_DLL SimpleAudioEngine : public TypeInfo
+class EXPORT_DLL SimpleAudioEngine : public TypeInfo
 {
 public:
     SimpleAudioEngine();

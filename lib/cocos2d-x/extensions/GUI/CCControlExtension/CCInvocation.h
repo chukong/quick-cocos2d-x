@@ -31,7 +31,7 @@
 #define __CCINVOCATION_H__
 
 #include "cocoa/CCObject.h"
-#include "../../ExtensionMacros.h"
+#include "ExtensionMacros.h"
 
 NS_CC_EXT_BEGIN
 
@@ -48,7 +48,7 @@ typedef void (CCObject::*SEL_CCControlHandler)(CCObject*, CCControlEvent);
 
 #define cccontrol_selector(_SELECTOR) (SEL_CCControlHandler)(&_SELECTOR)
 
-class CC_DLL CCInvocation : public CCObject
+class CCInvocation : public CCObject
 {
     CC_SYNTHESIZE_READONLY(SEL_CCControlHandler, m_action, Action);
     CC_SYNTHESIZE_READONLY(CCObject*, m_target, Target);

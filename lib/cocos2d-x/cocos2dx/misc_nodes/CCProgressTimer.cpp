@@ -149,6 +149,28 @@ void CCProgressTimer::setReverseProgress(bool reverse)
     }
 }
 
+void CCProgressTimer::setColor(const ccColor3B& color)
+{
+    m_pSprite->setColor(color);
+    updateColor();
+}
+
+const ccColor3B& CCProgressTimer::getColor(void)
+{
+    return m_pSprite->getColor();
+}
+
+void CCProgressTimer::setOpacity(GLubyte opacity)
+{
+    m_pSprite->setOpacity(opacity);
+    updateColor();
+}
+
+GLubyte CCProgressTimer::getOpacity(void)
+{
+    return m_pSprite->getOpacity();
+}
+
 void CCProgressTimer::setOpacityModifyRGB(bool bValue)
 {
     CC_UNUSED_PARAM(bValue);
@@ -499,22 +521,9 @@ void CCProgressTimer::draw(void)
 
     ccGLBindTexture2D( m_pSprite->getTexture()->getName() );
 
-#ifdef EMSCRIPTEN
-    setGLBufferData((void*) m_pVertexData, (m_nVertexDataCount * sizeof(ccV2F_C4B_T2F)), 0);
-
-    int offset = 0;
-    glVertexAttribPointer( kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(ccV2F_C4B_T2F), (GLvoid*)offset);
-
-    offset += sizeof(ccVertex2F);
-    glVertexAttribPointer( kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ccV2F_C4B_T2F), (GLvoid*)offset);
-
-    offset += sizeof(ccColor4B);
-    glVertexAttribPointer( kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(ccV2F_C4B_T2F), (GLvoid*)offset);
-#else
     glVertexAttribPointer( kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(m_pVertexData[0]) , &m_pVertexData[0].vertices);
     glVertexAttribPointer( kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(m_pVertexData[0]), &m_pVertexData[0].texCoords);
     glVertexAttribPointer( kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(m_pVertexData[0]), &m_pVertexData[0].colors);
-#endif // EMSCRIPTEN
 
     if(m_eType == kCCProgressTimerTypeRadial)
     {

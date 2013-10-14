@@ -174,9 +174,6 @@ public:
     /** Remove script function handler, only CCLuaEngine class need to implement this function. */
     virtual void removeScriptHandler(int nHandler) {};
     
-    /** Reallocate script function handler, only CCLuaEngine class need to implement this function. */
-    virtual int reallocateScriptHandler(int nHandler) { return -1;}
-    
     /**
      @brief Execute script code contained in the given string.
      @param codes holding the valid script code that should be executed.
@@ -197,7 +194,7 @@ public:
      @param functionName String object holding the name of the function, in the global script environment, that is to be executed.
      @return The integer value returned from the script function.
      */
-    virtual int executeGlobalFunction(const char* functionName, int numArgs = 0) = 0;
+    virtual int executeGlobalFunction(const char* functionName) = 0;
     
     /**
      @brief Execute a node event function
@@ -228,11 +225,8 @@ public:
 
     /** function for common event */
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL) = 0;
-
-    /** called by CCAssert to allow scripting engine to handle failed assertions
-     * @return true if the assert was handled by the script engine, false otherwise.
-     */
-    virtual bool handleAssert(const char *msg) = 0;
+    /** function for assert test */
+    virtual bool executeAssert(bool cond, const char *msg = NULL) = 0;
 };
 
 /**

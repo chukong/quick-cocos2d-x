@@ -38,9 +38,9 @@ CCObject* CCCopying::copyWithZone(CCZone *pZone)
 }
 
 CCObject::CCObject(void)
-: m_nLuaID(0)
-, m_uReference(1) // when the object is created, the reference count of it is 1
-, m_uAutoReleaseCount(0)
+:m_uAutoReleaseCount(0)
+,m_uReference(1) // when the object is created, the reference count of it is 1
+,m_nLuaID(0)
 {
     static unsigned int uObjectCount = 0;
 
@@ -100,12 +100,12 @@ CCObject* CCObject::autorelease(void)
     return this;
 }
 
-bool CCObject::isSingleReference(void) const
+bool CCObject::isSingleReference(void)
 {
     return m_uReference == 1;
 }
 
-unsigned int CCObject::retainCount(void) const
+unsigned int CCObject::retainCount(void)
 {
     return m_uReference;
 }
@@ -113,11 +113,6 @@ unsigned int CCObject::retainCount(void) const
 bool CCObject::isEqual(const CCObject *pObject)
 {
     return this == pObject;
-}
-
-void CCObject::acceptVisitor(CCDataVisitor &visitor)
-{
-    visitor.visitObject(this);
 }
 
 NS_CC_END

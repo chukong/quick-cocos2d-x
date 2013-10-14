@@ -55,7 +55,6 @@ public:
     virtual void stop(void);
     virtual void update(float time);
     virtual CCActionInterval* reverse(void);
-    virtual CCActionInterval* getInnerAction();
 
 public:
 

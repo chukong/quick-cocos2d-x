@@ -1,0 +1,31 @@
+
+typedef enum eImageFormat
+{
+    kCCImageFormatJPEG       = 0,
+    kCCImageFormatPNG       = 1,
+} tImageFormat;
+
+class CCRenderTexture : public CCNode
+{
+    CCSprite* getSprite();
+    void setSprite(CCSprite* psprite);
+
+    void begin();
+    void end @ endToLua ();
+    void beginWithClear(float r, float g, float b, float a, float depthValue, int stencilValue);
+    void beginWithClear(float r, float g, float b, float a, float depthValue);
+    void beginWithClear(float r, float g, float b, float a);
+
+    void clear(float r, float g, float b, float a);
+    void clearDepth(float depthValue);
+    void clearStencil(int stencilValue);
+
+    CCImage* newCCImage();
+
+    bool saveToFile(const char *name, tCCImageFormat format);
+    bool saveToFile(const char *szFilePath);
+
+    static CCRenderTexture * create(int w ,int h, CCTexture2DPixelFormat eFormat, GLuint uDepthStencilFormat);
+    static CCRenderTexture * create(int w, int h, CCTexture2DPixelFormat eFormat);
+    static CCRenderTexture * create(int w, int h);
+};

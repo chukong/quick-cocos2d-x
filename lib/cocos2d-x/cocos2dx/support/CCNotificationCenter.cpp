@@ -34,6 +34,7 @@ NS_CC_BEGIN
 static CCNotificationCenter *s_sharedNotifCenter = NULL;
 
 CCNotificationCenter::CCNotificationCenter()
+: m_scriptHandler(0)
 {
     m_observers = CCArray::createWithCapacity(3);
     m_observers->retain();
@@ -41,6 +42,7 @@ CCNotificationCenter::CCNotificationCenter()
 
 CCNotificationCenter::~CCNotificationCenter()
 {
+    unregisterScriptObserver();
     m_observers->release();
 }
 
@@ -112,56 +114,19 @@ void CCNotificationCenter::removeObserver(CCObject *target,const char *name)
     }
 }
 
-int CCNotificationCenter::removeAllObservers(CCObject *target)
+void CCNotificationCenter::registerScriptObserver(int handler)
 {
-    CCObject *obj = NULL;
-    CCArray *toRemove = CCArray::create();
-
-    CCARRAY_FOREACH(m_observers, obj)
-    {
-        CCNotificationObserver *observer = (CCNotificationObserver *)obj;
-        if (!observer)
-            continue;
-
-        if (observer->getTarget() == target)
-        {
-            toRemove->addObject(observer);
-        }
-    }
-
-    m_observers->removeObjectsInArray(toRemove);
-    return toRemove->count();
+    unregisterScriptObserver();
+    m_scriptHandler = handler;
 }
 
-void CCNotificationCenter::registerScriptObserver( CCObject *target, int handler,const char* name)
+void CCNotificationCenter::unregisterScriptObserver(void)
 {
-    
-    if (this->observerExisted(target, name))
-        return;
-    
-    CCNotificationObserver *observer = new CCNotificationObserver(target, NULL, name, NULL);
-    if (!observer)
-        return;
-    
-    observer->setHandler(handler);
-    observer->autorelease();
-    m_observers->addObject(observer);
-}
-
-void CCNotificationCenter::unregisterScriptObserver(CCObject *target,const char* name)
-{        
-    CCObject* obj = NULL;
-    CCARRAY_FOREACH(m_observers, obj)
+    if (m_scriptHandler)
     {
-        CCNotificationObserver* observer = (CCNotificationObserver*) obj;
-        if (!observer)
-            continue;
-            
-        if ( !strcmp(observer->getName(),name) && observer->getTarget() == target)
-        {
-            m_observers->removeObject(observer);
-        }
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_scriptHandler);
     }
+    m_scriptHandler = 0;
 }
 
 void CCNotificationCenter::postNotification(const char *name, CCObject *object)
@@ -176,47 +141,19 @@ void CCNotificationCenter::postNotification(const char *name, CCObject *object)
             continue;
         
         if (!strcmp(name,observer->getName()) && (observer->getObject() == object || observer->getObject() == NULL || object == NULL))
-        {
-            if (0 != observer->getHandler())
-            {
-                CCScriptEngineProtocol* engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
-                engine->executeNotificationEvent(this, name);
-            }
-            else
-            {
-                observer->performSelector(object);
-            }
-        }
+            observer->performSelector(object);
+    }
+
+    if (m_scriptHandler)
+    {
+        CCScriptEngineProtocol* engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
+        engine->executeNotificationEvent(this, name);
     }
 }
 
 void CCNotificationCenter::postNotification(const char *name)
 {
     this->postNotification(name,NULL);
-}
-
-int CCNotificationCenter::getObserverHandlerByName(const char* name)
-{
-    if (NULL == name || strlen(name) == 0)
-    {
-        return -1;
-    }
-    
-    CCObject* obj = NULL;
-    CCARRAY_FOREACH(m_observers, obj)
-    {
-        CCNotificationObserver* observer = (CCNotificationObserver*) obj;
-        if (NULL == observer)
-            continue;
-        
-        if ( 0 == strcmp(observer->getName(),name) )
-        {
-            return observer->getHandler();
-            break;
-        }
-    }
-    
-    return -1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -238,7 +175,6 @@ CCNotificationObserver::CCNotificationObserver(CCObject *target,
     
     string orig (name);
     orig.copy(m_name,strlen(name),0);
-    m_nHandler = 0;
 }
 
 CCNotificationObserver::~CCNotificationObserver()
@@ -276,16 +212,6 @@ char *CCNotificationObserver::getName()
 CCObject *CCNotificationObserver::getObject()
 {
     return m_object;
-}
-
-int CCNotificationObserver::getHandler()
-{
-    return m_nHandler;
-}
-
-void CCNotificationObserver::setHandler(int var)
-{
-    m_nHandler = var;
 }
 
 NS_CC_END

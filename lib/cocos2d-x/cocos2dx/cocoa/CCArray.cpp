@@ -160,21 +160,26 @@ bool CCArray::initWithObjects(CCObject* pObject, ...)
     bool bRet = false;
     do 
     {
-        CC_BREAK_IF(pObject == NULL);
+        CC_BREAK_IF(pObject != NULL);
 
         va_list args;
         va_start(args, pObject);
 
-        if (pObject)
+        CCArray* pArray = new CCArray();
+        if (pArray && pObject)
         {
-            this->addObject(pObject);
+            pArray->addObject(pObject);
             CCObject* i = va_arg(args, CCObject*);
             while(i) 
             {
-                this->addObject(i);
+                pArray->addObject(i);
                 i = va_arg(args, CCObject*);
             }
             bRet = true;
+        }
+        else
+        {
+            CC_SAFE_DELETE(pArray);
         }
         va_end(args);
 
@@ -205,17 +210,17 @@ bool CCArray::initWithArray(CCArray* otherArray)
     return bRet;
 }
 
-unsigned int CCArray::count() const
+unsigned int CCArray::count()
 {
     return data->num;
 }
 
-unsigned int CCArray::capacity() const
+unsigned int CCArray::capacity()
 {
     return data->max;
 }
 
-unsigned int CCArray::indexOfObject(CCObject* object) const
+unsigned int CCArray::indexOfObject(CCObject* object)
 {
     return ccArrayGetIndexOfObject(data, object);
 }
@@ -252,7 +257,7 @@ CCObject* CCArray::randomObject()
     return data->arr[(int)(data->num * r)];
 }
 
-bool CCArray::containsObject(CCObject* object) const
+bool CCArray::containsObject(CCObject* object)
 {
     return ccArrayContainsObject(data, object);
 }
@@ -389,11 +394,6 @@ CCObject* CCArray::copyWithZone(CCZone* pZone)
         pTmpObj->release();
     }
     return pArray;
-}
-
-void CCArray::acceptVisitor(CCDataVisitor &visitor)
-{
-    visitor.visit(this);
 }
 
 NS_CC_END

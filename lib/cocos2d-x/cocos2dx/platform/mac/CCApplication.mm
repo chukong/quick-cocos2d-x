@@ -119,14 +119,6 @@ ccLanguageType CCApplication::getCurrentLanguage()
     else if ([languageCode isEqualToString:@"hu"]){
         ret = kLanguageHungarian;
     }
-    else if ([languageCode isEqualToString:@"pt"])
-    {
-        ret = kLanguagePortuguese;
-    }
-    else if ([languageCode isEqualToString:@"ar"])
-    {
-        ret = kLanguageArabic;
-    }
     
     return ret;
 }
@@ -147,6 +139,17 @@ void CCApplication::setResourceRootPath(const std::string& rootResDir)
 const std::string& CCApplication::getResourceRootPath(void)
 {
     return m_resourceRootPath;
+}
+
+void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)
+{
+    m_startupScriptFilename = startupScriptFile;
+    std::replace(m_startupScriptFilename.begin(), m_startupScriptFilename.end(), '\\', '/');
+}
+
+const std::string& CCApplication::getStartupScriptFilename(void)
+{
+    return m_startupScriptFilename;
 }
 
 NS_CC_END

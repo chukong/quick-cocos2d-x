@@ -28,58 +28,25 @@ THE SOFTWARE.
 // implementation of CCPoint
 NS_CC_BEGIN
 
-CCPoint::CCPoint(void) : x(0), y(0)
+CCPoint::CCPoint(void)
 {
+    setPoint(0.0f, 0.0f);
 }
 
-CCPoint::CCPoint(float x, float y) : x(x), y(y)
+CCPoint::CCPoint(float x, float y)
 {
+    setPoint(x, y);
 }
 
-CCPoint::CCPoint(const CCPoint& other) : x(other.x), y(other.y)
+CCPoint::CCPoint(const CCPoint& other)
 {
-}
-
-CCPoint::CCPoint(const CCSize& size) : x(size.width), y(size.height)
-{
+    setPoint(other.x, other.y);
 }
 
 CCPoint& CCPoint::operator= (const CCPoint& other)
 {
     setPoint(other.x, other.y);
     return *this;
-}
-
-CCPoint& CCPoint::operator= (const CCSize& size)
-{
-    setPoint(size.width, size.height);
-    return *this;
-}
-
-CCPoint CCPoint::operator+(const CCPoint& right) const
-{
-    return CCPoint(this->x + right.x, this->y + right.y);
-}
-
-CCPoint CCPoint::operator-(const CCPoint& right) const
-{
-    return CCPoint(this->x - right.x, this->y - right.y);
-}
-
-CCPoint CCPoint::operator-() const
-{
-	return CCPoint(-x, -y);
-}
-
-CCPoint CCPoint::operator*(float a) const
-{
-    return CCPoint(this->x * a, this->y * a);
-}
-
-CCPoint CCPoint::operator/(float a) const
-{
-	CCAssert(a, "CCPoint division by 0.");
-    return CCPoint(this->x / a, this->y / a);
 }
 
 void CCPoint::setPoint(float x, float y)
@@ -90,81 +57,206 @@ void CCPoint::setPoint(float x, float y)
 
 bool CCPoint::equals(const CCPoint& target) const
 {
-    return (fabs(this->x - target.x) < FLT_EPSILON)
-        && (fabs(this->y - target.y) < FLT_EPSILON);
+    return ((x == target.x) && (y == target.y));
 }
 
-bool CCPoint::fuzzyEquals(const CCPoint& b, float var) const
+
+/*
+ *  Implementation of CCPointArray
+ */
+
+CCPointArray* CCPointArray::create(unsigned int capacity)
 {
-    if(x - var <= b.x && b.x <= x + var)
-        if(y - var <= b.y && b.y <= y + var)
-            return true;
-    return false;
+    CCPointArray* ret = new CCPointArray();
+    if (ret)
+    {
+        if (ret->initWithCapacity(capacity))
+        {
+            ret->autorelease();
+        }
+        else 
+        {
+            delete ret;
+            ret = NULL;
+        }
+    }
+    
+    return ret;
 }
 
-float CCPoint::getAngle(const CCPoint& other) const
+
+bool CCPointArray::initWithCapacity(unsigned int capacity)
 {
-    CCPoint a2 = normalize();
-    CCPoint b2 = other.normalize();
-    float angle = atan2f(a2.cross(b2), a2.dot(b2));
-    if( fabs(angle) < FLT_EPSILON ) return 0.f;
-    return angle;
+    m_pPoints = new vector<CCPoint*>();
+    
+    return true;
 }
 
-CCPoint CCPoint::rotateByAngle(const CCPoint& pivot, float angle) const
+CCObject* CCPointArray::copyWithZone(cocos2d::CCZone *zone)
 {
-    return pivot + (*this - pivot).rotate(CCPoint::forAngle(angle));
+    vector<CCPoint*> *newArray = new vector<CCPoint*>();
+    vector<CCPoint*>::iterator iter;
+    for (iter = m_pPoints->begin(); iter != m_pPoints->end(); ++iter)
+    {
+        newArray->push_back(new CCPoint((*iter)->x, (*iter)->y));
+    }
+    
+    CCPointArray *points = new CCPointArray();
+    points->initWithCapacity(10);
+    points->setPoints(newArray);
+    
+    return points;
+}
+
+CCPointArray::~CCPointArray()
+{
+    removeAll();
+    delete m_pPoints;
+}
+
+CCPointArray::CCPointArray() :m_pPoints(NULL){}
+
+const std::vector<CCPoint*>* CCPointArray::getPoints()
+{
+    return m_pPoints;
+}
+
+void CCPointArray::setPoints(vector<CCPoint*> *points)
+{
+    CCAssert(points != NULL, "points should not be NULL");
+    
+    // delete old points
+    vector<CCPoint*>::iterator iter;
+    for (iter = m_pPoints->begin(); iter != m_pPoints->end(); ++iter)
+    {
+        delete *iter;
+    }
+    delete m_pPoints;
+    
+    m_pPoints = points;
+}
+
+void CCPointArray::add(CCPoint point)
+{    
+    m_pPoints->push_back(new CCPoint(point.x, point.y));
+}
+
+void CCPointArray::insert(CCPoint &point, unsigned int index)
+{
+    CCPoint *temp = new CCPoint(point.x, point.y);
+    m_pPoints->insert(m_pPoints->begin() + index, temp);
+}
+
+CCPoint CCPointArray::get(unsigned int index)
+{
+    index = MIN(m_pPoints->size()-1, MAX(index, 0));
+    return *(m_pPoints->at(index));
+}
+
+void CCPointArray::replace(cocos2d::CCPoint &point, unsigned int index)
+{
+    
+    CCPoint *temp = m_pPoints->at(index);
+    temp->x = point.x;
+    temp->y = point.y;
+}
+
+void CCPointArray::remove(unsigned int index)
+{
+    vector<CCPoint*>::iterator iter = m_pPoints->begin() + index;
+    CCPoint* pRemovedPoint = *iter;
+    m_pPoints->erase(iter);
+    delete pRemovedPoint;
+}
+
+void CCPointArray::removeAll(void)
+{
+    vector<CCPoint*>::iterator iter;
+    for (iter = m_pPoints->begin(); iter != m_pPoints->end(); ++iter)
+    {
+        delete *iter;
+    }
+    m_pPoints->clear();
+}
+
+unsigned int CCPointArray::count()
+{
+    return m_pPoints->size();
+}
+
+CCPointArray* CCPointArray::reverse()
+{
+    vector<CCPoint*> *newArray = new vector<CCPoint*>();
+    vector<CCPoint*>::reverse_iterator iter;
+    CCPoint *point = NULL;
+    for (iter = m_pPoints->rbegin(); iter != m_pPoints->rend(); ++iter)
+    {
+        point = *iter;
+        newArray->push_back(new CCPoint(point->x, point->y));
+    }
+    CCPointArray *config = CCPointArray::create(0);
+    config->setPoints(newArray);
+    
+    return config;
+}
+
+void CCPointArray::reverseInline()
+{
+    unsigned int l = m_pPoints->size();
+    CCPoint *p1 = NULL;
+    CCPoint *p2 = NULL;
+    int x, y;
+    for (unsigned int i = 0; i < l/2; ++i)
+    {
+        p1 = m_pPoints->at(i);
+        p2 = m_pPoints->at(l-i-1);
+        
+        x = p1->x;
+        y = p1->y;
+        
+        p1->x = p2->x;
+        p1->y = p2->y;
+        
+        p2->x = x;
+        p2->y = y;
+    }
+}
+
+CCPoint *CCPointArray::fetchPoints(void)
+{
+    if (m_pPoints->size() == 0) return NULL;
+    
+    CCPoint *points = new CCPoint[m_pPoints->size()];
+    vector<CCPoint*>::iterator iter;
+    int index = 0;
+    for (iter = m_pPoints->begin(); iter != m_pPoints->end(); ++iter)
+    {
+        points[index++] = *(*iter);
+    }
+    return points;
 }
 
 // implementation of CCSize
 
-CCSize::CCSize(void) : width(0), height(0)
+CCSize::CCSize(void)
 {
+    setSize(0.0f, 0.0f);
 }
 
-CCSize::CCSize(float width, float height) : width(width), height(height)
+CCSize::CCSize(float width, float height)
 {
+    setSize(width, height);
 }
 
-CCSize::CCSize(const CCSize& other) : width(other.width), height(other.height)
+CCSize::CCSize(const CCSize& other)
 {
-}
-
-CCSize::CCSize(const CCPoint& point) : width(point.x), height(point.y)
-{
+    setSize(other.width, other.height);
 }
 
 CCSize& CCSize::operator= (const CCSize& other)
 {
     setSize(other.width, other.height);
     return *this;
-}
-
-CCSize& CCSize::operator= (const CCPoint& point)
-{
-    setSize(point.x, point.y);
-    return *this;
-}
-
-CCSize CCSize::operator+(const CCSize& right) const
-{
-    return CCSize(this->width + right.width, this->height + right.height);
-}
-
-CCSize CCSize::operator-(const CCSize& right) const
-{
-    return CCSize(this->width - right.width, this->height - right.height);
-}
-
-CCSize CCSize::operator*(float a) const
-{
-    return CCSize(this->width * a, this->height * a);
-}
-
-CCSize CCSize::operator/(float a) const
-{
-	CCAssert(a, "CCSize division by 0.");
-    return CCSize(this->width / a, this->height / a);
 }
 
 void CCSize::setSize(float width, float height)
@@ -175,8 +267,7 @@ void CCSize::setSize(float width, float height)
 
 bool CCSize::equals(const CCSize& target) const
 {
-    return (fabs(this->width  - target.width)  < FLT_EPSILON)
-        && (fabs(this->height - target.height) < FLT_EPSILON);
+    return ((width == target.width) && (height == target.height));
 }
 
 // implementation of CCRect

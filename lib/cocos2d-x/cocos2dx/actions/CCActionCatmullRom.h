@@ -42,7 +42,6 @@
 #include "CCActionInterval.h"
 #include "base_nodes/CCNode.h"
 #include "cocoa/CCGeometry.h"
-#include "cocoa/CCPointArray.h"
 
 NS_CC_BEGIN;
 

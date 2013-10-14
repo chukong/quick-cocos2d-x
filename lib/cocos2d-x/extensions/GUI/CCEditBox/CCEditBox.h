@@ -128,7 +128,7 @@ class CCEditBox;
 class CCEditBoxImpl;
 
 
-class CC_DLL CCEditBoxDelegate 
+class CCEditBoxDelegate 
 {
 public:
     virtual ~CCEditBoxDelegate() {};
@@ -196,13 +196,13 @@ public:
     bool initWithSizeAndBackgroundSprite(const CCSize& size, CCScale9Sprite* pNormal9SpriteBg);
     
     /**
-     * Gets/Sets the delegate for edit box.
+     * Set the delegate for edit box.
      */
     void setDelegate(CCEditBoxDelegate* pDelegate);
-    CCEditBoxDelegate* getDelegate();
+    
     /**
      * Registers a script function that will be called for EditBox events.
-     *
+     * 
      * This handler will be removed automatically after onExit() called.
      * @code
      * -- lua sample
@@ -217,12 +217,12 @@ public:
      *         -- triggered when the return button was pressed or the outside area of keyboard was touched.
      *     end
      * end
-     *
+     * 
      * local editbox = CCEditBox:create(CCSize(...), CCScale9Sprite:create(...))
      * editbox = registerScriptEditBoxHandler(editboxEventHandler)
      * @endcode
      *
-     * @param handler A number that indicates a lua function.
+     * @param handler A number that indicates a lua function. 
      */
     void registerScriptEditBoxHandler(int handler);
     
@@ -230,10 +230,7 @@ public:
      * Unregisters a script function that will be called for EditBox events.
      */
     void unregisterScriptEditBoxHandler(void);
-    /**
-     * get a script Handler
-     */
-    int  getScriptEditBoxHandler(void){ return m_nScriptEditBoxHandler ;}
+    
     /**
      * Set the text entered in the edit box.
      * @param pText The given text.
@@ -245,49 +242,11 @@ public:
      * @return The text entered in the edit box.
      */
     const char* getText(void);
-	
-	/**
-	 * Set the font.
-	 * @param pFontName The font name.
-	 * @param fontSize The font size.
-	 */
-	void setFont(const char* pFontName, int fontSize);
-    
-	/**
-	 * Set the font name.
-	 * @param pFontName The font name.
-	 */
-	void setFontName(const char* pFontName);
-    
-    /**
-	 * Set the font size.
-	 * @param fontSize The font size.
-	 */
-	void setFontSize(int fontSize);
     
     /**
      * Set the font color of the widget's text.
      */
     void setFontColor(const ccColor3B& color);
-    
-	/**
-	 * Set the placeholder's font.
-	 * @param pFontName The font name.
-	 * @param fontSize The font size.
-	 */
-	void setPlaceholderFont(const char* pFontName, int fontSize);
-    
-    /**
-	 * Set the placeholder's font name.
-	 * @param pFontName The font name.
-	 */
-	void setPlaceholderFontName(const char* pFontName);
-    
-    /**
-	 * Set the placeholder's font size.
-	 * @param fontSize The font size.
-	 */
-	void setPlaceholderFontSize(int fontSize);
     
     /**
      * Set the font color of the placeholder text when the edit box is empty.
@@ -344,11 +303,8 @@ public:
     
     /* override functions */
     virtual void setPosition(const CCPoint& pos);
-    virtual void setVisible(bool visible);
     virtual void setContentSize(const CCSize& size);
-	virtual void setAnchorPoint(const CCPoint& anchorPoint);
     virtual void visit(void);
-	virtual void onEnter(void);
     virtual void onExit(void);
     virtual void keyboardWillShow(CCIMEKeyboardNotificationInfo& info);
     virtual void keyboardDidShow(CCIMEKeyboardNotificationInfo& info);
@@ -369,18 +325,11 @@ protected:
     std::string m_strText;
     std::string m_strPlaceHolder;
     
-    std::string m_strFontName;
-    std::string m_strPlaceholderFontName;
-    
-    int m_nFontSize;
-    int m_nPlaceholderFontSize;
-    
     ccColor3B m_colText;
     ccColor3B m_colPlaceHolder;
     
     int   m_nMaxLength;
     float m_fAdjustHeight;
-    int   m_nScriptEditBoxHandler;
 };
 
 NS_CC_EXT_END

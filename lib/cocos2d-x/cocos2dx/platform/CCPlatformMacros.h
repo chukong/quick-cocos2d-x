@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2010 cocos2d-x.org
-
+ 
  http://www.cocos2d-x.org
-
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -76,7 +76,7 @@ CC_DEPRECATED_ATTRIBUTE static __TYPE__* node() \
 
 /** @def CC_ENABLE_CACHE_TEXTURE_DATA
 Enable it if you want to cache the texture data.
-Basically, it's only enabled for Emscripten.
+Basically,it's only enabled in android
 
 It's new in cocos2d-x since v0.99.5
 */
@@ -86,7 +86,7 @@ It's new in cocos2d-x since v0.99.5
     #define CC_ENABLE_CACHE_TEXTURE_DATA       0
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     /* Application will crash in glDrawElements function on some win32 computers and some android devices.
        Indices should be bound again while drawing to avoid this bug.
      */
@@ -103,10 +103,10 @@ It's new in cocos2d-x since v0.99.5
     #define NS_CC_END                       }
     #define USING_NS_CC                     using namespace cocos2d
 #else
-    #define NS_CC_BEGIN
-    #define NS_CC_END
-    #define USING_NS_CC
-#endif
+    #define NS_CC_BEGIN 
+    #define NS_CC_END 
+    #define USING_NS_CC 
+#endif 
 
 /** CC_PROPERTY_READONLY is used to declare a protected variable.
  We can use getter to read the variable.
@@ -193,7 +193,7 @@ public: virtual void set##funName(varType var)   \
         CC_SAFE_RELEASE(varName); \
         varName = var; \
     } \
-}
+} 
 
 #define CC_SAFE_DELETE(p)            do { if(p) { delete (p); (p) = 0; } } while(0)
 #define CC_SAFE_DELETE_ARRAY(p)     do { if(p) { delete[] (p); (p) = 0; } } while(0)
@@ -233,55 +233,15 @@ public: virtual void set##funName(varType var)   \
 #define LUALOG(format, ...)     cocos2d::CCLog(format, ##__VA_ARGS__)
 #endif // Lua engine debug
 
-#if defined(__GNUC__) && ((__GNUC__ >= 5) || ((__GNUG__ == 4) && (__GNUC_MINOR__ >= 4))) \
-    || (defined(__clang__) && (__clang_major__ >= 3))
-#define CC_DISABLE_COPY(Class) \
-private: \
-    Class(const Class &) = delete; \
-    Class &operator =(const Class &) = delete;
-#else
-#define CC_DISABLE_COPY(Class) \
-private: \
-    Class(const Class &); \
-    Class &operator =(const Class &);
-#endif
-
 /*
  * only certain compilers support __attribute__((deprecated))
  */
 #if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
     #define CC_DEPRECATED_ATTRIBUTE __attribute__((deprecated))
 #elif _MSC_VER >= 1400 //vs 2005 or higher
-    #define CC_DEPRECATED_ATTRIBUTE __declspec(deprecated)
+    #define CC_DEPRECATED_ATTRIBUTE __declspec(deprecated) 
 #else
     #define CC_DEPRECATED_ATTRIBUTE
-#endif
-
-/*
- * only certain compiler support __attribute__((format))
- * formatPos - 1-based position of format string argument
- * argPos - 1-based position of first format-dependent argument
- */
-#if defined(__GNUC__) && (__GNUC__ >= 4)
-#define CC_FORMAT_PRINTF(formatPos, argPos) __attribute__((__format__(printf, formatPos, argPos)))
-#elif defined(__has_attribute)
-  #if __has_attribute(format)
-  #define CC_FORMAT_PRINTF(formatPos, argPos) __attribute__((__format__(printf, formatPos, argPos)))
-  #endif // __has_attribute(format)
-#else
-#define CC_FORMAT_PRINTF(formatPos, argPos)
-#endif
-
-#if defined(_MSC_VER)
-#define CC_FORMAT_PRINTF_SIZE_T "%08lX"
-#else
-#define CC_FORMAT_PRINTF_SIZE_T "%08zX"
-#endif
-
-#ifdef __GNUC__
-#define CC_UNUSED __attribute__ ((unused))
-#else
-#define CC_UNUSED
-#endif
+#endif 
 
 #endif // __CC_PLATFORM_MACROS_H__

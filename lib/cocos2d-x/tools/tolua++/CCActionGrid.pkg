@@ -1,0 +1,45 @@
+
+class CCGridAction : public CCActionInterval
+{
+    static CCGridAction* create(float duration, CCSize gridSize);
+};
+
+class CCAccelDeccelAmplitude : public CCActionInterval
+{
+    float getRate(void);
+    void setRate(float fRate);
+    static CCAccelDeccelAmplitude* create(CCAction *pAction, float duration);
+};
+
+class CCGrid3DAction : public CCGridAction
+{
+};
+
+class CCTiledGrid3DAction : public CCGridAction
+{
+    static CCTiledGrid3DAction* create(float duration, const CCSize& gridSize);
+};
+
+class CCAccelAmplitude : public CCActionInterval
+{
+    float getRate(void);
+    void setRate(float fRate);
+    static CCAccelAmplitude* create(CCAction *pAction, float duration);
+};
+
+class CCDeccelAmplitude : public CCActionInterval
+{
+    float getRate(void);
+    void setRate(float fRate);
+    static CCDeccelAmplitude* create(CCAction *pAction, float duration);
+};
+
+class CCStopGrid : public CCActionInstant
+{
+    static CCStopGrid* create(void);
+};
+
+class CCReuseGrid : public CCActionInstant
+{
+    static CCReuseGrid* create(int times);
+};
