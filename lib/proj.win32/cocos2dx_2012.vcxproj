@@ -173,7 +173,9 @@
     <ClCompile Include="..\cocos2d-x\extensions\CCBReader\CCSpriteLoader.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrame.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrameEasing.cpp" />
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionManager.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionManager.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)CCActionManager_CCS.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionNode.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionObject.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCArmatureAnimation.cpp" />
