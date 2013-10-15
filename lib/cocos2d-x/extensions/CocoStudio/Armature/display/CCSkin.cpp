@@ -80,7 +80,14 @@ CCSkin::CCSkin()
 
 bool CCSkin::initWithSpriteFrameName(const char *pszSpriteFrameName)
 {
-    bool ret = CCSprite::initWithSpriteFrameName(pszSpriteFrameName);
+    CCAssert(pszSpriteFrameName != NULL, "");
+
+    CCSpriteFrame *pFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(pszSpriteFrameName);
+    bool ret = true;
+
+    if (pFrame != NULL)
+    {
+        ret = initWithSpriteFrame(pFrame);
 
     if (ret)
     {
@@ -88,6 +95,12 @@ bool CCSkin::initWithSpriteFrameName(const char *pszSpriteFrameName)
         setTextureAtlas(atlas);
 
         m_strDisplayName = pszSpriteFrameName;
+    }
+    }
+    else
+    {
+        CCLOG("Cann't find CCSpriteFrame with %s. Please check your .plist file", pszSpriteFrameName);
+        ret = init();
     }
 
     return ret;
