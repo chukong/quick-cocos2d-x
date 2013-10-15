@@ -115,6 +115,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
 LOCAL_WHOLE_STATIC_LIBRARIES += libwebsockets_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_chipmunk_static
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCBReader \
@@ -123,8 +124,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCScrollView \
                            $(LOCAL_PATH)/GUI/CCEditBox \
                            $(LOCAL_PATH)/network \
-                           $(LOCAL_PATH)/CocoStudio \
-                           $(LOCAL_PATH)/../../third_party/chipmunk/include
+                           $(LOCAL_PATH)/CocoStudio
 
 LOCAL_C_INCLUDES = $(LOCAL_EXPORT_C_INCLUDES)
 
