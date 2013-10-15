@@ -8,16 +8,6 @@
 
 // lua extensions
 #include "lua_extensions.h"
-// cocos2dx_extra luabinding
-#include "luabinding/cocos2dx_extra_luabinding.h"
-// cocos-extensions
-#include "lua_cocos2dx_extensions_manual.h"
-// cocosbuilder
-#include "Lua_extensions_CCB.h"
-// WebSockets luabinding
-#include "Lua_web_socket.h"
-// thrid_party
-#include "third_party_luabinding.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -54,16 +44,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // load lua extensions
     luaopen_lua_extensions(L);
-    // load cocos2dx_extra luabinding
-    luaopen_cocos2dx_extra_luabinding(L);
-    // cocos-extensions
-    register_all_cocos2dx_extension_manual(L);
-    // cocosbuilder
-    tolua_extensions_ccb_open(L);
-    // load WebSockets luabinding
-    tolua_web_socket_open(L);
-    // thrid_party
-    luaopen_third_party_luabinding(L);
 
     // load framework
     if (m_projectConfig.isLoadPrecompiledFramework())
