@@ -300,18 +300,32 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
 
     if (mask & kProjectConfigProjectDir)
     {
-        buff << "-workdir ";
-        buff << getProjectDir();
+		string path = getProjectDir();
+		if (path.length())
+		{
+			buff << "-workdir ";
+			buff << path;
+		}
     }
+
     if (mask & kProjectConfigScriptFile)
     {
-        buff << " -file ";
-        buff << getScriptFileRealPath();
+		string path = getScriptFileRealPath();
+		if (path.length())
+		{
+			buff << " -file ";
+			buff << path;
+		}
     }
+
     if (mask & kProjectConfigWritablePath)
     {
-        buff << " -writable ";
-        buff << getWritableRealPath();
+		string path = getWritableRealPath();
+		if (path.length())
+		{
+			buff << " -writable ";
+			buff << path;
+		}
     }
 
     if (mask & kProjectConfigPackagePath)
@@ -487,6 +501,8 @@ const string ProjectConfig::replaceProjectDirToMacro(const string& path)
 const string ProjectConfig::replaceProjectDirToFullPath(const string& path)
 {
     if (isAbsolutePath(path)) return path;
+
+	if (path.length() == 0) return m_projectDir;
 
     string result = path;
     if (path.compare(0, 8, "$PROJDIR") == 0)

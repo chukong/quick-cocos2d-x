@@ -7,7 +7,6 @@ local nameIndex_ = 1
 
 function UILayout:ctor(name)
     cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
-    self:setLayoutAlignment(display.LEFT_BOTTOM)
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     if not name then
         name = string.format("layout-%d", nameIndex_)
@@ -15,6 +14,7 @@ function UILayout:ctor(name)
     end
     self.name_ = name
     self.position_ = {x = 0, y = 0}
+    self.anchorPoint_ = display.ANCHOR_POINTS[display.CENTER]
     self.order_ = 0
 
     self.widgets_ = {}
@@ -37,6 +37,16 @@ end
 function UILayout:addWidget(widget, weight)
     self.order_ = self.order_ + 1
     self.widgets_[widget] = {weight = weight or 1, order = self.order_}
+    return self
+end
+
+function UILayout:removeWidget(widget)
+    for w, _ in pairs(self.widgets_) do
+        if w == widget then
+            self.widgets_[w] = nil
+            break
+        end
+    end
     return self
 end
 
@@ -69,6 +79,14 @@ end
 
 function UILayout:setPositionY(y)
     self.position_.y = y
+end
+
+function UILayout:getAnchorPoint()
+    return self.anchorPoint_
+end
+
+function UILayout:setAnchorPoint(ap)
+    self.anchorPoint_ = ap
 end
 
 function UILayout:apply(container)

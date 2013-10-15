@@ -25,7 +25,7 @@ function BasicLayoutProtocol:setLayoutSize(width, height)
     if width == 0 and height == 0 then
         self.layoutSize_ = nil
     else
-        self.layoutSize_ = {width = tonumber(width), height = tonumber(height)}
+        self.layoutSize_ = {width = tonum(width), height = tonum(height)}
     end
     return self
 end
@@ -35,8 +35,8 @@ function BasicLayoutProtocol:getLayoutMinSize()
 end
 
 function BasicLayoutProtocol:setLayoutMinSize(width, height)
-    self.minSize_.width = tonumber(width)
-    self.minSize_.height = tonumber(height)
+    self.minSize_.width = tonum(width)
+    self.minSize_.height = tonum(height)
     return self
 end
 
@@ -45,8 +45,8 @@ function BasicLayoutProtocol:getLayoutMaxSize()
 end
 
 function BasicLayoutProtocol:setLayoutMaxSize(width, height)
-    self.maxSize_.width = tonumber(width)
-    self.maxSize_.height = tonumber(height)
+    self.maxSize_.width = tonum(width)
+    self.maxSize_.height = tonum(height)
     return self
 end
 
@@ -69,34 +69,15 @@ function BasicLayoutProtocol:setLayoutSizePolicy(horizontal, vertical)
     return self
 end
 
-function BasicLayoutProtocol:getLayoutAlignment()
-    return self.alignment_
-end
-
-local function checkAlignment(a)
-    a = toint(a)
-    if a < 1 or a > 9 then
-        echoError("BasicLayoutProtocol - invalid alignment")
-        return display.CENTER
-    else
-        return a
-    end
-end
-
-function BasicLayoutProtocol:setLayoutAlignment(alignment)
-    self.alignment_ = checkAlignment(alignment)
-    return self
-end
-
 function BasicLayoutProtocol:getLayoutPadding()
     return self.padding_.top, self.padding_.right, self.padding_.bottom, self.padding_.left
 end
 
 function BasicLayoutProtocol:setLayoutPadding(top, right, bottom, left)
-    self.padding_.top = tonumber(top)
-    self.padding_.right = tonumber(right)
-    self.padding_.bottom = tonumber(bottom)
-    self.padding_.left = tonumber(left)
+    self.padding_.top = tonum(top)
+    self.padding_.right = tonum(right)
+    self.padding_.bottom = tonum(bottom)
+    self.padding_.left = tonum(left)
     return self
 end
 
@@ -105,10 +86,10 @@ function BasicLayoutProtocol:getLayoutMargin()
 end
 
 function BasicLayoutProtocol:setLayoutMargin(top, right, bottom, left)
-    self.margin_.top = tonumber(top)
-    self.margin_.right = tonumber(right)
-    self.margin_.bottom = tonumber(bottom)
-    self.margin_.left = tonumber(left)
+    self.margin_.top = tonum(top)
+    self.margin_.right = tonum(right)
+    self.margin_.bottom = tonum(bottom)
+    self.margin_.left = tonum(left)
     return self
 end
 
@@ -122,8 +103,6 @@ function BasicLayoutProtocol:exportMethods()
         "setLayoutMaxSize",
         "getLayoutSizePolicy",
         "setLayoutSizePolicy",
-        "getLayoutAlignment",
-        "setLayoutAlignment",
         "getLayoutPadding",
         "setLayoutPadding",
         "getLayoutMargin",
@@ -137,7 +116,6 @@ function BasicLayoutProtocol:onBind_()
     self.minSize_    = {width = 0, height = 0}
     self.maxSize_    = {width = MAX, height = MAX}
     self.sizePolicy_ = {h = display.PREFERRED_SIZE, v = display.PREFERRED_SIZE}
-    self.alignment_  = display.LEFT_BOTTOM
     self.padding_    = {top = 0, right = 0, bottom = 0, left = 0}
     self.margin_     = {top = 0, right = 0, bottom = 0, left = 0}
 end

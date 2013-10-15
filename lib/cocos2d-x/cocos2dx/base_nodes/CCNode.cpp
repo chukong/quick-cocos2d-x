@@ -896,14 +896,10 @@ void CCNode::draw()
 
 void CCNode::visit()
 {
-    // quick return if not visible. children won't be drawn.
-    if (!m_bVisible)
-    {
-        m_drawOrder = 0;
-        return;
-    }
-    kmGLPushMatrix();
     m_drawOrder = ++g_drawOrder;
+    // quick return if not visible. children won't be drawn.
+    if (!m_bVisible) return;
+    kmGLPushMatrix();
 
      if (m_pGrid && m_pGrid->isActive())
      {
@@ -1384,6 +1380,7 @@ CCPoint CCNode::convertTouchToNodeSpaceAR(CCTouch *touch)
 
 void CCNode::updateTransform()
 {
+    m_drawOrder = ++g_drawOrder;
     // Recursively iterate over children
     arrayMakeObjectsPerformSelector(m_pChildren, updateTransform, CCNode*);
 }

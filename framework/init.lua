@@ -50,15 +50,10 @@ if not NO_SHORTCODES then
     require(cc.PACKAGE_NAME .. ".shortcodes")
 end
 
-local timeCount = 0
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
-local function showMemoryUsage(dt)
-    timeCount = timeCount + dt
-    echoInfo("----------------------------------------")
-    echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB, UPTIME: %04.2fs", collectgarbage("count"), timeCount))
-    sharedTextureCache:dumpCachedTextureInfo()
-    echoInfo("----------------------------------------")
+local function showMemoryUsage()
+    echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
 end
 
 if DEBUG_FPS then

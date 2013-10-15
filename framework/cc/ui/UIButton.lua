@@ -26,10 +26,11 @@ function UIButton:ctor(events, initialState, options)
 
     makeUIControl_(self)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
-    self:setLayoutAlignment(display.CENTER)
     self:setButtonEnabled(true)
     self:addTouchEventListener(handler(self, self.onTouch_))
-    self:setNodeEventEnabled(true)
+
+    self.touchInSpriteOnly_ = options and options.touchInSprite
+    self.currentImage_ = nil
     self.images_ = {}
     self.sprite_ = nil
     self.scale9_ = options and options.scale9
@@ -38,6 +39,20 @@ function UIButton:ctor(events, initialState, options)
     self.labelOffset_ = {0, 0}
     self.labelAlign_ = display.CENTER
     self.initialState_ = initialState
+
+    display.align(self, display.CENTER)
+end
+
+function UIButton:align(align, x, y)
+    display.align(self, align, x, y)
+    self:updateButtonImage_()
+    self:updateButtonLable_()
+
+    local size = self:getCascadeBoundingBox().size
+    local ap = self:getAnchorPoint()
+
+    -- self:setPosition(x + size.width * (ap.x - 0.5), y + size.height * (0.5 - ap.y))
+    return self
 end
 
 function UIButton:setButtonImage(state, image, ignoreEmpty)
@@ -67,6 +82,10 @@ function UIButton:setButtonLabel(state, label)
 end
 
 function UIButton:getButtonLabel(state)
+    if not state then
+        state = self:getDefaultState_()
+    end
+    if type(state) == "table" then state = state[1] end
     return self.labels_[state]
 end
 
@@ -84,13 +103,21 @@ function UIButton:setButtonLabelString(state, text)
     return self
 end
 
+function UIButton:getButtonLabelOffset()
+    return self.labelOffset_[1], self.labelOffset_[2]
+end
+
 function UIButton:setButtonLabelOffset(ox, oy)
     self.labelOffset_ = {ox, oy}
     self:updateButtonLable_()
     return self
 end
 
-function UIButton:setButtonLabelAlign(align)
+function UIButton:getButtonLabelAlignment()
+    return self.labelAlign_
+end
+
+function UIButton:setButtonLabelAlignment(align)
     self.labelAlign_ = align
     self:updateButtonLable_()
     return self
@@ -179,23 +206,29 @@ function UIButton:updateButtonImage_()
         end
     end
     if image then
-        if self.sprite_ then
-            self.sprite_:removeFromParentAndCleanup(true)
-            self.sprite_ = nil
+        if self.currentImage_ ~= image then
+            if self.sprite_ then
+                self.sprite_:removeFromParentAndCleanup(true)
+                self.sprite_ = nil
+            end
+            self.currentImage_ = image
+
+            if self.scale9_ then
+                self.sprite_ = display.newScale9Sprite(image)
+                if not self.scale9Size_ then
+                    local size = self.sprite_:getContentSize()
+                    self.scale9Size_ = {size.width, size.height}
+                else
+                    self.sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
+                end
+            else
+                self.sprite_ = display.newSprite(image)
+            end
+            self:addChild(self.sprite_, UIButton.IMAGE_ZORDER)
         end
 
-        if self.scale9_ then
-            self.sprite_ = display.newScale9Sprite(image)
-            if not self.scale9Size_ then
-                local size = self.sprite_:getContentSize()
-                self.scale9Size_ = {size.width, size.height}
-            else
-                self.sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
-            end
-        else
-            self.sprite_ = display.newSprite(image)
-        end
-        self:addChild(self.sprite_, UIButton.IMAGE_ZORDER)
+        self.sprite_:setAnchorPoint(self:getAnchorPoint())
+        self.sprite_:setPosition(0, 0)
     else
         echoError("UIButton:updateButtonImage_() - not set image for state %s", state)
     end
@@ -214,21 +247,29 @@ function UIButton:updateButtonLable_()
     end
 
     local ox, oy = self.labelOffset_[1], self.labelOffset_[2]
-
-    if not self.scale9_ then
-        local contentSize = self:getContentSize()
-        ox = ox + contentSize.width / 2
-        oy = oy + contentSize.height / 2
+    if self.sprite_ then
+        local ap = self:getAnchorPoint()
+        local spriteSize = self.sprite_:getContentSize()
+        ox = ox + spriteSize.width * (0.5 - ap.x)
+        oy = oy + spriteSize.height * (0.5 - ap.y)
     end
 
     for _, l in pairs(self.labels_) do
         l:setVisible(l == label)
-        display.align(l, self.labelAlign_, ox, oy)
+        l:align(self.labelAlign_, ox, oy)
     end
 end
 
 function UIButton:getDefaultState_()
     return {self.initialState_}
+end
+
+function UIButton:checkTouchInSprite_(x, y)
+    if self.touchInSpriteOnly_ then
+        return self.sprite_ and self.sprite_:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+    else
+        return self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+    end
 end
 
 function UIButton:onEnter()
