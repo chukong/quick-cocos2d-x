@@ -45,6 +45,25 @@ extern "C" {
 #include "platform/android/CCLuaJavaBridge.h"
 #endif
 
+// chipmunk
+#include "CCPhysicsWorld_luabinding.h"
+// luaproxy
+#include "luaopen_LuaProxy.h"
+// cocos-extensions
+#include "cocos-ext.h"
+#include "lua_cocos2dx_extensions_manual.h"
+// cocosbuilder
+#include "Lua_extensions_CCB.h"
+// WebSockets luabinding
+#include "Lua_web_socket.h"
+// cocos2dx_extra luabinding
+#include "cocos2dx_extra_luabinding.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "cocos2dx_extra_ios_iap_luabinding.h"
+#endif
+// lua extensions
+#include "lua_extensions.h"
+
 #include <string>
 
 using namespace std;
@@ -120,6 +139,24 @@ bool CCLuaStack::init(void)
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
+    // chipmunk
+    luaopen_CCPhysicsWorld_luabinding(m_state);
+    // luaproxy
+    luaopen_LuaProxy(m_state);
+	// cocos-extensions
+    register_all_cocos2dx_extension_manual(m_state);
+    // cocosbuilder
+    tolua_extensions_ccb_open(m_state);
+    // load WebSockets luabinding
+    tolua_web_socket_open(m_state);
+    // cocos2dx_extra luabinding
+    luaopen_cocos2dx_extra_luabinding(m_state);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    luaopen_cocos2dx_extra_ios_iap_luabinding(m_state);
+#endif
+    // lua extensions
+    luaopen_lua_extensions(m_state);
+    
     return true;
 }
 
@@ -605,6 +642,96 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
 int CCLuaStack::lua_typen(lua_State *L)
 {
     lua_pushinteger(L, lua_type(L, -1));
+    return 1;
+}
+
+int CCLuaStack::executeFunctionReturnArray(int nHandler,int nNumArgs,int nNummResults,CCArray* pResultArray)
+{
+    if (NULL == pResultArray)
+        return 0;
+
+    if (pushFunctionByHandler(nHandler))                 /* L: ... arg1 arg2 ... func */
+    {
+        if (nNumArgs > 0)
+        {
+            lua_insert(m_state, -(nNumArgs + 1));         /* L: ... func arg1 arg2 ... */
+            int functionIndex = -(nNumArgs + 1);
+            if (!lua_isfunction(m_state, functionIndex))
+            {
+                CCLOG("value at stack [%d] is not function", functionIndex);
+                lua_pop(m_state, nNumArgs + 1); // remove function and arguments
+                return 0;
+            }
+
+            int traceback = 0;
+            lua_getglobal(m_state, "__G__TRACKBACK__");                         /* L: ... func arg1 arg2 ... G */
+            if (!lua_isfunction(m_state, -1))
+            {
+                lua_pop(m_state, 1);                                            /* L: ... func arg1 arg2 ... */
+            }
+            else
+            {
+                lua_insert(m_state, functionIndex - 1);                         /* L: ... G func arg1 arg2 ... */
+                traceback = functionIndex - 1;
+            }
+
+            int error = 0;
+            ++m_callFromLua;
+            error = lua_pcall(m_state, nNumArgs, nNummResults, traceback);                  /* L: ... [G] ret1 ret2 ... retResults*/
+            --m_callFromLua;
+            if (error)
+            {
+                if (traceback == 0)
+                {
+                    CCLOG("[LUA ERROR] %s", lua_tostring(m_state, - 1));        /* L: ... error */
+                    lua_pop(m_state, 1); // remove error message from stack
+                }
+                else                                                            /* L: ... G error */
+                {
+                    lua_pop(m_state, 2); // remove __G__TRACKBACK__ and error message from stack
+                }
+                return 0;
+            }
+
+            // get return value,don't pass LUA_MULTRET to numResults,
+            if (nNummResults <= 0)
+                return 0;
+
+            for (int i = 0 ; i < nNummResults; i++)
+            {
+                if (lua_type(m_state, -1) == LUA_TBOOLEAN) {
+
+                    bool value = lua_toboolean(m_state, -1);
+                    pResultArray->addObject(CCBool::create(value)) ;
+
+                }else if (lua_type(m_state, -1) == LUA_TNUMBER) {
+
+                    double value = lua_tonumber(m_state, -1);
+                    pResultArray->addObject(CCDouble::create(value));
+
+                }else if (lua_type(m_state, -1) == LUA_TSTRING) {
+
+                    const char* value = lua_tostring(m_state, -1);
+                    pResultArray->addObject(CCString::create(value));
+
+                }else{
+
+                    pResultArray->addObject(static_cast<CCObject*>(tolua_tousertype(m_state, -1, NULL)));
+                }
+                // remove return value from stack
+                lua_pop(m_state, 1);                                                /* L: ... [G] ret1 ret2 ... ret*/
+            }
+            /* L: ... [G]*/
+
+            if (traceback)
+            {
+                lua_pop(m_state, 1); // remove __G__TRACKBACK__ from stack      /* L: ... */
+            }
+        }
+    }
+
+    lua_settop(m_state, 0);
+
     return 1;
 }
 

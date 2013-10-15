@@ -6,14 +6,6 @@
 #include "CCLuaEngine.h"
 #include <string>
 
-// lua extensions
-#include "lua_extensions.h"
-// cocos2dx_extra luabinding
-#include "luabinding/cocos2dx_extra_luabinding.h"
-
-// thrid_party
-#include "third_party_luabinding.h"
-
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -45,15 +37,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
     CCLuaStack *pStack = pEngine->getLuaStack();
-    lua_State* L = pStack->getLuaState();
-
-    // load lua extensions
-    luaopen_lua_extensions(L);
-    // load cocos2dx_extra luabinding
-    luaopen_cocos2dx_extra_luabinding(L);
-
-    // thrid_party
-    luaopen_third_party_luabinding(L);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     pStack->loadChunksFromZip("res/framework_precompiled.zip");
@@ -61,6 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #else
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
 #endif
+
     int pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {

@@ -664,6 +664,10 @@ CCSize CCScale9Sprite::getPreferredSize()
 
 void CCScale9Sprite::setCapInsets(CCRect capInsets)
 {
+    if (!_scale9Image)
+    {
+        return;
+    }
     CCSize contentSize = this->m_obContentSize;
     this->updateWithBatchNode(this->_scale9Image, this->m_spriteRect, m_bSpriteFrameRotated, capInsets);
     this->setContentSize(contentSize);

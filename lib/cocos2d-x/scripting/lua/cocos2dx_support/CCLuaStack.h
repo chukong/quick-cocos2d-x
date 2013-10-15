@@ -116,6 +116,8 @@ public:
     
     virtual int executeFunctionByHandler(int nHandler, int numArgs);
 
+    virtual int executeFunctionReturnArray(int nHandler,int nNumArgs,int nNummResults,CCArray* pResultArray);
+    
     virtual bool handleAssert(const char *msg);
     
     virtual int loadChunksFromZip(const char *zipFilePath);

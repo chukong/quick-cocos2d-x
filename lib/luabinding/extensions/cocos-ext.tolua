@@ -1,7 +1,7 @@
 
 $#include "cocos-ext.h"
 $#include "AssetsManager/AssetsManager.h"
-$#include "CCArmature/CCArmature.h"
+$#include "CocoStudio/Armature/CCArmature.h"
 
 $using namespace cocos2d::extension;
 
@@ -19,11 +19,13 @@ $pfile "extensions/GUI/CCControlExtension/CCControlUtils.tolua"
 $pfile "extensions/GUI/CCControlExtension/CCScale9Sprite.tolua"
 
 $pfile "extensions/GUI/CCEditBox/CCEditBox.tolua"
+$pfile "extensions/GUI/CCScrollView/CCScrollView.tolua"
+$pfile "extensions/GUI/CCScrollView/CCTableView.tolua"
 
-$pfile "extensions/CCArmature/animation/CCArmatureAnimation.tolua"
-$pfile "extensions/CCArmature/animation/CCProcessBase.tolua"
-$pfile "extensions/CCArmature/datas/CCDatas.tolua"
-$pfile "extensions/CCArmature/display/CCBatchNode.tolua"
-$pfile "extensions/CCArmature/utils/CCArmatureDataManager.tolua"
-$pfile "extensions/CCArmature/CCArmature.tolua"
-$pfile "extensions/CCArmature/CCBone.tolua"
+$pfile "extensions/CocoStudio/Armature/animation/CCArmatureAnimation.tolua"
+$pfile "extensions/CocoStudio/Armature/animation/CCProcessBase.tolua"
+$pfile "extensions/CocoStudio/Armature/datas/CCDatas.tolua"
+$pfile "extensions/CocoStudio/Armature/display/CCBatchNode.tolua"
+$pfile "extensions/CocoStudio/Armature/utils/CCArmatureDataManager.tolua"
+$pfile "extensions/CocoStudio/Armature/CCArmature.tolua"
+$pfile "extensions/CocoStudio/Armature/CCBone.tolua"

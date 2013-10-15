@@ -102,6 +102,9 @@ protected:
 public:
 
     virtual void setContentSize(const CCSize & size);
+    /**
+     *  @js NA
+     */
     virtual void visit();
 
     virtual bool init();
