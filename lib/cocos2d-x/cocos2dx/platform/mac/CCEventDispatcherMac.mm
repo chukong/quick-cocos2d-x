@@ -27,12 +27,12 @@
 // But in case they are included, it won't be compiled.
 #import <Availability.h>
 
-#import "CCEventDispatcher.h"
+#import "CCEventDispatcherMac.h"
 #import "ccConfig.h"
 #include "support/data_support/utlist.h"
 
 //NS_CC_BEGIN;
-static CCEventDispatcher *sharedDispatcher = nil;
+static CCEventDispatcherMac *sharedDispatcher = nil;
 
 enum  {
 	// mouse
@@ -85,12 +85,12 @@ static int		eventQueueCount;
 #endif // CC_DIRECTOR_MAC_USE_DISPLAY_LINK_THREAD
 
 
-@implementation CCEventDispatcher
+@implementation CCEventDispatcherMac
 
 @synthesize dispatchEvents=dispatchEvents_;
 
 
-+(CCEventDispatcher*) sharedDispatcher
++(CCEventDispatcherMac*) sharedDispatcher
 {
 	@synchronized(self) {
 		if (sharedDispatcher == nil)
@@ -133,7 +133,7 @@ static int		eventQueueCount;
 	[super dealloc];
 }
 
-#pragma mark CCEventDispatcher - add / remove delegates
+#pragma mark CCEventDispatcherMac - add / remove delegates
 
 -(void) addDelegate:(id)delegate priority:(NSInteger)priority flags:(NSUInteger)flags list:(tListEntry**)list
 {
@@ -280,7 +280,7 @@ static int		eventQueueCount;
 }
 
 
-#pragma mark CCEventDispatcher - Mouse events
+#pragma mark CCEventDispatcherMac - Mouse events
 //
 // Mouse events
 //
@@ -495,7 +495,7 @@ static int		eventQueueCount;
 }
 
 
-#pragma mark CCEventDispatcher - Keyboard events
+#pragma mark CCEventDispatcherMac - Keyboard events
 
 // Keyboard events
 - (void)keyDown:(NSEvent *)event
@@ -544,7 +544,7 @@ static int		eventQueueCount;
 }
 
 
-#pragma mark CCEventDispatcher - Touch events
+#pragma mark CCEventDispatcherMac - Touch events
 
 - (void)touchesBeganWithEvent:(NSEvent *)event
 {
@@ -607,12 +607,12 @@ static int		eventQueueCount;
 }
 
 
-#pragma mark CCEventDispatcher - queue events
+#pragma mark CCEventDispatcherMac - queue events
 
 #if CC_DIRECTOR_MAC_USE_DISPLAY_LINK_THREAD
 -(void) queueEvent:(NSEvent*)event selector:(SEL)selector
 {
-	NSAssert( eventQueueCount < QUEUE_EVENT_MAX, @"CCEventDispatcher: recompile. Increment QUEUE_EVENT_MAX value");
+	NSAssert( eventQueueCount < QUEUE_EVENT_MAX, @"CCEventDispatcherMac: recompile. Increment QUEUE_EVENT_MAX value");
 
 	@synchronized (self) {
 		eventQueue[eventQueueCount].selector = selector;

@@ -98,6 +98,7 @@
 		F4B4EEC716C7E05F00736FFE /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC616C7E05F00736FFE /* CCLuaObjcBridge.mm */; };
 		F4B4EECC16C7E06F00736FFE /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC816C7E06F00736FFE /* CCLuaStack.cpp */; };
 		F4B4EECD16C7E06F00736FFE /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EECA16C7E06F00736FFE /* CCLuaValue.cpp */; };
+		F4BBD768180ED6A40073B92D /* CCEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BBD766180ED6A40073B92D /* CCEventDispatcher.cpp */; };
 		F4CB86AA180D017700D81CF3 /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F4CB8656180D017700D81CF3 /* libb64.c */; };
 		F4CB86AB180D017700D81CF3 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4CB8658180D017700D81CF3 /* CCCrypto.cpp */; };
 		F4CB86AC180D017700D81CF3 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F4CB865B180D017700D81CF3 /* md5.c */; };
@@ -270,7 +271,7 @@
 		F4E880DD1770074500577406 /* CCDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880C11770074500577406 /* CCDevice.mm */; };
 		F4E880DE1770074500577406 /* CCDirectorCaller.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880C31770074500577406 /* CCDirectorCaller.mm */; };
 		F4E880DF1770074500577406 /* CCEGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880C51770074500577406 /* CCEGLView.mm */; };
-		F4E880E01770074500577406 /* CCEventDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880C71770074500577406 /* CCEventDispatcher.mm */; };
+		F4E880E01770074500577406 /* CCEventDispatcherMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880C71770074500577406 /* CCEventDispatcherMac.mm */; };
 		F4E880E11770074500577406 /* CCFileUtilsMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880C91770074500577406 /* CCFileUtilsMac.mm */; };
 		F4E880E21770074500577406 /* CCImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880CB1770074500577406 /* CCImage.mm */; };
 		F4E880E31770074500577406 /* CCThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4E880CE1770074500577406 /* CCThread.mm */; };
@@ -529,6 +530,8 @@
 		F4B4EEC916C7E06F00736FFE /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4B4EECA16C7E06F00736FFE /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
 		F4B4EECB16C7E06F00736FFE /* CCLuaValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaValue.h; sourceTree = "<group>"; };
+		F4BBD766180ED6A40073B92D /* CCEventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEventDispatcher.cpp; sourceTree = "<group>"; };
+		F4BBD767180ED6A40073B92D /* CCEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEventDispatcher.h; sourceTree = "<group>"; };
 		F4CB8653180D017700D81CF3 /* cocos2dx_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra.h; sourceTree = "<group>"; };
 		F4CB8656180D017700D81CF3 /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
 		F4CB8657180D017700D81CF3 /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
@@ -912,8 +915,8 @@
 		F4E880C31770074500577406 /* CCDirectorCaller.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCDirectorCaller.mm; sourceTree = "<group>"; };
 		F4E880C41770074500577406 /* CCEGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEGLView.h; sourceTree = "<group>"; };
 		F4E880C51770074500577406 /* CCEGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEGLView.mm; sourceTree = "<group>"; };
-		F4E880C61770074500577406 /* CCEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEventDispatcher.h; sourceTree = "<group>"; };
-		F4E880C71770074500577406 /* CCEventDispatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEventDispatcher.mm; sourceTree = "<group>"; };
+		F4E880C61770074500577406 /* CCEventDispatcherMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEventDispatcherMac.h; sourceTree = "<group>"; };
+		F4E880C71770074500577406 /* CCEventDispatcherMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEventDispatcherMac.mm; sourceTree = "<group>"; };
 		F4E880C81770074500577406 /* CCFileUtilsMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCFileUtilsMac.h; sourceTree = "<group>"; };
 		F4E880C91770074500577406 /* CCFileUtilsMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCFileUtilsMac.mm; sourceTree = "<group>"; };
 		F4E880CA1770074500577406 /* CCGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGL.h; sourceTree = "<group>"; };
@@ -1974,6 +1977,8 @@
 				F4E87F511770071500577406 /* CCDictionary.cpp */,
 				F4E87F521770071500577406 /* CCDictionary.h */,
 				F4E87F531770071500577406 /* CCDouble.h */,
+				F4BBD766180ED6A40073B92D /* CCEventDispatcher.cpp */,
+				F4BBD767180ED6A40073B92D /* CCEventDispatcher.h */,
 				F4E87F541770071500577406 /* CCFloat.h */,
 				F4E87F551770071500577406 /* CCGeometry.cpp */,
 				F4E87F561770071500577406 /* CCGeometry.h */,
@@ -2422,8 +2427,8 @@
 				F4E880C31770074500577406 /* CCDirectorCaller.mm */,
 				F4E880C41770074500577406 /* CCEGLView.h */,
 				F4E880C51770074500577406 /* CCEGLView.mm */,
-				F4E880C61770074500577406 /* CCEventDispatcher.h */,
-				F4E880C71770074500577406 /* CCEventDispatcher.mm */,
+				F4E880C61770074500577406 /* CCEventDispatcherMac.h */,
+				F4E880C71770074500577406 /* CCEventDispatcherMac.mm */,
 				F4E880C81770074500577406 /* CCFileUtilsMac.h */,
 				F4E880C91770074500577406 /* CCFileUtilsMac.mm */,
 				F4E880CA1770074500577406 /* CCGL.h */,
@@ -2850,7 +2855,7 @@
 				F43152BB180CF7FD0046351C /* luaopen_LuaProxy.cpp in Sources */,
 				F4E880DE1770074500577406 /* CCDirectorCaller.mm in Sources */,
 				F4E880DF1770074500577406 /* CCEGLView.mm in Sources */,
-				F4E880E01770074500577406 /* CCEventDispatcher.mm in Sources */,
+				F4E880E01770074500577406 /* CCEventDispatcherMac.mm in Sources */,
 				F4CB86C2180D017700D81CF3 /* ReachabilityIOSMac.m in Sources */,
 				F4E880E11770074500577406 /* CCFileUtilsMac.mm in Sources */,
 				F4E880E21770074500577406 /* CCImage.mm in Sources */,
@@ -2880,6 +2885,7 @@
 				F4CB87A7180D02F600D81CF3 /* except.c in Sources */,
 				F43152BC180CF7FD0046351C /* CursorTextField.cpp in Sources */,
 				F4E8813817700E5E00577406 /* CCLayerLoader.cpp in Sources */,
+				F4BBD768180ED6A40073B92D /* CCEventDispatcher.cpp in Sources */,
 				F4E8813917700E5E00577406 /* CCMenuItemImageLoader.cpp in Sources */,
 				F4CB87AD180D02F600D81CF3 /* options.c in Sources */,
 				F4315291180CF7E30046351C /* cpRotaryLimitJoint.c in Sources */,

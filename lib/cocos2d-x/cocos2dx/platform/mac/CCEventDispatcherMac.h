@@ -190,11 +190,11 @@
 
 
 #pragma mark -
-#pragma mark CCEventDispatcher
+#pragma mark CCEventDispatcherMac
 
 struct _listEntry;
 
-/** CCEventDispatcher
+/** CCEventDispatcherMac
  
  This is object is responsible for dispatching the events:
 	- Mouse events
@@ -203,7 +203,7 @@ struct _listEntry;
  
  Only available on Mac
  */
-@interface CCEventDispatcher : NSObject <MacEventDelegate> {
+@interface CCEventDispatcherMac : NSObject <MacEventDelegate> {
 
 	BOOL					dispatchEvents_;
 	
@@ -215,10 +215,10 @@ struct _listEntry;
 @property (nonatomic, readwrite) BOOL dispatchEvents;
 
 
-/** CCEventDispatcher singleton */
-+(CCEventDispatcher*) sharedDispatcher;
+/** CCEventDispatcherMac singleton */
++(CCEventDispatcherMac*) sharedDispatcher;
 
-#pragma mark CCEventDispatcher - Mouse
+#pragma mark CCEventDispatcherMac - Mouse
 
 /** Adds a mouse delegate to the dispatcher's list.
  Delegates with a lower priority value will be called before higher priority values.
@@ -234,7 +234,7 @@ struct _listEntry;
 /** Removes all mouse delegates, releasing all the delegates */
 -(void) removeAllMouseDelegates;
 
-#pragma mark CCEventDispatcher - Keyboard
+#pragma mark CCEventDispatcherMac - Keyboard
 
 /** Adds a Keyboard delegate to the dispatcher's list.
  Delegates with a lower priority value will be called before higher priority values.
@@ -250,7 +250,7 @@ struct _listEntry;
 /** Removes all mouse delegates, releasing all the delegates */
 -(void) removeAllKeyboardDelegates;
 
-#pragma mark CCEventDispatcher - Touches
+#pragma mark CCEventDispatcherMac - Touches
 
 /** Adds a Touch delegate to the dispatcher's list.
  Delegates with a lower priority value will be called before higher priority values.
@@ -266,7 +266,7 @@ struct _listEntry;
 /** Removes all touch delegates, releasing all the delegates */
 - (void)removeAllTouchDelegates;
 
-#pragma mark CCEventDispatcher - Dispatch Events
+#pragma mark CCEventDispatcherMac - Dispatch Events
 
 #if CC_DIRECTOR_MAC_USE_DISPLAY_LINK_THREAD
 -(void) dispatchQueuedEvents;

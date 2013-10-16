@@ -90,7 +90,7 @@ typedef enum {
  - Each node has a camera. By default it points to the center of the CCNode.
  */
 
-class CCNode : public CCObject
+class CCNode : public CCEventDispatcher
 {
     /// @{
     /// @name Constructor, Distructor and Initializers

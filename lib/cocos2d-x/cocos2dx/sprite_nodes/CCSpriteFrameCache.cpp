@@ -395,6 +395,7 @@ void CCSpriteFrameCache::removeSpriteFramesFromTexture(CCTexture2D* texture)
 
 CCSpriteFrame* CCSpriteFrameCache::spriteFrameByName(const char *pszName)
 {
+    CCAssert(pszName, "CCSpriteFrameCache::spriteFrameByName() - invalid pszName");
     CCSpriteFrame* frame = (CCSpriteFrame*)m_pSpriteFrames->objectForKey(pszName);
     if (!frame)
     {

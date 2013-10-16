@@ -31,6 +31,7 @@
 #include "ccMacros.h"
 #include "cocoa/CCAffineTransform.h"
 #include "cocoa/CCArray.h"
+#include "cocoa/CCEventDispatcher.h"
 #include "CCGL.h"
 #include "shaders/ccGLStateCache.h"
 #include "shaders/CCGLProgram.h"
@@ -61,14 +62,6 @@ class CCScene;
 
 enum {
     kCCNodeTagInvalid = -1,
-};
-
-enum {
-    kCCNodeOnEnter,
-    kCCNodeOnExit,
-    kCCNodeOnEnterTransitionDidFinish,
-    kCCNodeOnExitTransitionDidStart,
-    kCCNodeOnCleanup
 };
 
 typedef enum {
@@ -133,7 +126,7 @@ class CCTouchScriptHandlerEntry;
  - Each node has a camera. By default it points to the center of the CCNode.
  */
 
-class CC_DLL CCNode : public CCObject, public CCTouchDelegate
+class CC_DLL CCNode : public CCEventDispatcher, public CCTouchDelegate
 {
 public:
     /// @{
@@ -936,6 +929,8 @@ public:
      * @js NA
      */
     void scheduleUpdateWithPriorityLua(int nHandler, int priority);
+
+    virtual void scheduleUpdateForNodeEvent();
 
     /// @}  end Script Bindings
 

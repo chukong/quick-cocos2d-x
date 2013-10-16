@@ -37,7 +37,7 @@
 #import "CCTouch.h"
 #import "CCIMEDispatcher.h"
 #import "CCWindow.h"
-#import "CCEventDispatcher.h"
+#import "CCEventDispatcherMac.h"
 #import "CCEGLView.h"
 
 
@@ -86,7 +86,7 @@ static EAGLView *view;
 	else if ((self = [super initWithFrame:frameRect pixelFormat:pixelFormat]))
     {
 		if(context) [self setOpenGLContext:context];
-		eventDelegate_ = [CCEventDispatcher sharedDispatcher];
+		eventDelegate_ = [CCEventDispatcherMac sharedDispatcher];
 	}
 
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
@@ -102,7 +102,7 @@ static EAGLView *view;
     frameRect.size = [self makeSizeEven:frameRect.size];
     if ((self = [super initWithFrame:frameRect pixelFormat:format]))
     {
-        eventDelegate_ = [CCEventDispatcher sharedDispatcher];
+        eventDelegate_ = [CCEventDispatcherMac sharedDispatcher];
     }
 
     cocos2d::CCEGLView::sharedOpenGLView()->setFrameSize(frameRect.size.width, frameRect.size.height);
