@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Oct 15 05:46:59 2013.
+** Generated automatically by tolua++-1.0.92 on Tue Oct 15 20:08:55 2013.
 */
 
 /****************************************************************************
@@ -45,9 +45,9 @@ using namespace CocosDenshion;
 #include "LuaCocos2d.h"
 #include "cocos-ext.h"
 #include "AssetsManager/AssetsManager.h"
-#include "CocoStudio/Armature/CCArmature.h"
+#include "CCArmature/CCArmature.h"
+#include "CCArmature/utils/CCArmatureDataManager.h"
 using namespace cocos2d::extension;
-#include "CocoStudio/Armature/utils/CCArmatureDataManager.h"
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -57398,9 +57398,9 @@ static int tolua_Cocos2d_CCProcessBase_getCurrentFrameIndex00(lua_State* tolua_S
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getProcessScale of class  CCProcessBase */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCProcessBase_getProcessScale00
-static int tolua_Cocos2d_CCProcessBase_getProcessScale00(lua_State* tolua_S)
+/* method: getAnimationScale of class  CCProcessBase */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCProcessBase_getAnimationScale00
+static int tolua_Cocos2d_CCProcessBase_getAnimationScale00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -57414,25 +57414,25 @@ static int tolua_Cocos2d_CCProcessBase_getProcessScale00(lua_State* tolua_S)
  {
   CCProcessBase* self = (CCProcessBase*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getProcessScale'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAnimationScale'", NULL);
 #endif
   {
-   float tolua_ret = (float)  self->getProcessScale();
+   float tolua_ret = (float)  self->getAnimationScale();
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getProcessScale'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'getAnimationScale'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setProcessScale of class  CCProcessBase */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCProcessBase_setProcessScale00
-static int tolua_Cocos2d_CCProcessBase_setProcessScale00(lua_State* tolua_S)
+/* method: setAnimationScale of class  CCProcessBase */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCProcessBase_setAnimationScale00
+static int tolua_Cocos2d_CCProcessBase_setAnimationScale00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -57448,16 +57448,16 @@ static int tolua_Cocos2d_CCProcessBase_setProcessScale00(lua_State* tolua_S)
   CCProcessBase* self = (CCProcessBase*)  tolua_tousertype(tolua_S,1,0);
   float f = ((float)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setProcessScale'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAnimationScale'", NULL);
 #endif
   {
-   self->setProcessScale(f);
+   self->setAnimationScale(f);
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setProcessScale'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'setAnimationScale'.",&tolua_err);
  return 0;
 #endif
 }
@@ -58003,22 +58003,20 @@ static int tolua_Cocos2d_CCBaseData_subtract00(lua_State* tolua_S)
      !tolua_isusertype(tolua_S,1,"CCBaseData",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"CCBaseData",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,3,"CCBaseData",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCBaseData* self = (CCBaseData*)  tolua_tousertype(tolua_S,1,0);
-  CCBaseData* from = ((CCBaseData*)  tolua_tousertype(tolua_S,2,0));
-  CCBaseData* to = ((CCBaseData*)  tolua_tousertype(tolua_S,3,0));
-  bool limit = ((bool)  tolua_toboolean(tolua_S,4,0));
+  CCBaseData* _from = ((CCBaseData*)  tolua_tousertype(tolua_S,2,0));
+  CCBaseData* _to = ((CCBaseData*)  tolua_tousertype(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'subtract'", NULL);
 #endif
   {
-   self->subtract(from,to,limit);
+   self->subtract(_from,_to);
   }
  }
  return 0;
@@ -59311,121 +59309,121 @@ static int tolua_set_CCFrameData_displayIndex(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: strMovement of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_strMovement
-static int tolua_get_CCFrameData_strMovement(lua_State* tolua_S)
+/* get function: m_strMovement of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_m_strMovement
+static int tolua_get_CCFrameData_m_strMovement(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strMovement'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strMovement'",NULL);
 #endif
-  tolua_pushcppstring(tolua_S,(const char*)self->strMovement);
+  tolua_pushcppstring(tolua_S,(const char*)self->m_strMovement);
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: strMovement of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_strMovement
-static int tolua_set_CCFrameData_strMovement(lua_State* tolua_S)
+/* set function: m_strMovement of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_m_strMovement
+static int tolua_set_CCFrameData_m_strMovement(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strMovement'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strMovement'",NULL);
   if (!tolua_iscppstring(tolua_S,2,0,&tolua_err))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->strMovement = ((std::string)  tolua_tocppstring(tolua_S,2,0))
+  self->m_strMovement = ((std::string)  tolua_tocppstring(tolua_S,2,0))
 ;
  return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: strEvent of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_strEvent
-static int tolua_get_CCFrameData_strEvent(lua_State* tolua_S)
+/* get function: m_strEvent of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_m_strEvent
+static int tolua_get_CCFrameData_m_strEvent(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strEvent'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strEvent'",NULL);
 #endif
-  tolua_pushcppstring(tolua_S,(const char*)self->strEvent);
+  tolua_pushcppstring(tolua_S,(const char*)self->m_strEvent);
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: strEvent of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_strEvent
-static int tolua_set_CCFrameData_strEvent(lua_State* tolua_S)
+/* set function: m_strEvent of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_m_strEvent
+static int tolua_set_CCFrameData_m_strEvent(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strEvent'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strEvent'",NULL);
   if (!tolua_iscppstring(tolua_S,2,0,&tolua_err))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->strEvent = ((std::string)  tolua_tocppstring(tolua_S,2,0))
+  self->m_strEvent = ((std::string)  tolua_tocppstring(tolua_S,2,0))
 ;
  return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: strSound of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_strSound
-static int tolua_get_CCFrameData_strSound(lua_State* tolua_S)
+/* get function: m_strSound of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_m_strSound
+static int tolua_get_CCFrameData_m_strSound(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strSound'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strSound'",NULL);
 #endif
-  tolua_pushcppstring(tolua_S,(const char*)self->strSound);
+  tolua_pushcppstring(tolua_S,(const char*)self->m_strSound);
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: strSound of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_strSound
-static int tolua_set_CCFrameData_strSound(lua_State* tolua_S)
+/* set function: m_strSound of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_m_strSound
+static int tolua_set_CCFrameData_m_strSound(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strSound'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strSound'",NULL);
   if (!tolua_iscppstring(tolua_S,2,0,&tolua_err))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->strSound = ((std::string)  tolua_tocppstring(tolua_S,2,0))
+  self->m_strSound = ((std::string)  tolua_tocppstring(tolua_S,2,0))
 ;
  return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* get function: strSoundEffect of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_strSoundEffect
-static int tolua_get_CCFrameData_strSoundEffect(lua_State* tolua_S)
+/* get function: m_strSoundEffect of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_get_CCFrameData_m_strSoundEffect
+static int tolua_get_CCFrameData_m_strSoundEffect(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strSoundEffect'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strSoundEffect'",NULL);
 #endif
-  tolua_pushcppstring(tolua_S,(const char*)self->strSoundEffect);
+  tolua_pushcppstring(tolua_S,(const char*)self->m_strSoundEffect);
  return 1;
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* set function: strSoundEffect of class  CCFrameData */
-#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_strSoundEffect
-static int tolua_set_CCFrameData_strSoundEffect(lua_State* tolua_S)
+/* set function: m_strSoundEffect of class  CCFrameData */
+#ifndef TOLUA_DISABLE_tolua_set_CCFrameData_m_strSoundEffect
+static int tolua_set_CCFrameData_m_strSoundEffect(lua_State* tolua_S)
 {
   CCFrameData* self = (CCFrameData*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   tolua_Error tolua_err;
-  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'strSoundEffect'",NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'm_strSoundEffect'",NULL);
   if (!tolua_iscppstring(tolua_S,2,0,&tolua_err))
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
-  self->strSoundEffect = ((std::string)  tolua_tocppstring(tolua_S,2,0))
+  self->m_strSoundEffect = ((std::string)  tolua_tocppstring(tolua_S,2,0))
 ;
  return 0;
 }
@@ -60134,9 +60132,9 @@ static int tolua_Cocos2d_CCArmatureDataManager_sharedArmatureDataManager00(lua_S
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: purge of class  CCArmatureDataManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCArmatureDataManager_purge00
-static int tolua_Cocos2d_CCArmatureDataManager_purge00(lua_State* tolua_S)
+/* method: purgeArmatureSystem of class  CCArmatureDataManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCArmatureDataManager_purgeArmatureSystem00
+static int tolua_Cocos2d_CCArmatureDataManager_purgeArmatureSystem00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -60149,13 +60147,13 @@ static int tolua_Cocos2d_CCArmatureDataManager_purge00(lua_State* tolua_S)
 #endif
  {
   {
-   CCArmatureDataManager::purge();
+   CCArmatureDataManager::purgeArmatureSystem();
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'purge'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'purgeArmatureSystem'.",&tolua_err);
  return 0;
 #endif
 }
@@ -64113,8 +64111,8 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"stop",tolua_Cocos2d_CCProcessBase_stop00);
    tolua_function(tolua_S,"gotoFrame",tolua_Cocos2d_CCProcessBase_gotoFrame00);
    tolua_function(tolua_S,"getCurrentFrameIndex",tolua_Cocos2d_CCProcessBase_getCurrentFrameIndex00);
-   tolua_function(tolua_S,"getProcessScale",tolua_Cocos2d_CCProcessBase_getProcessScale00);
-   tolua_function(tolua_S,"setProcessScale",tolua_Cocos2d_CCProcessBase_setProcessScale00);
+   tolua_function(tolua_S,"getAnimationScale",tolua_Cocos2d_CCProcessBase_getAnimationScale00);
+   tolua_function(tolua_S,"setAnimationScale",tolua_Cocos2d_CCProcessBase_setAnimationScale00);
    tolua_function(tolua_S,"getIsPause",tolua_Cocos2d_CCProcessBase_getIsPause00);
    tolua_function(tolua_S,"setIsPause",tolua_Cocos2d_CCProcessBase_setIsPause00);
    tolua_function(tolua_S,"getIsComplete",tolua_Cocos2d_CCProcessBase_getIsComplete00);
@@ -64202,10 +64200,10 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"duration",tolua_get_CCFrameData_duration,tolua_set_CCFrameData_duration);
    tolua_variable(tolua_S,"tweenEasing",tolua_get_CCFrameData_tweenEasing,tolua_set_CCFrameData_tweenEasing);
    tolua_variable(tolua_S,"displayIndex",tolua_get_CCFrameData_displayIndex,tolua_set_CCFrameData_displayIndex);
-   tolua_variable(tolua_S,"strMovement",tolua_get_CCFrameData_strMovement,tolua_set_CCFrameData_strMovement);
-   tolua_variable(tolua_S,"strEvent",tolua_get_CCFrameData_strEvent,tolua_set_CCFrameData_strEvent);
-   tolua_variable(tolua_S,"strSound",tolua_get_CCFrameData_strSound,tolua_set_CCFrameData_strSound);
-   tolua_variable(tolua_S,"strSoundEffect",tolua_get_CCFrameData_strSoundEffect,tolua_set_CCFrameData_strSoundEffect);
+   tolua_variable(tolua_S,"m_strMovement",tolua_get_CCFrameData_m_strMovement,tolua_set_CCFrameData_m_strMovement);
+   tolua_variable(tolua_S,"m_strEvent",tolua_get_CCFrameData_m_strEvent,tolua_set_CCFrameData_m_strEvent);
+   tolua_variable(tolua_S,"m_strSound",tolua_get_CCFrameData_m_strSound,tolua_set_CCFrameData_m_strSound);
+   tolua_variable(tolua_S,"m_strSoundEffect",tolua_get_CCFrameData_m_strSoundEffect,tolua_set_CCFrameData_m_strSoundEffect);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCMovementBoneData","CCMovementBoneData","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCMovementBoneData");
@@ -64244,7 +64242,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCArmatureDataManager","CCArmatureDataManager","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCArmatureDataManager");
    tolua_function(tolua_S,"sharedArmatureDataManager",tolua_Cocos2d_CCArmatureDataManager_sharedArmatureDataManager00);
-   tolua_function(tolua_S,"purge",tolua_Cocos2d_CCArmatureDataManager_purge00);
+   tolua_function(tolua_S,"purgeArmatureSystem",tolua_Cocos2d_CCArmatureDataManager_purgeArmatureSystem00);
    tolua_function(tolua_S,"addArmatureData",tolua_Cocos2d_CCArmatureDataManager_addArmatureData00);
    tolua_function(tolua_S,"getArmatureData",tolua_Cocos2d_CCArmatureDataManager_getArmatureData00);
    tolua_function(tolua_S,"addAnimationData",tolua_Cocos2d_CCArmatureDataManager_addAnimationData00);

@@ -1,7 +1,8 @@
 
 $#include "cocos-ext.h"
 $#include "AssetsManager/AssetsManager.h"
-$#include "CocoStudio/Armature/CCArmature.h"
+$#include "CCArmature/CCArmature.h"
+$#include "CCArmature/utils/CCArmatureDataManager.h"
 
 $using namespace cocos2d::extension;
 

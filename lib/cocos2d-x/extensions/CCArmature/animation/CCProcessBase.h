@@ -22,6 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
+
+#ifndef __CCPROCESSBASE_H__
+#define __CCPROCESSBASE_H__
+
+#include "../utils/CCArmatureDefine.h"
+#include "../datas/CCDatas.h"
+
+NS_CC_EXT_BEGIN
+
 enum AnimationType
 {
     SINGLE_FRAME = -4,          //! the animation just have one frame
@@ -34,10 +43,16 @@ enum AnimationType
     ANIMATION_LOOP_BACK,        //! the animation loop from back
 
     ANIMATION_MAX,
+
 };
+
 
 class  CCProcessBase : public CCObject
 {
+public:
+    CCProcessBase(void);
+    ~CCProcessBase(void);
+
     /**
      * Play animation by animation name.
      *
@@ -66,59 +81,87 @@ class  CCProcessBase : public CCObject
      *         2  : fade in and out
      *
      */
-    void play(void *animation, int durationTo, int durationTween,  int loop, int tweenEasing);
+    virtual void play(void *animation, int durationTo, int durationTween,  int loop, int tweenEasing);
 
     /**
      * Pause the Process
      */
-    void pause();
+    virtual void pause();
     /**
      * Resume the Process
      */
-    void resume();
+    virtual void resume();
     /**
      * Stop the Process
      */
-    void stop();
+    virtual void stop();
 
 
-    void gotoFrame(int frameIndex);
+    virtual void gotoFrame(int frameIndex);
 
-    int getCurrentFrameIndex();
+    /**
+     * You should never call this function, unless you know what you do
+     * Update the Process, include current process, current frame and son on
+     *
+     * @param The duration since last update
+     */
+    virtual void update(float dt);
 
-    //! Scale the process speed
-    float getAnimationScale();
-    void setAnimationScale(float f);
+    virtual int getCurrentFrameIndex();
+
+protected:
+
+
+    /**
+     * Update(float dt) will call this handler, you can handle your logic here
+     */
+    virtual void updateHandler() {};
+
+protected:
+	//! Scale the animation speed
+	CC_SYNTHESIZE_PASS_BY_REF(float, m_fAnimationScale, AnimationScale);
 
     //! Set and get whether the aniamtion is pause
-    bool getIsPause();
-    void setIsPause(bool b);
+    CC_SYNTHESIZE_PASS_BY_REF(bool, m_bIsPause, IsPause);
 
     //! Set and get whether the aniamtion is complete
-    bool getIsComplete();
-    void setIsComplete(bool b);
+    CC_SYNTHESIZE_PASS_BY_REF(bool, m_bIsComplete, IsComplete);
 
     //! Set and get whether the aniamtion is playing
-    bool getIsPlaying();
-    void setIsPlaying(bool b);
+    CC_SYNTHESIZE_PASS_BY_REF(bool, m_bIsPlaying, IsPlaying);
 
     //! Current percent this process arrived
-    float getCurrentPercent();
-    void setCurrentPercent(float f);
+    CC_SYNTHESIZE_PASS_BY_REF(float, m_fCurrentPercent, CurrentPercent);
 
     //! The raw duration
-    int getRawDuration();
-    void setRawDuration(int i);
+    CC_SYNTHESIZE_PASS_BY_REF(int, m_iRawDuration, RawDuration);
 
     //! The animation whether or not loop
-    AnimationType getLoopType();
-    void setLoopType(AnimationType t);
+    CC_SYNTHESIZE_PASS_BY_REF(AnimationType, m_eLoopType, LoopType);
 
     //! The tween easing effect
-    CCTweenType getTweenEasing();
-    void setTweenEasing(CCTweenType t);
+    CC_SYNTHESIZE_PASS_BY_REF(CCTweenType, m_eTweenEasing, TweenEasing);
 
     //! The animation update speed
-    float getAnimationInternal();
-    void setAnimationInternal(float);
+    CC_SYNTHESIZE_PASS_BY_REF(float, m_fAnimationInternal, AnimationInternal);
+
+
+protected:
+    //! The durantion frame count will run
+    int m_iDurationTween;
+
+    //! Current frame this process arrived, this frame is tween frame
+    float m_fCurrentFrame;
+    //! Frame index it the time line
+    int m_iCurFrameIndex;
+
+    //! Next frame this process need run to
+    int m_iNextFrameIndex;
+
+
+    bool m_bIsLoopBack;
 };
+
+NS_CC_EXT_END
+
+#endif /*__CCPROCESSBASE_H__*/
