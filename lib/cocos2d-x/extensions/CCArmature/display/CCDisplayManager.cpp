@@ -138,6 +138,7 @@ void CCDisplayManager::changeDisplayByIndex(int index, bool force)
     {
         if(m_pDisplayRenderNode)
         {
+			m_pDisplayRenderNode->stopAllActions();
             m_pDisplayRenderNode->removeFromParentAndCleanup(true);
             setCurrentDecorativeDisplay(NULL);
         }
