@@ -33,11 +33,11 @@ function printf(fmt, ...)
 end
 
 function echoError(fmt, ...)
-    echo(string.format("[ERR] %s%s", string.format(tostring(fmt), ...), debug.traceback("", 2)))
+    echoLog("ERR", fmt, ...)
 end
 
 function echoInfo(fmt, ...)
-    echo("[INFO] " .. string.format(tostring(fmt), ...))
+    echoLog("INFO", fmt, ...)
 end
 
 function echoLog(tag, fmt, ...)

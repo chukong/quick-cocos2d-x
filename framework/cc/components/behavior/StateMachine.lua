@@ -33,7 +33,7 @@ StateMachine.PENDING_TRANSITION_ERROR = "PENDING_TRANSITION_ERROR"
 StateMachine.INVALID_CALLBACK_ERROR = "INVALID_CALLBACK_ERROR"
 
 StateMachine.WILDCARD = "*"
-StateMachine.ASYNC = "async"
+StateMachine.ASYNC = "ASYNC"
 
 function StateMachine:ctor()
     StateMachine.super.ctor(self, "StateMachine")
@@ -55,7 +55,7 @@ function StateMachine:setupState(cfg)
     self.callbacks_  = cfg.callbacks or {}
     self.map_        = {}
     self.current_    = "none"
-    self.transition_ = false
+    self.inTransition_ = false
 
     if self.initial_ then
         self.initial_.event = self.initial_.event or "startup"
@@ -93,7 +93,7 @@ function StateMachine:isState(state)
 end
 
 function StateMachine:canDoEvent(eventName)
-    return not self.transition_
+    return not self.inTransition_
         and (self.map_[eventName][self.current_] ~= nil or self.map_[eventName][StateMachine.WILDCARD] ~= nil)
 end
 
@@ -118,7 +118,7 @@ function StateMachine:doEventForce(name, ...)
         args = args,
     }
 
-    if self.transition_ then self.transition_ = false end
+    if self.inTransition_ then self.inTransition_ = false end
     self:beforeEvent_(event)
     if from == to then
         self:afterEvent_(event)
@@ -133,6 +133,8 @@ function StateMachine:doEventForce(name, ...)
 end
 
 function StateMachine:doEvent(name, ...)
+    assert(self.map_[name] ~= nil, string.format("StateMachine:doEvent() - invalid event %s", tostring(name)))
+
     local from = self.current_
     local map = self.map_[name]
     local to = (map[from] or map[StateMachine.WILDCARD]) or from
@@ -145,7 +147,7 @@ function StateMachine:doEvent(name, ...)
         args = args,
     }
 
-    if self.transition_ then
+    if self.inTransition_ then
         self:onError_(event,
                       StateMachine.PENDING_TRANSITION_ERROR,
                       "event " .. name .. " inappropriate because previous transition did not complete")
@@ -169,7 +171,7 @@ function StateMachine:doEvent(name, ...)
     end
 
     event.transition = function()
-        self.transition_  = false
+        self.inTransition_  = false
         self.current_ = to -- this method should only ever be called once
         self:enterState_(event)
         self:changeState_(event)
@@ -183,14 +185,14 @@ function StateMachine:doEvent(name, ...)
         self:afterEvent_(event)
     end
 
-    self.transition_ = true
+    self.inTransition_ = true
     local leave = self:leaveState_(event)
     if leave == false then
         event.transition = nil
         event.cancel = nil
-        self.transition_ = false
+        self.inTransition_ = false
         return StateMachine.CANCELLED
-    elseif string.lower(tostring(leave)) == StateMachine.ASYNC then
+    elseif string.upper(tostring(leave)) == StateMachine.ASYNC then
         return StateMachine.PENDING
     else
         -- need to check in case user manually called transition()
@@ -198,7 +200,7 @@ function StateMachine:doEvent(name, ...)
         if event.transition then
             return event.transition()
         else
-            self.transition_ = false
+            self.inTransition_ = false
         end
     end
 end
@@ -300,8 +302,8 @@ function StateMachine:leaveState_(event, transition)
     local general = self:leaveAnyState_(event, transition)
     if specific == false or general == false then
         return false
-    elseif string.lower(tostring(specific)) == StateMachine.ASYNC
-        or string.lower(tostring(general)) == StateMachine.ASYNC then
+    elseif string.upper(tostring(specific)) == StateMachine.ASYNC
+        or string.upper(tostring(general)) == StateMachine.ASYNC then
         return StateMachine.ASYNC
     end
 end

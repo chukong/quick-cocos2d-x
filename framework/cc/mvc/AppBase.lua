@@ -12,8 +12,8 @@ function AppBase:ctor(appName, packageRoot)
     self.packageRoot = packageRoot or "app"
 
     local notificationCenter = CCNotificationCenter:sharedNotificationCenter()
-    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterBackground_), "APP_ENTER_BACKGROUND_EVENT")
-    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterForeground_), "APP_ENTER_FOREGROUND_EVENT")
+    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterBackground), "APP_ENTER_BACKGROUND_EVENT")
+    notificationCenter:registerScriptObserver(nil, handler(self, self.onEnterForeground), "APP_ENTER_FOREGROUND_EVENT")
 
     self.snapshots_ = {}
 
@@ -48,6 +48,8 @@ function AppBase:makeLuaVMSnapshot()
     while #self.snapshots_ > 2 do
         table.remove(self.snapshots_, 1)
     end
+
+    return self
 end
 
 function AppBase:checkLuaVMLeaks()
@@ -59,13 +61,15 @@ function AppBase:checkLuaVMLeaks()
             print(k, v)
         end
     end
+
+    return self
 end
 
-function AppBase:onEnterBackground_()
+function AppBase:onEnterBackground()
     self:dispatchEvent({name = AppBase.APP_ENTER_BACKGROUND_EVENT})
 end
 
-function AppBase:onEnterForeground_()
+function AppBase:onEnterForeground()
     self:dispatchEvent({name = AppBase.APP_ENTER_FOREGROUND_EVENT})
 end
 

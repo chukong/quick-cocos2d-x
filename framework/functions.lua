@@ -279,10 +279,10 @@ insert list.
 
     local dest = {1, 2, 3}
     local src  = {4, 5, 6}
-    table.insertto(dest, src)
+    table.insertTo(dest, src)
     -- dest = {1, 2, 3, 4, 5, 6}
 	dest = {1, 2, 3}
-	table.insertto(dest, src, 5)
+	table.insertTo(dest, src, 5)
     -- dest = {1, 2, 3, nil, 4, 5, 6}
 
 
