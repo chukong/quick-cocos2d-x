@@ -38,7 +38,7 @@
 
 class CCEventDispatcher : public CCObject
 {
-    int addScriptEventListener(int event, int callback);
+    int addScriptEventListener(int event, LUA_FUNCTION callback);
     void removeScriptEventListener(int event, int handle);
     void removeAllScriptEventListenersForEvent(int event);
     void removeAllScriptEventListeners();

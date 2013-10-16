@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Thu Oct 17 00:02:34 2013.
+** Generated automatically by tolua++-1.0.92 on Thu Oct 17 00:16:29 2013.
 */
 
 /****************************************************************************
@@ -7719,7 +7719,7 @@ static int tolua_Cocos2d_CCEventDispatcher_addScriptEventListener00(lua_State* t
  if (
      !tolua_isusertype(tolua_S,1,"CCEventDispatcher",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
@@ -7728,7 +7728,7 @@ static int tolua_Cocos2d_CCEventDispatcher_addScriptEventListener00(lua_State* t
  {
   CCEventDispatcher* self = (CCEventDispatcher*)  tolua_tousertype(tolua_S,1,0);
   int event = ((int)  tolua_tonumber(tolua_S,2,0));
-  int callback = ((int)  tolua_tonumber(tolua_S,3,0));
+  LUA_FUNCTION callback = (  toluafix_ref_function(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addScriptEventListener'", NULL);
 #endif
