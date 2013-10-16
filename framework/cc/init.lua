@@ -6,6 +6,7 @@ cc = cc or {}
 -- init base classes
 cc.Registry = import(".Registry")
 cc.GameObject = import(".GameObject")
+cc.EventProxy = import(".EventProxy")
 
 -- init components
 local components = {

@@ -28,13 +28,11 @@ function AppBase:exit()
     os.exit()
 end
 
-function AppBase:enterScene(sceneName, ...)
+function AppBase:enterScene(sceneName, args, transitionType, time, more)
     local scenePackageName = self. packageRoot .. ".scenes." .. sceneName
     local sceneClass = require(scenePackageName)
-    local scene = sceneClass.new(...)
-    display.replaceScene(scene)
-    collectgarbage("collect")
-    collectgarbage("collect")
+    local scene = sceneClass.new(unpack(totable(args)))
+    display.replaceScene(scene, transitionType, time, more)
 end
 
 function AppBase:createView(viewName, ...)

@@ -8,19 +8,15 @@ function EventProtocol:ctor()
     self.listenerHandleIndex_ = 0
 end
 
-function EventProtocol:addEventListener(eventName, listener, isWeakReference)
+function EventProtocol:addEventListener(eventName, listener, data)
     eventName = string.upper(eventName)
     if self.listeners_[eventName] == nil then
         self.listeners_[eventName] = {}
     end
 
     self.listenerHandleIndex_ = self.listenerHandleIndex_ + 1
-    local handle = string.format("HANDLE_%d", self.listenerHandleIndex_)
-    local listener = {listener}
-    if isWeakReference then
-        setmetatable(listener, {__mode = "v"})
-    end
-    self.listeners_[eventName][handle] = listener
+    local handle = tostring(self.listenerHandleIndex_)
+    self.listeners_[eventName][handle] = {listener, data}
     return handle
 end
 
@@ -30,28 +26,26 @@ function EventProtocol:dispatchEvent(event)
     if self.listeners_[eventName] == nil then return end
     event.target = self.target_
     for handle, listener in pairs(self.listeners_[eventName]) do
-        local callback = listener[1]
-        if callback then
-            local ret = callback(event, a)
-            if ret == false then
-                break
-            elseif ret == "__REMOVE__" then
-                self.listeners_[eventName][handle] = nil
-            end
+        local ret
+        if listener[2] then
+            ret = listener[1](listener[2], event)
         else
-            self.listeners_[eventName][handle] = nil
+            ret = listener[1](event)
+        end
+        if ret == false then
+            break
         end
     end
 end
 
-function EventProtocol:removeEventListener(eventName, key)
+function EventProtocol:removeEventListener(eventName, key1, key2)
     eventName = string.upper(eventName)
     if self.listeners_[eventName] == nil then return end
 
     for handle, listener in pairs(self.listeners_[eventName]) do
-        if key == handle or key == listener[1] then
+        if key1 == handle or (key1 == listener[1] and key2 == listener[2]) then
             self.listeners_[eventName][handle] = nil
-            break
+            return handle
         end
     end
 end
@@ -62,6 +56,16 @@ end
 
 function EventProtocol:removeAllEventListeners()
     self.listeners_ = {}
+end
+
+function EventProtocol:dumpAllEventListeners()
+    print("---- EventProtocol:dumpAllEventListeners() ----")
+    for name, listeners in pairs(self.listeners_) do
+        printf("-- event: %s", name)
+        for handle, listener in pairs(listeners) do
+            printf("--     handle: %s, %s", tostring(handle), tostring(listener))
+        end
+    end
 end
 
 function EventProtocol:exportMethods()
