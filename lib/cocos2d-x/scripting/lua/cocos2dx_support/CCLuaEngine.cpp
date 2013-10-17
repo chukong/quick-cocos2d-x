@@ -134,8 +134,8 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction, float dt)
     int handler = pNode->getScriptHandler();
     if (handler)
     {
-//        m_stack->executeFunctionByHandler(handler, 1);
-//        m_stack->settop(1);
+        m_stack->executeFunctionByHandler(handler, 1);
+        m_stack->settop(1);
     }
     if (pNode->hasScriptEventListener(nAction))
     {
