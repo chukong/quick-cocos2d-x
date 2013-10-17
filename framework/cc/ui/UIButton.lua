@@ -41,6 +41,10 @@ function UIButton:ctor(events, initialState, options)
     self.initialState_ = initialState
 
     display.align(self, display.CENTER)
+
+    self:addScriptEventListener(cc.Event.ENTER_SCENE, function()
+        self:updateButtonImage_()
+    end)
 end
 
 function UIButton:align(align, x, y)
@@ -270,10 +274,6 @@ function UIButton:checkTouchInSprite_(x, y)
     else
         return self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
     end
-end
-
-function UIButton:onEnter()
-    self:updateButtonImage_()
 end
 
 return UIButton

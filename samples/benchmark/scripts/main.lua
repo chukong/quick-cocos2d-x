@@ -7,7 +7,5 @@ function __G__TRACKBACK__(errorMessage)
     print("----------------------------------------")
 end
 
-xpcall(function()
-    require("game")
-    game.startup()
-end, __G__TRACKBACK__)
+require("game")
+game.startup()

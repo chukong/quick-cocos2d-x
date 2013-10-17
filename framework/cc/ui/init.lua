@@ -9,10 +9,9 @@ function makeUIControl_(control)
 
     control:setCascadeOpacityEnabled(true)
     control:setCascadeColorEnabled(true)
-    control:setNodeEventEnabled(true)
-    function control:onExit()
-        self:removeAllEventListeners()
-    end
+    control:addScriptEventListener(cc.Event.EXIT_SCENE, function()
+        control:removeAllEventListeners()
+    end)
 end
 
 ui.UIGroup               = import(".UIGroup")
