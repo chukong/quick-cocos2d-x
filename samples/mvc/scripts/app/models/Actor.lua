@@ -188,6 +188,7 @@ function Actor:hit(target)
             armor = target:getArmor()
         end
         damage = self:getAttack() - armor
+        if damage <= 0 then damage = 1 end -- 只要命中，强制扣 HP
     end
     -- 触发事件，damage <= 0 可以视为 miss
     self:dispatchEvent({name = Actor.ATTACK_EVENT, target = target, damage = damage})
