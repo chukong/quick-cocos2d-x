@@ -37,6 +37,7 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCAutoreleasePool.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCDataVisitor.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCDictionary.cpp" />
+    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCEventDispatcher.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCGeometry.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCNS.cpp" />
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCObject.cpp" />
@@ -392,6 +393,7 @@
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCDataVisitor.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCDictionary.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCDouble.h" />
+    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCEventDispatcher.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCFloat.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCGeometry.h" />
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCInteger.h" />
