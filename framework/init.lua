@@ -10,8 +10,7 @@ local CURRENT_MODULE_NAME = ...
 
 cc = cc or {}
 cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
-cc.VERSION = "2.5.0"
-cc.REMOVE_HANDLER_SIGN = "__REMOVE_HANDLER__"
+cc.VERSION = "2.2.0"
 
 local exit = os.exit
 function os.exit()
