@@ -87,8 +87,8 @@ class  CCProcessBase : public CCObject
     int getCurrentFrameIndex();
 
     //! Scale the process speed
-    float getProcessScale();
-    void setProcessScale(float f);
+    float getAnimationScale();
+    void setAnimationScale(float f);
 
     //! Set and get whether the aniamtion is pause
     bool getIsPause();

@@ -42,7 +42,7 @@ elseif device.platform == "ios" then
     luaoc = require(cc.PACKAGE_NAME .. ".luaoc")
 end
 
-if not NO_GAMEOBJETS then
+if not NO_EXTENSIONS then
     require(cc.PACKAGE_NAME .. ".cc.init")
 end
 

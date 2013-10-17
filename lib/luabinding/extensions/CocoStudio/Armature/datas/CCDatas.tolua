@@ -33,7 +33,7 @@ class CCBaseData : public CCObject
     * @param  from   from CCBaseData
     * @param  to     to CCBaseData
     */
-    void subtract(CCBaseData *from, CCBaseData *to, bool limit);
+    void subtract(CCBaseData *_from, CCBaseData *_to);
 
     float x;                    //! position x attribute
     float y;                    //! position y attribute
@@ -165,10 +165,10 @@ class CCFrameData : public CCBaseData
     */
     int displayIndex;
 
-    std::string strMovement;
-    std::string strEvent;
-    std::string strSound;
-    std::string strSoundEffect;
+    std::string m_strMovement;
+    std::string m_strEvent;
+    std::string m_strSound;
+    std::string m_strSoundEffect;
 };
 
 class CCMovementBoneData : public CCObject

@@ -241,6 +241,16 @@ void CCLuaStack::clean(void)
     lua_settop(m_state, 0);
 }
 
+void CCLuaStack::settop(int top)
+{
+    lua_settop(m_state, top);
+}
+
+void CCLuaStack::copyValue(int index)
+{
+    lua_pushvalue(m_state, index);
+}
+
 void CCLuaStack::pushInt(int intValue)
 {
     lua_pushinteger(m_state, intValue);
@@ -428,7 +438,6 @@ int CCLuaStack::executeFunctionByHandler(int nHandler, int numArgs)
         }
         ret = executeFunction(numArgs);
     }
-    lua_settop(m_state, 0);
     return ret;
 }
 

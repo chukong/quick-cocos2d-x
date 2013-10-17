@@ -101,6 +101,8 @@ public:
     virtual int executeGlobalFunction(const char* functionName, int numArgs = 0);
 
     virtual void clean(void);
+    virtual void settop(int top);
+    virtual void copyValue(int index);
     virtual void pushInt(int intValue);
     virtual void pushFloat(float floatValue);
     virtual void pushBoolean(bool boolValue);

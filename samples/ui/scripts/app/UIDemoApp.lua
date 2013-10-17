@@ -4,8 +4,7 @@ require("framework.init")
 require("framework.shortcodes")
 require("framework.cc.init")
 
-local AppBase = require("framework.mvc.AppBase")
-local UIDemoApp = class("UIDemoApp", AppBase)
+local UIDemoApp = class("UIDemoApp", cc.mvc.AppBase)
 
 function UIDemoApp:ctor()
     UIDemoApp.super.ctor(self)

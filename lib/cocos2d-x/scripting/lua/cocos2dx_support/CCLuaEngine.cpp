@@ -25,6 +25,7 @@
 #include "CCLuaEngine.h"
 #include "cocos2d.h"
 #include "cocoa/CCArray.h"
+#include "cocoa/CCEventDispatcher.h"
 #include "CCScheduler.h"
 #include "cocos-ext.h"
 
@@ -96,39 +97,59 @@ int CCLuaEngine::executeGlobalFunction(const char* functionName, int numArgs /* 
     return ret;
 }
 
-int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
+int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction, float dt)
 {
-    int nHandler = pNode->getScriptHandler();
-    if (!nHandler) return 0;
-    
+    m_stack->clean();
     switch (nAction)
     {
         case kCCNodeOnEnter:
             m_stack->pushString("enter");
             break;
-            
+
         case kCCNodeOnExit:
             m_stack->pushString("exit");
             break;
-            
+
         case kCCNodeOnEnterTransitionDidFinish:
             m_stack->pushString("enterTransitionFinish");
             break;
-            
+
         case kCCNodeOnExitTransitionDidStart:
             m_stack->pushString("exitTransitionStart");
             break;
-            
+
         case kCCNodeOnCleanup:
             m_stack->pushString("cleanup");
             break;
-            
+
+        case kCCNodeOnEnterFrame:
+            m_stack->pushFloat(dt);
+            break;
+
         default:
             return 0;
     }
-    int ret = m_stack->executeFunctionByHandler(nHandler, 1);
+    m_stack->copyValue(1);
+
+    int handler = pNode->getScriptHandler();
+    if (handler)
+    {
+//        m_stack->executeFunctionByHandler(handler, 1);
+//        m_stack->settop(1);
+    }
+    if (pNode->hasScriptEventListener(nAction))
+    {
+        ScriptHandlerMap &map = pNode->getScriptEventListenerForEvent(nAction);
+        for (ScriptHandlerMapIterator it = map.begin(); it != map.end(); ++it)
+        {
+            m_stack->copyValue(1);
+            m_stack->executeFunctionByHandler(it->second, 1);
+            m_stack->settop(1);
+        }
+    }
+
     m_stack->clean();
-    return ret;
+    return 0;
 }
 
 int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)

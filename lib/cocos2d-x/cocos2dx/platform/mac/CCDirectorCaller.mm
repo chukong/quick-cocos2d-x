@@ -25,7 +25,7 @@
 #import "CCDirectorCaller.h"
 #import "CCDirector.h"
 #import "EAGLView.h"
-#import "CCEventDispatcher.h"
+#import "CCEventDispatcherMac.h"
 #include "CCAutoreleasePool.h"
 
 static id s_sharedDirectorCaller;
@@ -81,7 +81,7 @@ static id s_sharedDirectorCaller;
 	
 	cocos2d::CCDirector::sharedDirector()->drawScene();
 	cocos2d::CCPoolManager::sharedPoolManager()->pop();
-	[[CCEventDispatcher sharedDispatcher] dispatchQueuedEvents];
+	[[CCEventDispatcherMac sharedDispatcher] dispatchQueuedEvents];
 	
 	[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:nil];
 	
@@ -127,7 +127,7 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 	[openGLView unlockOpenGLContext];
     
 	// send any queued events
-	[[CCEventDispatcher sharedDispatcher] dispatchQueuedEvents];
+	[[CCEventDispatcherMac sharedDispatcher] dispatchQueuedEvents];
     
 	[pool release];
 }

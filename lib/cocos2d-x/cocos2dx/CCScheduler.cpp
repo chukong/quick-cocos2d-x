@@ -465,11 +465,7 @@ void CCScheduler::scheduleUpdateForTarget(CCObject *pTarget, int nPriority, bool
     HASH_FIND_INT(m_pHashForUpdates, &pTarget, pHashElement);
     if (pHashElement)
     {
-#if COCOS2D_DEBUG >= 1
-        CCAssert(pHashElement->entry->markedForDeletion,"");
-#endif
-        // TODO: check if priority has changed!
-
+        if (!pHashElement->entry->markedForDeletion) return;
         pHashElement->entry->markedForDeletion = false;
         return;
     }

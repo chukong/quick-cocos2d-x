@@ -1018,7 +1018,7 @@ void CCNode::onEnter()
         this->registerWithTouchDispatcher();
     }
 
-    if (m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_ENTER))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnter);
     }
@@ -1028,7 +1028,7 @@ void CCNode::onEnterTransitionDidFinish()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onEnterTransitionDidFinish, CCNode*);
 
-    if (m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_ENTER_TRANSITION_DID_FINISH))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterTransitionDidFinish);
     }
@@ -1038,7 +1038,7 @@ void CCNode::onExitTransitionDidStart()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onExitTransitionDidStart, CCNode*);
 
-    if (m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_EXIT_TRANSITION_DID_START))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExitTransitionDidStart);
     }
@@ -1055,7 +1055,7 @@ void CCNode::onExit()
 
     m_bRunning = false;
 
-    if ( m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_EXIT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
     }
@@ -1163,6 +1163,11 @@ void CCNode::scheduleUpdateWithPriorityLua(int nHandler, int priority)
     m_pScheduler->scheduleUpdateForTarget(this, priority, !m_bRunning);
 }
 
+void CCNode::scheduleUpdateForNodeEvent()
+{
+    scheduleUpdateWithPriority(0);
+}
+
 void CCNode::unscheduleUpdate()
 {
     m_pScheduler->unscheduleUpdateForTarget(this);
@@ -1229,7 +1234,10 @@ void CCNode::update(float fDelta)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeSchedule(m_nUpdateScriptHandler, fDelta, this);
     }
-
+    if (hasScriptEventListener(EVENT_ON_ENTER_FRAME))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterFrame, fDelta);
+    }
     if (m_pComponentContainer && !m_pComponentContainer->isEmpty())
     {
         m_pComponentContainer->visit(fDelta);

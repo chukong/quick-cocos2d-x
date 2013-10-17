@@ -6,9 +6,6 @@
 #include "CCLuaEngine.h"
 #include <string>
 
-// lua extensions
-#include "lua_extensions.h"
-
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -40,10 +37,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
     CCLuaStack *pStack = pEngine->getLuaStack();
-    lua_State* L = pStack->getLuaState();
-
-    // load lua extensions
-    luaopen_lua_extensions(L);
 
     // load framework
     if (m_projectConfig.isLoadPrecompiledFramework())

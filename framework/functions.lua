@@ -148,20 +148,6 @@ function import(moduleName, currentModuleName)
     return require(moduleFullName)
 end
 
-function weakhandler(target, method)
-    local t = {target, method}
-    setmetatable(t, {__mode = "v"})
-    return function(...)
-        if not t then return cc.REMOVE_HANDLER_SIGN end
-        if t[1] and t[2] then
-            return t[2](t[1], ...)
-        else
-            t = nil
-            return cc.REMOVE_HANDLER_SIGN
-        end
-    end
-end
-
 function handler(target, method)
     return function(...)
         return method(target, ...)
@@ -279,10 +265,10 @@ insert list.
 
     local dest = {1, 2, 3}
     local src  = {4, 5, 6}
-    table.insertto(dest, src)
+    table.insertTo(dest, src)
     -- dest = {1, 2, 3, 4, 5, 6}
 	dest = {1, 2, 3}
-	table.insertto(dest, src, 5)
+	table.insertTo(dest, src, 5)
     -- dest = {1, 2, 3, nil, 4, 5, 6}
 
 
