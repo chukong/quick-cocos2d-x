@@ -34,7 +34,7 @@ int CCEventDispatcher::addScriptEventListener(int event, int callback)
     s_nextid++;
     m_map[event][s_nextid] = callback;
 
-    if (event == EVENT_ON_ENTER_FRAME)
+    if (event == ENTER_FRAME_EVENT)
     {
         scheduleUpdateForNodeEvent();
     }

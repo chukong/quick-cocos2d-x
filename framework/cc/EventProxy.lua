@@ -1,9 +1,15 @@
 
 local EventProxy = class("EventProxy")
 
-function EventProxy:ctor(target, observer)
-    self.eventDispatcher_ = target:getComponent("components.behavior.EventProtocol")
+function EventProxy:ctor(eventDispatcher, view)
+    self.eventDispatcher_ = eventDispatcher
     self.handles_ = {}
+
+    if view and view.addScriptEventListener then
+        view:addScriptEventListener(cc.Event.EXIT_SCENE, function()
+            self:removeAllEventListeners()
+        end)
+    end
 end
 
 function EventProxy:addEventListener(eventName, listener, data)
