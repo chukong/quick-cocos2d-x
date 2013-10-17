@@ -41,12 +41,12 @@ NS_CC_BEGIN
 #define kCCNodeOnCleanup                        5
 #define kCCNodeOnEnterFrame                     6
 
-#define EVENT_ON_ENTER                          kCCNodeOnEnter
-#define EVENT_ON_EXIT                           kCCNodeOnExit
-#define EVENT_ON_ENTER_TRANSITION_DID_FINISH    kCCNodeOnEnterTransitionDidFinish
-#define EVENT_ON_EXIT_TRANSITION_DID_START      kCCNodeOnExitTransitionDidStart
-#define EVENT_ON_CLEANUP                        kCCNodeOnCleanup
-#define EVENT_ON_ENTER_FRAME                    kCCNodeOnEnterFrame
+#define ENTER_SCENE_EVENT                       kCCNodeOnEnter
+#define EXIT_SCENE_EVENT                        kCCNodeOnExit
+#define ENTER_TRANSITION_DID_FINISH_EVENT       kCCNodeOnEnterTransitionDidFinish
+#define EXIT_TRANSITION_DID_START_EVENT         kCCNodeOnExitTransitionDidStart
+#define CLEANUP_EVENT                           kCCNodeOnCleanup
+#define ENTER_FRAME_EVENT                       kCCNodeOnEnterFrame
 
 typedef map<int, int> ScriptHandlerMap;
 typedef ScriptHandlerMap::iterator ScriptHandlerMapIterator;

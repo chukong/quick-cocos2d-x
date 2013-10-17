@@ -1018,7 +1018,7 @@ void CCNode::onEnter()
         this->registerWithTouchDispatcher();
     }
 
-    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_ENTER))
+    if (m_nScriptHandler || hasScriptEventListener(ENTER_SCENE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnter);
     }
@@ -1028,7 +1028,7 @@ void CCNode::onEnterTransitionDidFinish()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onEnterTransitionDidFinish, CCNode*);
 
-    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_ENTER_TRANSITION_DID_FINISH))
+    if (m_nScriptHandler || hasScriptEventListener(ENTER_TRANSITION_DID_FINISH_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterTransitionDidFinish);
     }
@@ -1038,7 +1038,7 @@ void CCNode::onExitTransitionDidStart()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onExitTransitionDidStart, CCNode*);
 
-    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_EXIT_TRANSITION_DID_START))
+    if (m_nScriptHandler || hasScriptEventListener(EXIT_TRANSITION_DID_START_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExitTransitionDidStart);
     }
@@ -1055,7 +1055,7 @@ void CCNode::onExit()
 
     m_bRunning = false;
 
-    if (m_nScriptHandler || hasScriptEventListener(EVENT_ON_EXIT))
+    if (m_nScriptHandler || hasScriptEventListener(EXIT_SCENE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
     }
@@ -1234,7 +1234,7 @@ void CCNode::update(float fDelta)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeSchedule(m_nUpdateScriptHandler, fDelta, this);
     }
-    if (hasScriptEventListener(EVENT_ON_ENTER_FRAME))
+    if (hasScriptEventListener(ENTER_FRAME_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterFrame, fDelta);
     }
@@ -1549,7 +1549,7 @@ CCScene *CCNode::getScene()
     if (!m_bRunning) return NULL;
     CCNode *parent = getParent();
     if (!parent) return NULL;
-    
+
     CCNode *scene = parent;
     while (parent)
     {

@@ -4,7 +4,8 @@ local CURRENT_MODULE_NAME = ...
 cc = cc or {}
 
 -- init base classes
-cc.Registry = import(".Registry")
+cc.Event      = import(".Event")
+cc.Registry   = import(".Registry")
 cc.GameObject = import(".GameObject")
 cc.EventProxy = import(".EventProxy")
 

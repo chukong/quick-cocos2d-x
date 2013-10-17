@@ -524,7 +524,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCTransitionZoomFlipX");
  tolua_usertype(tolua_S,"CCTransitionFlipY");
  tolua_usertype(tolua_S,"CCEaseBounceInOut");
- 
+
  tolua_usertype(tolua_S,"CCTransitionFlipX");
  tolua_usertype(tolua_S,"CCParticleFire");
  tolua_usertype(tolua_S,"CCTransitionRotoZoom");
@@ -61827,12 +61827,12 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"kCCNodeOnExitTransitionDidStart",kCCNodeOnExitTransitionDidStart);
   tolua_constant(tolua_S,"kCCNodeOnCleanup",kCCNodeOnCleanup);
   tolua_constant(tolua_S,"kCCNodeOnEnterFrame",kCCNodeOnEnterFrame);
-  tolua_constant(tolua_S,"EVENT_ON_ENTER",EVENT_ON_ENTER);
-  tolua_constant(tolua_S,"EVENT_ON_EXIT",EVENT_ON_EXIT);
-  tolua_constant(tolua_S,"EVENT_ON_ENTER_TRANSITION_DID_FINISH",EVENT_ON_ENTER_TRANSITION_DID_FINISH);
-  tolua_constant(tolua_S,"EVENT_ON_EXIT_TRANSITION_DID_START",EVENT_ON_EXIT_TRANSITION_DID_START);
-  tolua_constant(tolua_S,"EVENT_ON_CLEANUP",EVENT_ON_CLEANUP);
-  tolua_constant(tolua_S,"EVENT_ON_ENTER_FRAME",EVENT_ON_ENTER_FRAME);
+  tolua_constant(tolua_S,"ENTER_SCENE_EVENT",ENTER_SCENE_EVENT);
+  tolua_constant(tolua_S,"EXIT_SCENE_EVENT",EXIT_SCENE_EVENT);
+  tolua_constant(tolua_S,"ENTER_TRANSITION_DID_FINISH_EVENT",ENTER_TRANSITION_DID_FINISH_EVENT);
+  tolua_constant(tolua_S,"EXIT_TRANSITION_DID_START_EVENT",EXIT_TRANSITION_DID_START_EVENT);
+  tolua_constant(tolua_S,"CLEANUP_EVENT",CLEANUP_EVENT);
+  tolua_constant(tolua_S,"ENTER_FRAME_EVENT",ENTER_FRAME_EVENT);
   tolua_cclass(tolua_S,"CCEventDispatcher","CCEventDispatcher","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCEventDispatcher");
    tolua_function(tolua_S,"addScriptEventListener",tolua_Cocos2d_CCEventDispatcher_addScriptEventListener00);
