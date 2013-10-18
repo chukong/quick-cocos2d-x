@@ -14,7 +14,7 @@
 using namespace std;
 using namespace cocos2d;
 
-class QuickXPlayer
+class CC_DLL QuickXPlayer : public CCObject
 {
 public:
     static int createAndRun(void);
@@ -46,6 +46,12 @@ private:
     void updateMenu(void);
     void updateWindowTitle(void);
     void relaunch(void);
+
+	// welcome callback
+	void onWelcomeNewProject(CCObject *object);
+	void onWelcomeOpen(CCObject *object);
+	void onWelcomeSamples(CCObject *object);
+	void onWelcomeGetStarted(CCObject *object);
 
     // menu callback
     void onFileNewProject(void);

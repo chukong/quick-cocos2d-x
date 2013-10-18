@@ -74,6 +74,12 @@ using namespace cocos2d::extra;
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
+    NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
+    if (path && [path length])
+    {
+        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+
     [self updateProjectConfigFromCommandLineArgs:&projectConfig];
     [self createWindowAndGLView];
     [self startup];
@@ -184,16 +190,7 @@ using namespace cocos2d::extra;
         [self showPreferences:YES];
         [self showAlertWithoutSheet:@"Please set quick-cocos2d-x root path." withTitle:@"quick-x-player error"];
     }
-    else
-    {
-        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
-    }
 
-    if (projectConfig.getProjectDir().length() == 0)
-    {
-        projectConfig.resetToWelcome();
-    }
-    
     const string projectDir = projectConfig.getProjectDir();
     if (projectDir.length())
     {
@@ -405,6 +402,11 @@ using namespace cocos2d::extra;
         args.push_back([[nsargs objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
     config->parseCommandLine(args);
+
+    if (config->getProjectDir().length() == 0)
+    {
+        config->resetToWelcome();
+    }
 }
 
 - (void) launch:(NSArray*)args
@@ -603,9 +605,12 @@ using namespace cocos2d::extra;
 {
     [self showModelSheet];
     ProjectConfigDialogController *controller = [[ProjectConfigDialogController alloc] initWithWindowNibName:@"ProjectConfigDialog"];
-    ProjectConfig config;
-    [self updateProjectConfigFromCommandLineArgs:&config];
-    [controller setProjectConfig:config];
+    ProjectConfig newConfig;
+    if (!projectConfig.isWelcome())
+    {
+        newConfig = projectConfig;
+    }
+    [controller setProjectConfig:newConfig];
     [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
         [self stopModelSheet];
         if (returnCode == NSRunStoppedResponse)

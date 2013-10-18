@@ -15,8 +15,9 @@
     NSMatrix *matrixScreenOrientation;
     NSButtonCell *buttonScreenOrientationPortait;
     NSButtonCell *buttonScreenOrientationLandscape;
-    NSButton *buttonLoadPrecompiledFramework;
+    NSButton *buttonShowDebugConsole;
     NSButton *buttonWriteDebugLogToFile;
+    NSButton *buttonLoadPrecompiledFramework;
     NSButton *buttonOpenProject;
 }
 
@@ -31,8 +32,9 @@
 @property (nonatomic, assign) IBOutlet NSMatrix *matrixScreenOrientation;
 @property (nonatomic, assign) IBOutlet NSButtonCell *buttonScreenOrientationPortait;
 @property (nonatomic, assign) IBOutlet NSButtonCell *buttonScreenOrientationLandscape;
-@property (nonatomic, assign) IBOutlet NSButton *buttonLoadPrecompiledFramework;
+@property (nonatomic, assign) IBOutlet NSButton *buttonShowDebugConsole;
 @property (nonatomic, assign) IBOutlet NSButton *buttonWriteDebugLogToFile;
+@property (nonatomic, assign) IBOutlet NSButton *buttonLoadPrecompiledFramework;
 @property (nonatomic, assign) IBOutlet NSButton *buttonOpenProject;
 
 - (IBAction) browseProjectDirectory:(id)sender;
@@ -42,8 +44,9 @@
 - (IBAction) onScreenSizeChanged:(id)sender;
 - (IBAction) onScreenSizeTextFieldsChanged:(id)sender;
 - (IBAction) onScreenOrientationChanged:(id)sender;
-- (IBAction) onLoadPrecompiledFrameworkChanged:(id)sender;
+- (IBAction) onShowDebugConsoleChanged:(id)sender;
 - (IBAction) onWriteDebugLogToFileChanged:(id)sender;
+- (IBAction) onLoadPrecompiledFrameworkChanged:(id)sender;
 
 - (IBAction) onCancel:(id)sender;
 - (IBAction) onOpenProject:(id)sender;

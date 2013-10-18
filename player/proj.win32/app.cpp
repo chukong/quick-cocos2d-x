@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "app.h"
+
 #include <Commdlg.h>
 #include <Shlobj.h>
 #include <winnls.h>
@@ -11,7 +12,10 @@
 #include <objbase.h>
 #include <objidl.h>
 #include <shlguid.h>
+#include <shellapi.h>
+
 #include <vector>
+
 #include "CCEGLView.h"
 #include "CCLuaEngine.h"
 #include "CCLuaStack.h"
@@ -74,37 +78,38 @@ int QuickXPlayer::run(void)
     SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(QUICK_COCOS2DX_ROOT);
 
     loadProjectConfig();
-
 	if (!m_project.getProjectDir().length())
 	{
 		m_project.resetToWelcome();
 	}
 
-    AllocConsole();
-    freopen("CONOUT$", "wt", stdout);
-    freopen("CONOUT$", "wt", stderr);
+	HWND hwndConsole = NULL;
+	if (m_project.isShowConsole())
+	{
+		AllocConsole();
+		freopen("CONOUT$", "wt", stdout);
+		freopen("CONOUT$", "wt", stderr);
 
-    // disable close console
-    HWND hwndConsole = GetConsoleWindow();
-    if (hwndConsole != NULL)
-    {
-        HMENU hMenu = GetSystemMenu(hwndConsole, FALSE);
-        if (hMenu != NULL) DeleteMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
-    }
+		// disable close console
+		hwndConsole = GetConsoleWindow();
+		if (hwndConsole != NULL)
+		{
+			HMENU hMenu = GetSystemMenu(hwndConsole, FALSE);
+			if (hMenu != NULL) DeleteMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
+
+			ShowWindow(hwndConsole, SW_SHOW);
+            BringWindowToTop(hwndConsole);
+		}
+	}
+
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeOpen), "WELCOME_OPEN", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
     do
     {
         m_exit = TRUE;
-
-        if (m_project.isShowConsole())
-        {
-            ShowWindow(hwndConsole, SW_SHOW);
-            BringWindowToTop(hwndConsole);
-        }
-        else
-        {
-            ShowWindow(hwndConsole, SW_HIDE);
-        }
 
         // create the application instance
         m_app = new AppDelegate();
@@ -136,7 +141,11 @@ int QuickXPlayer::run(void)
         // set icon
         HICON icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_LUAHOSTWIN32));
         SendMessage(m_hwnd, WM_SETICON, ICON_BIG, (LPARAM)icon);
-        SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
+
+		if (hwndConsole)
+		{
+			SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
+		}
 
         // update menu
         createViewMenu();
@@ -268,6 +277,27 @@ void QuickXPlayer::relaunch(void)
     //CCDirector::sharedDirector()->end();
 }
 
+// welcome callback
+void QuickXPlayer::onWelcomeNewProject(CCObject *object)
+{
+	MessageBox(m_hwnd, L"Coming soon :-)", L"quick-x-player", MB_OK);
+}
+
+void QuickXPlayer::onWelcomeOpen(CCObject *object)
+{
+	onFileOpenProject();
+}
+
+void QuickXPlayer::onWelcomeSamples(CCObject *object)
+{
+	ShellExecuteA(NULL, "open", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+void QuickXPlayer::onWelcomeGetStarted(CCObject *object)
+{
+	ShellExecuteA(NULL, "open", "http://wiki.quick-x.com/", NULL, NULL, SW_SHOWNORMAL);
+}
+
 // menu callback
 void QuickXPlayer::onFileNewProject(void)
 {
@@ -275,8 +305,14 @@ void QuickXPlayer::onFileNewProject(void)
 
 void QuickXPlayer::onFileOpenProject(void)
 {
-    if (ProjectConfigDialog::showModal(m_hwnd, &m_project))
+	ProjectConfig project;
+	if (!m_project.isWelcome())
+	{
+		project = m_project;
+	}
+    if (ProjectConfigDialog::showModal(m_hwnd, &project))
     {
+		m_project = project;
         relaunch();
     }
 }
