@@ -294,7 +294,7 @@ function display.newSprite(filename, x, y)
         sprite = CCSprite:createWithSpriteFrame(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
-        return
+        sprite = CCSprite:create()
     end
 
     if sprite then
@@ -302,6 +302,7 @@ function display.newSprite(filename, x, y)
         if x and y then sprite:setPosition(x, y) end
     else
         echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
+        sprite = CCSprite:create()
     end
 
     return sprite
