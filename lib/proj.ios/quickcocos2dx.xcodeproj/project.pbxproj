@@ -161,6 +161,7 @@
 		F4CB4B641810F24100EC1D9B /* CCTransformHelp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4CB4B4A1810F24100EC1D9B /* CCTransformHelp.cpp */; };
 		F4CB4B651810F24100EC1D9B /* CCTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4CB4B4C1810F24100EC1D9B /* CCTweenFunction.cpp */; };
 		F4CB4B661810F24100EC1D9B /* CCUtilMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4CB4B4E1810F24100EC1D9B /* CCUtilMath.cpp */; };
+		F4CB4B691810F27F00EC1D9B /* CCEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4CB4B671810F27F00EC1D9B /* CCEventDispatcher.cpp */; };
 		F4D11006169FBED400305E28 /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11004169FBED400305E28 /* CCLuaStack.cpp */; };
 		F4D1100A169FBF7C00305E28 /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */; };
 		F4E0D439175CEBBC00CAB1BB /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E0D438175CEBBC00CAB1BB /* libluajit.a */; };
@@ -687,6 +688,8 @@
 		F4CB4B4D1810F24100EC1D9B /* CCTweenFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTweenFunction.h; sourceTree = "<group>"; };
 		F4CB4B4E1810F24100EC1D9B /* CCUtilMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCUtilMath.cpp; sourceTree = "<group>"; };
 		F4CB4B4F1810F24100EC1D9B /* CCUtilMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCUtilMath.h; sourceTree = "<group>"; };
+		F4CB4B671810F27F00EC1D9B /* CCEventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEventDispatcher.cpp; sourceTree = "<group>"; };
+		F4CB4B681810F27F00EC1D9B /* CCEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEventDispatcher.h; sourceTree = "<group>"; };
 		F4D11004169FBED400305E28 /* CCLuaStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaStack.cpp; sourceTree = "<group>"; };
 		F4D11005169FBED400305E28 /* CCLuaStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaStack.h; sourceTree = "<group>"; };
 		F4D11008169FBF7B00305E28 /* CCLuaValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaValue.cpp; sourceTree = "<group>"; };
@@ -2110,6 +2113,8 @@
 				F4E881AF177015C400577406 /* CCDictionary.cpp */,
 				F4E881B0177015C400577406 /* CCDictionary.h */,
 				F4E881B1177015C400577406 /* CCDouble.h */,
+				F4CB4B671810F27F00EC1D9B /* CCEventDispatcher.cpp */,
+				F4CB4B681810F27F00EC1D9B /* CCEventDispatcher.h */,
 				F4E881B2177015C400577406 /* CCFloat.h */,
 				F4E881B3177015C400577406 /* CCGeometry.cpp */,
 				F4E881B4177015C400577406 /* CCGeometry.h */,
@@ -2830,6 +2835,7 @@
 				F4E882B9177015C400577406 /* CCDataVisitor.cpp in Sources */,
 				F4E882BA177015C400577406 /* CCDictionary.cpp in Sources */,
 				F4E882BB177015C400577406 /* CCGeometry.cpp in Sources */,
+				F4CB4B691810F27F00EC1D9B /* CCEventDispatcher.cpp in Sources */,
 				F459EB16180D04E1006CBDF1 /* cpSweep1D.c in Sources */,
 				F4E882BC177015C400577406 /* CCNS.cpp in Sources */,
 				F4E882BD177015C400577406 /* CCObject.cpp in Sources */,
