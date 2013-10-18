@@ -36,10 +36,11 @@ class ProjectConfig
 {
 public:
     ProjectConfig(void)
-    : m_scriptFile("$PROJDIR/scripts/main.lua")
+    : m_isWelcome(false)
+	, m_scriptFile("$PROJDIR/scripts/main.lua")
     , m_writablePath("")
     , m_packagePath("")
-    , m_frameSize(960, 540)
+    , m_frameSize(960, 640)
     , m_frameScale(1.0f)
     , m_showConsole(true)
     , m_loadPrecompiledFramework(true)
@@ -49,6 +50,7 @@ public:
         normalize();
     }
 
+	bool isWelcome(void) { return m_isWelcome; };
     void resetToWelcome(void);
 
     const string getProjectDir(void);
@@ -97,6 +99,7 @@ public:
     void dump(void);
 
 private:
+	bool    m_isWelcome;
     string	m_projectDir;
     string	m_scriptFile;
     string	m_packagePath;

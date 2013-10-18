@@ -42,8 +42,9 @@
 @synthesize matrixScreenOrientation;
 @synthesize buttonScreenOrientationPortait;
 @synthesize buttonScreenOrientationLandscape;
-@synthesize buttonLoadPrecompiledFramework;
+@synthesize buttonShowDebugConsole;
 @synthesize buttonWriteDebugLogToFile;
+@synthesize buttonLoadPrecompiledFramework;
 @synthesize buttonOpenProject;
 
 - (id)initWithWindow:(NSWindow *)window
@@ -117,8 +118,9 @@
         [buttonScreenOrientationLandscape setState:NSOffState];
     }
 
-    [buttonLoadPrecompiledFramework setState:projectConfig.isLoadPrecompiledFramework() ? NSOnState : NSOffState];
+    [buttonShowDebugConsole setState:projectConfig.isShowConsole() ? NSOnState : NSOffState];
     [buttonWriteDebugLogToFile setState:projectConfig.isWriteDebugLogToFile() ? NSOnState : NSOffState];
+    [buttonLoadPrecompiledFramework setState:projectConfig.isLoadPrecompiledFramework() ? NSOnState : NSOffState];
     [buttonOpenProject setEnabled:projectConfig.validate()];
 }
 
@@ -219,14 +221,19 @@
     }
 }
 
-- (IBAction) onLoadPrecompiledFrameworkChanged:(id)sender
+- (IBAction) onShowDebugConsoleChanged:(id)sender
 {
-    projectConfig.setLoadPrecompiledFramework([buttonLoadPrecompiledFramework state] == NSOnState);
+    projectConfig.setShowConsole([buttonShowDebugConsole state] == NSOnState);
 }
 
 - (IBAction) onWriteDebugLogToFileChanged:(id)sender
 {
     projectConfig.setWriteDebugLogToFile([buttonWriteDebugLogToFile state] == NSOnState);
+}
+
+- (IBAction) onLoadPrecompiledFrameworkChanged:(id)sender
+{
+    projectConfig.setLoadPrecompiledFramework([buttonLoadPrecompiledFramework state] == NSOnState);
 }
 
 - (IBAction) onCancel:(id)sender

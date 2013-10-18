@@ -8,6 +8,7 @@
 
 void ProjectConfig::resetToWelcome(void)
 {
+	m_isWelcome = true;
     string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
     path.append("player/welcome");
     SimulatorConfig::makeNormalizePath(&path);

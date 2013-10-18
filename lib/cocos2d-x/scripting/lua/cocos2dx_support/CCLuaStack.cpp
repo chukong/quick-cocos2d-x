@@ -212,6 +212,7 @@ int CCLuaStack::executeString(const char *codes)
 
 int CCLuaStack::executeScriptFile(const char* filename)
 {
+    CCAssert(filename, "CCLuaStack::executeScriptFile() - invalid filename");
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     std::string code("require \"");
     code.append(filename);
@@ -219,7 +220,28 @@ int CCLuaStack::executeScriptFile(const char* filename)
     return executeString(code.c_str());
 #else
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename);
-    luaL_loadfile(m_state, fullPath.c_str());
+    int ret = luaL_loadfile(m_state, fullPath.c_str());
+    if (ret)
+    {
+        switch (ret)
+        {
+            case LUA_ERRSYNTAX:
+                CCLOG("Load script file %s error: syntax error during pre-compilation.", filename);
+                break;
+
+            case LUA_ERRMEM:
+                CCLOG("Load script file %s error: memory allocation error.", filename);
+                break;
+
+            case LUA_ERRFILE:
+                CCLOG("Load script file %s error: cannot open/read file.", filename);
+                break;
+
+            default:
+                CCLOG("Load script file %s error: unknown.", filename);
+        }
+        return 0;
+    }
     return executeFunction(0);
 #endif
 }
