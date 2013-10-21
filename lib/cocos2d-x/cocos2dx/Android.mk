@@ -38,6 +38,7 @@ cocoa/CCString.cpp \
 cocoa/CCZone.cpp \
 cocoa/CCArray.cpp \
 cocoa/CCDataVisitor.cpp \
+cocoa/CCEventDispatcher.cpp \
 cocoa/CCPointArray.cpp \
 cocos2d.cpp \
 CCDirector.cpp \
