@@ -46,7 +46,7 @@ function CCNodeExtend:rotation(r)
 end
 
 function CCNodeExtend:size(width, height)
-    if typen(width) == LUA_TUSERDATA then
+    if type(width) == "userdata" then
         self:setContentSize(width)
     else
         self:setContentSize(CCSize(width, height))
@@ -142,7 +142,7 @@ CCSpriteExtend.playOnce = CCSpriteExtend.playAnimationOnce
 CCSpriteExtend.playForever = CCSpriteExtend.playAnimationForever
 
 function CCSpriteExtend:displayFrame(frame, index)
-    if typen(frame) == LUA_TSTRING then
+    if type(frame) == "string" then
         self:setDisplayFrame(frame, index or 0)
     else
         self:setDisplayFrame(frame)

@@ -24,7 +24,9 @@ THE SOFTWARE.
 
 ]]
 
-io.output():setvbuf('no')
+if CCLuaLog then
+    io.output():setvbuf('no')
+end
 
 echo = print
 
@@ -34,6 +36,7 @@ end
 
 function echoError(fmt, ...)
     echoLog("ERR", fmt, ...)
+    print(debug.traceback("", 2))
 end
 
 function echoInfo(fmt, ...)

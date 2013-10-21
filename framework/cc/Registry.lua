@@ -4,7 +4,7 @@ local Registry = class("Registry")
 Registry.classes_ = {}
 
 function Registry.add(cls, name)
-    assert(typen(cls) == LUA_TTABLE and cls.__cname ~= nil, "Registry.add() - invalid class")
+    assert(type(cls) == "table" and cls.__cname ~= nil, "Registry.add() - invalid class")
     if not name then name = cls.__cname end
     assert(Registry.classes_[name] == nil, "Registry.add() - class \"%s\" already exists", tostring(name))
     Registry.classes_[name] = cls
