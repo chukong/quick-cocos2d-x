@@ -275,7 +275,7 @@ function display.newSprite(filename, x, y)
 
     if not filename then
         sprite = CCSprite:create()
-    elseif t == LUA_TSTRING then
+    elseif t == "string" then
         if string.byte(filename) == 35 then -- first char is #
             local frame = display.newSpriteFrame(string.sub(filename, 2))
             if frame then
@@ -310,7 +310,7 @@ end
 
 function display.newScale9Sprite(filename, x, y, size)
     local t = type(filename)
-    if t ~= LUA_TSTRING then
+    if t ~= "string" then
         echoError("display.newScale9Sprite() - invalid filename type")
         return
     end
