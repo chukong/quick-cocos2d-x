@@ -114,28 +114,6 @@ bool CCLuaStack::init(void)
     lua_pushcfunction(m_state, lua_loadChunksFromZip);
     lua_setglobal(m_state, "CCLuaLoadChunksFromZIP");
 
-    // faster value type check
-    lua_pushcfunction(m_state, lua_typen);
-    lua_setglobal(m_state, "typen");
-    lua_pushinteger(m_state, LUA_TNIL);
-    lua_setglobal(m_state, "LUA_TNIL");
-    lua_pushinteger(m_state, 1);
-    lua_setglobal(m_state, "LUA_TBOOLEAN");
-    lua_pushinteger(m_state, 2);
-    lua_setglobal(m_state, "LUA_TLIGHTUSERDATA");
-    lua_pushinteger(m_state, 3);
-    lua_setglobal(m_state, "LUA_TNUMBER");
-    lua_pushinteger(m_state, 4);
-    lua_setglobal(m_state, "LUA_TSTRING");
-    lua_pushinteger(m_state, 5);
-    lua_setglobal(m_state, "LUA_TTABLE");
-    lua_pushinteger(m_state, 6);
-    lua_setglobal(m_state, "LUA_TFUNCTION");
-    lua_pushinteger(m_state, 7);
-    lua_setglobal(m_state, "LUA_TUSERDATA");
-    lua_pushinteger(m_state, 8);
-    lua_setglobal(m_state, "LUA_TTHREAD");
-
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
@@ -156,7 +134,7 @@ bool CCLuaStack::init(void)
 #endif
     // lua extensions
     luaopen_lua_extensions(m_state);
-    
+
     return true;
 }
 
@@ -666,13 +644,7 @@ int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
         unlink(tmpFilePath.c_str());
 #endif
     } while (0);
-    
-    return 1;
-}
 
-int CCLuaStack::lua_typen(lua_State *L)
-{
-    lua_pushinteger(L, lua_type(L, -1));
     return 1;
 }
 

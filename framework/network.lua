@@ -40,7 +40,7 @@ end
 function network.makeCookieString(cookie)
     local arr = {}
     for name, value in pairs(cookie) do
-        if typen(value) == LUAT_TABLE then
+        if type(value) == "table" then
             value = tostring(value.value)
         else
             value = tostring(value)
