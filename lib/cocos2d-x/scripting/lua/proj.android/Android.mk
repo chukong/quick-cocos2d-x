@@ -45,6 +45,8 @@ LOCAL_SRC_FILES := ../cocos2dx_support/CCLuaEngine.cpp \
     ../lua_extensions/socket/usocket.c \
     ../lua_extensions/filesystem/lfs.c \
     ../lua_extensions/lpack/lpack.c \
+    ../lua_extensions/lsqlite3/sqlite3.c \
+    ../lua_extensions/lsqlite3/lsqlite3.c \
     ../lua_extensions/lua_extensions.c
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../luajit/include \
@@ -56,7 +58,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../luajit/include \
                            $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/zlib \
                            $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/socket \
                            $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/filesystem \
-                           $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/lpack
+                           $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/lpack \
+                           $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/lsqlite3
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/ \
                     $(LOCAL_PATH)/../luajit/include \
@@ -69,6 +72,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/ \
                     $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/socket \
                     $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/filesystem \
                     $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/lpack \
+                    $(LOCAL_PATH)/../cocos2d-x/scripting/lua/lua_extensions/lsqlite3 \
                     $(LOCAL_PATH)/../../../cocos2dx \
                     $(LOCAL_PATH)/../../../cocos2dx/include \
                     $(LOCAL_PATH)/../../../cocos2dx/platform \
