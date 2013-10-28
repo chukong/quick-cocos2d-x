@@ -64,8 +64,8 @@ function ModelBase:getProperties(fields, filter)
         local typ = schema[field][1]
         local val = self[propname]
         assert(type(val) == typ,
-               string.format("%s [%s:getProperties()] Type mismatch, %s expected %s, actual is %s",
-                                 tostring(self), self.class.__cname, field, typ, type(val)))
+               string.format("%s:getProperties() - Type mismatch, %s expected %s, actual is %s",
+                                 self.class.__cname, field, typ, type(val)))
         properties[field] = val
     end
 
