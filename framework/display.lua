@@ -264,8 +264,8 @@ function display.newNode()
     return CCNodeExtend.extend(CCNode:create())
 end
 
-function display.newClippingRegionNode(rect)
-    return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
+function display.newClippingRegionNode()
+    return CCNodeExtend.extend(CCClippingRegionNode:create())
 end
 
 function display.newSprite(filename, x, y)

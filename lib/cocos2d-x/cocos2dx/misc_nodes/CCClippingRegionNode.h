@@ -34,33 +34,14 @@
 NS_CC_BEGIN
 
 class CC_DLL CCClippingRegionNode : public CCNode
-{    
+{
 public:
-    static CCClippingRegionNode* create(const CCRect& clippingRegion);
     static CCClippingRegionNode* create(void);
-    
-    const CCRect getClippingRegion(void) {
-        return m_clippingRegion;
-    }
-    void setClippingRegion(const CCRect& clippingRegion);
-    
-    bool isClippingEnabled(void) {
-        return m_clippingEnabled;
-    }
-    void setClippingEnabled(bool enabled) {
-        m_clippingEnabled = enabled;
-    }
 
     virtual void visit(void);
-    
-protected:
-    CCClippingRegionNode(void)
-    : m_clippingEnabled(true)
-    {
-    }
-    
-    CCRect m_clippingRegion;
-    bool m_clippingEnabled;
+
+private:
+    CCRect getViewRect();
 };
 
 NS_CC_END

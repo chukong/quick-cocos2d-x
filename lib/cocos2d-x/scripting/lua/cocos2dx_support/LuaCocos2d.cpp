@@ -523,7 +523,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCTransitionZoomFlipY");
  tolua_usertype(tolua_S,"CCTransitionFlipY");
  tolua_usertype(tolua_S,"CCEaseBounceInOut");
- 
+
  tolua_usertype(tolua_S,"CCRotateBy");
  tolua_usertype(tolua_S,"CCSpawn");
  tolua_usertype(tolua_S,"CCTransitionRotoZoom");
@@ -36241,38 +36241,6 @@ static int tolua_Cocos2d_CCClippingNode_setInverted00(lua_State* tolua_S)
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCClippingRegionNode_create00
 static int tolua_Cocos2d_CCClippingRegionNode_create00(lua_State* tolua_S)
 {
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"CCClippingRegionNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCRect",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCRect clippingRegion = *((CCRect*)  tolua_tousertype(tolua_S,2,0));
-  {
-   CCClippingRegionNode* tolua_ret = (CCClippingRegionNode*)  CCClippingRegionNode::create(clippingRegion);
-    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
-    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
-    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCClippingRegionNode");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: create of class  CCClippingRegionNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCClippingRegionNode_create01
-static int tolua_Cocos2d_CCClippingRegionNode_create01(lua_State* tolua_S)
-{
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"CCClippingRegionNode",0,&tolua_err) ||
@@ -36290,147 +36258,8 @@ static int tolua_Cocos2d_CCClippingRegionNode_create01(lua_State* tolua_S)
  }
  return 1;
 tolua_lerror:
- return tolua_Cocos2d_CCClippingRegionNode_create00(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getClippingRegion of class  CCClippingRegionNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCClippingRegionNode_getClippingRegion00
-static int tolua_Cocos2d_CCClippingRegionNode_getClippingRegion00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCClippingRegionNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCClippingRegionNode* self = (CCClippingRegionNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getClippingRegion'", NULL);
-#endif
-  {
-   CCRect tolua_ret = (CCRect)  self->getClippingRegion();
-   {
-#ifdef __cplusplus
-    void* tolua_obj = Mtolua_new((CCRect)(tolua_ret));
-     tolua_pushusertype(tolua_S,tolua_obj,"CCRect");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#else
-    void* tolua_obj = tolua_copy(tolua_S,(void*)&tolua_ret,sizeof(CCRect));
-     tolua_pushusertype(tolua_S,tolua_obj,"CCRect");
-    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
-#endif
-   }
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getClippingRegion'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setClippingRegion of class  CCClippingRegionNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCClippingRegionNode_setClippingRegion00
-static int tolua_Cocos2d_CCClippingRegionNode_setClippingRegion00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCClippingRegionNode",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCRect",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCClippingRegionNode* self = (CCClippingRegionNode*)  tolua_tousertype(tolua_S,1,0);
-  CCRect clippingRegion = *((CCRect*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setClippingRegion'", NULL);
-#endif
-  {
-   self->setClippingRegion(clippingRegion);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setClippingRegion'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: isClippingEnabled of class  CCClippingRegionNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCClippingRegionNode_isClippingEnabled00
-static int tolua_Cocos2d_CCClippingRegionNode_isClippingEnabled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCClippingRegionNode",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCClippingRegionNode* self = (CCClippingRegionNode*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isClippingEnabled'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->isClippingEnabled();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'isClippingEnabled'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: setClippingEnabled of class  CCClippingRegionNode */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCClippingRegionNode_setClippingEnabled00
-static int tolua_Cocos2d_CCClippingRegionNode_setClippingEnabled00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCClippingRegionNode",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCClippingRegionNode* self = (CCClippingRegionNode*)  tolua_tousertype(tolua_S,1,0);
-  bool enabled = ((bool)  tolua_toboolean(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setClippingEnabled'", NULL);
-#endif
-  {
-   self->setClippingEnabled(enabled);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'setClippingEnabled'.",&tolua_err);
- return 0;
-#endif
+    tolua_error(tolua_S,"#ferror in function 'create'.",&tolua_err);
+    return 0;
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -63127,11 +62956,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCClippingRegionNode","CCClippingRegionNode","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCClippingRegionNode");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCClippingRegionNode_create00);
-   tolua_function(tolua_S,"create",tolua_Cocos2d_CCClippingRegionNode_create01);
-   tolua_function(tolua_S,"getClippingRegion",tolua_Cocos2d_CCClippingRegionNode_getClippingRegion00);
-   tolua_function(tolua_S,"setClippingRegion",tolua_Cocos2d_CCClippingRegionNode_setClippingRegion00);
-   tolua_function(tolua_S,"isClippingEnabled",tolua_Cocos2d_CCClippingRegionNode_isClippingEnabled00);
-   tolua_function(tolua_S,"setClippingEnabled",tolua_Cocos2d_CCClippingRegionNode_setClippingEnabled00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCMotionStreak","CCMotionStreak","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCMotionStreak");

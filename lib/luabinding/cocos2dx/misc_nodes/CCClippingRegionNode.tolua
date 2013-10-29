@@ -27,12 +27,5 @@
 
 class CCClippingRegionNode : public CCNode
 {
-    static CCClippingRegionNode* create(CCRect clippingRegion);
     static CCClippingRegionNode* create(void);
-
-    CCRect getClippingRegion(void);
-    void setClippingRegion(CCRect clippingRegion);
-
-    bool isClippingEnabled(void);
-    void setClippingEnabled(bool enabled);
 };
