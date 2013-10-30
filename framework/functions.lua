@@ -18,7 +18,7 @@ end
 
 function isset(arr, key)
     local t = type(arr)
-    return (t == "table" or t == "data") and arr[key] ~= nil
+    return (t == "table" or t == "userdata") and arr[key] ~= nil
 end
 
 function clone(object)
