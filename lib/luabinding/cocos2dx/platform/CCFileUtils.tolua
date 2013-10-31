@@ -208,6 +208,16 @@ class CCFileUtils
      */
     void setPopupNotify(bool bNotify);
     bool isPopupNotify();
+
+	/**
+     *  Gets resource file data
+     *
+     *  @param[in]  pszFileName The resource file name which contains the path.
+     *  @return Upon success, a pointer to the data is returned, otherwise NULL.
+     *  @warning Recallq: you are responsible for calling delete[] on any Non-NULL pointer returned.
+     *  @js NA
+     */
+	unsigned char* getFileData(const char* pszFileName);
 };
 
 // end of platform group

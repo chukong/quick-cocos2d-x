@@ -98,6 +98,12 @@ public:
      */
     virtual unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
 
+	/**
+	 * Get resource file data(for lua export)
+	 * zrong 2013-10-31
+	 */
+	unsigned char* getFileData(const char* pszFileName);
+
     /**
      *  Gets resource file data from a zip file.
      *

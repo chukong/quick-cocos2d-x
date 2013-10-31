@@ -485,6 +485,22 @@ void CCFileUtils::purgeCachedEntries()
     m_fullPathCache.clear();
 }
 
+// for lua export
+// zrong 2013-10-31
+unsigned char* CCFileUtils::getFileData(const char* pszFileName)
+{
+	unsigned long __size = 0;
+	unsigned char* __pFileContent = getFileData(pszFileName, "r", &__size);
+	if (0 == __size)
+	{
+		CCLuaLog("CCFileUtils::getFileData: file length is 0, return null");
+		return NULL;
+	}
+	if (__pFileContent[__size] != '\0')
+		__pFileContent[__size] = '\0'; //let the texts have correct size
+	return __pFileContent;
+}
+
 unsigned char* CCFileUtils::getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize)
 {
     unsigned char * pBuffer = NULL;
