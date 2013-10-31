@@ -36335,7 +36335,7 @@ static int tolua_Cocos2d_CCDrawNode_drawDot00(lua_State* tolua_S)
   CCDrawNode* self = (CCDrawNode*)  tolua_tousertype(tolua_S,1,0);
   const CCPoint* pos = ((const CCPoint*)  tolua_tousertype(tolua_S,2,0));
   float radius = ((float)  tolua_tonumber(tolua_S,3,0));
-  const Color4F* color = ((const Color4F*)  tolua_tousertype(tolua_S,4,0));
+  const ccColor4F* color = ((const ccColor4F*)  tolua_tousertype(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drawDot'", NULL);
 #endif
@@ -36374,7 +36374,7 @@ static int tolua_Cocos2d_CCDrawNode_drawSegment00(lua_State* tolua_S)
   const CCPoint* from = ((const CCPoint*)  tolua_tousertype(tolua_S,2,0));
   const CCPoint* to = ((const CCPoint*)  tolua_tousertype(tolua_S,3,0));
   float radius = ((float)  tolua_tonumber(tolua_S,4,0));
-  const Color4F* color = ((const Color4F*)  tolua_tousertype(tolua_S,5,0));
+  const ccColor4F* color = ((const ccColor4F*)  tolua_tousertype(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'drawSegment'", NULL);
 #endif
@@ -36441,7 +36441,7 @@ static int tolua_Cocos2d_CCDrawNode_getBlendFunc00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getBlendFunc'", NULL);
 #endif
   {
-   const BlendFunc& tolua_ret = (const BlendFunc&)  self->getBlendFunc();
+   const ccBlendFunc& tolua_ret = (const ccBlendFunc&)  self->getBlendFunc();
     tolua_pushusertype(tolua_S,(void*)&tolua_ret,"const BlendFunc");
   }
  }
@@ -36470,7 +36470,7 @@ static int tolua_Cocos2d_CCDrawNode_setBlendFunc00(lua_State* tolua_S)
 #endif
  {
   CCDrawNode* self = (CCDrawNode*)  tolua_tousertype(tolua_S,1,0);
-  const BlendFunc* blendFunc = ((const BlendFunc*)  tolua_tousertype(tolua_S,2,0));
+  const ccBlendFunc* blendFunc = ((const ccBlendFunc*)  tolua_tousertype(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setBlendFunc'", NULL);
 #endif
