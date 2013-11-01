@@ -7,16 +7,18 @@ class CCDrawNode : public CCNode
     virtual ~CCDrawNode();
     
     virtual bool init();
-
-    void drawDot(const CCPoint &pos, float radius, const Color4F &color);
     
-    void drawSegment(const CCPoint &from, const CCPoint &to, float radius, const Color4F &color);
+    virtual void draw();
+
+    void drawDot(const CCPoint &pos, float radius, const ccColor4F &color);
+    
+    void drawSegment(const CCPoint &from, const CCPoint &to, float radius, const ccColor4F &color);
+    
+    void drawPolygon(CCPoint *verts, unsigned int count, const ccColor4F &fillColor, float borderWidth, const ccColor4F &borderColor);
         
     void clear();
     
-    const BlendFunc& getBlendFunc() const;
+    const ccBlendFunc& getBlendFunc() const;
     
-    void setBlendFunc(const BlendFunc &blendFunc);
-    
-    virtual void draw();
+    void setBlendFunc(const ccBlendFunc &blendFunc);
 };
