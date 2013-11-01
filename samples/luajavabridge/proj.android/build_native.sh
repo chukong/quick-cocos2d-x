@@ -19,6 +19,8 @@ echo "  APP_ANDROID_ROOT    = $APP_ANDROID_ROOT"
 
 CPPFLAGS="-DQUICK_MINI_TARGET=1"
 
+export QUICK_MINI_TARGET=1
+
 echo "- cleanup"
 find "$APP_ANDROID_ROOT" -type d | xargs chmod 755 $1
 if [ -d "$APP_ANDROID_ROOT"/bin ]; then

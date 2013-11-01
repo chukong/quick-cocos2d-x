@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#if QUICK_MINI_TARGET != 0
+// #if QUICK_MINI_TARGET != 0
 
 #include "platform/CCImage.h"
 #include "textures/CCTexture2D.h"
@@ -80,4 +80,4 @@ bool CCImage::_initWithWebpData(void *pData, int nDataLen)
 
 NS_CC_END
 
-#endif // QUICK_MINI_TARGET
+// #endif // QUICK_MINI_TARGET

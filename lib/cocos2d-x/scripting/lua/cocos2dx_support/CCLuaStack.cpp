@@ -63,11 +63,10 @@ extern "C" {
 #endif
 // WebSockets luabinding
 #include "Lua_web_socket.h"
-
-#endif // QUICK_MINI_TARGET
-
 // lua extensions
 #include "lua_extensions.h"
+
+#endif // QUICK_MINI_TARGET
 
 #include <string>
 
@@ -139,11 +138,10 @@ bool CCLuaStack::init(void)
 #endif
     // load WebSockets luabinding
     tolua_web_socket_open(m_state);
-
-#endif // QUICK_MINI_TARGET
-
     // lua extensions
     luaopen_lua_extensions(m_state);
+
+#endif // QUICK_MINI_TARGET
 
     return true;
 }

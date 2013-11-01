@@ -101,7 +101,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
 ifneq ($(QUICK_MINI_TARGET), 1)
 
     LOCAL_EXPORT_C_INCLUDES += \
-                               $(LOCAL_PATH)/network
+                               $(LOCAL_PATH)/network \
                                $(LOCAL_PATH)/CCBReader \
                                $(LOCAL_PATH)/Components \
                                $(LOCAL_PATH)/GUI/CCScrollView \

@@ -22,11 +22,8 @@ extern "C" {
 // filesystem
 #include "filesystem/lfs.h"
 
-
-#if QUICK_MINI_TARGET != 0
 // lsqlite3
 #include "lsqlite3/lsqlite3.h"
-#endif
 
 static luaL_Reg luax_exts[] = {
     {"cjson", luaopen_cjson_safe},
@@ -35,11 +32,7 @@ static luaL_Reg luax_exts[] = {
     {"socket.core", luaopen_socket_core},
     {"mime.core", luaopen_mime_core},
     {"lfs", luaopen_lfs},
-
-#if QUICK_MINI_TARGET != 0
     {"lsqlite3", luaopen_lsqlite3},
-#endif
-
     {NULL, NULL}
 };
 

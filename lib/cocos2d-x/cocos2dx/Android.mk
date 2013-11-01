@@ -137,7 +137,6 @@ LOCAL_SRC_FILES := \
     textures/CCTexture2D.cpp \
     textures/CCTextureAtlas.cpp \
     textures/CCTextureCache.cpp \
-    tilemap_parallax_nodes/CCParallaxNode.cpp \
     touch_dispatcher/CCTouchDispatcher.cpp \
     touch_dispatcher/CCTouchHandler.cpp \
     touch_dispatcher/CCTouch.cpp
@@ -148,6 +147,7 @@ ifneq ($(QUICK_MINI_TARGET), 1)
         support/image_support/TGAlib.cpp \
         textures/CCTextureETC.cpp \
         textures/CCTexturePVR.cpp \
+        tilemap_parallax_nodes/CCParallaxNode.cpp \
         tilemap_parallax_nodes/CCTMXLayer.cpp \
         tilemap_parallax_nodes/CCTMXObjectGroup.cpp \
         tilemap_parallax_nodes/CCTMXTiledMap.cpp \
@@ -173,11 +173,11 @@ LOCAL_EXPORT_LDLIBS := -lGLESv2 \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
 
 ifneq ($(QUICK_MINI_TARGET), 1)
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
-    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
 endif
 
 # define the macro to compile through support/zip_support/ioapi.c
@@ -186,11 +186,11 @@ LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,libjpeg)
 $(call import-module,libpng)
-$(call import-module,libtiff)
 $(call import-module,libwebp)
 
 ifneq ($(QUICK_MINI_TARGET), 1)
+    $(call import-module,libjpeg)
+    $(call import-module,libtiff)
     $(call import-module,libcurl)
 endif

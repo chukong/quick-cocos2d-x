@@ -476,11 +476,12 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                 {
                     eImageFormat = CCImage::kFmtTiff;
                 }
+#endif // QUICK_MINI_TARGET
+
                 else if (std::string::npos != lowerCase.find(".webp"))
                 {
                     eImageFormat = CCImage::kFmtWebp;
                 }
-#endif // QUICK_MINI_TARGET
 
                 CC_BREAK_IF(eImageFormat == CCImage::kFmtUnKnown);
 

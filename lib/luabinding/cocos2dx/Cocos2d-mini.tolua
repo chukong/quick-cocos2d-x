@@ -69,7 +69,7 @@ $pfile "cocos2dx/particle_nodes/CCParticleSystem.tolua"
 $pfile "cocos2dx/particle_nodes/CCParticleSystemQuad.tolua"
 $pfile "cocos2dx/particle_nodes/CCParticleExamples.tolua"
 
-$pfile "cocos2dx/tilemap_parallax_nodes/CCParallaxNode.tolua"
+// $pfile "cocos2dx/tilemap_parallax_nodes/CCParallaxNode.tolua"
 // $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXXMLParser.tolua"
 // $pfile "cocos2dx/tilemap_parallax_nodes/CCTileMapAtlas.tolua"
 // $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXLayer.tolua"
