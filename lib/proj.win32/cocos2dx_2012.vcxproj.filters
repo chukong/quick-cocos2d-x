@@ -319,6 +319,9 @@
     <Filter Include="cocos2d-x\scripting\lua\lua_extensions\zlib">
       <UniqueIdentifier>{1c196c79-5f05-43b7-a12c-e4d40bbe9ecc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\scripting\lua\lua_extensions\lsqlite3">
+      <UniqueIdentifier>{9f2af34e-4067-4285-bf48-81c24c11dc33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -1196,6 +1199,12 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCEventDispatcher.cpp">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\sqlite3.c">
+      <Filter>cocos2d-x\scripting\lua\lua_extensions\lsqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\lsqlite3.c">
+      <Filter>cocos2d-x\scripting\lua\lua_extensions\lsqlite3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2386,6 +2395,12 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCEventDispatcher.h">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\lsqlite3.h">
+      <Filter>cocos2d-x\scripting\lua\lua_extensions\lsqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\sqlite3.h">
+      <Filter>cocos2d-x\scripting\lua\lua_extensions\lsqlite3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
