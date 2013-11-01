@@ -130,8 +130,8 @@ static void loadImageData(AsyncStruct *pAsyncStruct)
         delete pAsyncStruct;
         return;
     }
-        
-    // generate image            
+
+    // generate image
     CCImage *pImage = new CCImage();
     if (pImage && !pImage->initWithImageFileThreadSafe(filename, imageType))
     {
@@ -148,7 +148,7 @@ static void loadImageData(AsyncStruct *pAsyncStruct)
     // put the image info into the queue
     pthread_mutex_lock(&s_ImageInfoMutex);
     s_pImageQueue->push(pImageInfo);
-    pthread_mutex_unlock(&s_ImageInfoMutex);   
+    pthread_mutex_unlock(&s_ImageInfoMutex);
 }
 
 static void* loadImage(void* data)
@@ -341,7 +341,7 @@ void CCTextureCache::addImageAsyncImpl(const char *path, CCObject *target, SEL_C
     pthread_cond_signal(&s_SleepCondition);
 #else
     // WinRT uses an Async Task to load the image since the ThreadPool has a limited number of threads
-    //std::replace( data->filename.begin(), data->filename.end(), '/', '\\'); 
+    //std::replace( data->filename.begin(), data->filename.end(), '/', '\\');
     create_task([this, data] {
         loadImageData(data);
     });
@@ -443,6 +443,9 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
         // all images are handled by UIImage except PVR extension that is handled by our own handler
         do
         {
+
+#if QUICK_MINI_TARGET != 0
+
             if (std::string::npos != lowerCase.find(".pvr"))
             {
                 texture = this->addPVRImage(fullpath.c_str());
@@ -453,12 +456,18 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                 texture = this->addETCImage(fullpath.c_str());
             }
             else
+
+#endif // QUICK_MINI_TARGET
+
             {
                 CCImage::EImageFormat eImageFormat = CCImage::kFmtUnKnown;
                 if (std::string::npos != lowerCase.find(".png"))
                 {
                     eImageFormat = CCImage::kFmtPng;
                 }
+
+#if QUICK_MINI_TARGET != 0
+
                 else if (std::string::npos != lowerCase.find(".jpg") || std::string::npos != lowerCase.find(".jpeg"))
                 {
                     eImageFormat = CCImage::kFmtJpg;
@@ -471,6 +480,9 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                 {
                     eImageFormat = CCImage::kFmtWebp;
                 }
+#endif // QUICK_MINI_TARGET
+
+                CC_BREAK_IF(eImageFormat == CCImage::kFmtUnKnown);
 
                 pImage = new CCImage();
                 CC_BREAK_IF(NULL == pImage);
@@ -503,6 +515,8 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
     //pthread_mutex_unlock(m_pDictLock);
     return texture;
 }
+
+#if QUICK_MINI_TARGET != 0
 
 CCTexture2D * CCTextureCache::addPVRImage(const char* path)
 {
@@ -565,6 +579,8 @@ CCTexture2D* CCTextureCache::addETCImage(const char* path)
 
     return texture;
 }
+
+#endif // QUICK_MINI_TARGET
 
 CCTexture2D* CCTextureCache::addUIImage(CCImage *image, const char *key)
 {
@@ -884,6 +900,8 @@ void VolatileTexture::reloadAllTextures()
                     lowerCase[i] = tolower(lowerCase[i]);
                 }
 
+#if QUICK_MINI_TARGET != 0
+
                 if (std::string::npos != lowerCase.find(".pvr"))
                 {
                     CCTexture2DPixelFormat oldPixelFormat = CCTexture2D::defaultAlphaPixelFormat();
@@ -893,6 +911,9 @@ void VolatileTexture::reloadAllTextures()
                     CCTexture2D::setDefaultAlphaPixelFormat(oldPixelFormat);
                 }
                 else
+
+#endif
+
                 {
                     CCImage* pImage = new CCImage();
                     unsigned long nSize = 0;

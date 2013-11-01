@@ -24,7 +24,6 @@
 
 #include "SimpleAudioEngine.h"
 #include "jni/SimpleAudioEngineJni.h"
-#include "opensl/SimpleAudioEngineOpenSL.h"
 
 #include "cocos2d.h"
 #include <cstring>
@@ -88,10 +87,6 @@ namespace CocosDenshion {
 
     SimpleAudioEngine::~SimpleAudioEngine()
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->end();
-        }
     }
 
     SimpleAudioEngine* SimpleAudioEngine::sharedEngine()
@@ -106,14 +101,7 @@ namespace CocosDenshion {
 
     void SimpleAudioEngine::end()
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->end();
-        }
-        else
-        {
-            endJNI();
-        }
+        endJNI();
     }
 
     void SimpleAudioEngine::preloadBackgroundMusic(const char* pszFilePath)
@@ -170,139 +158,62 @@ namespace CocosDenshion {
 
     float SimpleAudioEngine::getEffectsVolume()
     {
-        if (s_bI9100)
-        {
-            return SimpleAudioEngineOpenSL::sharedEngine()->getEffectsVolume();
-        }
-        else
-        {
-            return getEffectsVolumeJNI();
-        }
+        return getEffectsVolumeJNI();
     }
 
     void SimpleAudioEngine::setEffectsVolume(float volume)
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->setEffectsVolume(volume);
-        }
-        else
-        {
-            setEffectsVolumeJNI(volume);
-        }
+        setEffectsVolumeJNI(volume);
     }
 
     unsigned int SimpleAudioEngine::playEffect(const char* pszFilePath, bool bLoop)
     {
         std::string fullPath = getFullPathWithoutAssetsPrefix(pszFilePath);
-        if (s_bI9100)
-        {
-            return SimpleAudioEngineOpenSL::sharedEngine()->playEffect(fullPath.c_str(), bLoop);
-        }
-        else
-        {
-            return playEffectJNI(fullPath.c_str(), bLoop);
-        }
+        return playEffectJNI(fullPath.c_str(), bLoop);
     }
 
     void SimpleAudioEngine::stopEffect(unsigned int nSoundId)
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->stopEffect(nSoundId);
-        }
-        else
-        {
-            stopEffectJNI(nSoundId);
-        }
+        stopEffectJNI(nSoundId);
     }
 
     void SimpleAudioEngine::preloadEffect(const char* pszFilePath)
     {
         std::string fullPath = getFullPathWithoutAssetsPrefix(pszFilePath);
 
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->preloadEffect(fullPath.c_str());
-        }
-        else
-        {
-            preloadEffectJNI(fullPath.c_str());
-        }
+        preloadEffectJNI(fullPath.c_str());
     }
 
     void SimpleAudioEngine::unloadEffect(const char* pszFilePath)
     {
         std::string fullPath = getFullPathWithoutAssetsPrefix(pszFilePath);
 
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->unloadEffect(fullPath.c_str());
-        }
-        else
-        {
-            unloadEffectJNI(fullPath.c_str());
-        }
+        unloadEffectJNI(fullPath.c_str());
     }
 
     void SimpleAudioEngine::pauseEffect(unsigned int nSoundId)
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->pauseEffect(nSoundId);
-        }
-        else
-        {
-            pauseEffectJNI(nSoundId);
-        }
+        pauseEffectJNI(nSoundId);
     }
 
     void SimpleAudioEngine::pauseAllEffects()
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->pauseAllEffects();
-        }
-        else
-        {
-            pauseAllEffectsJNI();
-        }
+        pauseAllEffectsJNI();
     }
 
     void SimpleAudioEngine::resumeEffect(unsigned int nSoundId)
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->resumeEffect(nSoundId);
-        }
-        else
-        {
-            resumeEffectJNI(nSoundId);
-        }
+        resumeEffectJNI(nSoundId);
     }
 
     void SimpleAudioEngine::resumeAllEffects()
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->resumeAllEffects();
-        }
-        else
-        {
-            resumeAllEffectsJNI();
-        }
+        resumeAllEffectsJNI();
     }
 
     void SimpleAudioEngine::stopAllEffects()
     {
-        if (s_bI9100)
-        {
-            SimpleAudioEngineOpenSL::sharedEngine()->stopAllEffects();
-        }
-        else
-        {
-            stopAllEffectsJNI();
-        }
+        stopAllEffectsJNI();
     }
 
 }
