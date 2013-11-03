@@ -40,7 +40,7 @@ THE SOFTWARE.
 #include "support/ccUtils.h"
 #include "platform/CCPlatformMacros.h"
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 #include "textures/CCTexturePVR.h"
 #include "textures/CCTextureETC.h"
 #endif
@@ -695,7 +695,7 @@ void CCTexture2D::drawInRect(const CCRect& rect)
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
 bool CCTexture2D::initWithPVRFile(const char* file)
 {

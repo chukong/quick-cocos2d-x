@@ -141,7 +141,7 @@ LOCAL_SRC_FILES := \
     touch_dispatcher/CCTouchHandler.cpp \
     touch_dispatcher/CCTouch.cpp
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_SRC_FILES += \
         support/image_support/TGAlib.cpp \
@@ -175,7 +175,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
 endif
@@ -189,7 +189,7 @@ include $(BUILD_STATIC_LIBRARY)
 $(call import-module,libpng)
 $(call import-module,libwebp)
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
     $(call import-module,libjpeg)
     $(call import-module,libtiff)
     $(call import-module,libcurl)

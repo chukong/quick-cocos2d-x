@@ -14,7 +14,7 @@ LOCAL_SRC_FILES := \
     GUI/CCEditBox/CCEditBox.cpp \
     GUI/CCEditBox/CCEditBoxImplAndroid.cpp
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_SRC_FILES += \
         AssetsManager/AssetsManager.cpp \
@@ -84,7 +84,7 @@ endif
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_chipmunk_static
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
@@ -98,7 +98,7 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCEditBox
 
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_EXPORT_C_INCLUDES += \
                                $(LOCAL_PATH)/network \
@@ -126,6 +126,6 @@ include $(BUILD_STATIC_LIBRARY)
 $(call import-module,cocos2dx)
 $(call import-module,CocosDenshion/android)
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
     $(call import-module,external/libwebsockets/android)
 endif

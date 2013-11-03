@@ -353,7 +353,7 @@ int CCLuaEngine::reallocateScriptHandler(int nHandler)
     return nRet;
 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
 int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue, CCArray* pResultArray)
 {

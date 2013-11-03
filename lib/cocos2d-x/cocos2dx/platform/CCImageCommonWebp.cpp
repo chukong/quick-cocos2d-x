@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-// #if QUICK_MINI_TARGET != 0
+// #ifndef QUICK_MINI_TARGET
 
 #include "platform/CCImage.h"
 #include "textures/CCTexture2D.h"

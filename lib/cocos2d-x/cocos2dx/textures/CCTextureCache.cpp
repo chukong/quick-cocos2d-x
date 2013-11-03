@@ -444,7 +444,7 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
         do
         {
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
             if (std::string::npos != lowerCase.find(".pvr"))
             {
@@ -466,7 +466,7 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                     eImageFormat = CCImage::kFmtPng;
                 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
                 else if (std::string::npos != lowerCase.find(".jpg") || std::string::npos != lowerCase.find(".jpeg"))
                 {
@@ -517,7 +517,7 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
     return texture;
 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
 CCTexture2D * CCTextureCache::addPVRImage(const char* path)
 {
@@ -901,7 +901,7 @@ void VolatileTexture::reloadAllTextures()
                     lowerCase[i] = tolower(lowerCase[i]);
                 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
                 if (std::string::npos != lowerCase.find(".pvr"))
                 {

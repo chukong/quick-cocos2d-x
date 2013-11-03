@@ -1,5 +1,5 @@
 
-$#include "LuaCocos2d.h"
+$#include "LuaCocos2d-mini.h"
 
 $pfile "cocos2dx/include/ccTypes.tolua"
 $pfile "cocos2dx/kazmath/kazmath.tolua"

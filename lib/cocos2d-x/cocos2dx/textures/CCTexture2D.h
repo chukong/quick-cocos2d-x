@@ -166,7 +166,7 @@ public:
     /** Initializes a texture from a string using a text definition*/
     bool initWithString(const char *text, ccFontDefinition *textDefinition);
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
     /** Initializes a texture from a PVR file */
     bool initWithPVRFile(const char* file);

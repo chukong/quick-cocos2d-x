@@ -9,7 +9,6 @@ LOCAL_SRC_FILES := ../cocos2dx_support/CCLuaEngine.cpp \
     ../cocos2dx_support/CCLuaStack.cpp \
     ../cocos2dx_support/CCLuaValue.cpp \
     ../cocos2dx_support/Cocos2dxLuaLoader.cpp \
-    ../cocos2dx_support/LuaCocos2d.cpp \
     ../cocos2dx_support/tolua_fix.c \
     ../cocos2dx_support/snapshot.c \
     ../cocos2dx_support/platform/android/CCLuaJavaBridge.cpp \
@@ -20,9 +19,10 @@ LOCAL_SRC_FILES := ../cocos2dx_support/CCLuaEngine.cpp \
     ../tolua/tolua_push.c \
     ../tolua/tolua_to.c
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_SRC_FILES += \
+                        ../cocos2dx_support/LuaCocos2d.cpp \
                         ../cocos2dx_support/Lua_web_socket.cpp \
                         ../cocos2dx_support/CCBProxy.cpp \
                         ../cocos2dx_support/Lua_extensions_CCB.cpp \
@@ -52,6 +52,11 @@ ifneq ($(QUICK_MINI_TARGET), 1)
                         ../lua_extensions/lsqlite3/sqlite3.c \
                         ../lua_extensions/lsqlite3/lsqlite3.c \
                         ../lua_extensions/lua_extensions.c
+
+else
+
+    LOCAL_SRC_FILES += \
+                        ../cocos2dx_support/LuaCocos2d-mini.cpp \
 
 endif
 
@@ -92,7 +97,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/ \
 LOCAL_WHOLE_STATIC_LIBRARIES := luajit_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_external_static
@@ -106,6 +111,6 @@ include $(BUILD_STATIC_LIBRARY)
 $(call import-module,scripting/lua/luajit)
 $(call import-module,extensions)
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
     $(call import-module,external)
 endif

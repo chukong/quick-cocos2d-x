@@ -33,7 +33,7 @@ THE SOFTWARE.
 #include "CCFileUtils.h"
 #include "png.h"
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 #include "jpeglib.h"
 #include "tiffio.h"
 #endif
@@ -186,7 +186,7 @@ bool CCImage::initWithImageData(void * pData,
             break;
         }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
         else if (kFmtJpg == eFmt)
         {
             bRet = _initWithJpgData(pData, nDataLen);
@@ -232,7 +232,7 @@ bool CCImage::initWithImageData(void * pData,
                 }
             }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
             // if it is a tiff file buffer.
             if (nDataLen > 2)
             {
@@ -266,7 +266,7 @@ bool CCImage::initWithImageData(void * pData,
 }
 
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
 /*
  * ERROR HANDLING:
@@ -542,7 +542,7 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
     return bRet;
 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
 static tmsize_t _tiffReadProc(thandle_t fd, void* buf, tmsize_t size)
 {
@@ -771,7 +771,7 @@ bool CCImage::saveToFile(const char *pszFilePath, bool bIsToRGB)
             CC_BREAK_IF(!_saveImageToPNG(pszFilePath, bIsToRGB));
         }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
         else if (std::string::npos != strLowerCasePath.find(".jpg"))
         {
             CC_BREAK_IF(!_saveImageToJPG(pszFilePath));
@@ -930,7 +930,7 @@ bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
     return bRet;
 }
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
 
 bool CCImage::_saveImageToJPG(const char * pszFilePath)
 {

@@ -13,7 +13,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_lua_static
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_external_static
     LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
 endif
@@ -25,6 +25,6 @@ $(call import-module,CocosDenshion/android)
 $(call import-module,extensions)
 $(call import-module,scripting/lua/proj.android)
 
-ifneq ($(QUICK_MINI_TARGET), 1)
+ifndef $(QUICK_MINI_TARGET)
     $(call import-module,external)
 endif

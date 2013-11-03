@@ -34,7 +34,6 @@ extern "C" {
 }
 
 #include "ccMacros.h"
-#include "LuaCocos2d.h"
 #include "platform/CCZipFile.h"
 #include "platform/CCFileUtils.h"
 
@@ -45,7 +44,10 @@ extern "C" {
 #include "platform/android/CCLuaJavaBridge.h"
 #endif
 
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
+
+// cocos2d-x luabinding
+#include "LuaCocos2d.h"
 
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
@@ -65,6 +67,11 @@ extern "C" {
 #include "Lua_web_socket.h"
 // lua extensions
 #include "lua_extensions.h"
+
+#else // QUICK_MINI_TARGET
+
+// cocos2d-x luabinding
+#include "LuaCocos2d-mini.h"
 
 #endif // QUICK_MINI_TARGET
 
@@ -113,15 +120,13 @@ bool CCLuaStack::init(void)
     lua_setglobal(m_state, "print");
 
     // register CCLuaLoadChunksFromZip
-    lua_pushcfunction(m_state, lua_loadChunksFromZip);
-    lua_setglobal(m_state, "CCLuaLoadChunksFromZip");
-    lua_pushcfunction(m_state, lua_loadChunksFromZip);
+    lua_pushcfunction(m_state, lua_loadChunksFromZIP);
     lua_setglobal(m_state, "CCLuaLoadChunksFromZIP");
 
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
-#if QUICK_MINI_TARGET != 0
+#if QUICK_MINI_TARGET == 0
 
     // chipmunk
     luaopen_CCPhysicsWorld_luabinding(m_state);
@@ -461,7 +466,7 @@ bool CCLuaStack::handleAssert(const char *msg)
 int CCLuaStack::loadChunksFromZip(const char *zipFilePath)
 {
     pushString(zipFilePath);
-    lua_loadChunksFromZip(m_state);
+    lua_loadChunksFromZIP(m_state);
     int ret = lua_toboolean(m_state, -1);
     lua_pop(m_state, 1);
     return ret;
@@ -560,7 +565,7 @@ int CCLuaStack::lua_print(lua_State *L)
     return 0;
 }
 
-int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
+int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
 {
     const char *zipFilename = lua_tostring(L, -1);
     CCFileUtils *utils = CCFileUtils::sharedFileUtils();

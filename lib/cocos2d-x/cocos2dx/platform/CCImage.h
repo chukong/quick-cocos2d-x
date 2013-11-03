@@ -185,7 +185,7 @@ protected:
     bool _initWithRawData(void *pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent, bool bPreMulti);
 
     bool _saveImageToPNG(const char *pszFilePath, bool bIsToRGB = true);
-#if QUICK_MINI_TARGET != 0
+#ifndef QUICK_MINI_TARGET
     bool _saveImageToJPG(const char *pszFilePath);
 #endif
 
