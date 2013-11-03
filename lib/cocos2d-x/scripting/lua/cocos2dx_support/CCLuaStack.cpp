@@ -45,6 +45,8 @@ extern "C" {
 #include "platform/android/CCLuaJavaBridge.h"
 #endif
 
+#if QUICK_MINI_TARGET != 0
+
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
 // luaproxy
@@ -54,15 +56,17 @@ extern "C" {
 #include "lua_cocos2dx_extensions_manual.h"
 // cocosbuilder
 #include "Lua_extensions_CCB.h"
-// WebSockets luabinding
-#include "Lua_web_socket.h"
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "cocos2dx_extra_ios_iap_luabinding.h"
 #endif
+// WebSockets luabinding
+#include "Lua_web_socket.h"
 // lua extensions
 #include "lua_extensions.h"
+
+#endif // QUICK_MINI_TARGET
 
 #include <string>
 
@@ -117,6 +121,8 @@ bool CCLuaStack::init(void)
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
+#if QUICK_MINI_TARGET != 0
+
     // chipmunk
     luaopen_CCPhysicsWorld_luabinding(m_state);
     // luaproxy
@@ -125,15 +131,17 @@ bool CCLuaStack::init(void)
     register_all_cocos2dx_extension_manual(m_state);
     // cocosbuilder
     tolua_extensions_ccb_open(m_state);
-    // load WebSockets luabinding
-    tolua_web_socket_open(m_state);
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(m_state);
 #endif
+    // load WebSockets luabinding
+    tolua_web_socket_open(m_state);
     // lua extensions
     luaopen_lua_extensions(m_state);
+
+#endif // QUICK_MINI_TARGET
 
     return true;
 }
