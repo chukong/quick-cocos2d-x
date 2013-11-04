@@ -108,4 +108,3 @@ Android only:
 - fix CCLabelTTF crash on Android
 - support Android NDK r9
 - remove LocalStorageAndroid
-
