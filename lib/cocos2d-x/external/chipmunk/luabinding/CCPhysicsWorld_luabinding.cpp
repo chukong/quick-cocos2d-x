@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed Sep  4 21:20:33 2013.
+** Generated automatically by tolua++-1.0.92 on Mon Nov  4 14:38:45 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -34,15 +34,16 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCPoint");
  tolua_usertype(tolua_S,"CCPhysicsWorld");
  tolua_usertype(tolua_S,"CCPointArray");
- tolua_usertype(tolua_S,"CCPhysicsCollisionEvent");
  tolua_usertype(tolua_S,"CCPhysicsVector");
+ tolua_usertype(tolua_S,"CCPhysicsCollisionEvent");
+ tolua_usertype(tolua_S,"CCPhysicsDebugNode");
  tolua_usertype(tolua_S,"CCPhysicsBody");
  
- tolua_usertype(tolua_S,"CCPhysicsDebugNode");
+ tolua_usertype(tolua_S,"CCPhysicsShape");
  
  tolua_usertype(tolua_S,"CCNode");
- tolua_usertype(tolua_S,"CCPhysicsShape");
  tolua_usertype(tolua_S,"CCObject");
+ tolua_usertype(tolua_S,"CCArray");
 }
 
 /* method: create of class  CCPhysicsWorld */
@@ -498,6 +499,38 @@ toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCPhysics
  return 1;
 tolua_lerror:
  return tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createPolygonBody00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getAllBodies of class  CCPhysicsWorld */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getAllBodies00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getAllBodies00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsWorld",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsWorld* self = (CCPhysicsWorld*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAllBodies'", NULL);
+#endif
+  {
+   CCArray* tolua_ret = (CCArray*)  self->getAllBodies();
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCArray");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAllBodies'.",&tolua_err);
+ return 0;
+#endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -5349,6 +5382,7 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"createBoxBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createBoxBody00);
    tolua_function(tolua_S,"createPolygonBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createPolygonBody00);
    tolua_function(tolua_S,"createPolygonBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_createPolygonBody01);
+   tolua_function(tolua_S,"getAllBodies",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getAllBodies00);
    tolua_function(tolua_S,"addBody",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_addBody00);
    tolua_function(tolua_S,"getBodyByTag",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_getBodyByTag00);
    tolua_function(tolua_S,"removeBodyByTag",tolua_CCPhysicsWorld_luabinding_CCPhysicsWorld_removeBodyByTag00);

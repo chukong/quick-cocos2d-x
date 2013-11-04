@@ -51,6 +51,8 @@ public:
     CCPhysicsBody *createPolygonBody(float mass, int vertexes, float offsetX = 0, float offsetY = 0);
 #endif
 
+    CCArray *getAllBodies(void);
+
     void addBody(CCPhysicsBody *body);
     CCPhysicsBody *getBodyByTag(int tag);
     void removeBodyByTag(int tag, bool unbindNow = true);
@@ -80,6 +82,7 @@ private:
     : m_space(NULL)
     , m_stepInterval(0)
     , m_defaultStaticBody(NULL)
+    , m_bodiesArray(NULL)
     , m_removedBodies(NULL)
     , m_removedShapes(NULL)
     , m_addedBodies(NULL)
@@ -93,6 +96,7 @@ private:
     float m_stepInterval;
     CCPhysicsBody *m_defaultStaticBody;
     CCPhysicsBodyMap m_bodies;
+    CCArray *m_bodiesArray;
     CCArray *m_removedBodies;
     CCArray *m_removedShapes;
     CCArray *m_addedBodies;
