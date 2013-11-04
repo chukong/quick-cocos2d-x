@@ -13,6 +13,8 @@
 		F41D98FF17F08BEB007171D8 /* Lua_web_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98FD17F08BEB007171D8 /* Lua_web_socket.cpp */; };
 		F4255C93178EB26B00E1C3C1 /* CCLinkPosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */; };
 		F426146717E816FE00D37B8D /* CCCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F426146617E816FE00D37B8D /* CCCommon.cpp */; };
+		F427F52D18233E9A00856895 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = F427F52918233E9A00856895 /* lsqlite3.c */; };
+		F427F52E18233E9A00856895 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = F427F52B18233E9A00856895 /* sqlite3.c */; };
 		F4315282180CF7E30046351C /* CCPhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4315232180CF7E30046351C /* CCPhysicsBody.cpp */; };
 		F4315283180CF7E30046351C /* CCPhysicsDebugNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4315234180CF7E30046351C /* CCPhysicsDebugNode.cpp */; };
 		F4315284180CF7E30046351C /* CCPhysicsShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4315236180CF7E30046351C /* CCPhysicsShape.cpp */; };
@@ -336,6 +338,10 @@
 		F4255C91178EB26B00E1C3C1 /* CCLinkPosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLinkPosition.cpp; sourceTree = "<group>"; };
 		F4255C92178EB26B00E1C3C1 /* CCLinkPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLinkPosition.h; sourceTree = "<group>"; };
 		F426146617E816FE00D37B8D /* CCCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCommon.cpp; sourceTree = "<group>"; };
+		F427F52918233E9A00856895 /* lsqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsqlite3.c; sourceTree = "<group>"; };
+		F427F52A18233E9A00856895 /* lsqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lsqlite3.h; sourceTree = "<group>"; };
+		F427F52B18233E9A00856895 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		F427F52C18233E9A00856895 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		F4315232180CF7E30046351C /* CCPhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsBody.cpp; sourceTree = "<group>"; };
 		F4315233180CF7E30046351C /* CCPhysicsBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPhysicsBody.h; sourceTree = "<group>"; };
 		F4315234180CF7E30046351C /* CCPhysicsDebugNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPhysicsDebugNode.cpp; sourceTree = "<group>"; };
@@ -1119,6 +1125,17 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		F427F52818233E9A00856895 /* lsqlite3 */ = {
+			isa = PBXGroup;
+			children = (
+				F427F52918233E9A00856895 /* lsqlite3.c */,
+				F427F52A18233E9A00856895 /* lsqlite3.h */,
+				F427F52B18233E9A00856895 /* sqlite3.c */,
+				F427F52C18233E9A00856895 /* sqlite3.h */,
+			);
+			path = lsqlite3;
+			sourceTree = "<group>";
+		};
 		F4315230180CF7E30046351C /* chipmunk */ = {
 			isa = PBXGroup;
 			children = (
@@ -1602,6 +1619,7 @@
 				F4CB8744180D02F600D81CF3 /* cjson */,
 				F4CB874B180D02F600D81CF3 /* filesystem */,
 				F4CB874E180D02F600D81CF3 /* lpack */,
+				F427F52818233E9A00856895 /* lsqlite3 */,
 				F4CB8751180D02F600D81CF3 /* lua_extensions.c */,
 				F4CB8752180D02F600D81CF3 /* lua_extensions.h */,
 				F4CB877A180D02F600D81CF3 /* socket */,
@@ -2856,6 +2874,7 @@
 				F4E880DE1770074500577406 /* CCDirectorCaller.mm in Sources */,
 				F4E880DF1770074500577406 /* CCEGLView.mm in Sources */,
 				F4E880E01770074500577406 /* CCEventDispatcherMac.mm in Sources */,
+				F427F52E18233E9A00856895 /* sqlite3.c in Sources */,
 				F4CB86C2180D017700D81CF3 /* ReachabilityIOSMac.m in Sources */,
 				F4E880E11770074500577406 /* CCFileUtilsMac.mm in Sources */,
 				F4E880E21770074500577406 /* CCImage.mm in Sources */,
@@ -2923,6 +2942,7 @@
 				F490FB6F180D64B6000A9B1C /* CCTransformHelp.cpp in Sources */,
 				F4E8817E17700E8A00577406 /* CCScrollView.cpp in Sources */,
 				F41D98FF17F08BEB007171D8 /* Lua_web_socket.cpp in Sources */,
+				F427F52D18233E9A00856895 /* lsqlite3.c in Sources */,
 				F47872E7180C8F26008F0508 /* CCBProxy.cpp in Sources */,
 				F4E8817F17700E8A00577406 /* CCSorting.cpp in Sources */,
 				F4E8818017700E8A00577406 /* CCTableView.cpp in Sources */,

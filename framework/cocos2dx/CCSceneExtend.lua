@@ -38,8 +38,6 @@ function CCSceneExtend.extend(target)
                 CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
                 echoInfo("----------------------------------------")
             end
-        elseif event == "cleanup" then
-            target:onCleanup()
         end
     end
     target:setNodeEventEnabled(true, handler)

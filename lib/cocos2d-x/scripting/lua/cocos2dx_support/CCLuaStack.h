@@ -139,7 +139,7 @@ protected:
     static struct cc_timeval m_lasttime;
 
     static int lua_print(lua_State *L);
-    static int lua_loadChunksFromZip(lua_State *L);
+    static int lua_loadChunksFromZIP(lua_State *L);
 };
 
 NS_CC_END

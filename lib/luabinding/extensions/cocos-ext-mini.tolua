@@ -1,0 +1,9 @@
+
+$#include "cocos-ext.h"
+
+$using namespace cocos2d::extension;
+
+$pfile "extensions/GUI/CCControlExtension/CCControl.tolua"
+$pfile "extensions/GUI/CCControlExtension/CCControlButton.tolua"
+$pfile "extensions/GUI/CCControlExtension/CCScale9Sprite.tolua"
+$pfile "extensions/GUI/CCEditBox/CCEditBox.tolua"
