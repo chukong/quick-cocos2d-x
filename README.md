@@ -1,0 +1,1 @@
+Hello quick-cocos2d-x
