@@ -94,6 +94,10 @@ CCArmature::~CCArmature(void)
         m_pTopBoneList->removeAllObjects();
         CC_SAFE_DELETE(m_pTopBoneList);
     }
+	if( NULL != m_pAnimation)
+	{
+		m_pAnimation->MovementEventSignal.disconnect_all();
+	}
     CC_SAFE_DELETE(m_pAnimation);
 }
 
@@ -114,6 +118,9 @@ bool CCArmature::init(const char *name)
         CC_SAFE_DELETE(m_pAnimation);
         m_pAnimation = new CCArmatureAnimation();
         m_pAnimation->init(this);
+
+		//zrong 2013-11-06 export to lua
+		m_pAnimation->MovementEventSignal.connect(this, &CCArmature::handler_movementEvent);
 
         CC_SAFE_DELETE(m_pBoneDic);
         m_pBoneDic	= new CCDictionary();
@@ -573,6 +580,26 @@ CCBone *CCArmature::getBoneAtPoint(float x, float y)
         }
     }
     return NULL;
+}
+
+void CCArmature::onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId)
+{
+	if (kScriptTypeNone != m_eScriptType)
+	{
+		CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent();
+	}
+}
+
+void CCArmature::connectMovementEventSignal(int nHandler)
+{
+	if(m_nScriptMovementHandler)
+	{
+		CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptMovementHandler);
+        LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
+        m_nScriptMovementHandler = 0;
+	}
+	m_nScriptMovementHandler = nHandler;
+	LUALOG("[LUA] Add CCArmature script movement handler: %d", m_nScriptMovementHandler);
 }
 
 NS_CC_EXT_END

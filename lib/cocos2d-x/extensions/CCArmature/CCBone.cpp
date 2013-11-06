@@ -296,7 +296,7 @@ void CCBone::setChildArmature(CCArmature *armature)
 		// zrong 2013-11-06 from https://github.com/cocos2d/cocos2d-x/commit/af754bfe5d1b28b072ec14ed5ffc1900f06a7e95
 		if(armature == NULL && m_pChildArmature)
 		{
-			m_pChildArmature->setParentBone(NULL)
+			m_pChildArmature->setParentBone(NULL);
 		}
 
         CC_SAFE_RETAIN(armature);
