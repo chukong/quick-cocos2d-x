@@ -62,10 +62,6 @@ int CCCrypto::encodeBase64(unsigned char* input,
     int cp = dataUsed < outputBufferLength ? dataUsed : outputBufferLength - 1;
     memcpy(output, buffer, cp);
 
-    if (outputBufferLength > 0 && output[outputBufferLength - 1] == '\n')
-    {
-        output[outputBufferLength - 1] = '\0';
-    }
     free(buffer);
     return cp;
 }
@@ -194,9 +190,10 @@ LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
     stack->clean();
     
-    int outputLength = inputLength * 2;
+    int outputLength = inputLength * 2 + inputLength / 2;
     if (outputLength < 16) outputLength = 16;
     char* output = static_cast<char*>(malloc(outputLength));
+    memset(output, sizeof(char) * outputLength, 0);
     int dataUsed = -1;
     
     if (isDecoding)
