@@ -1,10 +1,4 @@
 
--- global helper function
-
-ccp = CCPoint
-ccsize = CCSize
-ccrect = CCRect
-
 local display = {}
 
 local sharedDirector         = CCDirector:sharedDirector()
