@@ -378,12 +378,17 @@ bool CCScale9Sprite::updateWithBatchNode(CCSpriteBatchNode* batchnode, CCRect re
     this->setContentSize(rect.size);
     this->addChild(_scale9Image);
 
+    setCascadeColorEnabled(true);
+    setCascadeOpacityEnabled(true);
+    _scale9Image->setCascadeColorEnabled(true);
+    _scale9Image->setCascadeOpacityEnabled(true);
+
     if (m_bSpritesGenerated)
-        {
-            // Restore color and opacity
-            this->setOpacity(opacity);
-            this->setColor(color);
-        }
+    {
+        // Restore color and opacity
+        this->setOpacity(opacity);
+        this->setColor(color);
+    }
     m_bSpritesGenerated = true;
 
     return true;
