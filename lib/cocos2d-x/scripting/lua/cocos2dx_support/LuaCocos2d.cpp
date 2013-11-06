@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 11/06/13 15:15:49.
+** Generated automatically by tolua++-1.0.92 on 11/06/13 15:35:02.
 */
 
 /****************************************************************************
@@ -61479,6 +61479,39 @@ static int tolua_Cocos2d_CCBone_addDisplay00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: removeDisplay of class  CCBone */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCBone_removeDisplay00
+static int tolua_Cocos2d_CCBone_removeDisplay00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCBone",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCBone* self = (CCBone*)  tolua_tousertype(tolua_S,1,0);
+  int index = ((int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeDisplay'", NULL);
+#endif
+  {
+   self->removeDisplay(index);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeDisplay'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: changeDisplayByIndex of class  CCBone */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCBone_changeDisplayByIndex00
 static int tolua_Cocos2d_CCBone_changeDisplayByIndex00(lua_State* tolua_S)
@@ -64764,6 +64797,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCBone_create00);
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCBone_create01);
    tolua_function(tolua_S,"addDisplay",tolua_Cocos2d_CCBone_addDisplay00);
+   tolua_function(tolua_S,"removeDisplay",tolua_Cocos2d_CCBone_removeDisplay00);
    tolua_function(tolua_S,"changeDisplayByIndex",tolua_Cocos2d_CCBone_changeDisplayByIndex00);
    tolua_function(tolua_S,"addChildBone",tolua_Cocos2d_CCBone_addChildBone00);
    tolua_function(tolua_S,"getParentBone",tolua_Cocos2d_CCBone_getParentBone00);
