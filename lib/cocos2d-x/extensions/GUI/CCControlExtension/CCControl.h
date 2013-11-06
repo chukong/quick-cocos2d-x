@@ -85,7 +85,7 @@ typedef unsigned int CCControlState;
  *
  * To use the CCControl you have to subclass it.
  */
-class CC_DLL CCControl : public CCLayer
+class CC_DLL CCControl : public CCNode
 {
     /** The current control state constant. */
     CC_SYNTHESIZE_READONLY(CCControlState, m_eState, State);
@@ -129,7 +129,7 @@ public:
 
     virtual void onEnter();
     virtual void onExit();
-    virtual void registerWithTouchDispatcher();
+//    virtual void registerWithTouchDispatcher();
 
     /**
  * Sends action messages for the given control events.
