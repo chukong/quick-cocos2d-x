@@ -34,7 +34,7 @@
 		F428264A17575DD7001479DC /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428261117575DD7001479DC /* CCEditBox.cpp */; };
 		F428264C17575DD7001479DC /* CCEditBoxImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F428261717575DD7001479DC /* CCEditBoxImplIOS.mm */; };
 		F42F313C17A272FA00A20E45 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */; };
-		F459EA6B180D04D8006CBDF1 /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FA180D04D8006CBDF1 /* libb64.c */; };
+		F44A20D9182A566D00E181EB /* libbase64.c in Sources */ = {isa = PBXBuildFile; fileRef = F44A20D7182A566D00E181EB /* libbase64.c */; };
 		F459EA6C180D04D8006CBDF1 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FC180D04D8006CBDF1 /* CCCrypto.cpp */; };
 		F459EA6D180D04D8006CBDF1 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FF180D04D8006CBDF1 /* md5.c */; };
 		F459EA6E180D04D8006CBDF1 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F459EA02180D04D8006CBDF1 /* xxtea.c */; };
@@ -410,9 +410,9 @@
 		F428261717575DD7001479DC /* CCEditBoxImplIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCEditBoxImplIOS.mm; sourceTree = "<group>"; };
 		F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGraySprite.cpp; sourceTree = "<group>"; };
 		F42F313B17A272FA00A20E45 /* CCGraySprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGraySprite.h; sourceTree = "<group>"; };
+		F44A20D7182A566D00E181EB /* libbase64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libbase64.c; sourceTree = "<group>"; };
+		F44A20D8182A566D00E181EB /* libbase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libbase64.h; sourceTree = "<group>"; };
 		F459E9F7180D04D8006CBDF1 /* cocos2dx_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra.h; sourceTree = "<group>"; };
-		F459E9FA180D04D8006CBDF1 /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
-		F459E9FB180D04D8006CBDF1 /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
 		F459E9FC180D04D8006CBDF1 /* CCCrypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCrypto.cpp; sourceTree = "<group>"; };
 		F459E9FD180D04D8006CBDF1 /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
 		F459E9FF180D04D8006CBDF1 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
@@ -1269,8 +1269,8 @@
 		F459E9F9180D04D8006CBDF1 /* base64 */ = {
 			isa = PBXGroup;
 			children = (
-				F459E9FA180D04D8006CBDF1 /* libb64.c */,
-				F459E9FB180D04D8006CBDF1 /* libb64.h */,
+				F44A20D7182A566D00E181EB /* libbase64.c */,
+				F44A20D8182A566D00E181EB /* libbase64.h */,
 			);
 			path = base64;
 			sourceTree = "<group>";
@@ -2930,6 +2930,7 @@
 				F4E882EC177015C400577406 /* CCShaderCache.cpp in Sources */,
 				F4E882ED177015C400577406 /* ccShaders.cpp in Sources */,
 				F4E882EE177015C400577406 /* CCAnimation.cpp in Sources */,
+				F44A20D9182A566D00E181EB /* libbase64.c in Sources */,
 				F4A8F6BF17F0B1F500110198 /* WebSocket.cpp in Sources */,
 				F4E882EF177015C400577406 /* CCAnimationCache.cpp in Sources */,
 				F459EA81180D04D8006CBDF1 /* OpenUDIDIOS.m in Sources */,
@@ -3023,7 +3024,6 @@
 				F4E883841770162500577406 /* CCBKeyframe.cpp in Sources */,
 				F459EB7E180D0513006CBDF1 /* lua_extensions.c in Sources */,
 				F459EB7D180D0513006CBDF1 /* lpack.c in Sources */,
-				F459EA6B180D04D8006CBDF1 /* libb64.c in Sources */,
 				F4CB4B521810F24100EC1D9B /* CCTween.cpp in Sources */,
 				B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */,
 				F4E883851770162500577406 /* CCBReader.cpp in Sources */,
