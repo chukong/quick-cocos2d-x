@@ -1,0 +1,4 @@
+
+$pfile "cocos2dx/Cocos2d-mini.tolua"
+$pfile "CocosDenshion/SimpleAudioEngine.tolua"
+$pfile "extensions/cocos-ext-mini.tolua"

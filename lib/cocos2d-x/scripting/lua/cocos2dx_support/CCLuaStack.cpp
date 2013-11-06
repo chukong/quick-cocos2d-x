@@ -34,7 +34,6 @@ extern "C" {
 }
 
 #include "ccMacros.h"
-#include "LuaCocos2d.h"
 #include "platform/CCZipFile.h"
 #include "platform/CCFileUtils.h"
 
@@ -45,6 +44,11 @@ extern "C" {
 #include "platform/android/CCLuaJavaBridge.h"
 #endif
 
+#ifndef QUICK_MINI_TARGET
+
+// cocos2d-x luabinding
+#include "LuaCocos2d.h"
+
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
 // luaproxy
@@ -54,15 +58,22 @@ extern "C" {
 #include "lua_cocos2dx_extensions_manual.h"
 // cocosbuilder
 #include "Lua_extensions_CCB.h"
-// WebSockets luabinding
-#include "Lua_web_socket.h"
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "cocos2dx_extra_ios_iap_luabinding.h"
 #endif
+// WebSockets luabinding
+#include "Lua_web_socket.h"
 // lua extensions
 #include "lua_extensions.h"
+
+#else // QUICK_MINI_TARGET
+
+// cocos2d-x luabinding
+#include "LuaCocos2d-mini.h"
+
+#endif // QUICK_MINI_TARGET
 
 #include <string>
 
@@ -109,13 +120,13 @@ bool CCLuaStack::init(void)
     lua_setglobal(m_state, "print");
 
     // register CCLuaLoadChunksFromZip
-    lua_pushcfunction(m_state, lua_loadChunksFromZip);
-    lua_setglobal(m_state, "CCLuaLoadChunksFromZip");
-    lua_pushcfunction(m_state, lua_loadChunksFromZip);
+    lua_pushcfunction(m_state, lua_loadChunksFromZIP);
     lua_setglobal(m_state, "CCLuaLoadChunksFromZIP");
 
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
+
+#if QUICK_MINI_TARGET == 0
 
     // chipmunk
     luaopen_CCPhysicsWorld_luabinding(m_state);
@@ -125,15 +136,17 @@ bool CCLuaStack::init(void)
     register_all_cocos2dx_extension_manual(m_state);
     // cocosbuilder
     tolua_extensions_ccb_open(m_state);
-    // load WebSockets luabinding
-    tolua_web_socket_open(m_state);
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(m_state);
 #endif
+    // load WebSockets luabinding
+    tolua_web_socket_open(m_state);
     // lua extensions
     luaopen_lua_extensions(m_state);
+
+#endif // QUICK_MINI_TARGET
 
     return true;
 }
@@ -453,7 +466,7 @@ bool CCLuaStack::handleAssert(const char *msg)
 int CCLuaStack::loadChunksFromZip(const char *zipFilePath)
 {
     pushString(zipFilePath);
-    lua_loadChunksFromZip(m_state);
+    lua_loadChunksFromZIP(m_state);
     int ret = lua_toboolean(m_state, -1);
     lua_pop(m_state, 1);
     return ret;
@@ -552,7 +565,7 @@ int CCLuaStack::lua_print(lua_State *L)
     return 0;
 }
 
-int CCLuaStack::lua_loadChunksFromZip(lua_State *L)
+int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
 {
     const char *zipFilename = lua_tostring(L, -1);
     CCFileUtils *utils = CCFileUtils::sharedFileUtils();

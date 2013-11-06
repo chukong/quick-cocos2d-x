@@ -78,6 +78,7 @@ $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXTiledMap.tolua"
 
 $pfile "cocos2dx/draw_nodes/CCDrawingPrimitives.tolua"
 $pfile "cocos2dx/draw_nodes/CCShapeNode.tolua"
+$pfile "cocos2dx/draw_nodes/CCDrawNode.tolua"
 
 $pfile "cocos2dx/misc_nodes/CCClippingNode.tolua"
 $pfile "cocos2dx/misc_nodes/CCClippingRegionNode.tolua"

@@ -84,7 +84,7 @@ public:
      */
     CCDictionary* snapshotTextures();
 
-    /** Returns the shared instance of the cache 
+    /** Returns the shared instance of the cache
      *  @js getInstance
      */
     static CCTextureCache * sharedTextureCache();
@@ -165,6 +165,8 @@ public:
     */
     void dumpCachedTextureInfo();
 
+#ifndef QUICK_MINI_TARGET
+
     /** Returns a Texture2D object given an PVR filename
     * If the file image was not previously loaded, it will create a new CCTexture2D
     *  object and it will return it. Otherwise it will return a reference of a previously loaded image
@@ -177,6 +179,8 @@ public:
      *  @lua NA
      */
     CCTexture2D* addETCImage(const char* filename);
+
+#endif
 
     /** Reload all textures
     It's only useful when the value of CC_ENABLE_CACHE_TEXTURE_DATA is 1
@@ -201,7 +205,7 @@ public:
     ~VolatileTexture();
 
     static void addImageTexture(CCTexture2D *tt, const char* imageFileName, CCImage::EImageFormat format);
-    static void addStringTexture(CCTexture2D *tt, const char* text, const CCSize& dimensions, CCTextAlignment alignment, 
+    static void addStringTexture(CCTexture2D *tt, const char* text, const CCSize& dimensions, CCTextAlignment alignment,
                                  CCVerticalTextAlignment vAlignment, const char *fontName, float fontSize);
     static void addDataTexture(CCTexture2D *tt, void* data, CCTexture2DPixelFormat pixelFormat, const CCSize& contentSize);
     static void addCCImage(CCTexture2D *tt, CCImage *image);

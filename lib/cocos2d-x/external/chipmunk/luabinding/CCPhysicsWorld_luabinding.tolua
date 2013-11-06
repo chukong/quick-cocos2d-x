@@ -27,6 +27,8 @@ class CCPhysicsWorld : public CCNode
     CCPhysicsBody *createPolygonBody(float mass, CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsBody *createPolygonBody(float mass, LUA_TABLE vertexes, float offsetX = 0, float offsetY = 0);
 
+    CCArray *getAllBodies(void);
+
     void addBody(CCPhysicsBody *body);
     CCPhysicsBody *getBodyByTag(int tag);
     void removeBodyByTag(int tag, bool unbind = true);

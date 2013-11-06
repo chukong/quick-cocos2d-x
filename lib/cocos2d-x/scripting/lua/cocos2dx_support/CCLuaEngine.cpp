@@ -156,7 +156,7 @@ int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
 {
     int nHandler = pMenuItem->getScriptTapHandler();
     if (!nHandler) return 0;
-    
+
     m_stack->pushInt(pMenuItem->getTag());
     m_stack->pushCCObject(pMenuItem, "CCMenuItem");
     int ret = m_stack->executeFunctionByHandler(nHandler, 2);
@@ -168,7 +168,7 @@ int CCLuaEngine::executeNotificationEvent(CCNotificationCenter* pNotificationCen
 {
     int nHandler = pNotificationCenter->getObserverHandlerByName(pszName);
     if (!nHandler) return 0;
-    
+
     m_stack->pushString(pszName);
     int ret = m_stack->executeFunctionByHandler(nHandler, 1);
     m_stack->clean();
@@ -179,7 +179,7 @@ int CCLuaEngine::executeCallFuncActionEvent(CCCallFunc* pAction, CCObject* pTarg
 {
     int nHandler = pAction->getScriptHandler();
     if (!nHandler) return 0;
-    
+
     if (pTarget)
     {
         m_stack->pushCCObject(pTarget, "CCNode");
@@ -204,29 +204,29 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     if (!pScriptHandlerEntry) return 0;
     int nHandler = pScriptHandlerEntry->getHandler();
     if (!nHandler) return 0;
-    
+
     switch (eventType)
     {
         case CCTOUCHBEGAN:
             m_stack->pushString("began");
             break;
-            
+
         case CCTOUCHMOVED:
             m_stack->pushString("moved");
             break;
-            
+
         case CCTOUCHENDED:
             m_stack->pushString("ended");
             break;
-            
+
         case CCTOUCHCANCELLED:
             m_stack->pushString("cancelled");
             break;
-            
+
         default:
             return 0;
     }
-    
+
     const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
     m_stack->pushFloat(pt.x);
     m_stack->pushFloat(pt.y);
@@ -241,25 +241,25 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
     if (!pScriptHandlerEntry) return 0;
     int nHandler = pScriptHandlerEntry->getHandler();
     if (!nHandler) return 0;
-    
+
     switch (eventType)
     {
         case CCTOUCHBEGAN:
             m_stack->pushString("began");
             break;
-            
+
         case CCTOUCHMOVED:
             m_stack->pushString("moved");
             break;
-            
+
         case CCTOUCHENDED:
             m_stack->pushString("ended");
             break;
-            
+
         case CCTOUCHCANCELLED:
             m_stack->pushString("cancelled");
             break;
-            
+
         default:
             return 0;
     }
@@ -291,17 +291,17 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
         return 0;
     int nHandler = pScriptHandlerEntry->getHandler();
     if (!nHandler) return 0;
-    
+
     switch (eventType)
     {
         case kTypeBackClicked:
             m_stack->pushString("back");
             break;
-            
+
         case kTypeMenuClicked:
             m_stack->pushString("menu");
             break;
-            
+
         default:
             return 0;
     }
@@ -317,7 +317,7 @@ int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAcc
         return 0;
     int nHandler = pScriptHandlerEntry->getHandler();
     if (!nHandler) return 0;
-    
+
     m_stack->pushFloat(pAccelerationValue->x);
     m_stack->pushFloat(pAccelerationValue->y);
     m_stack->pushFloat(pAccelerationValue->z);
@@ -347,21 +347,23 @@ bool CCLuaEngine::handleAssert(const char *msg)
 }
 
 int CCLuaEngine::reallocateScriptHandler(int nHandler)
-{    
+{
     int nRet = m_stack->reallocateScriptHandler(nHandler);
     m_stack->clean();
     return nRet;
 }
 
+#ifndef QUICK_MINI_TARGET
+
 int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue, CCArray* pResultArray)
 {
     if (NULL == pTableView)
         return 0;
-    
+
     int nHanlder = pTableView->getScriptHandler(nEventType);
     if (0 == nHanlder)
         return 0;
-    
+
     int nRet = 0;
     switch (nEventType)
     {
@@ -408,19 +410,21 @@ int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTabl
     return nRet;
 }
 
+#endif // QUICK_MINI_TARGET
+
 int CCLuaEngine::executeEventWithArgs(int nHandler, CCArray* pArgs)
 {
     if (NULL == pArgs)
         return 0;
-    
+
     CCObject*   pObject = NULL;
-    
+
     CCInteger*  pIntVal = NULL;
     CCString*   pStrVal = NULL;
     CCDouble*   pDoubleVal = NULL;
     CCFloat*    pFloatVal = NULL;
     CCBool*     pBoolVal = NULL;
-   
+
 
     int nArgNums = 0;
     for (unsigned int i = 0; i < pArgs->count(); i++)
@@ -457,7 +461,7 @@ int CCLuaEngine::executeEventWithArgs(int nHandler, CCArray* pArgs)
             nArgNums++;
         }
     }
-    
+
     return  m_stack->executeFunctionByHandler(nHandler, nArgNums);
 }
 
