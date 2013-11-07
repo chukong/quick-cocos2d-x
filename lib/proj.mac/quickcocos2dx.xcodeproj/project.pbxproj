@@ -54,6 +54,7 @@
 		F43152BB180CF7FD0046351C /* luaopen_LuaProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43152AB180CF7FD0046351C /* luaopen_LuaProxy.cpp */; };
 		F43152BC180CF7FD0046351C /* CursorTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43152B6180CF7FD0046351C /* CursorTextField.cpp */; };
 		F43152BD180CF7FD0046351C /* UIUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43152B8180CF7FD0046351C /* UIUtil.cpp */; };
+		F44A20D4182A51E800E181EB /* libbase64.c in Sources */ = {isa = PBXBuildFile; fileRef = F44A20D3182A51E800E181EB /* libbase64.c */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
 		F477B8491757404200260C19 /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B7391757404200260C19 /* CCCamera.cpp */; };
@@ -101,7 +102,6 @@
 		F4B4EECC16C7E06F00736FFE /* CCLuaStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC816C7E06F00736FFE /* CCLuaStack.cpp */; };
 		F4B4EECD16C7E06F00736FFE /* CCLuaValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EECA16C7E06F00736FFE /* CCLuaValue.cpp */; };
 		F4BBD768180ED6A40073B92D /* CCEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BBD766180ED6A40073B92D /* CCEventDispatcher.cpp */; };
-		F4CB86AA180D017700D81CF3 /* libb64.c in Sources */ = {isa = PBXBuildFile; fileRef = F4CB8656180D017700D81CF3 /* libb64.c */; };
 		F4CB86AB180D017700D81CF3 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4CB8658180D017700D81CF3 /* CCCrypto.cpp */; };
 		F4CB86AC180D017700D81CF3 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F4CB865B180D017700D81CF3 /* md5.c */; };
 		F4CB86AD180D017700D81CF3 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4CB865E180D017700D81CF3 /* xxtea.c */; };
@@ -427,6 +427,8 @@
 		F43152B7180CF7FD0046351C /* CursorTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CursorTextField.h; sourceTree = "<group>"; };
 		F43152B8180CF7FD0046351C /* UIUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIUtil.cpp; sourceTree = "<group>"; };
 		F43152B9180CF7FD0046351C /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
+		F44A20D3182A51E800E181EB /* libbase64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libbase64.c; sourceTree = "<group>"; };
+		F44A20D5182A51F000E181EB /* libbase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libbase64.h; sourceTree = "<group>"; };
 		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
@@ -539,8 +541,6 @@
 		F4BBD766180ED6A40073B92D /* CCEventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEventDispatcher.cpp; sourceTree = "<group>"; };
 		F4BBD767180ED6A40073B92D /* CCEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEventDispatcher.h; sourceTree = "<group>"; };
 		F4CB8653180D017700D81CF3 /* cocos2dx_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra.h; sourceTree = "<group>"; };
-		F4CB8656180D017700D81CF3 /* libb64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libb64.c; sourceTree = "<group>"; };
-		F4CB8657180D017700D81CF3 /* libb64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libb64.h; sourceTree = "<group>"; };
 		F4CB8658180D017700D81CF3 /* CCCrypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCrypto.cpp; sourceTree = "<group>"; };
 		F4CB8659180D017700D81CF3 /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
 		F4CB865B180D017700D81CF3 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
@@ -1540,8 +1540,8 @@
 		F4CB8655180D017700D81CF3 /* base64 */ = {
 			isa = PBXGroup;
 			children = (
-				F4CB8656180D017700D81CF3 /* libb64.c */,
-				F4CB8657180D017700D81CF3 /* libb64.h */,
+				F44A20D3182A51E800E181EB /* libbase64.c */,
+				F44A20D5182A51F000E181EB /* libbase64.h */,
 			);
 			path = base64;
 			sourceTree = "<group>";
@@ -2682,7 +2682,6 @@
 				F4315289180CF7E30046351C /* cpConstraint.c in Sources */,
 				F4315296180CF7E30046351C /* cpBB.c in Sources */,
 				F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */,
-				F4CB86AA180D017700D81CF3 /* libb64.c in Sources */,
 				F490FB6C180D64B6000A9B1C /* CCArmatureDataManager.cpp in Sources */,
 				F431529E180CF7E30046351C /* cpSpaceComponent.c in Sources */,
 				F4315290180CF7E30046351C /* cpRatchetJoint.c in Sources */,
@@ -2915,6 +2914,7 @@
 				F4E8813C17700E5E00577406 /* CCNodeLoader.cpp in Sources */,
 				F4E8813D17700E5E00577406 /* CCNodeLoaderLibrary.cpp in Sources */,
 				F490FB62180D64B6000A9B1C /* CCShaderNode.cpp in Sources */,
+				F44A20D4182A51E800E181EB /* libbase64.c in Sources */,
 				F431528D180CF7E30046351C /* cpGrooveJoint.c in Sources */,
 				F4E8813E17700E5E00577406 /* CCParticleSystemQuadLoader.cpp in Sources */,
 				F4E8813F17700E5E00577406 /* CCScale9SpriteLoader.cpp in Sources */,

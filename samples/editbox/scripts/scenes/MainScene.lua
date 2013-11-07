@@ -3,7 +3,43 @@ local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
 
+
+function newButton(imageName, listener, setAlpha)
+    local sprite = display.newScale9Sprite(imageName)
+    if setAlpha == nil then setAlpha = true end
+
+    sprite:setTouchEnabled(true)
+    sprite:addTouchEventListener(function(event, x, y)
+        if event == "began" then
+            if setAlpha then sprite:setOpacity(128) end
+            return true
+        end
+
+        local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+        if event == "moved" then
+            if touchInSprite then
+                if setAlpha then sprite:setOpacity(128) end
+            else
+                sprite:setOpacity(255)
+            end
+        elseif event == "ended" then
+            if touchInSprite then listener() end
+            sprite:setOpacity(255)
+        else
+            sprite:setOpacity(255)
+        end
+    end)
+
+    return sprite
+end
+
+
 function MainScene:ctor()
+    local btn = newButton("EditBoxBg.png", function ( )
+        print("button pressed")
+    end):addTo(self):pos(display.cx - 100, display.cy)
+    btn:setContentSize(cc.size(120, 160))
+
     local editBox2 = ui.newEditBox({
         image = "EditBoxBg.png",
         size = CCSize(400, 96),
@@ -25,6 +61,11 @@ function MainScene:ctor()
     })
     editBox2:setReturnType(kKeyboardReturnTypeSend)
     self:addChild(editBox2)
+
+    local btn = newButton("EditBoxBg.png", function ( )
+        print("button pressed")
+    end):addTo(self):pos(display.cx + 100, display.cy)
+    btn:setContentSize(cc.size(120, 160))
 end
 
 function MainScene:onEditBoxBegan(editbox)

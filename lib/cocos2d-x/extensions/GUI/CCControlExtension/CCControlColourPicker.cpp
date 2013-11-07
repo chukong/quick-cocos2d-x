@@ -103,9 +103,9 @@ bool CCControlColourPicker::init()
         float colourShift             = 28;
         
         m_huePicker = new CCControlHuePicker();
-        m_huePicker->initWithTargetAndPos(spriteSheet, ccp(backgroundPointZero.x + hueShift, backgroundPointZero.y + hueShift));
+        m_huePicker->initWithTargetAndPos(m_huePicker, ccp(backgroundPointZero.x + hueShift, backgroundPointZero.y + hueShift));
         m_colourPicker = new CCControlSaturationBrightnessPicker();
-        m_colourPicker->initWithTargetAndPos(spriteSheet, ccp(backgroundPointZero.x + colourShift, backgroundPointZero.y + colourShift));
+        m_colourPicker->initWithTargetAndPos(m_colourPicker, ccp(backgroundPointZero.x + colourShift, backgroundPointZero.y + colourShift));
         
         // Setup events
         m_huePicker->addTargetWithActionForControlEvents(this, cccontrol_selector(CCControlColourPicker::hueSliderValueChanged), CCControlEventValueChanged);

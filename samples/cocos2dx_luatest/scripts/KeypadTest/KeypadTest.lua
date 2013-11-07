@@ -1,6 +1,6 @@
-local function KeypadMainLayer()	
-	local pLayer = CCLayer:create()   
-	
+local function KeypadMainLayer()
+	local pLayer = CCLayer:create()
+
 	local  s = CCDirector:sharedDirector():getWinSize()
     local  label = CCLabelTTF:create("Keypad Test", "Arial", 28)
     pLayer:addChild(label, 0)
@@ -12,19 +12,19 @@ local function KeypadMainLayer()
     local pLabelTip = CCLabelTTF:create("Please press any key...", "Arial", 22)
     pLabelTip:setPosition(ccp(s.width / 2, s.height / 2))
     pLayer:addChild(pLabelTip, 0)
-    
+
     pLabelTip:retain()
-    
+
     local function KeypadHandler(strEvent)
-    	if "backClicked" == strEvent then
+    	if "back" == strEvent then
     		pLabelTip:setString("BACK clicked!");
-    	elseif "menuClicked" == strEvent then
+    	elseif "menu" == strEvent then
     		pLabelTip:setString("MENU clicked!");
     	end
     end
-    
+
     pLayer:registerScriptKeypadHandler(KeypadHandler)
-    
+
     return pLayer
 end
 

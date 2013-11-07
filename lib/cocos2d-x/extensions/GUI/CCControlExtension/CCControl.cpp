@@ -63,7 +63,7 @@ CCControl* CCControl::create()
 
 bool CCControl::init()
 {
-    if (CCLayer::init())
+    if (CCNode::init())
     {
         //this->setTouchEnabled(true);
         //m_bIsTouchEnabled=true;
@@ -94,19 +94,19 @@ CCControl::~CCControl()
 }
 
     //Menu - Events
-void CCControl::registerWithTouchDispatcher()
-{
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), true);
-}
+//void CCControl::registerWithTouchDispatcher()
+//{
+//    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), true);
+//}
 
 void CCControl::onEnter()
 {
-    CCLayer::onEnter();
+    CCNode::onEnter();
 }
 
 void CCControl::onExit()
 {
-    CCLayer::onExit();
+    CCNode::onExit();
 }
 
 void CCControl::sendActionsForControlEvents(CCControlEvent controlEvents)

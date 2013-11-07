@@ -1032,9 +1032,6 @@
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\CCCrypto.cpp">
       <Filter>cocos2d-x\external\extra\crypto</Filter>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\external\extra\crypto\base64\libb64.c">
-      <Filter>cocos2d-x\external\extra\crypto\base64</Filter>
-    </ClCompile>
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\md5\md5.c">
       <Filter>cocos2d-x\external\extra\crypto\md5</Filter>
     </ClCompile>
@@ -1205,6 +1202,9 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\lsqlite3.c">
       <Filter>cocos2d-x\scripting\lua\lua_extensions\lsqlite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\extra\crypto\base64\libbase64.c">
+      <Filter>cocos2d-x\external\extra\crypto\base64</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2189,9 +2189,6 @@
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\CCCrypto.h">
       <Filter>cocos2d-x\external\extra\crypto</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\external\extra\crypto\base64\libb64.h">
-      <Filter>cocos2d-x\external\extra\crypto\base64</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\md5\md5.h">
       <Filter>cocos2d-x\external\extra\crypto\md5</Filter>
     </ClInclude>
@@ -2401,6 +2398,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\sqlite3.h">
       <Filter>cocos2d-x\scripting\lua\lua_extensions\lsqlite3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\extra\crypto\base64\libbase64.h">
+      <Filter>cocos2d-x\external\extra\crypto\base64</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

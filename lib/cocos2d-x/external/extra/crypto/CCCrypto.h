@@ -53,15 +53,20 @@ public:
                                        unsigned char* key,
                                        int keyLength,
                                        int* resultLength);
+
+    /** @brief Get length of encoding data with Base64 algorithm */
+    static int encodeBase64Len(const char* input, int inputLength);
     
     /** @brief Encoding data with Base64 algorithm, return encoded string length */
-    static int encodeBase64(unsigned char* input, int inputLength,
+    static int encodeBase64(const char* input, int inputLength,
                             char* output, int outputBufferLength);
     
-    
+    /** @brief Get length of Decoding Base 64 */
+    static int decodeBase64Len(const char* input);
+
     /** @brief Decoding Base64 string to data, return decoded data length */
     static int decodeBase64(const char* input,
-                            void* output, int outputBufferLength);
+                            char* output, int outputBufferLength);
     
     /** @brief Calculate MD5, get MD5 code (not string) */
     static void MD5(void* input, int inputLength,
