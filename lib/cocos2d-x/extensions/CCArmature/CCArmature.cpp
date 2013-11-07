@@ -29,6 +29,9 @@ THE SOFTWARE.
 #include "datas/CCDatas.h"
 #include "display/CCSkin.h"
 
+//zrong 2013-11-07 for lua export
+#include "CCLuaEngine.h"
+
 NS_CC_EXT_BEGIN
 
 std::map<int, CCArmature *> CCArmature::m_sArmatureIndexDic;
@@ -120,7 +123,7 @@ bool CCArmature::init(const char *name)
         m_pAnimation->init(this);
 
 		//zrong 2013-11-06 export to lua
-		m_pAnimation->MovementEventSignal.connect(this, &CCArmature::handler_movementEvent);
+		m_pAnimation->MovementEventSignal.connect(this, &CCArmature::onMovementEvent);
 
         CC_SAFE_DELETE(m_pBoneDic);
         m_pBoneDic	= new CCDictionary();
@@ -584,9 +587,16 @@ CCBone *CCArmature::getBoneAtPoint(float x, float y)
 
 void CCArmature::onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId)
 {
-	if (kScriptTypeNone != m_eScriptType)
+	if (kScriptTypeNone != m_eScriptType && m_nScriptMovementHandler)
 	{
-		CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent();
+		CCLuaEngine* __luaEngine = dynamic_cast<CCLuaEngine*>(CCScriptEngineManager::sharedManager()->getScriptEngine());
+		if(__luaEngine)
+		{
+			CCArray* __param = CCArray::create();
+			__param->addObject(CCInteger::create(evtType));
+			__param->addObject(CCString::create(movId));
+			__luaEngine->executeEventWithArgs(m_nScriptMovementHandler, __param);
+		}
 	}
 }
 
