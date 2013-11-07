@@ -1,4 +1,8 @@
 
+ccp = CCPoint
+ccsize = CCSize
+ccrect = CCRect
+
 cc.p = CCPoint
 cc.size = CCSize
 cc.rect = CCRect

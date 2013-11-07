@@ -2,7 +2,8 @@
 #include "crypto/CCCrypto.h"
 
 extern "C" {
-#include "crypto/base64/libb64.h"
+//#include "crypto/base64/libb64.h"
+#include "crypto/base64/libbase64.h"
 #include "crypto/md5/md5.h"
 #include "crypto/xxtea/xxtea.h"
 }
@@ -42,50 +43,31 @@ unsigned char* CCCrypto::decryptXXTEA(unsigned char* ciphertext,
     return result;
 }
 
-int CCCrypto::encodeBase64(unsigned char* input,
+int CCCrypto::encodeBase64Len(const char* input, int inputLength)
+{
+    return Base64encode_len(inputLength);
+}
+
+int CCCrypto::encodeBase64(const char* input,
                            int inputLength,
                            char* output,
                            int outputBufferLength)
 {
-    int bufferSize = 2 * inputLength;
-    if (bufferSize < 16) bufferSize = 16;
-    char* buffer = (char*)malloc(bufferSize);
-    memset(buffer, 0, bufferSize);
-    
-    base64_encodestate state;
-    base64_init_encodestate(&state);
-    int r1 = base64_encode_block((const char*)input, inputLength, buffer, &state);
-    int r2 = base64_encode_blockend(buffer+ r1, &state);
-    
-    int dataUsed = r1 + r2;
-    memset(output, 0, outputBufferLength);
-    int cp = dataUsed < outputBufferLength ? dataUsed : outputBufferLength - 1;
-    memcpy(output, buffer, cp);
+    CCAssert(Base64encode_len(inputLength) <= outputBufferLength, "CCCrypto::encodeBase64() - outputBufferLength too small");
+    return Base64encode(output, input, inputLength);
+}
 
-    if (outputBufferLength > 0 && output[outputBufferLength - 1] == '\n')
-    {
-        output[outputBufferLength - 1] = '\0';
-    }
-    free(buffer);
-    return cp;
+int CCCrypto::decodeBase64Len(const char* input)
+{
+    return Base64decode_len(input);
 }
 
 int CCCrypto::decodeBase64(const char* input,
-                           void* output,
+                           char* output,
                            int outputBufferLength)
 {
-    int bufferSize = (int)strlen(input) + 1;
-    char* buffer = (char*)malloc(bufferSize);
-    memset(buffer, 0, bufferSize);
-    base64_decodestate state;
-    base64_init_decodestate(&state);
-    int r1 = base64_decode_block(input, bufferSize - 1, buffer, &state);
-    
-    memset(output, 0, outputBufferLength);
-    int cp = r1 < outputBufferLength ? r1 : outputBufferLength - 1;
-    memcpy(output, buffer, cp);
-    free(buffer);
-    return cp;
+    CCAssert(Base64decode_len(input) <= outputBufferLength, "CCCrypto::decodeBase64() - outputBufferLength too small");
+    return Base64decode(output, input);
 }
 
 void CCCrypto::MD5(void* input, int inputLength, unsigned char* output)
@@ -193,29 +175,27 @@ LUA_STRING CCCrypto::encodingBase64Lua(bool isDecoding,
 {
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
     stack->clean();
-    
-    int outputLength = inputLength * 2;
-    if (outputLength < 16) outputLength = 16;
-    char* output = static_cast<char*>(malloc(outputLength));
-    int dataUsed = -1;
-    
-    if (isDecoding)
+
+    int bufferSize = isDecoding ? Base64decode_len(input) : Base64encode_len(inputLength);
+    char *buffer = bufferSize ? (char*)malloc(bufferSize) : NULL;
+    int size = 0;
+
+    if (buffer)
     {
-        dataUsed = decodeBase64(input, output, outputLength);
+        size = isDecoding ? Base64decode(buffer, input) : Base64encode(buffer, input, inputLength);
     }
-    else
+    if (size)
     {
-        dataUsed = encodeBase64((unsigned char*)input, inputLength, output, outputLength);
-    }
-    if (dataUsed > 0 && dataUsed < outputLength)
-    {
-        stack->pushString(output, dataUsed);
+        stack->pushString(buffer, size);
     }
     else
     {
         stack->pushNil();
     }
-    free(output);
+    if (buffer)
+    {
+        free(buffer);
+    }
     return 1;
 }
 

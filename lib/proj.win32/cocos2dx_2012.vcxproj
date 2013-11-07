@@ -309,7 +309,7 @@
     <ClCompile Include="..\cocos2d-x\external\chipmunk\src\cpVect.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\external\extra\crypto\base64\libb64.c" />
+    <ClCompile Include="..\cocos2d-x\external\extra\crypto\base64\libbase64.c" />
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\CCCrypto.cpp" />
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\md5\md5.c" />
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\xxtea\xxtea.c" />
@@ -695,7 +695,7 @@
     <ClInclude Include="..\cocos2d-x\external\chipmunk\luabinding\CCPhysicsWorld_luabinding.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\src\prime.h" />
     <ClInclude Include="..\cocos2d-x\external\extra\cocos2dx_extra.h" />
-    <ClInclude Include="..\cocos2d-x\external\extra\crypto\base64\libb64.h" />
+    <ClInclude Include="..\cocos2d-x\external\extra\crypto\base64\libbase64.h" />
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\CCCrypto.h" />
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\md5\md5.h" />
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\xxtea\xxtea.h" />

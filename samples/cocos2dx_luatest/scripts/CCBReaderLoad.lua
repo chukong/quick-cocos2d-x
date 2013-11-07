@@ -32,7 +32,7 @@ function CCBuilderReaderLoad(strFilePath,proxy,owner)
 
         --Variables
         local ownerOutletNames =  tolua.cast(ccbReader:getOwnerOutletNames(),"CCArray")
-        local ownerOutletNodes =  tolua.cast(ccbReader:getOwnerOutletNodes(),"CCArray") 
+        local ownerOutletNodes =  tolua.cast(ccbReader:getOwnerOutletNodes(),"CCArray")
         for i = 1, ownerOutletNames:count() do
             local outletName = tolua.cast(ownerOutletNames:objectAtIndex(i - 1),"CCString")
             local outletNode = tolua.cast(ownerOutletNodes:objectAtIndex(i - 1),"CCNode")
@@ -48,12 +48,12 @@ function CCBuilderReaderLoad(strFilePath,proxy,owner)
         local animationManager = tolua.cast(animationManagersForNodes:objectAtIndex(i - 1), "CCBAnimationManager")
         local documentControllerName = animationManager:getDocumentControllerName()
         if "" == documentControllerName then
-            
+
         end
         if nil ~=  ccb[documentControllerName] then
             ccb[documentControllerName]["mAnimationManager"] = animationManager
         end
-        
+
         --Callbacks
         local documentCallbackNames = tolua.cast(animationManager:getDocumentCallbackNames(),"CCArray")
         local documentCallbackNodes = tolua.cast(animationManager:getDocumentCallbackNodes(),"CCArray")
@@ -70,7 +70,7 @@ function CCBuilderReaderLoad(strFilePath,proxy,owner)
                         proxy:setCallback(callbackNode, ccb[documentControllerName][cbName], integerValue:getValue())
                     end
                 else
-                    print("Warning: Cannot found lua function [" .. documentControllerName .. ":" .. callbackName .. "] for docRoot selector")
+                    print("Warning: Cannot found lua function [" .. documentControllerName .. ":" .. callbackName:getCString() .. "] for docRoot selector")
                 end
             end
         end
@@ -82,10 +82,10 @@ function CCBuilderReaderLoad(strFilePath,proxy,owner)
         for i = 1, documentOutletNames:count() do
             local outletName = tolua.cast(documentOutletNames:objectAtIndex(i - 1),"CCString")
             local outletNode = tolua.cast(documentOutletNodes:objectAtIndex(i - 1),"CCNode")
-            
+
             if nil ~= ccb[documentControllerName] then
                 ccb[documentControllerName][outletName:getCString()] = tolua.cast(outletNode, proxy:getNodeTypeName(outletNode))
-            end 
+            end
         end
 
         --Setup timeline callbacks
