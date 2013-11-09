@@ -42,6 +42,8 @@ public:
     static CCLuaStack *create(void);
     static CCLuaStack *attach(lua_State *L);
 
+    ~CCLuaStack(void);
+
     /**
      @brief Method used to get a pointer to the lua_State that the script module is attached to.
      @return A pointer to the lua_State that the script module is attached to.
@@ -123,10 +125,16 @@ public:
     virtual bool handleAssert(const char *msg);
 
     virtual int loadChunksFromZip(const char *zipFilePath);
+    virtual void setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen);
 
 protected:
     CCLuaStack(void)
     : m_state(NULL)
+    , m_xxteaEnabled(false)
+    , m_xxteaKey(NULL)
+    , m_xxteaKeyLen(0)
+    , m_xxteaSign(NULL)
+    , m_xxteaSignLen(0)
     , m_callFromLua(0)
     {
     }
@@ -135,11 +143,24 @@ protected:
     bool initWithLuaState(lua_State *L);
 
     lua_State *m_state;
+    bool m_xxteaEnabled;
+    char *m_xxteaKey;
+    int m_xxteaKeyLen;
+    char *m_xxteaSign;
+    int m_xxteaSignLen;
     int m_callFromLua;
     static struct cc_timeval m_lasttime;
 
     static int lua_print(lua_State *L);
     static int lua_loadChunksFromZIP(lua_State *L);
+    static int lua_loadbuffer(lua_State *L,
+                              const char *chunk,
+                              int chunkSize,
+                              const char *chunkName,
+                              const char *xxteaKey = NULL,
+                              int xxteaKeyLen = 0,
+                              const char *xxteaSign = NULL,
+                              int xxteaSignLen = 0);
 };
 
 NS_CC_END
