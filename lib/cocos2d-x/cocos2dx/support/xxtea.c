@@ -16,7 +16,7 @@
  
  *************************************************************************/
 
-#include "./xxtea.h"
+#include "xxtea.h"
 #include <memory.h>
 #include <stdlib.h>
 
