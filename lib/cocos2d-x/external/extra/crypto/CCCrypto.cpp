@@ -5,7 +5,7 @@ extern "C" {
 //#include "crypto/base64/libb64.h"
 #include "crypto/base64/libbase64.h"
 #include "crypto/md5/md5.h"
-#include "crypto/xxtea/xxtea.h"
+#include "xxtea.h"
 }
 
 #if CC_LUA_ENGINE_ENABLED > 0
