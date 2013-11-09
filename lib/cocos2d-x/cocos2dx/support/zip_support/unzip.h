@@ -51,6 +51,7 @@
 
 #ifndef  _ZLIBIOAPI_H
 #include "ioapi.h"
+#include "ioapi_mem.h"
 #endif
 
 #ifdef HAVE_BZIP2
@@ -165,6 +166,8 @@ int CC_DLL unzStringFileNameCompare OF ((const char* fileName1,
 
 unzFile CC_DLL unzOpen OF((const char *path));
 unzFile CC_DLL unzOpen64 OF((const void *path));
+unzFile CC_DLL unzOpenBuffer OF((const void* buffer, uLong size));
+
 /*
   Open a Zip file. path contain the full pathname (by example,
      on a Windows XP computer "c:\\zlib\\zlib113.zip" or on an Unix computer
