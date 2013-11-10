@@ -25,6 +25,7 @@ function AppBase:run()
 end
 
 function AppBase:exit()
+    CCDirector:sharedDirector():endToLua()
     os.exit()
 end
 
