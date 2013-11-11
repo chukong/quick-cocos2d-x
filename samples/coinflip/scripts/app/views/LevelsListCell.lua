@@ -1,5 +1,5 @@
 
-local ScrollViewCell = require("ui.ScrollViewCell")
+local ScrollViewCell = import("..ui.ScrollViewCell")
 local LevelsListCell = class("LevelsListCell", ScrollViewCell)
 
 function LevelsListCell:ctor(size, beginLevelIndex, endLevelIndex, rows, cols)

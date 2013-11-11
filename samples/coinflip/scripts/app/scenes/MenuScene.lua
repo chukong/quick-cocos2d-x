@@ -1,4 +1,7 @@
 
+local AdBar = import("..views.AdBar")
+local BubbleButton = import("..views.BubbleButton")
+
 local MenuScene = class("MenuScene", function()
     return display.newScene("MenuScene")
 end)
@@ -7,11 +10,10 @@ function MenuScene:ctor()
     self.bg = display.newSprite("#MenuSceneBg.png", display.cx, display.cy)
     self:addChild(self.bg)
 
-    self.adBar = require("views.AdBar").new()
+    self.adBar = AdBar.new()
     self:addChild(self.adBar)
 
     -- create menu
-    local BubbleButton = require("views.BubbleButton")
     self.moreGamesButton = BubbleButton.new({
         image = "#MenuSceneMoreGamesButton.png",
         x = display.left + 150,
@@ -22,7 +24,7 @@ function MenuScene:ctor()
             self.layer:setKeypadEnabled(false)
         end,
         listener = function()
-            game.enterMoreGamesScene()
+            app:enterMoreGamesScene()
         end,
     })
 
@@ -36,7 +38,7 @@ function MenuScene:ctor()
             self.layer:setKeypadEnabled(false)
         end,
         listener = function()
-            game.enterChooseLevelScene()
+            app:enterChooseLevelScene()
         end,
     })
 
@@ -48,7 +50,7 @@ function MenuScene:ctor()
     self.layer:addKeypadEventListener(function(event)
         if event == "back" then
             audio.playSound(GAME_SFX.backButton)
-            game.exit()
+            app:exit()
         end
     end)
     self:addChild(self.layer)

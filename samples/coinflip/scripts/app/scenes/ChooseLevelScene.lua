@@ -1,4 +1,7 @@
 
+local AdBar = import("..views.AdBar")
+local LevelsList = import("..views.LevelsList")
+
 local ChooseLevelScene = class("ChooseLevelScene", function()
     return display.newScene("ChooseLevelScene")
 end)
@@ -12,12 +15,12 @@ function ChooseLevelScene:ctor()
     local title = display.newSprite("#Title.png", display.cx, display.top - 100)
     self:addChild(title)
 
-    local adBar = require("views.AdBar").new()
+    local adBar = AdBar.new()
     self:addChild(adBar)
 
     -- create levels list
     local rect = CCRect(display.left, display.bottom + 180, display.width, display.height - 280)
-    self.levelsList = require("views.LevelsList").new(rect)
+    self.levelsList = LevelsList.new(rect)
     self.levelsList:addEventListener("onTapLevelIcon", handler(self, self.onTapLevelIcon))
     self:addChild(self.levelsList)
 
@@ -29,7 +32,7 @@ function ChooseLevelScene:ctor()
         y = display.bottom + 120,
         sound = GAME_SFX.backButton,
         listener = function()
-            game.enterMenuScene()
+            app:enterMenuScene()
         end,
     })
 
@@ -39,7 +42,7 @@ end
 
 function ChooseLevelScene:onTapLevelIcon(event)
     audio.playSound(GAME_SFX.tapButton)
-    game.playLevel(event.levelIndex)
+    app:playLevel(event.levelIndex)
 end
 
 function ChooseLevelScene:onEnter()

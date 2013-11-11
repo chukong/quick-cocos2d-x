@@ -1,7 +1,6 @@
 
-local Levels = require("data.Levels")
-local Coin   = require("views.Coin")
-local EventProtocol = require("framework.api.EventProtocol")
+local Levels = import("..data.Levels")
+local Coin   = import("..views.Coin")
 
 local Board = class("Board", function()
     return display.newLayer()
@@ -13,7 +12,7 @@ local NODE_ZORDER    = 0
 local COIN_ZORDER    = 1000
 
 function Board:ctor(levelData)
-    EventProtocol.extend(self)
+    cc.GameObject.extend(self):addComponent("components.behavior.EventProtocol"):exportMethods()
 
     self.batch = display.newBatchNode(GAME_TEXTURE_IMAGE_FILENAME)
     self.batch:setPosition(display.cx, display.cy)

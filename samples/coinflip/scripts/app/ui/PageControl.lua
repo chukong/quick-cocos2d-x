@@ -1,5 +1,5 @@
 
-local ScrollView = require("ui.ScrollView")
+local ScrollView = import(".ScrollView")
 local PageControl = class("PageControl", ScrollView)
 
 function PageControl:onTouchEndedWithoutTap(x, y)

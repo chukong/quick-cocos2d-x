@@ -1,6 +1,7 @@
 
 local Levels = import("..data.Levels")
 local Board = import("..views.Board")
+local AdBar = import("..views.AdBar")
 
 local PlayLevelScene = class("PlayLevelScene", function()
     return display.newScene("PlayLevelScene")
@@ -16,7 +17,7 @@ function PlayLevelScene:ctor(levelIndex)
     title:setScale(0.5)
     self:addChild(title)
 
-    local adBar = require("views.AdBar").new()
+    local adBar = AdBar.new()
     self:addChild(adBar)
 
     local label = ui.newBMFontLabel({
@@ -40,7 +41,7 @@ function PlayLevelScene:ctor(levelIndex)
         y = display.bottom + 120,
         sound = GAME_SFX.backButton,
         listener = function()
-            game.enterChooseLevelScene()
+            app:enterChooseLevelScene()
         end,
     })
 

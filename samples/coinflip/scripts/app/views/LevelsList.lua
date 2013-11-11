@@ -1,7 +1,8 @@
 
-local LevelsListCell = require("views.LevelsListCell")
+local LevelsListCell = import(".LevelsListCell")
+local Levels = import("..data.Levels")
 
-local PageControl = require("ui.PageControl")
+local PageControl = import("..ui.PageControl")
 local LevelsList = class("LevelsList", PageControl)
 
 LevelsList.INDICATOR_MARGIN = 46
@@ -13,7 +14,6 @@ function LevelsList:ctor(rect)
     local rows, cols = 4, 4
     if display.height > 1000 then rows = rows + 1 end
 
-    local Levels = require("data.Levels")
     local numPages = math.ceil(Levels.numLevels() / (rows * cols))
     local levelIndex = 1
 

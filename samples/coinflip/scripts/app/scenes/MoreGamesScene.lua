@@ -1,4 +1,6 @@
 
+local AdBar = import("..views.AdBar")
+
 local MoreGamesScene = class("MoreGamesScene", function()
     return display.newScene("MoreGamesScene")
 end)
@@ -7,7 +9,7 @@ function MoreGamesScene:ctor()
     self.bg = display.newSprite("#MenuSceneBg.png", display.cx, display.cy)
     self:addChild(self.bg)
 
-    self.adBar = require("views.AdBar").new()
+    self.adBar = AdBar.new()
     self:addChild(self.adBar)
 
     local backButton = ui.newImageMenuItem({
@@ -17,7 +19,7 @@ function MoreGamesScene:ctor()
         y = display.bottom + 120,
         sound = GAME_SFX.backButton,
         listener = function()
-            game.enterMenuScene()
+            app:enterMenuScene()
         end
     })
 
