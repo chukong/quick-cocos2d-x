@@ -69,6 +69,8 @@ bool CCControl::init()
         //m_bIsTouchEnabled=true;
         // Initialise instance variables
         m_eState=CCControlStateNormal;
+        setCascadeOpacityEnabled(true);
+        setCascadeColorEnabled(true);
         setEnabled(true);
         setSelected(false);
         setHighlighted(false);
