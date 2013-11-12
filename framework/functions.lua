@@ -339,6 +339,31 @@ function table.removeItem(list, item, removeAll)
     end
 end
 
+function table.walk(t, fun)
+    for k,v in pairs(t) do
+        t[k] = fun(v, k)
+    end
+end
+
+function table.filter(t, fun)
+    for k,v in pairs(t) do
+        if not fun(v, k) then
+            t[k] = nil
+        end
+    end
+end
+
+function table.find(t, item)
+    return table.keyOfItem(t, item) ~= nil
+end
+
+function table.keyOfItem(t, item)
+    for k,v in pairs(t) do
+        if v == item then return k end
+    end
+    return nil
+end
+
 function string.htmlspecialchars(input)
     for k, v in pairs(string._htmlspecialchars_set) do
         input = string.gsub(input, k, v)
