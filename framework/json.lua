@@ -18,4 +18,6 @@ function json.decode(text)
     end
 end
 
+json.null = cjson.null
+
 return json
