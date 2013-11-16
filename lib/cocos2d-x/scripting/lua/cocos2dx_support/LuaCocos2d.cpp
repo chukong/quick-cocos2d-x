@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Sun Nov  3 17:43:19 2013.
+** Generated automatically by tolua++-1.0.92 on Sat Nov 16 17:19:23 2013.
 */
 
 /****************************************************************************
@@ -8269,6 +8269,94 @@ static int tolua_Cocos2d_CCFileUtils_purgeCachedEntries00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'purgeCachedEntries'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getFileData of class  CCFileUtils */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCFileUtils_getFileData00
+static int tolua_Cocos2d_CCFileUtils_getFileData00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCFileUtils",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCFileUtils* self = (CCFileUtils*)  tolua_tousertype(tolua_S,1,0);
+  const char* pszFileName = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFileData'", NULL);
+#endif
+  {
+   unsigned long size = 0;
+    unsigned char* buffer = self->getFileData(pszFileName, "rb", &size);
+    if (buffer && size)
+    {
+        lua_pushlstring(tolua_S, (char*)buffer, size);
+    }
+    else
+    {
+        lua_pushnil(tolua_S);
+    }
+    if (buffer) delete[] buffer;
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getFileData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getFileDataFromZip of class  CCFileUtils */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCFileUtils_getFileDataFromZip00
+static int tolua_Cocos2d_CCFileUtils_getFileDataFromZip00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCFileUtils",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCFileUtils* self = (CCFileUtils*)  tolua_tousertype(tolua_S,1,0);
+  const char* pszZipFilePath = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* pszFileName = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFileDataFromZip'", NULL);
+#endif
+  {
+   unsigned long size = 0;
+    unsigned char* buffer = self->getFileDataFromZip(pszZipFilePath, pszFileName, &size);
+    if (buffer && size)
+    {
+        lua_pushlstring(tolua_S, (char*)buffer, size);
+    }
+    else
+    {
+        lua_pushnil(tolua_S);
+    }
+    if (buffer) delete[] buffer;
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getFileDataFromZip'.",&tolua_err);
  return 0;
 #endif
 }
@@ -62144,6 +62232,8 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"CCFileUtils");
    tolua_function(tolua_S,"sharedFileUtils",tolua_Cocos2d_CCFileUtils_sharedFileUtils00);
    tolua_function(tolua_S,"purgeCachedEntries",tolua_Cocos2d_CCFileUtils_purgeCachedEntries00);
+   tolua_function(tolua_S,"getFileData",tolua_Cocos2d_CCFileUtils_getFileData00);
+   tolua_function(tolua_S,"getFileDataFromZip",tolua_Cocos2d_CCFileUtils_getFileDataFromZip00);
    tolua_function(tolua_S,"fullPathForFilename",tolua_Cocos2d_CCFileUtils_fullPathForFilename00);
    tolua_function(tolua_S,"loadFilenameLookupDictionaryFromFile",tolua_Cocos2d_CCFileUtils_loadFilenameLookupDictionaryFromFile00);
    tolua_function(tolua_S,"setFilenameLookupDictionary",tolua_Cocos2d_CCFileUtils_setFilenameLookupDictionary00);

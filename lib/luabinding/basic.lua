@@ -322,19 +322,47 @@ extern "C" {
 using namespace cocos2d;
 using namespace CocosDenshion;]])
 
-      replace([[/* Exported function */
+    replace([[/* Exported function */
 TOLUA_API int  tolua_Cocos2d_open (lua_State* tolua_S);]], [[]])
 
-      replace([[*((LUA_FUNCTION*)]], [[(]])
+    replace([[*((LUA_FUNCTION*)]], [[(]])
 
-      replace([[tolua_usertype(tolua_S,"LUA_FUNCTION");]], [[]])
+    replace([[tolua_usertype(tolua_S,"LUA_FUNCTION");]], [[]])
 
-      replace([[toluafix_pushusertype_ccobject(tolua_S,(void*)tolua_ret]],
+    replace([[toluafix_pushusertype_ccobject(tolua_S,(void*)tolua_ret]],
         [[int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
     int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
     toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret]])
 
-      replace('\t', '    ')
+    replace([[int tolua_ret = (int)  self->getFileData(pszFileName);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);]],
+        [[unsigned long size = 0;
+    unsigned char* buffer = self->getFileData(pszFileName, "rb", &size);
+    if (buffer && size)
+    {
+        lua_pushlstring(tolua_S, (char*)buffer, size);
+    }
+    else
+    {
+        lua_pushnil(tolua_S);
+    }
+    if (buffer) delete[] buffer;]])
+
+    replace([[int tolua_ret = (int)  self->getFileDataFromZip(pszZipFilePath,pszFileName);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);]],
+        [[unsigned long size = 0;
+    unsigned char* buffer = self->getFileDataFromZip(pszZipFilePath, pszFileName, &size);
+    if (buffer && size)
+    {
+        lua_pushlstring(tolua_S, (char*)buffer, size);
+    }
+    else
+    {
+        lua_pushnil(tolua_S);
+    }
+    if (buffer) delete[] buffer;]])
+
+    replace('\t', '    ')
 
     WRITE(result)
 end
