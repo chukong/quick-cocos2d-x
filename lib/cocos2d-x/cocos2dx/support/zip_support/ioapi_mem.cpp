@@ -75,8 +75,14 @@ namespace cocos2d {
          * size of an int and therefore may need addressing for 64bit
          * architectures
          */
-        if (sscanf((const char*)filename,"%x+%x",&mem->base,&mem->size)!=2)
+        memset(mem, 0, sizeof(ourmemory_t));
+        unsigned int base = 0;
+        unsigned int size = 0;
+        if (sscanf((const char*)filename,"%x+%x",&base,&size)!=2)
             return NULL;
+
+        mem->base = (char*)base;
+        mem->size = size;
 
         if (mode & ZLIB_FILEFUNC_MODE_CREATE)
             mem->limit=0; /* When writing we start with 0 bytes written */
