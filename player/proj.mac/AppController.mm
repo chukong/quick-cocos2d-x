@@ -189,7 +189,7 @@ using namespace cocos2d::extra;
         CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
         if (projectConfig.isWriteDebugLogToFile())
         {
-            [self writeDebugLogToFile:[self getDebugLogFilePath]];
+            [self writeDebugLogToFile:projectConfig.getDebugLogFilePath()];
         }
     }
 
@@ -455,13 +455,6 @@ using namespace cocos2d::extra;
 						contextInfo:nil];
 }
 
-- (const string) getDebugLogFilePath
-{
-    string path(projectConfig.getProjectDir());
-    path.append("debug.log");
-    return path;
-}
-
 - (bool) writeDebugLogToFile:(const string)path
 {
     if (debugLogFile) return true;
@@ -660,7 +653,7 @@ using namespace cocos2d::extra;
     bool isWrite = projectConfig.isWriteDebugLogToFile();
     if (!isWrite)
     {
-        if ([self writeDebugLogToFile:[self getDebugLogFilePath]])
+        if ([self writeDebugLogToFile:projectConfig.getDebugLogFilePath()])
         {
             projectConfig.setWriteDebugLogToFile(true);
             [(NSMenuItem*)sender setState:NSOnState];
@@ -676,7 +669,7 @@ using namespace cocos2d::extra;
 
 - (IBAction) onPlayerOpenDebugLog:(id)sender
 {
-    const string path = [self getDebugLogFilePath];
+    const string path = projectConfig.getDebugLogFilePath();
     [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
 }
 

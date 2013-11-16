@@ -83,7 +83,6 @@ extern "C"
 
         if (codeBuffer)
         {
-            CCLOG("load buffer %s", codePath.c_str());
             if (luaL_loadbuffer(L, (char*)codeBuffer, codeBufferSize, codePath.c_str()) != 0)
             {
                 luaL_error(L, "error loading module %s from file %s :\n\t%s",
