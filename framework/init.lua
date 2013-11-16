@@ -39,9 +39,9 @@ crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 json       = require(cc.PACKAGE_NAME .. ".json")
 
 if device.platform == "android" then
-    luaj = require(cc.PACKAGE_NAME .. ".luaj")
+    require(cc.PACKAGE_NAME .. ".platform.android")
 elseif device.platform == "ios" then
-    luaoc = require(cc.PACKAGE_NAME .. ".luaoc")
+    require(cc.PACKAGE_NAME .. ".platform.ios")
 end
 
 if not NO_EXTENSIONS then
