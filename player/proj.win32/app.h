@@ -27,7 +27,7 @@ public:
     HWND getWindowHandle(void) {
         return m_hwnd;
     }
-
+	
 private:
     static QuickXPlayer *s_sharedInstance;
     static QuickXPlayer *sharedInstance(void);
@@ -40,6 +40,7 @@ private:
 
     HWND m_hwnd;
     BOOL m_exit;
+    FILE *m_writeDebugLogFile;
 
     int run(void);
     void loadProjectConfig(void);
@@ -48,6 +49,9 @@ private:
     void updateMenu(void);
     void updateWindowTitle(void);
     void relaunch(void);
+    
+    // debug log
+	void writeDebugLog(const char *log);
 
 	// welcome callback
 	void onWelcomeNewProject(CCObject *object);

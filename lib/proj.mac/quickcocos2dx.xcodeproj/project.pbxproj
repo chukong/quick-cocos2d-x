@@ -2359,11 +2359,11 @@
 				F4E8801C1770071600577406 /* ioapi.cpp */,
 				F4E8801D1770071600577406 /* ioapi.h */,
 				F4A3A8E9182DAF700000EDD1 /* ioapi_mem.cpp */,
+				F4A3A8EB182DAFA90000EDD1 /* ioapi_mem.h */,
 				F4E8801E1770071600577406 /* unzip.cpp */,
 				F4E8801F1770071600577406 /* unzip.h */,
 				F4E880201770071600577406 /* ZipUtils.cpp */,
 				F4E880211770071600577406 /* ZipUtils.h */,
-				F4A3A8EB182DAFA90000EDD1 /* ioapi_mem.h */,
 			);
 			path = zip_support;
 			sourceTree = "<group>";
