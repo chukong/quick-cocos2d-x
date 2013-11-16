@@ -5,6 +5,10 @@
 #include "stdafx.h"
 #include "app.h"
 
+#include <io.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
 #include <Commdlg.h>
 #include <Shlobj.h>
 #include <winnls.h>
@@ -21,7 +25,6 @@
 #include "CCLuaStack.h"
 #include "SimpleAudioEngine.h"
 #include "ProjectConfigDialog.h"
-
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
@@ -65,6 +68,7 @@ QuickXPlayer::QuickXPlayer(void)
 : m_app(NULL)
 , m_hwnd(NULL)
 , m_exit(TRUE)
+, m_writeDebugLogFile(NULL)
 {
     INITCOMMONCONTROLSEX InitCtrls;
     InitCtrls.dwSize = sizeof(InitCtrls);
@@ -98,9 +102,19 @@ int QuickXPlayer::run(void)
 			if (hMenu != NULL) DeleteMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
 
 			ShowWindow(hwndConsole, SW_SHOW);
-            BringWindowToTop(hwndConsole);
+		    BringWindowToTop(hwndConsole);
 		}
 	}
+
+    if (m_project.isWriteDebugLogToFile())
+    {
+        const string debugLogFilePath = m_project.getDebugLogFilePath();
+        m_writeDebugLogFile = fopen(debugLogFilePath.c_str(), "w");
+        if (!m_writeDebugLogFile)
+        {
+            CCLOG("Cannot create debug log file %s", debugLogFilePath.c_str());
+        }
+    }
 
     CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
     CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeOpen), "WELCOME_OPEN", NULL);
@@ -171,6 +185,7 @@ int QuickXPlayer::run(void)
     } while (!m_exit);
 
     FreeConsole();
+    if (m_writeDebugLogFile) fclose(m_writeDebugLogFile);
     return 0;
 }
 
@@ -269,12 +284,15 @@ void QuickXPlayer::relaunch(void)
 	{
 		ExitProcess(0);
 	}
+}
 
-    //RECT rect;
-    //GetWindowRect(m_hwnd, &rect);
-    //m_project.setWindowOffset(CCPoint(rect.left, rect.top));
-    //m_exit = false;
-    //CCDirector::sharedDirector()->end();
+void QuickXPlayer::writeDebugLog(const char *log)
+{
+    if (!m_writeDebugLogFile) return;
+
+    fputs(log, m_writeDebugLogFile);
+    fputc('\n', m_writeDebugLogFile);
+    fflush(m_writeDebugLogFile);
 }
 
 // welcome callback
@@ -518,6 +536,17 @@ LRESULT QuickXPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
             host->onFileRelaunch();
         }
         break;
+
+	case WM_COPYDATA:
+		{
+			PCOPYDATASTRUCT pMyCDS = (PCOPYDATASTRUCT) lParam;
+			if (pMyCDS->dwData == CCLOG_STRING)
+			{
+                const char *szBuf = (const char*)(pMyCDS->lpData);
+                sharedInstance()->writeDebugLog(szBuf);
+				break;
+			}
+		}
 
     default:
         return 0;

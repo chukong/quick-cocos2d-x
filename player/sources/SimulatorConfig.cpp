@@ -200,6 +200,13 @@ void ProjectConfig::setWriteDebugLogToFile(bool writeDebugLogToFile)
     m_writeDebugLogToFile = writeDebugLogToFile;
 }
 
+const string ProjectConfig::getDebugLogFilePath(void)
+{
+    string path(getProjectDir());
+    path.append("debug.log");
+    return path;
+}
+
 const CCPoint ProjectConfig::getWindowOffset(void)
 {
     return m_windowOffset;
