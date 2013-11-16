@@ -21,6 +21,7 @@
 #include "CCLuaStack.h"
 #include "SimpleAudioEngine.h"
 #include "ProjectConfigDialog.h"
+#include "Registry.h"
 
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -82,6 +83,8 @@ int QuickXPlayer::run(void)
 	{
 		m_project.resetToWelcome();
 	}
+
+    loadOpenRecents();
 
 	HWND hwndConsole = NULL;
 	if (m_project.isShowConsole())
@@ -185,6 +188,24 @@ void QuickXPlayer::loadProjectConfig(void)
         args.push_back(s);
     }
     m_project.parseCommandLine(args);
+}
+
+void QuickXPlayer::loadOpenRecents(void)
+{
+    CRegistry *reg = new CRegistry(HKEY_CURRENT_USER, "quick-x\\quick-x-player\\recents");
+    string jsonString;
+    reg->ReadStringValue(jsonString);
+    delete reg;
+
+    if (jsonString.length() == 0)
+    {
+        jsonString = "{}";
+    }
+    CCLuaStack *stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    string code("_G[\"OPEN_RECENTS\"] = '");
+    code.append(jsonString);
+    code.append("'");
+    stack->executeString(code.c_str());
 }
 
 void QuickXPlayer::createViewMenu(void)

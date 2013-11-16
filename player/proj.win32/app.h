@@ -7,6 +7,7 @@
 #include "CCStdC.h"
 
 #include <string>
+
 #include "cocos2d.h"
 #include "AppDelegate.h"
 #include "SimulatorConfig.h"
@@ -42,6 +43,7 @@ private:
 
     int run(void);
     void loadProjectConfig(void);
+    void loadOpenRecents(void);
     void createViewMenu(void);
     void updateMenu(void);
     void updateWindowTitle(void);
