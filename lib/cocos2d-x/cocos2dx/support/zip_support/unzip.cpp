@@ -807,7 +807,7 @@ unzFile ZEXPORT unzOpenBuffer (const  void* buffer, uLong size)
     zlib_filefunc64_32_def memory_file;
     uLong base = (uLong)buffer;
 
-    sprintf(path, "%x+%x", base, size);
+    sprintf(path, "%x+%x", (unsigned int)base, (unsigned int)size);
 
     fill_memory_filefunc64_32(&memory_file);
     return unzOpenInternal(path, &memory_file, 0);
