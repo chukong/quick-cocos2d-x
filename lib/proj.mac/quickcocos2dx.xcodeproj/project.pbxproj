@@ -55,7 +55,7 @@
 		F43152BC180CF7FD0046351C /* CursorTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43152B6180CF7FD0046351C /* CursorTextField.cpp */; };
 		F43152BD180CF7FD0046351C /* UIUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F43152B8180CF7FD0046351C /* UIUtil.cpp */; };
 		F44A20D4182A51E800E181EB /* libbase64.c in Sources */ = {isa = PBXBuildFile; fileRef = F44A20D3182A51E800E181EB /* libbase64.c */; };
-		F44E611A182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44E6118182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.cpp */; };
+		F44E611A182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44E6118182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
 		F477B8491757404200260C19 /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B7391757404200260C19 /* CCCamera.cpp */; };
@@ -97,7 +97,6 @@
 		F4A3A8E6182DA3E50000EDD1 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8E4182DA3E50000EDD1 /* xxtea.c */; };
 		F4A3A8EA182DAF700000EDD1 /* ioapi_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8E9182DAF700000EDD1 /* ioapi_mem.cpp */; };
 		F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */; };
-		F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */; };
 		F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */; };
 		F4A9C09816BC3AF400088CF7 /* tolua_fix.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A9C08816BC3AF400088CF7 /* tolua_fix.c */; };
 		F4B4EEC216C7E05800736FFE /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B4EEC016C7E05800736FFE /* CCLuaBridge.cpp */; };
@@ -431,8 +430,8 @@
 		F43152B9180CF7FD0046351C /* UIUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIUtil.h; sourceTree = "<group>"; };
 		F44A20D3182A51E800E181EB /* libbase64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libbase64.c; sourceTree = "<group>"; };
 		F44A20D5182A51F000E181EB /* libbase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libbase64.h; sourceTree = "<group>"; };
-		F44E6118182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaXXTEALoader.cpp; sourceTree = "<group>"; };
-		F44E6119182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxLuaXXTEALoader.h; sourceTree = "<group>"; };
+		F44E6118182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaLoader.cpp; sourceTree = "<group>"; };
+		F44E6119182AC7E600016FD1 /* Cocos2dxLuaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxLuaLoader.h; sourceTree = "<group>"; };
 		F44F3C3616EB1B54009ED7F0 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
@@ -531,8 +530,6 @@
 		F4A3A8EB182DAFA90000EDD1 /* ioapi_mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ioapi_mem.h; sourceTree = "<group>"; };
 		F4A9C07316BC3AF400088CF7 /* CCLuaEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLuaEngine.cpp; sourceTree = "<group>"; };
 		F4A9C07416BC3AF400088CF7 /* CCLuaEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLuaEngine.h; sourceTree = "<group>"; };
-		F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaLoader.cpp; sourceTree = "<group>"; };
-		F4A9C07A16BC3AF400088CF7 /* Cocos2dxLuaLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxLuaLoader.h; sourceTree = "<group>"; };
 		F4A9C07B16BC3AF400088CF7 /* LuaCocos2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocos2d.cpp; sourceTree = "<group>"; };
 		F4A9C07C16BC3AF400088CF7 /* LuaCocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocos2d.h; sourceTree = "<group>"; };
 		F4A9C08816BC3AF400088CF7 /* tolua_fix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_fix.c; sourceTree = "<group>"; };
@@ -1895,10 +1892,8 @@
 				F4B4EEC916C7E06F00736FFE /* CCLuaStack.h */,
 				F4B4EECA16C7E06F00736FFE /* CCLuaValue.cpp */,
 				F4B4EECB16C7E06F00736FFE /* CCLuaValue.h */,
-				F4A9C07916BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp */,
-				F4A9C07A16BC3AF400088CF7 /* Cocos2dxLuaLoader.h */,
-				F44E6118182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.cpp */,
-				F44E6119182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.h */,
+				F44E6118182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp */,
+				F44E6119182AC7E600016FD1 /* Cocos2dxLuaLoader.h */,
 				F47872DF180C8EBC008F0508 /* lua_cocos2dx_extensions_manual.cpp */,
 				F47872E0180C8EBC008F0508 /* lua_cocos2dx_extensions_manual.h */,
 				F47872E1180C8EBC008F0508 /* Lua_extensions_CCB.cpp */,
@@ -2667,7 +2662,6 @@
 				F4CB87B5180D02F600D81CF3 /* usocket.c in Sources */,
 				F4DE0B4016800261005DB2DB /* tolua_to.c in Sources */,
 				F4A9C08C16BC3AF400088CF7 /* CCLuaEngine.cpp in Sources */,
-				F4A9C09216BC3AF400088CF7 /* Cocos2dxLuaLoader.cpp in Sources */,
 				F4A9C09416BC3AF400088CF7 /* LuaCocos2d.cpp in Sources */,
 				F4CB87A5180D02F600D81CF3 /* lua_extensions.c in Sources */,
 				F4A9C09816BC3AF400088CF7 /* tolua_fix.c in Sources */,
@@ -2710,7 +2704,7 @@
 				F4E87F3F177006E900577406 /* CCActionManager.cpp in Sources */,
 				F490FB5B180D64B6000A9B1C /* CCArmature.cpp in Sources */,
 				F4E87F40177006E900577406 /* CCActionPageTurn3D.cpp in Sources */,
-				F44E611A182AC7E600016FD1 /* Cocos2dxLuaXXTEALoader.cpp in Sources */,
+				F44E611A182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp in Sources */,
 				F4E87F41177006E900577406 /* CCActionProgressTimer.cpp in Sources */,
 				F4E87F42177006E900577406 /* CCActionTiledGrid.cpp in Sources */,
 				F490FB58180D64B6000A9B1C /* CCArmatureAnimation.cpp in Sources */,

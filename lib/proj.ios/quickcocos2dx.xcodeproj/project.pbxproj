@@ -136,7 +136,6 @@
 		F45A2E10166B16B100760194 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE8166B16B100760194 /* tolua_to.c */; };
 		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
-		F4A3A8EF182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8ED182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.cpp */; };
 		F4A3A8F2182E7B810000EDD1 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8F0182E7B800000EDD1 /* xxtea.c */; };
 		F4A3A8F5182E7B980000EDD1 /* ioapi_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8F3182E7B980000EDD1 /* ioapi_mem.cpp */; };
 		F4A8F6BB17F0B1A400110198 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A8F6BA17F0B1A400110198 /* libwebsockets.a */; };
@@ -628,8 +627,6 @@
 		F45FF34A16C7DD4C00275222 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F47C66C116EB37DB00132435 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F47C66C216EB37DB00132435 /* snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
-		F4A3A8ED182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxLuaXXTEALoader.cpp; sourceTree = "<group>"; };
-		F4A3A8EE182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxLuaXXTEALoader.h; sourceTree = "<group>"; };
 		F4A3A8F0182E7B800000EDD1 /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
 		F4A3A8F1182E7B800000EDD1 /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		F4A3A8F3182E7B980000EDD1 /* ioapi_mem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ioapi_mem.cpp; sourceTree = "<group>"; };
@@ -1815,8 +1812,6 @@
 				F4D11009169FBF7C00305E28 /* CCLuaValue.h */,
 				F45A2DA4166B16B100760194 /* Cocos2dxLuaLoader.cpp */,
 				F45A2DA5166B16B100760194 /* Cocos2dxLuaLoader.h */,
-				F4A3A8ED182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.cpp */,
-				F4A3A8EE182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.h */,
 				F40118BE180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp */,
 				F40118BF180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.h */,
 				F40118C0180C9E62002A74D5 /* Lua_extensions_CCB.cpp */,
@@ -2957,7 +2952,6 @@
 				B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */,
 				F459EB79180D0513006CBDF1 /* fpconv.c in Sources */,
 				F4E882FE177015C400577406 /* TGAlib.cpp in Sources */,
-				F4A3A8EF182E7B5F0000EDD1 /* Cocos2dxLuaXXTEALoader.cpp in Sources */,
 				F459EB0C180D04E1006CBDF1 /* cpCollision.c in Sources */,
 				F459EB09180D04E1006CBDF1 /* cpBB.c in Sources */,
 				F4E882FF177015C400577406 /* tinyxml2.cpp in Sources */,

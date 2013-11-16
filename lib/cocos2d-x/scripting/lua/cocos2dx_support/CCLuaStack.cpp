@@ -41,11 +41,10 @@ extern "C" {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "platform/ios/CCLuaObjcBridge.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "Cocos2dxLuaLoader.h"
 #include "platform/android/CCLuaJavaBridge.h"
 #endif
 
-#include "Cocos2dxLuaXXTEALoader.h"
+#include "Cocos2dxLuaLoader.h"
 
 
 #ifndef QUICK_MINI_TARGET
@@ -121,11 +120,10 @@ bool CCLuaStack::init(void)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     CCLuaObjcBridge::luaopen_luaoc(m_state);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    addLuaLoader(cocos2dx_lua_loader);
     CCLuaJavaBridge::luaopen_luaj(m_state);
 #endif
 
-    addLuaLoader(cocos2dx_lua_xxtea_loader);
+    addLuaLoader(cocos2dx_lua_loader);
 
     // register lua print
     lua_pushcfunction(m_state, lua_print);
@@ -645,65 +643,15 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
 
     do
     {
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-//        string tmpFilePath = utils->getWritablePath().append("cc_load_chunks.tmp");
-//        unsigned long size = 0;
-//        unsigned char *buffer = utils->getFileData(zipFilePath.c_str(), "rb", &size);
-//        bool success = false;
-//        do
-//        {
-//            if (size == 0 || !buffer)
-//            {
-//                CCLOG("CCLoadChunksFromZip() - read source file %s failure", zipFilePath.c_str());
-//                break;
-//            }
-//
-//            FILE *tmp = fopen(tmpFilePath.c_str(), "wb");
-//            if (!tmp)
-//            {
-//                CCLOG("CCLoadChunksFromZip() - create tmp file %s failure", tmpFilePath.c_str());
-//                break;
-//            }
-//
-//            success = fwrite(buffer, 1, size, tmp) > 0;
-//            fclose(tmp);
-//
-//            if (success)
-//            {
-//                zipFilePath = tmpFilePath;
-//                CCLOG("CCLoadChunksFromZip() - copy zip file to %s ok", tmpFilePath.c_str());
-//            }
-//        } while (0);
-//
-//        if (buffer)
-//        {
-//            delete []buffer;
-//        }
-//
-//        if (!success)
-//        {
-//            lua_pushboolean(L, 0);
-//            break;
-//        }
-//#endif
-//
-
         unsigned long size = 0;
         void *buffer = NULL;
         unsigned char *zipFileData = utils->getFileData(zipFilePath.c_str(), "rb", &size);
         CCZipFile *zip = NULL;
-        bool isXXTEA = true;
 
-        if (xxteaSign && xxteaSignLen)
+        bool isXXTEA = xxteaSign && xxteaSignLen;
+        for (int i = 0; isXXTEA && i < xxteaSignLen && i < size; ++i)
         {
-            for (int i = 0; i < xxteaSignLen && i < size; ++i)
-            {
-                if (zipFileData[i] != xxteaSign[i])
-                {
-                    isXXTEA = false;
-                    break;
-                }
-            }
+            isXXTEA = zipFileData[i] == xxteaSign[i];
         }
 
         if (isXXTEA)
@@ -721,10 +669,9 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         }
         else
         {
-            zip = CCZipFile::createWithBuffer(buffer, size);
+            zip = CCZipFile::createWithBuffer(zipFileData, size);
         }
 
-//        CCZipFile *zip = CCZipFile::create(zipFilePath.c_str());
         if (zip)
         {
             CCLOG("CCLoadChunksFromZip() - load zip file: %s", zipFilePath.c_str());
@@ -739,7 +686,6 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
                 unsigned char *buffer = zip->getFileData(filename.c_str(), &bufferSize);
                 if (bufferSize)
                 {
-                    CCLOG("  > %s", filename.c_str());
                     if (lua_loadbuffer(L,
                                        (char*)buffer,
                                        (int)bufferSize,
@@ -749,21 +695,19 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
                                        isXXTEA ? NULL : xxteaSign,
                                        isXXTEA ? 0 : (int)xxteaSignLen) == 0)
                     {
+                        CCLOG("  > %s", filename.c_str());
                         lua_setfield(L, -2, filename.c_str());
                         ++count;
                     }
                     else
                     {
-                        CCLOG("CCLoadChunksFromZip() - chunk invalid %s", filename.c_str());
+                        CCLOG("  > [invalid] %s", filename.c_str());
                     }
                     delete []buffer;
-                    // CCLOG("CCLoadChunksFromZip() - chunk %s", filename.c_str());
                 }
                 filename = zip->getNextFilename();
             }
-
             CCLOG("CCLoadChunksFromZip() - loaded chunks count: %d", count);
-
             lua_pop(L, 2);
             lua_pushboolean(L, 1);
         }
@@ -781,10 +725,6 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         {
             free(buffer);
         }
-
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-//        unlink(tmpFilePath.c_str());
-//#endif
     } while (0);
 
     return 1;
