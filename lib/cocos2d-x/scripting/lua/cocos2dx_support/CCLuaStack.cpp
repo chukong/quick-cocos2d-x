@@ -649,7 +649,7 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         CCZipFile *zip = NULL;
 
         bool isXXTEA = xxteaSign && xxteaSignLen;
-        for (int i = 0; isXXTEA && i < xxteaSignLen && i < size; ++i)
+        for (unsigned int i = 0; isXXTEA && i < xxteaSignLen && i < size; ++i)
         {
             isXXTEA = zipFileData[i] == xxteaSign[i];
         }

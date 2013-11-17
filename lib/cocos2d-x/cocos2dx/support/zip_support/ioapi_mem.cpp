@@ -26,6 +26,12 @@
 #include "zlib.h"
 #include "ioapi_mem.h"
 
+#ifdef _MSC_VER
+
+#define strtoull _strtoui64 
+
+#endif
+
 namespace cocos2d {
 
     // typedef voidpf   (ZCALLBACK *open64_file_func)    OF((voidpf opaque, const void* filename, int mode));
