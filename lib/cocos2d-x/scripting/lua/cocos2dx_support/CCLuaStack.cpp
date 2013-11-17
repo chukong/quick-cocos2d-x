@@ -674,7 +674,7 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
 
         if (zip)
         {
-            CCLOG("CCLoadChunksFromZip() - load zip file: %s", zipFilePath.c_str());
+            CCLOG("CCLoadChunksFromZip() - load zip file: %s%s", zipFilePath.c_str(), isXXTEA ? "*" : "");
             lua_getglobal(L, "package");
             lua_getfield(L, -1, "preload");
 
@@ -695,13 +695,8 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
                                        isXXTEA ? NULL : xxteaSign,
                                        isXXTEA ? 0 : (int)xxteaSignLen) == 0)
                     {
-                        CCLOG("  > %s", filename.c_str());
                         lua_setfield(L, -2, filename.c_str());
                         ++count;
-                    }
-                    else
-                    {
-                        CCLOG("  > [invalid] %s", filename.c_str());
                     }
                     delete []buffer;
                 }
@@ -749,12 +744,15 @@ int CCLuaStack::lua_loadbuffer(lua_State *L,
                                               (xxtea_long)xxteaKeyLen,
                                               &len);
         int r = luaL_loadbuffer(L, (char*)result, len, chunkName);
+        CCLOG("  > %s*%s", chunkName, r == 0 ? "" : " [err]");
         free(result);
         return r;
     }
     else
     {
-        return luaL_loadbuffer(L, chunk, chunkSize, chunkName);
+        int r = luaL_loadbuffer(L, chunk, chunkSize, chunkName);
+        CCLOG("  > %s%s", chunkName, r == 0 ? "" : " [err]");
+        return r;
     }
 }
 

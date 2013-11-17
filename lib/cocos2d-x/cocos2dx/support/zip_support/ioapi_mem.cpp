@@ -30,7 +30,7 @@ namespace cocos2d {
 
     // typedef voidpf   (ZCALLBACK *open64_file_func)    OF((voidpf opaque, const void* filename, int mode));
 
-    
+
 
     voidpf ZCALLBACK fopen_mem_func (voidpf opaque,
                                      const char* filename,
@@ -47,22 +47,31 @@ namespace cocos2d {
          * size of an int and therefore may need addressing for 64bit
          * architectures
          */
-        if (sscanf(filename,"%x+%x",&mem->base,&mem->size)!=2)
-            return NULL;
+        memset(mem, 0, sizeof(ourmemory_t));
+        char *pEnd = NULL;
+        void *base = NULL;
+        unsigned long size = 0;
+
+        base = (void*)strtoull(filename, &pEnd, 16);
+        if (!base) return NULL;
+        size = strtoul(pEnd, &pEnd, 16);
+        if (!size) return NULL;
+
+        mem->base = base;
+        mem->size = size;
 
         if (mode & ZLIB_FILEFUNC_MODE_CREATE)
-            mem->limit=0; /* When writing we start with 0 bytes written */
+            mem->limit = 0; /* When writing we start with 0 bytes written */
         else
-            mem->limit=mem->size;
-
+            mem->limit = mem->size;
         mem->cur_offset = 0;
 
         return mem;
     }
 
     voidpf ZCALLBACK fopen_mem_func64_32 (voidpf opaque,
-                                     const void* filename,
-                                     int mode)
+                                          const void* filename,
+                                          int mode)
     {
         ourmemory_t *mem = (ourmemory_t*)malloc(sizeof(ourmemory_t));
 
@@ -76,12 +85,16 @@ namespace cocos2d {
          * architectures
          */
         memset(mem, 0, sizeof(ourmemory_t));
-        unsigned int base = 0;
-        unsigned int size = 0;
-        if (sscanf((const char*)filename,"%x+%x",&base,&size)!=2)
-            return NULL;
+        char *pEnd = NULL;
+        void *base = NULL;
+        unsigned long size = 0;
 
-        mem->base = (char*)base;
+        base = (void*)strtoull((const char*)filename, &pEnd, 16);
+        if (!base) return NULL;
+        size = strtoul(pEnd, &pEnd, 16);
+        if (!size) return NULL;
+
+        mem->base = base;
         mem->size = size;
 
         if (mode & ZLIB_FILEFUNC_MODE_CREATE)
@@ -90,7 +103,7 @@ namespace cocos2d {
             mem->limit=mem->size;
 
         mem->cur_offset = 0;
-        
+
         return mem;
     }
 
@@ -101,7 +114,7 @@ namespace cocos2d {
         if (size > mem->size - mem->cur_offset)
             size = mem->size - mem->cur_offset;
 
-        memcpy(buf, mem->base + mem->cur_offset, size);
+        memcpy(buf, (char*)mem->base + mem->cur_offset, size);
         mem->cur_offset+=size;
 
         return size;
@@ -115,12 +128,12 @@ namespace cocos2d {
         if (size > mem->size - mem->cur_offset)
             size = mem->size - mem->cur_offset;
 
-            memcpy(mem->base + mem->cur_offset, buf, size);
-            mem->cur_offset+=size;
-            if (mem->cur_offset > mem->limit)
-                mem->limit = mem->cur_offset;
+        memcpy((char*)mem->base + mem->cur_offset, buf, size);
+        mem->cur_offset+=size;
+        if (mem->cur_offset > mem->limit)
+            mem->limit = mem->cur_offset;
 
-                return size;
+        return size;
     }
 
     long ZCALLBACK ftell_mem_func (voidpf opaque, voidpf stream)
@@ -152,10 +165,10 @@ namespace cocos2d {
             return 1; /* Failed to seek that far */
 
         if (new_pos > mem->limit)
-            memset(mem->base + mem->limit, 0, new_pos - mem->limit);
+            memset((char*)mem->base + mem->limit, 0, new_pos - mem->limit);
 
-            mem->cur_offset = new_pos;
-            return 0;
+        mem->cur_offset = new_pos;
+        return 0;
     }
 
     int ZCALLBACK fclose_mem_func (voidpf opaque, voidpf stream)
@@ -176,7 +189,6 @@ namespace cocos2d {
 
     int ZCALLBACK ferror_mem_func (voidpf opaque, voidpf stream)
     {
-        ourmemory_t *mem = (ourmemory_t *)stream;
         /* We never return errors */
         return 0;
     }

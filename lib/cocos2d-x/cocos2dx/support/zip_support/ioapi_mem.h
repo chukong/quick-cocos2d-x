@@ -50,7 +50,7 @@ namespace cocos2d {
 
 
     typedef struct ourmemory_s {
-        char *base; /* Base of the region of memory we're using */
+        void *base; /* Base of the region of memory we're using */
         uLong size; /* Size of the region of memory we're using */
         uLong limit; /* Furthest we've written */
         uLong cur_offset; /* Current offset in the area */
