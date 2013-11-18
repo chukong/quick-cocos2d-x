@@ -60,7 +60,7 @@ public:
     {
         Data():bytes(NULL), len(0), isBinary(false){}
         char* bytes;
-        int len;
+        size_t len;
         bool isBinary;
     };
     
@@ -150,6 +150,10 @@ private:
     std::string  _host;
     int          _port;
     std::string  _path;
+
+    size_t _pending_frame_data_len;
+    size_t _current_data_len;
+    char *_current_data;
     
     friend class WsThreadHelper;
     WsThreadHelper* _wsHelper;
