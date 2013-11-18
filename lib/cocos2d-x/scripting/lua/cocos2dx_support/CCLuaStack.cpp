@@ -230,29 +230,10 @@ int CCLuaStack::executeScriptFile(const char* filename)
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename);
     unsigned long chunkSize = 0;
     unsigned char *chunk = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str(), "rb", &chunkSize);
-    int ret = lua_loadbuffer(m_state, (const char*)chunk, (int)chunkSize, fullPath.c_str());
-    if (ret)
+    if (lua_loadbuffer(m_state, (const char*)chunk, (int)chunkSize, fullPath.c_str()) == 0)
     {
-        switch (ret)
-        {
-            case LUA_ERRSYNTAX:
-                CCLOG("Load script file %s error: syntax error during pre-compilation.", filename);
-                break;
-
-            case LUA_ERRMEM:
-                CCLOG("Load script file %s error: memory allocation error.", filename);
-                break;
-
-            case LUA_ERRFILE:
-                CCLOG("Load script file %s error: cannot open/read file.", filename);
-                break;
-
-            default:
-                CCLOG("Load script file %s error: unknown.", filename);
-        }
-        return 0;
+        return executeFunction(0);
     }
-    return executeFunction(0);
 #endif
 }
 
@@ -711,7 +692,7 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
 int CCLuaStack::lua_loadbuffer(lua_State *L, const char *chunk, int chunkSize, const char *chunkName)
 {
     CCLuaStack *stack = CCLuaStack::stack(L);
-
+    int r = 0;
     if (stack && stack->m_xxteaEnabled && strncmp(chunk, stack->m_xxteaSign, stack->m_xxteaSignLen) == 0)
     {
         // decrypt XXTEA
@@ -721,14 +702,37 @@ int CCLuaStack::lua_loadbuffer(lua_State *L, const char *chunk, int chunkSize, c
                                               (unsigned char*)stack->m_xxteaKey,
                                               (xxtea_long)stack->m_xxteaKeyLen,
                                               &len);
-        int r = luaL_loadbuffer(L, (char*)result, len, chunkName);
+        r = luaL_loadbuffer(L, (char*)result, len, chunkName);
         free(result);
-        return r;
     }
     else
     {
-        return luaL_loadbuffer(L, chunk, chunkSize, chunkName);
+        r = luaL_loadbuffer(L, chunk, chunkSize, chunkName);
     }
+
+#if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
+    if (r)
+    {
+        switch (r)
+        {
+            case LUA_ERRSYNTAX:
+                CCLOG("[LUA ERROR] load \"%s\", error: syntax error during pre-compilation.", chunkName);
+                break;
+
+            case LUA_ERRMEM:
+                CCLOG("[LUA ERROR] load \"%s\", error: memory allocation error.", chunkName);
+                break;
+
+            case LUA_ERRFILE:
+                CCLOG("[LUA ERROR] load \"%s\", error: cannot open/read file.", chunkName);
+                break;
+
+            default:
+                CCLOG("[LUA ERROR] load \"%s\", error: unknown.", chunkName);
+        }
+    }
+#endif
+    return r;
 }
 
 int CCLuaStack::executeFunctionReturnArray(int nHandler,int nNumArgs,int nNummResults,CCArray* pResultArray)

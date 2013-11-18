@@ -90,7 +90,7 @@ extern "C"
         }
         else
         {
-            CCLog("can not get file data of %s", filename.c_str());
+            return 0;
         }
 
         return 1;
