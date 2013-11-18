@@ -12,6 +12,7 @@ $options = array(
     array('e',   'encrypt',    1,      null,        'encrypt mode'),
     array('ek',  'key',        1,      null,        'encrypt key'),
     array('es',  'sign',       1,      null,        'encrypt sign'),
+    array('ex',  'extname',    1,      'lua',       'encrypted file extension name (default is "lua"), only valid for xxtea_chunk'),
     array('c',   'config',     1,      null,        'load options from config file'),
     array('q',   'quiet',      0,      false,       'quiet'),
 );
@@ -48,7 +49,8 @@ compile mode:
 encrypt mode:
     -e xxtea_zip        encrypt ZIP archive file with XXTEA algorithm,
     -e xxtea_chunk      encrypt every bytecode chunk with XXTEA algorithm.
-                        * default encrypt sign is XXTEA.
+                        * default encrypt sign is "XXTEA"
+                        * output file extension name is "bytes"
 
 config file format:
 
@@ -61,6 +63,7 @@ config file format:
         'encrypt'  => encrypt mode,
         'key'      => encrypt key,
         'sign'     => encrypt sign,
+        'extname'  => encrypted file extension name,
     );
 
 examples:
@@ -76,6 +79,9 @@ examples:
 
     # encrypt with XXTEA, specifies sign
     compile_scripts -i scripts -o game.zip -e xxtea_zip -ek MYKEY -es XT
+
+    # encrypt with XXTEA, specifies encrypted file extension name
+    compile_scripts -i scripts -o game.zip -e xxtea_zip -ek MYKEY -ex lua
 
     # load options from config file
     compile_scripts -c my_config.lua
