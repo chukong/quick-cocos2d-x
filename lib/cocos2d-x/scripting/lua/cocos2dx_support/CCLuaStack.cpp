@@ -31,6 +31,7 @@ extern "C" {
 #include "lauxlib.h"
 #include "tolua_fix.h"
 #include "snapshot.h"
+#include "xxtea.h"
 }
 
 #include "ccMacros.h"
@@ -40,9 +41,11 @@ extern "C" {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "platform/ios/CCLuaObjcBridge.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "Cocos2dxLuaLoader.h"
 #include "platform/android/CCLuaJavaBridge.h"
 #endif
+
+#include "Cocos2dxLuaLoader.h"
+
 
 #ifndef QUICK_MINI_TARGET
 
@@ -82,6 +85,7 @@ using namespace std;
 NS_CC_BEGIN
 
 struct cc_timeval CCLuaStack::m_lasttime = {0};
+CCLuaStackMap CCLuaStack::s_map;
 
 CCLuaStack *CCLuaStack::create(void)
 {
@@ -91,12 +95,22 @@ CCLuaStack *CCLuaStack::create(void)
     return stack;
 }
 
-CCLuaStack *CCLuaStack::attach(lua_State *L)
+CCLuaStack *CCLuaStack::stack(lua_State *L)
 {
-    CCLuaStack *stack = new CCLuaStack();
-    stack->initWithLuaState(L);
-    stack->autorelease();
-    return stack;
+    CCLuaStackMapIterator it = s_map.find(L);
+    if (it != s_map.end())
+    {
+        return it->second;
+    }
+    return NULL;
+}
+
+CCLuaStack::~CCLuaStack(void)
+{
+    s_map.erase(s_map.find(m_state));
+    lua_close(m_state);
+    if (m_xxteaKey) free(m_xxteaKey);
+    if (m_xxteaSign) free(m_xxteaSign);
 }
 
 bool CCLuaStack::init(void)
@@ -104,6 +118,9 @@ bool CCLuaStack::init(void)
     CCTime::gettimeofdayCocos2d(&m_lasttime, NULL);
     m_state = lua_open();
     CCAssert(m_state, "create Lua VM failed");
+
+    s_map[m_state] = this;
+
     luaL_openlibs(m_state);
     toluafix_open(m_state);
     tolua_Cocos2d_open(m_state);
@@ -111,9 +128,10 @@ bool CCLuaStack::init(void)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     CCLuaObjcBridge::luaopen_luaoc(m_state);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    addLuaLoader(cocos2dx_lua_loader);
     CCLuaJavaBridge::luaopen_luaj(m_state);
 #endif
+
+    addLuaLoader(cocos2dx_lua_loader);
 
     // register lua print
     lua_pushcfunction(m_state, lua_print);
@@ -151,10 +169,9 @@ bool CCLuaStack::init(void)
     return true;
 }
 
-bool CCLuaStack::initWithLuaState(lua_State *L)
+lua_State *CCLuaStack::getLuaState(void)
 {
-    m_state = L;
-    return true;
+    return m_state;
 }
 
 void CCLuaStack::addSearchPath(const char* path)
@@ -197,7 +214,7 @@ void CCLuaStack::removeScriptHandler(int nHandler)
 
 int CCLuaStack::executeString(const char *codes)
 {
-    luaL_loadstring(m_state, codes);
+    lua_loadbuffer(m_state, codes, (int)strlen(codes), "");
     return executeFunction(0);
 }
 
@@ -211,29 +228,12 @@ int CCLuaStack::executeScriptFile(const char* filename)
     return executeString(code.c_str());
 #else
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename);
-    int ret = luaL_loadfile(m_state, fullPath.c_str());
-    if (ret)
+    unsigned long chunkSize = 0;
+    unsigned char *chunk = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str(), "rb", &chunkSize);
+    if (lua_loadbuffer(m_state, (const char*)chunk, (int)chunkSize, fullPath.c_str()) == 0)
     {
-        switch (ret)
-        {
-            case LUA_ERRSYNTAX:
-                CCLOG("Load script file %s error: syntax error during pre-compilation.", filename);
-                break;
-
-            case LUA_ERRMEM:
-                CCLOG("Load script file %s error: memory allocation error.", filename);
-                break;
-
-            case LUA_ERRFILE:
-                CCLOG("Load script file %s error: cannot open/read file.", filename);
-                break;
-
-            default:
-                CCLOG("Load script file %s error: unknown.", filename);
-        }
-        return 0;
+        return executeFunction(0);
     }
-    return executeFunction(0);
 #endif
 }
 
@@ -367,75 +367,10 @@ bool CCLuaStack::pushFunctionByHandler(int nHandler)
     return true;
 }
 
-int execute_lua_function(lua_State *L, int numArgs, bool removeResult)
-{
-    int functionIndex = -(numArgs + 1);
-    if (!lua_isfunction(L, functionIndex))
-    {
-        CCLOG("value at stack [%d] is not function", functionIndex);
-        lua_pop(L, numArgs + 1); // remove function and arguments
-        return 0;
-    }
-
-    int traceback = 0;
-    lua_getglobal(L, "__G__TRACKBACK__");                         /* L: ... func arg1 arg2 ... G */
-    if (!lua_isfunction(L, -1))
-    {
-        lua_pop(L, 1);                                            /* L: ... func arg1 arg2 ... */
-    }
-    else
-    {
-        lua_insert(L, functionIndex - 1);                         /* L: ... G func arg1 arg2 ... */
-        traceback = functionIndex - 1;
-    }
-
-    int error = 0;
-    error = lua_pcall(L, numArgs, 1, traceback);                  /* L: ... [G] ret */
-    if (error)
-    {
-        if (traceback == 0)
-        {
-            CCLOG("[LUA ERROR] %s", lua_tostring(L, - 1));        /* L: ... error */
-            lua_pop(L, 1); // remove error message from stack
-        }
-        else                                                            /* L: ... G error */
-        {
-            lua_pop(L, 2); // remove __G__TRACKBACK__ and error message from stack
-        }
-        return 0;
-    }
-
-    int ret = 0;
-    if (removeResult)
-    {
-        if (lua_isnumber(L, -1))
-        {
-            ret = (int)lua_tointeger(L, -1);
-        }
-        else if (lua_isboolean(L, -1))
-        {
-            ret = lua_toboolean(L, -1);
-        }
-        // remove return value from stack
-        lua_pop(L, 1);                                            /* L: ... [G] */
-    }
-    else
-    {
-        ret = 1;
-    }
-
-    if (traceback)
-    {
-        lua_remove(L, removeResult ? -1 : -2);
-    }
-
-    return ret;
-}
-
 int CCLuaStack::executeFunction(int numArgs)
 {
     ++m_callFromLua;
-    int ret = execute_lua_function(m_state, numArgs, true);
+    int ret = lua_execute(m_state, numArgs, true);
     --m_callFromLua;
     return ret;
 }
@@ -454,15 +389,6 @@ int CCLuaStack::executeFunctionByHandler(int nHandler, int numArgs)
     return ret;
 }
 
-bool CCLuaStack::handleAssert(const char *msg)
-{
-    if (m_callFromLua == 0) return false;
-
-    lua_pushfstring(m_state, "ASSERT FAILED ON LUA EXECUTE: %s", msg ? msg : "unknown");
-    lua_error(m_state);
-    return true;
-}
-
 int CCLuaStack::loadChunksFromZip(const char *zipFilePath)
 {
     pushString(zipFilePath);
@@ -472,11 +398,51 @@ int CCLuaStack::loadChunksFromZip(const char *zipFilePath)
     return ret;
 }
 
-int cc_lua_require(lua_State *L)
+void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen)
 {
-    lua_pushvalue(L, lua_upvalueindex(1));
-    lua_pushvalue(L, lua_upvalueindex(2));
-    return execute_lua_function(L, 1, false);
+    setXXTEAKeyAndSign(key, keyLen, CC_DEFAULT_XXTEA_SIGN, CC_DEFAULT_XXTEA_SIGN_LEN);
+}
+
+void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen)
+{
+    if (m_xxteaKey)
+    {
+        free(m_xxteaKey);
+        m_xxteaKey = NULL;
+        m_xxteaKeyLen = 0;
+    }
+    if (m_xxteaSign)
+    {
+        free(m_xxteaSign);
+        m_xxteaSign = NULL;
+        m_xxteaSignLen = 0;
+    }
+
+    if (key && keyLen && sign && signLen)
+    {
+        m_xxteaKey = (char*)malloc(keyLen);
+        memcpy(m_xxteaKey, key, keyLen);
+        m_xxteaKeyLen = keyLen;
+
+        m_xxteaSign = (char*)malloc(signLen);
+        memcpy(m_xxteaSign, sign, signLen);
+        m_xxteaSignLen = signLen;
+
+        m_xxteaEnabled = true;
+    }
+    else
+    {
+        m_xxteaEnabled = false;
+    }
+}
+
+bool CCLuaStack::handleAssert(const char *msg)
+{
+    if (m_callFromLua == 0) return false;
+
+    lua_pushfstring(m_state, "ASSERT FAILED ON LUA EXECUTE: %s", msg ? msg : "unknown");
+    lua_error(m_state);
+    return true;
 }
 
 int CCLuaStack::reallocateScriptHandler(int nHandler)
@@ -565,63 +531,121 @@ int CCLuaStack::lua_print(lua_State *L)
     return 0;
 }
 
+int CCLuaStack::lua_execute(lua_State *L, int numArgs, bool removeResult)
+{
+    int functionIndex = -(numArgs + 1);
+    if (!lua_isfunction(L, functionIndex))
+    {
+        CCLOG("value at stack [%d] is not function", functionIndex);
+        lua_pop(L, numArgs + 1); // remove function and arguments
+        return 0;
+    }
+
+    int traceback = 0;
+    lua_getglobal(L, "__G__TRACKBACK__");                         /* L: ... func arg1 arg2 ... G */
+    if (!lua_isfunction(L, -1))
+    {
+        lua_pop(L, 1);                                            /* L: ... func arg1 arg2 ... */
+    }
+    else
+    {
+        lua_insert(L, functionIndex - 1);                         /* L: ... G func arg1 arg2 ... */
+        traceback = functionIndex - 1;
+    }
+
+    int error = 0;
+    error = lua_pcall(L, numArgs, 1, traceback);                  /* L: ... [G] ret */
+    if (error)
+    {
+        if (traceback == 0)
+        {
+            CCLOG("[LUA ERROR] %s", lua_tostring(L, - 1));        /* L: ... error */
+            lua_pop(L, 1); // remove error message from stack
+        }
+        else                                                            /* L: ... G error */
+        {
+            lua_pop(L, 2); // remove __G__TRACKBACK__ and error message from stack
+        }
+        return 0;
+    }
+
+    int ret = 0;
+    if (removeResult)
+    {
+        if (lua_isnumber(L, -1))
+        {
+            ret = (int)lua_tointeger(L, -1);
+        }
+        else if (lua_isboolean(L, -1))
+        {
+            ret = lua_toboolean(L, -1);
+        }
+        // remove return value from stack
+        lua_pop(L, 1);                                            /* L: ... [G] */
+    }
+    else
+    {
+        ret = 1;
+    }
+
+    if (traceback)
+    {
+        lua_remove(L, removeResult ? -1 : -2);
+    }
+
+    return ret;
+}
+
 int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
 {
+    if (lua_gettop(L) < 1)
+    {
+        CCLOG("lua_loadChunksFromZIP() - invalid arguments");
+        return 0;
+    }
+
     const char *zipFilename = lua_tostring(L, -1);
+    lua_settop(L, 0);
     CCFileUtils *utils = CCFileUtils::sharedFileUtils();
     string zipFilePath = utils->fullPathForFilename(zipFilename);
-
-    lua_pop(L, 1);
     zipFilename = NULL;
+
+    CCLuaStack *stack = CCLuaStack::stack(L);
 
     do
     {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        string tmpFilePath = utils->getWritablePath().append("cc_load_chunks.tmp");
         unsigned long size = 0;
-        unsigned char *buffer = utils->getFileData(zipFilePath.c_str(), "rb", &size);
-        bool success = false;
-        do
+        void *buffer = NULL;
+        unsigned char *zipFileData = utils->getFileData(zipFilePath.c_str(), "rb", &size);
+        CCZipFile *zip = NULL;
+
+        bool isXXTEA = stack && stack->m_xxteaEnabled;
+        for (unsigned int i = 0; isXXTEA && i < stack->m_xxteaSignLen && i < size; ++i)
         {
-            if (size == 0 || !buffer)
-            {
-                CCLOG("CCLoadChunksFromZip() - read source file %s failure", zipFilePath.c_str());
-                break;
-            }
-
-            FILE *tmp = fopen(tmpFilePath.c_str(), "wb");
-            if (!tmp)
-            {
-                CCLOG("CCLoadChunksFromZip() - create tmp file %s failure", tmpFilePath.c_str());
-                break;
-            }
-
-            success = fwrite(buffer, 1, size, tmp) > 0;
-            fclose(tmp);
-
-            if (success)
-            {
-                zipFilePath = tmpFilePath;
-                CCLOG("CCLoadChunksFromZip() - copy zip file to %s ok", tmpFilePath.c_str());
-            }
-        } while (0);
-
-        if (buffer)
-        {
-            delete []buffer;
+            isXXTEA = zipFileData[i] == stack->m_xxteaSign[i];
         }
 
-        if (!success)
+        if (isXXTEA)
         {
-            lua_pushboolean(L, 0);
-            break;
+            // decrypt XXTEA
+            xxtea_long len = 0;
+            buffer = xxtea_decrypt(zipFileData + stack->m_xxteaSignLen,
+                                   (xxtea_long)size - (xxtea_long)stack->m_xxteaSignLen,
+                                   (unsigned char*)stack->m_xxteaKey,
+                                   (xxtea_long)stack->m_xxteaKeyLen,
+                                   &len);
+            delete []zipFileData;
+            zipFileData = NULL;
+            zip = CCZipFile::createWithBuffer(buffer, len);
         }
-#endif
+        else
+        {
+            zip = CCZipFile::createWithBuffer(zipFileData, size);
+        }
 
-        CCZipFile *zip = CCZipFile::create(zipFilePath.c_str());
         if (zip)
         {
-            CCLOG("CCLoadChunksFromZip() - load zip file: %s", zipFilePath.c_str());
+            CCLOG("lua_loadChunksFromZIP() - load zip file: %s%s", zipFilePath.c_str(), isXXTEA ? "*" : "");
             lua_getglobal(L, "package");
             lua_getfield(L, -1, "preload");
 
@@ -633,32 +657,82 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
                 unsigned char *buffer = zip->getFileData(filename.c_str(), &bufferSize);
                 if (bufferSize)
                 {
-                    luaL_loadbuffer(L, (char*)buffer, bufferSize, filename.c_str());
-                    lua_setfield(L, -2, filename.c_str());
+                    if (lua_loadbuffer(L, (char*)buffer, (int)bufferSize, filename.c_str()) == 0)
+                    {
+                        lua_setfield(L, -2, filename.c_str());
+                        ++count;
+                    }
                     delete []buffer;
-                    ++count;
-                    // CCLOG("CCLoadChunksFromZip() - chunk %s", filename.c_str());
                 }
                 filename = zip->getNextFilename();
             }
-
-            CCLOG("CCLoadChunksFromZip() - loaded chunks count: %d", count);
-
+            CCLOG("lua_loadChunksFromZIP() - loaded chunks count: %d", count);
             lua_pop(L, 2);
             lua_pushboolean(L, 1);
         }
         else
         {
-            CCLOG("CCLoadChunksFromZip() - not found zip file: %s", zipFilePath.c_str());
+            CCLOG("lua_loadChunksFromZIP() - not found or invalid zip file: %s", zipFilePath.c_str());
             lua_pushboolean(L, 0);
         }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        unlink(tmpFilePath.c_str());
-#endif
+        if (zipFileData)
+        {
+            delete []zipFileData;
+        }
+        if (buffer)
+        {
+            free(buffer);
+        }
     } while (0);
 
     return 1;
+}
+
+int CCLuaStack::lua_loadbuffer(lua_State *L, const char *chunk, int chunkSize, const char *chunkName)
+{
+    CCLuaStack *stack = CCLuaStack::stack(L);
+    int r = 0;
+    if (stack && stack->m_xxteaEnabled && strncmp(chunk, stack->m_xxteaSign, stack->m_xxteaSignLen) == 0)
+    {
+        // decrypt XXTEA
+        xxtea_long len = 0;
+        unsigned char* result = xxtea_decrypt((unsigned char*)chunk + stack->m_xxteaSignLen,
+                                              (xxtea_long)chunkSize - stack->m_xxteaSignLen,
+                                              (unsigned char*)stack->m_xxteaKey,
+                                              (xxtea_long)stack->m_xxteaKeyLen,
+                                              &len);
+        r = luaL_loadbuffer(L, (char*)result, len, chunkName);
+        free(result);
+    }
+    else
+    {
+        r = luaL_loadbuffer(L, chunk, chunkSize, chunkName);
+    }
+
+#if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
+    if (r)
+    {
+        switch (r)
+        {
+            case LUA_ERRSYNTAX:
+                CCLOG("[LUA ERROR] load \"%s\", error: syntax error during pre-compilation.", chunkName);
+                break;
+
+            case LUA_ERRMEM:
+                CCLOG("[LUA ERROR] load \"%s\", error: memory allocation error.", chunkName);
+                break;
+
+            case LUA_ERRFILE:
+                CCLOG("[LUA ERROR] load \"%s\", error: cannot open/read file.", chunkName);
+                break;
+
+            default:
+                CCLOG("[LUA ERROR] load \"%s\", error: unknown.", chunkName);
+        }
+    }
+#endif
+    return r;
 }
 
 int CCLuaStack::executeFunctionReturnArray(int nHandler,int nNumArgs,int nNummResults,CCArray* pResultArray)

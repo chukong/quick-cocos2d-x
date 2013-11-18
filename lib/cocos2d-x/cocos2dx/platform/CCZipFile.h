@@ -46,6 +46,7 @@ public:
     }
     
     static CCZipFile *create(const char *zipFilename);
+    static CCZipFile *createWithBuffer(const void* buffer, uLong size);
     ~CCZipFile(void);
     
     const std::string getFirstFilename(void);
@@ -59,8 +60,9 @@ private:
     : m_zipFile(NULL)
     {
     }
-    bool init(const char *zipFilename);
-    
+    bool initWithFilename(const char *zipFilename);
+    bool initWithBuffer(const void *buffer, uLong size);
+
     int getCurrentFileInfo(std::string *filename, unz_file_info *info);
 
     unzFile m_zipFile;

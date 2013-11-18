@@ -21,12 +21,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
+
+#include <string>
+
 #include "platform/CCCommon.h"
 #include "CCStdC.h"
+#include "CCEGLView.h"
+
+using namespace std;
 
 NS_CC_BEGIN
 
 #define MAX_LEN         (cocos2d::kMaxLogLen + 1)
+
+void SendLogToWindow(const string& log)
+{
+	// Send data as a message
+      COPYDATASTRUCT myCDS;
+      myCDS.dwData = CCLOG_STRING;
+      myCDS.cbData = (DWORD)log.length() + 1;
+      myCDS.lpData = (PVOID)log.c_str();
+      HWND hwnd = CCEGLView::sharedOpenGLView()->getHWnd();
+      SendMessage(hwnd,
+                  WM_COPYDATA,
+                  (WPARAM)(HWND)hwnd,
+                  (LPARAM)(LPVOID)&myCDS);
+}
 
 void CCLog(const char * pszFormat, ...)
 {
@@ -37,38 +57,37 @@ void CCLog(const char * pszFormat, ...)
     vsnprintf_s(szBuf, MAX_LEN, MAX_LEN, pszFormat, ap);
     va_end(ap);
 
-    WCHAR wszBuf[MAX_LEN] = {0};
-    MultiByteToWideChar(CP_UTF8, 0, szBuf, -1, wszBuf, sizeof(wszBuf));
-    OutputDebugStringW(wszBuf);
-    OutputDebugStringA("\n");
+	string msg(szBuf);
+	wstring wmsg;
+	wmsg.assign(msg.begin(), msg.end());
 
-    WideCharToMultiByte(CP_ACP, 0, wszBuf, sizeof(wszBuf), szBuf, sizeof(szBuf), NULL, FALSE);
-    printf("%s\n", szBuf);
+    OutputDebugStringW(wmsg.c_str());
+    OutputDebugStringA("\n");
+	puts(msg.c_str());
+
+	SendLogToWindow(msg);
+}
+
+void CCLuaLog(const char *pszMsg)
+{
+	string msg(pszMsg ? pszMsg : "");
+	if (msg.length() > MAX_LEN)
+	{
+		msg = msg.substr(0, MAX_LEN);
+	}
+	wstring wmsg;
+	wmsg.assign(msg.begin(), msg.end());
+
+    OutputDebugStringW(wmsg.c_str());
+    OutputDebugStringA("\n");
+	puts(msg.c_str());
+
+	SendLogToWindow(msg);
 }
 
 void CCMessageBox(const char * pszMsg, const char * pszTitle)
 {
     MessageBoxA(NULL, pszMsg, pszTitle, MB_OK);
-}
-
-void CCLuaLog(const char *pszMsg)
-{
-    int bufflen = MultiByteToWideChar(CP_UTF8, 0, pszMsg, -1, NULL, 0);
-    WCHAR* widebuff = new WCHAR[bufflen + 1];
-    memset(widebuff, 0, sizeof(WCHAR) * (bufflen + 1));
-    MultiByteToWideChar(CP_UTF8, 0, pszMsg, -1, widebuff, bufflen);
-
-    OutputDebugStringW(widebuff);
-    OutputDebugStringA("\n");
-
-	bufflen = WideCharToMultiByte(CP_ACP, 0, widebuff, -1, NULL, 0, NULL, NULL);
-	char* buff = new char[bufflen + 1];
-	memset(buff, 0, sizeof(char) * (bufflen + 1));
-	WideCharToMultiByte(CP_ACP, 0, widebuff, -1, buff, bufflen, NULL, NULL);
-	puts(buff);
-
-	delete[] widebuff;
-	delete[] buff;
 }
 
 NS_CC_END

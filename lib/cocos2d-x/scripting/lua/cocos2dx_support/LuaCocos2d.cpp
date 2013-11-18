@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 11/18/13 23:14:05.
+** Generated automatically by tolua++-1.0.92 on 11/18/13 23:23:54.
 */
 
 /****************************************************************************
@@ -8295,8 +8295,17 @@ static int tolua_Cocos2d_CCFileUtils_getFileData00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFileData'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->getFileData(pszFileName);
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+   unsigned long size = 0;
+    unsigned char* buffer = self->getFileData(pszFileName, "rb", &size);
+    if (buffer && size)
+    {
+        lua_pushlstring(tolua_S, (char*)buffer, size);
+    }
+    else
+    {
+        lua_pushnil(tolua_S);
+    }
+    if (buffer) delete[] buffer;
   }
  }
  return 1;
@@ -8331,8 +8340,17 @@ static int tolua_Cocos2d_CCFileUtils_getFileDataFromZip00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getFileDataFromZip'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->getFileDataFromZip(pszZipFilePath,pszFileName);
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+   unsigned long size = 0;
+    unsigned char* buffer = self->getFileDataFromZip(pszZipFilePath, pszFileName, &size);
+    if (buffer && size)
+    {
+        lua_pushlstring(tolua_S, (char*)buffer, size);
+    }
+    else
+    {
+        lua_pushnil(tolua_S);
+    }
+    if (buffer) delete[] buffer;
   }
  }
  return 1;

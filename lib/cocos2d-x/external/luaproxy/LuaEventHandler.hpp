@@ -156,7 +156,7 @@ public:
 			int ret = 1;
 			if(retInt){
 				if (lua_isnumber(l, -1)){
-					ret = lua_tointeger(l, -1);
+					ret = (int)lua_tointeger(l, -1);
 				}else if (lua_isboolean(l, -1)){
 					ret = lua_toboolean(l, -1);
 				}

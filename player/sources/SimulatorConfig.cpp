@@ -15,7 +15,7 @@ void ProjectConfig::resetToWelcome(void)
     setProjectDir(path);
     setWritablePath(path);
     setScriptFile("$PROJDIR/scripts/main.lua");
-    setFrameSize(CCSize(960, 540));
+    setFrameSize(CCSize(960, 640));
     setFrameScale(1.0f);
     setLoadPrecompiledFramework(true);
     setPackagePath("");
@@ -198,6 +198,13 @@ const bool ProjectConfig::isWriteDebugLogToFile(void)
 void ProjectConfig::setWriteDebugLogToFile(bool writeDebugLogToFile)
 {
     m_writeDebugLogToFile = writeDebugLogToFile;
+}
+
+const string ProjectConfig::getDebugLogFilePath(void)
+{
+    string path(getProjectDir());
+    path.append("debug.log");
+    return path;
 }
 
 const CCPoint ProjectConfig::getWindowOffset(void)

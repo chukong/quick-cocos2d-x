@@ -25,6 +25,8 @@
 #ifndef __CC_LUA_STACK_H_
 #define __CC_LUA_STACK_H_
 
+#include <map>
+
 extern "C" {
 #include "lua.h"
 }
@@ -36,19 +38,27 @@ extern "C" {
 
 NS_CC_BEGIN
 
+#define CC_DEFAULT_XXTEA_SIGN       "XXTEA"
+#define CC_DEFAULT_XXTEA_SIGN_LEN   5
+
+class CCLuaStack;
+
+typedef std::map<lua_State*, CCLuaStack*> CCLuaStackMap;
+typedef CCLuaStackMap::iterator CCLuaStackMapIterator;
+
 class CC_DLL CCLuaStack : public CCObject
 {
 public:
     static CCLuaStack *create(void);
-    static CCLuaStack *attach(lua_State *L);
+    static CCLuaStack *stack(lua_State *L);
+
+    ~CCLuaStack(void);
 
     /**
      @brief Method used to get a pointer to the lua_State that the script module is attached to.
      @return A pointer to the lua_State that the script module is attached to.
      */
-    lua_State* getLuaState(void) {
-        return m_state;
-    }
+    lua_State* getLuaState(void);
 
     /**
      @brief Add a path to find lua files in
@@ -115,31 +125,46 @@ public:
     virtual void pushCCLuaValueArray(const CCLuaValueArray& array);
     virtual bool pushFunctionByHandler(int nHandler);
     virtual int executeFunction(int numArgs);
-
     virtual int executeFunctionByHandler(int nHandler, int numArgs);
-
     virtual int executeFunctionReturnArray(int nHandler,int nNumArgs,int nNummResults,CCArray* pResultArray);
 
-    virtual bool handleAssert(const char *msg);
-
     virtual int loadChunksFromZip(const char *zipFilePath);
+
+    virtual void setXXTEAKeyAndSign(const char *key, int keyLen);
+    virtual void setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen);
+    virtual bool handleAssert(const char *msg);
 
 protected:
     CCLuaStack(void)
     : m_state(NULL)
+    , m_xxteaEnabled(false)
+    , m_xxteaKey(NULL)
+    , m_xxteaKeyLen(0)
+    , m_xxteaSign(NULL)
+    , m_xxteaSignLen(0)
     , m_callFromLua(0)
     {
     }
 
     bool init(void);
-    bool initWithLuaState(lua_State *L);
 
     lua_State *m_state;
     int m_callFromLua;
-    static struct cc_timeval m_lasttime;
 
+    static struct cc_timeval m_lasttime;
+    static CCLuaStackMap s_map;
+
+    bool  m_xxteaEnabled;
+    char *m_xxteaKey;
+    int   m_xxteaKeyLen;
+    char *m_xxteaSign;
+    int   m_xxteaSignLen;
+
+public:
     static int lua_print(lua_State *L);
+    static int lua_execute(lua_State *L, int numArgs, bool removeResult);
     static int lua_loadChunksFromZIP(lua_State *L);
+    static int lua_loadbuffer(lua_State *L, const char *chunk, int chunkSize, const char *chunkName);
 };
 
 NS_CC_END
