@@ -32,7 +32,7 @@ THE SOFTWARE.
 
 NS_CC_EXT_BEGIN
     
-class  CCArmature : public CCNode, public CCBlendProtocol
+class  CCArmature : public CCNode, public CCBlendProtocol,  public sigslot::has_slots<>
 {
 
 public:
@@ -152,6 +152,13 @@ protected:
 	ccBlendFunc m_sBlendFunc;                    //! It's required for CCTextureProtocol inheritance
 
 	CCPoint m_pOffsetPoint;
+protected:
+	//zrong 2013-11-06 export to lua
+	void onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId);
+	int m_nScriptMovementHandler;
+public:
+	//zrong 2013-11-06 export to lua
+	void connectMovementEventSignal(int nHandler);
 };
 
 NS_CC_EXT_END
