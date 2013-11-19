@@ -74,7 +74,7 @@ public:
 
     /** Deletes a CCAnimation from the cache.
      *@js removeAnimation
-    */
+     */
     void removeAnimationByName(const char* name);
 
     /** Returns a CCAnimation that was previously added.

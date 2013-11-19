@@ -353,7 +353,6 @@ public:
      */
     void setReturnType(KeyboardReturnType returnType);
     KeyboardReturnType getReturnType();
-
     
     /* override functions */
     virtual void setPosition(const CCPoint& pos);

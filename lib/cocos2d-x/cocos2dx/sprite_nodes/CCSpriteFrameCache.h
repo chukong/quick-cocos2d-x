@@ -84,9 +84,9 @@ public:
     void addSpriteFramesWithFile(const char *pszPlist);
 
     /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames.
-    @since v0.99.5
+     @since v0.99.5
      @js addSpriteFrames
-    */
+     */
     void addSpriteFramesWithFile(const char* plist, const char* textureFileName);
 
     /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames. 

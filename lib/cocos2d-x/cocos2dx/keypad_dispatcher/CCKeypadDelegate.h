@@ -53,7 +53,7 @@ public:
  * Object than contains the CCKeypadDelegate.
  * @js NA
  * @lua NA
-*/
+ */
 class CC_DLL CCKeypadHandler : public CCObject
 {
 public:

@@ -263,16 +263,16 @@ public:
     
     /**
      * Set search root path.
-     */
+      */
     void setSearchRootPath(const char* path);
-    
+
     /**
       * Add search path.
       *
       * @since v2.1
       */
      void addSearchPath(const char* path);
-    
+
     /**
       * Removes all paths.
       *
@@ -294,7 +294,7 @@ public:
      *  @return  The path that can be write/read a file in
      */
     virtual std::string getWritablePath() = 0;
-
+    
     /**
      *  Gets the cache path.
      *  @return  The the cache path
@@ -315,7 +315,7 @@ public:
      *  @return true if the file exists, otherwise it will return false.
      */
     virtual bool isFileExist(const std::string& strFilePath) = 0;
-
+    
     /**
      *  Checks whether a directory exists.
      *
@@ -444,7 +444,7 @@ protected:
      *  This variable is used for improving the performance of file search.
      */
     std::map<std::string, std::string> m_fullPathCache;
-
+    
     /**
      * Writable path (for debug)
      */

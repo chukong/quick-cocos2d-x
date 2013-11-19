@@ -65,7 +65,7 @@ bool CCParticleSystemQuad::initWithTotalParticles(unsigned int numberOfParticles
 
         setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor));
         
-        
+
 #if CC_ENABLE_CACHE_TEXTURE_DATA
         // Need to listen the event only when not use batchnode, because it will use VBO
         CCNotificationCenter::sharedNotificationCenter()->addObserver(this,
@@ -73,7 +73,7 @@ bool CCParticleSystemQuad::initWithTotalParticles(unsigned int numberOfParticles
                                                                       EVENT_COME_TO_FOREGROUND,
                                                                       NULL);
 #endif
-        
+
         return true;
     }
     return false;
@@ -101,7 +101,7 @@ CCParticleSystemQuad::~CCParticleSystemQuad()
         ccGLBindVAO(0);
 #endif
     }
-    
+
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, EVENT_COME_TO_FOREGROUND);
 #endif
@@ -482,7 +482,7 @@ void CCParticleSystemQuad::setupVBOandVAO()
     glDeleteBuffers(2, &m_pBuffersVBO[0]);
     glDeleteVertexArrays(1, &m_uVAOname);
     ccGLBindVAO(0);
-    
+
     glGenVertexArrays(1, &m_uVAOname);
     ccGLBindVAO(m_uVAOname);
 

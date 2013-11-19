@@ -159,10 +159,10 @@ public:
 };
 
 /** 
-@brief Remove the node
+ @brief Remove the node
  @js NA
  @lua NA
-*/
+ */
 class CC_DLL CCRemoveSelf : public CCActionInstant
 {
 public:
@@ -404,17 +404,17 @@ public:
 
      * typedef void (CCObject::*SEL_CallFuncN)(CCNode*);
      * @lua NA
-    */
+     */
     static CCCallFuncN * create(CCObject* pSelectorTarget, SEL_CallFuncN selector);
 
-	/** creates the action with the handler script function */
+	/** creates the action with the handler script function*/
 	static CCCallFuncN * create(int nHandler);
 
     /** initializes the action with the callback 
 
      * typedef void (CCObject::*SEL_CallFuncN)(CCNode*);
      * @lua NA
-    */
+     */
     virtual bool initWithTarget(CCObject* pSelectorTarget, SEL_CallFuncN selector);
     /** super methods
      * @js  NA

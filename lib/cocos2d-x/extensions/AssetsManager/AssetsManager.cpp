@@ -25,8 +25,10 @@
 #include "AssetsManager.h"
 #include "cocos2d.h"
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
 #include <curl/curl.h>
 #include <curl/easy.h>
+
 #include <stdio.h>
 #include <vector>
 
@@ -280,16 +282,16 @@ bool AssetsManager::uncompress()
 			while((position=fileNameStr.find_first_of("/",position))!=string::npos)
 			{
 				string dirPath =_storagePath + fileNameStr.substr(0, position);
-				// Entry is a direcotry, so create it.
-				// If the directory exists, it will failed scilently.
+            // Entry is a direcotry, so create it.
+            // If the directory exists, it will failed scilently.
 				if (!createDirectory(dirPath.c_str()))
-				{
+            {
 					CCLOG("can not create directory %s", dirPath.c_str());
 					//unzClose(zipfile);
 					//return false;
-				}
+            }
 				position++;
-			}
+        }
         }
         else
         {
@@ -608,7 +610,7 @@ void AssetsManager::Helper::update(float dt)
                 case kCreateFile:
                     errorMessage = "errorCreateFile";
                     break;
-
+            
                 case kNetwork:
                     errorMessage = "errorNetwork";
                     break;
@@ -664,7 +666,7 @@ void AssetsManager::Helper::handleUpdateSucceed(Message *msg)
         if (manager->_delegate)
         {
             manager->_delegate->onSuccess();
-        }
+}
         if (manager->_scriptHandler)
         {
             CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(manager->_scriptHandler, "success");
@@ -673,3 +675,4 @@ void AssetsManager::Helper::handleUpdateSucceed(Message *msg)
 }
 
 NS_CC_EXT_END;
+#endif // CC_PLATFORM_WINRT

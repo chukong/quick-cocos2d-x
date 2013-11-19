@@ -175,7 +175,7 @@
         if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
         {
             pEngine->executeEvent(handler, "returnDone", pEditBox);
-        }
+    }
         else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
         {
             pEngine->executeEvent(handler, "returnSend", pEditBox);

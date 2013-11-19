@@ -149,13 +149,13 @@ public:
     bool init();
 
     /** Initializes a CCAnimation with frames and a delay between frames
-    @since v0.99.5
+     @since v0.99.5
      @lua NA
     */
     bool initWithSpriteFrames(CCArray *pFrames, float delay = 0.0f);
 
     /** Initializes a CCAnimation with CCAnimationFrame
-    @since v2.0
+     @since v2.0
      @lua NA
     */
     bool initWithAnimationFrames(CCArray* arrayOfAnimationFrames, float delayPerUnit, unsigned int loops);

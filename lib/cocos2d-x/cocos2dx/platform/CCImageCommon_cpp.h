@@ -66,7 +66,7 @@ NS_CC_BEGIN
 
 // on ios, we should use platform/ios/CCImage_ios.mm instead
 
-typedef struct
+typedef struct 
 {
     unsigned char* data;
     int size;
@@ -168,15 +168,15 @@ bool CCImage::initWithImageFileThreadSafe(const char *fullpath, EImageFormat ima
     return bRet;
 }
 
-bool CCImage::initWithImageData(void * pData,
-                                int nDataLen,
-                                EImageFormat eFmt/* = eSrcFmtPng*/,
+bool CCImage::initWithImageData(void * pData, 
+                                int nDataLen, 
+                                EImageFormat eFmt/* = eSrcFmtPng*/, 
                                 int nWidth/* = 0*/,
                                 int nHeight/* = 0*/,
                                 int nBitsPerComponent/* = 8*/)
 {
     bool bRet = false;
-    do
+    do 
     {
         CC_BREAK_IF(! pData || nDataLen <= 0);
 
@@ -198,7 +198,7 @@ bool CCImage::initWithImageData(void * pData,
             break;
         }
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
-        else if (kFmtWebp == eFmt)
+       else if (kFmtWebp == eFmt)
         {
             bRet = _initWithWebpData(pData, nDataLen);
             break;
@@ -332,7 +332,7 @@ bool CCImage::_initWithJpgData(void * data, int nSize)
     unsigned int i = 0;
 
     bool bRet = false;
-    do
+    do 
     {
         /* We set up the normal JPEG error routines, then override error_exit. */
 		cinfo.err = jpeg_std_error(&jerr.pub);
@@ -393,7 +393,7 @@ bool CCImage::_initWithJpgData(void * data, int nSize)
         while( cinfo.output_scanline < cinfo.output_height )
         {
             jpeg_read_scanlines( &cinfo, row_pointer, 1 );
-            for( i=0; i<cinfo.output_width*cinfo.output_components;i++)
+            for( i=0; i<cinfo.output_width*cinfo.output_components;i++) 
             {
                 m_pData[location++] = row_pointer[0][i];
             }
@@ -406,7 +406,7 @@ bool CCImage::_initWithJpgData(void * data, int nSize)
 		 */
 		//jpeg_finish_decompress( &cinfo );
         jpeg_destroy_decompress( &cinfo );
-        /* wrap up decompression, destroy objects, free pointers and close open files */
+        /* wrap up decompression, destroy objects, free pointers and close open files */        
         bRet = true;
     } while (0);
 
@@ -421,11 +421,11 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
 // length of bytes to check if it is a valid png file
 #define PNGSIGSIZE  8
     bool bRet = false;
-    png_byte        header[PNGSIGSIZE]   = {0};
+    png_byte        header[PNGSIGSIZE]   = {0}; 
     png_structp     png_ptr     =   0;
     png_infop       info_ptr    = 0;
 
-    do
+    do 
     {
         // png header len is 8 bytes
         CC_BREAK_IF(nDatalen < PNGSIGSIZE);
@@ -454,17 +454,17 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
         png_set_read_fn(png_ptr, &imageSource, pngReadCallback);
 
         // read png header info
-
+        
         // read png file info
         png_read_info(png_ptr, info_ptr);
-
+        
         m_nWidth = png_get_image_width(png_ptr, info_ptr);
         m_nHeight = png_get_image_height(png_ptr, info_ptr);
         m_nBitsPerComponent = png_get_bit_depth(png_ptr, info_ptr);
         png_uint_32 color_type = png_get_color_type(png_ptr, info_ptr);
 
         //CCLOG("color type %u", color_type);
-
+        
         // force palette images to be expanded to 24-bit RGB
         // it may include alpha channel
         if (color_type == PNG_COLOR_TYPE_PALETTE)
@@ -480,12 +480,12 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
         if (png_get_valid(png_ptr, info_ptr, PNG_INFO_tRNS))
         {
             png_set_tRNS_to_alpha(png_ptr);
-        }
+        }  
         // reduce images with 16-bit samples to 8 bits
         if (m_nBitsPerComponent == 16)
         {
-            png_set_strip_16(png_ptr);
-        }
+            png_set_strip_16(png_ptr);            
+        } 
         // expand grayscale images to RGB
         if (color_type == PNG_COLOR_TYPE_GRAY || color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
         {
@@ -497,22 +497,22 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
         m_nBitsPerComponent = 8;
         png_uint_32 rowbytes;
         png_bytep* row_pointers = (png_bytep*)malloc( sizeof(png_bytep) * m_nHeight );
-
+        
         png_read_update_info(png_ptr, info_ptr);
-
+        
         rowbytes = png_get_rowbytes(png_ptr, info_ptr);
-
+        
         m_pData = new unsigned char[rowbytes * m_nHeight];
         CC_BREAK_IF(!m_pData);
-
+        
         for (unsigned short i = 0; i < m_nHeight; ++i)
         {
             row_pointers[i] = m_pData + i*rowbytes;
         }
         png_read_image(png_ptr, row_pointers);
-
+        
         png_read_end(png_ptr, NULL);
-
+        
         png_uint_32 channel = rowbytes/m_nWidth;
         if (channel == 4)
         {
@@ -522,11 +522,11 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
             {
                 for(unsigned int j = 0; j < rowbytes; j += 4)
                 {
-                    *tmp++ = CC_RGB_PREMULTIPLY_ALPHA( row_pointers[i][j], row_pointers[i][j + 1],
+                    *tmp++ = CC_RGB_PREMULTIPLY_ALPHA( row_pointers[i][j], row_pointers[i][j + 1], 
                                                       row_pointers[i][j + 2], row_pointers[i][j + 3] );
                 }
             }
-
+            
             m_bPreMulti = true;
         }
 
@@ -597,7 +597,7 @@ static uint64 _tiffSeekProc(thandle_t fd, uint64 off, int whence)
 {
     tImageSource* isource = (tImageSource*)fd;
     uint64 ret = -1;
-    do
+    do 
     {
         if (whence == SEEK_SET)
         {
@@ -654,7 +654,7 @@ static void _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 bool CCImage::_initWithTiffData(void* pData, int nDataLen)
 {
     bool bRet = false;
-    do
+    do 
     {
         // set the read call back function
         tImageSource imageSource;
@@ -662,7 +662,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
         imageSource.size    = nDataLen;
         imageSource.offset  = 0;
 
-        TIFF* tif = TIFFClientOpen("file.tif", "r", (thandle_t)&imageSource,
+        TIFF* tif = TIFFClientOpen("file.tif", "r", (thandle_t)&imageSource, 
             _tiffReadProc, _tiffWriteProc,
             _tiffSeekProc, _tiffCloseProc, _tiffSizeProc,
             _tiffMapProc,
@@ -673,7 +673,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
         uint32 w = 0, h = 0;
         uint16 bitsPerSample = 0, samplePerPixel = 0, planarConfig = 0;
         size_t npixels = 0;
-
+        
         TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &w);
         TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &h);
         TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitsPerSample);
@@ -681,7 +681,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
         TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planarConfig);
 
         npixels = w * h;
-
+        
         m_bHasAlpha = true;
         m_nWidth = w;
         m_nHeight = h;
@@ -690,18 +690,18 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
         m_pData = new unsigned char[npixels * sizeof (uint32)];
 
         uint32* raster = (uint32*) _TIFFmalloc(npixels * sizeof (uint32));
-        if (raster != NULL)
+        if (raster != NULL) 
         {
            if (TIFFReadRGBAImageOriented(tif, w, h, raster, ORIENTATION_TOPLEFT, 0))
            {
-                /* the raster data is pre-multiplied by the alpha component
+                /* the raster data is pre-multiplied by the alpha component 
                    after invoking TIFFReadRGBAImageOriented
                 unsigned char* src = (unsigned char*)raster;
                 unsigned int* tmp = (unsigned int*)m_pData;
 
                 for(int j = 0; j < m_nWidth * m_nHeight * 4; j += 4)
                 {
-                    *tmp++ = CC_RGB_PREMULTIPLY_ALPHA( src[j], src[j + 1],
+                    *tmp++ = CC_RGB_PREMULTIPLY_ALPHA( src[j], src[j + 1], 
                         src[j + 2], src[j + 3] );
                 }
                 */
@@ -712,7 +712,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
 
           _TIFFfree(raster);
         }
-
+        
 
         TIFFClose(tif);
 
@@ -726,7 +726,7 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
 bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent, bool bPreMulti)
 {
     bool bRet = false;
-    do
+    do 
     {
         CC_BREAK_IF(0 == nWidth || 0 == nHeight);
 
@@ -753,7 +753,7 @@ bool CCImage::saveToFile(const char *pszFilePath, bool bIsToRGB)
 {
     bool bRet = false;
 
-    do
+    do 
     {
         CC_BREAK_IF(NULL == pszFilePath);
 
@@ -792,7 +792,7 @@ bool CCImage::saveToFile(const char *pszFilePath, bool bIsToRGB)
 bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
 {
     bool bRet = false;
-    do
+    do 
     {
         CC_BREAK_IF(NULL == pszFilePath);
 
@@ -834,7 +834,7 @@ bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
         {
             png_set_IHDR(png_ptr, info_ptr, m_nWidth, m_nHeight, 8, PNG_COLOR_TYPE_RGB_ALPHA,
                 PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
-        }
+        } 
         else
         {
             png_set_IHDR(png_ptr, info_ptr, m_nWidth, m_nHeight, 8, PNG_COLOR_TYPE_RGB,
@@ -901,7 +901,7 @@ bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
                 row_pointers = NULL;
 
                 CC_SAFE_DELETE_ARRAY(pTempData);
-            }
+            } 
             else
             {
                 for (int i = 0; i < (int)m_nHeight; i++)
@@ -935,7 +935,7 @@ bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
 bool CCImage::_saveImageToJPG(const char * pszFilePath)
 {
     bool bRet = false;
-    do
+    do 
     {
         CC_BREAK_IF(NULL == pszFilePath);
 
@@ -950,7 +950,7 @@ bool CCImage::_saveImageToJPG(const char * pszFilePath)
         jpeg_create_compress(&cinfo);
 
         CC_BREAK_IF((outfile = fopen(pszFilePath, "wb")) == NULL);
-
+        
         jpeg_stdio_dest(&cinfo, outfile);
 
         cinfo.image_width = m_nWidth;    /* image width and height, in pixels */
@@ -992,7 +992,7 @@ bool CCImage::_saveImageToJPG(const char * pszFilePath)
             }
 
             CC_SAFE_DELETE_ARRAY(pTempData);
-        }
+        } 
         else
         {
             while (cinfo.next_scanline < cinfo.image_height) {
@@ -1004,7 +1004,7 @@ bool CCImage::_saveImageToJPG(const char * pszFilePath)
         jpeg_finish_compress(&cinfo);
         fclose(outfile);
         jpeg_destroy_compress(&cinfo);
-
+        
         bRet = true;
     } while (0);
     return bRet;

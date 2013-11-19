@@ -256,30 +256,30 @@ public:
     void resumeTarget(CCObject *pTarget);
 
     /** Returns whether or not the target is paused
-    @since v1.0.0
+     @since v1.0.0
      @lua NA
-    */
+     */
     bool isTargetPaused(CCObject *pTarget);
 
     /** Pause all selectors from all targets.
-      You should NEVER call this method, unless you know what you are doing.
+     You should NEVER call this method, unless you know what you are doing.
      @since v2.0.0
      @lua NA
-      */
+     */
     CCSet* pauseAllTargets();
 
     /** Pause all selectors from all targets with a minimum priority.
-      You should only call this with kCCPriorityNonSystemMin or higher.
-      @since v2.0.0
+     You should only call this with kCCPriorityNonSystemMin or higher.
+     @since v2.0.0
      @lua NA
-      */
+     */
     CCSet* pauseAllTargetsWithMinPriority(int nMinPriority);
 
     /** Resume selectors on a set of targets.
      This can be useful for undoing a call to pauseAllSelectors.
      @since v2.0.0
      @lua NA
-      */
+     */
     void resumeTargets(CCSet* targetsToResume);
 
 private:

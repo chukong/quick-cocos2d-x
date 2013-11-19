@@ -2,7 +2,7 @@
 Copyright (c) 2010-2012 cocos2d-x.org
 Copyright (c) 2008-2010 Ricardo Quesada
 Copyright (c) 2011      Zynga Inc.
-
+ 
 http://www.cocos2d-x.org
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -61,7 +61,7 @@ CCAtlasNode::~CCAtlasNode()
     CC_SAFE_RELEASE(m_pTextureAtlas);
 }
 
-CCAtlasNode * CCAtlasNode::create(const char *tile, unsigned int tileWidth, unsigned int tileHeight,
+CCAtlasNode * CCAtlasNode::create(const char *tile, unsigned int tileWidth, unsigned int tileHeight, 
 											 unsigned int itemsToRender)
 {
 	CCAtlasNode * pRet = new CCAtlasNode();
@@ -81,7 +81,7 @@ bool CCAtlasNode::initWithTileFile(const char *tile, unsigned int tileWidth, uns
 	return initWithTexture(texture, tileWidth, tileHeight, itemsToRender);
 }
 
-bool CCAtlasNode::initWithTexture(CCTexture2D* texture, unsigned int tileWidth, unsigned int tileHeight,
+bool CCAtlasNode::initWithTexture(CCTexture2D* texture, unsigned int tileWidth, unsigned int tileHeight, 
                                    unsigned int itemsToRender)
 {
     m_uItemWidth  = tileWidth;
@@ -122,12 +122,12 @@ bool CCAtlasNode::initWithTexture(CCTexture2D* texture, unsigned int tileWidth, 
 void CCAtlasNode::calculateMaxItems()
 {
     CCSize s = m_pTextureAtlas->getTexture()->getContentSize();
-
+    
     if (m_bIgnoreContentScaleFactor)
     {
         s = m_pTextureAtlas->getTexture()->getContentSizeInPixels();
     }
-
+    
     m_uItemsPerColumn = (int)(s.height / m_uItemHeight);
     m_uItemsPerRow = (int)(s.width / m_uItemWidth);
 }

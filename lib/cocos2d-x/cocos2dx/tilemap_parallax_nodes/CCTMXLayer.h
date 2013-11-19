@@ -169,7 +169,7 @@ public:
     /** CCTMXLayer doesn't support adding a CCSprite manually.
      *  @warning addchild(z, tag); is not supported on CCTMXLayer. Instead of setTileGID.
      *  @lua NA
-    */
+     */
     virtual void addChild(CCNode * child, int zOrder, int tag);
     /** super method
      *  @lua NA
