@@ -535,7 +535,7 @@ int WebSocket::onSocketCallback(struct libwebsocket_context *ctx,
                         const size_t c_bufferSize = 4096;
 
                         size_t remaining = data->len - data->issued;
-                        size_t n = std::min(remaining, c_bufferSize);
+                        size_t n = min(remaining, c_bufferSize);
 
                         unsigned char* buf = new unsigned char[LWS_SEND_BUFFER_PRE_PADDING + n + LWS_SEND_BUFFER_POST_PADDING];
                         memcpy((char*)&buf[LWS_SEND_BUFFER_PRE_PADDING], data->bytes + data->issued, n);
