@@ -613,7 +613,7 @@ public:
     /** initializes the transition with a duration and with an RGB color */
     virtual bool initWithDuration(float t, CCScene*scene ,const ccColor3B& color);
 
-    virtual bool initWithDuration(float t,CCScene* scene); 
+    virtual bool initWithDuration(float t,CCScene* scene);
     /**
      *  @js NA
      *  @lua NA

@@ -128,8 +128,8 @@ void CCLayer::registerWithTouchDispatcher()
 void CCLayer::unregisterWithTouchDispatcher()
 {
 //    CCLOG("CCLAYER: UNREGISTER WITH TOUCH DISPATHCER");
-    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-}
+                CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+            }
 
 /// isAccelerometerEnabled getter
 bool CCLayer::isAccelerometerEnabled()

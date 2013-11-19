@@ -187,7 +187,7 @@ bool CCDrawNode::init()
     CHECK_GL_ERROR_DEBUG();
     
     m_bDirty = true;
-    
+
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     // Need to listen the event only when not use batchnode, because it will use VBO
     CCNotificationCenter::sharedNotificationCenter()->addObserver(this,
@@ -207,7 +207,7 @@ void CCDrawNode::render()
         glBufferData(GL_ARRAY_BUFFER, sizeof(ccV2F_C4B_T2F)*m_uBufferCapacity, m_pBuffer, GL_STREAM_DRAW);
         m_bDirty = false;
     }
-#if CC_TEXTURE_ATLAS_USE_VAO
+#if CC_TEXTURE_ATLAS_USE_VAO     
     ccGLBindVAO(m_uVao);
 #else
     ccGLEnableVertexAttribs(kCCVertexAttribFlag_PosColorTex);

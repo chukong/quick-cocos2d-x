@@ -50,7 +50,7 @@ CCControlColourPicker::~CCControlColourPicker()
     {
         m_background->removeFromParentAndCleanup(true);
     }
-
+    
     if (m_huePicker)
     {
         m_huePicker->removeFromParentAndCleanup(true);

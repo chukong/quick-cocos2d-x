@@ -50,7 +50,7 @@ CCScriptHandlerEntry* CCScriptHandlerEntry::create(int nHandler)
 CCScriptHandlerEntry::~CCScriptHandlerEntry(void)
 {
 	if (m_nHandler != 0)
-    {
+	{
         CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nHandler);
         m_nHandler = 0;
     }

@@ -84,7 +84,7 @@ public:
      */
     CCDictionary* snapshotTextures();
 
-    /** Returns the shared instance of the cache
+    /** Returns the shared instance of the cache 
      *  @js getInstance
      */
     static CCTextureCache * sharedTextureCache();
@@ -164,7 +164,7 @@ public:
     * @since v1.0
     */
     void dumpCachedTextureInfo();
-
+    
 #ifndef QUICK_MINI_TARGET
 
     /** Returns a Texture2D object given an PVR filename
@@ -172,7 +172,7 @@ public:
     *  object and it will return it. Otherwise it will return a reference of a previously loaded image
     */
     CCTexture2D* addPVRImage(const char* filename);
-
+    
     /** Returns a Texture2D object given an ETC filename
      * If the file image was not previously loaded, it will create a new CCTexture2D
      *  object and it will return it. Otherwise it will return a reference of a previously loaded image
@@ -205,7 +205,7 @@ public:
     ~VolatileTexture();
 
     static void addImageTexture(CCTexture2D *tt, const char* imageFileName, CCImage::EImageFormat format);
-    static void addStringTexture(CCTexture2D *tt, const char* text, const CCSize& dimensions, CCTextAlignment alignment,
+    static void addStringTexture(CCTexture2D *tt, const char* text, const CCSize& dimensions, CCTextAlignment alignment, 
                                  CCVerticalTextAlignment vAlignment, const char *fontName, float fontSize);
     static void addDataTexture(CCTexture2D *tt, void* data, CCTexture2DPixelFormat pixelFormat, const CCSize& contentSize);
     static void addCCImage(CCTexture2D *tt, CCImage *image);
@@ -217,7 +217,7 @@ public:
 public:
     static std::list<VolatileTexture*> textures;
     static bool isReloading;
-
+    
 private:
     // find VolatileTexture by CCTexture2D*
     // if not found, create a new one
@@ -225,7 +225,7 @@ private:
 
 protected:
     CCTexture2D *texture;
-
+    
     CCImage *uiImage;
 
     ccCachedImageType m_eCashedImageType;
@@ -237,7 +237,7 @@ protected:
     std::string m_strFileName;
     CCImage::EImageFormat m_FmtImage;
 
-    ccTexParams      m_texParams;
+    ccTexParams     m_texParams;
     CCSize          m_size;
     CCTextAlignment m_alignment;
     CCVerticalTextAlignment m_vAlignment;

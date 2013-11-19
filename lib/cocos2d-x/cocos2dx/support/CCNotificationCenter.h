@@ -89,7 +89,7 @@ public:
      *  @param object The extra parameter.
      */
     void postNotification(const char *name, CCObject *object);
-
+    
     /** @brief Gets script handler.
      *  @note Only supports Lua Binding now.
      *  @return The script handle.

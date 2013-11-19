@@ -74,7 +74,7 @@ void CCLuaLog(const char *pszMsg)
 	if (msg.length() > MAX_LEN)
 	{
 		msg = msg.substr(0, MAX_LEN);
-	}
+}
 	wstring wmsg;
 	wmsg.assign(msg.begin(), msg.end());
 

@@ -80,7 +80,7 @@ public:
      *  @deprecated Please use CCFileUtils::sharedFileUtils()->getSearchPaths() instead. 
      */
     CC_DEPRECATED_ATTRIBUTE const std::string& getResourceRootPath(void);
-
+    
 protected:
     static CCApplication * sm_pSharedApplication;
     

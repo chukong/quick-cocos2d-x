@@ -43,7 +43,7 @@ public:
     virtual ~CCApplication();
         
     /**
-    @brief    Run the message loop.
+     @brief    Run the message loop.
      @js NA
      @lua NA
     */

@@ -101,9 +101,9 @@ public:
     inline void setFastMode(bool bFastMode) { m_bFastMode = bFastMode; }
 
     inline bool isStartingPositionInitialized() { return m_bStartingPositionInitialized; }
-    inline void setStartingPositionInitialized(bool bStartingPositionInitialized)
-    {
-        m_bStartingPositionInitialized = bStartingPositionInitialized;
+    inline void setStartingPositionInitialized(bool bStartingPositionInitialized) 
+    { 
+        m_bStartingPositionInitialized = bStartingPositionInitialized; 
     }
 protected:
     bool m_bFastMode;

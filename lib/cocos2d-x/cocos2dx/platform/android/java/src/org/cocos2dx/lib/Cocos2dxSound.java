@@ -59,9 +59,9 @@ public class Cocos2dxSound {
 	private final HashMap<String, ArrayList<Integer>> mPathStreamIDsMap = new HashMap<String, ArrayList<Integer>>();
 
 	private final HashMap<String, Integer> mPathSoundIDMap = new HashMap<String, Integer>();
-
+	
 	private final ArrayList<SoundInfoForLoadedCompleted> mEffecToPlayWhenLoadedArray = new ArrayList<SoundInfoForLoadedCompleted>();
-
+	
 	private int mStreamIdSyn;
 	private Semaphore mSemaphore;
 	private int simultaneousStreams;
@@ -81,15 +81,15 @@ public class Cocos2dxSound {
 		this.mContext = pContext;
 		this.initData(simultaneousStreams);
 	}
-	
+
 	private void initData(final int simultaneousStreams) {
 		this.mSoundPool = new SoundPool(simultaneousStreams, AudioManager.STREAM_MUSIC, Cocos2dxSound.SOUND_QUALITY);
-		this.mSoundPool.setOnLoadCompleteListener(new OnLoadCompletedListener());
-
+        this.mSoundPool.setOnLoadCompleteListener(new OnLoadCompletedListener());
+		
 		this.mLeftVolume = 0.5f;
 		this.simultaneousStreams = simultaneousStreams;
 		this.mRightVolume = 0.5f;
-
+		
 		this.mSemaphore = new Semaphore(0, true);
 	}
 
