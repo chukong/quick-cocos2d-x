@@ -25,6 +25,8 @@
 #include <string>
 #include <algorithm>
 
+#include "CCLuaStack.h"
+
 using namespace cocos2d;
 
 extern "C"
@@ -47,9 +49,9 @@ extern "C"
         filename.append(".lua");
 
         // search file in package.path
-        unsigned char* codeBuffer = NULL;
-        unsigned long codeBufferSize = 0;
-        std::string codePath;
+        unsigned char* chunk = NULL;
+        unsigned long chunkSize = 0;
+        std::string chunkName;
         CCFileUtils* utils = CCFileUtils::sharedFileUtils();
 
         lua_getglobal(L, "package");
@@ -69,11 +71,11 @@ extern "C"
             }
 
             pos = prefix.find("?.lua");
-            codePath = prefix.substr(0, pos).append(filename);
-            codePath = utils->fullPathForFilename(codePath.c_str());
-            if (utils->isFileExist(codePath))
+            chunkName = prefix.substr(0, pos).append(filename);
+            chunkName = utils->fullPathForFilename(chunkName.c_str());
+            if (utils->isFileExist(chunkName))
             {
-                codeBuffer = utils->getFileData(codePath.c_str(), "rb", &codeBufferSize);
+                chunk = utils->getFileData(chunkName.c_str(), "rb", &chunkSize);
                 break;
             }
 
@@ -81,18 +83,14 @@ extern "C"
             next = searchpath.find_first_of(";", begin);
         } while (begin < (int)searchpath.length());
 
-        if (codeBuffer)
+        if (chunk)
         {
-            if (luaL_loadbuffer(L, (char*)codeBuffer, codeBufferSize, codePath.c_str()) != 0)
-            {
-                luaL_error(L, "error loading module %s from file %s :\n\t%s",
-                           lua_tostring(L, 1), filename.c_str(), lua_tostring(L, -1));
-            }
-            delete []codeBuffer;
+            CCLuaStack::lua_loadbuffer(L, (char*)chunk, (int)chunkSize, chunkName.c_str());
+            delete []chunk;
         }
         else
         {
-            CCLog("can not get file data of %s", filename.c_str());
+            return 0;
         }
 
         return 1;

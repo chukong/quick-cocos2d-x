@@ -11,7 +11,6 @@ class ScriptsCompiler
     const ENCRYPT_XXTEA_CHUNK = 'xxtea_chunk';
     const ENCRYPT_XXTEA_DEFAULT_SIGN = 'XXTEA';
 
-
     private $config;
     private $options;
     private $validated = false;
@@ -99,6 +98,12 @@ class ScriptsCompiler
         if (!empty($this->config['encrypt']) && empty($this->config['sign']))
         {
             print("ERR: not set encrypt sign\n");
+            return false;
+        }
+
+        if (empty($this->config['extname']))
+        {
+            print("ERR: not specifies encrypted file extension name\n");
             return false;
         }
 
@@ -289,7 +294,7 @@ class ScriptsCompiler
         {
             foreach ($modules as $module)
             {
-                $destPath = $this->config['output'] . DS . str_replace('.', DS, $this->config['prefix'] . $module['moduleName']) . '.lua';
+                $destPath = $this->config['output'] . DS . str_replace('.', DS, $this->config['prefix'] . $module['moduleName']) . '.' . $this->config['extname'];
                 @mkdir(pathinfo($destPath, PATHINFO_DIRNAME), 0777, true);
                 rename($module['tempFilePath'], $destPath);
             }
