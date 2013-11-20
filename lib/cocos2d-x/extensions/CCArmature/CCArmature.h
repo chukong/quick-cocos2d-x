@@ -159,6 +159,7 @@ protected:
 public:
 	//zrong 2013-11-06 export to lua
 	void connectMovementEventSignal(int nHandler);
+	void disconnectMovementEventSignal();
 };
 
 NS_CC_EXT_END
