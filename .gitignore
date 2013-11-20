@@ -29,3 +29,6 @@ lib/third_party/proj.win32/Debug/
 */*/proj.android/obj/
 */*/proj.android/assets/
 */*/proj.android/libs/
+*.tlog
+lib/pbc-master/Debug/pbc.lastbuildstate
+lib/pbc-master/Debug/vc110.idb
