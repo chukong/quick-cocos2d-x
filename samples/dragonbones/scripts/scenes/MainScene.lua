@@ -1,3 +1,9 @@
+local MovementEventType =
+{
+	START = 0,
+	COMPLETE = 1,
+	LOOP_COMPLETE = 2,
+}
 
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
@@ -60,6 +66,9 @@ end
 
 function MainScene:addDragon()
     local dragon = CCNodeExtend.extend(CCArmature:create("Dragon"))
+	dragon:connectMovementEventSignal(function(__evtType, __moveId)
+			echoInfo("movement, evtType: %d, moveId: %s", __evtType, __moveId)
+		end)
     local animation = dragon:getAnimation()
     animation:setAnimationScale(24 / 60) -- Flash fps is 24, cocos2d-x is 60
     animation:play("walk")
@@ -73,8 +82,9 @@ function MainScene:addDragon()
 end
 
 function MainScene:removeDragon()
-    local coin = self.dragons[self.dragonsCount]
-    coin:removeSelf()
+    local dragon = self.dragons[self.dragonsCount]
+	dragon:disconnectMovementEventSignal()
+    dragon:removeSelf()
     table.remove(self.dragons, self.dragonsCount)
     self.dragonsCount = self.dragonsCount - 1
     self.label:setString(string.format("%05d", self.dragonsCount))

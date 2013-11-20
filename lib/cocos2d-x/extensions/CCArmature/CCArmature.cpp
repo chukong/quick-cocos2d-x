@@ -100,6 +100,7 @@ CCArmature::~CCArmature(void)
 	if( NULL != m_pAnimation)
 	{
 		m_pAnimation->MovementEventSignal.disconnect_all();
+		disconnectMovementEventSignal();
 	}
     CC_SAFE_DELETE(m_pAnimation);
 }
@@ -602,14 +603,19 @@ void CCArmature::onMovementEvent(CCArmature* m_pArmature, MovementEventType evtT
 
 void CCArmature::connectMovementEventSignal(int nHandler)
 {
+	disconnectMovementEventSignal();
+	m_nScriptMovementHandler = nHandler;
+	LUALOG("[LUA] Add CCArmature script movement handler: %d", m_nScriptMovementHandler);
+}
+
+void CCArmature::disconnectMovementEventSignal()
+{
 	if(m_nScriptMovementHandler)
 	{
 		CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptMovementHandler);
         LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
-        m_nScriptMovementHandler = 0;
 	}
-	m_nScriptMovementHandler = nHandler;
-	LUALOG("[LUA] Add CCArmature script movement handler: %d", m_nScriptMovementHandler);
+	m_nScriptMovementHandler = 0;
 }
 
 NS_CC_EXT_END
