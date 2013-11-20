@@ -125,11 +125,13 @@ LOCAL_SRC_FILES := \
     support/base64.cpp \
     support/ccUtils.cpp \
     support/CCVertex.cpp \
+    support/xxtea.c \
     support/data_support/ccCArray.cpp \
     support/tinyxml2/tinyxml2.cpp \
     support/zip_support/ZipUtils.cpp \
     support/zip_support/ioapi.cpp \
     support/zip_support/unzip.cpp \
+    support/zip_support/ioapi_mem.cpp \
     support/component/CCComponent.cpp \
     support/component/CCComponentContainer.cpp \
     text_input_node/CCIMEDispatcher.cpp \
@@ -160,7 +162,8 @@ endif
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
-                    $(LOCAL_PATH)/platform/android
+                    $(LOCAL_PATH)/platform/android \
+                    $(LOCAL_PATH)/support
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \

@@ -15,6 +15,15 @@ function WelcomeScene:ctor()
     self:createLine()
     self:createButtons()
     self:createCopyright()
+
+    local recents = json.decode(_G["OPEN_RECENTS"])
+    if type(recents) ~= "table" then
+        recents = {}
+    end
+    self:updateRecents(recents)
+end
+
+function WelcomeScene:updateRecents(recents)
 end
 
 function WelcomeScene:createTitle()

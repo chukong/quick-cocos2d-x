@@ -24,6 +24,9 @@
     <ClCompile Include="app.cpp">
       <Filter>win32</Filter>
     </ClCompile>
+    <ClCompile Include="Registry.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -45,6 +48,9 @@
       <Filter>sources</Filter>
     </ClInclude>
     <ClInclude Include="app.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Registry.h">
       <Filter>win32</Filter>
     </ClInclude>
   </ItemGroup>

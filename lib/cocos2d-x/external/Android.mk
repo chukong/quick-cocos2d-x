@@ -8,7 +8,6 @@ LOCAL_MODULE_FILENAME := libcocos_external_static
 LOCAL_SRC_FILES := \
     extra/crypto/CCCrypto.cpp \
     extra/crypto/base64/libbase64.c \
-    extra/crypto/xxtea/xxtea.c \
     extra/network/CCHTTPRequest.cpp \
     extra/network/CCNetwork.cpp \
     extra/platform/android/CCCryptoAndroid.cpp \

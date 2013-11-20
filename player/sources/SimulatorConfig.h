@@ -88,6 +88,7 @@ public:
 
     const bool isWriteDebugLogToFile(void);
     void setWriteDebugLogToFile(bool writeDebugLogToFile);
+    const string getDebugLogFilePath(void);
 
     const CCPoint getWindowOffset(void);
     void setWindowOffset(CCPoint windowOffset);

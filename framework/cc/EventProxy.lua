@@ -6,7 +6,7 @@ function EventProxy:ctor(eventDispatcher, view)
     self.handles_ = {}
 
     if view and view.addScriptEventListener then
-        view:addScriptEventListener(cc.Event.EXIT_SCENE, function()
+        view:addScriptEventListener(cc.Event.CLEANUP, function()
             self:removeAllEventListeners()
         end)
     end

@@ -66,14 +66,6 @@ using namespace cocos2d::extra;
     hasPopupDialog = NO;
     debugLogFile = 0;
 
-    app = new AppDelegate();
-    bridge = new AppControllerBridge(self);
-
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpen), "WELCOME_OPEN", NULL);
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
-
     NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
     if (path && [path length])
     {
@@ -197,7 +189,7 @@ using namespace cocos2d::extra;
         CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
         if (projectConfig.isWriteDebugLogToFile())
         {
-            [self writeDebugLogToFile:[self getDebugLogFilePath]];
+            [self writeDebugLogToFile:projectConfig.getDebugLogFilePath()];
         }
     }
 
@@ -211,6 +203,14 @@ using namespace cocos2d::extra;
     {
         [self openConsoleWindow];
     }
+
+    app = new AppDelegate();
+    bridge = new AppControllerBridge(self);
+
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpen), "WELCOME_OPEN", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
     app->setProjectConfig(projectConfig);
     app->run();
@@ -455,13 +455,6 @@ using namespace cocos2d::extra;
 						contextInfo:nil];
 }
 
-- (const string) getDebugLogFilePath
-{
-    string path(projectConfig.getProjectDir());
-    path.append("debug.log");
-    return path;
-}
-
 - (bool) writeDebugLogToFile:(const string)path
 {
     if (debugLogFile) return true;
@@ -660,7 +653,7 @@ using namespace cocos2d::extra;
     bool isWrite = projectConfig.isWriteDebugLogToFile();
     if (!isWrite)
     {
-        if ([self writeDebugLogToFile:[self getDebugLogFilePath]])
+        if ([self writeDebugLogToFile:projectConfig.getDebugLogFilePath()])
         {
             projectConfig.setWriteDebugLogToFile(true);
             [(NSMenuItem*)sender setState:NSOnState];
@@ -676,7 +669,7 @@ using namespace cocos2d::extra;
 
 - (IBAction) onPlayerOpenDebugLog:(id)sender
 {
-    const string path = [self getDebugLogFilePath];
+    const string path = projectConfig.getDebugLogFilePath();
     [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
 }
 

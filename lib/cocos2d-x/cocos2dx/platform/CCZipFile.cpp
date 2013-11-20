@@ -33,7 +33,7 @@ static const std::string emptyFilename("");
 CCZipFile *CCZipFile::create(const char *zipFilename)
 {
     CCZipFile *zip = new CCZipFile();
-    if (zip->init(zipFilename))
+    if (zip->initWithFilename(zipFilename))
     {
         zip->autorelease();
         return zip;
@@ -45,13 +45,38 @@ CCZipFile *CCZipFile::create(const char *zipFilename)
     }
 }
 
-bool CCZipFile::init(const char *zipFilename)
+CCZipFile *CCZipFile::createWithBuffer(const void* buffer, uLong size)
+{
+    CCZipFile *zip = new CCZipFile();
+    if (zip->initWithBuffer(buffer, size))
+    {
+        zip->autorelease();
+        return zip;
+    }
+    else
+    {
+        delete zip;
+        return NULL;
+    }
+}
+
+bool CCZipFile::initWithFilename(const char *zipFilename)
 {
     if (!zipFilename || strlen(zipFilename) == 0) return false;
 
     m_zipFile = unzOpen(zipFilename);
     if (!m_zipFile) return false;
     
+    return true;
+}
+
+bool CCZipFile::initWithBuffer(const void *buffer, uLong size)
+{
+    if (!buffer || size == 0) return false;
+
+    m_zipFile = unzOpenBuffer(buffer, size);
+    if (!m_zipFile) return false;
+
     return true;
 }
 

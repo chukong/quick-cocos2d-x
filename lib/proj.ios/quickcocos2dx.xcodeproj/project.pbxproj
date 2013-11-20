@@ -37,7 +37,6 @@
 		F44A20D9182A566D00E181EB /* libbase64.c in Sources */ = {isa = PBXBuildFile; fileRef = F44A20D7182A566D00E181EB /* libbase64.c */; };
 		F459EA6C180D04D8006CBDF1 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FC180D04D8006CBDF1 /* CCCrypto.cpp */; };
 		F459EA6D180D04D8006CBDF1 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FF180D04D8006CBDF1 /* md5.c */; };
-		F459EA6E180D04D8006CBDF1 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F459EA02180D04D8006CBDF1 /* xxtea.c */; };
 		F459EA6F180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459EA07180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp */; };
 		F459EA70180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459EA0A180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp */; };
 		F459EA71180D04D8006CBDF1 /* CCHTTPRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459EA11180D04D8006CBDF1 /* CCHTTPRequest.cpp */; };
@@ -137,6 +136,8 @@
 		F45A2E10166B16B100760194 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE8166B16B100760194 /* tolua_to.c */; };
 		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
+		F4A3A8F2182E7B810000EDD1 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8F0182E7B800000EDD1 /* xxtea.c */; };
+		F4A3A8F5182E7B980000EDD1 /* ioapi_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8F3182E7B980000EDD1 /* ioapi_mem.cpp */; };
 		F4A8F6BB17F0B1A400110198 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A8F6BA17F0B1A400110198 /* libwebsockets.a */; };
 		F4A8F6BF17F0B1F500110198 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A8F6BD17F0B1F500110198 /* WebSocket.cpp */; };
 		F4A8F6C217F0B21200110198 /* Lua_web_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A8F6C017F0B21200110198 /* Lua_web_socket.cpp */; };
@@ -417,8 +418,6 @@
 		F459E9FD180D04D8006CBDF1 /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
 		F459E9FF180D04D8006CBDF1 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
 		F459EA00180D04D8006CBDF1 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		F459EA02180D04D8006CBDF1 /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
-		F459EA03180D04D8006CBDF1 /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
 		F459EA07180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extra_ios_iap_luabinding.cpp; sourceTree = "<group>"; };
 		F459EA08180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra_ios_iap_luabinding.h; sourceTree = "<group>"; };
 		F459EA0A180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extra_luabinding.cpp; sourceTree = "<group>"; };
@@ -628,6 +627,10 @@
 		F45FF34A16C7DD4C00275222 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F47C66C116EB37DB00132435 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F47C66C216EB37DB00132435 /* snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
+		F4A3A8F0182E7B800000EDD1 /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
+		F4A3A8F1182E7B800000EDD1 /* xxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxtea.h; sourceTree = "<group>"; };
+		F4A3A8F3182E7B980000EDD1 /* ioapi_mem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ioapi_mem.cpp; sourceTree = "<group>"; };
+		F4A3A8F4182E7B980000EDD1 /* ioapi_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi_mem.h; sourceTree = "<group>"; };
 		F4A8F6B817F0B1A400110198 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
 		F4A8F6BA17F0B1A400110198 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libwebsockets.a; sourceTree = "<group>"; };
 		F4A8F6BD17F0B1F500110198 /* WebSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocket.cpp; sourceTree = "<group>"; };
@@ -1261,7 +1264,6 @@
 				F459E9FC180D04D8006CBDF1 /* CCCrypto.cpp */,
 				F459E9FD180D04D8006CBDF1 /* CCCrypto.h */,
 				F459E9FE180D04D8006CBDF1 /* md5 */,
-				F459EA01180D04D8006CBDF1 /* xxtea */,
 			);
 			path = crypto;
 			sourceTree = "<group>";
@@ -1282,15 +1284,6 @@
 				F459EA00180D04D8006CBDF1 /* md5.h */,
 			);
 			path = md5;
-			sourceTree = "<group>";
-		};
-		F459EA01180D04D8006CBDF1 /* xxtea */ = {
-			isa = PBXGroup;
-			children = (
-				F459EA02180D04D8006CBDF1 /* xxtea.c */,
-				F459EA03180D04D8006CBDF1 /* xxtea.h */,
-			);
-			path = xxtea;
 			sourceTree = "<group>";
 		};
 		F459EA04180D04D8006CBDF1 /* luabinding */ = {
@@ -2437,6 +2430,8 @@
 				F4E88272177015C400577406 /* TransformUtils.cpp */,
 				F4E88273177015C400577406 /* TransformUtils.h */,
 				F4E88274177015C400577406 /* user_default */,
+				F4A3A8F0182E7B800000EDD1 /* xxtea.c */,
+				F4A3A8F1182E7B800000EDD1 /* xxtea.h */,
 				F4E88279177015C400577406 /* zip_support */,
 			);
 			path = support;
@@ -2498,6 +2493,8 @@
 			children = (
 				F4E8827A177015C400577406 /* ioapi.cpp */,
 				F4E8827B177015C400577406 /* ioapi.h */,
+				F4A3A8F3182E7B980000EDD1 /* ioapi_mem.cpp */,
+				F4A3A8F4182E7B980000EDD1 /* ioapi_mem.h */,
 				F4E8827C177015C400577406 /* unzip.cpp */,
 				F4E8827D177015C400577406 /* unzip.h */,
 				F4E8827E177015C400577406 /* ZipUtils.cpp */,
@@ -2948,7 +2945,6 @@
 				F4E882F8177015C400577406 /* ccUTF8.cpp in Sources */,
 				F4E882F9177015C400577406 /* ccUtils.cpp in Sources */,
 				F4E882FA177015C400577406 /* CCVertex.cpp in Sources */,
-				F459EA6E180D04D8006CBDF1 /* xxtea.c in Sources */,
 				F4E882FB177015C400577406 /* CCComponent.cpp in Sources */,
 				F4E882FC177015C400577406 /* CCComponentContainer.cpp in Sources */,
 				F4E882FD177015C400577406 /* ccCArray.cpp in Sources */,
@@ -2998,6 +2994,7 @@
 				F4E88316177015C400577406 /* CCTouchHandler.cpp in Sources */,
 				F4E88336177015FF00577406 /* AccelerometerDelegateWrapper.mm in Sources */,
 				F4E88337177015FF00577406 /* CCAccelerometer.mm in Sources */,
+				F4A3A8F5182E7B980000EDD1 /* ioapi_mem.cpp in Sources */,
 				F4E88338177015FF00577406 /* CCApplication.mm in Sources */,
 				F4E88339177015FF00577406 /* CCCommon.mm in Sources */,
 				F40118C3180C9E62002A74D5 /* Lua_extensions_CCB.cpp in Sources */,
@@ -3073,6 +3070,7 @@
 				F4E883C81770163800577406 /* CCControlSlider.cpp in Sources */,
 				F4E883C91770163800577406 /* CCControlStepper.cpp in Sources */,
 				F4E883CA1770163800577406 /* CCControlSwitch.cpp in Sources */,
+				F4A3A8F2182E7B810000EDD1 /* xxtea.c in Sources */,
 				F4E883CB1770163800577406 /* CCControlUtils.cpp in Sources */,
 				F459EB8A180D0513006CBDF1 /* tcp.c in Sources */,
 				F4E883CC1770163800577406 /* CCInvocation.cpp in Sources */,

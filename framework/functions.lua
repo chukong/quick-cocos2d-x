@@ -339,9 +339,15 @@ function table.removeItem(list, item, removeAll)
     end
 end
 
-function table.walk(t, fun)
+function table.map(t, fun)
     for k,v in pairs(t) do
         t[k] = fun(v, k)
+    end
+end
+
+function table.walk(t, fun)
+    for k,v in pairs(t) do
+        fun(v, k)
     end
 end
 

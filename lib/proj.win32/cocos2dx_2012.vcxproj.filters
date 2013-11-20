@@ -283,9 +283,6 @@
     <Filter Include="cocos2d-x\external\extra\crypto\md5">
       <UniqueIdentifier>{ea5c27da-0735-4cb3-9b12-a59e21d0a4a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cocos2d-x\external\extra\crypto\xxtea">
-      <UniqueIdentifier>{1840b3c2-78d7-420a-9ba0-e82ae6de94fd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocos2d-x\external\extra\luabinding">
       <UniqueIdentifier>{2d1c7052-5584-4631-8c09-093adf42c4ce}</UniqueIdentifier>
     </Filter>
@@ -1035,9 +1032,6 @@
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\md5\md5.c">
       <Filter>cocos2d-x\external\extra\crypto\md5</Filter>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\external\extra\crypto\xxtea\xxtea.c">
-      <Filter>cocos2d-x\external\extra\crypto\xxtea</Filter>
-    </ClCompile>
     <ClCompile Include="..\cocos2d-x\external\extra\luabinding\cocos2dx_extra_luabinding.cpp">
       <Filter>cocos2d-x\external\extra\luabinding</Filter>
     </ClCompile>
@@ -1205,6 +1199,12 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\external\extra\crypto\base64\libbase64.c">
       <Filter>cocos2d-x\external\extra\crypto\base64</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\support\xxtea.c">
+      <Filter>cocos2d-x\cocos2dx\support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\support\zip_support\ioapi_mem.cpp">
+      <Filter>cocos2d-x\cocos2dx\support\zip_support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2192,9 +2192,6 @@
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\md5\md5.h">
       <Filter>cocos2d-x\external\extra\crypto\md5</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\external\extra\crypto\xxtea\xxtea.h">
-      <Filter>cocos2d-x\external\extra\crypto\xxtea</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2d-x\external\extra\luabinding\cocos2dx_extra_luabinding.h">
       <Filter>cocos2d-x\external\extra\luabinding</Filter>
     </ClInclude>
@@ -2401,6 +2398,12 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\external\extra\crypto\base64\libbase64.h">
       <Filter>cocos2d-x\external\extra\crypto\base64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\support\xxtea.h">
+      <Filter>cocos2d-x\cocos2dx\support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\support\zip_support\ioapi_mem.h">
+      <Filter>cocos2d-x\cocos2dx\support\zip_support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
