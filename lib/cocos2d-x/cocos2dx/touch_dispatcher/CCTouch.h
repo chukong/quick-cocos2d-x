@@ -41,7 +41,7 @@ public:
     /**
      * @js ctor
      */
-    CCTouch() 
+    CCTouch()
         : m_nId(0),
         m_startPointCaptured(false)
     {}

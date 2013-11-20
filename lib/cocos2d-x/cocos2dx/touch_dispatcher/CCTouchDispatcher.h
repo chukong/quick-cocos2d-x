@@ -127,7 +127,7 @@ public:
     /**
      * @lua NA
      */
-    CCTouchDispatcher() 
+    CCTouchDispatcher()
         : m_pTargetedHandlers(NULL)
         , m_pStandardHandlers(NULL)
         , m_pHandlersToAdd(NULL)

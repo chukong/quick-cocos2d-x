@@ -271,7 +271,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         
         dim.width = (int)(dim.width / 2) * 2 + 2;
         dim.height = (int)(dim.height / 2) * 2 + 2;
-
+        
         // compute the padding needed by shadow and stroke
         float shadowStrokePaddingX = 0.0f;
         float shadowStrokePaddingY = 0.0f;

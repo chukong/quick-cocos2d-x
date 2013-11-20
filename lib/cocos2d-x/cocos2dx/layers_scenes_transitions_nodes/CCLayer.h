@@ -66,7 +66,7 @@ public:
      */
     virtual ~CCLayer();
     virtual bool init();
-
+    
     /** create one layer */
     static CCLayer *create(void);
     /**
@@ -84,7 +84,7 @@ public:
      *  @lua NA
      */
     virtual void onEnterTransitionDidFinish();
-
+    
     // default implements are used to call script callback if exist
     virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
@@ -116,7 +116,7 @@ public:
     */
     virtual void registerWithTouchDispatcher(void);
     virtual void unregisterWithTouchDispatcher(void);
-
+    
     /** whether or not it will receive Accelerometer events
     You can enable / disable accelerometer events with this property.
     @since v0.8.1
@@ -139,13 +139,13 @@ public:
 
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
-
+    
     inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
-protected:
+protected:   
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
-
+    
     // Script touch events handler
     CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;
     CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
@@ -182,9 +182,9 @@ public:
 
     virtual void draw();
     virtual void setContentSize(const CCSize & var);
-
+    
     static CCLayerColor* create();
-
+    
     /** creates a CCLayer with color, width and height in Points */
     static CCLayerColor * create(const ccColor4B& color, GLfloat width, GLfloat height);
     /** creates a CCLayer with color. Width and height are the window size. */
@@ -207,7 +207,7 @@ public:
 
     /** BlendFunction. Conforms to CCBlendProtocol protocol */
     CC_PROPERTY(ccBlendFunc, m_tBlendFunc, BlendFunc)
-
+   
     virtual void setOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
     virtual bool isOpacityModifyRGB(void) { return false;}
     virtual void setColor(const ccColor3B &color);
@@ -274,7 +274,7 @@ protected:
 public:
     virtual void setCompressedInterpolation(bool bCompressedInterpolation);
     virtual bool isCompressedInterpolation();
-
+    
     static CCLayerGradient* create();
 
 protected:
@@ -307,7 +307,7 @@ public:
      * @js NA
      */
     static CCLayerMultiplex* create();
-
+    
     /** creates a CCMultiplexLayer with an array of layers.
      * @since v2.1
      * @js NA
@@ -332,14 +332,14 @@ public:
      *  @lua NA
      */
     bool initWithLayers(CCLayer* layer, va_list params);
-    /** switches to a certain layer indexed by n.
+    /** switches to a certain layer indexed by n. 
     The current (old) layer will be removed from it's parent with 'cleanup:YES'.
     */
 
     /** initializes a CCMultiplexLayer with an array of layers
      *  @since v2.1
      *  @lua NA
-    */
+     */
     bool initWithArray(CCArray* arrayOfLayers);
 
     void switchTo(unsigned int n);

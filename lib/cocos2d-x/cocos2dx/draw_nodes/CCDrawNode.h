@@ -92,7 +92,7 @@ public:
     void setBlendFunc(const ccBlendFunc &blendFunc);
     
     CCDrawNode();
-    
+
     /** listen the event that coming to foreground on Android  
      * @js NA
      */

@@ -35,7 +35,7 @@ THE SOFTWARE.
 #include <cstring>
 
 NS_CC_BEGIN
-
+    
 static unsigned int _globalFontSize = kCCItemSize;
 static std::string _globalFontName = "Marker Felt";
 static bool _globalFontNameRelease = false;
@@ -113,7 +113,7 @@ void CCMenuItem::activate()
         {
             (m_pListener->*m_pfnSelector)(this);
         }
-
+        
         if (kScriptTypeNone != m_eScriptType)
         {
             CCScriptEngineManager::sharedManager()->getScriptEngine()->executeMenuItemEvent(this);
@@ -173,12 +173,12 @@ void CCMenuItemLabel::setLabel(CCNode* var)
         var->setAnchorPoint(ccp(0, 0));
         setContentSize(var->getContentSize());
     }
-
+    
     if (m_pLabel)
     {
         removeChild(m_pLabel, true);
     }
-
+    
     m_pLabel = var;
 }
 
@@ -205,10 +205,10 @@ bool CCMenuItemLabel::initWithLabel(CCNode* label, CCObject* target, SEL_MenuHan
     m_tColorBackup = ccWHITE;
     setDisabledColor(ccc3(126,126,126));
     this->setLabel(label);
-
+    
     setCascadeColorEnabled(true);
     setCascadeOpacityEnabled(true);
-
+    
     return true;
 }
 
@@ -238,7 +238,7 @@ void CCMenuItemLabel::selected()
     if(m_bEnabled)
     {
         CCMenuItem::selected();
-
+        
         CCAction *action = getActionByTag(kZoomActionTag);
         if (action)
         {
@@ -248,7 +248,7 @@ void CCMenuItemLabel::selected()
         {
             m_fOriginalScale = this->getScale();
         }
-
+        
         CCAction *zoomAction = CCScaleTo::create(0.1f, m_fOriginalScale * 1.2f);
         zoomAction->setTag(kZoomActionTag);
         this->runAction(zoomAction);
@@ -270,7 +270,7 @@ void CCMenuItemLabel::unselected()
 
 void CCMenuItemLabel::setEnabled(bool enabled)
 {
-    if( m_bEnabled != enabled )
+    if( m_bEnabled != enabled ) 
     {
         if(enabled == false)
         {
@@ -362,10 +362,10 @@ CCMenuItemFont * CCMenuItemFont::create(const char *value)
 bool CCMenuItemFont::initWithString(const char *value, CCObject* target, SEL_MenuHandler selector)
 {
     CCAssert( value != NULL && strlen(value) != 0, "Value length must be greater than 0");
-
+    
     m_strFontName = _globalFontName;
     m_uFontSize = _globalFontSize;
-
+    
     CCLabelTTF *label = CCLabelTTF::create(value, m_strFontName.c_str(), (float)m_uFontSize);
     if (CCMenuItemLabel::initWithLabel(label, target, selector))
     {
@@ -376,7 +376,7 @@ bool CCMenuItemFont::initWithString(const char *value, CCObject* target, SEL_Men
 
 void CCMenuItemFont::recreateLabel()
 {
-    CCLabelTTF *label = CCLabelTTF::create(dynamic_cast<CCLabelProtocol*>(m_pLabel)->getString(),
+    CCLabelTTF *label = CCLabelTTF::create(dynamic_cast<CCLabelProtocol*>(m_pLabel)->getString(), 
                                                     m_strFontName.c_str(), (float)m_uFontSize);
     this->setLabel(label);
 }
@@ -500,14 +500,14 @@ CCMenuItemSprite * CCMenuItemSprite::create(CCNode* normalSprite, CCNode* select
 CCMenuItemSprite * CCMenuItemSprite::create(CCNode *normalSprite, CCNode *selectedSprite, CCNode *disabledSprite, CCObject *target, SEL_MenuHandler selector)
 {
     CCMenuItemSprite *pRet = new CCMenuItemSprite();
-    pRet->initWithNormalSprite(normalSprite, selectedSprite, disabledSprite, target, selector);
+    pRet->initWithNormalSprite(normalSprite, selectedSprite, disabledSprite, target, selector); 
     pRet->autorelease();
     return pRet;
 }
 
 bool CCMenuItemSprite::initWithNormalSprite(CCNode* normalSprite, CCNode* selectedSprite, CCNode* disabledSprite, CCObject* target, SEL_MenuHandler selector)
 {
-    CCMenuItem::initWithTarget(target, selector);
+    CCMenuItem::initWithTarget(target, selector); 
     setNormalImage(normalSprite);
     setSelectedImage(selectedSprite);
     setDisabledImage(disabledSprite);
@@ -516,10 +516,10 @@ bool CCMenuItemSprite::initWithNormalSprite(CCNode* normalSprite, CCNode* select
     {
         this->setContentSize(m_pNormalImage->getContentSize());
     }
-
+    
     setCascadeColorEnabled(true);
     setCascadeOpacityEnabled(true);
-
+    
     return true;
 }
 
@@ -570,14 +570,14 @@ void CCMenuItemSprite::unselected()
 
 void CCMenuItemSprite::setEnabled(bool bEnabled)
 {
-    if( m_bEnabled != bEnabled )
+    if( m_bEnabled != bEnabled ) 
     {
         CCMenuItem::setEnabled(bEnabled);
         this->updateImagesVisibility();
     }
 }
 
-// Helper
+// Helper 
 void CCMenuItemSprite::updateImagesVisibility()
 {
     if (m_bEnabled)
@@ -673,7 +673,7 @@ bool CCMenuItemImage::initWithNormalImage(const char *normalImage, const char *s
     {
         selectedSprite = CCSprite::create(selectedImage);
     }
-
+    
     if(disabledImage)
     {
         disabledSprite = CCSprite::create(disabledImage);
@@ -720,13 +720,13 @@ CCMenuItemToggle * CCMenuItemToggle::createWithTarget(CCObject* target, SEL_Menu
     pRet->CCMenuItem::initWithTarget(target, selector);
     pRet->m_pSubItems = CCArray::create();
     pRet->m_pSubItems->retain();
-
+    
     for (unsigned int z=0; z < menuItems->count(); z++)
     {
         CCMenuItem* menuItem = (CCMenuItem*)menuItems->objectAtIndex(z);
         pRet->m_pSubItems->addObject(menuItem);
     }
-
+    
     pRet->m_uSelectedIndex = UINT_MAX;
     pRet->setSelectedIndex(0);
     return pRet;
@@ -758,7 +758,7 @@ bool CCMenuItemToggle::initWithTarget(CCObject* target, SEL_MenuHandler selector
     this->m_pSubItems->retain();
     int z = 0;
     CCMenuItem *i = item;
-    while(i)
+    while(i) 
     {
         z++;
         m_pSubItems->addObject(i);
@@ -788,10 +788,10 @@ bool CCMenuItemToggle::initWithItem(CCMenuItem *item)
     }
     m_uSelectedIndex = UINT_MAX;
     this->setSelectedIndex(0);
-
+    
     setCascadeColorEnabled(true);
     setCascadeOpacityEnabled(true);
-
+    
     return true;
 }
 
@@ -839,7 +839,7 @@ void CCMenuItemToggle::unselected()
 void CCMenuItemToggle::activate()
 {
     // update index
-    if( m_bEnabled )
+    if( m_bEnabled ) 
     {
         unsigned int newIndex = (m_uSelectedIndex + 1) % m_pSubItems->count();
         this->setSelectedIndex(newIndex);

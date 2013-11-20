@@ -97,9 +97,9 @@ void CCTileMapAtlas::calculateItemsToRender()
     CCAssert( m_pTGAInfo != NULL, "tgaInfo must be non-nil");
 
     m_nItemsToRender = 0;
-    for(int x=0;x < m_pTGAInfo->width; x++ )
+    for(int x=0;x < m_pTGAInfo->width; x++ ) 
     {
-        for( int y=0; y < m_pTGAInfo->height; y++ )
+        for( int y=0; y < m_pTGAInfo->height; y++ ) 
         {
             ccColor3B *ptr = (ccColor3B*) m_pTGAInfo->imageData;
             ccColor3B value = ptr[x + y * m_pTGAInfo->width];
@@ -124,7 +124,7 @@ void CCTileMapAtlas::loadTGAfile(const char *file)
 
     m_pTGAInfo = tgaLoad( fullPath.c_str() );
 #if 1
-    if( m_pTGAInfo->status != TGA_OK )
+    if( m_pTGAInfo->status != TGA_OK ) 
     {
         CCAssert(0, "TileMapAtlasLoadTGA : TileMapAtlas cannot load TGA file");
     }
@@ -145,18 +145,18 @@ void CCTileMapAtlas::setTile(const ccColor3B& tile, const CCPoint& position)
     if( value.r == 0 )
     {
         CCLOG("cocos2d: Value.r must be non 0.");
-    }
+    } 
     else
     {
         ptr[(unsigned int)(position.x + position.y * m_pTGAInfo->width)] = tile;
 
         // XXX: this method consumes a lot of memory
         // XXX: a tree of something like that shall be implemented
-        CCInteger *num = (CCInteger*)m_pPosToAtlasIndex->objectForKey(CCString::createWithFormat("%ld,%ld",
-                                                                                                 (long)position.x,
+        CCInteger *num = (CCInteger*)m_pPosToAtlasIndex->objectForKey(CCString::createWithFormat("%ld,%ld", 
+                                                                                                 (long)position.x, 
                                                                                                  (long)position.y)->getCString());
         this->updateAtlasValueAt(position, tile, num->getValue());
-    }
+    }    
 }
 
 ccColor3B CCTileMapAtlas::tileAt(const CCPoint& position)
@@ -168,7 +168,7 @@ ccColor3B CCTileMapAtlas::tileAt(const CCPoint& position)
     ccColor3B *ptr = (ccColor3B*)m_pTGAInfo->imageData;
     ccColor3B value = ptr[(unsigned int)(position.x + position.y * m_pTGAInfo->width)];
 
-    return value;
+    return value;    
 }
 
 void CCTileMapAtlas::updateAtlasValueAt(const CCPoint& pos, const ccColor3B& value, unsigned int index)
@@ -241,11 +241,11 @@ void CCTileMapAtlas::updateAtlasValues()
 
     int total = 0;
 
-    for(int x=0;x < m_pTGAInfo->width; x++ )
+    for(int x=0;x < m_pTGAInfo->width; x++ ) 
     {
-        for( int y=0; y < m_pTGAInfo->height; y++ )
+        for( int y=0; y < m_pTGAInfo->height; y++ ) 
         {
-            if( total < m_nItemsToRender )
+            if( total < m_nItemsToRender ) 
             {
                 ccColor3B *ptr = (ccColor3B*) m_pTGAInfo->imageData;
                 ccColor3B value = ptr[x + y * m_pTGAInfo->width];

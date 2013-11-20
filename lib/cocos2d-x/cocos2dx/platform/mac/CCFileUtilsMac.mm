@@ -263,7 +263,7 @@ bool CCFileUtilsMac::isFileExist(const std::string& strFilePath)
             bRet = true;
         }
     }
-
+    
     return bRet;
 }
 

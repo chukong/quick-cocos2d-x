@@ -122,7 +122,7 @@ public://@public
     std::string m_sAtlasName;
     //! values for kerning
     tCCKerningHashElement *m_pKerningDictionary;
-
+    
     // Character Set defines the letters that actually exist in the font
     std::set<unsigned int> *m_pCharacterSet;
 public:
@@ -143,10 +143,10 @@ public:
 
     /** initializes a BitmapFontConfiguration with a FNT file */
     bool initWithFNTfile(const char *FNTfile);
-
+    
     inline const char* getAtlasName(){ return m_sAtlasName.c_str(); }
     inline void setAtlasName(const char* atlasName) { m_sAtlasName = atlasName; }
-
+    
     std::set<unsigned int>* getCharacterSet() const;
 private:
     std::set<unsigned int>* parseConfigFile(const char *controlFile);
@@ -209,7 +209,7 @@ public:
 
     /** creates a bitmap font atlas with an initial string and the FNT file */
     static CCLabelBMFont * create(const char *str, const char *fntFile, float width, CCTextAlignment alignment, CCPoint imageOffset);
-
+    
 	static CCLabelBMFont * create(const char *str, const char *fntFile, float width, CCTextAlignment alignment);
 
 	static CCLabelBMFont * create(const char *str, const char *fntFile, float width);
@@ -240,7 +240,7 @@ public:
     virtual void setScale(float scale);
     virtual void setScaleX(float scaleX);
     virtual void setScaleY(float scaleY);
-
+    
     void setFntFile(const char* fntFile);
     const char* getFntFile();
 	CCBMFontConfiguration* getConfiguration() const;
@@ -252,30 +252,30 @@ private:
     int kerningAmountForFirst(unsigned short first, unsigned short second);
     float getLetterPosXLeft( CCSprite* characterSprite );
     float getLetterPosXRight( CCSprite* characterSprite );
-
+    
 protected:
     virtual void setString(unsigned short *newString, bool needUpdateLabel);
     // string to render
     unsigned short* m_sString;
-
+    
     // name of fntFile
     std::string m_sFntFile;
-
+    
     // initial string without line breaks
     unsigned short* m_sInitialString;
     std::string m_sInitialStringUTF8;
-
+    
     // alignment of all lines
     CCTextAlignment m_pAlignment;
     // max width until a line break is added
     float m_fWidth;
-
+    
     CCBMFontConfiguration *m_pConfiguration;
-
+    
     bool m_bLineBreakWithoutSpaces;
     // offset of the texture atlas
     CCPoint    m_tImageOffset;
-
+    
     // reused char
     CCSprite *m_pReusedChar;
 };

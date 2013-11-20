@@ -218,7 +218,7 @@ public:
      @return The integer value returned from the script function.
      */
     virtual int executeNodeEvent(CCNode* pNode, int nAction, float dt = 0) = 0;
-
+    
     virtual int executeMenuItemEvent(CCMenuItem* pMenuItem) = 0;
     /** Execute a notification event function */
     virtual int executeNotificationEvent(CCNotificationCenter* pNotificationCenter, const char* pszName) = 0;
@@ -240,7 +240,7 @@ public:
 
     /** function for common event */
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL) = 0;
-
+    
     /** called by CCAssert to allow scripting engine to handle failed assertions
      * @return true if the assert was handled by the script engine, false otherwise.
      */

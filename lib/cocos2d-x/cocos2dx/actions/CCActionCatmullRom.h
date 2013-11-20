@@ -106,7 +106,7 @@ public:
     /**
      *  @js NA
      */
-    inline void  setPoints(CCPointArray* points) 
+    inline void  setPoints(CCPointArray* points)
     {
         CC_SAFE_RETAIN(points);
         CC_SAFE_RELEASE(m_pPoints);

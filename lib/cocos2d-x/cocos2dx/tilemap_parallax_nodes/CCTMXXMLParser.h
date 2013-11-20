@@ -170,7 +170,7 @@ public:
     CC_SYNTHESIZE(bool, m_bStoringCharacters, StoringCharacters);
     /// properties
     CC_PROPERTY(CCDictionary*, m_pProperties, Properties);
-public:    
+public:
     /**
      * @js  ctor
      * @lua NA
