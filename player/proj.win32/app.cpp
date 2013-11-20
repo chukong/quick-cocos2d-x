@@ -4,6 +4,11 @@
 
 #include "stdafx.h"
 #include "app.h"
+#include <io.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+
 #include <Commdlg.h>
 #include <Shlobj.h>
 #include <winnls.h>
@@ -11,12 +16,16 @@
 #include <objbase.h>
 #include <objidl.h>
 #include <shlguid.h>
+#include <shellapi.h>
+
 #include <vector>
+
 #include "CCEGLView.h"
 #include "CCLuaEngine.h"
 #include "CCLuaStack.h"
 #include "SimpleAudioEngine.h"
 #include "ProjectConfigDialog.h"
+#include "Registry.h"
 
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -61,6 +70,7 @@ QuickXPlayer::QuickXPlayer(void)
 : m_app(NULL)
 , m_hwnd(NULL)
 , m_exit(TRUE)
+, m_writeDebugLogFile(NULL)
 {
     INITCOMMONCONTROLSEX InitCtrls;
     InitCtrls.dwSize = sizeof(InitCtrls);
@@ -74,32 +84,50 @@ int QuickXPlayer::run(void)
     SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(QUICK_COCOS2DX_ROOT);
 
     loadProjectConfig();
+	if (!m_project.getProjectDir().length())
+	{
+		m_project.resetToWelcome();
+	}
 
-    AllocConsole();
-    freopen("CONOUT$", "wt", stdout);
-    freopen("CONOUT$", "wt", stderr);
+    loadOpenRecents();
 
-    // disable close console
-    HWND hwndConsole = GetConsoleWindow();
-    if (hwndConsole != NULL)
+	HWND hwndConsole = NULL;
+	if (m_project.isShowConsole())
+	{
+		AllocConsole();
+		freopen("CONOUT$", "wt", stdout);
+		freopen("CONOUT$", "wt", stderr);
+
+		// disable close console
+		hwndConsole = GetConsoleWindow();
+		if (hwndConsole != NULL)
+		{
+			HMENU hMenu = GetSystemMenu(hwndConsole, FALSE);
+			if (hMenu != NULL) DeleteMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
+
+			ShowWindow(hwndConsole, SW_SHOW);
+            BringWindowToTop(hwndConsole);
+		}
+	}
+
+    if (m_project.isWriteDebugLogToFile())
     {
-        HMENU hMenu = GetSystemMenu(hwndConsole, FALSE);
-        if (hMenu != NULL) DeleteMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
+        const string debugLogFilePath = m_project.getDebugLogFilePath();
+        m_writeDebugLogFile = fopen(debugLogFilePath.c_str(), "w");
+        if (!m_writeDebugLogFile)
+        {
+            CCLOG("Cannot create debug log file %s", debugLogFilePath.c_str());
+        }
     }
+
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeOpen), "WELCOME_OPEN", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(QuickXPlayer::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
 
     do
     {
         m_exit = TRUE;
-
-        if (m_project.isShowConsole())
-        {
-            ShowWindow(hwndConsole, SW_SHOW);
-            BringWindowToTop(hwndConsole);
-        }
-        else
-        {
-            ShowWindow(hwndConsole, SW_HIDE);
-        }
 
         // create the application instance
         m_app = new AppDelegate();
@@ -131,7 +159,11 @@ int QuickXPlayer::run(void)
         // set icon
         HICON icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_LUAHOSTWIN32));
         SendMessage(m_hwnd, WM_SETICON, ICON_BIG, (LPARAM)icon);
-        SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
+
+		if (hwndConsole)
+		{
+			SendMessage(hwndConsole, WM_SETICON, ICON_BIG, (LPARAM)icon);
+		}
 
         // update menu
         createViewMenu();
@@ -157,6 +189,7 @@ int QuickXPlayer::run(void)
     } while (!m_exit);
 
     FreeConsole();
+    if (m_writeDebugLogFile) fclose(m_writeDebugLogFile);
     return 0;
 }
 
@@ -171,6 +204,24 @@ void QuickXPlayer::loadProjectConfig(void)
         args.push_back(s);
     }
     m_project.parseCommandLine(args);
+}
+
+void QuickXPlayer::loadOpenRecents(void)
+{
+    CRegistry *reg = new CRegistry(HKEY_CURRENT_USER, "quick-x\\quick-x-player\\recents");
+    string jsonString;
+    reg->ReadStringValue(jsonString);
+    delete reg;
+
+    if (jsonString.length() == 0)
+    {
+        jsonString = "{}";
+    }
+    CCLuaStack *stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    string code("_G[\"OPEN_RECENTS\"] = '");
+    code.append(jsonString);
+    code.append("'");
+    stack->executeString(code.c_str());
 }
 
 void QuickXPlayer::createViewMenu(void)
@@ -237,11 +288,54 @@ void QuickXPlayer::updateWindowTitle(void)
 
 void QuickXPlayer::relaunch(void)
 {
-    RECT rect;
-    GetWindowRect(m_hwnd, &rect);
-    m_project.setWindowOffset(CCPoint(rect.left, rect.top));
-    m_exit = false;
-    CCDirector::sharedDirector()->end();
+	string commandLine = m_project.makeCommandLine(kProjectConfigAll);
+	TCHAR moduleName[MAX_PATH];
+	ZeroMemory(moduleName, sizeof(moduleName));
+	GetModuleFileName(NULL, moduleName, MAX_PATH);
+
+	wstring ws;
+	ws.append(L"\"");
+	ws.append(moduleName);
+	ws.append(L"\" ");
+	ws.append(commandLine.begin(), commandLine.end());
+
+	STARTUPINFO si = {0};
+	PROCESS_INFORMATION pi = {0};
+	lstrcpyW(moduleName, ws.c_str());
+	if (CreateProcess(NULL, moduleName, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &si, &pi))
+	{
+		ExitProcess(0);
+	}
+}
+
+void QuickXPlayer::writeDebugLog(const char *log)
+{
+    if (!m_writeDebugLogFile) return;
+
+    fputs(log, m_writeDebugLogFile);
+    fputc('\n', m_writeDebugLogFile);
+    fflush(m_writeDebugLogFile);
+}
+
+// welcome callback
+void QuickXPlayer::onWelcomeNewProject(CCObject *object)
+{
+	MessageBox(m_hwnd, L"Coming soon :-)", L"quick-x-player", MB_OK);
+}
+
+void QuickXPlayer::onWelcomeOpen(CCObject *object)
+{
+	onFileOpenProject();
+}
+
+void QuickXPlayer::onWelcomeSamples(CCObject *object)
+{
+	ShellExecuteA(NULL, "open", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str(), NULL, NULL, SW_SHOWNORMAL);
+}
+
+void QuickXPlayer::onWelcomeGetStarted(CCObject *object)
+{
+	ShellExecuteA(NULL, "open", "http://wiki.quick-x.com/", NULL, NULL, SW_SHOWNORMAL);
 }
 
 // menu callback
@@ -251,8 +345,14 @@ void QuickXPlayer::onFileNewProject(void)
 
 void QuickXPlayer::onFileOpenProject(void)
 {
-    if (ProjectConfigDialog::showModal(m_hwnd, &m_project))
+	ProjectConfig project;
+	if (!m_project.isWelcome())
+	{
+		project = m_project;
+	}
+    if (ProjectConfigDialog::showModal(m_hwnd, &project))
     {
+		m_project = project;
         relaunch();
     }
 }
@@ -458,6 +558,17 @@ LRESULT QuickXPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
             host->onFileRelaunch();
         }
         break;
+
+    case WM_COPYDATA:
+		{
+			PCOPYDATASTRUCT pMyCDS = (PCOPYDATASTRUCT) lParam;
+			if (pMyCDS->dwData == CCLOG_STRING)
+			{
+                const char *szBuf = (const char*)(pMyCDS->lpData);
+                sharedInstance()->writeDebugLog(szBuf);
+				break;
+			}
+		}
 
     default:
         return 0;

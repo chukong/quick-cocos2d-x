@@ -7,49 +7,46 @@ function CryptoTestScene:ctor()
     })
 
     local items = {
-        "encryptXXTEA",
-        "decryptXXTEA",
-        "encodeBase64",
-        "decodeBase64",
-        "md5",
+        "XXTEA",
+        "Base64",
+        "MD5",
     }
     self:addChild(game.createMenu(items, handler(self, self.runTest)))
 end
 
-function CryptoTestScene:runTest(name)
-    local m = self[name .. "Test"]
-    m(self)
-end
-
-function CryptoTestScene:encryptXXTEATest()
-    local p = string.rep("Hello ", 20)
-    local k = "KEYKEY"
-    printf("encryptXXTEATest: %s -> %s", p, bin2hex(crypto.encryptXXTEA(p, k)))
-end
-
-function CryptoTestScene:decryptXXTEATest()
-    local p = string.rep("Hello ", 20)
+function CryptoTestScene:XXTEATest()
+    local p = "Test123"
     local k = "KEYKEY"
     local c = crypto.encryptXXTEA(p, k)
-    printf("decryptXXTEATest: %s -> %s", bin2hex(c), crypto.decryptXXTEA(c, k))
+    printf("source: %s", p)
+    printf("encrypt XXTEA: %s", bin2hex(c))
+    printf("decrypt XXTEA: %s", crypto.decryptXXTEA(c, k))
+
+    local p = string.rep("HELLO", 15)
+    local k = "keykey"
+    local c = crypto.encryptXXTEA(p, k)
+    printf("source: %s", p)
+    printf("encrypt XXTEA: %s", bin2hex(c))
+    printf("decrypt XXTEA: %s", crypto.decryptXXTEA(c, k))
 end
 
-function CryptoTestScene:encodeBase64Test()
-    local p = string.rep("Hello ", 20)
+function CryptoTestScene:Base64Test()
+    local p = "Test123"
     local c = crypto.encodeBase64(p)
-    printf("encodeBase64Test: %s -> %s", p, c)
-end
+    printf("source: %s", p)
+    printf("encode Base64: %s", c)
+    printf("decode Base64: %s", crypto.decodeBase64(c))
 
-function CryptoTestScene:decodeBase64Test()
-    local p = string.rep("Hello ", 20)
+    local p = string.rep("HELLO", 15)
     local c = crypto.encodeBase64(p)
-    printf("decodeBase64Test: %s -> %s", c, crypto.decodeBase64(c))
+    printf("source: %s", p)
+    printf("encode Base64: %s", c)
+    printf("decode Base64: %s", crypto.decodeBase64(c))
 end
 
-function CryptoTestScene:md5Test()
-    local p = string.rep("Hello ", 20)
+function CryptoTestScene:MD5Test()
+    local p = string.rep("HELLO", 5)
     printf("md5Test: %s -> %s", p, crypto.md5(p))
 end
-
 
 return CryptoTestScene

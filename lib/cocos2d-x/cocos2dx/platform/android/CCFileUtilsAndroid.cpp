@@ -68,7 +68,7 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
     }
 
     bool bFound = false;
-
+    
     // Check whether file exists in apk.
     if (strFilePath[0] != '/')
     {
@@ -81,7 +81,7 @@ bool CCFileUtilsAndroid::isFileExist(const std::string& strFilePath)
         if (s_pZipFile->fileExists(strPath))
         {
             bFound = true;
-        }
+        } 
     }
     else
     {
@@ -115,20 +115,36 @@ bool CCFileUtilsAndroid::isAbsolutePath(const std::string& strPath)
 
 
 unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize)
+{    
+    return doGetFileData(pszFileName, pszMode, pSize, false);
+}
+
+unsigned char* CCFileUtilsAndroid::getFileDataForAsync(const char* pszFileName, const char* pszMode, unsigned long * pSize)
+{
+    return doGetFileData(pszFileName, pszMode, pSize, true);
+}
+
+unsigned char* CCFileUtilsAndroid::doGetFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize, bool forAsync)
 {
     unsigned char * pData = 0;
-
+    
     if ((! pszFileName) || (! pszMode) || 0 == strlen(pszFileName))
     {
         return 0;
     }
-
+    
     string fullPath = fullPathForFilename(pszFileName);
-
+    
     if (fullPath[0] != '/')
     {
-        //CCLOG("GETTING FILE RELATIVE DATA: %s", pszFileName);
-        pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
+        if (forAsync)
+        {
+            pData = s_pZipFile->getFileData(fullPath.c_str(), pSize, s_pZipFile->_dataThread);
+        }
+        else
+        {
+            pData = s_pZipFile->getFileData(fullPath.c_str(), pSize);
+        }
     }
     else
     {
@@ -138,7 +154,7 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
 	        //CCLOG("GETTING FILE ABSOLUTE DATA: %s", pszFileName);
             FILE *fp = fopen(fullPath.c_str(), pszMode);
             CC_BREAK_IF(!fp);
-
+            
             unsigned long size;
             fseek(fp,0,SEEK_END);
             size = ftell(fp);
@@ -146,21 +162,21 @@ unsigned char* CCFileUtilsAndroid::getFileData(const char* pszFileName, const ch
             pData = new unsigned char[size];
             size = fread(pData,sizeof(unsigned char), size,fp);
             fclose(fp);
-
+            
             if (pSize)
             {
                 *pSize = size;
             }
         } while (0);
     }
-
+    
     if (! pData)
     {
         std::string msg = "Get data from file(";
         msg.append(pszFileName).append(") failed!");
         CCLOG("%s", msg.c_str());
     }
-
+    
     return pData;
 }
 

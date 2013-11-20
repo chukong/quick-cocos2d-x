@@ -32,6 +32,8 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+#define CCLOG_STRING        1
+
 typedef LRESULT (*CUSTOM_WND_PROC)(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed);
 
 class CCEGL;

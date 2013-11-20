@@ -88,7 +88,7 @@ extern "C" {
 		JNIEnv *pEnv = 0;
 		bool bRet = false;
 
-		do
+		do 
 		{
 			pEnv = getJNIEnv();
 			if (! pEnv)
@@ -278,7 +278,7 @@ bool createAudioPlayerBySource(AudioPlayer* player)
 	return true;
 }
 
-bool initAudioPlayer(AudioPlayer* player, const char* filename)
+bool initAudioPlayer(AudioPlayer* player, const char* filename) 
 {
 	// configure audio source
 	off_t start, length;
@@ -499,7 +499,7 @@ bool OpenSLEngine::recreatePlayer(const char* filename)
 	result = (*(newPlayer->fdPlayerPlay))->SetCallbackEventsMask(newPlayer->fdPlayerPlay, SL_PLAYEVENT_HEADATEND);
 	assert(SL_RESULT_SUCCESS == result);
 
-	// set volume
+	// set volume 
 	setSingleEffectVolume(newPlayer, m_effectVolume);
 	setSingleEffectState(newPlayer, SL_PLAYSTATE_STOPPED);
 	setSingleEffectState(newPlayer, SL_PLAYSTATE_PLAYING);
@@ -524,7 +524,7 @@ unsigned int OpenSLEngine::preloadEffect(const char * filename)
 		free(player);
 		return FILE_NOT_FOUND;
 	}
-
+	
 	// set the new player's volume as others'
 	setSingleEffectVolume(player, m_effectVolume);
 
@@ -651,7 +651,7 @@ void OpenSLEngine::setEffectLooping(unsigned int effectID, bool isLooping)
 	vector<AudioPlayer*>::iterator iter = vec->begin();
 	AudioPlayer * player = *iter;
 
-	if (player && player->fdPlayerSeek)
+	if (player && player->fdPlayerSeek) 
 	{
 		result = (*(player->fdPlayerSeek))->SetLoop(player->fdPlayerSeek, (SLboolean) isLooping, 0, SL_TIME_UNKNOWN);
 		assert(SL_RESULT_SUCCESS == result);
@@ -662,7 +662,7 @@ void OpenSLEngine::setEffectsVolume(float volume)
 {
 	assert(volume <= 1.0f && volume >= 0.0f);
 	m_effectVolume = int (RANGE_VOLUME_MILLIBEL * volume) + MIN_VOLUME_MILLIBEL;
-
+	
 	SLresult result;
 	EffectList::iterator p;
 	AudioPlayer * player;

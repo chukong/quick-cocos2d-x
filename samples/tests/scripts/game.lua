@@ -28,7 +28,7 @@ function game.createMenu(items, callback)
 end
 
 function game.exit()
-    CCDirector:sharedDirector():endToLua()
+    os.exit()
 end
 
 function game.enterMainScene()
@@ -76,6 +76,17 @@ function game.createSceneClass(name)
             })
             self.menuLayer:addChild(label)
         end
+    end
+
+
+    function cls:runTest(name)
+        printf("----------------------------------------")
+        printf("-- run test %s", name)
+        print("--")
+        name = string.gsub(name, " ", "_")
+        if self.beforeRunTest then self:beforeRunTest() end
+        local m = self[name .. "Test"]
+        m(self)
     end
 
     return cls

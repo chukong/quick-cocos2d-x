@@ -24,11 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-typedef enum {
-    kCCTouchesAllAtOnce,
-    kCCTouchesOneByOne,
-} ccTouchesMode;
-
 /**
  * @addtogroup layer
  * @{
@@ -46,19 +41,6 @@ All features from CCNode are valid, plus the following new features:
 class CCLayer : public CCNode
 {
     static CCLayer *create(void);
-
-    void registerScriptTouchHandler(LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
-    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
-
-    void unregisterScriptTouchHandler(void);
-    void unregisterScriptTouchHandler @ removeTouchEventListener (void);
-
-    void setTouchEnabled(bool value);
-    bool isTouchEnabled();
-    int getTouchMode();
-    void setTouchMode(ccTouchesMode mode);
-    int getTouchPriority();
-    void setTouchPriority(int priority);
 
     void registerScriptKeypadHandler(LUA_FUNCTION nHandler);
     void registerScriptKeypadHandler @ addKeypadEventListener (LUA_FUNCTION nHandler);
@@ -78,36 +60,6 @@ class CCLayer : public CCNode
     void setAccelerometerInterval(double interval);
 };
 
-
-/** CCLayerRGBA is a subclass of CCLayer that implements the CCRGBAProtocol protocol using a solid color as the background.
-
- All features from CCLayer are valid, plus the following new features that propagate into children that conform to the CCRGBAProtocol:
- - opacity
- - RGB colors
- @since 2.1
- */
-class CCLayerRGBA : public CCLayer
-{
-    static CCLayerRGBA* create();
-
-    GLubyte getOpacity();
-    GLubyte getDisplayedOpacity();
-    void setOpacity(GLubyte opacity);
-    void updateDisplayedOpacity(GLubyte parentOpacity);
-    bool isCascadeOpacityEnabled();
-    void setCascadeOpacityEnabled(bool cascadeOpacityEnabled);
-
-    ccColor3B getColor();
-    ccColor3B getDisplayedColor();
-    void setColor(ccColor3B color);
-    void updateDisplayedColor(ccColor3B parentColor);
-    bool isCascadeColorEnabled();
-    void setCascadeColorEnabled(bool cascadeColorEnabled);
-
-    void setOpacityModifyRGB(bool bValue);
-    bool isOpacityModifyRGB();
-};
-
 //
 // CCLayerColor
 //
@@ -117,7 +69,7 @@ All features from CCLayer are valid, plus the following new features:
 - opacity
 - RGB colors
 */
-class CCLayerColor : public CCLayerRGBA
+class CCLayerColor : public CCLayer
 {
     /** creates a CCLayer with color, width and height in Points */
     static CCLayerColor * create(ccColor4B color, GLfloat width, GLfloat height);

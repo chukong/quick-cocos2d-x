@@ -425,7 +425,7 @@ bool CCImage::initWithString(
         COLORREF *dest = (COLORREF*)m_pData + (size.cy - 1) * width + width - 1 - offset;
         int counter = size.cx;
         while (src >= (COLORREF*)m_pData)
-            {
+        {
             COLORREF& clr = *src;
                 if (GetRValue(clr) || GetGValue(clr) || GetBValue(clr))
                 {
@@ -441,9 +441,9 @@ bool CCImage::initWithString(
                 {
                     *dest = 0;
                     --dest;
-                }
-                counter = size.cx;
             }
+                counter = size.cx;
+        }
         }
 
         bRet = true;

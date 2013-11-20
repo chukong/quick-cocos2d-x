@@ -2,22 +2,22 @@
 #include "AppControllerBridge.h"
 #import "AppController.h"
 
-void AppControllerBridge::onWelcomeNewProject(void)
+void AppControllerBridge::onWelcomeNewProject(CCObject *object)
 {
     [(AppController*)m_controller welcomeNewProject];
 }
 
-void AppControllerBridge::onWelcomeOpen(void)
+void AppControllerBridge::onWelcomeOpen(CCObject *object)
 {
     [(AppController*)m_controller welcomeOpen];
 }
 
-void AppControllerBridge::onWelcomeSamples(void)
+void AppControllerBridge::onWelcomeSamples(CCObject *object)
 {
     [(AppController*)m_controller welcomeSamples];
 }
 
-void AppControllerBridge::onWelcomeGetStarted(void)
+void AppControllerBridge::onWelcomeGetStarted(CCObject *object)
 {
     [(AppController*)m_controller welcomeGetStarted];
 }

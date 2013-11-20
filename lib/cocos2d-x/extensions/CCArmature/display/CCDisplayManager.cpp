@@ -112,12 +112,14 @@ void CCDisplayManager::addDisplay(CCDisplayData *displayData, int index)
 
 void CCDisplayManager::removeDisplay(int index)
 {
-    m_pDecoDisplayList->removeObjectAtIndex(index);
-
+	// zrong 2013-11-06 from https://github.com/cocos2d/cocos2d-x/commit/af754bfe5d1b28b072ec14ed5ffc1900f06a7e95
     if(index == m_iDisplayIndex)
     {
         setCurrentDecorativeDisplay(NULL);
+		m_iDisplayIndex = -1;
     }
+
+    m_pDecoDisplayList->removeObjectAtIndex(index);
 }
 
 void CCDisplayManager::changeDisplayByIndex(int index, bool force)
@@ -138,7 +140,7 @@ void CCDisplayManager::changeDisplayByIndex(int index, bool force)
     {
         if(m_pDisplayRenderNode)
         {
-            m_pDisplayRenderNode->stopAllActions();
+			m_pDisplayRenderNode->stopAllActions();
             m_pDisplayRenderNode->removeFromParentAndCleanup(true);
             setCurrentDecorativeDisplay(NULL);
         }

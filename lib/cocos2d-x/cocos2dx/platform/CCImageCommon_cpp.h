@@ -1,5 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010 cocos2d-x.org
+Copyright (c) Microsoft Open Technologies, Inc.
 
 http://www.cocos2d-x.org
 
@@ -31,8 +32,20 @@ THE SOFTWARE.
 #include "CCStdC.h"
 #include "CCFileUtils.h"
 #include "png.h"
+
+#ifndef QUICK_MINI_TARGET
 #include "jpeglib.h"
 #include "tiffio.h"
+#endif
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+#include "CCFreeTypeFont.h"
+#endif
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "platform/android/CCFileUtilsAndroid.h"
+#endif
+
 #include <string>
 #include <ctype.h>
 
@@ -87,12 +100,17 @@ CCImage::CCImage()
 , m_bHasAlpha(false)
 , m_bPreMulti(false)
 {
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    m_ft = nullptr;
+#endif
 }
 
 CCImage::~CCImage()
 {
     CC_SAFE_DELETE_ARRAY(m_pData);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    CC_SAFE_DELETE(m_ft);
+#endif
 }
 
 bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = eFmtPng*/)
@@ -136,7 +154,12 @@ bool CCImage::initWithImageFileThreadSafe(const char *fullpath, EImageFormat ima
 {
     bool bRet = false;
     unsigned long nSize = 0;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    CCFileUtilsAndroid *fileUitls = (CCFileUtilsAndroid*)CCFileUtils::sharedFileUtils();
+    unsigned char *pBuffer = fileUitls->getFileDataForAsync(fullpath, "rb", &nSize);
+#else
     unsigned char *pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullpath, "rb", &nSize);
+#endif
     if (pBuffer != NULL && nSize > 0)
     {
         bRet = initWithImageData(pBuffer, nSize, imageType);
@@ -162,6 +185,8 @@ bool CCImage::initWithImageData(void * pData,
             bRet = _initWithPngData(pData, nDataLen);
             break;
         }
+
+#ifndef QUICK_MINI_TARGET
         else if (kFmtJpg == eFmt)
         {
             bRet = _initWithJpgData(pData, nDataLen);
@@ -172,11 +197,16 @@ bool CCImage::initWithImageData(void * pData,
             bRet = _initWithTiffData(pData, nDataLen);
             break;
         }
-        else if (kFmtWebp == eFmt)
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
+       else if (kFmtWebp == eFmt)
         {
             bRet = _initWithWebpData(pData, nDataLen);
             break;
         }
+#endif
+
+#endif // QUICK_MINI_TARGET
+
         else if (kFmtRawData == eFmt)
         {
             bRet = _initWithRawData(pData, nDataLen, nWidth, nHeight, nBitsPerComponent, false);
@@ -202,6 +232,7 @@ bool CCImage::initWithImageData(void * pData,
                 }
             }
 
+#ifndef QUICK_MINI_TARGET
             // if it is a tiff file buffer.
             if (nDataLen > 2)
             {
@@ -226,10 +257,16 @@ bool CCImage::initWithImageData(void * pData,
                     break;
                 }
             }
+
+#endif // QUICK_MINI_TARGET
+
         }
     } while (0);
     return bRet;
 }
+
+
+#ifndef QUICK_MINI_TARGET
 
 /*
  * ERROR HANDLING:
@@ -377,6 +414,8 @@ bool CCImage::_initWithJpgData(void * data, int nSize)
     return bRet;
 }
 
+#endif // QUICK_MINI_TARGET
+
 bool CCImage::_initWithPngData(void * pData, int nDatalen)
 {
 // length of bytes to check if it is a valid png file
@@ -502,6 +541,8 @@ bool CCImage::_initWithPngData(void * pData, int nDatalen)
     }
     return bRet;
 }
+
+#ifndef QUICK_MINI_TARGET
 
 static tmsize_t _tiffReadProc(thandle_t fd, void* buf, tmsize_t size)
 {
@@ -680,6 +721,8 @@ bool CCImage::_initWithTiffData(void* pData, int nDataLen)
     return bRet;
 }
 
+#endif // QUICK_MINI_TARGET
+
 bool CCImage::_initWithRawData(void * pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent, bool bPreMulti)
 {
     bool bRet = false;
@@ -727,10 +770,14 @@ bool CCImage::saveToFile(const char *pszFilePath, bool bIsToRGB)
         {
             CC_BREAK_IF(!_saveImageToPNG(pszFilePath, bIsToRGB));
         }
+
+#ifndef QUICK_MINI_TARGET
         else if (std::string::npos != strLowerCasePath.find(".jpg"))
         {
             CC_BREAK_IF(!_saveImageToJPG(pszFilePath));
         }
+#endif
+
         else
         {
             break;
@@ -882,6 +929,9 @@ bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
     } while (0);
     return bRet;
 }
+
+#ifndef QUICK_MINI_TARGET
+
 bool CCImage::_saveImageToJPG(const char * pszFilePath)
 {
     bool bRet = false;
@@ -959,6 +1009,8 @@ bool CCImage::_saveImageToJPG(const char * pszFilePath)
     } while (0);
     return bRet;
 }
+
+#endif // QUICK_MINI_TARGET
 
 NS_CC_END
 

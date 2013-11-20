@@ -36,8 +36,7 @@
 NS_CC_EXT_BEGIN
 
 CCControl::CCControl()
-: m_bIsOpacityModifyRGB(false)
-, m_eState(CCControlStateNormal)
+: m_eState(CCControlStateNormal)
 , m_hasVisibleParents(false)
 , m_bEnabled(false)
 , m_bSelected(false)
@@ -64,12 +63,14 @@ CCControl* CCControl::create()
 
 bool CCControl::init()
 {
-    if (CCLayer::init())
+    if (CCNode::init())
     {
         //this->setTouchEnabled(true);
         //m_bIsTouchEnabled=true;
         // Initialise instance variables
         m_eState=CCControlStateNormal;
+        setCascadeOpacityEnabled(true);
+        setCascadeColorEnabled(true);
         setEnabled(true);
         setSelected(false);
         setHighlighted(false);
@@ -95,19 +96,19 @@ CCControl::~CCControl()
 }
 
     //Menu - Events
-void CCControl::registerWithTouchDispatcher()
-{
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), true);
-}
+//void CCControl::registerWithTouchDispatcher()
+//{
+//    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), true);
+//}
 
 void CCControl::onEnter()
 {
-    CCLayer::onEnter();
+    CCNode::onEnter();
 }
 
 void CCControl::onExit()
 {
-    CCLayer::onExit();
+    CCNode::onExit();
 }
 
 void CCControl::sendActionsForControlEvents(CCControlEvent controlEvents)
@@ -150,8 +151,6 @@ void CCControl::addTargetWithActionForControlEvents(CCObject* target, SEL_CCCont
         }
     }
 }
-
-
 
 /**
  * Adds a target and action for a particular event to an internal dispatch 
@@ -228,29 +227,6 @@ void CCControl::removeTargetWithActionForControlEvent(CCObject* target, SEL_CCCo
     }
 }
 
-
-//CRGBA protocol
-void CCControl::setOpacityModifyRGB(bool bOpacityModifyRGB)
-{
-    m_bIsOpacityModifyRGB=bOpacityModifyRGB;
-    CCObject* child;
-    CCArray* children=getChildren();
-    CCARRAY_FOREACH(children, child)
-    {
-        CCRGBAProtocol* pNode = dynamic_cast<CCRGBAProtocol*>(child);        
-        if (pNode)
-        {
-            pNode->setOpacityModifyRGB(bOpacityModifyRGB);
-        }
-    }
-}
-
-bool CCControl::isOpacityModifyRGB()
-{
-    return m_bIsOpacityModifyRGB;
-}
-
-
 CCPoint CCControl::getTouchLocation(CCTouch* touch)
 {
     CCPoint touchLocation = touch->getLocation();            // Get the touch position
@@ -269,7 +245,7 @@ bool CCControl::isTouchInside(CCTouch* touch)
 
 CCArray* CCControl::dispatchListforControlEvent(CCControlEvent controlEvent)
 {
-    CCArray* invocationList = (CCArray*)m_pDispatchTable->objectForKey(controlEvent);
+    CCArray* invocationList = static_cast<CCArray*>(m_pDispatchTable->objectForKey((int)controlEvent));
 
     // If the invocation list does not exist for the  dispatch table, we create it
     if (invocationList == NULL)

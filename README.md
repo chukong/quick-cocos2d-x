@@ -79,7 +79,6 @@ Common:
 - add CCNotificationCenter Lua support
 - CCLuaEngine:executeLayerKeypadEvent() use "back", "menu" for keypad events
 - add Lua global function CCLuaLoadChunksFromZIP()
-- add Lua global function typen() for faster type check, and constants LUA\_TNIL, LUA\_TBOOLEAN, LUA\_TLIGHTUSERDATA, LUA\_TNUMBER, LUA\_TSTRING, LUA\_TTABLE, LUA\_TFUNCTION, LUA\_TUSERDATA, LUA\_TTHREAD
 - add Lua global function CCLuaStackSnapshot, get Lua state snapshot
 - upgrade LuaJIT to 2.0.2
 - add LuaJavaBridge

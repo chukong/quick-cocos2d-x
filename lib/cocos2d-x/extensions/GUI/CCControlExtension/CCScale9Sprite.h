@@ -50,7 +50,7 @@ NS_CC_EXT_BEGIN
  *
  * @see http://yannickloriot.com/library/ios/cccontrolextension/Classes/CCScale9Sprite.html
  */
-class CC_DLL CCScale9Sprite : public CCNodeRGBA
+class CC_DLL CCScale9Sprite : public CCNode
 {
 public:
     CCScale9Sprite();
@@ -96,16 +96,15 @@ protected:
     CCSprite* _bottom;
     CCSprite* _bottomRight;
 
-    bool _opacityModifyRGB;
-    GLubyte _opacity;
-    ccColor3B _color;
-    
     void updateCapInset();
     void updatePositions();
 
 public:
     
     virtual void setContentSize(const CCSize & size);
+    /**
+     *  @js NA
+     */
     virtual void visit();
     
     virtual bool init();
@@ -295,23 +294,6 @@ public:
 
     // optional
     
-    /** sets the premultipliedAlphaOpacity property.
-     If set to NO then opacity will be applied as: glColor(R,G,B,opacity);
-     If set to YES then oapcity will be applied as: glColor(opacity, opacity, opacity, opacity );
-     Textures with premultiplied alpha will have this property by default on YES. Otherwise the default value is NO
-     @since v0.8
-     */
-    virtual void setOpacityModifyRGB(bool bValue);
-    
-    /** returns whether or not the opacity will be applied using glColor(R,G,B,opacity) or glColor(opacity, opacity, opacity, opacity);
-     @since v0.8
-     */
-    virtual bool isOpacityModifyRGB(void);
-    virtual void setOpacity(GLubyte opacity);
-	virtual GLubyte getOpacity();
-    virtual void setColor(const ccColor3B& color);
-	virtual const ccColor3B& getColor();
-
     virtual bool updateWithBatchNode(CCSpriteBatchNode* batchnode, CCRect rect, bool rotated, CCRect capInsets);
 
     virtual void setSpriteFrame(CCSpriteFrame * spriteFrame);

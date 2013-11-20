@@ -268,4 +268,5 @@ class CCEditBox : public CCControlButton
      * @param returnType One of the CCKeyboardReturnType constants.
      */
     void setReturnType(KeyboardReturnType returnType);
+    KeyboardReturnType getReturnType();
 };

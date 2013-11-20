@@ -36,7 +36,7 @@ NS_CC_EXT_BEGIN
 
 class CCArmature;
 
-class CCBone : public CCNodeRGBA
+class CCBone : public CCNode
 {
 public:
     /**
@@ -79,6 +79,9 @@ public:
      *          -1 : append display from back
      */
     void addDisplay(CCDisplayData *displayData, int index);
+
+	// zrong 2013-11-06 from https://github.com/cocos2d/cocos2d-x/commit/af754bfe5d1b28b072ec14ed5ffc1900f06a7e95
+    void removeDisplay(int index);
 
     void changeDisplayByIndex(int index, bool force);
 

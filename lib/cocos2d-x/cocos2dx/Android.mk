@@ -24,7 +24,7 @@ actions/CCActionPageTurn3D.cpp \
 actions/CCActionProgressTimer.cpp \
 actions/CCActionTiledGrid.cpp \
 actions/CCActionTween.cpp \
-actions/CCLinkPosition.cpp \
+    actions/CCLinkPosition.cpp \
 base_nodes/CCAtlasNode.cpp \
 base_nodes/CCNode.cpp \
 cocoa/CCAffineTransform.cpp \
@@ -38,12 +38,13 @@ cocoa/CCString.cpp \
 cocoa/CCZone.cpp \
 cocoa/CCArray.cpp \
 cocoa/CCDataVisitor.cpp \
-cocoa/CCPointArray.cpp \
+    cocoa/CCEventDispatcher.cpp \
+    cocoa/CCPointArray.cpp \
 cocos2d.cpp \
 CCDirector.cpp \
 draw_nodes/CCDrawingPrimitives.cpp \
 draw_nodes/CCDrawNode.cpp \
-draw_nodes/CCShapeNode.cpp \
+    draw_nodes/CCShapeNode.cpp \
 effects/CCGrabber.cpp \
 effects/CCGrid.cpp \
 kazmath/src/aabb.c \
@@ -72,7 +73,7 @@ layers_scenes_transitions_nodes/CCTransitionProgress.cpp \
 menu_nodes/CCMenu.cpp \
 menu_nodes/CCMenuItem.cpp \
 misc_nodes/CCClippingNode.cpp \
-misc_nodes/CCClippingRegionNode.cpp \
+    misc_nodes/CCClippingRegionNode.cpp \
 misc_nodes/CCMotionStreak.cpp \
 misc_nodes/CCProgressTimer.cpp \
 misc_nodes/CCRenderTexture.cpp \
@@ -80,11 +81,12 @@ particle_nodes/CCParticleExamples.cpp \
 particle_nodes/CCParticleSystem.cpp \
 particle_nodes/CCParticleBatchNode.cpp \
 particle_nodes/CCParticleSystemQuad.cpp \
+    platform/CCCommon.cpp \
 platform/CCImageCommonWebp.cpp \
 platform/CCSAXParser.cpp \
 platform/CCThread.cpp \
 platform/CCFileUtils.cpp \
-platform/CCZipFile.cpp \
+    platform/CCZipFile.cpp \
 platform/platform.cpp \
 platform/CCEGLViewProtocol.cpp \
 platform/android/CCDevice.cpp \
@@ -113,7 +115,7 @@ sprite_nodes/CCSprite.cpp \
 sprite_nodes/CCSpriteBatchNode.cpp \
 sprite_nodes/CCSpriteFrame.cpp \
 sprite_nodes/CCSpriteFrameCache.cpp \
-sprite_nodes/CCGraySprite.cpp \
+    sprite_nodes/CCGraySprite.cpp \
 support/ccUTF8.cpp \
 support/CCNotificationCenter.cpp \
 support/CCProfiling.cpp \
@@ -123,12 +125,13 @@ support/user_default/CCUserDefaultAndroid.cpp \
 support/base64.cpp \
 support/ccUtils.cpp \
 support/CCVertex.cpp \
+    support/xxtea.c \
 support/data_support/ccCArray.cpp \
-support/image_support/TGAlib.cpp \
 support/tinyxml2/tinyxml2.cpp \
 support/zip_support/ZipUtils.cpp \
 support/zip_support/ioapi.cpp \
 support/zip_support/unzip.cpp \
+    support/zip_support/ioapi_mem.cpp \
 support/component/CCComponent.cpp \
 support/component/CCComponentContainer.cpp \
 text_input_node/CCIMEDispatcher.cpp \
@@ -136,6 +139,14 @@ text_input_node/CCTextFieldTTF.cpp \
 textures/CCTexture2D.cpp \
 textures/CCTextureAtlas.cpp \
 textures/CCTextureCache.cpp \
+    touch_dispatcher/CCTouchDispatcher.cpp \
+    touch_dispatcher/CCTouchHandler.cpp \
+    touch_dispatcher/CCTouch.cpp
+
+ifndef $(QUICK_MINI_TARGET)
+
+    LOCAL_SRC_FILES += \
+        support/image_support/TGAlib.cpp \
 textures/CCTextureETC.cpp \
 textures/CCTexturePVR.cpp \
 tilemap_parallax_nodes/CCParallaxNode.cpp \
@@ -143,15 +154,16 @@ tilemap_parallax_nodes/CCTMXLayer.cpp \
 tilemap_parallax_nodes/CCTMXObjectGroup.cpp \
 tilemap_parallax_nodes/CCTMXTiledMap.cpp \
 tilemap_parallax_nodes/CCTMXXMLParser.cpp \
-tilemap_parallax_nodes/CCTileMapAtlas.cpp \
-touch_dispatcher/CCTouchDispatcher.cpp \
-touch_dispatcher/CCTouchHandler.cpp \
-touch_dispatcher/CCTouch.cpp
+        tilemap_parallax_nodes/CCTileMapAtlas.cpp
+
+endif
+
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
-                    $(LOCAL_PATH)/platform/android
+                    $(LOCAL_PATH)/platform/android \
+                    $(LOCAL_PATH)/support
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
@@ -163,10 +175,13 @@ LOCAL_EXPORT_LDLIBS := -lGLESv2 \
                        -lz
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
+
+ifndef $(QUICK_MINI_TARGET)
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
+endif
 
 # define the macro to compile through support/zip_support/ioapi.c
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API $(ANDROID_COCOS2D_BUILD_FLAGS)
@@ -174,8 +189,11 @@ LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-module,libcurl)
-$(call import-module,libjpeg)
 $(call import-module,libpng)
-$(call import-module,libtiff)
 $(call import-module,libwebp)
+
+ifndef $(QUICK_MINI_TARGET)
+$(call import-module,libjpeg)
+$(call import-module,libtiff)
+    $(call import-module,libcurl)
+endif

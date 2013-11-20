@@ -37,8 +37,4 @@
 #include "GUI/CCScrollView/CCTableView.h"
 #include "GUI/CCEditBox/CCEditBox.h"
 
-#include "Components/CCComAttribute.h"
-#include "Components/CCComAudio.h"
-#include "Components/CCComController.h"
-
 #endif /* __COCOS2D_EXT_H__ */

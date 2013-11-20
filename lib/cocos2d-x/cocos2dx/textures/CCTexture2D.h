@@ -112,16 +112,34 @@ class CC_DLL CCTexture2D : public CCObject
 #endif // EMSCRIPTEN
 {
 public:
+    /**
+     * @js ctor
+     */
     CCTexture2D();
+    /**
+     * @js NA
+     * @lua NA
+     */
     virtual ~CCTexture2D();
-
+    /**
+     *  @js NA
+     *  @lua NA
+     */
     const char* description(void);
 
-    /** These functions are needed to create mutable textures */
+    /** These functions are needed to create mutable textures 
+     * @js NA
+     */
     void releaseData(void *data);
+    /**
+     * @js NA
+     */
     void* keepData(void *data, unsigned int length);
 
-    /** Initializes with a texture2d with data */
+    /** Initializes with a texture2d with data 
+     * @js NA
+     * @lua NA
+     */
     bool initWithData(const void* data, CCTexture2DPixelFormat pixelFormat, unsigned int pixelsWide, unsigned int pixelsHigh, const CCSize& contentSize);
 
     /**
@@ -148,11 +166,15 @@ public:
     /** Initializes a texture from a string using a text definition*/
     bool initWithString(const char *text, ccFontDefinition *textDefinition);
     
+#ifndef QUICK_MINI_TARGET
+
     /** Initializes a texture from a PVR file */
     bool initWithPVRFile(const char* file);
     
     /** Initializes a texture from a ETC file */
     bool initWithETCFile(const char* file);
+
+#endif
 
     /** sets the min filter, mag filter, wrap s and wrap t texture parameters.
     If the texture size is NPOT (non power of 2), then in can only use GL_CLAMP_TO_EDGE in GL_TEXTURE_WRAP_{S,T}.
@@ -160,6 +182,10 @@ public:
     @warning Calling this method could allocate additional texture memory.
 
     @since v0.8
+    @code
+    when this functon bound to js,the input param are changed
+    js: var setTexParameters(var minFilter, var magFilter, var wrapS, var wrapT)
+    @endcode
     */
     void setTexParameters(ccTexParams* texParams);
 
@@ -226,6 +252,7 @@ public:
 
     /** returns the alpha pixel format
     @since v0.8
+    @js getDefaultAlphaPixelFormat
     */
     static CCTexture2DPixelFormat defaultAlphaPixelFormat();
 

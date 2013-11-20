@@ -66,6 +66,7 @@ CCBone::CCBone()
     m_pChildArmature = NULL;
     m_pBoneData = NULL;
     m_pTween = NULL;
+    m_pTween = NULL;
     m_pChildren = NULL;
     m_pDisplayManager = NULL;
     m_bIgnoreMovementBoneData = false;
@@ -143,10 +144,14 @@ CCBoneData *CCBone::getBoneData()
     return m_pBoneData;
 }
 
+// zrong 2013-11-06 from https://github.com/cocos2d/cocos2d-x/commit/af754bfe5d1b28b072ec14ed5ffc1900f06a7e95
 void CCBone::setArmature(CCArmature *armature)
 {
 	m_pArmature = armature;
-	m_pTween->setAnimation(m_pArmature->getAnimation());
+	if (m_pArmature)
+    {
+        m_pTween->setAnimation(m_pArmature->getAnimation());
+    }
 }
 
 
@@ -197,25 +202,24 @@ void CCBone::update(float delta)
 
 void CCBone::updateDisplayedColor(const ccColor3B &parentColor)
 {
-    CCNodeRGBA::updateDisplayedColor(parentColor);
+    CCNode::updateDisplayedColor(parentColor);
     updateColor();
 }
 
 void CCBone::updateDisplayedOpacity(GLubyte parentOpacity)
 {
-    CCNodeRGBA::updateDisplayedOpacity(parentOpacity);
+    CCNode::updateDisplayedOpacity(parentOpacity);
     updateColor();
 }
 
 void CCBone::updateColor()
 {
     CCNode *display = m_pDisplayManager->getDisplayRenderNode();
-    CCRGBAProtocol *protocol = dynamic_cast<CCRGBAProtocol *>(display);
-    if(protocol != NULL)
-    {
-        protocol->setColor(ccc3(_displayedColor.r * m_pTweenData->r / 255, _displayedColor.g * m_pTweenData->g / 255, _displayedColor.b * m_pTweenData->b / 255));
-        protocol->setOpacity(_displayedOpacity * m_pTweenData->a / 255);
-    }
+	if (display != NULL)
+	{
+		display->setColor(ccc3(m_displayedColor.r * m_pTweenData->r / 255, m_displayedColor.g * m_pTweenData->g / 255, m_displayedColor.b * m_pTweenData->b / 255));
+		display->setOpacity(m_displayedOpacity * m_pTweenData->a / 255);
+	}
 }
 
 
@@ -289,6 +293,12 @@ void CCBone::setChildArmature(CCArmature *armature)
 {
     if (m_pChildArmature != armature)
     {
+		// zrong 2013-11-06 from https://github.com/cocos2d/cocos2d-x/commit/af754bfe5d1b28b072ec14ed5ffc1900f06a7e95
+		if(armature == NULL && m_pChildArmature)
+		{
+			m_pChildArmature->setParentBone(NULL);
+		}
+
         CC_SAFE_RETAIN(armature);
         CC_SAFE_RELEASE(m_pChildArmature);
         m_pChildArmature = armature;
@@ -334,6 +344,12 @@ CCAffineTransform CCBone::nodeToArmatureTransform()
 void CCBone::addDisplay(CCDisplayData *_displayData, int _index)
 {
     m_pDisplayManager->addDisplay(_displayData, _index);
+}
+
+// zrong 2013-11-06 from https://github.com/cocos2d/cocos2d-x/commit/af754bfe5d1b28b072ec14ed5ffc1900f06a7e95
+void CCBone::removeDisplay(int index)
+{
+	m_pDisplayManager->removeDisplay(index);
 }
 
 void CCBone::changeDisplayByIndex(int _index, bool _force)

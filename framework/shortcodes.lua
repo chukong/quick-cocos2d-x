@@ -5,6 +5,11 @@
 
 CCNodeExtend.remove = CCNodeExtend.removeSelf
 
+function CCNodeExtend:add(child, zorder, tag)
+    self:addChild(child, zorder or 0, tag or 0)
+    return self
+end
+
 function CCNodeExtend:addTo(target, zorder, tag)
     target:addChild(self, zorder or 0, tag or 0)
     return self
@@ -41,7 +46,7 @@ function CCNodeExtend:rotation(r)
 end
 
 function CCNodeExtend:size(width, height)
-    if typen(width) == LUA_TUSERDATA then
+    if type(width) == "userdata" then
         self:setContentSize(width)
     else
         self:setContentSize(CCSize(width, height))
@@ -137,7 +142,7 @@ CCSpriteExtend.playOnce = CCSpriteExtend.playAnimationOnce
 CCSpriteExtend.playForever = CCSpriteExtend.playAnimationForever
 
 function CCSpriteExtend:displayFrame(frame, index)
-    if typen(frame) == LUA_TSTRING then
+    if type(frame) == "string" then
         self:setDisplayFrame(frame, index or 0)
     else
         self:setDisplayFrame(frame)
@@ -179,7 +184,7 @@ function CCLayerExtend:enableKeypad(enabled)
     return self
 end
 
-function CCLayerExtend:onAccelerate()
+function CCLayerExtend:onAccelerate(listener)
     self:addAccelerateEventListener(listener)
     return self
 end

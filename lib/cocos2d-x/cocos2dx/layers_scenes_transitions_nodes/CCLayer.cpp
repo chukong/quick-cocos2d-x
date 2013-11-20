@@ -43,22 +43,18 @@ NS_CC_BEGIN
 
 // CCLayer
 CCLayer::CCLayer()
-: m_bTouchEnabled(false)
-, m_bAccelerometerEnabled(false)
+: m_bAccelerometerEnabled(false)
 , m_bKeypadEnabled(false)
-, m_pScriptTouchHandlerEntry(NULL)
 , m_pScriptKeypadHandlerEntry(NULL)
 , m_pScriptAccelerateHandlerEntry(NULL)
-, m_nTouchPriority(0)
-, m_eTouchMode(kCCTouchesAllAtOnce)
 {
     m_bIgnoreAnchorPointForPosition = true;
+    m_eTouchMode = kCCTouchesOneByOne;
     setAnchorPoint(ccp(0.5f, 0.5f));
 }
 
 CCLayer::~CCLayer()
 {
-    unregisterScriptTouchHandler();
     unregisterScriptKeypadHandler();
     unregisterScriptAccelerateHandler();
 }
@@ -70,7 +66,9 @@ bool CCLayer::init()
     {        
         CCDirector * pDirector;
         CC_BREAK_IF(!(pDirector = CCDirector::sharedDirector()));
-        this->setContentSize(pDirector->getWinSize());
+        const CCSize &winSize = pDirector->getWinSize();
+        this->setContentSize(winSize);
+        setCascadeBoundingBox(CCRect(0, 0, winSize.width, winSize.height));
         m_bTouchEnabled = false;
         m_bAccelerometerEnabled = false;
         // success
@@ -98,6 +96,7 @@ CCLayer *CCLayer::create()
 
 void CCLayer::registerWithTouchDispatcher()
 {
+//    CCLOG("CCLAYER: REGISTER WITH TOUCH DISPATHCER");
     CCTouchDispatcher* pDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
 
     // Using LuaBindings
@@ -126,91 +125,11 @@ void CCLayer::registerWithTouchDispatcher()
     }
 }
 
-void CCLayer::registerScriptTouchHandler(int nHandler, bool bIsMultiTouches, int nPriority, bool bSwallowsTouches)
+void CCLayer::unregisterWithTouchDispatcher()
 {
-    unregisterScriptTouchHandler();
-    m_pScriptTouchHandlerEntry = CCTouchScriptHandlerEntry::create(nHandler, bIsMultiTouches, nPriority, bSwallowsTouches);
-    m_pScriptTouchHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptTouchHandler(void)
-{
-    CC_SAFE_RELEASE_NULL(m_pScriptTouchHandlerEntry);
-    }
-
-int CCLayer::excuteScriptTouchHandler(int nEventType, CCTouch *pTouch)
-{
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerTouchEvent(this, nEventType, pTouch);
-}
-
-int CCLayer::excuteScriptTouchHandler(int nEventType, CCSet *pTouches)
-{
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerTouchesEvent(this, nEventType, pTouches);
-}
-
-/// isTouchEnabled getter
-bool CCLayer::isTouchEnabled()
-{
-    return m_bTouchEnabled;
-}
-/// isTouchEnabled setter
-void CCLayer::setTouchEnabled(bool enabled)
-{
-    if (m_bTouchEnabled != enabled)
-    {
-        m_bTouchEnabled = enabled;
-        if (m_bRunning)
-        {
-            if (enabled)
-            {
-                this->registerWithTouchDispatcher();
-            }
-            else
-            {
-                // have problems?
+//    CCLOG("CCLAYER: UNREGISTER WITH TOUCH DISPATHCER");
                 CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
             }
-        }
-    }
-}
-
-void CCLayer::setTouchMode(ccTouchesMode mode)
-{
-    if(m_eTouchMode != mode)
-    {
-        m_eTouchMode = mode;
-        
-		if( m_bTouchEnabled)
-        {
-			setTouchEnabled(false);
-			setTouchEnabled(true);
-		}
-    }
-}
-
-void CCLayer::setTouchPriority(int priority)
-{
-    if (m_nTouchPriority != priority)
-    {
-        m_nTouchPriority = priority;
-        
-		if( m_bTouchEnabled)
-        {
-			setTouchEnabled(false);
-			setTouchEnabled(true);
-		}
-    }
-}
-
-int CCLayer::getTouchPriority()
-{
-    return m_nTouchPriority;
-}
-
-int CCLayer::getTouchMode()
-{
-    return m_eTouchMode;
-}
 
 /// isAccelerometerEnabled getter
 bool CCLayer::isAccelerometerEnabled()
@@ -332,12 +251,6 @@ void CCLayer::keyMenuClicked(void)
 void CCLayer::onEnter()
 {
     CCDirector* pDirector = CCDirector::sharedDirector();
-    // register 'parent' nodes first
-    // since events are propagated in reverse order
-    if (m_bTouchEnabled)
-    {
-        this->registerWithTouchDispatcher();
-    }
 
     // then iterate over all the children
     CCNode::onEnter();
@@ -358,12 +271,6 @@ void CCLayer::onEnter()
 void CCLayer::onExit()
 {
     CCDirector* pDirector = CCDirector::sharedDirector();
-    if( m_bTouchEnabled )
-    {
-        pDirector->getTouchDispatcher()->removeDelegate(this);
-        // [lua]:don't unregister script touch handler, or the handler will be destroyed
-        // unregisterScriptTouchHandler();
-    }
 
     // remove this layer from the delegates who concern Accelerometer Sensor
     if (m_bAccelerometerEnabled)
@@ -488,147 +395,6 @@ void CCLayer::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
     CC_UNUSED_PARAM(pEvent);
 }
 
-// LayerRGBA
-CCLayerRGBA::CCLayerRGBA()
-: _displayedOpacity(255)
-, _realOpacity (255)
-, _displayedColor(ccWHITE)
-, _realColor(ccWHITE)
-, _cascadeOpacityEnabled(false)
-, _cascadeColorEnabled(false)
-{}
-
-CCLayerRGBA::~CCLayerRGBA() {}
-
-bool CCLayerRGBA::init()
-{
-	if (CCLayer::init())
-    {
-        _displayedOpacity = _realOpacity = 255;
-        _displayedColor = _realColor = ccWHITE;
-        setCascadeOpacityEnabled(false);
-        setCascadeColorEnabled(false);
-        
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-GLubyte CCLayerRGBA::getOpacity()
-{
-	return _realOpacity;
-}
-
-GLubyte CCLayerRGBA::getDisplayedOpacity()
-{
-	return _displayedOpacity;
-}
-
-/** Override synthesized setOpacity to recurse items */
-void CCLayerRGBA::setOpacity(GLubyte opacity)
-{
-	_displayedOpacity = _realOpacity = opacity;
-    
-	if( _cascadeOpacityEnabled )
-    {
-		GLubyte parentOpacity = 255;
-        CCRGBAProtocol *parent = dynamic_cast<CCRGBAProtocol*>(m_pParent);
-        if (parent && parent->isCascadeOpacityEnabled())
-        {
-            parentOpacity = parent->getDisplayedOpacity();
-        }
-        updateDisplayedOpacity(parentOpacity);
-	}
-}
-
-const ccColor3B& CCLayerRGBA::getColor()
-{
-	return _realColor;
-}
-
-const ccColor3B& CCLayerRGBA::getDisplayedColor()
-{
-	return _displayedColor;
-}
-
-void CCLayerRGBA::setColor(const ccColor3B& color)
-{
-	_displayedColor = _realColor = color;
-	
-	if (_cascadeColorEnabled)
-    {
-		ccColor3B parentColor = ccWHITE;
-        CCRGBAProtocol* parent = dynamic_cast<CCRGBAProtocol*>(m_pParent);
-		if (parent && parent->isCascadeColorEnabled())
-        {
-            parentColor = parent->getDisplayedColor();
-        }
-
-        updateDisplayedColor(parentColor);
-	}
-}
-
-void CCLayerRGBA::updateDisplayedOpacity(GLubyte parentOpacity)
-{
-	_displayedOpacity = _realOpacity * parentOpacity/255.0;
-    
-    if (_cascadeOpacityEnabled)
-    {
-        CCObject *obj = NULL;
-        CCARRAY_FOREACH(m_pChildren, obj)
-        {
-            CCRGBAProtocol *item = dynamic_cast<CCRGBAProtocol*>(obj);
-            if (item)
-            {
-                item->updateDisplayedOpacity(_displayedOpacity);
-            }
-        }
-    }
-}
-
-void CCLayerRGBA::updateDisplayedColor(const ccColor3B& parentColor)
-{
-	_displayedColor.r = _realColor.r * parentColor.r/255.0;
-	_displayedColor.g = _realColor.g * parentColor.g/255.0;
-	_displayedColor.b = _realColor.b * parentColor.b/255.0;
-    
-    if (_cascadeColorEnabled)
-    {
-        CCObject *obj = NULL;
-        CCARRAY_FOREACH(m_pChildren, obj)
-        {
-            CCRGBAProtocol *item = dynamic_cast<CCRGBAProtocol*>(obj);
-            if (item)
-            {
-                item->updateDisplayedColor(_displayedColor);
-            }
-        }
-    }
-}
-
-bool CCLayerRGBA::isCascadeOpacityEnabled()
-{
-    return _cascadeOpacityEnabled;
-}
-
-void CCLayerRGBA::setCascadeOpacityEnabled(bool cascadeOpacityEnabled)
-{
-    _cascadeOpacityEnabled = cascadeOpacityEnabled;
-}
-
-bool CCLayerRGBA::isCascadeColorEnabled()
-{
-    return _cascadeColorEnabled;
-}
-
-void CCLayerRGBA::setCascadeColorEnabled(bool cascadeColorEnabled)
-{
-    _cascadeColorEnabled = cascadeColorEnabled;
-}
-
 /// CCLayerColor
 
 CCLayerColor::CCLayerColor()
@@ -706,10 +472,8 @@ bool CCLayerColor::initWithColor(const ccColor4B& color, GLfloat w, GLfloat h)
         m_tBlendFunc.src = GL_SRC_ALPHA;
         m_tBlendFunc.dst = GL_ONE_MINUS_SRC_ALPHA;
 
-        _displayedColor.r = _realColor.r = color.r;
-        _displayedColor.g = _realColor.g = color.g;
-        _displayedColor.b = _realColor.b = color.b;
-        _displayedOpacity = _realOpacity = color.a;
+        setColor(ccc3(color.r, color.g, color.b));
+        setOpacity(color.a);
 
         for (size_t i = 0; i<sizeof(m_pSquareVertices) / sizeof( m_pSquareVertices[0]); i++ )
         {
@@ -762,10 +526,10 @@ void CCLayerColor::updateColor()
 {
     for( unsigned int i=0; i < 4; i++ )
     {
-        m_pSquareColors[i].r = _displayedColor.r / 255.0f;
-        m_pSquareColors[i].g = _displayedColor.g / 255.0f;
-        m_pSquareColors[i].b = _displayedColor.b / 255.0f;
-        m_pSquareColors[i].a = _displayedOpacity / 255.0f;
+        m_pSquareColors[i].r = m_displayedColor.r / 255.0f;
+        m_pSquareColors[i].g = m_displayedColor.g / 255.0f;
+        m_pSquareColors[i].b = m_displayedColor.b / 255.0f;
+        m_pSquareColors[i].a = m_displayedOpacity / 255.0f;
     }
 }
 
@@ -798,13 +562,13 @@ void CCLayerColor::draw()
 
 void CCLayerColor::setColor(const ccColor3B &color)
 {
-    CCLayerRGBA::setColor(color);
+    CCLayer::setColor(color);
     updateColor();
 }
 
 void CCLayerColor::setOpacity(GLubyte opacity)
 {
-    CCLayerRGBA::setOpacity(opacity);
+    CCLayer::setOpacity(opacity);
     updateColor();
 }
 
@@ -893,12 +657,12 @@ void CCLayerGradient::updateColor()
         u = ccpMult(u, h2 * (float)c);
     }
 
-    float opacityf = (float)_displayedOpacity / 255.0f;
+    float opacityf = (float)m_displayedOpacity / 255.0f;
 
     ccColor4F S = {
-        _displayedColor.r / 255.0f,
-        _displayedColor.g / 255.0f,
-        _displayedColor.b / 255.0f,
+        m_displayedColor.r / 255.0f,
+        m_displayedColor.g / 255.0f,
+        m_displayedColor.b / 255.0f,
         m_cStartOpacity * opacityf / 255.0f
     };
 
@@ -933,7 +697,7 @@ void CCLayerGradient::updateColor()
 
 const ccColor3B& CCLayerGradient::getStartColor()
 {
-    return _realColor;
+    return m_realColor;
 }
 
 void CCLayerGradient::setStartColor(const ccColor3B& color)

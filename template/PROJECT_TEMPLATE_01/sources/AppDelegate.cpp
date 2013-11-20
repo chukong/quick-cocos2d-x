@@ -6,16 +6,6 @@
 #include "CCLuaEngine.h"
 #include <string>
 
-// lua extensions
-#include "lua_extensions.h"
-// cocos2dx_extra luabinding
-#include "luabinding/cocos2dx_extra_luabinding.h"
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "luabinding/cocos2dx_extra_ios_iap_luabinding.h"
-#endif
-// thrid_party
-#include "third_party_luabinding.h"
-
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -47,25 +37,26 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
 
     CCLuaStack *pStack = pEngine->getLuaStack();
-    lua_State* L = pStack->getLuaState();
-
-    // load lua extensions
-    luaopen_lua_extensions(L);
-    // load cocos2dx_extra luabinding
-    luaopen_cocos2dx_extra_luabinding(L);
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    luaopen_cocos2dx_extra_ios_iap_luabinding(L);
-#endif
-    // thrid_party
-    luaopen_third_party_luabinding(L);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    // load framework
+    pStack->loadChunksFromZip("res/framework_precompiled.zip");
+
+    // set script path
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
-    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
+    // load framework
+    if (m_projectConfig.isLoadPrecompiledFramework())
+    {
+        const string precompiledFrameworkPath = SimulatorConfig::sharedDefaults()->getPrecompiledFrameworkPath();
+        pStack->loadChunksFromZip(precompiledFrameworkPath.c_str());
+    }
+
+    // set script path
+    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(m_projectConfig.getScriptFileRealPath().c_str());
 #endif
 
-    int pos;
+    size_t pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {
         path.replace(pos, 1, "/");
@@ -114,4 +105,9 @@ void AppDelegate::applicationWillEnterForeground()
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->resumeAllEffects();
     CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_FOREGROUND");
+}
+
+void AppDelegate::setProjectConfig(const ProjectConfig& config)
+{
+    m_projectConfig = config;
 }

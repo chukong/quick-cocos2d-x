@@ -44,8 +44,10 @@ typedef enum {
 
 /**
  * Sole purpose of this delegate is to single touch event in this version.
+ * @js NA
+ * @lua NA
  */
-class CC_DLL CCTableViewDelegate : public CCScrollViewDelegate
+class CCTableViewDelegate : public CCScrollViewDelegate
 {
 public:
     /**
@@ -87,8 +89,9 @@ public:
 
 /**
  * Data source that governs table backend data.
+ * @lua NA
  */
-class CC_DLL CCTableViewDataSource
+class CCTableViewDataSource
 {
 public:
     virtual ~CCTableViewDataSource() {}
@@ -132,12 +135,18 @@ public:
  * UITableView counterpart for cocos2d for iphone.
  *
  * this is a very basic, minimal implementation to bring UITableView-like component into cocos2d world.
- *
+ * @lua NA
  */
-class CC_DLL CCTableView : public CCScrollView, public CCScrollViewDelegate
+class CCTableView : public CCScrollView, public CCScrollViewDelegate
 {
 public:
+    /**
+     *  @js ctor
+     */
     CCTableView();
+    /**
+     *  @js NA
+     */
     virtual ~CCTableView();
 
     /**
@@ -160,11 +169,13 @@ public:
 
     /**
      * data source
+     * @js NA
      */
     CCTableViewDataSource* getDataSource() { return m_pDataSource; }
     void setDataSource(CCTableViewDataSource* source) { m_pDataSource = source; }
     /**
      * delegate
+     * @js NA
      */
     CCTableViewDelegate* getDelegate() { return m_pTableViewDelegate; }
     void setDelegate(CCTableViewDelegate* pDelegate) { m_pTableViewDelegate = pDelegate; }
@@ -272,7 +283,20 @@ protected:
     void _updateCellPositions();
 public:
     void _updateContentSize();
-
+    
+    enum TableViewScriptEventType
+    {
+        kTableViewScroll   = 0,
+        kTableViewZoom,
+        kTableCellTouched,
+        kTableCellHighLight,
+        kTableCellUnhighLight,
+        kTableCellWillRecycle,
+        kTableCellSizeForIndex,
+        kTableCellSizeAtIndex,
+        kNumberOfCellsInTableView,
+    };
+    void unregisterAllScriptHandler();
 };
 
 

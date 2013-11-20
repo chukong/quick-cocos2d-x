@@ -67,31 +67,31 @@ bool CCFileUtilsWin32::init()
 bool CCFileUtilsWin32::isFileExist(const std::string& strFilePath)
 {
     if (0 == strFilePath.length())
-    {
-        return false;
-    }
-    
+	{
+		return false;
+	}
+
     std::string strPath = strFilePath;
-    if (!isAbsolutePath(strPath))
-    { // Not absolute path, add the default root path at the beginning.
-        strPath.insert(0, m_strDefaultResRootPath);
-    }
-    return GetFileAttributesA(strPath.c_str()) != -1 ? true : false;
+	if (!isAbsolutePath(strPath))
+	{ // Not absolute path, add the default root path at the beginning.
+		strPath.insert(0, m_strDefaultResRootPath);
+	}
+	return GetFileAttributesA(strPath.c_str()) != -1 ? true : false;
 }
 
 bool CCFileUtilsWin32::isDirectoryExist(const std::string& strDirPath)
 {
     if (0 == strDirPath.length())
-    {
+	{
         return false;
-    }
+	}
 
     if (isAbsolutePath(strDirPath))
     {
         return GetFileAttributesA(strDirPath.c_str()) == FILE_ATTRIBUTE_DIRECTORY ? true : false;
     }
 
-    return false;
+	return false;
 }
 
 bool CCFileUtilsWin32::isAbsolutePath(const std::string& strPath)
@@ -101,7 +101,7 @@ bool CCFileUtilsWin32::isAbsolutePath(const std::string& strPath)
         && strPath[1] == ':')
     {
         return true;
-    }
+}
     return false;
 }
 

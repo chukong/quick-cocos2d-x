@@ -48,7 +48,7 @@ If you are going to render a TextureAtlas consider subclassing CCAtlasNode (or a
 All features from CCNode are valid, plus the following features:
 - opacity and RGB colors
 */
-class CC_DLL CCAtlasNode : public CCNodeRGBA, public CCTextureProtocol
+class CC_DLL CCAtlasNode : public CCNode, public CCTextureProtocol
 {
 protected:
 
@@ -79,7 +79,14 @@ protected:
     bool m_bIgnoreContentScaleFactor;
     
 public:
+    /**
+     *  @js ctor
+     */
     CCAtlasNode();
+    /**
+     *  @js NA
+     *  @lua NA
+     */
     virtual ~CCAtlasNode();
 
 	/** creates a CCAtlasNode  with an Atlas file the width and height of each item and the quantity of items to render*/

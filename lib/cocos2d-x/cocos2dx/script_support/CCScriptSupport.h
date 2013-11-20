@@ -50,7 +50,10 @@ enum ccScriptType {
     kScriptTypeLua,
     kScriptTypeJavascript
 };
-
+/**
+ * @js NA
+ * @lua NA
+ */
 class CCScriptHandlerEntry : public CCObject
 {
 public:
@@ -81,6 +84,8 @@ protected:
 /**
  * @addtogroup script_support
  * @{
+ * @js NA
+ * @lua NA
  */
 
 class CCSchedulerScriptHandlerEntry : public CCScriptHandlerEntry
@@ -122,7 +127,10 @@ private:
 };
 
 
-
+/**
+ * @js NA
+ * @lua NA
+ */
 class CCTouchScriptHandlerEntry : public CCScriptHandlerEntry
 {
 public:
@@ -160,6 +168,10 @@ private:
 // Don't make CCScriptEngineProtocol inherits from CCObject since setScriptEngine is invoked only once in AppDelegate.cpp,
 // It will affect the lifecycle of ScriptCore instance, the autorelease pool will be destroyed before destructing ScriptCore.
 // So a crash will appear on Win32 if you click the close button.
+/**
+ * @js NA
+ * @lua NA
+ */
 class CC_DLL CCScriptEngineProtocol
 {
 public:
@@ -205,7 +217,7 @@ public:
      @param nAction kCCNodeOnEnter,kCCNodeOnExit,kCCMenuItemActivated,kCCNodeOnEnterTransitionDidFinish,kCCNodeOnExitTransitionDidStart
      @return The integer value returned from the script function.
      */
-    virtual int executeNodeEvent(CCNode* pNode, int nAction) = 0;
+    virtual int executeNodeEvent(CCNode* pNode, int nAction, float dt = 0) = 0;
     
     virtual int executeMenuItemEvent(CCMenuItem* pMenuItem) = 0;
     /** Execute a notification event function */
@@ -217,8 +229,8 @@ public:
     virtual int executeSchedule(int nHandler, float dt, CCNode* pNode = NULL) = 0;
     
     /** functions for executing touch event */
-    virtual int executeLayerTouchesEvent(CCLayer* pLayer, int eventType, CCSet *pTouches) = 0;
-    virtual int executeLayerTouchEvent(CCLayer* pLayer, int eventType, CCTouch *pTouch) = 0;
+    virtual int executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches) = 0;
+    virtual int executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch) = 0;
 
     /** functions for keypad event */
     virtual int executeLayerKeypadEvent(CCLayer* pLayer, int eventType) = 0;
@@ -228,7 +240,7 @@ public:
 
     /** function for common event */
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL) = 0;
-
+    
     /** called by CCAssert to allow scripting engine to handle failed assertions
      * @return true if the assert was handled by the script engine, false otherwise.
      */
@@ -239,6 +251,8 @@ public:
  CCScriptEngineManager is a singleton which holds an object instance of CCScriptEngineProtocl
  It helps cocos2d-x and the user code to find back LuaEngine object
  @since v0.99.5-x-0.8.5
+ @js NA
+ @lua NA
  */
 class CC_DLL CCScriptEngineManager
 {

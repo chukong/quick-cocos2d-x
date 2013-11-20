@@ -29,27 +29,7 @@
 #include <stdio.h>
 #import "EAGLView.h"
 
-
 NS_CC_BEGIN
-
-void CCLog(const char * pszFormat, ...)
-{
-    printf("Cocos2d: ");
-    char szBuf[kMaxLogLen];
-
-    va_list ap;
-    va_start(ap, pszFormat);
-    vsnprintf(szBuf, kMaxLogLen, pszFormat, ap);
-    va_end(ap);
-    printf("%s", szBuf);
-    printf("\n");
-    fflush(stdout);
-}
-
-void CCLuaLog(const char * pszFormat)
-{
-    puts(pszFormat);
-}
 
 // ios no MessageBox, use CCLog instead
 void CCMessageBox(const char * pszMsg, const char * pszTitle)

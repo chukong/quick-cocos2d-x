@@ -41,6 +41,7 @@ bool CCBAnimationManager::init()
     mDocumentOutletNodes = new CCArray();
     mDocumentCallbackNames = new CCArray();
     mDocumentCallbackNodes = new CCArray();
+    mDocumentCallbackControlEvents = new CCArray();
     mKeyframeCallbacks = new CCArray();
     mKeyframeCallFuncs = new CCDictionary();
 
@@ -75,7 +76,8 @@ CCBAnimationManager::~CCBAnimationManager()
     CC_SAFE_RELEASE(mDocumentOutletNodes);
     CC_SAFE_RELEASE(mDocumentCallbackNames);
     CC_SAFE_RELEASE(mDocumentCallbackNodes);
-    
+    CC_SAFE_RELEASE(mDocumentCallbackControlEvents);
+
     CC_SAFE_RELEASE(mKeyframeCallFuncs);
     CC_SAFE_RELEASE(mKeyframeCallbacks);
     CC_SAFE_RELEASE(mTarget);
@@ -129,12 +131,22 @@ void CCBAnimationManager::addDocumentCallbackName(std::string name) {
     mDocumentCallbackNames->addObject(tmpName);
 }
 
+void CCBAnimationManager::addDocumentCallbackControlEvents(CCControlEvent eventType)
+{
+    mDocumentCallbackControlEvents->addObject(CCInteger::create((int)eventType));
+}
+
 CCArray* CCBAnimationManager::getDocumentCallbackNames() {
     return mDocumentCallbackNames;
 }
 
 CCArray* CCBAnimationManager::getDocumentCallbackNodes() {
     return mDocumentCallbackNodes;
+}
+
+CCArray* CCBAnimationManager::getDocumentCallbackControlEvents()
+{
+    return mDocumentCallbackControlEvents;
 }
 
 void CCBAnimationManager::addDocumentOutletNode(CCNode *node) {
@@ -464,7 +476,7 @@ void CCBAnimationManager::setAnimatedProperty(const char *pPropName, CCNode *pNo
             else if (strcmp(pPropName, "opacity") == 0)
             {
                 int opacity = ((CCBValue*)pValue)->getByteValue();
-                (dynamic_cast<CCRGBAProtocol*>(pNode))->setOpacity(opacity);
+                pNode->setOpacity(opacity);
             }
             else if (strcmp(pPropName, "displayFrame") == 0)
             {
@@ -473,7 +485,7 @@ void CCBAnimationManager::setAnimatedProperty(const char *pPropName, CCNode *pNo
             else if (strcmp(pPropName, "color") == 0)
             {
                 ccColor3BWapper *color = (ccColor3BWapper*)pValue;
-                (dynamic_cast<CCRGBAProtocol*>(pNode))->setColor(color->getColor());
+                pNode->setColor(color->getColor());
             }
             else if (strcmp(pPropName, "visible") == 0)
             {

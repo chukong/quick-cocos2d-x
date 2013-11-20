@@ -12,10 +12,11 @@ LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_lua_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_extra
-LOCAL_WHOLE_STATIC_LIBRARIES += lua_extensions
-LOCAL_WHOLE_STATIC_LIBRARIES += third_party
+
+ifndef $(QUICK_MINI_TARGET)
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_external_static
+    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
+endif
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -23,6 +24,7 @@ $(call import-module,cocos2dx)
 $(call import-module,CocosDenshion/android)
 $(call import-module,extensions)
 $(call import-module,scripting/lua/proj.android)
-$(call import-module,lib/cocos2dx_extra/proj.android)
-$(call import-module,lib/lua_extensions/proj.android)
-$(call import-module,lib/third_party/proj.android)
+
+ifndef $(QUICK_MINI_TARGET)
+    $(call import-module,external)
+endif

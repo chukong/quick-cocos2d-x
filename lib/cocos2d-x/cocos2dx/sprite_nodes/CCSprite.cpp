@@ -151,7 +151,7 @@ bool CCSprite::init(void)
 // designated initializer
 bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
 {
-    if (CCNodeRGBA::init())
+    if (CCNode::init())
     {
         m_pobBatchNode = NULL;
         
@@ -182,7 +182,7 @@ bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool r
         m_sQuad.br.colors = tmpColor;
         m_sQuad.tl.colors = tmpColor;
         m_sQuad.tr.colors = tmpColor;
-        
+
         // shader program
         setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor));
         
@@ -317,6 +317,7 @@ void CCSprite::setTextureRect(const CCRect& rect, bool rotated, const CCSize& un
     m_bRectRotated = rotated;
 
     setContentSize(untrimmedSize);
+    m_obTextureSize = untrimmedSize;
     setVertexRect(rect);
     setTextureCoords(rect);
 
@@ -555,8 +556,8 @@ void CCSprite::draw(void)
 
     ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
 
-        ccGLBindTexture2D( m_pobTexture->getName() );
-        ccGLEnableVertexAttribs( kCCVertexAttribFlag_PosColorTex );
+    ccGLBindTexture2D( m_pobTexture->getName() );
+    ccGLEnableVertexAttribs( kCCVertexAttribFlag_PosColorTex );
 
 #define kQuadSize sizeof(m_sQuad.bl)
 #ifdef EMSCRIPTEN
@@ -570,10 +571,10 @@ void CCSprite::draw(void)
     int diff = offsetof( ccV3F_C4B_T2F, vertices);
     glVertexAttribPointer(kCCVertexAttrib_Position, 3, GL_FLOAT, GL_FALSE, kQuadSize, (void*) (offset + diff));
 
-        // texCoods
-        diff = offsetof( ccV3F_C4B_T2F, texCoords);
-        glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
-    
+    // texCoods
+    diff = offsetof( ccV3F_C4B_T2F, texCoords);
+    glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, kQuadSize, (void*)(offset + diff));
+
     // color
     diff = offsetof( ccV3F_C4B_T2F, colors);
     glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, kQuadSize, (void*)(offset + diff));
@@ -887,14 +888,14 @@ bool CCSprite::isFlipY(void)
 
 void CCSprite::updateColor(void)
 {
-    ccColor4B color4 = { _displayedColor.r, _displayedColor.g, _displayedColor.b, _displayedOpacity };
+    ccColor4B color4 = { m_displayedColor.r, m_displayedColor.g, m_displayedColor.b, m_displayedOpacity};
     
     // special opacity for premultiplied textures
 	if (m_bOpacityModifyRGB)
     {
-		color4.r *= _displayedOpacity/255.0f;
-		color4.g *= _displayedOpacity/255.0f;
-		color4.b *= _displayedOpacity/255.0f;
+		color4.r *= m_displayedOpacity /255.0f;
+		color4.g *= m_displayedOpacity /255.0f;
+		color4.b *= m_displayedOpacity /255.0f;
     }
 
     m_sQuad.bl.colors = color4;
@@ -923,14 +924,14 @@ void CCSprite::updateColor(void)
 
 void CCSprite::setOpacity(GLubyte opacity)
 {
-    CCNodeRGBA::setOpacity(opacity);
+    CCNode::setOpacity(opacity);
 
     updateColor();
 }
 
 void CCSprite::setColor(const ccColor3B& color3)
 {
-    CCNodeRGBA::setColor(color3);
+    CCNode::setColor(color3);
 
     updateColor();
 }
@@ -951,14 +952,14 @@ bool CCSprite::isOpacityModifyRGB(void)
 
 void CCSprite::updateDisplayedColor(const ccColor3B& parentColor)
 {
-    CCNodeRGBA::updateDisplayedColor(parentColor);
+    CCNode::updateDisplayedColor(parentColor);
     
     updateColor();
 }
 
 void CCSprite::updateDisplayedOpacity(GLubyte opacity)
 {
-    CCNodeRGBA::updateDisplayedOpacity(opacity);
+    CCNode::updateDisplayedOpacity(opacity);
     
     updateColor();
 }
@@ -967,6 +968,7 @@ void CCSprite::updateDisplayedOpacity(GLubyte opacity)
 
 void CCSprite::setDisplayFrame(CCSpriteFrame *pNewFrame)
 {
+    CCAssert(pNewFrame != NULL, "CCSprite::setDisplayFrame() - Invalid frame");
     m_obUnflippedOffsetPositionFromCenter = pNewFrame->getOffset();
 
     CCTexture2D *pNewTexture = pNewFrame->getTexture();
@@ -1102,16 +1104,16 @@ void CCSprite::setTexture(CCTexture2D *texture)
 
         // If texture wasn't in cache, create it from RAW data.
         if (NULL == texture)
-    {
+        {
             CCImage* image = new CCImage();
             bool isOK = image->initWithImageData(cc_2x2_white_image, sizeof(cc_2x2_white_image), CCImage::kFmtRawData, 2, 2, 8);
             CCAssert(isOK, "The 2x2 empty texture was created unsuccessfully.");
 
             texture = CCTextureCache::sharedTextureCache()->addUIImage(image, CC_2x2_WHITE_IMAGE_KEY);
             CC_SAFE_RELEASE(image);
+        }
     }
-    }
-    
+
     if (!m_pobBatchNode && m_pobTexture != texture)
     {
         CC_SAFE_RETAIN(texture);

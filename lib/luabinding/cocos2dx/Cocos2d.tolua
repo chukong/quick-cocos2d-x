@@ -16,6 +16,7 @@ $pfile "cocos2dx/cocoa/CCBool.tolua"
 $pfile "cocos2dx/cocoa/CCInteger.tolua"
 $pfile "cocos2dx/cocoa/CCFloat.tolua"
 $pfile "cocos2dx/cocoa/CCDouble.tolua"
+$pfile "cocos2dx/cocoa/CCEventDispatcher.tolua"
 
 $pfile "cocos2dx/platform/CCCommon.tolua"
 $pfile "cocos2dx/platform/CCDevice.tolua"
@@ -28,7 +29,6 @@ $pfile "cocos2dx/platform/CCAccelerometer.tolua"
 
 $pfile "cocos2dx/support/CCPointExtension.tolua"
 $pfile "cocos2dx/support/CCNotificationCenter.tolua"
-$pfile "cocos2dx/support/CCProfiling.tolua"
 $pfile "cocos2dx/support/user_default/CCUserDefault.tolua"
 $pfile "cocos2dx/support/component/CCComponent.tolua"
 $pfile "cocos2dx/support/component/CCComponentContainer.tolua"
@@ -78,6 +78,7 @@ $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXTiledMap.tolua"
 
 $pfile "cocos2dx/draw_nodes/CCDrawingPrimitives.tolua"
 $pfile "cocos2dx/draw_nodes/CCShapeNode.tolua"
+$pfile "cocos2dx/draw_nodes/CCDrawNode.tolua"
 
 $pfile "cocos2dx/misc_nodes/CCClippingNode.tolua"
 $pfile "cocos2dx/misc_nodes/CCClippingRegionNode.tolua"

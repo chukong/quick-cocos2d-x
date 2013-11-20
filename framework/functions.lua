@@ -1,11 +1,10 @@
-local tonumber_ = tonumber
 
-function tonumber(v, base)
-    return tonumber_(v, base) or 0
+function tonum(v, base)
+    return tonumber(v, base) or 0
 end
 
 function toint(v)
-    return math.round(tonumber(v))
+    return math.round(tonum(v))
 end
 
 function tobool(v)
@@ -15,6 +14,11 @@ end
 function totable(v)
     if type(v) ~= "table" then v = {} end
     return v
+end
+
+function isset(arr, key)
+    local t = type(arr)
+    return (t == "table" or t == "userdata") and arr[key] ~= nil
 end
 
 function clone(object)
@@ -95,6 +99,26 @@ function class(classname, super)
     return cls
 end
 
+function iskindof(obj, className)
+    local t = type(obj)
+
+    if t == "table" then
+        local mt = getmetatable(obj)
+        while mt and mt.__index do
+            if mt.__index.__cname == className then
+                return true
+            end
+            mt = mt.super
+        end
+        return false
+
+    elseif t == "userdata" then
+
+    else
+        return false
+    end
+end
+
 function import(moduleName, currentModuleName)
     local currentModuleNameParts
     local moduleFullName = moduleName
@@ -125,7 +149,9 @@ function import(moduleName, currentModuleName)
 end
 
 function handler(target, method)
-    return function(...) return method(target, ...) end
+    return function(...)
+        return method(target, ...)
+    end
 end
 
 function math.round(num)
@@ -239,26 +265,26 @@ insert list.
 
     local dest = {1, 2, 3}
     local src  = {4, 5, 6}
-    table.insertList(dest, src)
+    table.insertTo(dest, src)
     -- dest = {1, 2, 3, 4, 5, 6}
 	dest = {1, 2, 3}
-	table.insertList(dest, src, 5)
+	table.insertTo(dest, src, 5)
     -- dest = {1, 2, 3, nil, 4, 5, 6}
 
 
 @param table dest
 @param table src
-@param table beginPos insert position for dest
+@param table begin insert position for dest
 ]]
-function table.insertList(dest, src, beginPos)
-	beginPos = tonumber_(beginPos)
-	if beginPos == nil then
-		beginPos = #dest + 1
+function table.insertTo(dest, src, begin)
+	begin = tonumber(begin)
+	if begin == nil then
+		begin = #dest + 1
 	end
-	
+
 	local len = #src
 	for i = 0, len - 1 do
-		dest[i + beginPos] = src[i + 1]
+		dest[i + begin] = src[i + 1]
 	end
 end
 
@@ -306,11 +332,42 @@ function table.removeItem(list, item, removeAll)
             table.remove(list, i - rmCount)
             if removeAll then
                 rmCount = rmCount + 1
-            else 
+            else
                 break
             end
         end
     end
+end
+
+function table.map(t, fun)
+    for k,v in pairs(t) do
+        t[k] = fun(v, k)
+    end
+end
+
+function table.walk(t, fun)
+    for k,v in pairs(t) do
+        fun(v, k)
+    end
+end
+
+function table.filter(t, fun)
+    for k,v in pairs(t) do
+        if not fun(v, k) then
+            t[k] = nil
+        end
+    end
+end
+
+function table.find(t, item)
+    return table.keyOfItem(t, item) ~= nil
+end
+
+function table.keyOfItem(t, item)
+    for k,v in pairs(t) do
+        if v == item then return k end
+    end
+    return nil
 end
 
 function string.htmlspecialchars(input)
@@ -325,6 +382,13 @@ string._htmlspecialchars_set["\""] = "&quot;"
 string._htmlspecialchars_set["'"] = "&#039;"
 string._htmlspecialchars_set["<"] = "&lt;"
 string._htmlspecialchars_set[">"] = "&gt;"
+
+function string.htmlspecialcharsDecode(input)
+    for k, v in pairs(string._htmlspecialchars_set) do
+        input = string.gsub(input, v, k)
+    end
+    return input
+end
 
 function string.nl2br(input)
     return string.gsub(input, "\n", "<br />")
@@ -367,9 +431,6 @@ function string.ucfirst(str)
     return string.upper(string.sub(str, 1, 1)) .. string.sub(str, 2)
 end
 
---[[--
-@ignore
-]]
 local function urlencodeChar(char)
     return "%" .. string.format("%02X", string.byte(c))
 end
@@ -381,6 +442,13 @@ function string.urlencode(str)
     str = string.gsub(str, "([^%w%.%- ])", urlencodeChar)
     -- convert spaces to "+" symbols
     return string.gsub(str, " ", "+")
+end
+
+function string.urldecode(str)
+    str = string.gsub (str, "+", " ")
+    str = string.gsub (str, "%%(%x%x)", function(h) return string.char(tonum(h,16)) end)
+    str = string.gsub (str, "\r\n", "\n")
+    return str
 end
 
 function string.utf8len(str)
@@ -404,7 +472,7 @@ function string.utf8len(str)
 end
 
 function string.formatNumberThousands(num)
-    local formatted = tostring(tonumber(num))
+    local formatted = tostring(tonum(num))
     local k
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')

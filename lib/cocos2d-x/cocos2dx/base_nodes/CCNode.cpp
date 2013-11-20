@@ -33,9 +33,11 @@ THE SOFTWARE.
 #include "CCDirector.h"
 #include "CCScheduler.h"
 #include "touch_dispatcher/CCTouch.h"
+#include "touch_dispatcher/CCTouchDispatcher.h"
 #include "actions/CCActionManager.h"
 #include "script_support/CCScriptSupport.h"
 #include "shaders/CCGLProgram.h"
+#include "layers_scenes_transitions_nodes/CCScene.h"
 // externals
 #include "kazmath/GL/matrix.h"
 #include "support/component/CCComponent.h"
@@ -52,6 +54,8 @@ NS_CC_BEGIN
 // XXX: Yes, nodes might have a sort problem once every 15 days if the game runs at 60 FPS and each frame sprites are reordered.
 static int s_globalOrderOfArrival = 1;
 
+unsigned int CCNode::g_drawOrder = 0;
+
 CCNode::CCNode(void)
 : m_fRotationX(0.0f)
 , m_fRotationY(0.0f)
@@ -64,6 +68,7 @@ CCNode::CCNode(void)
 , m_obAnchorPointInPoints(CCPointZero)
 , m_obAnchorPoint(CCPointZero)
 , m_obContentSize(CCSizeZero)
+, m_obTextureSize(CCSizeZero)
 , m_sAdditionalTransform(CCAffineTransformMakeIdentity())
 , m_pCamera(NULL)
 // children (lazy allocs)
@@ -90,6 +95,18 @@ CCNode::CCNode(void)
 , m_nScriptHandler(0)
 , m_nUpdateScriptHandler(0)
 , m_pComponentContainer(NULL)
+, m_displayedOpacity(255)
+, m_realOpacity(255)
+, m_isOpacityModifyRGB(false)
+, m_displayedColor(ccWHITE)
+, m_realColor(ccWHITE)
+, m_cascadeColorEnabled(false)
+, m_cascadeOpacityEnabled(false)
+, m_drawOrder(0)
+, m_bTouchEnabled(false)
+, m_pScriptTouchHandlerEntry(NULL)
+, m_nTouchPriority(0)
+, m_eTouchMode(kCCTouchesOneByOne)
 {
     // set default scheduler and actionManager
     CCDirector *director = CCDirector::sharedDirector();
@@ -112,6 +129,7 @@ CCNode::~CCNode(void)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nUpdateScriptHandler);
     }
+    unregisterScriptTouchHandler();
 
     CC_SAFE_RELEASE(m_pActionManager);
     CC_SAFE_RELEASE(m_pScheduler);
@@ -254,6 +272,14 @@ float CCNode::getScale(void)
 void CCNode::setScale(float scale)
 {
     m_fScaleX = m_fScaleY = scale;
+    m_bTransformDirty = m_bInverseDirty = true;
+}
+
+/// scale setter
+void CCNode::setScale(float fScaleX,float fScaleY)
+{
+    m_fScaleX = fScaleX;
+    m_fScaleY = fScaleY;
     m_bTransformDirty = m_bInverseDirty = true;
 }
 
@@ -429,6 +455,18 @@ CCNode * CCNode::getParent()
 /// parent setter
 void CCNode::setParent(CCNode * var)
 {
+    if (var == NULL)
+    {
+        if (m_bTouchEnabled)
+        {
+            CCScene *scene = getScene();
+            if (scene)
+            {
+                scene->removeTouchableNode(this);
+            }
+            m_bTouchEnabled = false;
+        }
+    }
     m_pParent = var;
 }
 
@@ -519,6 +557,76 @@ CCRect CCNode::boundingBox()
 {
     CCRect rect = CCRectMake(0, 0, m_obContentSize.width, m_obContentSize.height);
     return CCRectApplyAffineTransform(rect, nodeToParentTransform());
+}
+
+CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
+{
+    float minx, miny, maxx, maxy = 0;
+
+    bool first = true;
+
+    CCRect box = CCRect(0, 0, 0, 0);
+    CCObject *object = NULL;
+    CCARRAY_FOREACH(m_pChildren, object)
+    {
+        CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false);
+        if (r.size.width == 0 || r.size.height == 0) continue;
+        r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+
+        if (first)
+        {
+            box = r;
+            first = false;
+        }
+        else
+        {
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+
+    CCRect r;
+    bool mergeRect = false;
+    if (m_cascadeBoundingBox.size.width > 0 && m_cascadeBoundingBox.size.height > 0)
+    {
+        r = CCRectApplyAffineTransform(m_cascadeBoundingBox, nodeToParentTransform());
+        mergeRect = true;
+    }
+    else if (m_obTextureSize.width > 0 && m_obTextureSize.height > 0)
+    {
+        r = CCRectApplyAffineTransform(CCRectMake(0, 0, m_obTextureSize.width, m_obTextureSize.height), nodeToParentTransform());
+        mergeRect = true;
+    }
+
+    if (mergeRect)
+    {
+        if (first)
+        {
+            box = r;
+        }
+        else
+        {
+            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+            box.setRect(minx, miny, maxx - minx, maxy - miny);
+        }
+    }
+
+    if (convertToWorld && m_pParent)
+    {
+        box = CCRectApplyAffineTransform(box, m_pParent->nodeToWorldTransform());
+    }
+    return box;
+}
+
+void CCNode::setCascadeBoundingBox(const cocos2d::CCRect &boundingBox)
+{
+    m_cascadeBoundingBox = boundingBox;
 }
 
 CCNode * CCNode::create(void)
@@ -786,7 +894,6 @@ void CCNode::sortAllChildren()
     }
 }
 
-
  void CCNode::draw()
  {
      //CCAssert(0);
@@ -797,11 +904,9 @@ void CCNode::sortAllChildren()
 
 void CCNode::visit()
 {
+    m_drawOrder = ++g_drawOrder;
     // quick return if not visible. children won't be drawn.
-    if (!m_bVisible)
-    {
-        return;
-    }
+    if (!m_bVisible) return;
     kmGLPushMatrix();
 
      if (m_pGrid && m_pGrid->isActive())
@@ -908,7 +1013,12 @@ void CCNode::onEnter()
 
     m_bRunning = true;
 
-    if (m_eScriptType != kScriptTypeNone)
+    if (m_bTouchEnabled)
+    {
+        this->registerWithTouchDispatcher();
+    }
+
+    if (m_nScriptHandler || hasScriptEventListener(ENTER_SCENE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnter);
     }
@@ -918,7 +1028,7 @@ void CCNode::onEnterTransitionDidFinish()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onEnterTransitionDidFinish, CCNode*);
 
-    if (m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(ENTER_TRANSITION_DID_FINISH_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterTransitionDidFinish);
     }
@@ -928,7 +1038,7 @@ void CCNode::onExitTransitionDidStart()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onExitTransitionDidStart, CCNode*);
 
-    if (m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(EXIT_TRANSITION_DID_START_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExitTransitionDidStart);
     }
@@ -938,9 +1048,14 @@ void CCNode::onExit()
 {
     this->pauseSchedulerAndActions();
 
+    if( m_bTouchEnabled )
+    {
+        unregisterWithTouchDispatcher();
+    }
+
     m_bRunning = false;
 
-    if ( m_eScriptType != kScriptTypeNone)
+    if (m_nScriptHandler || hasScriptEventListener(EXIT_SCENE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
     }
@@ -1048,6 +1163,11 @@ void CCNode::scheduleUpdateWithPriorityLua(int nHandler, int priority)
     m_pScheduler->scheduleUpdateForTarget(this, priority, !m_bRunning);
 }
 
+void CCNode::scheduleUpdateForNodeEvent()
+{
+    scheduleUpdateWithPriority(0);
+}
+
 void CCNode::unscheduleUpdate()
 {
     m_pScheduler->unscheduleUpdateForTarget(this);
@@ -1114,7 +1234,10 @@ void CCNode::update(float fDelta)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeSchedule(m_nUpdateScriptHandler, fDelta, this);
     }
-    
+    if (hasScriptEventListener(ENTER_FRAME_EVENT))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterFrame, fDelta);
+    }
     if (m_pComponentContainer && !m_pComponentContainer->isEmpty())
     {
         m_pComponentContainer->visit(fDelta);
@@ -1273,6 +1396,7 @@ CCPoint CCNode::convertTouchToNodeSpaceAR(CCTouch *touch)
 
 void CCNode::updateTransform()
 {
+    m_drawOrder = ++g_drawOrder;
     // Recursively iterate over children
     arrayMakeObjectsPerformSelector(m_pChildren, updateTransform, CCNode*);
 }
@@ -1297,139 +1421,347 @@ void CCNode::removeAllComponents()
     m_pComponentContainer->removeAll();
 }
 
-// CCNodeRGBA
-CCNodeRGBA::CCNodeRGBA()
-: _displayedOpacity(255)
-, _realOpacity(255)
-, _displayedColor(ccWHITE)
-, _realColor(ccWHITE)
-, _cascadeColorEnabled(false)
-, _cascadeOpacityEnabled(false)
-{}
+// CCNode
 
-CCNodeRGBA::~CCNodeRGBA() {}
-
-bool CCNodeRGBA::init()
+GLubyte CCNode::getOpacity(void)
 {
-    if (CCNode::init())
+	return m_realOpacity;
+}
+
+GLubyte CCNode::getDisplayedOpacity(void)
+{
+	return m_displayedOpacity;
+}
+
+void CCNode::setOpacity(GLubyte opacity)
     {
-        _displayedOpacity = _realOpacity = 255;
-        _displayedColor = _realColor = ccWHITE;
-        _cascadeOpacityEnabled = _cascadeColorEnabled = false;
-        return true;
-    }
-    return false;
-}
+    m_displayedOpacity = m_realOpacity = opacity;
 
-GLubyte CCNodeRGBA::getOpacity(void)
-{
-	return _realOpacity;
-}
-
-GLubyte CCNodeRGBA::getDisplayedOpacity(void)
-{
-	return _displayedOpacity;
-}
-
-void CCNodeRGBA::setOpacity(GLubyte opacity)
-{
-    _displayedOpacity = _realOpacity = opacity;
-    
-	if (_cascadeOpacityEnabled)
+	if (m_cascadeOpacityEnabled)
     {
 		GLubyte parentOpacity = 255;
-        CCRGBAProtocol* pParent = dynamic_cast<CCRGBAProtocol*>(m_pParent);
-        if (pParent && pParent->isCascadeOpacityEnabled())
+        if (m_pParent && m_pParent->isCascadeOpacityEnabled())
         {
-            parentOpacity = pParent->getDisplayedOpacity();
-        }
+            parentOpacity = m_pParent->getDisplayedOpacity();
+    }
         this->updateDisplayedOpacity(parentOpacity);
-	}
+}
 }
 
-void CCNodeRGBA::updateDisplayedOpacity(GLubyte parentOpacity)
+void CCNode::setOpacityModifyRGB(bool var)
 {
-	_displayedOpacity = _realOpacity * parentOpacity/255.0;
-	
-    if (_cascadeOpacityEnabled)
+    m_isOpacityModifyRGB = var;
+    if (m_pChildren && m_pChildren->count() != 0)
+    {
+        CCObject* child;
+        CCARRAY_FOREACH(m_pChildren, child)
+        {
+            dynamic_cast<CCNode*>(child)->setOpacityModifyRGB(var);
+    }
+    }
+}
+
+bool CCNode::isOpacityModifyRGB(void)
+    {
+    return m_isOpacityModifyRGB;
+    }
+
+void CCNode::updateDisplayedOpacity(GLubyte parentOpacity)
+{
+	m_displayedOpacity = (GLubyte)(m_realOpacity * parentOpacity/255.0);
+
+    if (m_cascadeOpacityEnabled)
     {
         CCObject* pObj;
         CCARRAY_FOREACH(m_pChildren, pObj)
         {
-            CCRGBAProtocol* item = dynamic_cast<CCRGBAProtocol*>(pObj);
-            if (item)
-            {
-                item->updateDisplayedOpacity(_displayedOpacity);
-            }
-        }
+            dynamic_cast<CCNode*>(pObj)->updateDisplayedOpacity(m_displayedOpacity);
+}
     }
 }
 
-bool CCNodeRGBA::isCascadeOpacityEnabled(void)
+bool CCNode::isCascadeOpacityEnabled(void)
 {
-    return _cascadeOpacityEnabled;
+    return m_cascadeOpacityEnabled;
 }
 
-void CCNodeRGBA::setCascadeOpacityEnabled(bool cascadeOpacityEnabled)
+void CCNode::setCascadeOpacityEnabled(bool cascadeOpacityEnabled)
 {
-    _cascadeOpacityEnabled = cascadeOpacityEnabled;
+    m_cascadeOpacityEnabled = cascadeOpacityEnabled;
 }
 
-const ccColor3B& CCNodeRGBA::getColor(void)
+const ccColor3B& CCNode::getColor(void)
 {
-	return _realColor;
+	return m_realColor;
+}
+    
+const ccColor3B& CCNode::getDisplayedColor()
+    {
+	return m_displayedColor;
 }
 
-const ccColor3B& CCNodeRGBA::getDisplayedColor()
-{
-	return _displayedColor;
-}
+void CCNode::setColor(const ccColor3B& color)
+        {
+	m_displayedColor = m_realColor = color;
 
-void CCNodeRGBA::setColor(const ccColor3B& color)
-{
-	_displayedColor = _realColor = color;
-	
-	if (_cascadeColorEnabled)
+	if (m_cascadeColorEnabled)
     {
 		ccColor3B parentColor = ccWHITE;
-        CCRGBAProtocol *parent = dynamic_cast<CCRGBAProtocol*>(m_pParent);
-		if (parent && parent->isCascadeColorEnabled())
+		if (m_pParent && m_pParent->isCascadeColorEnabled())
         {
-            parentColor = parent->getDisplayedColor(); 
+            parentColor = m_pParent->getDisplayedColor();
         }
-        
+
         updateDisplayedColor(parentColor);
 	}
 }
 
-void CCNodeRGBA::updateDisplayedColor(const ccColor3B& parentColor)
+void CCNode::updateDisplayedColor(const ccColor3B& parentColor)
 {
-	_displayedColor.r = _realColor.r * parentColor.r/255.0;
-	_displayedColor.g = _realColor.g * parentColor.g/255.0;
-	_displayedColor.b = _realColor.b * parentColor.b/255.0;
-    
-    if (_cascadeColorEnabled)
+	m_displayedColor.r = (GLubyte)(m_realColor.r * (float)parentColor.r/255.0f);
+	m_displayedColor.g = (GLubyte)(m_realColor.g * (float)parentColor.g/255.0f);
+	m_displayedColor.b = (GLubyte)(m_realColor.b * (float)parentColor.b/255.0f);
+	
+    if (m_cascadeColorEnabled)
     {
         CCObject *obj = NULL;
         CCARRAY_FOREACH(m_pChildren, obj)
         {
-            CCRGBAProtocol *item = dynamic_cast<CCRGBAProtocol*>(obj);
-            if (item)
-            {
-                item->updateDisplayedColor(_displayedColor);
-            }
+            dynamic_cast<CCNode*>(obj)->updateDisplayedColor(m_displayedColor);
         }
     }
 }
 
-bool CCNodeRGBA::isCascadeColorEnabled(void)
+bool CCNode::isCascadeColorEnabled(void)
+            {
+    return m_cascadeColorEnabled;
+            }
+
+void CCNode::setCascadeColorEnabled(bool cascadeColorEnabled)
 {
-    return _cascadeColorEnabled;
+    m_cascadeColorEnabled = cascadeColorEnabled;
+        }
+
+// ----------------------------------------
+
+CCScene *CCNode::getScene()
+{
+    if (!m_bRunning) return NULL;
+    CCNode *parent = getParent();
+    if (!parent) return NULL;
+
+    CCNode *scene = parent;
+    while (parent)
+    {
+        parent = parent->getParent();
+        if (parent) scene = parent;
+    }
+    return dynamic_cast<CCScene*>(scene);
 }
 
-void CCNodeRGBA::setCascadeColorEnabled(bool cascadeColorEnabled)
+
+void CCNode::registerWithTouchDispatcher()
 {
-    _cascadeColorEnabled = cascadeColorEnabled;
+//    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCScene *scene = getScene();
+    if (scene)
+    {
+        scene->addTouchableNode(this);
+}
+}
+
+void CCNode::unregisterWithTouchDispatcher()
+{
+//    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCScene *scene = getScene();
+    if (scene)
+    {
+        scene->removeTouchableNode(this);
+}
+}
+
+void CCNode::registerScriptTouchHandler(int nHandler, bool bIsMultiTouches, int nPriority, bool bSwallowsTouches)
+{
+    unregisterScriptTouchHandler();
+    m_pScriptTouchHandlerEntry = CCTouchScriptHandlerEntry::create(nHandler, bIsMultiTouches, nPriority, bSwallowsTouches);
+    m_pScriptTouchHandlerEntry->retain();
+}
+
+void CCNode::unregisterScriptTouchHandler(void)
+{
+    CC_SAFE_RELEASE_NULL(m_pScriptTouchHandlerEntry);
+}
+
+int CCNode::excuteScriptTouchHandler(int nEventType, CCTouch *pTouch)
+{
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchEvent(this, nEventType, pTouch);
+}
+	
+int CCNode::excuteScriptTouchHandler(int nEventType, CCSet *pTouches)
+    {
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches);
+}
+
+/// isTouchEnabled getter
+bool CCNode::isTouchEnabled()
+        {
+    return m_bTouchEnabled;
+        }
+/// isTouchEnabled setter
+        
+void CCNode::setTouchEnabled(bool enabled)
+{
+    if (m_bTouchEnabled != enabled)
+    {
+        m_bTouchEnabled = enabled;
+        if (m_bRunning)
+        {
+            if (enabled)
+            {
+                registerWithTouchDispatcher();
+	}
+            else
+            {
+                unregisterWithTouchDispatcher();
+}
+        }
+    }
+}
+
+void CCNode::setTouchMode(ccTouchesMode mode)
+{
+    if(m_eTouchMode != mode)
+    {
+        m_eTouchMode = mode;
+    
+		if( m_bTouchEnabled)
+    {
+			setTouchEnabled(false);
+			setTouchEnabled(true);
+		}
+    }
+}
+
+void CCNode::setTouchPriority(int priority)
+        {
+    if (m_nTouchPriority != priority)
+            {
+        m_nTouchPriority = priority;
+
+		if( m_bTouchEnabled)
+        {
+			setTouchEnabled(false);
+			setTouchEnabled(true);
+            }
+        }
+    }
+
+int CCNode::getTouchPriority()
+{
+    return m_nTouchPriority;
+}
+
+int CCNode::getTouchMode()
+{
+    return m_eTouchMode;
+}
+
+
+bool CCNode::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        return excuteScriptTouchHandler(CCTOUCHBEGAN, pTouch) == 0 ? false : true;
+}
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+    CCAssert(false, "Layer#ccTouchBegan override me");
+    return true;
+}
+
+void CCNode::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHENDED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHBEGAN, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHMOVED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHENDED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCNode::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
+{
+    if (kScriptTypeNone != m_eScriptType)
+    {
+        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
+        return;
+    }
+
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
 }
 
 NS_CC_END
