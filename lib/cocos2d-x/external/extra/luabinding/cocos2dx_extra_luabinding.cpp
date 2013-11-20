@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Tue Sep 17 14:05:10 2013.
+** Generated automatically by tolua++-1.0.92 on Wed Nov 20 14:53:30 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -691,6 +691,38 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setRequestUrl00(lua_Sta
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getRequestUrl of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getRequestUrl00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getRequestUrl00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRequestUrl'", NULL);
+#endif
+  {
+   string tolua_ret = (string)  self->getRequestUrl();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRequestUrl'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: addRequestHeader of class  CCHTTPRequest */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addRequestHeader00
 static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addRequestHeader00(lua_State* tolua_S)
@@ -942,10 +974,11 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_start00(lua_State* tolu
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'start'", NULL);
 #endif
   {
-   self->start();
+   bool tolua_ret = (bool)  self->start();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
   }
  }
- return 0;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'start'.",&tolua_err);
@@ -1262,8 +1295,8 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getErrorMessage00(lua_S
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getErrorMessage'", NULL);
 #endif
   {
-   const char* tolua_ret = (const char*)  self->getErrorMessage();
-   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+   string tolua_ret = (string)  self->getErrorMessage();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
  return 1;
@@ -1472,6 +1505,7 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"CCHTTPRequest");
    tolua_function(tolua_S,"createWithUrl",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_createWithUrl00);
    tolua_function(tolua_S,"setRequestUrl",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setRequestUrl00);
+   tolua_function(tolua_S,"getRequestUrl",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getRequestUrl00);
    tolua_function(tolua_S,"addRequestHeader",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addRequestHeader00);
    tolua_function(tolua_S,"addPOSTValue",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addPOSTValue00);
    tolua_function(tolua_S,"setPOSTData",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setPOSTData00);

@@ -16,6 +16,7 @@
 #include <pthread.h>
 #endif
 
+#include <stdio.h>
 #include <vector>
 #include <map>
 #include <string>
@@ -26,23 +27,23 @@ USING_NS_CC;
 
 NS_CC_EXTRA_BEGIN
 
-#define kCCHTTPRequestMethodGET  0
-#define kCCHTTPRequestMethodPOST 1
+#define kCCHTTPRequestMethodGET                 0
+#define kCCHTTPRequestMethodPOST                1
 
-#define kCCHTTPRequestAcceptEncodingIdentity 0
-#define kCCHTTPRequestAcceptEncodingGzip     1
-#define kCCHTTPRequestAcceptEncodingDeflate  2
+#define kCCHTTPRequestAcceptEncodingIdentity    0
+#define kCCHTTPRequestAcceptEncodingGzip        1
+#define kCCHTTPRequestAcceptEncodingDeflate     2
 
-#define kCCHTTPRequestStateIdle         0
-#define kCCHTTPRequestStateCleared      1
-#define kCCHTTPRequestStateInProgress   2
-#define kCCHTTPRequestStateCompleted    3
-#define kCCHTTPRequestStateCancelled    4
-#define kCCHTTPRequestStateFailed       5
+#define kCCHTTPRequestStateIdle                 0
+#define kCCHTTPRequestStateCleared              1
+#define kCCHTTPRequestStateInProgress           2
+#define kCCHTTPRequestStateCompleted            3
+#define kCCHTTPRequestStateCancelled            4
+#define kCCHTTPRequestStateFailed               5
 
-#define kCCHTTPRequestCURLStateIdle     0
-#define kCCHTTPRequestCURLStateBusy     1
-#define kCCHTTPRequestCURLStateClosed   2
+#define kCCHTTPRequestCURLStateIdle             0
+#define kCCHTTPRequestCURLStateBusy             1
+#define kCCHTTPRequestCURLStateClosed           2
 
 typedef vector<string> CCHTTPRequestHeaders;
 typedef CCHTTPRequestHeaders::iterator CCHTTPRequestHeadersIterator;
@@ -53,97 +54,80 @@ public:
     static CCHTTPRequest *createWithUrl(CCHTTPRequestDelegate *delegate,
                                         const char *url,
                                         int method = kCCHTTPRequestMethodGET);
-    
+
 #if CC_LUA_ENGINE_ENABLED > 0
     static CCHTTPRequest* createWithUrlLua(LUA_FUNCTION listener,
                                            const char *url,
                                            int method = kCCHTTPRequestMethodGET);
 #endif
-    
+
     ~CCHTTPRequest(void);
-    
+
     /** @brief Set request url. */
     void setRequestUrl(const char *url);
-    
+
+    /** @brief Get request url. */
+    const string getRequestUrl(void);
+
     /** @brief Add a custom header to the request. */
     void addRequestHeader(const char *header);
-    
+
     /** @brief Add a POST variable to the request, POST only. */
     void addPOSTValue(const char *key, const char *value);
-    
+
     /** @brief Set POST data to the request body, POST only. */
     void setPOSTData(const char *data);
 
     /** @brief Set/Get cookie string. */
     void setCookieString(const char *cookie);
     const string getCookieString(void);
-    
+
     /** @brief Set accept encoding. */
     void setAcceptEncoding(int acceptEncoding);
-    
+
     /** @brief Number of seconds to wait before timing out - default is 10. */
     void setTimeout(int timeout);
-    
+
     /** @brief Execute an asynchronous request. */
-    void start(void);
-    
+    bool start(void);
+
     /** @brief Cancel an asynchronous request, clearing all delegates first. */
     void cancel(void);
-    
+
     /** @brief Get the request state. */
-    int getState(void)
-    {
-        return m_state;
-    }
-    
+    int getState(void);
+
     /** @brief Return HTTP status code. */
-    int getResponseStatusCode(void)
-    {
-        CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
-        return m_responseCode;
-    }
-    
+    int getResponseStatusCode(void);
+
     /** @brief Return HTTP response headers. */
     const CCHTTPRequestHeaders &getResponseHeaders(void);
     const string getResponseHeadersString(void);
 
     /** @brief Returns the contents of the result. */
     const string getResponseString(void);
-    
+
     /** @brief Alloc memory block, return response data. use free() release memory block */
     void *getResponseData(void);
-    
+
 #if CC_LUA_ENGINE_ENABLED > 0
     LUA_STRING getResponseDataLua(void);
 #endif
-    
+
     /** @brief Get response data length (bytes). */
-    int getResponseDataLength(void)
-    {
-        CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
-        return (int)m_responseDataLength;
-    }
-    
+    int getResponseDataLength(void);
+
     /** @brief Save response data to file. */
     size_t saveResponseData(const char *filename);
-    
+
     /** @brief Get error code. */
-    int getErrorCode(void)
-    {
-        return m_errorCode;
-    }
-    
+    int getErrorCode(void);
+
     /** @brief Get error message. */
-    const char *getErrorMessage(void)
-    {
-        return m_errorMessage.c_str();
-    }
-    
+    const string getErrorMessage(void);
+
     /** @brief Return CCHTTPRequestDelegate delegate. */
-    CCHTTPRequestDelegate* getDelegate(void)
-    {
-        return m_delegate;
-    }
+    CCHTTPRequestDelegate* getDelegate(void);
 
     /** @brief timer function. */
     void checkCURLState(float dt);
@@ -172,19 +156,20 @@ private:
         DEFAULT_TIMEOUT = 10, // 10 seconds
         BUFFER_CHUNK_SIZE = 32768, // 32 KB
     };
-    
+
     static unsigned int s_id;
+    string m_url;
     CURL *m_curl;
     CCHTTPRequestDelegate* m_delegate;
     int m_listener;
     int m_curlState;
-    
+
     int     m_state;
     int     m_errorCode;
     string  m_errorMessage;
 
     // request
-    typedef map<string, string> Fields;    
+    typedef map<string, string> Fields;
     Fields m_postFields;
     CCHTTPRequestHeaders m_headers;
 
