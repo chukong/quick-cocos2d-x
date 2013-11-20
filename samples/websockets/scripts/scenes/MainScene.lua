@@ -78,7 +78,13 @@ function MainScene:onSendTextClicked()
         return
     end
 
-    local text = "hello " .. tostring(math.random())
+    local msg = {
+        _id_  = 10123,
+        action = 'Tests',
+        say = 'Hero',
+    }
+    local text = json.encode(msg)
+    --local text = "hello " .. tostring(math.random())
     if self.websocket:send(text) then
         printf("send text msg: %s", text)
     end
