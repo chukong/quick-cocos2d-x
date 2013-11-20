@@ -1,3 +1,4 @@
+
 ## CHINESE => [README_CN.md](README_CN.md)
 
 quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in Lua.
@@ -56,54 +57,3 @@ QUICK = SUCCESS !
 -   luaj: Lua call Java, Java call Lua ...
 -   network: Asynchronous HTTP requests, JSON, check the network status ...
 
-----
-
-### Changes in quick-cocos2d-x
-
-Common:
-
-- refactoring CCPointArray
-- add CCLinkPosition
-- add CCShapeNode, CCCircleShape, CCRectShape, CCPolygonShape, CCPointShape
-- add CCClippingRegionNode
-- add CCGraySprite, and shader ShaderPositionTextureGray
-- add CCZipFile
-- CCScriptEngineProtocol:executeGlobalFunction() add parameter numArgs
-- add CCFileUtils:isDirectoryExist()
-- add CCFileUtils:getCachePath(), return Library/Caches on iOS, same as getWritablePath() on other platforms
-- add CCFileUtils:setSearchRootPath()
-- add CCFileUtils:setWritablePath(), for debug
-- add CCFileUtils:setCachePath(), for debug
-- fix CCLabelTTF render blur
-- fix CCTouchScriptHandlerEntry will release twice lua reference, see [http://www.cocos2d-x.org/issues/2535]
-- add CCNotificationCenter Lua support
-- CCLuaEngine:executeLayerKeypadEvent() use "back", "menu" for keypad events
-- add Lua global function CCLuaLoadChunksFromZIP()
-- add Lua global function CCLuaStackSnapshot, get Lua state snapshot
-- upgrade LuaJIT to 2.0.2
-- add LuaJavaBridge
-- add LuaObjectiveCBridge
-- add LuaProxy
-- add Chipmunk Lua support
-- add CCArmature Lua support
-- add AssetsManager Lua support
-- add cocos2d-x-extra library
-- remove CCHttpClient
-- remove CCPhysicsDebugNode, CCPhysicsSprite
-- remove spine support
-- remove physics support from CCArmature
-
-Mac only:
-- refactoring Mac support
-
-Windows only:
-- refactoring Windows support
-- compile CocosDenshion as UNICODE
-- compile LuaJIT as static library
-
-Android only:
-- improved Lua loader for Android, support package.path
-- on Samsung i9100, not use OpenSL, but limit simulataneous sound streams to 3
-- fix CCLabelTTF crash on Android
-- support Android NDK r9
-- remove LocalStorageAndroid

@@ -4,9 +4,10 @@ quick-cocos2d-x 是一个可以让您觉得“爽快”的 cocos2d-x 的扩展�
 **中国区特别推荐：**
 
 -   quick-cocos2d-x 中文站 [http://cn.quick-x.com/](http://cn.quick-x.com/)
--   QQ 群 284148017
+-   QQ 群 284148017, 243709595
 -   新浪微博 [http://weibo.com/quickcocos2dx](http://weibo.com/quickcocos2dx)
--   OSChina 镜像仓库（国内访问稳定快速），100% 和 github 仓库同步，地址 [https://git.oschina.net/dualface/quick-cocos2d-x](https://git.oschina.net/dualface/quick-cocos2d-x)
+-   OSChina 镜像仓库（国内访问稳定快速），100% 和 github 仓库同步，地址 [http://git.oschina.net/dualface/quick-cocos2d-x](http://git.oschina.net/dualface/quick-cocos2d-x)
+-   CSDN 镜像仓库（国内访问稳定快速），100% 和 github 仓库同步，地址 [https://code.csdn.net/liaoyulei01/quick-cocos2d-x](https://code.csdn.net/liaoyulei01/quick-cocos2d-x)
 
 
 **如果你觉得 quick-cocos2d-x 靠谱，请点一下本页面上面的 "Star" 按钮，然后发发微博帮忙宣传吧**
