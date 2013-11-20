@@ -94,7 +94,8 @@ class  CCArmature : public CCNode
     CCTextureAtlas *getTextureAtlas();
 
     CCBone *getParentBone();
-
-	//zrong 2013-11-07 for lua
-	void connectMovementEventSignal(LUA_FUNCTION nHandler);
+    
+    //zrong 2013-11-07 for lua
+    void connectMovementEventSignal(LUA_FUNCTION nHandler);
+    void disconnectMovementEventSignal();
 };
