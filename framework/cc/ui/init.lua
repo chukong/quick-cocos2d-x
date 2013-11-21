@@ -9,7 +9,7 @@ function makeUIControl_(control)
 
     control:setCascadeOpacityEnabled(true)
     control:setCascadeColorEnabled(true)
-    control:addScriptEventListener(cc.Event.EXIT_SCENE, function()
+    control:addScriptEventListener(cc.Event.CLEANUP, function()
         control:removeAllEventListeners()
     end)
 end
