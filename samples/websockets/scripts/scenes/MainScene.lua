@@ -80,7 +80,7 @@ function MainScene:onSendTextClicked()
 
     local msg = {
         _id_  = 10123,
-        action = 'Tests',
+        action = 'TestEcho',
         say = 'Hero',
     }
     local text = json.encode(msg)

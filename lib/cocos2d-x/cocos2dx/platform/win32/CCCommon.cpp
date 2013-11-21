@@ -34,18 +34,18 @@ NS_CC_BEGIN
 
 #define MAX_LEN         (cocos2d::kMaxLogLen + 1)
 
-void SendLogToWindow(const string& log)
+void SendLogToWindow(const char *log)
 {
-	// Send data as a message
-      COPYDATASTRUCT myCDS;
-      myCDS.dwData = CCLOG_STRING;
-      myCDS.cbData = (DWORD)log.length() + 1;
-      myCDS.lpData = (PVOID)log.c_str();
-      HWND hwnd = CCEGLView::sharedOpenGLView()->getHWnd();
-      SendMessage(hwnd,
-                  WM_COPYDATA,
-                  (WPARAM)(HWND)hwnd,
-                  (LPARAM)(LPVOID)&myCDS);
+    // Send data as a message
+    COPYDATASTRUCT myCDS;
+    myCDS.dwData = CCLOG_STRING;
+    myCDS.cbData = (DWORD)strlen(log) + 1;
+    myCDS.lpData = (PVOID)log;
+    HWND hwnd = CCEGLView::sharedOpenGLView()->getHWnd();
+    SendMessage(hwnd,
+        WM_COPYDATA,
+        (WPARAM)(HWND)hwnd,
+        (LPARAM)(LPVOID)&myCDS);
 }
 
 void CCLog(const char * pszFormat, ...)
@@ -57,32 +57,20 @@ void CCLog(const char * pszFormat, ...)
     vsnprintf_s(szBuf, MAX_LEN, MAX_LEN, pszFormat, ap);
     va_end(ap);
 
-	string msg(szBuf);
-	wstring wmsg;
-	wmsg.assign(msg.begin(), msg.end());
+    SendLogToWindow(szBuf);
 
-    OutputDebugStringW(wmsg.c_str());
+    WCHAR wszBuf[MAX_LEN] = {0};
+    MultiByteToWideChar(CP_UTF8, 0, szBuf, -1, wszBuf, sizeof(wszBuf));
+    OutputDebugStringW(wszBuf);
     OutputDebugStringA("\n");
-	puts(msg.c_str());
 
-	SendLogToWindow(msg);
+    WideCharToMultiByte(CP_ACP, 0, wszBuf, sizeof(wszBuf), szBuf, sizeof(szBuf), NULL, FALSE);
+    puts(szBuf);
 }
 
 void CCLuaLog(const char *pszMsg)
 {
-	string msg(pszMsg ? pszMsg : "");
-	if (msg.length() > MAX_LEN)
-	{
-		msg = msg.substr(0, MAX_LEN);
-}
-	wstring wmsg;
-	wmsg.assign(msg.begin(), msg.end());
-
-    OutputDebugStringW(wmsg.c_str());
-    OutputDebugStringA("\n");
-	puts(msg.c_str());
-
-	SendLogToWindow(msg);
+    CCLog("%s", pszMsg);
 }
 
 void CCMessageBox(const char * pszMsg, const char * pszTitle)
