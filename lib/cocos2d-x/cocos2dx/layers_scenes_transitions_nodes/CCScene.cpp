@@ -34,10 +34,12 @@ NS_CC_BEGIN
 
 CCScene::CCScene()
 : m_touchableNodes(NULL)
-, m_touchNode(NULL)
+, m_touchTargets(NULL)
 {
     m_touchableNodes = CCArray::createWithCapacity(100);
     m_touchableNodes->retain();
+    m_touchTargets = CCArray::createWithCapacity(10);
+    m_touchTargets->retain();
     m_bIgnoreAnchorPointForPosition = true;
     setAnchorPoint(ccp(0.5f, 0.5f));
 }
@@ -45,12 +47,13 @@ CCScene::CCScene()
 CCScene::~CCScene()
 {
     CC_SAFE_RELEASE(m_touchableNodes);
+    CC_SAFE_RELEASE(m_touchTargets);
 }
 
 bool CCScene::init()
 {
     bool bRet = false;
-     do 
+     do
      {
          CCDirector * pDirector;
          CC_BREAK_IF( ! (pDirector = CCDirector::sharedDirector()) );
@@ -99,79 +102,113 @@ void CCScene::removeTouchableNode(CCNode *node)
     }
 }
 
-bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+int CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-    CC_SAFE_RELEASE_NULL(m_touchNode);
+    // remove all touch targets
+    m_touchTargets->removeAllObjects();
+
+    // check touch targets
     const CCPoint p = pTouch->getLocation();
     CCObject *node;
     CCNode *touchNode = NULL;
-    CCNode *checkNode = NULL;
+    CCNode *checkVisibleNode = NULL;
     bool visible = true;
-    sortAllTouchableNodes();
+    sortAllTouchableNodes(m_touchableNodes);
     CCARRAY_FOREACH(m_touchableNodes, node)
     {
-        checkNode = touchNode = dynamic_cast<CCNode*>(node);
+        checkVisibleNode = touchNode = dynamic_cast<CCNode*>(node);
 
         // check node is visible
         visible = true;
         do
         {
-            visible = visible && checkNode->isVisible();
-            checkNode = checkNode->getParent();
-        } while (checkNode && visible);
+            visible = visible && checkVisibleNode->isVisible();
+            checkVisibleNode = checkVisibleNode->getParent();
+        } while (checkVisibleNode && visible);
         if (!visible) continue;
 
         const CCRect boundingBox = touchNode->getCascadeBoundingBox();
-        if (boundingBox.containsPoint(p))
+        if (touchNode->isRunning() && boundingBox.containsPoint(p))
         {
             touchNode->retain();
-            bool ret = touchNode->ccTouchBegan(pTouch, pEvent);
-            if (ret && touchNode->isRunning())
+            int ret = touchNode->ccTouchBegan(pTouch, pEvent);
+            if (ret == kCCTouchBegan || ret == kCCTouchBeganNoSwallows)
             {
-                m_touchNode = touchNode;
-                m_touchNode->retain();
+                m_touchTargets->addObject(touchNode);
+                if (ret == kCCTouchBegan)
+                {
+                    touchNode->release();
+                    break;
+                }
             }
             touchNode->release();
-            if (ret) return true;
         }
     }
 
-    return false;
+    sortAllTouchableNodes(m_touchTargets);
+    return kCCTouchBegan;
 }
 
-void CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+int CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (m_touchNode)
+    CCNode *touchNode = NULL;
+    unsigned int count = m_touchTargets->count();
+    for (unsigned int i = 0; i < count; ++i)
     {
-        if (m_touchNode->isRunning())
+        touchNode = dynamic_cast<CCNode*>(m_touchTargets->objectAtIndex(i));
+        if (touchNode->isRunning())
         {
-            m_touchNode->ccTouchMoved(pTouch, pEvent);
+            int ret = touchNode->ccTouchMoved(pTouch, pEvent);
+            if (ret == kCCTouchMovedSwallows) break;
+            if (ret == kCCTouchMovedReleaseOthers)
+            {
+                for (unsigned int j = count - 1; j > i; --j)
+                {
+                    touchNode = dynamic_cast<CCNode*>(m_touchTargets->objectAtIndex(j));
+                    touchNode->ccTouchEnded(pTouch, pEvent);
+                    m_touchTargets->removeObjectAtIndex(j);
+                }
+                break;
+            }
         }
         else
         {
-            CC_SAFE_RELEASE_NULL(m_touchNode);
+            m_touchTargets->removeObjectAtIndex(i);
+            count--;
+            i--;
         }
     }
+    return kCCTouchMoved;
 }
 
 void CCScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (m_touchNode)
+    CCObject *node;
+    CCNode *touchNode = NULL;
+    CCARRAY_FOREACH(m_touchTargets, node)
     {
-        m_touchNode->ccTouchEnded(pTouch, pEvent);
-        m_touchNode->release();
-        m_touchNode = NULL;
+        touchNode = dynamic_cast<CCNode*>(node);
+        if (touchNode->isRunning())
+        {
+            touchNode->ccTouchEnded(pTouch, pEvent);
+        }
     }
+    m_touchTargets->removeAllObjects();
 }
 
 void CCScene::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (m_touchNode)
+    CCObject *node;
+    CCNode *touchNode = NULL;
+    CCARRAY_FOREACH(m_touchTargets, node)
     {
-        m_touchNode->ccTouchCancelled(pTouch, pEvent);
-        m_touchNode->release();
-        m_touchNode = NULL;
+        touchNode = dynamic_cast<CCNode*>(node);
+        if (touchNode->isRunning())
+        {
+            touchNode->ccTouchCancelled(pTouch, pEvent);
+        }
     }
+    m_touchTargets->removeAllObjects();
 }
 
 void CCScene::visit()
@@ -180,10 +217,10 @@ void CCScene::visit()
     CCLayer::visit();
 }
 
-void CCScene::sortAllTouchableNodes()
+void CCScene::sortAllTouchableNodes(CCArray *nodes)
 {
-    int i,j,length = m_touchableNodes->data->num;
-    CCNode ** x = (CCNode**)m_touchableNodes->data->arr;
+    int i,j,length = nodes->data->num;
+    CCNode ** x = (CCNode**)nodes->data->arr;
     CCNode *tempItem;
 
     // insertion sort

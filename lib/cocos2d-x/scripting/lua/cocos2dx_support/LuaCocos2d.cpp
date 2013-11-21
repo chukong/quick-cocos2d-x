@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 11/20/13 17:14:09.
+** Generated automatically by tolua++-1.0.92 on Thu Nov 21 16:29:36 2013.
 */
 
 /****************************************************************************
@@ -56089,8 +56089,8 @@ static int tolua_Cocos2d_CCScrollView_ccTouchBegan00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ccTouchBegan'", NULL);
 #endif
   {
-   bool tolua_ret = (bool)  self->ccTouchBegan(pTouch,pEvent);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   int tolua_ret = (int)  self->ccTouchBegan(pTouch,pEvent);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
@@ -56125,10 +56125,11 @@ static int tolua_Cocos2d_CCScrollView_ccTouchMoved00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ccTouchMoved'", NULL);
 #endif
   {
-   self->ccTouchMoved(pTouch,pEvent);
+   int tolua_ret = (int)  self->ccTouchMoved(pTouch,pEvent);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
- return 0;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'ccTouchMoved'.",&tolua_err);
@@ -57196,8 +57197,8 @@ static int tolua_Cocos2d_CCTableView_ccTouchBegan00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ccTouchBegan'", NULL);
 #endif
   {
-   bool tolua_ret = (bool)  self->ccTouchBegan(pTouch,pEvent);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   int tolua_ret = (int)  self->ccTouchBegan(pTouch,pEvent);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
@@ -57232,10 +57233,11 @@ static int tolua_Cocos2d_CCTableView_ccTouchMoved00(lua_State* tolua_S)
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'ccTouchMoved'", NULL);
 #endif
   {
-   self->ccTouchMoved(pTouch,pEvent);
+   int tolua_ret = (int)  self->ccTouchMoved(pTouch,pEvent);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
- return 0;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'ccTouchMoved'.",&tolua_err);
@@ -63050,6 +63052,12 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"kCCTouchesAllAtOnce",kCCTouchesAllAtOnce);
   tolua_constant(tolua_S,"kCCTouchesOneByOne",kCCTouchesOneByOne);
+  tolua_constant(tolua_S,"kCCTouchIgnore",kCCTouchIgnore);
+  tolua_constant(tolua_S,"kCCTouchBegan",kCCTouchBegan);
+  tolua_constant(tolua_S,"kCCTouchBeganNoSwallows",kCCTouchBeganNoSwallows);
+  tolua_constant(tolua_S,"kCCTouchMoved",kCCTouchMoved);
+  tolua_constant(tolua_S,"kCCTouchMovedSwallows",kCCTouchMovedSwallows);
+  tolua_constant(tolua_S,"kCCTouchMovedReleaseOthers",kCCTouchMovedReleaseOthers);
   tolua_cclass(tolua_S,"CCNode","CCNode","CCEventDispatcher",NULL);
   tolua_beginmodule(tolua_S,"CCNode");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCNode_create00);
