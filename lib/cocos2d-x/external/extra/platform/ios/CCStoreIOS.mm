@@ -440,10 +440,8 @@ static const char* const SANDBOX_RECEIPT_VERIFY_URL = "https://sandbox.itunes.ap
 - (CCStorePaymentTransaction *)createCCStorePaymentTransaction:(SKPaymentTransaction *)transaction
                                         andReceiptVerifyStatus:(int)receiptVerifyStatus
 {
-    CCStorePaymentTransactionWrapper* transactionWapper
-    ;
-    transactionWapper
-    = CCStorePaymentTransactionWrapper::createWithTransaction(transaction);
+    CCStorePaymentTransactionWrapper* transactionWapper;
+    transactionWapper = CCStorePaymentTransactionWrapper::createWithTransaction(transaction);
 
     const char *ccid        = utf8cstr(transaction.transactionIdentifier);
     const char *ccproductId = utf8cstr(transaction.payment.productIdentifier);

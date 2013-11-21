@@ -83,6 +83,7 @@ endif
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_lua_static
 
 ifndef $(QUICK_MINI_TARGET)
 
@@ -125,6 +126,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,cocos2dx)
 $(call import-module,CocosDenshion/android)
+$(call import-module,scripting/lua/proj.android)
 
 ifndef $(QUICK_MINI_TARGET)
     $(call import-module,external/libwebsockets/android)

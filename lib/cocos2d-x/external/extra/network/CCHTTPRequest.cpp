@@ -84,7 +84,14 @@ CCHTTPRequest::~CCHTTPRequest(void)
 
 void CCHTTPRequest::setRequestUrl(const char *url)
 {
-    curl_easy_setopt(m_curl, CURLOPT_URL, url);
+    CCAssert(url, "CCHTTPRequest::setRequestUrl() - invalid url");
+    m_url = url;
+    curl_easy_setopt(m_curl, CURLOPT_URL, m_url.c_str());
+}
+
+const string CCHTTPRequest::getRequestUrl(void)
+{
+    return m_url;
 }
 
 void CCHTTPRequest::addRequestHeader(const char *header)
@@ -147,9 +154,10 @@ void CCHTTPRequest::setTimeout(int timeout)
     curl_easy_setopt(m_curl, CURLOPT_TIMEOUT, timeout);
 }
 
-void CCHTTPRequest::start(void)
+bool CCHTTPRequest::start(void)
 {
-    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::start() - request not idle");    
+    CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::start() - request not idle");
+
     m_state = kCCHTTPRequestStateInProgress;
     m_curlState = kCCHTTPRequestCURLStateBusy;
     retain();
@@ -177,6 +185,7 @@ void CCHTTPRequest::start(void)
     
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
     // CCLOG("CCHTTPRequest[0x%04x] - request start", s_id);
+    return true;
 }
 
 void CCHTTPRequest::cancel(void)
@@ -186,6 +195,17 @@ void CCHTTPRequest::cancel(void)
     {
         m_state = kCCHTTPRequestStateCancelled;
     }
+}
+
+int CCHTTPRequest::getState(void)
+{
+    return m_state;
+}
+
+int CCHTTPRequest::getResponseStatusCode(void)
+{
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    return m_responseCode;
 }
 
 const CCHTTPRequestHeaders &CCHTTPRequest::getResponseHeaders(void)
@@ -229,6 +249,12 @@ LUA_STRING CCHTTPRequest::getResponseDataLua(void)
 }
 #endif
 
+int CCHTTPRequest::getResponseDataLength(void)
+{
+    CCAssert(m_state == kCCHTTPRequestStateCompleted, "Request not completed");
+    return (int)m_responseDataLength;
+}
+
 size_t CCHTTPRequest::saveResponseData(const char *filename)
 {
     CCAssert(m_state == kCCHTTPRequestStateCompleted, "CCHTTPRequest::saveResponseData() - request not completed");
@@ -243,6 +269,21 @@ size_t CCHTTPRequest::saveResponseData(const char *filename)
     }
     fclose(fp);
     return writedBytes;
+}
+
+int CCHTTPRequest::getErrorCode(void)
+{
+    return m_errorCode;
+}
+
+const string CCHTTPRequest::getErrorMessage(void)
+{
+    return m_errorMessage;
+}
+
+CCHTTPRequestDelegate* CCHTTPRequest::getDelegate(void)
+{
+    return m_delegate;
 }
 
 void CCHTTPRequest::checkCURLState(float dt)
@@ -374,11 +415,10 @@ size_t CCHTTPRequest::onWriteData(void *buffer, size_t bytes)
         m_responseBufferLength += BUFFER_CHUNK_SIZE;
         m_responseBuffer = realloc(m_responseBuffer, m_responseBufferLength);
     }
-    
+
     memcpy(static_cast<char*>(m_responseBuffer) + m_responseDataLength, buffer, bytes);
     m_responseDataLength += bytes;
     static_cast<char*>(m_responseBuffer)[m_responseDataLength] = 0;
-    // CCLOG("CCHTTPRequest[0x%04x] - receive data %u bytes, total %u bytes", s_id, bytes, m_responseDataLength);
     return bytes;
 }
 

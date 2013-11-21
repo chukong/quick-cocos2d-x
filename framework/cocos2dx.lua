@@ -7,6 +7,10 @@ cc.p = CCPoint
 cc.size = CCSize
 cc.rect = CCRect
 
+cc.c3 = ccc3
+cc.c4 = ccc4
+cc.c4f = ccc4f
+
 cc.size2t = function(size)
     return {width = size.width, height = size.height}
 end
