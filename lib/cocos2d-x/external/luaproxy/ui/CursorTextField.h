@@ -36,7 +36,7 @@ public:
 	virtual bool onTextFieldDeleteBackward(CCTextFieldTTF *s, const char *delText, int len);
 
 	//CCLayer
-	bool ccTouchBegan(CCTouch *t, CCEvent *e);
+	int ccTouchBegan(CCTouch *t, CCEvent *e);
 	void ccTouchEnded(CCTouch *t, CCEvent *e);
 	bool isInTextField(CCTouch *t);
 	CCRect getRect();

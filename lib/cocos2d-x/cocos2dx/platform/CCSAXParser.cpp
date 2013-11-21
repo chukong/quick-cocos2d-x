@@ -82,7 +82,7 @@ bool XmlSaxHander::VisitExit( const tinyxml2::XMLElement& element )
 bool XmlSaxHander::Visit( const tinyxml2::XMLText& text )
 {
 	//CCLog("Visit %s",text.Value());
-	CCSAXParser::textHandler(m_ccsaxParserImp, (const CC_XML_CHAR *)text.Value(), strlen(text.Value()));
+	CCSAXParser::textHandler(m_ccsaxParserImp, (const CC_XML_CHAR *)text.Value(), (unsigned int)strlen(text.Value()));
 	return true;
 }
 
@@ -119,7 +119,7 @@ bool CCSAXParser::parse(const char *pszFile)
     char* pBuffer = (char*)CCFileUtils::sharedFileUtils()->getFileData(pszFile, "rt", &size);
     if (pBuffer != NULL && size > 0)
     {
-        bRet = parse(pBuffer, size);
+        bRet = parse(pBuffer, (unsigned int)size);
     }
     CC_SAFE_DELETE_ARRAY(pBuffer);
     return bRet;

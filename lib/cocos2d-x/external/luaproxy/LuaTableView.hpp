@@ -67,7 +67,7 @@ public:
 		index = _indexFromOffset(point);
 		return cellAtIndex(index);
 	}
-	virtual bool ccTouchBegan(CCTouch *t, CCEvent *e){
+	virtual int ccTouchBegan(CCTouch *t, CCEvent *e){
 		bool r = CCTableView::ccTouchBegan(t, e);
 		if(r){
 			CCTableViewCell *c = cellForTouch(t);

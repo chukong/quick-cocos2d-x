@@ -66,7 +66,7 @@ public:
      */
     virtual ~CCLayer();
     virtual bool init();
-    
+
     /** create one layer */
     static CCLayer *create(void);
     /**
@@ -84,10 +84,10 @@ public:
      *  @lua NA
      */
     virtual void onEnterTransitionDidFinish();
-    
+
     // default implements are used to call script callback if exist
-    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
@@ -116,7 +116,7 @@ public:
     */
     virtual void registerWithTouchDispatcher(void);
     virtual void unregisterWithTouchDispatcher(void);
-    
+
     /** whether or not it will receive Accelerometer events
     You can enable / disable accelerometer events with this property.
     @since v0.8.1
@@ -139,13 +139,13 @@ public:
 
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
-    
+
     inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
-protected:   
+protected:
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
-    
+
     // Script touch events handler
     CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;
     CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
@@ -182,9 +182,9 @@ public:
 
     virtual void draw();
     virtual void setContentSize(const CCSize & var);
-    
+
     static CCLayerColor* create();
-    
+
     /** creates a CCLayer with color, width and height in Points */
     static CCLayerColor * create(const ccColor4B& color, GLfloat width, GLfloat height);
     /** creates a CCLayer with color. Width and height are the window size. */
@@ -207,7 +207,7 @@ public:
 
     /** BlendFunction. Conforms to CCBlendProtocol protocol */
     CC_PROPERTY(ccBlendFunc, m_tBlendFunc, BlendFunc)
-   
+
     virtual void setOpacityModifyRGB(bool bValue) {CC_UNUSED_PARAM(bValue);}
     virtual bool isOpacityModifyRGB(void) { return false;}
     virtual void setColor(const ccColor3B &color);
@@ -250,12 +250,12 @@ public:
     static CCLayerGradient* create(const ccColor4B& start, const ccColor4B& end, const CCPoint& v);
 
     virtual bool init();
-    /** Initializes the CCLayer with a gradient between start and end. 
+    /** Initializes the CCLayer with a gradient between start and end.
      *  @js init
      */
     virtual bool initWithColor(const ccColor4B& start, const ccColor4B& end);
 
-    /** Initializes the CCLayer with a gradient between start and end in the direction of v. 
+    /** Initializes the CCLayer with a gradient between start and end in the direction of v.
      *  @js init
      */
     virtual bool initWithColor(const ccColor4B& start, const ccColor4B& end, const CCPoint& v);
@@ -274,7 +274,7 @@ protected:
 public:
     virtual void setCompressedInterpolation(bool bCompressedInterpolation);
     virtual bool isCompressedInterpolation();
-    
+
     static CCLayerGradient* create();
 
 protected:
@@ -307,14 +307,14 @@ public:
      * @js NA
      */
     static CCLayerMultiplex* create();
-    
+
     /** creates a CCMultiplexLayer with an array of layers.
      * @since v2.1
      * @js NA
      */
     static CCLayerMultiplex* createWithArray(CCArray* arrayOfLayers);
 
-    /** creates a CCLayerMultiplex with one or more layers using a variable argument list. 
+    /** creates a CCLayerMultiplex with one or more layers using a variable argument list.
      * @lua NA
      */
     static CCLayerMultiplex * create(CCLayer* layer, ... );
@@ -327,12 +327,12 @@ public:
 
     void addLayer(CCLayer* layer);
 
-    /** initializes a MultiplexLayer with one or more layers using a variable argument list. 
+    /** initializes a MultiplexLayer with one or more layers using a variable argument list.
      *  @js NA
      *  @lua NA
      */
     bool initWithLayers(CCLayer* layer, va_list params);
-    /** switches to a certain layer indexed by n. 
+    /** switches to a certain layer indexed by n.
     The current (old) layer will be removed from it's parent with 'cleanup:YES'.
     */
 

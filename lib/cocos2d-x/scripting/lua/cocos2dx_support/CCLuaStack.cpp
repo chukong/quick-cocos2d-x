@@ -234,6 +234,7 @@ int CCLuaStack::executeScriptFile(const char* filename)
     {
         return executeFunction(0);
     }
+    return 0;
 #endif
 }
 

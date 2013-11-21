@@ -130,8 +130,8 @@ public:
                 if (-1 != nHandler) {
                     CCLuaStack *pStack = CCLuaEngine::defaultEngine()->getLuaStack();
                     pStack->pushFunctionByHandler(nHandler);
-                    pStack->pushString(data.bytes, data.len);
-                    pStack->pushInt(data.len);
+                    pStack->pushString(data.bytes, (int)data.len);
+                    pStack->pushInt((int)data.len);
                     pStack->executeFunction(2);
                 }
             }

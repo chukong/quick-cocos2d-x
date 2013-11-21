@@ -278,7 +278,7 @@ bool AssetsManager::uncompress()
         {
 			// get all dir
 			string fileNameStr = string(fileName);
-			int position = 0;
+			size_t position = 0;
 			while((position=fileNameStr.find_first_of("/",position))!=string::npos)
 			{
 				string dirPath =_storagePath + fileNameStr.substr(0, position);

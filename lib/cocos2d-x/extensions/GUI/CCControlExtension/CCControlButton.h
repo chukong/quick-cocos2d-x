@@ -4,17 +4,17 @@
  *
  * Copyright 2011 Yannick Loriot. All rights reserved.
  * http://yannickloriot.com
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -51,7 +51,7 @@ NS_CC_EXT_BEGIN
 
 /** @class CCControlButton Button control for Cocos2D. */
 class CC_DLL CCControlButton : public CCControl
-{        
+{
 public:
     CCControlButton();
     virtual ~CCControlButton();
@@ -70,7 +70,7 @@ protected:
     /** The current color used to display the title. */
     CC_SYNTHESIZE_READONLY_PASS_BY_REF(ccColor3B, m_currentTitleColor, CurrentTitleColor);
 
-    /** Adjust the background image. YES by default. If the property is set to NO, the 
+    /** Adjust the background image. YES by default. If the property is set to NO, the
     background will use the prefered size of the background image. */
     bool doesAdjustBackgroundImage();
     void setAdjustBackgroundImage(bool adjustBackgroundImage);
@@ -93,7 +93,7 @@ protected:
     /* Override setter to affect a background sprite too */
     virtual void setOpacity(GLubyte var);
 	virtual void setColor(const ccColor3B&);
-    
+
     /** Flag to know if the button is currently pushed.  */
 protected:
     bool m_isPushed;
@@ -121,20 +121,20 @@ public:
 public:
     virtual bool init();
     virtual bool initWithLabelAndBackgroundSprite(CCNode* label, CCScale9Sprite* backgroundSprite);
-    
+
     static CCControlButton* create(CCNode* label, CCScale9Sprite* backgroundSprite);
-    
+
     virtual bool initWithTitleAndFontNameAndFontSize(std::string title, const char * fontName, float fontSize);
 
     static CCControlButton* create(std::string title, const char * fontName, float fontSize);
-    
+
     virtual bool initWithBackgroundSprite(CCScale9Sprite* sprite);
 
     static CCControlButton* create(CCScale9Sprite* sprite);
-    
+
     //events
-    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
