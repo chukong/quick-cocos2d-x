@@ -1,6 +1,6 @@
 ## CHINESE => [README_CN.md](README_CN.md)
 
-quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in Lua.
+quick-cocos2d-x is a **quick** framework, based on cocos2d-x. Make mobile games in Lua.
 
 **CODE LESS, PLAY MORE !**
 
