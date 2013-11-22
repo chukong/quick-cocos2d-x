@@ -288,7 +288,7 @@ namespace sigslot {
 			m_mutex->lock();
 		}
         
-		~lock_block()
+		virtual ~lock_block()
 		{
 			m_mutex->unlock();
 		}
@@ -305,6 +305,7 @@ namespace sigslot {
 		virtual void emit() = 0;
 		virtual _connection_base0* clone() = 0;
 		virtual _connection_base0* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base0() {};
 	};
     
 	template<class arg1_type, class mt_policy>
@@ -315,6 +316,7 @@ namespace sigslot {
 		virtual void emit(arg1_type) = 0;
 		virtual _connection_base1<arg1_type, mt_policy>* clone() = 0;
 		virtual _connection_base1<arg1_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base1() {};
 	};
     
 	template<class arg1_type, class arg2_type, class mt_policy>
@@ -325,6 +327,7 @@ namespace sigslot {
 		virtual void emit(arg1_type, arg2_type) = 0;
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* clone() = 0;
 		virtual _connection_base2<arg1_type, arg2_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base2() {};
 	};
     
 	template<class arg1_type, class arg2_type, class arg3_type, class mt_policy>
@@ -335,6 +338,7 @@ namespace sigslot {
 		virtual void emit(arg1_type, arg2_type, arg3_type) = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* clone() = 0;
 		virtual _connection_base3<arg1_type, arg2_type, arg3_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base3() {};
 	};
     
 	template<class arg1_type, class arg2_type, class arg3_type, class arg4_type, class mt_policy>
@@ -345,6 +349,7 @@ namespace sigslot {
 		virtual void emit(arg1_type, arg2_type, arg3_type, arg4_type) = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* clone() = 0;
 		virtual _connection_base4<arg1_type, arg2_type, arg3_type, arg4_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base4() {};
 	};
     
 	template<class arg1_type, class arg2_type, class arg3_type, class arg4_type,
@@ -359,6 +364,7 @@ namespace sigslot {
         arg5_type, mt_policy>* clone() = 0;
 		virtual _connection_base5<arg1_type, arg2_type, arg3_type, arg4_type,
         arg5_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base5() {};
 	};
     
 	template<class arg1_type, class arg2_type, class arg3_type, class arg4_type,
@@ -373,6 +379,7 @@ namespace sigslot {
         arg5_type, arg6_type, mt_policy>* clone() = 0;
 		virtual _connection_base6<arg1_type, arg2_type, arg3_type, arg4_type,
         arg5_type, arg6_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base6() {};
 	};
     
 	template<class arg1_type, class arg2_type, class arg3_type, class arg4_type,
@@ -387,6 +394,7 @@ namespace sigslot {
         arg5_type, arg6_type, arg7_type, mt_policy>* clone() = 0;
 		virtual _connection_base7<arg1_type, arg2_type, arg3_type, arg4_type,
         arg5_type, arg6_type, arg7_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base7() {};
 	};
     
 	template<class arg1_type, class arg2_type, class arg3_type, class arg4_type,
@@ -401,6 +409,7 @@ namespace sigslot {
         arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* clone() = 0;
 		virtual _connection_base8<arg1_type, arg2_type, arg3_type, arg4_type,
         arg5_type, arg6_type, arg7_type, arg8_type, mt_policy>* duplicate(has_slots<mt_policy>* pnewdest) = 0;
+        virtual ~_connection_base8() {};
 	};
     
 	template<class mt_policy>
@@ -502,7 +511,7 @@ namespace sigslot {
 			}
 		}
         
-		~_signal_base0()
+		virtual ~_signal_base0()
 		{
 			disconnect_all();
 		}
@@ -630,7 +639,7 @@ namespace sigslot {
 			}
 		}
         
-		~_signal_base1()
+		virtual ~_signal_base1()
 		{
 			disconnect_all();
 		}
@@ -743,7 +752,7 @@ namespace sigslot {
 			}
 		}
         
-		~_signal_base2()
+		virtual ~_signal_base2()
 		{
 			disconnect_all();
 		}
@@ -855,7 +864,7 @@ namespace sigslot {
 			}
 		}
         
-		~_signal_base3()
+		virtual ~_signal_base3()
 		{
 			disconnect_all();
 		}

@@ -229,8 +229,8 @@ public:
     virtual void scrollViewDidScroll(CCScrollView* view);
     virtual void scrollViewDidZoom(CCScrollView* view) {}
 
-    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
@@ -283,7 +283,7 @@ protected:
     void _updateCellPositions();
 public:
     void _updateContentSize();
-    
+
     enum TableViewScriptEventType
     {
         kTableViewScroll   = 0,

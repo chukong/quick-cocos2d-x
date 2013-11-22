@@ -7,17 +7,17 @@
  *
  * Modified by Yannick Loriot.
  * http://yannickloriot.com
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -67,7 +67,7 @@ bool CCControlHuePicker::initWithTargetAndPos(CCNode* target, CCPoint pos)
         // Add background and slider sprites
         this->setBackground(CCControlUtils::addSpriteToTargetWithPosAndAnchor("huePickerBackground.png", target, pos, ccp(0.0f, 0.0f)));
         this->setSlider(CCControlUtils::addSpriteToTargetWithPosAndAnchor("colourPicker.png", target, pos, ccp(0.5f, 0.5f)));
-        
+
         m_slider->setPosition(ccp(pos.x, pos.y + m_background->boundingBox().size.height * 0.5f));
         m_startPos=pos;
 
@@ -102,14 +102,14 @@ void CCControlHuePicker::setHuePercentage(float hueValueInPercent)
     // Get the center point of the background image
     float centerX           = m_startPos.x + backgroundBox.size.width * 0.5f;
     float centerY           = m_startPos.y + backgroundBox.size.height * 0.5f;
-    
+
     // Work out the limit to the distance of the picker when moving around the hue bar
     float limit             = backgroundBox.size.width * 0.5f - 15.0f;
-    
+
     // Update angle
     float angleDeg          = m_huePercentage * 360.0f - 180.0f;
     float angle             = CC_DEGREES_TO_RADIANS(angleDeg);
-    
+
     // Set new position of the slider
     float x                 = centerX + limit * cosf(angle);
     float y                 = centerY + limit * sinf(angle);
@@ -131,7 +131,7 @@ void CCControlHuePicker::updateSliderPosition(CCPoint location)
 
     // Clamp the position of the icon within the circle
     CCRect backgroundBox=m_background->boundingBox();
-    
+
     // Get the center point of the background image
     float centerX           = m_startPos.x + backgroundBox.size.width * 0.5f;
     float centerY           = m_startPos.y + backgroundBox.size.height * 0.5f;
@@ -139,14 +139,14 @@ void CCControlHuePicker::updateSliderPosition(CCPoint location)
     // Work out the distance difference between the location and center
     float dx                = location.x - centerX;
     float dy                = location.y - centerY;
-    
+
     // Update angle by using the direction of the location
     float angle             = atan2f(dy, dx);
     float angleDeg          = CC_RADIANS_TO_DEGREES(angle) + 180.0f;
-    
+
     // use the position / slider width to determin the percentage the dragger is at
     setHue(angleDeg);
-    
+
     // send CCControl callback
     sendActionsForControlEvents(CCControlEventValueChanged);
 }
@@ -165,13 +165,13 @@ bool CCControlHuePicker::checkSliderPosition(CCPoint location)
     return false;
 }
 
-bool CCControlHuePicker::ccTouchBegan(CCTouch* touch, CCEvent* event)
+int CCControlHuePicker::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
     if (!isEnabled() || !isVisible())
     {
         return false;
     }
-    
+
     // Get the touch location
     CCPoint touchLocation=getTouchLocation(touch);
 
@@ -180,7 +180,7 @@ bool CCControlHuePicker::ccTouchBegan(CCTouch* touch, CCEvent* event)
 }
 
 
-void CCControlHuePicker::ccTouchMoved(CCTouch* touch, CCEvent* event)
+int CCControlHuePicker::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
     // Get the touch location
     CCPoint touchLocation=getTouchLocation(touch);
@@ -190,6 +190,8 @@ void CCControlHuePicker::ccTouchMoved(CCTouch* touch, CCEvent* event)
 //     sendActionsForControlEvents(CCControlEventValueChanged);
     // Check the touch position on the slider
     checkSliderPosition(touchLocation);
+
+    return kCCTouchMoved;
 }
 
 NS_CC_EXT_END

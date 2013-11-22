@@ -39,6 +39,7 @@ local CCObjectTypes = {
     "CCDelayTime",
     "CCDictionary",
     "CCDirector",
+    "CCDisplayLinkDirector",
     "CCDouble",
     "CCDrawNode",
     "CCEaseBackIn",
@@ -363,6 +364,11 @@ TOLUA_API int  tolua_Cocos2d_open (lua_State* tolua_S);]], [[]])
     if (buffer) delete[] buffer;]])
 
     replace('\t', '    ')
+
+    result = string.gsub(result,
+        [[tolua_usertype%(tolua_S,"(%a+)"%);]],
+        [[tolua_usertype(tolua_S,"%1");
+ toluafix_add_type_mapping(typeid(%1).hash_code(), "%1");]])
 
     WRITE(result)
 end

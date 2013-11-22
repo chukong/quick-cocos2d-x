@@ -30,6 +30,13 @@ typedef enum {
     kCCTouchesOneByOne,
 } ccTouchesMode;
 
+#define kCCTouchIgnore              0
+#define kCCTouchBegan               1
+#define kCCTouchBeganNoSwallows     2
+#define kCCTouchMoved               0
+#define kCCTouchMovedSwallows       1
+#define kCCTouchMovedReleaseOthers  2
+
 /**
  * @addtogroup base_nodes
  * @{
