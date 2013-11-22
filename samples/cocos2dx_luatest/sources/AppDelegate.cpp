@@ -39,7 +39,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLuaStack *pStack = pEngine->getLuaStack();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    pStack->loadChunksFromZip("res/framework_precompiled.zip");
+    pStack->loadChunksFromZIP("res/framework_precompiled.zip");
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
