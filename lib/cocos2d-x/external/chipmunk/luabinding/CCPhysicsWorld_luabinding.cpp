@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Mon Nov  4 14:38:45 2013.
+** Generated automatically by tolua++-1.0.92 on Fri Nov 22 15:01:17 2013.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -31,19 +31,19 @@ static int tolua_collect_CCPoint (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CCPoint");
- tolua_usertype(tolua_S,"CCPhysicsWorld");
- tolua_usertype(tolua_S,"CCPointArray");
- tolua_usertype(tolua_S,"CCPhysicsVector");
- tolua_usertype(tolua_S,"CCPhysicsCollisionEvent");
- tolua_usertype(tolua_S,"CCPhysicsDebugNode");
- tolua_usertype(tolua_S,"CCPhysicsBody");
+ tolua_usertype(tolua_S,"CCPoint"); toluafix_add_type_mapping(typeid(CCPoint).hash_code(), "CCPoint");
+ tolua_usertype(tolua_S,"CCPhysicsWorld"); toluafix_add_type_mapping(typeid(CCPhysicsWorld).hash_code(), "CCPhysicsWorld");
+ tolua_usertype(tolua_S,"CCPointArray"); toluafix_add_type_mapping(typeid(CCPointArray).hash_code(), "CCPointArray");
+ tolua_usertype(tolua_S,"CCPhysicsVector"); toluafix_add_type_mapping(typeid(CCPhysicsVector).hash_code(), "CCPhysicsVector");
+ tolua_usertype(tolua_S,"CCPhysicsCollisionEvent"); toluafix_add_type_mapping(typeid(CCPhysicsCollisionEvent).hash_code(), "CCPhysicsCollisionEvent");
+ tolua_usertype(tolua_S,"CCPhysicsDebugNode"); toluafix_add_type_mapping(typeid(CCPhysicsDebugNode).hash_code(), "CCPhysicsDebugNode");
+ tolua_usertype(tolua_S,"CCPhysicsBody"); toluafix_add_type_mapping(typeid(CCPhysicsBody).hash_code(), "CCPhysicsBody");
  
- tolua_usertype(tolua_S,"CCPhysicsShape");
+ tolua_usertype(tolua_S,"CCPhysicsShape"); toluafix_add_type_mapping(typeid(CCPhysicsShape).hash_code(), "CCPhysicsShape");
  
- tolua_usertype(tolua_S,"CCNode");
- tolua_usertype(tolua_S,"CCObject");
- tolua_usertype(tolua_S,"CCArray");
+ tolua_usertype(tolua_S,"CCNode"); toluafix_add_type_mapping(typeid(CCNode).hash_code(), "CCNode");
+ tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(typeid(CCObject).hash_code(), "CCObject");
+ tolua_usertype(tolua_S,"CCArray"); toluafix_add_type_mapping(typeid(CCArray).hash_code(), "CCArray");
 }
 
 /* method: create of class  CCPhysicsWorld */
