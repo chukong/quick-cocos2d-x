@@ -42,7 +42,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     if (m_projectConfig.isLoadPrecompiledFramework())
     {
         const string precompiledFrameworkPath = SimulatorConfig::sharedDefaults()->getPrecompiledFrameworkPath();
-        pStack->loadChunksFromZip(precompiledFrameworkPath.c_str());
+        pStack->loadChunksFromZIP(precompiledFrameworkPath.c_str());
     }
 
     // load script

@@ -137,7 +137,7 @@ bool CCLuaStack::init(void)
     lua_pushcfunction(m_state, lua_print);
     lua_setglobal(m_state, "print");
 
-    // register CCLuaLoadChunksFromZip
+    // register CCLuaLoadChunksFromZIP
     lua_pushcfunction(m_state, lua_loadChunksFromZIP);
     lua_setglobal(m_state, "CCLuaLoadChunksFromZIP");
 
@@ -390,7 +390,7 @@ int CCLuaStack::executeFunctionByHandler(int nHandler, int numArgs)
     return ret;
 }
 
-int CCLuaStack::loadChunksFromZip(const char *zipFilePath)
+int CCLuaStack::loadChunksFromZIP(const char *zipFilePath)
 {
     pushString(zipFilePath);
     lua_loadChunksFromZIP(m_state);

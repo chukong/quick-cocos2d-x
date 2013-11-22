@@ -128,7 +128,7 @@ public:
     virtual int executeFunctionByHandler(int nHandler, int numArgs);
     virtual int executeFunctionReturnArray(int nHandler,int nNumArgs,int nNummResults,CCArray* pResultArray);
 
-    virtual int loadChunksFromZip(const char *zipFilePath);
+    virtual int loadChunksFromZIP(const char *zipFilePath);
 
     virtual void setXXTEAKeyAndSign(const char *key, int keyLen);
     virtual void setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen);
