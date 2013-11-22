@@ -50,7 +50,7 @@ static std::vector<unsigned int> ccarray_to_std_vector(CCArray* pArray)
     return ret;
 }
 
-enum 
+enum
 {
     kDefaultPadding =  5,
 };
@@ -68,11 +68,11 @@ CCMenu * CCMenu::create(CCMenuItem* item, ...)
 {
     va_list args;
     va_start(args,item);
-    
+
     CCMenu *pRet = CCMenu::createWithItems(item, args);
-    
+
     va_end(args);
-    
+
     return pRet;
 }
 
@@ -87,7 +87,7 @@ CCMenu* CCMenu::createWithArray(CCArray* pArrayOfItems)
     {
         CC_SAFE_DELETE(pRet);
     }
-    
+
     return pRet;
 }
 
@@ -104,7 +104,7 @@ CCMenu* CCMenu::createWithItems(CCMenuItem* item, va_list args)
             i = va_arg(args, CCMenuItem*);
         }
     }
-    
+
     return CCMenu::createWithArray(pArray);
 }
 
@@ -135,7 +135,7 @@ bool CCMenu::initWithArray(CCArray* pArrayOfItems)
         this->setContentSize(s);
 
         setPosition(ccp(s.width/2, s.height/2));
-        
+
         if (pArrayOfItems != NULL)
         {
             int z=0;
@@ -147,15 +147,15 @@ bool CCMenu::initWithArray(CCArray* pArrayOfItems)
                 z++;
             }
         }
-    
+
         //    [self alignItemsVertically];
         m_pSelectedItem = NULL;
         m_eState = kCCMenuStateWaiting;
-        
+
         // enable cascade color and opacity on menus
         setCascadeColorEnabled(true);
         setCascadeOpacityEnabled(true);
-        
+
         return true;
     }
     return false;
@@ -189,7 +189,7 @@ void CCMenu::onExit()
             m_pSelectedItem->unselected();
             m_pSelectedItem = NULL;
         }
-        
+
         m_eState = kCCMenuStateWaiting;
     }
 
@@ -200,12 +200,12 @@ void CCMenu::removeChild(CCNode* child, bool cleanup)
 {
     CCMenuItem *pMenuItem = dynamic_cast<CCMenuItem*>(child);
     CCAssert(pMenuItem != NULL, "Menu only supports MenuItem objects as children");
-    
+
     if (m_pSelectedItem == pMenuItem)
     {
         m_pSelectedItem = NULL;
     }
-    
+
     CCNode::removeChild(child, cleanup);
 }
 
@@ -223,7 +223,7 @@ void CCMenu::registerWithTouchDispatcher()
     pDirector->getTouchDispatcher()->addTargetedDelegate(this, this->getTouchPriority(), true);
 }
 
-bool CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
+int CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
     CC_UNUSED_PARAM(event);
     if (m_eState != kCCMenuStateWaiting || ! m_bVisible || !m_bEnabled)
@@ -274,12 +274,12 @@ void CCMenu::ccTouchCancelled(CCTouch *touch, CCEvent* event)
     m_eState = kCCMenuStateWaiting;
 }
 
-void CCMenu::ccTouchMoved(CCTouch* touch, CCEvent* event)
+int CCMenu::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
     CC_UNUSED_PARAM(event);
     CCAssert(m_eState == kCCMenuStateTrackingTouch, "[Menu ccTouchMoved] -- invalid state");
     CCMenuItem *currentItem = this->itemForTouch(touch);
-    if (currentItem != m_pSelectedItem) 
+    if (currentItem != m_pSelectedItem)
     {
         if (m_pSelectedItem)
         {
@@ -291,6 +291,7 @@ void CCMenu::ccTouchMoved(CCTouch* touch, CCEvent* event)
             m_pSelectedItem->selected();
         }
     }
+    return kCCTouchMoved;;
 }
 
 //Menu - Alignment
@@ -428,7 +429,7 @@ void CCMenu::alignItemsInColumnsWithArray(CCArray* rowsArray)
                 }
             }
         }
-    }    
+    }
 
     // check if too many rows/columns for available menu items
     CCAssert(! columnsOccupied, "");
@@ -477,7 +478,7 @@ void CCMenu::alignItemsInColumnsWithArray(CCArray* rowsArray)
                 }
             }
         }
-    }    
+    }
 }
 
 void CCMenu::alignItemsInRows(unsigned int rows, ...)

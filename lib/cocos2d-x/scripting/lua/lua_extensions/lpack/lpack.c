@@ -57,7 +57,7 @@ static void doswap(int swap, void *p, size_t n)
  if (swap)
  {
   char *a=p;
-  int i,j;
+  size_t i,j;
   for (i=0, j=n-1, n=n/2; n--; i++, j--)
   {
    char t=a[i]; a[i]=a[j]; a[j]=t;

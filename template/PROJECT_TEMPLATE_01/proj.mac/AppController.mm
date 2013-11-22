@@ -519,34 +519,6 @@ using namespace cocos2d::extra;
 }
 
 #pragma mark -
-#pragma mark interfaces
-
-- (void) welcomeNewProject
-{
-    [self onFileNewProject:self];
-}
-
-- (void) welcomeOpen
-{
-    [self onFileOpen:self];
-}
-
-- (void) welcomeSamples
-{
-    string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
-    if (path.length())
-    {
-        path.append("samples");
-        [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
-    }
-}
-
-- (void) welcomeGetStarted
-{
-    CCNative::openURL("http://wiki.quick-x.com/");
-}
-
-#pragma mark -
 #pragma mark IB Actions
 
 - (IBAction) onServicePreferences:(id)sender

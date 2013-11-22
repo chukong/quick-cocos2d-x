@@ -30,7 +30,7 @@ static int lz_crc32(lua_State *L);
 
 static int lz_version(lua_State *L) {
     const char* version = zlibVersion();
-    int         count   = strlen(version) + 1;
+    int         count   = (int)strlen(version) + 1;
     char*       cur     = (char*)memcpy(lua_newuserdata(L, count),
                                         version, count);
 
@@ -142,7 +142,7 @@ static int lz_filter_impl(lua_State *L, int (*filter)(z_streamp, int), int (*end
     stream->next_in = lua_gettop(L) > 0 ?
         (unsigned char*)lua_tolstring(L, -1, &avail_in) :
         NULL;
-    stream->avail_in = avail_in;
+    stream->avail_in = (uInt)avail_in;
 
     if ( ! stream->avail_in && ! flush ) {
         /*  Passed empty string, make it a noop instead of erroring out. */
@@ -254,7 +254,7 @@ static int lz_inflate_new(lua_State *L) {
     z_stream* stream = (z_stream*)lua_newuserdata(L, sizeof(z_stream));
 
     /*  By default, we will do gzip header detection w/ max window size */
-    int window_size = lua_isnumber(L, 1) ? lua_tointeger(L, 1) : MAX_WBITS + 32;
+    lua_Integer window_size = lua_isnumber(L, 1) ? lua_tointeger(L, 1) : MAX_WBITS + 32;
 
     stream->zalloc   = Z_NULL;
     stream->zfree    = Z_NULL;
@@ -324,7 +324,7 @@ static int lz_checksum(lua_State *L) {
         lua_pushnumber(L,
                        checksum((uLong)lua_tonumber(L, lua_upvalueindex(3)),
                                 str,
-                                len));
+                                (int)len));
         lua_pushvalue(L, -1);
         lua_replace(L, lua_upvalueindex(3));
         

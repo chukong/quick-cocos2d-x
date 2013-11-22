@@ -74,7 +74,7 @@ void CursorTextField::onExit(){
 	CCTextFieldTTF::onExit();
     setTouchEnabled(false);
 }
-bool CursorTextField::ccTouchBegan(CCTouch *t, CCEvent *e){
+int CursorTextField::ccTouchBegan(CCTouch *t, CCEvent *e){
 	_touchBeginPos = CCDirector::sharedDirector()->convertToGL(t->getLocationInView());
 	return true;
 }
@@ -175,13 +175,13 @@ void CursorTextField::keyEvent(UINT m, WPARAM w, LPARAM l){
 		if(VK_BACK == w){
 			onTextFieldDeleteBackward(this, NULL, 1);
 		}else if(VK_RETURN == w){
-			
+
 		}else{
 			char s[2];
 			sprintf(s, "%c", w);
 			onTextFieldInsertText(this, s, 1);
 		}
 	}
-	
+
 }
 #endif

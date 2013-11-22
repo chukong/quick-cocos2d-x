@@ -92,7 +92,7 @@ void CCPointArray::insert(CCPoint &point, unsigned int index)
 
 const CCPoint CCPointArray::get(unsigned int index)
 {
-    index = MIN(m_pPoints->size()-1, MAX(index, 0));
+    index = MIN((unsigned int)m_pPoints->size() - 1, MAX(index, 0));
     return *(m_pPoints->at(index));
 }
 
@@ -124,7 +124,7 @@ void CCPointArray::removeAll(void)
 
 unsigned int CCPointArray::count()
 {
-    return m_pPoints->size();
+    return (unsigned int)m_pPoints->size();
 }
 
 CCPointArray* CCPointArray::reverse()
@@ -145,11 +145,11 @@ CCPointArray* CCPointArray::reverse()
 
 void CCPointArray::reverseInline()
 {
-    unsigned int l = m_pPoints->size();
+    size_t l = m_pPoints->size();
     CCPoint *p1 = NULL;
     CCPoint *p2 = NULL;
     int x, y;
-    for (unsigned int i = 0; i < l/2; ++i)
+    for (size_t i = 0; i < l/2; ++i)
     {
         p1 = m_pPoints->at(i);
         p2 = m_pPoints->at(l-i-1);
