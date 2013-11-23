@@ -357,13 +357,13 @@ static int tolua_LuaProxy_getNodeWithType(lua_State *l){
 
 TOLUA_API int luaopen_LuaProxy(lua_State* l){
 	tolua_open(l);
-	tolua_usertype(l, "LuaProxy");
-	tolua_usertype(l, "CCCameraEyeAction");
-	tolua_usertype(l, "CursorTextField");
-	tolua_usertype(l, "LuaCallFuncInterval");
-	tolua_usertype(l, "LuaEventHandler");
-	tolua_usertype(l, "LuaTableView");
-	tolua_usertype(l, "UIUtil");
+	tolua_usertype(l, "LuaProxy"); toluafix_add_type_mapping(typeid(LuaProxy).hash_code(), "LuaProxy");
+	tolua_usertype(l, "CCCameraEyeAction"); toluafix_add_type_mapping(typeid(CCCameraEyeAction).hash_code(), "CCCameraEyeAction");
+	tolua_usertype(l, "CursorTextField"); toluafix_add_type_mapping(typeid(CursorTextField).hash_code(), "CursorTextField");
+	tolua_usertype(l, "LuaCallFuncInterval"); toluafix_add_type_mapping(typeid(LuaCallFuncInterval).hash_code(), "LuaCallFuncInterval");
+	tolua_usertype(l, "LuaEventHandler"); toluafix_add_type_mapping(typeid(LuaEventHandler).hash_code(), "LuaEventHandler");
+	tolua_usertype(l, "LuaTableView"); toluafix_add_type_mapping(typeid(LuaTableView).hash_code(), "LuaTableView");
+	tolua_usertype(l, "UIUtil"); toluafix_add_type_mapping(typeid(UIUtil).hash_code(), "UIUtil");
 	tolua_module(l, NULL, 0);
 	tolua_beginmodule(l, NULL);
 		tolua_function(l, "copyAssetFileToData", tolua_LuaProxy_copyAssetFileToData);
