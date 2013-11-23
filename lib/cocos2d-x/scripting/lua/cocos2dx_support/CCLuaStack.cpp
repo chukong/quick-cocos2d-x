@@ -835,8 +835,10 @@ static map<size_t,char*> hash_type_mapping;
 TOLUA_API void toluafix_add_type_mapping(size_t type,const char* clsName)
 {
 
-    if(hash_type_mapping.find(type)==hash_type_mapping.end())
+    if(hash_type_mapping.find(type) == hash_type_mapping.end())
+    {
         hash_type_mapping[type] = strdup(clsName);
+    }
 }
 
 TOLUA_API int toluafix_pushusertype_ccobject(lua_State* L,
@@ -845,7 +847,6 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State* L,
                                              void* vptr,
                                              const char* vtype)
 {
-
     if (vptr == NULL || p_refid == NULL)
     {
         lua_pushnil(L);
@@ -853,15 +854,11 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State* L,
     }
 
     cocos2d::CCObject* ptr= (cocos2d::CCObject*) vptr;
-    //    const char* name =typeid(*ptr).name();
-    //    char* type = hash_type_mapping[name];
     size_t hash= typeid(*ptr).hash_code();
     char* type = hash_type_mapping[hash];
     if(type == NULL)
     {
-        CCLog("Unable to find type:%ld",hash);
-        lua_pushnil(L);
-        return -1;
+        CCLOG("Unable to find type map for class: %s", vtype);
     }
 
     if (*p_refid == 0)
@@ -879,13 +876,13 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State* L,
         lua_pushstring(L, TOLUA_REFID_TYPE_MAPPING);
         lua_rawget(L, LUA_REGISTRYINDEX);                           /* stack: refid_type */
         lua_pushinteger(L, refid);                                  /* stack: refid_type refid */
-        lua_pushstring(L, type);                                    /* stack: refid_type refid type */
+        lua_pushstring(L, type ? type : vtype);                     /* stack: refid_type refid type */
         lua_rawset(L, -3);                /* refid_type[refid] = type, stack: refid_type */
         lua_pop(L, 1);                                              /* stack: - */
         
         //printf("[LUA] push CCObject OK - refid: %d, ptr: %x, type: %s\n", *p_refid, (int)ptr, type);
     }
     
-    tolua_pushusertype(L, ptr, type);
+    tolua_pushusertype(L, ptr, type ? type : vtype);
     return 0;
 }
