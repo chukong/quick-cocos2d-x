@@ -341,6 +341,7 @@
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\cjson\fpconv.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\cjson\lua_cjson.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\cjson\strbuf.c" />
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\debugger\debugger.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\filesystem\lfs.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\lpack\lpack.c" />
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\lsqlite3.c" />
@@ -744,6 +745,7 @@
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\cjson\fpconv.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\cjson\lua_cjson.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\cjson\strbuf.h" />
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\debugger\debugger.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\filesystem\lfs.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\lpack\lpack.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\lsqlite3\lsqlite3.h" />

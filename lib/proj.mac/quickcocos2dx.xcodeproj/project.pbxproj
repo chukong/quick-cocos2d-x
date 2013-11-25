@@ -58,6 +58,7 @@
 		F44E611A182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F44E6118182AC7E600016FD1 /* Cocos2dxLuaLoader.cpp */; };
 		F44F3C3716EB1B54009ED7F0 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F44F3C3616EB1B54009ED7F0 /* snapshot.c */; };
 		F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF35316C7DE1F00275222 /* libcurl.dylib */; };
+		F477225D1843450000EBA0D4 /* debugger.c in Sources */ = {isa = PBXBuildFile; fileRef = F477225A1843450000EBA0D4 /* debugger.c */; };
 		F477B8491757404200260C19 /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B7391757404200260C19 /* CCCamera.cpp */; };
 		F477B84A1757404200260C19 /* CCConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B73B1757404200260C19 /* CCConfiguration.cpp */; };
 		F477B84B1757404200260C19 /* CCDirector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B73D1757404200260C19 /* CCDirector.cpp */; };
@@ -436,6 +437,8 @@
 		F44F3C3816EB1BE2009ED7F0 /* snapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F45FF35316C7DE1F00275222 /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		F4703CB81777F0D900A8A9E9 /* cocos-ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cocos-ext.h"; sourceTree = "<group>"; };
+		F477225A1843450000EBA0D4 /* debugger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debugger.c; sourceTree = "<group>"; };
+		F477225B1843450000EBA0D4 /* debugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debugger.h; sourceTree = "<group>"; };
 		F477B7391757404200260C19 /* CCCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCamera.cpp; sourceTree = "<group>"; };
 		F477B73A1757404200260C19 /* CCCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCamera.h; sourceTree = "<group>"; };
 		F477B73B1757404200260C19 /* CCConfiguration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCConfiguration.cpp; sourceTree = "<group>"; };
@@ -1304,6 +1307,15 @@
 			path = ui;
 			sourceTree = "<group>";
 		};
+		F47722591843450000EBA0D4 /* debugger */ = {
+			isa = PBXGroup;
+			children = (
+				F477225A1843450000EBA0D4 /* debugger.c */,
+				F477225B1843450000EBA0D4 /* debugger.h */,
+			);
+			path = debugger;
+			sourceTree = "<group>";
+		};
 		F477B8AB1757405000260C19 /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -1610,6 +1622,7 @@
 			isa = PBXGroup;
 			children = (
 				F4CB8744180D02F600D81CF3 /* cjson */,
+				F47722591843450000EBA0D4 /* debugger */,
 				F4CB874B180D02F600D81CF3 /* filesystem */,
 				F4CB874E180D02F600D81CF3 /* lpack */,
 				F427F52818233E9A00856895 /* lsqlite3 */,
@@ -2865,6 +2878,7 @@
 				F4E880DB1770074500577406 /* CCApplication.mm in Sources */,
 				F4315298180CF7E30046351C /* cpBody.c in Sources */,
 				F4E880DC1770074500577406 /* CCCommon.mm in Sources */,
+				F477225D1843450000EBA0D4 /* debugger.c in Sources */,
 				F431529F180CF7E30046351C /* cpSpaceHash.c in Sources */,
 				F4E880DD1770074500577406 /* CCDevice.mm in Sources */,
 				F43152BB180CF7FD0046351C /* luaopen_LuaProxy.cpp in Sources */,
