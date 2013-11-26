@@ -217,6 +217,16 @@ void ProjectConfig::setWindowOffset(CCPoint windowOffset)
     m_windowOffset = windowOffset;
 }
 
+int ProjectConfig::getDebuggerType(void)
+{
+    return m_debuggerType;
+}
+
+void ProjectConfig::setDebuggerType(int debuggerType)
+{
+    m_debuggerType = debuggerType;
+}
+
 void ProjectConfig::parseCommandLine(vector<string>& args)
 {
     for (vector<string>::iterator it = args.begin(); it != args.end(); ++it)
@@ -296,6 +306,14 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
             ++it;
             CCPoint pos = CCPointFromString((*it).c_str());
             setWindowOffset(pos);
+        }
+        else if (arg.compare("-debugger-ldt") == 0)
+        {
+            setDebuggerType(kCCLuaDebuggerLDT);
+        }
+        else if (arg.compare("-disable-debugger") == 0)
+        {
+            setDebuggerType(kCCLuaDebuggerNone);
         }
     }
 
@@ -412,6 +430,19 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
         }
     }
 
+    if (mask & kProjectConfigDebugger)
+    {
+        switch (getDebuggerType())
+        {
+            case kCCLuaDebuggerLDT:
+                buff << " -debugger-ldt";
+                break;
+            case kCCLuaDebuggerNone:
+            default:
+                buff << " -disable-debugger";
+        }
+    }
+
     return buff.str();
 }
 
@@ -436,6 +467,7 @@ void ProjectConfig::dump(void)
     CCLOG("  frame scale: %0.2f", m_frameScale);
     CCLOG("  show console: %s", m_showConsole ? "YES" : "NO");
     CCLOG("  write debug log: %s", m_writeDebugLogToFile ? "YES" : "NO");
+    CCLOG("  debugger: %s", m_debuggerType == kCCLuaDebuggerLDT ? "Eclipse LDT" : "NONE");
     CCLOG("----------------------------------------");
 }
 

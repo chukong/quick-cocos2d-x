@@ -403,6 +403,8 @@ function string.text2html(input)
 end
 
 function string.split(str, delimiter)
+    str = tostring(str)
+    delimiter = tostring(delimiter)
     if (delimiter=='') then return false end
     local pos,arr = 0, {}
     -- for each divider found
