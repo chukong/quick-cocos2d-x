@@ -591,9 +591,7 @@ using namespace cocos2d::extra;
 
 - (IBAction) onFileNewPlayer:(id)sender
 {
-    NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig];
-    [args removeLastObject];
-    [args removeLastObject];
+    NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig:kProjectConfigAll & ~kProjectConfigWindowOffset];
     [self launch:args];
 }
 
