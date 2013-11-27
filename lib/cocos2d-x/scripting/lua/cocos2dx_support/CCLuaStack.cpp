@@ -887,7 +887,7 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
     char* type = hash_type_mapping[hash];
     if (type == NULL)
     {
-        CCLOG("[TOLUA] Unable to find type map for object %s:%p,", vtype, vptr);
+        // CCLOG("[TOLUA] Unable to find type map for object %s:%p,", vtype, vptr);
     }
 
     if (*p_refid == 0)
@@ -908,10 +908,10 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
         lua_pushstring(L, type ? type : vtype);                     /* stack: refid_type refid type */
         lua_rawset(L, -3);                /* refid_type[refid] = type, stack: refid_type */
         lua_pop(L, 1);                                              /* stack: - */
-        
+
         //printf("[LUA] push CCObject OK - refid: %d, ptr: %x, type: %s\n", *p_refid, (int)ptr, type);
     }
-    
+
     tolua_pushusertype(L, ptr, type ? type : vtype);
     return 0;
 }

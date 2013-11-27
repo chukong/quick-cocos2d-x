@@ -124,6 +124,17 @@ void StartupCall::startup()
         pStack->loadChunksFromZIP(precompiledFrameworkPath.c_str());
     }
 
+    // set default scene
+    CCScene *scene = CCScene::create();
+    if (CCDirector::sharedDirector()->getRunningScene())
+    {
+        CCDirector::sharedDirector()->replaceScene(scene);
+    }
+    else
+    {
+        CCDirector::sharedDirector()->runWithScene(scene);
+    }
+
     // load script
     string env = "__LUA_STARTUP_FILE__=\"";
     env.append(path);
