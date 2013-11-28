@@ -1117,6 +1117,12 @@ void CCSprite::setTexture(CCTexture2D *texture)
         CC_SAFE_RETAIN(texture);
         CC_SAFE_RELEASE(m_pobTexture);
         m_pobTexture = texture;
+        // fix the issure that an untextured sprite can not call setTexture.
+        if (m_obRect.equals(CCRectZero))
+        {
+            CCSize size = m_pobTexture->getContentSize();
+            setTextureRect(CCRectMake(0,0,size.width,size.height));
+        }
         updateBlendFunc();
     }
 }
