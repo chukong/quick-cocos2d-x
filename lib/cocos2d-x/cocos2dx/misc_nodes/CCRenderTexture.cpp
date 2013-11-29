@@ -520,6 +520,8 @@ void CCRenderTexture::clearStencil(int stencilValue)
 
 void CCRenderTexture::visit()
 {
+    m_drawOrder = ++g_drawOrder;
+
     // override visit.
 	// Don't call visit on its children
     if (!m_bVisible)
