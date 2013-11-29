@@ -34,10 +34,16 @@ extern "C"
     int cocos2dx_lua_loader(lua_State *L)
     {
         std::string filename(luaL_checkstring(L, 1));
-        size_t pos = filename.rfind(".lua");
+        
+        const std::string SUFFIX_LUA = ".lua";
+        size_t pos = filename.rfind(SUFFIX_LUA);
         if (pos != std::string::npos)
         {
-            filename = filename.substr(0, pos);
+            if( pos == (filename.length() - SUFFIX_LUA.length()) )
+            {
+                filename = filename.substr(0, pos);
+            }
+            
         }
 
         pos = filename.find_first_of(".");
