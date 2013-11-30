@@ -537,6 +537,8 @@ void CCScrollView::afterDraw()
 
 void CCScrollView::visit()
 {
+    m_drawOrder = ++g_drawOrder;
+
 	// quick return if not visible
 	if (!isVisible())
     {
