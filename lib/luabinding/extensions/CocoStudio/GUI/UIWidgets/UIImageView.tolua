@@ -1,0 +1,87 @@
+/**
+*   @js NA
+*   @lua NA
+*/
+class UIImageView : public UIWidget
+{
+public:
+    /**
+     * Default constructor
+     */
+    UIImageView();
+    
+    /**
+     * Default destructor
+     */
+    virtual ~UIImageView();
+    
+    /**
+     * Allocates and initializes.
+     */
+    static UIImageView* create();
+    
+    /**
+     * Load texture for imageview.
+     *
+     * @param fileName   file name of texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
+    void loadTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Updates the texture rect of the UIImageView in points.
+     * It will call setTextureRect:rotated:untrimmedSize with rotated = NO, and utrimmedSize = rect.size.
+     */
+    void setTextureRect(const CCRect& rect);
+    
+    /**
+     * Sets if imageview is using scale9 renderer.
+     *
+     * @param true that using scale9 renderer, false otherwise.
+     */
+    void setScale9Enabled(bool able);
+    
+    /**
+     * Sets capinsets for imageview, if imageview is using scale9 renderer.
+     *
+     * @param capInsets    capinsets for imageview
+     */
+    void setCapInsets(const CCRect &capInsets);
+    
+    //override "setFlipX" method of widget.
+    virtual void setFlipX(bool flipX);
+    
+    //override "setFlipY" method of widget.
+    virtual void setFlipY(bool flipY);
+    
+    //override "isFlipX" method of widget.
+    virtual bool isFlipX();
+    
+    //override "isFlipY" method of widget.
+    virtual bool isFlipY();
+    
+    //override "setAnchorPoint" method of widget.
+    virtual void setAnchorPoint(const CCPoint &pt);
+    
+    //override "onTouchBegan" method of widget.
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    
+    //override "onTouchEnded" method of widget.
+    virtual void onTouchEnded(const CCPoint &touchPoint);
+    
+    //override "ignoreContentAdaptWithSize" method of widget.
+    virtual void ignoreContentAdaptWithSize(bool ignore);
+    
+    /**
+     * Returns the "class name" of widget.
+     */
+    virtual const char* getDescription() const;
+    
+    void setDoubleClickEnabled(bool able);
+    void doubleClickEvent();
+    void checkDoubleClick(float dt);
+
+    virtual const CCSize& getContentSize() const;
+    virtual CCNode* getVirtualRenderer();
+};

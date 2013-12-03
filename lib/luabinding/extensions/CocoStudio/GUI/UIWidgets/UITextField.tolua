@@ -1,0 +1,104 @@
+/**
+ *  @js NA
+ *  @lua NA
+ */
+class UICCTextField: public CCTextFieldTTF, public CCTextFieldDelegate
+{
+public:
+    UICCTextField();
+    ~UICCTextField();
+    
+    virtual void onEnter();
+    
+    // static
+    static UICCTextField* create(const char *placeholder, const char *fontName, float fontSize);
+    
+    // CCTextFieldDelegate
+    virtual bool onTextFieldAttachWithIME(CCTextFieldTTF *pSender);
+    virtual bool onTextFieldDetachWithIME(CCTextFieldTTF * pSender);
+    virtual bool onTextFieldInsertText(CCTextFieldTTF * pSender, const char * text, int nLen);
+    virtual bool onTextFieldDeleteBackward(CCTextFieldTTF * pSender, const char * delText, int nLen);
+    
+    void insertText(const char* text, int len);
+    void deleteBackward();
+    
+    void openIME();
+    void closeIME();
+    
+    void setMaxLengthEnabled(bool enable);
+    bool isMaxLengthEnabled();
+    void setMaxLength(int length);
+    int getMaxLength();
+    int getCharCount();
+    void setPasswordEnabled(bool enable);
+    bool isPasswordEnabled();
+    void setPasswordStyleText(const char* styleText);
+    void setPasswordText(const char* text);
+    void setAttachWithIME(bool attach);
+    bool getAttachWithIME();
+    void setDetachWithIME(bool detach);
+    bool getDetachWithIME();
+    void setInsertText(bool insert);
+    bool getInsertText();
+    void setDeleteBackward(bool deleteBackward);
+    bool getDeleteBackward();
+};
+
+typedef enum
+{
+    TEXTFIELD_EVENT_ATTACH_WITH_IME,
+    TEXTFIELD_EVENT_DETACH_WITH_IME,
+    TEXTFIELD_EVENT_INSERT_TEXT,
+    TEXTFIELD_EVENT_DELETE_BACKWARD,
+}TextFiledEventType;
+
+/** class UITextField : public UIWidget
+*   @js NA
+*   @lua NA
+*/
+class UITextField : public UIWidget
+{
+public:
+    UITextField();
+    virtual ~UITextField();
+    static UITextField* create();
+    virtual bool init();
+    virtual void initRenderer();
+    void setTouchSize(const CCSize &size);
+    void setText(const char* text);
+    void setPlaceHolder(const char* value);
+    void setFontSize(int size);
+    void setFontName(const char* name);
+    virtual void didNotSelectSelf();
+    const char* getStringValue();
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    void setMaxLengthEnabled(bool enable);
+    bool isMaxLengthEnabled();
+    void setMaxLength(int length);
+    int getMaxLength();
+    void setPasswordEnabled(bool enable);
+    bool isPasswordEnabled();
+    void setPasswordStyleText(const char* styleText);
+    virtual void update(float dt);
+    bool getAttachWithIME();
+    void setAttachWithIME(bool attach);
+    bool getDetachWithIME();
+    void setDetachWithIME(bool detach);
+    bool getInsertText();
+    void setInsertText(bool insertText);
+    bool getDeleteBackward();
+    void setDeleteBackward(bool deleteBackward);
+
+    virtual void setAnchorPoint(const CCPoint &pt);
+    virtual void setColor(const ccColor3B &color);
+    virtual void setOpacity(int opacity);
+    
+    /**
+     * Returns the "class name" of widget.
+     */
+    virtual const char* getDescription() const;
+
+    virtual const CCSize& getContentSize() const;
+    virtual CCNode* getVirtualRenderer();
+    void attachWithIME();
+};

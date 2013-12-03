@@ -1,0 +1,16 @@
+/**
+*   @js NA
+*   @lua NA
+*/
+class SceneReader
+{
+public:
+	SceneReader(void);
+	virtual ~SceneReader(void);
+
+public:
+	static SceneReader* sharedSceneReader();
+	void purgeSceneReader();
+	static const char* sceneReaderVersion();
+	cocos2d::CCNode* createNodeWithSceneFile(const char *pszFileName);
+};
