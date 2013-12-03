@@ -4,17 +4,17 @@
  *
  * Copyright 2011 Yannick Loriot.
  * http://yannickloriot.com
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -58,13 +58,13 @@ CCControlSlider* CCControlSlider::create(const char* bgFile, const char* progres
 {
     // Prepare background for slider
     CCSprite *backgroundSprite      = CCSprite::create(bgFile);
-    
+
     // Prepare progress for slider
     CCSprite *progressSprite        = CCSprite::create(progressFile);
-    
+
     // Prepare thumb (menuItem) for slider
     CCSprite *thumbSprite           = CCSprite::create(thumbFile);
-    
+
     return CCControlSlider::create(backgroundSprite, progressSprite, thumbSprite);
 }
 
@@ -95,7 +95,7 @@ CCControlSlider* CCControlSlider::create(CCSprite * backgroundSprite, CCSprite* 
         CCRect maxRect   = CCControlUtils::CCRectUnion(backgroundSprite->boundingBox(), thumbSprite->boundingBox());
 
         setContentSize(CCSizeMake(maxRect.size.width, maxRect.size.height));
-        
+
         // Add the slider background
         m_backgroundSprite->setAnchorPoint(ccp(0.5f, 0.5f));
         m_backgroundSprite->setPosition(ccp(this->getContentSize().width / 2, this->getContentSize().height / 2));
@@ -106,10 +106,10 @@ CCControlSlider* CCControlSlider::create(CCSprite * backgroundSprite, CCSprite* 
         m_progressSprite->setPosition(ccp(0.0f, this->getContentSize().height / 2));
         addChild(m_progressSprite);
 
-        // Add the slider thumb  
+        // Add the slider thumb
         m_thumbSprite->setPosition(ccp(0.0f, this->getContentSize().height / 2));
         addChild(m_thumbSprite);
-        
+
         // Init default values
         m_minimumValue                   = 0.0f;
         m_maximumValue                   = 1.0f;
@@ -127,7 +127,7 @@ CCControlSlider* CCControlSlider::create(CCSprite * backgroundSprite, CCSprite* 
 void CCControlSlider::setEnabled(bool enabled)
 {
     CCControl::setEnabled(enabled);
-    if (m_thumbSprite != NULL) 
+    if (m_thumbSprite != NULL)
     {
         m_thumbSprite->setOpacity((enabled) ? 255 : 128);
     }
@@ -141,7 +141,7 @@ void CCControlSlider::setEnabled(bool enabled)
          value = m_minimumValue;
      }
 
-     if (value > m_maximumValue) 
+     if (value > m_maximumValue)
      {
          value = m_maximumValue;
      }
@@ -157,7 +157,7 @@ void CCControlSlider::setEnabled(bool enabled)
  {
      m_minimumValue=minimumValue;
      m_minimumAllowedValue = minimumValue;
-     if (m_minimumValue >= m_maximumValue)    
+     if (m_minimumValue >= m_maximumValue)
      {
         m_maximumValue   = m_minimumValue + 1.0f;
      }
@@ -168,7 +168,7 @@ void CCControlSlider::setEnabled(bool enabled)
  {
      m_maximumValue=maximumValue;
      m_maximumAllowedValue = maximumValue;
-     if (m_maximumValue <= m_minimumValue)   
+     if (m_maximumValue <= m_minimumValue)
      {
         m_minimumValue   = m_maximumValue - 1.0f;
      }
@@ -204,7 +204,7 @@ CCPoint CCControlSlider::locationFromTouch(CCTouch* touch)
 }
 
 
-bool CCControlSlider::ccTouchBegan(CCTouch* touch, CCEvent* pEvent)
+int CCControlSlider::ccTouchBegan(CCTouch* touch, CCEvent* pEvent)
 {
     if (!isTouchInside(touch) || !isEnabled() || !isVisible())
     {
@@ -216,10 +216,11 @@ bool CCControlSlider::ccTouchBegan(CCTouch* touch, CCEvent* pEvent)
     return true;
 }
 
-void CCControlSlider::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+int CCControlSlider::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCPoint location = locationFromTouch(pTouch);
     sliderMoved(location);
+    return kCCTouchMoved;
 }
 
 void CCControlSlider::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)

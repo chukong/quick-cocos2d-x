@@ -39,7 +39,7 @@ function WelcomeScene:createTitle()
     self:addChild(label)
 
     local label = ui.newTTFLabel({
-        text = "quick-cocos2d-x is a quick framework, based cocos2d-x. Make mobile games in Lua.",
+        text = "quick-cocos2d-x is a quick framework, based on cocos2d-x. Make mobile games in Lua.",
         color = color,
         size = 18,
         x = display.left + 40,

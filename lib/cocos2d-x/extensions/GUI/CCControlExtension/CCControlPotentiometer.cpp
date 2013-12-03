@@ -4,17 +4,17 @@
  *
  * Copyright 2012 Yannick Loriot. All rights reserved.
  * http://yannickloriot.com
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -81,13 +81,13 @@ bool CCControlPotentiometer::initWithTrackSprite_ProgressTimer_ThumbSprite(CCSpr
         setProgressTimer(progressTimer);
         setThumbSprite(thumbSprite);
         thumbSprite->setPosition(progressTimer->getPosition());
-        
+
         addChild(thumbSprite, 2);
         addChild(progressTimer, 1);
         addChild(trackSprite);
-        
+
         setContentSize(trackSprite->getContentSize());
-        
+
         // Init default values
         m_fMinimumValue           = 0.0f;
         m_fMaximumValue           = 1.0f;
@@ -113,20 +113,20 @@ void CCControlPotentiometer::setValue(float value)
     {
         value                   = m_fMinimumValue;
     }
-	
-    if (value > m_fMaximumValue) 
+
+    if (value > m_fMaximumValue)
     {
         value                   = m_fMaximumValue;
     }
-    
+
     m_fValue                      = value;
-    
+
     // Update thumb and progress position for new value
     float percent               = (value - m_fMinimumValue) / (m_fMaximumValue - m_fMinimumValue);
     m_pProgressTimer->setPercentage(percent * 100.0f);
     m_pThumbSprite->setRotation(percent * 360.0f);
-    
-    sendActionsForControlEvents(CCControlEventValueChanged);    
+
+    sendActionsForControlEvents(CCControlEventValueChanged);
 }
 
 float CCControlPotentiometer::getValue()
@@ -137,12 +137,12 @@ float CCControlPotentiometer::getValue()
 void CCControlPotentiometer::setMinimumValue(float minimumValue)
 {
     m_fMinimumValue       = minimumValue;
-    
+
     if (m_fMinimumValue >= m_fMaximumValue)
     {
         m_fMaximumValue   = m_fMinimumValue + 1.0f;
     }
-    
+
     setValue(m_fMaximumValue);
 }
 
@@ -154,12 +154,12 @@ float CCControlPotentiometer::getMinimumValue()
 void CCControlPotentiometer::setMaximumValue(float maximumValue)
 {
     m_fMaximumValue       = maximumValue;
-    
+
     if (m_fMaximumValue <= m_fMinimumValue)
     {
         m_fMinimumValue   = m_fMaximumValue - 1.0f;
     }
-    
+
     setValue(m_fMinimumValue);
 }
 
@@ -171,31 +171,33 @@ float CCControlPotentiometer::getMaximumValue()
 bool CCControlPotentiometer::isTouchInside(CCTouch * touch)
 {
     CCPoint touchLocation   = this->getTouchLocation(touch);
-    
+
     float distance          = this->distanceBetweenPointAndPoint(m_pProgressTimer->getPosition(), touchLocation);
 
     return distance < MIN(getContentSize().width / 2, getContentSize().height / 2);
 }
 
-bool CCControlPotentiometer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+int CCControlPotentiometer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!this->isTouchInside(pTouch) || !this->isEnabled() || !isVisible())
     {
         return false;
     }
-    
+
     m_tPreviousLocation    = this->getTouchLocation(pTouch);
-    
+
     this->potentiometerBegan(m_tPreviousLocation);
-    
+
     return true;
 }
 
-void CCControlPotentiometer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+int CCControlPotentiometer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCPoint location    = this->getTouchLocation(pTouch);
 
     this->potentiometerMoved(location);
+
+    return kCCTouchMoved;
 }
 
 void CCControlPotentiometer::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
@@ -211,7 +213,7 @@ float CCControlPotentiometer::distanceBetweenPointAndPoint(CCPoint point1, CCPoi
 }
 
 float CCControlPotentiometer::angleInDegreesBetweenLineFromPoint_toPoint_toLineFromPoint_toPoint(
-    CCPoint beginLineA, 
+    CCPoint beginLineA,
     CCPoint endLineA,
     CCPoint beginLineB,
     CCPoint endLineB)
@@ -220,10 +222,10 @@ float CCControlPotentiometer::angleInDegreesBetweenLineFromPoint_toPoint_toLineF
     float b = endLineA.y - beginLineA.y;
     float c = endLineB.x - beginLineB.x;
     float d = endLineB.y - beginLineB.y;
-    
+
     float atanA = atan2(a, b);
     float atanB = atan2(c, d);
-    
+
     // convert radiants to degrees
     return (atanA - atanB) * 180 / M_PI;
 }
@@ -241,7 +243,7 @@ void CCControlPotentiometer::potentiometerMoved(CCPoint location)
         location,
         m_pProgressTimer->getPosition(),
         m_tPreviousLocation);
-    
+
     // fix value, if the 12 o'clock position is between location and previousLocation
     if (angle > 180)
     {
@@ -253,7 +255,7 @@ void CCControlPotentiometer::potentiometerMoved(CCPoint location)
     }
 
     setValue(m_fValue + angle / 360.0f * (m_fMaximumValue - m_fMinimumValue));
-    
+
     m_tPreviousLocation    = location;
 }
 

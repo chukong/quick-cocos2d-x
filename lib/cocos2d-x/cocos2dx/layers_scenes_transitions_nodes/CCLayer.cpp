@@ -62,8 +62,8 @@ CCLayer::~CCLayer()
 bool CCLayer::init()
 {
     bool bRet = false;
-    do 
-    {        
+    do
+    {
         CCDirector * pDirector;
         CC_BREAK_IF(!(pDirector = CCDirector::sharedDirector()));
         const CCSize &winSize = pDirector->getWinSize();
@@ -294,11 +294,11 @@ void CCLayer::onEnterTransitionDidFinish()
         CCDirector* pDirector = CCDirector::sharedDirector();
         pDirector->getAccelerometer()->setDelegate(this);
     }
-    
+
     CCNode::onEnterTransitionDidFinish();
 }
 
-bool CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+int CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (kScriptTypeNone != m_eScriptType)
     {
@@ -311,18 +311,18 @@ bool CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     return true;
 }
 
-void CCLayer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+int CCLayer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (kScriptTypeNone != m_eScriptType)
     {
-        excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
-        return;
+        return excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
     }
 
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
+    return kCCTouchMoved;
 }
-    
+
 void CCLayer::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (kScriptTypeNone != m_eScriptType)
@@ -345,7 +345,7 @@ void CCLayer::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
-}    
+}
 
 void CCLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
@@ -403,7 +403,7 @@ CCLayerColor::CCLayerColor()
     m_tBlendFunc.src = CC_BLEND_SRC;
     m_tBlendFunc.dst = CC_BLEND_DST;
 }
-    
+
 CCLayerColor::~CCLayerColor()
 {
 }
@@ -574,7 +574,7 @@ void CCLayerColor::setOpacity(GLubyte opacity)
 
 //
 // CCLayerGradient
-// 
+//
 
 CCLayerGradient* CCLayerGradient::create(const ccColor4B& start, const ccColor4B& end)
 {

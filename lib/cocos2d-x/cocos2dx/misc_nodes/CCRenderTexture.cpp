@@ -272,8 +272,8 @@ bool CCRenderTexture::initWithWidthAndHeight(int w, int h, CCTexture2DPixelForma
         }
         else
         {
-            powW = ccNextPOT(w);
-            powH = ccNextPOT(h);
+            powW = (unsigned int)ccNextPOT(w);
+            powH = (unsigned int)ccNextPOT(h);
         }
 
         data = malloc((int)(powW * powH * 4));
@@ -520,6 +520,8 @@ void CCRenderTexture::clearStencil(int stencilValue)
 
 void CCRenderTexture::visit()
 {
+    m_drawOrder = ++g_drawOrder;
+
     // override visit.
 	// Don't call visit on its children
     if (!m_bVisible)

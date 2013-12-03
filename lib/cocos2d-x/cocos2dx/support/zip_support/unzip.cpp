@@ -1724,7 +1724,7 @@ ZPOS64_T ZEXPORT unzGetCurrentFileZStreamPos64( unzFile file)
   return <0 with error code if there is an error
     (UNZ_ERRNO for IO error, or zLib error for uncompress error)
 */
-int ZEXPORT unzReadCurrentFile  (unzFile file, voidp buf, unsigned len)
+int ZEXPORT unzReadCurrentFile  (unzFile file, voidp buf, uLong len)
 {
     int err=UNZ_OK;
     uInt iRead = 0;

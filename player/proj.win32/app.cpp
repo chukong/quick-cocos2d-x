@@ -251,6 +251,17 @@ void QuickXPlayer::createViewMenu(void)
 void QuickXPlayer::updateMenu(void)
 {
     HMENU menu = GetMenu(m_hwnd);
+    HMENU fileMenu = GetSubMenu(menu, 0);
+
+    if (m_project.getDebuggerType() == kCCLuaDebuggerNone)
+    {
+        CheckMenuItem(fileMenu, ID_FILE_AUTO_CONNECT_DEBUGGER, MF_BYCOMMAND | MF_UNCHECKED);
+    }
+    else
+    {
+        CheckMenuItem(fileMenu, ID_FILE_AUTO_CONNECT_DEBUGGER, MF_BYCOMMAND | MF_CHECKED);
+    }
+
     HMENU viewMenu = GetSubMenu(menu, 1);
 
     if (m_project.isLandscapeFrame())
@@ -355,6 +366,19 @@ void QuickXPlayer::onFileOpenProject(void)
 		m_project = project;
         relaunch();
     }
+}
+
+void QuickXPlayer::onFileAutoConnectDebugger(void)
+{
+    if (m_project.getDebuggerType() == kCCLuaDebuggerNone)
+    {
+        m_project.setDebuggerType(kCCLuaDebuggerLDT);
+    }
+    else
+    {
+        m_project.setDebuggerType(kCCLuaDebuggerNone);
+    }
+    updateMenu();
 }
 
 void QuickXPlayer::onFileCreateProjectShortcut(void)
@@ -509,6 +533,10 @@ LRESULT QuickXPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOO
 
         case ID_FILE_OPEN_PROJECT:
             host->onFileOpenProject();
+            break;
+
+        case ID_FILE_AUTO_CONNECT_DEBUGGER:
+            host->onFileAutoConnectDebugger();
             break;
 
         case ID_FILE_CREATE_PROJECT_SHORTCUT:

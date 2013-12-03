@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed Nov 20 14:53:30 2013.
+** Generated automatically by tolua++-1.0.92 on Fri Nov 22 15:01:23 2013.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -28,13 +28,13 @@ using namespace cocos2d::extra;
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CCNetwork");
- tolua_usertype(tolua_S,"CCObject");
- tolua_usertype(tolua_S,"CCHTTPRequest");
+ tolua_usertype(tolua_S,"CCNetwork"); toluafix_add_type_mapping(typeid(CCNetwork).hash_code(), "CCNetwork");
+ tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(typeid(CCObject).hash_code(), "CCObject");
+ tolua_usertype(tolua_S,"CCHTTPRequest"); toluafix_add_type_mapping(typeid(CCHTTPRequest).hash_code(), "CCHTTPRequest");
  
  
- tolua_usertype(tolua_S,"CCCrypto");
- tolua_usertype(tolua_S,"CCNative");
+ tolua_usertype(tolua_S,"CCCrypto"); toluafix_add_type_mapping(typeid(CCCrypto).hash_code(), "CCCrypto");
+ tolua_usertype(tolua_S,"CCNative"); toluafix_add_type_mapping(typeid(CCNative).hash_code(), "CCNative");
 }
 
 /* method: getAES256KeyLength of class  CCCrypto */

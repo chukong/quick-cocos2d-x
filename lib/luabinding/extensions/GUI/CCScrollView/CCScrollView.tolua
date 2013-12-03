@@ -17,13 +17,13 @@ class CCScrollView : public CCLayer
     bool initWithViewSize(CCSize size, CCNode* container = NULL);
     void setContentOffset(CCPoint offset, bool animated = false);
     CCPoint getContentOffset();
-    void setContentOffsetInDuration(CCPoint offset, float dt); 
+    void setContentOffsetInDuration(CCPoint offset, float dt);
     void setZoomScale(float s);
     void setZoomScale(float s, bool animated);
     float getZoomScale();
     void setZoomScaleInDuration(float s, float dt);
     CCPoint minContainerOffset();
-    CCPoint maxContainerOffset(); 
+    CCPoint maxContainerOffset();
     bool isNodeVisible(CCNode * node);
     void pause(CCObject* sender);
     void resume(CCObject* sender);
@@ -41,8 +41,8 @@ class CCScrollView : public CCLayer
     CCScrollViewDirection getDirection();
     virtual void setDirection(CCScrollViewDirection eDirection);
 
-    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
