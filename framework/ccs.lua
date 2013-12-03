@@ -112,10 +112,9 @@ ccs.ScrollViewEventType =
 }
 
 
-require "framework.CCNodeExtend"
-require "framework.CCSWidgetExtend"
-require "framework.CCSLayerExtend"
-require "framework.CCSLayoutExtend"
+require "framework.ccs.CCSWidgetExtend"
+require "framework.ccs.CCSLayerExtend"
+require "framework.ccs.CCSLayoutExtend"
 
 widget_table = 
 {
