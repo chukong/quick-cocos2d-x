@@ -1,4 +1,3 @@
-
 function tonum(v, base)
     return tonumber(v, base) or 0
 end
@@ -365,7 +364,7 @@ function table.unique(t)
         local v = t[i]
         if not r[v] then
             r[v] = true
-            n[#n + 1] = t
+            n[#n + 1] = v
         end
     end
     return n
