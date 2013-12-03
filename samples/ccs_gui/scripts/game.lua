@@ -164,6 +164,18 @@ function createLayer()
         y = loadingbar1:getPosition().y - 30,
         dir = LoadingBarTypeRight,
         })
+    local textField = ccs.textField({
+        font = "雅黑",
+        fontSize = 20,
+        holder = "input here",
+        max = 5,
+        x = s.width/7*6,
+        y = s.height/2,
+        listener = { [ccs.TextFiledEventType.attach_with_ime] = function(uiwidget) SET_POS(uiwidget,uiwidget:getPosition().x,uiwidget:getPosition().y+10) end,
+                    [ccs.TextFiledEventType.detach_with_ime] = function(uiwidget) SET_POS(uiwidget,uiwidget:getPosition().x,uiwidget:getPosition().y-10) end,
+                    [ccs.TextFiledEventType.insert_text] = function(uiwidget) label:setText("Text Filed insert") end,
+                    [ccs.TextFiledEventType.delete_backward] = function(uiwidget) label:setText("Text Filed backward") end,}
+        })
     
     local count = 0
     local function update(dt)
@@ -195,6 +207,7 @@ function createLayer()
     layer:addWidget(slider2)
     layer:addWidget(loadingbar1)
     layer:addWidget(loadingbar2)
+    layer:addWidget(textField)
     layer:addWidget(nextbutton)
     return layer
 end

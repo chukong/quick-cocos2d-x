@@ -20,6 +20,7 @@ function CCSLayoutExtend:initlayout(params)
     local scale9        = params.scale9
     local capInsets     = params.capInsets or ccs.DEFAULT_CAPINSETS
     local type          = params.type
+    local clip          = params.clip
 
 
     local init = true
@@ -67,6 +68,11 @@ function CCSLayoutExtend:initlayout(params)
         if type then
             self:setLayoutType(type)
         end
+
+        if clip then
+            assert(type(clip) == "boolean", "[ccs.plane] invalid params.clip")
+            self:setClippingEnabled(clip)
+        end
 --[[
         if listener then
             init = (type(listener) == "table")
@@ -109,4 +115,5 @@ function CCSLayoutExtend:AutoLayout(margin,... )
         button:setLayoutParameter(lp)
         self:addChild(button)
     end
+    self:doLayout()
 end

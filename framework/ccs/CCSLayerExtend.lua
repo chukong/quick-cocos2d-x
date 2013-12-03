@@ -30,7 +30,7 @@ function CCSLayerExtend:getChild(name)
     local uiwidget = self:getWidgetByName(name)
     if not uiwidget or not widget_table[uiwidget:getDescription()] then break end
     child = tolua.cast(uiwidget,widget_table[uiwidget:getDescription()].name)
-    CCSWidgetExtend.extend(child)
+    widget_table[uiwidget:getDescription()].extend(child)
     break
     end
     return child

@@ -17,26 +17,6 @@ UI_LISTVIEW		= "ListView"
 UI_LISTVIEWEX   = "ListViewEx"
 UI_PAGEVIEW		= "PageView"
 
-widget_table = 
-{
-    [UI_WIDGET]      = { name = "UIWidget", create = function() return UIWidget:create() end},
-    [UI_BUTTON]      = { name = "UIButton", create = function() return UIButton:create() end},
-    [UI_CHECKBOX]    = { name = "UICheckBox", create = function() return UICheckBox:create() end},
-    [UI_IMAGEVIEW]   = { name = "UIImageView", create = function() return UIImageView:create() end},
-    [UI_LABEL]       = { name = "UILabel", create = function() return UILabel:create() end},
-    [UI_LABELATLAS]  = { name = "UILabelAtlas", create = function() return UILabelAtlas:create() end},
-    [UI_LABELBMFONT] = { name = "UILabelBMFont", create = function() return UILabelBMFont:create() end},
-    [UI_LOADINGBAR]  = { name = "UILoadingBar", create = function() return UILoadingBar:create() end},
-    [UI_PANEL]       = { name = "UILayout", create = function() return UILayout:create() end},
-    [UI_SCROLLVIEW]  = { name = "UIScrollView", create = function() return UIScrollView:create() end},
-    [UI_SLIDER]      = { name = "UISlider", create = function() return UISlider:create() end},
-    [UI_TEXTFIELD]   = { name = "UITextField", create = function() return UITextField:create() end},
-    [UI_DRAGPANEL]   = { name = "UIDragPanel", create = function() return UIDragPanel:create() end},
-    [UI_LISTVIEW]    = { name = "UIListView", create = function() return UIListView:create() end},
-    [UI_LISTVIEWEX]  = { name = "UIListViewEx", create = function() return UIListViewEx:create() end},
-    [UI_PAGEVIEW]    = { name = "UIPageView", create = function() return UIPageView:create() end},
- }
-
 SET_POS = function(widget,x,y)
     if type(x) == "number" and type(y) == "number" then
         widget:setPosition(ccp(x,y))
@@ -44,7 +24,7 @@ SET_POS = function(widget,x,y)
 end
 
 ccs.DEFAULT_TTF_FONT        = "宋体"
-ccs.DEFAULT_TTF_FONT_SIZE   = "20"
+ccs.DEFAULT_TTF_FONT_SIZE   = 20
 ccs.DEFAULT_INPUT_HOLDER    = "在这里输入"
 ccs.DEFAULT_TEXTAREA_SIZE   = CCSizeMake(40,40)
 ccs.DEFAULT_CAPINSETS       = CCRectMake(0, 0, 0, 0)
@@ -131,9 +111,31 @@ ccs.ScrollViewEventType =
   bounce_right       = "bounce_right",  
 }
 
-require(cc.PACKAGE_NAME .. ".ccs.CCSWidgetExtend")
-require(cc.PACKAGE_NAME .. ".ccs.CCSLayerExtend")
-require(cc.PACKAGE_NAME .. ".ccs.CCSLayoutExtend")
+
+require "framework.CCNodeExtend"
+require "framework.CCSWidgetExtend"
+require "framework.CCSLayerExtend"
+require "framework.CCSLayoutExtend"
+
+widget_table = 
+{
+    [UI_WIDGET]      = { name = "UIWidget",      create = function() return UIWidget:create() end,      extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_BUTTON]      = { name = "UIButton",      create = function() return UIButton:create() end,      extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_CHECKBOX]    = { name = "UICheckBox",    create = function() return UICheckBox:create() end,    extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_IMAGEVIEW]   = { name = "UIImageView",   create = function() return UIImageView:create() end,   extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_LABEL]       = { name = "UILabel",       create = function() return UILabel:create() end,       extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_LABELATLAS]  = { name = "UILabelAtlas",  create = function() return UILabelAtlas:create() end,  extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_LABELBMFONT] = { name = "UILabelBMFont", create = function() return UILabelBMFont:create() end, extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_LOADINGBAR]  = { name = "UILoadingBar",  create = function() return UILoadingBar:create() end,  extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_PANEL]       = { name = "UILayout",      create = function() return UILayout:create() end,      extend = function(uiwidget) return CCSLayoutExtend.extend(uiwidget) end},
+    [UI_SCROLLVIEW]  = { name = "UIScrollView",  create = function() return UIScrollView:create() end,  extend = function(uiwidget) return CCSLayoutExtend.extend(uiwidget) end},
+    [UI_SLIDER]      = { name = "UISlider",      create = function() return UISlider:create() end,      extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_TEXTFIELD]   = { name = "UITextField",   create = function() return UITextField:create() end,   extend = function(uiwidget) return CCSWidgetExtend.extend(uiwidget) end},
+    [UI_DRAGPANEL]   = { name = "UIDragPanel",   create = function() return UIDragPanel:create() end,   extend = function(uiwidget) return CCSLayoutExtend.extend(uiwidget) end},
+    [UI_LISTVIEW]    = { name = "UIListView",    create = function() return UIListView:create() end,    extend = function(uiwidget) return CCSLayoutExtend.extend(uiwidget) end},
+    [UI_LISTVIEWEX]  = { name = "UIListViewEx",  create = function() return UIListViewEx:create() end,  extend = function(uiwidget) return CCSLayoutExtend.extend(uiwidget) end},
+    [UI_PAGEVIEW]    = { name = "UIPageView",    create = function() return UIPageView:create() end,    extend = function(uiwidget) return CCSLayoutExtend.extend(uiwidget) end},
+ }
 
 function ccs.layer()
 	local layer = CCSLayerExtend.extend(UILayer:create())
@@ -380,7 +382,7 @@ function ccs.textField(params)
     if maxLength then
         if type(maxLength) == "number" then
             textField:setMaxLengthEnabled(true)
-            textField:setMaxLength(3)
+            textField:setMaxLength(maxLength)
         else
             assert(false,"[ccs.textField] invalid params.maxLength")
         end
@@ -400,18 +402,12 @@ end
 
 function ccs.panel(params)
     assert(type(params) == "table","[ccs.plane] invalid params")
-    local clip          = params.clip
 
     local panel = CCSLayoutExtend.extend(widget_table[UI_PANEL].create())
 
     if panel:initlayout(params) == false then
         assert(false, "[ccs.panel] failed to initialize!")
         return nil
-    end
-
-    if clip then
-        assert(type(clip) == "boolean", "[ccs.plane] invalid params.clip")
-        panel:setClippingEnabled(clip)
     end
 
     return panel
