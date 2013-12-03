@@ -3,6 +3,7 @@
 set DIR=%~dp0
 set APP_ROOT=%DIR%..\
 set APP_ANDROID_ROOT=%DIR%
+set COCOS2DX_ROOT=%QUICK_COCOS2DX_ROOT%\lib\cocos2d-x
 
 echo - config:
 echo   ANDROID_NDK_ROOT    = %ANDROID_NDK_ROOT%

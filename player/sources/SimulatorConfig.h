@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "cocos2d.h"
+#include "CCLuaStack.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -26,10 +27,11 @@ using namespace cocos2d;
 #define kProjectConfigLoadPrecompiledFramework  128
 #define kProjectConfigWriteDebugLogToFile       256
 #define kProjectConfigWindowOffset              1024
+#define kProjectConfigDebugger                  2048
 
 #define kProjectConfigOpenRecent (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile)
 
-#define kProjectConfigAll (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset)
+#define kProjectConfigAll (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset | kProjectConfigDebugger)
 
 
 class ProjectConfig
@@ -46,6 +48,7 @@ public:
     , m_loadPrecompiledFramework(true)
     , m_writeDebugLogToFile(true)
     , m_windowOffset(0, 0)
+    , m_debuggerType(kCCLuaDebuggerNone)
     {
         normalize();
     }
@@ -93,6 +96,9 @@ public:
     const CCPoint getWindowOffset(void);
     void setWindowOffset(CCPoint windowOffset);
 
+    int getDebuggerType(void);
+    void setDebuggerType(int debuggerType);
+
     void parseCommandLine(vector<string>& args);
     const string makeCommandLine(unsigned int mask = kProjectConfigAll);
 
@@ -112,6 +118,7 @@ private:
     bool    m_writeDebugLogToFile;
     bool    m_restartProcess;
     CCPoint	m_windowOffset;
+    int     m_debuggerType;
 
     void normalize(void);
     const string replaceProjectDirToMacro(const string& path);

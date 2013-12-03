@@ -129,7 +129,7 @@ bool CCGridBase::initWithSize(const CCSize& gridSize)
     }
 
     CCTexture2D *pTexture = new CCTexture2D();
-    pTexture->initWithData(data, format, POTWide, POTHigh, s);
+    pTexture->initWithData(data, format, (unsigned int)POTWide, (unsigned int)POTHigh, s);
 
     free(data);
 

@@ -319,6 +319,9 @@
     <Filter Include="cocos2d-x\scripting\lua\lua_extensions\lsqlite3">
       <UniqueIdentifier>{9f2af34e-4067-4285-bf48-81c24c11dc33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\scripting\lua\lua_extensions\debugger">
+      <UniqueIdentifier>{dfd67a76-72f7-4a30-b37a-1c4d708168b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -1205,6 +1208,9 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\zip_support\ioapi_mem.cpp">
       <Filter>cocos2d-x\cocos2dx\support\zip_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\debugger\debugger.c">
+      <Filter>cocos2d-x\scripting\lua\lua_extensions\debugger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2404,6 +2410,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\zip_support\ioapi_mem.h">
       <Filter>cocos2d-x\cocos2dx\support\zip_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\debugger\debugger.h">
+      <Filter>cocos2d-x\scripting\lua\lua_extensions\debugger</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

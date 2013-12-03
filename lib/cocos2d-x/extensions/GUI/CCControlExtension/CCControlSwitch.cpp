@@ -4,17 +4,17 @@
  *
  * Copyright 2012 Yannick Loriot. All rights reserved.
  * http://yannickloriot.com
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -37,11 +37,11 @@ public:
     CCControlSwitchSprite();
     virtual ~CCControlSwitchSprite();
     bool initWithMaskSprite(
-        CCSprite *maskSprite, 
-        CCSprite *onSprite, 
+        CCSprite *maskSprite,
+        CCSprite *onSprite,
         CCSprite *offSprite,
         CCSprite *thumbSprite,
-        CCLabelTTF* onLabel, 
+        CCLabelTTF* onLabel,
         CCLabelTTF* offLabel);
     void draw();
     void needsLayout();
@@ -54,11 +54,11 @@ public:
     float m_fSliderXPosition;
     CC_SYNTHESIZE(float, m_fOnPosition, OnPosition)
     CC_SYNTHESIZE(float, m_fOffPosition, OffPosition)
-    
+
     CC_SYNTHESIZE_RETAIN(CCTexture2D*, m_pMaskTexture, MaskTexture)
     CC_SYNTHESIZE(GLuint, m_uTextureLocation, TextureLocation)
     CC_SYNTHESIZE(GLuint, m_uMaskLocation, MaskLocation)
-    
+
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_pOnSprite, OnSprite)
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_pOffSprite, OffSprite)
     CC_SYNTHESIZE_RETAIN(CCSprite*, m_ThumbSprite, ThumbSprite)
@@ -93,11 +93,11 @@ CCControlSwitchSprite::~CCControlSwitchSprite()
 }
 
 bool CCControlSwitchSprite::initWithMaskSprite(
-    CCSprite *maskSprite, 
-    CCSprite *onSprite, 
+    CCSprite *maskSprite,
+    CCSprite *onSprite,
     CCSprite *offSprite,
     CCSprite *thumbSprite,
-    CCLabelTTF* onLabel, 
+    CCLabelTTF* onLabel,
     CCLabelTTF* offLabel)
 {
     if (CCSprite::initWithTexture(maskSprite->getTexture()))
@@ -105,7 +105,7 @@ bool CCControlSwitchSprite::initWithMaskSprite(
         // Sets the default values
         m_fOnPosition             = 0;
         m_fOffPosition            = -onSprite->getContentSize().width + thumbSprite->getContentSize().width / 2;
-        m_fSliderXPosition        = m_fOnPosition; 
+        m_fSliderXPosition        = m_fOnPosition;
 
         setOnSprite(onSprite);
         setOffSprite(offSprite);
@@ -133,7 +133,7 @@ bool CCControlSwitchSprite::initWithMaskSprite(
         CHECK_GL_ERROR_DEBUG();
 
         getShaderProgram()->updateUniforms();
-        CHECK_GL_ERROR_DEBUG();                
+        CHECK_GL_ERROR_DEBUG();
 
         m_uTextureLocation    = glGetUniformLocation( getShaderProgram()->getProgram(), "u_texture");
         m_uMaskLocation       = glGetUniformLocation( getShaderProgram()->getProgram(), "u_mask");
@@ -189,7 +189,7 @@ void CCControlSwitchSprite::draw()
     diff = offsetof( ccV3F_C4B_T2F, colors);
     glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, kQuadSize, (void*)(offset + diff));
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);    
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glActiveTexture(GL_TEXTURE0);
 }
 
@@ -197,7 +197,7 @@ void CCControlSwitchSprite::needsLayout()
 {
     m_pOnSprite->setPosition(ccp(m_pOnSprite->getContentSize().width / 2 + m_fSliderXPosition,
         m_pOnSprite->getContentSize().height / 2));
-    m_pOffSprite->setPosition(ccp(m_pOnSprite->getContentSize().width + m_pOffSprite->getContentSize().width / 2 + m_fSliderXPosition, 
+    m_pOffSprite->setPosition(ccp(m_pOnSprite->getContentSize().width + m_pOffSprite->getContentSize().width / 2 + m_fSliderXPosition,
         m_pOffSprite->getContentSize().height / 2));
     m_ThumbSprite->setPosition(ccp(m_pOnSprite->getContentSize().width + m_fSliderXPosition,
         m_pMaskTexture->getContentSize().height / 2));
@@ -306,7 +306,7 @@ bool CCControlSwitch::initWithMaskSprite(CCSprite *maskSprite, CCSprite * onSpri
         CCAssert(onSprite,      "onSprite must not be nil.");
         CCAssert(offSprite,     "offSprite must not be nil.");
         CCAssert(thumbSprite,   "thumbSprite must not be nil.");
-        
+
         setTouchEnabled(true);
         m_bOn = true;
 
@@ -319,7 +319,7 @@ bool CCControlSwitch::initWithMaskSprite(CCSprite *maskSprite, CCSprite * onSpri
                                            offLabel);
         m_pSwitchSprite->setPosition(ccp (m_pSwitchSprite->getContentSize().width / 2, m_pSwitchSprite->getContentSize().height / 2));
         addChild(m_pSwitchSprite);
-        
+
         ignoreAnchorPointForPosition(false);
         setAnchorPoint(ccp (0.5f, 0.5f));
         setContentSize(m_pSwitchSprite->getContentSize());
@@ -350,7 +350,7 @@ void CCControlSwitch::setOn(bool isOn)
 void CCControlSwitch::setOn(bool isOn, bool animated)
 {
     m_bOn     = isOn;
-    
+
     if (animated) {
         m_pSwitchSprite->runAction
         (
@@ -366,7 +366,7 @@ void CCControlSwitch::setOn(bool isOn, bool animated)
     else {
         m_pSwitchSprite->setSliderXPosition((m_bOn) ? m_pSwitchSprite->getOnPosition() : m_pSwitchSprite->getOffPosition());
     }
-    
+
     sendActionsForControlEvents(CCControlEventValueChanged);
 }
 
@@ -376,56 +376,57 @@ void CCControlSwitch::setEnabled(bool enabled)
     if (m_pSwitchSprite != NULL)
     {
         m_pSwitchSprite->setOpacity((enabled) ? 255 : 128);
-    } 
+    }
 }
 
 CCPoint CCControlSwitch::locationFromTouch(CCTouch* pTouch)
 {
     CCPoint touchLocation   = pTouch->getLocation();                      // Get the touch position
     touchLocation           = this->convertToNodeSpace(touchLocation);                  // Convert to the node space of this class
-    
+
     return touchLocation;
 }
 
-bool CCControlSwitch::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+int CCControlSwitch::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!isTouchInside(pTouch) || !isEnabled() || !isVisible())
     {
         return false;
     }
-    
+
     m_bMoved = false;
-    
+
     CCPoint location = this->locationFromTouch(pTouch);
-    
+
     m_fInitialTouchXPosition = location.x - m_pSwitchSprite->getSliderXPosition();
-    
+
     m_pSwitchSprite->getThumbSprite()->setColor(ccGRAY);
     m_pSwitchSprite->needsLayout();
-    
+
     return true;
 }
 
-void CCControlSwitch::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+int CCControlSwitch::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCPoint location    = this->locationFromTouch(pTouch);
     location            = ccp (location.x - m_fInitialTouchXPosition, 0);
-    
+
     m_bMoved              = true;
-    
+
     m_pSwitchSprite->setSliderXPosition(location.x);
+    return kCCTouchMoved;
 }
 
 void CCControlSwitch::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCPoint location   = this->locationFromTouch(pTouch);
-    
+
     m_pSwitchSprite->getThumbSprite()->setColor(ccWHITE);
-    
+
     if (hasMoved())
     {
         setOn(!(location.x < m_pSwitchSprite->getContentSize().width / 2), true);
-    } 
+    }
     else
     {
         setOn(!m_bOn, true);
@@ -435,9 +436,9 @@ void CCControlSwitch::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 void CCControlSwitch::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCPoint location   = this->locationFromTouch(pTouch);
-    
+
     m_pSwitchSprite->getThumbSprite()->setColor(ccWHITE);
-    
+
     if (hasMoved())
     {
         setOn(!(location.x < m_pSwitchSprite->getContentSize().width / 2), true);

@@ -2,8 +2,11 @@
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
+#include "cocoa/CCObject.h"
 #include "CCApplication.h"
 #include "SimulatorConfig.h"
+
+class StartupCall;
 
 /**
  @brief    The cocos2d Application.
@@ -39,6 +42,18 @@ public:
 
 private:
     ProjectConfig m_projectConfig;
+
+    friend class StartupCall;
+};
+
+class StartupCall : public CCObject
+{
+public:
+    static StartupCall *create(AppDelegate *app);
+    void startup();
+
+private:
+    AppDelegate *m_app;
 };
 
 #endif // _APP_DELEGATE_H_

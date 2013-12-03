@@ -33,47 +33,23 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setAnimationInterval(1.0 / 60);
 
     // register lua engine
-    CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
-    CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
+    CCScriptEngineManager::sharedManager()->setScriptEngine(CCLuaEngine::defaultEngine());
 
-    CCLuaStack *pStack = pEngine->getLuaStack();
-
-    // load framework
-    if (m_projectConfig.isLoadPrecompiledFramework())
+    StartupCall *call = StartupCall::create(this);
+    if (m_projectConfig.getDebuggerType() != kCCLuaDebuggerNone)
     {
-        const string precompiledFrameworkPath = SimulatorConfig::sharedDefaults()->getPrecompiledFrameworkPath();
-        pStack->loadChunksFromZip(precompiledFrameworkPath.c_str());
+        CCScene *scene = CCScene::create();
+        CCLabelTTF *label = CCLabelTTF::create("WAITING FOR CONNECT TO DEBUGGER...", "Arial", 32);
+        const CCSize winSize = pDirector->getWinSize();
+        label->setPosition(ccp(winSize.width / 2, winSize.height / 2));
+        scene->addChild(label);
+        pDirector->runWithScene(scene);
+        scene->runAction(CCCallFunc::create(call, callfunc_selector(StartupCall::startup)));
     }
-
-    // load script
-    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(m_projectConfig.getScriptFileRealPath().c_str());
-    size_t pos;
-    while ((pos = path.find_first_of("\\")) != std::string::npos)
+    else
     {
-        path.replace(pos, 1, "/");
+        call->startup();
     }
-    size_t p = path.find_last_of("/\\");
-    if (p != path.npos)
-    {
-        const string dir = path.substr(0, p);
-        pStack->addSearchPath(dir.c_str());
-
-        p = dir.find_last_of("/\\");
-        if (p != dir.npos)
-        {
-            pStack->addSearchPath(dir.substr(0, p).c_str());
-        }
-    }
-
-    string env = "__LUA_STARTUP_FILE__=\"";
-    env.append(path);
-    env.append("\"");
-    pEngine->executeString(env.c_str());
-
-    CCLOG("------------------------------------------------");
-    CCLOG("LOAD LUA FILE: %s", path.c_str());
-    CCLOG("------------------------------------------------");
-    pEngine->executeScriptFile(path.c_str());
 
     return true;
 }
@@ -101,4 +77,72 @@ void AppDelegate::applicationWillEnterForeground()
 void AppDelegate::setProjectConfig(const ProjectConfig& config)
 {
     m_projectConfig = config;
+}
+
+// ----------------------------------------
+
+StartupCall *StartupCall::create(AppDelegate *app)
+{
+    StartupCall *call = new StartupCall();
+    call->m_app = app;
+    call->autorelease();
+    return call;
+}
+
+void StartupCall::startup()
+{
+    CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
+    CCLuaStack *pStack = pEngine->getLuaStack();
+
+    ProjectConfig &projectConfig = m_app->m_projectConfig;
+
+    // set search path
+    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(projectConfig.getScriptFileRealPath().c_str());
+    size_t pos;
+    while ((pos = path.find_first_of("\\")) != std::string::npos)
+    {
+        path.replace(pos, 1, "/");
+    }
+    size_t p = path.find_last_of("/");
+    string workdir;
+    if (p != path.npos)
+    {
+        workdir = path.substr(0, p);
+        pStack->addSearchPath(workdir.c_str());
+    }
+
+    // connect debugger
+    if (projectConfig.getDebuggerType() != kCCLuaDebuggerNone)
+    {
+        pStack->connectDebugger(projectConfig.getDebuggerType(), NULL, 0, NULL, workdir.c_str());
+    }
+
+    // load framework
+    if (projectConfig.isLoadPrecompiledFramework())
+    {
+        const string precompiledFrameworkPath = SimulatorConfig::sharedDefaults()->getPrecompiledFrameworkPath();
+        pStack->loadChunksFromZIP(precompiledFrameworkPath.c_str());
+    }
+
+    // set default scene
+    CCScene *scene = CCScene::create();
+    if (CCDirector::sharedDirector()->getRunningScene())
+    {
+        CCDirector::sharedDirector()->replaceScene(scene);
+    }
+    else
+    {
+        CCDirector::sharedDirector()->runWithScene(scene);
+    }
+
+    // load script
+    string env = "__LUA_STARTUP_FILE__=\"";
+    env.append(path);
+    env.append("\"");
+    pEngine->executeString(env.c_str());
+
+    CCLOG("------------------------------------------------");
+    CCLOG("LOAD LUA FILE: %s", path.c_str());
+    CCLOG("------------------------------------------------");
+    pEngine->executeScriptFile(path.c_str());
 }

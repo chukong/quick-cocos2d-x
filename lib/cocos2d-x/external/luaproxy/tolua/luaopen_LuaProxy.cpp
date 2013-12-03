@@ -326,15 +326,44 @@ static int tolua_CCCameraEyeAction_setStart(lua_State *l){
 	return 1;
 }
 
+//CCBProxy::nodeToType
+static int tolua_LuaProxy_nodeToType(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCObject", 0, &err) ||
+       !tolua_isstring(l, 3, 0, &err) || !tolua_isnoobj(l, 4, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.nodeToType'.",&err);
+		return 0;
+	}
+#endif
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
+	CCObject *o = (CCObject *)tolua_tousertype(l, 2, NULL);
+	if(p && o)p->nodeToTypeForLua(l, o, tolua_tostring(l, 3, NULL));
+	return 1;
+}
+static int tolua_LuaProxy_getNodeWithType(lua_State *l){
+#ifndef TOLUA_RELEASE
+	tolua_Error err;
+	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err) || !tolua_isstring(l, 3, 0, &err) || !tolua_isnoobj(l, 4, &err)){
+		tolua_error(l,"#ferror in function 'LuaProxy.getNodeWithType'.",&err);
+		return 0;
+	}
+#endif
+	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
+	CCNode *n = p->getNode(tolua_tostring(l, 2, NULL));
+	if(p)p->nodeToTypeForLua(l, n, tolua_tostring(l, 3, NULL));
+	return 1;
+}
+
 TOLUA_API int luaopen_LuaProxy(lua_State* l){
 	tolua_open(l);
-	tolua_usertype(l, "LuaProxy");
-	tolua_usertype(l, "CCCameraEyeAction");
-	tolua_usertype(l, "CursorTextField");
-	tolua_usertype(l, "LuaCallFuncInterval");
-	tolua_usertype(l, "LuaEventHandler");
-	tolua_usertype(l, "LuaTableView");
-	tolua_usertype(l, "UIUtil");
+	tolua_usertype(l, "LuaProxy"); toluafix_add_type_mapping(typeid(LuaProxy).hash_code(), "LuaProxy");
+	tolua_usertype(l, "CCCameraEyeAction"); toluafix_add_type_mapping(typeid(CCCameraEyeAction).hash_code(), "CCCameraEyeAction");
+	tolua_usertype(l, "CursorTextField"); toluafix_add_type_mapping(typeid(CursorTextField).hash_code(), "CursorTextField");
+	tolua_usertype(l, "LuaCallFuncInterval"); toluafix_add_type_mapping(typeid(LuaCallFuncInterval).hash_code(), "LuaCallFuncInterval");
+	tolua_usertype(l, "LuaEventHandler"); toluafix_add_type_mapping(typeid(LuaEventHandler).hash_code(), "LuaEventHandler");
+	tolua_usertype(l, "LuaTableView"); toluafix_add_type_mapping(typeid(LuaTableView).hash_code(), "LuaTableView");
+	tolua_usertype(l, "UIUtil"); toluafix_add_type_mapping(typeid(UIUtil).hash_code(), "UIUtil");
 	tolua_module(l, NULL, 0);
 	tolua_beginmodule(l, NULL);
 		tolua_function(l, "copyAssetFileToData", tolua_LuaProxy_copyAssetFileToData);
@@ -364,6 +393,8 @@ TOLUA_API int luaopen_LuaProxy(lua_State* l){
 			tolua_function(l, "getMemberName", tolua_LuaProxy_getMemberName);
 			tolua_function(l, "getMemberVariables", tolua_LuaProxy_getMemberVariables);
 			tolua_function(l, "getNode", tolua_LuaProxy_getNode);
+            tolua_function(l, "nodeToType", tolua_LuaProxy_nodeToType);
+            tolua_function(l, "getNodeWithType", tolua_LuaProxy_getNodeWithType);
 #ifdef LUAPROXY_CCEDITBOX_ENABLED
 			tolua_function(l, "handleEditEvent", tolua_LuaProxy_handleEditEvent);
 #endif

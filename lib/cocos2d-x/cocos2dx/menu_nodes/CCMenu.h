@@ -36,7 +36,7 @@ NS_CC_BEGIN
  * @addtogroup menu
  * @{
  */
-typedef enum  
+typedef enum
 {
     kCCMenuStateWaiting,
     kCCMenuStateTrackingTouch
@@ -48,7 +48,7 @@ enum {
 };
 
 /** @brief A CCMenu
-* 
+*
 * Features and Limitation:
 *  - You can add MenuItem objects in runtime using addChild:
 *  - But the only accepted children are MenuItem objects
@@ -57,7 +57,7 @@ class CC_DLL CCMenu : public CCLayer
 {
     /** whether or not the menu will receive events */
     bool m_bEnabled;
-    
+
 public:
     /**
      *  @js ctor
@@ -72,24 +72,24 @@ public:
     /** creates an empty CCMenu */
     static CCMenu* create();
 
-    /** creates a CCMenu with CCMenuItem objects 
+    /** creates a CCMenu with CCMenuItem objects
      * @lua NA
      */
     static CCMenu* create(CCMenuItem* item, ...);
 
-    /** creates a CCMenu with a CCArray of CCMenuItem objects 
+    /** creates a CCMenu with a CCArray of CCMenuItem objects
      * @js NA
      */
     static CCMenu* createWithArray(CCArray* pArrayOfItems);
 
-    /** creates a CCMenu with it's item, then use addChild() to add 
+    /** creates a CCMenu with it's item, then use addChild() to add
       * other items. It is used for script, it can't init with undetermined
       * number of variables.
       * @js NA
     */
     static CCMenu* createWithItem(CCMenuItem* item);
-    
-    /** creates a CCMenu with CCMenuItem objects 
+
+    /** creates a CCMenu with CCMenuItem objects
      * @js NA
      * @lua NA
      */
@@ -98,7 +98,7 @@ public:
     /** initializes an empty CCMenu */
     bool init();
 
-    /** initializes a CCMenu with a NSArray of CCMenuItem objects 
+    /** initializes a CCMenu with a NSArray of CCMenuItem objects
      * @lua NA
      */
     bool initWithArray(CCArray* pArrayOfItems);
@@ -117,7 +117,7 @@ public:
     */
     void alignItemsHorizontallyWithPadding(float padding);
 
-    /** align items in rows of columns 
+    /** align items in rows of columns
      * @code
      * when this function bound to js,the input params are changed
      * js:var alignItemsInColumns(...)
@@ -135,7 +135,7 @@ public:
      */
     void alignItemsInColumnsWithArray(CCArray* rows);
 
-    /** align items in columns of rows 
+    /** align items in columns of rows
      * @code
      * when this function bound to js,the input params are changed
      * js:var alignItemsInRows(...)
@@ -166,10 +166,10 @@ public:
     /**
     @brief For phone event handle functions
     */
-    virtual bool ccTouchBegan(CCTouch* touch, CCEvent* event);
+    virtual int ccTouchBegan(CCTouch* touch, CCEvent* event);
     virtual void ccTouchEnded(CCTouch* touch, CCEvent* event);
     virtual void ccTouchCancelled(CCTouch *touch, CCEvent* event);
-    virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
+    virtual int ccTouchMoved(CCTouch* touch, CCEvent* event);
 
     /**
     @since v0.99.5

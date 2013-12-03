@@ -62,6 +62,7 @@ private:
     // menu callback
     void onFileNewProject(void);
     void onFileOpenProject(void);
+    void onFileAutoConnectDebugger(void);
     void onFileCreateProjectShortcut(void);
     void onFileProjectConfig(void);
     void onFileRelaunch(void);

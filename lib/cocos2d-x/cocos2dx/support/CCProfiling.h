@@ -85,10 +85,10 @@ public:
     std::string m_NameStr;
     int               numberOfCalls;
     int               m_dAverageTime1;
-    int               m_dAverageTime2;
+    long              m_dAverageTime2;
     long long         totalTime;
-    int               minTime;
-    int               maxTime;
+    long              minTime;
+    long              maxTime;
     struct cc_timeval m_sStartTime;
 };
 
