@@ -419,7 +419,22 @@ function game.test()
         listener = {[ccs.TouchEventType.ended] = function() game.next() end},
         })
     SET_POS(prevButton,prevButton:getContentSize().width/2,s.height - prevButton:getContentSize().height/2)
+    local nextbutton = ccs.button({
+        normal  = "f1.png",
+        pressed = "f2.png",
+        listener = {[ccs.TouchEventType.ended] = function() game.testScene() end},
+        })
+
+    SET_POS(nextbutton,s.width-nextbutton:getContentSize().width/2,nextbutton:getContentSize().height/2)
     layer:addWidget(prevButton)
+    layer:addWidget(nextbutton)
     scene:addChild(layer)
+    sharedDirector:replaceScene(scene)
+end
+
+function game.testScene()
+    local scene = CCScene:create()
+    local node = SceneReader:sharedSceneReader():createNodeWithSceneFile("testscene/FishJoy2.json")
+    scene:addChild(node)
     sharedDirector:replaceScene(scene)
 end
