@@ -1,0 +1,17 @@
+/**
+*   @js NA
+*   @lua NA
+*/
+class GUIReader : public CCObject
+{
+public:
+    GUIReader();
+    ~GUIReader();
+    static GUIReader* shareReader();
+	static void purgeGUIReader();
+    
+    UIWidget* widgetFromJsonFile(const char* fileName);
+    int getVersionInteger(const char* str);
+    void storeFileDesignSize(const char* fileName, const cocos2d::CCSize &size);
+    const cocos2d::CCSize getFileDesignSize(const char* fileName) const;
+};

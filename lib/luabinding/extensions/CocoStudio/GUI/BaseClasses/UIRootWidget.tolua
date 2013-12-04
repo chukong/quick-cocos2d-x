@@ -1,0 +1,27 @@
+/**
+*   @js NA
+*   @lua NA
+*/
+class UIRootWidget : public UILayout
+{
+public:
+    /**
+     * Default constructor
+     */
+    UIRootWidget();
+    
+    /**
+     * Default destructor
+     */
+    virtual ~UIRootWidget();
+    
+    /**
+     * Allocates and initializes a widget.
+     */
+    static UIRootWidget* create();
+    
+    /**
+     * Returns the "class name" of widget.
+     */
+    virtual const char* getDescription() const;
+};

@@ -1,0 +1,26 @@
+
+//class type define
+typedef UILayout Layout;
+typedef UILayout UIPanel;
+typedef UILabel UITextArea;
+typedef UILayout UIContainerWidget;
+typedef UIButton UITextButton;
+typedef UIWidget UINodeContainer;
+/**
+*   @js NA
+*   @lua NA
+*/
+class UIZoomButton : public UITextButton
+{
+public:
+    static UIZoomButton* create();
+};
+
+class UIDragPanel : public UIScrollView
+{
+public:
+    static UIDragPanel* create();
+};
+
+//enmu type define
+typedef LayoutBackGroundColorType PanelColorType;

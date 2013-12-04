@@ -1,0 +1,9 @@
+
+class UIScrollInterface
+{
+protected:
+    virtual void handlePressLogic(const CCPoint &touchPoint);
+    virtual void handleMoveLogic(const CCPoint &touchPoint);
+    virtual void handleReleaseLogic(const CCPoint &touchPoint);
+    virtual void interceptTouchEvent(int handleState, UIWidget* sender, const CCPoint &touchPoint);
+};

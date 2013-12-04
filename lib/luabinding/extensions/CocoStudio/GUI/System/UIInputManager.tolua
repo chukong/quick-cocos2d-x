@@ -1,0 +1,51 @@
+/**
+*   @js NA
+*   @lua NA
+*/
+class UIInputManager
+{
+public:
+    /**
+     * Default constructor
+     */
+    UIInputManager();
+    
+    /**
+     * Default destructor
+     */
+    virtual ~UIInputManager();
+    
+    /**
+     * Regist a widget to input manager.
+     *
+     * @param widget    registed widget can be touched.
+     */
+    void registWidget(UIWidget* widget);
+    
+    /**
+     * Remove a registed widget from input manager.
+     *
+     * @param widget    widget which will be removed.
+     */
+    void removeManageredWidget(UIWidget* widget);
+    
+    /**
+     * Finds a widget which is selected and call it's "onTouchBegan" method.
+     *
+     * @param touch point.
+     *
+     * @return true that find a widget selected, false otherwise.
+     */
+    bool checkEventWidget(const CCPoint &touchPoint);
+    
+    
+    void update(float dt);
+    bool onTouchBegan(CCTouch* touch);
+    void onTouchMoved(CCTouch* touch);
+    void onTouchEnd(CCTouch* touch);
+    void onTouchCancelled(CCTouch* touch);
+    
+    void setRootWidget(UIWidget* root);
+    UIWidget* getRootWidget();
+    void addCheckedDoubleClickWidget(UIWidget* widget);
+};

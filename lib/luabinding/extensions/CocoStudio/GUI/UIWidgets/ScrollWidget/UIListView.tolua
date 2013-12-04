@@ -1,0 +1,100 @@
+/**
+ *  list view direction
+ */
+typedef enum LISTVIEW_DIR
+{
+    LISTVIEW_DIR_NONE,
+    LISTVIEW_DIR_VERTICAL,
+    LISTVIEW_DIR_HORIZONTAL
+}ListViewDirection;
+
+/**
+ *  list view scroll direction
+ */
+typedef enum LISTVIEW_MOVE_DIR
+{
+    LISTVIEW_MOVE_DIR_NONE,
+    LISTVIEW_MOVE_DIR_UP,
+    LISTVIEW_MOVE_DIR_DOWN,
+    LISTVIEW_MOVE_DIR_LEFT,
+    LISTVIEW_MOVE_DIR_RIGHT,
+}ListViewMoveDirection;
+
+typedef enum
+{
+    LISTVIEW_EVENT_INIT_CHILD,
+    LISTVIEW_EVENT_UPDATE_CHILD,
+}ListViewEventType;
+
+class UIListView : public UILayout
+{
+public:
+    UIListView();
+    virtual ~UIListView();
+    static UIListView* create();
+    
+    /**
+     *  add widget child override
+     */
+    virtual bool addChild(UIWidget* widget);
+    /**
+     *  remove all widget children override
+     */
+    virtual void removeAllChildren();
+    /**
+     *  remove widget child override
+     */
+    virtual bool removeChild(UIWidget* child);
+    
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    virtual void onTouchMoved(const CCPoint &touchPoint);
+    virtual void onTouchEnded(const CCPoint &touchPoint);
+    virtual void onTouchCancelled(const CCPoint &touchPoint);
+    virtual void onTouchLongClicked(const CCPoint &touchPoint);
+    
+    /**
+     *  set and get direction
+     */
+    void setDirection(ListViewDirection dir);
+    ListViewDirection getDirection();
+    
+    /**
+     *  initialze data length
+     *  and create children with parameter length
+     */
+    void initChildWithDataLength(int length);
+    /**
+     *  get data length
+     */
+    int getDataLength();
+    
+    /**
+     *  update child function whetn trigger update child event
+     */
+    /**
+     *  get update widget child
+     */
+    UIWidget* getUpdateChild();
+    /**
+     *  get update data index
+     */
+    int getUpdateDataIndex();
+    /**
+     *  get and set update success or not
+     */
+    bool getUpdateSuccess();
+    void setUpdateSuccess(bool sucess);
+    
+    /**
+     *  get and set degree range for checking move or not with scrolling
+     */
+    /**/
+    virtual void update(float dt);
+    
+    virtual void doLayout();
+    
+    /**
+     * Returns the "class name" of widget.
+     */
+    virtual const char* getDescription() const;
+};
