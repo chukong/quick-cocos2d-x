@@ -1,0 +1,44 @@
+/**
+*   @js NA
+*   @lua NA
+*/
+class UIHelper
+{
+public:
+    /**
+     * Finds a widget whose tag equals to param tag from root widget.
+     *
+     * @param root      widget which will be seeked.
+     *
+     * @tag             tag value.
+     *
+     * @return finded result.
+     */
+    static UIWidget* seekWidgetByTag(UIWidget* root, int tag);
+    
+    /**
+     * Finds a widget whose name equals to param name from root widget.
+     *
+     * @param root      widget which will be seeked.
+     *
+     * @name             name value.
+     *
+     * @return finded result.
+     */
+    static UIWidget* seekWidgetByName(UIWidget* root, const char* name);
+    
+    /**
+     * Finds a widget whose name equals to param name from root widget.
+     *
+     * RelativeLayout will call this method to find the widget witch is needed.
+     *
+     * @param root      widget which will be seeked.
+     *
+     * @name             name value.
+     *
+     * @return finded result.
+     */
+    static UIWidget* seekWidgetByRelativeName(UIWidget* root, const char* name);
+    
+    static UIWidget* seekActionWidgetByActionTag(UIWidget* root, int tag);
+};

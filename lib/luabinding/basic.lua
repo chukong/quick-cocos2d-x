@@ -261,6 +261,34 @@ local CCObjectTypes = {
     "CCWaves",
     "CCWaves3D",
     "CCWavesTiles3D",
+
+--cocostudio begin
+    "GUIRenderer",
+    "UIWdiget",
+    "UIButton",
+    "UICheckBox",
+    "UIImageView",
+    "UILabel",
+    "UICCLabelAtlas",
+    "UILabelAtlas",
+    "UILabelBMFont",
+    "UILoadingBar",
+    "UISlider",
+    "UICCTextField",
+    "UITextField",
+    "UIScrollView",
+    "UIPageView",
+    "UIListView",
+    "UIListViewEx",
+    "UILayer",
+    "UIRootWidget",
+    "UILayout",
+    "UILayoutParameter",
+    "UIRectClippingNode",
+    "UILinearLayoutParameter",
+    "UIRelativeLayoutParameter",
+    "GUIReader",
+--cocostudio end
 }
 
 -- register CCObject types
