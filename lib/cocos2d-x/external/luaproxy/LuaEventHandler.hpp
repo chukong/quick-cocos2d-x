@@ -57,7 +57,7 @@ protected:
 	CCBAnimationManager *_aniMGR;
 	LuaEventHandler() : _aniMGR(NULL), _lua(NULL), _handler(0), _handlerRef(0){}
 public:
-	enum class Events{
+    enum /*class*/ Events{
 		KeyBack = 1,
 		KeyMenu = 2,
 		AppEnterBackground = 4,
@@ -381,13 +381,13 @@ public:
 	}
 	virtual void keyBackClicked(){
 		if(_handler){
-			pushInt((int)Events::KeyBack);
+            pushInt(/*(int)Events::*/KeyBack);
 			runLuaFunction(_handler, 1);
 		}
 	}
 	virtual void keyMenuClicked(){
 		if(_handler){
-			pushInt((int)Events::KeyMenu);
+            pushInt(/*(int)Events::*/KeyMenu);
 			runLuaFunction(_handler, 1);
 		}
 	}

@@ -883,7 +883,7 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
     }
 
     CCObject *ptr = static_cast<CCObject*>(vptr);
-    size_t hash= typeid(*ptr).hash_code();
+    size_t hash= HASH_CODE(typeid(*ptr));
     char* type = hash_type_mapping[hash];
     if (type == NULL)
     {
