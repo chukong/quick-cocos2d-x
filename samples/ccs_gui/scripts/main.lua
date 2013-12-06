@@ -13,6 +13,7 @@ end
 
 require("framework.init")
 CCFileUtils:sharedFileUtils():addSearchPath("res/")
+CCFileUtils:sharedFileUtils():addSearchPath("res/testscene/")
 local function main()
     -- avoid memory leak
     collectgarbage("setpause", 100)

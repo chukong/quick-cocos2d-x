@@ -12,5 +12,5 @@ public:
 	static SceneReader* sharedSceneReader();
 	void purgeSceneReader();
 	static const char* sceneReaderVersion();
-	cocos2d::CCNode* createNodeWithSceneFile(const char *pszFileName);
+	CCNode* createNodeWithSceneFile(const char *pszFileName);
 };

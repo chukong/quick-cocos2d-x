@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 12/03/13 16:57:54.
+** Generated automatically by tolua++-1.0.92 on 12/04/13 17:24:02.
 */
 
 /****************************************************************************
@@ -617,7 +617,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCFadeOutUpTiles).hash_code(), "CCFadeOutUpTiles");
  tolua_usertype(tolua_S,"CCWaves3D");
  toluafix_add_type_mapping(typeid(CCWaves3D).hash_code(), "CCWaves3D");
- tolua_usertype(tolua_S,"cocos2d::CCNode");
  tolua_usertype(tolua_S,"ccBlendFunc");
  toluafix_add_type_mapping(typeid(ccBlendFunc).hash_code(), "ccBlendFunc");
  tolua_usertype(tolua_S,"CCImage");
@@ -77562,8 +77561,10 @@ static int tolua_Cocos2d_SceneReader_createNodeWithSceneFile00(lua_State* tolua_
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createNodeWithSceneFile'", NULL);
 #endif
   {
-   cocos2d::CCNode* tolua_ret = (cocos2d::CCNode*)  self->createNodeWithSceneFile(pszFileName);
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"cocos2d::CCNode");
+   CCNode* tolua_ret = (CCNode*)  self->createNodeWithSceneFile(pszFileName);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCNode");
   }
  }
  return 1;
