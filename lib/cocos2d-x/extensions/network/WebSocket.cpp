@@ -385,6 +385,7 @@ void WebSocket::close()
     CCLOG("websocket (%p) connection closed by client", this);
     _readyState = kStateClosed;
 
+    _wsHelper->quitSubThread();
     _wsHelper->joinSubThread();
     
     // onClose callback needs to be invoked at the end of this method
