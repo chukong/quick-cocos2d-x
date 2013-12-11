@@ -12,8 +12,10 @@ CC_ROOT=$${ROOT}/lib/cocos2d-x/
 CONFIG(debug, debug|release) {
     BUILD_TYPE = debug
     DEFINES +=  COCOS2D_DEBUG=1
+    CHIPMUNK_LIB = chipmunk_d
 } else {
     BUILD_TYPE = release
+    CHIPMUNK_LIB = chipmunk
 }
 
 OBJECTS_DIR = obj/$${BUILD_TYPE}
@@ -38,6 +40,61 @@ macx {
     COCOS2DX_SYSTEM_LIBS += -framework Foundation -framework AppKit -framework SystemConfiguration  -framework CoreFoundation -framework StoreKit
 
     LINK_AGANST_LUA_COCOS2D += -pagezero_size 10000 -image_base 100000000
+}
+
+win32 {
+    DEFINES += USING_GLEW
+
+    # You may need to change this include directory
+    DEFINES += WIN32
+    # for lua socket
+    DEFINES += _WIN32
+
+    COCOS2DX_SYSTEM_LIBS += -lopengl32 -ladvapi32 -lShell32 -lWSOCK32 -lws2_32
+    COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/cocos2dx/platform/third_party/win32/libraries -llibpng \
+                            -llibzlib -llibjpeg -llibiconv -lpthreadVCE2  -llibtiff  -llibwebp  -llibcurl_imp  -lglew32
+
+    COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/win32/lib/ -lwebsockets \
+                            -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/win32 -llua51
+    QMAKE_LFLAGS_DEBUG  = /DEBUG /NODEFAULTLIB:libcmt.lib
+    #QMAKE_CFLAGS_DEBUG += /TP /Od #/TP #/clr
+
+    # http://msdn.microsoft.com/en-us/library/032xwy55.aspx
+
+    # for chipmunk engine
+#    QMAKE_CFLAGS_DEBUG += \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/chipmunk.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpConstraint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedRotarySpring.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedSpring.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGearJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGrooveJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPinJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPivotJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRatchetJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRotaryLimitJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSimpleMotor.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSlideJoint.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArbiter.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArray.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBB.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBBTree.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBody.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpCollision.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpHashSet.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpPolyShape.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpShape.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpace.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceComponent.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceHash.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceQuery.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceStep.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpatialIndex.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSweep1D.c \
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpVect.c
+#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/include/chipmunk_types.h \
+
+    COCOS2DX_SYSTEM_LIBS += -L$${LIB_OUTPUT_DIR} -l$${CHIPMUNK_LIB}
 }
 
 QUICK_LIB = quickqt
@@ -118,13 +175,6 @@ $${CC_ROOT}/external/extra/platform/mac/openudid \
 $${CC_ROOT}/external/extra/platform/win32 \
 $${CC_ROOT}/external/extra/store \
 $${CC_ROOT}/external/libwebsockets \
-$${CC_ROOT}/external/libwebsockets/mac \
-$${CC_ROOT}/external/libwebsockets/mac/include \
-$${CC_ROOT}/external/libwebsockets/mac/lib \
-$${CC_ROOT}/external/libwebsockets/win32 \
-$${CC_ROOT}/external/libwebsockets/win32/include \
-$${CC_ROOT}/external/libwebsockets/win32/include/win32helpers \
-$${CC_ROOT}/external/libwebsockets/win32/lib \
 $${CC_ROOT}/external/luaproxy \
 $${CC_ROOT}/external/luaproxy/tolua \
 $${CC_ROOT}/external/luaproxy/ui \
@@ -147,9 +197,28 @@ $${CC_ROOT}/scripting/lua/luajit/LuaJIT-2.0.2/src \
 $${CC_ROOT}/scripting/lua/tolua \
 
 macx {
+    INCLUDEPATH += $${CC_ROOT}/external/libwebsockets/mac \
+                    $${CC_ROOT}/external/libwebsockets/mac/include \
+                    $${CC_ROOT}/external/libwebsockets/mac/lib
+
     INCLUDEPATH += $${CC_ROOT}/cocos2dx/platform/third_party/mac/webp/ \
                    /usr/local/include
 }
-win {
+win32 {
+    INCLUDEPATH += $${CC_ROOT}/external/libwebsockets/win32 \
+                    $${CC_ROOT}/external/libwebsockets/win32/include \
+                    $${CC_ROOT}/external/libwebsockets/win32/include/win32helpers \
+                    $${CC_ROOT}/external/libwebsockets/win32/lib
     INCLUDEPATH += $${CC_ROOT}/cocos2dx/platform/third_party/win32/libwebp/
+    INCLUDEPATH += \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/iconv     \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/zlib      \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/libjpeg   \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/libpng    \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/pthread   \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/libtiff   \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/libwebp   \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/OGLES     \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/          \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/OGLES/GL
 }

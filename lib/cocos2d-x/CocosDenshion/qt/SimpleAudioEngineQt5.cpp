@@ -33,6 +33,7 @@
 
 #include <QMap>
 #include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 USING_NS_CC;
 
@@ -52,6 +53,8 @@ class CocosQt5AudioBackend {
         static QMediaPlayer *player() {
             if (background_music == NULL) {
                 background_music = new QMediaPlayer;
+                QMediaPlaylist *playList = new QMediaPlaylist(background_music);
+                background_music->setPlaylist(playList);
             }
 
             return background_music;
@@ -177,9 +180,14 @@ SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 {
     QString filename = fullPath(pszFilePath);
 
-    CocosQt5AudioBackend::player()->setMedia(QUrl::fromLocalFile(filename));
+//    CocosQt5AudioBackend::player()->setMedia(QUrl::fromLocalFile(filename));
+    QMediaPlaylist *playlist = CocosQt5AudioBackend::player()->playlist();
+    playlist->clear();
+    playlist->addMedia(QUrl::fromLocalFile(filename));
     if (bLoop) {
-        // TODO: Set QMediaPlayer to loop infinitely
+        playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    } else {
+        playlist->setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
     }
     CocosQt5AudioBackend::player()->play();
 }

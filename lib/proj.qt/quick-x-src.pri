@@ -222,35 +222,35 @@ $${ROOT}/lib/cocos2d-x/external/chipmunk/cocos2dx_support/CCPhysicsShape.cpp \
 $${ROOT}/lib/cocos2d-x/external/chipmunk/cocos2dx_support/CCPhysicsSupport.cpp \
 $${ROOT}/lib/cocos2d-x/external/chipmunk/cocos2dx_support/CCPhysicsWorld.cpp \
 $${ROOT}/lib/cocos2d-x/external/chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/chipmunk.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpConstraint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedRotarySpring.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedSpring.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGearJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGrooveJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPinJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPivotJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRatchetJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRotaryLimitJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSimpleMotor.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSlideJoint.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArbiter.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArray.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBB.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBBTree.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBody.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpCollision.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpHashSet.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpPolyShape.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpShape.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpace.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceComponent.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceHash.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceQuery.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceStep.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpatialIndex.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSweep1D.c \
-$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpVect.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/chipmunk.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpConstraint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedRotarySpring.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedSpring.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGearJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGrooveJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPinJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPivotJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRatchetJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRotaryLimitJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSimpleMotor.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSlideJoint.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArbiter.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArray.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBB.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBBTree.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBody.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpCollision.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpHashSet.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpPolyShape.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpShape.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpace.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceComponent.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceHash.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceQuery.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceStep.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpatialIndex.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSweep1D.c \
+#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpVect.c \
 $${ROOT}/lib/cocos2d-x/external/extra/crypto/base64/libbase64.c \
 $${ROOT}/lib/cocos2d-x/external/extra/crypto/CCCrypto.cpp \
 $${ROOT}/lib/cocos2d-x/external/extra/crypto/md5/md5.c \
@@ -294,12 +294,10 @@ $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/luasocket_io.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/mime.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/options.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/select.c \
-$${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/serial.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/socket_scripts.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/tcp.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/timeout.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/udp.c \
-$${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/unix.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/zlib/lua_zlib.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/debugger/debugger.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_event.c \
@@ -309,10 +307,19 @@ $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_push.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_to.c \
 
 macx {
-    SOURCES += $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/usocket.c
+    SOURCES += $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/usocket.c \
+                $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/unix.c \
+                $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/serial.c \
+    include(chipmunk-src.pri)
 }
-win {
-    SOURCES += $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/wsocket.c
+win32 {
+    SOURCES += \
+        $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/wsocket.c \
+        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCCryptoWin32.cpp \
+        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNative.cpp \
+        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNativeWin32.cpp \
+        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNetworkWin32.cpp \
+        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCStorePaymentTransactionWrapper.cpp
 }
 
 OBJECTIVE_SOURCES += \
@@ -351,10 +358,5 @@ $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCCryptoMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNative.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNativeMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/openudid/OpenUDIDMac.m
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCCryptoWin32.cpp \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNative.cpp \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNativeWin32.cpp \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNetworkWin32.cpp \
 #$${ROOT}/lib/cocos2d-x/scripting/lua/cocos2dx_support/platform/ios/CCLuaObjcBridge.mm \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/support/user_default/CCUserDefault.mm \
-
