@@ -309,7 +309,7 @@ $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_to.c \
 macx {
     SOURCES += $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/usocket.c \
                 $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/unix.c \
-                $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/serial.c \
+                $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/serial.c
     include(chipmunk-src.pri)
 }
 win32 {
