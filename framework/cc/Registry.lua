@@ -1,4 +1,3 @@
-
 local Registry = class("Registry")
 
 Registry.classes_ = {}
@@ -21,7 +20,7 @@ function Registry.newObject(name)
         -- auto load
         pcall(function()
             cls = require(name)
-            Registry.add(name)
+            Registry.add(cls, name)
         end)
     end
     assert(cls ~= nil, string.format("Registry.newObject() - invalid class \"%s\"", tostring(name)))
