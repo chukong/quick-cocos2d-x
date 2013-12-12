@@ -88,6 +88,7 @@ size_t CC_DLL hash_code( const std::type_info& info );
 int CC_DLL gettimeofday(struct timeval *, struct timezone *);
 
 #define HASH_CODE( x ) hash_code(x)
+//#define HASH_CODE( x ) x.hash_code()
 
 #endif  // __CC_STD_C_H__
 
