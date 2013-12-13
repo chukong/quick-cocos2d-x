@@ -34,9 +34,7 @@ local scale, scaleX, scaleY = 1.0, 1.0, 1.0
 if CONFIG_SCREEN_AUTOSCALE then
     if type(CONFIG_SCREEN_AUTOSCALE_CALLBACK) == "function" then
         scaleX, scaleY = CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, device.model)
-    end
-
-    if not scaleX or not scaleY then
+    else
         scaleX, scaleY = w / CONFIG_SCREEN_WIDTH, h / CONFIG_SCREEN_HEIGHT
     end
 
