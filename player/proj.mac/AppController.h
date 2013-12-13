@@ -41,6 +41,7 @@ class AppControllerBridge;
     BOOL waitForRestart;
     BOOL isAlwaysOnTop;
     BOOL isMaximized;
+    BOOL isMinimized;
 
     AppDelegate *app;
     ProjectConfig projectConfig;
