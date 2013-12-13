@@ -5,7 +5,9 @@
 #include <jni.h>
 #include <string>
 #include <vector>
+#include <map>
 #include "cocos2d.h"
+#include "platform/android/jni/JniHelper.h"
 
 using namespace std;
 
@@ -37,6 +39,12 @@ public:
 
     static int callLuaFunctionById(int functionId, const char *arg);
     static int callLuaGlobalFunction(const char *functionName, const char *arg);
+    
+    // added by guorui.chen
+    static jobject checkHashMap(lua_State *L);
+    static jobject checkArrayList(lua_State *L);
+    static jobject checkVector(lua_State *L);
+    static string checkObj(lua_State *L);
 
 private:
     typedef enum
@@ -49,6 +57,8 @@ private:
         TypeString  = 4,
         TypeVector  = 5,
         TypeFunction= 6,
+        TypeMap     = 7,
+        TypeArrayList = 8,
     } ValueType;
 
     typedef vector<ValueType> ValueTypes;
@@ -59,6 +69,7 @@ private:
         float   floatValue;
         int     boolValue;
         string *stringValue;
+        jobject objectValue;
     } ReturnValue;
 
     class CallInfo
@@ -134,6 +145,21 @@ private:
 
     static lua_State *s_luaState;
     static int        s_newFunctionId;
+    
+    class PSJNIHelper{
+    public:
+        static void createHashMap();
+        static jobject getHashMap();
+        static void pushHashMapElement(string key, string value);
+        
+        static void createVector();
+        static jobject getVector();
+        static void pushVectorElement(string value);
+        
+        static void createArrayList();
+        static jobject getArrayList();
+        static void pushArrayListElement(string value);
+    };
 };
 
 #endif /* __LUA_JAVA_BRIDGE_H_ */
