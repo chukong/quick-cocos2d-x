@@ -29,12 +29,14 @@ else
     CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
 end
 
-local scale, scaleX, scaleY = 1.0, 1.0, 1.0
+local scale, scaleX, scaleY
 
 if CONFIG_SCREEN_AUTOSCALE then
     if type(CONFIG_SCREEN_AUTOSCALE_CALLBACK) == "function" then
         scaleX, scaleY = CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, device.model)
-    else
+    end
+
+    if not scaleX or not scaleY then
         scaleX, scaleY = w / CONFIG_SCREEN_WIDTH, h / CONFIG_SCREEN_HEIGHT
     end
 
@@ -45,6 +47,7 @@ if CONFIG_SCREEN_AUTOSCALE then
         scale = scaleY
         CONFIG_SCREEN_WIDTH = w / scale
     else
+        scale = 1.0
         echoError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
 
