@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
-import org.keplerproject.luajava.LuaState;
-import org.keplerproject.luajava.LuaStateFactory;
-
 public class PSJNIHelper {
 	static HashMap<String, String> mHashMap = null;
 	static Vector<String> mVector = null;
@@ -55,10 +52,5 @@ public class PSJNIHelper {
 			return;
 		
 		mArrayList.add(value);
-	}
-	
-	public static void openLuaJava(){
-		LuaState luaState = LuaStateFactory.createLuaStateWithCocos2dx();
-		luaState.openBase();
 	}
 }
