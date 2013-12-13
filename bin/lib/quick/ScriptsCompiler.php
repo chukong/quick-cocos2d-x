@@ -209,6 +209,20 @@ class ScriptsCompiler
                 $moduleName = substr(substr($path, $this->config['srcpathLength']), 0, -4);
                 $tempFilePath = $this->config['srcpath'] . DS . $moduleName . '.bytes';
                 $moduleName = str_replace(DS, '.', $moduleName);
+                $skip = false;
+
+                foreach ($this->config['excludes'] as $key => $exclude)
+                {
+                    if (substr($moduleName, 0, strlen($exclude)) == $exclude)
+                    {
+                        unset($files[$key]);
+                        $skip = true;
+                        break;
+                    }
+                }
+
+                if ($skip) continue;
+
                 $bytesName = 'lua_m_' . strtolower(str_replace(array('.', '-'), '_', $moduleName));
 
                 $modules[$path] = array(

@@ -10,7 +10,7 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    self.animationNames = {"walk", "jump", "fall"}
+    self.animationNames = {"stand", "walk", "jump", "fall"}
     local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Dragon.png", "Dragon.plist", "Dragon.xml")
 
@@ -71,7 +71,8 @@ function MainScene:addDragon()
 		end)
     local animation = dragon:getAnimation()
     animation:setAnimationScale(24 / 60) -- Flash fps is 24, cocos2d-x is 60
-    animation:play("walk")
+	local aniName = self.animationNames[math.random(1,4)]
+    animation:play(aniName)
     dragon:setPosition(math.random(display.left, display.right), math.random(display.bottom, display.top))
     dragon:setScale(math.random(50, 100) / 100)
     self.layer:addChild(dragon)
