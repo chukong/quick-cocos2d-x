@@ -132,6 +132,8 @@ void CCSpriteBatchNode::visit(void)
 {
     CC_PROFILER_START_CATEGORY(kCCProfilerCategoryBatchSprite, "CCSpriteBatchNode - visit");
 
+    m_drawOrder = ++g_drawOrder;
+
     // CAREFUL:
     // This visit is almost identical to CocosNode#visit
     // with the exception that it doesn't call visit on it's children

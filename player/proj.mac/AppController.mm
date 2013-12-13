@@ -100,7 +100,7 @@ using namespace cocos2d::extra;
 
 - (void) windowWillClose:(NSNotification *)notification
 {
-    [[NSApplication sharedApplication] terminate:self];
+    [[NSRunningApplication currentApplication] terminate];
 }
 
 - (void) openConsoleWindow
@@ -424,8 +424,9 @@ using namespace cocos2d::extra;
 
 - (void) relaunch:(NSArray*)args
 {
+    [[NSRunningApplication currentApplication] hide];
     [self launch:args];
-    [[NSApplication sharedApplication] terminate:self];
+    [[NSRunningApplication currentApplication] terminate];
 }
 
 - (void) relaunch

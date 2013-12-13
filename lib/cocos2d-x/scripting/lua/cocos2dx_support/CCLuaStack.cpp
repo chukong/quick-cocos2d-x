@@ -912,6 +912,6 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
         //printf("[LUA] push CCObject OK - refid: %d, ptr: %x, type: %s\n", *p_refid, (int)ptr, type);
     }
 
-    tolua_pushusertype(L, ptr, type ? type : vtype);
+    tolua_pushusertype_and_addtoroot(L, ptr, type ? type : vtype);
     return 0;
 }

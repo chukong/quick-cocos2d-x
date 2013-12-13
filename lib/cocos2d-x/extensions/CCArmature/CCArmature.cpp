@@ -81,6 +81,7 @@ CCArmature::CCArmature()
 	, m_pParentBone(NULL)
 	, m_pBoneDic(NULL)
     , m_pTopBoneList(NULL)
+	, m_nScriptMovementHandler(NULL)
 {
 }
 
@@ -99,7 +100,6 @@ CCArmature::~CCArmature(void)
     }
 	if( NULL != m_pAnimation)
 	{
-		m_pAnimation->MovementEventSignal.disconnect_all();
 		disconnectMovementEventSignal();
 	}
     CC_SAFE_DELETE(m_pAnimation);
@@ -122,9 +122,6 @@ bool CCArmature::init(const char *name)
         CC_SAFE_DELETE(m_pAnimation);
         m_pAnimation = new CCArmatureAnimation();
         m_pAnimation->init(this);
-
-		//zrong 2013-11-06 export to lua
-		m_pAnimation->MovementEventSignal.connect(this, &CCArmature::onMovementEvent);
 
         CC_SAFE_DELETE(m_pBoneDic);
         m_pBoneDic	= new CCDictionary();
@@ -507,6 +504,8 @@ void CCArmature::draw()
 
 void CCArmature::visit()
 {
+    m_drawOrder = ++g_drawOrder;
+
     // quick return if not visible. children won't be drawn.
     if (!m_bVisible)
     {
@@ -586,8 +585,10 @@ CCBone *CCArmature::getBoneAtPoint(float x, float y)
     return NULL;
 }
 
+//zrong 2013-12-12 export to lua
 void CCArmature::onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId)
 {
+	LUALOG("[LUA] kScriptTypeNone:%d, m_eScriptType:%d, m_nScriptMovementHandler:%d", kScriptTypeNone, m_eScriptType, m_nScriptMovementHandler);
 	if (kScriptTypeNone != m_eScriptType && m_nScriptMovementHandler)
 	{
 		CCLuaEngine* __luaEngine = dynamic_cast<CCLuaEngine*>(CCScriptEngineManager::sharedManager()->getScriptEngine());
@@ -601,21 +602,26 @@ void CCArmature::onMovementEvent(CCArmature* m_pArmature, MovementEventType evtT
 	}
 }
 
+//zrong 2013-12-12 export to lua
 void CCArmature::connectMovementEventSignal(int nHandler)
 {
 	disconnectMovementEventSignal();
 	m_nScriptMovementHandler = nHandler;
+	
+	m_pAnimation->MovementEventSignal.connect(this, &CCArmature::onMovementEvent);
 	LUALOG("[LUA] Add CCArmature script movement handler: %d", m_nScriptMovementHandler);
 }
 
+//zrong 2013-12-12 export to luas
 void CCArmature::disconnectMovementEventSignal()
 {
 	if(m_nScriptMovementHandler)
 	{
+		m_pAnimation->MovementEventSignal.disconnect_all();
 		CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptMovementHandler);
         LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
 	}
-	m_nScriptMovementHandler = 0;
+	m_nScriptMovementHandler = NULL;
 }
 
 NS_CC_EXT_END
