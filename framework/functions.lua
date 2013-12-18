@@ -7,7 +7,7 @@ function toint(v)
 end
 
 function tobool(v)
-    return (v ~= nil and v ~= false)
+    return (v ~= nil and v ~= false and v ~= "false")
 end
 
 function totable(v)
@@ -100,22 +100,26 @@ end
 
 function iskindof(obj, className)
     local t = type(obj)
+    local mt
 
     if t == "table" then
-        local mt = getmetatable(obj)
-        while mt and mt.__index do
-            if mt.__index.__cname == className then
+        mt = getmetatable(obj)
+    elseif t == "userdata" then
+        mt = tolua.getpeer(obj)
+    end
+
+    if mt then
+        -- print(mt.__index.__cname)
+        while mt do
+            if mt.__cname == className then
                 return true
             end
             mt = mt.super
         end
         return false
-
-    elseif t == "userdata" then
-
-    else
-        return false
     end
+
+    return false
 end
 
 function import(moduleName, currentModuleName)
