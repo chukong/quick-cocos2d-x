@@ -15,17 +15,17 @@ function Registry.remove(name)
     Registry.classes_[name] = nil
 end
 
-function Registry.newObject(name)
+function Registry.newObject(name,...)
     local cls = Registry.classes_[name]
     if not cls then
         -- auto load
         pcall(function()
             cls = require(name)
-            Registry.add(name)
+            Registry.add(cls,name)
         end)
     end
     assert(cls ~= nil, string.format("Registry.newObject() - invalid class \"%s\"", tostring(name)))
-    return cls.new()
+    return cls.new(...)
 end
 
 return Registry
