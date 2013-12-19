@@ -1,4 +1,3 @@
-
 local Registry = class("Registry")
 
 Registry.classes_ = {}
