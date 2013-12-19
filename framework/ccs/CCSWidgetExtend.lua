@@ -1,4 +1,4 @@
-CCSWidgetExtend = class("CCSWidgetExtend", CCNodeExtend)
+CCSWidgetExtend = class("CCSWidgetExtend")
 CCSWidgetExtend.__index = CCSWidgetExtend
 
 function CCSWidgetExtend.extend(target)
