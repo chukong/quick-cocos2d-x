@@ -100,23 +100,6 @@ void CCNative::cancelAlert(void)
 
 //  misc
 
-bool CCNative::isAppExsit(const char *appID)
-{
-    JniMethodInfo methodInfo;
-    if (JniHelper::getStaticMethodInfo(methodInfo, "com/pinssible/utils/PSAppManager", "isAppExsit",
-                                       "(Ljava/lang/String;)Z"))
-    {
-		jstring jappID = methodInfo.env->NewStringUTF(appID);        
-        jboolean ret = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jappID);
-		methodInfo.env->DeleteLocalRef(jappID);
-		methodInfo.env->DeleteLocalRef(methodInfo.classID);
-		return ret;
-
-    }
-
-    return false;
-}
-
 void CCNative::openURL(const char* url)
 {
 	JniMethodInfo methodInfo;
