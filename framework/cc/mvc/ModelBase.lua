@@ -37,7 +37,7 @@ function ModelBase:setProperties(properties)
     assert(type(properties) == "table", string.format("%s:setProperties() - invalid properties", self.class.__cname))
 
     for field, schema in pairs(self.class.schema) do
-        local typ, def = unpack(schema)
+        local typ, def = schema[1], schema[2]
         local propname = field .. "_"
 
         local val = properties[field]
