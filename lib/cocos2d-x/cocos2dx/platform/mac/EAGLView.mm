@@ -74,6 +74,7 @@ static EAGLView *view;
 //		NSOpenGLPFANoRecovery,
 		NSOpenGLPFADoubleBuffer,
 		NSOpenGLPFADepthSize, 24,
+		NSOpenGLPFAStencilSize, 8,
 		0
     };
     frameRect.size = [self makeSizeEven:frameRect.size];
