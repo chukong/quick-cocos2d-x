@@ -68,7 +68,7 @@ bool CCHTTPRequest::initWithUrl(const char *url, int method)
     }
     
     ++s_id;
-    // CCLOG("CCHTTPRequest[0x%04x] - create request with url: %s", s_id, url);
+    CCLOG("CCHTTPRequest[0x%04x] - create request with url: %s", s_id, url);
     return true;
 }
 
@@ -300,7 +300,7 @@ void CCHTTPRequest::update(float dt)
 {
     if (m_state == kCCHTTPRequestStateInProgress) return;
     CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
-    if (m_curlState == kCCHTTPRequestCURLStateBusy)
+    if (m_curlState != kCCHTTPRequestCURLStateIdle)
     {
         CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(CCHTTPRequest::checkCURLState), this, 0, false);
     }
