@@ -9,8 +9,9 @@
 void ProjectConfig::resetToWelcome(void)
 {
 	m_isWelcome = true;
-    string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
-    path.append("player/welcome");
+    //string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+    //path.append("player/welcome");
+	string path = "d:/works/yhq/projects/lulala";
     SimulatorConfig::makeNormalizePath(&path);
     setProjectDir(path);
     setWritablePath(path);
