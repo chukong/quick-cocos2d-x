@@ -182,6 +182,10 @@ SimpleAudioEngine::playBackgroundMusic(const char* pszFilePath, bool bLoop)
 
 //    CocosQt5AudioBackend::player()->setMedia(QUrl::fromLocalFile(filename));
     QMediaPlaylist *playlist = CocosQt5AudioBackend::player()->playlist();
+    if (!playlist) {
+        playlist = new QMediaPlaylist(CocosQt5AudioBackend::player());
+        CocosQt5AudioBackend::player()->setPlaylist(playlist);
+    }
     playlist->clear();
     playlist->addMedia(QUrl::fromLocalFile(filename));
     if (bLoop) {
