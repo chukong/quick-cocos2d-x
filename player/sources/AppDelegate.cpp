@@ -10,7 +10,12 @@ using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+AppDelegate::AppDelegate(int argc, char *argv[])
+    : CCApplication(argc, argv)
+#else
 AppDelegate::AppDelegate()
+#endif
 {
     // fixed me
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
