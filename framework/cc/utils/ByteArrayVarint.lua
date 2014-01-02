@@ -9,7 +9,7 @@ A description: https://github.com/zrong/lua#ByteArrayVarint
 @author zrong(zengrong.net)
 Creation: 2013-11-14
 ]]
-local ByteArrayVarint = class("BitVaiant", require("cc.utils.ByteArray"))
+local ByteArrayVarint = class("BitVaiant", import(".ByteArray"))
 
 require("bit")
 
