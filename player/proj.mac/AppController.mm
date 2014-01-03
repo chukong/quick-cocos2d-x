@@ -81,6 +81,29 @@ using namespace cocos2d::extra;
 
     [window orderFrontRegardless];
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+    
+    NSButton *miniaturizeButton = [window standardWindowButton:NSWindowMiniaturizeButton];
+    [miniaturizeButton setTarget:self];
+    [miniaturizeButton setAction:@selector(onClickMiniaturize:)];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSWindowDidBecomeMainNotification object:window];
+}
+
+
+- (void) onClickMiniaturize:(id)sender
+{
+    isMinimized = YES;
+    cocos2d::CCApplication::sharedApplication()->applicationDidEnterBackground();
+    [window miniaturize:self];
+}
+
+-(void) applicationDidBecomeActive:(NSNotification *)notification
+{
+    if ([notification object] == window && isMinimized)
+    {
+        isMinimized = NO;
+        cocos2d::CCApplication::sharedApplication()->applicationWillEnterForeground();
+    }
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication

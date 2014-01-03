@@ -29,7 +29,8 @@ enum
     kLanguageJapanese,
     kLanguageHungarian,
     kLanguagePortuguese,
-    kLanguageArabic
+    kLanguageArabic,
+    kLanguageChinese_tw
 };
 
 /**

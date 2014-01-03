@@ -198,7 +198,7 @@ function UISlider:onTouch_(event, x, y)
         end
     end
 
-    self:setSliderValue(offset * (self.max_ - self.min_))
+    self:setSliderValue(offset * (self.max_ - self.min_) + self.min_)
 
     if event ~= "moved" and self.fsm_:canDoEvent("release") then
         self.fsm_:doEvent("release")
@@ -221,7 +221,7 @@ function UISlider:updateButtonPosition_()
     local x, y = 0, 0
     local barSize = self.barSprite_:getContentSize()
     local buttonSize = self.buttonSprite_:getContentSize()
-    local offset = self.value_ / (self.max_ - self.min_)
+    local offset = (self.value_ - self.min_) / (self.max_ - self.min_)
     local ap = self:getAnchorPoint()
 
     if self.isHorizontal_ then

@@ -15,7 +15,7 @@
 		<string>Icon-72.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>__PROJECT_PACKAGE_NAME_L__.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>__PROJECT_PACKAGE_MODULE_NAME_L__.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

@@ -71,6 +71,10 @@ public:
     /** @brief Calculate MD5, get MD5 code (not string) */
     static void MD5(void* input, int inputLength,
                     unsigned char* output);
+    
+    static void MD5File(const char* path, unsigned char* output);
+    
+    
 
     static const string MD5String(void* input, int inputLength);
     
