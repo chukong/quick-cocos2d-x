@@ -197,7 +197,7 @@ static const char *unix_trybind(p_unix un, const char *path) {
 
 #else 
     err = socket_bind(&un->sock, (SA *) &local, 
-            sizeof(local.sun_family) + len);
+            (socklen_t)(sizeof(local.sun_family) + len));
 #endif
     if (err != IO_DONE) socket_destroy(&un->sock);
     return socket_strerror(err); 
@@ -235,7 +235,7 @@ static const char *unix_tryconnect(p_unix un, const char *path)
     err = socket_connect(&un->sock, (SA *) &remote, remote.sun_len, &un->tm);
 #else
     err = socket_connect(&un->sock, (SA *) &remote, 
-            sizeof(remote.sun_family) + len, &un->tm);
+            (socklen_t)(sizeof(remote.sun_family) + len), &un->tm);
 #endif
     if (err != IO_DONE) socket_destroy(&un->sock);
     return socket_strerror(err);

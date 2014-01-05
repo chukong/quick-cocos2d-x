@@ -98,7 +98,7 @@ static int strtod_buffer_size(const char *s)
     while (valid_number_character(*p))
         p++;
 
-    return p - s;
+    return (int)(p - s);
 }
 
 /* Similar to strtod(), but must be passed the current locale's decimal point

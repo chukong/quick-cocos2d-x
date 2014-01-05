@@ -1,7 +1,6 @@
-
 ## CHINESE => [README_CN.md](README_CN.md)
 
-quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in Lua.
+quick-cocos2d-x is a **quick** framework, based on cocos2d-x. Make mobile games in Lua.
 
 **CODE LESS, PLAY MORE !**
 
@@ -56,4 +55,10 @@ QUICK = SUCCESS !
 -   luaoc: Lua call Objective-C, Objective-C call Lua ...
 -   luaj: Lua call Java, Java call Lua ...
 -   network: Asynchronous HTTP requests, JSON, check the network status ...
+
+<br />
+
+If you want to support the development of this project, please donate to the ongoing pledgie.org campagin.
+
+<a href='https://pledgie.com/campaigns/22966'><img alt='Click here to lend your support to: quick-cocos2d-x and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/22966.png?skin_name=chrome' border='0' ></a>
 

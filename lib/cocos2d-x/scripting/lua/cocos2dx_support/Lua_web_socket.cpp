@@ -130,8 +130,8 @@ public:
                 if (-1 != nHandler) {
                     CCLuaStack *pStack = CCLuaEngine::defaultEngine()->getLuaStack();
                     pStack->pushFunctionByHandler(nHandler);
-                    pStack->pushString(data.bytes, data.len);
-                    pStack->pushInt(data.len);
+                    pStack->pushString(data.bytes, (int)data.len);
+                    pStack->pushInt((int)data.len);
                     pStack->executeFunction(2);
                 }
             }
@@ -196,7 +196,7 @@ static int tolua_collect_WebSocket (lua_State* tolua_S)
 /* function to release collected object via destructor */
 static void tolua_reg_Web_Socket_type(lua_State* tolua_S)
 {
-    tolua_usertype(tolua_S, "WebSocket");
+    tolua_usertype(tolua_S, "WebSocket"); toluafix_add_type_mapping(typeid(WebSocket).hash_code(), "WebSocket");
 }
 
 /* method: create of class WebSocket */

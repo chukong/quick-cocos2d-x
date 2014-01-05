@@ -74,6 +74,7 @@ static EAGLView *view;
 //		NSOpenGLPFANoRecovery,
 		NSOpenGLPFADoubleBuffer,
 		NSOpenGLPFADepthSize, 24,
+		NSOpenGLPFAStencilSize, 8,
 		0
     };
     frameRect.size = [self makeSizeEven:frameRect.size];
@@ -327,7 +328,7 @@ static EAGLView *view;
     float xs[1] = {0.0f};
     float ys[1] = {0.0f};
     
-	ids[0] = [theEvent eventNumber];
+	ids[0] = (int)[theEvent eventNumber];
 	xs[0] = x / frameZoomFactor_;
 	ys[0] = y / frameZoomFactor_;
 
@@ -351,7 +352,7 @@ static EAGLView *view;
     float xs[1] = {0.0f};
     float ys[1] = {0.0f};
     
-	ids[0] = [theEvent eventNumber];
+	ids[0] = (int)[theEvent eventNumber];
 	xs[0] = x / frameZoomFactor_;
 	ys[0] = y / frameZoomFactor_;
 
@@ -370,7 +371,7 @@ static EAGLView *view;
     float xs[1] = {0.0f};
     float ys[1] = {0.0f};
     
-	ids[0] = [theEvent eventNumber];
+	ids[0] = (int)[theEvent eventNumber];
 	xs[0] = x / frameZoomFactor_;
 	ys[0] = y / frameZoomFactor_;
 

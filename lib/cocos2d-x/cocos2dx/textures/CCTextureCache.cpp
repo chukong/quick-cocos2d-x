@@ -485,7 +485,7 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                     eImageFormat = CCImage::kFmtWebp;
                 }
                 
-                CC_BREAK_IF(eImageFormat == CCImage::kFmtUnKnown);
+//                CC_BREAK_IF(eImageFormat == CCImage::kFmtUnKnown);
 
                 pImage = new CCImage();
                 CC_BREAK_IF(NULL == pImage);

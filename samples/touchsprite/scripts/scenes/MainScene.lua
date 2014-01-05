@@ -21,7 +21,8 @@ local function newButton(imageName, listener)
         -- x, y: world coordinate
         if event == "began" then
             sprite:setOpacity(128)
-            return true -- catch touch event, stop event dispatching
+            -- return cc.TOUCH_BEGAN -- stop event dispatching
+            return cc.TOUCH_BEGAN_NO_SWALLOWS -- continue event dispatching
         end
 
         local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
@@ -31,6 +32,8 @@ local function newButton(imageName, listener)
             else
                 sprite:setOpacity(255)
             end
+            -- return cc.TOUCH_MOVED_SWALLOWS -- stop event dispatching
+            -- return cc.TOUCH_MOVED_RELEASE_OTHERS -- stop event dispatching, remove others node
         elseif event == "ended" then
             if touchInSprite then listener() end
             sprite:setOpacity(255)

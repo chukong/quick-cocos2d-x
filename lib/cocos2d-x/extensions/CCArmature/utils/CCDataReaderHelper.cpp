@@ -529,7 +529,7 @@ CCMovementBoneData *CCDataReaderHelper::decodeMovementBone(tinyxml2::XMLElement 
 
         parentFrameXML = NULL;
 
-        length = parentXmlList.size();
+        length = (int)parentXmlList.size();
     }
 
 

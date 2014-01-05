@@ -64,6 +64,8 @@ void CCBatchNode::addChild(CCNode *child, int zOrder, int tag)
 
 void CCBatchNode::visit()
 {
+    m_drawOrder = ++g_drawOrder;
+
     // quick return if not visible. children won't be drawn.
     if (!m_bVisible)
     {
