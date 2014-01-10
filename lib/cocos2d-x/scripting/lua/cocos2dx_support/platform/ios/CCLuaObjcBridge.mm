@@ -1,6 +1,11 @@
 
 #include "CCLuaObjcBridge.h"
 
+extern "C"{
+#include "tolua++.h"
+#include "tolua_fix.h"
+};
+
 NS_CC_BEGIN
 
 void CCLuaObjcBridge::luaopen_luaoc(lua_State *L)
@@ -80,38 +85,109 @@ int CCLuaObjcBridge::callObjcStaticMethod(lua_State *L)
         
         if (hasArguments)
         {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            lua_pushnil(L);
-            while (lua_next(L, -2))
-            {
-                NSString *key = [NSString stringWithCString:lua_tostring(L, -2) encoding:NSUTF8StringEncoding];
-                
-                switch (lua_type(L, -1))
-                {
-                    case LUA_TNUMBER:
-                        [dict setObject:[NSNumber numberWithFloat:lua_tonumber(L, -1)] forKey:key];
-                        break;
-                        
-                    case LUA_TBOOLEAN:
-                        [dict setObject:[NSNumber numberWithBool:lua_toboolean(L, -1)] forKey:key];
-                        break;
-                        
-                    case LUA_TSTRING:
-                        [dict setObject:[NSString stringWithCString:lua_tostring(L, -1) encoding:NSUTF8StringEncoding]
-                                 forKey:key];
-                        break;
-                        
-                    case LUA_TFUNCTION:
-                        int functionId = retainLuaFunction(L, -1, NULL);
-                        [dict setObject:[NSNumber numberWithInt:functionId] forKey:key];
-                        break;
+            NSObject *obj = (NSObject *)CCLuaObjcBridge::copyToObjc(L);
+            /*
+             // modify by guorui.chen
+             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+             lua_pushnil(L);
+             while (lua_next(L, -2))
+             {
+             NSString *key = [NSString stringWithCString:lua_tostring(L, -2) encoding:NSUTF8StringEncoding];
+             switch (lua_type(L, -1))
+             {
+             case LUA_TNUMBER:
+             {
+             [dict setObject:[NSNumber numberWithFloat:lua_tonumber(L, -1)] forKey:key];
+             break;
+             }
+             
+             case LUA_TBOOLEAN:
+             {
+             [dict setObject:[NSNumber numberWithBool:lua_toboolean(L, -1)] forKey:key];
+             break;
+             }
+             
+             case LUA_TSTRING:
+             {
+             [dict setObject:[NSString stringWithCString:lua_tostring(L, -1) encoding:NSUTF8StringEncoding]
+             forKey:key];
+             break;
+             }
+             
+             case LUA_TFUNCTION:
+             {
+             int functionId = retainLuaFunction(L, -1, NULL);
+             [dict setObject:[NSNumber numberWithInt:functionId] forKey:key];
+             break;
+             }
+             
+             case LUA_TTABLE:
+             {
+             const char* test = lua_tostring(L, -1);
+             int l = 0;
+             break;
+             }
+             }
+             
+             lua_pop(L, 1);
+             }
+             //*/
+            if ([obj isKindOfClass:[NSArray class]]) {
+                NSArray *array = (NSArray *)obj;
+                NSString *methodName_ = [NSString stringWithCString:methodName encoding:NSUTF8StringEncoding];
+                NSArray *argNames = [methodName_ componentsSeparatedByString:@":"];
+                int argCount = [argNames count];
+                if (argCount > [array count]) {
+                    lua_pushboolean(L, 0);
+                    lua_pushinteger(L, kCCLuaBridgeErrorInvalidParameters);
+                    NSLog(@"Arguments are too much in %@~", methodName_);
+                    return 2;
+                } else if (argCount < [array count]) {
+                    lua_pushboolean(L, 0);
+                    lua_pushinteger(L, kCCLuaBridgeErrorInvalidParameters);
+                    NSLog(@"Arguments are too less in %@~", methodName_);
+                    return 2;
                 }
                 
-                lua_pop(L, 1);
+                for(int i=0; i<argCount; ++i)
+                {
+                    NSObject *arg = [array objectAtIndex:i];
+                    if([arg isKindOfClass:[NSNull class]])
+                    {
+                        arg = nil;
+                    }
+                    else if([arg isKindOfClass:[NSNumber class]])
+                    {
+                        NSNumber *number = (NSNumber *)arg;
+                        const char *numberType = [number objCType];
+                        if (strcmp(numberType, @encode(BOOL)) == 0)
+                        {
+                            bool value = [(NSNumber *)arg boolValue];
+                            [invocation setArgument:&value atIndex:2+i];
+                        }
+                        else if (strcmp(numberType, @encode(int)) == 0)
+                        {
+                            int value = [(NSNumber *)arg intValue];
+                            [invocation setArgument:&value atIndex:2+i];
+                        }
+                        else
+                        {
+                            float value = [(NSNumber *)arg floatValue];
+                            [invocation setArgument:&value atIndex:2+i];
+                        }
+                        continue;
+                    }
+                    [invocation setArgument:&arg atIndex:2+i];
+                }
+                
+                [invocation invoke];
+                
             }
-            
-            [invocation setArgument:&dict atIndex:2];
-            [invocation invoke];
+            else
+            {
+                [invocation setArgument:&obj atIndex:2];
+                [invocation invoke];
+            }
         }
         else
         {
@@ -166,6 +242,98 @@ int CCLuaObjcBridge::callObjcStaticMethod(lua_State *L)
     }
 }
 
+void* CCLuaObjcBridge::copyToObjc(lua_State *L)
+{
+    switch (lua_type(L, -1))
+    {
+        case LUA_TNIL:
+        {
+            return [[[NSNull alloc] init] autorelease];
+        }
+        case LUA_TNUMBER:
+        {
+            lua_Number number = lua_tonumber(L, -1);
+            int value1 = (int)number;
+            float value2 = (float)number;
+            if (value1 == value2) {
+                return [NSNumber numberWithInt:value1];
+            } else {
+                return [NSNumber numberWithFloat:value2];
+            }
+        }
+            
+        case LUA_TBOOLEAN:
+        {
+            return [NSNumber numberWithBool:lua_toboolean(L, -1)];
+        }
+            
+        case LUA_TSTRING:
+        {
+            NSString *str = [NSString stringWithCString:lua_tostring(L, -1) encoding:NSUTF8StringEncoding];
+            if ([str isEqualToString:@"__nil__"])
+                return [[[NSNull alloc] init] autorelease];
+            return str;
+        }
+            
+        case LUA_TFUNCTION:
+        {
+            int functionId = retainLuaFunction(L, -1, NULL);
+            return [NSNumber numberWithInt:functionId];
+        }
+            
+        case LUA_TTABLE:
+        {
+            BOOL bDictionary = NO;
+            
+            lua_pushnil(L);  /* first key */
+            while (!bDictionary && lua_next(L, -2)) {
+                if (lua_type(L, -2) != LUA_TNUMBER) {
+                    bDictionary = YES;
+                    lua_pop(L, 2); // pop key and value off the stack
+                }
+                else {
+                    lua_pop(L, 1);
+                }
+            }
+            
+            if (bDictionary) {
+                return CCLuaObjcBridge::checkDictionary(L);
+            }
+            else {
+                return CCLuaObjcBridge::checkArray(L);
+            }
+        }
+    }
+    return nil;
+}
+
+void* CCLuaObjcBridge::checkArray(lua_State *L)
+{
+    NSMutableArray *array = [NSMutableArray array];
+    lua_pushnil(L);  /* first key */
+    while (lua_next(L, -2)) {
+        int index = lua_tonumber(L, -2) - 1;
+        NSObject *value = (NSObject*)CCLuaObjcBridge::copyToObjc(L);
+        [array insertObject:value atIndex:index];
+        lua_pop(L, 1);
+    }
+    return array;
+}
+
+void* CCLuaObjcBridge::checkDictionary(lua_State *L)
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    lua_pushnil(L);
+    while (lua_next(L, -2))
+    {
+        NSString *key = [NSString stringWithCString:lua_tostring(L, -2) encoding:NSUTF8StringEncoding];
+        NSObject *value = (NSObject*)CCLuaObjcBridge::copyToObjc(L);
+        [dict setObject:value forKey:key];
+        lua_pop(L, 1);
+    }
+    return dict;
+}
+
 void CCLuaObjcBridge::pushValue(lua_State *L, void *val)
 {
     id oval = (id)val;
@@ -205,7 +373,19 @@ void CCLuaObjcBridge::pushValue(lua_State *L, void *val)
             pushValue(L, [oval objectForKey:key]);
             lua_rawset(L, -3);
         }
-        
+        return;
+    }
+    else if ([oval isKindOfClass:[NSArray class]])
+    {
+        // added by guorui.chen
+        lua_newtable(L);
+        int count = [oval count];
+        for (int i=0; i<count; ++i)
+        {
+            int len = lua_objlen(L, -1);
+            pushValue(L, [oval objectAtIndex:i]);
+            lua_rawseti(L, -2, len+1);
+        }
         return;
     }
     else

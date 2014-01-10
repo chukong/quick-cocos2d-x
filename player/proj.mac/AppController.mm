@@ -81,6 +81,29 @@ using namespace cocos2d::extra;
 
     [window orderFrontRegardless];
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+    
+    NSButton *miniaturizeButton = [window standardWindowButton:NSWindowMiniaturizeButton];
+    [miniaturizeButton setTarget:self];
+    [miniaturizeButton setAction:@selector(onClickMiniaturize:)];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSWindowDidBecomeMainNotification object:window];
+}
+
+
+- (void) onClickMiniaturize:(id)sender
+{
+    isMinimized = YES;
+    cocos2d::CCApplication::sharedApplication()->applicationDidEnterBackground();
+    [window miniaturize:self];
+}
+
+-(void) applicationDidBecomeActive:(NSNotification *)notification
+{
+    if ([notification object] == window && isMinimized)
+    {
+        isMinimized = NO;
+        cocos2d::CCApplication::sharedApplication()->applicationWillEnterForeground();
+    }
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
@@ -100,7 +123,7 @@ using namespace cocos2d::extra;
 
 - (void) windowWillClose:(NSNotification *)notification
 {
-    [[NSApplication sharedApplication] terminate:self];
+    [[NSRunningApplication currentApplication] terminate];
 }
 
 - (void) openConsoleWindow
@@ -297,6 +320,9 @@ using namespace cocos2d::extra;
     NSMenuItem *itemWriteDebugLogToFile = [menuPlayer itemWithTitle:@"Write Debug Log to File"];
     [itemWriteDebugLogToFile setState:projectConfig.isWriteDebugLogToFile() ? NSOnState : NSOffState];
 
+    NSMenuItem *itemAutoConnectDebugger = [menuPlayer itemWithTitle:@"Auto Connect Debugger"];
+    [itemAutoConnectDebugger setState:projectConfig.getDebuggerType() != kCCLuaDebuggerNone ? NSOnState : NSOffState];
+
     NSMenu *menuScreen = [[[window menu] itemWithTitle:@"Screen"] submenu];
     NSMenuItem *itemPortait = [menuScreen itemWithTitle:@"Portait"];
     NSMenuItem *itemLandscape = [menuScreen itemWithTitle:@"Landscape"];
@@ -421,8 +447,9 @@ using namespace cocos2d::extra;
 
 - (void) relaunch:(NSArray*)args
 {
+    [[NSRunningApplication currentApplication] hide];
     [self launch:args];
-    [[NSApplication sharedApplication] terminate:self];
+    [[NSRunningApplication currentApplication] terminate];
 }
 
 - (void) relaunch
@@ -588,9 +615,7 @@ using namespace cocos2d::extra;
 
 - (IBAction) onFileNewPlayer:(id)sender
 {
-    NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig];
-    [args removeLastObject];
-    [args removeLastObject];
+    NSMutableArray *args = [self makeCommandLineArgsFromProjectConfig:kProjectConfigAll & ~kProjectConfigWindowOffset];
     [self launch:args];
 }
 
@@ -671,6 +696,19 @@ using namespace cocos2d::extra;
 {
     const string path = projectConfig.getDebugLogFilePath();
     [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithCString:path.c_str() encoding:NSUTF8StringEncoding]];
+}
+
+- (IBAction) onPlayerAutoConnectDebugger:(id)sender
+{
+    if (projectConfig.getDebuggerType() == kCCLuaDebuggerNone)
+    {
+        projectConfig.setDebuggerType(kCCLuaDebuggerLDT);
+    }
+    else
+    {
+        projectConfig.setDebuggerType(kCCLuaDebuggerNone);
+    }
+    [self updateUI];
 }
 
 - (IBAction) onPlayerRelaunch:(id)sender

@@ -80,7 +80,11 @@ TOLUA_API int toluafix_remove_ccobject_by_refid(lua_State* L, int refid)
         lua_pushstring(L, "tolua_ubox");                            /* stack: mt key */
         lua_rawget(L, LUA_REGISTRYINDEX);                           /* stack: mt ubox */
     };
-    
+
+    // cleanup root
+    tolua_remove_value_from_root(L, ptr);
+
+    // check peer
     lua_pushlightuserdata(L, ptr);                                  /* stack: mt ubox ptr */
     lua_rawget(L,-2);                                               /* stack: mt ubox ud */
     if (lua_isnil(L, -1))
@@ -91,7 +95,7 @@ TOLUA_API int toluafix_remove_ccobject_by_refid(lua_State* L, int refid)
         return -3;
     }
 
-    // cleanup peertable
+    // cleanup peer
     lua_pushvalue(L, LUA_REGISTRYINDEX);
     lua_setfenv(L, -2);
 

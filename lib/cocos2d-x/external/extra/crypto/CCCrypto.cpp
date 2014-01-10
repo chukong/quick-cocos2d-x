@@ -78,6 +78,26 @@ void CCCrypto::MD5(void* input, int inputLength, unsigned char* output)
     MD5_Final(output, &ctx);
 }
 
+void CCCrypto::MD5File(const char* path, unsigned char* output)
+{
+    FILE *file = fopen(path, "rb");
+    if (file == NULL)
+        return;
+    
+    MD5_CTX ctx;
+    MD5_Init(&ctx);
+    
+    int i;
+    const int BUFFER_SIZE = 1024;
+    char buffer[BUFFER_SIZE];
+    while ((i = fread(buffer, 1, BUFFER_SIZE, file)) > 0) {
+        MD5_Update(&ctx, buffer, (unsigned) i);
+    }
+    
+    fclose(file);
+    MD5_Final(output, &ctx);
+}
+
 const string CCCrypto::MD5String(void* input, int inputLength)
 {
     unsigned char buffer[MD5_BUFFER_LENGTH];

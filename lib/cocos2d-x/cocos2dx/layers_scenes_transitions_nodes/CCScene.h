@@ -72,6 +72,7 @@ public:
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
     virtual void visit();
+    virtual void registerWithTouchDispatcher();
 
 protected:
     CCArray *m_touchableNodes;

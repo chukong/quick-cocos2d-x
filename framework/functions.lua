@@ -1,4 +1,3 @@
-
 function tonum(v, base)
     return tonumber(v, base) or 0
 end
@@ -325,16 +324,11 @@ function table.indexOfKey(list, key, value, from, useMaxN)
 	return -1
 end
 
-function table.removeItem(list, item, removeAll)
-    local rmCount = 0
-    for i = 1, #list do
-        if list[i - rmCount] == item then
-            table.remove(list, i - rmCount)
-            if removeAll then
-                rmCount = rmCount + 1
-            else
-                break
-            end
+function table.removeItem(t, item, removeAll)
+    for i = #t, 1, -1 do
+        if t[i] == item then
+            table.remove(t, i)
+            if not removeAll then break end
         end
     end
 end
@@ -361,6 +355,19 @@ end
 
 function table.find(t, item)
     return table.keyOfItem(t, item) ~= nil
+end
+
+function table.unique(t)
+    local r = {}
+    local n = {}
+    for i = #t, 1, -1 do
+        local v = t[i]
+        if not r[v] then
+            r[v] = true
+            n[#n + 1] = v
+        end
+    end
+    return n
 end
 
 function table.keyOfItem(t, item)
@@ -403,6 +410,8 @@ function string.text2html(input)
 end
 
 function string.split(str, delimiter)
+    str = tostring(str)
+    delimiter = tostring(delimiter)
     if (delimiter=='') then return false end
     local pos,arr = 0, {}
     -- for each divider found

@@ -38,13 +38,17 @@ extern "C" {
 
 NS_CC_BEGIN
 
-#define CC_DEFAULT_XXTEA_SIGN       "XXTEA"
-#define CC_DEFAULT_XXTEA_SIGN_LEN   5
-
 class CCLuaStack;
 
 typedef std::map<lua_State*, CCLuaStack*> CCLuaStackMap;
 typedef CCLuaStackMap::iterator CCLuaStackMapIterator;
+
+#define kCCLuaEncryptXXTEADefaultSign       "XXTEA"
+#define kCCLuaEncryptXXTEADefaultSignLen    5
+
+#define kCCLuaDebuggerNone      0
+#define kCCLuaDebuggerLDT       1
+#define kCCLuaDebuggerGlobalKey "DEBUG_DISABLE_QUICK_LUA_LOADER"
 
 class CC_DLL CCLuaStack : public CCObject
 {
@@ -58,13 +62,18 @@ public:
      @brief Method used to get a pointer to the lua_State that the script module is attached to.
      @return A pointer to the lua_State that the script module is attached to.
      */
-    lua_State* getLuaState(void);
+    lua_State *getLuaState(void);
+
+    /**
+     @brief Connect to Debugger
+     */
+    virtual void connectDebugger(int debuggerType, const char *host, int port, const char *debugKey, const char *workDir);
 
     /**
      @brief Add a path to find lua files in
      @param path to be added to the Lua path
      */
-    virtual void addSearchPath(const char* path);
+    virtual void addSearchPath(const char *path);
 
     /**
      @brief Add lua loader, now it is used on android
@@ -75,7 +84,7 @@ public:
      @brief Remove CCObject from lua state
      @param object to remove
      */
-    virtual void removeScriptObjectByCCObject(CCObject* pObj);
+    virtual void removeScriptObjectByCCObject(CCObject *pObj);
 
     /**
      @brief Remove Lua function reference
@@ -93,13 +102,13 @@ public:
      @return 0 if the string is excuted correctly.
      @return other if the string is excuted wrongly.
      */
-    virtual int executeString(const char* codes);
+    virtual int executeString(const char *codes);
 
     /**
      @brief Execute a script file.
      @param filename String object holding the filename of the script file that is to be executed
      */
-    virtual int executeScriptFile(const char* filename);
+    virtual int executeScriptFile(const char *filename);
 
     /**
      @brief Execute a scripted global function.
@@ -108,7 +117,7 @@ public:
      @param numArgs
      @return The integer value returned from the script function.
      */
-    virtual int executeGlobalFunction(const char* functionName, int numArgs = 0);
+    virtual int executeGlobalFunction(const char *functionName, int numArgs = 0);
 
     virtual void clean(void);
     virtual void settop(int top);
@@ -116,10 +125,10 @@ public:
     virtual void pushInt(int intValue);
     virtual void pushFloat(float floatValue);
     virtual void pushBoolean(bool boolValue);
-    virtual void pushString(const char* stringValue);
-    virtual void pushString(const char* stringValue, int length);
+    virtual void pushString(const char *stringValue);
+    virtual void pushString(const char *stringValue, int length);
     virtual void pushNil(void);
-    virtual void pushCCObject(CCObject* objectValue, const char* typeName);
+    virtual void pushCCObject(CCObject *objectValue, const char *typeName);
     virtual void pushCCLuaValue(const CCLuaValue& value);
     virtual void pushCCLuaValueDict(const CCLuaValueDict& dict);
     virtual void pushCCLuaValueArray(const CCLuaValueArray& array);
@@ -143,6 +152,7 @@ protected:
     , m_xxteaSign(NULL)
     , m_xxteaSignLen(0)
     , m_callFromLua(0)
+    , m_debuggerType(kCCLuaDebuggerNone)
     {
     }
 
@@ -150,6 +160,7 @@ protected:
 
     lua_State *m_state;
     int m_callFromLua;
+    int m_debuggerType;
 
     static struct cc_timeval m_lasttime;
     static CCLuaStackMap s_map;

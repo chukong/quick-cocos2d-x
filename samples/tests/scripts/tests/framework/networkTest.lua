@@ -41,6 +41,10 @@ function NetworkTestScene:createHTTPRequestTest()
     self.requestCount = self.requestCount + 1
     local index = self.requestCount
     local request = network.createHTTPRequest(function(event)
+        if tolua.isnull(self) then
+            printf("REQUEST %d COMPLETED, BUT SCENE HAS QUIT", index)
+            return
+        end
         self:onResponse(event, index)
     end, "http://quick-x.com/feed/", "GET")
     printf("REQUEST START %d", index)
@@ -51,6 +55,10 @@ function NetworkTestScene:createHTTPRequestBadDomainTest()
     self.requestCount = self.requestCount + 1
     local index = self.requestCount
     local request = network.createHTTPRequest(function(event)
+        if tolua.isnull(self) then
+            printf("REQUEST %d COMPLETED, BUT SCENE HAS QUIT", index)
+            return
+        end
         self:onResponse(event, index)
     end, "http://quick-x.com.x.y.z.not/", "GET")
     printf("REQUEST START %d", index)
@@ -63,6 +71,10 @@ function NetworkTestScene:send_data_to_serverTest()
     self.requestCount = self.requestCount + 1
     local index = self.requestCount
     local request = network.createHTTPRequest(function(event)
+        if tolua.isnull(self) then
+            printf("REQUEST %d COMPLETED, BUT SCENE HAS QUIT", index)
+            return
+        end
         self:onResponse(event, index, true)
         local cookie = network.parseCookie(event.request:getCookieString())
         dump(cookie, "GET COOKIE FROM SERVER")

@@ -18,10 +18,9 @@ lib/cocos2d-x/cocos2dx/platform/android/java/bin
 lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
 player/proj.win32/Debug/
+player/proj.win32/Release/
 lib/proj.win32/Debug/
-lib/cocos2dx_extra/proj.win32/Debug/
-lib/lua_extensions/proj.win32/Debug/
-lib/third_party/proj.win32/Debug/
+lib/proj.win32/Release/
 
 */*/proj.android/bin/
 */*/proj.android/gen/
@@ -29,6 +28,3 @@ lib/third_party/proj.win32/Debug/
 */*/proj.android/obj/
 */*/proj.android/assets/
 */*/proj.android/libs/
-*.tlog
-lib/pbc-master/Debug/pbc.lastbuildstate
-lib/pbc-master/Debug/vc110.idb

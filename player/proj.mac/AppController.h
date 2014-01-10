@@ -41,6 +41,7 @@ class AppControllerBridge;
     BOOL waitForRestart;
     BOOL isAlwaysOnTop;
     BOOL isMaximized;
+    BOOL isMinimized;
 
     AppDelegate *app;
     ProjectConfig projectConfig;
@@ -76,6 +77,7 @@ class AppControllerBridge;
 
 - (IBAction) onPlayerWriteDebugLogToFile:(id)sender;
 - (IBAction) onPlayerOpenDebugLog:(id)sender;
+- (IBAction) onPlayerAutoConnectDebugger:(id)sender;
 - (IBAction) onPlayerRelaunch:(id)sender;
 - (IBAction) onPlayerShowProjectSandbox:(id)sender;
 - (IBAction) onPlayerShowProjectFiles:(id)sender;

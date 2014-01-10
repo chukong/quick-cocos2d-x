@@ -43,12 +43,13 @@ EOT;
     echo <<<EOT
 
 compile mode:
-    -m zip (default)    package all scripts bytecode to a ZIP archive file.
-    -m files            save bytecode to separate files. -o specifies output dir.
+    -m zip (default)    package all scripts bytecodes to a ZIP archive file.
+    -m c                package all scripts bytecodes to a C source file.
+    -m files            save bytecodes to separate files. -o specifies output dir.
 
 encrypt mode:
     -e xxtea_zip        encrypt ZIP archive file with XXTEA algorithm,
-    -e xxtea_chunk      encrypt every bytecode chunk with XXTEA algorithm.
+    -e xxtea_chunk      encrypt every bytecodes chunk with XXTEA algorithm.
                         * default encrypt sign is "XXTEA"
                         * output file extension name is "bytes"
 
@@ -83,8 +84,11 @@ examples:
     # encrypt with XXTEA, specifies encrypted file extension name
     compile_scripts -i scripts -o game.zip -e xxtea_zip -ek MYKEY -ex lua
 
+    # encrypt with XXTEA, package all bytecodes to C source file
+    compile_scripts -i scripts -o game.c -m c -e xxtea_chunks -ek MYKEY
+
     # load options from config file
-    compile_scripts -c my_config.lua
+    compile_scripts -c my_proj_compile_config.php
 
 
 EOT;

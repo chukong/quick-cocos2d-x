@@ -70,10 +70,14 @@ typedef enum {
 } ccTouchesMode;
 
 #define kCCTouchIgnore              0
+
 #define kCCTouchBegan               1
+#define kCCTouchBeganSwallows       kCCTouchBegan
 #define kCCTouchBeganNoSwallows     2
-#define kCCTouchMoved               0
-#define kCCTouchMovedSwallows       1
+
+#define kCCTouchMoved               1
+#define kCCTouchMovedSwallows       kCCTouchMoved
+#define kCCTouchMovedNoSwallows     0
 #define kCCTouchMovedReleaseOthers  2
 
 class CCTouchScriptHandlerEntry;
