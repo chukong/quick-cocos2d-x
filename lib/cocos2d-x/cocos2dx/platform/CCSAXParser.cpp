@@ -26,6 +26,7 @@
 #include "cocoa/CCDictionary.h"
 #include "CCFileUtils.h"
 #include "support/tinyxml2/tinyxml2.h"
+#include "apptools/HelperFunc.h"
 
 #include <vector> // because its based on windows 8 build :P
 
@@ -116,7 +117,8 @@ bool CCSAXParser::parse(const char *pszFile)
 {
     bool bRet = false;
     unsigned long size = 0;
-    char* pBuffer = (char*)CCFileUtils::sharedFileUtils()->getFileData(pszFile, "rt", &size);
+    //char* pBuffer = (char*)CCFileUtils::sharedFileUtils()->getFileData(pszFile, "rt", &size);
+    char* pBuffer = (char*)CZHelperFunc::getFileData(pszFile, "rb", &size);
     if (pBuffer != NULL && size > 0)
     {
         bRet = parse(pBuffer, (unsigned int)size);

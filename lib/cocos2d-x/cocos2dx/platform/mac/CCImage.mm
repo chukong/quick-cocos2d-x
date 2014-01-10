@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <sys/stat.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "apptools/HelperFunc.h"
 
 typedef struct
 {
@@ -271,8 +272,13 @@ static bool _initWithFile(const char* path, tImageInfo *pImageinfo)
     
     // convert jpg to png before loading the texture
     
-    NSString *fullPath = [NSString stringWithUTF8String:path];
-    jpg = [[NSImage alloc] initWithContentsOfFile: fullPath];
+    //NSString *fullPath = [NSString stringWithUTF8String:path];
+	unsigned long fileSize = 0;
+	unsigned char* pFileData = cocos2d::CZHelperFunc::getFileData(path, "rb", &fileSize);
+    NSData *adata = [[NSData alloc] initWithBytes:pFileData length:fileSize];
+	delete []pFileData;
+    jpg = [[NSImage alloc] initWithData:adata];
+    //jpg = [[NSImage alloc] initWithContentsOfFile: fullPath];
     //png = [[NSImage alloc] initWithData:UIImagePNGRepresentation(jpg)];
     CGImageSourceRef source = CGImageSourceCreateWithData((CFDataRef)[jpg TIFFRepresentation], NULL);
     CGImage = CGImageSourceCreateImageAtIndex(source, 0, NULL);
@@ -611,7 +617,8 @@ bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = e
 //	return initWithImageData(tempData.getBuffer(), tempData.getSize(), eImgFmt);
 
 	unsigned long fileSize = 0;
-	unsigned char* pFileData = CCFileUtils::sharedFileUtils()->getFileData(strTemp.c_str(), "rb", &fileSize);
+	//unsigned char* pFileData = CCFileUtils::sharedFileUtils()->getFileData(strTemp.c_str(), "rb", &fileSize);
+	unsigned char* pFileData = CZHelperFunc::getFileData(strTemp.c_str(), "rb", &fileSize);
 	bool ret = initWithImageData(pFileData, (int)fileSize, eImgFmt);
 	delete []pFileData;
 	return ret;
@@ -624,7 +631,8 @@ bool CCImage::initWithImageFileThreadSafe(const char *fullpath, EImageFormat ima
      */
     bool bRet = false;
     unsigned long nSize = 0;
-    unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullpath, "rb", &nSize);
+    //unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullpath, "rb", &nSize);
+    unsigned char* pBuffer = CZHelperFunc::getFileData(fullpath, "rb", &nSize);
     if (pBuffer != NULL && nSize > 0)
     {
         bRet = initWithImageData(pBuffer, (int)nSize, imageType);

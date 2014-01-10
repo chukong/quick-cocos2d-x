@@ -322,6 +322,9 @@
     <Filter Include="cocos2d-x\scripting\lua\lua_extensions\debugger">
       <UniqueIdentifier>{dfd67a76-72f7-4a30-b37a-1c4d708168b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\external\extra\apptools">
+      <UniqueIdentifier>{185fd9ef-ae0c-471f-bd7d-2d68c03dbd1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -1211,6 +1214,12 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\scripting\lua\lua_extensions\debugger\debugger.c">
       <Filter>cocos2d-x\scripting\lua\lua_extensions\debugger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\extra\apptools\HelperFunc.cpp">
+      <Filter>cocos2d-x\external\extra\apptools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\extra\luabinding\CZHelperFunc_luabinding.cpp">
+      <Filter>cocos2d-x\external\extra\luabinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2413,6 +2422,15 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\scripting\lua\lua_extensions\debugger\debugger.h">
       <Filter>cocos2d-x\scripting\lua\lua_extensions\debugger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\extra\apptools\HelperFunc.h">
+      <Filter>cocos2d-x\external\extra\apptools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\extra\luabinding\CZHelperFunc_luabinding.h">
+      <Filter>cocos2d-x\external\extra\luabinding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\xxdefaultkey.h">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
