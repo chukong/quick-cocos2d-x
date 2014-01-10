@@ -9,6 +9,8 @@
 
 同时，在本范例中还使用了 cc.utils.ByteArray 和 cc.utils.ByteArrayVarint。
 
+要了解更多关于 cc.net.SocketTCP 和 cc.utils.ByteArray 的信息，请阅读 [一个LuaSocket封装][6] 和 [用lua实现ByteArray和ByteArrayVarint][7] .
+
 在本范例的 net 包中，有3个 lua 类：
 
 * [net.PacketBuffer][2]  
@@ -57,5 +59,7 @@
 [2]: scripts/net/PacketBuffer.lua
 [3]: scripts/net/Protocol.lua
 [4]: scripts/net/protocols.lua
+[6]: http://zengrong.net/post/1980.htm
+[7]: http://zengrong.net/post/1968.htm
 [10]: README.md
 [20]: README.cn.md

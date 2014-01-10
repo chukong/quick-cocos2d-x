@@ -1,8 +1,15 @@
+* [README in english][10]
+* [README in chinese][20]
+
 Author: [zrong][1]
 
-This is a luasocket sample. I encapsulate luasocket into SocketTCP class.
+This is a luasocket sample. I encapsulate luasocket into cc.net.SocketTCP class.
 
-This sample will show you how to use the SocketTCP.
+This sample will show you how to use the cc.net.SocketTCP.
+
+This sample also needs cc.utils.ByteArray and cc.utils.ByteArrayVarint.
+
+For more information about cc.net.SocketTCP and cc.utils.ByteArray, see [lua SocketTCP][6] and [ByteArray in lua][7] .
 
 There are 3 lua files in the net package:
 
@@ -52,3 +59,7 @@ There is a log file that run this sample. Of cause, you can implement a server a
 [2]: scripts/net/PacketBuffer.lua
 [3]: scripts/net/Protocol.lua
 [4]: scripts/net/protocols.lua
+[6]: http://zengrong.net/post/1980.htm
+[7]: http://zengrong.net/post/1968.htm
+[10]: README.md
+[20]: README.cn.md
