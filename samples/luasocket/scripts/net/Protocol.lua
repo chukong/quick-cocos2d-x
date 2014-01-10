@@ -1,8 +1,8 @@
 --[[
 The file defines all protocols.
-@author zrong
+@author zrong(zengrong.net)
 Creation: 2013-11-15
-Latest modification: 2013-11-20
+Latest modification: 2014-01-10
 
 All of the supported data types are following:
 
@@ -18,7 +18,7 @@ All of the supported data types are following:
     f : float					4bit
     d : double					8bit
 
-Certainly, a user of this api can only use RSrt.
+Certainly, a user of this api can only use RSr.
 ]]
 
 local _p = require("net.protocols")
@@ -45,7 +45,7 @@ local function _expandFmt(__fmt)
 		__index = __index + 1
 	end
     while __pos <= #__fmt do
-        local i,j = __fmt:find("[RSrt]+%d*", __pos)
+        local i,j = __fmt:find("[RSr]+%d*", __pos)
         if not i  then
 			__saveFmt(__fmt:sub(__pos, #__fmt), false)
             return __indicesArr, __fmtArr, __allExpendedFmtArr

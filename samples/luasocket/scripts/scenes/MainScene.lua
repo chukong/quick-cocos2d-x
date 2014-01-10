@@ -11,7 +11,7 @@ end)
 function MainScene:ctor()
 	echoInfo("socket.getTime:%f", cc.net.SocketTCP.getTime())
 	echoInfo("os.gettime:%f", os.time())
-	echoInfo("socket._VERSION: %s", SocketTCP._VERSION)
+	echoInfo("socket._VERSION: %s", cc.net.SocketTCP._VERSION)
 
 	local __luaSocketLabel = ui.newTTFLabelMenuItem({
 		text = "lua socket connect",
@@ -21,38 +21,17 @@ function MainScene:ctor()
 		listener = handler(self, self.onLuaSocketConnectClicked),
 	})
 
-	local __luaSocket1201Label = ui.newTTFLabelMenuItem({
-		text = "lua socket send 1201",
+	local __luaSocket1000Label = ui.newTTFLabelMenuItem({
+		text = "lua socket send 1000",
 		size = 32,
 		x = display.cx,
 		y = display.top - 64,
 		listener = handler(self, function() self:send2Socket(1201, {8000, 1,1}) end)
 	})
 
-	local __luaSocket1202Label = ui.newTTFLabelMenuItem({
-		text = "lua socket send 1202",
-		size = 32,
-		x = display.cx,
-		y = display.top - 96,
-		listener = handler(self, function() self:send2Socket(1202, {0}) end)
-	})
-
-	local __luaSocket1203Label = ui.newTTFLabelMenuItem({
-		text = "lua socket send 1203",
-		size = 32,
-		x = display.cx,
-		y = display.top - 128,
-		listener = handler(self, function() self:send2Socket(1203, {-1375731712}) end)
-	})
-
-    self:addChild(ui.newMenu({__luaSocketLabel, __luaSocket1201Label, __luaSocket1202Label, __luaSocket1203Label}))
+    self:addChild(ui.newMenu({__luaSocketLabel, __luaSocket1000Label}))
 
 	self._buf = PacketBuffer.new()
-
-	self:test()
-end
-
-function MainScene:test()
 end
 
 function MainScene:onStatus(__event)
@@ -67,35 +46,25 @@ function MainScene:send2Socket(__method, __msg)
 end
 
 function MainScene:onData(__event)
-	print("socket receive raw data:", ByteArray.toString(__event.data, 16))
+	print("socket receive raw data:", cc.utils.ByteArray.toString(__event.data, 16))
 	local __msgs = self._buf:parsePackets(__event.data)
 	local __msg = nil
 	for i=1,#__msgs do
 		__msg = __msgs[i]
-		print("msg", i, "ver:", __msg.ver, "method:", __msg.method, "body:", unpack(__msg.body))
-		if __msg.method == 2202 then
-			for i=1,__msg.body[2].len do
-				print(unpack(__msg.body[2].data[i]))
-			end
-		end
+		dump(__msg)
 	end
 end
 
 function MainScene:onLuaSocketConnectClicked()
 	if not self._socket then
-		self._socket = SocketTCP.new("192.168.18.88", 30005, false)
-		self._socket:addEventListener(SocketTCP.EVENT_CONNECTED, handler(self, self.onStatus))
-		self._socket:addEventListener(SocketTCP.EVENT_CLOSE, handler(self,self.onStatus))
-		self._socket:addEventListener(SocketTCP.EVENT_CLOSED, handler(self,self.onStatus))
-		self._socket:addEventListener(SocketTCP.EVENT_CONNECT_FAILURE, handler(self,self.onStatus))
-		self._socket:addEventListener(SocketTCP.EVENT_DATA, handler(self,self.onData))
+		self._socket = cc.net.SocketTCP.new("192.168.18.18", 13000, false)
+		self._socket:addEventListener(cc.net.SocketTCP.EVENT_CONNECTED, handler(self, self.onStatus))
+		self._socket:addEventListener(cc.net.SocketTCP.EVENT_CLOSE, handler(self,self.onStatus))
+		self._socket:addEventListener(cc.net.SocketTCP.EVENT_CLOSED, handler(self,self.onStatus))
+		self._socket:addEventListener(cc.net.SocketTCP.EVENT_CONNECT_FAILURE, handler(self,self.onStatus))
+		self._socket:addEventListener(cc.net.SocketTCP.EVENT_DATA, handler(self,self.onData))
 	end
 	self._socket:connect()
-end
-
-function MainScene:onSend1101()
-	if not self._socket then return end
-	self:send2Socket(1202, {0})
 end
 
 return MainScene

@@ -8,10 +8,8 @@ Creation: 2013-11-14
 
 local PacketBuffer = class("PacketBuffer")
 local Protocol = require("net.Protocol")
-local ByteArrayVarint = require("utils.ByteArrayVarint")
-require("bit")
 
-PacketBuffer.ENDIAN = ByteArrayVarint.ENDIAN_LITTLE
+PacketBuffer.ENDIAN = cc.utils.ByteArrayVarint.ENDIAN_LITTLE
 
 PacketBuffer.MASK1 = 0x86
 PacketBuffer.MASK2 = 0x7b
@@ -40,7 +38,7 @@ local function _getDataTypeValue(__type)
 	for __k, __v in pairs(_DATA_TYPE) do
 		if __v == __type then return __k end
 	end
-	error(__type .. " is a unavailable type value! You can only use a type value in 0123.")
+	error(__type .. " is a unavailable type value! You can only use a type value in 012.")
 	return nil
 end
 
@@ -123,7 +121,7 @@ function PacketBuffer._parseBody(__buf, __meta, __fmt, __keys)
 end
 
 function PacketBuffer.getBaseBA()
-	return ByteArrayVarint.new(PacketBuffer.ENDIAN)
+	return cc.utils.ByteArrayVarint.new(PacketBuffer.ENDIAN)
 end
 
 --- Create a formated packet that to send server
@@ -136,7 +134,7 @@ function PacketBuffer.createPacket(__msgDef, __msgBodyTable)
 	--print("metaBA:", __metaBA:getLen())
 	--print("bodyBA:", __bodyBA:getLen())
 	local __bodyLen = PacketBuffer.METHOD_LEN + PacketBuffer.VER_LEN + __metaBA:getLen() + __bodyBA:getLen()
-	-- write 2 flags and message type, for clent, is always 0
+	-- write 2 flags and message type, for client, is always 0
 	__buf:rawPack(
 		"b3ihb", 
 		PacketBuffer.MASK1, 
