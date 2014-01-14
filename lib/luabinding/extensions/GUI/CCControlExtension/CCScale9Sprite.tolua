@@ -180,6 +180,12 @@ class CCScale9Sprite : public CCNode
 	ccColor3B getColor();
 
     void setSpriteFrame(CCSpriteFrame * spriteFrame);
+
+    void setBlendFunc(ccBlendFunc blendFunc);
+    /**
+     * @js NA
+     */
+    ccBlendFunc getBlendFunc(void);
 };
 
 // end of GUI group
