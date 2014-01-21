@@ -327,11 +327,11 @@ function display.newTilesSprite(filename, rect)
     return sprite
 end
 
---- create a tiled CCSpriteBatchNode
+--- create a tiled CCSpriteBatchNode, the image can not a POT file.
 -- @param __fileName the first parameter for display.newSprite
 -- @param __texture texture(plist) image filename, __fileName must be a part of the texture.
 -- @param __size the tiled node size, use cc.size create it please.
--- @param __hPadding horizontal padding, it will display 1 px gap on moveing the node, set padding for fix it.
+-- @param __hPadding horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
 -- @param __vPadding vertical padding.
 -- @return a CCSpriteBatchNode
 function display.newTiledBatchNode(__fileName, __texture, __size, __hPadding, __vPadding)
