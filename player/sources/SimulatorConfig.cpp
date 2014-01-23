@@ -18,7 +18,7 @@ void ProjectConfig::resetToWelcome(void)
     setScriptFile("$PROJDIR/scripts/main.lua");
     setFrameSize(CCSize(960, 640));
     setFrameScale(1.0f);
-    setLoadPrecompiledFramework(true);
+    setLoadPrecompiledFramework(false);
     setPackagePath("");
     setShowConsole(false);
     setWindowOffset(CCPointZero);
