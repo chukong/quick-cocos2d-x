@@ -9,15 +9,16 @@
 void ProjectConfig::resetToWelcome(void)
 {
 	m_isWelcome = true;
-    string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
-    path.append("player/welcome");
+    //string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+    //path.append("player/welcome");
+	string path = "d:/works/yhq/projects/lulala";
     SimulatorConfig::makeNormalizePath(&path);
     setProjectDir(path);
     setWritablePath(path);
     setScriptFile("$PROJDIR/scripts/main.lua");
     setFrameSize(CCSize(960, 640));
     setFrameScale(1.0f);
-    setLoadPrecompiledFramework(true);
+    setLoadPrecompiledFramework(false);
     setPackagePath("");
     setShowConsole(false);
     setWindowOffset(CCPointZero);
