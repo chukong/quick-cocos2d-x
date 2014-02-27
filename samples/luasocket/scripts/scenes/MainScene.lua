@@ -26,7 +26,7 @@ function MainScene:ctor()
 		size = 32,
 		x = display.cx,
 		y = display.top - 64,
-		listener = handler(self, function() self:send2Socket(1201, {8000, 1,1}) end)
+		listener = handler(self, function() self:send2Socket(1000, {8000, 1,1}) end)
 	})
 
     self:addChild(ui.newMenu({__luaSocketLabel, __luaSocket1000Label}))
