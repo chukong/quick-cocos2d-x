@@ -20,8 +20,9 @@ for _, packageName in ipairs(components) do
     cc.Registry.add(import("." .. packageName, CURRENT_MODULE_NAME), packageName)
 end
 
--- init MVC
+-- load MVC
 cc.mvc = import(".mvc.init")
 
--- init UI library
+-- load more library
 cc.ui = import(".ui.init")
+cc.ad = import(".ad.init")
