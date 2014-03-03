@@ -21,11 +21,11 @@ public class AdHandler implements AdListener {
     private String adType;
     private String adId;
     private String adPosition;
-    
+
     private AdView bannerAd;
     private InterstitialAd interstitialAd;
     private MoreGameAd moreGameAd;
-    
+
     public AdHandler(AdListener listener_, Cocos2dxActivity context_, String adType_, String adId_, String adPosition_) {
         listener = listener_;
         context = context_;
@@ -33,7 +33,7 @@ public class AdHandler implements AdListener {
         adId = adId_;
         adPosition = adPosition_;
     }
-    
+
     public void show() {
         if (adType.compareToIgnoreCase("banner") == 0) {
             showBannerAd(adId, adPosition);
@@ -45,16 +45,15 @@ public class AdHandler implements AdListener {
             Log.d("PunchBoxAd", "invalid ad type");
         }
     }
-    
+
     public void remove() {
         removeBannerAd();
         removeInterstitialAd();
         removeMoreGameAd();
     }
-    
 
     // banner ad
-    
+
     private void showBannerAd(final String adId, final String adPosition) {
         removeBannerAd();
         if (adId.length() > 0) {
@@ -62,45 +61,46 @@ public class AdHandler implements AdListener {
         } else {
             bannerAd = new AdView(context);
         }
-        
+
         if (adPosition.compareToIgnoreCase("bottom") == 0) {
-        	RelativeLayout relativeLayout = new RelativeLayout(context);
-        	RelativeLayout.LayoutParams relativeParams = new
-        	RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT,
-        	LayoutParams.WRAP_CONTENT);
-        	relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            context.addContentView(relativeLayout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            RelativeLayout relativeLayout = new RelativeLayout(context);
+            RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT);
+            relativeParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            context.addContentView(relativeLayout, new LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.MATCH_PARENT));
             relativeLayout.addView(bannerAd, relativeParams);
         } else {
             LinearLayout bannerAdLayout = new LinearLayout(context);
             bannerAdLayout.setOrientation(LinearLayout.VERTICAL);
-            context.addContentView(bannerAdLayout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            context.addContentView(bannerAdLayout, new LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.MATCH_PARENT));
             bannerAdLayout.addView(bannerAd);
         }
-        
+
         bannerAd.setAdListener(this);
         bannerAd.loadAd(new AdRequest());
     }
-    
+
     private void removeBannerAd() {
         if (bannerAd != null) {
             bannerAd.setAdListener(null);
-            ViewGroup bannerAdParent = (ViewGroup)bannerAd.getParent();
-            ViewGroup group = (ViewGroup)bannerAdParent.getParent();
+            ViewGroup bannerAdParent = (ViewGroup) bannerAd.getParent();
+            ViewGroup group = (ViewGroup) bannerAdParent.getParent();
             group.removeView(bannerAdParent);
             bannerAd = null;
         }
     }
-    
+
     // interstitial ad
-    
+
     private void showInterstitialAd(final String adId) {
         removeInterstitialAd();
         interstitialAd = new InterstitialAd(context);
         interstitialAd.setAdListener(this);
         interstitialAd.loadAd(new AdRequest());
     }
-    
+
     private void removeInterstitialAd() {
         if (interstitialAd != null) {
             interstitialAd.setAdListener(null);
@@ -108,16 +108,16 @@ public class AdHandler implements AdListener {
             interstitialAd = null;
         }
     }
-    
+
     // more game ad
-    
+
     private void showMoreGameAd(final String adId) {
         removeMoreGameAd();
         moreGameAd = new MoreGameAd(context);
         moreGameAd.setAdListener(this);
         moreGameAd.loadAd(new AdRequest());
     }
-    
+
     private void removeMoreGameAd() {
         if (moreGameAd != null) {
             moreGameAd.setAdListener(null);
@@ -126,9 +126,8 @@ public class AdHandler implements AdListener {
         }
     }
 
-    
     // listener
-    
+
     @Override
     public void onReceiveAd() {
         Log.d("PunchBoxAd", "AdHandler.onReceiveAd");
@@ -151,9 +150,9 @@ public class AdHandler implements AdListener {
     @Override
     public void onDismissScreen() {
         Log.d("PunchBoxAd", "AdHandler.onDismissScreen");
-        if (adType.compareToIgnoreCase("banner") != 0) { 
-        	remove();
-        	listener.onDismissScreen();
+        if (adType.compareToIgnoreCase("banner") != 0) {
+            remove();
+            listener.onDismissScreen();
         }
     }
 
