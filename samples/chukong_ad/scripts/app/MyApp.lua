@@ -15,7 +15,7 @@ function MyApp:run()
 
     -- init ad
     if device.platform == "ios" or device.platform == "android" then
-        cc.ad.start("ad.PunchBox")
+        cc.ad:start({}, "ad.PunchBox")
     end
 
     -- open scene

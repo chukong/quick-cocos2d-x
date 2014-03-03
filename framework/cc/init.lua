@@ -25,4 +25,6 @@ cc.mvc = import(".mvc.init")
 
 -- load more library
 cc.ui = import(".ui.init")
-cc.ad = import(".ad.init")
+
+-- load extensions
+cc.ad = import(".ad.init").new()

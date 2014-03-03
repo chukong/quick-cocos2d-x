@@ -11,46 +11,61 @@ for _, packageName in ipairs(providers) do
     end
 end
 
-local ad = {}
-cc.GameObject.extend(ad):addComponent("components.behavior.EventProtocol")
-
-ad.RECEIVED_EVENT          = "RECEIVED_EVENT"
-ad.PRESENTED_EVENT         = "PRESENTED_EVENT"
-ad.DISMISSED_EVENT         = "DISMISSED_EVENT"
-ad.CLICKED_EVENT           = "CLICKED_EVENT"
-ad.FAILED_TO_RECEIVE_EVENT = "FAILED_TO_RECEIVE_EVENT"
+local ad = class("cc.ad")
 
 local DEFAULT_PROVIDER_OBJECT_NAME = "ad.default"
 
---[[--
+function ad:ctor()
+    cc.GameObject.extend(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+    self.events = import(".events", CURRENT_MODULE_NAME)
+    self.errors = import(".errors", CURRENT_MODULE_NAME)
+    self.providers_ = {}
+end
 
-启动一个广告服务，返回广告服务对象。
-
-首次启动的广告服务对象将成为默认广告服务，可以通过 ad.show() 方法直接调用。
-
-]]
-function ad.start(name, options)
-    if not cc.Registry.isObjectExists(name) then
+function ad:start(options, name)
+    if not self.providers_[name] then
         local providerFactoryClass = cc.Registry.newObject(name)
-        local provider = providerFactoryClass.start(ad, options)
-        cc.Registry.setObject(provider, name)
-        if not cc.Registry.isObjectExists(DEFAULT_PROVIDER_OBJECT_NAME) then
-            cc.Registry.setObject(provider, DEFAULT_PROVIDER_OBJECT_NAME)
+        local provider = providerFactoryClass.getInstance(self, options)
+        if not provider then
+            echoError("cc.ad:start() - create ad provider failed")
+            return
+        end
+
+        self.providers_[name] = provider
+        if not self.providers_[DEFAULT_PROVIDER_OBJECT_NAME] then
+            self.providers_[DEFAULT_PROVIDER_OBJECT_NAME] = provider
         end
     end
-    return cc.Registry.getObject(name)
 end
 
-function ad.show(command, options, name)
+function ad:getProvider(name)
     name = name or DEFAULT_PROVIDER_OBJECT_NAME
-    local provider = cc.Registry.getObject(name)
-    provider:show(command, options)
+    if self.providers_[name] then
+        return self.providers_[name]
+    end
+    echoError("cc.ad:getProvider() - provider %s not exists", name)
 end
 
-function ad.remove(command, name)
-    name = name or DEFAULT_PROVIDER_OBJECT_NAME
-    local provider = cc.Registry.getObject(name)
-    provider:remove(command, name)
+function ad:stop(name)
+    local provider = self:getProvider(name)
+    if provider then
+        provider:stop()
+        self.providers_[name or DEFAULT_PROVIDER_OBJECT_NAME] = nil
+    end
+end
+
+function ad:show(command, options, name)
+    local provider = self:getProvider(name)
+    if provider then
+        provider:show(command, options)
+    end
+end
+
+function ad:remove(name)
+    local provider = self:getProvider(name)
+    if provider then
+        provider:remove()
+    end
 end
 
 return ad

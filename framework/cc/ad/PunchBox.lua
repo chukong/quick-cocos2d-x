@@ -1,24 +1,23 @@
 
 local CURRENT_MODULE_NAME = ...
 
-local PunchBox = class("PunchBox")
+local Factory = class("Factory")
 
-function PunchBox.start(interface, options)
-    -- assert(type(options) == "table", "PunchBox.start() - invalid options")
-    -- assert(type(options.appId) == "string", "PunchBox.start() - invalid options, miss appId")
+function Factory.getInstance(interface, options)
     local providerClass
     if device.platform == "ios" then
-        providerClass = import(".PunchBox_iOS", CURRENT_MODULE_NAME)
+        providerClass = import(".punchbox.ProviderIOS", CURRENT_MODULE_NAME)
     elseif device.platform == "android" then
-        providerClass = import(".PunchBox_Android", CURRENT_MODULE_NAME)
+        providerClass = import(".punchbox.ProviderAndroid", CURRENT_MODULE_NAME)
     else
         echoError("ad.PunchBox:ctor() - not supported platform %s", device.platform)
         return
     end
 
-    local provider = providerClass.new()
-    provider:start(interface, options)
-    return provider
+    local provider = providerClass.new(interface, options)
+    if provider:start() then return provider end
+
+    return nil -- create provider failed
 end
 
-return PunchBox
+return Factory

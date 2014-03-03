@@ -28,6 +28,13 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
+#import "PunchBoxAd.h"
+#import "PBBannerView.h"
+#import "PBADRequest.h"
+
+#define PunchBoxAd_AppId @"100080-71D84C-71E7-3DA8-09E3F3BED0FA"
+
+
 @implementation AppController
 
 #pragma mark -
@@ -64,6 +71,16 @@ static AppDelegate s_sharedApplication;
     [window setRootViewController:viewController];
     [window makeKeyAndVisible];
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
+    
+    
+    // init SDK
+    [PunchBoxAd startSession:PunchBoxAd_AppId];
+    CGRect frameBanner = CGRectMake(0.0f, 0.0f, 320.0f, 50.0f);
+    PBBannerView *bannerView = [[PBBannerView alloc] initWithFrame:frameBanner];
+    [bannerView loadRequest:[PBADRequest request]];
+    [window addSubview:bannerView];
+    
+    
     cocos2d::CCApplication::sharedApplication()->run();
 
     return YES;
