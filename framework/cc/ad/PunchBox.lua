@@ -1,17 +1,22 @@
 
 local CURRENT_MODULE_NAME = ...
 
-local Factory = class("Factory")
+local PunchBox = class("PunchBox")
 
-function Factory.getInstance(interface, options)
+function PunchBox.getInstance(interface, options)
+    if type(options) ~= "table" or type(options.appId) ~= "string" then
+        echoError("ad.PunchBox.getInstance() - invalid options, miss appId")
+        return nil
+    end
+
     local providerClass
     if device.platform == "ios" then
         providerClass = import(".punchbox.ProviderIOS", CURRENT_MODULE_NAME)
     elseif device.platform == "android" then
         providerClass = import(".punchbox.ProviderAndroid", CURRENT_MODULE_NAME)
     else
-        echoError("ad.PunchBox:ctor() - not supported platform %s", device.platform)
-        return
+        echoError("ad.PunchBox.getInstance() - not supported platform %s", device.platform)
+        return nil
     end
 
     local provider = providerClass.new(interface, options)
@@ -20,4 +25,4 @@ function Factory.getInstance(interface, options)
     return nil -- create provider failed
 end
 
-return Factory
+return PunchBox

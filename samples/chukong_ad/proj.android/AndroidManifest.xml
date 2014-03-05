@@ -42,8 +42,6 @@
             </intent-filter>
         </service>
 
-        <meta-data android:name="chukong_publisherid"
-            android:value="100080-71D84C-71E7-3DA8-09E3F3BED0FA" />
     </application>
 
 </manifest>

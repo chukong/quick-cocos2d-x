@@ -18,6 +18,7 @@ import com.punchbox.listener.AdListener;
 public class AdHandler implements AdListener {
     private AdListener listener;
     private Cocos2dxActivity context;
+    private String appId;
     private String adType;
     private String adId;
     private String adPosition;
@@ -26,9 +27,10 @@ public class AdHandler implements AdListener {
     private InterstitialAd interstitialAd;
     private MoreGameAd moreGameAd;
 
-    public AdHandler(AdListener listener_, Cocos2dxActivity context_, String adType_, String adId_, String adPosition_) {
+    public AdHandler(AdListener listener_, Cocos2dxActivity context_, String appId_, String adType_, String adId_, String adPosition_) {
         listener = listener_;
         context = context_;
+        appId = appId_;
         adType = adType_;
         adId = adId_;
         adPosition = adPosition_;
@@ -61,6 +63,7 @@ public class AdHandler implements AdListener {
         } else {
             bannerAd = new AdView(context);
         }
+        bannerAd.setPublisherId(appId);
 
         if (adPosition.compareToIgnoreCase("bottom") == 0) {
             RelativeLayout relativeLayout = new RelativeLayout(context);
@@ -97,6 +100,7 @@ public class AdHandler implements AdListener {
     private void showInterstitialAd(final String adId) {
         removeInterstitialAd();
         interstitialAd = new InterstitialAd(context);
+        interstitialAd.setPublisherId(appId);
         interstitialAd.setAdListener(this);
         interstitialAd.loadAd(new AdRequest());
     }
@@ -114,6 +118,7 @@ public class AdHandler implements AdListener {
     private void showMoreGameAd(final String adId) {
         removeMoreGameAd();
         moreGameAd = new MoreGameAd(context);
+        moreGameAd.setPublisherId(appId);
         moreGameAd.setAdListener(this);
         moreGameAd.loadAd(new AdRequest());
     }

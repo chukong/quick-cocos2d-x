@@ -11,6 +11,7 @@ import com.punchbox.listener.AdListener;
 public class PunchBoxSDK implements AdListener {
     private static PunchBoxSDK instance;
     private static Cocos2dxActivity context;
+    private static String appId;
     private static int listener;
     private static AdHandler adHandler;
 
@@ -26,8 +27,9 @@ public class PunchBoxSDK implements AdListener {
 
     // public interface
 
-    public static void start() {
+    public static void start(String appId_) {
         context = (Cocos2dxActivity) Cocos2dxActivity.getContext();
+        appId = appId_;
         Log.d("PunchBoxAd", "start()");
     }
 
@@ -45,7 +47,7 @@ public class PunchBoxSDK implements AdListener {
         context.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adHandler = new AdHandler(getInstance(), context, adType, adId, adPosition);
+                adHandler = new AdHandler(getInstance(), context, appId, adType, adId, adPosition);
                 adHandler.show();
             }
         });
