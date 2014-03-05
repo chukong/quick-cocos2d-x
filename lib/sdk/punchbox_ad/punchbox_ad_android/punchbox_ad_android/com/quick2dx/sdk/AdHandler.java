@@ -92,6 +92,7 @@ public class AdHandler implements AdListener {
             ViewGroup group = (ViewGroup) bannerAdParent.getParent();
             group.removeView(bannerAdParent);
             bannerAd = null;
+            listener.onDismissScreen();
         }
     }
 
