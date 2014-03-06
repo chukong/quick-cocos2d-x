@@ -1,4 +1,3 @@
-
 local ModelBase = class("ModelBase")
 ModelBase.idkey = "id"
 ModelBase.schema = {
@@ -46,7 +45,11 @@ function ModelBase:setProperties(properties)
             assert(type(val) == typ, string.format("%s:setProperties() - type mismatch, %s expected %s, actual is %s", self.class.__cname, field, typ, type(val)))
             self[propname] = val
         elseif self[propname] == nil and def ~= nil then
-            self[propname] = def
+            if type(def) == "table" then 
+                self[propname] = clone(def) 
+            else
+                self[propname] = def
+            end
         end
     end
 
