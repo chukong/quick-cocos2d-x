@@ -46,10 +46,13 @@ function ModelBase:setProperties(properties)
             self[propname] = val
         elseif self[propname] == nil and def ~= nil then
             if type(def) == "table" then 
-                self[propname] = clone(def) 
+                val = clone(def) 
+            elseif type(def) == "function" then 
+                val = def()
             else
-                self[propname] = def
+                val = def
             end
+            self[propname] = val
         end
     end
 
