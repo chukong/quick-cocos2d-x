@@ -5,29 +5,21 @@
 #include "SimulatorConfig.h"
 
 #define RESTART_ARGS "restart_args"
+#define APP_EXIT_CODE 'q'
+#define ENV_KEY_QUICK_ROOT_PATH "QUICK_COCOS2DX_ROOT"
 
-class NodeTreeView;
-class NodeTreeModel;
-namespace Ui {
-class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class MainMenu : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit MainMenu(QWidget *renderWidget, QObject *parent = 0);
+    ~MainMenu();
 
-    void setRenderWidget(QWidget *w);
     void setProjectConfig(const ProjectConfig& config);
 
 protected:
-    // ui
-    void showEvent(QShowEvent *);
     void initUI();
-    void buildObjectTree();
 
     // engine
     void restart();
@@ -48,16 +40,14 @@ private Q_SLOTS:
 
     void on_actionConfig_triggered();
 
-    void on_actionUpdateObject_triggered();
-
 private:
-    Ui::MainWindow *ui;
-    QString m_projectConfigFileName;
+    QString         m_projectConfigFileName;
+    ProjectConfig   m_projectConfig;
+    QWidget         *m_renderWidget;
 
-    ProjectConfig m_projectConfig;
-    NodeTreeView *m_objectTreeView;
-    NodeTreeModel *m_objectTreeModel;
-
+    QMenu           *m_viewMenu;
+    QAction         *m_landscapeAction, *m_portraitAction;
+    QTextBrowser    *m_textBrowser;
 };
 
 #endif // MAINWINDOW_H

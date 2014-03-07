@@ -14,30 +14,27 @@ TEMPLATE = app
 
 include(../../lib/proj.qt/quick-x-common.pri)
 
+macx {
+    CONFIG -= app_bundle
+}
+
 INCLUDEPATH += ../sources
 
 LIBS += $${LINK_AGAINST_COCOS2DX}
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     aboutui.cpp \
     projectconfigui.cpp \
-    nodetreeview.cpp \
-    nodetreemodel.cpp \
-    mydatavisitor.cpp \
-    mydatapriter.cpp
+    mainmenu.cpp
 
 SOURCES += ../sources/*.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     aboutui.h \
     projectconfigui.h \
-    nodetreeview.h \
-    nodetreemodel.h \
-    mydatavisitor.h \
-    mydatapriter.h
+    mainmenu.h
 
-FORMS    += mainwindow.ui \
+FORMS    += \
     aboutui.ui \
     projectconfigui.ui
 

@@ -37,7 +37,8 @@ macx {
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/mac/lib/ -lwebsockets
 
     CONFIG += objective_c
-    COCOS2DX_SYSTEM_LIBS += -framework Foundation -framework AppKit -framework SystemConfiguration  -framework CoreFoundation -framework StoreKit
+    COCOS2DX_SYSTEM_LIBS += -framework Foundation -framework AppKit -framework SystemConfiguration  \
+                            -framework CoreFoundation -framework StoreKit
 
     LINK_AGANST_LUA_COCOS2D += -pagezero_size 10000 -image_base 100000000
 }

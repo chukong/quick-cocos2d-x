@@ -360,8 +360,8 @@ bool CCEGLView::Create()
     do
     {
         // Qt Window
-        float iWidth = 320;
-        float iHeight = 480;
+        float iWidth = 960;
+        float iHeight = 640;
 #if 0
         m_glParentWidget = new QWidget();
         m_window = new GLWidget(iWidth, iHeight, m_glParentWidget);
