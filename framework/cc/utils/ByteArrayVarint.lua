@@ -58,7 +58,7 @@ function ByteArrayVarint:_zigZagEncode(__value)
 end
 
 function ByteArrayVarint:_zigZagDecode(__value)
-	if not bit.band(__value, 0x1) then return bit.rshift(__value, 1) end
+	if bit.band(__value, 0x1) == 0 then return bit.rshift(__value, 1) end
 	return bit.bxor(bit.rshift(__value, 1), bit.bnot(0))
 end
 
