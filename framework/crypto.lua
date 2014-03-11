@@ -30,4 +30,8 @@ function crypto.md5(input, isRawOutput)
     return CCCrypto:MD5(input, isRawOutput)
 end
 
+function crypto.md5file(path)
+    return CCCrypto:MD5File(path)
+end
+
 return crypto
