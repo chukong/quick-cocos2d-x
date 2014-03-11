@@ -82,7 +82,7 @@ public class PunchBoxSDK implements AdListener {
         }
     }
 
-    // listener
+    // AdHandler callback
 
     @Override
     public void onReceiveAd() {
