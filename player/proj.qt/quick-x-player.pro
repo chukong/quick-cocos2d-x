@@ -18,7 +18,7 @@ macx {
     CONFIG -= app_bundle
 }
 
-INCLUDEPATH += ../sources
+INCLUDEPATH += ../sources .
 
 LIBS += $${LINK_AGAINST_COCOS2DX}
 
