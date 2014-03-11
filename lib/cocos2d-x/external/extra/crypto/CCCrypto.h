@@ -128,6 +128,8 @@ public:
     /** @brief Calculate MD5, return MD5 string */
     static LUA_STRING MD5Lua(char* input, bool isRawOutput);
 
+    static LUA_STRING MD5FileLua(const char* path);
+
 #endif /* CC_LUA_ENGINE_ENABLED */
     
 #pragma mark -
