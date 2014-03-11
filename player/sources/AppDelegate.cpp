@@ -5,6 +5,9 @@
 #include "support/CCNotificationCenter.h"
 #include "CCLuaEngine.h"
 #include <string>
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+#include "mainmenu.h"
+#endif
 
 using namespace std;
 using namespace cocos2d;
@@ -29,6 +32,8 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
+    struct timeval start, end;
+    ::gettimeofday( &start, NULL );
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
@@ -39,6 +44,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // register lua engine
     CCScriptEngineManager::sharedManager()->setScriptEngine(CCLuaEngine::defaultEngine());
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+    // regist my own lua
+    MainMenu::registerAllCpp();
+#endif
 
     StartupCall *call = StartupCall::create(this);
     if (m_projectConfig.getDebuggerType() != kCCLuaDebuggerNone)
@@ -55,6 +64,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     {
         call->startup();
     }
+
+    ::gettimeofday( &end, NULL );
+    long timeuse = 1000000 * ( end.tv_sec - start.tv_sec ) + end.tv_usec - start.tv_usec;
+    CCLog("time: %ld us (%.2f ms) (%.2f s)\n", timeuse, timeuse/1000.0f, timeuse/1000.0/1000.0f);
 
     return true;
 }

@@ -146,3 +146,9 @@ void ProjectConfigUI::on_logToFile_clicked(bool checked)
     m_projectConfig.setWriteDebugLogToFile(checked);
     setDataForUI(m_projectConfig);
 }
+
+void ProjectConfigUI::on_showDebugConsole_clicked(bool checked)
+{
+    m_projectConfig.setShowConsole(checked);
+    setDataForUI(m_projectConfig);
+}

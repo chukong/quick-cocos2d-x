@@ -44,4 +44,6 @@ THE SOFTWARE.
 #define MAX(x,y) (((x) < (y)) ? (y) : (x))
 #endif  // MAX
 
+#define HASH_CODE(x) x.hash_code()
+
 #endif  // __CC_STD_C_H__

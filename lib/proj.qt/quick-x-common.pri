@@ -6,6 +6,7 @@ DEFINES += CC_LUA_ENGINE_ENABLED=1
 CONFIG += no_keywords QT
 QT += core gui opengl multimedia
 
+DEFINES += USING_GLEW
 ROOT=$${PWD}/../../
 CC_ROOT=$${ROOT}/lib/cocos2d-x/
 

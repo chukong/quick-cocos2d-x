@@ -36,6 +36,8 @@ private Q_SLOTS:
 
     void on_logToFile_clicked(bool checked);
 
+    void on_showDebugConsole_clicked(bool checked);
+
 private:
     Ui::ProjectConfigUI *ui;
     ProjectConfig m_projectConfig;

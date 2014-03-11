@@ -298,8 +298,7 @@ SimpleAudioEngine::setEffectsVolume(float volume)
 @bLoop Whether to loop the effect playing, default value is false
 */
 unsigned int
-SimpleAudioEngine::playEffect(const char* pszFilePath, bool bLoop,
-                             float pitch, float pan, float gain)
+SimpleAudioEngine::playEffect(const char* pszFilePath, bool bLoop)
 {
     // TODO: Handle pitch, pan and gain
 

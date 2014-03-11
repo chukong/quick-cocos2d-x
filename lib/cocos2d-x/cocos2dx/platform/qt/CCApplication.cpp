@@ -29,7 +29,7 @@ class Cocos2DQt5MainloopIntegration : public QObject {
     protected:
         virtual void timerEvent(QTimerEvent */*event*/)
         {
-            cocos2d::CCDirector::sharedDirector()->mainLoop();
+//            cocos2d::CCDirector::sharedDirector()->mainLoop();
         }
 
     private:
@@ -70,13 +70,13 @@ CCApplication::~CCApplication()
 
 int CCApplication::run()
 {
-    // Initialize instance and cocos2d.
-    if (! applicationDidFinishLaunching())
-    {
-        return 0;
-    }
+//    // Initialize instance and cocos2d.
+//    if (! applicationDidFinishLaunching())
+//    {
+//        return 0;
+//    }
 
-    m_mainloop->setInterval(m_nAnimationInterval);
+//    m_mainloop->setInterval(m_nAnimationInterval);
 
     return m_application->exec();
 }
@@ -85,6 +85,8 @@ void CCApplication::setAnimationInterval(double interval)
 {
     m_nAnimationInterval = interval * 1000.0f;
     m_mainloop->setInterval(m_nAnimationInterval);
+
+    CCEGLView::sharedOpenGLView()->setInterval(m_nAnimationInterval);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -113,7 +115,13 @@ cocos2d::ccLanguageType CCApplication::getCurrentLanguage()
 
 cocos2d::TargetPlatform CCApplication::getTargetPlatform()
 {
-    return cocos2d::kTargetWindows;
+    cocos2d::TargetPlatform platform = cocos2d::kTargetWindows;
+#if defined(Q_OS_MAC) || defined(Q_OS_OSX)
+    platform = cocos2d::kTargetMacOS;
+#elif defined(Q_OS_UNIX)
+    platform = cocos2d::kTargetLinux;
+#endif
+    return platform;
 }
 
 void CCApplication::setStartupScriptFilename(const std::string& startupScriptFile)

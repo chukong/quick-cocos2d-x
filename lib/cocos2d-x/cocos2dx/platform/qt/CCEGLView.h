@@ -66,10 +66,11 @@ public:
     void mouseRelease(QMouseEvent *event);
     void setAccelerometerKeyHook(MyAccelerometerDelegate accelerometerDelegate);
     QWidget * getGLWidget();
+    QWindow * getGLWindow();
+    void setInterval(int interval_ms);
 
 private:
     virtual bool Create();
-    bool initGL();
     void destroyGL();
 public:
 

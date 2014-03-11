@@ -5,9 +5,9 @@
 #-------------------------------------------------
 cache()
 
-QT       += core gui
+QT       += core gui webkit
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets webkitwidgets
 
 TARGET = quick-x-player
 TEMPLATE = app
@@ -25,18 +25,31 @@ LIBS += $${LINK_AGAINST_COCOS2DX}
 SOURCES += main.cpp\
     aboutui.cpp \
     projectconfigui.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    quickdemowebview.cpp \
+    createprojectui.cpp \
+    consoleui.cpp \
+    msghandlerwapper.cpp \
+    logindialog.cpp
 
 SOURCES += ../sources/*.cpp
 
 HEADERS  += \
     aboutui.h \
     projectconfigui.h \
-    mainmenu.h
+    mainmenu.h \
+    quickdemowebview.h \
+    createprojectui.h \
+    consoleui.h \
+    msghandlerwapper.h \
+    logindialog.h
 
 FORMS    += \
     aboutui.ui \
-    projectconfigui.ui
+    projectconfigui.ui \
+    createprojectui.ui \
+    consoleui.ui \
+    logindialog.ui
 
 OTHER_FILES +=
 

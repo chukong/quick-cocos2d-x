@@ -43,6 +43,7 @@ THE SOFTWARE.
 #include <QOpenGLContext>
 #include <QEvent>
 #include <QMouseEvent>
+#include <QTimer>
 
 
 
@@ -50,6 +51,18 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+bool initGL();
+
+class TestEvent : public QEvent
+{
+public:
+    TestEvent() : QEvent(EventType) {}
+
+public:
+    static const Type EventType;
+    static const Type StartIntervalEventType;
+};
+const QEvent::Type TestEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
 
 class Cocos2DQt5OpenGLIntegration : public QWindow {
     public:
@@ -60,6 +73,26 @@ class Cocos2DQt5OpenGLIntegration : public QWindow {
         virtual bool event(QEvent *event);
 
         void swapBuffers();
+
+        void setInterval(int interval_ms)
+        {
+            if (m_timer != 0) {
+                killTimer(m_timer);
+            }
+
+            m_timer = startTimer(interval_ms);
+        }
+
+        void setFixedSize(int w, int h)
+        {
+            setFixedSize(QSize(w, h));
+        }
+
+        void setFixedSize(QSize size)
+        {
+            setMinimumSize(size);
+            setMaximumSize(size);
+        }
 
         // touch delegate
         typedef fastdelegate::FastDelegate1<QMouseEvent *> MyTouchDelegate;
@@ -76,29 +109,43 @@ class Cocos2DQt5OpenGLIntegration : public QWindow {
         virtual void keyPressEvent(QKeyEvent *event);
         virtual void keyReleaseEvent(QKeyEvent *event);
 
+        void exposeEvent(QExposeEvent *)
+        {
+            if (!m_context) {
+
+                m_context = new QOpenGLContext(this);
+                m_context->create();
+                if (!m_context->makeCurrent(this)) {
+                    CCLOG(">> shit. makeCurrent failed!");
+                }
+
+                initGL();
+
+                TestEvent *tEvent = new TestEvent;
+                qApp->postEvent(this, tEvent, Qt::LowEventPriority);
+            }
+        }
+
+        virtual void timerEvent(QTimerEvent */*event*/)
+        {
+            cocos2d::CCDirector::sharedDirector()->mainLoop();
+        }
+
     private:
         QOpenGLContext  *m_context;
+        int m_timer;
 };
 
 Cocos2DQt5OpenGLIntegration::Cocos2DQt5OpenGLIntegration(int width, int height)
     : m_context(NULL)
+    , m_timer(0)
 {
     setSurfaceType(QSurface::OpenGLSurface);
-    resize(width, height);
-
-    // make this call: make opengl !!
-    show();
-
-    m_context = new QOpenGLContext(this);
-    m_context->create();
-    if (!m_context->makeCurrent(this)) {
-        CCLOG(">> shit. makeCurrent failed!");
-    }
 }
 
 Cocos2DQt5OpenGLIntegration::~Cocos2DQt5OpenGLIntegration()
 {
-    delete m_context;
+    CC_SAFE_DELETE( m_context );
 }
 
 #if 0
@@ -138,9 +185,12 @@ bool
 Cocos2DQt5OpenGLIntegration::event(QEvent *event)
 {
     if (event->type() == QEvent::Close) {
+        killTimer(m_timer);
         CCDirector::sharedDirector()->end();
-        delete m_context;
-        m_context = NULL;
+    }
+    else if (event->type() == TestEvent::EventType) {
+        CCApplication::sharedApplication()->applicationDidFinishLaunching();
+//        setInterval( 1.0f / 60.0f * 1000.0f );
     }
 
     return QWindow::event(event);
@@ -297,7 +347,7 @@ CCEGLView::~CCEGLView()
     CC_SAFE_DELETE(m_integration);
 }
 
-bool CCEGLView::initGL()
+bool initGL()
 {
     // check OpenGL version at first
     const GLubyte* glVersion = glGetString(GL_VERSION);
@@ -387,13 +437,13 @@ bool CCEGLView::Create()
         m_integration->touchBegin.bind(this, &CCEGLView::mousePress);
         m_integration->touchMove.bind(this, &CCEGLView::mouseMove);
         m_integration->touchEnd.bind(this, &CCEGLView::mouseRelease);
-
-        m_glParentWidget = QWidget::createWindowContainer(m_integration);
-        m_glParentWidget->show();
+//        m_integration->show();
+//        m_glParentWidget = QWidget::createWindowContainer(m_integration);
+//        m_glParentWidget->show();
 #endif
-        bRet = initGL();
-        if(!bRet) destroyGL();
-        CC_BREAK_IF(!bRet);
+//        bRet = initGL();
+//        if(!bRet) destroyGL();
+//        CC_BREAK_IF(!bRet);
 
         m_bIsInit = true;
         s_pMainWindow = this;
@@ -437,17 +487,19 @@ void CCEGLView::setIMEKeyboardState(bool /*bOpen*/)
 void CCEGLView::setViewName(const char* pszViewName)
 {
     CCEGLViewProtocol::setViewName(pszViewName);
-    if (m_glParentWidget) {
-        m_glParentWidget->setWindowTitle(getViewName());
+    if (m_integration) {
+        m_integration->setTitle(getViewName());
     }
 }
 
 void CCEGLView::resize(int width, int height)
 {
-    do
-    {
-        m_glParentWidget->setFixedSize(width, height);
-    } while(0);
+    if (m_integration) {
+//        m_integration->setFixedSize(width, height);
+        m_integration->resize(width, height);
+        m_integration->setMinimumSize(QSize(width, height));
+        m_integration->setMaximumSize(QSize(width, height));
+    }
 }
 
 void CCEGLView::setFrameZoomFactor(float fZoomFactor)
@@ -479,18 +531,18 @@ void CCEGLView::setFrameSize(float width, float height)
 
 void CCEGLView::centerWindow()
 {
-    if (m_glParentWidget && !m_glParentWidget->parent()) {
+    if (m_integration && !m_integration->parent()) {
         QDesktopWidget *w = qApp->desktop();
         QRect rect = w->screenGeometry();
-        m_glParentWidget->move((rect.width()-m_glParentWidget->width())/2.0f
-                              ,(rect.height()-m_glParentWidget->height())/2.0f);
+        m_integration->setPosition((rect.width()-m_integration->width())/2.0f
+                              ,(rect.height()-m_integration->height())/2.0f);
     }
 }
 
 void CCEGLView::moveWindow(int left, int top)
 {
-    if (m_glParentWidget && !m_glParentWidget->parent()) {
-        m_glParentWidget->move(left, top);
+    if (m_integration && !m_integration->parent()) {
+        m_integration->setPosition(left, top);
     }
 }
 
@@ -533,7 +585,7 @@ void CCEGLView::mouseMove(QMouseEvent *event)
         return;
 
 #if USING_PROTOCOL_HANDLE==1
-    long wid = m_glParentWidget->winId();
+    long wid = m_integration->winId();
     CCPoint pt(event->x(), event->y());
     pt.x /= m_fFrameZoomFactor;
     pt.y /= m_fFrameZoomFactor;
@@ -559,7 +611,7 @@ void CCEGLView::mousePress(QMouseEvent *event)
     m_bCaptured = true;
 
 #if USING_PROTOCOL_HANDLE==1
-    long wid = m_glParentWidget->winId();
+    long wid = m_integration->winId();
     CCPoint pt(event->x(), event->y());
     pt.x /= m_fFrameZoomFactor;
     pt.y /= m_fFrameZoomFactor;
@@ -585,7 +637,7 @@ void CCEGLView::mouseRelease(QMouseEvent *event)
     m_bCaptured = false;
 
 #if USING_PROTOCOL_HANDLE==1
-    long wid = m_glParentWidget->winId();
+    long wid = m_integration->winId();
     CCPoint pt(event->x(), event->y());
     pt.x /= m_fFrameZoomFactor;
     pt.y /= m_fFrameZoomFactor;
@@ -610,6 +662,16 @@ void CCEGLView::setAccelerometerKeyHook(MyAccelerometerDelegate accelerometerDel
 QWidget *CCEGLView::getGLWidget()
 {
     return m_glParentWidget;
+}
+
+QWindow *CCEGLView::getGLWindow()
+{
+    return m_integration;
+}
+
+void CCEGLView::setInterval(int interval_ms)
+{
+    m_integration->setInterval(interval_ms);
 }
 
 NS_CC_END

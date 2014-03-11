@@ -3,6 +3,13 @@ local WelcomeScene = class("WelcomeScene", function()
     return display.newScene("WelcomeScene")
 end)
 
+function PlayerLoginCallback(userName, password)
+    print("Get username: ", userName, " passworld: ", password)
+    -- return true, ""
+    -- return false, "user name or password is invalid"
+    return true, "user name or password is error"
+end
+
 function WelcomeScene:ctor()
     self.menu = nil -- self:createButtons()
 
@@ -142,18 +149,23 @@ end
 -- listeners
 
 function WelcomeScene:onNewProjectButtonClicked()
+    newProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
 end
 
 function WelcomeScene:onOpenButtonClicked()
+    -- openURL("/Users/jryin/workspace/github/quick-cocos2d-x/player/welcome/scripts/main.lua");
+    openProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
 end
 
 function WelcomeScene:onSamplesButtonClicked()
+    openQuickDemoWithWebView();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_SAMPLES")
 end
 
 function WelcomeScene:onGetStartedButtonClicked()
+    openURL("http://wiki.quick-x.com/doku.php");
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end
 

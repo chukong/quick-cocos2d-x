@@ -6,11 +6,18 @@
 #include "cocos2d.h"
 #include "AppDelegate.h"
 #include "mainmenu.h"
+#include "consoleui.h"
+#include "msghandlerwapper.h"
 
 int main(int argc, char *argv[])
 {
+
     AppDelegate app(argc, argv);
-    MainMenu *mainMenu = new MainMenu(CCEGLView::sharedOpenGLView()->getGLWidget());
+    MsgHandlerWapper::instance();
+
+//    QWidget *w = new QWidget();
+//    w->show();
+    MainMenu *mainMenu = new MainMenu(/*w*/);
 
     // set quick root path from env
     QByteArray quickRootPath = qgetenv(ENV_KEY_QUICK_ROOT_PATH);
@@ -31,6 +38,19 @@ int main(int argc, char *argv[])
         projectConfig.resetToWelcome();
     }
 
+    // console settings
+    ConsoleUI::instance();
+    if (projectConfig.isWriteDebugLogToFile()) {
+        QString logFilePath(projectConfig.getWritableRealPath().data());
+        QString logFileName = QString("%1/debug-%2.log")
+                                        .arg(logFilePath)
+                                        .arg(QTime::currentTime().toString("hh-mm-ss"));
+        ConsoleUI::instance()->initWithLogFile(logFileName);
+    }
+    QObject::connect(MsgHandlerWapper::instance(), SIGNAL(message(QtMsgType,QString)),
+                     ConsoleUI::instance(), SLOT(dealWithMessageOutput(QtMsgType,QString)));
+    projectConfig.dump();
+
     app.setProjectConfig(projectConfig);
     QString searchPath(projectConfig.getProjectDir().data());
     if (searchPath.length() > 0) {
@@ -43,11 +63,15 @@ int main(int argc, char *argv[])
     if (scale > 5.0f || scale < 0.1f)
         scale = 1.0f;
     view->setFrameZoomFactor(scale);
+    view->getGLWindow()->show();
+    if (projectConfig.isShowConsole()) {
+        ConsoleUI::instance()->show();
+    }
 
 
     // crash with Qt 5.1, so set the default font for quick-x-player
-    qApp->setFont(QFont("Helvetica [Cronyx]", 12));
-//    qApp->setFont(QFont("arial", 12));
+//    QFont font("Courier", 10, QFont::Normal, false);
+    qApp->setFont(QFont("arial"));
 
     // menu
 
@@ -55,6 +79,7 @@ int main(int argc, char *argv[])
 
     int ret = app.run();
 
+    MsgHandlerWapper::instance()->cancelHandler();
     while (ret == APP_EXIT_CODE) {
         QProcess::startDetached(qApp->applicationFilePath()
                               , qApp->property(RESTART_ARGS).toStringList());
