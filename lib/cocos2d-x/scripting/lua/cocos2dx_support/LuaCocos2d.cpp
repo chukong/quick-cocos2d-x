@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 03/11/14 14:50:50.
+** Generated automatically by tolua++-1.0.92 on 03/11/14 15:05:56.
 */
 
 /****************************************************************************
@@ -35345,7 +35345,7 @@ static int tolua_Cocos2d_ccDrawCircle00(lua_State* tolua_S)
      !tolua_isboolean(tolua_S,5,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,8,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,8,1,&tolua_err) ||
      !tolua_isnoobj(tolua_S,9,&tolua_err)
  )
   goto tolua_lerror;
@@ -35359,7 +35359,7 @@ static int tolua_Cocos2d_ccDrawCircle00(lua_State* tolua_S)
   bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,5,0));
   float scaleX = ((float)  tolua_tonumber(tolua_S,6,0));
   float scaleY = ((float)  tolua_tonumber(tolua_S,7,0));
-  bool fill = ((bool)  tolua_toboolean(tolua_S,8,0));
+  bool fill = ((bool)  tolua_toboolean(tolua_S,8,false));
   {
    ccDrawCircle(center,radius,angle,segments,drawLineToCenter,scaleX,scaleY,fill);
   }
@@ -35384,7 +35384,7 @@ static int tolua_Cocos2d_ccDrawCircle01(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isboolean(tolua_S,5,0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,6,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
      !tolua_isnoobj(tolua_S,7,&tolua_err)
  )
   goto tolua_lerror;
@@ -35395,7 +35395,7 @@ static int tolua_Cocos2d_ccDrawCircle01(lua_State* tolua_S)
   float angle = ((float)  tolua_tonumber(tolua_S,3,0));
   unsigned int segments = ((unsigned int)  tolua_tonumber(tolua_S,4,0));
   bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,5,0));
-  bool fill = ((bool)  tolua_toboolean(tolua_S,6,0));
+  bool fill = ((bool)  tolua_toboolean(tolua_S,6,false));
   {
    ccDrawCircle(center,radius,angle,segments,drawLineToCenter,fill);
   }
