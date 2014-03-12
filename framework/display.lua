@@ -438,16 +438,19 @@ end
 
 function display.newCircle(radius, params)
     local circle = CCNodeExtend.extend(CCCircleShape:create(radius))
-	circle:setContentSize(cc.size(radius*2,radius*2))
+	local x,y = 0,0
+	local align=display.CENTER
 	if params then
 		x = params.x or x
 		y = params.y or y
+		align = params.align or align
 		if params.fill then circle:setFill(params.fill) end
 		if params.color then circle:setLineColor(params.color) end
 		if params.strippleEnabled then circle:setLineStippleEnabled(params.strippleEnabled) end
 		if params.lineStripple then circle:setLineStipple(params.lineStripple) end
-		circle:setPosition(x, y)
 	end
+	circle:setContentSize(cc.size(radius*2,radius*2))
+	circle:align(align, x,y)
 	return circle
 end
 
@@ -470,21 +473,19 @@ function display.newRect(width, height, params)
     end
 
     local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
+	local align=display.CENTER
 	if type(height) == "table" then params = hight end
 	if type(params) == "table" then
 		x = params.x or x
 		y = params.y or y
-		print(params.color)
-		print(params.strippleEnabled)
-		print(params.lineStripple)
-		print(params.fill)
+		align = params.align or align
 		if params.color then rect:setLineColor(params.color) end
 		if params.strippleEnabled then rect:setLineStippleEnabled(params.strippleEnabled) end
 		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
 		if params.fill then rect:setFill(params.fill) end
 	end
 	rect:setContentSize(cc.size(width, height))
-    rect:setPosition(x, y)
+	rect:align(align, x,y)
     return rect
 end
 
