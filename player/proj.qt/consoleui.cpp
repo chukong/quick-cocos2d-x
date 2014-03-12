@@ -7,19 +7,16 @@
 
 ConsoleUI::ConsoleUI(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ConsoleUI)
+    ui(0)
 {
-    ui->setupUi(this);
-
-    connect(ui->clearButton, SIGNAL(clicked()), this, SLOT(onLogClear()));
-    connect(ui->allwaysTop, SIGNAL(clicked(bool)), this, SLOT(onAllwaysTop(bool)));
-    connect(ui->openLogButton, SIGNAL(clicked()), this, SLOT(onOpenLogFile()));
 }
 
 ConsoleUI::~ConsoleUI()
 {
     m_logFile.close();
-    delete ui;
+    m_buff.clear();
+    if (ui)
+        delete ui;
 }
 
 ConsoleUI *ConsoleUI::instance()
@@ -47,13 +44,40 @@ void ConsoleUI::closeEvent(QCloseEvent *e)
     e->ignore();
 }
 
+void ConsoleUI::showEvent(QShowEvent *e)
+{
+    if (!ui) {
+        ui = new Ui::ConsoleUI;
+        ui->setupUi(this);
+        if (!m_logFile.fileName().isEmpty()) {
+            setWindowTitle(m_logFile.fileName());
+        }
+        connect(ui->clearButton, SIGNAL(clicked()), this, SLOT(onLogClear()));
+        connect(ui->allwaysTop, SIGNAL(clicked(bool)), this, SLOT(onAllwaysTop(bool)));
+        connect(ui->openLogButton, SIGNAL(clicked()), this, SLOT(onOpenLogFile()));
+
+        this->appendMsg(m_buff);
+        m_buff.clear();
+    }
+    QDialog::showEvent(e);
+}
+
 void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
 {
     // log ui
-    ui->textBrowser->append(msg);
-    QTextCursor cursor = ui->textBrowser->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    ui->textBrowser->setTextCursor(cursor);
+    // using buff to cache the output message
+    //
+    if (!ui) {
+        m_buff += msg;
+        m_buff += "\n";
+        fflush(0);
+    } else {
+        if (m_buff.length() > 0) {
+            ui->textBrowser->append(m_buff);
+            m_buff.clear();
+        }
+        this->appendMsg(msg);
+    }
 
     // log file
     if (m_logFile.isOpen()) {
@@ -64,7 +88,8 @@ void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
 
 void ConsoleUI::onLogClear()
 {
-    ui->textBrowser->clear();
+    if (ui)
+        ui->textBrowser->clear();
 }
 
 void ConsoleUI::onAllwaysTop(bool checked)
@@ -85,4 +110,12 @@ void ConsoleUI::onAllwaysTop(bool checked)
 void ConsoleUI::onOpenLogFile()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(m_logFile.fileName()));
+}
+
+void ConsoleUI::appendMsg(const QString &msg)
+{
+    ui->textBrowser->append(msg);
+    QTextCursor cursor = ui->textBrowser->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    ui->textBrowser->setTextCursor(cursor);
 }

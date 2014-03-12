@@ -15,9 +15,6 @@ int main(int argc, char *argv[])
     AppDelegate app(argc, argv);
     MsgHandlerWapper::instance();
 
-//    QWidget *w = new QWidget();
-//    w->show();
-    MainMenu *mainMenu = new MainMenu(/*w*/);
 
     // set quick root path from env
     QByteArray quickRootPath = qgetenv(ENV_KEY_QUICK_ROOT_PATH);
@@ -42,9 +39,10 @@ int main(int argc, char *argv[])
     ConsoleUI::instance();
     if (projectConfig.isWriteDebugLogToFile()) {
         QString logFilePath(projectConfig.getWritableRealPath().data());
+        QString suffix = QDateTime::currentDateTime().toString("yyyy-MM-dd-") + QTime::currentTime().toString("HHmmss");
         QString logFileName = QString("%1/debug-%2.log")
                                         .arg(logFilePath)
-                                        .arg(QTime::currentTime().toString("hh-mm-ss"));
+                                        .arg(suffix);
         ConsoleUI::instance()->initWithLogFile(logFileName);
     }
     QObject::connect(MsgHandlerWapper::instance(), SIGNAL(message(QtMsgType,QString)),
@@ -63,10 +61,17 @@ int main(int argc, char *argv[])
     if (scale > 5.0f || scale < 0.1f)
         scale = 1.0f;
     view->setFrameZoomFactor(scale);
-    view->getGLWindow()->show();
+//    view->getGLWindow()->show();
+    QPoint widgetPos = view->getGLWindow()->position();
+    QWidget *glContainer = QWidget::createWindowContainer(view->getGLWindow());
+    glContainer->show();
+    glContainer->setFixedSize(projectConfig.getFrameSize().width, projectConfig.getFrameSize().height);
+    glContainer->move(widgetPos);
     if (projectConfig.isShowConsole()) {
         ConsoleUI::instance()->show();
     }
+    MainMenu *mainMenu = new MainMenu(glContainer);
+
 
 
     // crash with Qt 5.1, so set the default font for quick-x-player

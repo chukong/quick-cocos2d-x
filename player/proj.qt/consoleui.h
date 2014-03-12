@@ -31,17 +31,20 @@ public Q_SLOTS:
 
 protected:
     void closeEvent(QCloseEvent *);
+    void showEvent(QShowEvent *);
 
 private Q_SLOTS:
     void onLogClear();
     void onAllwaysTop(bool checked);
     void onOpenLogFile();
+    void appendMsg(const QString &msg);
 
 private:
     Ui::ConsoleUI *ui;
 
     QFile        m_logFile;
     QTextStream  m_textStream;
+    QString      m_buff;
 };
 
 #endif // CONSOLEUI_H

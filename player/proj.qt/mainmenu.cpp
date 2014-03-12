@@ -122,9 +122,7 @@ int MainMenu::onOpenProject(lua_State * /*L*/)
 
 int MainMenu::showLoginUI(lua_State *L)
 {
-    LoginDialog dialog;
-    dialog.setLuaState(L);
-    dialog.exec();
+    MainMenu::showLoginUIHelper();
     return 0;
 }
 
@@ -135,6 +133,15 @@ void MainMenu::openURLHelper(const char *path)
         QDesktopServices::openUrl(QUrl(tmpPath));
     else
         QDesktopServices::openUrl(QUrl::fromLocalFile(path));
+}
+
+void MainMenu::showLoginUIHelper()
+{
+    LoginDialog *dialog = new LoginDialog();
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
+    dialog->setLuaState(L);
+    dialog->show();
 }
 
 void MainMenu::registerAllCpp()
@@ -306,7 +313,7 @@ void MainMenu::onOpenQuickDemoWebview()
 void MainMenu::on_actionAbout_triggered()
 {
     AboutUI aboutUI(m_renderWidget);
-    aboutUI.exec();
+    aboutUI.show();
 }
 
 void MainMenu::on_actionAboutQt_triggered()
@@ -337,10 +344,7 @@ void MainMenu::onShowConsole()
 
 void MainMenu::onShowLoginUI()
 {
-    LoginDialog dialog;
-    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    dialog.setLuaState(L);
-    dialog.exec();
+    MainMenu::showLoginUIHelper();
 }
 
 void MainMenu::restartWithProjectConfig(ProjectConfig &config)

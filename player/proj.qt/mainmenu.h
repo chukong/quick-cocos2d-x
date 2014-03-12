@@ -31,6 +31,7 @@ public:
     static int showLoginUI(lua_State *L);
 
     static void openURLHelper(const char *path);
+    static void showLoginUIHelper();
 
 public Q_SLOTS:
     void onOpenQuickDemoWebview();

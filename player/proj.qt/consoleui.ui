@@ -10,6 +10,11 @@
     <height>305</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Courier New</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Log</string>
   </property>
@@ -68,7 +73,11 @@
       </layout>
      </item>
      <item>
-      <widget class="QTextBrowser" name="textBrowser"/>
+      <widget class="QTextBrowser" name="textBrowser">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
