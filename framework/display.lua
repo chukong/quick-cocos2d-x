@@ -448,6 +448,8 @@ function display.newCircle(radius, params)
 		if params.color then circle:setLineColor(params.color) end
 		if params.strippleEnabled then circle:setLineStippleEnabled(params.strippleEnabled) end
 		if params.lineStripple then circle:setLineStipple(params.lineStripple) end
+		local lineWidth = params.lineWidth or params.borderWidth 
+		if lineWidth then rect:setLineWidth(lineWidth) end
 	end
 	circle:setContentSize(cc.size(radius*2,radius*2))
 	circle:align(align, x,y)
@@ -482,7 +484,10 @@ function display.newRect(width, height, params)
 		if params.color then rect:setLineColor(params.color) end
 		if params.strippleEnabled then rect:setLineStippleEnabled(params.strippleEnabled) end
 		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
+		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
 		if params.fill then rect:setFill(params.fill) end
+		local lineWidth = params.lineWidth or params.borderWidth 
+		if lineWidth then rect:setLineWidth(lineWidth) end
 	end
 	rect:setContentSize(cc.size(width, height))
 	rect:align(align, x,y)
