@@ -484,7 +484,6 @@ function display.newRect(width, height, params)
 		if params.color then rect:setLineColor(params.color) end
 		if params.strippleEnabled then rect:setLineStippleEnabled(params.strippleEnabled) end
 		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
-		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
 		if params.fill then rect:setFill(params.fill) end
 		local lineWidth = params.lineWidth or params.borderWidth 
 		if lineWidth then rect:setLineWidth(lineWidth) end
