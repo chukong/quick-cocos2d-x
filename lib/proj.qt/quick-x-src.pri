@@ -97,7 +97,9 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCCommon.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCDevice.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCEGLView.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCFileUtilsQt.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCImage.cpp \
+# using mac/ccimage for mac platform
+# using win/ccimage for win platform
+#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCImage.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCStdC.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/script_support/CCScriptSupport.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/shaders/CCGLProgram.cpp \
@@ -319,7 +321,8 @@ win32 {
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNative.cpp \
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNativeWin32.cpp \
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNetworkWin32.cpp \
-        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCStorePaymentTransactionWrapper.cpp
+        $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCStorePaymentTransactionWrapper.cpp \
+        $${ROOT}/lib/cocos2d-x/cocos2dx/platform/win32/CCImage.cpp
 }
 
 OBJECTIVE_SOURCES += \
@@ -357,6 +360,7 @@ $${ROOT}/lib/cocos2d-x/external/extra/platform/ios_mac/ReachabilityIOSMac.m \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCCryptoMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNative.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNativeMac.mm \
-$${ROOT}/lib/cocos2d-x/external/extra/platform/mac/openudid/OpenUDIDMac.m
+$${ROOT}/lib/cocos2d-x/external/extra/platform/mac/openudid/OpenUDIDMac.m \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCImage.mm
 #$${ROOT}/lib/cocos2d-x/scripting/lua/cocos2dx_support/platform/ios/CCLuaObjcBridge.mm \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/support/user_default/CCUserDefault.mm \
