@@ -32,8 +32,6 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    struct timeval start, end;
-    ::gettimeofday( &start, NULL );
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
@@ -64,11 +62,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     {
         call->startup();
     }
-
-    ::gettimeofday( &end, NULL );
-    long timeuse = 1000000 * ( end.tv_sec - start.tv_sec ) + end.tv_usec - start.tv_usec;
-    CCLog("time: %ld us (%.2f ms) (%.2f s)\n", timeuse, timeuse/1000.0f, timeuse/1000.0/1000.0f);
-
     return true;
 }
 

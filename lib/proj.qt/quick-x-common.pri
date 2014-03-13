@@ -29,7 +29,7 @@ macx {
     DEFINES += USE_FILE32API
 
     COCOS2DX_SYSTEM_LIBS += -lz
-    COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -ljpeg -ltiff -lpng -lGLEW
+    COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -ljpeg -ltiff -lpng #-lGLEW
     COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -lfontconfig -lfreetype
 
     COCOS2DX_SYSTEM_LIBS += -lcurl -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/mac -lluajit2
