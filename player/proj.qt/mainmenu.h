@@ -70,9 +70,7 @@ private:
 
     QMenu           *m_viewMenu;
     QAction         *m_landscapeAction, *m_portraitAction;
-    QTextBrowser    *m_textBrowser;
-    QuickDemoWebView m_quickDemoWebview;
-    QWebView         m_cocoaChinaWebview;
+    QuickDemoWebView *m_quickDemoWebview;
 };
 
 #endif // MAINWINDOW_H

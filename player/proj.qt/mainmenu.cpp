@@ -31,7 +31,7 @@ MainMenu* MENU = NULL;
 MainMenu::MainMenu(QObject *parent)
     : QObject(parent)
     , m_renderWidget(0)
-    , m_textBrowser(0)
+    , m_quickDemoWebview(0)
 {
     QMenuBar *mainMenu = new QMenuBar(0);
     mainMenu->setNativeMenuBar(true);
@@ -62,7 +62,6 @@ MainMenu::MainMenu(QObject *parent)
 
 MainMenu::~MainMenu()
 {
-    CC_SAFE_DELETE(m_textBrowser);
 }
 
 MainMenu *MainMenu::instance()
@@ -304,10 +303,12 @@ void MainMenu::onScreenScaleTriggered()
 
 void MainMenu::onOpenQuickDemoWebview()
 {
-    QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
-    filePaht.append("player/proj.qt/demo.html");
-    m_quickDemoWebview.load(filePaht);
-    m_quickDemoWebview.show();
+    if (!m_quickDemoWebview) {
+        QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
+        filePaht.append("player/proj.qt/demo.html");
+        m_quickDemoWebview->load(filePaht);
+        m_quickDemoWebview->show();
+    }
 }
 
 void MainMenu::on_actionAbout_triggered()
