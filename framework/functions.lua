@@ -441,7 +441,7 @@ function string.ucfirst(str)
 end
 
 local function urlencodeChar(char)
-    return "%" .. string.format("%02X", string.byte(c))
+    return "%" .. string.format("%02X", string.byte(char))
 end
 
 function string.urlencode(str)
