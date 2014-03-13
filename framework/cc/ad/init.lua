@@ -54,10 +54,10 @@ function ad:stop(name)
     end
 end
 
-function ad:show(command, options, name)
+function ad:show(adType, options, name)
     local provider = self:getProvider(name)
     if provider then
-        provider:show(command, options)
+        provider:show(adType, options)
     end
 end
 

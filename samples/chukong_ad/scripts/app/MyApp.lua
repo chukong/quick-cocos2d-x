@@ -13,6 +13,12 @@ end
 function MyApp:run()
     CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
+    if device.platform == "ios" then
+        require("config_ios")
+    elseif device.platform == "android" then
+        require("config_android")
+    end
+
     -- init ad
     if device.platform == "ios" or device.platform == "android" then
         cc.ad:start({appId = PUNCHBOX_AD_SDK_APP_ID}, "ad.PunchBox")

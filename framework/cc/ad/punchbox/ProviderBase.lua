@@ -40,7 +40,7 @@ end
 
 function ProviderBase:callback_(event)
     event, errcode = unpack(string.split(string.lower(event), ","))
-    echoInfo("cc.ad.ProviderBase CALLBACK, event %s", event)
+    echoInfo("cc.ad.punchbox CALLBACK, event %s", event)
     local evt = {provider = "ad.PunchBox"}
     if event == "received" then
         evt.name = events.RECEIVED

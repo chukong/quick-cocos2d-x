@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F41F5C4E18CD86C600B56AFD /* PunchBoxAdHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F5C4D18CD86C600B56AFD /* PunchBoxAdHandler.m */; };
 		F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590816D21F8C000651BE /* libquickcocos2dx.a */; };
 		F4482F2116A0555000FDDDAD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1A16A0555000FDDDAD /* Default-568h@2x.png */; };
 		F4482F2216A0555000FDDDAD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1B16A0555000FDDDAD /* Default.png */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F41F5C4C18CD86C600B56AFD /* PunchBoxAdHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAdHandler.h; sourceTree = "<group>"; };
+		F41F5C4D18CD86C600B56AFD /* PunchBoxAdHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchBoxAdHandler.m; sourceTree = "<group>"; };
 		F4482F1A16A0555000FDDDAD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F4482F1B16A0555000FDDDAD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F4482F1C16A0555000FDDDAD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 		F456F0FC15EE0CF600FCF3E2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F456F10415EE0D2D00FCF3E2 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		F456F10615EE0D3500FCF3E2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F45E011418CF7A5B006097EA /* PunchBoxAdDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PunchBoxAdDelegate.h; sourceTree = "<group>"; };
 		F4730C1C16C1509700280298 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
 		F4730C1D16C1509700280298 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = scripts; path = ../../../scripts; sourceTree = "<group>"; };
 		F4949C781699553B00DB561E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -234,8 +238,11 @@
 			isa = PBXGroup;
 			children = (
 				F4AFC10C18C41DBC006652CE /* src */,
+				F41F5C4C18CD86C600B56AFD /* PunchBoxAdHandler.h */,
+				F41F5C4D18CD86C600B56AFD /* PunchBoxAdHandler.m */,
 				F4AFC11818C41DD6006652CE /* PunchBoxAdSDK.h */,
 				F4AFC11918C41DE1006652CE /* PunchBoxAdSDK.mm */,
+				F45E011418CF7A5B006097EA /* PunchBoxAdDelegate.h */,
 			);
 			name = punchbox_ad_ios;
 			path = ../../../../lib/sdk/punchbox_ad/punchbox_ad_ios;
@@ -288,6 +295,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F456EFBD15EE019300FCF3E2 /* Build configuration list for PBXNativeTarget "chukong_ad" */;
 			buildPhases = (
+				F479FB3218D0A5B200BFB59E /* ShellScript */,
 				F456ECBD15EE018E00FCF3E2 /* Sources */,
 				F456ECBE15EE018E00FCF3E2 /* Frameworks */,
 				F456ECBF15EE018E00FCF3E2 /* Resources */,
@@ -308,6 +316,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0440;
+				TargetAttributes = {
+					F456ECC015EE018E00FCF3E2 = {
+						DevelopmentTeam = 73D5UVY728;
+					};
+				};
 			};
 			buildConfigurationList = F456ECBB15EE018E00FCF3E2 /* Build configuration list for PBXProject "chukong_ad" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -362,6 +375,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F479FB3218D0A5B200BFB59E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "_TARGET_BUILD_CONTENTS_PATH=$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH\necho _TARGET_BUILD_CONTENTS_PATH: $_TARGET_BUILD_CONTENTS_PATH\necho PWD: $PWD\n\necho Cleaning $_TARGET_BUILD_CONTENTS_PATH/\n\nrm -fr $_TARGET_BUILD_CONTENTS_PATH/res\nrm -fr $_TARGET_BUILD_CONTENTS_PATH/scripts\n\nmkdir -p $_TARGET_BUILD_CONTENTS_PATH/res/\nmkdir -p $_TARGET_BUILD_CONTENTS_PATH/scripts/\n\ncp -RLp $PWD/../res $_TARGET_BUILD_CONTENTS_PATH/\ncp -RLp $PWD/../scripts $_TARGET_BUILD_CONTENTS_PATH/\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F456ECBD15EE018E00FCF3E2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -373,6 +402,7 @@
 				F4F34ED2183CD04B0077580F /* SimulatorConfig.cpp in Sources */,
 				F4D26BCE16C7D0D2004442B6 /* RootViewController.mm in Sources */,
 				F4E50FE516CF7B6500AA7E90 /* AppDelegate.cpp in Sources */,
+				F41F5C4E18CD86C600B56AFD /* PunchBoxAdHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

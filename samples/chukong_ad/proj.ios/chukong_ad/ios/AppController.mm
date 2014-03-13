@@ -72,15 +72,6 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
     
-    
-    // init SDK
-    [PunchBoxAd startSession:PunchBoxAd_AppId];
-    CGRect frameBanner = CGRectMake(0.0f, 0.0f, 320.0f, 50.0f);
-    PBBannerView *bannerView = [[PBBannerView alloc] initWithFrame:frameBanner];
-    [bannerView loadRequest:[PBADRequest request]];
-    [window addSubview:bannerView];
-    
-    
     cocos2d::CCApplication::sharedApplication()->run();
 
     return YES;

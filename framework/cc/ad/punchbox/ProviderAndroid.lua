@@ -20,11 +20,11 @@ function ProviderAndroid:stop()
     luaj.callStaticMethod(SDK_CLASS_NAME, "stop")
 end
 
-function ProviderAndroid:show(command, options)
+function ProviderAndroid:show(adType, options)
     if type(options) ~= "table" then options = {} end
     local id = options.id or ""
     local position = options.position or "default"
-    luaj.callStaticMethod(SDK_CLASS_NAME, "show", {command, id, position})
+    luaj.callStaticMethod(SDK_CLASS_NAME, "show", {adType, id, position})
 end
 
 function ProviderAndroid:remove()

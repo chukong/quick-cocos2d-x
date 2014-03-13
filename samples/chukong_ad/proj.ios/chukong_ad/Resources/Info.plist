@@ -15,7 +15,7 @@
 		<string>Icon-72.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>org.cocos2d_x.samples.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>org.cocos2dx.samples.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
