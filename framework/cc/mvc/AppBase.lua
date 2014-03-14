@@ -26,7 +26,9 @@ end
 
 function AppBase:exit()
     CCDirector:sharedDirector():endToLua()
-    os.exit()
+    if device.platform == "windows" or device.platform == "mac" then
+        os.exit()
+    end
 end
 
 function AppBase:enterScene(sceneName, args, transitionType, time, more)

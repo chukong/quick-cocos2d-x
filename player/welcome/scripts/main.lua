@@ -1,5 +1,4 @@
 
--- for CCLuaEngine
 function __G__TRACKBACK__(errorMessage)
     print("----------------------------------------")
     print("LUA ERROR: " .. tostring(errorMessage) .. "\n")
@@ -7,5 +6,4 @@ function __G__TRACKBACK__(errorMessage)
     print("----------------------------------------")
 end
 
-require("game")
-game.startup()
+require("app.WelcomeApp").new():run()
