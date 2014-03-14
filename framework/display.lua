@@ -449,7 +449,7 @@ function display.newCircle(radius, params)
 		if params.strippleEnabled then circle:setLineStippleEnabled(params.strippleEnabled) end
 		if params.lineStripple then circle:setLineStipple(params.lineStripple) end
 		local lineWidth = params.lineWidth or params.borderWidth 
-		if lineWidth then rect:setLineWidth(lineWidth) end
+		if lineWidth then circle:setLineWidth(lineWidth) end
 	end
 	circle:setContentSize(cc.size(radius*2,radius*2))
 	circle:align(align, x,y)
