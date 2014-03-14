@@ -33,7 +33,7 @@ MainMenu::MainMenu(QObject *parent)
     , m_renderWidget(0)
     , m_quickDemoWebview(0)
 {
-    QMenuBar *mainMenu = new QMenuBar(0);
+    QMenuBar *mainMenu = new QMenuBar(m_renderWidget);
     mainMenu->setNativeMenuBar(true);
 
     // file menu
