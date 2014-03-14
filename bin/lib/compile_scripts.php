@@ -88,7 +88,7 @@ examples:
     compile_scripts -i scripts -o game.c -m c -e xxtea_chunks -ek MYKEY
 
     # load options from config file
-    compile_scripts -c my_config.lua
+    compile_scripts -c my_proj_compile_config.php
 
 
 EOT;

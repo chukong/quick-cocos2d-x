@@ -78,6 +78,26 @@ void CCCrypto::MD5(void* input, int inputLength, unsigned char* output)
     MD5_Final(output, &ctx);
 }
 
+void CCCrypto::MD5File(const char* path, unsigned char* output)
+{
+    FILE *file = fopen(path, "rb");
+    if (file == NULL)
+        return;
+    
+    MD5_CTX ctx;
+    MD5_Init(&ctx);
+    
+    int i;
+    const int BUFFER_SIZE = 1024;
+    char buffer[BUFFER_SIZE];
+    while ((i = fread(buffer, 1, BUFFER_SIZE, file)) > 0) {
+        MD5_Update(&ctx, buffer, (unsigned) i);
+    }
+    
+    fclose(file);
+    MD5_Final(output, &ctx);
+}
+
 const string CCCrypto::MD5String(void* input, int inputLength)
 {
     unsigned char buffer[MD5_BUFFER_LENGTH];
@@ -217,6 +237,21 @@ LUA_STRING CCCrypto::MD5Lua(char* input, bool isRawOutput)
         stack->pushString(hex);
         delete[] hex;
     }
+    
+    return 1;
+}
+
+LUA_STRING CCCrypto::MD5FileLua(const char* path)
+{
+    unsigned char buffer[MD5_BUFFER_LENGTH];
+    MD5File(path, buffer);
+    
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+    
+    char* hex = bin2hex(buffer, MD5_BUFFER_LENGTH);
+    stack->pushString(hex);
+    delete[] hex;
     
     return 1;
 }

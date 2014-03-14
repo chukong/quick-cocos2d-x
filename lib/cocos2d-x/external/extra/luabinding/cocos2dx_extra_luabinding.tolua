@@ -36,6 +36,8 @@ public:
     static LUA_STRING decodeBase64Lua @ decodeBase64 (const char* input);
 
     static LUA_STRING MD5Lua @ MD5 (char* input, bool isRawOutput);
+
+    static LUA_STRING MD5FileLua @ MD5File(const char* path);
 };
 
 //

@@ -15,6 +15,11 @@ protected:
     static int callObjcStaticMethod(lua_State *L);
     
     static void pushValue(lua_State *L, void *val);
+    
+    // added by guorui.chen
+    static void* checkArray(lua_State *L);
+    static void* checkDictionary(lua_State *L);
+    static void* copyToObjc(lua_State *L);
 };
 
 NS_CC_END

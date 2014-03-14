@@ -71,6 +71,10 @@ public:
     /** @brief Calculate MD5, get MD5 code (not string) */
     static void MD5(void* input, int inputLength,
                     unsigned char* output);
+    
+    static void MD5File(const char* path, unsigned char* output);
+    
+    
 
     static const string MD5String(void* input, int inputLength);
     
@@ -123,6 +127,8 @@ public:
     
     /** @brief Calculate MD5, return MD5 string */
     static LUA_STRING MD5Lua(char* input, bool isRawOutput);
+
+    static LUA_STRING MD5FileLua(const char* path);
 
 #endif /* CC_LUA_ENGINE_ENABLED */
     
