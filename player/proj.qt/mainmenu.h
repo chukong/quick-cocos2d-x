@@ -19,6 +19,7 @@ public:
     ~MainMenu();
     static MainMenu *instance();
 
+    QMenuBar *getMenuBar();
     void setProjectConfig(const ProjectConfig& config);
     ProjectConfig getProjectConfig();
 

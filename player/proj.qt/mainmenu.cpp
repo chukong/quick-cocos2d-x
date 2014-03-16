@@ -28,20 +28,28 @@
 #define kLandscape 2
 
 MainMenu* MENU = NULL;
+QMenuBar *xxBar = NULL;
 MainMenu::MainMenu(QObject *parent)
     : QObject(parent)
     , m_renderWidget(0)
     , m_quickDemoWebview(0)
 {
+#ifdef Q_OS_MAC
+    QMenuBar *mainMenu = new QMenuBar(0);
+#else
     QMenuBar *mainMenu = new QMenuBar(m_renderWidget);
-    mainMenu->setNativeMenuBar(true);
+#endif
+//    mainMenu->setNativeMenuBar(true);
+    xxBar = mainMenu;
 
     // file menu
     QMenu *fileMenu = mainMenu->addMenu(QObject::tr("&File"));
     fileMenu->addAction("&New Project", this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
     fileMenu->addAction("&Open", this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
-    fileMenu->addAction("&Relaunch", this, SLOT(on_actionRelaunch_triggered()), QKeySequence(Qt::Key_F5));
-//    fileMenu->addAction("&Close",  qApp, SLOT(quit()), QKeySequence(QObject::tr("Ctrl+c")));
+
+    QList<QKeySequence> relaunchKeyList;
+    relaunchKeyList << QKeySequence(Qt::CTRL + Qt::Key_R) << relaunchKeyList << QKeySequence(Qt::Key_F5);
+    fileMenu->addAction("&Relaunch", this, SLOT(on_actionRelaunch_triggered()))->setShortcuts(relaunchKeyList);
 
     // view menu
     m_viewMenu = mainMenu->addMenu(QObject::tr("&View"));
@@ -56,6 +64,7 @@ MainMenu::MainMenu(QObject *parent)
     moreMenu->addAction("Login Test", this, SLOT(onShowLoginUI()));
 
     mainMenu->show();
+    mainMenu->raise();
 
     MENU = this;
 }
@@ -67,6 +76,11 @@ MainMenu::~MainMenu()
 MainMenu *MainMenu::instance()
 {
     return MENU;
+}
+
+QMenuBar *MainMenu::getMenuBar()
+{
+    return xxBar;
 }
 
 void MainMenu::setProjectConfig(const ProjectConfig& config)

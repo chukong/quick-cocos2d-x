@@ -15,11 +15,15 @@ int main(int argc, char *argv[])
     AppDelegate app(argc, argv);
     MsgHandlerWapper::instance();
 
-
     // set quick root path from env
-    QByteArray quickRootPath = qgetenv(ENV_KEY_QUICK_ROOT_PATH);
-    if (!quickRootPath.isEmpty()) {
-        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(quickRootPath.constData());
+    qApp->setOrganizationDomain("apps.qeeplay.com");
+    qApp->setApplicationName("quick-x-player");
+    QSettings settings;
+    QString quickCocos2dxRoot = settings.value(ENV_KEY_QUICK_ROOT_PATH).toString();
+    if (quickCocos2dxRoot.isEmpty()) {
+
+    } else {
+        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(quickCocos2dxRoot.toLocal8Bit().constData());
     }
 
     ProjectConfig projectConfig;
@@ -61,16 +65,12 @@ int main(int argc, char *argv[])
     if (scale > 5.0f || scale < 0.1f)
         scale = 1.0f;
     view->setFrameZoomFactor(scale);
-//    view->getGLWindow()->show();
-    QPoint widgetPos = view->getGLWindow()->position();
-    QWidget *glContainer = QWidget::createWindowContainer(view->getGLWindow());
-    glContainer->show();
-    glContainer->setFixedSize(projectConfig.getFrameSize().width, projectConfig.getFrameSize().height);
-    glContainer->move(widgetPos);
+
+    view->getGLWindow()->show();
     if (projectConfig.isShowConsole()) {
         ConsoleUI::instance()->show();
     }
-    MainMenu *mainMenu = new MainMenu(glContainer);
+    MainMenu *mainMenu = new MainMenu();
 
 
 
@@ -79,7 +79,6 @@ int main(int argc, char *argv[])
     qApp->setFont(QFont("arial"));
 
     // menu
-
     mainMenu->setProjectConfig(projectConfig);
 
     int ret = app.run();
