@@ -133,11 +133,14 @@ using namespace cocos2d::extra;
         consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
     }
     [consoleController.window orderFrontRegardless];
+}
 
+- (void) startWriteDebugLog
+{
     //set console pipe
     pipe = [NSPipe pipe] ;
     pipeReadHandle = [pipe fileHandleForReading] ;
-
+    
     int outfd = [[pipe fileHandleForWriting] fileDescriptor];
     if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
     {
@@ -225,6 +228,11 @@ using namespace cocos2d::extra;
     if (projectConfig.isShowConsole())
     {
         [self openConsoleWindow];
+    }
+    
+    if(projectConfig.isWriteDebugLogToFile() || projectConfig.isShowConsole())
+    {
+        [self startWriteDebugLog];
     }
 
     app = new AppDelegate();
@@ -501,11 +509,15 @@ using namespace cocos2d::extra;
     NSData *data = [[note userInfo] objectForKey:NSFileHandleNotificationDataItem];
     NSString *str = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
     //show log to console
-    [consoleController trace:str];
-    if(fileHandle!=nil){
+    if(projectConfig.isShowConsole())
+    {
+        [consoleController trace:str];
+    }
+    //write log to file
+    if(fileHandle!=nil)
+    {
         [fileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];
     }
-
 }
 
 - (void) closeDebugLogFile

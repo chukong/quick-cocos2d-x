@@ -37,4 +37,5 @@
 #include "GUI/CCScrollView/CCTableView.h"
 #include "GUI/CCEditBox/CCEditBox.h"
 
+#include "GameCenter/GameCenter.h"
 #endif /* __COCOS2D_EXT_H__ */
