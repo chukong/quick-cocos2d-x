@@ -41,6 +41,15 @@ public Q_SLOTS:
     void onShowLoginUI();
     void restartWithProjectConfig(ProjectConfig &config);
     void onNewProject();
+    void onCreateNewPlayer();
+    void onClose();
+    void onShowWelcome();
+    void onOpenDebugLog(bool);
+    void onUploadToDevice();
+    void onCreateLauncher();
+    void onAutoConnectDebugger();
+    void onShowProjectSandBox();
+    void onShowProjectFiles();
 
 protected:
     void initMenu();
@@ -69,7 +78,7 @@ private:
     ProjectConfig   m_projectConfig;
     QWidget         *m_renderWidget;
 
-    QMenu           *m_viewMenu;
+    QMenu           *m_screenMenu;
     QAction         *m_landscapeAction, *m_portraitAction;
     QuickDemoWebView *m_quickDemoWebview;
 };

@@ -7,6 +7,7 @@ AboutUI::AboutUI(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle(tr("About quick-x-player"));
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 AboutUI::~AboutUI()

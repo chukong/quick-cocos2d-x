@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QDesktopServices>
+#include <QProcess>
 
 ConsoleUI::ConsoleUI(QWidget *parent) :
     QDialog(parent),
@@ -36,6 +37,11 @@ void ConsoleUI::initWithLogFile(QString logPath)
         QMessageBox::warning(this, tr("quick-x-cocos2d"), m_logFile.errorString() + "\n" + logPath, QMessageBox::Ok);
     }
     setWindowTitle(logPath);
+}
+
+void ConsoleUI::openLogFile()
+{
+    this->onOpenLogFile();
 }
 
 void ConsoleUI::closeEvent(QCloseEvent *e)
@@ -109,7 +115,13 @@ void ConsoleUI::onAllwaysTop(bool checked)
 
 void ConsoleUI::onOpenLogFile()
 {
-    QDesktopServices::openUrl(QUrl::fromLocalFile(m_logFile.fileName()));
+    if (m_logFile.fileName().isEmpty()) {
+#ifdef Q_OS_MAC
+        QDesktopServices::openUrl(QUrl::fromLocalFile("/Applications/Utilities/Console.app"));
+#endif
+    } else {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(m_logFile.fileName()));
+    }
 }
 
 void ConsoleUI::appendMsg(const QString &msg)

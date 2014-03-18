@@ -27,6 +27,13 @@
 #define kPortrait 1
 #define kLandscape 2
 
+struct ActionData
+{
+    QString         text;
+    QKeySequence    keySequence;
+    QVariant        userData;
+};
+
 MainMenu* MENU = NULL;
 QMenuBar *xxBar = NULL;
 MainMenu::MainMenu(QObject *parent)
@@ -44,17 +51,66 @@ MainMenu::MainMenu(QObject *parent)
 
     // file menu
     QMenu *fileMenu = mainMenu->addMenu(QObject::tr("&File"));
-    fileMenu->addAction("&New Project", this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
-    fileMenu->addAction("&Open", this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    fileMenu->addAction(QObject::tr("&New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
+    fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer())
+                        , QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+    fileMenu->addSeparator();
+    fileMenu->addAction(QObject::tr("&Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    fileMenu->addSeparator();
+    fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
+    fileMenu->addSeparator();
+    fileMenu->addAction(QObject::tr("&Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
 
-    QList<QKeySequence> relaunchKeyList;
-    relaunchKeyList << QKeySequence(Qt::CTRL + Qt::Key_R) << relaunchKeyList << QKeySequence(Qt::Key_F5);
-    fileMenu->addAction("&Relaunch", this, SLOT(on_actionRelaunch_triggered()))->setShortcuts(relaunchKeyList);
+    //
+    // player menu
+    //
 
-    // view menu
-    m_viewMenu = mainMenu->addMenu(QObject::tr("&View"));
+    QMenu *playerMenu = mainMenu->addMenu(QObject::tr("Player"));
+    playerMenu->addAction(QObject::tr("Write Debug Log to File"))->setCheckable(true);
 
+    QAction *openDebugLogAction = playerMenu->addAction(QObject::tr("Open Debug Log"));
+    openDebugLogAction->setCheckable(true);
+    connect(openDebugLogAction, SIGNAL(triggered(bool)), SLOT(onOpenDebugLog(bool)));
+
+    playerMenu->addAction(tr("Upload to Device..."), this, SLOT(onUploadToDevice()))->setEnabled(false);
+
+    playerMenu->addAction(tr("Create Launcher"), this, SLOT(onCreateLauncher()))->setEnabled(false);
+
+    playerMenu->addAction(tr("Auto Connect Debugger"), this, SLOT(onAutoConnectDebugger()))->setCheckable(true);
+
+    playerMenu->addSeparator();
+    QMenu *buildMenu = playerMenu->addMenu(tr("Build"));
+
+    QAction *buildIOSMenu = buildMenu->addAction(tr("iOS..."), this, SLOT(onBuildIOS()), QKeySequence(Qt::CTRL + Qt::Key_B));
+    buildIOSMenu->setEnabled(false);
+
+    QAction *buildAndroidMenu = buildMenu->addAction(tr("Android..."), this, SLOT(onBuildAndroid()));
+    buildAndroidMenu->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
+    buildAndroidMenu->setEnabled(false);
+
+    playerMenu->addSeparator();
+    QAction *relaunchAction = playerMenu->addAction(QObject::tr("&Relaunch"), this, SLOT(on_actionRelaunch_triggered()));
+#ifdef Q_OS_MAC
+    relaunchAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
+#else   // windows, *nix and others
+    relaunchAction->setShortcut(QKeySequence(Qt::Key_F5));
+#endif
+
+    playerMenu->addSeparator();
+    playerMenu->addAction(tr("Show Project Sandbox"), this, SLOT(onShowProjectSandBox()));
+
+    playerMenu->addAction(tr("Show Porject Files"), this, SLOT(onShowProjectFiles()));
+
+    //
+    // screen menu
+    //
+
+    m_screenMenu = mainMenu->addMenu(QObject::tr("&Screen"));
+
+    //
     // more menu
+    //
+
     QMenu *moreMenu = mainMenu->addMenu(QObject::tr("&More"));
     moreMenu->addAction("&AboutQt", this, SLOT(on_actionAboutQt_triggered()));
     moreMenu->addAction("&About", this, SLOT(on_actionAbout_triggered()));
@@ -174,7 +230,7 @@ void MainMenu::initMenu()
     CCSize size = m_projectConfig.getFrameSize();
     for (int i = 0; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++) {
         const SimulatorScreenSize &screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(i);
-        QAction *action = m_viewMenu->addAction(QString::fromLocal8Bit(screenSize.title.data()));
+        QAction *action = m_screenMenu->addAction(QString::fromLocal8Bit(screenSize.title.data()));
         action->setCheckable(true);
         action->setEnabled(true);
         action->setData(i);
@@ -187,17 +243,17 @@ void MainMenu::initMenu()
         }
     }
 
-    m_viewMenu->addSeparator();
+    m_screenMenu->addSeparator();
 
     //
     actionGroup = new QActionGroup(this);
 
-    m_landscapeAction = m_viewMenu->addAction(tr("Landscape"));
+    m_landscapeAction = m_screenMenu->addAction(tr("Landscape"));
     m_landscapeAction->setData(kLandscape);
     m_landscapeAction->setCheckable(true);
     connect(m_landscapeAction, SIGNAL(triggered()), this, SLOT(onLandscapeTriggered()));
 
-    m_portraitAction = m_viewMenu->addAction(tr("Portrait"));
+    m_portraitAction = m_screenMenu->addAction(tr("Portrait"));
     m_portraitAction->setData(kPortrait);
     m_portraitAction->setCheckable(true);
     connect(m_portraitAction, SIGNAL(triggered()), this, SLOT(onLandscapeTriggered()));
@@ -211,26 +267,50 @@ void MainMenu::initMenu()
         m_portraitAction->setChecked(true);
     }
 
-    m_viewMenu->addSeparator();
+    m_screenMenu->addSeparator();
 
     //
     actionGroup = new QActionGroup(this);
-    QAction *screenScale100 = m_viewMenu->addAction(tr("100% scale"));
-    screenScale100->setData(1.0f);
-    screenScale100->setCheckable(true);
-    connect(screenScale100, SIGNAL(triggered()), this, SLOT(onScreenScaleTriggered()));
-
-    QAction *screenScale50 = m_viewMenu->addAction(tr("50% scale"));
-    screenScale50->setData(0.5f);
-    screenScale50->setCheckable(true);
-    connect(screenScale50, SIGNAL(triggered()), this, SLOT(onScreenScaleTriggered()));
-
-    actionGroup->addAction(screenScale100);
-    actionGroup->addAction(screenScale50);
-    if (m_projectConfig.getFrameScale() == 0.5f) {
-        screenScale50->setChecked(true);
-    } else if (m_projectConfig.getFrameScale() == 1.0f) {
-        screenScale100->setChecked(true);
+    QList<ActionData> screenScaleDataList;
+    {
+        ActionData actionData;
+        actionData.text = tr("Actual (100%)");
+        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_0);
+        actionData.userData = 1.0f;
+        screenScaleDataList << actionData;
+    }
+    {
+        ActionData actionData;
+        actionData.text = tr("Zoom Out (75%)");
+        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_6);
+        actionData.userData = 0.75f;
+        screenScaleDataList << actionData;
+    }
+    {
+        ActionData actionData;
+        actionData.text = tr("Zoom Out (50%)");
+        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_5);
+        actionData.userData = 0.5f;
+        screenScaleDataList << actionData;
+    }
+    {
+        ActionData actionData;
+        actionData.text = tr("Zoom Out (25%)");
+        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_4);
+        actionData.userData = 0.25f;
+        screenScaleDataList << actionData;
+    }
+    Q_FOREACH(ActionData actionData, screenScaleDataList)
+    {
+        QAction *scaleAction = m_screenMenu->addAction(actionData.text);
+        actionGroup->addAction(scaleAction);
+        scaleAction->setCheckable(true);
+        scaleAction->setShortcut(actionData.keySequence);
+        scaleAction->setData(actionData.userData);
+        connect(scaleAction, SIGNAL(triggered()), this, SLOT(onScreenScaleTriggered()));
+        if (int(m_projectConfig.getFrameScale()*100) == int(actionData.userData.toFloat()*100)) {
+            scaleAction->setChecked(true);
+        }
     }
 }
 
@@ -327,8 +407,8 @@ void MainMenu::onOpenQuickDemoWebview()
 
 void MainMenu::on_actionAbout_triggered()
 {
-    AboutUI aboutUI(m_renderWidget);
-    aboutUI.show();
+    AboutUI *aboutUI = new AboutUI(m_renderWidget);
+    aboutUI->show();
 }
 
 void MainMenu::on_actionAboutQt_triggered()
@@ -371,4 +451,51 @@ void MainMenu::restartWithProjectConfig(ProjectConfig &config)
 void MainMenu::onNewProject()
 {
     this->newProject(0);
+}
+
+void MainMenu::onCreateNewPlayer()
+{
+    QProcess::startDetached(qApp->applicationFilePath());
+}
+
+void MainMenu::onClose()
+{
+    qApp->exit(0);
+}
+
+void MainMenu::onShowWelcome()
+{
+    m_projectConfig.resetToWelcome();
+    qApp->exit(APP_EXIT_CODE);
+}
+
+void MainMenu::onOpenDebugLog(bool checked)
+{
+    if (checked)
+        ConsoleUI::instance()->openLogFile();
+}
+
+void MainMenu::onUploadToDevice()
+{
+
+}
+
+void MainMenu::onCreateLauncher()
+{
+
+}
+
+void MainMenu::onAutoConnectDebugger()
+{
+
+}
+
+void MainMenu::onShowProjectSandBox()
+{
+    openURLHelper(m_projectConfig.getProjectDir().c_str());
+}
+
+void MainMenu::onShowProjectFiles()
+{
+    openURLHelper(m_projectConfig.getProjectDir().c_str());
 }

@@ -17,6 +17,7 @@ include(../../lib/proj.qt/quick-x-common.pri)
 CONFIG += warn_off
 macx {
 #    CONFIG -= app_bundle
+    ICON = QuickIcon.icns
 }
 
 INCLUDEPATH += ../sources .
@@ -55,3 +56,7 @@ FORMS    += \
 OTHER_FILES +=
 
 DESTDIR = $${LIB_OUTPUT_DIR}
+
+RESOURCES += \
+    res.qrc
+

@@ -25,6 +25,7 @@ public:
 
     static ConsoleUI *instance();
     void initWithLogFile(QString logPath);
+    void openLogFile();
 
 public Q_SLOTS:
     void dealWithMessageOutput(QtMsgType /*type*/, const QString &msg);
