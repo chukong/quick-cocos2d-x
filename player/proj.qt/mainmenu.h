@@ -48,8 +48,12 @@ public Q_SLOTS:
     void onUploadToDevice();
     void onCreateLauncher();
     void onAutoConnectDebugger();
+    void onBuildIOS();
+    void onBuildAndroid();
     void onShowProjectSandBox();
     void onShowProjectFiles();
+    void onShowPreferences();
+    void onMainWidgetOnTop(bool checked);
 
 protected:
     void initMenu();

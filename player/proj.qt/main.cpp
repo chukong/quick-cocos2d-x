@@ -72,8 +72,6 @@ int main(int argc, char *argv[])
     }
     MainMenu *mainMenu = new MainMenu();
 
-
-
     // crash with Qt 5.1, so set the default font for quick-x-player
 //    QFont font("Courier", 10, QFont::Normal, false);
     qApp->setFont(QFont("arial"));

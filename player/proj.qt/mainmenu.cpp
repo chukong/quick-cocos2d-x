@@ -23,6 +23,7 @@
 #include "createprojectui.h"
 #include "consoleui.h"
 #include "logindialog.h"
+#include "preferenceui.h"
 
 #define kPortrait 1
 #define kLandscape 2
@@ -108,6 +109,16 @@ MainMenu::MainMenu(QObject *parent)
     m_screenMenu = mainMenu->addMenu(QObject::tr("&Screen"));
 
     //
+    // window
+    //
+    QMenu *windowMenu = mainMenu->addMenu(tr("Window"));
+    {
+        QAction *onTopAction = windowMenu->addAction(tr("Allways On Top"));
+        onTopAction->setCheckable(true);
+        connect(onTopAction, SIGNAL(triggered(bool)), this, SLOT(onMainWidgetOnTop(bool)));
+    }
+
+    //
     // more menu
     //
 
@@ -123,6 +134,13 @@ MainMenu::MainMenu(QObject *parent)
     mainMenu->raise();
 
     MENU = this;
+
+    //
+    // Preferences
+    //
+    QAction *m_preference = moreMenu->addAction(tr("Preferences"));
+    m_preference->setMenuRole(QAction::PreferencesRole);
+    connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }
 
 MainMenu::~MainMenu()
@@ -490,6 +508,16 @@ void MainMenu::onAutoConnectDebugger()
 
 }
 
+void MainMenu::onBuildIOS()
+{
+
+}
+
+void MainMenu::onBuildAndroid()
+{
+
+}
+
 void MainMenu::onShowProjectSandBox()
 {
     openURLHelper(m_projectConfig.getProjectDir().c_str());
@@ -498,4 +526,21 @@ void MainMenu::onShowProjectSandBox()
 void MainMenu::onShowProjectFiles()
 {
     openURLHelper(m_projectConfig.getProjectDir().c_str());
+}
+
+void MainMenu::onShowPreferences()
+{
+    PreferenceUI *widget = new PreferenceUI();
+    widget->setAttribute(Qt::WA_DeleteOnClose);
+    widget->show();
+}
+
+void MainMenu::onMainWidgetOnTop(bool checked)
+{
+    QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
+    if (checked) {
+        window->setFlags(window->flags() | Qt::WindowStaysOnTopHint);
+    } else {
+        window->setFlags(window->flags() ^ Qt::WindowStaysOnTopHint);
+    }
 }

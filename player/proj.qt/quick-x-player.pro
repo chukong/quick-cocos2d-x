@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     createprojectui.cpp \
     consoleui.cpp \
     msghandlerwapper.cpp \
-    logindialog.cpp
+    logindialog.cpp \
+    preferenceui.cpp
 
 SOURCES += ../sources/*.cpp
 
@@ -44,14 +45,16 @@ HEADERS  += \
     createprojectui.h \
     consoleui.h \
     msghandlerwapper.h \
-    logindialog.h
+    logindialog.h \
+    preferenceui.h
 
 FORMS    += \
     aboutui.ui \
     projectconfigui.ui \
     createprojectui.ui \
     consoleui.ui \
-    logindialog.ui
+    logindialog.ui \
+    preferenceui.ui
 
 OTHER_FILES +=
 
