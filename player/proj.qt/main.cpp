@@ -66,6 +66,11 @@ int main(int argc, char *argv[])
         scale = 1.0f;
     view->setFrameZoomFactor(scale);
 
+    if (projectConfig.getWindowOffset().x <= 1 && projectConfig.getWindowOffset().y <= 1) {
+    } else {
+        view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x, projectConfig.getWindowOffset().y);
+    }
+
     view->getGLWindow()->show();
     if (projectConfig.isShowConsole()) {
         ConsoleUI::instance()->show();

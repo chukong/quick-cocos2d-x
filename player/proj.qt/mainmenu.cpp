@@ -473,7 +473,15 @@ void MainMenu::onNewProject()
 
 void MainMenu::onCreateNewPlayer()
 {
-    QProcess::startDetached(qApp->applicationFilePath());
+    ProjectConfig newPlayerConfig = m_projectConfig;
+    QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
+    newPlayerConfig.resetToWelcome();
+    newPlayerConfig.setWindowOffset(CCPoint(window->position().x()+50, window->position().y()+10));
+
+    QString cmd(newPlayerConfig.makeCommandLine().data());
+    QStringList args = cmd.split(" ");
+    qDebug() << args;
+    QProcess::startDetached(qApp->applicationFilePath(), args);
 }
 
 void MainMenu::onClose()
