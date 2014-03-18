@@ -24,6 +24,8 @@ end
 local language_ = sharedApplication:getCurrentLanguage()
 if language_ == kLanguageChinese then
     language_ = "cn"
+elseif language_ == kLanguageChinese_tw then
+    language_ = "zh_Hant"
 elseif language_ == kLanguageFrench then
     language_ = "fr"
 elseif language_ == kLanguageItalian then
@@ -69,22 +71,34 @@ function device.showAlert(title, message, buttonLabels, listener)
     if type(buttonLabels) ~= "table" then
         buttonLabels = {tostring(buttonLabels)}
     end
-    local defaultLabel = ""
-    if #buttonLabels > 0 then
-        defaultLabel = buttonLabels[1]
-        table.remove(buttonLabels, 1)
-    end
+	
+	if device.platform == "android" then
+		local tempListner = function(event)
+			if type(event) == "string" then
+				event = require("framework.json").decode(event)
+				event.buttonIndex = tonumber(event.buttonIndex)
+			end
+			if listener then listener(event) end
+		end
+		luaj.callStaticMethod("org/cocos2dx/utils/PSNative", "createAlert", {title, message, buttonLabels, tempListner}, "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Vector;I)V");
+	else
+	    local defaultLabel = ""
+	    if #buttonLabels > 0 then
+	        defaultLabel = buttonLabels[1]
+	        table.remove(buttonLabels, 1)
+	    end
 
-    CCNative:createAlert(title, message, defaultLabel)
-    for i, label in ipairs(buttonLabels) do
-        CCNative:addAlertButton(label)
-    end
+	    CCNative:createAlert(title, message, defaultLabel)
+	    for i, label in ipairs(buttonLabels) do
+	        CCNative:addAlertButton(label)
+	    end
 
-    if type(listener) ~= "function" then
-        listener = function() end
-    end
+	    if type(listener) ~= "function" then
+	        listener = function() end
+	    end
 
-    CCNative:showAlert(listener)
+	    CCNative:showAlert(listener)
+	end
 end
 
 function device.cancelAlert()

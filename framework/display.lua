@@ -29,12 +29,14 @@ else
     CONFIG_SCREEN_AUTOSCALE = string.upper(CONFIG_SCREEN_AUTOSCALE)
 end
 
-local scale, scaleX, scaleY = 1.0, 1.0, 1.0
+local scale, scaleX, scaleY
 
 if CONFIG_SCREEN_AUTOSCALE then
     if type(CONFIG_SCREEN_AUTOSCALE_CALLBACK) == "function" then
         scaleX, scaleY = CONFIG_SCREEN_AUTOSCALE_CALLBACK(w, h, device.model)
-    else
+    end
+
+    if not scaleX or not scaleY then
         scaleX, scaleY = w / CONFIG_SCREEN_WIDTH, h / CONFIG_SCREEN_HEIGHT
     end
 
@@ -45,6 +47,7 @@ if CONFIG_SCREEN_AUTOSCALE then
         scale = scaleY
         CONFIG_SCREEN_WIDTH = w / scale
     else
+        scale = 1.0
         echoError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
 
@@ -322,6 +325,73 @@ function display.newTilesSprite(filename, rect)
     display.align(sprite, display.LEFT_BOTTOM, 0, 0)
 
     return sprite
+end
+
+--- create a tiled CCSpriteBatchNode, the image can not a POT file.
+-- @param __fileName the first parameter for display.newSprite
+-- @param __texture texture(plist) image filename, __fileName must be a part of the texture.
+-- @param __size the tiled node size, use cc.size create it please.
+-- @param __hPadding horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
+-- @param __vPadding vertical padding.
+-- @return a CCSpriteBatchNode
+function display.newTiledBatchNode(__fileName, __texture, __size, __hPadding, __vPadding)
+	__size = __size or cc.size(display.width, display.height)
+	__hPadding = __hPadding or 0
+	__vPadding = __vPadding or 0
+	local __sprite = display.newSprite(__fileName)
+	local __sliceSize = __sprite:getContentSize()
+	__sliceSize.width = __sliceSize.width - __hPadding
+	__sliceSize.height = __sliceSize.height - __vPadding
+	local __xRepeat = math.ceil(__size.width/__sliceSize.width)
+	local __yRepeat = math.ceil(__size.height/__sliceSize.height)
+	-- how maney sprites we need to fill in tiled node?
+	local __capacity = __xRepeat * __yRepeat
+	local __batch = display.newBatchNode(__texture, __capacity)
+	local __newSize = cc.size(0,0)
+	--printf("newTileNode xRepeat:%u, yRepeat:%u", __xRepeat, __yRepeat)
+	for y=0,__yRepeat-1 do
+		for x=0,__xRepeat-1 do
+			__newSize.width = __newSize.width + __sliceSize.width
+			__sprite = display.newSprite(__fileName)
+				:align(display.LEFT_BOTTOM,x*__sliceSize.width, y*__sliceSize.height)
+				:addTo(__batch)
+				--print("newTileNode:", x*__sliceSize.width, y*__sliceSize.height)
+		end
+		__newSize.height = __newSize.height + __sliceSize.height
+	end
+	__batch:setContentSize(__newSize)
+	return __batch, __newSize.width, __newSize.height
+end
+
+--- create a masked sprite
+function display.newMaskedSprite(__mask, __pic)
+	local __mb = ccBlendFunc:new()
+	__mb.src = GL_ONE
+	__mb.dst = GL_ZERO
+
+	local __pb = ccBlendFunc:new()
+	__pb.src = GL_DST_ALPHA
+	__pb.dst = GL_ZERO
+
+	local __maskSprite = display.newSprite(__mask):align(display.LEFT_BOTTOM, 0, 0)
+	__maskSprite:setBlendFunc(__mb)
+
+	local __picSprite = display.newSprite(__pic):align(display.LEFT_BOTTOM, 0, 0)
+	__picSprite:setBlendFunc(__pb)
+
+	local __maskSize = __maskSprite:getContentSize()
+	local __canva = CCRenderTexture:create(__maskSize.width,__maskSize.height)
+	__canva:begin()
+	__maskSprite:visit()
+	__picSprite:visit()
+	__canva:endToLua()
+
+	local __resultSprite = CCSpriteExtend.extend(
+		CCSprite:createWithTexture(
+			__canva:getSprite():getTexture()
+		))
+		:flipY(true)
+	return __resultSprite
 end
 
 function display.newCircle(radius)

@@ -102,6 +102,10 @@ void CCScene::removeTouchableNode(CCNode *node)
     }
 }
 
+void CCScene::registerWithTouchDispatcher() {
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), false);
+}
+
 int CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     // remove all touch targets

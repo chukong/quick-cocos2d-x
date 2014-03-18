@@ -113,7 +113,18 @@ public class Cocos2dxHelper {
 	}
 
 	public static String getCurrentLanguage() {
-		return Locale.getDefault().getLanguage();
+        String lan = Locale.getDefault().getLanguage();
+		if (lan.equals("zh"))
+		{
+			// added by guorui.chen
+			// check current language is simple or traditional
+			String country = Locale.getDefault().getCountry();
+			if (country.toUpperCase().equals("TW"))
+				lan += "-Hant";
+			else
+				lan += "-Hans";
+		}
+		return lan;
 	}
 	
 	public static String getDeviceModel(){
