@@ -31,6 +31,9 @@ public:
     static int sendMessage(lua_State *L);
 
     void initMainMenu();
+    void makeMainWindow(QWindow *w, QMenuBar *bar);
+
+    QMenuBar *getMenuBar();
 
 public Q_SLOTS:
     void onOpenQuickDemoWebview();
@@ -88,6 +91,9 @@ private:
     QMenuBar        *m_mainMenu;
     QMenu           *m_screenMenu;
     QAction         *m_landscapeAction, *m_portraitAction;
+#ifdef Q_OS_WIN
+    QMainWindow     *m_mainWindow;
+#endif
 };
 Q_DECLARE_METATYPE(const char *);
 

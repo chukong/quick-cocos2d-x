@@ -40,6 +40,9 @@ Player::Player(QObject *parent)
     : QObject(parent)
     , m_renderWidget(0)
     , m_mainMenu(0)
+#ifdef Q_OS_WIN
+    , m_mainWindow(0)
+#endif
 {
     qRegisterMetaType<const char *>("const char *");
 }
@@ -280,6 +283,27 @@ void Player::initMainMenu()
     connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }
 
+void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
+{
+#ifdef Q_OS_WIN
+    if (bar && w) {
+        bar->show();
+        m_mainWindow = new QMainWindow();
+        m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
+        m_mainWindow->setMenuBar(bar);
+        QSize size = w->size();// + QSize(0, bar->size().height());
+        m_mainWindow->setCentralWidget(QWidget::createWindowContainer(w));
+        m_mainWindow->setFixedSize(size);
+        m_mainWindow->show();
+    }
+#endif
+}
+
+QMenuBar *Player::getMenuBar()
+{
+    return this->m_mainMenu;
+}
+
 void Player::initScreenMenu()
 {
     //
@@ -388,6 +412,7 @@ void Player::applySettingAndRestart()
 
     QString cmd(m_projectConfig.makeCommandLine().data());
     args = cmd.split(" ");
+    qDebug() << args;
     qApp->setProperty(RESTART_ARGS, args);
     this->restart();
 }
@@ -451,6 +476,11 @@ void Player::onScreenScaleTriggered()
 
 //    applySettingAndRestart();
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
+#ifdef Q_OS_WIN
+    if (m_mainWindow) {
+        m_mainWindow->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
+    }
+#endif
 }
 
 void Player::onOpenQuickDemoWebview()

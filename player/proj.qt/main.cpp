@@ -72,20 +72,21 @@ int main(int argc, char *argv[])
         view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x, projectConfig.getWindowOffset().y);
     }
 
-    view->getGLWindow()->show();
     if (projectConfig.isShowConsole()) {
         ConsoleUI::instance()->show();
     }
     Player *player = Player::instance();
     player->initMainMenu();
+    player->makeMainWindow(view->getGLWindow(), player->getMenuBar());
 
     // crash with Qt 5.1, so set the default font for quick-x-player
-//    QFont font("Courier", 10, QFont::Normal, false);
-    qApp->setFont(QFont("arial"));
+    QFont font("Courier", 10, QFont::Normal, false);
+    qApp->setFont(font);
 
     // menu
     player->setProjectConfig(projectConfig);
 
+    view->getGLWindow()->show();
     int ret = app.run();
 
     MsgHandlerWapper::instance()->cancelHandler();
