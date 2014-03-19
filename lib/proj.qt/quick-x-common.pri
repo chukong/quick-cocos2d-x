@@ -3,7 +3,7 @@ DEFINES += CC_TARGET_QT _USRDLL
 DEFINES += CC_LUA_ENGINE_ENABLED=1
 
 # conflict with sigslot.h
-CONFIG += no_keywords QT
+CONFIG += no_keywords
 QT += core gui opengl multimedia
 
 ROOT=$${PWD}/../../
@@ -29,10 +29,11 @@ macx {
     DEFINES += USE_FILE32API
 
     COCOS2DX_SYSTEM_LIBS += -lz
-    COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -ljpeg -ltiff -lpng #-lGLEW
-    COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -lfontconfig -lfreetype
+    COCOS2DX_SYSTEM_LIBS += -L$${QMAKE_MAC_SDK.macosx.path}/usr/lib -lcurl
+    #COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -ljpeg -ltiff -lpng #-lGLEW
+    #COCOS2DX_SYSTEM_LIBS += -L/usr/local/lib -lfontconfig -lfreetype
 
-    COCOS2DX_SYSTEM_LIBS += -lcurl -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/mac -lluajit2
+    COCOS2DX_SYSTEM_LIBS +=  -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/mac -lluajit2
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries/ -lwebp
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/mac/lib/ -lwebsockets
 

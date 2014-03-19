@@ -91,9 +91,9 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/platform/CCSAXParser.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/CCThread.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/CCZipFile.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/platform.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCCommon.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCAccelerometer.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCApplication.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCCommon.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCDevice.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCEGLView.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCFileUtilsQt.cpp \
