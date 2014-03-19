@@ -14,7 +14,7 @@ TEMPLATE = app
 
 include(../../lib/proj.qt/quick-x-common.pri)
 
-CONFIG += warn_off
+#CONFIG += warn_off
 macx {
 #    CONFIG -= app_bundle
     ICON = QuickIcon.icns

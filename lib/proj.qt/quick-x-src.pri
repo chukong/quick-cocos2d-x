@@ -149,7 +149,7 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/tilemap_parallax_nodes/CCTMXXMLParser.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/touch_dispatcher/CCTouch.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/touch_dispatcher/CCTouchDispatcher.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/touch_dispatcher/CCTouchHandler.cpp \
-$${ROOT}/lib/cocos2d-x/CocosDenshion/qt/SimpleAudioEngineQt5.cpp \
+#$${ROOT}/lib/cocos2d-x/CocosDenshion/qt/SimpleAudioEngineQt5.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/AssetsManager/AssetsManager.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/CCArmature/animation/CCArmatureAnimation.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/CCArmature/animation/CCProcessBase.cpp \
@@ -337,12 +337,12 @@ OBJECTIVE_SOURCES += \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCThread.mm \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCWindow.m \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/EAGLView.mm \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDAudioManager.m \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDOpenALSupport.m \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDXMacOSXSupport.mm \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CocosDenshion.m \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/SimpleAudioEngine.mm \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/SimpleAudioEngine_objc.m \
+$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDAudioManager.m \
+$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDOpenALSupport.m \
+$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDXMacOSXSupport.mm \
+$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CocosDenshion.m \
+$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/SimpleAudioEngine.mm \
+$${ROOT}/lib/cocos2d-x/CocosDenshion/mac/SimpleAudioEngine_objc.m \
 #$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCCryptoIOS.mm \
 #$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCNative.mm \
 #$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCNativeIOS.mm \

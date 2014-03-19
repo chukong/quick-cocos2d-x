@@ -4,7 +4,8 @@ DEFINES += CC_LUA_ENGINE_ENABLED=1
 
 # conflict with sigslot.h
 CONFIG += no_keywords
-QT += core gui opengl multimedia
+QT += core gui opengl
+# multimedia
 
 ROOT=$${PWD}/../../
 CC_ROOT=$${ROOT}/lib/cocos2d-x/
@@ -37,9 +38,18 @@ macx {
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries/ -lwebp
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/mac/lib/ -lwebsockets
 
+    QMAKE_CXXFLAGS_WARN_ON = ""
+    QMAKE_CXXFLAGS += -Wunused-parameter
+    QMAKE_CXXFLAGS += -Wno-unused-variable
+    QMAKE_CXXFLAGS += -Wignored-qualifiers
+    QMAKE_CXXFLAGS += -Wreorder
+
     CONFIG += objective_c
     COCOS2DX_SYSTEM_LIBS += -framework Foundation -framework AppKit -framework SystemConfiguration  \
                             -framework CoreFoundation -framework StoreKit
+
+    # for audio
+    COCOS2DX_SYSTEM_LIBS += -framework OpenAL -framework AudioToolbox
 
     LINK_AGANST_LUA_COCOS2D += -pagezero_size 10000 -image_base 100000000
 }
