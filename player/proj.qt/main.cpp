@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QProcess>
 #include <QMenuBar>
+#include <QSettings>
 #include <QDebug>
 
 #include "cocos2d.h"

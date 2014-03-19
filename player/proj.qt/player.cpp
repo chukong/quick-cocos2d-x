@@ -11,6 +11,7 @@
 #include <QApplication>
 #include <QWebFrame>
 #include <QDesktopServices>
+#include <QProcess>
 #include <QDebug>
 
 // 3rd library

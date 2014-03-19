@@ -57,6 +57,7 @@ macx {
 }
 
 win32 {
+    QT += multimedia
     DEFINES += USING_GLEW
 
     # You may need to change this include directory
