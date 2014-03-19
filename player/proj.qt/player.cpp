@@ -1,4 +1,4 @@
-#include "mainmenu.h"
+#include "player.h"
 
 #include <QDesktopWidget>
 #include <QFileDialog>
@@ -35,30 +35,168 @@ struct ActionData
     QVariant        userData;
 };
 
-MainMenu* MENU = NULL;
-QMenuBar *xxBar = NULL;
-MainMenu::MainMenu(QObject *parent)
+Player::Player(QObject *parent)
     : QObject(parent)
     , m_renderWidget(0)
-    , m_quickDemoWebview(0)
+    , m_mainMenu(0)
+{
+    qRegisterMetaType<const char *>("const char *");
+}
+
+Player::~Player()
+{
+    CC_SAFE_DELETE(m_mainMenu);
+}
+
+Player *Player::instance()
+{
+    static Player *player = NULL;
+    if (!player) {
+        player = new Player;
+    }
+    return player;
+}
+
+void Player::setProjectConfig(const ProjectConfig& config)
+{
+    m_projectConfig = config;
+    initScreenMenu();
+}
+
+ProjectConfig Player::getProjectConfig()
+{
+    return m_projectConfig;
+}
+
+int Player::openURL(lua_State *L)
+{
+    //从栈中读入实部，虚部
+    const char *path = lua_tostring(L, 1);
+    Player::instance()->onOpenURL(path);
+    return 0;
+}
+
+int Player::openQuickDemoWithWebView(lua_State * /*L*/)
+{
+    Player::instance()->onOpenQuickDemoWebview();
+    return 0;
+}
+
+int Player::newProject(lua_State * /*L*/)
+{
+    CreateProjectUI ui(0);
+    if (ui.exec() == QDialog::Accepted) {
+        ui.createNewProject();
+    }
+    return 0;
+}
+
+void Player::onOpenProject()
+{
+    ProjectConfig config = Player::instance()->getProjectConfig();
+    ProjectConfigUI ui(config, 0);
+    if (ui.exec() == QDialog::Accepted) {
+        config = ui.getProjectConfig();
+        Player::instance()->restartWithProjectConfig(config);
+    }
+}
+
+int Player::openProject(lua_State * /*L*/)
+{
+    Player::instance()->onOpenProject();
+    return 0;
+}
+
+int Player::showLoginUI(lua_State * /*L*/)
+{
+    Player::instance()->onShowLoginUI();
+    return 0;
+}
+
+int Player::sendMessage(lua_State *L)
+{
+    int argc = lua_gettop(L);
+
+    if (argc > 0) {
+        //从栈中读入实部，虚部
+        const char *funName = lua_tostring(L, 1);
+        if (argc == 1) {
+            QMetaObject::invokeMethod(Player::instance(), funName,
+                                      Qt::QueuedConnection);
+        }
+        else if (argc == 2) {
+            if (lua_isstring(L, 2)) {
+                const char *data = lua_tostring(L, 2);
+                QMetaObject::invokeMethod(Player::instance(), funName,
+                                          Qt::QueuedConnection,
+                                          Q_ARG(const char *, data));
+            } else {
+
+            }
+        }
+        else {
+            QMetaObject::invokeMethod(Player::instance(), funName,
+                                      Qt::QueuedConnection);
+        }
+    }
+    return 0;
+}
+
+void Player::onOpenURL(const char *path)
+{
+    QString tmpPath(path);
+    if (tmpPath.startsWith("http://"))
+        QDesktopServices::openUrl(QUrl(tmpPath));
+    else
+        QDesktopServices::openUrl(QUrl::fromLocalFile(tmpPath));
+}
+
+void Player::onRestartWithArgs(QStringList args)
+{
+    qApp->setProperty(RESTART_ARGS, args);
+    qApp->exit(APP_EXIT_CODE);
+}
+
+void Player::openDemoWithArgs(QString cmds)
+{
+    QStringList args = cmds.split(",");
+    Player::instance()->onRestartWithArgs(args);
+}
+
+void Player::registerAllCpp()
+{
+    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
+    lua_register(L, "openURL", &Player::openURL);
+    lua_register(L, "openQuickDemoWithWebView", &Player::openQuickDemoWithWebView);
+    lua_register(L, "newProject", &Player::newProject);
+    lua_register(L, "openProject", &Player::openProject);
+    lua_register(L, "showLoginUI", &Player::showLoginUI);
+    lua_register(L, "sendMessage", &Player::sendMessage);
+}
+
+void Player::initMainMenu()
 {
 #ifdef Q_OS_MAC
-    QMenuBar *mainMenu = new QMenuBar(0);
+    m_mainMenu = new QMenuBar(0);
+    m_mainMenu->setNativeMenuBar(true);
 #else
-    QMenuBar *mainMenu = new QMenuBar(m_renderWidget);
+    m_mainMenu = new QMenuBar(m_renderWidget);
 #endif
-//    mainMenu->setNativeMenuBar(true);
-    xxBar = mainMenu;
 
+    //
     // file menu
-    QMenu *fileMenu = mainMenu->addMenu(QObject::tr("&File"));
+    //
+
+    QMenu *fileMenu = m_mainMenu->addMenu(QObject::tr("&File"));
     fileMenu->addAction(QObject::tr("&New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
-    fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer())
-                        , QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+    fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+
     fileMenu->addSeparator();
     fileMenu->addAction(QObject::tr("&Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+
     fileMenu->addSeparator();
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
+
     fileMenu->addSeparator();
     fileMenu->addAction(QObject::tr("&Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
 
@@ -66,7 +204,7 @@ MainMenu::MainMenu(QObject *parent)
     // player menu
     //
 
-    QMenu *playerMenu = mainMenu->addMenu(QObject::tr("Player"));
+    QMenu *playerMenu = m_mainMenu->addMenu(QObject::tr("Player"));
     playerMenu->addAction(QObject::tr("Write Debug Log to File"))->setCheckable(true);
 
     QAction *openDebugLogAction = playerMenu->addAction(QObject::tr("Open Debug Log"));
@@ -106,12 +244,12 @@ MainMenu::MainMenu(QObject *parent)
     // screen menu
     //
 
-    m_screenMenu = mainMenu->addMenu(QObject::tr("&Screen"));
+    m_screenMenu = m_mainMenu->addMenu(QObject::tr("&Screen"));
 
     //
     // window
     //
-    QMenu *windowMenu = mainMenu->addMenu(tr("Window"));
+    QMenu *windowMenu = m_mainMenu->addMenu(tr("Window"));
     {
         QAction *onTopAction = windowMenu->addAction(tr("Allways On Top"));
         onTopAction->setCheckable(true);
@@ -122,7 +260,7 @@ MainMenu::MainMenu(QObject *parent)
     // more menu
     //
 
-    QMenu *moreMenu = mainMenu->addMenu(QObject::tr("&More"));
+    QMenu *moreMenu = m_mainMenu->addMenu(QObject::tr("&More"));
     moreMenu->addAction("&AboutQt", this, SLOT(on_actionAboutQt_triggered()));
     moreMenu->addAction("&About", this, SLOT(on_actionAbout_triggered()));
     moreMenu->addAction("&Simples", this, SLOT(onOpenQuickDemoWebview()));
@@ -130,10 +268,8 @@ MainMenu::MainMenu(QObject *parent)
     moreMenu->addAction("show console", this, SLOT(onShowConsole()));
     moreMenu->addAction("Login Test", this, SLOT(onShowLoginUI()));
 
-    mainMenu->show();
-    mainMenu->raise();
-
-    MENU = this;
+    m_mainMenu->show();
+    m_mainMenu->raise();
 
     //
     // Preferences
@@ -143,106 +279,10 @@ MainMenu::MainMenu(QObject *parent)
     connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }
 
-MainMenu::~MainMenu()
+void Player::initScreenMenu()
 {
-}
-
-MainMenu *MainMenu::instance()
-{
-    return MENU;
-}
-
-QMenuBar *MainMenu::getMenuBar()
-{
-    return xxBar;
-}
-
-void MainMenu::setProjectConfig(const ProjectConfig& config)
-{
-    m_projectConfig = config;
-    initMenu();
-}
-
-ProjectConfig MainMenu::getProjectConfig()
-{
-    return m_projectConfig;
-}
-
-int MainMenu::openURL(lua_State *L)
-{
-    //从栈中读入实部，虚部
-    const char *path = lua_tostring(L, 1);
-    openURLHelper(path);
-    return 0;
-}
-
-int MainMenu::openQuickDemoWithWebView(lua_State * /*L*/)
-{
-    QuickDemoWebView *webview = new QuickDemoWebView();
-    webview->setAttribute(Qt::WA_DeleteOnClose);
-    QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
-    filePaht.append("player/proj.qt/demo.html");
-    webview->load(filePaht);
-    webview->show();
-    return 0;
-}
-
-int MainMenu::newProject(lua_State * /*L*/)
-{
-    CreateProjectUI ui(0);
-    if (ui.exec() == QDialog::Accepted) {
-        ui.createNewProject();
-    }
-    return 0;
-}
-
-int MainMenu::onOpenProject(lua_State * /*L*/)
-{
-    ProjectConfig config = MENU->getProjectConfig();
-    ProjectConfigUI ui(config, 0);
-    if (ui.exec() == QDialog::Accepted) {
-        config = ui.getProjectConfig();
-        MENU->restartWithProjectConfig(config);
-    }
-    return 0;
-}
-
-int MainMenu::showLoginUI(lua_State *L)
-{
-    MainMenu::showLoginUIHelper();
-    return 0;
-}
-
-void MainMenu::openURLHelper(const char *path)
-{
-    QString tmpPath(path);
-    if (tmpPath.startsWith("http://"))
-        QDesktopServices::openUrl(QUrl(tmpPath));
-    else
-        QDesktopServices::openUrl(QUrl::fromLocalFile(path));
-}
-
-void MainMenu::showLoginUIHelper()
-{
-    LoginDialog *dialog = new LoginDialog();
-    dialog->setAttribute(Qt::WA_DeleteOnClose);
-    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    dialog->setLuaState(L);
-    dialog->show();
-}
-
-void MainMenu::registerAllCpp()
-{
-    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    lua_register(L, "openURL", &MainMenu::openURL);
-    lua_register(L, "openQuickDemoWithWebView", &MainMenu::openQuickDemoWithWebView);
-    lua_register(L, "newProject", &MainMenu::newProject);
-    lua_register(L, "openProject", &MainMenu::onOpenProject);
-    lua_register(L, "showLoginUI", &MainMenu::showLoginUI);
-}
-
-void MainMenu::initMenu()
-{
+    //
+    // create screen size
     //
     QActionGroup *actionGroup = new QActionGroup(this);
     CCSize size = m_projectConfig.getFrameSize();
@@ -263,6 +303,8 @@ void MainMenu::initMenu()
 
     m_screenMenu->addSeparator();
 
+    //
+    // Landscape or Portrait
     //
     actionGroup = new QActionGroup(this);
 
@@ -287,6 +329,8 @@ void MainMenu::initMenu()
 
     m_screenMenu->addSeparator();
 
+    //
+    // scale
     //
     actionGroup = new QActionGroup(this);
     QList<ActionData> screenScaleDataList;
@@ -332,12 +376,12 @@ void MainMenu::initMenu()
     }
 }
 
-void MainMenu::restart()
+void Player::restart()
 {
     qApp->exit(APP_EXIT_CODE);
 }
 
-void MainMenu::applySettingAndRestart()
+void Player::applySettingAndRestart()
 {
     QStringList args;
 
@@ -347,17 +391,12 @@ void MainMenu::applySettingAndRestart()
     this->restart();
 }
 
-void MainMenu::openlocalFolderOrFile(string filePath)
-{
-    QDesktopServices::openUrl(QUrl::fromLocalFile(filePath.data()));
-}
-
-void MainMenu::on_actionRelaunch_triggered()
+void Player::on_actionRelaunch_triggered()
 {
     this->applySettingAndRestart();
 }
 
-void MainMenu::on_actionOpen_triggered()
+void Player::on_actionOpen_triggered()
 {
     this->on_actionConfig_triggered();
     return ;
@@ -377,7 +416,7 @@ void MainMenu::on_actionOpen_triggered()
     }
 }
 
-void MainMenu::onScreenSizeTriggered()
+void Player::onScreenSizeTriggered()
 {
     QAction *action = (QAction*)sender();
     const SimulatorScreenSize &screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(action->data().toInt());
@@ -390,7 +429,7 @@ void MainMenu::onScreenSizeTriggered()
     applySettingAndRestart();
 }
 
-void MainMenu::onLandscapeTriggered()
+void Player::onLandscapeTriggered()
 {
     QAction *action = (QAction*)sender();
     int type = action->data().toInt();
@@ -403,7 +442,7 @@ void MainMenu::onLandscapeTriggered()
     applySettingAndRestart();
 }
 
-void MainMenu::onScreenScaleTriggered()
+void Player::onScreenScaleTriggered()
 {
     QAction *action = (QAction*)sender();
     float scale = action->data().toFloat();
@@ -413,28 +452,29 @@ void MainMenu::onScreenScaleTriggered()
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
 }
 
-void MainMenu::onOpenQuickDemoWebview()
+void Player::onOpenQuickDemoWebview()
 {
-    if (!m_quickDemoWebview) {
-        QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
-        filePaht.append("player/proj.qt/demo.html");
-        m_quickDemoWebview->load(filePaht);
-        m_quickDemoWebview->show();
-    }
+    QuickDemoWebView *webview = new QuickDemoWebView();
+    webview->setAttribute(Qt::WA_DeleteOnClose);
+    QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
+    filePaht.append("player/proj.qt/demo.html");
+    webview->setObject(this);
+    webview->load(filePaht);
+    webview->show();
 }
 
-void MainMenu::on_actionAbout_triggered()
+void Player::on_actionAbout_triggered()
 {
     AboutUI *aboutUI = new AboutUI(m_renderWidget);
     aboutUI->show();
 }
 
-void MainMenu::on_actionAboutQt_triggered()
+void Player::on_actionAboutQt_triggered()
 {
     QMessageBox::aboutQt(0);
 }
 
-void MainMenu::on_actionConfig_triggered()
+void Player::on_actionConfig_triggered()
 {
     ProjectConfigUI ui(m_projectConfig, m_renderWidget);
     if (ui.exec() == QDialog::Accepted) {
@@ -443,35 +483,39 @@ void MainMenu::on_actionConfig_triggered()
     }
 }
 
-void MainMenu::onShowOpenCocoaChinaWebView()
+void Player::onShowOpenCocoaChinaWebView()
 {
     const char *url = "http://www.cocoachina.com/";
     url = "/Users/jryin/workspace/github/quick-cocos2d-x/lib/debug";
-    openURLHelper(url);
+    onOpenURL(url);
 }
 
-void MainMenu::onShowConsole()
+void Player::onShowConsole()
 {
     ConsoleUI::instance()->show();
 }
 
-void MainMenu::onShowLoginUI()
+void Player::onShowLoginUI()
 {
-    MainMenu::showLoginUIHelper();
+    LoginDialog *dialog = new LoginDialog();
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
+    dialog->setLuaState(L);
+    dialog->show();
 }
 
-void MainMenu::restartWithProjectConfig(ProjectConfig &config)
+void Player::restartWithProjectConfig(ProjectConfig &config)
 {
     m_projectConfig = config;
     applySettingAndRestart();
 }
 
-void MainMenu::onNewProject()
+void Player::onNewProject()
 {
     this->newProject(0);
 }
 
-void MainMenu::onCreateNewPlayer()
+void Player::onCreateNewPlayer()
 {
     ProjectConfig newPlayerConfig = m_projectConfig;
     QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
@@ -484,66 +528,66 @@ void MainMenu::onCreateNewPlayer()
     QProcess::startDetached(qApp->applicationFilePath(), args);
 }
 
-void MainMenu::onClose()
+void Player::onClose()
 {
     qApp->exit(0);
 }
 
-void MainMenu::onShowWelcome()
+void Player::onShowWelcome()
 {
     m_projectConfig.resetToWelcome();
     qApp->exit(APP_EXIT_CODE);
 }
 
-void MainMenu::onOpenDebugLog(bool checked)
+void Player::onOpenDebugLog(bool checked)
 {
     if (checked)
         ConsoleUI::instance()->openLogFile();
 }
 
-void MainMenu::onUploadToDevice()
+void Player::onUploadToDevice()
 {
 
 }
 
-void MainMenu::onCreateLauncher()
+void Player::onCreateLauncher()
 {
 
 }
 
-void MainMenu::onAutoConnectDebugger()
+void Player::onAutoConnectDebugger()
 {
 
 }
 
-void MainMenu::onBuildIOS()
+void Player::onBuildIOS()
 {
 
 }
 
-void MainMenu::onBuildAndroid()
+void Player::onBuildAndroid()
 {
 
 }
 
-void MainMenu::onShowProjectSandBox()
+void Player::onShowProjectSandBox()
 {
-    openURLHelper(m_projectConfig.getProjectDir().c_str());
+    onOpenURL(m_projectConfig.getProjectDir().c_str());
 }
 
-void MainMenu::onShowProjectFiles()
+void Player::onShowProjectFiles()
 {
-    openURLHelper(m_projectConfig.getProjectDir().c_str());
+    onOpenURL(m_projectConfig.getProjectDir().c_str());
 }
 
-void MainMenu::onShowPreferences()
+void Player::onShowPreferences()
 {
     PreferenceUI *widget = new PreferenceUI();
     widget->setAttribute(Qt::WA_DeleteOnClose);
     widget->show();
 }
 
-void MainMenu::onMainWidgetOnTop(bool checked)
+void Player::onMainWidgetOnTop(bool checked)
 {
     QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
     if (checked) {

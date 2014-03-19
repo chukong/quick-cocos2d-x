@@ -27,7 +27,7 @@ LIBS += $${LINK_AGAINST_COCOS2DX}
 SOURCES += main.cpp\
     aboutui.cpp \
     projectconfigui.cpp \
-    mainmenu.cpp \
+    player.cpp \
     quickdemowebview.cpp \
     createprojectui.cpp \
     consoleui.cpp \
@@ -40,7 +40,7 @@ SOURCES += ../sources/*.cpp
 HEADERS  += \
     aboutui.h \
     projectconfigui.h \
-    mainmenu.h \
+    player.h \
     quickdemowebview.h \
     createprojectui.h \
     consoleui.h \

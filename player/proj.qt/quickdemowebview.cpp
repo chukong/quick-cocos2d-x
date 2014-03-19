@@ -1,17 +1,21 @@
 #include "quickdemowebview.h"
 #include <QWebFrame>
 #include <QApplication>
-#include <QtDebug>
-#include "mainmenu.h"
 
 QuickDemoWebView::QuickDemoWebView(QWidget *parent) :
-    QWebView(parent)
+    QWebView(parent),
+    m_object(0)
 {
     // web view
-    setWindowTitle("Quick-x-cocos2d demo list");
+    setWindowTitle(tr("quick-x-cocos2d demo list"));
     settings()->setAttribute(QWebSettings::JavascriptEnabled,true);
     settings()->setAttribute(QWebSettings::PluginsEnabled,true);
     connect(page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared ()), this, SLOT(addJavaScriptObject()));
+}
+
+void QuickDemoWebView::setObject(QObject *obj)
+{
+    m_object = obj;
 }
 
 void QuickDemoWebView::load(const QString& filePath)
@@ -26,19 +30,6 @@ void QuickDemoWebView::load(const QUrl &url)
 
 void QuickDemoWebView::addJavaScriptObject()
 {
-    page()->mainFrame()->addToJavaScriptWindowObject("quickx", &m_quickx);
-}
-
-
-QuickX::QuickX(QObject *parent)
-    : QObject(parent)
-{
-
-}
-
-void QuickX::openDemoWithArgs(QString cmds)
-{
-    QStringList args = cmds.split(",");
-    qApp->setProperty(RESTART_ARGS, args);
-    qApp->exit(APP_EXIT_CODE);
+    if (m_object)
+        page()->mainFrame()->addToJavaScriptWindowObject("quickx", m_object);
 }

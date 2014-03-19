@@ -6,7 +6,7 @@
 #include "CCLuaEngine.h"
 #include <string>
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-#include "mainmenu.h"
+#include "player.h"
 #endif
 
 using namespace std;
@@ -44,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCScriptEngineManager::sharedManager()->setScriptEngine(CCLuaEngine::defaultEngine());
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
     // regist my own lua
-    MainMenu::registerAllCpp();
+    Player::registerAllCpp();
 #endif
 
     StartupCall *call = StartupCall::create(this);

@@ -5,7 +5,7 @@
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
-#include "mainmenu.h"
+#include "player.h"
 #include "consoleui.h"
 #include "msghandlerwapper.h"
 
@@ -75,14 +75,15 @@ int main(int argc, char *argv[])
     if (projectConfig.isShowConsole()) {
         ConsoleUI::instance()->show();
     }
-    MainMenu *mainMenu = new MainMenu();
+    Player *player = Player::instance();
+    player->initMainMenu();
 
     // crash with Qt 5.1, so set the default font for quick-x-player
 //    QFont font("Courier", 10, QFont::Normal, false);
     qApp->setFont(QFont("arial"));
 
     // menu
-    mainMenu->setProjectConfig(projectConfig);
+    player->setProjectConfig(projectConfig);
 
     int ret = app.run();
 

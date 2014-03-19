@@ -155,7 +155,8 @@ end
 
 function WelcomeScene:onOpenButtonClicked()
     -- openURL("/Users/jryin/workspace/github/quick-cocos2d-x/player/welcome/scripts/main.lua");
-    openProject();
+    sendMessage("onOpenProject")
+    --openProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
 end
 

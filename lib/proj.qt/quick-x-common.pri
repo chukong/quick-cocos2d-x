@@ -44,6 +44,8 @@ macx {
     QMAKE_CXXFLAGS += -Wignored-qualifiers
     QMAKE_CXXFLAGS += -Wreorder
 
+    QMAKE_CFLAGS += -Wunused-parameter -Wno-unused-variable -Wreorder
+
     CONFIG += objective_c
     COCOS2DX_SYSTEM_LIBS += -framework Foundation -framework AppKit -framework SystemConfiguration  \
                             -framework CoreFoundation -framework StoreKit

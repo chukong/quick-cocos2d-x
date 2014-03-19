@@ -10,16 +10,14 @@
 #define ENV_KEY_QUICK_ROOT_PATH "QUICK_COCOS2DX_ROOT"
 
 class QTextBrowser;
-class MainMenu : public QObject
+class Player : public QObject
 {
     Q_OBJECT
 
-public:
-    explicit MainMenu(QObject *parent = 0);
-    ~MainMenu();
-    static MainMenu *instance();
+public:    
+    static Player *instance();
+    ~Player();
 
-    QMenuBar *getMenuBar();
     void setProjectConfig(const ProjectConfig& config);
     ProjectConfig getProjectConfig();
 
@@ -28,11 +26,11 @@ public:
     static int openURL(lua_State *L);        /* path: 使用系统默认的方式打开 */
     static int openQuickDemoWithWebView(lua_State *L);
     static int newProject(lua_State *L);
-    static int onOpenProject(lua_State *L);
+    static int openProject(lua_State *L);
     static int showLoginUI(lua_State *L);
+    static int sendMessage(lua_State *L);
 
-    static void openURLHelper(const char *path);
-    static void showLoginUIHelper();
+    void initMainMenu();
 
 public Q_SLOTS:
     void onOpenQuickDemoWebview();
@@ -41,6 +39,7 @@ public Q_SLOTS:
     void onShowLoginUI();
     void restartWithProjectConfig(ProjectConfig &config);
     void onNewProject();
+    void onOpenProject();
     void onCreateNewPlayer();
     void onClose();
     void onShowWelcome();
@@ -54,14 +53,18 @@ public Q_SLOTS:
     void onShowProjectFiles();
     void onShowPreferences();
     void onMainWidgetOnTop(bool checked);
+    void onOpenURL(const char *path);
+    void onRestartWithArgs(QStringList args);
+    void openDemoWithArgs(QString cmds);
 
 protected:
-    void initMenu();
+    Player(QObject *parent = 0);
+
+    void initScreenMenu();
 
     // engine
     void restart();
     void applySettingAndRestart();
-    void openlocalFolderOrFile(std::string filePath);
 
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
@@ -82,9 +85,10 @@ private:
     ProjectConfig   m_projectConfig;
     QWidget         *m_renderWidget;
 
+    QMenuBar        *m_mainMenu;
     QMenu           *m_screenMenu;
     QAction         *m_landscapeAction, *m_portraitAction;
-    QuickDemoWebView *m_quickDemoWebview;
 };
+Q_DECLARE_METATYPE(const char *);
 
 #endif // MAINWINDOW_H
