@@ -149,24 +149,27 @@ end
 -- listeners
 
 function WelcomeScene:onNewProjectButtonClicked()
-    newProject();
+    sendMessage("onNewProject")
+    --newProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
 end
 
 function WelcomeScene:onOpenButtonClicked()
-    -- openURL("/Users/jryin/workspace/github/quick-cocos2d-x/player/welcome/scripts/main.lua");
     sendMessage("onOpenProject")
+    -- openURL("/Users/jryin/workspace/github/quick-cocos2d-x/player/welcome/scripts/main.lua");
     --openProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
 end
 
 function WelcomeScene:onSamplesButtonClicked()
-    openQuickDemoWithWebView();
+    sendMessage("onOpenQuickDemoWebview")
+    --openQuickDemoWithWebView();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_SAMPLES")
 end
 
 function WelcomeScene:onGetStartedButtonClicked()
-    openURL("http://wiki.quick-x.com/doku.php");
+    sendMessage("onOpenURL", "http://wiki.quick-x.com/doku.php")
+    --openURL("http://wiki.quick-x.com/doku.php");
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end
 
