@@ -24,12 +24,15 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::accept()
 {
-    if (ui->userName->text().isEmpty() || ui->password->text().isEmpty()) {
+    if (ui->userName->text().isEmpty() || ui->password->text().isEmpty())
+    {
         QMessageBox::warning(this, this->windowTitle(),
                              tr("Please complete all infomation"),
                              QMessageBox::Ok);
-    } else {
-        if (this->luaCallback()) {
+    } else
+    {
+        if (this->luaCallback())
+        {
             QDialog::accept();
         }
     }
@@ -41,7 +44,8 @@ bool LoginDialog::luaCallback()
 
     lua_getglobal(L, "PlayerLoginCallback");
 
-    if (!lua_isfunction(L, -1)) {
+    if (!lua_isfunction(L, -1))
+    {
         lua_pop(L, 1);
         return true;
     }
@@ -50,7 +54,8 @@ bool LoginDialog::luaCallback()
     lua_pushstring(L, ui->password->text().toLocal8Bit().data());
 
     bool ret = true;
-    if (!lua_pcall(L, 2, 2, 0)) {
+    if (!lua_pcall(L, 2, 2, 0))
+    {
         // success
         ret = lua_toboolean(L, -2);
         const char *msg = lua_tostring(L, -1);
@@ -59,7 +64,9 @@ bool LoginDialog::luaCallback()
         // error message
         if (!ret)
             QMessageBox::warning(this, this->windowTitle(), msg, QMessageBox::Ok);
-    } else {
+    }
+    else
+    {
         // error
         const char *errMsg = lua_tostring(L, -1);
         lua_pop(L, 1);

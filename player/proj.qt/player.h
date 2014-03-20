@@ -59,6 +59,7 @@ public Q_SLOTS:
     void onOpenURL(const char *path);
     void onRestartWithArgs(QStringList args);
     void openDemoWithArgs(QString cmds);
+    void onSaveQuickRootPath(QString absPath);
 
 protected:
     Player(QObject *parent = 0);

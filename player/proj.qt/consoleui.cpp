@@ -23,7 +23,8 @@ ConsoleUI::~ConsoleUI()
 ConsoleUI *ConsoleUI::instance()
 {
     static ConsoleUI *consoleUI = NULL;
-    if (!consoleUI) {
+    if (!consoleUI)
+    {
         consoleUI = new ConsoleUI();
     }
     return consoleUI;
@@ -33,7 +34,8 @@ void ConsoleUI::initWithLogFile(QString logPath)
 {
     m_logFile.setFileName(logPath);
     m_textStream.setDevice(&m_logFile);
-    if (!m_logFile.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+    if (!m_logFile.open(QIODevice::ReadWrite | QIODevice::Truncate))
+    {
         QMessageBox::warning(this, tr("quick-x-cocos2d"), m_logFile.errorString() + "\n" + logPath, QMessageBox::Ok);
     }
     setWindowTitle(logPath);
@@ -55,7 +57,8 @@ void ConsoleUI::showEvent(QShowEvent *e)
     if (!ui) {
         ui = new Ui::ConsoleUI;
         ui->setupUi(this);
-        if (!m_logFile.fileName().isEmpty()) {
+        if (!m_logFile.fileName().isEmpty())
+        {
             setWindowTitle(m_logFile.fileName());
         }
         connect(ui->clearButton, SIGNAL(clicked()), this, SLOT(onLogClear()));
@@ -73,12 +76,16 @@ void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
     // log ui
     // using buff to cache the output message
     //
-    if (!ui) {
+    if (!ui)
+    {
         m_buff += msg;
         m_buff += "\n";
         fflush(0);
-    } else {
-        if (m_buff.length() > 0) {
+    }
+    else
+    {
+        if (m_buff.length() > 0)
+        {
             ui->textBrowser->append(m_buff);
             m_buff.clear();
         }
@@ -86,7 +93,8 @@ void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
     }
 
     // log file
-    if (m_logFile.isOpen()) {
+    if (m_logFile.isOpen())
+    {
         m_textStream << msg << "\n";
         m_textStream.flush();
     }
@@ -95,16 +103,21 @@ void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
 void ConsoleUI::onLogClear()
 {
     if (ui)
+    {
         ui->textBrowser->clear();
+    }
 }
 
 void ConsoleUI::onAllwaysTop(bool checked)
 {
     // FIXME: http://stackoverflow.com/questions/19097323/setwindowflagsqtwindowstaysontophint-hides-qt-window
     QPoint pos = this->pos();
-    if (checked) {
+    if (checked)
+    {
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
-    } else {
+    }
+    else
+    {
         setWindowFlags(windowFlags() ^ Qt::WindowStaysOnTopHint);
     }
     setVisible(true);
@@ -115,11 +128,14 @@ void ConsoleUI::onAllwaysTop(bool checked)
 
 void ConsoleUI::onOpenLogFile()
 {
-    if (m_logFile.fileName().isEmpty()) {
+    if (m_logFile.fileName().isEmpty())
+    {
 #ifdef Q_OS_MAC
         QDesktopServices::openUrl(QUrl::fromLocalFile("/Applications/Utilities/Console.app"));
 #endif
-    } else {
+    }
+    else
+    {
         QDesktopServices::openUrl(QUrl::fromLocalFile(m_logFile.fileName()));
     }
 }
@@ -127,7 +143,10 @@ void ConsoleUI::onOpenLogFile()
 void ConsoleUI::appendMsg(const QString &msg)
 {
     ui->textBrowser->append(msg);
-    QTextCursor cursor = ui->textBrowser->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    ui->textBrowser->setTextCursor(cursor);
+    if (ui->scrollButton->isChecked())
+    {
+        QTextCursor cursor = ui->textBrowser->textCursor();
+        cursor.movePosition(QTextCursor::End);
+        ui->textBrowser->setTextCursor(cursor);
+    }
 }

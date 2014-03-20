@@ -7,7 +7,8 @@ MsgHandlerWapper * MsgHandlerWapper::m_instance = 0;
 MsgHandlerWapper * MsgHandlerWapper::instance()
 {
     static QMutex mutex;
-    if (!m_instance) {
+    if (!m_instance)
+    {
         QMutexLocker locker(&mutex);
         if (!m_instance)
             m_instance = new MsgHandlerWapper;

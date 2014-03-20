@@ -15,6 +15,9 @@ public:
     explicit PreferenceUI(QWidget *parent = 0);
     ~PreferenceUI();
 
+Q_SIGNALS:
+    void sigSaveQuickRootPath(QString path);
+
 private Q_SLOTS:
     void onSelectDir();
     void onSave();

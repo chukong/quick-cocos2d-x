@@ -2,6 +2,7 @@
 #include "ui_projectconfigui.h"
 
 #include <QFileDialog>
+#include <QDesktopServices>
 
 ProjectConfigUI::ProjectConfigUI(ProjectConfig& projectConfig, QWidget *parent)
     : QDialog(parent)
@@ -24,22 +25,24 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
     ui->scriptFileName->setText(projectConfig.getScriptFile().data());
     ui->writablePath->setText(projectConfig.getWritablePath().data());
 
-    for (int i = 0; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++) {
+    for (int i = 0; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++)
+    {
         const SimulatorScreenSize &screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(i);
         ui->screenSizeComboBox->addItem(screenSize.title.data());
 
         CCSize size = projectConfig.getFrameSize();
         if ((screenSize.width == size.width && screenSize.height == size.height)
-            ||(screenSize.width == size.height && screenSize.height == size.width)) {
+            ||(screenSize.width == size.height && screenSize.height == size.width))
+        {
             ui->screenSizeComboBox->setCurrentIndex(i);
         }
     }
 
-    if (projectConfig.isLandscapeFrame()) {
+    if (projectConfig.isLandscapeFrame())
         ui->landscapeCheckBox->setChecked(true);
-    } else {
+    else
         ui->protratCheckBox->setChecked(true);
-    }
+
     ui->screenWidth->setText(QString::number(projectConfig.getFrameSize().width));
     ui->screenHeight->setText(QString::number(projectConfig.getFrameSize().height));
 
@@ -55,14 +58,20 @@ ProjectConfig ProjectConfigUI::getProjectConfig()
 void ProjectConfigUI::on_projectDirButton_clicked()
 {
     QString dir = qApp->applicationDirPath();
-    if (m_projectConfig.getProjectDir().length() > 0) {
+    if (m_projectConfig.getProjectDir().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getProjectDir().data());
-    }
 
-    dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), dir
-                                      , QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QFileDialog::Options dialogOptions = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
+#ifdef Q_OS_MAC
+    // https://bugreports.qt-project.org/browse/QTBUG-2587
+    #if (QT_VERSION <= QT_VERSION_CHECK(5, 2, 0))
+        dialogOptions |= QFileDialog::DontUseNativeDialog;
+    #endif
+#endif
+    dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), dir, dialogOptions);
 
-    if (!dir.isEmpty()) {
+    if (!dir.isEmpty())
+    {
         m_projectConfig.setProjectDir(dir.toLocal8Bit().constData());
         setDataForUI(m_projectConfig);
     }
@@ -71,15 +80,15 @@ void ProjectConfigUI::on_projectDirButton_clicked()
 void ProjectConfigUI::on_scriptFileNameButton_clicked()
 {
     QString dir = qApp->applicationDirPath();
-    if (m_projectConfig.getWritablePath().length() > 0) {
+    if (m_projectConfig.getWritablePath().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getWritablePath().data());
-    }
 
     QString luaFile = QFileDialog::getOpenFileName(this, tr("Open File")
                                        , dir
                                        , tr("Lua (*.lua)"));
 
-    if (!luaFile.isEmpty()) {
+    if (!luaFile.isEmpty())
+    {
         m_projectConfig.setScriptFile(luaFile.toLocal8Bit().constData());
         setDataForUI(m_projectConfig);
     }
@@ -88,14 +97,20 @@ void ProjectConfigUI::on_scriptFileNameButton_clicked()
 void ProjectConfigUI::on_writeablePathButton_clicked()
 {
     QString dir = qApp->applicationDirPath();
-    if (m_projectConfig.getWritablePath().length() > 0) {
+    if (m_projectConfig.getWritablePath().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getWritablePath().data());
-    }
 
-    dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), dir
-                                      , QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QFileDialog::Options dialogOptions = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
+#ifdef Q_OS_MAC
+    // https://bugreports.qt-project.org/browse/QTBUG-2587
+    #if (QT_VERSION <= QT_VERSION_CHECK(5, 2, 0))
+        dialogOptions |= QFileDialog::DontUseNativeDialog;
+    #endif
+#endif
+    dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"), dir, dialogOptions);
 
-    if (!dir.isEmpty()) {
+    if (!dir.isEmpty())
+    {
         m_projectConfig.setWritablePath(dir.toLocal8Bit().constData());
         setDataForUI(m_projectConfig);
     }
@@ -105,9 +120,12 @@ void ProjectConfigUI::on_screenSizeComboBox_activated(int index)
 {
     const SimulatorScreenSize& screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(index);
     m_projectConfig.setFrameSize(CCSize(screenSize.width, screenSize.height));
-    if (ui->landscapeCheckBox->isChecked()) {
+    if (ui->landscapeCheckBox->isChecked())
+    {
         m_projectConfig.changeFrameOrientationToLandscape();
-    } else {
+    }
+    else
+    {
         m_projectConfig.changeFrameOrientationToPortait();
     }
     setDataForUI(m_projectConfig);
@@ -115,9 +133,12 @@ void ProjectConfigUI::on_screenSizeComboBox_activated(int index)
 
 void ProjectConfigUI::on_protratCheckBox_clicked(bool checked)
 {
-    if (checked) {
+    if (checked)
+    {
         m_projectConfig.changeFrameOrientationToPortait();
-    } else {
+    }
+    else
+    {
         m_projectConfig.changeFrameOrientationToLandscape();
     }
     ui->landscapeCheckBox->setChecked(false);
@@ -126,9 +147,12 @@ void ProjectConfigUI::on_protratCheckBox_clicked(bool checked)
 
 void ProjectConfigUI::on_landscapeCheckBox_clicked(bool checked)
 {
-    if (checked) {
+    if (checked)
+    {
         m_projectConfig.changeFrameOrientationToLandscape();
-    } else {
+    }
+    else
+    {
         m_projectConfig.changeFrameOrientationToPortait();
     }
     ui->protratCheckBox->setChecked(false);

@@ -55,7 +55,8 @@ Player::~Player()
 Player *Player::instance()
 {
     static Player *player = NULL;
-    if (!player) {
+    if (!player)
+    {
         player = new Player;
     }
     return player;
@@ -99,7 +100,8 @@ void Player::onOpenProject()
 {
     ProjectConfig config = Player::instance()->getProjectConfig();
     ProjectConfigUI ui(config, 0);
-    if (ui.exec() == QDialog::Accepted) {
+    if (ui.exec() == QDialog::Accepted)
+    {
         config = ui.getProjectConfig();
         Player::instance()->restartWithProjectConfig(config);
     }
@@ -121,26 +123,32 @@ int Player::sendMessage(lua_State *L)
 {
     int argc = lua_gettop(L);
 
-    if (argc > 0) {
+    if (argc > 0)
+    {
         //从栈中读入实部，虚部
         const char *funName = lua_tostring(L, 1);
-        if (argc == 1) {
+        if (argc == 1)
+        {
             QMetaObject::invokeMethod(Player::instance(), funName,
                                       Qt::QueuedConnection);
         }
-        else if (argc == 2) {
-            if (lua_isstring(L, 2)) {
+        else if (argc == 2)
+        {
+            if (lua_isstring(L, 2))
+            {
                 const char *data = lua_tostring(L, 2);
                 QMetaObject::invokeMethod(Player::instance(), funName,
                                           Qt::QueuedConnection,
                                           Q_ARG(const char *, data));
-            } else {
+            }
+            else
+            {
 
             }
         }
-        else {
-            QMetaObject::invokeMethod(Player::instance(), funName,
-                                      Qt::QueuedConnection);
+        else
+        {
+            QMetaObject::invokeMethod(Player::instance(), funName, Qt::QueuedConnection);
         }
     }
     return 0;
@@ -165,6 +173,13 @@ void Player::openDemoWithArgs(QString cmds)
 {
     QStringList args = cmds.split(",");
     Player::instance()->onRestartWithArgs(args);
+}
+
+void Player::onSaveQuickRootPath(QString absPath)
+{
+    QSettings settings;
+    settings.setValue(ENV_KEY_QUICK_ROOT_PATH, absPath);
+    settings.sync();
 }
 
 void Player::registerAllCpp()
@@ -286,7 +301,8 @@ void Player::initMainMenu()
 void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
 {
 #ifdef Q_OS_WIN
-    if (bar && w) {
+    if (bar && w)
+    {
         bar->show();
         m_mainWindow = new QMainWindow();
         m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
@@ -311,7 +327,8 @@ void Player::initScreenMenu()
     //
     QActionGroup *actionGroup = new QActionGroup(this);
     CCSize size = m_projectConfig.getFrameSize();
-    for (int i = 0; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++) {
+    for (int i = 0; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++)
+    {
         const SimulatorScreenSize &screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(i);
         QAction *action = m_screenMenu->addAction(QString::fromLocal8Bit(screenSize.title.data()));
         action->setCheckable(true);
@@ -321,7 +338,8 @@ void Player::initScreenMenu()
         actionGroup->addAction(action);
 
         if ((size.width == screenSize.width && size.height == screenSize.height) ||
-            (size.width == screenSize.height && size.height == screenSize.width)) {
+            (size.width == screenSize.height && size.height == screenSize.width))
+        {
             action->setChecked(true);
         }
     }
@@ -346,11 +364,10 @@ void Player::initScreenMenu()
     actionGroup->addAction(m_landscapeAction);
     actionGroup->addAction(m_portraitAction);
 
-    if (m_projectConfig.isLandscapeFrame()) {
+    if (m_projectConfig.isLandscapeFrame())
         m_landscapeAction->setChecked(true);
-    } else {
+    else
         m_portraitAction->setChecked(true);
-    }
 
     m_screenMenu->addSeparator();
 
@@ -429,14 +446,20 @@ void Player::on_actionOpen_triggered()
 
     // old
     QString dir = qApp->applicationDirPath();
-    if (m_projectConfig.getProjectDir().length() > 0) {
+    if (m_projectConfig.getProjectDir().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getProjectDir().data());
-    }
 
-    dir = QFileDialog::getExistingDirectory(m_renderWidget, tr("Open Directory"), dir
-                                      , QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QFileDialog::Options dialogOptions = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
+#ifdef Q_OS_MAC
+    // https://bugreports.qt-project.org/browse/QTBUG-2587
+    #if (QT_VERSION <= QT_VERSION_CHECK(5, 2, 0))
+        dialogOptions |= QFileDialog::DontUseNativeDialog;
+    #endif
+#endif
+    dir = QFileDialog::getExistingDirectory(m_renderWidget, tr("Open Directory"), dir, dialogOptions);
 
-    if (!dir.isEmpty()) {
+    if (!dir.isEmpty())
+    {
         m_projectConfig.setProjectDir(dir.toLocal8Bit().constData());
         this->applySettingAndRestart();
     }
@@ -459,9 +482,12 @@ void Player::onLandscapeTriggered()
 {
     QAction *action = (QAction*)sender();
     int type = action->data().toInt();
-    if (type == kPortrait) {
+    if (type == kPortrait)
+    {
         m_projectConfig.changeFrameOrientationToPortait();
-    } else if (type == kLandscape) {
+    }
+    else if (type == kLandscape)
+    {
         m_projectConfig.changeFrameOrientationToLandscape();
     }
 
@@ -477,7 +503,8 @@ void Player::onScreenScaleTriggered()
 //    applySettingAndRestart();
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
 #ifdef Q_OS_WIN
-    if (m_mainWindow) {
+    if (m_mainWindow)
+    {
         m_mainWindow->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
     }
 #endif
@@ -508,7 +535,8 @@ void Player::on_actionAboutQt_triggered()
 void Player::on_actionConfig_triggered()
 {
     ProjectConfigUI ui(m_projectConfig, m_renderWidget);
-    if (ui.exec() == QDialog::Accepted) {
+    if (ui.exec() == QDialog::Accepted)
+    {
         m_projectConfig = ui.getProjectConfig();
         applySettingAndRestart();
     }
@@ -614,6 +642,7 @@ void Player::onShowProjectFiles()
 void Player::onShowPreferences()
 {
     PreferenceUI *widget = new PreferenceUI();
+    connect(widget, SIGNAL(sigSaveQuickRootPath(QString)), this, SLOT(onSaveQuickRootPath(QString)));
     widget->setAttribute(Qt::WA_DeleteOnClose);
     widget->show();
 }
@@ -621,9 +650,8 @@ void Player::onShowPreferences()
 void Player::onMainWidgetOnTop(bool checked)
 {
     QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
-    if (checked) {
+    if (checked)
         window->setFlags(window->flags() | Qt::WindowStaysOnTopHint);
-    } else {
+    else
         window->setFlags(window->flags() ^ Qt::WindowStaysOnTopHint);
-    }
 }

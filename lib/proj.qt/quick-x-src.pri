@@ -96,7 +96,7 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCAccelerometer.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCApplication.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCDevice.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCEGLView.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCFileUtilsQt.cpp \
+#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCFileUtilsQt.cpp \
 # using mac/ccimage for mac platform
 # using win/ccimage for win platform
 #$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCImage.cpp \
@@ -323,7 +323,8 @@ win32 {
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNetworkWin32.cpp \
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCStorePaymentTransactionWrapper.cpp \
         $${ROOT}/lib/cocos2d-x/cocos2dx/platform/win32/CCImage.cpp \
-        $${ROOT}/lib/cocos2d-x/CocosDenshion/qt/SimpleAudioEngineQt5.cpp
+        $${ROOT}/lib/cocos2d-x/CocosDenshion/qt/SimpleAudioEngineQt5.cpp \
+        $${ROOT}/lib/cocos2d-x/cocos2dx/platform/win32/CCFileUtilsWin32.cpp
 }
 
 OBJECTIVE_SOURCES += \
@@ -362,6 +363,7 @@ $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCCryptoMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNative.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNativeMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/openudid/OpenUDIDMac.m \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCImage.mm
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCImage.mm \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCFileUtilsMac.mm
 #$${ROOT}/lib/cocos2d-x/scripting/lua/cocos2dx_support/platform/ios/CCLuaObjcBridge.mm \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/support/user_default/CCUserDefault.mm \

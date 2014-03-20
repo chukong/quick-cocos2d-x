@@ -21,8 +21,17 @@ CreateProjectUI::~CreateProjectUI()
 
 void CreateProjectUI::onSelectFolder()
 {
-    QString folderPath = QFileDialog::getExistingDirectory(this, tr("Get project folder"),
-                                                         QString(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data()));
+    QFileDialog::Options dialogOptions = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
+#ifdef Q_OS_MAC
+    // https://bugreports.qt-project.org/browse/QTBUG-2587
+    #if (QT_VERSION <= QT_VERSION_CHECK(5, 2, 0))
+        dialogOptions |= QFileDialog::DontUseNativeDialog;
+    #endif
+#endif
+    QString folderPath = QFileDialog::getExistingDirectory(this
+                                                           , tr("Get project folder")
+                                                           , QString(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data())
+                                                           , dialogOptions);
     ui->projectPath->setText(folderPath);
 }
 
@@ -58,7 +67,8 @@ void CreateProjectUI::createNewProject()
     args << "-f";
     args << ui->packageName->text();
     createProject.start(shell, args);
-    if (!createProject.waitForFinished()) {
+    if (!createProject.waitForFinished())
+    {
         QMessageBox::warning(this, tr("quick-x-cocos2d"),
                                    tr("Create new project failed."),
                                    QMessageBox::Ok);
@@ -71,11 +81,14 @@ void CreateProjectUI::createNewProject()
 
 void CreateProjectUI::accept()
 {
-    if (ui->projectPath->text().isEmpty() || ui->packageName->text().isEmpty()) {
+    if (ui->projectPath->text().isEmpty() || ui->packageName->text().isEmpty())
+    {
         QMessageBox::warning(this, tr("quick-x-cocos2d"),
                              tr("Please complete all infomation"),
                              QMessageBox::Ok);
-    } else {
+    }
+    else
+    {
         this->createNewProject();
 //        QDialog::accept();
     }
