@@ -1,0 +1,17 @@
+class GameCenter
+{
+    GameCenter();
+    ~GameCenter();
+
+    void login();
+
+    bool showAchievements();
+    void postAchievement(const char* idName, int percentComplete);
+    void clearAllAchievements();
+
+    bool showScores();
+    void postScore(const char* idName, int score);
+    void clearAllScores();
+
+};
+
