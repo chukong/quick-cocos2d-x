@@ -78,7 +78,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x, projectConfig.getWindowOffset().y);
+        view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x,
+                                         projectConfig.getWindowOffset().y);
     }
 
     if (projectConfig.isShowConsole())
@@ -88,6 +89,8 @@ int main(int argc, char *argv[])
     Player *player = Player::instance();
     player->initMainMenu();
     player->makeMainWindow(view->getGLWindow(), player->getMenuBar());
+    player->enterBackgroundDelegate.bind(&app, &AppDelegate::applicationDidEnterBackground);
+    player->enterForegroundDelegate.bind(&app, &AppDelegate::applicationWillEnterForeground);
 
     // crash with Qt 5.1, so set the default font for quick-x-player
     QFont font("Courier", 13, QFont::Normal, false);

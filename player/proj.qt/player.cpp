@@ -247,6 +247,21 @@ void Player::onClearRecentMenu()
     setting.remove(kOpenRecentFiles);
 }
 
+void Player::onEnterBackground()
+{
+    enterBackgroundDelegate();
+}
+
+void Player::onEnterForeground()
+{
+    enterForegroundDelegate();
+}
+
+void Player::onMemoryWarning()
+{
+
+}
+
 void Player::registerAllCpp()
 {
     lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
@@ -272,7 +287,7 @@ void Player::initMainMenu()
     //
 
     QMenu *fileMenu = m_mainMenu->addMenu(QObject::tr("&File"));
-    fileMenu->addAction(QObject::tr("&New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
+    fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
     fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
 
     fileMenu->addSeparator();
@@ -305,7 +320,7 @@ void Player::initMainMenu()
     // player menu
     //
 
-    QMenu *playerMenu = m_mainMenu->addMenu(QObject::tr("Player"));
+    QMenu *playerMenu = m_mainMenu->addMenu(QObject::tr("&Player"));
     playerMenu->addAction(QObject::tr("Write Debug Log to File"))->setCheckable(true);
 
     QAction *openDebugLogAction = playerMenu->addAction(QObject::tr("Open Debug Log"));
@@ -329,7 +344,7 @@ void Player::initMainMenu()
     buildAndroidMenu->setEnabled(false);
 
     playerMenu->addSeparator();
-    QAction *relaunchAction = playerMenu->addAction(QObject::tr("&Relaunch"), this, SLOT(on_actionRelaunch_triggered()));
+    QAction *relaunchAction = playerMenu->addAction(QObject::tr("Relaunch"), this, SLOT(on_actionRelaunch_triggered()));
 #ifdef Q_OS_MAC
     relaunchAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
 #else   // windows, *nix and others
@@ -344,13 +359,12 @@ void Player::initMainMenu()
     //
     // screen menu
     //
-
     m_screenMenu = m_mainMenu->addMenu(QObject::tr("&Screen"));
 
     //
     // window
     //
-    QMenu *windowMenu = m_mainMenu->addMenu(tr("Window"));
+    QMenu *windowMenu = m_mainMenu->addMenu(tr("&Window"));
     {
         QAction *onTopAction = windowMenu->addAction(tr("Allways On Top"));
         onTopAction->setCheckable(true);
@@ -358,16 +372,25 @@ void Player::initMainMenu()
     }
 
     //
+    // device
+    //
+    QMenu *deviceMenu = m_mainMenu->addMenu(tr("&Device"));
+    deviceMenu->addAction(tr("Enter Background"), this, SLOT(onEnterBackground()));
+    deviceMenu->addAction(tr("Enter Foreground"), this, SLOT(onEnterForeground()));
+    deviceMenu->addAction(tr("Memory Warning"), this, SLOT(onMemoryWarning()));
+
+
+    //
     // more menu
     //
 
     QMenu *moreMenu = m_mainMenu->addMenu(QObject::tr("&More"));
-    moreMenu->addAction("&AboutQt", this, SLOT(on_actionAboutQt_triggered()));
-    moreMenu->addAction("&About", this, SLOT(on_actionAbout_triggered()));
-    moreMenu->addAction("&Simples", this, SLOT(onOpenQuickDemoWebview()));
-    moreMenu->addAction("open.cocoachina.com", this, SLOT(onShowOpenCocoaChinaWebView()));
-    moreMenu->addAction("show console", this, SLOT(onShowConsole()));
-    moreMenu->addAction("Login Test", this, SLOT(onShowLoginUI()));
+    moreMenu->addAction(tr("AboutQt"), this, SLOT(on_actionAboutQt_triggered()));
+    moreMenu->addAction(tr("About"), this, SLOT(on_actionAbout_triggered()));
+    moreMenu->addAction(tr("Simples"), this, SLOT(onOpenQuickDemoWebview()));
+    moreMenu->addAction(tr("open.cocoachina.com"), this, SLOT(onShowOpenCocoaChinaWebView()));
+    moreMenu->addAction(tr("show console"), this, SLOT(onShowConsole()));
+    moreMenu->addAction(tr("Login Test"), this, SLOT(onShowLoginUI()));
 
     m_mainMenu->show();
     m_mainMenu->raise();
@@ -375,7 +398,7 @@ void Player::initMainMenu()
     //
     // Preferences
     //
-    QAction *m_preference = moreMenu->addAction(tr("Preferences"));
+    QAction *m_preference = moreMenu->addAction(tr("&Preferences"));
     m_preference->setMenuRole(QAction::PreferencesRole);
     connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }

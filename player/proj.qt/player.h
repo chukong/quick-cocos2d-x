@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "SimulatorConfig.h"
 #include "quickdemowebview.h"
+#include "FastDelegate.h"
 
 #define RESTART_ARGS "restart_args"
 #define APP_EXIT_CODE 'q'
@@ -35,6 +36,8 @@ public:
 
     QMenuBar *getMenuBar();
 
+    fastdelegate::FastDelegate0<void> enterBackgroundDelegate;
+    fastdelegate::FastDelegate0<void> enterForegroundDelegate;
 public Q_SLOTS:
     void onOpenQuickDemoWebview();
     void onShowOpenCocoaChinaWebView();
@@ -62,6 +65,11 @@ public Q_SLOTS:
     void onSaveQuickRootPath(QString absPath);
     void onOpenRecentProject();
     void onClearRecentMenu();
+
+    // device
+    void onEnterBackground();
+    void onEnterForeground();
+    void onMemoryWarning();
 
 protected:
     Player(QObject *parent = 0);
