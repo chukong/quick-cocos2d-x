@@ -60,6 +60,8 @@ public Q_SLOTS:
     void onRestartWithArgs(QStringList args);
     void openDemoWithArgs(QString cmds);
     void onSaveQuickRootPath(QString absPath);
+    void onOpenRecentProject();
+    void onClearRecentMenu();
 
 protected:
     Player(QObject *parent = 0);
@@ -69,6 +71,9 @@ protected:
     // engine
     void restart();
     void applySettingAndRestart();
+
+    void checkQuickRootPath();
+    void updateTitle();
 
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
@@ -91,7 +96,10 @@ private:
 
     QMenuBar        *m_mainMenu;
     QMenu           *m_screenMenu;
+    QMenu           *m_openRecentMenu;
+    QList<QAction*> m_recentFileActionList;
     QAction         *m_landscapeAction, *m_portraitAction;
+
 #ifdef Q_OS_WIN
     QMainWindow     *m_mainWindow;
 #endif

@@ -53,16 +53,16 @@ NS_CC_BEGIN
 
 bool initGL();
 
-class TestEvent : public QEvent
+class AppDidFinishLaunchingEvent : public QEvent
 {
 public:
-    TestEvent() : QEvent(EventType) {}
+    AppDidFinishLaunchingEvent() : QEvent(EventType) {}
 
 public:
     static const Type EventType;
-    static const Type StartIntervalEventType;
 };
-const QEvent::Type TestEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
+
+const QEvent::Type AppDidFinishLaunchingEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
 
 class Cocos2DQt5OpenGLIntegration : public QWindow {
     public:
@@ -121,8 +121,8 @@ class Cocos2DQt5OpenGLIntegration : public QWindow {
 
                 initGL();
 
-                TestEvent *tEvent = new TestEvent;
-                qApp->postEvent(this, tEvent, Qt::LowEventPriority);
+                AppDidFinishLaunchingEvent *finishLaunchingEvent = new AppDidFinishLaunchingEvent;
+                qApp->postEvent(this, finishLaunchingEvent, Qt::LowEventPriority);
             }
         }
 
@@ -188,7 +188,7 @@ Cocos2DQt5OpenGLIntegration::event(QEvent *event)
         killTimer(m_timer);
         CCDirector::sharedDirector()->end();
     }
-    else if (event->type() == TestEvent::EventType) {
+    else if (event->type() == AppDidFinishLaunchingEvent::EventType) {
         CCApplication::sharedApplication()->applicationDidFinishLaunching();
 //        setInterval( 1.0f / 60.0f * 1000.0f );
     }

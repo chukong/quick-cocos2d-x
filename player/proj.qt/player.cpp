@@ -28,6 +28,11 @@
 
 #define kPortrait 1
 #define kLandscape 2
+#define kOpenRecentFiles "recents"
+#define kDefaultMaxRecents "maxfiles"
+#define kDefaultMaxRecentValue 5
+#define kRecentItemTitle    "title"
+#define kRecentItemArgs     "args"
 
 struct ActionData
 {
@@ -40,6 +45,7 @@ Player::Player(QObject *parent)
     : QObject(parent)
     , m_renderWidget(0)
     , m_mainMenu(0)
+    , m_openRecentMenu(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
 #endif
@@ -96,6 +102,10 @@ int Player::newProject(lua_State * /*L*/)
     return 0;
 }
 
+/**
+ * @brief Player::onOpenProject
+ * save the recent menu order and restart the player with args
+ */
 void Player::onOpenProject()
 {
     ProjectConfig config = Player::instance()->getProjectConfig();
@@ -103,6 +113,25 @@ void Player::onOpenProject()
     if (ui.exec() == QDialog::Accepted)
     {
         config = ui.getProjectConfig();
+
+        // save recent menu order
+
+        QSettings settings;
+        QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
+        int maxRecent = settings.value(kDefaultMaxRecents, kDefaultMaxRecentValue).toInt();
+        QVariantMap newItem;
+        newItem[kRecentItemTitle] = config.getProjectDir().data();
+        QStringList args = QString::fromStdString(config.makeCommandLine()).split(" ");
+        newItem[kRecentItemArgs]  = args;
+        recents.insert(0, newItem);
+
+        if (recents.size() > maxRecent)
+        {
+            recents.removeFirst();
+        }
+        settings.setValue(kOpenRecentFiles, recents);
+
+        // restart the player
         Player::instance()->restartWithProjectConfig(config);
     }
 }
@@ -182,6 +211,42 @@ void Player::onSaveQuickRootPath(QString absPath)
     settings.sync();
 }
 
+void Player::onOpenRecentProject()
+{
+    QAction *action = dynamic_cast<QAction*> (sender());
+    if (action)
+    {
+        int oldIndex = m_recentFileActionList.indexOf(action);
+        m_recentFileActionList.move(oldIndex, 0);
+        QStringList args = action->data().toStringList();
+        std::vector<std::string> argsVector;
+        Q_FOREACH(QString item, args)
+        {
+            argsVector.push_back(item.toStdString());
+        }
+
+        // update recents data
+        QSettings settings;
+        QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
+        recents.move(oldIndex, 0);
+        settings.setValue(kOpenRecentFiles, recents);
+
+        m_projectConfig.parseCommandLine(argsVector);
+        applySettingAndRestart();
+    }
+}
+
+void Player::onClearRecentMenu()
+{
+    Q_FOREACH(QAction *action, m_recentFileActionList)
+    {
+        m_openRecentMenu->removeAction(action);
+    }
+
+    QSettings setting;
+    setting.remove(kOpenRecentFiles);
+}
+
 void Player::registerAllCpp()
 {
     lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
@@ -211,13 +276,30 @@ void Player::initMainMenu()
     fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
 
     fileMenu->addSeparator();
-    fileMenu->addAction(QObject::tr("&Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+
+    m_openRecentMenu = fileMenu->addMenu(tr("Open Recent"));
+    QSettings setting;
+    QVariantList recents = setting.value(kOpenRecentFiles).toList();
+    Q_FOREACH(QVariant recentItem, recents)
+    {
+        QVariantMap item = recentItem.toMap();
+        QString title = item.value(kRecentItemTitle).toString();
+        QStringList args = item.value(kRecentItemArgs).toStringList();
+        QAction *action = m_openRecentMenu->addAction(title);
+        action->setData(args);
+        m_recentFileActionList << action;
+        connect(action, SIGNAL(triggered()), this, SLOT(onOpenRecentProject()));
+    }
+
+    m_openRecentMenu->addSeparator();
+    m_openRecentMenu->addAction(tr("Clear"), this, SLOT(onClearRecentMenu()));
 
     fileMenu->addSeparator();
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
 
     fileMenu->addSeparator();
-    fileMenu->addAction(QObject::tr("&Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
+    fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
 
     //
     // player menu
@@ -300,7 +382,11 @@ void Player::initMainMenu()
 
 void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
 {
-#ifdef Q_OS_WIN
+#ifdef Q_OS_MAC
+    Q_UNUSED(bar);
+    w->show();
+
+#else
     if (bar && w)
     {
         bar->show();
@@ -313,6 +399,9 @@ void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
         m_mainWindow->show();
     }
 #endif
+
+    checkQuickRootPath();
+    updateTitle();
 }
 
 QMenuBar *Player::getMenuBar()
@@ -434,6 +523,24 @@ void Player::applySettingAndRestart()
     this->restart();
 }
 
+void Player::checkQuickRootPath()
+{
+    if (SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().length() <= 0)
+    {
+        onShowPreferences();
+    }
+}
+
+void Player::updateTitle()
+{
+    QString title = QString("quick-x-player (%1%)").arg(m_projectConfig.getFrameScale()*100);
+#ifdef Q_OS_MAC
+    CCEGLView::sharedOpenGLView()->getGLWindow()->setTitle(title);
+#else
+    m_window->setWindowTitle(title);
+#endif
+}
+
 void Player::on_actionRelaunch_triggered()
 {
     this->applySettingAndRestart();
@@ -508,6 +615,8 @@ void Player::onScreenScaleTriggered()
         m_mainWindow->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
     }
 #endif
+
+    updateTitle();
 }
 
 void Player::onOpenQuickDemoWebview()
@@ -534,12 +643,7 @@ void Player::on_actionAboutQt_triggered()
 
 void Player::on_actionConfig_triggered()
 {
-    ProjectConfigUI ui(m_projectConfig, m_renderWidget);
-    if (ui.exec() == QDialog::Accepted)
-    {
-        m_projectConfig = ui.getProjectConfig();
-        applySettingAndRestart();
-    }
+    onOpenProject();
 }
 
 void Player::onShowOpenCocoaChinaWebView()

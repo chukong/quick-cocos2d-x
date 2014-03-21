@@ -19,14 +19,10 @@ int main(int argc, char *argv[])
 
     // set quick root path from env
     qApp->setOrganizationDomain("apps.qeeplay.com");
-    qApp->setApplicationName("quick-x-player");
+    qApp->setApplicationName("quick-x-player-qt");
     QSettings settings;
     QString quickCocos2dxRoot = settings.value(ENV_KEY_QUICK_ROOT_PATH).toString();
-    if (quickCocos2dxRoot.isEmpty())
-    {
-
-    }
-    else
+    if (!quickCocos2dxRoot.isEmpty())
     {
         SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(quickCocos2dxRoot.toLocal8Bit().constData());
     }
@@ -100,7 +96,6 @@ int main(int argc, char *argv[])
     // menu
     player->setProjectConfig(projectConfig);
 
-    view->getGLWindow()->show();
     int ret = app.run();
 
     MsgHandlerWapper::instance()->cancelHandler();
