@@ -79,6 +79,11 @@ void AppDelegate::setProjectConfig(const ProjectConfig& config)
     m_projectConfig = config;
 }
 
+void AppDelegate::setOpenRecents(const CCLuaValueArray& recents)
+{
+    m_openRecents = recents;
+}
+
 // ----------------------------------------
 
 StartupCall *StartupCall::create(AppDelegate *app)
@@ -140,7 +145,19 @@ void StartupCall::startup()
     env.append(path);
     env.append("\"");
     pEngine->executeString(env.c_str());
-
+    
+    // set open recents
+    lua_State *L = pEngine->getLuaStack()->getLuaState();
+    lua_newtable(L);
+    int i = 1;
+    for (CCLuaValueArrayIterator it = m_app->m_openRecents.begin(); it != m_app->m_openRecents.end(); ++it)
+    {
+        lua_pushstring(L, it->stringValue().c_str());
+        lua_rawseti(L, -2, i);
+        ++i;
+    }
+    lua_setglobal(L, "__G__OPEN_RECENTS__");
+    
     CCLOG("------------------------------------------------");
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");

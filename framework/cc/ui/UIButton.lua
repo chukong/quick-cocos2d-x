@@ -152,39 +152,39 @@ function UIButton:isButtonEnabled()
     return self.fsm_:canDoEvent("disable")
 end
 
-function UIButton:addButtonClickedEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.CLICKED_EVENT, callback, isWeakReference)
+function UIButton:addButtonClickedEventListener(callback)
+    return self:addEventListener(UIButton.CLICKED_EVENT, callback)
 end
 
-function UIButton:onButtonClicked(callback, isWeakReference)
-    self:addButtonClickedEventListener(callback, isWeakReference)
+function UIButton:onButtonClicked(callback)
+    self:addButtonClickedEventListener(callback)
     return self
 end
 
-function UIButton:addButtonPressedEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.PRESSED_EVENT, callback, isWeakReference)
+function UIButton:addButtonPressedEventListener(callback)
+    return self:addEventListener(UIButton.PRESSED_EVENT, callback)
 end
 
-function UIButton:onButtonPressed(callback, isWeakReference)
-    self:addButtonPressedEventListener(callback, isWeakReference)
+function UIButton:onButtonPressed(callback)
+    self:addButtonPressedEventListener(callback)
     return self
 end
 
-function UIButton:addButtonReleaseEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.RELEASE_EVENT, callback, isWeakReference)
+function UIButton:addButtonReleaseEventListener(callback)
+    return self:addEventListener(UIButton.RELEASE_EVENT, callback)
 end
 
-function UIButton:onButtonRelease(callback, isWeakReference)
-    self:addButtonReleaseEventListener(callback, isWeakReference)
+function UIButton:onButtonRelease(callback)
+    self:addButtonReleaseEventListener(callback)
     return self
 end
 
-function UIButton:addButtonStateChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.STATE_CHANGED_EVENT, callback, isWeakReference)
+function UIButton:addButtonStateChangedEventListener(callback)
+    return self:addEventListener(UIButton.STATE_CHANGED_EVENT, callback)
 end
 
-function UIButton:onButtonStateChanged(callback, isWeakReference)
-    self:addButtonStateChangedEventListener(callback, isWeakReference)
+function UIButton:onButtonStateChanged(callback)
+    self:addButtonStateChangedEventListener(callback)
     return self
 end
 

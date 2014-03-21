@@ -45,6 +45,7 @@ class AppControllerBridge;
 
     AppDelegate *app;
     ProjectConfig projectConfig;
+    CCLuaValueArray openRecents;
     BOOL hasPopupDialog;
 
     int debugLogFile;
@@ -62,9 +63,10 @@ class AppControllerBridge;
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
 
 - (void) welcomeNewProject;
-- (void) welcomeOpen;
-- (void) welcomeSamples;
-- (void) welcomeGetStarted;
+- (void) welcomeOpenProject;
+- (void) welcomeListSamples;
+- (void) welcomeOpenCommunity;
+- (void) welcomeOpenDocuments;
 
 - (IBAction) onServicePreferences:(id)sender;
 

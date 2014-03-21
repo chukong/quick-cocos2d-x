@@ -7,17 +7,22 @@ void AppControllerBridge::onWelcomeNewProject(CCObject *object)
     [(AppController*)m_controller welcomeNewProject];
 }
 
-void AppControllerBridge::onWelcomeOpen(CCObject *object)
+void AppControllerBridge::onWelcomeOpenProject(CCObject *object)
 {
-    [(AppController*)m_controller welcomeOpen];
+    [(AppController*)m_controller welcomeOpenProject];
 }
 
-void AppControllerBridge::onWelcomeSamples(CCObject *object)
+void AppControllerBridge::onWelcomeListSamples(CCObject *object)
 {
-    [(AppController*)m_controller welcomeSamples];
+    [(AppController*)m_controller welcomeListSamples];
 }
 
-void AppControllerBridge::onWelcomeGetStarted(CCObject *object)
+void AppControllerBridge::onWelcomeOpenDocuments(CCObject *object)
 {
-    [(AppController*)m_controller welcomeGetStarted];
+    [(AppController*)m_controller welcomeOpenDocuments];
+}
+
+void AppControllerBridge::onWelcomeOpenCommunity(CCObject *object)
+{
+    [(AppController*)m_controller welcomeOpenCommunity];
 }

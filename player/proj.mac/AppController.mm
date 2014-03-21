@@ -74,8 +74,8 @@ using namespace cocos2d::extra;
 
     [self updateProjectConfigFromCommandLineArgs:&projectConfig];
     [self createWindowAndGLView];
+    [self updateOpenRecents];
     [self startup];
-    [self updateOpenRect];
     [self initUI];
     [self updateUI];
 
@@ -239,15 +239,17 @@ using namespace cocos2d::extra;
     bridge = new AppControllerBridge(self);
 
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeNewProject), "WELCOME_NEW_PROJECT", NULL);
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpen), "WELCOME_OPEN", NULL);
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
-    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_GET_STARTED", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpenProject), "WELCOME_OPEN_PROJECT", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeListSamples), "WELCOME_LIST_SAMPLES", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpenCommunity), "WELCOME_OPEN_COMMUNITY", NULL);
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpenDocuments), "WELCOME_OPEN_DOCUMENTS", NULL);
 
     app->setProjectConfig(projectConfig);
+    app->setOpenRecents(openRecents);
     app->run();
 }
 
-- (void) updateOpenRect
+- (void) updateOpenRecents
 {
     NSMutableArray *recents = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"]];
 
@@ -270,6 +272,7 @@ using namespace cocos2d::extra;
     }
 
     NSString *title = [NSString stringWithCString:projectConfig.getProjectDir().c_str() encoding:NSUTF8StringEncoding];
+    
     if ([title length] > 0 && [welcomeTitle compare:title] != NSOrderedSame)
     {
         for (NSInteger i = [recents count] - 1; i >= 0; --i)
@@ -287,6 +290,13 @@ using namespace cocos2d::extra;
     }
     [[NSUserDefaults standardUserDefaults] setObject:recents forKey:@"recents"];
 
+    openRecents.clear();
+    for (NSInteger i = [recents count] - 1; i >= 0; --i)
+    {
+        id recentItem = [recents objectAtIndex:i];
+        NSString *title = [recentItem objectForKey:@"title"];
+        openRecents.push_back(CCLuaValue::stringValue([title cStringUsingEncoding:NSUTF8StringEncoding]));
+    }
 }
 
 - (void) initUI
@@ -586,12 +596,12 @@ using namespace cocos2d::extra;
     [self onFileNewProject:self];
 }
 
-- (void) welcomeOpen
+- (void) welcomeOpenProject
 {
     [self onFileOpen:self];
 }
 
-- (void) welcomeSamples
+- (void) welcomeListSamples
 {
     string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
     if (path.length())
@@ -601,7 +611,12 @@ using namespace cocos2d::extra;
     }
 }
 
-- (void) welcomeGetStarted
+- (void) welcomeOpenCommunity
+{
+    CCNative::openURL("http://cn.quick-x.com/");
+}
+
+- (void) welcomeOpenDocuments
 {
     CCNative::openURL("http://wiki.quick-x.com/");
 }
@@ -774,7 +789,7 @@ using namespace cocos2d::extra;
     float scale = (float)[sender tag] / 100.0f;
     [self setZoom:scale];
     [self updateUI];
-    [self updateOpenRect];
+    [self updateOpenRecents];
 }
 
 -(IBAction) onWindowAlwaysOnTop:(id)sender

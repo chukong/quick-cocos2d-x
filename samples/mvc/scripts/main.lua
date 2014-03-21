@@ -7,3 +7,4 @@ function __G__TRACKBACK__(errorMessage)
 end
 
 require("app.MyApp").new():run()
+

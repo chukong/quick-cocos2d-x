@@ -60,12 +60,12 @@ function UICheckBoxButtonGroup:setButtonsLayoutMargin(top, right, bottom, left)
 end
 
 
-function UICheckBoxButtonGroup:addButtonSelectChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, callback, isWeakReference)
+function UICheckBoxButtonGroup:addButtonSelectChangedEventListener(callback)
+    return self:addEventListener(UICheckBoxButtonGroup.BUTTON_SELECT_CHANGED, callback)
 end
 
-function UICheckBoxButtonGroup:onButtonSelectChanged(callback, isWeakReference)
-    self:addButtonSelectChangedEventListener(callback, isWeakReference)
+function UICheckBoxButtonGroup:onButtonSelectChanged(callback)
+    self:addButtonSelectChangedEventListener(callback)
     return self
 end
 

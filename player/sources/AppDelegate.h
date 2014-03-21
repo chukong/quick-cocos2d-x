@@ -39,9 +39,11 @@ public:
     virtual void applicationWillEnterForeground();
 
     void setProjectConfig(const ProjectConfig& config);
+    void setOpenRecents(const CCLuaValueArray& recents);
 
 private:
     ProjectConfig m_projectConfig;
+    CCLuaValueArray m_openRecents;
 
     friend class StartupCall;
 };

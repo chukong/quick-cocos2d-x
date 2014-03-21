@@ -10,16 +10,50 @@ function WelcomeScene:ctor()
     self:createLogo()
     self:createBannderAds()
     self:createButtons()
+    self:createLine()
     self:createCopyright()
 
-    local recents = json.decode(_G["OPEN_RECENTS"])
+    local recents = __G__OPEN_RECENTS__
+    __G__OPEN_RECENTS__ = nil
     if type(recents) ~= "table" then
         recents = {}
     end
     self:createOpenRecents(recents)
 end
 
+local function stripPath(path, maxLen)
+    local l = string.len(path)
+    if l <= maxLen then
+        return path
+    else
+        local arr = string.split(path, device.directorySeparator)
+        return arr[#arr - 1]
+        -- return "... " .. string.sub(path, l - maxLen)
+    end
+end
+
 function WelcomeScene:createOpenRecents(recents)
+    local label = cc.ui.UILabel.new({
+        text = "最近打开的项目:",
+        align = ui.TEXT_ALIGN_LEFT,
+        color = ccc3(48, 48, 48),
+        size = 18,
+    })
+    label:align(display.LEFT_TOP, display.left + 660, display.top - 330)
+    label:addTo(self)
+
+    for i, path in ipairs(recents) do
+        if i > 8 then break end
+        local label = cc.ui.UILabel.new({
+            text = stripPath(path, 36),
+            font = "Monaco",
+            align = ui.TEXT_ALIGN_LEFT,
+            color = ccc3(48, 48, 48),
+            size = 14,
+        })
+        label:align(display.LEFT_TOP, display.left + 680, display.top - 360 - 28 * (i - 1))
+        label:addTo(self)
+    end
 end
 
 function WelcomeScene:createLogo()
@@ -31,15 +65,15 @@ end
 function WelcomeScene:createBannderAds()
     self.bannerAds_ = {}
 
-    local banner = display.newSprite("BannerAd_02.png")
+    local banner = display.newSprite("BannerAd_01.png")
     local size = banner:getContentSize()
     banner:pos(display.cx, display.top - size.height / 2 - 50)
         :addTo(self)
 end
 
 function WelcomeScene:createLine()
-    local line = CCLayerColor:create(ccc4(238, 238, 238, 255), display.width - 80, 1)
-    line:setPosition(display.left + 20, display.top - 280)
+    local line = CCLayerColor:create(ccc4(153, 153, 153, 255), 1, 240)
+    line:setPosition(display.left + 640, display.top - 580)
     self:addChild(line)
 end
 
@@ -48,54 +82,51 @@ function WelcomeScene:createButtons()
     local top = display.top - 386
 
     local newProjectButton = cc.ui.UIPushButton.new("NewProjectButton_zh.png")
+        :onButtonClicked(function()
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
+        end)
         :pos(left, top)
         :addTo(self)
 
     local openProjectButton = cc.ui.UIPushButton.new("OpenProjectButton_zh.png")
+        :onButtonClicked(function()
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT")
+        end)
         :pos(left + 200, top)
         :addTo(self)
 
     local listSamplesButton = cc.ui.UIPushButton.new("ListSamplesButton_zh.png")
+        :onButtonClicked(function()
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_LIST_SAMPLES")
+        end)
         :pos(left + 400, top)
         :addTo(self)
 
     local openCommunityButton = cc.ui.UIPushButton.new("OpenCommunityButton_zh.png")
+        :onButtonClicked(function()
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_COMMUNITY")
+        end)
         :pos(left, top - 140)
         :addTo(self)
 
-    local learnButton = cc.ui.UIPushButton.new("LearnButton_zh.png")
+    local openDocumentsButton = cc.ui.UIPushButton.new("OpenDocumentsButton_zh.png")
+        :onButtonClicked(function()
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_DOCUMENTS")
+        end)
         :pos(left + 200, top - 140)
         :addTo(self)
 end
 
 function WelcomeScene:createCopyright()
     local label = ui.newTTFLabel({
-        text = "Copyright (c) 2012-2013 quick-x.com, licensed under MIT.",
+        text = "Copyright (c) 2012-2014 chukong-inc.com, licensed under MIT.",
         size = 14,
-        color = ccc3(180, 180, 180),
+        color = ccc3(144, 144, 144),
         x = display.cx,
-        y = display.bottom + 30,
+        y = display.bottom + 24,
         align = ui.TEXT_ALIGN_CENTER,
     })
     self:addChild(label)
-end
-
--- listeners
-
-function WelcomeScene:onNewProjectButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
-end
-
-function WelcomeScene:onOpenButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
-end
-
-function WelcomeScene:onSamplesButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_SAMPLES")
-end
-
-function WelcomeScene:onGetStartedButtonClicked()
-    CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end
 
 return WelcomeScene
