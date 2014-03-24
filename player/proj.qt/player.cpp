@@ -776,9 +776,19 @@ void Player::onShowPreferences()
 
 void Player::onMainWidgetOnTop(bool checked)
 {
-    QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
+    Qt::WindowFlags flags = CCEGLView::sharedOpenGLView()->getGLWindow()->flags();
+    QPoint pos = CCEGLView::sharedOpenGLView()->getGLWindow()->position();
     if (checked)
-        window->setFlags(window->flags() | Qt::WindowStaysOnTopHint);
+    {
+        flags ^= Qt::WindowStaysOnBottomHint;
+        flags |= Qt::WindowStaysOnTopHint;
+    }
     else
-        window->setFlags(window->flags() ^ Qt::WindowStaysOnTopHint);
+    {
+        flags ^= Qt::WindowStaysOnTopHint;
+        flags |= Qt::WindowStaysOnBottomHint;
+    }
+    CCEGLView::sharedOpenGLView()->getGLWindow()->setFlags(flags);
+    CCEGLView::sharedOpenGLView()->getGLWindow()->show();
+    CCEGLView::sharedOpenGLView()->getGLWindow()->setPosition(pos);
 }

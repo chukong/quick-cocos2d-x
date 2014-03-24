@@ -110,20 +110,21 @@ void ConsoleUI::onLogClear()
 
 void ConsoleUI::onAllwaysTop(bool checked)
 {
-    // FIXME: http://stackoverflow.com/questions/19097323/setwindowflagsqtwindowstaysontophint-hides-qt-window
+    Qt::WindowFlags flags = windowFlags();
     QPoint pos = this->pos();
     if (checked)
     {
-        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+        flags ^= Qt::WindowStaysOnBottomHint;
+        flags |= Qt::WindowStaysOnTopHint;
     }
     else
     {
-        setWindowFlags(windowFlags() ^ Qt::WindowStaysOnTopHint);
+        flags ^= Qt::WindowStaysOnTopHint;
+        flags |= Qt::WindowStaysOnBottomHint;
     }
-    setVisible(true);
-    activateWindow();
-    raise();
-    this->move(pos);
+    setWindowFlags(flags);
+    show();
+    move(pos);
 }
 
 void ConsoleUI::onOpenLogFile()
