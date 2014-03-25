@@ -24,6 +24,21 @@ MOC_DIR = obj/$${BUILD_TYPE}
 
 LIB_OUTPUT_DIR = $${ROOT}/lib/$${BUILD_TYPE}
 
+# Disable some warnings to make compiler output easier to read during development
+DISABLED_WARNINGS = \
+    -Wno-ignored-qualifiers \
+    -Wno-unused-parameter \
+    -Wno-sign-compare -Wno-unused-variable
+
+*-g++* {
+    DISABLED_WARNINGS += -Wno-psabi
+}
+
+*-g++*|*-clang* {
+    QMAKE_CXXFLAGS_WARN_ON += $${DISABLED_WARNINGS} -Wno-reorder
+    QMAKE_CFLAGS_WARN_ON += $${DISABLED_WARNINGS}
+}
+
 macx {
 #    CONFIG -= app_bundle
     # For zip api
@@ -37,14 +52,6 @@ macx {
     COCOS2DX_SYSTEM_LIBS +=  -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/mac -lluajit2
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries/ -lwebp
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/mac/lib/ -lwebsockets
-
-    QMAKE_CXXFLAGS_WARN_ON = ""
-    QMAKE_CXXFLAGS += -Wunused-parameter
-    QMAKE_CXXFLAGS += -Wno-unused-variable
-    QMAKE_CXXFLAGS += -Wignored-qualifiers
-    QMAKE_CXXFLAGS += -Wreorder
-
-    QMAKE_CFLAGS += -Wunused-parameter -Wno-unused-variable -Wreorder
 
     CONFIG += objective_c
     COCOS2DX_SYSTEM_LIBS += -framework Foundation -framework AppKit -framework SystemConfiguration  \
