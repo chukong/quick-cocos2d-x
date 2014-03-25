@@ -570,6 +570,9 @@ const string ProjectConfig::replaceProjectDirToFullPath(const string& path)
 
 bool ProjectConfig::isAbsolutePath(const string& path)
 {
+#ifdef CC_TARGET_QT
+    return cocos2d::CCFileUtils::sharedFileUtils()->isAbsolutePath(path);
+#endif
     if (DIRECTORY_SEPARATOR_CHAR == '/')
     {
         return path.length() > 0 && path[0] == '/';
