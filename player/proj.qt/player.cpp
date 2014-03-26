@@ -12,6 +12,7 @@
 #include <QWebFrame>
 #include <QDesktopServices>
 #include <QProcess>
+#include <QSettings>
 #include <QDebug>
 
 // 3rd library
@@ -548,7 +549,7 @@ void Player::updateTitle()
 #ifdef Q_OS_MAC
     CCEGLView::sharedOpenGLView()->getGLWindow()->setTitle(title);
 #else
-    m_window->setWindowTitle(title);
+    m_mainWindow->setWindowTitle(title);
 #endif
 }
 
@@ -801,6 +802,7 @@ void Player::onShowPreferences()
 
 void Player::onMainWidgetOnTop(bool checked)
 {
+#ifdef Q_OS_MAC
     Qt::WindowFlags flags = CCEGLView::sharedOpenGLView()->getGLWindow()->flags();
     QPoint pos = CCEGLView::sharedOpenGLView()->getGLWindow()->position();
     if (checked)
@@ -816,4 +818,21 @@ void Player::onMainWidgetOnTop(bool checked)
     CCEGLView::sharedOpenGLView()->getGLWindow()->setFlags(flags);
     CCEGLView::sharedOpenGLView()->getGLWindow()->show();
     CCEGLView::sharedOpenGLView()->getGLWindow()->setPosition(pos);
+#else
+	Qt::WindowFlags flags = m_mainWindow->windowFlags();
+	QPoint pos = m_mainWindow->pos();
+    if (checked)
+    {
+        flags ^= Qt::WindowStaysOnBottomHint;
+        flags |= Qt::WindowStaysOnTopHint;
+    }
+    else
+    {
+        flags ^= Qt::WindowStaysOnTopHint;
+        flags |= Qt::WindowStaysOnBottomHint;
+    }
+	m_mainWindow->setWindowFlags(flags);
+	m_mainWindow->show();
+    m_mainWindow->move(pos);
+#endif
 }
