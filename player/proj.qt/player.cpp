@@ -13,6 +13,7 @@
 #include <QDesktopServices>
 #include <QProcess>
 #include <QSettings>
+#include <QVBoxLayout>
 #include <QDebug>
 
 // 3rd library
@@ -51,6 +52,7 @@ Player::Player(QObject *parent)
     , m_openRecentMenu(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
+	, m_container(0)
 #endif
 {
     qRegisterMetaType<const char *>("const char *");
@@ -399,17 +401,26 @@ void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
     w->show();
 
 #else
-    if (bar && w)
+	static bool bInited = false;
+    if (bar && w && !bInited)
     {
-        bar->show();
-        m_mainWindow = new QMainWindow();
+		bInited = true;
+        m_mainWindow = new QWidget();
         m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
-        m_mainWindow->setMenuBar(bar);
-        QSize size = w->size();// + QSize(0, bar->size().height());
-        m_mainWindow->setCentralWidget(QWidget::createWindowContainer(w));
-        m_mainWindow->setFixedSize(size);
-        m_mainWindow->show();
+
+		QSize glSize = w->size();
+		m_container = QWidget::createWindowContainer(w);
+		m_container->setMinimumSize(glSize);
+		bar->setMaximumWidth(glSize.width());
+		
+		QVBoxLayout *layout = new QVBoxLayout();
+		layout->setContentsMargins(0,0,0,0);
+		layout->addWidget(bar);
+		layout->addWidget(m_container);
+		m_mainWindow->show();
+		m_mainWindow->setLayout(layout);
     }
+
 #endif
 
     checkQuickRootPath();
@@ -661,7 +672,8 @@ void Player::onScreenScaleTriggered()
 #ifdef Q_OS_WIN
     if (m_mainWindow)
     {
-        m_mainWindow->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
+		m_container->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
+		m_mainWindow->setFixedSize(m_container->size());
     }
 #endif
 

@@ -122,7 +122,8 @@ private:
     QAction         *m_landscapeAction, *m_portraitAction;
 
 #ifdef Q_OS_WIN
-    QMainWindow     *m_mainWindow;
+    QWidget	        *m_mainWindow;
+	QWidget			*m_container;
 #endif
 };
 Q_DECLARE_METATYPE(const char *);
