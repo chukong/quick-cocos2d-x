@@ -29,7 +29,20 @@ public:
     static int newProject(lua_State *L);
     static int openProject(lua_State *L);
     static int showLoginUI(lua_State *L);
+    /**
+     * @brief Interface for Lua
+     *          ['messageName', '{}'] -> core.toolBar, json string
+     * @param L
+     * @return
+     */
     static int sendMessage(lua_State *L);
+
+    /**
+     * @brief eventDispatch
+     * @param messageName   : 'core.toolbar'
+     * @param data          : '{}' json string
+     */
+    void eventDispatch(QString messageName, QString data);
 
     void initMainMenu();
     void makeMainWindow(QWindow *w, QMenuBar *bar);

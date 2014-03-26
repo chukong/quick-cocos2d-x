@@ -26,13 +26,15 @@
 #include "logindialog.h"
 #include "preferenceui.h"
 
-#define kPortrait 1
-#define kLandscape 2
-#define kOpenRecentFiles "recents"
-#define kDefaultMaxRecents "maxfiles"
-#define kDefaultMaxRecentValue 5
-#define kRecentItemTitle    "title"
-#define kRecentItemArgs     "args"
+#define kPortrait               1
+#define kLandscape              2
+#define kOpenRecentFiles        "recents"
+#define kDefaultMaxRecents      "maxfiles"
+#define kDefaultMaxRecentValue  5
+#define kRecentItemTitle        "title"
+#define kRecentItemArgs         "args"
+#define MODULE_NAME_SEPARATOR   "."
+#define MODULE_NAME_CORE        "core"
 
 struct ActionData
 {
@@ -127,7 +129,7 @@ void Player::onOpenProject()
 
         if (recents.size() > maxRecent)
         {
-            recents.removeFirst();
+            recents.removeLast();
         }
         settings.setValue(kOpenRecentFiles, recents);
 
@@ -155,31 +157,17 @@ int Player::sendMessage(lua_State *L)
     if (argc > 0)
     {
         //从栈中读入实部，虚部
-        const char *funName = lua_tostring(L, 1);
-        if (argc == 1)
-        {
-            QMetaObject::invokeMethod(Player::instance(), funName,
-                                      Qt::QueuedConnection);
-        }
-        else if (argc == 2)
-        {
-            if (lua_isstring(L, 2))
-            {
-                const char *data = lua_tostring(L, 2);
-                QMetaObject::invokeMethod(Player::instance(), funName,
-                                          Qt::QueuedConnection,
-                                          Q_ARG(const char *, data));
-            }
-            else
-            {
+        QString messageName(lua_tostring(L, 1));
+        QStringList messageList = messageName.split(".");
+        QString messageData;
 
-            }
-        }
-        else
+        if (messageList.size() == 2)
         {
-            QMetaObject::invokeMethod(Player::instance(), funName, Qt::QueuedConnection);
+            messageData = lua_tostring(L, 2);
         }
+        Player::instance()->eventDispatch(messageName, messageData);
     }
+
     return 0;
 }
 
@@ -270,7 +258,7 @@ void Player::registerAllCpp()
     lua_register(L, "newProject", &Player::newProject);
     lua_register(L, "openProject", &Player::openProject);
     lua_register(L, "showLoginUI", &Player::showLoginUI);
-    lua_register(L, "sendMessage", &Player::sendMessage);
+    lua_register(L, "QT_INTERFACE", &Player::sendMessage);
 }
 
 void Player::initMainMenu()
@@ -562,6 +550,29 @@ void Player::updateTitle()
 #else
     m_window->setWindowTitle(title);
 #endif
+}
+
+void Player::eventDispatch(QString messageName, QString data)
+{
+    if (data.isEmpty())
+    {
+        QString functionName = messageName.remove(QString("%1%2").arg(MODULE_NAME_CORE).arg(MODULE_NAME_SEPARATOR));
+        QMetaObject::invokeMethod(this , functionName.toLocal8Bit().data(), Qt::QueuedConnection);
+    }
+    else
+    {
+        QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
+        QString prefix = messageList.at(0);
+
+        if (prefix == MODULE_NAME_CORE)
+        {
+            QString tmpMsgName = messageList.at(1);
+            if (tmpMsgName == "openURL")
+            {
+                this->onOpenURL(data.toLocal8Bit().data());
+            }
+        }
+    }
 }
 
 void Player::on_actionRelaunch_triggered()
