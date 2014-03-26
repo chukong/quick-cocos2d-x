@@ -554,16 +554,13 @@ void Player::updateTitle()
 
 void Player::eventDispatch(QString messageName, QString data)
 {
-    if (data.isEmpty())
+    QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
+    // core message
+    if (messageList.size() <= 2)
     {
-        QString functionName = messageName.remove(QString("%1%2").arg(MODULE_NAME_CORE).arg(MODULE_NAME_SEPARATOR));
-        QMetaObject::invokeMethod(this , functionName.toLocal8Bit().data(), Qt::QueuedConnection);
-    }
-    else
-    {
-        QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
         QString prefix = messageList.at(0);
 
+        // core.openURL
         if (prefix == MODULE_NAME_CORE)
         {
             QString tmpMsgName = messageList.at(1);
@@ -571,7 +568,24 @@ void Player::eventDispatch(QString messageName, QString data)
             {
                 this->onOpenURL(data.toLocal8Bit().data());
             }
+            else if (tmpMsgName == "openProject")
+            {
+                this->onOpenProject();
+            }
+            else if (tmpMsgName == "newProject")
+            {
+                this->onNewProject();
+            }
+            else if (tmpMsgName == "openDemo")
+            {
+                this->onOpenQuickDemoWebview();
+            }
         }
+    }
+    // others
+    else
+    {
+
     }
 }
 
