@@ -31,4 +31,4 @@ $pfile "extensions/CocoStudio/Armature/utils/CCArmatureDataManager.tolua"
 $pfile "extensions/CocoStudio/Armature/CCArmature.tolua"
 $pfile "extensions/CocoStudio/Armature/CCBone.tolua"
 
-$pfile "extensions/GameCenter/GameCenter.tolua"
+// $pfile "extensions/GameCenter/GameCenter.tolua"
