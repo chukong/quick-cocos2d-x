@@ -26,6 +26,7 @@ THE SOFTWARE.
 #define __CC_IMAGE_H__
 
 #include "cocoa/CCObject.h"
+#include "ccTypes.h"
 
 NS_CC_BEGIN
 
@@ -159,6 +160,8 @@ public:
 
     unsigned char *   getData()               { return m_pData; }
     int               getDataLen()            { return m_nWidth * m_nHeight; }
+	ccColor4B getColor4B(float x, float y);
+	ccColor4F getColor4F(float x, float y);
 
 
     bool hasAlpha()                     { return m_bHasAlpha;   }
