@@ -1,7 +1,10 @@
-
 local WelcomeScene = class("WelcomeScene", function()
     return display.newScene("WelcomeScene")
 end)
+
+function LUA_Interface(messageId, messageData)
+    print("messageId: ", messageId, "data : ", messageData)
+end
 
 function PlayerLoginCallback(userName, password)
     print("Get username: ", userName, " passworld: ", password)

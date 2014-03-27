@@ -2,6 +2,8 @@
 #include "ui_logindialog.h"
 #include <QMessageBox>
 #include "lua.hpp"
+#include "CCLuaEngine.h"
+#include "json_lib.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -75,5 +77,20 @@ bool LoginDialog::luaCallback()
         QMessageBox::warning(this, this->windowTitle(), errMsg, QMessageBox::Ok);
     }
 
-    return ret;
+
+    // test
+    if (0)
+    {
+        CSJson::Value messageData;
+        CSJson::FastWriter writer;
+        messageData["user"] = ui->userName->text().toLocal8Bit().data();
+        messageData["pwd"]  = ui->password->text().toLocal8Bit().data();
+        std::string out = writer.write(messageData);
+
+        cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->pushString("core.message.i");
+        cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->pushString(out.data());
+        cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->executeGlobalFunction("LUA_Interface", 2);
+    }
+
+    return 1;
 }
