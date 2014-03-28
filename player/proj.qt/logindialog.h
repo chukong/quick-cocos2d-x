@@ -19,13 +19,15 @@ class LoginDialog : public QDialog
 
 public:
     explicit LoginDialog(QWidget *parent = 0);
-    void setLuaState(lua_State *state);
 
     ~LoginDialog();
     void accept();
 
+Q_SIGNALS:
+    void sigLogin(QString userName, QString password);
+
 private:
-    bool luaCallback();
+    void luaCallback();
 
 private:
     Ui::LoginDialog *ui;

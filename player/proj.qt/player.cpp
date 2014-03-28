@@ -19,6 +19,7 @@
 // 3rd library
 #include "cocos2d.h"
 #include "CCLuaEngine.h"
+#include "json_lib.h"
 
 // ui
 #include "aboutui.h"
@@ -729,9 +730,8 @@ void Player::onShowConsole()
 void Player::onShowLoginUI()
 {
     LoginDialog *dialog = new LoginDialog();
+    connect(dialog, SIGNAL(sigLogin(QString,QString)), this, SLOT(onLogin(QString,QString)));
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    dialog->setLuaState(L);
     dialog->show();
 }
 
@@ -854,4 +854,18 @@ void Player::onMainWidgetOnTop(bool checked)
 	m_mainWindow->show();
     m_mainWindow->move(pos);
 #endif
+}
+
+void Player::onLogin(QString userName, QString password)
+{
+    CSJson::Value messageData;
+    CSJson::FastWriter writer;
+    messageData["user"] = userName.toLocal8Bit().data();
+    messageData["pwd"]  = password.toLocal8Bit().data();
+    std::string out = writer.write(messageData);
+
+    cocos2d::CCLuaStack *luaStack = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack();
+    luaStack->pushString("core.message");
+    luaStack->pushString(out.data());
+    luaStack->executeGlobalFunction("LUA_Interface", 2);
 }

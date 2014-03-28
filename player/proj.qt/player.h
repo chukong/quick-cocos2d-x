@@ -109,6 +109,8 @@ private Q_SLOTS:
 
     void on_actionConfig_triggered();
 
+    void onLogin(QString userName, QString password);
+
 
 private:
     QString         m_projectConfigFileName;
