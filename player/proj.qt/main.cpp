@@ -92,9 +92,13 @@ int main(int argc, char *argv[])
     player->enterBackgroundDelegate.bind(&app, &AppDelegate::applicationDidEnterBackground);
     player->enterForegroundDelegate.bind(&app, &AppDelegate::applicationWillEnterForeground);
 
-    // crash with Qt 5.1, so set the default font for quick-x-player
-    QFont font("Courier", 13, QFont::Normal, false);
-    qApp->setFont(font);
+    if (QT_VERSION < QT_VERSION_CHECK(5, 2, 0) && QSysInfo::macVersion() >= QSysInfo::MV_MAVERICKS)
+    {
+        // OS X 10.9 crash with Qt 5.1, so set the default font for quick-x-player
+        QFont font("Courier", 13, QFont::Normal, false);
+        qApp->setFont(font);
+    }
+
 
     // menu
     player->setProjectConfig(projectConfig);
