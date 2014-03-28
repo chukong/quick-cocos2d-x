@@ -6,23 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>444</width>
-    <height>128</height>
+    <width>561</width>
+    <height>114</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>5</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>5</number>
+   </property>
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>quick-cocos2d-x root path:</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0" colspan="2">
       <widget class="QLineEdit" name="rootPath"/>
      </item>
@@ -38,7 +43,7 @@
        <property name="maximumSize">
         <size>
          <width>200</width>
-         <height>16777215</height>
+         <height>200</height>
         </size>
        </property>
        <property name="text">
@@ -76,7 +81,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>0</height>
       </size>
      </property>
     </spacer>

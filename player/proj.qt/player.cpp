@@ -710,13 +710,20 @@ void Player::on_actionConfig_triggered()
 void Player::onShowOpenCocoaChinaWebView()
 {
     const char *url = "http://www.cocoachina.com/";
-    url = "/Users/jryin/workspace/github/quick-cocos2d-x/lib/debug";
     onOpenURL(url);
 }
 
 void Player::onShowConsole()
 {
     ConsoleUI::instance()->show();
+
+    static bool isFirstShow = true;
+    if (isFirstShow)
+    {
+        isFirstShow = false;
+        int y = qApp->desktop()->availableGeometry().height() - ConsoleUI::instance()->height();
+        ConsoleUI::instance()->move(0, y);
+    }
 }
 
 void Player::onShowLoginUI()

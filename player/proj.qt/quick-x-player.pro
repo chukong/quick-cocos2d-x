@@ -16,8 +16,11 @@ include(../../lib/proj.qt/quick-x-common.pri)
 
 #CONFIG += warn_off
 macx {
-#    CONFIG -= app_bundle
-    ICON = QuickIcon.icns
+    CONFIG(debug, debug|release) {
+        CONFIG -= app_bundle
+    } else {
+        ICON = QuickIcon.icns
+    }
 }
 
 INCLUDEPATH += ../sources .
