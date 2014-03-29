@@ -789,24 +789,6 @@ bool CCImage::saveToFile(const char *pszFilePath, bool bIsToRGB)
     return bRet;
 }
 
-ccColor4B CCImage::getColor4B(float x, float y)
-{
-	ccColor4B color = { 0, 0, 0, 0 };
-	int ix = (int)x - 1;
-	int iy = (int)y - 1;
-	m_pData += (iy*getWidth() + ix) * 4;
-	color.r = *(m_pData++);
-	color.g = *(m_pData++);
-	color.b = *(m_pData++);
-	color.a = *(m_pData++);
-	return color;
-}
-
-ccColor4F CCImage::getColor4F(float x, float y)
-{
-	return ccc4FFromccc4B(getColor4B(x, y));
-}
-
 bool CCImage::_saveImageToPNG(const char * pszFilePath, bool bIsToRGB)
 {
     bool bRet = false;
