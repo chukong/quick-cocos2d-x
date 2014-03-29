@@ -160,11 +160,12 @@ public:
 
     unsigned char *   getData()               { return m_pData; }
     int               getDataLen()            { return m_nWidth * m_nHeight; }
+	
 	//ccColor4B getColor4B(float x, float y);
 	//ccColor4F getColor4F(float x, float y);
 
 
-	ccColor4B CCImage::getColor4B(float x, float y)
+	ccColor4B getColor4B(float x, float y)
 	{
 		ccColor4B color = { 0, 0, 0, 0 };
 		int ix = (int)x - 1;
@@ -177,7 +178,7 @@ public:
 		return color;
 	};
 
-	ccColor4F CCImage::getColor4F(float x, float y)
+	ccColor4F getColor4F(float x, float y)
 	{
 		return ccc4FFromccc4B(getColor4B(x, y));
 	};
