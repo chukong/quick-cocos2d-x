@@ -91,16 +91,16 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/platform/CCSAXParser.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/CCThread.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/CCZipFile.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/platform.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCCommon.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCAccelerometer.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCApplication.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCDevice.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCEGLView.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCCommonQt.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCAccelerometerQt.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCApplicationQt.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCDeviceQt.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCEGLViewQt.cpp \
 #$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCFileUtilsQt.cpp \
 # using mac/ccimage for mac platform
 # using win/ccimage for win platform
 #$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCImage.cpp \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCStdC.cpp \
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/qt/CCStdCQt.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/script_support/CCScriptSupport.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/shaders/CCGLProgram.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/shaders/ccGLStateCache.cpp \
@@ -306,7 +306,7 @@ $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_event.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_is.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_map.c \
 $${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_push.c \
-$${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_to.c \
+$${ROOT}/lib/cocos2d-x/scripting/lua/tolua/tolua_to.c
 
 macx {
     SOURCES += $${ROOT}/lib/cocos2d-x/scripting/lua/lua_extensions/socket/usocket.c \

@@ -38,6 +38,7 @@
 #define kRecentItemArgs         "args"
 #define MODULE_NAME_SEPARATOR   "."
 #define MODULE_NAME_CORE        "core"
+#define MENU_BAR_FIXED_HEIGHT   25
 
 struct ActionData
 {
@@ -412,14 +413,17 @@ void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
 		QSize glSize = w->size();
 		m_container = QWidget::createWindowContainer(w);
 		m_container->setMinimumSize(glSize);
-		bar->setMaximumWidth(glSize.width());
-		
+
+        bar->setFixedHeight(MENU_BAR_FIXED_HEIGHT);
+
 		QVBoxLayout *layout = new QVBoxLayout();
 		layout->setContentsMargins(0,0,0,0);
 		layout->addWidget(bar);
 		layout->addWidget(m_container);
-		m_mainWindow->show();
-		m_mainWindow->setLayout(layout);
+
+        m_mainWindow->setLayout(layout);
+        m_mainWindow->setFixedSize(glSize + QSize(0, MENU_BAR_FIXED_HEIGHT));
+        m_mainWindow->show();
     }
 
 #endif
@@ -674,7 +678,7 @@ void Player::onScreenScaleTriggered()
     if (m_mainWindow)
     {
 		m_container->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
-		m_mainWindow->setFixedSize(m_container->size());
+        m_mainWindow->setFixedSize(m_container->size() + QSize(0,MENU_BAR_FIXED_HEIGHT));
     }
 #endif
 

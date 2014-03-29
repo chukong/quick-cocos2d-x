@@ -72,6 +72,8 @@ win32 {
     DEFINES += WIN32
     # for lua socket
     DEFINES += _WIN32
+    # jsoncpp
+    DEFINES += JSON_DLL_BUILD
 
     COCOS2DX_SYSTEM_LIBS += -lopengl32 -ladvapi32 -lShell32 -lWSOCK32 -lws2_32
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/cocos2dx/platform/third_party/win32/libraries -llibpng \
@@ -79,7 +81,7 @@ win32 {
 
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/win32/lib/ -lwebsockets \
                             -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/win32 -llua51
-    QMAKE_LFLAGS_DEBUG  = /DEBUG /NODEFAULTLIB:libcmt.lib
+    #QMAKE_LFLAGS_DEBUG  = /DEBUG /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:MSVCRT.lib
     #QMAKE_CFLAGS_DEBUG += /TP /Od #/TP #/clr
 
     # http://msdn.microsoft.com/en-us/library/032xwy55.aspx
@@ -172,6 +174,7 @@ win32 {
                     $${CC_ROOT}/external/libwebsockets/win32/lib
     INCLUDEPATH += $${CC_ROOT}/cocos2dx/platform/third_party/win32/libwebp/
     INCLUDEPATH += \
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32           \
             $${CC_ROOT}/cocos2dx/platform/third_party/win32/iconv     \
             $${CC_ROOT}/cocos2dx/platform/third_party/win32/zlib      \
             $${CC_ROOT}/cocos2dx/platform/third_party/win32/libjpeg   \
@@ -179,5 +182,5 @@ win32 {
             $${CC_ROOT}/cocos2dx/platform/third_party/win32/pthread   \
             $${CC_ROOT}/cocos2dx/platform/third_party/win32/libtiff   \
             $${CC_ROOT}/cocos2dx/platform/third_party/win32/libwebp   \
-            $${CC_ROOT}/cocos2dx/platform/third_party/win32/OGLES/GL
+            $${CC_ROOT}/cocos2dx/platform/third_party/win32/OGLES
 }
