@@ -1,0 +1,7 @@
+class CCGrayFilter : public CCFilter
+{
+public:
+	static CCGrayFilter* create();
+	static CCGrayFilter* create(ccColor4F param);
+	void setParameter(ccColor4F param);
+};

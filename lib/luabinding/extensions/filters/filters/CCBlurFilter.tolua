@@ -1,0 +1,59 @@
+class CCBlurBaseFilter : public CCSingleFloatParamFilter
+{
+
+public:
+	virtual void setParameter(float param);
+};
+
+class CCHBlurFilter : public CCBlurBaseFilter
+{
+public:
+	static CCHBlurFilter* create();
+	static CCHBlurFilter* create(float param);
+};
+
+class CCVBlurFilter : public CCBlurBaseFilter
+{
+public:
+	static CCVBlurFilter* create();
+	static CCVBlurFilter* create(float param);
+};
+
+class CCGaussianHBlurFilter : public CCBlurBaseFilter
+{
+public:
+	static CCGaussianHBlurFilter* create();
+	static CCGaussianHBlurFilter* create(float param);
+};
+
+class CCGaussianVBlurFilter : public CCBlurBaseFilter
+{
+public:
+	static CCGaussianVBlurFilter* create();
+	static CCGaussianVBlurFilter* create(float param);
+};
+
+//================== CCZoomBlurFilter
+
+class CCZoomBlurFilter : public CCFilter
+{
+
+public:
+	static CCZoomBlurFilter* create();
+	static CCZoomBlurFilter* create(float blurSize, float centerX, float centerY);
+
+	void setParameter(float blurSize, float centerX, float centerY);
+};
+
+//================== CCMotionBlurFilter
+
+class CCMotionBlurFilter : public CCFilter
+{
+
+public:
+	static CCMotionBlurFilter* create();
+	static CCMotionBlurFilter* create(float blurSize, float blurAngle);
+
+	void setParameter(float blurSize, float blurAngle);
+	virtual void initSprite(CCFilteredSprite* sprite);
+};

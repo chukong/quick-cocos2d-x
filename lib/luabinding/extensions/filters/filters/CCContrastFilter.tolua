@@ -1,0 +1,8 @@
+class CCContrastFilter : public CCSingleFloatParamFilter
+{
+
+public:
+	static CCContrastFilter* create();
+	static CCContrastFilter* create(float param);
+	void setParameter(float param);
+};

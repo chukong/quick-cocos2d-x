@@ -1,0 +1,8 @@
+class CCRGBFilter : public CCFilter
+{
+
+public:
+	static CCRGBFilter* create();
+	static CCRGBFilter* create(float redAdj, float greenAdj, float blueAdj);
+	void setParameter(float redAdj, float greenAdj, float blueAdj);
+};

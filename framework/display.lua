@@ -230,33 +230,39 @@ function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
-function display.newSprite(filename, x, y)
+function display.newFilteredSprite(filename, filters)
+	return display.newSprite(filename, nil, nil, CCFilteredSpriteWithOne)
+end
+display.newFSprite = display.newFilteredSprite
+
+function display.newSprite(filename, x, y, spriteClass)
+	local spriteClass = spriteClass or CCSprite
     local t = type(filename)
     if t == "userdata" then t = tolua.type(filename) end
     local sprite
 
     if not filename then
-        sprite = CCSprite:create()
+        sprite = spriteClass:create()
     elseif t == "string" then
         if string.byte(filename) == 35 then -- first char is #
             local frame = display.newSpriteFrame(string.sub(filename, 2))
             if frame then
-                sprite = CCSprite:createWithSpriteFrame(frame)
+                sprite = spriteClass:createWithSpriteFrame(frame)
             end
         else
             if display.TEXTURES_PIXEL_FORMAT[filename] then
                 CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-                sprite = CCSprite:create(filename)
+                sprite = spriteClass:create(filename)
                 CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
-                sprite = CCSprite:create(filename)
+                sprite = spriteClass:create(filename)
             end
         end
-    elseif t == "CCSpriteFrame" then
-        sprite = CCSprite:createWithSpriteFrame(filename)
+    elseif t == "spriteClassFrame" then
+        sprite = spriteClass:createWithSpriteFrame(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
-        sprite = CCSprite:create()
+        sprite = spriteClass:create()
     end
 
     if sprite then
@@ -264,7 +270,7 @@ function display.newSprite(filename, x, y)
         if x and y then sprite:setPosition(x, y) end
     else
         echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
-        sprite = CCSprite:create()
+        sprite = spriteClass:create()
     end
 
     return sprite
