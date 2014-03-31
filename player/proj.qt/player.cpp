@@ -759,8 +759,12 @@ void Player::onCreateNewPlayer()
 
     QString cmd(newPlayerConfig.makeCommandLine().data());
     QStringList args = cmd.split(" ");
-    qDebug() << args;
+
+#ifdef Q_OS_MAC
+    QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+#elif
     QProcess::startDetached(qApp->applicationFilePath(), args);
+#endif
 }
 
 void Player::onClose()
