@@ -81,7 +81,7 @@ win32 {
 
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/win32/lib/ -lwebsockets \
                             -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/win32 -llua51
-    #QMAKE_LFLAGS_DEBUG  = /DEBUG /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:MSVCRT.lib
+    QMAKE_LFLAGS_DEBUG  = /DEBUG /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:MSVCRT.lib
     #QMAKE_CFLAGS_DEBUG += /TP /Od #/TP #/clr
 
     # http://msdn.microsoft.com/en-us/library/032xwy55.aspx
