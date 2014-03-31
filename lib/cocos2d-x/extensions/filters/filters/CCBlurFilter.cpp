@@ -23,7 +23,7 @@ void CCBlurBaseFilter::setUniforms(CCGLProgram* $cgp)
 	int __radius = $cgp->getUniformLocationForName("u_radius");
 	//CCLOG("CCFilter::getProgram %d", $cgp);
 	$cgp->setUniformLocationWith1f(__radius, _param);
-	CCLOG("CCBlurBaseFilter::setUniforms radius:%d, param:%f", __radius, _param);
+	//CCLOG("CCBlurBaseFilter::setUniforms radius:%d, param:%f", __radius, _param);
 }
 
 void CCBlurBaseFilter::setParameter(float $param)
@@ -127,7 +127,7 @@ void CCGaussianHBlurFilter::setUniforms(CCGLProgram* $cgp)
 
 	int u_resolution = $cgp->getUniformLocationForName("u_resolution");
 	$cgp->setUniformLocationWith1f(u_resolution, 480);
-	CCLOG("CCGaussianHBlurFilter::setUniforms u_resolution:%f", 480);
+	//CCLOG("CCGaussianHBlurFilter::setUniforms u_resolution:%f", 480);
 }
 //================== CCGaussianVBlurFilter
 
@@ -165,7 +165,7 @@ void CCGaussianVBlurFilter::setUniforms(CCGLProgram* $cgp)
 
 	int u_resolution = $cgp->getUniformLocationForName("u_resolution");
 	$cgp->setUniformLocationWith1f(u_resolution, 320);
-	CCLOG("CCGaussianVBlurFilter::setUniforms u_resolution:%f", 320);
+	//CCLOG("CCGaussianVBlurFilter::setUniforms u_resolution:%f", 320);
 }
 
 //================== CCZoomBlurFilter
@@ -223,10 +223,10 @@ void CCZoomBlurFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int __blurSize = $cgp->getUniformLocationForName("u_blurSize");
 	int __blurCenter = $cgp->getUniformLocationForName("u_blurCenter");
-	CCLOG("CCZoomBlurFilter::setUniforms %d, %d", __blurSize, __blurCenter);
+	//CCLOG("CCZoomBlurFilter::setUniforms %d, %d", __blurSize, __blurCenter);
 	$cgp->setUniformLocationWith1f(__blurSize, _blurSize);
 	$cgp->setUniformLocationWith2f(__blurCenter, _centerX, _centerY);
-	CCLOG("CCZoomBlurFilter::setUniforms _blurSize:%.5f, _centerX:%.5f, _centerY:%.5f", _blurSize, _centerX, _centerY);
+	//CCLOG("CCZoomBlurFilter::setUniforms _blurSize:%.5f, _centerX:%.5f, _centerY:%.5f", _blurSize, _centerX, _centerY);
 }
 
 //================== CCMotionBlurFilter
@@ -289,10 +289,9 @@ void CCMotionBlurFilter::setAttributes(CCGLProgram* $cgp)
 void CCMotionBlurFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int __directionalTexelStep = $cgp->getUniformLocationForName("u_directionalTexelStep");
-	CCLOG("CCMotionBlurFilter::setUniforms %d", __directionalTexelStep);
+	//CCLOG("CCMotionBlurFilter::setUniforms %d", __directionalTexelStep);
 	$cgp->setUniformLocationWith2f(__directionalTexelStep, _texelOffsetX, _texelOffsetY);
-	CCLOG("CCMotionBlurFilter::setUniforms _blurSize:%.5f,_blurAngle:%.5f, _texelOffsetX:%.5f, _texelOffsetY:%.5f",
-		_blurSize, _blurAngle, _texelOffsetX, _texelOffsetY);
+	//CCLOG("CCMotionBlurFilter::setUniforms _blurSize:%.5f,_blurAngle:%.5f, _texelOffsetX:%.5f, _texelOffsetY:%.5f",	_blurSize, _blurAngle, _texelOffsetX, _texelOffsetY);
 }
 
 NS_CC_EXT_END

@@ -230,8 +230,38 @@ function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
-function display.newFilteredSprite(filename, filters)
-	return display.newSprite(filename, nil, nil, CCFilteredSpriteWithOne)
+function display.newFilteredSprite(filename, filters, params)
+	if not filters then return display.newSprite(filtename, nil,nil , CCFilteredSpriteWithOne) end
+	local __sp = nil
+	local __type = type(filters)
+    if __type == "userdata" then __type = tolua.type(filters) end
+	print("display.newFSprite type:", __type)
+	if __type == "string" then
+		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithOne)
+		filters = filter.newFilter(filters, params)
+		__sp:setFilter(filters)
+	elseif __type == "table" then
+		assert(#filters > 1, "display.newFilteredSprite() - Please give me 2 or more filters!")
+		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithMulti)
+		-- treat filters as {"FILTER_NAME", "FILTER_NAME"}
+		if type(filters[1]) == "string" then
+			__sp:setFilters(filter.newFilters(filters, params))
+		else
+			-- treat filters as {CCFilter, CCFilter , ...}
+			local __filters = CCArray:create()
+			for i in ipairs(filters) do
+				__filters:addObject(filters[i])
+			end
+			__sp:setFilters(__filters)
+		end
+	elseif __type == "CCArray" then
+		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithMulti)
+		__sp:setFilters(filters)
+	else
+		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithOne)
+		__sp:setFilter(filters)
+	end
+	return __sp
 end
 display.newFSprite = display.newFilteredSprite
 

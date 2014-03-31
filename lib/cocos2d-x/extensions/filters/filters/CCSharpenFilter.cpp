@@ -72,7 +72,7 @@ void CCSharpenFilter::initSprite(CCFilteredSprite* $sprite)
 
 void CCSharpenFilter::setAttributes(CCGLProgram* $cgp)
 {
-	CCLOG("CCBlurBaseFilter::setAttributes");
+	CCLOG("CCSharpenFilter::setAttributes");
 	$cgp->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
 	$cgp->addAttribute(kCCAttributeNameColor, kCCVertexAttrib_Color);
 	$cgp->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
@@ -80,15 +80,14 @@ void CCSharpenFilter::setAttributes(CCGLProgram* $cgp)
 
 void CCSharpenFilter::setUniforms(CCGLProgram* $cgp)
 {
-	int __sharpness = $cgp->getUniformLocationForName("u_sharpness");
-	int __widthFactor = $cgp->getUniformLocationForName("u_widthFactor");
-	int __heightFactor = $cgp->getUniformLocationForName("u_heightFactor");
-	CCLOG("CCSharpenFilter::setUniforms %d, %d, %d", __sharpness, __widthFactor, __heightFactor);
-	$cgp->setUniformLocationWith1f(__sharpness, _sharpness);
-	$cgp->setUniformLocationWith1f(__widthFactor, _widthFactor);
-	$cgp->setUniformLocationWith1f(__heightFactor, _heightFactor);
-	CCLOG("CCSharpenFilter::setUniforms u_sharpness:%.2f, u_widthFactor:%.5f, u_heightFctor:%.5f",
-		_sharpness, _widthFactor, _heightFactor);
+	int u_sharpness = $cgp->getUniformLocationForName("u_sharpness");
+	int u_widthFactor = $cgp->getUniformLocationForName("u_widthFactor");
+	int u_heightFactor = $cgp->getUniformLocationForName("u_heightFactor");
+	//CCLOG("CCSharpenFilter::setUniforms %d, %d, %d", u_sharpness, u_widthFactor, u_heightFactor);
+	$cgp->setUniformLocationWith1f(u_sharpness, _sharpness);
+	$cgp->setUniformLocationWith1f(u_widthFactor, _widthFactor);
+	$cgp->setUniformLocationWith1f(u_heightFactor, _heightFactor);
+	//CCLOG("CCSharpenFilter::setUniforms u_sharpness:%.2f, u_widthFactor:%.5f, u_heightFctor:%.5f",_sharpness, _widthFactor, _heightFactor);
 }
 
 NS_CC_EXT_END
