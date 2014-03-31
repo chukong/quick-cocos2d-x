@@ -281,14 +281,16 @@ void Player::initMainMenu()
     //
 
     QMenu *fileMenu = m_mainMenu->addMenu(QObject::tr("&File"));
-    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_N)] =
-            fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
-    m_actionMap[QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N)] =
-            fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+
+    QAction *newProjectAction = fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
+    m_actionMap[newProjectAction->shortcut()] = newProjectAction;
+
+    QAction *newPlayerAction = fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+    m_actionMap[newPlayerAction->shortcut()] = newPlayerAction;
 
     fileMenu->addSeparator();
-    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_O)] =
-            fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    QAction *openAction = fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    m_actionMap[openAction->shortcut()] = openAction;
 
     m_openRecentMenu = fileMenu->addMenu(tr("Open Recent"));
     QSettings setting;
@@ -311,8 +313,8 @@ void Player::initMainMenu()
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
 
     fileMenu->addSeparator();
-    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_W)] =
-            fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
+    QAction *closeAction = fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
+    m_actionMap[closeAction->shortcut()] = closeAction;
 
     //
     // player menu
@@ -336,12 +338,12 @@ void Player::initMainMenu()
 
     QAction *buildIOSMenu = buildMenu->addAction(tr("iOS..."), this, SLOT(onBuildIOS()), QKeySequence(Qt::CTRL + Qt::Key_B));
     buildIOSMenu->setEnabled(false);
-    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_B)] = buildIOSMenu;
+    m_actionMap[buildIOSMenu->shortcut()] = buildIOSMenu;
 
     QAction *buildAndroidMenu = buildMenu->addAction(tr("Android..."), this, SLOT(onBuildAndroid()));
     buildAndroidMenu->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
     buildAndroidMenu->setEnabled(false);
-    m_actionMap[QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B)] = buildAndroidMenu;
+    m_actionMap[buildAndroidMenu->shortcut()] = buildAndroidMenu;
 
     playerMenu->addSeparator();
     QAction *relaunchAction = playerMenu->addAction(QObject::tr("Relaunch"), this, SLOT(on_actionRelaunch_triggered()));
@@ -349,7 +351,7 @@ void Player::initMainMenu()
     relaunchAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
 #else   // windows, *nix and others
     relaunchAction->setShortcut(QKeySequence(Qt::Key_F5));
-    m_actionMap[QKeySequence(Qt::Key_F5)] = relaunchAction;
+    m_actionMap[buildAndroidMenu->shortcut()] = relaunchAction;
 #endif
 
     playerMenu->addSeparator();
