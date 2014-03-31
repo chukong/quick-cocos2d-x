@@ -351,7 +351,7 @@ void Player::initMainMenu()
     relaunchAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
 #else   // windows, *nix and others
     relaunchAction->setShortcut(QKeySequence(Qt::Key_F5));
-    m_actionMap[buildAndroidMenu->shortcut()] = relaunchAction;
+    m_actionMap[relaunchAction->shortcut()] = relaunchAction;
 #endif
 
     playerMenu->addSeparator();
@@ -436,6 +436,11 @@ void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
         m_mainWindow->show();
 
         m_mainWindow->installEventFilter(this);
+
+#if QT_VERSION == QT_VERSION_CHECK(5, 1, 0)
+        // fix: shortcuts for Qt5.1 on windows
+        w->installEventFilter(this);
+#endif
     }
 
 #endif
@@ -587,7 +592,7 @@ bool Player::eventFilter(QObject *o, QEvent *e)
 {
 #ifdef Q_OS_WIN
     // shortcut
-    if (o == ConsoleUI::instance() || o == m_webview)
+    if (o == ConsoleUI::instance() || o == m_webview || o == CCEGLView::sharedOpenGLView()->getGLWindow())
     {
         if (e->type() == QEvent::KeyPress)
         {
