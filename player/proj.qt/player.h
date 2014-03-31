@@ -96,6 +96,16 @@ protected:
     void checkQuickRootPath();
     void updateTitle();
 
+    bool eventFilter(QObject *, QEvent *);
+
+    /**
+     * @brief processKeyboardEvent - process the shortcut
+     * @param e
+     */
+    void processKeyboardEvent(QKeyEvent *e);
+
+    QKeySequence convertKeyEventToKeySequence(QKeyEvent *e);
+
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
     void on_actionOpen_triggered();
@@ -123,6 +133,8 @@ private:
     QList<QAction*> m_recentFileActionList;
     QAction         *m_landscapeAction, *m_portraitAction;
 
+    QuickDemoWebView *m_webview;
+    QMap<QKeySequence, QAction*> m_actionMap;
 #ifdef Q_OS_WIN
     QWidget	        *m_mainWindow;
 	QWidget			*m_container;

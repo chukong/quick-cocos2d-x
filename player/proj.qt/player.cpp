@@ -52,6 +52,7 @@ Player::Player(QObject *parent)
     , m_renderWidget(0)
     , m_mainMenu(0)
     , m_openRecentMenu(0)
+    , m_webview(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
 	, m_container(0)
@@ -280,11 +281,14 @@ void Player::initMainMenu()
     //
 
     QMenu *fileMenu = m_mainMenu->addMenu(QObject::tr("&File"));
-    fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
-    fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_N)] =
+            fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
+    m_actionMap[QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N)] =
+            fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
 
     fileMenu->addSeparator();
-    fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_O)] =
+            fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
 
     m_openRecentMenu = fileMenu->addMenu(tr("Open Recent"));
     QSettings setting;
@@ -307,7 +311,8 @@ void Player::initMainMenu()
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
 
     fileMenu->addSeparator();
-    fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
+    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_W)] =
+            fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
 
     //
     // player menu
@@ -331,10 +336,12 @@ void Player::initMainMenu()
 
     QAction *buildIOSMenu = buildMenu->addAction(tr("iOS..."), this, SLOT(onBuildIOS()), QKeySequence(Qt::CTRL + Qt::Key_B));
     buildIOSMenu->setEnabled(false);
+    m_actionMap[QKeySequence(Qt::CTRL + Qt::Key_B)] = buildIOSMenu;
 
     QAction *buildAndroidMenu = buildMenu->addAction(tr("Android..."), this, SLOT(onBuildAndroid()));
     buildAndroidMenu->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
     buildAndroidMenu->setEnabled(false);
+    m_actionMap[QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B)] = buildAndroidMenu;
 
     playerMenu->addSeparator();
     QAction *relaunchAction = playerMenu->addAction(QObject::tr("Relaunch"), this, SLOT(on_actionRelaunch_triggered()));
@@ -342,6 +349,7 @@ void Player::initMainMenu()
     relaunchAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
 #else   // windows, *nix and others
     relaunchAction->setShortcut(QKeySequence(Qt::Key_F5));
+    m_actionMap[QKeySequence(Qt::Key_F5)] = relaunchAction;
 #endif
 
     playerMenu->addSeparator();
@@ -424,6 +432,8 @@ void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
         m_mainWindow->setLayout(layout);
         m_mainWindow->setFixedSize(glSize + QSize(0, MENU_BAR_FIXED_HEIGHT));
         m_mainWindow->show();
+
+        m_mainWindow->installEventFilter(this);
     }
 
 #endif
@@ -532,6 +542,8 @@ void Player::initScreenMenu()
         if (int(m_projectConfig.getFrameScale()*100) == int(actionData.userData.toFloat()*100)) {
             scaleAction->setChecked(true);
         }
+
+        m_actionMap[actionData.keySequence] = scaleAction;
     }
 }
 
@@ -567,6 +579,67 @@ void Player::updateTitle()
 #else
     m_mainWindow->setWindowTitle(title);
 #endif
+}
+
+bool Player::eventFilter(QObject *o, QEvent *e)
+{
+#ifdef Q_OS_WIN
+    // shortcut
+    if (o == ConsoleUI::instance() || o == m_webview)
+    {
+        if (e->type() == QEvent::KeyPress)
+        {
+            QKeyEvent *keyEvent = (QKeyEvent*) e;
+            this->processKeyboardEvent(keyEvent);
+        }
+    }
+
+    // close console and demo widget when the main window has close
+    else if (o == m_mainWindow)
+    {
+        if (e->type() == QEvent::Close)
+        {
+            ConsoleUI::instance()->close();
+            if (m_webview)
+            {
+                m_webview->close();
+            }
+        }
+    }
+#endif
+
+
+    return QObject::eventFilter(o, e);
+}
+
+void Player::processKeyboardEvent(QKeyEvent *e)
+{
+    QKeySequence shortcut = convertKeyEventToKeySequence(e);
+
+    QAction *action = m_actionMap[shortcut];
+    if (action)
+    {
+        action->trigger();
+    }
+}
+
+QKeySequence Player::convertKeyEventToKeySequence(QKeyEvent *e)
+{
+    int keyInt = e->key();
+
+    // check for a combination of user clicks
+    Qt::KeyboardModifiers modifiers = e->modifiers();
+
+    if(modifiers & Qt::ShiftModifier)
+        keyInt += Qt::SHIFT;
+    if(modifiers & Qt::ControlModifier)
+        keyInt += Qt::CTRL;
+    if(modifiers & Qt::AltModifier)
+        keyInt += Qt::ALT;
+    if(modifiers & Qt::MetaModifier)
+        keyInt += Qt::META;
+
+    return QKeySequence(keyInt);
 }
 
 void Player::eventDispatch(QString messageName, QString data)
@@ -687,13 +760,14 @@ void Player::onScreenScaleTriggered()
 
 void Player::onOpenQuickDemoWebview()
 {
-    QuickDemoWebView *webview = new QuickDemoWebView();
-    webview->setAttribute(Qt::WA_DeleteOnClose);
+    m_webview = new QuickDemoWebView();
+    m_webview->installEventFilter(this);
+    m_webview->setAttribute(Qt::WA_DeleteOnClose);
     QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
     filePaht.append("player/proj.qt/demo.html");
-    webview->setObject(this);
-    webview->load(filePaht);
-    webview->show();
+    m_webview->setObject(this);
+    m_webview->load(filePaht);
+    m_webview->show();
 }
 
 void Player::on_actionAbout_triggered()
@@ -726,6 +800,7 @@ void Player::onShowConsole()
     if (isFirstShow)
     {
         isFirstShow = false;
+        ConsoleUI::instance()->installEventFilter(this);
         int y = qApp->desktop()->availableGeometry().height() - ConsoleUI::instance()->height();
         ConsoleUI::instance()->move(0, y);
     }
@@ -762,7 +837,7 @@ void Player::onCreateNewPlayer()
 
 #ifdef Q_OS_MAC
     QProcess::startDetached(qApp->applicationFilePath(), QStringList());
-#elif
+#else
     QProcess::startDetached(qApp->applicationFilePath(), args);
 #endif
 }
