@@ -6,25 +6,25 @@ local filter = {}
 
 local FILTERS = {
 -- colors
-GRAY = {CCGrayFilter},  -- {ccc4f(0.299f, 0.587f, 0.114f, 0.0f) or no parameters}
-RGB = {CCRGBFilter, 3, {1, 1, 1}}, -- {0.0~1.0, 0.0~1.0, 0.0~1.0}
-HUE = {CCHueFilter, 1, {0}}, -- {-180~ 180} see photoshop
-BRIGHTNESS = {CCBrightnessFilter, 1, {0}}, -- {-1.0~1.0}
-SATURATION = {CCSaturationFilter, 1, {1}}, -- {0.0~2.0}
-CONTRAST = {CCContrastFilter, 1, {1}},	-- {0.0~4.0}
-EXPOSURE = {CCExposureFilter, 1, {0}},	-- {-10.0, 10.0}
-GAMMA = {CCGammaFilter, 1, {1}}, -- {0.0, 3.0}
-HAZE = {CCHazeFilter, 2, {0, 0}}, -- {distance -0.5~0.5, slope -0.5~0.5}
-SEPIA = {CCSepiaFilter}, -- {no parameters}
+GRAY =			{CCGrayFilter},  				-- {ccc4f(0.299f, 0.587f, 0.114f, 0.0f) or no parameters}
+RGB = 			{CCRGBFilter, 3, {1, 1, 1}}, 	-- {0.0~1.0, 0.0~1.0, 0.0~1.0}
+HUE = 			{CCHueFilter, 1, {0}}, 			-- {-180~ 180} see photoshop
+BRIGHTNESS = 	{CCBrightnessFilter, 1, {0}}, 	-- {-1.0~1.0}
+SATURATION = 	{CCSaturationFilter, 1, {1}}, 	-- {0.0~2.0}
+CONTRAST = 		{CCContrastFilter, 1, {1}},		-- {0.0~4.0}
+EXPOSURE = 		{CCExposureFilter, 1, {0}},		-- {-10.0, 10.0}
+GAMMA = 		{CCGammaFilter, 1, {1}}, 		-- {0.0, 3.0}
+HAZE = 			{CCHazeFilter, 2, {0, 0}}, 		-- {distance -0.5~0.5, slope -0.5~0.5}
+SEPIA = 		{CCSepiaFilter}, 				-- {no parameters}
 -- blurs
-GAUSSIAN_VBLUR = {CCGaussianVBlurFilter, 1, {0}}, -- {pixel}
-GAUSSIAN_HBLUR = {CCGaussianHBlurFilter, 1, {0}}, -- {pixel}
-ZOOM_BLUR = {CCZoomBlurFilter, 3, {1, 0.5, 0.5}}, -- {size, centerX, centerY}
-MOTION_BLUR = {CCMotionBlurFilter, 2, {1, 0}}, -- {size, angle}
+GAUSSIAN_VBLUR = 	{CCGaussianVBlurFilter, 1, {0}}, 		-- {pixel}
+GAUSSIAN_HBLUR = 	{CCGaussianHBlurFilter, 1, {0}}, 		-- {pixel}
+ZOOM_BLUR = 		{CCZoomBlurFilter, 3, {1, 0.5, 0.5}}, 	-- {size, centerX, centerY}
+MOTION_BLUR = 		{CCMotionBlurFilter, 2, {1, 0}}, 		-- {size, angle}
 -- others
-SHARPEN = {CCSharpenFilter, 2, {0, 0}}, -- {sharpness, amount}
-MASK = {CCMaskFilter, 1}, -- {DO NOT USE IT}
-DROP_SHADOW = {CCDropShadowFilter, 1}, -- {DO NOT USE IT}
+SHARPEN = 		{CCSharpenFilter, 2, {0, 0}}, 	-- {sharpness, amount}
+MASK = 			{CCMaskFilter, 1}, 				-- {DO NOT USE IT}
+DROP_SHADOW = 	{CCDropShadowFilter, 1}, 		-- {DO NOT USE IT}
 }
 
 local MULTI_FILTERS = {
