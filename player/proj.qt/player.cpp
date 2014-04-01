@@ -52,6 +52,7 @@ Player::Player(QObject *parent)
     , m_renderWidget(0)
     , m_mainMenu(0)
     , m_openRecentMenu(0)
+    , m_consoleUI(0)
     , m_webview(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
@@ -64,6 +65,7 @@ Player::Player(QObject *parent)
 Player::~Player()
 {
     CC_SAFE_DELETE(m_mainMenu);
+    CC_SAFE_DELETE(m_consoleUI);
 }
 
 Player *Player::instance()
@@ -80,6 +82,17 @@ void Player::setProjectConfig(const ProjectConfig& config)
 {
     m_projectConfig = config;
     initScreenMenu();
+
+    // console UI
+    if (m_projectConfig.isShowConsole() && m_consoleUI)
+    {
+        onShowConsole();
+    }
+
+    if (m_writeDebugAction)
+    {
+        m_writeDebugAction->setChecked(m_projectConfig.isWriteDebugLogToFile());
+    }
 }
 
 ProjectConfig Player::getProjectConfig()
@@ -321,7 +334,10 @@ void Player::initMainMenu()
     //
 
     QMenu *playerMenu = m_mainMenu->addMenu(QObject::tr("&Player"));
-    playerMenu->addAction(QObject::tr("Write Debug Log to File"))->setCheckable(true);
+    m_writeDebugAction = playerMenu->addAction(QObject::tr("Write Debug Log to File"));
+    m_writeDebugAction->setCheckable(true);
+    connect(m_writeDebugAction, SIGNAL(triggered(bool)), this, SLOT(onWriteDebugLog(bool)));
+
 
     QAction *openDebugLogAction = playerMenu->addAction(QObject::tr("Open Debug Log"));
     openDebugLogAction->setCheckable(true);
@@ -592,7 +608,7 @@ bool Player::eventFilter(QObject *o, QEvent *e)
 {
 #ifdef Q_OS_WIN
     // shortcut
-    if (o == ConsoleUI::instance() || o == m_webview || o == CCEGLView::sharedOpenGLView()->getGLWindow())
+    if (o == m_consoleUI || o == m_webview || o == CCEGLView::sharedOpenGLView()->getGLWindow())
     {
         if (e->type() == QEvent::KeyPress)
         {
@@ -606,7 +622,11 @@ bool Player::eventFilter(QObject *o, QEvent *e)
     {
         if (e->type() == QEvent::Close)
         {
-            ConsoleUI::instance()->close();
+            if (m_consoleUI)
+            {
+                m_consoleUI->close();
+            }
+
             if (m_webview)
             {
                 m_webview->close();
@@ -683,6 +703,26 @@ void Player::eventDispatch(QString messageName, QString data)
     else
     {
 
+    }
+}
+
+void Player::initConsole()
+{
+    if (!m_consoleUI)
+    {
+        m_consoleUI = new ConsoleUI();
+        QObject::connect(MsgHandlerWapper::instance(), SIGNAL(message(QtMsgType,QString)),
+                         m_consoleUI, SLOT(dealWithMessageOutput(QtMsgType,QString)));
+    }
+}
+
+void Player::setLogFileName(QString fileName)
+{
+    Q_ASSERT(m_consoleUI);
+
+    if (!fileName.isEmpty())
+    {
+        m_consoleUI->initWithLogFile(fileName);
     }
 }
 
@@ -802,15 +842,17 @@ void Player::onShowOpenCocoaChinaWebView()
 
 void Player::onShowConsole()
 {
-    ConsoleUI::instance()->show();
+    Q_ASSERT(m_consoleUI);
+
+    m_consoleUI->show();
 
     static bool isFirstShow = true;
     if (isFirstShow)
     {
         isFirstShow = false;
-        ConsoleUI::instance()->installEventFilter(this);
-        int y = qApp->desktop()->availableGeometry().height() - ConsoleUI::instance()->height();
-        ConsoleUI::instance()->move(0, y);
+        m_consoleUI->installEventFilter(this);
+        int y = qApp->desktop()->availableGeometry().height() - m_consoleUI->height();
+        m_consoleUI->move(0, y);
     }
 }
 
@@ -861,10 +903,20 @@ void Player::onShowWelcome()
     qApp->exit(APP_EXIT_CODE);
 }
 
+void Player::onWriteDebugLog(bool checked)
+{
+    if (m_consoleUI)
+    {
+        m_consoleUI->setRecordDebugLog(checked);
+    }
+}
+
 void Player::onOpenDebugLog(bool checked)
 {
-    if (checked)
-        ConsoleUI::instance()->openLogFile();
+    if (checked && m_consoleUI)
+    {
+        m_consoleUI->openLogFile();
+    }
 }
 
 void Player::onUploadToDevice()

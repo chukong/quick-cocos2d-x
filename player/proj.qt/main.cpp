@@ -7,15 +7,14 @@
 #include "cocos2d.h"
 #include "AppDelegate.h"
 #include "player.h"
-#include "consoleui.h"
-#include "msghandlerwapper.h"
 
 int main(int argc, char *argv[])
 {
 
     AppDelegate app(argc, argv);
     MsgHandlerWapper::instance();
-    ConsoleUI::instance();
+    Player *player = Player::instance();
+    player->initConsole();
 
     // set quick root path from env
     qApp->setOrganizationDomain("apps.qeeplay.com");
@@ -53,11 +52,8 @@ int main(int argc, char *argv[])
         QString logFileName = QString("%1/debug-%2.log")
                                         .arg(logFilePath)
                                         .arg(suffix);
-        ConsoleUI::instance()->initWithLogFile(logFileName);
+        player->setLogFileName(logFileName);
     }
-    QObject::connect(MsgHandlerWapper::instance(), SIGNAL(message(QtMsgType,QString)),
-                     ConsoleUI::instance(), SLOT(dealWithMessageOutput(QtMsgType,QString)));
-    projectConfig.dump();
 
     app.setProjectConfig(projectConfig);
     QString searchPath(projectConfig.getProjectDir().data());
@@ -82,11 +78,6 @@ int main(int argc, char *argv[])
                                          projectConfig.getWindowOffset().y);
     }
 
-    if (projectConfig.isShowConsole())
-    {
-        ConsoleUI::instance()->show();
-    }
-    Player *player = Player::instance();
     player->initMainMenu();
     player->makeMainWindow(view->getGLWindow(), player->getMenuBar());
     player->enterBackgroundDelegate.bind(&app, &AppDelegate::applicationDidEnterBackground);

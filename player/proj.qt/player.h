@@ -5,12 +5,14 @@
 #include "SimulatorConfig.h"
 #include "quickdemowebview.h"
 #include "FastDelegate.h"
+#include "msghandlerwapper.h"
 
 #define RESTART_ARGS "restart_args"
 #define APP_EXIT_CODE 'q'
 #define ENV_KEY_QUICK_ROOT_PATH "QUICK_COCOS2DX_ROOT"
 
 class QTextBrowser;
+class ConsoleUI;
 class Player : public QObject
 {
     Q_OBJECT
@@ -44,6 +46,8 @@ public:
      */
     void eventDispatch(QString messageName, QString data);
 
+    void initConsole();
+    void setLogFileName(QString fileName);
     void initMainMenu();
     void makeMainWindow(QWindow *w, QMenuBar *bar);
 
@@ -62,6 +66,7 @@ public Q_SLOTS:
     void onCreateNewPlayer();
     void onClose();
     void onShowWelcome();
+    void onWriteDebugLog(bool);
     void onOpenDebugLog(bool);
     void onUploadToDevice();
     void onCreateLauncher();
@@ -133,7 +138,9 @@ private:
     QMenu           *m_openRecentMenu;
     QList<QAction*> m_recentFileActionList;
     QAction         *m_landscapeAction, *m_portraitAction;
+    QAction         *m_writeDebugAction;
 
+    ConsoleUI       *m_consoleUI;
     QuickDemoWebView *m_webview;
     QMap<QKeySequence, QAction*> m_actionMap;
 #ifdef Q_OS_WIN

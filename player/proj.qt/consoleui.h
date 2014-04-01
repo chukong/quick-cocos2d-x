@@ -7,7 +7,7 @@
 #ifndef CONSOLEUI_H
 #define CONSOLEUI_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QFile>
 #include <QTextStream>
 
@@ -15,7 +15,7 @@ namespace Ui {
 class ConsoleUI;
 }
 
-class ConsoleUI : public QDialog
+class ConsoleUI : public QWidget
 {
     Q_OBJECT
 
@@ -23,9 +23,9 @@ public:
     explicit ConsoleUI(QWidget *parent = 0);
     ~ConsoleUI();
 
-    static ConsoleUI *instance();
     void initWithLogFile(QString logPath);
     void openLogFile();
+    void setRecordDebugLog(bool);
 
 public Q_SLOTS:
     void dealWithMessageOutput(QtMsgType /*type*/, const QString &msg);
@@ -46,6 +46,7 @@ private:
     QFile        m_logFile;
     QTextStream  m_textStream;
     QString      m_buff;
+    bool         m_isRecording;
 };
 
 #endif // CONSOLEUI_H

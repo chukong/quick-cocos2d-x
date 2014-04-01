@@ -7,8 +7,9 @@
 #include <QProcess>
 
 ConsoleUI::ConsoleUI(QWidget *parent) :
-    QDialog(parent),
-    ui(0)
+    QWidget(parent),
+    ui(0),
+    m_isRecording(true)
 {
 }
 
@@ -20,16 +21,6 @@ ConsoleUI::~ConsoleUI()
         delete ui;
 }
 
-ConsoleUI *ConsoleUI::instance()
-{
-    static ConsoleUI *consoleUI = NULL;
-    if (!consoleUI)
-    {
-        consoleUI = new ConsoleUI();
-    }
-    return consoleUI;
-}
-
 void ConsoleUI::initWithLogFile(QString logPath)
 {
     m_logFile.setFileName(logPath);
@@ -38,12 +29,22 @@ void ConsoleUI::initWithLogFile(QString logPath)
     {
         QMessageBox::warning(this, tr("quick-x-cocos2d"), m_logFile.errorString() + "\n" + logPath, QMessageBox::Ok);
     }
+    if (m_buff.size() && m_isRecording)
+    {
+        m_textStream << m_buff << "\n";
+        m_textStream.flush();
+    }
     setWindowTitle(logPath);
 }
 
 void ConsoleUI::openLogFile()
 {
     this->onOpenLogFile();
+}
+
+void ConsoleUI::setRecordDebugLog(bool recording)
+{
+    m_isRecording = recording;
 }
 
 void ConsoleUI::closeEvent(QCloseEvent *e)
@@ -68,7 +69,8 @@ void ConsoleUI::showEvent(QShowEvent *e)
         this->appendMsg(m_buff);
         m_buff.clear();
     }
-    QDialog::showEvent(e);
+
+    QWidget::showEvent(e);
 }
 
 void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
@@ -93,7 +95,7 @@ void ConsoleUI::dealWithMessageOutput(QtMsgType, const QString &msg)
     }
 
     // log file
-    if (m_logFile.isOpen())
+    if (m_logFile.isOpen() && m_isRecording)
     {
         m_textStream << msg << "\n";
         m_textStream.flush();
