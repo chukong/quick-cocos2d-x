@@ -774,6 +774,7 @@ void Player::onOpenQuickDemoWebview()
     filePaht.append("player/proj.qt/demo.html");
     m_webview->setObject(this);
     m_webview->load(filePaht);
+//    m_webview->load(QUrl("http://www.baidu.com/"));
     m_webview->show();
 }
 

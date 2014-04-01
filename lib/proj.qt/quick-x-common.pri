@@ -10,9 +10,10 @@ QT += core gui opengl
 ROOT=$${PWD}/../../
 CC_ROOT=$${ROOT}/lib/cocos2d-x/
 
+DEFINES +=  COCOS2D_DEBUG=1
+DEFINES +=  DEBUG=1
 CONFIG(debug, debug|release) {
     BUILD_TYPE = debug
-    DEFINES +=  COCOS2D_DEBUG=1
     CHIPMUNK_LIB = chipmunk_d
 } else {
     BUILD_TYPE = release
