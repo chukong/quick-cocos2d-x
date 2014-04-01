@@ -40,7 +40,9 @@
 #define MODULE_NAME_CORE        "core"
 #define MENU_BAR_FIXED_HEIGHT   25
 
-struct ActionData
+#define EDITOR_CALL_LUA         "LUA_Interface"
+
+struct ScaleActionData
 {
     QString         text;
     QKeySequence    keySequence;
@@ -525,36 +527,36 @@ void Player::initScreenMenu()
     // scale
     //
     actionGroup = new QActionGroup(this);
-    QList<ActionData> screenScaleDataList;
+    QList<ScaleActionData> screenScaleDataList;
     {
-        ActionData actionData;
+        ScaleActionData actionData;
         actionData.text = tr("Actual (100%)");
         actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_0);
         actionData.userData = 1.0f;
         screenScaleDataList << actionData;
     }
     {
-        ActionData actionData;
+        ScaleActionData actionData;
         actionData.text = tr("Zoom Out (75%)");
         actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_6);
         actionData.userData = 0.75f;
         screenScaleDataList << actionData;
     }
     {
-        ActionData actionData;
+        ScaleActionData actionData;
         actionData.text = tr("Zoom Out (50%)");
         actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_5);
         actionData.userData = 0.5f;
         screenScaleDataList << actionData;
     }
     {
-        ActionData actionData;
+        ScaleActionData actionData;
         actionData.text = tr("Zoom Out (25%)");
         actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_4);
         actionData.userData = 0.25f;
         screenScaleDataList << actionData;
     }
-    Q_FOREACH(ActionData actionData, screenScaleDataList)
+    Q_FOREACH(ScaleActionData actionData, screenScaleDataList)
     {
         QAction *scaleAction = m_screenMenu->addAction(actionData.text);
         actionGroup->addAction(scaleAction);
@@ -1014,5 +1016,5 @@ void Player::sendMessageToLua(QString eventId, QString eventData)
     cocos2d::CCLuaStack *luaStack = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack();
     luaStack->pushString(eventId.toStdString().data());
     luaStack->pushString(eventData.toStdString().data());
-    luaStack->executeGlobalFunction("LUA_Interface", 2);
+    luaStack->executeGlobalFunction(EDITOR_CALL_LUA, 2);
 }
