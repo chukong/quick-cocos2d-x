@@ -20,7 +20,6 @@
 // 3rd library
 #include "cocos2d.h"
 #include "CCLuaEngine.h"
-#include "json_lib.h"
 
 // ui
 #include "aboutui.h"
@@ -40,8 +39,6 @@
 #define MODULE_NAME_SEPARATOR   "."
 #define MODULE_NAME_CORE        "core"
 #define MENU_BAR_FIXED_HEIGHT   25
-
-#define USING_QT_JSON           1
 
 struct ActionData
 {
@@ -952,23 +949,12 @@ void Player::onMainWidgetOnTop(bool checked)
 
 void Player::onLogin(QString userName, QString password)
 {
-#if USING_QT_JSON == 1
     QVariantMap data;
     data["user"] = userName;
     data["pwd"] = password;
     QJsonDocument out = QJsonDocument::fromVariant(data);
 
     sendMessageToLua("core.message", out.toJson());
-#else
-    CSJson::Value messageData;
-    CSJson::FastWriter writer;
-    messageData["user"] = userName.toLocal8Bit().data();
-    messageData["pwd"]  = password.toLocal8Bit().data();
-    std::string out = writer.write(messageData);
-
-    sendMessageToLua("core.message", QString::fromStdString(out));
-#endif
-
 }
 
 void Player::sendMessageToLua(QString eventId, QString eventData)

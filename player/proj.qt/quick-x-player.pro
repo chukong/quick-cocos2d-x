@@ -22,8 +22,7 @@ macx {
     ICON = QuickIcon.icns
 }
 
-INCLUDEPATH += ../sources . \
-    $${CC_ROOT}/extensions/CCArmature/external_tool/Json/lib_json \
+INCLUDEPATH += ../sources .
 
 LIBS += $${LINK_AGAINST_COCOS2DX}
 
