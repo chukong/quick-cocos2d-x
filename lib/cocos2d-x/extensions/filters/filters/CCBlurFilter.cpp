@@ -133,7 +133,8 @@ void CCGaussianHBlurFilter::setUniforms(CCGLProgram* $cgp)
 
 void CCGaussianHBlurFilter::initSprite(CCFilteredSprite* $sprite)
 {
-	_resolation = $sprite->getContentSize().width;
+	//_resolation = $sprite->getContentSize().width;
+	_resolation = 1024;
 	CCLOG("CCGaussianHBlurFilter.initSprite resulation:%f", _resolation);
 }
 
@@ -179,7 +180,8 @@ void CCGaussianVBlurFilter::setUniforms(CCGLProgram* $cgp)
 
 void CCGaussianVBlurFilter::initSprite(CCFilteredSprite* $sprite)
 {
-	_resolation = $sprite->getContentSize().height;
+	//_resolation = $sprite->getContentSize().height;
+	_resolation = 1024;
 	CCLOG("CCGaussianVBlurFilter.initSprite resulation:%f", _resolation);
 }
 

@@ -15,7 +15,6 @@ public:
 	CCFilteredSprite();
 	~CCFilteredSprite();
 
-	virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
 	virtual void draw(void);
 
 	virtual CCFilter* getFilter(unsigned int $index = 0);
@@ -39,12 +38,12 @@ public:
 
 	static CCFilteredSpriteWithOne* createWithTexture(CCTexture2D* $pTexture);
 	static CCFilteredSpriteWithOne* createWithTexture(CCTexture2D* $pTexture, const CCRect& rect);
-	static CCFilteredSpriteWithOne* createWithTexture(CCTexture2D* $pTexture, const CCRect& rect, bool $rotated);
 
 	static CCFilteredSpriteWithOne* createWithSpriteFrame(CCSpriteFrame* $pSpriteFrame);
 
 	static CCFilteredSpriteWithOne* createWithSpriteFrameName(const char* $pszSpriteFrameName);
 
+	//virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
 	virtual CCFilter* getFilter(unsigned int $index = 0);
 	virtual void setFilters(CCArray* $pFilters);
 	virtual void setFilter(CCFilter* $pFilter);
@@ -63,7 +62,6 @@ public:
 
 	static CCFilteredSpriteWithMulti* createWithTexture(CCTexture2D* $pTexture);
 	static CCFilteredSpriteWithMulti* createWithTexture(CCTexture2D* $pTexture, const CCRect& rect);
-	static CCFilteredSpriteWithMulti* createWithTexture(CCTexture2D* $pTexture, const CCRect& rect, bool $rotated);
 
 	static CCFilteredSpriteWithMulti* createWithSpriteFrame(CCSpriteFrame* $pSpriteFrame);
 
@@ -77,18 +75,19 @@ public:
 	// ts = Temporary Storage
 	CCTexture2D* getTSTexture();
 	void setTSTexture(CCTexture2D* $texture);
+	CCSpriteFrame* getTSFrame();
+	void setTSFrame(CCSpriteFrame* $frame);
+
 	CCRect getTSRect();
 	void setTSRect(const CCRect& $rect);
-	bool getTSRotated();
-	void setTSRotated(bool $rotated);
 
 protected:
 	virtual void drawFilter();
 	virtual bool updateFilters();
 private:
 	CCTexture2D* _pTexture;
+	CCSpriteFrame* _pFrame;
 	CCRect _rect;
-	bool _rotated;
 };
 
 NS_CC_EXT_END
