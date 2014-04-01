@@ -34,7 +34,7 @@ void CCGrayFilter::setParameter(ccColor4F $param)
 CCGLProgram* CCGrayFilter::loadShader()
 {
 	CCGLProgram* __p = new CCGLProgram();
-	__p->initWithVertexShaderByteArray(ccPositionTexture_vert, ccFilterShader_gray_frag);
+	__p->initWithVertexShaderByteArray(ccPositionTextureColor_vert, ccFilterShader_gray_frag);
 	return __p;
 }
 

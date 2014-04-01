@@ -15,6 +15,24 @@ CCFilteredSprite::~CCFilteredSprite()
 	CC_SAFE_RELEASE(_pFilters);
 }
 
+bool CCFilteredSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated)
+{
+	if (rotated)
+	{
+		CCSprite* __sp = CCSprite::create();
+		__sp->initWithTexture(pTexture, rect, rotated);
+		CCRenderTexture* __rTex = CCRenderTexture::create(rect.size.height, rect.size.width);
+		__rTex->begin();
+		__sp->visit();
+		__rTex->end();
+		CCTexture2D* __newTex = new CCTexture2D();
+		__newTex->initWithImage(__rTex->newCCImage(true));
+		__newTex->autorelease();
+		return CCSprite::initWithTexture(pTexture, rect, rotated);
+	}
+	return  CCSprite::initWithTexture(pTexture, rect, rotated);
+}
+
 void CCFilteredSprite::draw()
 {
 	CC_NODE_DRAW_SETUP();
@@ -112,11 +130,11 @@ CCFilteredSpriteWithOne* CCFilteredSpriteWithOne::create(const char* $pszFileNam
 
 CCFilteredSpriteWithOne* CCFilteredSpriteWithOne::createWithTexture(CCTexture2D* $pTexture)
 {
-	CCFilteredSpriteWithOne *pobSprite = new CCFilteredSpriteWithOne();
+	CCSprite *pobSprite = new CCFilteredSpriteWithOne();
 	if (pobSprite && pobSprite->initWithTexture($pTexture))
 	{
 		pobSprite->autorelease();
-		return pobSprite;
+		return static_cast<CCFilteredSpriteWithOne*>(pobSprite);
 	}
 	CC_SAFE_DELETE(pobSprite);
 	return NULL;
@@ -124,8 +142,20 @@ CCFilteredSpriteWithOne* CCFilteredSpriteWithOne::createWithTexture(CCTexture2D*
 
 CCFilteredSpriteWithOne* CCFilteredSpriteWithOne::createWithTexture(CCTexture2D* $pTexture, const CCRect& $rect)
 {
-	CCFilteredSpriteWithOne *pobSprite = new CCFilteredSpriteWithOne();
+	CCSprite *pobSprite = new CCFilteredSpriteWithOne();
 	if (pobSprite && pobSprite->initWithTexture($pTexture, $rect))
+	{
+		pobSprite->autorelease();
+		return static_cast<CCFilteredSpriteWithOne*>(pobSprite);
+	}
+	CC_SAFE_DELETE(pobSprite);
+	return NULL;
+}
+
+CCFilteredSpriteWithOne* CCFilteredSpriteWithOne::createWithTexture(CCTexture2D* $pTexture, const CCRect& $rect, bool $rotated)
+{
+	CCFilteredSpriteWithOne *pobSprite = new CCFilteredSpriteWithOne();
+	if (pobSprite && pobSprite->initWithTexture($pTexture, $rect, $rotated))
 	{
 		pobSprite->autorelease();
 		return pobSprite;
@@ -219,62 +249,45 @@ CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::create()
 
 CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::create(const char* $pszFileName)
 {
-	CCFilteredSpriteWithMulti *pobSprite = new CCFilteredSpriteWithMulti();
-	if (pobSprite && pobSprite->initWithFile($pszFileName))
-	{
-		pobSprite->autorelease();
-		return pobSprite;
-	}
-	CC_SAFE_DELETE(pobSprite);
-	return NULL;
+	CCTexture2D* __pTexture = CCTextureCache::sharedTextureCache()->addImage($pszFileName);
+	CCRect __rect = CCRectZero;
+	__rect.size = __pTexture->getContentSize();
+	return createWithTexture(__pTexture, __rect);
 }
 
 CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::create(const char* $pszFileName, const CCRect& $rect)
 {
-	CCFilteredSpriteWithMulti *pobSprite = new CCFilteredSpriteWithMulti();
-	if (pobSprite && pobSprite->initWithFile($pszFileName, $rect))
-	{
-		pobSprite->autorelease();
-		return pobSprite;
-	}
-	CC_SAFE_DELETE(pobSprite);
-	return NULL;
+	CCTexture2D* __pTexture = CCTextureCache::sharedTextureCache()->addImage($pszFileName);
+	return CCFilteredSpriteWithMulti::createWithTexture(__pTexture, $rect);
 }
 
 CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::createWithTexture(CCTexture2D* $pTexture)
 {
-	CCFilteredSpriteWithMulti *pobSprite = new CCFilteredSpriteWithMulti();
-	if (pobSprite && pobSprite->initWithTexture($pTexture))
-	{
-		pobSprite->autorelease();
-		return pobSprite;
-	}
-	CC_SAFE_DELETE(pobSprite);
-	return NULL;
+	CCRect __rect = CCRectZero;
+	__rect.size = $pTexture->getContentSize();
+	CCFilteredSpriteWithMulti *pobSprite = CCFilteredSpriteWithMulti::createWithTexture($pTexture, __rect);
+	return pobSprite;
 }
 
 CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::createWithTexture(CCTexture2D* $pTexture, const CCRect& $rect)
 {
-	CCFilteredSpriteWithMulti *pobSprite = new CCFilteredSpriteWithMulti();
-	if (pobSprite && pobSprite->initWithTexture($pTexture, $rect))
-	{
-		pobSprite->autorelease();
-		return pobSprite;
-	}
-	CC_SAFE_DELETE(pobSprite);
-	return NULL;
+	CCFilteredSpriteWithMulti *pobSprite = CCFilteredSpriteWithMulti::createWithTexture($pTexture, $rect, false);
+	return pobSprite;
+}
+
+CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::createWithTexture(CCTexture2D* $pTexture, const CCRect& $rect, bool $rotated)
+{
+	CCFilteredSpriteWithMulti *pobSprite = CCFilteredSpriteWithMulti::create();
+	pobSprite->setTSTexture($pTexture);
+	pobSprite->setTSRect($rect);
+	pobSprite->setTSRotated($rotated);
+	return pobSprite;
 }
 
 CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::createWithSpriteFrame(CCSpriteFrame* $pSpriteFrame)
 {
-	CCFilteredSpriteWithMulti *pobSprite = new CCFilteredSpriteWithMulti();
-	if ($pSpriteFrame && pobSprite && pobSprite->initWithSpriteFrame($pSpriteFrame))
-	{
-		pobSprite->autorelease();
-		return pobSprite;
-	}
-	CC_SAFE_DELETE(pobSprite);
-	return NULL;
+	CCFilteredSpriteWithMulti *pobSprite = CCFilteredSpriteWithMulti::createWithTexture($pSpriteFrame->getTexture(), $pSpriteFrame->getRect(), $pSpriteFrame->isRotated());
+	return pobSprite;
 }
 
 CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::createWithSpriteFrameName(const char* $pszSpriteFrameName)
@@ -290,6 +303,50 @@ CCFilteredSpriteWithMulti* CCFilteredSpriteWithMulti::createWithSpriteFrameName(
 	return createWithSpriteFrame(pFrame);
 }
 
+CCFilteredSpriteWithMulti::CCFilteredSpriteWithMulti()
+: _pTexture(NULL)
+, _rect(0.f, 0.f, 0.f, 0.f)
+{
+}
+
+CCFilteredSpriteWithMulti::~CCFilteredSpriteWithMulti()
+{
+	CC_SAFE_RELEASE(_pTexture);
+}
+
+CCTexture2D* CCFilteredSpriteWithMulti::getTSTexture()
+{
+	return _pTexture;
+}
+
+void CCFilteredSpriteWithMulti::setTSTexture(CCTexture2D* $texture)
+{
+	CC_SAFE_RETAIN($texture);
+	CC_SAFE_RELEASE(_pTexture);
+	_pTexture = $texture;
+}
+
+CCRect CCFilteredSpriteWithMulti::getTSRect()
+{
+	return _rect;
+}
+
+void CCFilteredSpriteWithMulti::setTSRect(const CCRect& $rect)
+{
+	_rect = $rect;
+}
+
+bool CCFilteredSpriteWithMulti::getTSRotated()
+{
+	return _rotated;
+}
+
+void CCFilteredSpriteWithMulti::setTSRotated(bool $rotated)
+{
+	_rotated = $rotated;
+}
+
+
 void CCFilteredSpriteWithMulti::setFilter(CCFilter* $pFilter)
 {
 	CCAssert(false, "setFilter on CCFilteredSpriteWithMulti is forbidden!");
@@ -301,27 +358,42 @@ bool CCFilteredSpriteWithMulti::updateFilters()
 	do
 	{
 		CCFilteredSprite* __sp = NULL;
-		CCTexture2D* __oldTex = this->getTexture();
-		CCSize __size = this->getContentSize();
-		CCRenderTexture* __canva = CCRenderTexture::create(__size.width, __size.height);
+		CC_BREAK_IF(!_pTexture);
+		
 		unsigned int __count = _pFilters->count();
+		CCTexture2D* __oldTex = NULL;
+		CCRenderTexture* __canva = CCRenderTexture::create(_rect.size.width, _rect.size.height);
 		for (size_t i = 0; i < __count; i++)
 		{
 			CCLOG("CCFilteredSpriteWithMulti render %d", i);
 			__canva->begin();
 			CCFilter* __filter = static_cast<CCFilter*>(_pFilters->objectAtIndex(i));
-			__sp = CCFilteredSpriteWithOne::createWithTexture(__oldTex);
+			if (i == 0)
+			{
+				__sp = CCFilteredSpriteWithOne::createWithTexture(_pTexture, _rect, _rotated);
+				//For subsequent filters, the _rotated is permanent FALSE.
+				_rotated = false;
+			}
+			else
+			{
+				__sp = CCFilteredSpriteWithOne::createWithTexture(__oldTex, _rect, _rotated);
+			}
 			__sp->setFilter(__filter);
 			__sp->setAnchorPoint(ccp(0, 0));
+			__sp->setPosition(ccp(0, 0));
+			__sp->getTexture()->setAliasTexParameters();
 			__sp->visit();
 			__canva->end();
 			__oldTex = new CCTexture2D();
 			__oldTex->initWithImage(__canva->newCCImage(true));
 			__oldTex->autorelease();
+			_rect.origin = CCPointZero;
+			_rect.size = __oldTex->getContentSize();
 		}
-		this->setTexture(__oldTex);
+		static_cast<CCSprite*>(this)->initWithTexture(__oldTex);
 		CHECK_GL_ERROR_DEBUG();
 		CCLOG("CCFilteredSpriteWithMulti updateFilters:%d", __count);
+		CCLOG("texture %f, %f", __oldTex->getContentSize().width, __oldTex->getContentSize().height);
 		return true;
 	} while (0);
 
@@ -329,4 +401,5 @@ bool CCFilteredSpriteWithMulti::updateFilters()
 }
 
 void CCFilteredSpriteWithMulti::drawFilter(){}
+
 NS_CC_EXT_END

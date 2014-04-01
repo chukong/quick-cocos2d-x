@@ -108,6 +108,7 @@ CCGaussianHBlurFilter* CCGaussianHBlurFilter::create(float $param)
 }
 
 CCGaussianHBlurFilter::CCGaussianHBlurFilter()
+: _resolation(800.f)
 {
 	this->shaderName = kCCFilterShader_gaussian_hblur;
 }
@@ -126,9 +127,16 @@ void CCGaussianHBlurFilter::setUniforms(CCGLProgram* $cgp)
 	CCBlurBaseFilter::setUniforms($cgp);
 
 	int u_resolution = $cgp->getUniformLocationForName("u_resolution");
-	$cgp->setUniformLocationWith1f(u_resolution, 480);
-	//CCLOG("CCGaussianHBlurFilter::setUniforms u_resolution:%f", 480);
+	$cgp->setUniformLocationWith1f(u_resolution, _resolation);
+	//CCLOG("CCGaussianHBlurFilter::setUniforms u_resolution:%f", _resolation);
 }
+
+void CCGaussianHBlurFilter::initSprite(CCFilteredSprite* $sprite)
+{
+	_resolation = $sprite->getContentSize().width;
+	CCLOG("CCGaussianHBlurFilter.initSprite resulation:%f", _resolation);
+}
+
 //================== CCGaussianVBlurFilter
 
 CCGaussianVBlurFilter* CCGaussianVBlurFilter::create()
@@ -146,6 +154,7 @@ CCGaussianVBlurFilter* CCGaussianVBlurFilter::create(float $param)
 }
 
 CCGaussianVBlurFilter::CCGaussianVBlurFilter()
+: _resolation(800.f)
 {
 	this->shaderName = kCCFilterShader_gaussian_vblur;
 }
@@ -164,8 +173,14 @@ void CCGaussianVBlurFilter::setUniforms(CCGLProgram* $cgp)
 	CCBlurBaseFilter::setUniforms($cgp);
 
 	int u_resolution = $cgp->getUniformLocationForName("u_resolution");
-	$cgp->setUniformLocationWith1f(u_resolution, 320);
-	//CCLOG("CCGaussianVBlurFilter::setUniforms u_resolution:%f", 320);
+	$cgp->setUniformLocationWith1f(u_resolution, _resolation);
+	//CCLOG("CCGaussianVBlurFilter::setUniforms u_resolution:%f", _resolation);
+}
+
+void CCGaussianVBlurFilter::initSprite(CCFilteredSprite* $sprite)
+{
+	_resolation = $sprite->getContentSize().height;
+	CCLOG("CCGaussianVBlurFilter.initSprite resulation:%f", _resolation);
 }
 
 //================== CCZoomBlurFilter

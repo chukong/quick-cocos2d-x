@@ -49,9 +49,12 @@ public:
 	static CCGaussianHBlurFilter* create(float $param);
 
 	CCGaussianHBlurFilter();
+	virtual void initSprite(CCFilteredSprite* $sprite);
 protected:
 	virtual CCGLProgram* loadShader();
 	virtual void setUniforms(CCGLProgram* $glp);
+private:
+	float _resolation;
 };
 
 class CCGaussianVBlurFilter : public CCBlurBaseFilter
@@ -61,9 +64,12 @@ public:
 	static CCGaussianVBlurFilter* create(float $param);
 
 	CCGaussianVBlurFilter();
+	virtual void initSprite(CCFilteredSprite* $sprite);
 protected:
 	virtual CCGLProgram* loadShader();
 	virtual void setUniforms(CCGLProgram* $glp);
+private:
+	float _resolation;
 };
 
 //================== CCZoomBlurFilter
