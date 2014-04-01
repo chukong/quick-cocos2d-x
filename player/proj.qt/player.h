@@ -121,6 +121,7 @@ private Q_SLOTS:
 
     void onLogin(QString userName, QString password);
 
+    void sendMessageToLua(QString eventId, QString eventData);
 
 private:
     QString         m_projectConfigFileName;
