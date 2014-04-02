@@ -230,43 +230,14 @@ function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
-function display.newFilteredSprite(filename, filters, params)
-	if not filters then return display.newSprite(filtename, nil,nil , CCFilteredSpriteWithOne) end
-	local __sp = nil
-	local __type = type(filters)
-    if __type == "userdata" then __type = tolua.type(filters) end
-	print("display.newFSprite type:", __type)
-	if __type == "string" then
-		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithOne)
-		filters = filter.newFilter(filters, params)
-		__sp:setFilter(filters)
-	elseif __type == "table" then
-		assert(#filters > 1, "display.newFilteredSprite() - Please give me 2 or more filters!")
-		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithMulti)
-		-- treat filters as {"FILTER_NAME", "FILTER_NAME"}
-		if type(filters[1]) == "string" then
-			__sp:setFilters(filter.newFilters(filters, params))
-		else
-			-- treat filters as {CCFilter, CCFilter , ...}
-			local __filters = CCArray:create()
-			for i in ipairs(filters) do
-				__filters:addObject(filters[i])
-			end
-			__sp:setFilters(__filters)
-		end
-	elseif __type == "CCArray" then
-		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithMulti)
-		__sp:setFilters(filters)
-	else
-		__sp = display.newSprite(filename, nil, nil, CCFilteredSpriteWithOne)
-		__sp:setFilter(filters)
+function display.newSprite(filename, x, y, params)
+	local spriteClass = nil
+	local size = nil
+	if params then
+		spriteClass = params.class
+		size = params.size
 	end
-	return __sp
-end
-display.newFSprite = display.newFilteredSprite
-
-function display.newSprite(filename, x, y, spriteClass)
-	local spriteClass = spriteClass or CCSprite
+	if not spriteClass then spriteClass = CCSprite end
     local t = type(filename)
     if t == "userdata" then t = tolua.type(filename) end
     local sprite
@@ -288,7 +259,7 @@ function display.newSprite(filename, x, y, spriteClass)
                 sprite = spriteClass:create(filename)
             end
         end
-    elseif t == "spriteClassFrame" then
+    elseif t == "CCSpriteFrame" then
         sprite = spriteClass:createWithSpriteFrame(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
@@ -298,6 +269,7 @@ function display.newSprite(filename, x, y, spriteClass)
     if sprite then
         CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
+        if size then sprite:setContentSize(size) end
     else
         echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
         sprite = spriteClass:create()
@@ -307,37 +279,7 @@ function display.newSprite(filename, x, y, spriteClass)
 end
 
 function display.newScale9Sprite(filename, x, y, size)
-    local t = type(filename)
-    if t ~= "string" then
-        echoError("display.newScale9Sprite() - invalid filename type")
-        return
-    end
-
-    local sprite
-    if string.byte(filename) == 35 then -- first char is #
-        local frame = display.newSpriteFrame(string.sub(filename, 2))
-        if frame then
-            sprite = CCScale9Sprite:createWithSpriteFrame(frame)
-        end
-    else
-        if display.TEXTURES_PIXEL_FORMAT[filename] then
-            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-            sprite = CCScale9Sprite:create(filename)
-            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
-        else
-            sprite = CCScale9Sprite:create(filename)
-        end
-    end
-
-    if sprite then
-        CCSpriteExtend.extend(sprite)
-        if x and y then sprite:setPosition(x, y) end
-        if size then sprite:setContentSize(size) end
-    else
-        echoError("display.newScale9Sprite() - create sprite failure, filename %s", tostring(filename))
-    end
-
-    return sprite
+	return display.newSprite(filename, x, y, {class=CCScale9Sprite,size=size})
 end
 
 function display.newTilesSprite(filename, rect)
@@ -433,6 +375,44 @@ function display.newMaskedSprite(__mask, __pic)
 		:flipY(true)
 	return __resultSprite
 end
+
+function display.newFilteredSprite(filename, filters, params)
+	local __one = {class=CCFilteredSpriteWithOne}
+	local __multi = {class=CCFilteredSpriteWithMulti}
+	if not filters then return display.newSprite(filtename, nil,nil , __one) end
+	local __sp = nil
+	local __type = type(filters)
+    if __type == "userdata" then __type = tolua.type(filters) end
+	print("display.newFSprite type:", __type)
+	if __type == "string" then
+		__sp = display.newSprite(filename, nil, nil, __one)
+		filters = filter.newFilter(filters, params)
+		__sp:setFilter(filters)
+	elseif __type == "table" then
+		assert(#filters > 1, "display.newFilteredSprite() - Please give me 2 or more filters!")
+		__sp = display.newSprite(filename, nil, nil, __multi)
+		-- treat filters as {"FILTER_NAME", "FILTER_NAME"}
+		if type(filters[1]) == "string" then
+			__sp:setFilters(filter.newFilters(filters, params))
+		else
+			-- treat filters as {CCFilter, CCFilter , ...}
+			local __filters = CCArray:create()
+			for i in ipairs(filters) do
+				__filters:addObject(filters[i])
+			end
+			__sp:setFilters(__filters)
+		end
+	elseif __type == "CCArray" then
+		__sp = display.newSprite(filename, nil, nil, __one)
+		__sp:setFilters(filters)
+	else
+		__sp = display.newSprite(filename, nil, nil, __multi)
+		__sp:setFilter(filters)
+	end
+	return __sp
+end
+display.newFSprite = display.newFilteredSprite
+
 
 --- Create a circle or a sector or a pie by CCDrawNode
 -- @author zrong(zengrong.net)
