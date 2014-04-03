@@ -22,4 +22,4 @@
 // nodes
 #include "nodes/CCFilteredSprite.h"
 
-#endif __COCOS2D_FILTERS_H__
+#endif //__COCOS2D_FILTERS_H__
