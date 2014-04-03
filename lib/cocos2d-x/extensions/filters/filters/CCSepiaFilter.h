@@ -26,4 +26,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCSEPIA_FILTER__
+#endif //__CCSEPIA_FILTER__

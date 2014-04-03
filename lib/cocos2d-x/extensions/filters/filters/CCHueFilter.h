@@ -27,4 +27,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCHUE_FILTER__
+#endif //__CCHUE_FILTER__

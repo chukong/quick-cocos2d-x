@@ -25,4 +25,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCEXPOSURE_FILTER__
+#endif //__CCEXPOSURE_FILTER__

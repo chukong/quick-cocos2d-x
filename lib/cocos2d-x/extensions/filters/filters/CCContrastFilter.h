@@ -25,4 +25,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCCONTRAST_FILTER__
+#endif //__CCCONTRAST_FILTER__

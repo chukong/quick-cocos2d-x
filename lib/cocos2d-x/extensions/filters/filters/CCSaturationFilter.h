@@ -27,4 +27,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCSATURATION_FILTER__
+#endif //__CCSATURATION_FILTER__
