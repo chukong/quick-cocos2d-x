@@ -403,10 +403,12 @@ function display.newFilteredSprite(filename, filters, params)
 			__sp:setFilters(__filters)
 		end
 	elseif __type == "CCArray" then
-		__sp = display.newSprite(filename, nil, nil, __one)
+		-- treat filters as CCArray(CCFilter, CCFilter, ...)
+		__sp = display.newSprite(filename, nil, nil, __multi)
 		__sp:setFilters(filters)
 	else
-		__sp = display.newSprite(filename, nil, nil, __multi)
+		-- treat filters as CCFilter
+		__sp = display.newSprite(filename, nil, nil, __one)
 		__sp:setFilter(filters)
 	end
 	return __sp
