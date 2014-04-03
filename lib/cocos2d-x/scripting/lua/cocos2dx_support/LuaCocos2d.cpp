@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Mar 25 14:16:50 2014.
+** Generated automatically by tolua++-1.0.92 on 04/03/14 12:27:57.
 */
 
 /****************************************************************************
@@ -35345,7 +35345,8 @@ static int tolua_Cocos2d_ccDrawCircle00(lua_State* tolua_S)
      !tolua_isboolean(tolua_S,5,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,7,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,8,&tolua_err)
+     !tolua_isboolean(tolua_S,8,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,9,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -35358,8 +35359,9 @@ static int tolua_Cocos2d_ccDrawCircle00(lua_State* tolua_S)
   bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,5,0));
   float scaleX = ((float)  tolua_tonumber(tolua_S,6,0));
   float scaleY = ((float)  tolua_tonumber(tolua_S,7,0));
+  bool fill = ((bool)  tolua_toboolean(tolua_S,8,false));
   {
-   ccDrawCircle(center,radius,angle,segments,drawLineToCenter,scaleX,scaleY);
+   ccDrawCircle(center,radius,angle,segments,drawLineToCenter,scaleX,scaleY,fill);
   }
  }
  return 0;
@@ -35382,7 +35384,8 @@ static int tolua_Cocos2d_ccDrawCircle01(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
      !tolua_isboolean(tolua_S,5,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
+     !tolua_isboolean(tolua_S,6,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -35392,8 +35395,9 @@ static int tolua_Cocos2d_ccDrawCircle01(lua_State* tolua_S)
   float angle = ((float)  tolua_tonumber(tolua_S,3,0));
   unsigned int segments = ((unsigned int)  tolua_tonumber(tolua_S,4,0));
   bool drawLineToCenter = ((bool)  tolua_toboolean(tolua_S,5,0));
+  bool fill = ((bool)  tolua_toboolean(tolua_S,6,false));
   {
-   ccDrawCircle(center,radius,angle,segments,drawLineToCenter);
+   ccDrawCircle(center,radius,angle,segments,drawLineToCenter,fill);
   }
  }
  return 0;
@@ -35932,6 +35936,35 @@ static int tolua_Cocos2d_CCCircleShape_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: create of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCircleShape_create01
+static int tolua_Cocos2d_CCCircleShape_create01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  float radius = ((float)  tolua_tonumber(tolua_S,2,0));
+  bool fill = ((bool)  tolua_toboolean(tolua_S,3,0));
+  {
+   CCCircleShape* tolua_ret = (CCCircleShape*)  CCCircleShape::create(radius,fill);
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCCircleShape");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_Cocos2d_CCCircleShape_create00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getRadius of class  CCCircleShape */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCircleShape_getRadius00
 static int tolua_Cocos2d_CCCircleShape_getRadius00(lua_State* tolua_S)
@@ -36187,6 +36220,71 @@ static int tolua_Cocos2d_CCCircleShape_setDrawLineToCenter00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setDrawLineToCenter'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: isFill of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCircleShape_isFill00
+static int tolua_Cocos2d_CCCircleShape_isFill00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'isFill'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->isFill();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'isFill'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setFill of class  CCCircleShape */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCCircleShape_setFill00
+static int tolua_Cocos2d_CCCircleShape_setFill00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCCircleShape",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCCircleShape* self = (CCCircleShape*)  tolua_tousertype(tolua_S,1,0);
+  bool fill = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setFill'", NULL);
+#endif
+  {
+   self->setFill(fill);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setFill'.",&tolua_err);
  return 0;
 #endif
 }
@@ -64314,6 +64412,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCCircleShape","CCCircleShape","CCShapeNode",NULL);
   tolua_beginmodule(tolua_S,"CCCircleShape");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCCircleShape_create00);
+   tolua_function(tolua_S,"create",tolua_Cocos2d_CCCircleShape_create01);
    tolua_function(tolua_S,"getRadius",tolua_Cocos2d_CCCircleShape_getRadius00);
    tolua_function(tolua_S,"setRadius",tolua_Cocos2d_CCCircleShape_setRadius00);
    tolua_function(tolua_S,"getAngle",tolua_Cocos2d_CCCircleShape_getAngle00);
@@ -64322,6 +64421,8 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setSegments",tolua_Cocos2d_CCCircleShape_setSegments00);
    tolua_function(tolua_S,"isDrawLineToCenter",tolua_Cocos2d_CCCircleShape_isDrawLineToCenter00);
    tolua_function(tolua_S,"setDrawLineToCenter",tolua_Cocos2d_CCCircleShape_setDrawLineToCenter00);
+   tolua_function(tolua_S,"isFill",tolua_Cocos2d_CCCircleShape_isFill00);
+   tolua_function(tolua_S,"setFill",tolua_Cocos2d_CCCircleShape_setFill00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCRectShape","CCRectShape","CCShapeNode",NULL);
   tolua_beginmodule(tolua_S,"CCRectShape");

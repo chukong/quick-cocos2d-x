@@ -328,6 +328,8 @@ function display.newTilesSprite(filename, rect)
 end
 
 --- create a tiled CCSpriteBatchNode, the image can not a POT file.
+-- @author zrong(zengrong.net)
+-- Creation: 2014-01-21
 -- @param __fileName the first parameter for display.newSprite
 -- @param __texture texture(plist) image filename, __fileName must be a part of the texture.
 -- @param __size the tiled node size, use cc.size create it please.
@@ -363,7 +365,9 @@ function display.newTiledBatchNode(__fileName, __texture, __size, __hPadding, __
 	return __batch, __newSize.width, __newSize.height
 end
 
---- create a masked sprite
+--- Create a masked sprite
+-- @author zrong(zengrong.net)
+-- Creation: 2014-01-21
 function display.newMaskedSprite(__mask, __pic)
 	local __mb = ccBlendFunc:new()
 	__mb.src = GL_ONE
@@ -394,11 +398,65 @@ function display.newMaskedSprite(__mask, __pic)
 	return __resultSprite
 end
 
-function display.newCircle(radius)
-    return CCNodeExtend.extend(CCCircleShape:create(radius))
+--- Create a circle or a sector or a pie by CCDrawNode
+-- @author zrong(zengrong.net)
+-- Creation: 2014-03-11
+function display.newSolidCircle(radius, params)
+	local circle = CCNodeExtend.extend(CCDrawNode:create())
+	local fillColor = cc.c4f(1,1,1,1)
+	local borderColor = cc.c4f(1,1,1,1)
+	local segments = 32
+	local startRadian = 0
+	local endRadian = math.pi*2
+	local borderWidth = 0
+	local x,y = 0,0
+	if params then
+		x = params.x or x
+		y = params.y or y
+		if params.segments then segments = params.segments end
+		if params.startDegree then
+			startRadian = params.startDegree*math.pi/180
+		end
+		if params.degree then
+			endRadian = startRadian+(params.degree)*math.pi/180
+		end
+		if params.fillColor then fillColor = params.fillColor end
+		if params.borderColor then borderColor = params.borderColor end
+		if params.borderWidth then borderWidth = params.borderWidth end
+	end
+	local radianPerSegm = 2 * math.pi/segments
+	local points = CCPointArray:create(segments)
+	for i=1,segments do
+		local radii = startRadian+i*radianPerSegm
+		if radii > endRadian then break end
+		points:add(cc.p(radius * math.cos(radii), radius * math.sin(radii)))
+	end
+	circle:drawPolygon(points:fetchPoints(), points:count(), fillColor, borderWidth, borderColor)
+	circle:pos(x,y)
+	return circle
 end
 
-function display.newRect(width, height)
+function display.newCircle(radius, params)
+    local circle = CCNodeExtend.extend(CCCircleShape:create(radius))
+	local x,y = 0,0
+	local align=display.CENTER
+	if params then
+		x = params.x or x
+		y = params.y or y
+		align = params.align or align
+		if params.fill then circle:setFill(params.fill) end
+		if params.color then circle:setLineColor(params.color) end
+		if params.strippleEnabled then circle:setLineStippleEnabled(params.strippleEnabled) end
+		if params.lineStripple then circle:setLineStipple(params.lineStripple) end
+		local lineWidth = params.lineWidth or params.borderWidth 
+		if lineWidth then circle:setLineWidth(lineWidth) end
+	end
+	circle:setContentSize(cc.size(radius*2,radius*2))
+	circle:align(align, x,y)
+	return circle
+end
+
+function display.newRect(width, height, params)
     local x, y = 0, 0
     if type(width) == "userdata" then
         local t = tolua.type(width)
@@ -417,7 +475,21 @@ function display.newRect(width, height)
     end
 
     local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
-    rect:setPosition(x, y)
+	local align=display.CENTER
+	if type(height) == "table" then params = hight end
+	if type(params) == "table" then
+		x = params.x or x
+		y = params.y or y
+		align = params.align or align
+		if params.color then rect:setLineColor(params.color) end
+		if params.strippleEnabled then rect:setLineStippleEnabled(params.strippleEnabled) end
+		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
+		if params.fill then rect:setFill(params.fill) end
+		local lineWidth = params.lineWidth or params.borderWidth 
+		if lineWidth then rect:setLineWidth(lineWidth) end
+	end
+	rect:setContentSize(cc.size(width, height))
+	rect:align(align, x,y)
     return rect
 end
 

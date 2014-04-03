@@ -101,6 +101,7 @@ class CCCircleShape : public CCShapeNode
 {
 public:
     static CCCircleShape* create(float radius);
+	static CCCircleShape* create(float radius, bool fill);
 
     float getRadius(void) {
         return m_radius;
@@ -150,6 +151,13 @@ public:
         m_scaleY = yScale;
     }
 
+	bool isFill(void) {
+		return m_fill;
+	}
+
+	void setFill(bool fill) {
+		m_fill = fill;
+	}
 protected:
     CCCircleShape(float radius)
     : m_radius(radius)
@@ -158,6 +166,7 @@ protected:
     , m_drawLineToCenter(false)
     , m_scaleX(1.0f)
     , m_scaleY(1.0f)
+	, m_fill(false)
     {
     }
 
@@ -167,6 +176,7 @@ protected:
     bool m_drawLineToCenter;
     float m_scaleX;
     float m_scaleY;
+	bool m_fill;
 
     virtual void drawProc(void);
 };
