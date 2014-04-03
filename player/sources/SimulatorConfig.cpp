@@ -9,9 +9,17 @@
 void ProjectConfig::resetToWelcome(void)
 {
 	m_isWelcome = true;
+
     //string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
     //path.append("player/welcome");
+	//2014-04-03 zrong add path by enviroment.
+#if defined(_WINDOWS)
 	string path = "d:/works/yhq/projects/lulala";
+#else
+	string path = "~/works/yhq/projects/lulala";
+#endif
+	//2014-04-03 zrong add done.
+
     SimulatorConfig::makeNormalizePath(&path);
     setProjectDir(path);
     setWritablePath(path);

@@ -29,4 +29,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCMASK_FILTER__
+#endif //__CCMASK_FILTER__

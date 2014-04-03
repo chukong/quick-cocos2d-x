@@ -28,4 +28,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCHAZE_FILTER__
+#endif //__CCHAZE_FILTER__

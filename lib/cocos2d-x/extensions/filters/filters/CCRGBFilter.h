@@ -30,4 +30,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCRGB_FILTER__
+#endif //__CCRGB_FILTER__

@@ -30,4 +30,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCDROP_SHADOW_FILTER__
+#endif //__CCDROP_SHADOW_FILTER__

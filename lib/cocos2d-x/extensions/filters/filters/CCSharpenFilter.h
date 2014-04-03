@@ -33,4 +33,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCSHARPEN_FILTER__
+#endif //__CCSHARPEN_FILTER__

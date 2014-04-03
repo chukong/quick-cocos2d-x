@@ -27,4 +27,4 @@ private:
 
 NS_CC_EXT_END
 
-#endif __CCFILTER_GRAY_H__
+#endif //__CCFILTER_GRAY_H__

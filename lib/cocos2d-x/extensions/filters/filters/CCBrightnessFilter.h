@@ -24,4 +24,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCBRIGHTNESS_FILTER__
+#endif //__CCBRIGHTNESS_FILTER__

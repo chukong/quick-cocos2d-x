@@ -117,4 +117,4 @@ protected:
 };
 
 NS_CC_EXT_END
-#endif __CCBLUR_FILTER__
+#endif //__CCBLUR_FILTER__

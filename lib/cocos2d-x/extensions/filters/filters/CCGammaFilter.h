@@ -26,4 +26,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCGAMMA_FILTER__
+#endif //__CCGAMMA_FILTER__

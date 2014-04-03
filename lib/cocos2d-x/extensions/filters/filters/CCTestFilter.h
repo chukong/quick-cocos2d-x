@@ -30,4 +30,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif __CCTEST_FILTER__
+#endif //__CCTEST_FILTER__
