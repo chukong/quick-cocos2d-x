@@ -75,8 +75,6 @@ bool CCControl::init()
         setSelected(false);
         setHighlighted(false);
 
-        // Set the touch dispatcher priority by default to 1
-        this->setTouchPriority(1);
         // Initialise the tables
         m_pDispatchTable = new CCDictionary(); 
         // Initialise the mapHandleOfControlEvents
@@ -129,13 +127,13 @@ void CCControl::sendActionsForControlEvents(CCControlEvent controlEvents)
                 invocation->invoke(this);
             }
             //Call ScriptFunc
-            if (kScriptTypeNone != m_eScriptType)
-            {
-                int nHandler = this->getHandleOfControlEvent(controlEvents);
-                if (-1 != nHandler) {
-                    CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler,"",this);
-                }
-            }
+//            if (kScriptTypeNone != m_eScriptType)
+//            {
+//                int nHandler = this->getHandleOfControlEvent(controlEvents);
+//                if (-1 != nHandler) {
+//                    CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler,"",this);
+//                }
+//            }
         }
     }
 }

@@ -3,8 +3,8 @@
 extern "C" {
 #endif
     
-#include <lua.h>
-#include <lauxlib.h>
+#include "lua.h"
+#include "lauxlib.h"
 
 extern int luaopen_snapshot(lua_State *L);
 

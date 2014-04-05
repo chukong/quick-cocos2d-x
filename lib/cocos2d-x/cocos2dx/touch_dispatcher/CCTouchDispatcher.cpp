@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "textures/CCTexture2D.h"
 #include "support/data_support/ccCArray.h"
 #include "ccMacros.h"
+#include "base_nodes/CCNode.h"
 #include <algorithm>
 
 NS_CC_BEGIN
@@ -127,7 +128,7 @@ void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCArray *pArra
     pArray->insertObject(pHandler, u);
 }
 
-void CCTouchDispatcher::addStandardDelegate(CCTouchDelegate *pDelegate, int nPriority)
+void CCTouchDispatcher::addStandardDelegate(CCNode *pDelegate, int nPriority)
 {    
     CCTouchHandler *pHandler = CCStandardTouchHandler::handlerWithDelegate(pDelegate, nPriority);
     if (! m_bLocked)
@@ -150,7 +151,7 @@ void CCTouchDispatcher::addStandardDelegate(CCTouchDelegate *pDelegate, int nPri
     }
 }
 
-void CCTouchDispatcher::addTargetedDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches)
+void CCTouchDispatcher::addTargetedDelegate(CCNode *pDelegate, int nPriority, bool bSwallowsTouches)
 {    
     CCTouchHandler *pHandler = CCTargetedTouchHandler::handlerWithDelegate(pDelegate, nPriority, bSwallowsTouches);
     if (! m_bLocked)
@@ -173,7 +174,7 @@ void CCTouchDispatcher::addTargetedDelegate(CCTouchDelegate *pDelegate, int nPri
     }
 }
 
-void CCTouchDispatcher::forceRemoveDelegate(CCTouchDelegate *pDelegate)
+void CCTouchDispatcher::forceRemoveDelegate(CCNode *pDelegate)
 {
     CCTouchHandler *pHandler;
 
@@ -203,7 +204,7 @@ void CCTouchDispatcher::forceRemoveDelegate(CCTouchDelegate *pDelegate)
     }
 }
 
-void CCTouchDispatcher::removeDelegate(CCTouchDelegate *pDelegate)
+void CCTouchDispatcher::removeDelegate(CCNode *pDelegate)
 {
     if (pDelegate == NULL)
     {
@@ -249,7 +250,7 @@ void CCTouchDispatcher::removeAllDelegates(void)
     }
 }
 
-CCTouchHandler* CCTouchDispatcher::findHandler(CCTouchDelegate *pDelegate)
+CCTouchHandler* CCTouchDispatcher::findHandler(CCNode *pDelegate)
 {
     CCObject* pObj = NULL;
     CCARRAY_FOREACH(m_pTargetedHandlers, pObj)
@@ -273,7 +274,7 @@ CCTouchHandler* CCTouchDispatcher::findHandler(CCTouchDelegate *pDelegate)
     return NULL;
 }
 
-CCTouchHandler* CCTouchDispatcher::findHandler(CCArray* pArray, CCTouchDelegate *pDelegate)
+CCTouchHandler* CCTouchDispatcher::findHandler(CCArray* pArray, CCNode *pDelegate)
 {
     CCAssert(pArray != NULL && pDelegate != NULL, "");
 
@@ -295,7 +296,7 @@ void CCTouchDispatcher::rearrangeHandlers(CCArray *pArray)
     std::sort(pArray->data->arr, pArray->data->arr + pArray->data->num, less);
 }
 
-void CCTouchDispatcher::setPriority(int nPriority, CCTouchDelegate *pDelegate)
+void CCTouchDispatcher::setPriority(int nPriority, CCNode *pDelegate)
 {
     CCAssert(pDelegate != NULL, "");
 
@@ -446,7 +447,7 @@ void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int u
         m_bToRemove = false;
         for (unsigned int i = 0; i < m_pHandlersToRemove->num; ++i)
         {
-            forceRemoveDelegate((CCTouchDelegate*)m_pHandlersToRemove->arr[i]);
+            forceRemoveDelegate((CCNode*)m_pHandlersToRemove->arr[i]);
         }
         ccCArrayRemoveAllValues(m_pHandlersToRemove);
     }

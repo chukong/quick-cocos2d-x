@@ -25,15 +25,16 @@ THE SOFTWARE.
 
 #include "CCTouchHandler.h"
 #include "ccMacros.h"
+#include "base_nodes/CCNode.h"
 
 NS_CC_BEGIN
 
-CCTouchDelegate* CCTouchHandler::getDelegate(void)
+CCNode* CCTouchHandler::getDelegate(void)
 {
     return m_pDelegate;
 }
 
-void CCTouchHandler::setDelegate(CCTouchDelegate *pDelegate)
+void CCTouchHandler::setDelegate(CCNode *pDelegate)
 {
     if (pDelegate)
     {
@@ -68,7 +69,7 @@ void CCTouchHandler::setEnalbedSelectors(int nValue)
     m_nEnabledSelectors = nValue;
 }
 
-CCTouchHandler* CCTouchHandler::handlerWithDelegate(CCTouchDelegate *pDelegate, int nPriority)
+CCTouchHandler* CCTouchHandler::handlerWithDelegate(CCNode *pDelegate, int nPriority)
 {
     CCTouchHandler *pHandler = new CCTouchHandler();
 
@@ -87,7 +88,7 @@ CCTouchHandler* CCTouchHandler::handlerWithDelegate(CCTouchDelegate *pDelegate, 
     return pHandler;
 }
 
-bool CCTouchHandler::initWithDelegate(CCTouchDelegate *pDelegate, int nPriority)
+bool CCTouchHandler::initWithDelegate(CCNode *pDelegate, int nPriority)
 {
     CCAssert(pDelegate != NULL, "touch delegate should not be null");
 
@@ -110,7 +111,7 @@ CCTouchHandler::~CCTouchHandler(void)
 }
 
 // implementation of CCStandardTouchHandler
-bool CCStandardTouchHandler::initWithDelegate(CCTouchDelegate *pDelegate, int nPriority)
+bool CCStandardTouchHandler::initWithDelegate(CCNode *pDelegate, int nPriority)
 {
     if (CCTouchHandler::initWithDelegate(pDelegate, nPriority))
     {
@@ -120,7 +121,7 @@ bool CCStandardTouchHandler::initWithDelegate(CCTouchDelegate *pDelegate, int nP
     return false;
 }
 
-CCStandardTouchHandler* CCStandardTouchHandler::handlerWithDelegate(CCTouchDelegate *pDelegate, int nPriority)
+CCStandardTouchHandler* CCStandardTouchHandler::handlerWithDelegate(CCNode *pDelegate, int nPriority)
 {
     CCStandardTouchHandler* pHandler = new CCStandardTouchHandler();
 
@@ -156,7 +157,7 @@ CCSet* CCTargetedTouchHandler::getClaimedTouches(void)
     return m_pClaimedTouches;
 }
 
-CCTargetedTouchHandler* CCTargetedTouchHandler::handlerWithDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallow)
+CCTargetedTouchHandler* CCTargetedTouchHandler::handlerWithDelegate(CCNode *pDelegate, int nPriority, bool bSwallow)
 {
     CCTargetedTouchHandler *pHandler = new CCTargetedTouchHandler();
     if (pHandler)
@@ -174,7 +175,7 @@ CCTargetedTouchHandler* CCTargetedTouchHandler::handlerWithDelegate(CCTouchDeleg
     return pHandler;
 }
 
-bool CCTargetedTouchHandler::initWithDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallow)
+bool CCTargetedTouchHandler::initWithDelegate(CCNode *pDelegate, int nPriority, bool bSwallow)
 {
     if (CCTouchHandler::initWithDelegate(pDelegate, nPriority))
     {

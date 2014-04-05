@@ -103,10 +103,10 @@ void CCScene::removeTouchableNode(CCNode *node)
 }
 
 void CCScene::registerWithTouchDispatcher() {
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), false);
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, false);
 }
 
-int CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     // remove all touch targets
     m_touchTargets->removeAllObjects();
@@ -135,25 +135,21 @@ int CCScene::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         if (touchNode->isRunning() && boundingBox.containsPoint(p))
         {
             touchNode->retain();
-            int ret = touchNode->ccTouchBegan(pTouch, pEvent);
-            if (ret == kCCTouchBegan || ret == kCCTouchBeganNoSwallows)
+            if (touchNode->ccTouchBegan(pTouch, pEvent))
             {
                 m_touchTargets->addObject(touchNode);
-                if (ret == kCCTouchBegan)
-                {
-                    touchNode->release();
-                    break;
-                }
+                touchNode->release();
+                break;
             }
             touchNode->release();
         }
     }
 
     sortAllTouchableNodes(m_touchTargets);
-    return kCCTouchBegan;
+    return true;
 }
 
-int CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCNode *touchNode = NULL;
     unsigned int count = m_touchTargets->count();
@@ -162,21 +158,7 @@ int CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
         touchNode = dynamic_cast<CCNode*>(m_touchTargets->objectAtIndex(i));
         if (touchNode->isRunning())
         {
-            int ret = touchNode->ccTouchMoved(pTouch, pEvent);
-            if (ret == kCCTouchMovedSwallows) break;
-            if (ret == kCCTouchMovedReleaseOthers)
-            {
-                for (int j = count - 1; j >= 0; --j)
-                {
-                    if (j != i)
-                    {
-                        touchNode = dynamic_cast<CCNode*>(m_touchTargets->objectAtIndex(j));
-                        touchNode->ccTouchCancelled(pTouch, pEvent);
-                        m_touchTargets->removeObjectAtIndex(j);
-                    }
-                }
-                break;
-            }
+            touchNode->ccTouchMoved(pTouch, pEvent);
         }
         else
         {
@@ -185,7 +167,6 @@ int CCScene::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
             i--;
         }
     }
-    return kCCTouchMoved;
 }
 
 void CCScene::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)

@@ -75,7 +75,6 @@ bool CCMenuItem::initWithTarget(CCObject *rec, SEL_MenuHandler selector)
 
 CCMenuItem::~CCMenuItem()
 {
-    unregisterScriptTapHandler();
 }
 
 void CCMenuItem::selected()
@@ -88,23 +87,6 @@ void CCMenuItem::unselected()
     m_bSelected = false;
 }
 
-void CCMenuItem::registerScriptTapHandler(int nHandler)
-{
-    unregisterScriptTapHandler();
-    m_nScriptTapHandler = nHandler;
-    LUALOG("[LUA] Add CCMenuItem script handler: %d", m_nScriptTapHandler);
-}
-
-void CCMenuItem::unregisterScriptTapHandler(void)
-{
-    if (m_nScriptTapHandler)
-    {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptTapHandler);
-        LUALOG("[LUA] Remove CCMenuItem script handler: %d", m_nScriptTapHandler);
-        m_nScriptTapHandler = 0;
-    }
-}
-
 void CCMenuItem::activate()
 {
     if (m_bEnabled)
@@ -113,8 +95,8 @@ void CCMenuItem::activate()
         {
             (m_pListener->*m_pfnSelector)(this);
         }
-        
-        if (kScriptTypeNone != m_eScriptType)
+
+        if (hasScriptEventListener(kCCMenuItemActivated))
         {
             CCScriptEngineManager::sharedManager()->getScriptEngine()->executeMenuItemEvent(this);
         }

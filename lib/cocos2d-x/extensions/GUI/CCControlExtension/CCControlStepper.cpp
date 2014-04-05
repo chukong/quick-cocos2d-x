@@ -274,7 +274,7 @@ void CCControlStepper::updateLayoutUsingTouchLocation(CCPoint location)
 }
 
 
-int CCControlStepper::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCControlStepper::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!isTouchInside(pTouch) || !isEnabled() || !isVisible())
     {
@@ -294,7 +294,7 @@ int CCControlStepper::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     return true;
 }
 
-int CCControlStepper::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void CCControlStepper::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (this->isTouchInside(pTouch))
     {
@@ -324,8 +324,6 @@ int CCControlStepper::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
             this->stopAutorepeat();
         }
     }
-
-    return kCCTouchMoved;
 }
 
 void CCControlStepper::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)

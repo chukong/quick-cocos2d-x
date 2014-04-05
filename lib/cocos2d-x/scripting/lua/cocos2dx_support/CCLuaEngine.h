@@ -113,7 +113,8 @@ public:
      */
     virtual int executeGlobalFunction(const char* functionName, int numArgs = 0);
 
-    virtual int executeNodeEvent(CCNode* pNode, int nAction, float dt = 0);
+    virtual int executeNodeEvent(CCNode* pNode, int nAction);
+    virtual int executeNodeEnterFrameEvent(CCNode* pNode, float dt);
     virtual int executeMenuItemEvent(CCMenuItem* pMenuItem);
     virtual int executeNotificationEvent(CCNotificationCenter* pNotificationCenter, const char* pszName, CCObject *obj = NULL);
     virtual int executeCallFuncActionEvent(CCCallFunc* pAction, CCObject* pTarget = NULL);
@@ -130,6 +131,7 @@ public:
     virtual int executeEventWithArgs(int nHandler, CCArray* pArgs);
 
     virtual bool handleAssert(const char *msg);
+    virtual bool parseConfig(CCScriptEngineProtocol::ConfigType type, const std::string& str);
     
 private:
     CCLuaEngine(void)

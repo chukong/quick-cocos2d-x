@@ -135,7 +135,7 @@ bool CCScrollView::init()
 
 void CCScrollView::registerWithTouchDispatcher()
 {
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, CCLayer::getTouchPriority(), false);
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, false);
 }
 
 bool CCScrollView::isNodeVisible(CCNode* node)
@@ -600,7 +600,7 @@ void CCScrollView::visit()
 	kmGLPopMatrix();
 }
 
-int CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
+bool CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
     if (!this->isVisible())
     {
@@ -641,11 +641,11 @@ int CCScrollView::ccTouchBegan(CCTouch* touch, CCEvent* event)
     return true;
 }
 
-int CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
+void CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
     if (!this->isVisible())
     {
-        return kCCTouchMoved;
+        return;
     }
 
     if (m_pTouches->containsObject(touch))
@@ -678,7 +678,7 @@ int CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
             if (!m_bTouchMoved && fabs(convertDistanceFromPointToInch(dis)) < MOVE_INCH )
             {
                 //CCLOG("Invalid movement, distance = [%f, %f], disInch = %f", moveDistance.x, moveDistance.y);
-                return kCCTouchMoved;
+                return;
             }
 
             if (!m_bTouchMoved)
@@ -720,8 +720,6 @@ int CCScrollView::ccTouchMoved(CCTouch* touch, CCEvent* event)
             this->setZoomScale(this->getZoomScale()*len/m_fTouchLength);
         }
     }
-
-    return kCCTouchMoved;
 }
 
 void CCScrollView::ccTouchEnded(CCTouch* touch, CCEvent* event)

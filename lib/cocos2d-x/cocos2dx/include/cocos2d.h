@@ -51,7 +51,6 @@ THE SOFTWARE.
 #include "actions/CCActionInstant.h"
 #include "actions/CCActionTween.h"
 #include "actions/CCActionCatmullRom.h"
-#include "actions/CCLinkPosition.h"
 
 // base_nodes
 #include "base_nodes/CCNode.h"
@@ -290,7 +289,6 @@ THE SOFTWARE.
 
 // touch_dispatcher
 #include "touch_dispatcher/CCTouch.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "touch_dispatcher/CCTouchDispatcher.h"
 #include "touch_dispatcher/CCTouchHandler.h"
 

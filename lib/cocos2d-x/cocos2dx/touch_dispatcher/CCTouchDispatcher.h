@@ -26,11 +26,12 @@ THE SOFTWARE.
 #ifndef __TOUCH_DISPATCHER_CCTOUCH_DISPATCHER_H__
 #define __TOUCH_DISPATCHER_CCTOUCH_DISPATCHER_H__
 
-#include "CCTouchDelegateProtocol.h"
 #include "cocoa/CCObject.h"
 #include "cocoa/CCArray.h"
 
 NS_CC_BEGIN
+
+class CCNode;
 
 /**
  * @addtogroup input
@@ -145,20 +146,20 @@ public:
      * IMPORTANT: The delegate will be retained.
      * @lua NA
      */
-    void addStandardDelegate(CCTouchDelegate *pDelegate, int nPriority);
+    void addStandardDelegate(CCNode *pDelegate, int nPriority);
 
     /** Adds a targeted touch delegate to the dispatcher's list.
      * See TargetedTouchDelegate description.
      * IMPORTANT: The delegate will be retained.
      * @lua NA
      */
-    void addTargetedDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches);
+    void addTargetedDelegate(CCNode *pDelegate, int nPriority, bool bSwallowsTouches);
 
     /** Removes a touch delegate.
      * The delegate will be released
      * @lua NA
      */
-    void removeDelegate(CCTouchDelegate *pDelegate);
+    void removeDelegate(CCNode *pDelegate);
 
     /** Removes all touch delegates, releasing all the delegates 
      * @lua NA
@@ -169,7 +170,7 @@ public:
      * the higher the priority 
      * @lua NA
      */
-    void setPriority(int nPriority, CCTouchDelegate *pDelegate);
+    void setPriority(int nPriority, CCNode *pDelegate);
     /**
      * @lua NA
      */
@@ -195,13 +196,13 @@ public:
     /**
      * @lua NA
      */
-    CCTouchHandler* findHandler(CCTouchDelegate *pDelegate);
+    CCTouchHandler* findHandler(CCNode *pDelegate);
 protected:
-    void forceRemoveDelegate(CCTouchDelegate *pDelegate);
+    void forceRemoveDelegate(CCNode *pDelegate);
     void forceAddHandler(CCTouchHandler *pHandler, CCArray* pArray);
     void forceRemoveAllDelegates(void);
     void rearrangeHandlers(CCArray* pArray);
-    CCTouchHandler* findHandler(CCArray* pArray, CCTouchDelegate *pDelegate);
+    CCTouchHandler* findHandler(CCArray* pArray, CCNode *pDelegate);
 
 protected:
      CCArray* m_pTargetedHandlers;
