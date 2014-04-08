@@ -77,7 +77,7 @@ function ui.newImageMenuItem(params)
     if item then
         CCNodeExtend.extend(item)
         if type(listener) == "function" then
-            item:registerScriptTapHandler(function(tag)
+            item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
                 if sound then audio.playSound(sound) end
                 listener(tag)
             end)
@@ -104,7 +104,7 @@ function ui.newTTFLabelMenuItem(params)
     if item then
         CCNodeExtend.extend(item)
         if type(listener) == "function" then
-            item:registerScriptTapHandler(function(tag)
+            item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
                 if sound then audio.playSound(sound) end
                 listener(tag)
             end)

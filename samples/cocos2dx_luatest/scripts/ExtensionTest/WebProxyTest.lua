@@ -38,7 +38,7 @@
     end
     local labelSendText = CCLabelTTF:create("Send Text", "Arial", 22)
     local itemSendText  = CCMenuItemLabel:create(labelSendText)
-    itemSendText:registerScriptTapHandler(onMenuSendTextClicked)
+    itemSendText:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onMenuSendTextClicked)
     itemSendText:setPosition(ccp(winSize.width / 2, winSize.height - MARGIN - SPACE))
     menuRequest:addChild(itemSendText)
 
@@ -62,7 +62,7 @@
     end
     local labelSendBinary = CCLabelTTF:create("Send Binary", "Arial", 22)
     local itemSendBinary = CCMenuItemLabel:create(labelSendBinary)
-    itemSendBinary:registerScriptTapHandler(onMenuSendBinaryClicked)
+    itemSendBinary:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onMenuSendBinaryClicked)
     itemSendBinary:setPosition(ccp(winSize.width / 2, winSize.height - MARGIN - 2 * SPACE))
     menuRequest:addChild(itemSendBinary)
 
