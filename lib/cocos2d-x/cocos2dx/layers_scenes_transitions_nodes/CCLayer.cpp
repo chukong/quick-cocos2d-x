@@ -45,18 +45,10 @@ NS_CC_BEGIN
 CCLayer::CCLayer()
 : m_bAccelerometerEnabled(false)
 , m_bKeypadEnabled(false)
-, m_pScriptKeypadHandlerEntry(NULL)
-, m_pScriptAccelerateHandlerEntry(NULL)
 {
     m_bIgnoreAnchorPointForPosition = true;
     m_eTouchMode = kCCTouchesOneByOne;
     setAnchorPoint(ccp(0.5f, 0.5f));
-}
-
-CCLayer::~CCLayer()
-{
-    unregisterScriptKeypadHandler();
-    unregisterScriptAccelerateHandler();
 }
 
 bool CCLayer::init()
@@ -67,7 +59,7 @@ bool CCLayer::init()
         CCDirector * pDirector;
         CC_BREAK_IF(!(pDirector = CCDirector::sharedDirector()));
         const CCSize &winSize = pDirector->getWinSize();
-        this->setContentSize(winSize);
+        setContentSize(winSize);
         setCascadeBoundingBox(CCRect(0, 0, winSize.width, winSize.height));
         m_bTouchEnabled = false;
         m_bAccelerometerEnabled = false;
@@ -137,22 +129,11 @@ void CCLayer::setAccelerometerInterval(double interval) {
 void CCLayer::didAccelerate(CCAcceleration* pAccelerationValue)
 {
     CC_UNUSED_PARAM(pAccelerationValue);
-    //    if ( m_eScriptType != kScriptTypeNone)
-    //    {
-    //        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeAccelerometerEvent(this, pAccelerationValue);
-    //    }
-}
 
-void CCLayer::registerScriptAccelerateHandler(int nHandler)
-{
-    unregisterScriptAccelerateHandler();
-    //    m_pScriptAccelerateHandlerEntry = CCScriptHandlerEntry::create(nHandler);
-    //    m_pScriptAccelerateHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptAccelerateHandler(void)
-{
-    CC_SAFE_RELEASE_NULL(m_pScriptAccelerateHandlerEntry);
+    if (hasScriptEventListener(ACCELERATE_EVENT))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeAccelerometerEvent(this, pAccelerationValue);
+    }
 }
 
 /// isKeypadEnabled getter
@@ -182,32 +163,20 @@ void CCLayer::setKeypadEnabled(bool enabled)
     }
 }
 
-void CCLayer::registerScriptKeypadHandler(int nHandler)
-{
-    unregisterScriptKeypadHandler();
-    //    m_pScriptKeypadHandlerEntry = CCScriptHandlerEntry::create(nHandler);
-    //    m_pScriptKeypadHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptKeypadHandler(void)
-{
-    CC_SAFE_RELEASE_NULL(m_pScriptKeypadHandlerEntry);
-}
-
 void CCLayer::keyBackClicked(void)
 {
-    //    if (m_pScriptKeypadHandlerEntry || m_eScriptType == kScriptTypeJavascript)
-    //    {
-    //        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeBackClicked);
-    //    }
+    if (hasScriptEventListener(KEYPAD_EVENT))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeBackClicked);
+    }
 }
 
 void CCLayer::keyMenuClicked(void)
 {
-    //    if (m_pScriptKeypadHandlerEntry)
-    //    {
-    //        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeMenuClicked);
-    //    }
+    if (hasScriptEventListener(KEYPAD_EVENT))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeMenuClicked);
+    }
 }
 
 /// Callbacks

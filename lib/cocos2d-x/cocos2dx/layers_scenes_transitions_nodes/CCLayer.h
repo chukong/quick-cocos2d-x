@@ -63,7 +63,6 @@ public:
      *  @js NA
      *  @lua NA
      */
-    virtual ~CCLayer();
     virtual bool init();
 
     /** create one layer */
@@ -89,8 +88,6 @@ public:
      * @lua NA
      */
     virtual void didAccelerate(CCAcceleration* pAccelerationValue);
-    void registerScriptAccelerateHandler(int nHandler);
-    void unregisterScriptAccelerateHandler(void);
 
     /** whether or not it will receive Accelerometer events
     You can enable / disable accelerometer events with this property.
@@ -107,23 +104,11 @@ public:
     virtual bool isKeypadEnabled();
     virtual void setKeypadEnabled(bool value);
 
-    /** Register keypad events handler */
-    void registerScriptKeypadHandler(int nHandler);
-    /** Unregister keypad events handler */
-    void unregisterScriptKeypadHandler(void);
-
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
-
-    inline CCScriptListenerHandle *getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
-    inline CCScriptListenerHandle *getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
 protected:
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
-
-    // Script touch events handler
-    CCScriptListenerHandle *m_pScriptKeypadHandlerEntry;
-    CCScriptListenerHandle *m_pScriptAccelerateHandlerEntry;
 };
 
 //

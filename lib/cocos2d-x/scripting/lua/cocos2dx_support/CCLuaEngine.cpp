@@ -307,45 +307,47 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
 
 int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
 {
-    //    CCScriptHandlerEntry* pScriptHandlerEntry = pLayer->getScriptKeypadHandlerEntry();
-    //    if (!pScriptHandlerEntry)
-    //        return 0;
-    //    int nHandler = pScriptHandlerEntry->getHandler();
-    //    if (!nHandler) return 0;
-    //
-    //    switch (eventType)
-    //    {
-    //        case kTypeBackClicked:
-    //            m_stack->pushString("backClicked");
-    //            break;
-    //
-    //        case kTypeMenuClicked:
-    //            m_stack->pushString("menuClicked");
-    //            break;
-    //
-    //        default:
-    //            return 0;
-    //    }
-    //    int ret = m_stack->executeFunctionByHandler(nHandler, 1);
-    //    m_stack->clean();
-    //    return ret;
+    m_stack->clean();
+    switch (eventType)
+    {
+        case kTypeBackClicked:
+            m_stack->pushString("back");
+            break;
+
+        case kTypeMenuClicked:
+            m_stack->pushString("menu");
+            break;
+
+        default:
+            return 0;
+    }
+
+    CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(KEYPAD_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
+    {
+        m_stack->copyValue(1);
+        m_stack->executeFunctionByHandler(it->second.listener, 1);
+        m_stack->settop(1);
+    }
+    m_stack->clean();
+    return 0;
 }
 
 int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue)
 {
-    //    CCScriptHandlerEntry* pScriptHandlerEntry = pLayer->getScriptAccelerateHandlerEntry();
-    //    if (!pScriptHandlerEntry)
-    //        return 0;
-    //    int nHandler = pScriptHandlerEntry->getHandler();
-    //    if (!nHandler) return 0;
-    //
-    //    m_stack->pushFloat(pAccelerationValue->x);
-    //    m_stack->pushFloat(pAccelerationValue->y);
-    //    m_stack->pushFloat(pAccelerationValue->z);
-    //    m_stack->pushFloat(pAccelerationValue->timestamp);
-    //    int ret = m_stack->executeFunctionByHandler(nHandler, 4);
-    //    m_stack->clean();
-    //    return ret;
+    CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(ACCELERATE_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
+    {
+        m_stack->pushFloat(pAccelerationValue->x);
+        m_stack->pushFloat(pAccelerationValue->y);
+        m_stack->pushFloat(pAccelerationValue->z);
+        m_stack->pushFloat(pAccelerationValue->timestamp);
+        m_stack->executeFunctionByHandler(it->second.listener, 4);
+        m_stack->clean();
+    }
+    return 0;
 }
 
 int CCLuaEngine::executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource /* = NULL*/, const char* pEventSourceClassName /* = NULL*/)

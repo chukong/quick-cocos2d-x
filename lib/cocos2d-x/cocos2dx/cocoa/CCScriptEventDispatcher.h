@@ -43,6 +43,8 @@ typedef struct {
 #define NODE_TOUCH_EVENT            2
 #define NODE_TOUCH_CAPTURE_EVENT    3
 #define MENU_ITEM_CLICKED_EVENT     4
+#define ACCELERATE_EVENT            5
+#define KEYPAD_EVENT                6
 
 // listener handle -> listener pair
 typedef map<int, CCScriptHandlePair> CCScriptEventListenersForEvent;

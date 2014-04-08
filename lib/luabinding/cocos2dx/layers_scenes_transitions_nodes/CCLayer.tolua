@@ -42,18 +42,8 @@ class CCLayer : public CCNode
 {
     static CCLayer *create(void);
 
-    void registerScriptKeypadHandler(LUA_FUNCTION nHandler);
-    void registerScriptKeypadHandler @ addKeypadEventListener (LUA_FUNCTION nHandler);
-    void unregisterScriptKeypadHandler(void);
-    void unregisterScriptKeypadHandler @ removeKeypadEventListener (void);
-
     void setKeypadEnabled(bool value);
     bool isKeypadEnabled();
-
-    void registerScriptAccelerateHandler(LUA_FUNCTION nHandler);
-    void registerScriptAccelerateHandler @ addAccelerateEventListener (LUA_FUNCTION nHandler);
-    void unregisterScriptAccelerateHandler(void);
-    void unregisterScriptAccelerateHandler @ removeAccelerateEventListener (void);
 
     void setAccelerometerEnabled(bool value);
     bool isAccelerometerEnabled();
