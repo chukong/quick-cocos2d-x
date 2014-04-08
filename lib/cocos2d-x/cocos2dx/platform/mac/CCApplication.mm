@@ -91,7 +91,7 @@ ccLanguageType CCApplication::getCurrentLanguage()
     {
         NSString * scriptCode = [temp objectForKey:NSLocaleScriptCode];
         if ([scriptCode isEqualToString:@"Hant"])
-            ret = kLanguageChinese_tw;
+            ret = kLanguageChineseTW;
         else
             ret = kLanguageChinese;
     }

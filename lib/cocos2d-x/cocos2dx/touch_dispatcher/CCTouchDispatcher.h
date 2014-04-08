@@ -28,11 +28,9 @@ THE SOFTWARE.
 
 #include "cocoa/CCObject.h"
 #include "cocoa/CCArray.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
+#include "CCTouchDelegateProtocol.h"
 
 NS_CC_BEGIN
-
-class CCNode;
 
 /**
  * @addtogroup input

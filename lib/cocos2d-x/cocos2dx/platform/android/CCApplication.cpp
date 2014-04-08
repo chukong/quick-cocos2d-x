@@ -79,7 +79,7 @@ ccLanguageType CCApplication::getCurrentLanguage()
 	}
 	else if (0 == strcmp("zh-Hant", pLanguageName))
 	{
-		ret = kLanguageChinese_tw;
+		ret = kLanguageChineseTW;
 	}
     else if (0 == strcmp("en", pLanguageName))
     {

@@ -24,8 +24,8 @@ end
 local language_ = sharedApplication:getCurrentLanguage()
 if language_ == kLanguageChinese then
     language_ = "cn"
-elseif language_ == kLanguageChinese_tw then
-    language_ = "zh_Hant"
+elseif language_ == kLanguageChineseTW then
+    language_ = "tw"
 elseif language_ == kLanguageFrench then
     language_ = "fr"
 elseif language_ == kLanguageItalian then
@@ -71,7 +71,7 @@ function device.showAlert(title, message, buttonLabels, listener)
     if type(buttonLabels) ~= "table" then
         buttonLabels = {tostring(buttonLabels)}
     end
-	
+
 	if device.platform == "android" then
 		local tempListner = function(event)
 			if type(event) == "string" then

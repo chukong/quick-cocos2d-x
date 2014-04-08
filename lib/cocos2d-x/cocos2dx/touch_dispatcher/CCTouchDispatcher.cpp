@@ -31,7 +31,6 @@
 #include "textures/CCTexture2D.h"
 #include "support/data_support/ccCArray.h"
 #include "ccMacros.h"
-#include "base_nodes/CCNode.h"
 #include <algorithm>
 
 NS_CC_BEGIN
@@ -450,7 +449,7 @@ void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int u
         m_bToRemove = false;
         for (unsigned int i = 0; i < m_pHandlersToRemove->num; ++i)
         {
-            forceRemoveDelegate((CCNode*)m_pHandlersToRemove->arr[i]);
+            forceRemoveDelegate((CCTouchDelegate*)m_pHandlersToRemove->arr[i]);
         }
         ccCArrayRemoveAllValues(m_pHandlersToRemove);
     }

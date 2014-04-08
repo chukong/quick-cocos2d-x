@@ -37,5 +37,26 @@ void CCLuaLog(const char * pszMsg);
 */
 void CCMessageBox(const char * pszMsg, const char * pszTitle);
 
+
+/**
+@brief Enum the language type supported now
+*/
+enum
+{
+    kLanguageEnglish = 0,
+    kLanguageChinese,
+    kLanguageFrench,
+    kLanguageItalian,
+    kLanguageGerman,
+    kLanguageSpanish,
+    kLanguageRussian,
+    kLanguageKorean,
+    kLanguageJapanese,
+    kLanguageHungarian,
+    kLanguagePortuguese,
+    kLanguageArabic,
+    kLanguageChineseTW
+};
+
 // end of platform group
 /// @}

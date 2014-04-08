@@ -60,7 +60,7 @@ int CCScriptEventDispatcher::addScriptEventListener(int event, int listener, int
 void CCScriptEventDispatcher::removeScriptEventListener(int handle)
 {
     if (!m_scriptEventListeners) return;
-    
+
     CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
     for (; it != m_scriptEventListeners->end(); ++it)
     {
@@ -82,7 +82,7 @@ void CCScriptEventDispatcher::removeScriptEventListener(int handle)
 void CCScriptEventDispatcher::removeScriptEventListenersByEvent(int event)
 {
     if (!m_scriptEventListeners) return;
-    
+
     CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
     CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->find(event);
     if (it != m_scriptEventListeners->end())
@@ -101,7 +101,7 @@ void CCScriptEventDispatcher::removeScriptEventListenersByEvent(int event)
 void CCScriptEventDispatcher::removeScriptEventListenersByTag(int tag)
 {
     if (!m_scriptEventListeners) return;
-    
+
     CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
     CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
     for (; it != m_scriptEventListeners->end(); ++it)
@@ -123,7 +123,7 @@ void CCScriptEventDispatcher::removeScriptEventListenersByTag(int tag)
 void CCScriptEventDispatcher::removeAllScriptEventListeners()
 {
     if (!m_scriptEventListeners) return;
-    
+
     CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
     CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
     for (; it != m_scriptEventListeners->end(); ++it)
@@ -147,7 +147,7 @@ bool CCScriptEventDispatcher::hasScriptEventListener(int event)
 CCScriptEventListenersForEvent &CCScriptEventDispatcher::getScriptEventListenersByEvent(int event) const
 {
     if (!m_scriptEventListeners) return s_emptyListenersForEvent;
-    
+
     CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->find(event);
     return  it != m_scriptEventListeners->end() ? it->second : s_emptyListenersForEvent;
 }

@@ -157,8 +157,9 @@ int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
+        m_stack->pushInt(pMenuItem->getTag());
         m_stack->pushCCObject(pMenuItem, "CCMenuItem");
-        m_stack->executeFunctionByHandler(it->second.listener, 1);
+        m_stack->executeFunctionByHandler(it->second.listener, 2);
         m_stack->clean();
     }
     return 0;
@@ -497,10 +498,10 @@ bool CCLuaEngine::parseConfig(CCScriptEngineProtocol::ConfigType type, const std
         lua_pop(m_stack->getLuaState(), 1);
         return false;
     }
-
+    
     m_stack->pushInt((int)type);
     m_stack->pushString(str.c_str());
-
+    
     return m_stack->executeFunction(2);
 }
 

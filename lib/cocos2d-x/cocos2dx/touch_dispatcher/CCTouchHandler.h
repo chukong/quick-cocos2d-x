@@ -26,6 +26,7 @@ THE SOFTWARE.
 #ifndef __TOUCH_DISPATCHER_CCTOUCH_HANDLER_H__
 #define __TOUCH_DISPATCHER_CCTOUCH_HANDLER_H__
 
+#include "CCTouchDelegateProtocol.h"
 #include "CCTouchDispatcher.h"
 #include "cocoa/CCObject.h"
 #include "cocoa/CCSet.h"
