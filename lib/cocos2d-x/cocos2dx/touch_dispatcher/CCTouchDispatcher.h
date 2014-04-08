@@ -28,6 +28,7 @@ THE SOFTWARE.
 
 #include "cocoa/CCObject.h"
 #include "cocoa/CCArray.h"
+#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 
 NS_CC_BEGIN
 
@@ -146,20 +147,20 @@ public:
      * IMPORTANT: The delegate will be retained.
      * @lua NA
      */
-    void addStandardDelegate(CCNode *pDelegate, int nPriority);
+    void addStandardDelegate(CCTouchDelegate *pDelegate, int nPriority);
 
     /** Adds a targeted touch delegate to the dispatcher's list.
      * See TargetedTouchDelegate description.
      * IMPORTANT: The delegate will be retained.
      * @lua NA
      */
-    void addTargetedDelegate(CCNode *pDelegate, int nPriority, bool bSwallowsTouches);
+    void addTargetedDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches);
 
     /** Removes a touch delegate.
      * The delegate will be released
      * @lua NA
      */
-    void removeDelegate(CCNode *pDelegate);
+    void removeDelegate(CCTouchDelegate *pDelegate);
 
     /** Removes all touch delegates, releasing all the delegates 
      * @lua NA
@@ -170,7 +171,7 @@ public:
      * the higher the priority 
      * @lua NA
      */
-    void setPriority(int nPriority, CCNode *pDelegate);
+    void setPriority(int nPriority, CCTouchDelegate *pDelegate);
     /**
      * @lua NA
      */
@@ -196,13 +197,13 @@ public:
     /**
      * @lua NA
      */
-    CCTouchHandler* findHandler(CCNode *pDelegate);
+    CCTouchHandler* findHandler(CCTouchDelegate *pDelegate);
 protected:
-    void forceRemoveDelegate(CCNode *pDelegate);
+    void forceRemoveDelegate(CCTouchDelegate *pDelegate);
     void forceAddHandler(CCTouchHandler *pHandler, CCArray* pArray);
     void forceRemoveAllDelegates(void);
     void rearrangeHandlers(CCArray* pArray);
-    CCTouchHandler* findHandler(CCArray* pArray, CCNode *pDelegate);
+    CCTouchHandler* findHandler(CCArray* pArray, CCTouchDelegate *pDelegate);
 
 protected:
      CCArray* m_pTargetedHandlers;

@@ -37,6 +37,7 @@
 #include "shaders/CCGLProgram.h"
 #include "kazmath/kazmath.h"
 #include "CCProtocols.h"
+#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "script_support/CCScriptSupport.h"
 
 NS_CC_BEGIN
@@ -135,7 +136,7 @@ enum {
  - Each node has a camera. By default it points to the center of the CCNode.
  */
 
-class CC_DLL CCNode : public CCScriptEventDispatcher
+class CC_DLL CCNode : public CCScriptEventDispatcher, public CCTouchDelegate
 {
 public:
     /// @{

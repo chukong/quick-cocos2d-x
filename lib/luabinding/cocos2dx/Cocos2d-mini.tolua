@@ -16,7 +16,7 @@ $pfile "cocos2dx/cocoa/CCBool.tolua"
 $pfile "cocos2dx/cocoa/CCInteger.tolua"
 $pfile "cocos2dx/cocoa/CCFloat.tolua"
 $pfile "cocos2dx/cocoa/CCDouble.tolua"
-$pfile "cocos2dx/cocoa/CCEventDispatcher.tolua"
+$pfile "cocos2dx/cocoa/CCScriptEventDispatcher.tolua"
 
 $pfile "cocos2dx/platform/CCCommon.tolua"
 $pfile "cocos2dx/platform/CCDevice.tolua"

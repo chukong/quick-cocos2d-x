@@ -148,9 +148,6 @@ public:
      */
     void alignItemsInRowsWithArray(CCArray* columns);
 
-    /** set event handler priority. By default it is: kCCMenuTouchPriority */
-    void setHandlerPriority(int newPriority);
-
     //super methods
     virtual void addChild(CCNode * child);
     virtual void addChild(CCNode * child, int zOrder);

@@ -27,8 +27,11 @@ THE SOFTWARE.
 NS_CC_EXT_BEGIN
 
 CCInputDelegate::CCInputDelegate(void)
-: m_bAccelerometerEnabled(false)
+: m_bTouchEnabled(false)
+, m_bAccelerometerEnabled(false)
 , m_bKeypadEnabled(false)
+, m_nTouchPriority(0)
+, m_eTouchMode(kCCTouchesAllAtOnce)
 {
 
 }
@@ -37,9 +40,124 @@ CCInputDelegate::~CCInputDelegate(void)
 {
 }
 
+bool CCInputDelegate::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+    return true;
+}
+
+void CCInputDelegate::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+    
+void CCInputDelegate::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCInputDelegate::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+}    
+
+void CCInputDelegate::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCInputDelegate::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCInputDelegate::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
+void CCInputDelegate::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+}
+
 void CCInputDelegate::didAccelerate(CCAcceleration* pAccelerationValue)
 {
    CC_UNUSED_PARAM(pAccelerationValue);
+}
+
+bool CCInputDelegate::isTouchEnabled()
+{
+    return m_bTouchEnabled;
+}
+
+void CCInputDelegate::setTouchEnabled(bool enabled)
+{
+    if (m_bTouchEnabled != enabled)
+    {
+        m_bTouchEnabled = enabled;
+        if (enabled)
+        {
+            if( m_eTouchMode == kCCTouchesAllAtOnce )
+            {
+                CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
+            }
+            else
+            {
+                CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, m_nTouchPriority, true);
+            }
+        }
+        else
+        {
+            CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+        }
+    }
+}
+
+void CCInputDelegate::setTouchMode(int mode)
+{
+    if(m_eTouchMode != mode)
+    {
+        m_eTouchMode = mode;
+        
+		if( m_bTouchEnabled)
+        {
+			setTouchEnabled(false);
+			setTouchEnabled(true);
+		}
+    }
+}
+
+void CCInputDelegate::setTouchPriority(int priority)
+{
+    if (m_nTouchPriority != priority)
+    {
+        m_nTouchPriority = priority;
+        
+		if( m_bTouchEnabled)
+        {
+			setTouchEnabled(false);
+			setTouchEnabled(true);
+		}
+    }
+}
+
+int CCInputDelegate::getTouchPriority()
+{
+    return m_nTouchPriority;
+}
+
+int CCInputDelegate::getTouchMode()
+{
+    return m_eTouchMode;
 }
 
 bool CCInputDelegate::isAccelerometerEnabled()

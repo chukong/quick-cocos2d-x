@@ -49,8 +49,8 @@ public:
     virtual ~CCTouchHandler(void);
 
     /** delegate */
-    CCNode* getDelegate();
-    void setDelegate(CCNode *pDelegate);
+    CCTouchDelegate* getDelegate();
+    void setDelegate(CCTouchDelegate *pDelegate);
 
     /** priority */
     int getPriority(void);
@@ -61,14 +61,14 @@ public:
     void setEnalbedSelectors(int nValue);
 
     /** initializes a TouchHandler with a delegate and a priority */
-    virtual bool initWithDelegate(CCNode *pDelegate, int nPriority);
+    virtual bool initWithDelegate(CCTouchDelegate *pDelegate, int nPriority);
 
 public:
     /** allocates a TouchHandler with a delegate and a priority */
-    static CCTouchHandler* handlerWithDelegate(CCNode *pDelegate, int nPriority);
+    static CCTouchHandler* handlerWithDelegate(CCTouchDelegate *pDelegate, int nPriority);
 
 protected:
-    CCNode *m_pDelegate;
+    CCTouchDelegate *m_pDelegate;
     int m_nPriority;
     int m_nEnabledSelectors;
 };
@@ -82,11 +82,11 @@ class CC_DLL  CCStandardTouchHandler : public CCTouchHandler
 {
 public:
     /** initializes a TouchHandler with a delegate and a priority */
-    virtual bool initWithDelegate(CCNode *pDelegate, int nPriority);
+    virtual bool initWithDelegate(CCTouchDelegate *pDelegate, int nPriority);
 
 public:
     /** allocates a TouchHandler with a delegate and a priority */
-    static CCStandardTouchHandler* handlerWithDelegate(CCNode *pDelegate, int nPriority);
+    static CCStandardTouchHandler* handlerWithDelegate(CCTouchDelegate *pDelegate, int nPriority);
 };
 
 /**
@@ -109,11 +109,11 @@ public:
     CCSet* getClaimedTouches(void);
 
     /** initializes a TargetedTouchHandler with a delegate, a priority and whether or not it swallows touches or not */
-    bool initWithDelegate(CCNode *pDelegate, int nPriority, bool bSwallow);
+    bool initWithDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallow);
 
 public:
     /** allocates a TargetedTouchHandler with a delegate, a priority and whether or not it swallows touches or not */
-    static CCTargetedTouchHandler* handlerWithDelegate(CCNode *pDelegate, int nPriority, bool bSwallow);
+    static CCTargetedTouchHandler* handlerWithDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallow);
 
 protected:
     bool m_bSwallowsTouches;

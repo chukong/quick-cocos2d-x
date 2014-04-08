@@ -50,10 +50,6 @@ class CCMenuItem : public CCNode
     /** The item was unselected */
     void unselected();
 
-    /** Register menu handler script function */
-    void registerScriptTapHandler(LUA_FUNCTION nHandler);
-    void unregisterScriptTapHandler(void);
-
     bool isEnabled();
     void setEnabled(bool value);
     bool isSelected();

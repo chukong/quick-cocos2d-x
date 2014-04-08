@@ -96,6 +96,26 @@ CCSchedulerScriptHandle::~CCSchedulerScriptHandle(void)
     LUALOG("[LUA] DEL script schedule %d, entryID: %d", m_listener, m_handle);
 }
 
+CCTimer *CCSchedulerScriptHandle::getTimer(void)
+{
+    return m_timer;
+}
+
+bool CCSchedulerScriptHandle::isPaused(void)
+{
+    return m_paused;
+}
+
+void CCSchedulerScriptHandle::markedForDeletion(void)
+{
+    m_markedForDeletion = true;
+}
+
+bool CCSchedulerScriptHandle::isMarkedForDeletion(void)
+{
+    return m_markedForDeletion;
+}
+
 
 // CCScriptEngineManager
 

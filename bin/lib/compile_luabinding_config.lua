@@ -113,7 +113,6 @@ local CCObjectTypes = {
     "CCLayerGradient",
     "CCLayerMultiplex",
     "CCLens3D",
-    "CCLinkPosition",
     "CCLiquid",
     "CCMenu",
     "CCMenuItem",

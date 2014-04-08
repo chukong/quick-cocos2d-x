@@ -22,26 +22,12 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#define kCCNodeOnEnter                          1
-#define kCCNodeOnExit                           2
-#define kCCNodeOnEnterTransitionDidFinish       3
-#define kCCNodeOnExitTransitionDidStart         4
-#define kCCNodeOnCleanup                        5
-#define kCCNodeOnEnterFrame                     6
-
-#define ENTER_SCENE_EVENT                       kCCNodeOnEnter
-#define EXIT_SCENE_EVENT                        kCCNodeOnExit
-#define ENTER_TRANSITION_DID_FINISH_EVENT       kCCNodeOnEnterTransitionDidFinish
-#define EXIT_TRANSITION_DID_START_EVENT         kCCNodeOnExitTransitionDidStart
-#define CLEANUP_EVENT                           kCCNodeOnCleanup
-#define ENTER_FRAME_EVENT                       kCCNodeOnEnterFrame
-
-class CCEventDispatcher : public CCObject
+class CCScriptEventDispatcher : public CCObject
 {
-    int addScriptEventListener(int event, LUA_FUNCTION callback);
-    void removeScriptEventListener(int event, int handle);
-    void removeAllScriptEventListenersForEvent(int event);
+    int addScriptEventListener(int event, LUA_FUNCTION listener, int tag = 0);
+    void removeScriptEventListener(int handle);
+    void removeScriptEventListenersByEvent(int event);
+    void removeScriptEventListenersByTag(int tag);
     void removeAllScriptEventListeners();
-
     bool hasScriptEventListener(int event);
 };

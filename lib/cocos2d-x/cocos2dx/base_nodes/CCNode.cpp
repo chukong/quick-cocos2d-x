@@ -1566,6 +1566,16 @@ int CCNode::excuteScriptTouchHandler(int nEventType, CCSet *pTouches)
     return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches);
 }
 
+bool CCNode::isTouchCaptureEnabled()
+{
+    return m_bTouchCaptureEnabled;
+}
+
+void CCNode::setTouchCaptureEnabled(bool value)
+{
+    m_bTouchCaptureEnabled = value;
+}
+
 /// isTouchEnabled getter
 bool CCNode::isTouchEnabled()
 {
