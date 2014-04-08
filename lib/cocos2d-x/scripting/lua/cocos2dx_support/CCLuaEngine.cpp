@@ -103,30 +103,30 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
     switch (nAction)
     {
         case kCCNodeOnEnter:
-            m_stack->pushInt(kCCNodeOnExit);
+            m_stack->pushString("enter");
             break;
 
         case kCCNodeOnExit:
-            m_stack->pushInt(kCCNodeOnExit);
+            m_stack->pushString("exit");
             break;
 
         case kCCNodeOnEnterTransitionDidFinish:
-            m_stack->pushInt(kCCNodeOnEnterTransitionDidFinish);
+            m_stack->pushString("enterTransitionFinish");
             break;
 
         case kCCNodeOnExitTransitionDidStart:
-            m_stack->pushInt(kCCNodeOnExitTransitionDidStart);
+            m_stack->pushString("exitTransitionStart");
             break;
 
         case kCCNodeOnCleanup:
-            m_stack->pushInt(kCCNodeOnCleanup);
+            m_stack->pushString("cleanup");
             break;
 
         default:
             return 0;
     }
 
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(nAction);
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
@@ -140,7 +140,7 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
 
 int CCLuaEngine::executeNodeEnterFrameEvent(CCNode* pNode, float dt)
 {
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(kCCNodeOnEnterFrame);
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_ENTER_FRAME_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
@@ -153,7 +153,7 @@ int CCLuaEngine::executeNodeEnterFrameEvent(CCNode* pNode, float dt)
 
 int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
 {
-    CCScriptEventListenersForEvent &listeners = pMenuItem->getScriptEventListenersByEvent(kCCMenuItemActivated);
+    CCScriptEventListenersForEvent &listeners = pMenuItem->getScriptEventListenersByEvent(MENU_ITEM_CLICKED_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {

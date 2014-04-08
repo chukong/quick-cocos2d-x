@@ -70,13 +70,6 @@ enum {
 #define kCCNodeOnExitTransitionDidStart     3
 #define kCCNodeOnCleanup                    4
 
-#define kCCNodeOnEnterFrame                 5
-
-#define kCCNodeOnTouch                      6
-#define kCCNodeOnTouchCaptured              7
-
-#define kCCMenuItemActivated                9
-
 #define kCCTouchesAllAtOnce                 0
 #define kCCTouchesOneByOne                  1
 

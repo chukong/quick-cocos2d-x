@@ -132,7 +132,7 @@ CCNode::~CCNode(void)
     // m_pComsContainer
     m_pComponentContainer->removeAll();
     CC_SAFE_DELETE(m_pComponentContainer);
-    
+
     if(m_pChildren && m_pChildren->count() > 0)
     {
         CCObject* child;
@@ -638,15 +638,14 @@ void CCNode::cleanup()
     this->stopAllActions();
     this->unscheduleAllSelectors();
 
-    //    if ( m_eScriptType != kScriptTypeNone)
-    //    {
-    //        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnCleanup);
-    //    }
+    if (hasScriptEventListener(NODE_EVENT))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnCleanup);
+    }
 
     // timers
     arrayMakeObjectsPerformSelector(m_pChildren, cleanup, CCNode*);
 }
-
 
 const char* CCNode::description()
 {
@@ -1008,7 +1007,7 @@ void CCNode::onEnter()
     //fix setTouchEnabled not take effect when called the function in onEnter in JSBinding.
     m_bRunning = true;
 
-    if (hasScriptEventListener(kCCNodeOnEnter))
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnter);
     }
@@ -1024,8 +1023,8 @@ void CCNode::onEnter()
             if (!node->isRunning())
             {
                 node->onEnter();
-    }
-}
+            }
+        }
     }
 
     this->resumeSchedulerAndActions();
@@ -1033,11 +1032,11 @@ void CCNode::onEnter()
 
 void CCNode::onEnterTransitionDidFinish()
 {
-    if (hasScriptEventListener(kCCNodeOnEnterTransitionDidFinish))
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterTransitionDidFinish);
     }
-    
+
     arrayMakeObjectsPerformSelector(m_pChildren, onEnterTransitionDidFinish, CCNode*);
 }
 
@@ -1045,7 +1044,7 @@ void CCNode::onExitTransitionDidStart()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onExitTransitionDidStart, CCNode*);
 
-    if (hasScriptEventListener(kCCNodeOnExitTransitionDidStart))
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExitTransitionDidStart);
     }
@@ -1064,11 +1063,11 @@ void CCNode::onExit()
 
     arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);
 
-    if (hasScriptEventListener(kCCNodeOnExit))
-{
+    if (hasScriptEventListener(NODE_EVENT))
+    {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
-}
     }
+}
 
 void CCNode::setActionManager(CCActionManager* actionManager)
 {
@@ -1149,7 +1148,7 @@ void CCNode::scheduleUpdateWithPriority(int priority)
 void CCNode::unscheduleUpdate()
 {
     m_pScheduler->unscheduleUpdateForTarget(this);
-    }
+}
 
 void CCNode::schedule(SEL_SCHEDULE selector)
 {
@@ -1203,11 +1202,11 @@ void CCNode::pauseSchedulerAndActions()
 // override me
 void CCNode::update(float fDelta)
 {
-    if (hasScriptEventListener(kCCNodeOnEnterFrame))
+    if (hasScriptEventListener(NODE_ENTER_FRAME_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEnterFrameEvent(this, fDelta);
     }
-    
+
     if (m_pComponentContainer && !m_pComponentContainer->isEmpty())
     {
         m_pComponentContainer->visit(fDelta);

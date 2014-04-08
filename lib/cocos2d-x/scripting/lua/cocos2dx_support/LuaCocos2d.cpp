@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Sat Apr  5 17:23:41 2014.
+** Generated automatically by tolua++-1.0.92 on Tue Apr  8 16:19:08 2014.
 */
 
 /****************************************************************************
@@ -58430,6 +58430,11 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getValue",tolua_Cocos2d_CCDouble_getValue00);
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCDouble_create00);
   tolua_endmodule(tolua_S);
+  tolua_constant(tolua_S,"NODE_EVENT",NODE_EVENT);
+  tolua_constant(tolua_S,"NODE_ENTER_FRAME_EVENT",NODE_ENTER_FRAME_EVENT);
+  tolua_constant(tolua_S,"NODE_TOUCH_EVENT",NODE_TOUCH_EVENT);
+  tolua_constant(tolua_S,"NODE_TOUCH_CAPTURE_EVENT",NODE_TOUCH_CAPTURE_EVENT);
+  tolua_constant(tolua_S,"MENU_ITEM_CLICKED_EVENT",MENU_ITEM_CLICKED_EVENT);
   tolua_cclass(tolua_S,"CCScriptEventDispatcher","CCScriptEventDispatcher","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCScriptEventDispatcher");
    tolua_function(tolua_S,"addScriptEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00);
@@ -59204,17 +59209,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getUpXYZ",tolua_Cocos2d_CCCamera_getUpXYZ00);
    tolua_function(tolua_S,"getZEye",tolua_Cocos2d_CCCamera_getZEye00);
   tolua_endmodule(tolua_S);
-  tolua_constant(tolua_S,"kCCNodeOnEnter",kCCNodeOnEnter);
-  tolua_constant(tolua_S,"kCCNodeOnExit",kCCNodeOnExit);
-  tolua_constant(tolua_S,"kCCNodeOnEnterTransitionDidFinish",kCCNodeOnEnterTransitionDidFinish);
-  tolua_constant(tolua_S,"kCCNodeOnExitTransitionDidStart",kCCNodeOnExitTransitionDidStart);
-  tolua_constant(tolua_S,"kCCNodeOnCleanup",kCCNodeOnCleanup);
-  tolua_constant(tolua_S,"kCCNodeOnEnterFrame",kCCNodeOnEnterFrame);
-  tolua_constant(tolua_S,"kCCNodeOnTouch",kCCNodeOnTouch);
-  tolua_constant(tolua_S,"kCCNodeOnTouchCaptured",kCCNodeOnTouchCaptured);
-  tolua_constant(tolua_S,"kCCMenuItemActivated",kCCMenuItemActivated);
-  tolua_constant(tolua_S,"kCCTouchesAllAtOnce",kCCTouchesAllAtOnce);
-  tolua_constant(tolua_S,"kCCTouchesOneByOne",kCCTouchesOneByOne);
   tolua_cclass(tolua_S,"CCNode","CCNode","CCScriptEventDispatcher",NULL);
   tolua_beginmodule(tolua_S,"CCNode");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCNode_create00);

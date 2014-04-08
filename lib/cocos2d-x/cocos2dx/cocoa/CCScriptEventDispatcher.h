@@ -38,6 +38,12 @@ typedef struct {
     int tag;
 } CCScriptHandlePair;
 
+#define NODE_EVENT                  0
+#define NODE_ENTER_FRAME_EVENT      1
+#define NODE_TOUCH_EVENT            2
+#define NODE_TOUCH_CAPTURE_EVENT    3
+#define MENU_ITEM_CLICKED_EVENT     4
+
 // listener handle -> listener pair
 typedef map<int, CCScriptHandlePair> CCScriptEventListenersForEvent;
 typedef CCScriptEventListenersForEvent::iterator CCScriptEventListenersForEventIterator;
