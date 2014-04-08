@@ -53,6 +53,9 @@ extern "C" {
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
 
+// CCB
+#include "Lua_extensions_CCB.h"
+
 // cocos-extensions
 #include "LuaCocoStudio.h"
 #include "lua_cocos2dx_manual.h"
@@ -120,6 +123,9 @@ bool CCLuaStack::init(void)
     luaL_openlibs(m_state);
     toluafix_open(m_state);
     tolua_Cocos2d_open(m_state);
+
+    // CCB
+    tolua_extensions_ccb_open(m_state);
 
     // CocoStudio
     tolua_CocoStudio_open(m_state);
