@@ -6,12 +6,13 @@
         #include <string.h>
     #endif
 
-    #if defined(_USREXDLL)
-        #define CC_EX_DLL     __declspec(dllexport)
-    #else         /* use a DLL library */
-        #define CC_EX_DLL     __declspec(dllimport)
-    #endif
+//    #if defined(_USREXDLL)
+//        #define CC_EX_DLL     __declspec(dllexport)
+//    #else         /* use a DLL library */
+//        #define CC_EX_DLL     __declspec(dllimport)
+//    #endif
 
+    #define CC_EX_DLL
 
     /* Define NULL pointer value */
     #ifndef NULL
