@@ -1,5 +1,7 @@
 "\n\
+#ifdef GL_ES\n\
 precision mediump float;\n\
+#endif\n\
 \n\
 varying vec2 v_texCoord;\n\
 varying vec2 v_blurTexCoords[14];\n\

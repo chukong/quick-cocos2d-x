@@ -1,4 +1,6 @@
-"precision highp float;\n\
+"#ifdef GL_ES\n\
+precision highp float;\n\
+#endif\n\
 \n\
 uniform sampler2D CC_Texture0;\n\
 \n\
@@ -14,7 +16,11 @@ varying vec2 v_fourStepsForwardTextureCoordinate;\n\
 \n\
 void main()\n\
 {\n\
+#ifdef GL_ES\n\
     lowp vec4 fragmentColor = texture2D(CC_Texture0, v_texCoord) * 0.18;\n\
+#else\n\
+    vec4 fragmentColor = texture2D(CC_Texture0, v_texCoord) * 0.18;\n\
+#endif\n\
     fragmentColor += texture2D(CC_Texture0, v_oneStepBackTextureCoordinate) * 0.15;\n\
     fragmentColor += texture2D(CC_Texture0, v_twoStepsBackTextureCoordinate) *  0.12;\n\
     fragmentColor += texture2D(CC_Texture0, v_threeStepsBackTextureCoordinate) * 0.09;\n\
