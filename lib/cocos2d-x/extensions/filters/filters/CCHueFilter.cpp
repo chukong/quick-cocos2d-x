@@ -49,9 +49,9 @@ void CCHueFilter::setAttributes(CCGLProgram* $cgp)
 void CCHueFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int u_hueAdjust = $cgp->getUniformLocationForName("u_hueAdjust");
-	CCLOG("CCHueFilter::setUniforms %d", u_hueAdjust);
+	//CCLOG("CCHueFilter::setUniforms %d", u_hueAdjust);
 	$cgp->setUniformLocationWith1f(u_hueAdjust, _param);
-	CCLOG("CCHueFilter::setUniforms _param:%.2f", _param);
+	//CCLOG("CCHueFilter::setUniforms _param:%.2f", _param);
 }
 
 NS_CC_EXT_END

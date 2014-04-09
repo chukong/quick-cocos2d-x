@@ -48,9 +48,9 @@ void CCSaturationFilter::setAttributes(CCGLProgram* $cgp)
 void CCSaturationFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int __param = $cgp->getUniformLocationForName("u_saturation");
-	CCLOG("CCSaturationFilter::setUniforms %d", __param);
+	//CCLOG("CCSaturationFilter::setUniforms %d", __param);
 	$cgp->setUniformLocationWith1f(__param, _param);
-	CCLOG("CCSaturationFilter::setUniforms _param:%.2f", _param);
+	//CCLOG("CCSaturationFilter::setUniforms _param:%.2f", _param);
 }
 
 

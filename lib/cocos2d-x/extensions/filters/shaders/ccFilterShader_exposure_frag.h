@@ -6,7 +6,7 @@ varying vec2 v_texCoord;\n\
 #endif\n\
 \n\
 uniform sampler2D CC_Texture0;\n\
-uniform highp float u_exposure;\n\
+uniform float u_exposure;\n\
 \n\
 void main()\n\
 {\n\

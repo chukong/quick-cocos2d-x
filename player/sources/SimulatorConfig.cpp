@@ -17,7 +17,8 @@ void ProjectConfig::resetToWelcome(void)
 	//string path = "d:/works/yhq/projects/lulala";
 	string path = "d:/cocos2dx/quick/samples/filters";
 #else
-	string path = "/Users/Team1201/works/yhq/projects/lulala";
+	//string path = "/Users/Team1201/works/yhq/projects/lulala";
+   	string path = "/Users/Team1201/cocos2dx/quick/samples/filters";
 #endif
 	//2014-04-03 zrong add done.
 

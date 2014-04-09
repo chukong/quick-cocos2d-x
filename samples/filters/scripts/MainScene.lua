@@ -9,22 +9,22 @@ end)
 MainScene._FILTERS = {
 	-- colors
 	{"GRAY", {}},
-	{"RGB",{}},
-	{"HUE", {}},
-	{"BRIGHTNEWS", {}},
-	{"SATURATION", {}},
-	{"CONTRAST", {}},
-	{"EXPOSURE", {}},
-	{"GAMMA", {}},
-	{"HAZE", {}},
-	{"SEPIA", {}},
+	{"RGB",{1, 0.5, 0.3}},
+	{"HUE", {90}},
+	{"BRIGHTNESS", {0.3}},
+	{"SATURATION", {0}},
+	{"CONTRAST", {2}},
+	{"EXPOSURE", {2}},
+	{"GAMMA", {2}},
+	{"HAZE", {0.1, 0.2}},
+	--{"SEPIA", {}},
 	-- blurs
-	{"GAUSSIAN_VBLUR", {}},
-	{"GAUSSIAN_HBLUR", {}},
-	{"ZOOM_BLUR", {}},
-	{"MOTION_BLUR", {}},
+	{"GAUSSIAN_VBLUR", {7}},
+	{"GAUSSIAN_HBLUR", {7}},
+	{"ZOOM_BLUR", {4, 0.7, 0.7}},
+	{"MOTION_BLUR", {5, 135}},
 	-- others
-	{"SHARPEN", {}},
+	{"SHARPEN", {1, 1}},
 }
 
 function MainScene:ctor()
@@ -78,6 +78,16 @@ function MainScene:_showFilter()
 	self._filterSprite = display.newFSprite("helloworld.png", __filters, __params)
 		:align(display.CENTER, display.cx, display.cy)
 		:addTo(self, 10)
+        local __title = ""
+        if type(__filters) == "table" then
+            __title = table.concat(__filters, ",")
+        else
+            __title = __filters
+        end
+        if __params and type(__params) == "table" then
+            __title = __title.." "..table.concat(__params, ",")
+        end
+        self._title:setString(__title)
 end
 
 function MainScene:_onPrev()

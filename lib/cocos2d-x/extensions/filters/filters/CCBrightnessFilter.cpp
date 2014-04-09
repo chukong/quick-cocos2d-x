@@ -48,8 +48,8 @@ void CCBrightnessFilter::setAttributes(CCGLProgram* $cgp)
 void CCBrightnessFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int u_brightness = $cgp->getUniformLocationForName("u_brightness");
-	CCLOG("CCBrightnessFilter::setUniforms %d", u_brightness);
+	//CCLOG("CCBrightnessFilter::setUniforms %d", u_brightness);
 	$cgp->setUniformLocationWith1f(u_brightness, _param);
-	CCLOG("CCBrightnessFilter::setUniforms _param:%.2f", _param);
+	//CCLOG("CCBrightnessFilter::setUniforms _param:%.2f", _param);
 }
 NS_CC_EXT_END
