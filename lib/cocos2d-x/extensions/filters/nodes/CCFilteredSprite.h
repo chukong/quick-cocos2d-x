@@ -43,7 +43,6 @@ public:
 
 	static CCFilteredSpriteWithOne* createWithSpriteFrameName(const char* $pszSpriteFrameName);
 
-	//virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
 	virtual CCFilter* getFilter(unsigned int $index = 0);
 	virtual void setFilters(CCArray* $pFilters);
 	virtual void setFilter(CCFilter* $pFilter);
