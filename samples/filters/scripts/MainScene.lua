@@ -25,6 +25,9 @@ MainScene._FILTERS = {
 	{"MOTION_BLUR", {5, 135}},
 	-- others
 	{"SHARPEN", {1, 1}},
+	{{"GRAY", "GAUSSIAN_VBLUR", "GAUSSIAN_HBLUR"}, {nil, {10}, {10}}},
+	{{"BRIGHTNESS", "CONTRAST"}, {{0.1}, {4}}},
+	{{"HUE", "SATURATION", "BRIGHTNESS"}, {{240}, {1.5}, {-0.4}}},
 }
 
 function MainScene:ctor()
@@ -55,7 +58,7 @@ function MainScene:_addUI()
 	self._title = ui.newTTFLabel({
 		text="Filters test",
 	})
-		:align(display.CENTER, display.cx, display.top-50)
+		:align(display.CENTER, display.cx, display.top-80)
 		:addTo(self, 10)
 end
 
@@ -80,12 +83,20 @@ function MainScene:_showFilter()
 		:addTo(self, 10)
         local __title = ""
         if type(__filters) == "table" then
-            __title = table.concat(__filters, ",")
+			for i in ipairs(__filters) do
+				__title = __title..__filters[i]
+				local __param = __params[i]
+				if __param then
+					__title = __title.." (" .. table.concat(__param, ",")..")\n"
+				else
+					__title = __title.." (nil)\n"
+				end
+			end
         else
             __title = __filters
-        end
-        if __params and type(__params) == "table" then
-            __title = __title.." "..table.concat(__params, ",")
+			if __params and type(__params) == "table" then
+				__title = __title.. " (" .. table.concat(__params, ",")..")"
+			end
         end
         self._title:setString(__title)
 end
