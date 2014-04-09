@@ -605,6 +605,16 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
             box.setRect(minx, miny, maxx - minx, maxy - miny);
         }
     }
+    else
+	{
+		r = CCRectMake(0, 0, m_obContentSize.width, m_obContentSize.height);
+		r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+		minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+		miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+		maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+		maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+		box.setRect(minx, miny, maxx - minx, maxy - miny);
+	}
 
     if (convertToWorld && m_pParent)
     {
@@ -1537,7 +1547,7 @@ CCScene *CCNode::getScene()
 
 void CCNode::registerWithTouchDispatcher()
 {
-    //    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
     CCScene *scene = getScene();
     if (scene)
     {
@@ -1547,7 +1557,7 @@ void CCNode::registerWithTouchDispatcher()
 
 void CCNode::unregisterWithTouchDispatcher()
 {
-    //    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
     CCScene *scene = getScene();
     if (scene)
     {
@@ -1575,12 +1585,10 @@ void CCNode::setTouchCaptureEnabled(bool value)
     m_bTouchCaptureEnabled = value;
 }
 
-/// isTouchEnabled getter
 bool CCNode::isTouchEnabled()
 {
     return m_bTouchEnabled;
 }
-/// isTouchEnabled setter
 
 void CCNode::setTouchEnabled(bool enabled)
 {
