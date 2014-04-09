@@ -22,18 +22,21 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#include <algorithm>
+
 #include "CCScriptEventDispatcher.h"
 #include "script_support/CCScriptSupport.h"
 
 NS_CC_BEGIN
 
-int CCScriptEventDispatcher::s_nextScriptEventHandleId = 0;
 CCScriptEventListenersForEvent CCScriptEventDispatcher::s_emptyListenersForEvent;
 CCScriptEventListenersForDispatcher CCScriptEventDispatcher::s_emptyListeners;
+int CCScriptEventDispatcher::s_nextScriptEventHandleIndex = 0;
+int CCScriptEventDispatcher::s_removeTag = 0;
 
 CCScriptEventDispatcher::CCScriptEventDispatcher()
+: m_scriptEventListeners(NULL)
 {
-    m_scriptEventListeners = NULL;
 }
 
 CCScriptEventDispatcher::~CCScriptEventDispatcher()
@@ -45,16 +48,19 @@ CCScriptEventDispatcher::~CCScriptEventDispatcher()
     }
 }
 
-int CCScriptEventDispatcher::addScriptEventListener(int event, int listener, int tag /* = 0 */)
+int CCScriptEventDispatcher::addScriptEventListener(int event, int listener, int tag /* = 0 */, int priority /* = 0 */)
 {
     if (!m_scriptEventListeners)
     {
         m_scriptEventListeners = new CCScriptEventListenersForDispatcher();
     }
-    s_nextScriptEventHandleId++;
-    CCScriptHandlePair p = {listener, tag};
-    (*m_scriptEventListeners)[event][s_nextScriptEventHandleId] = p;
-    return s_nextScriptEventHandleId;
+
+    s_nextScriptEventHandleIndex++;
+    CCScriptEventListenersForEvent &listeners = (*m_scriptEventListeners)[event];
+    listeners.push_back(CCScriptHandlePair(s_nextScriptEventHandleIndex, listener, tag, priority));
+    std::sort(listeners.begin(), listeners.end(), sortListenerCompare);
+
+    return s_nextScriptEventHandleIndex;
 }
 
 void CCScriptEventDispatcher::removeScriptEventListener(int handle)
@@ -67,11 +73,10 @@ void CCScriptEventDispatcher::removeScriptEventListener(int handle)
         CCScriptEventListenersForEventIterator it2 = it->second.begin();
         for (; it2 != it->second.end(); ++it2)
         {
-            if (it->first == handle)
+            if (it2->index == handle)
             {
-                const CCScriptHandlePair &p = it2->second;
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(p.listener);
-                LUALOG("[LUA] Remove script event listener: %d", p.listener);
+                CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(it2->listener);
+                LUALOG("[LUA] Remove script event listener: %d", it2->listener);
                 it->second.erase(it2);
                 return;
             }
@@ -88,11 +93,11 @@ void CCScriptEventDispatcher::removeScriptEventListenersByEvent(int event)
     if (it != m_scriptEventListeners->end())
     {
         CCScriptEventListenersForEvent &listeners = it->second;
-        for (CCScriptEventListenersForEventIterator it2 = listeners.begin(); it2 != listeners.end(); ++it2)
+        CCScriptEventListenersForEventIterator it2 = listeners.begin();
+        for (; it2 != listeners.end(); ++it2)
         {
-            const CCScriptHandlePair &p = it2->second;
-            engine->removeScriptHandler(p.listener);
-            LUALOG("[LUA] Remove script event listener: %d", p.listener);
+            engine->removeScriptHandler(it2->listener);
+            LUALOG("[LUA] Remove script event listener: %d", it2->listener);
         }
         m_scriptEventListeners->erase(it);
     }
@@ -102,21 +107,12 @@ void CCScriptEventDispatcher::removeScriptEventListenersByTag(int tag)
 {
     if (!m_scriptEventListeners) return;
 
-    CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
     CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
+    s_removeTag = tag;
     for (; it != m_scriptEventListeners->end(); ++it)
     {
-        CCScriptEventListenersForEventIterator it2 = it->second.begin();
-        for (; it2 != it->second.end(); ++it2)
-        {
-            const CCScriptHandlePair &p = it2->second;
-            if (p.tag == tag)
-            {
-                engine->removeScriptHandler(p.listener);
-                LUALOG("[LUA] Remove script event listener: %d", callback);
-                it->second.erase(it2);
-            }
-        }
+        CCScriptEventListenersForEvent &listeners = it->second;
+        remove_if(listeners.begin(), listeners.end(), removeListenerByTag);
     }
 }
 
@@ -131,9 +127,8 @@ void CCScriptEventDispatcher::removeAllScriptEventListeners()
         CCScriptEventListenersForEventIterator it2 = it->second.begin();
         for (; it2 != it->second.end(); ++it2)
         {
-            const CCScriptHandlePair &p = it2->second;
-            engine->removeScriptHandler(p.listener);
-            LUALOG("[LUA] Remove script event listener: %d", callback);
+            engine->removeScriptHandler(it2->listener);
+            LUALOG("[LUA] Remove script event listener: %d", it2->listener);
         }
     }
     m_scriptEventListeners->clear();
@@ -155,6 +150,24 @@ CCScriptEventListenersForEvent &CCScriptEventDispatcher::getScriptEventListeners
 CCScriptEventListenersForDispatcher &CCScriptEventDispatcher::getAllScriptEventListeners() const
 {
     return m_scriptEventListeners ? *m_scriptEventListeners : s_emptyListeners;
+}
+
+bool CCScriptEventDispatcher::sortListenerCompare(CCScriptHandlePair &a, CCScriptHandlePair &b)
+{
+    return a.priority < b.priority;
+}
+
+bool CCScriptEventDispatcher::removeListenerByTag(CCScriptHandlePair &p)
+{
+    if (p.tag == s_removeTag)
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(p.listener);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 NS_CC_END

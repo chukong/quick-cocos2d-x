@@ -131,7 +131,7 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
     for (; it != listeners.end(); ++it)
     {
         m_stack->copyValue(1);
-        m_stack->executeFunctionByHandler(it->second.listener, 1);
+        m_stack->executeFunctionByHandler(it->listener, 1);
         m_stack->settop(1);
     }
     m_stack->clean();
@@ -145,7 +145,7 @@ int CCLuaEngine::executeNodeEnterFrameEvent(CCNode* pNode, float dt)
     for (; it != listeners.end(); ++it)
     {
         m_stack->pushFloat(dt);
-        m_stack->executeFunctionByHandler(it->second.listener, 1);
+        m_stack->executeFunctionByHandler(it->listener, 1);
         m_stack->clean();
     }
     return 0;
@@ -159,7 +159,7 @@ int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
     {
         m_stack->pushInt(pMenuItem->getTag());
         m_stack->pushCCObject(pMenuItem, "CCMenuItem");
-        m_stack->executeFunctionByHandler(it->second.listener, 2);
+        m_stack->executeFunctionByHandler(it->listener, 2);
         m_stack->clean();
     }
     return 0;
@@ -328,7 +328,7 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
     for (; it != listeners.end(); ++it)
     {
         m_stack->copyValue(1);
-        m_stack->executeFunctionByHandler(it->second.listener, 1);
+        m_stack->executeFunctionByHandler(it->listener, 1);
         m_stack->settop(1);
     }
     m_stack->clean();
@@ -345,7 +345,7 @@ int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAcc
         m_stack->pushFloat(pAccelerationValue->y);
         m_stack->pushFloat(pAccelerationValue->z);
         m_stack->pushFloat(pAccelerationValue->timestamp);
-        m_stack->executeFunctionByHandler(it->second.listener, 4);
+        m_stack->executeFunctionByHandler(it->listener, 4);
         m_stack->clean();
     }
     return 0;

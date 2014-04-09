@@ -26,6 +26,7 @@
 #define __CCSCRIPT_EVENT_DISPATCHER_H__
 
 #include <map>
+#include <vector>
 
 #include "CCObject.h"
 
@@ -33,10 +34,22 @@ using namespace std;
 
 NS_CC_BEGIN
 
-typedef struct {
+class CCScriptHandlePair
+{
+public:
+    int index;
     int listener;
     int tag;
-} CCScriptHandlePair;
+    int priority;
+
+    CCScriptHandlePair(int index_, int listener_, int tag_, int priority_)
+    : index(index_)
+    , listener(listener_)
+    , tag(tag_)
+    , priority(priority_)
+    {
+    }
+};
 
 #define NODE_EVENT                  0
 #define NODE_ENTER_FRAME_EVENT      1
@@ -47,7 +60,7 @@ typedef struct {
 #define KEYPAD_EVENT                6
 
 // listener handle -> listener pair
-typedef map<int, CCScriptHandlePair> CCScriptEventListenersForEvent;
+typedef vector<CCScriptHandlePair> CCScriptEventListenersForEvent;
 typedef CCScriptEventListenersForEvent::iterator CCScriptEventListenersForEventIterator;
 
 // event -> CCScriptEventListenersForEvent
@@ -59,7 +72,7 @@ class CC_DLL CCScriptEventDispatcher : public CCObject
 public:
     CCScriptEventDispatcher();
     virtual ~CCScriptEventDispatcher();
-    int addScriptEventListener(int event, int listener, int tag = 0);
+    int addScriptEventListener(int event, int listener, int tag = 0, int priority = 0);
     void removeScriptEventListener(int handle);
     void removeScriptEventListenersByEvent(int event);
     void removeScriptEventListenersByTag(int tag);
@@ -72,9 +85,13 @@ public:
 private:
     CCScriptEventListenersForDispatcher *m_scriptEventListeners;
 
-    static int s_nextScriptEventHandleId;
+    static int s_nextScriptEventHandleIndex;
     static CCScriptEventListenersForEvent s_emptyListenersForEvent;
     static CCScriptEventListenersForDispatcher s_emptyListeners;
+
+    static bool sortListenerCompare(CCScriptHandlePair &a, CCScriptHandlePair &b);
+    static bool removeListenerByTag(CCScriptHandlePair &p);
+    static int s_removeTag;
 };
 
 NS_CC_END
