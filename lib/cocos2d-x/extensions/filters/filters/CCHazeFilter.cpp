@@ -51,9 +51,9 @@ void CCHazeFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int __hazeDistance = $cgp->getUniformLocationForName("u_hazeDistance");
 	int __slope = $cgp->getUniformLocationForName("u_slope");
-	CCLOG("CCHazeFilter::setUniforms %d, %d", __hazeDistance, __slope);
+	//CCLOG("CCHazeFilter::setUniforms %d, %d", __hazeDistance, __slope);
 	$cgp->setUniformLocationWith1f(__hazeDistance, _hazeDistance);
 	$cgp->setUniformLocationWith1f(__slope, _slope);
-	CCLOG("CCHazeFilter::setUniforms _hazeDistance:%.5f, _slope:%.5f", _hazeDistance, _slope);
+	//CCLOG("CCHazeFilter::setUniforms _hazeDistance:%.5f, _slope:%.5f", _hazeDistance, _slope);
 }
 NS_CC_EXT_END

@@ -48,9 +48,9 @@ void CCExposureFilter::setAttributes(CCGLProgram* $cgp)
 void CCExposureFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int __param = $cgp->getUniformLocationForName("u_exposure");
-	CCLOG("CCExposureFilter::setUniforms %d", __param);
+	//CCLOG("CCExposureFilter::setUniforms %d", __param);
 	$cgp->setUniformLocationWith1f(__param, _param);
-	CCLOG("CCExposureFilter::setUniforms _param:%.2f", _param);
+	//CCLOG("CCExposureFilter::setUniforms _param:%.2f", _param);
 }
 
 NS_CC_EXT_END

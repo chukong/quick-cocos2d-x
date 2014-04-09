@@ -7,8 +7,8 @@ function __G__TRACKBACK__(errorMessage)
 end
 
 package.path = package.path
-	 --.. ";d:/cocos2dx/quick/?.lua"
-	 .. ";/Users/Team1201/cocos2dx/quick/?.lua"
+	 .. ";d:/cocos2dx/quick/?.lua"
+	 --.. ";/Users/Team1201/cocos2dx/quick/?.lua"
 
 print(package.path)
 

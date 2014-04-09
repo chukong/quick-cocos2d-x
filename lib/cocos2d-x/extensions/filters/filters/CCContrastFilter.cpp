@@ -48,9 +48,9 @@ void CCContrastFilter::setAttributes(CCGLProgram* $cgp)
 void CCContrastFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int u_contrast = $cgp->getUniformLocationForName("u_contrast");
-	CCLOG("CCContrastFilter::setUniforms %d", u_contrast);
+	//CCLOG("CCContrastFilter::setUniforms %d", u_contrast);
 	$cgp->setUniformLocationWith1f(u_contrast, _param);
-	CCLOG("CCContrastFilter::setUniforms _param:%.2f", _param);
+	//CCLOG("CCContrastFilter::setUniforms _param:%.2f", _param);
 }
 
 NS_CC_EXT_END

@@ -48,9 +48,9 @@ void CCGammaFilter::setAttributes(CCGLProgram* $cgp)
 void CCGammaFilter::setUniforms(CCGLProgram* $cgp)
 {
 	int __param = $cgp->getUniformLocationForName("u_gamma");
-	CCLOG("CCGammaFilter::setUniforms %d", __param);
+	//CCLOG("CCGammaFilter::setUniforms %d", __param);
 	$cgp->setUniformLocationWith1f(__param, _param);
-	CCLOG("CCGammaFilter::setUniforms _param:%.2f", _param);
+	//CCLOG("CCGammaFilter::setUniforms _param:%.2f", _param);
 }
 
 NS_CC_EXT_END
