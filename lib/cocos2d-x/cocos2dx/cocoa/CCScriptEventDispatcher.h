@@ -34,7 +34,7 @@ using namespace std;
 
 NS_CC_BEGIN
 
-class CCScriptHandlePair
+class CC_DLL CCScriptHandlePair
 {
 public:
     int index;

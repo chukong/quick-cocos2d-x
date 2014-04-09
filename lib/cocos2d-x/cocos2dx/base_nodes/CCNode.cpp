@@ -1017,6 +1017,11 @@ void CCNode::onEnter()
     //fix setTouchEnabled not take effect when called the function in onEnter in JSBinding.
     m_bRunning = true;
 
+    if (m_bTouchEnabled)
+    {
+        registerWithTouchDispatcher();
+    }
+
     if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnter);
@@ -1544,7 +1549,6 @@ CCScene *CCNode::getScene()
     return dynamic_cast<CCScene*>(scene);
 }
 
-
 void CCNode::registerWithTouchDispatcher()
 {
     CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
@@ -1583,6 +1587,34 @@ bool CCNode::isTouchCaptureEnabled()
 void CCNode::setTouchCaptureEnabled(bool value)
 {
     m_bTouchCaptureEnabled = value;
+}
+
+bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+    return true;
+}
+
+bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pEvent);
+    return true;
+}
+
+bool CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+    return true;
+}
+
+bool CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCEvent *pEvent)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pEvent);
+    return true;
 }
 
 bool CCNode::isTouchEnabled()
@@ -1628,20 +1660,6 @@ int CCNode::getTouchMode()
     return m_eTouchMode;
 }
 
-bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCEvent *pEvent)
-{
-    CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
-    return m_bTouchCaptureEnabled;
-}
-
-bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCEvent *pEvent)
-{
-    CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
-    return m_bTouchCaptureEnabled;
-}
-
 bool CCNode::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouch);
@@ -1665,21 +1683,6 @@ void CCNode::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
-}
-
-
-bool CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCEvent *pEvent)
-{
-    CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
-    return m_bTouchCaptureEnabled;
-}
-
-bool CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCEvent *pEvent)
-{
-    CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
-    return m_bTouchCaptureEnabled;
 }
 
 void CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
