@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 03/30/14 23:18:09.
+** Generated automatically by tolua++-1.0.92 on 04/09/14 17:38:12.
 */
 
 /****************************************************************************
@@ -64492,15 +64492,21 @@ static int tolua_Cocos2d_CCGrayFilter_create01(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"CCGrayFilter",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"ccColor4F",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
-  ccColor4F param = *((ccColor4F*)  tolua_tousertype(tolua_S,2,0));
+  float r = ((float)  tolua_tonumber(tolua_S,2,0));
+  float g = ((float)  tolua_tonumber(tolua_S,3,0));
+  float b = ((float)  tolua_tonumber(tolua_S,4,0));
+  float a = ((float)  tolua_tonumber(tolua_S,5,0));
   {
-   CCGrayFilter* tolua_ret = (CCGrayFilter*)  CCGrayFilter::create(param);
+   CCGrayFilter* tolua_ret = (CCGrayFilter*)  CCGrayFilter::create(r,g,b,a);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCGrayFilter");
   }
  }
@@ -64518,20 +64524,26 @@ static int tolua_Cocos2d_CCGrayFilter_setParameter00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCGrayFilter",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"ccColor4F",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCGrayFilter* self = (CCGrayFilter*)  tolua_tousertype(tolua_S,1,0);
-  ccColor4F param = *((ccColor4F*)  tolua_tousertype(tolua_S,2,0));
+  float r = ((float)  tolua_tonumber(tolua_S,2,0));
+  float g = ((float)  tolua_tonumber(tolua_S,3,0));
+  float b = ((float)  tolua_tonumber(tolua_S,4,0));
+  float a = ((float)  tolua_tonumber(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setParameter'", NULL);
 #endif
   {
-   self->setParameter(param);
+   self->setParameter(r,g,b,a);
   }
  }
  return 0;

@@ -2,6 +2,6 @@ class CCGrayFilter : public CCFilter
 {
 public:
 	static CCGrayFilter* create();
-	static CCGrayFilter* create(ccColor4F param);
-	void setParameter(ccColor4F param);
+	static CCGrayFilter* create(float r, float g, float b, float a=0);
+	void setParameter(float r, float g, float b, float a=0);
 };

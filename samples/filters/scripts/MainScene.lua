@@ -8,7 +8,7 @@ end)
 
 MainScene._FILTERS = {
 	-- colors
-	{"GRAY", {}},
+	{"GRAY",{0.2, 0.3, 0.5, 0.1}},
 	{"RGB",{1, 0.5, 0.3}},
 	{"HUE", {90}},
 	{"BRIGHTNESS", {0.3}},

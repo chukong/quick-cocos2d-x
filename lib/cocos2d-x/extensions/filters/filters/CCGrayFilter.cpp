@@ -19,6 +19,14 @@ CCGrayFilter* CCGrayFilter::create(ccColor4F $param)
 	return __filter;
 }
 
+CCGrayFilter* CCGrayFilter::create(float $r, float $g, float $b, float $a)
+{
+	CCGrayFilter* __filter = CCGrayFilter::create();
+	__filter->setParameter($r, $a, $b, $a);
+	return __filter;
+}
+
+
 CCGrayFilter::CCGrayFilter()
 : _param(ccc4f(0.299f, 0.587f, 0.114f, 0.0f))
 {
@@ -29,6 +37,11 @@ void CCGrayFilter::setParameter(ccColor4F $param)
 {
 	_param = $param;
 	initProgram();
+}
+
+void CCGrayFilter::setParameter(float $r, float $g, float $b, float $a)
+{
+	setParameter(ccc4f($r, $a, $b, $a));
 }
 
 CCGLProgram* CCGrayFilter::loadShader()
