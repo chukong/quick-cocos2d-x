@@ -230,6 +230,10 @@ function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
+-- 2014-04-10 zrong modified 
+-- Add a parameter named 'params' to provide 'class' and 'size'.
+-- The filtname parameter can be a CCTexture2D.
+-- 2014-04-10 zrong modify end
 function display.newSprite(filename, x, y, params)
 	local spriteClass = nil
 	local size = nil
@@ -261,6 +265,8 @@ function display.newSprite(filename, x, y, params)
         end
     elseif t == "CCSpriteFrame" then
         sprite = spriteClass:createWithSpriteFrame(filename)
+	elseif t == "CCTexture2D" then
+		sprite = spriteClass:createWithTexture(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
         sprite = spriteClass:create()
@@ -278,6 +284,9 @@ function display.newSprite(filename, x, y, params)
     return sprite
 end
 
+-- 2014-04-10 zrong modified 
+-- The display.newSprite can adopt a class parameter, so I simplified the newScale9Sprite.
+-- 2014-04-10 zrong modify end
 function display.newScale9Sprite(filename, x, y, size)
 	return display.newSprite(filename, x, y, {class=CCScale9Sprite,size=size})
 end
@@ -308,31 +317,32 @@ end
 --- create a tiled CCSpriteBatchNode, the image can not a POT file.
 -- @author zrong(zengrong.net)
 -- Creation: 2014-01-21
--- @param __fileName the first parameter for display.newSprite
--- @param __texture texture(plist) image filename, __fileName must be a part of the texture.
--- @param __size the tiled node size, use cc.size create it please.
--- @param __hPadding horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
--- @param __vPadding vertical padding.
+-- Modification: 2014-04-10
+-- @param filename As same a the first parameter for display.newSprite
+-- @param plistFile Texture(plist) image filename, filename must be a part of the texture.
+-- @param size The tiled node size, use cc.size create it please.
+-- @param hPadding Horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
+-- @param vPadding Vertical padding.
 -- @return a CCSpriteBatchNode
-function display.newTiledBatchNode(__fileName, __texture, __size, __hPadding, __vPadding)
-	__size = __size or cc.size(display.width, display.height)
-	__hPadding = __hPadding or 0
-	__vPadding = __vPadding or 0
-	local __sprite = display.newSprite(__fileName)
+function display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding)
+	size = size or cc.size(display.width, display.height)
+	hPadding = hPadding or 0
+	vPadding = vPadding or 0
+	local __sprite = display.newSprite(filename)
 	local __sliceSize = __sprite:getContentSize()
-	__sliceSize.width = __sliceSize.width - __hPadding
-	__sliceSize.height = __sliceSize.height - __vPadding
-	local __xRepeat = math.ceil(__size.width/__sliceSize.width)
-	local __yRepeat = math.ceil(__size.height/__sliceSize.height)
-	-- how maney sprites we need to fill in tiled node?
+	__sliceSize.width = __sliceSize.width - hPadding
+	__sliceSize.height = __sliceSize.height - vPadding
+	local __xRepeat = math.ceil(size.width/__sliceSize.width)
+	local __yRepeat = math.ceil(size.height/__sliceSize.height)
+	-- How maney sprites we need to fill in tiled node?
 	local __capacity = __xRepeat * __yRepeat
-	local __batch = display.newBatchNode(__texture, __capacity)
+	local __batch = display.newBatchNode(plistFile, __capacity)
 	local __newSize = cc.size(0,0)
 	--printf("newTileNode xRepeat:%u, yRepeat:%u", __xRepeat, __yRepeat)
 	for y=0,__yRepeat-1 do
 		for x=0,__xRepeat-1 do
 			__newSize.width = __newSize.width + __sliceSize.width
-			__sprite = display.newSprite(__fileName)
+			__sprite = display.newSprite(filename)
 				:align(display.LEFT_BOTTOM,x*__sliceSize.width, y*__sliceSize.height)
 				:addTo(__batch)
 				--print("newTileNode:", x*__sliceSize.width, y*__sliceSize.height)
@@ -376,6 +386,18 @@ function display.newMaskedSprite(__mask, __pic)
 	return __resultSprite
 end
 
+--- Create a Filtered Sprite
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-10
+-- @param filename As same a the first parameter for display.newSprite
+-- @param filters One of the following:
+-- 		A CCFilter name;
+-- 		More CCFilter names(in a table);
+-- 		An instance of CCFilter;
+-- 		Some instances of CCFilter(in a table);
+-- 		A CCArray inclueds some instances of CCFilter.
+-- @param params A or some parameters for CCFilter.
+-- @return An instance of CCFilteredSprite
 function display.newFilteredSprite(filename, filters, params)
 	local __one = {class=CCFilteredSpriteWithOne}
 	local __multi = {class=CCFilteredSpriteWithMulti}
@@ -383,7 +405,7 @@ function display.newFilteredSprite(filename, filters, params)
 	local __sp = nil
 	local __type = type(filters)
     if __type == "userdata" then __type = tolua.type(filters) end
-	print("display.newFSprite type:", __type)
+	--print("display.newFSprite type:", __type)
 	if __type == "string" then
 		__sp = display.newSprite(filename, nil, nil, __one)
 		filters = filter.newFilter(filters, params)
@@ -415,6 +437,15 @@ function display.newFilteredSprite(filename, filters, params)
 end
 display.newFSprite = display.newFilteredSprite
 
+--- Create a Gray Sprite by CCFilteredSprite
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-10
+-- @param filename As same a the first parameter for display.newSprite
+-- @param params As same as the third parameter for display.newFilteredSprite
+-- @return An instance of CCFilteredSprite
+function display.newGraySprite(filename, params)
+	return display.newFilteredSprite(filename, "GRAY", params)
+end
 
 --- Create a circle or a sector or a pie by CCDrawNode
 -- @author zrong(zengrong.net)
@@ -606,6 +637,44 @@ function display.newProgressTimer(image, progresssType)
     local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
     progress:setType(progresssType)
     return progress
+end
+
+-- Get a screenshot of a CCNode
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-10
+-- @param node A node to print.
+-- @param args 
+-- @return An instance of CCSprite or CCFilteredSprite.
+function display.printscreen(node, args)
+	local sp = true
+	local file = nil
+	local filters = nil
+	local filterParams = nil
+	if args then
+		if args.sprite ~= nil then sp = args.sprite end
+		file = args.file
+		filters = args.filters
+		filterParams = args.filterParams
+	end
+	local size = node:getContentSize()
+	local canvas = CCRenderTexture:create(size.width,size.height)
+	canvas:begin()
+	node:visit()
+	canvas:endToLua()
+
+	if sp then
+		local texture = canvas:getSprite():getTexture()
+		if filters then
+			sp = display.newFSprite(texture, filters, filterParams)
+		else
+			sp = display.newSprite(texture)
+		end
+		sp:flipY(true)
+	end
+	if file then
+		canvas:saveToFile(file)
+	end
+	return sp, file
 end
 
 return display
