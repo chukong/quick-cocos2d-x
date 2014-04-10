@@ -114,3 +114,8 @@ function CCDrawNodeExtend:drawLine(from, to, radius, color)
 	self:drawSegment(from, to, radius, color)
 	return self
 end
+
+function CCDrawNodeExtend:clear()
+	getmetatable(self).clear(self)
+	return self
+end

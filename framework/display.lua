@@ -323,7 +323,7 @@ end
 -- @param size The tiled node size, use cc.size create it please.
 -- @param hPadding Horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
 -- @param vPadding Vertical padding.
--- @return a CCSpriteBatchNode
+-- @return A CCSpriteBatchNode
 function display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding)
 	size = size or cc.size(display.width, display.height)
 	hPadding = hPadding or 0
@@ -675,7 +675,7 @@ function display.printscreen(node, args)
 		end
 		sp:flipY(true)
 	end
-	if file then
+	if file and device.platform ~= "mac" then
 		canvas:saveToFile(file)
 	end
 	return sp, file
