@@ -447,11 +447,15 @@ function display.newGraySprite(filename, params)
 	return display.newFilteredSprite(filename, "GRAY", params)
 end
 
+function display.newDrawNode()
+	return CCDrawNodeExtend.extend(CCDrawNode:create())
+end
+
 --- Create a circle or a sector or a pie by CCDrawNode
 -- @author zrong(zengrong.net)
 -- Creation: 2014-03-11
 function display.newSolidCircle(radius, params)
-	local circle = CCDrawNodeExtend.extend(CCDrawNode:create())
+	local circle = display.newDrawNode()
 	circle:drawCircle(radius, params)
 	local x,y = 0,0
 	if params then

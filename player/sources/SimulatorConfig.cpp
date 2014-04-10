@@ -14,8 +14,8 @@ void ProjectConfig::resetToWelcome(void)
     //path.append("player/welcome");
 	//2014-04-03 zrong add path by enviroment.
 #if defined(_WINDOWS)
-	//string path = "d:/works/yhq/projects/lulala";
-	string path = "d:/cocos2dx/quick/samples/filters";
+	string path = "d:/works/yhq/projects/lulala";
+	//string path = "d:/cocos2dx/quick/samples/filters";
 #else
 	//string path = "/Users/Team1201/works/yhq/projects/lulala";
    	string path = "/Users/Team1201/cocos2dx/quick/samples/filters";
