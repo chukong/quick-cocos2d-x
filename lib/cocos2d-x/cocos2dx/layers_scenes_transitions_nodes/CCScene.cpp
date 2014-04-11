@@ -227,11 +227,11 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
     // sort touchable nodes
     sortAllTouchableNodes(m_touchableNodes);
 
-    // find touching nodes
+    // find touching target
     CCObject *obj;
     CCNode *node = NULL;
-    CCNode *checkVisibleNode = NULL;
-    bool visible = true;
+    CCNode *checkTouchableNode = NULL;
+    bool isTouchable = true;
     CCTouch *touch;
 
     for (CCSetIterator it = pTouches->begin(); it != pTouches->end(); ++it)
@@ -241,16 +241,16 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 
         CCARRAY_FOREACH(m_touchableNodes, obj)
         {
-            checkVisibleNode = node = dynamic_cast<CCNode*>(obj);
+            checkTouchableNode = node = dynamic_cast<CCNode*>(obj);
 
-            // check node is visible
-            visible = true;
+            // check node is visible and touch capturing enabled
+            isTouchable = true;
             do
             {
-                visible = visible && checkVisibleNode->isVisible();
-                checkVisibleNode = checkVisibleNode->getParent();
-            } while (checkVisibleNode && visible);
-            if (!visible) continue;
+                isTouchable = isTouchable && checkTouchableNode->isVisible() && checkTouchableNode->isTouchCaptureEnabled();
+                checkTouchableNode = checkTouchableNode->getParent();
+            } while (checkTouchableNode && isTouchable);
+            if (!isTouchable) continue;
 
             const CCRect boundingBox = node->getCascadeBoundingBox();
             if (node->isRunning() && boundingBox.containsPoint(p))
