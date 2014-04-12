@@ -31,6 +31,29 @@ function network.createHTTPRequest(callback, url, method)
     return CCHTTPRequest:createWithUrl(callback, url, method)
 end
 
+function network.uploadFile(callback, url, datas)
+	assert(datas or datas.fileFieldName or datas.filePath, "Need file datas!")
+	local request = network.createHTTPRequest(callback, url, "POST")
+	local fileFieldName = datas.fileFiledName
+	local filePath = datas.filePath
+	local contentType = datas.contentType
+	-- request:setUploadFile(file)
+	-- ="application/octet-stream"
+	if contentType then
+		request:addFormFile(fileFieldName, filePath, contentType)
+	else
+		request:addFormFile(fileFieldName, filePath)
+	end
+	if datas.extra then
+		for i in ipairs(datas.extra) do
+			local data = datas.extra[i]
+			request:addFormContents(data[1], data[2])
+		end
+	end
+	request:start()
+	return request
+end
+
 local function parseTrueFalse(t)
     t = string.lower(tostring(t))
     if t == "yes" or t == "true" then return true end

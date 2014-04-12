@@ -10,3 +10,4 @@ echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 echo.
 call %MAKE_LUABINDING% -d %OUTPUT_DIR% cocos2dx_extra_ios_iap_luabinding.tolua
 popd
+pause
