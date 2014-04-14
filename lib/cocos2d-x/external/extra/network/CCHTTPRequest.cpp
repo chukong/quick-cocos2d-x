@@ -136,24 +136,6 @@ void CCHTTPRequest::addFormContents(const char *name, const char *value)
 	//CCLOG("addFormContents %s %s", name, value);
 }
 
-void CCHTTPRequest::setUploadFile(const char *data)
-{
-	curl_formadd(&m_formPost, &m_lastPost, 
-		CURLFORM_COPYNAME, "filepath",
-		CURLFORM_FILE, data,
-		CURLFORM_CONTENTTYPE, "Image/jpeg",
-		CURLFORM_END);
-	curl_formadd(&m_formPost, &m_lastPost,
-		CURLFORM_COPYNAME, "act",
-		CURLFORM_COPYCONTENTS, "upload",
-		CURLFORM_END);
-	curl_formadd(&m_formPost, &m_lastPost,
-		CURLFORM_COPYNAME, "submit",
-		CURLFORM_COPYCONTENTS, "upload",
-		CURLFORM_END);
-	curl_easy_setopt(m_curl, CURLOPT_HTTPPOST, m_formPost);
-}
-
 void CCHTTPRequest::setCookieString(const char *cookie)
 {
     CCAssert(m_state == kCCHTTPRequestStateIdle, "CCHTTPRequest::setAcceptEncoding() - request not idle");

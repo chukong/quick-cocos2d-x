@@ -82,8 +82,6 @@ public:
 	void addFormFile(const char *name, const char *filePath, const char *fileType="application/octet-stream");
 	void addFormContents(const char *name, const char *value);
 
-	void setUploadFile(const char *data);
-
     /** @brief Set/Get cookie string. */
     void setCookieString(const char *cookie);
     const string getCookieString(void);
