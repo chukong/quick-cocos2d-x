@@ -25,6 +25,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#define kCCTouchesAllAtOnce                 0
+#define kCCTouchesOneByOne                  1
+
 /**
  * @addtogroup base_nodes
  * @{
@@ -683,7 +686,7 @@ class CCNode : public CCScriptEventDispatcher
      */
     CCCamera* getCamera();
 
-        /**
+    /**
      * Returns whether or not the node accepts event callbacks.
      *
      * Running means the node accept event callbacks like onEnter(), onExit(), update()
@@ -938,39 +941,21 @@ class CCNode : public CCScriptEventDispatcher
 
     /// @{
 
-    virtual CCScene *getScene();
-
-    virtual void registerWithTouchDispatcher(void);
-    virtual void unregisterWithTouchDispatcher(void);
+    CCScene *getScene();
 
     /** whether or not it will receive Touch events.
      You can enable / disable touch events with this property.
      Only the touches of this node will be affected. This "method" is not propagated to it's children.
      @since v0.8.1
      */
-    virtual bool isTouchCaptureEnabled();
-    virtual void setTouchCaptureEnabled(bool value);
-    virtual bool isTouchEnabled();
-    virtual void setTouchEnabled(bool value);
+    bool isTouchCaptureEnabled();
+    void setTouchCaptureEnabled(bool value);
 
-    virtual void setTouchMode(int mode);
-    virtual int getTouchMode();
+    bool isTouchEnabled();
+    void setTouchEnabled(bool value);
 
-    virtual bool ccTouchCaptureBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual bool ccTouchCaptureMoved(CCTouch *pTouch, CCEvent *pEvent);
-
-    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
-
-    virtual bool ccTouchesCaptureBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual bool ccTouchesCaptureMoved(CCSet *pTouches, CCEvent *pEvent);
-
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
+    void setTouchMode(int mode);
+    int getTouchMode();
     /// @}
 };
 

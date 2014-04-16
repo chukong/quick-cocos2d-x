@@ -19,8 +19,8 @@ cc.MENU_ITEM_CLICKED_EVENT  = 4
 cc.ACCELERATE_EVENT         = 5
 cc.KEYPAD_EVENT             = 6
 
-cc.MULTI_TOUCHES_ON         = true
-cc.MULTI_TOUCHES_OFF        = false
+cc.MULTI_TOUCHES            = 0
+cc.SINLE_TOUCH              = 1
 
 cc.size2t = function(size)
     return {width = size.width, height = size.height}

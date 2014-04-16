@@ -73,7 +73,7 @@ CCPoint CCTouch::getDelta() const
 CCTouch *CCTouch::copy()
 {
     CCTouch *copy = new CCTouch();
-    copy->setTouchInfo(m_nID, m_point.x, m_point.y);
+    copy->setTouchInfo(getID(), m_point.x, m_point.y);
     return copy;
 }
 

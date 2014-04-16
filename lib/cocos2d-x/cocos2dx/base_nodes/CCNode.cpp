@@ -1589,31 +1589,31 @@ void CCNode::setTouchCaptureEnabled(bool value)
     m_bTouchCaptureEnabled = value;
 }
 
-bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
+    CC_UNUSED_PARAM(pTarget);
     return true;
 }
 
-bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCEvent *pEvent)
+bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
+    CC_UNUSED_PARAM(pTarget);
     return true;
 }
 
-bool CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCEvent *pEvent)
+bool CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
+    CC_UNUSED_PARAM(pTarget);
     return true;
 }
 
-bool CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCEvent *pEvent)
+bool CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
+    CC_UNUSED_PARAM(pTarget);
     return true;
 }
 
@@ -1685,10 +1685,11 @@ void CCNode::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
     CC_UNUSED_PARAM(pEvent);
 }
 
-void CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
+bool CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    return true;
 }
 
 void CCNode::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)

@@ -40,11 +40,11 @@ NS_CC_BEGIN
  * @{
  */
 
-class CC_DLL CCTouchableNode : public CCObject
+class CC_DLL CCTouchTargetNode : public CCObject
 {
 public:
-    static CCTouchableNode *create(CCNode *node);
-    ~CCTouchableNode();
+    static CCTouchTargetNode *create(CCNode *node);
+    ~CCTouchTargetNode();
 
     CCNode *getNode();
 
@@ -68,7 +68,7 @@ public:
     bool isValid();
 
 private:
-    CCTouchableNode(CCNode *node);
+    CCTouchTargetNode(CCNode *node);
 
     CCNode *m_node;
     int m_touchMode;
@@ -112,7 +112,19 @@ public:
     void addTouchableNode(CCNode *node);
     void removeTouchableNode(CCNode *node);
 
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+    virtual void registerWithTouchDispatcher(void) {}
+    virtual void unregisterWithTouchDispatcher(void) {}
+
+    virtual bool isTouchEnabled() { return true; }
+    virtual void setTouchEnabled(bool value) { CC_UNUSED_PARAM(value); }
+
+    virtual void setTouchMode(int mode) { CC_UNUSED_PARAM(mode); }
+    virtual int getTouchMode() { return kCCTouchesAllAtOnce; }
+
+    virtual bool isTouchCaptureEnabled() { return true; }
+    virtual void setTouchCaptureEnabled(bool value) {}
+
+    virtual bool ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
@@ -121,10 +133,10 @@ public:
 
 protected:
     CCArray *m_touchableNodes;
-    CCArray *m_touchingNodes;
+    CCTouchTargetNode *m_touchingTarget;
     bool m_touchDispatchingEnabled;
 
-    CCTouchableNode *findTouchingNode(CCNode *node);
+    CCTouchTargetNode *findTouchingNode(CCNode *node);
     void sortAllTouchableNodes(CCArray *nodes);
     void enableTouchDispatching();
     void disableTouchDispatching();
