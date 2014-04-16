@@ -841,6 +841,11 @@ class CCNode : public CCEventDispatcher
     void scheduleUpdateWithPriorityLua(LUA_FUNCTION nHandler, int priority = 0);
     void scheduleUpdateWithPriorityLua @ scheduleUpdate (LUA_FUNCTION nHandler, int priority = 0);
 
+	// 2014-04-16 zrong start tolua
+    void resumeSchedulerAndActions(void);
+    void pauseSchedulerAndActions(void);
+	// 2014-04-16 zrong end
+
     /// @} end of Scheduler and Timer
 
     /// @{
