@@ -15,6 +15,7 @@ local function newButton(imageName, name, movable, listener)
     end
 
     sprite:setTouchEnabled(true) -- enable sprite touch
+    -- sprite:setTouchMode(cc.MULTI_TOUCHES) -- enable multi touches
     sprite:addTouchEventListener(function(event, x, y, prevX, prevY)
         if event == "began" then
             sprite:setOpacity(128)
@@ -41,7 +42,7 @@ local function newButton(imageName, name, movable, listener)
         else
             sprite:setOpacity(255)
         end
-    end, cc.MULTI_TOUCHES_ON)
+    end)
 
     return sprite
 end
