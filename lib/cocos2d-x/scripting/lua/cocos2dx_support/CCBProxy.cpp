@@ -82,7 +82,7 @@ const char* CCBProxy::getNodeTypeName(CCNode* pNode)
     }
     
     if (NULL != dynamic_cast<CCScale9Sprite*>(pNode)) {
-        return "CCLayerGradient";
+        return "CCScale9Sprite";
     }
     
     if (NULL != dynamic_cast<CCMenu*>(pNode)) {
@@ -117,6 +117,10 @@ const char* CCBProxy::getNodeTypeName(CCNode* pNode)
         return "CCMenuItem";
     }
 
+	if (NULL != dynamic_cast<CCScrollView*>(pNode)) {
+		return "CCScrollView";
+	}
+
     if (NULL != dynamic_cast<CCLayer*>(pNode)) {
         return "CCLayer";
     }
@@ -128,6 +132,10 @@ const char* CCBProxy::getNodeTypeName(CCNode* pNode)
     if (NULL != dynamic_cast<CCParticleSystemQuad*>(pNode)) {
         return "CCParticleSystemQuad";
     }
+
+	if (NULL != dynamic_cast<CCNode*>(pNode)) {
+		return "CCNode";
+	}
 
     return "No Support";
 }
