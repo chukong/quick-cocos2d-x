@@ -1,0 +1,8 @@
+class CCGammaFilter : public CCSingleFloatParamFilter
+{
+
+public:
+	static CCGammaFilter* create();
+	static CCGammaFilter* create(float param);
+	virtual void setParameter(float param);
+};

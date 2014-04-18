@@ -52,6 +52,10 @@ if not NO_SHORTCODES then
     require(cc.PACKAGE_NAME .. ".shortcodes")
 end
 
+if not NO_FILTER then
+	filter = require(cc.PACKAGE_NAME .. ".filter")
+end
+
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
 local function showMemoryUsage()
