@@ -543,13 +543,32 @@ function display.addImageAsync(imagePath, callback)
     sharedTextureCache:addImageAsync(imagePath, callback)
 end
 
-function display.addSpriteFramesWithFile(plistFilename, image)
+function display.addSpriteFramesWithFile(plistFilename, image, handler)
+	local async = type(handler) == "function"
+	local asyncHandler = nil
+	if async then
+		asyncHandler = function()
+			-- printf("%s, %s async done.", plistFilename, image)
+			local texture = sharedTextureCache:textureForKey(image)
+			assert(texture, string.format("The texture %s, %s is unavailable.", plistFilename, image))
+			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, texture)
+			handler(plistFilename, image)
+		end
+	end
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
-        sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		if async then
+			sharedTextureCache:addImageAsync(image, asyncHandler)
+		else
+			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		end
         CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
     else
-        sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		if async then
+			sharedTextureCache:addImageAsync(image, asyncHandler)
+		else
+			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		end
     end
 end
 
