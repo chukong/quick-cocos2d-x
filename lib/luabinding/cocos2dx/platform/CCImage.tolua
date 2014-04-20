@@ -78,6 +78,9 @@ class CCImage : public CCObject
     bool hasAlpha();
     bool isPremultipliedAlpha();
 
+	ccColor4B getColor4B(float x, float y);
+	ccColor4F getColor4F(float x, float y);
+
     /**
     @brief    Save CCImage data to the specified file, with specified format.
     @param    pszFilePath        the file's absolute path, including file suffix.

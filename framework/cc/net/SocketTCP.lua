@@ -113,7 +113,6 @@ function SocketTCP:close( ... )
 	self.tcp:close();
 	if self.connectTimeTickScheduler then scheduler.unscheduleGlobal(self.connectTimeTickScheduler) end
 	if self.tickScheduler then scheduler.unscheduleGlobal(self.tickScheduler) end
-	if self.connectTimeTickScheduler then scheduler.unscheduleGlobal(self.connectTimeTickScheduler) end
 	self:dispatchEvent({name=SocketTCP.EVENT_CLOSE})
 end
 

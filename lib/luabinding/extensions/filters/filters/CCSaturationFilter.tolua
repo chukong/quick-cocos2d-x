@@ -1,0 +1,8 @@
+class CCSaturationFilter : public CCSingleFloatParamFilter
+{
+
+public:
+	static CCSaturationFilter* create();
+	static CCSaturationFilter* create(float param);
+	virtual void setParameter(float param);
+};

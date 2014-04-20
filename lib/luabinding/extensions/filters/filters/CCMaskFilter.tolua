@@ -1,0 +1,11 @@
+class CCMaskFilter : public CCFilter
+{
+
+public:
+	static CCMaskFilter* create();
+	static CCMaskFilter* create(CCString* maskImage);
+	static CCMaskFilter* createWithSpriteFrameName(CCString* maskImage);
+	void setParameter(CCString* param);
+	void initSprite(CCFilteredSprite* sprite);
+	void setIsSpriteFrame(bool isSpriteFrame);
+};
