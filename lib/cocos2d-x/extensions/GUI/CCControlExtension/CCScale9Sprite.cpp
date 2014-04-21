@@ -777,4 +777,14 @@ void CCScale9Sprite::visit()
     CCNode::visit();
 }
 
+void CCScale9Sprite::setBlendFunc(ccBlendFunc blendFunc)
+{
+    this->_scale9Image->setBlendFunc(blendFunc);
+}
+
+ccBlendFunc CCScale9Sprite::getBlendFunc(void)
+{
+    return this->_scale9Image->getBlendFunc();
+}
+
 NS_CC_EXT_END

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Fri Nov 22 15:01:23 2013.
+** Generated automatically by tolua++-1.0.92 on 04/14/14 12:34:38.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -298,6 +298,36 @@ static int tolua_cocos2dx_extra_luabinding_CCCrypto_MD500(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'MD5'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: MD5FileLua of class  CCCrypto */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCCrypto_MD5File00
+static int tolua_cocos2dx_extra_luabinding_CCCrypto_MD5File00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCCrypto",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+     CCCrypto::MD5FileLua(path);
+   
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'MD5File'.",&tolua_err);
  return 0;
 #endif
 }
@@ -819,6 +849,78 @@ static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setPOSTData00(lua_State
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setPOSTData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addFormFile of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addFormFile00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addFormFile00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* filePath = ((const char*)  tolua_tostring(tolua_S,3,0));
+  const char* fileType = ((const char*)  tolua_tostring(tolua_S,4,"application/octet-stream"));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addFormFile'", NULL);
+#endif
+  {
+   self->addFormFile(name,filePath,fileType);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addFormFile'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addFormContents of class  CCHTTPRequest */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addFormContents00
+static int tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addFormContents00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCHTTPRequest",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCHTTPRequest* self = (CCHTTPRequest*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* value = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addFormContents'", NULL);
+#endif
+  {
+   self->addFormContents(name,value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addFormContents'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1475,6 +1577,7 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"encodeBase64",tolua_cocos2dx_extra_luabinding_CCCrypto_encodeBase6400);
    tolua_function(tolua_S,"decodeBase64",tolua_cocos2dx_extra_luabinding_CCCrypto_decodeBase6400);
    tolua_function(tolua_S,"MD5",tolua_cocos2dx_extra_luabinding_CCCrypto_MD500);
+   tolua_function(tolua_S,"MD5File",tolua_cocos2dx_extra_luabinding_CCCrypto_MD5File00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCNative","CCNative","",NULL);
   tolua_beginmodule(tolua_S,"CCNative");
@@ -1509,6 +1612,8 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"addRequestHeader",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addRequestHeader00);
    tolua_function(tolua_S,"addPOSTValue",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addPOSTValue00);
    tolua_function(tolua_S,"setPOSTData",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setPOSTData00);
+   tolua_function(tolua_S,"addFormFile",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addFormFile00);
+   tolua_function(tolua_S,"addFormContents",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_addFormContents00);
    tolua_function(tolua_S,"setCookieString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setCookieString00);
    tolua_function(tolua_S,"getCookieString",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_getCookieString00);
    tolua_function(tolua_S,"setAcceptEncoding",tolua_cocos2dx_extra_luabinding_CCHTTPRequest_setAcceptEncoding00);

@@ -1,0 +1,8 @@
+class CCBrightnessFilter : public CCSingleFloatParamFilter
+{
+public:
+	static CCBrightnessFilter* create();
+	static CCBrightnessFilter* create(float brightness);
+
+	void setParameter(float brightness);
+};

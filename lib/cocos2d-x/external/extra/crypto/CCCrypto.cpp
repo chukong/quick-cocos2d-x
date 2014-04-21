@@ -241,6 +241,21 @@ LUA_STRING CCCrypto::MD5Lua(char* input, bool isRawOutput)
     return 1;
 }
 
+LUA_STRING CCCrypto::MD5FileLua(const char* path)
+{
+    unsigned char buffer[MD5_BUFFER_LENGTH];
+    MD5File(path, buffer);
+    
+    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+    stack->clean();
+    
+    char* hex = bin2hex(buffer, MD5_BUFFER_LENGTH);
+    stack->pushString(hex);
+    delete[] hex;
+    
+    return 1;
+}
+
 char* CCCrypto::bin2hex(unsigned char* bin, int binLength)
 {
     static const char* hextable = "0123456789abcdef";

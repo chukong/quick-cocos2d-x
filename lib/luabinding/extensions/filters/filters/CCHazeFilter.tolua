@@ -1,0 +1,8 @@
+class CCHazeFilter : public CCFilter
+{
+
+public:
+	static CCHazeFilter* create();
+	static CCHazeFilter* create(float hazeDistance, float slope);
+	void setParameter(float hazeDistance, float slope);
+};

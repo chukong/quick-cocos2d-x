@@ -230,67 +230,46 @@ function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
-function display.newSprite(filename, x, y)
+-- 2014-04-10 zrong modified 
+-- Add a parameter named 'params' to provide 'class' and 'size'.
+-- The filtname parameter can be a CCTexture2D.
+-- 2014-04-10 zrong modify end
+function display.newSprite(filename, x, y, params)
+	local spriteClass = nil
+	local size = nil
+	if params then
+		spriteClass = params.class
+		size = params.size
+	end
+	if not spriteClass then spriteClass = CCSprite end
     local t = type(filename)
     if t == "userdata" then t = tolua.type(filename) end
     local sprite
 
     if not filename then
-        sprite = CCSprite:create()
+        sprite = spriteClass:create()
     elseif t == "string" then
         if string.byte(filename) == 35 then -- first char is #
             local frame = display.newSpriteFrame(string.sub(filename, 2))
             if frame then
-                sprite = CCSprite:createWithSpriteFrame(frame)
+                sprite = spriteClass:createWithSpriteFrame(frame)
             end
         else
             if display.TEXTURES_PIXEL_FORMAT[filename] then
                 CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-                sprite = CCSprite:create(filename)
+                sprite = spriteClass:create(filename)
                 CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
-                sprite = CCSprite:create(filename)
+                sprite = spriteClass:create(filename)
             end
         end
     elseif t == "CCSpriteFrame" then
-        sprite = CCSprite:createWithSpriteFrame(filename)
+        sprite = spriteClass:createWithSpriteFrame(filename)
+	elseif t == "CCTexture2D" then
+		sprite = spriteClass:createWithTexture(filename)
     else
         echoError("display.newSprite() - invalid filename value type")
-        sprite = CCSprite:create()
-    end
-
-    if sprite then
-        CCSpriteExtend.extend(sprite)
-        if x and y then sprite:setPosition(x, y) end
-    else
-        echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
-        sprite = CCSprite:create()
-    end
-
-    return sprite
-end
-
-function display.newScale9Sprite(filename, x, y, size)
-    local t = type(filename)
-    if t ~= "string" then
-        echoError("display.newScale9Sprite() - invalid filename type")
-        return
-    end
-
-    local sprite
-    if string.byte(filename) == 35 then -- first char is #
-        local frame = display.newSpriteFrame(string.sub(filename, 2))
-        if frame then
-            sprite = CCScale9Sprite:createWithSpriteFrame(frame)
-        end
-    else
-        if display.TEXTURES_PIXEL_FORMAT[filename] then
-            CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-            sprite = CCScale9Sprite:create(filename)
-            CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
-        else
-            sprite = CCScale9Sprite:create(filename)
-        end
+        sprite = spriteClass:create()
     end
 
     if sprite then
@@ -298,10 +277,18 @@ function display.newScale9Sprite(filename, x, y, size)
         if x and y then sprite:setPosition(x, y) end
         if size then sprite:setContentSize(size) end
     else
-        echoError("display.newScale9Sprite() - create sprite failure, filename %s", tostring(filename))
+        echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
+        sprite = spriteClass:create()
     end
 
     return sprite
+end
+
+-- 2014-04-10 zrong modified 
+-- The display.newSprite can adopt a class parameter, so I simplified the newScale9Sprite.
+-- 2014-04-10 zrong modify end
+function display.newScale9Sprite(filename, x, y, size)
+	return display.newSprite(filename, x, y, {class=CCScale9Sprite,size=size})
 end
 
 function display.newTilesSprite(filename, rect)
@@ -327,11 +314,179 @@ function display.newTilesSprite(filename, rect)
     return sprite
 end
 
-function display.newCircle(radius)
-    return CCNodeExtend.extend(CCCircleShape:create(radius))
+--- create a tiled CCSpriteBatchNode, the image can not a POT file.
+-- @author zrong(zengrong.net)
+-- Creation: 2014-01-21
+-- Modification: 2014-04-10
+-- @param filename As same a the first parameter for display.newSprite
+-- @param plistFile Texture(plist) image filename, filename must be a part of the texture.
+-- @param size The tiled node size, use cc.size create it please.
+-- @param hPadding Horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
+-- @param vPadding Vertical padding.
+-- @return A CCSpriteBatchNode
+function display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding)
+	size = size or cc.size(display.width, display.height)
+	hPadding = hPadding or 0
+	vPadding = vPadding or 0
+	local __sprite = display.newSprite(filename)
+	local __sliceSize = __sprite:getContentSize()
+	__sliceSize.width = __sliceSize.width - hPadding
+	__sliceSize.height = __sliceSize.height - vPadding
+	local __xRepeat = math.ceil(size.width/__sliceSize.width)
+	local __yRepeat = math.ceil(size.height/__sliceSize.height)
+	-- How maney sprites we need to fill in tiled node?
+	local __capacity = __xRepeat * __yRepeat
+	local __batch = display.newBatchNode(plistFile, __capacity)
+	local __newSize = cc.size(0,0)
+	--printf("newTileNode xRepeat:%u, yRepeat:%u", __xRepeat, __yRepeat)
+	for y=0,__yRepeat-1 do
+		for x=0,__xRepeat-1 do
+			__newSize.width = __newSize.width + __sliceSize.width
+			__sprite = display.newSprite(filename)
+				:align(display.LEFT_BOTTOM,x*__sliceSize.width, y*__sliceSize.height)
+				:addTo(__batch)
+				--print("newTileNode:", x*__sliceSize.width, y*__sliceSize.height)
+		end
+		__newSize.height = __newSize.height + __sliceSize.height
+	end
+	__batch:setContentSize(__newSize)
+	return __batch, __newSize.width, __newSize.height
 end
 
-function display.newRect(width, height)
+--- Create a masked sprite
+-- @author zrong(zengrong.net)
+-- Creation: 2014-01-21
+function display.newMaskedSprite(__mask, __pic)
+	local __mb = ccBlendFunc:new()
+	__mb.src = GL_ONE
+	__mb.dst = GL_ZERO
+
+	local __pb = ccBlendFunc:new()
+	__pb.src = GL_DST_ALPHA
+	__pb.dst = GL_ZERO
+
+	local __maskSprite = display.newSprite(__mask):align(display.LEFT_BOTTOM, 0, 0)
+	__maskSprite:setBlendFunc(__mb)
+
+	local __picSprite = display.newSprite(__pic):align(display.LEFT_BOTTOM, 0, 0)
+	__picSprite:setBlendFunc(__pb)
+
+	local __maskSize = __maskSprite:getContentSize()
+	local __canva = CCRenderTexture:create(__maskSize.width,__maskSize.height)
+	__canva:begin()
+	__maskSprite:visit()
+	__picSprite:visit()
+	__canva:endToLua()
+
+	local __resultSprite = CCSpriteExtend.extend(
+		CCSprite:createWithTexture(
+			__canva:getSprite():getTexture()
+		))
+		:flipY(true)
+	return __resultSprite
+end
+
+--- Create a Filtered Sprite
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-10
+-- @param filename As same a the first parameter for display.newSprite
+-- @param filters One of the following:
+-- 		A CCFilter name;
+-- 		More CCFilter names(in a table);
+-- 		An instance of CCFilter;
+-- 		Some instances of CCFilter(in a table);
+-- 		A CCArray inclueds some instances of CCFilter.
+-- @param params A or some parameters for CCFilter.
+-- @return An instance of CCFilteredSprite
+function display.newFilteredSprite(filename, filters, params)
+	local __one = {class=CCFilteredSpriteWithOne}
+	local __multi = {class=CCFilteredSpriteWithMulti}
+	if not filters then return display.newSprite(filtename, nil,nil , __one) end
+	local __sp = nil
+	local __type = type(filters)
+    if __type == "userdata" then __type = tolua.type(filters) end
+	--print("display.newFSprite type:", __type)
+	if __type == "string" then
+		__sp = display.newSprite(filename, nil, nil, __one)
+		filters = filter.newFilter(filters, params)
+		__sp:setFilter(filters)
+	elseif __type == "table" then
+		assert(#filters > 1, "display.newFilteredSprite() - Please give me 2 or more filters!")
+		__sp = display.newSprite(filename, nil, nil, __multi)
+		-- treat filters as {"FILTER_NAME", "FILTER_NAME"}
+		if type(filters[1]) == "string" then
+			__sp:setFilters(filter.newFilters(filters, params))
+		else
+			-- treat filters as {CCFilter, CCFilter , ...}
+			local __filters = CCArray:create()
+			for i in ipairs(filters) do
+				__filters:addObject(filters[i])
+			end
+			__sp:setFilters(__filters)
+		end
+	elseif __type == "CCArray" then
+		-- treat filters as CCArray(CCFilter, CCFilter, ...)
+		__sp = display.newSprite(filename, nil, nil, __multi)
+		__sp:setFilters(filters)
+	else
+		-- treat filters as CCFilter
+		__sp = display.newSprite(filename, nil, nil, __one)
+		__sp:setFilter(filters)
+	end
+	return __sp
+end
+display.newFSprite = display.newFilteredSprite
+
+--- Create a Gray Sprite by CCFilteredSprite
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-10
+-- @param filename As same a the first parameter for display.newSprite
+-- @param params As same as the third parameter for display.newFilteredSprite
+-- @return An instance of CCFilteredSprite
+function display.newGraySprite(filename, params)
+	return display.newFilteredSprite(filename, "GRAY", params)
+end
+
+function display.newDrawNode()
+	return CCDrawNodeExtend.extend(CCDrawNode:create())
+end
+
+--- Create a circle or a sector or a pie by CCDrawNode
+-- @author zrong(zengrong.net)
+-- Creation: 2014-03-11
+function display.newSolidCircle(radius, params)
+	local circle = display.newDrawNode()
+	circle:drawCircle(radius, params)
+	local x,y = 0,0
+	if params then
+		x = params.x or x
+		y = params.y or y
+	end
+	circle:pos(x,y)
+	return circle
+end
+
+function display.newCircle(radius, params)
+    local circle = CCNodeExtend.extend(CCCircleShape:create(radius))
+	local x,y = 0,0
+	local align=display.CENTER
+	if params then
+		x = params.x or x
+		y = params.y or y
+		align = params.align or align
+		if params.fill then circle:setFill(params.fill) end
+		if params.color then circle:setLineColor(params.color) end
+		if params.strippleEnabled then circle:setLineStippleEnabled(params.strippleEnabled) end
+		if params.lineStripple then circle:setLineStipple(params.lineStripple) end
+		local lineWidth = params.lineWidth or params.borderWidth 
+		if lineWidth then circle:setLineWidth(lineWidth) end
+	end
+	circle:setContentSize(cc.size(radius*2,radius*2))
+	circle:align(align, x,y)
+	return circle
+end
+
+function display.newRect(width, height, params)
     local x, y = 0, 0
     if type(width) == "userdata" then
         local t = tolua.type(width)
@@ -350,7 +505,21 @@ function display.newRect(width, height)
     end
 
     local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
-    rect:setPosition(x, y)
+	local align=display.CENTER
+	if type(height) == "table" then params = hight end
+	if type(params) == "table" then
+		x = params.x or x
+		y = params.y or y
+		align = params.align or align
+		if params.color then rect:setLineColor(params.color) end
+		if params.strippleEnabled then rect:setLineStippleEnabled(params.strippleEnabled) end
+		if params.lineStripple then rect:setLineStipple(params.lineStripple) end
+		if params.fill then rect:setFill(params.fill) end
+		local lineWidth = params.lineWidth or params.borderWidth 
+		if lineWidth then rect:setLineWidth(lineWidth) end
+	end
+	rect:setContentSize(cc.size(width, height))
+	rect:align(align, x,y)
     return rect
 end
 
@@ -374,13 +543,32 @@ function display.addImageAsync(imagePath, callback)
     sharedTextureCache:addImageAsync(imagePath, callback)
 end
 
-function display.addSpriteFramesWithFile(plistFilename, image)
+function display.addSpriteFramesWithFile(plistFilename, image, handler)
+	local async = type(handler) == "function"
+	local asyncHandler = nil
+	if async then
+		asyncHandler = function()
+			-- printf("%s, %s async done.", plistFilename, image)
+			local texture = sharedTextureCache:textureForKey(image)
+			assert(texture, string.format("The texture %s, %s is unavailable.", plistFilename, image))
+			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, texture)
+			handler(plistFilename, image)
+		end
+	end
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
-        sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		if async then
+			sharedTextureCache:addImageAsync(image, asyncHandler)
+		else
+			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		end
         CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
     else
-        sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		if async then
+			sharedTextureCache:addImageAsync(image, asyncHandler)
+		else
+			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
+		end
     end
 end
 
@@ -472,6 +660,44 @@ function display.newProgressTimer(image, progresssType)
     local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
     progress:setType(progresssType)
     return progress
+end
+
+-- Get a screenshot of a CCNode
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-10
+-- @param node A node to print.
+-- @param args 
+-- @return An instance of CCSprite or CCFilteredSprite.
+function display.printscreen(node, args)
+	local sp = true
+	local file = nil
+	local filters = nil
+	local filterParams = nil
+	if args then
+		if args.sprite ~= nil then sp = args.sprite end
+		file = args.file
+		filters = args.filters
+		filterParams = args.filterParams
+	end
+	local size = node:getContentSize()
+	local canvas = CCRenderTexture:create(size.width,size.height)
+	canvas:begin()
+	node:visit()
+	canvas:endToLua()
+
+	if sp then
+		local texture = canvas:getSprite():getTexture()
+		if filters then
+			sp = display.newFSprite(texture, filters, filterParams)
+		else
+			sp = display.newSprite(texture)
+		end
+		sp:flipY(true)
+	end
+	if file and device.platform ~= "mac" then
+		canvas:saveToFile(file)
+	end
+	return sp, file
 end
 
 return display
