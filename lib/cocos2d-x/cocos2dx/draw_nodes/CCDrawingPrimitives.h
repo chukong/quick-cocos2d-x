@@ -110,8 +110,8 @@ void CC_DLL ccDrawPoly( const CCPoint *vertices, unsigned int numOfVertices, boo
 void CC_DLL ccDrawSolidPoly( const CCPoint *poli, unsigned int numberOfPoints, ccColor4F color );
 
 /** draws a circle given the center, radius and number of segments. */
-void CC_DLL ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY);
-void CC_DLL ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter);
+void CC_DLL ccDrawCircle(const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY,bool fill=false);
+void CC_DLL ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, bool fill=false);
 
 /** draws a quad bezier path
  @warning This function could be pretty slow. Use it only for debugging purposes.

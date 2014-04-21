@@ -1,0 +1,8 @@
+class CCHueFilter : public CCSingleFloatParamFilter
+{
+
+public:
+	static CCHueFilter* create();
+	static CCHueFilter* create(float param);
+	void setParameter(float param);
+};

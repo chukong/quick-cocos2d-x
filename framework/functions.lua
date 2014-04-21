@@ -157,6 +157,14 @@ function math.round(num)
     return math.floor(num + 0.5)
 end
 
+function math.angle2Radian(angle)
+	return angle*math.pi/180
+end
+
+function math.radian2Angle(radian)
+	return radian/math.pi*180
+end
+
 function io.exists(path)
     local file = io.open(path, "r")
     if file then
@@ -441,7 +449,7 @@ function string.ucfirst(str)
 end
 
 local function urlencodeChar(char)
-    return "%" .. string.format("%02X", string.byte(c))
+    return "%" .. string.format("%02X", string.byte(char))
 end
 
 function string.urlencode(str)
