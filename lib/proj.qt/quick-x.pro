@@ -1,4 +1,6 @@
-cache()
+greaterThan(QT_MAJOR_VERSION, 4){
+    cache()
+}
 
 include(quick-x-src.pri)
 

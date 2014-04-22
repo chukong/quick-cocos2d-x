@@ -49,7 +49,12 @@ public:
     void initConsole();
     void setLogFileName(QString fileName);
     void initMainMenu();
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     void makeMainWindow(QWindow *w, QMenuBar *bar);
+#endif
+
+    void makeMainWindow(QWidget *w, QMenuBar *bar);
 
     QMenuBar *getMenuBar();
 

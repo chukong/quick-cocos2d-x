@@ -13,13 +13,12 @@
 #include <QProcess>
 #include <QSettings>
 #include <QVBoxLayout>
-#include <QJsonValue>
-#include <QJsonDocument>
 #include <QDebug>
 
 // 3rd library
 #include "cocos2d.h"
 #include "CCLuaEngine.h"
+#include "QxJson.h"
 
 // ui
 #include "aboutui.h"
@@ -443,6 +442,7 @@ void Player::initMainMenu()
     connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
 {
 #ifdef Q_OS_MAC
@@ -467,6 +467,54 @@ void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
 		layout->setContentsMargins(0,0,0,0);
 		layout->addWidget(bar);
 		layout->addWidget(m_container);
+
+        m_mainWindow->setLayout(layout);
+        m_mainWindow->setFixedSize(glSize + QSize(0, MENU_BAR_FIXED_HEIGHT));
+        m_mainWindow->show();
+
+        m_mainWindow->installEventFilter(this);
+
+#if QT_VERSION == QT_VERSION_CHECK(5, 1, 0)
+        // fix: shortcuts for Qt5.1 on windows
+        w->installEventFilter(this);
+#endif
+    }
+
+#endif
+
+    checkQuickRootPath();
+    updateTitle();
+}
+#endif
+
+void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
+{
+#ifdef Q_OS_MAC
+    Q_UNUSED(bar);
+
+    if (w)
+    {
+        w->show();
+    }
+
+#else
+    static bool bInited = false;
+    if (bar && w && !bInited)
+    {
+        bInited = true;
+        m_mainWindow = new QWidget();
+        m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
+
+        QSize glSize = w->size();
+        m_container = QWidget::createWindowContainer(w);
+        m_container->setMinimumSize(glSize);
+
+        bar->setFixedHeight(MENU_BAR_FIXED_HEIGHT);
+
+        QVBoxLayout *layout = new QVBoxLayout();
+        layout->setContentsMargins(0,0,0,0);
+        layout->addWidget(bar);
+        layout->addWidget(m_container);
 
         m_mainWindow->setLayout(layout);
         m_mainWindow->setFixedSize(glSize + QSize(0, MENU_BAR_FIXED_HEIGHT));
@@ -619,7 +667,7 @@ void Player::updateTitle()
 {
     QString title = QString("quick-x-player (%1%)").arg(m_projectConfig.getFrameScale()*100);
 #ifdef Q_OS_MAC
-    CCEGLView::sharedOpenGLView()->getGLWindow()->setTitle(title);
+    CCEGLView::sharedOpenGLView()->setViewName(title.toUtf8().data());
 #else
     m_mainWindow->setWindowTitle(title);
 #endif
@@ -852,8 +900,7 @@ void Player::onAddDemoList(QString data)
 {
     if (m_demoWidget)
     {
-        QJsonDocument json = QJsonDocument::fromJson(data.toUtf8());
-        m_demoWidget->addDemos(json.toVariant().toList());
+        m_demoWidget->addDemos(QxTools::stringToVariant(data).toList());
     }
 }
 
@@ -922,9 +969,9 @@ void Player::onNewProject()
 void Player::onCreateNewPlayer()
 {
     ProjectConfig newPlayerConfig = m_projectConfig;
-    QWindow *window = CCEGLView::sharedOpenGLView()->getGLWindow();
+    QWidget *window = CCEGLView::sharedOpenGLView()->getGLWidget();
     newPlayerConfig.resetToWelcome();
-    newPlayerConfig.setWindowOffset(CCPoint(window->position().x()+50, window->position().y()+10));
+    newPlayerConfig.setWindowOffset(CCPoint(window->pos().x()+50, window->pos().y()+10));
 
     QString cmd(newPlayerConfig.makeCommandLine().data());
     QStringList args = cmd.split(" ");
@@ -1009,8 +1056,8 @@ void Player::onShowPreferences()
 void Player::onMainWidgetOnTop(bool checked)
 {
 #ifdef Q_OS_MAC
-    Qt::WindowFlags flags = CCEGLView::sharedOpenGLView()->getGLWindow()->flags();
-    QPoint pos = CCEGLView::sharedOpenGLView()->getGLWindow()->position();
+    Qt::WindowFlags flags = CCEGLView::sharedOpenGLView()->getGLWidget()->windowFlags();
+    QPoint pos = CCEGLView::sharedOpenGLView()->getGLWidget()->pos();
     if (checked)
     {
         flags ^= Qt::WindowStaysOnBottomHint;
@@ -1021,9 +1068,9 @@ void Player::onMainWidgetOnTop(bool checked)
         flags ^= Qt::WindowStaysOnTopHint;
         flags |= Qt::WindowStaysOnBottomHint;
     }
-    CCEGLView::sharedOpenGLView()->getGLWindow()->setFlags(flags);
-    CCEGLView::sharedOpenGLView()->getGLWindow()->show();
-    CCEGLView::sharedOpenGLView()->getGLWindow()->setPosition(pos);
+    CCEGLView::sharedOpenGLView()->getGLWidget()->setWindowFlags(flags);
+    CCEGLView::sharedOpenGLView()->getGLWidget()->show();
+    CCEGLView::sharedOpenGLView()->getGLWidget()->move(pos);
 #else
 	Qt::WindowFlags flags = m_mainWindow->windowFlags();
 	QPoint pos = m_mainWindow->pos();
@@ -1048,9 +1095,8 @@ void Player::onLogin(QString userName, QString password)
     QVariantMap data;
     data["user"] = userName;
     data["pwd"] = password;
-    QJsonDocument out = QJsonDocument::fromVariant(data);
 
-    sendMessageToLua("core.message", out.toJson());
+    sendMessageToLua("core.message", QxTools::variantToString(data));
 }
 
 void Player::sendMessageToLua(QString eventId, QString eventData)

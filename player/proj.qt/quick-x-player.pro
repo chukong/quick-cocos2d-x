@@ -38,7 +38,9 @@ SOURCES += main.cpp\
     consoleui.cpp \
     msghandlerwapper.cpp \
     logindialog.cpp \
-    preferenceui.cpp
+    preferenceui.cpp \
+    qxjson.cpp \
+    3rd/qt-json/qt-json.cpp
 
 SOURCES += ../sources/*.cpp
 
@@ -51,7 +53,8 @@ HEADERS  += \
     consoleui.h \
     msghandlerwapper.h \
     logindialog.h \
-    preferenceui.h
+    preferenceui.h \
+    3rd/qt-json/qt-json.h
 
 FORMS    += \
     aboutui.ui \

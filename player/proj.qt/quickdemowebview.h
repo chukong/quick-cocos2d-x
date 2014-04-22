@@ -2,6 +2,7 @@
 #define QUICKDEMOWEBVIEW_H
 
 #include <QScrollArea>
+#include <QVariantList>
 
 class QSignalMapper;
 class QuickDemoList : public QScrollArea

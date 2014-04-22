@@ -27,7 +27,9 @@ THE SOFTWARE.
 
 #include <QMouseEvent>
 #include <QWidget>
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #include <QWindow>
+#endif
 
 #include "touch_dispatcher/CCTouch.h"
 #include "CCStdC.h"
@@ -66,7 +68,6 @@ public:
     void mouseRelease(QMouseEvent *event);
     void setAccelerometerKeyHook(MyAccelerometerDelegate accelerometerDelegate);
     QWidget * getGLWidget();
-    QWindow * getGLWindow();
     void setInterval(int interval_ms);
 
 private:

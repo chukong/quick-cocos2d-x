@@ -74,17 +74,24 @@ int main(int argc, char *argv[])
     }
     else
     {
-        view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x,
-                                         projectConfig.getWindowOffset().y);
+//        view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x,
+//                                         projectConfig.getWindowOffset().y);
+        view->getGLWidget()->move(projectConfig.getWindowOffset().x,
+                                  projectConfig.getWindowOffset().y);
     }
 
     player->initMainMenu();
-    player->makeMainWindow(view->getGLWindow(), player->getMenuBar());
+    player->makeMainWindow(view->getGLWidget(), player->getMenuBar());
     player->enterBackgroundDelegate.bind(&app, &AppDelegate::applicationDidEnterBackground);
     player->enterForegroundDelegate.bind(&app, &AppDelegate::applicationWillEnterForeground);
 
 #ifdef Q_OS_MAC
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     if (QT_VERSION < QT_VERSION_CHECK(5, 2, 0) && QSysInfo::macVersion() >= QSysInfo::MV_MAVERICKS)
+#else
+    if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MOUNTAINLION)
+#endif
     {
         // OS X 10.9 crash with Qt 5.1, so set the default font for quick-x-player
         QFont font("Courier", 13, QFont::Normal, false);

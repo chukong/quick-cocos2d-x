@@ -37,13 +37,15 @@ THE SOFTWARE.
 /// Qt
 #include <QApplication>
 #include <QDesktopWidget>
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#include <QOpenGLContext>
 #include <QWindow>
+#endif
 #include <QTouchEvent>
 
-#include <QOpenGLContext>
 #include <QEvent>
 #include <QMouseEvent>
-#include <QTimer>
+#include <QGLWidget>
 
 
 
@@ -64,6 +66,9 @@ public:
 
 const QEvent::Type AppDidFinishLaunchingEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
 
+#define USING_QWINDOW 0
+
+#if USING_QWINDOW==1
 class Cocos2DQt5OpenGLIntegration : public QWindow {
     public:
         Cocos2DQt5OpenGLIntegration(int width, int height);
@@ -236,7 +241,143 @@ void Cocos2DQt5OpenGLIntegration::keyReleaseEvent(QKeyEvent *event)
         accelFunc(event);
     QWindow::keyPressEvent(event);
 }
+#else
 
+class Cocos2DQt5OpenGLIntegration : public QGLWidget {
+    public:
+        Cocos2DQt5OpenGLIntegration(int w, int h, QWidget *parent = 0);
+        ~Cocos2DQt5OpenGLIntegration();
+
+//        virtual void touchEvent(QTouchEvent *event);
+        virtual bool event(QEvent *event);
+
+        void swapBuffers();
+
+        void setInterval(int interval_ms)
+        {
+            if (m_timer != 0) {
+                killTimer(m_timer);
+            }
+
+            m_timer = startTimer(interval_ms);
+        }
+
+        void setTitle(QString title)
+        {
+            setWindowTitle(title);
+        }
+
+        void setPosition(qreal x, qreal y)
+        {
+            move(x, y);
+        }
+
+        // touch delegate
+        typedef fastdelegate::FastDelegate1<QMouseEvent *> MyTouchDelegate;
+        MyTouchDelegate touchMove;
+        MyTouchDelegate touchBegin;
+        MyTouchDelegate touchEnd;
+
+        MyAccelerometerDelegate accelFunc;
+
+    protected:
+        virtual void mouseMoveEvent(QMouseEvent *event);
+        virtual void mousePressEvent(QMouseEvent *event);
+        virtual void mouseReleaseEvent(QMouseEvent *event);
+        virtual void keyPressEvent(QKeyEvent *event);
+        virtual void keyReleaseEvent(QKeyEvent *event);
+
+        void showEvent(QShowEvent *)
+        {
+            static bool inited = false;
+            if (!inited) {
+                inited = true;
+
+                initGL();
+
+                AppDidFinishLaunchingEvent *finishLaunchingEvent = new AppDidFinishLaunchingEvent;
+                qApp->postEvent(this, finishLaunchingEvent, Qt::LowEventPriority);
+            }
+        }
+
+        virtual void timerEvent(QTimerEvent */*event*/)
+        {
+            cocos2d::CCDirector::sharedDirector()->mainLoop();
+        }
+
+        QPaintEngine * paintEngine() const
+        {
+            return 0;
+        }
+    private:
+        int m_timer;
+};
+
+Cocos2DQt5OpenGLIntegration::Cocos2DQt5OpenGLIntegration(int, int, QWidget *parent)
+    : QGLWidget(parent)
+    , m_timer(0)
+{
+    setFormat(QGLFormat(QGL::DoubleBuffer));
+}
+
+Cocos2DQt5OpenGLIntegration::~Cocos2DQt5OpenGLIntegration()
+{
+}
+
+bool
+Cocos2DQt5OpenGLIntegration::event(QEvent *event)
+{
+    if (event->type() == QEvent::Close) {
+        killTimer(m_timer);
+        CCDirector::sharedDirector()->end();
+    }
+    else if (event->type() == AppDidFinishLaunchingEvent::EventType) {
+        CCApplication::sharedApplication()->applicationDidFinishLaunching();
+    }
+
+    return QGLWidget::event(event);
+}
+
+void
+Cocos2DQt5OpenGLIntegration::swapBuffers()
+{
+    QGLWidget::swapBuffers();
+    makeCurrent();
+}
+
+void Cocos2DQt5OpenGLIntegration::mousePressEvent(QMouseEvent *event)
+{
+    touchBegin(event);
+    QGLWidget::mousePressEvent(event);
+}
+
+void Cocos2DQt5OpenGLIntegration::mouseMoveEvent(QMouseEvent *event)
+{
+    touchMove(event);
+    QGLWidget::mouseMoveEvent(event);
+}
+
+void Cocos2DQt5OpenGLIntegration::mouseReleaseEvent(QMouseEvent *event)
+{
+    touchEnd(event);
+    QGLWidget::mouseReleaseEvent(event);
+}
+
+void Cocos2DQt5OpenGLIntegration::keyPressEvent(QKeyEvent *event)
+{
+    if (accelFunc)
+        accelFunc(event);
+    QGLWidget::keyPressEvent(event);
+}
+
+void Cocos2DQt5OpenGLIntegration::keyReleaseEvent(QKeyEvent *event)
+{
+    if (accelFunc)
+        accelFunc(event);
+    QGLWidget::keyPressEvent(event);
+}
+
+#endif
 
 ////////////////////////////////// Cocos2DQt5OpenGLIntegration ////////////////////////////////////
 
@@ -339,7 +480,7 @@ CCEGLView::CCEGLView()
 {
     m_pTouch = new CCTouch;
     m_pSet = new CCSet;
-    strcpy(m_szViewName, "quick-cocos2d-x LuaHostWin32");
+    strcpy(m_szViewName, "quick-cocos2d-x");
 }
 
 CCEGLView::~CCEGLView()
@@ -437,6 +578,12 @@ bool CCEGLView::Create()
         m_integration->touchBegin.bind(this, &CCEGLView::mousePress);
         m_integration->touchMove.bind(this, &CCEGLView::mouseMove);
         m_integration->touchEnd.bind(this, &CCEGLView::mouseRelease);
+
+#if USING_QWINDOW == 1
+        m_glParentWidget = QWidget::createWindowContainer(m_integration);
+#else
+        m_glParentWidget = m_integration;
+#endif
 //        m_integration->show();
 //        m_glParentWidget = QWidget::createWindowContainer(m_integration);
 //        m_glParentWidget->show();
@@ -494,11 +641,11 @@ void CCEGLView::setViewName(const char* pszViewName)
 
 void CCEGLView::resize(int width, int height)
 {
-    if (m_integration) {
+    if (m_glParentWidget) {
 //        m_integration->setFixedSize(width, height);
-        m_integration->resize(width, height);
-        m_integration->setMinimumSize(QSize(width, height));
-        m_integration->setMaximumSize(QSize(width, height));
+        m_glParentWidget->resize(width, height);
+        m_glParentWidget->setMinimumSize(QSize(width, height));
+        m_glParentWidget->setMaximumSize(QSize(width, height));
     }
 }
 
@@ -662,11 +809,6 @@ void CCEGLView::setAccelerometerKeyHook(MyAccelerometerDelegate accelerometerDel
 QWidget *CCEGLView::getGLWidget()
 {
     return m_glParentWidget;
-}
-
-QWindow *CCEGLView::getGLWindow()
-{
-    return m_integration;
 }
 
 void CCEGLView::setInterval(int interval_ms)
