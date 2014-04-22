@@ -3,11 +3,14 @@
 # Project created by QtCreator 2013-10-16T03:16:56
 #
 #-------------------------------------------------
-cache()
 
-QT       += core gui webkit
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets webkitwidgets
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4){
+    cache()
+    QT += widgets
+}
 
 TARGET = quick-x-player
 TEMPLATE = app

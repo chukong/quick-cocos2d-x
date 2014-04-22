@@ -1,22 +1,31 @@
 #ifndef QUICKDEMOWEBVIEW_H
 #define QUICKDEMOWEBVIEW_H
 
-#include <QWebView>
+#include <QScrollArea>
 
-class QuickDemoWebView : public QWebView
+class QSignalMapper;
+class QuickDemoList : public QScrollArea
 {
     Q_OBJECT
 public:
-    explicit QuickDemoWebView(QWidget *parent = 0);
-    void setObject(QObject *obj);
-    void load(const QString &filePath);
-    void load(const QUrl &url);
+    explicit QuickDemoList(QWidget *parent = 0);
 
-public Q_SLOTS:
-    void addJavaScriptObject();
+    void addDemos(QVariantList demoDataList);
+
+Q_SIGNALS:
+    void sigOpenDemo(QString demoId);
+
+protected Q_SLOTS:
+    void onOpenDemo(QString demoId);
 
 private:
-    QObject *m_object;  // weak ref
+    void initUI();
+    QWidget *createOneDemoWidget(QVariantMap data);
+
+private:
+    QWidget         *m_listWidget;
+    QSignalMapper   *m_signalMapper;
 };
+
 
 #endif // QUICKDEMOWEBVIEW_H

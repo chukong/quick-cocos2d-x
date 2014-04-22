@@ -9,12 +9,12 @@
 #include <QMenuBar>
 #include <QTimer>
 #include <QApplication>
-#include <QWebFrame>
 #include <QDesktopServices>
 #include <QProcess>
 #include <QSettings>
 #include <QVBoxLayout>
 #include <QJsonValue>
+#include <QJsonDocument>
 #include <QDebug>
 
 // 3rd library
@@ -55,7 +55,7 @@ Player::Player(QObject *parent)
     , m_mainMenu(0)
     , m_openRecentMenu(0)
     , m_consoleUI(0)
-    , m_webview(0)
+    , m_demoWidget(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
 	, m_container(0)
@@ -68,6 +68,7 @@ Player::~Player()
 {
     CC_SAFE_DELETE(m_mainMenu);
     CC_SAFE_DELETE(m_consoleUI);
+    CC_SAFE_DELETE(m_demoWidget);
 }
 
 Player *Player::instance()
@@ -610,7 +611,7 @@ bool Player::eventFilter(QObject *o, QEvent *e)
 {
 #ifdef Q_OS_WIN
     // shortcut
-    if (o == m_consoleUI || o == m_webview || o == CCEGLView::sharedOpenGLView()->getGLWindow())
+    if (o == m_consoleUI || o == m_demoWidget || o == CCEGLView::sharedOpenGLView()->getGLWindow())
     {
         if (e->type() == QEvent::KeyPress)
         {
@@ -629,9 +630,9 @@ bool Player::eventFilter(QObject *o, QEvent *e)
                 m_consoleUI->close();
             }
 
-            if (m_webview)
+            if (m_demoWidget)
             {
-                m_webview->close();
+                m_demoWidget->close();
             }
         }
     }
@@ -698,6 +699,14 @@ void Player::eventDispatch(QString messageName, QString data)
             else if (tmpMsgName == "openDemo")
             {
                 this->onOpenQuickDemoWebview();
+            }
+            else if (tmpMsgName == "addDemoList")
+            {
+                this->onAddDemoList(data);
+            }
+            else
+            {
+                QMetaObject::invokeMethod(this, tmpMsgName.toUtf8().data(), Qt::DirectConnection);
             }
         }
     }
@@ -809,15 +818,30 @@ void Player::onScreenScaleTriggered()
 
 void Player::onOpenQuickDemoWebview()
 {
-    m_webview = new QuickDemoWebView();
-    m_webview->installEventFilter(this);
-    m_webview->setAttribute(Qt::WA_DeleteOnClose);
-    QString filePaht(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
-    filePaht.append("player/proj.qt/demo.html");
-    m_webview->setObject(this);
-    m_webview->load(filePaht);
-//    m_webview->load(QUrl("http://www.baidu.com/"));
-    m_webview->show();
+    if (!m_demoWidget)
+    {
+        m_demoWidget = new QuickDemoList();
+        connect(m_demoWidget, SIGNAL(sigOpenDemo(QString)), this, SLOT(onOpenDemo(QString)));
+
+        sendMessageToLua("getDemoData", "{}");
+    }
+
+    m_demoWidget->raise();
+    m_demoWidget->show();
+}
+
+void Player::onAddDemoList(QString data)
+{
+    if (m_demoWidget)
+    {
+        QJsonDocument json = QJsonDocument::fromJson(data.toUtf8());
+        m_demoWidget->addDemos(json.toVariant().toList());
+    }
+}
+
+void Player::onOpenDemo(QString demoId)
+{
+    sendMessageToLua("core.openDemo", demoId);
 }
 
 void Player::on_actionAbout_triggered()

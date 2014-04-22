@@ -2,8 +2,25 @@ local WelcomeScene = class("WelcomeScene", function()
     return display.newScene("WelcomeScene")
 end)
 
+function getDemoData()
+    -- body
+    demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
+                  , {id="demo2", text="<b>Two Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}}
+
+    QT_INTERFACE("core.addDemoList", json.encode(demoDataList))
+end
+
+function openDemo( demoId )
+    QT_INTERFACE("core.openProject")
+end
+
 function LUA_Interface(messageId, messageData)
     print("messageId: ", messageId, "data : ", messageData)
+    if messageId == "getDemoData" then
+        getDemoData()
+    elseif messageId == "core.openDemo" then
+        openDemo(messageData)
+    end
 end
 
 function PlayerLoginCallback(userName, password)

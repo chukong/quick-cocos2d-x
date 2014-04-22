@@ -57,6 +57,9 @@ public:
     fastdelegate::FastDelegate0<void> enterForegroundDelegate;
 public Q_SLOTS:
     void onOpenQuickDemoWebview();
+    void onAddDemoList(QString data);
+    void onOpenDemo(QString demoId);
+
     void onShowOpenCocoaChinaWebView();
     void onShowConsole();
     void onShowLoginUI();
@@ -141,7 +144,7 @@ private:
     QAction         *m_writeDebugAction;
 
     ConsoleUI       *m_consoleUI;
-    QuickDemoWebView *m_webview;
+    QuickDemoList   *m_demoWidget;
     QMap<QKeySequence, QAction*> m_actionMap;
 #ifdef Q_OS_WIN
     QWidget	        *m_mainWindow;
