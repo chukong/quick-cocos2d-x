@@ -32,13 +32,15 @@ function CCDrawNodeExtend:drawPol(points, params)
 	return self
 end
 
-function CCDrawNodeExtend:drawCircle(radius, params)
+function CCDrawNodeExtend:drawCircle(pos, radius, params)
 	local fillColor = cc.c4f(1,1,1,1)
 	local borderColor = cc.c4f(1,1,1,1)
 	local segments = 32
 	local startRadian = 0
 	local endRadian = math.pi*2
 	local borderWidth = 0
+	local posX = pos.x and pos.x or pos[1]
+	local posY = pos.y and pos.y or pos[2]
 	if params then
 		if params.segments then segments = params.segments end
 		if params.startAngle then
@@ -56,7 +58,7 @@ function CCDrawNodeExtend:drawCircle(radius, params)
 	for i=1,segments do
 		local radii = startRadian+i*radianPerSegm
 		if radii > endRadian then break end
-		points:add(cc.p(radius * math.cos(radii), radius * math.sin(radii)))
+		points:add(cc.p(posX + radius * math.cos(radii), posY + radius * math.sin(radii)))
 	end
 	self:drawPolygon(points:fetchPoints(), points:count(), fillColor, borderWidth, borderColor)
 	return self
