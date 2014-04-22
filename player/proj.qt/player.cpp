@@ -42,6 +42,28 @@
 
 #define EDITOR_CALL_LUA         "LUA_Interface"
 
+// keyboard shortcuts
+// we can change the keyboard shortcuts from here !
+enum {
+    ShortCut_NEW_PROJECT     = Qt::CTRL + Qt::Key_N,
+    ShortCut_NEW_PLAYER      = Qt::CTRL + Qt::SHIFT + Qt::Key_N,
+    ShortCut_OPEN            = Qt::CTRL + Qt::Key_O,
+    ShortCut_CLOSE           = Qt::CTRL + Qt::Key_W,
+
+    ShortCut_BUILD_IOS       = Qt::CTRL + Qt::Key_B,
+    ShortCut_BUILD_ANDROID   = Qt::CTRL + Qt::SHIFT + Qt::Key_B,
+#ifdef Q_OS_MAC
+    ShortCut_RELAUNCH        = Qt::CTRL + Qt::Key_R,
+#else
+    ShortCut_RELAUNCH        = Qt::Key_F5,
+#endif
+
+    ShortCut_SCALE_100  = Qt::CTRL + Qt::Key_0,
+    ShortCut_SCALE_75   = Qt::CTRL + Qt::Key_6,
+    ShortCut_SCALE_50   = Qt::CTRL + Qt::Key_5,
+    ShortCut_SCALE_25   = Qt::CTRL + Qt::Key_4
+};
+
 struct ScaleActionData
 {
     QString         text;
@@ -298,14 +320,14 @@ void Player::initMainMenu()
 
     QMenu *fileMenu = m_mainMenu->addMenu(QObject::tr("&File"));
 
-    QAction *newProjectAction = fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(Qt::CTRL + Qt::Key_N));
+    QAction *newProjectAction = fileMenu->addAction(QObject::tr("New Project..."), this, SLOT(onNewProject()), QKeySequence(ShortCut_NEW_PROJECT));
     m_actionMap[newProjectAction->shortcut()] = newProjectAction;
 
-    QAction *newPlayerAction = fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_N));
+    QAction *newPlayerAction = fileMenu->addAction(QObject::tr("New Player"), this, SLOT(onCreateNewPlayer()), QKeySequence(ShortCut_NEW_PLAYER));
     m_actionMap[newPlayerAction->shortcut()] = newPlayerAction;
 
     fileMenu->addSeparator();
-    QAction *openAction = fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(Qt::CTRL + Qt::Key_O));
+    QAction *openAction = fileMenu->addAction(QObject::tr("Open"), this, SLOT(on_actionOpen_triggered()), QKeySequence(ShortCut_OPEN));
     m_actionMap[openAction->shortcut()] = openAction;
 
     m_openRecentMenu = fileMenu->addMenu(tr("Open Recent"));
@@ -329,7 +351,7 @@ void Player::initMainMenu()
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
 
     fileMenu->addSeparator();
-    QAction *closeAction = fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(Qt::CTRL + Qt::Key_W));
+    QAction *closeAction = fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(ShortCut_CLOSE));
     m_actionMap[closeAction->shortcut()] = closeAction;
 
     //
@@ -355,23 +377,19 @@ void Player::initMainMenu()
     playerMenu->addSeparator();
     QMenu *buildMenu = playerMenu->addMenu(tr("Build"));
 
-    QAction *buildIOSMenu = buildMenu->addAction(tr("iOS..."), this, SLOT(onBuildIOS()), QKeySequence(Qt::CTRL + Qt::Key_B));
+    QAction *buildIOSMenu = buildMenu->addAction(tr("iOS..."), this, SLOT(onBuildIOS()), QKeySequence(ShortCut_BUILD_IOS));
     buildIOSMenu->setEnabled(false);
     m_actionMap[buildIOSMenu->shortcut()] = buildIOSMenu;
 
     QAction *buildAndroidMenu = buildMenu->addAction(tr("Android..."), this, SLOT(onBuildAndroid()));
-    buildAndroidMenu->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
+    buildAndroidMenu->setShortcut(QKeySequence(ShortCut_BUILD_ANDROID));
     buildAndroidMenu->setEnabled(false);
     m_actionMap[buildAndroidMenu->shortcut()] = buildAndroidMenu;
 
     playerMenu->addSeparator();
     QAction *relaunchAction = playerMenu->addAction(QObject::tr("Relaunch"), this, SLOT(on_actionRelaunch_triggered()));
-#ifdef Q_OS_MAC
-    relaunchAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_R));
-#else   // windows, *nix and others
-    relaunchAction->setShortcut(QKeySequence(Qt::Key_F5));
+    relaunchAction->setShortcut(QKeySequence(ShortCut_RELAUNCH));
     m_actionMap[relaunchAction->shortcut()] = relaunchAction;
-#endif
 
     playerMenu->addSeparator();
     playerMenu->addAction(tr("Show Project Sandbox"), this, SLOT(onShowProjectSandBox()));
@@ -532,28 +550,28 @@ void Player::initScreenMenu()
     {
         ScaleActionData actionData;
         actionData.text = tr("Actual (100%)");
-        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_0);
+        actionData.keySequence = QKeySequence(ShortCut_SCALE_100);
         actionData.userData = 1.0f;
         screenScaleDataList << actionData;
     }
     {
         ScaleActionData actionData;
         actionData.text = tr("Zoom Out (75%)");
-        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_6);
+        actionData.keySequence = QKeySequence(ShortCut_SCALE_75);
         actionData.userData = 0.75f;
         screenScaleDataList << actionData;
     }
     {
         ScaleActionData actionData;
         actionData.text = tr("Zoom Out (50%)");
-        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_5);
+        actionData.keySequence = QKeySequence(ShortCut_SCALE_50);
         actionData.userData = 0.5f;
         screenScaleDataList << actionData;
     }
     {
         ScaleActionData actionData;
         actionData.text = tr("Zoom Out (25%)");
-        actionData.keySequence = QKeySequence(Qt::CTRL + Qt::Key_4);
+        actionData.keySequence = QKeySequence(ShortCut_SCALE_25);
         actionData.userData = 0.25f;
         screenScaleDataList << actionData;
     }
