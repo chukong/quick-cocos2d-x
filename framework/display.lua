@@ -232,7 +232,7 @@ end
 
 -- 2014-04-10 zrong modified 
 -- Add a parameter named 'params' to provide 'class' and 'size'.
--- The filtname parameter can be a CCTexture2D.
+-- The filename parameter can be a CCTexture2D.
 -- 2014-04-10 zrong modify end
 function display.newSprite(filename, x, y, params)
 	local spriteClass = nil
