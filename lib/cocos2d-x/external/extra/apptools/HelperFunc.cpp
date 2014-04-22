@@ -13,13 +13,13 @@ unsigned char* CZHelperFunc::getFileData(const char* pszFileName, const char* ps
 {
     unsigned long size;
     unsigned char* buf = CCFileUtils::sharedFileUtils()->getFileData(pszFileName, pszMode, &size);
-    if (NULL==buf) return NULL;
+    if (NULL==buf || size<1) return NULL;
     
     CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
 	unsigned char* buffer = NULL;
 
         bool isXXTEA = stack && stack->m_xxteaEnabled;
-        for (unsigned int i = 0; isXXTEA && i < stack->m_xxteaSignLen && i < size; ++i)
+        for (unsigned int i = 0; isXXTEA && ((int)i) < stack->m_xxteaSignLen && i < size; ++i)
         {
             isXXTEA = buf[i] == stack->m_xxteaSign[i];
         }
