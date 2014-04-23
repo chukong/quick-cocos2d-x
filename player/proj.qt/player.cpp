@@ -912,7 +912,7 @@ void Player::onShowConsole()
         m_consoleUI->installEventFilter(this);
 #ifdef Q_OS_MAC
         int y = QGuiApplication::primaryScreen()->availableGeometry().height() - m_consoleUI->height();
-#elif
+#else
         int y = QGuiApplication::primaryScreen()->availableGeometry().height() - m_consoleUI->frameGeometry().height();
 #endif
         m_consoleUI->move(0, y);
