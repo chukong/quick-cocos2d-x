@@ -442,51 +442,6 @@ void Player::initMainMenu()
     connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-void Player::makeMainWindow(QWindow *w, QMenuBar *bar)
-{
-#ifdef Q_OS_MAC
-    Q_UNUSED(bar);
-    w->show();
-
-#else
-	static bool bInited = false;
-    if (bar && w && !bInited)
-    {
-		bInited = true;
-        m_mainWindow = new QWidget();
-        m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
-
-		QSize glSize = w->size();
-		m_container = QWidget::createWindowContainer(w);
-		m_container->setMinimumSize(glSize);
-
-        bar->setFixedHeight(MENU_BAR_FIXED_HEIGHT);
-
-		QVBoxLayout *layout = new QVBoxLayout();
-		layout->setContentsMargins(0,0,0,0);
-		layout->addWidget(bar);
-		layout->addWidget(m_container);
-
-        m_mainWindow->setLayout(layout);
-        m_mainWindow->setFixedSize(glSize + QSize(0, MENU_BAR_FIXED_HEIGHT));
-        m_mainWindow->show();
-
-        m_mainWindow->installEventFilter(this);
-
-#if QT_VERSION == QT_VERSION_CHECK(5, 1, 0)
-        // fix: shortcuts for Qt5.1 on windows
-        w->installEventFilter(this);
-#endif
-    }
-
-#endif
-
-    checkQuickRootPath();
-    updateTitle();
-}
-#endif
-
 void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
 {
 #ifdef Q_OS_MAC
@@ -506,8 +461,7 @@ void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
         m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
 
         QSize glSize = w->size();
-        m_container = QWidget::createWindowContainer(w);
-        m_container->setMinimumSize(glSize);
+        m_container = w;
 
         bar->setFixedHeight(MENU_BAR_FIXED_HEIGHT);
 
@@ -677,7 +631,7 @@ bool Player::eventFilter(QObject *o, QEvent *e)
 {
 #ifdef Q_OS_WIN
     // shortcut
-    if (o == m_consoleUI || o == m_demoWidget || o == CCEGLView::sharedOpenGLView()->getGLWindow())
+    if (o == m_consoleUI || o == m_demoWidget || o == CCEGLView::sharedOpenGLView()->getGLWidget())
     {
         if (e->type() == QEvent::KeyPress)
         {
@@ -869,12 +823,11 @@ void Player::onScreenScaleTriggered()
     float scale = action->data().toFloat();
     m_projectConfig.setFrameScale(scale);
 
-//    applySettingAndRestart();
     CCEGLView::sharedOpenGLView()->setFrameZoomFactor(scale);
 #ifdef Q_OS_WIN
     if (m_mainWindow)
     {
-		m_container->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWindow()->size());
+        m_container->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWidget()->size());
         m_mainWindow->setFixedSize(m_container->size() + QSize(0,MENU_BAR_FIXED_HEIGHT));
     }
 #endif
@@ -887,6 +840,7 @@ void Player::onOpenQuickDemoWebview()
     if (!m_demoWidget)
     {
         m_demoWidget = new QuickDemoList();
+        m_demoWidget->installEventFilter(this);
         connect(m_demoWidget, SIGNAL(sigOpenDemo(QString)), this, SLOT(onOpenDemo(QString)));
 
         sendMessageToLua("getDemoData", "{}");

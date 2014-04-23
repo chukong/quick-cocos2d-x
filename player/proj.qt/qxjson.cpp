@@ -1,6 +1,7 @@
 #include "qxjson.h"
 
 #include <QVariant>
+#include <QPixmapCache>
 
 #include "cocos2d.h"
 USING_NS_CC;
