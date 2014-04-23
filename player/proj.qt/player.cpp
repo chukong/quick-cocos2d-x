@@ -458,6 +458,8 @@ void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
     {
         bInited = true;
         m_mainWindow = new QWidget();
+        m_mainWindow->setContentsMargins(0,0,0,0);
+        m_mainWindow->setWindowFlags(m_mainWindow->windowFlags()& ~Qt::WindowMaximizeButtonHint);
         m_mainWindow->setAttribute(Qt::WA_DeleteOnClose);
 
         QSize glSize = w->size();
@@ -467,6 +469,7 @@ void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
 
         QVBoxLayout *layout = new QVBoxLayout();
         layout->setContentsMargins(0,0,0,0);
+        layout->setSpacing(0);
         layout->addWidget(bar);
         layout->addWidget(m_container);
 
@@ -827,7 +830,6 @@ void Player::onScreenScaleTriggered()
 #ifdef Q_OS_WIN
     if (m_mainWindow)
     {
-        m_container->setFixedSize(CCEGLView::sharedOpenGLView()->getGLWidget()->size());
         m_mainWindow->setFixedSize(m_container->size() + QSize(0,MENU_BAR_FIXED_HEIGHT));
     }
 #endif
@@ -1038,7 +1040,7 @@ void Player::onMainWidgetOnTop(bool checked)
         flags ^= Qt::WindowStaysOnTopHint;
         flags |= Qt::WindowStaysOnBottomHint;
     }
-	m_mainWindow->setWindowFlags(flags);
+    m_mainWindow->setWindowFlags(flags);
 	m_mainWindow->show();
     m_mainWindow->move(pos);
 #endif
