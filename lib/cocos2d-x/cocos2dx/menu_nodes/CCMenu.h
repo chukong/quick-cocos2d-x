@@ -152,7 +152,6 @@ public:
     virtual void addChild(CCNode * child);
     virtual void addChild(CCNode * child, int zOrder);
     virtual void addChild(CCNode * child, int zOrder, int tag);
-    virtual void registerWithTouchDispatcher();
     virtual void removeChild(CCNode* child, bool cleanup);
 
     /**

@@ -210,12 +210,6 @@ void CCMenu::removeChild(CCNode* child, bool cleanup)
 
 //Menu - Events
 
-void CCMenu::registerWithTouchDispatcher()
-{
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    pDirector->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
-}
-
 bool CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
     CC_UNUSED_PARAM(event);

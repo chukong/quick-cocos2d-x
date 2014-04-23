@@ -27,8 +27,6 @@
 #ifndef __CCSCENE_H__
 #define __CCSCENE_H__
 
-#include <vector>
-
 #include "layers_scenes_transitions_nodes/CCLayer.h"
 
 using namespace std;
@@ -53,19 +51,8 @@ public:
     int getTouchId();
     void setTouchId(int touchId);
 
-    CCTouch *getTouch();
-    void setTouch(CCTouch *touch);
-
-    void addTouchIdForMultiTouches(int touchId);
-    bool hasTouchIdForMultiTouches(int touchId);
-
-    CCSet *getTouchesForMultiTouches();
-    void addTouchForMultiTouches(CCTouch *touch);
-
-    void cleanupTouchAndTouches();
-    void setInvalid();
-
-    bool isValid();
+    CCTouch *findTouch(CCSet *touches);
+    static CCTouch *findTouchFromTouchesSet(CCSet *touches, int touchId);
 
 private:
     CCTouchTargetNode(CCNode *node);
@@ -73,12 +60,6 @@ private:
     CCNode *m_node;
     int m_touchMode;
     int m_touchId;
-    vector<int> m_touchIds;
-
-    CCTouch *m_touch;
-    CCSet *m_touches;
-
-    bool m_valid;
 };
 
 /** @brief CCScene is a subclass of CCNode that is used only as an abstract concept.
@@ -122,9 +103,29 @@ public:
     virtual int getTouchMode() { return kCCTouchesAllAtOnce; }
 
     virtual bool isTouchCaptureEnabled() { return true; }
-    virtual void setTouchCaptureEnabled(bool value) {}
+    virtual void setTouchCaptureEnabled(bool value) { CC_UNUSED_PARAM(value); }
+    virtual bool isTouchSwallowEnabled() { return false; };
+    virtual void setTouchSwallowEnabled(bool value) { CC_UNUSED_PARAM(value); }
 
-    virtual bool ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent) {
+        CC_UNUSED_PARAM(pTouch);
+        CC_UNUSED_PARAM(pEvent);
+        return true;
+    };
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent) {
+        CC_UNUSED_PARAM(pTouch);
+        CC_UNUSED_PARAM(pEvent);
+    };
+    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent) {
+        CC_UNUSED_PARAM(pTouch);
+        CC_UNUSED_PARAM(pEvent);
+    };
+    virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent) {
+        CC_UNUSED_PARAM(pTouch);
+        CC_UNUSED_PARAM(pEvent);
+    };
+
+    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
@@ -133,13 +134,15 @@ public:
 
 protected:
     CCArray *m_touchableNodes;
-    CCTouchTargetNode *m_touchingTarget;
+    CCArray *m_touchingTargets;
     bool m_touchDispatchingEnabled;
 
     CCTouchTargetNode *findTouchingNode(CCNode *node);
     void sortAllTouchableNodes(CCArray *nodes);
     void enableTouchDispatching();
     void disableTouchDispatching();
+
+    void dispatchingTouchEvent(CCSet *pTouches, CCEvent *pEvent, int event);
 };
 
 // end of scene group

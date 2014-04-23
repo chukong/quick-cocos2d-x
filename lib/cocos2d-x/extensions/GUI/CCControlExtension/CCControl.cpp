@@ -93,11 +93,7 @@ CCControl::~CCControl()
     CC_SAFE_RELEASE(m_pDispatchTable);
 }
 
-    //Menu - Events
-//void CCControl::registerWithTouchDispatcher()
-//{
-//    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, getTouchPriority(), true);
-//}
+//Menu - Events
 
 void CCControl::onEnter()
 {
@@ -127,13 +123,11 @@ void CCControl::sendActionsForControlEvents(CCControlEvent controlEvents)
                 invocation->invoke(this);
             }
             //Call ScriptFunc
-//            if (kScriptTypeNone != m_eScriptType)
-//            {
-//                int nHandler = this->getHandleOfControlEvent(controlEvents);
-//                if (-1 != nHandler) {
-//                    CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler,"",this);
-//                }
-//            }
+            int nHandler = this->getHandleOfControlEvent(controlEvents);
+            if (-1 != nHandler)
+            {
+                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(nHandler,"",this);
+            }
         }
     }
 }

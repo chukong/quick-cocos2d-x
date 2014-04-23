@@ -41,12 +41,14 @@ public:
     int listener;
     int tag;
     int priority;
+    bool enabled;
 
     CCScriptHandlePair(int index_, int listener_, int tag_, int priority_)
     : index(index_)
     , listener(listener_)
     , tag(tag_)
     , priority(priority_)
+    , enabled(true)
     {
     }
 };

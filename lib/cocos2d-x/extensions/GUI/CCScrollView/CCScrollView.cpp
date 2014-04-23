@@ -111,6 +111,7 @@ bool CCScrollView::initWithViewSize(CCSize size, CCNode *container/* = NULL*/)
         this->setViewSize(size);
 
         setTouchEnabled(true);
+        setTouchSwallowEnabled(false);
         m_pTouches = new CCArray();
         m_pDelegate = NULL;
         m_bBounceable = true;
@@ -131,11 +132,6 @@ bool CCScrollView::initWithViewSize(CCSize size, CCNode *container/* = NULL*/)
 bool CCScrollView::init()
 {
     return this->initWithViewSize(CCSizeMake(200, 200), NULL);
-}
-
-void CCScrollView::registerWithTouchDispatcher()
-{
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, false);
 }
 
 bool CCScrollView::isNodeVisible(CCNode* node)

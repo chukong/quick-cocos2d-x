@@ -76,7 +76,6 @@ public:
     virtual ~CCScrollView();
 
     bool init();
-    virtual void registerWithTouchDispatcher();
 
     /**
      * Returns an autoreleased scroll view object.
