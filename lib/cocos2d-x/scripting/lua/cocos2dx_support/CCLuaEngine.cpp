@@ -210,8 +210,6 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
     if (listeners.size() == 0) return 0;
 
-    int touchResult = true;
-
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {

@@ -1730,24 +1730,40 @@ void CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHBEGAN, pTouches);
+    }
 }
 
 void CCNode::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouches);
+    }
 }
 
 void CCNode::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHENDED, pTouches);
+    }
 }
 
 void CCNode::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
+    }
 }
 
 int CCNode::executeScriptTouchHandler(int nEventType, CCTouch *pTouch)

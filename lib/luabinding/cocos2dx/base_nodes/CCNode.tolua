@@ -951,6 +951,9 @@ class CCNode : public CCScriptEventDispatcher
     bool isTouchCaptureEnabled();
     void setTouchCaptureEnabled(bool value);
 
+    bool isTouchSwallowEnabled();
+    void setTouchSwallowEnabled(bool value);
+
     bool isTouchEnabled();
     void setTouchEnabled(bool value);
 

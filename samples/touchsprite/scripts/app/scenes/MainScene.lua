@@ -15,7 +15,8 @@ local function newButton(imageName, name, movable, listener)
     end
 
     sprite:setTouchEnabled(true) -- enable sprite touch
-    -- sprite:setTouchMode(cc.MULTI_TOUCHES) -- enable multi touches
+    -- sprite:setTouchMode(cc.TOUCH_ALL_AT_ONCE) -- enable multi touches
+    sprite:setTouchSwallowEnabled(false)
     sprite:addTouchEventListener(function(event, x, y, prevX, prevY)
         if event == "began" then
             sprite:setOpacity(128)
@@ -26,7 +27,6 @@ local function newButton(imageName, name, movable, listener)
         local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
         if event == "moved" then
             sprite:setOpacity(128)
-
             if movable then
                 local offsetX = x - prevX
                 local offsetY = y - prevY
