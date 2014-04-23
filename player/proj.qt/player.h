@@ -115,6 +115,8 @@ protected:
 
     QKeySequence convertKeyEventToKeySequence(QKeyEvent *e);
 
+    void readSettings(QString data);
+
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
     void on_actionOpen_triggered();
@@ -151,6 +153,8 @@ private:
     QWidget	        *m_mainWindow;
 	QWidget			*m_container;
 #endif
+
+    QVariantMap     m_settings;
 };
 Q_DECLARE_METATYPE(const char *);
 

@@ -40,6 +40,7 @@
 #define MENU_BAR_FIXED_HEIGHT   25
 
 #define EDITOR_CALL_LUA         "LUA_Interface"
+#define SETTINGS_DEMO_LIST      "demoList"
 
 // keyboard shortcuts
 // we can change the keyboard shortcuts from here !
@@ -695,6 +696,11 @@ QKeySequence Player::convertKeyEventToKeySequence(QKeyEvent *e)
     return QKeySequence(keyInt);
 }
 
+void Player::readSettings(QString data)
+{
+    m_settings = QxTools::stringToVariant(data).toMap();
+}
+
 void Player::eventDispatch(QString messageName, QString data)
 {
     QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
@@ -726,6 +732,10 @@ void Player::eventDispatch(QString messageName, QString data)
             else if (tmpMsgName == "addDemoList")
             {
                 this->onAddDemoList(data);
+            }
+            else if (tmpMsgName == "settings")
+            {
+                readSettings(data);
             }
             else
             {
@@ -845,7 +855,7 @@ void Player::onOpenQuickDemoWebview()
         m_demoWidget->installEventFilter(this);
         connect(m_demoWidget, SIGNAL(sigOpenDemo(QString)), this, SLOT(onOpenDemo(QString)));
 
-        sendMessageToLua("getDemoData", "{}");
+        m_demoWidget->addDemos(m_settings[SETTINGS_DEMO_LIST].toList());
     }
 
     m_demoWidget->raise();
