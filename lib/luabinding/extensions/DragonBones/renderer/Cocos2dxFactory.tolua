@@ -1,0 +1,20 @@
+class CocosNode : public Object
+{
+public:
+	const CCNode *getNode();
+	CCNode *getNode();
+};
+
+class Cocos2dxFactory : public BaseFactory
+{
+public:
+	Cocos2dxFactory();
+	static Cocos2dxFactory *getInstance();
+	static void destroyInstance();
+	ITextureAtlas* generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData);
+	virtual Armature* generateArmature();
+	Slot* generateSlot();
+	virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const char *fullName, Number pivotX, Number pivotY);
+	virtual void loadSkeletonFile(const char *skeletonFile , const char *name  = "");
+	virtual void loadTextureAtlasFile(const char *textureAtlasFile , const char *name  = "");
+};
