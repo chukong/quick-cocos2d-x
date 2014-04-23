@@ -13,6 +13,8 @@
 #include <QProcess>
 #include <QSettings>
 #include <QVBoxLayout>
+#include <QGuiApplication>
+#include <QScreen>
 #include <QDebug>
 
 // 3rd library
@@ -908,7 +910,7 @@ void Player::onShowConsole()
     {
         isFirstShow = false;
         m_consoleUI->installEventFilter(this);
-        int y = qApp->desktop()->availableGeometry().height() - m_consoleUI->height();
+        int y = QGuiApplication::primaryScreen()->availableGeometry().height() - m_consoleUI->height();
         m_consoleUI->move(0, y);
     }
 }
