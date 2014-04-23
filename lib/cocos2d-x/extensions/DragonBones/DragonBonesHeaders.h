@@ -43,7 +43,7 @@
 #include "utils/ConstValues.h"
 #include "utils/DBDataUtil.h"
 #include "utils/BytesType.h"
-#include "utils/Matrix.h"
+#include "utils/DBMatrix.h"
 #include "utils/Point.h"
 #include "utils/preDB.h"
 #include "utils/Rectangle.h"

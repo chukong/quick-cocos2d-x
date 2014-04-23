@@ -1386,14 +1386,14 @@
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\Matrix.cpp">
-      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\factories</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBMatrix.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2783,9 +2783,6 @@
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Matrix.h">
-      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Point.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
@@ -2800,6 +2797,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.h">
       <Filter>cocos2d-x\extensions\DragonBones\factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBMatrix.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

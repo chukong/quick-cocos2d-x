@@ -2,7 +2,7 @@
 #define __I_DISPLAY_BRIDGE_H__
 #include "utils/preDB.h"
 #include "objects/DBTransform.h"
-#include "utils/Matrix.h"
+#include "utils/DBMatrix.h"
 namespace dragonBones
 {
     /**
@@ -33,7 +33,7 @@ namespace dragonBones
          * @param    matrix
          * @param    transform
          */
-        virtual void updateTransform(Matrix &matrix, DBTransform &transform) = 0;
+        virtual void updateTransform(DBMatrix &matrix, DBTransform &transform) = 0;
         
         /**
          * Updates the color of the display object

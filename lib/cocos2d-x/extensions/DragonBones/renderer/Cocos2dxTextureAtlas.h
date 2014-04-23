@@ -2,7 +2,7 @@
 #define __COCOS2DX_TEXTURE_ATLAS_H__
 
 #include "utils/preDB.h"
-#include "utils/Matrix.h"
+#include "utils/DBMatrix.h"
 #include "textures/ITextureAtlas.h"
 #include "objects/DBTransform.h"
 #include "textures/CCTextureAtlas.h"
@@ -63,7 +63,7 @@ namespace dragonBones
          * @param    matrix
          * @param    transform
          */
-        void updateTransform(DisplayObject *displayObject ,Matrix &matrix, DBTransform &transform);
+        void updateTransform(DisplayObject *displayObject, DBMatrix &matrix, DBTransform &transform);
 
         void updateColor(DisplayObject *displayObject ,
             Number aOffset, 

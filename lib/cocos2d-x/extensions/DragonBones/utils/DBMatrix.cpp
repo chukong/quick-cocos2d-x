@@ -1,5 +1,5 @@
 
-#include "Matrix.h"
+#include "DBMatrix.h"
 #include <algorithm>
 #include <math.h>
 
@@ -10,14 +10,14 @@ namespace dragonBones
 {
 
 
-Matrix __MatrixMake(float a, float b, float c, float d, float tx, float ty)
+DBMatrix __MatrixMake(float a, float b, float c, float d, float tx, float ty)
 {
-  Matrix t;
+    DBMatrix t;
   t.a = a; t.b = b; t.c = c; t.d = d; t.tx = tx; t.ty = ty;
   return t;
 }
 
-Point __PointApplyMatrix(const Point& point, const Matrix& t)
+Point __PointApplyMatrix(const Point& point, const DBMatrix& t)
 {
   Point p;
   p.x = (float)((double)t.a * point.x + (double)t.c * point.y + t.tx);
@@ -27,12 +27,12 @@ Point __PointApplyMatrix(const Point& point, const Matrix& t)
 
 
 
-Matrix MatrixMakeIdentity()
+DBMatrix MatrixMakeIdentity()
 {
     return __MatrixMake(1.0, 0.0, 0.0, 1.0, 0.0, 0.0);
 }
 
-extern const Matrix MatrixIdentity = MatrixMakeIdentity();
+extern const DBMatrix MatrixIdentity = MatrixMakeIdentity();
 
 //
 //CCRect CCRectApplyMatrix(const CCRect& rect, const Matrix& anMatrix)
@@ -55,17 +55,17 @@ extern const Matrix MatrixIdentity = MatrixMakeIdentity();
 //    return CCRectMake(minX, minY, (maxX - minX), (maxY - minY));
 //}
 
-Matrix MatrixTranslate(const Matrix& t, float tx, float ty)
+DBMatrix MatrixTranslate(const DBMatrix& t, float tx, float ty)
 {
     return __MatrixMake(t.a, t.b, t.c, t.d, t.tx + t.a * tx + t.c * ty, t.ty + t.b * tx + t.d * ty);
 }
 
-Matrix MatrixScale(const Matrix& t, float sx, float sy)
+DBMatrix MatrixScale(const DBMatrix& t, float sx, float sy)
 {
     return __MatrixMake(t.a * sx, t.b * sx, t.c * sy, t.d * sy, t.tx, t.ty);
 }
 
-Matrix MatrixRotate(const Matrix& t, float anAngle)
+DBMatrix MatrixRotate(const DBMatrix& t, float anAngle)
 {
     float fSin = sin(anAngle);
     float fCos = cos(anAngle);
@@ -80,7 +80,7 @@ Matrix MatrixRotate(const Matrix& t, float anAngle)
 
 /* Concatenate `t2' to `t1' and return the result:
      t' = t1 * t2 */
-Matrix MatrixConcat(const Matrix& t1, const Matrix& t2)
+DBMatrix MatrixConcat(const DBMatrix& t1, const DBMatrix& t2)
 {
     return __MatrixMake(    t1.a * t2.a + t1.b * t2.c, t1.a * t2.b + t1.b * t2.d, //a,b
                                     t1.c * t2.a + t1.d * t2.c, t1.c * t2.b + t1.d * t2.d, //c,d
@@ -89,12 +89,12 @@ Matrix MatrixConcat(const Matrix& t1, const Matrix& t2)
 }
 
 /* Return true if `t1' and `t2' are equal, false otherwise. */
-bool MatrixEqualToTransform(const Matrix& t1, const Matrix& t2)
+bool MatrixEqualToTransform(const DBMatrix& t1, const DBMatrix& t2)
 {
     return (t1.a == t2.a && t1.b == t2.b && t1.c == t2.c && t1.d == t2.d && t1.tx == t2.tx && t1.ty == t2.ty);
 }
 
-Matrix MatrixInvert(const Matrix& t)
+DBMatrix MatrixInvert(const DBMatrix& t)
 {
     float determinant = 1 / (t.a * t.d - t.b * t.c);
 

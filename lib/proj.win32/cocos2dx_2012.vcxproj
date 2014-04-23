@@ -224,7 +224,7 @@
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\BytesType.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.cpp" />
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\Matrix.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBMatrix.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\filters\filters\CCBlurFilter.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\filters\filters\CCBrightnessFilter.cpp" />
@@ -763,7 +763,7 @@
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\ColorTransform.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.h" />
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Matrix.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBMatrix.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Point.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\preDB.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Rectangle.h" />
