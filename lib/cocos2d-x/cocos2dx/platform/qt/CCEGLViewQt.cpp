@@ -66,7 +66,7 @@ public:
 
 const QEvent::Type AppDidFinishLaunchingEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
 
-#define USING_QWINDOW 0
+#define USING_QWINDOW 1
 
 #if USING_QWINDOW==1
 class Cocos2DQt5OpenGLIntegration : public QWindow {
