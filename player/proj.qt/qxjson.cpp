@@ -5,6 +5,8 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+#define USING_QT5_JSON 1
+
 #if USING_QT5_JSON == 1
 #include <QJsonDocument>
 QVariant QxTools::stringToVariant(QString string)
