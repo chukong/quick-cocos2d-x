@@ -38,6 +38,7 @@ THE SOFTWARE.
 #include <QApplication>
 #include <QDesktopWidget>
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#define USING_QWINDOW 1
 #include <QOpenGLContext>
 #include <QWindow>
 #endif
@@ -65,8 +66,6 @@ public:
 };
 
 const QEvent::Type AppDidFinishLaunchingEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
-
-#define USING_QWINDOW 1
 
 #if USING_QWINDOW==1
 class Cocos2DQt5OpenGLIntegration : public QWindow {
