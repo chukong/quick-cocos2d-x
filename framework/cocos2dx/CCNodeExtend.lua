@@ -69,16 +69,9 @@ function CCNodeExtend:setNodeEventEnabled(enabled, handler)
                 end
             end
         end
-        self:registerScriptHandler(handler)
+        self:addScriptEventListener(cc.NODE_EVENT, handler)
     else
-        self:unregisterScriptHandler()
+        self:removeScriptEventListenersByEvent(cc.NODE_EVENT)
     end
     return self
-end
-
-function CCNodeExtend:removeSelf(cleanup)
-    if not tolua.isnull(self) then
-        if cleanup ~= false then cleanup = true end
-        self:removeFromParentAndCleanup(cleanup)
-    end
 end

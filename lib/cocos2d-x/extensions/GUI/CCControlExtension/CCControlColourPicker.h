@@ -72,7 +72,7 @@ public:
 protected:
     void updateControlPicker();
     void updateHueAndControlPicker();
-    virtual int ccTouchBegan(CCTouch* touch, CCEvent* pEvent);
+    virtual bool ccTouchBegan(CCTouch* touch, CCEvent* pEvent);
 
 };
 

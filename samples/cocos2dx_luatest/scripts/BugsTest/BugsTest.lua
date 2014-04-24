@@ -27,7 +27,7 @@ local function CreateBugsTestBackMenuItem(pLayer)
             CCDirector:sharedDirector():replaceScene(pScene)
         end
     end
-    pMenuItemFont:registerScriptTapHandler(menuCallback)
+    pMenuItemFont:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     local pMenu = CCMenu:create()
     pMenu:addChild(pMenuItemFont)
     pMenu:setPosition(ccp(0, 0))
@@ -66,9 +66,9 @@ local function BugTest422()
         CCMenuItemFont:setFontName("Arial")
         CCMenuItemFont:setFontSize(24);
         local pMenuItem1 = CCMenuItemFont:create("One")
-        pMenuItem1:registerScriptTapHandler(menuCallback)
+        pMenuItem1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
         local pMenuItem2 = CCMenuItemFont:create("Two")
-        pMenuItem2:registerScriptTapHandler(menuCallback)
+        pMenuItem2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
         local arr = CCArray:create()
         arr:addObject(pMenuItem1)
         arr:addObject(pMenuItem2)
@@ -166,14 +166,14 @@ local function BugTest458()
         print("Selected")
     end
     local pMenuItemSprite = CCMenuItemSprite:create(pQuestion1,pQuestion2)
-    pMenuItemSprite:registerScriptTapHandler(menuCallback)
+    pMenuItemSprite:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     local pLayerColor1 = CCLayerColor:create(ccc4(0,0,255,255), 100, 100);
 --  question->release();
 --  question2->release();
 
     local pLayerColor2 = CCLayerColor:create(ccc4(255,0,0,255), 100, 100);
     local pMenuItemSprite2 = CCMenuItemSprite:create(pLayerColor1, pLayerColor2);   
-    pMenuItemSprite2:registerScriptTapHandler(menuCallback) 
+    pMenuItemSprite2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback) 
 
     local arr = CCArray:create()
     arr:addObject(pMenuItemSprite)
@@ -330,7 +330,7 @@ local function BugTest914()
     pLayer:addChild(label);
     
     local item1 = CCMenuItemFont:create("restart")
-    item1:registerScriptTapHandler(restart)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, restart)
     --Bug914Layer::restart));
     
     local menu = CCMenu:create()
@@ -397,7 +397,7 @@ local function BugTest1159()
        CCDirector:sharedDirector():replaceScene(CCTransitionPageTurn:create(1.0, pScene, false))
 	end
     local label = CCMenuItemLabel:create(CCLabelTTF:create("Flip Me", "Helvetica", 24));
-    label:registerScriptTapHandler(menuCallback)
+    label:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     local menu = CCMenu:create();
     menu:addChild(label)
     menu:setPosition(ccp(Winsize.width - 200.0, 50.0));
@@ -609,7 +609,7 @@ local function BugsTestMainLayer()
     for  i = 1, nTestCount do
         local  label = CCLabelTTF:create(testNames[i], "Arial", 24)
         local  pMenuItem = CCMenuItemLabel:create(label)
-        pMenuItem:registerScriptTapHandler(menuCallback)
+        pMenuItem:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
         pItemMenu:addChild(pMenuItem, i + kItemTagBasic)
        pMenuItem:setPosition( ccp( VisibleRect:center().x, (VisibleRect:top().y - i * LINE_SPACE) ))
     end

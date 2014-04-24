@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2011 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -52,9 +52,9 @@ namespace extension {
 class CC_DLL CCLuaEngine : public CCScriptEngineProtocol
 {
 public:
-    static CCLuaEngine* defaultEngine(void);    
+    static CCLuaEngine* defaultEngine(void);
     virtual ~CCLuaEngine(void);
-    
+
     virtual ccScriptType getScriptType() {
         return kScriptTypeLua;
     };
@@ -62,34 +62,34 @@ public:
     CCLuaStack *getLuaStack(void) {
         return m_stack;
     }
-    
+
     /**
      @brief Add a path to find lua files in
      @param path to be added to the Lua path
      */
     virtual void addSearchPath(const char* path);
-    
+
     /**
      @brief Add lua loader, now it is used on android
      */
     virtual void addLuaLoader(lua_CFunction func);
-    
+
     /**
      @brief Remove CCObject from lua state
      @param object to remove
      */
     virtual void removeScriptObjectByCCObject(CCObject* pObj);
-    
+
     /**
      @brief Remove Lua function reference
      */
     virtual void removeScriptHandler(int nHandler);
-    
+
     /**
      @brief Reallocate Lua function reference
      */
     virtual int reallocateScriptHandler(int nHandler);
-    
+
     /**
      @brief Execute script code contained in the given string.
      @param codes holding the valid script code that should be executed.
@@ -97,13 +97,13 @@ public:
      @return other if the string is excuted wrongly.
      */
     virtual int executeString(const char* codes);
-    
+
     /**
      @brief Execute a script file.
      @param filename String object holding the filename of the script file that is to be executed
      */
     virtual int executeScriptFile(const char* filename);
-    
+
     /**
      @brief Execute a scripted global function.
      @brief The function should not take any parameters and should return an integer.
@@ -113,7 +113,8 @@ public:
      */
     virtual int executeGlobalFunction(const char* functionName, int numArgs = 0);
 
-    virtual int executeNodeEvent(CCNode* pNode, int nAction, float dt = 0);
+    virtual int executeNodeEvent(CCNode* pNode, int nAction);
+    virtual int executeNodeEnterFrameEvent(CCNode* pNode, float dt);
     virtual int executeMenuItemEvent(CCMenuItem* pMenuItem);
     virtual int executeNotificationEvent(CCNotificationCenter* pNotificationCenter, const char* pszName, CCObject *obj = NULL);
     virtual int executeCallFuncActionEvent(CCCallFunc* pAction, CCObject* pTarget = NULL);
@@ -126,19 +127,20 @@ public:
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL);
 
     int executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue = NULL, CCArray* pResultArray = NULL);
-    
+
     virtual int executeEventWithArgs(int nHandler, CCArray* pArgs);
 
     virtual bool handleAssert(const char *msg);
-    
+    virtual bool parseConfig(CCScriptEngineProtocol::ConfigType type, const std::string& str);
+
 private:
     CCLuaEngine(void)
     : m_stack(NULL)
     {
     }
-    
+
     bool init(void);
-    
+
     static CCLuaEngine* m_defaultEngine;
     CCLuaStack *m_stack;
 };

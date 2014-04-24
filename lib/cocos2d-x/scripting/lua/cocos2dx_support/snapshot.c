@@ -1,6 +1,5 @@
 
-#include <lua.h>
-#include <lauxlib.h>
+#include "snapshot.h"
 
 #include <stdio.h>
 #include <string.h>

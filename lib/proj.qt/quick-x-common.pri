@@ -12,6 +12,8 @@ CC_ROOT=$${ROOT}/lib/cocos2d-x/
 
 DEFINES +=  COCOS2D_DEBUG=1
 DEFINES +=  DEBUG=1
+CONFIG += object_parallel_to_source
+
 CONFIG(debug, debug|release) {
     BUILD_TYPE = debug
     CHIPMUNK_LIB = chipmunk_d

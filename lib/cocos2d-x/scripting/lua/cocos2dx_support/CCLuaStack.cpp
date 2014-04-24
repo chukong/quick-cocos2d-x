@@ -47,20 +47,21 @@ extern "C" {
 #include "Cocos2dxLuaLoader.h"
 
 
-#ifndef QUICK_MINI_TARGET
-
 // cocos2d-x luabinding
 #include "LuaCocos2d.h"
 
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
-// luaproxy
-#include "luaopen_LuaProxy.h"
-// cocos-extensions
-#include "cocos-ext.h"
-#include "lua_cocos2dx_extensions_manual.h"
-// cocosbuilder
+
+// CCB
 #include "Lua_extensions_CCB.h"
+
+// cocos-extensions
+#include "LuaCocoStudio.h"
+#include "lua_cocos2dx_manual.h"
+#include "lua_cocos2dx_extensions_manual.h"
+#include "lua_cocos2dx_cocostudio_manual.h"
+
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -75,13 +76,6 @@ extern "C" {
 // debugger
 #include "debugger/debugger.h"
 #endif
-
-#else // QUICK_MINI_TARGET
-
-// cocos2d-x luabinding
-#include "LuaCocos2d-mini.h"
-
-#endif // QUICK_MINI_TARGET
 
 #include <string>
 
@@ -130,6 +124,15 @@ bool CCLuaStack::init(void)
     toluafix_open(m_state);
     tolua_Cocos2d_open(m_state);
 
+    // CCB
+    tolua_extensions_ccb_open(m_state);
+
+    // CocoStudio
+    tolua_CocoStudio_open(m_state);
+    register_all_cocos2dx_manual(m_state);
+    register_all_cocos2dx_extension_manual(m_state);
+    register_all_cocos2dx_studio_manual(m_state);
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     CCLuaObjcBridge::luaopen_luaoc(m_state);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -140,8 +143,6 @@ bool CCLuaStack::init(void)
     // load debugger
     luaopen_debugger(m_state);
 #endif
-
-    addLuaLoader(cocos2dx_lua_loader);
 
     // register lua print
     lua_pushcfunction(m_state, lua_print);
@@ -154,16 +155,10 @@ bool CCLuaStack::init(void)
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
-#if QUICK_MINI_TARGET == 0
-
     // chipmunk
     luaopen_CCPhysicsWorld_luabinding(m_state);
-    // luaproxy
-    luaopen_LuaProxy(m_state);
 	// cocos-extensions
     register_all_cocos2dx_extension_manual(m_state);
-    // cocosbuilder
-    tolua_extensions_ccb_open(m_state);
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -174,7 +169,8 @@ bool CCLuaStack::init(void)
     // lua extensions
     luaopen_lua_extensions(m_state);
 
-#endif // QUICK_MINI_TARGET
+    // add cocos2dx loader
+    addLuaLoader(cocos2dx_lua_loader);
 
     return true;
 }
@@ -488,16 +484,7 @@ int CCLuaStack::reallocateScriptHandler(int nHandler)
     {
         nNewHandle = toluafix_ref_function(m_state,lua_gettop(m_state),0);
     }
-    /*
-     toluafix_get_function_by_refid(m_state,nNewHandle);
-     if (!lua_isfunction(m_state, -1))
-     {
-     CCLOG("Error!");
-     }
-     lua_settop(m_state, 0);
-     */
     return nNewHandle;
-
 }
 
 int CCLuaStack::lua_print(lua_State *L)
@@ -865,7 +852,7 @@ NS_CC_END
 
 USING_NS_CC;
 
-static map<size_t,char*> hash_type_mapping;
+static map<unsigned int, char*> hash_type_mapping;
 TOLUA_API void toluafix_add_type_mapping(size_t type,const char *clsName)
 {
 
@@ -888,7 +875,7 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
     }
 
     CCObject *ptr = static_cast<CCObject*>(vptr);
-    size_t hash= HASH_CODE(typeid(*ptr));
+    unsigned int hash = hash_code(typeid(*ptr));
     char* type = hash_type_mapping[hash];
     if (type == NULL)
     {

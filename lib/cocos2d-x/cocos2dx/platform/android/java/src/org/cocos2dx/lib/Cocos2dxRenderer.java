@@ -67,13 +67,10 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
-	private boolean isReady = false;
-	
 	@Override
 	public void onSurfaceCreated(final GL10 pGL10, final EGLConfig pEGLConfig) {
 		Cocos2dxRenderer.nativeInit(this.mScreenWidth, this.mScreenHeight);
 		this.mLastTickInNanoSeconds = System.nanoTime();
-		isReady = true;
 	}
 
 	@Override
@@ -124,7 +121,8 @@ public class Cocos2dxRenderer implements GLSurfaceView.Renderer {
 	private static native void nativeOnPause();
 	private static native void nativeOnResume();
 
-	public void handleActionDown(final int pID, final float pX, final float pY) {		Cocos2dxRenderer.nativeTouchesBegin(pID, pX, pY);
+	public void handleActionDown(final int pID, final float pX, final float pY) {
+		Cocos2dxRenderer.nativeTouchesBegin(pID, pX, pY);
 	}
 
 	public void handleActionUp(final int pID, final float pX, final float pY) {

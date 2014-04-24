@@ -133,8 +133,8 @@ public:
     static CCControlButton* create(CCScale9Sprite* sprite);
 
     //events
-    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 

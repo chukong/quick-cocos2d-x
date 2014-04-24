@@ -1,28 +1,28 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2010      Ricardo Quesada
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2010      Ricardo Quesada
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 #include "CCAnimationCache.h"
 #include "ccMacros.h"
 #include "CCAnimation.h"
@@ -102,7 +102,7 @@ void CCAnimationCache::parseVersion1(CCDictionary* animations)
         float delay = animationDict->valueForKey("delay")->floatValue();
         CCAnimation* animation = NULL;
 
-        if ( frameNames == NULL ) 
+        if ( frameNames == NULL )
         {
             CCLOG("cocos2d: CCAnimationCache: Animation '%s' found in dictionary without any frames - cannot add to animation cache.", pElement->getStrKey());
             continue;
@@ -140,7 +140,7 @@ void CCAnimationCache::parseVersion1(CCDictionary* animations)
 
         CCAnimationCache::sharedAnimationCache()->addAnimation(animation, pElement->getStrKey());
         frames->release();
-    }    
+    }
 }
 
 void CCAnimationCache::parseVersion2(CCDictionary* animations)
@@ -203,7 +203,7 @@ void CCAnimationCache::parseVersion2(CCDictionary* animations)
     }
 }
 
-void CCAnimationCache::addAnimationsWithDictionary(CCDictionary* dictionary)
+void CCAnimationCache::addAnimationsWithDictionary(CCDictionary* dictionary,const char* plist)
 {
     CCDictionary* animations = (CCDictionary*)dictionary->objectForKey("animations");
 
@@ -223,7 +223,15 @@ void CCAnimationCache::addAnimationsWithDictionary(CCDictionary* dictionary)
         CCARRAY_FOREACH(spritesheets, pObj)
         {
             CCString* name = (CCString*)(pObj);
-            CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(name->getCString());
+            if (plist)
+            {
+                const char* path = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile(name->getCString(),plist);
+                CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(path);
+            }
+            else
+            {
+                CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(name->getCString());
+            }
         }
     }
 
@@ -243,13 +251,13 @@ void CCAnimationCache::addAnimationsWithDictionary(CCDictionary* dictionary)
 void CCAnimationCache::addAnimationsWithFile(const char* plist)
 {
     CCAssert( plist, "Invalid texture file name");
-
+    
     std::string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist);
     CCDictionary* dict = CCDictionary::createWithContentsOfFile(path.c_str());
-
+    
     CCAssert( dict, "CCAnimationCache: File could not be found");
-
-    addAnimationsWithDictionary(dict);
+    
+    addAnimationsWithDictionary(dict,plist);
 }
 
 

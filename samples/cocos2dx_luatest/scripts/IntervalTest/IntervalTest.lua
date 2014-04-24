@@ -119,7 +119,7 @@ local function IntervalLayer()
         end
     end
 
-    item1:registerScriptTapHandler(onPause)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onPause)
     local  menu = CCMenu:createWithItem(item1)
     menu:setPosition( ccp(s.width/2, s.height-50) )
 

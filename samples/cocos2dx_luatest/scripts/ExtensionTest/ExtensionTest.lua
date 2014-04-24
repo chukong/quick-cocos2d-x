@@ -43,7 +43,7 @@ function CreateExtensionsBasicLayerMenu(pMenu)
     CCMenuItemFont:setFontSize(24)
    	local pMenuItemFont = CCMenuItemFont:create("Back")
     pMenuItemFont:setPosition(ccp(VisibleRect:rightBottom().x - 50, VisibleRect:rightBottom().y + 25))
-    pMenuItemFont:registerScriptTapHandler(toMainLayer)
+    pMenuItemFont:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, toMainLayer)
     pMenu:addChild(pMenuItemFont)
 end
 
@@ -83,7 +83,7 @@ local function runNotificationCenterTest()
     	local switchitem2 = CCMenuItemLabel:create(switchlabel2)
     	local switchitem = CCMenuItemToggle:create(switchitem1)
     	switchitem:addSubItem(switchitem2)
-    	switchitem:registerScriptTapHandler(toggleSwitch)
+    	switchitem:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, toggleSwitch)
     	--turn on
     	switchitem:setSelectedIndex(1)
         local menu = CCMenu:create()
@@ -164,7 +164,7 @@ local function runNotificationCenterTest()
     		   setIsConnectToSwitch(lightArray[nIdx],bConnected,nIdx)
     		end
 
-        	connectitem:registerScriptTapHandler(connectToSwitch)
+        	connectitem:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, connectToSwitch)
         	local nX,nY = lightArray[i]:getPosition()
         	connectitem:setPosition(ccp(nX,nY+50))
 
@@ -222,7 +222,7 @@ local function runNotificationCenterTest()
     		 CCMenuItemFont:setFontSize(24)
    			 local pMenuItemFont = CCMenuItemFont:create("Back")
     		 pMenuItemFont:setPosition(ccp(VisibleRect:rightBottom().x - 50, VisibleRect:rightBottom().y + 25))
-    		 pMenuItemFont:registerScriptTapHandler(toMainLayer)
+    		 pMenuItemFont:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, toMainLayer)
     		 pMenu:addChild(pMenuItemFont)
 	   end
 	   --Add Menu
@@ -310,14 +310,14 @@ local function runCCControlTest()
 
     	local size = CCDirector:sharedDirector():getWinSize()
     	local item1 = CCMenuItemImage:create(s_pPathB1, s_pPathB2)
-    	item1:registerScriptTapHandler(backCallback)
+    	item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, backCallback)
     	pMenu:addChild(item1,kItemTagBasic)
     	local item2 = CCMenuItemImage:create(s_pPathR1, s_pPathR2)
-    	item2:registerScriptTapHandler(restartCallback)
+    	item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, restartCallback)
     	pMenu:addChild(item2,kItemTagBasic)
     	local item3 = CCMenuItemImage:create(s_pPathF1, s_pPathF2)
     	pMenu:addChild(item3,kItemTagBasic)
-    	item3:registerScriptTapHandler(nextCallback)
+    	item3:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, nextCallback)
 
     	local size = CCDirector:sharedDirector():getWinSize()
     	item1:setPosition(CCPointMake(size.width / 2 - item2:getContentSize().width * 2, item2:getContentSize().height / 2))
@@ -1228,7 +1228,7 @@ local function ExtensionsMainLayer()
     end
     for i = 1, ExtensionTestEnum.TEST_MAX_COUNT do
 		local item = CCMenuItemFont:create(testsName[i])
-	    item:registerScriptTapHandler(menuCallback)
+	    item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
         item:setPosition(s.width / 2, s.height - i * LINE_SPACE)
         menu:addChild(item, kItemTagBasic + i)
         if ((i == ExtensionTestEnum.TEST_WEBSOCKET + 1) and (false == bSupportWebSocket))

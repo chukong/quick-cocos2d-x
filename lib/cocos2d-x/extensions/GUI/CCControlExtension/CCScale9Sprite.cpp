@@ -90,6 +90,9 @@ bool CCScale9Sprite::initWithBatchNode(CCSpriteBatchNode* batchnode, CCRect rect
 
 bool CCScale9Sprite::initWithBatchNode(CCSpriteBatchNode* batchnode, CCRect rect, bool rotated, CCRect capInsets)
 {
+    setCascadeColorEnabled(true);
+    setCascadeOpacityEnabled(true);
+
     if(batchnode)
     {
         this->updateWithBatchNode(batchnode, rect, rotated, capInsets);

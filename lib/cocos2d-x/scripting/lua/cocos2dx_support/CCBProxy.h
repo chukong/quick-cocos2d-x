@@ -11,7 +11,8 @@ USING_NS_CC_EXT;
 /**
  *  @js NA
  */
-class CCBProxy : public CCLayer{
+class CCBProxy : public CCLayer
+{
 public:
     CCBProxy() { }
     virtual ~ CCBProxy(){ }
@@ -25,7 +26,8 @@ public:
  *  @js NA
  *  @lua NA
  */
-class CCBLayerLoader:public CCLayerLoader{
+class CCBLayerLoader:public CCLayerLoader
+{
 public:
     CCB_STATIC_NEW_AUTORELEASE_OBJECT_METHOD(CCBLayerLoader, loader);
 };

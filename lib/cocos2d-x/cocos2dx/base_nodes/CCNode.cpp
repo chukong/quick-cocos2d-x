@@ -92,9 +92,8 @@ CCNode::CCNode(void)
 , m_bVisible(true)
 , m_bIgnoreAnchorPointForPosition(false)
 , m_bReorderChildDirty(false)
-, m_nScriptHandler(0)
-, m_nUpdateScriptHandler(0)
 , m_pComponentContainer(NULL)
+// merge CCNodeRGBA
 , m_displayedOpacity(255)
 , m_realOpacity(255)
 , m_isOpacityModifyRGB(false)
@@ -103,9 +102,10 @@ CCNode::CCNode(void)
 , m_cascadeColorEnabled(false)
 , m_cascadeOpacityEnabled(false)
 , m_drawOrder(0)
+// touch
+, m_bTouchCaptureEnabled(true)
+, m_bTouchSwallowEnabled(true)
 , m_bTouchEnabled(false)
-, m_pScriptTouchHandlerEntry(NULL)
-, m_nTouchPriority(0)
 , m_eTouchMode(kCCTouchesOneByOne)
 {
     // set default scheduler and actionManager
@@ -114,22 +114,12 @@ CCNode::CCNode(void)
     m_pActionManager->retain();
     m_pScheduler = director->getScheduler();
     m_pScheduler->retain();
-
-    CCScriptEngineProtocol* pEngine = CCScriptEngineManager::sharedManager()->getScriptEngine();
-    m_eScriptType = pEngine != NULL ? pEngine->getScriptType() : kScriptTypeNone;
     m_pComponentContainer = new CCComponentContainer(this);
 }
 
 CCNode::~CCNode(void)
 {
     CCLOGINFO( "cocos2d: deallocing" );
-
-    unregisterScriptHandler();
-    if (m_nUpdateScriptHandler)
-    {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nUpdateScriptHandler);
-    }
-    unregisterScriptTouchHandler();
 
     CC_SAFE_RELEASE(m_pActionManager);
     CC_SAFE_RELEASE(m_pScheduler);
@@ -139,6 +129,10 @@ CCNode::~CCNode(void)
     CC_SAFE_RELEASE(m_pGrid);
     CC_SAFE_RELEASE(m_pShaderProgram);
     CC_SAFE_RELEASE(m_pUserObject);
+
+    // m_pComsContainer
+    m_pComponentContainer->removeAll();
+    CC_SAFE_DELETE(m_pComponentContainer);
 
     if(m_pChildren && m_pChildren->count() > 0)
     {
@@ -155,10 +149,6 @@ CCNode::~CCNode(void)
 
     // children
     CC_SAFE_RELEASE(m_pChildren);
-
-    // m_pComsContainer
-    m_pComponentContainer->removeAll();
-    CC_SAFE_DELETE(m_pComponentContainer);
 }
 
 bool CCNode::init()
@@ -616,6 +606,16 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
             box.setRect(minx, miny, maxx - minx, maxy - miny);
         }
     }
+    else
+	{
+		r = CCRectMake(0, 0, m_obContentSize.width, m_obContentSize.height);
+		r = CCRectApplyAffineTransform(r, nodeToParentTransform());
+		minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
+		miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
+		maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
+		maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
+		box.setRect(minx, miny, maxx - minx, maxy - miny);
+	}
 
     if (convertToWorld && m_pParent)
     {
@@ -649,7 +649,7 @@ void CCNode::cleanup()
     this->stopAllActions();
     this->unscheduleAllSelectors();
 
-    if ( m_eScriptType != kScriptTypeNone)
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnCleanup);
     }
@@ -657,7 +657,6 @@ void CCNode::cleanup()
     // timers
     arrayMakeObjectsPerformSelector(m_pChildren, cleanup, CCNode*);
 }
-
 
 const char* CCNode::description()
 {
@@ -726,6 +725,11 @@ void CCNode::addChild(CCNode *child)
 {
     CCAssert( child != NULL, "Argument must be non-nil");
     this->addChild(child, child->m_nZOrder, child->m_nTag);
+}
+
+void CCNode::removeSelf()
+{
+    this->removeFromParentAndCleanup(true);
 }
 
 void CCNode::removeFromParent()
@@ -894,6 +898,7 @@ void CCNode::sortAllChildren()
     }
 }
 
+
 void CCNode::draw()
 {
     //CCAssert(0);
@@ -906,7 +911,10 @@ void CCNode::visit()
 {
     m_drawOrder = ++g_drawOrder;
     // quick return if not visible. children won't be drawn.
-    if (!m_bVisible) return;
+    if (!m_bVisible)
+    {
+        return;
+    }
     kmGLPushMatrix();
 
     if (m_pGrid && m_pGrid->isActive())
@@ -1007,38 +1015,52 @@ void CCNode::transform()
 
 void CCNode::onEnter()
 {
-    arrayMakeObjectsPerformSelector(m_pChildren, onEnter, CCNode*);
-
-    this->resumeSchedulerAndActions();
-
+    //fix setTouchEnabled not take effect when called the function in onEnter in JSBinding.
     m_bRunning = true;
 
     if (m_bTouchEnabled)
     {
-        this->registerWithTouchDispatcher();
+        registerWithTouchDispatcher();
     }
 
-    if (m_nScriptHandler || hasScriptEventListener(ENTER_SCENE_EVENT))
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnter);
     }
+
+    //Judge the running state for prevent called onEnter method more than once,it's possible that this function called by addChild
+    if (m_pChildren && m_pChildren->count() > 0)
+    {
+        CCObject* child;
+        CCNode* node;
+        CCARRAY_FOREACH(m_pChildren, child)
+        {
+            node = (CCNode*)child;
+            if (!node->isRunning())
+            {
+                node->onEnter();
+            }
+        }
+    }
+
+    this->resumeSchedulerAndActions();
 }
 
 void CCNode::onEnterTransitionDidFinish()
 {
-    arrayMakeObjectsPerformSelector(m_pChildren, onEnterTransitionDidFinish, CCNode*);
-
-    if (m_nScriptHandler || hasScriptEventListener(ENTER_TRANSITION_DID_FINISH_EVENT))
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterTransitionDidFinish);
     }
+
+    arrayMakeObjectsPerformSelector(m_pChildren, onEnterTransitionDidFinish, CCNode*);
 }
 
 void CCNode::onExitTransitionDidStart()
 {
     arrayMakeObjectsPerformSelector(m_pChildren, onExitTransitionDidStart, CCNode*);
 
-    if (m_nScriptHandler || hasScriptEventListener(EXIT_TRANSITION_DID_START_EVENT))
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExitTransitionDidStart);
     }
@@ -1055,28 +1077,11 @@ void CCNode::onExit()
 
     m_bRunning = false;
 
-    if (m_nScriptHandler || hasScriptEventListener(EXIT_SCENE_EVENT))
+    arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);
+
+    if (hasScriptEventListener(NODE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
-    }
-
-    arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);
-}
-
-void CCNode::registerScriptHandler(int nHandler)
-{
-    unregisterScriptHandler();
-    m_nScriptHandler = nHandler;
-    LUALOG("[LUA] Add CCNode event handler: %d", m_nScriptHandler);
-}
-
-void CCNode::unregisterScriptHandler(void)
-{
-    if (m_nScriptHandler)
-    {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptHandler);
-        LUALOG("[LUA] Remove CCNode event handler: %d", m_nScriptHandler);
-        m_nScriptHandler = 0;
     }
 }
 
@@ -1156,26 +1161,9 @@ void CCNode::scheduleUpdateWithPriority(int priority)
     m_pScheduler->scheduleUpdateForTarget(this, priority, !m_bRunning);
 }
 
-void CCNode::scheduleUpdateWithPriorityLua(int nHandler, int priority)
-{
-    unscheduleUpdate();
-    m_nUpdateScriptHandler = nHandler;
-    m_pScheduler->scheduleUpdateForTarget(this, priority, !m_bRunning);
-}
-
-void CCNode::scheduleUpdateForNodeEvent()
-{
-    scheduleUpdateWithPriority(0);
-}
-
 void CCNode::unscheduleUpdate()
 {
     m_pScheduler->unscheduleUpdateForTarget(this);
-    if (m_nUpdateScriptHandler)
-    {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nUpdateScriptHandler);
-        m_nUpdateScriptHandler = 0;
-    }
 }
 
 void CCNode::schedule(SEL_SCHEDULE selector)
@@ -1230,14 +1218,11 @@ void CCNode::pauseSchedulerAndActions()
 // override me
 void CCNode::update(float fDelta)
 {
-    if (m_nUpdateScriptHandler)
+    if (hasScriptEventListener(NODE_ENTER_FRAME_EVENT))
     {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeSchedule(m_nUpdateScriptHandler, fDelta, this);
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEnterFrameEvent(this, fDelta);
     }
-    if (hasScriptEventListener(ENTER_FRAME_EVENT))
-    {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnEnterFrame, fDelta);
-    }
+
     if (m_pComponentContainer && !m_pComponentContainer->isEmpty())
     {
         m_pComponentContainer->visit(fDelta);
@@ -1388,6 +1373,7 @@ CCPoint CCNode::convertTouchToNodeSpace(CCTouch *touch)
     CCPoint point = touch->getLocation();
     return this->convertToNodeSpace(point);
 }
+
 CCPoint CCNode::convertTouchToNodeSpaceAR(CCTouch *touch)
 {
     CCPoint point = touch->getLocation();
@@ -1416,12 +1402,17 @@ bool CCNode::removeComponent(const char *pName)
     return m_pComponentContainer->remove(pName);
 }
 
+bool CCNode::removeComponent(CCComponent *pComponent)
+{
+    return m_pComponentContainer->remove(pComponent);
+}
+
 void CCNode::removeAllComponents()
 {
     m_pComponentContainer->removeAll();
 }
 
-// CCNode
+// merge CCNodeRGBA to CCNode
 
 GLubyte CCNode::getOpacity(void)
 {
@@ -1559,10 +1550,9 @@ CCScene *CCNode::getScene()
     return dynamic_cast<CCScene*>(scene);
 }
 
-
 void CCNode::registerWithTouchDispatcher()
 {
-    //    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
     CCScene *scene = getScene();
     if (scene)
     {
@@ -1572,7 +1562,7 @@ void CCNode::registerWithTouchDispatcher()
 
 void CCNode::unregisterWithTouchDispatcher()
 {
-    //    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER");
+    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
     CCScene *scene = getScene();
     if (scene)
     {
@@ -1580,34 +1570,82 @@ void CCNode::unregisterWithTouchDispatcher()
     }
 }
 
-void CCNode::registerScriptTouchHandler(int nHandler, bool bIsMultiTouches, int nPriority, bool bSwallowsTouches)
+bool CCNode::isTouchCaptureEnabled()
 {
-    unregisterScriptTouchHandler();
-    m_pScriptTouchHandlerEntry = CCTouchScriptHandlerEntry::create(nHandler, bIsMultiTouches, nPriority, bSwallowsTouches);
-    m_pScriptTouchHandlerEntry->retain();
+    return m_bTouchCaptureEnabled;
 }
 
-void CCNode::unregisterScriptTouchHandler(void)
+void CCNode::setTouchCaptureEnabled(bool value)
 {
-    CC_SAFE_RELEASE_NULL(m_pScriptTouchHandlerEntry);
+    m_bTouchCaptureEnabled = value;
 }
 
-int CCNode::excuteScriptTouchHandler(int nEventType, CCTouch *pTouch)
+bool CCNode::isTouchSwallowEnabled()
 {
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchEvent(this, nEventType, pTouch);
+    return m_bTouchSwallowEnabled;
 }
 
-int CCNode::excuteScriptTouchHandler(int nEventType, CCSet *pTouches)
+void CCNode::setTouchSwallowEnabled(bool value)
 {
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches);
+    m_bTouchSwallowEnabled = value;
 }
 
-/// isTouchEnabled getter
+bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pTarget);
+    return true;
+}
+
+bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pTarget);
+    return true;
+}
+
+void CCNode::ccTouchCaptureEnded(CCTouch *pTouch, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pTarget);
+}
+
+void CCNode::ccTouchCaptureCancelled(CCTouch *pTouch, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouch);
+    CC_UNUSED_PARAM(pTarget);
+}
+
+bool CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pTarget);
+    return true;
+}
+
+bool CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pTarget);
+    return true;
+}
+
+void CCNode::ccTouchesCaptureEnded(CCSet *pTouches, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pTarget);
+}
+
+void CCNode::ccTouchesCaptureCancelled(CCSet *pTouches, CCNode *pTarget)
+{
+    CC_UNUSED_PARAM(pTouches);
+    CC_UNUSED_PARAM(pTarget);
+}
+
 bool CCNode::isTouchEnabled()
 {
     return m_bTouchEnabled;
 }
-/// isTouchEnabled setter
 
 void CCNode::setTouchEnabled(bool enabled)
 {
@@ -1628,7 +1666,7 @@ void CCNode::setTouchEnabled(bool enabled)
     }
 }
 
-void CCNode::setTouchMode(ccTouchesMode mode)
+void CCNode::setTouchMode(int mode)
 {
     if(m_eTouchMode != mode)
     {
@@ -1642,126 +1680,100 @@ void CCNode::setTouchMode(ccTouchesMode mode)
     }
 }
 
-void CCNode::setTouchPriority(int priority)
-{
-    if (m_nTouchPriority != priority)
-    {
-        m_nTouchPriority = priority;
-
-		if( m_bTouchEnabled)
-        {
-			setTouchEnabled(false);
-			setTouchEnabled(true);
-        }
-    }
-}
-
-int CCNode::getTouchPriority()
-{
-    return m_nTouchPriority;
-}
-
 int CCNode::getTouchMode()
 {
     return m_eTouchMode;
 }
 
-
-int CCNode::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCNode::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        return excuteScriptTouchHandler(CCTOUCHBEGAN, pTouch);
-    }
-
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
-    CCAssert(false, "Layer#ccTouchBegan override me");
-    return kCCTouchBegan;
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHBEGAN, pTouch);
+    }
+    return true;
 }
 
-int CCNode::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void CCNode::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        return excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
-    }
-
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
-    return kCCTouchMoved;
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouch);
+    }
 }
 
 void CCNode::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHENDED, pTouch);
-        return;
-    }
-
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHENDED, pTouch);
+    }
 }
 
 void CCNode::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
-        return;
-    }
-
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
+    }
 }
 
 void CCNode::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHBEGAN, pTouches);
-        return;
-    }
-
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHBEGAN, pTouches);
+    }
 }
 
 void CCNode::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHMOVED, pTouches);
-        return;
-    }
-    
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouches);
+    }
 }
 
 void CCNode::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHENDED, pTouches);
-        return;
-    }
-    
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHENDED, pTouches);
+    }
 }
 
 void CCNode::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
 {
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
-        return;
-    }
-    
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pEvent);
+    if (hasScriptEventListener(NODE_TOUCH_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
+    }
+}
+
+int CCNode::executeScriptTouchHandler(int nEventType, CCTouch *pTouch)
+{
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchEvent(this, nEventType, pTouch);
+}
+
+int CCNode::executeScriptTouchHandler(int nEventType, CCSet *pTouches)
+{
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches);
 }
 
 NS_CC_END

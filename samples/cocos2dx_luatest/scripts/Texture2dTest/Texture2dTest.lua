@@ -1370,23 +1370,23 @@ local function TextureMemoryAlloc()
     end
 
     local item1 = CCMenuItemFont:create("PNG")
-    item1:registerScriptTapHandler(updateImage)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, updateImage)
     item1:setTag(0)
 
     local item2 = CCMenuItemFont:create("RGBA8")
-    item2:registerScriptTapHandler(updateImage)
+    item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, updateImage)
     item2:setTag(1)
 
     local item3 = CCMenuItemFont:create("RGB8")
-    item3:registerScriptTapHandler(updateImage)
+    item3:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, updateImage)
     item3:setTag(2)
 
     local item4 = CCMenuItemFont:create("RGBA4")
-    item4:registerScriptTapHandler(updateImage)
+    item4:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, updateImage)
     item4:setTag(3)
 
     local item5 = CCMenuItemFont:create("A8")
-    item5:registerScriptTapHandler(updateImage)
+    item5:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, updateImage)
     item5:setTag(4)
 
     local arr = CCArray:create()
@@ -1409,7 +1409,7 @@ local function TextureMemoryAlloc()
         end
     end
 
-    warmup:registerScriptTapHandler(changeBackgroundVisible)
+    warmup:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, changeBackgroundVisible)
     local menu2 = CCMenu:createWithItem(warmup)
 
     menu2:alignItemsHorizontally()

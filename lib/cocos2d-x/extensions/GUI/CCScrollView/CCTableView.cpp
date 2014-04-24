@@ -583,7 +583,7 @@ void CCTableView::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
     CCScrollView::ccTouchEnded(pTouch, pEvent);
 }
 
-int CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!this->isVisible()) {
         return false;
@@ -622,7 +622,7 @@ int CCTableView::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     return touchResult;
 }
 
-int CCTableView::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void CCTableView::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCScrollView::ccTouchMoved(pTouch, pEvent);
 
@@ -633,8 +633,6 @@ int CCTableView::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 
         m_pTouchedCell = NULL;
     }
-
-    return kCCTouchMoved;
 }
 
 void CCTableView::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)

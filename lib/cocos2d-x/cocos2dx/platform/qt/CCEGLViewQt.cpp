@@ -633,8 +633,8 @@ void CCEGLView::setIMEKeyboardState(bool /*bOpen*/)
 void CCEGLView::setViewName(const char* pszViewName)
 {
     CCEGLViewProtocol::setViewName(pszViewName);
-    if (m_integration) {
-        m_integration->setTitle(getViewName());
+    if (m_glParentWidget) {
+        m_glParentWidget->setWindowTitle(getViewName());
     }
 }
 

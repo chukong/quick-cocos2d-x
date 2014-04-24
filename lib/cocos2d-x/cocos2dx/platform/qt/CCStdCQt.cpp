@@ -37,23 +37,23 @@ int gettimeofday(struct timeval * val, struct timezone *)
 }
 
 // from 2dx
-static unsigned int _Hash(const char *key)
-{
-    unsigned int len = strlen(key);
-    const char *end=key+len;
-    unsigned int hash;
+//static unsigned int _Hash(const char *key)
+//{
+//    unsigned int len = strlen(key);
+//    const char *end=key+len;
+//    unsigned int hash;
 
-    for (hash = 0; key < end; key++)
-    {
-        hash *= 16777619;
-        hash ^= (unsigned int) (unsigned char) toupper(*key);
-    }
-    return (hash);
-}
+//    for (hash = 0; key < end; key++)
+//    {
+//        hash *= 16777619;
+//        hash ^= (unsigned int) (unsigned char) toupper(*key);
+//    }
+//    return (hash);
+//}
 
-size_t hash_code( const std::type_info& info )
-{
-    // hash name() to size_t value by pseudorandomizing transform
-    const char *_Keyval = info.name();
-    return _Hash(_Keyval);
-}
+//size_t hash_code( const std::type_info& info )
+//{
+//    // hash name() to size_t value by pseudorandomizing transform
+//    const char *_Keyval = info.name();
+//    return _Hash(_Keyval);
+//}

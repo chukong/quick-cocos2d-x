@@ -28,13 +28,13 @@ using namespace cocos2d::extra;
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CCNetwork"); toluafix_add_type_mapping(HASH_CODE(typeid(CCNetwork)), "CCNetwork");
- tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(HASH_CODE(typeid(CCObject)), "CCObject");
- tolua_usertype(tolua_S,"CCHTTPRequest"); toluafix_add_type_mapping(HASH_CODE(typeid(CCHTTPRequest)), "CCHTTPRequest");
+ tolua_usertype(tolua_S,"CCNetwork"); toluafix_add_type_mapping(hash_code(typeid(CCNetwork)), "CCNetwork");
+ tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(hash_code(typeid(CCObject)), "CCObject");
+ tolua_usertype(tolua_S,"CCHTTPRequest"); toluafix_add_type_mapping(hash_code(typeid(CCHTTPRequest)), "CCHTTPRequest");
  
  
- tolua_usertype(tolua_S,"CCCrypto"); toluafix_add_type_mapping(HASH_CODE(typeid(CCCrypto)), "CCCrypto");
- tolua_usertype(tolua_S,"CCNative"); toluafix_add_type_mapping(HASH_CODE(typeid(CCNative)), "CCNative");
+ tolua_usertype(tolua_S,"CCCrypto"); toluafix_add_type_mapping(hash_code(typeid(CCCrypto)), "CCCrypto");
+ tolua_usertype(tolua_S,"CCNative"); toluafix_add_type_mapping(hash_code(typeid(CCNative)), "CCNative");
 }
 
 /* method: getAES256KeyLength of class  CCCrypto */

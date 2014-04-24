@@ -25,7 +25,7 @@
 #include "CCLuaEngine.h"
 #include "cocos2d.h"
 #include "cocoa/CCArray.h"
-#include "cocoa/CCEventDispatcher.h"
+#include "cocoa/CCScriptEventDispatcher.h"
 #include "CCScheduler.h"
 #include "cocos-ext.h"
 
@@ -97,7 +97,7 @@ int CCLuaEngine::executeGlobalFunction(const char* functionName, int numArgs /* 
     return ret;
 }
 
-int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction, float dt)
+int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
 {
     m_stack->clean();
     switch (nAction)
@@ -122,46 +122,47 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction, float dt)
             m_stack->pushString("cleanup");
             break;
 
-        case kCCNodeOnEnterFrame:
-            m_stack->pushFloat(dt);
-            break;
-
         default:
             return 0;
     }
-    m_stack->copyValue(1);
 
-    int handler = pNode->getScriptHandler();
-    if (handler)
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
     {
-        m_stack->executeFunctionByHandler(handler, 1);
+        m_stack->copyValue(1);
+        m_stack->executeFunctionByHandler(it->listener, 1);
         m_stack->settop(1);
     }
-    if (pNode->hasScriptEventListener(nAction))
-    {
-        ScriptHandlerMap &map = pNode->getScriptEventListenerForEvent(nAction);
-        for (ScriptHandlerMapIterator it = map.begin(); it != map.end(); ++it)
-        {
-            m_stack->copyValue(1);
-            m_stack->executeFunctionByHandler(it->second, 1);
-            m_stack->settop(1);
-        }
-    }
-
     m_stack->clean();
+    return 0;
+}
+
+int CCLuaEngine::executeNodeEnterFrameEvent(CCNode* pNode, float dt)
+{
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_ENTER_FRAME_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
+    {
+        m_stack->pushFloat(dt);
+        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->clean();
+    }
     return 0;
 }
 
 int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
 {
-    int nHandler = pMenuItem->getScriptTapHandler();
-    if (!nHandler) return 0;
-
-    m_stack->pushInt(pMenuItem->getTag());
-    m_stack->pushCCObject(pMenuItem, "CCMenuItem");
-    int ret = m_stack->executeFunctionByHandler(nHandler, 2);
-    m_stack->clean();
-    return ret;
+    CCScriptEventListenersForEvent &listeners = pMenuItem->getScriptEventListenersByEvent(MENU_ITEM_CLICKED_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
+    {
+        m_stack->pushInt(pMenuItem->getTag());
+        m_stack->pushCCObject(pMenuItem, "CCMenuItem");
+        m_stack->executeFunctionByHandler(it->listener, 2);
+        m_stack->clean();
+    }
+    return 0;
 }
 
 int CCLuaEngine::executeNotificationEvent(CCNotificationCenter* pNotificationCenter, const char* pszName, CCObject *obj /* = NULL */)
@@ -170,12 +171,12 @@ int CCLuaEngine::executeNotificationEvent(CCNotificationCenter* pNotificationCen
     if (!nHandler) return 0;
 
     m_stack->pushString(pszName);
-    
+
     if (obj)
         m_stack->pushCCObject(obj, "CCObject");
     else
         m_stack->pushNil();
-    
+
     int ret = m_stack->executeFunctionByHandler(nHandler, 2);
     m_stack->clean();
     return ret;
@@ -206,113 +207,150 @@ int CCLuaEngine::executeSchedule(int nHandler, float dt, CCNode* pNode/* = NULL*
 
 int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch)
 {
-    CCTouchScriptHandlerEntry* pScriptHandlerEntry = pNode->getScriptTouchHandlerEntry();
-    if (!pScriptHandlerEntry) return 0;
-    int nHandler = pScriptHandlerEntry->getHandler();
-    if (!nHandler) return 0;
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
+    if (listeners.size() == 0) return 0;
 
-    switch (eventType)
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
     {
-        case CCTOUCHBEGAN:
-            m_stack->pushString("began");
-            break;
+        if (eventType == CCTOUCHBEGAN || eventType == CCTOUCHENDED || eventType == CCTOUCHCANCELLED)
+        {
+            (*it).enabled = true;
+        }
+        else if (!(*it).enabled)
+        {
+            continue;
+        }
 
-        case CCTOUCHMOVED:
-            m_stack->pushString("moved");
-            break;
+        switch (eventType)
+        {
+            case CCTOUCHBEGAN:
+                m_stack->pushString("began");
+                break;
 
-        case CCTOUCHENDED:
-            m_stack->pushString("ended");
-            break;
+            case CCTOUCHMOVED:
+                m_stack->pushString("moved");
+                break;
 
-        case CCTOUCHCANCELLED:
-            m_stack->pushString("cancelled");
-            break;
+            case CCTOUCHENDED:
+                m_stack->pushString("ended");
+                break;
 
-        default:
-            return 0;
+            case CCTOUCHCANCELLED:
+                m_stack->pushString("cancelled");
+                break;
+
+            default:
+                return 0;
+        }
+
+        const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
+        const CCPoint prev = CCDirector::sharedDirector()->convertToGL(pTouch->getPreviousLocationInView());
+        m_stack->pushFloat(pt.x);
+        m_stack->pushFloat(pt.y);
+        m_stack->pushFloat(prev.x);
+        m_stack->pushFloat(prev.y);
+        int ret = m_stack->executeFunctionByHandler((*it).listener, 5);
+        m_stack->clean();
+
+        if (ret == false)
+        {
+            // false = ignore
+            (*it).enabled = false;
+        }
+
+        if (ret == true)
+        {
+
+        }
+
     }
 
-    const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
-    const CCPoint prev = CCDirector::sharedDirector()->convertToGL(pTouch->getPreviousLocationInView());
-    m_stack->pushFloat(pt.x);
-    m_stack->pushFloat(pt.y);
-    m_stack->pushFloat(prev.x);
-    m_stack->pushFloat(prev.y);
-    int ret = m_stack->executeFunctionByHandler(nHandler, 5);
-    m_stack->clean();
-    return ret;
+    return 1;
 }
 
 int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches)
 {
-    CCTouchScriptHandlerEntry* pScriptHandlerEntry = pNode->getScriptTouchHandlerEntry();
-    if (!pScriptHandlerEntry) return 0;
-    int nHandler = pScriptHandlerEntry->getHandler();
-    if (!nHandler) return 0;
-
-    switch (eventType)
-    {
-        case CCTOUCHBEGAN:
-            m_stack->pushString("began");
-            break;
-
-        case CCTOUCHMOVED:
-            m_stack->pushString("moved");
-            break;
-
-        case CCTOUCHENDED:
-            m_stack->pushString("ended");
-            break;
-
-        case CCTOUCHCANCELLED:
-            m_stack->pushString("cancelled");
-            break;
-
-        default:
-            return 0;
-    }
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
+    if (listeners.size() == 0) return 0;
 
     CCDirector* pDirector = CCDirector::sharedDirector();
     lua_State *L = m_stack->getLuaState();
-    lua_newtable(L);
-    lua_newtable(L);
-    int i = 1;
-    for (CCSetIterator it = pTouches->begin(); it != pTouches->end(); ++it)
+
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
     {
-        CCTouch* pTouch = (CCTouch*)*it;
-        const CCPoint pt = pDirector->convertToGL(pTouch->getLocationInView());
-        lua_pushnumber(L, pt.x);
-        lua_rawseti(L, -3, i);
-        lua_pushnumber(L, pt.y);
-        lua_rawseti(L, -3, i + 1);
-        lua_pushinteger(L, pTouch->getID());
-        lua_rawseti(L, -3, i + 2);
+        if (eventType == CCTOUCHBEGAN || eventType == CCTOUCHENDED || eventType == CCTOUCHCANCELLED)
+        {
+            (*it).enabled = true;
+        }
+        else if (!(*it).enabled)
+        {
+            continue;
+        }
 
-        const CCPoint prev = pDirector->convertToGL(pTouch->getPreviousLocationInView());
-        lua_pushnumber(L, prev.x);
-        lua_rawseti(L, -2, i);
-        lua_pushnumber(L, prev.y);
-        lua_rawseti(L, -2, i + 1);
-        lua_pushinteger(L, pTouch->getID());
-        lua_rawseti(L, -2, i + 2);
+        switch (eventType)
+        {
+            case CCTOUCHBEGAN:
+                m_stack->pushString("began");
+                break;
 
-        i += 3;
+            case CCTOUCHMOVED:
+                m_stack->pushString("moved");
+                break;
+
+            case CCTOUCHENDED:
+                m_stack->pushString("ended");
+                break;
+
+            case CCTOUCHCANCELLED:
+                m_stack->pushString("cancelled");
+                break;
+
+            default:
+                return 0;
+        }
+
+        lua_newtable(L);
+        lua_newtable(L);
+        int i = 1;
+        for (CCSetIterator it = pTouches->begin(); it != pTouches->end(); ++it)
+        {
+            CCTouch* pTouch = (CCTouch*)*it;
+            const CCPoint pt = pDirector->convertToGL(pTouch->getLocationInView());
+            lua_pushnumber(L, pt.x);
+            lua_rawseti(L, -3, i);
+            lua_pushnumber(L, pt.y);
+            lua_rawseti(L, -3, i + 1);
+            lua_pushinteger(L, pTouch->getID());
+            lua_rawseti(L, -3, i + 2);
+
+            const CCPoint prev = pDirector->convertToGL(pTouch->getPreviousLocationInView());
+            lua_pushnumber(L, prev.x);
+            lua_rawseti(L, -2, i);
+            lua_pushnumber(L, prev.y);
+            lua_rawseti(L, -2, i + 1);
+            lua_pushinteger(L, pTouch->getID());
+            lua_rawseti(L, -2, i + 2);
+            
+            i += 3;
+        }
+        int ret = m_stack->executeFunctionByHandler((*it).listener, 3);
+        m_stack->clean();
+
+        if (ret == 0)
+        {
+            // false = ignore
+            (*it).enabled = false;
+        }
     }
-
-    int ret = m_stack->executeFunctionByHandler(nHandler, 3);
-    m_stack->clean();
-    return ret;
+    
+    return 1;
 }
 
 int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
 {
-    CCScriptHandlerEntry* pScriptHandlerEntry = pLayer->getScriptKeypadHandlerEntry();
-    if (!pScriptHandlerEntry)
-        return 0;
-    int nHandler = pScriptHandlerEntry->getHandler();
-    if (!nHandler) return 0;
-
+    m_stack->clean();
     switch (eventType)
     {
         case kTypeBackClicked:
@@ -326,26 +364,33 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
         default:
             return 0;
     }
-    int ret = m_stack->executeFunctionByHandler(nHandler, 1);
+
+    CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(KEYPAD_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
+    {
+        m_stack->copyValue(1);
+        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->settop(1);
+    }
     m_stack->clean();
-    return ret;
+    return 0;
 }
 
 int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue)
 {
-    CCScriptHandlerEntry* pScriptHandlerEntry = pLayer->getScriptAccelerateHandlerEntry();
-    if (!pScriptHandlerEntry)
-        return 0;
-    int nHandler = pScriptHandlerEntry->getHandler();
-    if (!nHandler) return 0;
-
-    m_stack->pushFloat(pAccelerationValue->x);
-    m_stack->pushFloat(pAccelerationValue->y);
-    m_stack->pushFloat(pAccelerationValue->z);
-    m_stack->pushFloat(pAccelerationValue->timestamp);
-    int ret = m_stack->executeFunctionByHandler(nHandler, 4);
-    m_stack->clean();
-    return ret;
+    CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(ACCELERATE_EVENT);
+    CCScriptEventListenersForEventIterator it = listeners.begin();
+    for (; it != listeners.end(); ++it)
+    {
+        m_stack->pushFloat(pAccelerationValue->x);
+        m_stack->pushFloat(pAccelerationValue->y);
+        m_stack->pushFloat(pAccelerationValue->z);
+        m_stack->pushFloat(pAccelerationValue->timestamp);
+        m_stack->executeFunctionByHandler(it->listener, 4);
+        m_stack->clean();
+    }
+    return 0;
 }
 
 int CCLuaEngine::executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource /* = NULL*/, const char* pEventSourceClassName /* = NULL*/)
@@ -390,40 +435,40 @@ int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTabl
     {
         case cocos2d::extension::CCTableView::kTableViewScroll:
         case cocos2d::extension::CCTableView::kTableViewZoom:
-            {
-                m_stack->pushCCObject(pTableView, "CCTableView");
-                nRet = m_stack->executeFunctionByHandler(nHanlder, 1);
-            }
+        {
+            m_stack->pushCCObject(pTableView, "CCTableView");
+            nRet = m_stack->executeFunctionByHandler(nHanlder, 1);
+        }
             break;
         case cocos2d::extension::CCTableView::kTableCellTouched:
         case cocos2d::extension::CCTableView::kTableCellHighLight:
         case cocos2d::extension::CCTableView::kTableCellUnhighLight:
         case cocos2d::extension::CCTableView::kTableCellWillRecycle:
-            {
-                m_stack->pushCCObject(pTableView, "CCTableView");
-                m_stack->pushCCObject(static_cast<cocos2d::extension::CCTableViewCell*>(pValue), "CCTableViewCell");
-                nRet = m_stack->executeFunctionByHandler(nHanlder, 2);
-            }
+        {
+            m_stack->pushCCObject(pTableView, "CCTableView");
+            m_stack->pushCCObject(static_cast<cocos2d::extension::CCTableViewCell*>(pValue), "CCTableViewCell");
+            nRet = m_stack->executeFunctionByHandler(nHanlder, 2);
+        }
             break;
         case cocos2d::extension::CCTableView::kTableCellSizeForIndex:
-            {
-                m_stack->pushCCObject(pTableView, "CCTableView");
-                m_stack->pushInt(*((int*)pValue));
-                nRet = m_stack->executeFunctionReturnArray(nHanlder, 2, 2, pResultArray);
-            }
+        {
+            m_stack->pushCCObject(pTableView, "CCTableView");
+            m_stack->pushInt(*((int*)pValue));
+            nRet = m_stack->executeFunctionReturnArray(nHanlder, 2, 2, pResultArray);
+        }
             break;
         case cocos2d::extension::CCTableView::kTableCellSizeAtIndex:
-            {
-                m_stack->pushCCObject(pTableView, "CCTableView");
-                m_stack->pushInt(*((int*)pValue));
-                nRet = m_stack->executeFunctionReturnArray(nHanlder, 2, 1, pResultArray);
-            }
+        {
+            m_stack->pushCCObject(pTableView, "CCTableView");
+            m_stack->pushInt(*((int*)pValue));
+            nRet = m_stack->executeFunctionReturnArray(nHanlder, 2, 1, pResultArray);
+        }
             break;
         case cocos2d::extension::CCTableView::kNumberOfCellsInTableView:
-            {
-                m_stack->pushCCObject(pTableView, "CCTableView");
-                nRet = m_stack->executeFunctionReturnArray(nHanlder, 1, 1, pResultArray);
-            }
+        {
+            m_stack->pushCCObject(pTableView, "CCTableView");
+            nRet = m_stack->executeFunctionReturnArray(nHanlder, 1, 1, pResultArray);
+        }
             break;
         default:
             break;
@@ -484,6 +529,22 @@ int CCLuaEngine::executeEventWithArgs(int nHandler, CCArray* pArgs)
     }
 
     return  m_stack->executeFunctionByHandler(nHandler, nArgNums);
+}
+
+bool CCLuaEngine::parseConfig(CCScriptEngineProtocol::ConfigType type, const std::string& str)
+{
+    lua_getglobal(m_stack->getLuaState(), "__onParseConfig");
+    if (!lua_isfunction(m_stack->getLuaState(), -1))
+    {
+        CCLOG("[LUA ERROR] name '%s' does not represent a Lua function", "__onParseConfig");
+        lua_pop(m_stack->getLuaState(), 1);
+        return false;
+    }
+    
+    m_stack->pushInt((int)type);
+    m_stack->pushString(str.c_str());
+    
+    return m_stack->executeFunction(2);
 }
 
 NS_CC_END

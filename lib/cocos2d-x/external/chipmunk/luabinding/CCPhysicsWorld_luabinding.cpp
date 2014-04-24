@@ -31,19 +31,19 @@ static int tolua_collect_CCPoint (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CCPoint"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPoint)), "CCPoint");
- tolua_usertype(tolua_S,"CCPhysicsWorld"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPhysicsWorld)), "CCPhysicsWorld");
- tolua_usertype(tolua_S,"CCPointArray"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPointArray)), "CCPointArray");
- tolua_usertype(tolua_S,"CCPhysicsVector"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPhysicsVector)), "CCPhysicsVector");
- tolua_usertype(tolua_S,"CCPhysicsCollisionEvent"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPhysicsCollisionEvent)), "CCPhysicsCollisionEvent");
- tolua_usertype(tolua_S,"CCPhysicsDebugNode"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPhysicsDebugNode)), "CCPhysicsDebugNode");
- tolua_usertype(tolua_S,"CCPhysicsBody"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPhysicsBody)), "CCPhysicsBody");
+ tolua_usertype(tolua_S,"CCPoint"); toluafix_add_type_mapping(hash_code(typeid(CCPoint)), "CCPoint");
+ tolua_usertype(tolua_S,"CCPhysicsWorld"); toluafix_add_type_mapping(hash_code(typeid(CCPhysicsWorld)), "CCPhysicsWorld");
+ tolua_usertype(tolua_S,"CCPointArray"); toluafix_add_type_mapping(hash_code(typeid(CCPointArray)), "CCPointArray");
+ tolua_usertype(tolua_S,"CCPhysicsVector"); toluafix_add_type_mapping(hash_code(typeid(CCPhysicsVector)), "CCPhysicsVector");
+ tolua_usertype(tolua_S,"CCPhysicsCollisionEvent"); toluafix_add_type_mapping(hash_code(typeid(CCPhysicsCollisionEvent)), "CCPhysicsCollisionEvent");
+ tolua_usertype(tolua_S,"CCPhysicsDebugNode"); toluafix_add_type_mapping(hash_code(typeid(CCPhysicsDebugNode)), "CCPhysicsDebugNode");
+ tolua_usertype(tolua_S,"CCPhysicsBody"); toluafix_add_type_mapping(hash_code(typeid(CCPhysicsBody)), "CCPhysicsBody");
  
- tolua_usertype(tolua_S,"CCPhysicsShape"); toluafix_add_type_mapping(HASH_CODE(typeid(CCPhysicsShape)), "CCPhysicsShape");
+ tolua_usertype(tolua_S,"CCPhysicsShape"); toluafix_add_type_mapping(hash_code(typeid(CCPhysicsShape)), "CCPhysicsShape");
  
- tolua_usertype(tolua_S,"CCNode"); toluafix_add_type_mapping(HASH_CODE(typeid(CCNode)), "CCNode");
- tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(HASH_CODE(typeid(CCObject)), "CCObject");
- tolua_usertype(tolua_S,"CCArray"); toluafix_add_type_mapping(HASH_CODE(typeid(CCArray)), "CCArray");
+ tolua_usertype(tolua_S,"CCNode"); toluafix_add_type_mapping(hash_code(typeid(CCNode)), "CCNode");
+ tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(hash_code(typeid(CCObject)), "CCObject");
+ tolua_usertype(tolua_S,"CCArray"); toluafix_add_type_mapping(hash_code(typeid(CCArray)), "CCArray");
 }
 
 /* method: create of class  CCPhysicsWorld */

@@ -162,11 +162,11 @@ void CCControlSwitchSprite::draw()
     getShaderProgram()->setUniformsForBuiltins();
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture( GL_TEXTURE_2D, getTexture()->getName());
+    ccGLBindTexture2DN(0,getTexture()->getName());
     glUniform1i(m_uTextureLocation, 0);
 
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture( GL_TEXTURE_2D, m_pMaskTexture->getName() );
+    ccGLBindTexture2DN(1,m_pMaskTexture->getName());
     glUniform1i(m_uMaskLocation, 1);
 
 #define kQuadSize sizeof(m_sQuad.bl)
@@ -387,7 +387,7 @@ CCPoint CCControlSwitch::locationFromTouch(CCTouch* pTouch)
     return touchLocation;
 }
 
-int CCControlSwitch::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCControlSwitch::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!isTouchInside(pTouch) || !isEnabled() || !isVisible())
     {
@@ -406,7 +406,7 @@ int CCControlSwitch::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     return true;
 }
 
-int CCControlSwitch::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void CCControlSwitch::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     CCPoint location    = this->locationFromTouch(pTouch);
     location            = ccp (location.x - m_fInitialTouchXPosition, 0);
@@ -414,7 +414,6 @@ int CCControlSwitch::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     m_bMoved              = true;
 
     m_pSwitchSprite->setSliderXPosition(location.x);
-    return kCCTouchMoved;
 }
 
 void CCControlSwitch::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)

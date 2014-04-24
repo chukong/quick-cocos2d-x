@@ -18,8 +18,8 @@ local CURRENT_MODULE_NAME = ...
 
 cc = cc or {}
 cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
-cc.VERSION = "2.2.0"
-cc.FRAMEWORK_NAME = "quick-cocos2d-x client"
+cc.VERSION = "2.2.3"
+cc.FRAMEWORK_NAME = "quick-cocos2d-x"
 
 require(cc.PACKAGE_NAME .. ".debug")
 require(cc.PACKAGE_NAME .. ".functions")
