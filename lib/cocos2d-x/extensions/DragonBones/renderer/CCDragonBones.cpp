@@ -168,4 +168,20 @@ namespace dragonBones
     {
         this->unscheduleAllSelectors();
     }
+
+    void CCDragonBones::registerScriptHandler(int funId, String type)
+    {
+        getArmature()->registerScriptHandler(funId, type);
+        //this->addEventListener(AnimationEvent::LOOP_COMPLETE, "aaa", this, callfuncND_selector(CCDragonBones::ttttt));
+    }
+
+    void CCDragonBones::unregisterScriptHandler(String type)
+    {
+        getArmature()->unregisterScriptHandler(type);
+    }
+
+    int CCDragonBones::getScriptHandler(String type)
+    {
+        return getArmature()->getScriptHandler(type);
+    }
 }

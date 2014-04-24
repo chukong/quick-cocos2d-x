@@ -41,6 +41,7 @@ namespace dragonBones {
 
         CCNode* getDisplayNode();
         Armature* getArmature();
+        Animation* getAnimation();
         void gotoAndPlay(   const String &animationName,
                             Number fadeInTime = -1,
                             Number duration = -1,
@@ -61,6 +62,11 @@ namespace dragonBones {
 		void removeEventListener(const String &type, const std::string &key);
 		void dispatchEvent(Event *event);
 
+        // For script engine
+        void registerScriptHandler(int funId, String type);
+        void unregisterScriptHandler(String type);
+        int  getScriptHandler(String type);
+
 		// Methods for cocos2d-x users.
         void setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName);
 
@@ -74,8 +80,7 @@ namespace dragonBones {
         Armature* m_Armature; 
 		cocos2d::SEL_CallFuncND	m_Callback;
 		cocos2d::CCObject*	m_Caller;
-		void eventBridge(Event*e); 
-        Animation* getAnimation();
+		void eventBridge(Event*e);
     }; 
 }
 #endif // __QUICKCOCOS2DX__CCDRAGONBONES__

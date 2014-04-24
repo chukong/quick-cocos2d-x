@@ -1,0 +1,13 @@
+class AnimationEvent : public Event
+{
+public:
+	static const String MOVEMENT_CHANGE;
+	static const String FADE_IN;
+	static const String FADE_OUT;
+	static const String START;
+	static const String COMPLETE;
+	static const String LOOP_COMPLETE;
+	static const String FADE_IN_COMPLETE;
+	static const String FADE_OUT_COMPLETE;
+	String &getMovementID();
+};

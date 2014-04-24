@@ -1,3 +1,19 @@
+typedef std::string String;
+typedef unsigned int uint;
+typedef float Number;
+class Object
+{
+public:
+    Object(){};
+    ~Object(){};
+};
+
+class Event
+{
+public:
+	String &getType();
+};
+
 class Armature : public IAnimatable , public EventDispatcher
 {
 public:

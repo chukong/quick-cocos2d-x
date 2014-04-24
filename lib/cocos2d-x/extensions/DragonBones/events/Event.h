@@ -2,11 +2,12 @@
 #define __EVENT_H__
 
 #include "utils/preDB.h"
+#include "cocos2d.h"
 #include <functional>
 
 namespace dragonBones
 {
-    class Event
+    class Event : public cocos2d::CCObject
     {
         String _type;
     public:
@@ -36,6 +37,12 @@ namespace dragonBones
 
         // 从 EventDispatcher 对象中删除侦听器。 
         void removeEventListener(const String &type, const std::string &key);
+
+        // script engine callback
+        void registerScriptHandler(int funId, String type);
+        void unregisterScriptHandler(String type);
+        int getScriptHandler(String type);
+
     protected:
 
         typedef std::pair<Function , std::string> Callback;
@@ -43,6 +50,8 @@ namespace dragonBones
         typedef std::map<String , Listeners> EventListeners;
         // 保存所有侦听器列表
         EventListeners mEventListeners;
+
+        std::map<String, int> scriptHandlers;
     };
 }
 #endif // __EVENT_H__

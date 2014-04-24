@@ -1,0 +1,12 @@
+class DBObject
+{    
+public:
+	DBObject();
+	~DBObject();
+	void setVisible(bool visible);
+	bool getVisible();
+	virtual Armature* getArmature();
+	virtual void setArmature(Armature *value);
+	virtual void dispose();
+	virtual void update();
+};

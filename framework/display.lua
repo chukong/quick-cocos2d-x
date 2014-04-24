@@ -451,6 +451,17 @@ function display.newDrawNode()
 	return CCDrawNodeExtend.extend(CCDrawNode:create())
 end
 
+function display.newDragonBones(params)
+	local skeletonXMLFile = params.skeleton
+	local textureXMLFile = params.texture
+	local dbName = params.dragonBonesName
+	local armatureName = params.armatureName or dbName
+	local aniName = params.animationName or ""
+	return CCDragonBonesExtend.extend(
+		CCDragonBones:create( skeletonXMLFile, textureXMLFile, dbName, armatureName, aniName)
+	)
+end
+
 --- Create a circle or a sector or a pie by CCDrawNode
 -- @author zrong(zengrong.net)
 -- Creation: 2014-03-11
