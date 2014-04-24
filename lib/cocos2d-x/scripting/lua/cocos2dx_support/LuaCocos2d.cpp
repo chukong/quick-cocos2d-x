@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 04/23/14 18:46:45.
+** Generated automatically by tolua++-1.0.92 on 04/24/14 10:04:30.
 */
 
 /****************************************************************************
@@ -459,7 +459,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCFadeOutUpTiles).hash_code(), "CCFadeOutUpTiles");
  tolua_usertype(tolua_S,"CCWaves3D");
  toluafix_add_type_mapping(typeid(CCWaves3D).hash_code(), "CCWaves3D");
- tolua_usertype(tolua_S,"cocos2d::CCNode");
  tolua_usertype(tolua_S,"ccBlendFunc");
  toluafix_add_type_mapping(typeid(ccBlendFunc).hash_code(), "ccBlendFunc");
  tolua_usertype(tolua_S,"CCImage");
@@ -70789,7 +70788,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"addState",tolua_Cocos2d_Animation_addState00);
    tolua_function(tolua_S,"removeState",tolua_Cocos2d_Animation_removeState00);
   tolua_endmodule(tolua_S);
-  tolua_cclass(tolua_S,"CCDragonBones","CCDragonBones","cocos2d::CCNode",NULL);
+  tolua_cclass(tolua_S,"CCDragonBones","CCDragonBones","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCDragonBones");
    tolua_function(tolua_S,"buildArmature",tolua_Cocos2d_CCDragonBones_buildArmature00);
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCDragonBones_create00);

@@ -2,7 +2,6 @@
 #define __DB_OBJECT_H__
 #include "utils/preDB.h"
 #include "objects/DBTransform.h"
-#include "utils/DBMatrix.h"
 namespace dragonBones
 {    
     class Bone;
@@ -61,7 +60,7 @@ namespace dragonBones
         /** @private */
         virtual void update();
         /** @private */
-        DBMatrix _globalTransformMatrix;
+        Matrix _globalTransformMatrix;
 
         /** @private */
         int _scaleType;

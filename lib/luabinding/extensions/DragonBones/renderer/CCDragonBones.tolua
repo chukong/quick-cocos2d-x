@@ -1,4 +1,4 @@
-class CCDragonBones:public cocos2d::CCNode {
+class CCDragonBones:public CCNode {
 public:
 	static Armature* buildArmature(	const char* skeletonXMLFile,
 									const char* textureXMLFile,

@@ -1,5 +1,4 @@
 #include "TransformUtil.h"
-#include "DBMatrix.h"
 #include <cmath>
 namespace dragonBones
 {
@@ -7,9 +6,9 @@ namespace dragonBones
         const Number TransformUtil::PI = 3.14159265f;
         const Number TransformUtil::HALF_PI = TransformUtil::PI * 0.5f;
         const Number TransformUtil::DOUBLE_PI = TransformUtil::PI * 2;        
-        DBMatrix _helpMatrix;
+        Matrix _helpMatrix;
 
-        void transformToMatrix(DBTransform &transform, DBMatrix &matrix)
+        void transformToMatrix(DBTransform &transform, Matrix &matrix)
         {
             matrix.a = transform.scaleX * cos(transform.skewY);
             matrix.b = transform.scaleX * sin(transform.skewY);

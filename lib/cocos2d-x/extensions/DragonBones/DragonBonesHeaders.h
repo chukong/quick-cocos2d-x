@@ -6,8 +6,8 @@
 //  Modified by zrong(zengrong.net) on 2014-04-23
 //
 
-#ifndef __DRAGONBONES_HEADERS__
-#define __DRAGONBONES_HEADERS__
+#ifndef __DRAGONBONES_HEADERS_H__
+#define __DRAGONBONES_HEADERS_H__
 
 #include "renderer/CCDragonBones.h"  
 
@@ -39,14 +39,11 @@
 #include "events/SoundEvent.h"
 #include "events/SoundEventManager.h"
 
-#include "utils/ColorTransform.h"
+#include "utils/DBGeometry.h"
 #include "utils/ConstValues.h"
 #include "utils/DBDataUtil.h"
 #include "utils/BytesType.h"
-#include "utils/DBMatrix.h"
-#include "utils/Point.h"
 #include "utils/preDB.h"
-#include "utils/Rectangle.h"
 #include "utils/TransformUtil.h"
 
 #include "objects/DBTransform.h"
@@ -65,4 +62,4 @@
 #include "objects/BoneData.h"
 #include "objects/Frame.h"
 
-#endif //__DRAGONBONES_HEADERS__
+#endif //__DRAGONBONES_HEADERS_H__

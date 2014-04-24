@@ -5,7 +5,6 @@
 #include "AnimationState.h"
 #include "objects/DBTransform.h"
 #include "utils//TransformUtil.h"
-#include "utils/ColorTransform.h"
 #include <cmath>
 
 namespace dragonBones

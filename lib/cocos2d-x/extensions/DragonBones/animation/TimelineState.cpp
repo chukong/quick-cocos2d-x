@@ -3,7 +3,6 @@
 #include "Bone.h"
 #include "objects/TransformFrame.h"
 #include "objects/AnimationData.h"
-#include "utils/ColorTransform.h"
 #include <stdlib.h>
 namespace dragonBones
 {

@@ -65,7 +65,7 @@ namespace dragonBones
         origin = DBTransform();
         offset = DBTransform();
         tween = DBTransform();
-        _globalTransformMatrix = DBMatrix();
+        _globalTransformMatrix = Matrix();
     }
         
     /** @private */
@@ -78,7 +78,7 @@ namespace dragonBones
         {
             Number x = origin.x + offset.x + tween.x;
             Number y = origin.y + offset.y + tween.y;
-            DBMatrix parentMatrix = parent->_globalTransformMatrix;
+            Matrix parentMatrix = parent->_globalTransformMatrix;
                 
             _globalTransformMatrix.tx = global.x = parentMatrix.a * x + parentMatrix.c * y + parentMatrix.tx;
             _globalTransformMatrix.ty = global.y = parentMatrix.d * y + parentMatrix.b * x + parentMatrix.ty;

@@ -53,7 +53,7 @@ namespace dragonBones
          * @param    matrix
          * @param    transform
          */
-        void Cocos2dxDisplayBridge::updateTransform(DBMatrix &matrix, DBTransform &transform)
+        void Cocos2dxDisplayBridge::updateTransform(Matrix &matrix, DBTransform &transform)
         {
             if(mDisplayNode)
             {

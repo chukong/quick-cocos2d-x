@@ -277,7 +277,7 @@ namespace dragonBones
                 Number pivotY = parent->_tweenPivot.y;
                 if(pivotX || pivotY)
                 {
-                    DBMatrix parentMatrix = parent->_globalTransformMatrix;
+                    Matrix parentMatrix = parent->_globalTransformMatrix;
                     _globalTransformMatrix.tx += parentMatrix.a * pivotX + parentMatrix.c * pivotY;
                     _globalTransformMatrix.ty += parentMatrix.b * pivotX + parentMatrix.d * pivotY;
                 }

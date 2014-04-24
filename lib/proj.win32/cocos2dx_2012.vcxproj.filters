@@ -1392,7 +1392,7 @@
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\factories</Filter>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBMatrix.cpp">
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBGeometry.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2774,22 +2774,13 @@
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\checkBytesTailisXML.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\ColorTransform.h">
-      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Point.h">
-      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\preDB.h">
-      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\Rectangle.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.h">
@@ -2798,7 +2789,7 @@
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.h">
       <Filter>cocos2d-x\extensions\DragonBones\factories</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBMatrix.h">
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBGeometry.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
   </ItemGroup>

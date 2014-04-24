@@ -37,7 +37,7 @@ namespace dragonBones
          * @param    matrix
          * @param    transform
          */
-        virtual void updateTransform(DBMatrix &matrix, DBTransform &transform);
+        virtual void updateTransform(Matrix &matrix, DBTransform &transform);
         
         /**
          * Updates the color of the display object
