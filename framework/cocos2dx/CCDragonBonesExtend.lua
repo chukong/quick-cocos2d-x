@@ -1,3 +1,7 @@
+-- For CCDragonBones 
+-- @author zrong(zengrong.net)
+-- Creation: 2014-04-24
+
 CCDragonBonesExtend = class("CCDragonBonesExtend", CCNodeExtend)
 CCDragonBonesExtend.__index = CCDragonBonesExtend
 
@@ -57,6 +61,14 @@ function CCDragonBonesExtend:removeScriptListener(evtType)
 		self:removeScriptListener(evtType, __listener)
 		self._listeners[evtType] = nil
 	end
+	return self
+end
+
+function CCDragonBonesExtend:removeAllScriptListener()
+	for __k, __v in pairs(self._listeners) do
+		self:removeScriptListener(__k)
+	end
+	self._listeners = {}
 	return self
 end
 
