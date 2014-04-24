@@ -38,8 +38,4 @@ class CCScriptEventDispatcher : public CCObject
     void removeScriptEventListenersByTag(int tag);
     void removeAllScriptEventListeners();
     bool hasScriptEventListener(int event);
-
-    int addScriptTouchEventListener @ addTouchEventListener (LUA_FUNCTION listener, int tag = 0, int priority = 0);
-    int addScriptTouchCaptureEventListener @ addTouchCaptureEventListener (LUA_FUNCTION listener, int tag = 0, int priority = 0);
-    int addScriptEnterFrameEventListener @ addEnterFrameEventListener (LUA_FUNCTION listener, int tag = 0, int priority = 0);
 };

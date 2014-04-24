@@ -50,14 +50,14 @@ if device.platform == "windows" then
     device.pathSeparator = ";"
 end
 
-echoInfo("# device.platform              = " .. device.platform)
-echoInfo("# device.model                 = " .. device.model)
-echoInfo("# device.language              = " .. device.language)
-echoInfo("# device.writablePath          = " .. device.writablePath)
-echoInfo("# device.cachePath             = " .. device.cachePath)
-echoInfo("# device.directorySeparator    = " .. device.directorySeparator)
-echoInfo("# device.pathSeparator         = " .. device.pathSeparator)
-echoInfo("#")
+printInfo("# device.platform              = " .. device.platform)
+printInfo("# device.model                 = " .. device.model)
+printInfo("# device.language              = " .. device.language)
+printInfo("# device.writablePath          = " .. device.writablePath)
+printInfo("# device.cachePath             = " .. device.cachePath)
+printInfo("# device.directorySeparator    = " .. device.directorySeparator)
+printInfo("# device.pathSeparator         = " .. device.pathSeparator)
+printInfo("#")
 
 function device.showActivityIndicator()
     CCNative:showActivityIndicator()

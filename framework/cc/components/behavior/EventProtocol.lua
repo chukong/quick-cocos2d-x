@@ -23,9 +23,9 @@ function EventProtocol:addEventListener(eventName, listener, data)
 
     if self.debug_ then
         if data then
-            echoInfo("EventProtocol:addEventListener() - add listener [%s] %s:%s for event %s", handle, tostring(data), tostring(listener), eventName)
+            printInfo("EventProtocol:addEventListener() - add listener [%s] %s:%s for event %s", handle, tostring(data), tostring(listener), eventName)
         else
-            echoInfo("EventProtocol:addEventListener() - add listener [%s] %s for event %s", handle, tostring(listener), eventName)
+            printInfo("EventProtocol:addEventListener() - add listener [%s] %s for event %s", handle, tostring(listener), eventName)
         end
     end
 
@@ -36,7 +36,7 @@ function EventProtocol:dispatchEvent(event)
     event.name = string.upper(event.name)
     local eventName = event.name
     if self.debug_ then
-        echoInfo("EventProtocol:dispatchEvent() - dispatching event %s", eventName)
+        printInfo("EventProtocol:dispatchEvent() - dispatching event %s", eventName)
     end
 
     if self.listeners_[eventName] == nil then return end
@@ -44,7 +44,7 @@ function EventProtocol:dispatchEvent(event)
 
     for handle, listener in pairs(self.listeners_[eventName]) do
         if self.debug_ then
-            echoInfo("EventProtocol:dispatchEvent() - dispatching event %s to listener [%s]", eventName, handle)
+            printInfo("EventProtocol:dispatchEvent() - dispatching event %s to listener [%s]", eventName, handle)
         end
         local ret
         if listener[2] then
@@ -54,7 +54,7 @@ function EventProtocol:dispatchEvent(event)
         end
         if ret == false then
             if self.debug_ then
-                echoInfo("EventProtocol:dispatchEvent() - break dispatching for event %s", eventName)
+                printInfo("EventProtocol:dispatchEvent() - break dispatching for event %s", eventName)
             end
             break
         end
@@ -70,7 +70,7 @@ function EventProtocol:removeEventListener(eventName, key1, key2)
         if key1 == handle or (key1 == listener[1] and key2 == listener[2]) then
             self.listeners_[eventName][handle] = nil
             if self.debug_ then
-                echoInfo("EventProtocol:removeEventListener() - remove listener [%s] for event %s", handle, eventName)
+                printInfo("EventProtocol:removeEventListener() - remove listener [%s] for event %s", handle, eventName)
             end
             return handle
         end
@@ -81,7 +81,7 @@ end
 function EventProtocol:removeAllEventListenersForEvent(eventName)
     self.listeners_[string.upper(eventName)] = nil
     if self.debug_ then
-        echoInfo("EventProtocol:removeAllEventListenersForEvent() - remove all listeners for event %s", eventName)
+        printInfo("EventProtocol:removeAllEventListenersForEvent() - remove all listeners for event %s", eventName)
     end
     return self
 end
@@ -89,7 +89,7 @@ end
 function EventProtocol:removeAllEventListeners()
     self.listeners_ = {}
     if self.debug_ then
-        echoInfo("EventProtocol:removeAllEventListeners() - remove all listeners")
+        printInfo("EventProtocol:removeAllEventListeners() - remove all listeners")
     end
     return self
 end

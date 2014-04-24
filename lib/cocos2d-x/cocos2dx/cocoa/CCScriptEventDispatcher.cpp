@@ -152,21 +152,6 @@ CCScriptEventListenersForDispatcher &CCScriptEventDispatcher::getAllScriptEventL
     return m_scriptEventListeners ? *m_scriptEventListeners : s_emptyListeners;
 }
 
-int CCScriptEventDispatcher::addScriptTouchEventListener(int listener, int tag /* = 0 */, int priority /* = 0 */)
-{
-    return addScriptEventListener(NODE_TOUCH_EVENT, listener, tag, priority);
-}
-
-int CCScriptEventDispatcher::addScriptTouchCaptureEventListener(int listener, int tag /* = 0 */, int priority /* = 0 */)
-{
-    return addScriptEventListener(NODE_TOUCH_CAPTURE_EVENT, listener, tag, priority);
-}
-
-int CCScriptEventDispatcher::addScriptEnterFrameEventListener(int listener, int tag /* = 0 */, int priority /* = 0 */)
-{
-    return addScriptEventListener(NODE_ENTER_FRAME_EVENT, listener, tag, priority);
-}
-
 bool CCScriptEventDispatcher::sortListenerCompare(CCScriptHandlePair &a, CCScriptHandlePair &b)
 {
     return a.priority < b.priority;

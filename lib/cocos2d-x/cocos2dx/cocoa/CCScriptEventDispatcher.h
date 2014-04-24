@@ -84,10 +84,6 @@ public:
     CCScriptEventListenersForEvent &getScriptEventListenersByEvent(int event) const;
     CCScriptEventListenersForDispatcher &getAllScriptEventListeners() const;
 
-    virtual int addScriptTouchEventListener(int listener, int tag = 0, int priority = 0);
-    virtual int addScriptTouchCaptureEventListener(int listener, int tag = 0, int priority = 0);
-    virtual int addScriptEnterFrameEventListener(int listener, int tag = 0, int priority = 0);
-
 private:
     CCScriptEventListenersForDispatcher *m_scriptEventListeners;
 

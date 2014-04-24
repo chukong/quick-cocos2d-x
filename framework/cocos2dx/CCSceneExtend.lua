@@ -12,7 +12,7 @@ function CCSceneExtend.extend(target)
 
     local function handler(event)
         if event == "enter" then
-            echoInfo("Scene \"%s:onEnter()\"", target.name or (target.__cname or "unknown"))
+            printInfo("Scene \"%s:onEnter()\"", target.name or (target.__cname or "unknown"))
             target:onEnter()
         elseif event == "enterTransitionFinish" then
             target:onEnterTransitionFinish()
@@ -21,7 +21,7 @@ function CCSceneExtend.extend(target)
         elseif event == "cleanup" then
             target:onCleanup()
         elseif event == "exit" then
-            echoInfo("Scene \"%s:onExit()\"", target.name or (target.__cname or "unknown"))
+            printInfo("Scene \"%s:onExit()\"", target.name or (target.__cname or "unknown"))
 
             if target.autoCleanupImages_ then
                 for imageName, v in pairs(target.autoCleanupImages_) do
@@ -33,10 +33,10 @@ function CCSceneExtend.extend(target)
             target:onExit()
 
             if DEBUG_MEM then
-                echoInfo("----------------------------------------")
-                echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
+                printInfo("----------------------------------------")
+                printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
                 CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
-                echoInfo("----------------------------------------")
+                printInfo("----------------------------------------")
             end
         end
     end

@@ -29,20 +29,20 @@ local function decode_(fileContents)
     local j = json.decode(contents)
 
     if type(j) ~= "table" then
-        echoError("GameState.decode_() - invalid contents")
+        printError("GameState.decode_() - invalid contents")
         return {errorCode = GameState.ERROR_INVALID_FILE_CONTENTS}
     end
 
     local hash,s = j.h, j.s
     local testHash = crypto.md5(s..secretKey)
     if testHash ~= hash then
-        echoError("GameState.decode_() - hash miss match")
+        printError("GameState.decode_() - hash miss match")
         return {errorCode = GameState.ERROR_HASH_MISS_MATCH}
     end
 
     local values = json.decode(s)
     if type(values) ~= "table" then
-        echoError("GameState.decode_() - invalid state data")
+        printError("GameState.decode_() - invalid state data")
         return {errorCode = GameState.ERROR_INVALID_FILE_CONTENTS}
     end
 
@@ -53,7 +53,7 @@ end
 
 function GameState.init(eventListener_, stateFilename_, secretKey_)
     if type(eventListener_) ~= "function" then
-        echoError("GameState.init() - invalid eventListener")
+        printError("GameState.init() - invalid eventListener")
         return false
     end
 
@@ -80,12 +80,12 @@ function GameState.load()
     local filename = GameState.getGameStatePath()
 
     if not io.exists(filename) then
-        echoInfo("GameState.load() - file \"%s\" not found", filename)
+        printInfo("GameState.load() - file \"%s\" not found", filename)
         return eventListener({name = "load", errorCode = GameState.ERROR_STATE_FILE_NOT_FOUND})
     end
 
     local contents = io.readfile(filename)
-    echoInfo("GameState.load() - get values from \"%s\"", filename)
+    printInfo("GameState.load() - get values from \"%s\"", filename)
 
     local values
     local encode = false
@@ -101,7 +101,7 @@ function GameState.load()
     else
         values = json.decode(contents)
         if type(values) ~= "table" then
-            echoError("GameState.load() - invalid data")
+            printError("GameState.load() - invalid data")
             return eventListener({name = "load", errorCode = GameState.ERROR_INVALID_FILE_CONTENTS})
         end
     end
@@ -121,7 +121,7 @@ function GameState.save(newValues)
         encode = type(secretKey) == "string"
     })
     if type(values) ~= "table" then
-        echoError("GameState.save() - listener return invalid data")
+        printError("GameState.save() - listener return invalid data")
         return false
     end
 
@@ -136,7 +136,7 @@ function GameState.save(newValues)
         end
     end
 
-    echoInfo("GameState.save() - update file \"%s\"", filename)
+    printInfo("GameState.save() - update file \"%s\"", filename)
     return ret
 end
 

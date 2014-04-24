@@ -165,7 +165,7 @@ end
 ----------------------------------------
 
 function CCLayerExtend:onTouch(listener, isMultiTouches, priority, swallowsTouches)
-    self:addTouchEventListener(listener, tobool(isMultiTouches), toint(priority), tobool(swallowsTouches))
+    self:addTouchEventListener(listener, checkbool(isMultiTouches), checkint(priority), checkbool(swallowsTouches))
     return self
 end
 
