@@ -96,6 +96,20 @@ namespace dragonBones
                 _animationList.push_back(_animationDataList[i]->name);
             }
         }
+
+        AnimationData* Animation::getAnimationData(std::string &name)
+        {
+            for (size_t i = 0; i < _animationDataList.size(); i++)
+            {
+                AnimationData* data = _animationDataList[i];
+                if (data->name == name)
+                {
+                    return data;
+                }
+            }
+            return 0;
+        }
+       
         /**
          * The amount by which passed time should be scaled. Used to slow down or speed up animations. Defaults to 1.
          */

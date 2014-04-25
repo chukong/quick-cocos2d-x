@@ -25,7 +25,7 @@ namespace dragonBones
         
         dragonBones::XMLDocument doc;
         unsigned char* skeleton_data = cocos2d::CCFileUtils::sharedFileUtils()->
-        getFileData(skeletonFile.c_str(), "rb", &dummySize);
+            getFileData(skeletonFile.c_str(), "rb", &dummySize);
         doc.Parse(reinterpret_cast<char*>(skeleton_data),dummySize);
         delete[] skeleton_data;
         

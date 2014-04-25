@@ -110,6 +110,8 @@ namespace dragonBones
          */
         const std::vector<AnimationData*>& getAnimationDataList();
         void setAnimationDataList(const std::vector<AnimationData*> &value);
+
+        AnimationData* getAnimationData(std::string &name);
         
         Number _timeScale;
         /**
