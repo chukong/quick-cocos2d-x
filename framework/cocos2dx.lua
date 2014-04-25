@@ -1,8 +1,4 @@
 
-ccp = CCPoint
-ccsize = CCSize
-ccrect = CCRect
-
 cc.p = CCPoint
 cc.size = CCSize
 cc.rect = CCRect
@@ -19,8 +15,8 @@ cc.MENU_ITEM_CLICKED_EVENT  = 4
 cc.ACCELERATE_EVENT         = 5
 cc.KEYPAD_EVENT             = 6
 
-cc.TOUCH_ALL_AT_ONCE        = 0
-cc.TOUCH_ONE_BY_ONE         = 1
+cc.TOUCH_MODE_ALL_AT_ONCE   = 0
+cc.TOUCH_MODE_ONE_BY_ONE    = 1
 
 cc.size2t = function(size)
     return {width = size.width, height = size.height}

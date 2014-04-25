@@ -11,7 +11,7 @@ end
 
 function network.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
-        echoError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
+        printError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
         return false
     end
     return CCNetwork:isHostNameReachable(hostname)
@@ -72,7 +72,7 @@ function network.parseCookie(cookieString)
                 access = parseTrueFalse(parts[2]),
                 path = parts[3],
                 secure = parseTrueFalse(parts[4]),
-                expire = toint(parts[5]),
+                expire = checkint(parts[5]),
                 name = parts[6],
                 value = string.urldecode(parts[7]),
             }

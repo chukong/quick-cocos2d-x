@@ -27,7 +27,7 @@ end
 
 function luaj.callStaticMethod(className, methodName, args, sig)
     local args, sig = checkArguments(args, sig)
-    echoInfo("luaj.callStaticMethod(\"%s\",\n\t\"%s\",\n\targs,\n\t\"%s\"", className, methodName, sig)
+    printInfo("luaj.callStaticMethod(\"%s\",\n\t\"%s\",\n\targs,\n\t\"%s\"", className, methodName, sig)
     return callJavaStaticMethod(className, methodName, args, sig)
 end
 

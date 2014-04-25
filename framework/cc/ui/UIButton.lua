@@ -196,7 +196,7 @@ function UIButton:onChangeState_(event)
 end
 
 function UIButton:onTouch_(event, x, y)
-    echoError("UIButton:onTouch_() - must override in inherited class")
+    printError("UIButton:onTouch_() - must override in inherited class")
 end
 
 function UIButton:updateButtonImage_()
@@ -234,7 +234,7 @@ function UIButton:updateButtonImage_()
         self.sprite_:setAnchorPoint(self:getAnchorPoint())
         self.sprite_:setPosition(0, 0)
     else
-        echoError("UIButton:updateButtonImage_() - not set image for state %s", state)
+        printError("UIButton:updateButtonImage_() - not set image for state %s", state)
     end
 end
 

@@ -48,7 +48,7 @@ if CONFIG_SCREEN_AUTOSCALE then
         CONFIG_SCREEN_WIDTH = w / scale
     else
         scale = 1.0
-        echoError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
+        printError(string.format("display - invalid CONFIG_SCREEN_AUTOSCALE \"%s\"", CONFIG_SCREEN_AUTOSCALE))
     end
 
     glview:setDesignResolutionSize(CONFIG_SCREEN_WIDTH, CONFIG_SCREEN_HEIGHT, kResolutionNoBorder)
@@ -72,25 +72,25 @@ display.bottom             = 0
 display.widthInPixels      = display.sizeInPixels.width
 display.heightInPixels     = display.sizeInPixels.height
 
-echoInfo(string.format("# CONFIG_SCREEN_AUTOSCALE      = %s", CONFIG_SCREEN_AUTOSCALE))
-echoInfo(string.format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
-echoInfo(string.format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
-echoInfo(string.format("# display.widthInPixels        = %0.2f", display.widthInPixels))
-echoInfo(string.format("# display.heightInPixels       = %0.2f", display.heightInPixels))
-echoInfo(string.format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
-echoInfo(string.format("# display.width                = %0.2f", display.width))
-echoInfo(string.format("# display.height               = %0.2f", display.height))
-echoInfo(string.format("# display.cx                   = %0.2f", display.cx))
-echoInfo(string.format("# display.cy                   = %0.2f", display.cy))
-echoInfo(string.format("# display.left                 = %0.2f", display.left))
-echoInfo(string.format("# display.right                = %0.2f", display.right))
-echoInfo(string.format("# display.top                  = %0.2f", display.top))
-echoInfo(string.format("# display.bottom               = %0.2f", display.bottom))
-echoInfo(string.format("# display.c_left               = %0.2f", display.c_left))
-echoInfo(string.format("# display.c_right              = %0.2f", display.c_right))
-echoInfo(string.format("# display.c_top                = %0.2f", display.c_top))
-echoInfo(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
-echoInfo("#")
+printInfo(string.format("# CONFIG_SCREEN_AUTOSCALE      = %s", CONFIG_SCREEN_AUTOSCALE))
+printInfo(string.format("# CONFIG_SCREEN_WIDTH          = %0.2f", CONFIG_SCREEN_WIDTH))
+printInfo(string.format("# CONFIG_SCREEN_HEIGHT         = %0.2f", CONFIG_SCREEN_HEIGHT))
+printInfo(string.format("# display.widthInPixels        = %0.2f", display.widthInPixels))
+printInfo(string.format("# display.heightInPixels       = %0.2f", display.heightInPixels))
+printInfo(string.format("# display.contentScaleFactor   = %0.2f", display.contentScaleFactor))
+printInfo(string.format("# display.width                = %0.2f", display.width))
+printInfo(string.format("# display.height               = %0.2f", display.height))
+printInfo(string.format("# display.cx                   = %0.2f", display.cx))
+printInfo(string.format("# display.cy                   = %0.2f", display.cy))
+printInfo(string.format("# display.left                 = %0.2f", display.left))
+printInfo(string.format("# display.right                = %0.2f", display.right))
+printInfo(string.format("# display.top                  = %0.2f", display.top))
+printInfo(string.format("# display.bottom               = %0.2f", display.bottom))
+printInfo(string.format("# display.c_left               = %0.2f", display.c_left))
+printInfo(string.format("# display.c_right              = %0.2f", display.c_right))
+printInfo(string.format("# display.c_top                = %0.2f", display.c_top))
+printInfo(string.format("# display.c_bottom             = %0.2f", display.c_bottom))
+printInfo("#")
 
 display.COLOR_WHITE = ccc3(255, 255, 255)
 display.COLOR_BLACK = ccc3(0, 0, 0)
@@ -186,7 +186,7 @@ function display.wrapSceneWithTransition(scene, transitionType, time, more)
             scene = cls:create(time, scene)
         end
     else
-        echoError("display.wrapSceneWithTransition() - invalid transitionType %s", tostring(transitionType))
+        printError("display.wrapSceneWithTransition() - invalid transitionType %s", tostring(transitionType))
     end
     return scene
 end
@@ -255,7 +255,7 @@ function display.newSprite(filename, x, y)
     elseif t == "CCSpriteFrame" then
         sprite = CCSprite:createWithSpriteFrame(filename)
     else
-        echoError("display.newSprite() - invalid filename value type")
+        printError("display.newSprite() - invalid filename value type")
         sprite = CCSprite:create()
     end
 
@@ -263,7 +263,7 @@ function display.newSprite(filename, x, y)
         CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
     else
-        echoError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
+        printError("display.newSprite() - create sprite failure, filename %s", tostring(filename))
         sprite = CCSprite:create()
     end
 
@@ -273,7 +273,7 @@ end
 function display.newScale9Sprite(filename, x, y, size)
     local t = type(filename)
     if t ~= "string" then
-        echoError("display.newScale9Sprite() - invalid filename type")
+        printError("display.newScale9Sprite() - invalid filename type")
         return
     end
 
@@ -298,7 +298,7 @@ function display.newScale9Sprite(filename, x, y, size)
         if x and y then sprite:setPosition(x, y) end
         if size then sprite:setContentSize(size) end
     else
-        echoError("display.newScale9Sprite() - create sprite failure, filename %s", tostring(filename))
+        printError("display.newScale9Sprite() - create sprite failure, filename %s", tostring(filename))
     end
 
     return sprite
@@ -310,7 +310,7 @@ function display.newTilesSprite(filename, rect)
     end
     local sprite = CCSprite:create(filename, rect)
     if not sprite then
-        echoError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
+        printError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
     end
 
@@ -411,7 +411,7 @@ function display.newRect(width, height)
             height = width.height
             width = width.width
         else
-            echoError("display.newRect() - invalid parameters")
+            printError("display.newRect() - invalid parameters")
             return
         end
     end
@@ -474,7 +474,7 @@ end
 function display.newSpriteFrame(frameName)
     local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
     if not frame then
-        echoError("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
+        printError("display.newSpriteFrame() - invalid frameName %s", tostring(frameName))
     end
     return frame
 end
@@ -492,7 +492,7 @@ function display.newFrames(pattern, begin, length, isReversed)
         local frameName = string.format(pattern, index)
         local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
         if not frame then
-            echoError("display.newFrames() - invalid frame, name %s", tostring(frameName))
+            printError("display.newFrames() - invalid frame, name %s", tostring(frameName))
             return
         end
 

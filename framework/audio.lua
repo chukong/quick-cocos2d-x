@@ -25,7 +25,7 @@ audio.setEffectsVolume = audio.setSoundsVolume
 
 function audio.preloadMusic(filename)
     if DEBUG > 1 then
-        echoInfo("audio.preloadMusic() - filename: %s", tostring(filename))
+        printInfo("audio.preloadMusic() - filename: %s", tostring(filename))
     end
     sharedEngine:preloadBackgroundMusic(filename)
 end
@@ -36,7 +36,7 @@ function audio.playMusic(filename, isLoop)
 
     audio.stopMusic(true)
     if DEBUG > 1 then
-        echoInfo("audio.playMusic() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
+        printInfo("audio.playMusic() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
     end
     sharedEngine:playBackgroundMusic(filename, isLoop)
 end
@@ -85,7 +85,7 @@ audio.isBackgroundMusicPlaying = audio.isMusicPlaying
 function audio.playSound(filename, isLoop)
     if type(isLoop) ~= "boolean" then isLoop = false end
     if DEBUG > 1 then
-        echoInfo("audio.playSound() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
+        printInfo("audio.playSound() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
     end
     return sharedEngine:playEffect(filename, isLoop)
 end
@@ -123,7 +123,7 @@ audio.stopAllEffects = audio.stopAllSounds
 
 function audio.preloadSound(filename)
     if DEBUG > 1 then
-        echoInfo("audio.preloadSound() - filename: %s", tostring(filename))
+        printInfo("audio.preloadSound() - filename: %s", tostring(filename))
     end
     sharedEngine:preloadEffect(filename)
 end

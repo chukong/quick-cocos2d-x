@@ -25,7 +25,7 @@ function BasicLayoutProtocol:setLayoutSize(width, height)
     if width == 0 and height == 0 then
         self.layoutSize_ = nil
     else
-        self.layoutSize_ = {width = tonum(width), height = tonum(height)}
+        self.layoutSize_ = {width = checknumber(width), height = checknumber(height)}
     end
     return self
 end
@@ -35,8 +35,8 @@ function BasicLayoutProtocol:getLayoutMinSize()
 end
 
 function BasicLayoutProtocol:setLayoutMinSize(width, height)
-    self.minSize_.width = tonum(width)
-    self.minSize_.height = tonum(height)
+    self.minSize_.width = checknumber(width)
+    self.minSize_.height = checknumber(height)
     return self
 end
 
@@ -45,8 +45,8 @@ function BasicLayoutProtocol:getLayoutMaxSize()
 end
 
 function BasicLayoutProtocol:setLayoutMaxSize(width, height)
-    self.maxSize_.width = tonum(width)
-    self.maxSize_.height = tonum(height)
+    self.maxSize_.width = checknumber(width)
+    self.maxSize_.height = checknumber(height)
     return self
 end
 
@@ -56,7 +56,7 @@ end
 
 local function checkSizePolicy(p)
     if p ~= display.AUTO_SIZE and p ~= display.FIXED_SIZE then
-        echoError("BasicLayoutProtocol - invalid size policy")
+        printError("BasicLayoutProtocol - invalid size policy")
         return display.AUTO_SIZE
     else
         return p
@@ -74,10 +74,10 @@ function BasicLayoutProtocol:getLayoutPadding()
 end
 
 function BasicLayoutProtocol:setLayoutPadding(top, right, bottom, left)
-    self.padding_.top = tonum(top)
-    self.padding_.right = tonum(right)
-    self.padding_.bottom = tonum(bottom)
-    self.padding_.left = tonum(left)
+    self.padding_.top = checknumber(top)
+    self.padding_.right = checknumber(right)
+    self.padding_.bottom = checknumber(bottom)
+    self.padding_.left = checknumber(left)
     return self
 end
 
@@ -86,10 +86,10 @@ function BasicLayoutProtocol:getLayoutMargin()
 end
 
 function BasicLayoutProtocol:setLayoutMargin(top, right, bottom, left)
-    self.margin_.top = tonum(top)
-    self.margin_.right = tonum(right)
-    self.margin_.bottom = tonum(bottom)
-    self.margin_.left = tonum(left)
+    self.margin_.top = checknumber(top)
+    self.margin_.right = checknumber(right)
+    self.margin_.bottom = checknumber(bottom)
+    self.margin_.left = checknumber(left)
     return self
 end
 

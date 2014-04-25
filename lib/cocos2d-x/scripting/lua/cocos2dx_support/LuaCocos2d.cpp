@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Apr 23 17:57:07 2014.
+** Generated automatically by tolua++-1.0.92 on Thu Apr 24 16:18:41 2014.
 */
 
 /****************************************************************************
@@ -8153,8 +8153,8 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_hasScriptEventListener00(lua_St
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: addScriptTouchEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addTouchEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_addTouchEventListener00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addScriptTouchEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptTouchEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -8177,22 +8177,22 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addTouchEventListener00(lua_Sta
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addScriptTouchEventListener'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->addScriptTouchEventListener(listener,tag,priority);
+   int tolua_ret = (int)  self->addScriptEventListener(listener,tag,priority);
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addTouchEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addScriptTouchEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: addScriptTouchCaptureEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addTouchCaptureEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_addTouchCaptureEventListener00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addScriptTouchCaptureEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptTouchCaptureEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -8215,22 +8215,22 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addTouchCaptureEventListener00(
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addScriptTouchCaptureEventListener'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->addScriptTouchCaptureEventListener(listener,tag,priority);
+   int tolua_ret = (int)  self->addScriptEventListener(listener,tag,priority);
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addTouchCaptureEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addScriptTouchCaptureEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: addScriptEnterFrameEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addEnterFrameEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_addEnterFrameEventListener00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addScriptEnterFrameEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptEnterFrameEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -8253,14 +8253,14 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addEnterFrameEventListener00(lu
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addScriptEnterFrameEventListener'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->addScriptEnterFrameEventListener(listener,tag,priority);
+   int tolua_ret = (int)  self->addScriptEventListener(listener,tag,priority);
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addEnterFrameEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addScriptEnterFrameEventListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -57850,9 +57850,9 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"removeScriptEventListenersByTag",tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByTag00);
    tolua_function(tolua_S,"removeAllScriptEventListeners",tolua_Cocos2d_CCScriptEventDispatcher_removeAllScriptEventListeners00);
    tolua_function(tolua_S,"hasScriptEventListener",tolua_Cocos2d_CCScriptEventDispatcher_hasScriptEventListener00);
-   tolua_function(tolua_S,"addTouchEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addTouchEventListener00);
-   tolua_function(tolua_S,"addTouchCaptureEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addTouchCaptureEventListener00);
-   tolua_function(tolua_S,"addEnterFrameEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addEnterFrameEventListener00);
+   tolua_function(tolua_S,"addScriptTouchEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addScriptTouchEventListener00);
+   tolua_function(tolua_S,"addScriptTouchCaptureEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addScriptTouchCaptureEventListener00);
+   tolua_function(tolua_S,"addScriptEnterFrameEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addScriptEnterFrameEventListener00);
   tolua_endmodule(tolua_S);
   tolua_function(tolua_S,"CCLuaLog",tolua_Cocos2d_CCLuaLog00);
   tolua_function(tolua_S,"CCMessageBox",tolua_Cocos2d_CCMessageBox00);

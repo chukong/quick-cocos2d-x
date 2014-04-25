@@ -9,17 +9,17 @@ function luaoc.callStaticMethod(className, methodName, args)
         local msg = string.format("luaoc.callStaticMethod(\"%s\", \"%s\", \"%s\") - error: [%s] ",
                 className, methodName, tostring(args), tostring(ret))
         if ret == -1 then
-            echoError(msg .. "INVALID PARAMETERS")
+            printError(msg .. "INVALID PARAMETERS")
         elseif ret == -2 then
-            echoError(msg .. "CLASS NOT FOUND")
+            printError(msg .. "CLASS NOT FOUND")
         elseif ret == -3 then
-            echoError(msg .. "METHOD NOT FOUND")
+            printError(msg .. "METHOD NOT FOUND")
         elseif ret == -4 then
-            echoError(msg .. "EXCEPTION OCCURRED")
+            printError(msg .. "EXCEPTION OCCURRED")
         elseif ret == -5 then
-            echoError(msg .. "INVALID METHOD SIGNATURE")
+            printError(msg .. "INVALID METHOD SIGNATURE")
         else
-            echoError(msg .. "UNKNOWN")
+            printError(msg .. "UNKNOWN")
         end
     end
     return ok, ret
