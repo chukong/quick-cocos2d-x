@@ -63,6 +63,7 @@ extern "C" {
 #include "Lua_extensions_CCB.h"
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
+#include "CZHelperFunc_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "cocos2dx_extra_ios_iap_luabinding.h"
 #endif
@@ -166,6 +167,7 @@ bool CCLuaStack::init(void)
     tolua_extensions_ccb_open(m_state);
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
+	luaopen_CZHelperFunc_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(m_state);
 #endif
@@ -428,6 +430,13 @@ int CCLuaStack::loadChunksFromZIP(const char *zipFilePath)
     return ret;
 }
 
+void CCLuaStack::setXXTEAKeyAndSign()
+{
+#include "xxdefaultkey.h"
+setXXTEAKeyAndSign(LUASTACK_XXTEA_KEY_Z, strlen(LUASTACK_XXTEA_KEY_Z), 
+						   LUASTACK_XXTEA_SIGN_Z, strlen(LUASTACK_XXTEA_SIGN_Z));
+}
+
 void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen)
 {
     setXXTEAKeyAndSign(key, keyLen, kCCLuaEncryptXXTEADefaultSign, kCCLuaEncryptXXTEADefaultSignLen);
@@ -649,7 +658,7 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         unsigned char *zipFileData = utils->getFileData(zipFilePath.c_str(), "rb", &size);
         CCZipFile *zip = NULL;
 
-        bool isXXTEA = stack && stack->m_xxteaEnabled;
+        bool isXXTEA = stack && stack->m_xxteaEnabled && zipFileData;
         for (unsigned int i = 0; isXXTEA && i < stack->m_xxteaSignLen && i < size; ++i)
         {
             isXXTEA = zipFileData[i] == stack->m_xxteaSign[i];
@@ -670,7 +679,9 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         }
         else
         {
-            zip = CCZipFile::createWithBuffer(zipFileData, size);
+            if (zipFileData) {
+                zip = CCZipFile::createWithBuffer(zipFileData, size);
+            }
         }
 
         if (zip)

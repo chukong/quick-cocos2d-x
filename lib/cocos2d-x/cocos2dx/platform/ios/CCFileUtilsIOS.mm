@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "support/zip_support/unzip.h"
 
 #include "CCFileUtilsIOS.h"
+#include "apptools/HelperFunc.h"
 
 NS_CC_BEGIN
 
@@ -334,8 +335,18 @@ bool CCFileUtilsIOS::isAbsolutePath(const std::string& strPath)
 CCDictionary* CCFileUtilsIOS::createCCDictionaryWithContentsOfFile(const std::string& filename)
 {
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename.c_str());
-    NSString* pPath = [NSString stringWithUTF8String:fullPath.c_str()];
-    NSDictionary* pDict = [NSDictionary dictionaryWithContentsOfFile:pPath];
+    //NSString* pPath = [NSString stringWithUTF8String:fullPath.c_str()];
+    //NSDictionary* pDict = [NSDictionary dictionaryWithContentsOfFile:pPath];
+	unsigned long fileSize = 0;
+	unsigned char* pFileData = CZHelperFunc::getFileData(fullPath.c_str(), "rb", &fileSize);
+    NSData *data = [[NSData alloc] initWithBytes:pFileData length:fileSize];
+	delete []pFileData;
+    NSPropertyListFormat format;
+    NSString *error;
+    NSMutableDictionary *pDict = (NSMutableDictionary *)[[NSPropertyListSerialization propertyListFromData:data
+                                                                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                                                                                    format:&format
+                                                                                          errorDescription:&error] retain];
     
     if (pDict != nil)
     {
