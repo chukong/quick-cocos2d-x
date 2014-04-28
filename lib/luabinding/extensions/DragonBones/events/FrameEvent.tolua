@@ -1,0 +1,45 @@
+    class FrameEvent : public Event
+    {
+    public:
+        static const String MOVEMENT_FRAME_EVENT;
+        
+        /**
+         * Dispatched when the animation of the armatrue enter a frame.
+         */
+        static const String ANIMATION_FRAME_EVENT;
+        
+        /**
+         * 
+         */
+        static const String BONE_FRAME_EVENT;
+        
+        /**
+         * The entered frame label.
+         */
+        String frameLabel;
+        
+        Bone* bone;
+        
+        /**
+         * The armature that is the target of this event.
+         */
+        Armature *armature;
+        
+        /**
+         * The animationState instance.
+         */
+        AnimationState* animationState;
+        
+        /**
+         * Creates a new FrameEvent instance.
+         * @param    type
+         * @param    cancelable
+         */
+        FrameEvent(const String &type)
+            : Event(type)
+            , bone(0)
+            , armature(0)
+            , animationState(0)
+        {
+        }
+    };

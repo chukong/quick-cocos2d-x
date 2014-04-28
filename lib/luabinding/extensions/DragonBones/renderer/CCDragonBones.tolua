@@ -1,0 +1,40 @@
+class CCDragonBones:public CCNode {
+public:
+	static Armature* buildArmature(	const char* skeletonXMLFile,
+									const char* textureXMLFile,
+									const char* dragonBonesName,
+									const char* armatureName,
+									const char* animationName = "");
+
+	static CCDragonBones* create(Armature*arm);
+
+	static CCDragonBones* create(	const char* skeletonXMLFile,
+									const char* dragonBonesName,
+									const char* armatureName); 
+														 
+	static CCDragonBones* create(	const char* skeletonXMLFile,
+									const char* textureXMLFile,
+									const char* dragonBonesName,
+									const char* armatureName,
+									const char* animationName = "");
+
+	CCNode* getDisplayNode();
+	Armature* getArmature();
+	Animation* getAnimation();
+	void gotoAndPlay(   const char *animationName,
+						float fadeInTime = -1,
+						float duration = -1,
+						float loop = NaN,
+						int layer = 0,
+						const char* group = "",
+						const char* fadeOutMode = "sameLayerAndGroup",
+						bool displayControl = true,
+						bool pauseFadeOut = true,
+						bool pauseFadeIn = true
+		);
+
+	void setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName);
+	void registerScriptHandler(LUA_FUNCTION funId, String type);
+	void unregisterScriptHandler(String type);
+	int  getScriptHandler(String type);
+}; 
