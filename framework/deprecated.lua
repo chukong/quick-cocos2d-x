@@ -39,3 +39,9 @@ toint = DEPRECATED(checkint, "toint", "checkint")
 tobool = DEPRECATED(checkbool, "tobool", "checkbool")
 totable = DEPRECATED(checktable, "totable", "checktable")
 
+table.insertTo = DEPRECATED(table.insertto, "table.insertTo", "table.insertto")
+table.indexOf = DEPRECATED(table.indexof, "table.indexOf", "table.indexof")
+table.keyOfItem = DEPRECATED(table.keyof, "table.keyOfItem", "table.keyof")
+table.removeItem = DEPRECATED(table.removebyvalue, "table.removeItem", "table.removebyvalue")
+
+string.htmlspecialcharsDecode = DEPRECATED(string.restorehtmlspecialchars, "string.htmlspecialcharsDecode", "string.restorehtmlspecialchars")
