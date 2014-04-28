@@ -31,8 +31,8 @@ LIB_OUTPUT_DIR = $${ROOT}/lib/$${BUILD_TYPE}
 include(chipmunk-src.pri)
 
 win32 {
-    QMAKE_CFLAGS_DEBUG += /TP
-    QMAKE_CFLAGS_RELEASE += /TP
+    QMAKE_CFLAGS += /TP
+    QMAKE_CXXFLAGS += /TP
 }
 
 TEMPLATE = lib
