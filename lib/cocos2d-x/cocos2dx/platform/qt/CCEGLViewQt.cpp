@@ -810,6 +810,11 @@ QWidget *CCEGLView::getGLWidget()
     return m_glParentWidget;
 }
 
+QWindow *CCEGLView::getIntegrationWindow()
+{
+    return m_integration;
+}
+
 void CCEGLView::setInterval(int interval_ms)
 {
     m_integration->setInterval(interval_ms);

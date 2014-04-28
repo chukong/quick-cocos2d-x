@@ -68,6 +68,7 @@ public:
     void mouseRelease(QMouseEvent *event);
     void setAccelerometerKeyHook(MyAccelerometerDelegate accelerometerDelegate);
     QWidget * getGLWidget();
+    QWindow * getIntegrationWindow();
     void setInterval(int interval_ms);
 
 private:

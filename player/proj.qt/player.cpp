@@ -44,6 +44,16 @@
 #define EDITOR_CALL_LUA         "LUA_Interface"
 #define SETTINGS_DEMO_LIST      "demoList"
 
+#ifndef Q_OS_MAC
+static const QString shortcutFileTemplate("cd %1\n"
+                                          "./%2 %3 &\n");
+#else
+static const QString shortcutFileTemplate("#!/bin/sh\n"
+                                          "\n"
+                                          "cd %1\n"
+                                          "./%2 %3 &\n");
+#endif
+
 // keyboard shortcuts
 // we can change the keyboard shortcuts from here !
 enum {
@@ -171,6 +181,7 @@ void Player::onOpenProject()
         newItem[kRecentItemTitle] = config.getProjectDir().data();
         QStringList args = QString::fromStdString(config.makeCommandLine()).split(" ");
         newItem[kRecentItemArgs]  = args;
+        recents.removeAll(newItem);
         recents.insert(0, newItem);
 
         if (recents.size() > maxRecent)
@@ -351,6 +362,9 @@ void Player::initMainMenu()
 
     fileMenu->addSeparator();
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
+
+    fileMenu->addSeparator();
+    fileMenu->addAction(tr("Create Shortcut"), this, SLOT(onCreateShortcut()));
 
     fileMenu->addSeparator();
     QAction *closeAction = fileMenu->addAction(QObject::tr("Close"), this, SLOT(onClose()), QKeySequence(ShortCut_CLOSE));
@@ -610,7 +624,6 @@ void Player::applySettingAndRestart()
 
     QString cmd(m_projectConfig.makeCommandLine().data());
     args = cmd.split(" ");
-    qDebug() << args;
     qApp->setProperty(RESTART_ARGS, args);
     this->restart();
 }
@@ -964,6 +977,28 @@ void Player::onShowWelcome()
 {
     m_projectConfig.resetToWelcome();
     qApp->exit(APP_EXIT_CODE);
+}
+
+void Player::onCreateShortcut()
+{
+    QString homeDir =  QDir::homePath();
+    homeDir += "/Desktop/";
+
+    QString fileName = QFileDialog::getSaveFileName(0, "",  homeDir);
+    if (!fileName.isEmpty())
+    {
+        QFile file(fileName);
+        if (file.open(QFile::Text | QFile::WriteOnly | QFile::Truncate))
+        {
+            QString appFileName = qApp->applicationFilePath().remove(qApp->applicationDirPath()).remove("/");
+            QTextStream out(&file);
+
+            out << shortcutFileTemplate.arg(qApp->applicationDirPath())
+                                       .arg(appFileName)
+                                       .arg(m_projectConfig.makeCommandLine().data());
+        }
+        file.setPermissions(file.permissions() | QFile::ExeOwner);
+    }
 }
 
 void Player::onWriteDebugLog(bool checked)

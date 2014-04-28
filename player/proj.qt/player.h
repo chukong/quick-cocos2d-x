@@ -70,6 +70,7 @@ public Q_SLOTS:
     void onCreateNewPlayer();
     void onClose();
     void onShowWelcome();
+    void onCreateShortcut();
     void onWriteDebugLog(bool);
     void onOpenDebugLog(bool);
     void onUploadToDevice();
