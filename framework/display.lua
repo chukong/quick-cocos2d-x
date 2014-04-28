@@ -357,11 +357,11 @@ end
 -- @author zrong(zengrong.net)
 -- Creation: 2014-01-21
 function display.newMaskedSprite(__mask, __pic)
-	local __mb = ccBlendFunc:new()
+	local __mb = ccBlendFunc()
 	__mb.src = GL_ONE
 	__mb.dst = GL_ZERO
 
-	local __pb = ccBlendFunc:new()
+	local __pb = ccBlendFunc()
 	__pb.src = GL_DST_ALPHA
 	__pb.dst = GL_ZERO
 
