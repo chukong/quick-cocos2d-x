@@ -373,7 +373,7 @@ win32 {
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCNetworkWin32.cpp \
         $${ROOT}/lib/cocos2d-x/external/extra/platform/win32/CCStorePaymentTransactionWrapper.cpp \
         $${ROOT}/lib/cocos2d-x/cocos2dx/platform/win32/CCImage.cpp \
-        $${ROOT}/lib/cocos2d-x/CocosDenshion/qt/SimpleAudioEngineQt5.cpp \
+        $${ROOT}/lib/cocos2d-x/CocosDenshion/win32/*.cpp \
         $${ROOT}/lib/cocos2d-x/cocos2dx/platform/win32/CCFileUtilsWin32.cpp
 }
 

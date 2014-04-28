@@ -12,7 +12,13 @@ CC_ROOT=$${ROOT}/lib/cocos2d-x/
 
 DEFINES +=  COCOS2D_DEBUG=1
 DEFINES +=  DEBUG=1
-CONFIG += object_parallel_to_source
+
+CONFIG += no_batch
+greaterThan(QT_MAJOR_VERSION, 4) {
+  CONFIG += object_parallel_to_source
+} else:equals(PWD, $$OUT_PWD) {
+  CONFIG += object_with_source
+}
 
 CONFIG(debug, debug|release) {
     BUILD_TYPE = debug
@@ -75,10 +81,8 @@ win32 {
     DEFINES += WIN32
     # for lua socket
     DEFINES += _WIN32
-    # jsoncpp
-    DEFINES += JSON_DLL_BUILD
 
-    COCOS2DX_SYSTEM_LIBS += -lopengl32 -ladvapi32 -lShell32 -lWSOCK32 -lws2_32
+    COCOS2DX_SYSTEM_LIBS += -lopengl32 -ladvapi32 -lShell32 -lWSOCK32 -lws2_32 -lWinmm
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/cocos2dx/platform/third_party/win32/libraries -llibpng \
                             -llibzlib -llibjpeg -llibiconv -lpthreadVCE2  -llibtiff  -llibwebp  -llibcurl_imp  -lglew32
 
