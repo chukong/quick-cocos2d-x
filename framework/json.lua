@@ -82,7 +82,7 @@ end
 
 local json = require("framework.shared.json")
 local tb = json.decode('{"a":1,"b":"ss","c":{"c1":1,"c2":2},"d":[10,11],"1":100}')
-dump(tb) --[[
+dump(tb) --[ [
 - "<var>" = {
 -     "1" = 100
 -     "a" = 1
@@ -98,7 +98,7 @@ dump(tb) --[[
 - }
 ] ]
 local tb = json.decode('[1,2,"3",[10,11] ]')
-dump(tb) --[[
+dump(tb) --[ [
 - "<var>" = {
 -     1 = 1
 -     2 = 2
