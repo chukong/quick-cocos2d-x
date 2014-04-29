@@ -18,6 +18,7 @@ public:
     static QImage    createQImageWithSpriteFrameName(QString frameName);
     static QImage    ccimageToQImage(cocos2d::CCImage *img);
     static QPixmap   createPixmapWithSpriteFrameName(QString frameName);
+    static QImage    createScreenshot();
 
 protected:
     QxTools();

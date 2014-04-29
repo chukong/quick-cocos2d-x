@@ -74,6 +74,28 @@ QPixmap QxTools::createPixmapWithSpriteFrameName(QString frameName)
     return pixmap;
 }
 
+QImage QxTools::createScreenshot()
+{
+    cocos2d::CCSize size = cocos2d::CCDirector::sharedDirector()->getWinSize();
+    cocos2d::CCRenderTexture *screen = cocos2d::CCRenderTexture::create(size.width, size.height, cocos2d::kCCTexture2DPixelFormat_RGBA8888);
+
+    cocos2d::CCScene* temp = cocos2d::CCDirector::sharedDirector()->getRunningScene();
+
+    // draw
+    screen->beginWithClear(0,0,0,255);  // black screen
+    temp->visit();
+    screen->end();
+
+    // convert to qimage
+    cocos2d::CCImage *ccimage = screen->newCCImage(true);
+    QImage retImage = QxTools::ccimageToQImage(ccimage);
+
+    CC_SAFE_DELETE(ccimage);
+    CC_SAFE_DELETE(screen);
+
+    return retImage;
+}
+
 QImage QxTools::ccimageToQImage(cocos2d::CCImage *img)
 {
     QImage retImg;

@@ -72,7 +72,9 @@ enum {
     ShortCut_SCALE_100  = Qt::CTRL + Qt::Key_0,
     ShortCut_SCALE_75   = Qt::CTRL + Qt::Key_6,
     ShortCut_SCALE_50   = Qt::CTRL + Qt::Key_5,
-    ShortCut_SCALE_25   = Qt::CTRL + Qt::Key_4
+    ShortCut_SCALE_25   = Qt::CTRL + Qt::Key_4,
+
+    ShortCut_SNAPSHOT   = Qt::CTRL + Qt::Key_S
 };
 
 struct ScaleActionData
@@ -363,6 +365,7 @@ void Player::initMainMenu()
     fileMenu->addAction(QObject::tr("Welcome"), this, SLOT(onShowWelcome()));
 
     fileMenu->addSeparator();
+    fileMenu->addAction(tr("Snapshot"), this, SLOT(onCreateSnapshot()), QKeySequence(ShortCut_SNAPSHOT));
     fileMenu->addAction(tr("Create Shortcut"), this, SLOT(onCreateShortcut()));
 
     fileMenu->addSeparator();
@@ -715,6 +718,11 @@ void Player::readSettings(QString data)
     m_settings = QxTools::stringToVariant(data).toMap();
 }
 
+QString Player::getHomeDesktopPath()
+{
+    return QDir::homePath() + "/Desktop/";
+}
+
 void Player::eventDispatch(QString messageName, QString data)
 {
     QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
@@ -978,12 +986,18 @@ void Player::onShowWelcome()
     qApp->exit(APP_EXIT_CODE);
 }
 
+void Player::onCreateSnapshot()
+{
+    QImage image = QxTools::createScreenshot();
+    QString fileName = getHomeDesktopPath() + QDateTime::currentDateTime().toString() + ".png";
+    image.save(fileName);
+}
+
 void Player::onCreateShortcut()
 {
-    QString homeDir =  QDir::homePath();
-    homeDir += "/Desktop/";
+    QString desktopPath =  getHomeDesktopPath();
 
-    QString fileName = QFileDialog::getSaveFileName(0, "",  homeDir);
+    QString fileName = QFileDialog::getSaveFileName(0, "",  desktopPath);
     if (!fileName.isEmpty())
     {
         QFile file(fileName);

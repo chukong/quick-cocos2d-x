@@ -70,6 +70,7 @@ public Q_SLOTS:
     void onCreateNewPlayer();
     void onClose();
     void onShowWelcome();
+    void onCreateSnapshot();
     void onCreateShortcut();
     void onWriteDebugLog(bool);
     void onOpenDebugLog(bool);
@@ -117,6 +118,8 @@ protected:
     QKeySequence convertKeyEventToKeySequence(QKeyEvent *e);
 
     void readSettings(QString data);
+
+    QString getHomeDesktopPath();
 
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
