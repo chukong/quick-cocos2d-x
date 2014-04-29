@@ -205,6 +205,7 @@ audio.isBackgroundMusicPlaying = audio.isMusicPlaying
 
 @param string 音效文件名
 @param boolean 是否重复播放
+
 @return integer 音效句柄
 
 ]]
@@ -256,7 +257,7 @@ audio.resumeEffect = audio.resumeSound
 恢复所有的音效
 
 ]]
-function audio.resumeAllSounds(handle)
+function audio.resumeAllSounds()
     sharedEngine:resumeAllEffects()
 end
 audio.resumeAllEffects = audio.resumeAllSounds
