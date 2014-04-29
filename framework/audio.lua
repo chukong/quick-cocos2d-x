@@ -257,7 +257,7 @@ audio.resumeEffect = audio.resumeSound
 恢复所有的音效
 
 ]]
-function audio.resumeAllSounds(handle)
+function audio.resumeAllSounds()
     sharedEngine:resumeAllEffects()
 end
 audio.resumeAllEffects = audio.resumeAllSounds
