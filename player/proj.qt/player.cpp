@@ -45,8 +45,7 @@
 #define SETTINGS_DEMO_LIST      "demoList"
 
 #ifndef Q_OS_MAC
-static const QString shortcutFileTemplate("cd %1\n"
-                                          "./%2 %3 &\n");
+static const QString shortcutFileTemplate("%1/%2 %3\n");
 #else
 static const QString shortcutFileTemplate("#!/bin/sh\n"
                                           "\n"
