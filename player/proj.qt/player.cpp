@@ -44,7 +44,7 @@
 #define EDITOR_CALL_LUA         "LUA_Interface"
 #define SETTINGS_DEMO_LIST      "demoList"
 
-#ifndef Q_OS_MAC
+#ifdef Q_OS_WIN
 static const QString shortcutFileTemplate("%1/%2 %3\n");
 #else
 static const QString shortcutFileTemplate("#!/bin/sh\n"
