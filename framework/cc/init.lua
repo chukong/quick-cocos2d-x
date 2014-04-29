@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 初始化 cc 扩展
 
-cc 扩展在 cocos2dx C++ API 和 quick 基本模块的基础上，提供了更好的事件接口、组件架构等扩展。
+cc 扩展在 cocos2dx C++ API 和 quick 基本模块的基础上，提供了符合脚本风格的事件接口、组件架构等扩展。
 
 ]]
 
@@ -55,10 +55,11 @@ cc.mvc = import(".mvc.init")
 -- init UI library
 cc.ui = import(".ui.init")
 
--- 将 cc 转为一个包装函数
 local ccmt = {}
-
 ccmt.__call = function(self, target)
+    if target then
+        return cc.GameObject.extend(target)
+    end
+    printError("cc() - invalid target")
 end
-
 setmetatable(cc, ccmt)

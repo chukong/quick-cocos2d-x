@@ -25,7 +25,6 @@ THE SOFTWARE.
 --[[--
 
 
-
 ]]
 CCNodeExtend = class("CCNodeExtend")
 CCNodeExtend.__index = CCNodeExtend
