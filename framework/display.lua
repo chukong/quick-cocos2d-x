@@ -885,7 +885,7 @@ end
 display.setTexturePixelFormat() 可以指定材质文件的材质格式，这样在加载材质文件时就会使用指定的格式。
 
 @param string filename 材质文件名
-@param string format 材质格式
+@param integer format 材质格式
 
 @see Texture Pixel Format
 
