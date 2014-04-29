@@ -2,6 +2,7 @@
 
 #include <QVariant>
 #include <QPixmapCache>
+#include <QDir>
 
 #include "cocos2d.h"
 USING_NS_CC;
@@ -74,7 +75,7 @@ QPixmap QxTools::createPixmapWithSpriteFrameName(QString frameName)
     return pixmap;
 }
 
-QImage QxTools::createScreenshot()
+bool QxTools::saveScreenshot(QString path)
 {
     cocos2d::CCSize size = cocos2d::CCDirector::sharedDirector()->getWinSize();
     cocos2d::CCRenderTexture *screen = cocos2d::CCRenderTexture::create(size.width, size.height, cocos2d::kCCTexture2DPixelFormat_RGBA8888);
@@ -88,12 +89,22 @@ QImage QxTools::createScreenshot()
 
     // convert to qimage
     cocos2d::CCImage *ccimage = screen->newCCImage(true);
-    QImage retImage = QxTools::ccimageToQImage(ccimage);
 
+#ifdef Q_OS_WIN
+    ccimage->saveToFile( path.toStdString().data(), true);
+#else
+    QImage retImage = QxTools::ccimageToQImage(ccimage);
+    retImage.save(path);
+#endif
     CC_SAFE_DELETE(ccimage);
     CC_SAFE_DELETE(screen);
 
-    return retImage;
+    return true;
+}
+
+QString QxTools::getHomeDesktopPath()
+{
+    return QDir::homePath() + "/Desktop/";
 }
 
 QImage QxTools::ccimageToQImage(cocos2d::CCImage *img)

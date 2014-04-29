@@ -718,11 +718,6 @@ void Player::readSettings(QString data)
     m_settings = QxTools::stringToVariant(data).toMap();
 }
 
-QString Player::getHomeDesktopPath()
-{
-    return QDir::homePath() + "/Desktop/";
-}
-
 void Player::eventDispatch(QString messageName, QString data)
 {
     QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
@@ -988,14 +983,20 @@ void Player::onShowWelcome()
 
 void Player::onCreateSnapshot()
 {
-    QImage image = QxTools::createScreenshot();
-    QString fileName = getHomeDesktopPath() + QDateTime::currentDateTime().toString() + ".png";
-    image.save(fileName);
+    QString timeFormat("yyyy_MM_dd_HH_mm_ss");
+    QString suffix(".png");
+
+    QString fileName = QxTools::getHomeDesktopPath();
+    fileName += "screenshot";
+    fileName += QDateTime::currentDateTime().toString(timeFormat);
+    fileName += suffix;
+
+    QxTools::saveScreenshot(fileName);
 }
 
 void Player::onCreateShortcut()
 {
-    QString desktopPath =  getHomeDesktopPath();
+    QString desktopPath =  QxTools::getHomeDesktopPath();
 
     QString fileName = QFileDialog::getSaveFileName(0, "",  desktopPath);
     if (!fileName.isEmpty())

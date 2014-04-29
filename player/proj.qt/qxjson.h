@@ -18,7 +18,10 @@ public:
     static QImage    createQImageWithSpriteFrameName(QString frameName);
     static QImage    ccimageToQImage(cocos2d::CCImage *img);
     static QPixmap   createPixmapWithSpriteFrameName(QString frameName);
-    static QImage    createScreenshot();
+    static bool      saveScreenshot(QString path);
+
+    /* as: c:/Users/jimi/Desktop/ */
+    static QString   getHomeDesktopPath();
 
 protected:
     QxTools();

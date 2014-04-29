@@ -119,8 +119,6 @@ protected:
 
     void readSettings(QString data);
 
-    QString getHomeDesktopPath();
-
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
     void on_actionOpen_triggered();
