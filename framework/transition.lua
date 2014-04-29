@@ -157,6 +157,7 @@ transition.execute() 支持的缓动效果：
 @param CCNode target 显示对象
 @param CCAction action 动作对象
 @param table args 参数表格对象
+
 @return mixed 结果 
 
 ]]
@@ -180,6 +181,7 @@ transition.rotateTo(sprite, {rotate = 180, time = 0.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -207,6 +209,7 @@ transition.moveTo(sprite, {y = display.bottom, time = 1.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -236,6 +239,7 @@ transition.moveBy(sprite, {y = -100, time = 1.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -263,6 +267,7 @@ action = transition.fadeIn(sprite, {time = 1.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -288,6 +293,7 @@ action = transition.fadeOut(sprite, {time = 1.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -310,6 +316,7 @@ transition.fadeTo(sprite, {opacity = 128, time = 1.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -342,6 +349,7 @@ transition.scaleTo(sprite, {scaleY = 0.5, time = 1.5})
 
 @param CCNode target 显示对象
 @param table args 参数表格对象
+
 @return mixed 结果
 
 ]]
@@ -384,6 +392,7 @@ sprite:runAction(sequence)
 ~~~
 
 @param table args 动作的表格对象
+
 @return CCSequence 动作序列对象
 
 ]]
@@ -440,6 +449,7 @@ boom:playAnimationOnce(display.newAnimation(frames, 0.3/ 8), true)
 @param boolean removeWhenFinished 播放完成后删除显示对象
 @param function onComplete 播放完成后要执行的函数
 @param number delay 播放前等待的时间
+
 @return table 动作表格对象
 
 ]]
@@ -485,6 +495,7 @@ sprite:playAnimationForever(animation)
 @param CCNode target 显示对象
 @param CCNode animation 动作对象
 @param number delay 播放前等待的时间
+
 @return table 动作表格对象
 
 ]]

@@ -1,4 +1,63 @@
+--[[
 
+Copyright (c) 2011-2014 chukong-inc.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+与显示图像、场景有关的功能
+
+display 模块封装了绝大部分与显示有关的功能，并负责根据 config.lua 中定义的分辨率设定计算屏幕的设计分辨率。
+
+关于设计分辨率，请参考 自适应多种分辨率 。
+
+框架初始化后，display 模块提供下列属性：
+
+-   display.sizeInPixels.width,
+-   display.sizeInPixels.height 屏幕的像素分辨率
+-   display.widthInPixels,
+-   display.heightInPixels 屏幕的像素分辨率
+-   display.contentScaleFactor 内容缩放因子
+-   display.size.width,
+-   display.size.height 屏幕的设计分辨率
+-   display.width,
+-   display.height 屏幕的设计分辨率
+-   display.cx,
+-   display.cy 屏幕中央的 x 坐标和 y 坐标
+-   display.left,
+-   display.top,
+-   display.right,
+-   display.bottom 屏幕四边的坐标
+-   display.c_left,
+-   display.c_top,
+-   display.c_right,
+-   display.c_bottom 当父对象在屏幕中央时，屏幕四边的坐标
+
+颜色：
+
+-   display.COLOR_WHITE 白色, ccc3(255, 255, 255)
+-   display.COLOR_BLACK 黑色, ccc3(0, 0, 0)
+
+]]
 local display = {}
 
 local sharedDirector         = CCDirector:sharedDirector()
@@ -159,12 +218,82 @@ display.SCENE_TRANSITIONS = {
 
 display.TEXTURES_PIXEL_FORMAT = {}
 
+--[[--
+
+创建一个新场景，并返回 CCScene 场景对象。 
+
+指定场景名称方便调试。
+
+@param string 场景名称
+
+@return CCScene 场景对象
+
+@see CCScene
+
+]]
 function display.newScene(name)
     local scene = CCSceneExtend.extend(CCScene:create())
     scene.name = name or "<unknown-scene>"
     return scene
 end
 
+--[[--
+
+用场景切换过渡效果包装场景对象，并返回场景过渡对象。
+
+~~~ lua
+
+-- 创建一个新场景
+local nextScene = display.newScene("NextScene")
+-- 包装过渡效果
+local transition = display.wrapSceneWithTransition(nextScene, "fade", 0.5)
+-- 切换到新场景
+display.replaceScene(nextScene)
+
+~~~
+
+可用的过渡效果有：
+
+-   crossFade 淡出当前场景的同时淡入下一个场景
+-   fade 淡出当前场景到指定颜色，默认颜色为 ccc3(0, 0, 0)，可用 wrapSceneWithTransition() 的最后一个参数指定颜色
+-   fadeBL 从左下角开始淡出场景
+-   fadeDown 从底部开始淡出场景
+-   fadeTR 从右上角开始淡出场景
+-   fadeUp 从顶部开始淡出场景
+-   flipAngular 当前场景倾斜后翻转成下一个场景，默认从左边开始翻转，可以指定为：
+    -   kCCTransitionOrientationLeftOver 从左边开始
+    -   kCCTransitionOrientationRightOver 从右边开始
+    -   kCCTransitionOrientationUpOver 从顶部开始
+    -   kCCTransitionOrientationDownOver 从底部开始
+-   flipX 水平翻转，默认从左往右翻转，可用的附加参数同上
+-   flipY 垂直翻转，默认从上往下翻转，可用的附加参数同上
+-   zoomFlipAngular 倾斜翻转的同时放大，可用的附加参数同上
+-   zoomFlipX 水平翻转的同时放大，可用的附加参数同上
+-   zoomFlipY 垂直翻转的同时放大，可用的附加参数同上
+-   jumpZoom 跳跃放大切换场景
+-   moveInB 新场景从底部进入，现有场景同时从顶部退出
+-   moveInL 新场景从左侧进入，现有场景同时从右侧退出
+-   moveInR 新场景从右侧进入，现有场景同时从左侧退出
+-   moveInT 新场景从顶部进入，现有场景同时从底部退出
+-   pageTurn 翻页效果，如果指定附加参数为 true，则表示从左侧往右翻页
+-   rotoZoom 旋转放大切换场景
+-   shrinkGrow 收缩交叉切换场景
+-   slideInB 新场景从底部进入，直接覆盖现有场景
+-   slideInL 新场景从左侧进入，直接覆盖现有场景
+-   slideInR 新场景从右侧进入，直接覆盖现有场景
+-   slideInT 新场景从顶部进入，直接覆盖现有场景
+-   splitCols 分成多列切换入新场景
+-   splitRows 分成多行切换入新场景，类似百叶窗
+-   turnOffTiles 当前场景分成多个块，逐渐替换为新场景
+
+@param CCScene scene 场景对象
+@param string transitionType 过渡效果名
+@param number time 过渡时间
+@param string more 过渡效果附加参数
+
+@return CCScene 场景对象
+
+]]
 function display.wrapSceneWithTransition(scene, transitionType, time, more)
     local key = string.upper(tostring(transitionType))
     if string.sub(key, 1, 12) == "CCTRANSITION" then
@@ -191,6 +320,23 @@ function display.wrapSceneWithTransition(scene, transitionType, time, more)
     return scene
 end
 
+--[[--
+
+切换到新场景
+
+~~~ lua
+
+-- 使用红色做过渡色
+display.replaceScene(nextScene, "fade", 0.5, ccc3(255, 0, 0))
+
+~~~
+
+@param CCScene newScene 场景对象
+@param string transitionType 过渡效果名
+@param number time 过渡时间
+@param mixed more 过渡效果附加参数
+
+]]
 function display.replaceScene(newScene, transitionType, time, more)
     if sharedDirector:getRunningScene() then
         if transitionType then
@@ -202,18 +348,44 @@ function display.replaceScene(newScene, transitionType, time, more)
     end
 end
 
+--[[--
+
+返回当前正在运行的场景对象
+
+@return CCScene 场景对象
+
+]]
 function display.getRunningScene()
     return sharedDirector:getRunningScene()
 end
 
+--[[--
+
+暂停当前场景
+
+]]
 function display.pause()
     sharedDirector:pause()
 end
 
+--[[--
+
+恢复当前暂停的场景
+
+]]
 function display.resume()
     sharedDirector:resume()
 end
 
+--[[--
+
+创建并返回一个 CCLayer 层对象
+
+CCLayer 对象提供了触摸事件、重力感应、Android 按键检测等功能，具体请参考 CCLayer。
+
+@see CCLayer
+
+]]
 function display.newLayer()
     return CCLayerExtend.extend(CCLayer:create())
 end
@@ -222,14 +394,102 @@ function display.newColorLayer(color)
     return CCLayerExtend.extend(CCLayerColor:create(color))
 end
 
+--[[--
+
+创建并返回一个 CCNode 对象
+
+CCNode 对象并不能显示对象，但可以作为其他显示对象的容器（起到群组的作用）。具体请参考 CCNode 。
+
+~~~ lua
+
+local group = display.newNode()     -- 创建一个容器
+group:addChild(sprite1)             -- 添加显示对象到容器中
+group:addChild(sprite2)             -- 添加显示对象到容器中
+ 
+-- 移动容器时，其中包含的子对象也会同时移动
+transition.moveBy(group, {time = 2.0, x = 100})
+
+~~~
+
+@return CCNode CCNode对象
+
+@see CCNode
+
+]]
 function display.newNode()
     return CCNodeExtend.extend(CCNode:create())
 end
 
+--[[--
+
+创建并返回一个 CCClippingRegionNode 对象。
+
+创建 CCClippingRegionNode 对象时需要指定一个屏幕区域，然后在显示时，所以加入 CCClippingRegionNode 对象的内容都会进行剪裁，超出指定区域的内容不会显示。
+
+~~~ lua
+
+-- 剪裁区域从屏幕左下角靠内 100 点，到屏幕右上角
+local rect = CCRect(display.left + 100,
+                    display.bottom + 100,
+                    display.width - 200,
+                    display.height - 200)
+local clipnode = display.newClippingRegionNode(rect)
+ 
+clipnode:addChild(sprite1)
+clipnode:addChild(sprite2)
+ 
+scene:addChild(clipnode)
+
+~~~
+
+注意：CCClippingRegionNode 的父对象其坐标必须是 0, 0。
+
+@param CCRect rect 指定的区域
+
+@return CCClippingRegionNode CCClippingRegionNode对象
+
+]]
 function display.newClippingRegionNode(rect)
     return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
 end
 
+--[[--
+
+创建并返回一个 CCSprite 显示对象。
+
+display.newSprite() 有三种方式创建显示对象：
+
+-   从图片文件创建
+-   从缓存的图像帧创建
+-   从 CCSpriteFrame 对象创建
+
+~~~ lua
+
+-- 从图片文件创建显示对象
+local sprite1 = display.newSprite("hello1.png")
+ 
+-- 从缓存的图像帧创建显示对象
+-- 图像帧的名字就是图片文件名，但为了和图片文件名区分，所以此处需要在文件名前添加 “#” 字符
+-- 添加 “#” 的规则适用于所有需要区分图像和图像帧的地方
+local sprite2 = display.newSprite("#frame0001.png")
+ 
+-- 从 CCSpriteFrame 对象创建
+local frame = display.newFrame("frame0002.png")
+local sprite3 = display.newSprite(frame)
+
+~~~
+
+如果指定了 x,y 参数，那么创建显示对象后会调用对象的 setPosition() 方法设置对象位置。
+
+@param mixed 图像名或CCSpriteFrame对象
+@param  integer x
+@param  integer y
+
+@return CCSprite
+
+@see CCSprite
+
+]]
 function display.newSprite(filename, x, y)
     local t = type(filename)
     if t == "userdata" then t = tolua.type(filename) end
@@ -270,6 +530,31 @@ function display.newSprite(filename, x, y)
     return sprite
 end
 
+--[[--
+
+创建并返回一个 CCSprite9Scale 显示对象。
+
+格式：
+
+sprite = display.newScale9Sprite(图像名, [x, y], [CCSize 对象])
+
+CCSprite9Scale 就是通常所說的“九宫格”图像。一个矩形图像会被分为 9 部分，然后根据要求拉伸图像，同时保证拉伸后的图像四边不变形。
+
+~~~ lua
+
+-- 创建一个 Scale9 图像，并拉伸到 400, 300 点大小
+local sprite = display.newScale9Sprite("Box.png", 0, 0, CCSize(400, 300))
+
+~~~
+
+@param string filename 图像名
+@param integer x
+@param integer y
+@param CCSize size
+
+@return CCSprite9Scale CCSprite9Scale显示对象
+
+]]
 function display.newScale9Sprite(filename, x, y, size)
     local t = type(filename)
     if t ~= "string" then
@@ -394,10 +679,47 @@ function display.newMaskedSprite(__mask, __pic)
 	return __resultSprite
 end
 
+--[[--
+
+创建并返回一个 CCCircleShape （圆）对象。
+
+@param number radius
+
+@return CCCircleShape
+
+@see CCShapeNode
+
+]]
 function display.newCircle(radius)
     return CCNodeExtend.extend(CCCircleShape:create(radius))
 end
 
+--[[--
+
+创建并返回一个 CCRectShape （矩形）对象。
+
+格式：
+
+shape = display.newRect(宽度, 高度 | CCRect | CCSize)
+
+~~~ lua
+
+-- 下面两行代码都创建一个宽度 200，高度 100 的矩形
+local shape1 = display.newRect(200, 100)
+local shape2 = display.newRect(CCSize(200, 100))
+ 
+-- 创建一个宽度 200，高度 100 的矩形，并且定位于 50, 80
+local shape3 = display.newRect(CCRect(50, 80, 200, 100))
+
+~~~
+
+@param [mixed ...] 宽度，高度 或 CCRect 或 CCSize
+
+@return CCRectShape
+
+@see CCShapeNode
+
+]]
 function display.newRect(width, height)
     local x, y = 0, 0
     if type(width) == "userdata" then
@@ -421,6 +743,30 @@ function display.newRect(width, height)
     return rect
 end
 
+--[[--
+
+创建并返回一个 CCPolygonShape （多边形）对象。
+
+~~~ lua
+
+local points = {
+    {10, 10},  -- point 1
+    {50, 50},  -- point 2
+    {100, 10}, -- point 3
+}
+local polygon = display.newPolygon(points)
+polygon:setClose(true) -- 将第一个点和最后一个点相连
+
+~~~
+
+@param table points 包含多边形每一个点坐标的表格对象
+@param number scale 缩放比例
+
+@return CCPolygonShape CCPolygonShape对象
+
+@see CCShapeNode
+
+]]
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
     local arr = CCPointArray:create(#points)
@@ -432,6 +778,47 @@ function display.newPolygon(points, scale)
     return CCNodeExtend.extend(CCPolygonShape:create(arr))
 end
 
+--[[--
+
+将指定的显示对象按照特定锚点对齐。
+
+格式：
+
+display.align(显示对象, 锚点位置, [x, y])
+
+显示对象锚点位置：
+
+-   display.CENTER 图像中央
+-   display.LEFT_TOP,
+-   display.TOP_LEFT 图像左上角
+-   display.CENTER_TOP,
+-   display.TOP_CENTER 图像顶部的中间
+-   display.RIGHT_TOP,
+-   display.TOP_RIGHT 图像顶部的中间
+-   display.CENTER_LEFT,
+-   display.LEFT_CENTER 图像左边的中间
+-   display.CENTER_RIGHT,
+-   display.RIGHT_CENTER 图像右边的中间
+-   display.BOTTOM_LEFT,
+-   display.LEFT_BOTTOM 图像左边的底部
+-   display.BOTTOM_RIGHT,
+-   display.RIGHT_BOTTOM 图像右边的底部
+-   display.BOTTOM_CENTER,
+-   display.CENTER_BOTTOM 图像中间的底部
+
+~~~ lua
+
+-- 将图像按左上角对齐，并放置在屏幕左上角
+display.align(sprite, display.LEFT_TOP, 0, 0)
+
+~~~
+
+@param CCSprite target 显示对象
+@param integer anchorPoint 锚点位置
+@param integer x
+@param integer y
+
+]]
 function display.align(target, anchorPoint, x, y)
     target:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then target:setPosition(x, y) end
@@ -441,6 +828,28 @@ function display.addImageAsync(imagePath, callback)
     sharedTextureCache:addImageAsync(imagePath, callback)
 end
 
+--[[--
+
+将指定的 Sprite Sheets 材质文件及其数据文件载入图像帧缓存。
+
+格式：
+
+display.addSpriteFramesWithFile(数据文件名, 材质文件名)
+
+~~~ lua
+
+display.addSpriteFramesWithFile("Sprites.plist", "Sprites.png")
+
+~~~
+
+Sprite Sheets 通俗一点解释就是包含多张图片的集合。Sprite Sheets 材质文件由多张图片组成，而数据文件则记录了图片在材质文件中的位置等信息。
+
+@param string plistFilename 数据文件名
+@param string image 材质文件名
+
+@see Sprite Sheets
+
+]]
 function display.addSpriteFramesWithFile(plistFilename, image)
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
@@ -451,6 +860,14 @@ function display.addSpriteFramesWithFile(plistFilename, image)
     end
 end
 
+--[[--
+
+从内存中卸载 Sprite Sheets 材质和数据文件
+
+@param string plistFilename 数据文件名
+@param string image 材质文件名
+
+]]
 function display.removeSpriteFramesWithFile(plistFilename, imageName)
     sharedSpriteFrameCache:removeSpriteFramesFromFile(plistFilename)
     if imageName then
@@ -458,19 +875,102 @@ function display.removeSpriteFramesWithFile(plistFilename, imageName)
     end
 end
 
+--[[--
+
+设置材质格式。
+
+
+为了节约内存，我们会使用一些颜色品质较低的材质格式，例如针对背景图使用 kCCTexture2DPixelFormat_RGB565 格式。
+
+display.setTexturePixelFormat() 可以指定材质文件的材质格式，这样在加载材质文件时就会使用指定的格式。
+
+@param string filename 材质文件名
+@param string format 材质格式
+
+@see Texture Pixel Format
+
+]]
 function display.setTexturePixelFormat(filename, format)
     display.TEXTURES_PIXEL_FORMAT[filename] = format
 end
 
+--[[--
+
+从图像帧缓存中删除一个图像。
+
+有时候，某些图像仅在特定场景中使用，例如背景图。那么在场景退出时，就可以用 display.removeSpriteFrameByImageName() 从缓存里删除不再使用的图像数据。
+
+此外，CCScene 提供了 markAutoCleanupImage() 接口，可以指定场景退出时需要自动清理的图像，推荐使用。
+
+@param string 图像文件名
+
+]]
 function display.removeSpriteFrameByImageName(imageName)
     sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
     CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
 end
 
+--[[--
+
+从指定的图像文件创建并返回一个批量渲染对象。
+
+~~~ lua
+
+local imageName = "Sprites.png"
+display.addSpriteFramesWithFile("Sprites.plist", imageName) -- 载入图像到帧缓存
+ 
+-- 下面的代码绘制 100 个图像只用了 1 次 OpenGL draw call
+local batch = display.newBatch(imageName)
+for i = 1, 100 do
+    local sprite = display.newSprite("#Sprite0001.png")
+    batch:addChild(sprite)
+end
+ 
+-- 下面的代码绘制 100 个图像则要使用 100 次 OpenGL draw call
+local group = display.newNode()
+for i = 1, 100 do
+    local sprite = display.newSprite("#Sprite0001.png")
+    group:addChild(sprite)
+end
+
+~~~
+
+@param string image 图像文件名
+@param integer capacity
+
+@return CCSpriteBatchNode
+
+@see Batch Node
+
+]]
 function display.newBatchNode(image, capacity)
     return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
 end
 
+--[[--
+
+创建并返回一个图像帧对象。
+
+~~~ lua
+
+display.addSpriteFramesWithFile("Sprites.plist", "Sprites.png")
+ 
+-- 创建一个 CCSprite
+local sprite = display.newSprite("#Yes.png")
+ 
+-- 创建一个图像帧
+local frameNo = display.newSpriteFrame("No.png")
+ 
+-- 在需要时，修改 CCSprite 的显示内容
+sprite:setDisplayFrame(frameNo)
+
+~~~
+
+@param string 图像帧名称
+
+@return CCSpriteFrameCache
+
+]]
 function display.newSpriteFrame(frameName)
     local frame = sharedSpriteFrameCache:spriteFrameByName(frameName)
     if not frame then
@@ -479,6 +979,28 @@ function display.newSpriteFrame(frameName)
     return frame
 end
 
+--[[--
+
+以特定模式创建一个包含多个图像帧对象的数组。
+
+~~~ lua
+
+-- 创建一个数组，包含 Walk0001.png 到 Walk0008.png 的 8 个图像帧对象
+local frames = display.newFrames("Walk%04d.png", 1, 8)
+ 
+-- 创建一个数组，包含 Walk0008.png 到 Walk0001.png 的 8 个图像帧对象
+local frames = display.newFrames("Walk%04d.png", 1, 8, true)
+
+~~~
+
+@param string pattern 模式字符串
+@param integer begin 起始索引
+@param integer length 长度
+@param boolean isReversed 是否是递减索引
+
+@return table 图像帧数组
+
+]]
 function display.newFrames(pattern, begin, length, isReversed)
     local frames = {}
     local step = 1
@@ -501,6 +1023,25 @@ function display.newFrames(pattern, begin, length, isReversed)
     return frames
 end
 
+--[[--
+
+以包含图像帧的数组创建一个动画对象。
+
+~~~ lua
+
+local frames = display.newFrames("Walk%04d.png", 1, 8)
+local animation = display.newAnimation(frames, 0.5 / 8) -- 0.5 秒播放 8 桢
+sprite:playAnimationOnce(animation) -- 播放一次动画
+
+~~~
+
+@param table frames 图像帧的数组
+@param number time 每一桢动画之间的间隔时间
+
+
+@return CCAnimation CCAnimation对象
+
+]]
 function display.newAnimation(frames, time)
     local count = #frames
     local array = CCArray:create()
@@ -511,14 +1052,50 @@ function display.newAnimation(frames, time)
     return CCAnimation:createWithSpriteFrames(array, time)
 end
 
+--[[
+
+以指定名字缓存创建好的动画对象，以便后续反复使用。
+
+~~~ lua
+
+local frames = display.newFrames("Walk%04d.png", 1, 8)
+local animation = display.newAnimation(frames, 0.5 / 8) -- 0.5 秒播放 8 桢
+display.setAnimationCache("Walk", animation)
+ 
+-- 在需要使用 Walk 动画的地方
+sprite:playAnimationOnce(display.getAnimationCache("Walk")) -- 播放一次动画
+
+~~~
+
+@param string name 名字
+@param CCAnimation animation 动画对象
+
+
+]]
 function display.setAnimationCache(name, animation)
     sharedAnimationCache:addAnimation(animation, name)
 end
 
+--[[--
+
+取得以指定名字缓存的动画对象，如果不存在则返回 nil。
+
+@param string name
+
+@return CCAnimation
+
+]]
 function display.getAnimationCache(name)
     return sharedAnimationCache:animationByName(name)
 end
 
+--[[--
+
+删除指定名字缓存的动画对象。
+
+@param string name
+
+]]
 function display.removeAnimationCache(name)
     sharedAnimationCache:removeAnimationByName(name)
 end

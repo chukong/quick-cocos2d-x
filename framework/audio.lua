@@ -205,6 +205,7 @@ audio.isBackgroundMusicPlaying = audio.isMusicPlaying
 
 @param string 音效文件名
 @param boolean 是否重复播放
+
 @return integer 音效句柄
 
 ]]
