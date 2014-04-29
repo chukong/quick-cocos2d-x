@@ -356,34 +356,51 @@ end
 --- Create a masked sprite
 -- @author zrong(zengrong.net)
 -- Creation: 2014-01-21
-function display.newMaskedSprite(__mask, __pic)
-	local __mb = ccBlendFunc()
-	__mb.src = GL_ONE
-	__mb.dst = GL_ZERO
+-- Last Modification: 2014-04-29
+function display.newMaskedSprite(mask, pic, offset)
+	local maskSprite = nil
+	local picSprite = nil
+	local ox = 0
+	local oy = 0
+	if offset then
+		ox = offset.x or offset[1]
+		oy = offset.y or offset[2]
+	end
+	if type(mask) == "string" then
+		maskSprite = display.newSprite(mask)
+		picSprite = display.newSprite(pic)
+	else
+		maskSprite = mask
+		picSprite = pic
+	end
 
-	local __pb = ccBlendFunc()
-	__pb.src = GL_DST_ALPHA
-	__pb.dst = GL_ZERO
+	local mb = ccBlendFunc()
+	mb.src = GL_ONE
+	mb.dst = GL_ZERO
 
-	local __maskSprite = display.newSprite(__mask):align(display.LEFT_BOTTOM, 0, 0)
-	__maskSprite:setBlendFunc(__mb)
+	local pb = ccBlendFunc()
+	pb.src = GL_DST_ALPHA
+	pb.dst = GL_ZERO
 
-	local __picSprite = display.newSprite(__pic):align(display.LEFT_BOTTOM, 0, 0)
-	__picSprite:setBlendFunc(__pb)
+	maskSprite:align(display.LEFT_BOTTOM, ox, oy)
+	maskSprite:setBlendFunc(mb)
 
-	local __maskSize = __maskSprite:getContentSize()
-	local __canva = CCRenderTexture:create(__maskSize.width,__maskSize.height)
-	__canva:begin()
-	__maskSprite:visit()
-	__picSprite:visit()
-	__canva:endToLua()
+	picSprite:align(display.LEFT_BOTTOM, 0, 0)
+	picSprite:setBlendFunc(pb)
 
-	local __resultSprite = CCSpriteExtend.extend(
+	local maskSize = maskSprite:getContentSize()
+	local canva = CCRenderTexture:create(maskSize.width,maskSize.height)
+	canva:begin()
+	maskSprite:visit()
+	picSprite:visit()
+	canva:endToLua()
+
+	local resultSprite = CCSpriteExtend.extend(
 		CCSprite:createWithTexture(
-			__canva:getSprite():getTexture()
+			canva:getSprite():getTexture()
 		))
 		:flipY(true)
-	return __resultSprite
+	return resultSprite
 end
 
 --- Create a Filtered Sprite
