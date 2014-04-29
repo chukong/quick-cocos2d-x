@@ -26,6 +26,27 @@ THE SOFTWARE.
 
 针对 cocos2d-x 的一些封装和扩展
 
+预定义的节点事件：
+
+-   cc.NODE_EVENT - enter, exit 等事件
+-   cc.NODE_ENTER_FRAME_EVENT - 帧事件
+-   cc.NODE_TOUCH_EVENT - 触摸事件
+-   cc.NODE_TOUCH_CAPTURE_EVENT - 捕获触摸事件
+
+预定义的层事件：
+
+-   cc.ACCELERATE_EVENT - 重力感应事件
+-   cc.KEYPAD_EVENT - 硬件按键事件
+
+预定义的菜单事件：
+
+-   cc.MENU_ITEM_CLICKED_EVENT - CCMenu 菜单项点击事件
+
+预定义的触摸模式：
+
+-   cc.TOUCH_MODE_ALL_AT_ONCE - 多点触摸
+-   cc.TOUCH_MODE_ONE_BY_ONE - 单点触摸
+
 ]]
 
 --[[--
@@ -94,6 +115,145 @@ print(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
 
 ]]
 cc.rect = CCRect
+
+--[[--
+
+将 CCPoint 对象转换为一个 Lua 表格
+
+~~~ lua
+
+local point = cc.p(100, 50)
+local res = cc.point2t(point)
+-- res = {x = 100, y = 50}
+
+~~~
+
+@param CCPoint point
+
+@return table
+
+@see cc.t2point
+
+]]
+cc.point2t = function(point)
+    return {x = point.x, y = point.y}
+end
+
+--[[--
+
+将 CCSzie 对象转换为一个 Lua 表格
+
+~~~ lua
+
+local size = cc.size(200, 80)
+local res = cc.size2t(size)
+-- res = {width = 200, height = 80}
+
+~~~
+
+@param CCSzie size
+
+@return table
+
+@see cc.t2size
+
+]]
+cc.size2t = function(size)
+    return {width = size.width, height = size.height}
+end
+
+--[[--
+
+将 CCRect 对象转换为一个 Lua 表格
+
+~~~ lua
+
+local rect = cc.rect(100, 50, 200, 80)
+local res = cc.rect2t(rect)
+-- res = {origin = {x = 100, y = 50}, size = {width = 200, height = 80}}
+
+~~~
+
+@param CCRect rect
+
+@return table
+
+@see cc.t2rect
+
+]]
+cc.rect2t = function(rect)
+    return {origin = cc.point2t(rect.origin), size = cc.size2t(rect.size)}
+end
+
+--[[--
+
+将一个 Lua 表格转换为 CCPoint 对象
+
+~~~ lua
+
+local input = {width = 200, height = 80}
+local res = cc.t2size(input)
+-- res 是一个 CCSize 对象
+-- res = CCSize(200, 80)
+
+~~~
+
+@param table t
+
+@return CCSize
+
+@see cc.size2t
+
+]]
+cc.t2point = function(t)
+    return CCPoint(t.x, t.y)
+end
+
+--[[--
+
+将一个 Lua 表格转换为 CCSize 对象
+
+~~~ lua
+
+local t = {width = 200, height = 80}
+local res = cc.t2size(t)
+-- res 是一个 CCSize 对象
+
+~~~
+
+@param table t
+
+@return CCSize
+
+@see cc.size2t
+
+]]
+cc.t2size = function(t)
+    return CCSize(t.width, t.height)
+end
+
+--[[--
+
+将一个 Lua 表格转换为 CCRect 对象
+
+~~~ lua
+
+local t = {origin = {x = 100, y = 50}, size = {width = 200, height = 80}}
+local res = cc.t2rect(t)
+-- res 是一个 CCRect 对象
+
+~~~
+
+@param table t
+
+@return CCRect
+
+@see cc.rect2t
+
+]]
+cc.t2rect = function(t)
+    return CCRect(t.origin.x, t.origin.y, t.size.width, t.size.height)
+end
 
 --[[--
 
@@ -173,93 +333,6 @@ reg, green, blue, alpha 的取值范围是 0 ~ 1.0
 
 ]]
 cc.c4f = ccc4f
-
---[[--
-
-将 CCSzie 对象转换为一个 Lua 表格
-
-~~~ lua
-
-local size = cc.size(200, 80)
-local res = cc.size2t(size)
--- res = {width = 200, height = 80}
-
-~~~
-
-@param CCSzie size
-
-@return table
-
-@see cc.t2size
-
-]]
-cc.size2t = function(size)
-    return {width = size.width, height = size.height}
-end
-
---[[--
-
-将 CCPoint 对象转换为一个 Lua 表格
-
-~~~ lua
-
-local point = cc.p(100, 50)
-local res = cc.point2t(point)
--- res = {x = 100, y = 50}
-
-~~~
-
-@param CCPoint point
-
-@return table
-
-@see cc.t2point
-
-]]
-cc.point2t = function(point)
-    return {x = point.x, y = point.y}
-end
-
---[[--
-
-将 CCRect 对象转换为一个 Lua 表格
-
-~~~ lua
-
-local rect = cc.rect(100, 50, 200, 80)
-local res = cc.rect2t(rect)
--- res = {origin = {x = 100, y = 50}, size = {width = 200, height = 80}}
-
-~~~
-
-@param CCRect rect
-
-@return table
-
-@see cc.t2rect
-
-]]
-cc.rect2t = function(rect)
-    return {origin = cc.point2t(rect.origin), size = cc.size2t(rect.size)}
-end
-
---[[--
-
-
-
-]]
-cc.t2size = function(t)
-    return CCSize(t.width, t.height)
-end
-
-cc.t2point = function(t)
-    return CCPoint(t.x, t.y)
-end
-
-cc.t2rect = function(t)
-    return CCRect(t.origin.x, t.origin.y, t.size.width, t.size.height)
-end
-
 
 cc.NODE_EVENT               = 0
 cc.NODE_ENTER_FRAME_EVENT   = 1

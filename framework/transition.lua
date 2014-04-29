@@ -72,7 +72,7 @@ function transition.newEasing(action, easingName, more)
 end
 
 function transition.create(action, args)
-    args = totable(args)
+    args = checktable(args)
     if args.easing then
         if type(args.easing) == "table" then
             action = transition.newEasing(action, unpack(args.easing))

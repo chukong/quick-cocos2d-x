@@ -304,7 +304,7 @@ audio.preloadEffect = audio.preloadSound
 
 从内存卸载一个音效
 
-退出场景时，可以卸载掉只有该场景使用的音效，从而节约内存。 
+退出场景时，可以卸载掉只有该场景使用的音效，从而节约内存。
 
 @param string 音效文件名
 

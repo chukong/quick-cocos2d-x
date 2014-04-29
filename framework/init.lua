@@ -102,7 +102,7 @@ elseif device.platform == "ios" then
 end
 
 require(cc.PACKAGE_NAME .. ".cc.init")
-require(cc.PACKAGE_NAME .. ".shortcodes")
+require(cc.PACKAGE_NAME .. ".deprecated")
 
 if DEBUG > 0 and DEBUG_FPS then
     CCDirector:sharedDirector():setDisplayStats(true)

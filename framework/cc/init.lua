@@ -25,3 +25,9 @@ cc.mvc = import(".mvc.init")
 
 -- init UI library
 cc.ui = import(".ui.init")
+
+
+setmetatable(cc, {
+    __call = function(_, target)
+    end
+})
