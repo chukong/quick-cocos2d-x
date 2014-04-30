@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Thu Apr 24 16:18:41 2014.
+** Generated automatically by tolua++-1.0.92 on Tue Apr 29 00:16:56 2014.
 */
 
 /****************************************************************************
@@ -7961,7 +7961,8 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00(lua_St
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -7971,11 +7972,12 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00(lua_St
   int event = ((int)  tolua_tonumber(tolua_S,2,0));
   LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,3,0));
   int tag = ((int)  tolua_tonumber(tolua_S,4,0));
+  int priority = ((int)  tolua_tonumber(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addScriptEventListener'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->addScriptEventListener(event,listener,tag);
+   int tolua_ret = (int)  self->addScriptEventListener(event,listener,tag,priority);
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }

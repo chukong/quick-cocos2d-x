@@ -39,6 +39,11 @@ if ngx and ngx.log then
     end
 end
 
+--[[--
+
+定义一个作废的接口
+
+]]
 function DEPRECATED(f, name, newname)
     return function(...)
         print(string.format("[DEPRECATED API] %s, new API: %s", name, newname))
@@ -58,9 +63,9 @@ printLog("WARN", "Network connection lost at %d", os.time())
 
 ~~~
 
-@param tag 调试信息的 tag
-@param fmt 调试信息格式
-@param ... 更多参数
+@param string tag 调试信息的 tag
+@param string fmt 调试信息格式
+@param [mixed ...] 更多参数
 
 ]]
 function printLog(tag, fmt, ...)
@@ -71,8 +76,8 @@ end
 
 输出 tag 为 ERR 的调试信息
 
-@param fmt 调试信息格式
-@param ... 更多参数
+@param string fmt 调试信息格式
+@param [mixed ...] 更多参数
 
 ]]
 function printError(fmt, ...)
@@ -84,8 +89,8 @@ end
 
 输出 tag 为 INFO 的调试信息
 
-@param fmt 调试信息格式
-@param ... 更多参数
+@param string fmt 调试信息格式
+@param [mixed ...] 更多参数
 
 ]]
 function printInfo(fmt, ...)
@@ -106,9 +111,9 @@ dump(t)
 
 ~~~
 
-@param value 要输出的值
-@param desciption 输出内容前的文字描述
-@parma nesting 输出时的嵌套层级，默认为 3
+@param mixed value 要输出的值
+@param [string desciption] 输出内容前的文字描述
+@parma [integer nesting] 输出时的嵌套层级，默认为 3
 
 ]]
 function dump(value, desciption, nesting)

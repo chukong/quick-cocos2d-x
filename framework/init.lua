@@ -91,6 +91,7 @@ device     = require(cc.PACKAGE_NAME .. ".device")
 transition = require(cc.PACKAGE_NAME .. ".transition")
 display    = require(cc.PACKAGE_NAME .. ".display")
 audio      = require(cc.PACKAGE_NAME .. ".audio")
+ui         = require(cc.PACKAGE_NAME .. ".ui")
 network    = require(cc.PACKAGE_NAME .. ".network")
 crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 json       = require(cc.PACKAGE_NAME .. ".json")
@@ -102,7 +103,7 @@ elseif device.platform == "ios" then
 end
 
 require(cc.PACKAGE_NAME .. ".cc.init")
-require(cc.PACKAGE_NAME .. ".shortcodes")
+require(cc.PACKAGE_NAME .. ".deprecated")
 
 if DEBUG > 0 and DEBUG_FPS then
     CCDirector:sharedDirector():setDisplayStats(true)
