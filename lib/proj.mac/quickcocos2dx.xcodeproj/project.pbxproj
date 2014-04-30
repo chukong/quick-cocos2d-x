@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4900543A190F963900CF5A7B /* PunchBoxAdSDK.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4900542C190F963900CF5A7B /* PunchBoxAdSDK.mm */; };
+		4900543B190F963900CF5A7B /* libPunchBoxAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4900542E190F963900CF5A7B /* libPunchBoxAd.a */; };
+		49005440190FB34900CF5A7B /* AdHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4900543F190FB34900CF5A7B /* AdHandler.mm */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
 		F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D98FB17F08B9E007171D8 /* libwebsockets.a */; };
@@ -326,6 +329,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4900542B190F963900CF5A7B /* PunchBoxAdSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAdSDK.h; sourceTree = "<group>"; };
+		4900542C190F963900CF5A7B /* PunchBoxAdSDK.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PunchBoxAdSDK.mm; sourceTree = "<group>"; };
+		4900542E190F963900CF5A7B /* libPunchBoxAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPunchBoxAd.a; sourceTree = "<group>"; };
+		4900542F190F963900CF5A7B /* PBADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBADRequest.h; sourceTree = "<group>"; };
+		49005430190F963900CF5A7B /* PBBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBannerView.h; sourceTree = "<group>"; };
+		49005431190F963900CF5A7B /* PBInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBInterstitial.h; sourceTree = "<group>"; };
+		49005432190F963900CF5A7B /* PBMoreGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMoreGame.h; sourceTree = "<group>"; };
+		49005433190F963900CF5A7B /* PBOfferWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBOfferWall.h; sourceTree = "<group>"; };
+		49005434190F963900CF5A7B /* PBRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestError.h; sourceTree = "<group>"; };
+		49005435190F963900CF5A7B /* PunchBoxAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAd.h; sourceTree = "<group>"; };
+		49005436190F963900CF5A7B /* PunchBoxAdRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PunchBoxAdRes.bundle; sourceTree = "<group>"; };
+		4900543F190FB34900CF5A7B /* AdHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AdHandler.mm; sourceTree = "<group>"; };
+		49005441190FB35B00CF5A7B /* AdHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdHandler.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F411F3DC175CEAFC00EF549A /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -1041,6 +1057,7 @@
 				F45FF35416C7DE1F00275222 /* libcurl.dylib in Frameworks */,
 				F4DE082416800061005DB2DB /* Cocoa.framework in Frameworks */,
 				F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */,
+				4900543B190F963900CF5A7B /* libPunchBoxAd.a in Frameworks */,
 				F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */,
 				F4E880EE1770075400577406 /* libwebp.a in Frameworks */,
 			);
@@ -1049,6 +1066,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49005420190F963900CF5A7B /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				49005421190F963900CF5A7B /* punchbox_ad */,
+			);
+			path = sdk;
+			sourceTree = "<group>";
+		};
+		49005421190F963900CF5A7B /* punchbox_ad */ = {
+			isa = PBXGroup;
+			children = (
+				4900542A190F963900CF5A7B /* punchbox_ad_ios */,
+			);
+			path = punchbox_ad;
+			sourceTree = "<group>";
+		};
+		4900542A190F963900CF5A7B /* punchbox_ad_ios */ = {
+			isa = PBXGroup;
+			children = (
+				4900542B190F963900CF5A7B /* PunchBoxAdSDK.h */,
+				4900542C190F963900CF5A7B /* PunchBoxAdSDK.mm */,
+				4900542D190F963900CF5A7B /* src */,
+				4900543F190FB34900CF5A7B /* AdHandler.mm */,
+				49005441190FB35B00CF5A7B /* AdHandler.h */,
+			);
+			path = punchbox_ad_ios;
+			sourceTree = "<group>";
+		};
+		4900542D190F963900CF5A7B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				4900542E190F963900CF5A7B /* libPunchBoxAd.a */,
+				4900542F190F963900CF5A7B /* PBADRequest.h */,
+				49005430190F963900CF5A7B /* PBBannerView.h */,
+				49005431190F963900CF5A7B /* PBInterstitial.h */,
+				49005432190F963900CF5A7B /* PBMoreGame.h */,
+				49005433190F963900CF5A7B /* PBOfferWall.h */,
+				49005434190F963900CF5A7B /* PBRequestError.h */,
+				49005435190F963900CF5A7B /* PunchBoxAd.h */,
+				49005436190F963900CF5A7B /* PunchBoxAdRes.bundle */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		F411F3D9175CEAEA00EF549A /* luajit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1778,6 +1839,7 @@
 		F4DE082916800061005DB2DB /* libquickcocos2dx */ = {
 			isa = PBXGroup;
 			children = (
+				49005420190F963900CF5A7B /* sdk */,
 				F4DE084216800151005DB2DB /* cocos2d-x */,
 			);
 			name = libquickcocos2dx;
@@ -2848,6 +2910,7 @@
 				F4E8809D1770071600577406 /* CCTextureCache.cpp in Sources */,
 				F4E8809E1770071600577406 /* CCTextureETC.cpp in Sources */,
 				F4CB87A8180D02F600D81CF3 /* inet.c in Sources */,
+				4900543A190F963900CF5A7B /* PunchBoxAdSDK.mm in Sources */,
 				F4E8809F1770071600577406 /* CCTexturePVR.cpp in Sources */,
 				F4E880A01770071600577406 /* CCParallaxNode.cpp in Sources */,
 				F4E880A11770071600577406 /* CCTileMapAtlas.cpp in Sources */,
@@ -2946,6 +3009,7 @@
 				F4E8817817700E8A00577406 /* CCControlSlider.cpp in Sources */,
 				F4E8817917700E8A00577406 /* CCControlStepper.cpp in Sources */,
 				F4CB87B7180D02F600D81CF3 /* lua_zlib.c in Sources */,
+				49005440190FB34900CF5A7B /* AdHandler.mm in Sources */,
 				F4E8817A17700E8A00577406 /* CCControlSwitch.cpp in Sources */,
 				F4E8817B17700E8A00577406 /* CCControlUtils.cpp in Sources */,
 				F47872E4180C8EBD008F0508 /* Lua_extensions_CCB.cpp in Sources */,
@@ -3073,6 +3137,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/mac\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/external/libwebsockets/mac/lib\"",
+					"/Users/htl/Documents/Work/quick-cocos2d-x/lib/sdk/punchbox_ad/punchbox_ad_ios/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3125,6 +3190,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/mac\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/external/libwebsockets/mac/lib\"",
+					"/Users/htl/Documents/Work/quick-cocos2d-x/lib/sdk/punchbox_ad/punchbox_ad_ios/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
