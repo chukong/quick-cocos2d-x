@@ -1,18 +1,27 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "PBBannerView.h"
 
-@interface PunchBoxAdSDK
+@interface PunchBoxAdSDK : NSObject
+{
+    PBBannerView *viewAd;
+    NSString *command;
+}
+
 
 + (PunchBoxAdSDK*) getInstance;
-
 
 // public interface
 
 + (void) start:(NSDictionary*)options;
-+ (void) stop:(NSDictionary*)options;
-+ (void)
++ (void) stop;
++ (void) show:(NSDictionary*)options;
++ (void) remove;
++ (void) addScriptListener:(NSDictionary*)options;
++ (void) removeScriptListener;
 
++ (UIWindow*)getMainWindow;
 
 @end
 

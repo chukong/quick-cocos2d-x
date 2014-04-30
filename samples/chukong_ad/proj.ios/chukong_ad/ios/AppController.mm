@@ -31,6 +31,9 @@
 #import "PunchBoxAd.h"
 #import "PBBannerView.h"
 #import "PBADRequest.h"
+#import "PBInterstitial.h"
+#import "PBMoreGame.h"
+#import "PBOfferWall.h"
 
 #define PunchBoxAd_AppId @"100080-71D84C-71E7-3DA8-09E3F3BED0FA"
 
@@ -75,10 +78,10 @@ static AppDelegate s_sharedApplication;
     
     // init SDK
     [PunchBoxAd startSession:PunchBoxAd_AppId];
-    CGRect frameBanner = CGRectMake(0.0f, 0.0f, 320.0f, 50.0f);
-    PBBannerView *bannerView = [[PBBannerView alloc] initWithFrame:frameBanner];
-    [bannerView loadRequest:[PBADRequest request]];
-    [window addSubview:bannerView];
+//    CGRect frameBanner = CGRectMake(0.0f, 0.0f, 320.0f, 50.0f);
+//    PBBannerView *bannerView = [[PBBannerView alloc] initWithFrame:frameBanner];
+//    [bannerView loadRequest:[PBADRequest request]];
+//    [window addSubview:bannerView];
     
     
     cocos2d::CCApplication::sharedApplication()->run();
@@ -99,6 +102,21 @@ static AppDelegate s_sharedApplication;
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     cocos2d::CCDirector::sharedDirector()->resume();
+    
+    PBADRequest *adRequest0 = [PBADRequest request];
+#warning placementID可以为空或者填写为后台添加的广告位ID
+    adRequest0.placementID = @"<#后台添加的广告位ID#>";
+    [[PBInterstitial sharedInterstitial] loadInterstitial:adRequest0];
+    //
+    PBADRequest *adRequest1 = [PBADRequest request];
+#warning placementID可以为空或者填写为后台添加的广告位ID
+    adRequest1.placementID = @"<#后台添加的广告位ID#>";
+    [[PBMoreGame sharedMoreGame] loadMoreGame:adRequest1];
+    //
+    PBADRequest *adRequest2 = [PBADRequest request];
+#warning placementID可以为空或者填写为后台添加的广告位ID
+    adRequest2.placementID = @"<#后台添加的广告位ID#>";
+    [[PBOfferWall sharedOfferWall] loadOfferWall:adRequest2];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
