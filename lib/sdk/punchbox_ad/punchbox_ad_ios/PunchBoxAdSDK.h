@@ -1,8 +1,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "PBBannerView.h"
 
 @interface PunchBoxAdSDK : NSObject
+{
+    PBBannerView *viewAd;
+    NSString *command;
+}
+
 
 + (PunchBoxAdSDK*) getInstance;
 
@@ -14,6 +20,8 @@
 + (void) remove;
 + (void) addScriptListener:(NSDictionary*)options;
 + (void) removeScriptListener;
+
++ (UIWindow*)getMainWindow;
 
 @end
 
