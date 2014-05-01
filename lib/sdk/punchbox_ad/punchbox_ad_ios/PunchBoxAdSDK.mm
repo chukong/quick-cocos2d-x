@@ -15,18 +15,29 @@ static int functionId = 0;
 
 @interface PunchBoxAdSDK () <PBBannerViewDelegate,PBInterstitialDelegate,PBMoreGameDelegate,PBOfferWallDelegate>
 
+- (void) setCommand:(NSString *)cmd;
 + (void) callListener:(NSString *)result;
 
 @end
 
 @implementation PunchBoxAdSDK
 
+- (void) setCommand:(NSString *)cmd
+{
+    if (nil != self->command)
+    {
+        [self->command release];
+        self->command = nil;
+    }
+    self->command = cmd;
+}
 
 + (PunchBoxAdSDK*) getInstance
 {
     @synchronized(self) {
         if (gPunchBoxAdSDKInstance == nil) {
             gPunchBoxAdSDKInstance = [[PunchBoxAdSDK alloc] init];
+            gPunchBoxAdSDKInstance->command = nil;
         }
     }
     
@@ -47,10 +58,10 @@ static int functionId = 0;
 {
     NSLog(@"entry show function");
     NSString *command = [[options objectForKeyedSubscript:@"command"] copy];
-    NSString *position = [[options objectForKeyedSubscript:@"position"] copy];
     
-    [PunchBoxAdSDK getInstance]->command = command;
+    [[PunchBoxAdSDK getInstance] setCommand:command];
     if (NSOrderedSame == [command compare:@"banner"]) {
+        NSString *position = [[options objectForKeyedSubscript:@"position"] copy];
         UIWindow *window = [PunchBoxAdSDK getMainWindow];
         CGRect windRect = [window bounds];
         CGRect frameBanner;
@@ -66,6 +77,7 @@ static int functionId = 0;
         [window addSubview:bannerView];
 
         [PunchBoxAdSDK getInstance]->viewAd = bannerView;
+        [position release];
     } else if (NSOrderedSame == [command compare:@"interstitial"]) {
         [PBInterstitial sharedInterstitial].delegate = [PunchBoxAdSDK getInstance];
         [[PBInterstitial sharedInterstitial] showInterstitialWithScale:0.9f];
@@ -84,13 +96,17 @@ static int functionId = 0;
 {
     NSString *command = [PunchBoxAdSDK getInstance]->command;
     if (NSOrderedSame == [command compare:@"banner"]) {
+        [PunchBoxAdSDK getInstance]->viewAd.delegate = nil;
         [[PunchBoxAdSDK getInstance]->viewAd removeFromSuperview];
         [[PunchBoxAdSDK getInstance]->viewAd release];
     } else if (NSOrderedSame == [command compare:@"interstitial"]) {
+        [PBInterstitial sharedInterstitial].delegate = nil;
         [[PBInterstitial sharedInterstitial] closeInterstitial];
     } else if (NSOrderedSame == [command compare:@"moregame"]) {
+        [PBMoreGame sharedMoreGame].delegate = nil;
         [[PBMoreGame sharedMoreGame] closeMoreGame];
     } else if (NSOrderedSame == [command compare:@"offerwall"]) {
+        [PBOfferWall sharedOfferWall].delegate = nil;
         [[PBOfferWall sharedOfferWall] closeOfferWall];
     } else {
         NSLog(@"ad command wrong!");
