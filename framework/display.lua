@@ -418,7 +418,7 @@ end
 function display.newFilteredSprite(filename, filters, params)
 	local __one = {class=CCFilteredSpriteWithOne}
 	local __multi = {class=CCFilteredSpriteWithMulti}
-	if not filters then return display.newSprite(filtename, nil,nil , __one) end
+	if not filters then return display.newSprite(filename, nil,nil , __one) end
 	local __sp = nil
 	local __type = type(filters)
     if __type == "userdata" then __type = tolua.type(filters) end
