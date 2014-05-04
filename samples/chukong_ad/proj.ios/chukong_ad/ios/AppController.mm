@@ -77,6 +77,7 @@ static AppDelegate s_sharedApplication;
     
     
     // init SDK
+#warning PunchBoxAd_AppId修改为真实的在 punchbox申请的id
     [PunchBoxAd startSession:PunchBoxAd_AppId];
 //    CGRect frameBanner = CGRectMake(0.0f, 0.0f, 320.0f, 50.0f);
 //    PBBannerView *bannerView = [[PBBannerView alloc] initWithFrame:frameBanner];
