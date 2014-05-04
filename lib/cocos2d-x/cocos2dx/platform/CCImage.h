@@ -170,11 +170,12 @@ public:
 		ccColor4B color = { 0, 0, 0, 0 };
 		int ix = (int)x - 1;
 		int iy = (int)y - 1;
-		m_pData += (iy*getWidth() + ix) * 4;
-		color.r = *(m_pData++);
-		color.g = *(m_pData++);
-		color.b = *(m_pData++);
-		color.a = *(m_pData++);
+        unsigned char* pos = m_pData;
+        pos += (iy*getWidth() + ix) * 4;
+        color.r = *(pos++);
+        color.g = *(pos++);
+        color.b = *(pos++);
+        color.a = *(pos++);
 		return color;
 	};
 
