@@ -10,6 +10,13 @@ function getDemoData()
     QT_INTERFACE("core.addDemoList", json.encode(demoDataList))
 end
 
+-- @return -p @packageName -f -r portrait -o @projectPath
+function GET_CREATE_PROJECT_COMMAND( projectPath, packageName, isPortrait )
+    -- projectPath = '"'..projectPath..'"'
+    cmd = "-f -p "..packageName.." -r landscape".." -o "..projectPath
+    return  cmd
+end
+
 function openDemo( demoId )
     QT_INTERFACE("core.openProject")
 end
@@ -187,7 +194,7 @@ function WelcomeScene:onSamplesButtonClicked()
 end
 
 function WelcomeScene:onGetStartedButtonClicked()
-    QT_INTERFACE("core.openURL", "http://wiki.quick-x.com/doku.php")
+    QT_INTERFACE("core.openURL", "http://quick.cocoachina.com/wiki/doku.php?id=zh_cn")
     --openURL("http://wiki.quick-x.com/doku.php");
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end

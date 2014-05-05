@@ -515,6 +515,20 @@ QMenuBar *Player::getMenuBar()
     return this->m_mainMenu;
 }
 
+QString Player::getCreateProjectCommand(QString projectPath, QString packageName, bool isPortrait)
+{
+    // lua logic
+    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
+    lua_getglobal(L, "GET_CREATE_PROJECT_COMMAND");
+    lua_pushstring(L, projectPath.toUtf8().data());
+    lua_pushstring(L, packageName.toUtf8().data());
+    lua_pushboolean(L, isPortrait);
+    lua_pcall(L, 3, 1, 0);
+    QString cmdString(lua_tostring(L, -1));
+
+    return cmdString;
+}
+
 void Player::initScreenMenu()
 {
     //
