@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4983220E187FE0A900733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4983220C187FE0A900733BFB /* HelperFunc.cpp */; };
+		49832211187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4983220F187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
 		F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D98FB17F08B9E007171D8 /* libwebsockets.a */; };
@@ -326,6 +328,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4983220C187FE0A900733BFB /* HelperFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelperFunc.cpp; sourceTree = "<group>"; };
+		4983220D187FE0A900733BFB /* HelperFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperFunc.h; sourceTree = "<group>"; };
+		4983220F187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CZHelperFunc_luabinding.cpp; sourceTree = "<group>"; };
+		49832210187FE0BE00733BFB /* CZHelperFunc_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHelperFunc_luabinding.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F411F3DC175CEAFC00EF549A /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -1049,6 +1055,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4983220B187FE0A900733BFB /* apptools */ = {
+			isa = PBXGroup;
+			children = (
+				4983220C187FE0A900733BFB /* HelperFunc.cpp */,
+				4983220D187FE0A900733BFB /* HelperFunc.h */,
+			);
+			path = apptools;
+			sourceTree = "<group>";
+		};
 		F411F3D9175CEAEA00EF549A /* luajit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1529,6 +1544,7 @@
 		F4CB8652180D017700D81CF3 /* extra */ = {
 			isa = PBXGroup;
 			children = (
+				4983220B187FE0A900733BFB /* apptools */,
 				F4CB8653180D017700D81CF3 /* cocos2dx_extra.h */,
 				F4CB8654180D017700D81CF3 /* crypto */,
 				F4CB8660180D017700D81CF3 /* luabinding */,
@@ -1572,6 +1588,8 @@
 		F4CB8660180D017700D81CF3 /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
+				4983220F187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp */,
+				49832210187FE0BE00733BFB /* CZHelperFunc_luabinding.h */,
 				F4CB8666180D017700D81CF3 /* cocos2dx_extra_luabinding.cpp */,
 				F4CB8667180D017700D81CF3 /* cocos2dx_extra_luabinding.h */,
 			);
@@ -2769,6 +2787,7 @@
 				F4E880671770071600577406 /* CCKeypadDispatcher.cpp in Sources */,
 				F4E880681770071600577406 /* CCLabelAtlas.cpp in Sources */,
 				F43152A0180CF7E30046351C /* cpSpaceQuery.c in Sources */,
+				49832211187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp in Sources */,
 				F4CB87C2180D042F00D81CF3 /* CCNativeMac.mm in Sources */,
 				F4315299180CF7E30046351C /* cpCollision.c in Sources */,
 				F4E880691770071600577406 /* CCLabelBMFont.cpp in Sources */,
@@ -2842,6 +2861,7 @@
 				F4E880991770071600577406 /* CCIMEDispatcher.cpp in Sources */,
 				F4CB87AB180D02F600D81CF3 /* luasocket_io.c in Sources */,
 				F4E8809A1770071600577406 /* CCTextFieldTTF.cpp in Sources */,
+				4983220E187FE0A900733BFB /* HelperFunc.cpp in Sources */,
 				F4E8809B1770071600577406 /* CCTexture2D.cpp in Sources */,
 				F4CB86AB180D017700D81CF3 /* CCCrypto.cpp in Sources */,
 				F4E8809C1770071600577406 /* CCTextureAtlas.cpp in Sources */,

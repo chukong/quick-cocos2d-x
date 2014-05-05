@@ -43,6 +43,7 @@ THE SOFTWARE.
 #include <cctype>
 #include <queue>
 #include <list>
+#include "apptools/HelperFunc.h"
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
 #include <pthread.h>
@@ -920,7 +921,8 @@ void VolatileTexture::reloadAllTextures()
                 {
                     CCImage* pImage = new CCImage();
                     unsigned long nSize = 0;
-                    unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(vt->m_strFileName.c_str(), "rb", &nSize);
+                    //unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(vt->m_strFileName.c_str(), "rb", &nSize);
+                    unsigned char* pBuffer = CZHelperFunc::getFileData(vt->m_strFileName.c_str(), "rb", &nSize);
 
                     if (pImage && pImage->initWithImageData((void*)pBuffer, nSize, vt->m_FmtImage))
                     {

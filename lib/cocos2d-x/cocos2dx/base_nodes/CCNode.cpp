@@ -569,6 +569,7 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
     CCObject *object = NULL;
     CCARRAY_FOREACH(m_pChildren, object)
     {
+        if (! dynamic_cast<CCNode*>(object)->isVisible()) continue;
         CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false);
         if (r.size.width == 0 || r.size.height == 0) continue;
         r = CCRectApplyAffineTransform(r, nodeToParentTransform());

@@ -35,6 +35,7 @@ THE SOFTWARE.
 #include "shaders/ccGLStateCache.h"
 #include <ctype.h>
 #include <cctype>
+#include "apptools/HelperFunc.h"
 
 NS_CC_BEGIN
 
@@ -632,7 +633,8 @@ bool CCTexturePVR::initWithContentsOfFile(const char* path)
     }
     else
     {
-        pvrdata = CCFileUtils::sharedFileUtils()->getFileData(path, "rb", (unsigned long *)(&pvrlen));
+        //pvrdata = CCFileUtils::sharedFileUtils()->getFileData(path, "rb", (unsigned long *)(&pvrlen));
+        pvrdata = CZHelperFunc::getFileData(path, "rb", (unsigned long *)(&pvrlen));
     }
     
     if (pvrlen < 0)

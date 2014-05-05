@@ -6,6 +6,7 @@ LOCAL_MODULE := cocos_external_static
 LOCAL_MODULE_FILENAME := libcocos_external_static
 
 LOCAL_SRC_FILES := \
+    extra/apptools/HelperFunc.cpp \
     extra/crypto/CCCrypto.cpp \
     extra/crypto/base64/libbase64.c \
     extra/network/CCHTTPRequest.cpp \
@@ -14,6 +15,7 @@ LOCAL_SRC_FILES := \
     extra/platform/android/CCNativeAndroid.cpp \
     extra/platform/android/CCNetworkAndroid.cpp \
     extra/luabinding/cocos2dx_extra_luabinding.cpp \
+    extra/luabinding/CZHelperFunc_luabinding.cpp \
     chipmunk/cocos2dx_support/CCPhysicsBody.cpp \
     chipmunk/cocos2dx_support/CCPhysicsDebugNode.cpp \
     chipmunk/cocos2dx_support/CCPhysicsShape.cpp \

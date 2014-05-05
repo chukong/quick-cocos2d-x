@@ -76,6 +76,24 @@ ifndef $(QUICK_MINI_TARGET)
         GUI/CCScrollView/CCSorting.cpp \
         GUI/CCScrollView/CCTableView.cpp \
         GUI/CCScrollView/CCTableViewCell.cpp \
+        filters/filters/CCFilter.cpp \
+		filters/filters/CCBlurFilter.cpp \
+		filters/filters/CCBrightnessFilter.cpp \
+		filters/filters/CCContrastFilter.cpp \
+		filters/filters/CCDropShadowFilter.cpp \
+		filters/filters/CCExposureFilter.cpp \
+		filters/filters/CCGammaFilter.cpp \
+		filters/filters/CCGrayFilter.cpp \
+		filters/filters/CCHazeFilter.cpp \
+		filters/filters/CCHueFilter.cpp \
+		filters/filters/CCMaskFilter.cpp \
+		filters/filters/CCRGBFilter.cpp \
+		filters/filters/CCSaturationFilter.cpp \
+		filters/filters/CCSepiaFilter.cpp \
+		filters/filters/CCSharpenFilter.cpp \
+		filters/filters/CCTestFilter.cpp \
+		filters/nodes/CCFilteredSprite.cpp \
+		filters/shaders/ccFilterShaders.cpp \
         network/WebSocket.cpp
 
 endif
@@ -113,7 +131,8 @@ ifndef $(QUICK_MINI_TARGET)
                                $(LOCAL_PATH)/CCArmature/external_tool \
                                $(LOCAL_PATH)/CCArmature/external_tool/Json \
                                $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
-                               $(LOCAL_PATH)/CCArmature/utils
+                               $(LOCAL_PATH)/CCArmature/utils \
+                               $(LOCAL_PATH)/filters
 
 endif
 
