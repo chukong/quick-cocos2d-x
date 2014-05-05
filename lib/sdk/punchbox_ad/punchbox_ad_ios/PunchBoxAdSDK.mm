@@ -51,11 +51,17 @@ static int functionId = 0;
 
 + (void) stop
 {
+    [PunchBoxAdSDK remove];
     [PunchBoxAdSDK removeScriptListener];
 }
 
 + (void) show:(NSDictionary*)options
 {
+    if (nil != [PunchBoxAdSDK getInstance]->command) {
+        NSLog(@"PunchBoxAd One Ad already exists");
+        return;
+    }
+    
     NSString *command = [[options objectForKeyedSubscript:@"command"] copy];
     
     [[PunchBoxAdSDK getInstance] setCommand:command];
@@ -87,13 +93,17 @@ static int functionId = 0;
         [PBOfferWall sharedOfferWall].delegate = [PunchBoxAdSDK getInstance];
         [[PBOfferWall sharedOfferWall] showOfferWallWithScale:0.9f];
     } else {
-        NSLog(@"ad command wrong!");
+        NSLog(@"PunchBoxAd ad command wrong!");
     }
 }
 
 + (void) remove
 {
     NSString *command = [PunchBoxAdSDK getInstance]->command;
+    if (nil == command) {
+        return;
+    }
+    
     if (NSOrderedSame == [command compare:@"banner"]) {
         [PunchBoxAdSDK getInstance]->viewAd.delegate = nil;
         [[PunchBoxAdSDK getInstance]->viewAd removeFromSuperview];
@@ -110,6 +120,7 @@ static int functionId = 0;
     } else {
         NSLog(@"ad command wrong!");
     }
+    [[PunchBoxAdSDK getInstance] setCommand:nil];
 }
 
 + (void) addScriptListener:(NSDictionary*)options
@@ -161,6 +172,7 @@ static int functionId = 0;
 // 移除Banner广告
 - (void)pbBannerViewDidDismissScreen:(PBBannerView *)pbBannerView
 {
+    [self setCommand:nil];
     [PunchBoxAdSDK callListener:@"dismiss"];
 }
 
@@ -194,6 +206,7 @@ loadAdFailureWithError:(PBRequestError *)requestError
 // 弹出广告关闭完成
 - (void)pbInterstitialDidDismissScreen:(PBInterstitial *)pbInterstitial
 {
+    [self setCommand:nil];
     [PunchBoxAdSDK callListener:@"dismiss"];
 }
 
@@ -227,6 +240,7 @@ loadAdFailureWithError:(PBRequestError *)requestError
 // 精品推荐关闭完成
 - (void)pbMoreGameDidDismissScreen:(PBMoreGame *)pbMoreGame
 {
+    [self setCommand:nil];
     [PunchBoxAdSDK callListener:@"dismiss"];
 }
 
@@ -260,6 +274,7 @@ loadAdFailureWithError:(PBRequestError *)requestError
 // 积分墙关闭完成
 - (void)pbOfferWallDidDismissScreen:(PBOfferWall *)pbOfferWall
 {
+    [self setCommand:nil];
     [PunchBoxAdSDK callListener:@"dismiss"];
 }
 
