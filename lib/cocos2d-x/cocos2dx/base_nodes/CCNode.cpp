@@ -1055,12 +1055,12 @@ void CCNode::onExit()
 
     m_bRunning = false;
 
+    arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);
+
     if (m_nScriptHandler || hasScriptEventListener(EXIT_SCENE_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeEvent(this, kCCNodeOnExit);
     }
-
-    arrayMakeObjectsPerformSelector(m_pChildren, onExit, CCNode*);
 }
 
 void CCNode::registerScriptHandler(int nHandler)

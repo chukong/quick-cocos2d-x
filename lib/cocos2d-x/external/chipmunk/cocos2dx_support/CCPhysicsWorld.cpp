@@ -403,6 +403,7 @@ void CCPhysicsWorld::update(float dt)
 void CCPhysicsWorld::onExit(void)
 {
     stop();
+    CCNode::onExit();
 }
 
 void CCPhysicsWorld::addShape(CCPhysicsShape *shape)
