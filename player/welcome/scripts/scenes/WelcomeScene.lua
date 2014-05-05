@@ -4,7 +4,7 @@ end)
 
 function getDemoData()
     -- body
-    demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
+    local demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
                   , {id="demo2", text="<b>Two Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}}
 
     QT_INTERFACE("core.addDemoList", json.encode(demoDataList))
@@ -12,8 +12,8 @@ end
 
 -- @return -p @packageName -f -r portrait -o @projectPath
 function GET_CREATE_PROJECT_COMMAND( projectPath, packageName, isPortrait )
-    -- projectPath = '"'..projectPath..'"'
-    cmd = "-f -p "..packageName.." -r landscape".." -o "..projectPath
+    local screen = (isPortrait and " -r portrait ") or " -r landscape "
+    local cmd = "-f -p "..packageName..screen.." -o "..projectPath
     return  cmd
 end
 
