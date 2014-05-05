@@ -4,6 +4,7 @@
 #include <QProcess>
 #include <QMessageBox>
 #include "SimulatorConfig.h"
+#include "player.h"
 #include <QtDebug>
 
 CreateProjectUI::CreateProjectUI(QWidget *parent) :
@@ -32,7 +33,10 @@ void CreateProjectUI::onSelectFolder()
                                                            , tr("Get project folder")
                                                            , QString(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data())
                                                            , dialogOptions);
-    ui->projectPath->setText(folderPath);
+    if (!folderPath.isEmpty())
+    {
+        ui->projectPath->setText(folderPath);
+    }
 }
 
 void CreateProjectUI::onOk()
@@ -47,7 +51,6 @@ void CreateProjectUI::initData()
     connect(ui->cancel, SIGNAL(clicked()), this, SLOT(close()));
 }
 
-
 void CreateProjectUI::createNewProject()
 {
     QProcess createProject;
@@ -58,14 +61,11 @@ void CreateProjectUI::createNewProject()
     shell.append("bin/create_project.sh");
 #endif
 
+    QString cmdString = Player::instance()->getCreateProjectCommand(ui->projectPath->text(),
+                                                                    ui->packageName->text(),
+                                                                    ui->portait->isChecked());
     QStringList args;
-    if (ui->portait->isChecked())
-        args << "-o portrait";
-    else
-        args << "-o landscape";
-
-    args << "-f";
-    args << ui->packageName->text();
+    args << cmdString;
     createProject.start(shell, args);
     if (!createProject.waitForFinished())
     {

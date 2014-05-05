@@ -33,6 +33,9 @@
          <property name="text">
           <string>Select...</string>
          </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
       </layout>
@@ -50,7 +53,7 @@
         <string/>
        </property>
        <property name="placeholderText">
-        <string/>
+        <string>com.quick2dx.samples.hello</string>
        </property>
       </widget>
      </item>
@@ -142,6 +145,12 @@
         <widget class="QPushButton" name="ok">
          <property name="text">
           <string>Create Project</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+         <property name="default">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

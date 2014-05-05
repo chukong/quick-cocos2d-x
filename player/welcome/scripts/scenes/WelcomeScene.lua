@@ -4,10 +4,17 @@ end)
 
 function getDemoData()
     -- body
-    demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
+    local demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
                   , {id="demo2", text="<b>Two Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}}
 
     QT_INTERFACE("core.addDemoList", json.encode(demoDataList))
+end
+
+-- @return -p @packageName -f -r portrait -o @projectPath
+function GET_CREATE_PROJECT_COMMAND( projectPath, packageName, isPortrait )
+    local screen = (isPortrait and " -r portrait ") or " -r landscape "
+    local cmd = "-f -p "..packageName..screen.." -o "..projectPath
+    return  cmd
 end
 
 function openDemo( demoId )
@@ -187,7 +194,7 @@ function WelcomeScene:onSamplesButtonClicked()
 end
 
 function WelcomeScene:onGetStartedButtonClicked()
-    QT_INTERFACE("core.openURL", "http://wiki.quick-x.com/doku.php")
+    QT_INTERFACE("core.openURL", "http://quick.cocoachina.com/wiki/doku.php?id=zh_cn")
     --openURL("http://wiki.quick-x.com/doku.php");
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end

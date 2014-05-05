@@ -54,6 +54,15 @@ public:
 
     QMenuBar *getMenuBar();
 
+    /**
+     * @brief getCreateProjectCommand - [-f -p com.quick2dx.samples.hello -r landscape -o "/tmp/hello"]
+     * @param projectPath
+     * @param packageName
+     * @param isPortrait
+     * @return
+     */
+    QString getCreateProjectCommand(QString projectPath, QString packageName, bool isPortrait);
+
     fastdelegate::FastDelegate0<void> enterBackgroundDelegate;
     fastdelegate::FastDelegate0<void> enterForegroundDelegate;
 public Q_SLOTS:
