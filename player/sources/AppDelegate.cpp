@@ -5,12 +5,20 @@
 #include "support/CCNotificationCenter.h"
 #include "CCLuaEngine.h"
 #include <string>
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+#include "player.h"
+#endif
 
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+AppDelegate::AppDelegate(int argc, char *argv[])
+    : CCApplication(argc, argv)
+#else
 AppDelegate::AppDelegate()
+#endif
 {
     // fixed me
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
@@ -34,6 +42,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // register lua engine
     CCScriptEngineManager::sharedManager()->setScriptEngine(CCLuaEngine::defaultEngine());
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+    // regist my own lua
+    Player::registerAllCpp();
+#endif
 
     StartupCall *call = StartupCall::create(this);
     if (m_projectConfig.getDebuggerType() != kCCLuaDebuggerNone)
@@ -50,7 +62,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     {
         call->startup();
     }
-
     return true;
 }
 

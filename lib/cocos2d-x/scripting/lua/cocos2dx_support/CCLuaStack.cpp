@@ -272,7 +272,7 @@ int CCLuaStack::executeGlobalFunction(const char *functionName, int numArgs /* =
         lua_pop(m_state, 1);
         return 0;
     }
-    
+
     if (numArgs > 0)
     {
         lua_insert(m_state, -(numArgs + 1));                        /* L: ... func arg1 arg2 ... */

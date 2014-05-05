@@ -152,7 +152,7 @@ CCScriptEventListenersForDispatcher &CCScriptEventDispatcher::getAllScriptEventL
     return m_scriptEventListeners ? *m_scriptEventListeners : s_emptyListeners;
 }
 
-bool CCScriptEventDispatcher::sortListenerCompare(CCScriptHandlePair &a, CCScriptHandlePair &b)
+bool CCScriptEventDispatcher::sortListenerCompare(const CCScriptHandlePair &a, const CCScriptHandlePair &b)
 {
     return a.priority < b.priority;
 }

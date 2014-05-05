@@ -402,7 +402,7 @@ TOLUA_API int  tolua_Cocos2d_open (lua_State* tolua_S);]], [[]])
     result = string.gsub(result,
         [[tolua_usertype%(tolua_S,"([%a%d]+)"%);]],
         [[tolua_usertype(tolua_S,"%1");
- toluafix_add_type_mapping(typeid(%1).hash_code(), "%1");]])
+ toluafix_add_type_mapping(hash_code(typeid(%1))), "%1");]])
 
     WRITE(result)
 end

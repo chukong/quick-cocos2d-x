@@ -91,7 +91,7 @@ private:
     static CCScriptEventListenersForEvent s_emptyListenersForEvent;
     static CCScriptEventListenersForDispatcher s_emptyListeners;
 
-    static bool sortListenerCompare(CCScriptHandlePair &a, CCScriptHandlePair &b);
+    static bool sortListenerCompare(const CCScriptHandlePair &a, const CCScriptHandlePair &b);
     static bool removeListenerByTag(CCScriptHandlePair &p);
     static int s_removeTag;
 };
