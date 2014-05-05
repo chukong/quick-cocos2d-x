@@ -48,7 +48,6 @@ DISABLED_WARNINGS = \
     QMAKE_CXXFLAGS_WARN_ON += $${DISABLED_WARNINGS} -Wno-reorder
     QMAKE_CFLAGS_WARN_ON += $${DISABLED_WARNINGS}
 }
-
 macx {
 #    CONFIG -= app_bundle
     # For zip api
@@ -89,42 +88,6 @@ win32 {
     COCOS2DX_SYSTEM_LIBS += -L$${ROOT}/lib/cocos2d-x/external/libwebsockets/win32/lib/ -lwebsockets \
                             -L$${ROOT}/lib/cocos2d-x/scripting/lua/luajit/win32 -llua51
     QMAKE_LFLAGS_DEBUG  = /DEBUG /NODEFAULTLIB:libcmt.lib /NODEFAULTLIB:MSVCRT.lib
-    #QMAKE_CFLAGS_DEBUG += /TP /Od #/TP #/clr
-
-    # http://msdn.microsoft.com/en-us/library/032xwy55.aspx
-
-    # for chipmunk engine
-#    QMAKE_CFLAGS_DEBUG += \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/chipmunk.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpConstraint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedRotarySpring.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedSpring.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGearJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGrooveJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPinJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPivotJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRatchetJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRotaryLimitJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSimpleMotor.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSlideJoint.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArbiter.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArray.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBB.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBBTree.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBody.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpCollision.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpHashSet.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpPolyShape.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpShape.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpace.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceComponent.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceHash.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceQuery.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceStep.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpatialIndex.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSweep1D.c \
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpVect.c
-#/Tp$${ROOT}/lib/cocos2d-x/external/chipmunk/include/chipmunk_types.h \
 
     COCOS2DX_SYSTEM_LIBS += -L$${LIB_OUTPUT_DIR} -l$${CHIPMUNK_LIB}
 }
