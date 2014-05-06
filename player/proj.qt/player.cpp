@@ -469,6 +469,7 @@ void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
     if (w)
     {
         w->show();
+        w->installEventFilter(this);
     }
 
 #else
@@ -688,6 +689,27 @@ bool Player::eventFilter(QObject *o, QEvent *e)
             if (m_demoWidget)
             {
                 m_demoWidget->close();
+            }
+        }
+    }
+#elif defined(Q_OS_MAC)
+    if (o == CCEGLView::sharedOpenGLView()->getGLWidget())
+    {
+        if (e->type() == QEvent::Close)
+        {
+            if (m_consoleUI)
+            {
+                m_consoleUI->close();
+            }
+
+            if (m_demoWidget)
+            {
+                m_demoWidget->close();
+            }
+
+            if (m_mainMenu)
+            {
+                m_mainMenu->close();
             }
         }
     }
