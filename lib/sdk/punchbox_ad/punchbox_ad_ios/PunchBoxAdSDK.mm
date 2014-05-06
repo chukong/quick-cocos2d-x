@@ -13,7 +13,12 @@ static PunchBoxAdSDK *gPunchBoxAdSDKInstance = nil;
 static NSString *appId = nil;
 static int functionId = 0;
 
-@interface PunchBoxAdSDK () <PBBannerViewDelegate,PBInterstitialDelegate,PBMoreGameDelegate,PBOfferWallDelegate>
+
+@interface PunchBoxAdSDK () <PBBannerViewDelegate,PBInterstitialDelegate,PBMoreGameDelegate,PBOfferWallDelegate> {
+
+    PBBannerView *viewAd;
+    NSString *command;
+}
 
 - (void) setCommand:(NSString *)cmd;
 + (void) callListener:(NSString *)result;
@@ -21,6 +26,14 @@ static int functionId = 0;
 @end
 
 @implementation PunchBoxAdSDK
+
+- (void) dealloc {
+    [PunchBoxAdSDK stop];
+    [self->command release];
+    self->command = nil;
+    
+    [super dealloc];
+}
 
 - (void) setCommand:(NSString *)cmd
 {
@@ -40,7 +53,7 @@ static int functionId = 0;
             gPunchBoxAdSDKInstance->command = nil;
         }
     }
-    
+
     return gPunchBoxAdSDKInstance;
 }
 
