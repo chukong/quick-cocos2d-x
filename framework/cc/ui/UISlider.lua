@@ -119,39 +119,39 @@ function UISlider:setSliderButtonRotation(rotation)
     return self
 end
 
-function UISlider:addSliderValueChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.VALUE_CHANGED_EVENT, callback, isWeakReference)
+function UISlider:addSliderValueChangedEventListener(callback)
+    return self:addEventListener(UISlider.VALUE_CHANGED_EVENT, callback)
 end
 
-function UISlider:onSliderValueChanged(callback, isWeakReference)
-    self:addSliderValueChangedEventListener(callback, isWeakReference)
+function UISlider:onSliderValueChanged(callback)
+    self:addSliderValueChangedEventListener(callback)
     return self
 end
 
-function UISlider:addSliderPressedEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.PRESSED_EVENT, callback, isWeakReference)
+function UISlider:addSliderPressedEventListener(callback)
+    return self:addEventListener(UISlider.PRESSED_EVENT, callback)
 end
 
-function UISlider:onSliderPressed(callback, isWeakReference)
-    self:addSliderPressedEventListener(callback, isWeakReference)
+function UISlider:onSliderPressed(callback)
+    self:addSliderPressedEventListener(callback)
     return self
 end
 
-function UISlider:addSliderReleaseEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.RELEASE_EVENT, callback, isWeakReference)
+function UISlider:addSliderReleaseEventListener(callback)
+    return self:addEventListener(UISlider.RELEASE_EVENT, callback)
 end
 
-function UISlider:onSliderRelease(callback, isWeakReference)
-    self:addSliderReleaseEventListener(callback, isWeakReference)
+function UISlider:onSliderRelease(callback)
+    self:addSliderReleaseEventListener(callback)
     return self
 end
 
-function UISlider:addSliderStateChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.STATE_CHANGED_EVENT, callback, isWeakReference)
+function UISlider:addSliderStateChangedEventListener(callback)
+    return self:addEventListener(UISlider.STATE_CHANGED_EVENT, callback)
 end
 
-function UISlider:onSliderStateChanged(callback, isWeakReference)
-    self:addSliderStateChangedEventListener(callback, isWeakReference)
+function UISlider:onSliderStateChanged(callback)
+    self:addSliderStateChangedEventListener(callback)
     return self
 end
 
