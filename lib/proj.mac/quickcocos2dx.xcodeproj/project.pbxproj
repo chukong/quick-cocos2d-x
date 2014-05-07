@@ -34,7 +34,6 @@
 		2E0F5D3319090DE3005FF94D /* CCActionEaseEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C2A19090DE2005FF94D /* CCActionEaseEx.cpp */; };
 		2E0F5D3419090DE3005FF94D /* CCActionFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C2C19090DE2005FF94D /* CCActionFrame.cpp */; };
 		2E0F5D3519090DE3005FF94D /* CCActionFrameEasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C2E19090DE2005FF94D /* CCActionFrameEasing.cpp */; };
-		2E0F5D3619090DE3005FF94D /* CCActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C3019090DE2005FF94D /* CCActionManager.cpp */; };
 		2E0F5D3719090DE3005FF94D /* CCActionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C3219090DE2005FF94D /* CCActionNode.cpp */; };
 		2E0F5D3819090DE3005FF94D /* CCActionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C3419090DE2005FF94D /* CCActionObject.cpp */; };
 		2E0F5D3919090DE3005FF94D /* CCArmatureAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5C3819090DE2005FF94D /* CCArmatureAnimation.cpp */; };
@@ -128,6 +127,7 @@
 		2E0F5D9719090E50005FF94D /* lua_cocos2dx_cocostudio_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5D9319090E50005FF94D /* lua_cocos2dx_cocostudio_manual.cpp */; };
 		2E0F5D9819090E50005FF94D /* lua_cocos2dx_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5D9519090E50005FF94D /* lua_cocos2dx_manual.cpp */; };
 		2E0F5D9B19090E5C005FF94D /* LuaCocoStudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5D9919090E5C005FF94D /* LuaCocoStudio.cpp */; };
+		2EBAD941191A1C3B00FF9BD6 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EBAD93F191A1C3B00FF9BD6 /* ActionManager.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
 		F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D98FB17F08B9E007171D8 /* libwebsockets.a */; };
@@ -435,8 +435,6 @@
 		2E0F5C2D19090DE2005FF94D /* CCActionFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionFrame.h; sourceTree = "<group>"; };
 		2E0F5C2E19090DE2005FF94D /* CCActionFrameEasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionFrameEasing.cpp; sourceTree = "<group>"; };
 		2E0F5C2F19090DE2005FF94D /* CCActionFrameEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionFrameEasing.h; sourceTree = "<group>"; };
-		2E0F5C3019090DE2005FF94D /* CCActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionManager.cpp; sourceTree = "<group>"; };
-		2E0F5C3119090DE2005FF94D /* CCActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionManager.h; sourceTree = "<group>"; };
 		2E0F5C3219090DE2005FF94D /* CCActionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionNode.cpp; sourceTree = "<group>"; };
 		2E0F5C3319090DE2005FF94D /* CCActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionNode.h; sourceTree = "<group>"; };
 		2E0F5C3419090DE2005FF94D /* CCActionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionObject.cpp; sourceTree = "<group>"; };
@@ -640,6 +638,8 @@
 		2E0F5D9619090E50005FF94D /* lua_cocos2dx_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2dx_manual.h; sourceTree = "<group>"; };
 		2E0F5D9919090E5C005FF94D /* LuaCocoStudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocoStudio.cpp; sourceTree = "<group>"; };
 		2E0F5D9A19090E5C005FF94D /* LuaCocoStudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocoStudio.h; sourceTree = "<group>"; };
+		2EBAD93F191A1C3B00FF9BD6 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
+		2EBAD940191A1C3B00FF9BD6 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F411F3DC175CEAFC00EF549A /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -1267,14 +1267,14 @@
 		2E0F5C2919090DE2005FF94D /* Action */ = {
 			isa = PBXGroup;
 			children = (
+				2EBAD93F191A1C3B00FF9BD6 /* ActionManager.cpp */,
+				2EBAD940191A1C3B00FF9BD6 /* ActionManager.h */,
 				2E0F5C2A19090DE2005FF94D /* CCActionEaseEx.cpp */,
 				2E0F5C2B19090DE2005FF94D /* CCActionEaseEx.h */,
 				2E0F5C2C19090DE2005FF94D /* CCActionFrame.cpp */,
 				2E0F5C2D19090DE2005FF94D /* CCActionFrame.h */,
 				2E0F5C2E19090DE2005FF94D /* CCActionFrameEasing.cpp */,
 				2E0F5C2F19090DE2005FF94D /* CCActionFrameEasing.h */,
-				2E0F5C3019090DE2005FF94D /* CCActionManager.cpp */,
-				2E0F5C3119090DE2005FF94D /* CCActionManager.h */,
 				2E0F5C3219090DE2005FF94D /* CCActionNode.cpp */,
 				2E0F5C3319090DE2005FF94D /* CCActionNode.h */,
 				2E0F5C3419090DE2005FF94D /* CCActionObject.cpp */,
@@ -3142,6 +3142,7 @@
 				F431529C180CF7E30046351C /* cpShape.c in Sources */,
 				F4CB87AA180D02F600D81CF3 /* luasocket_buffer.c in Sources */,
 				2E0F5D6C19090DE3005FF94D /* LabelBMFontReader.cpp in Sources */,
+				2EBAD941191A1C3B00FF9BD6 /* ActionManager.cpp in Sources */,
 				F477B8491757404200260C19 /* CCCamera.cpp in Sources */,
 				2E0F5D4319090DE3005FF94D /* CCSkin.cpp in Sources */,
 				F477B84A1757404200260C19 /* CCConfiguration.cpp in Sources */,
@@ -3248,7 +3249,6 @@
 				2E0F5D4C19090DE3005FF94D /* CCComAttribute.cpp in Sources */,
 				2E0F5D8019090DE3005FF94D /* CCControlSlider.cpp in Sources */,
 				F4E880681770071600577406 /* CCLabelAtlas.cpp in Sources */,
-				2E0F5D3619090DE3005FF94D /* CCActionManager.cpp in Sources */,
 				2E0F5D9B19090E5C005FF94D /* LuaCocoStudio.cpp in Sources */,
 				F43152A0180CF7E30046351C /* cpSpaceQuery.c in Sources */,
 				F4CB87C2180D042F00D81CF3 /* CCNativeMac.mm in Sources */,
