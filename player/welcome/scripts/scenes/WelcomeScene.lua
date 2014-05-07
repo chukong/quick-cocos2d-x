@@ -12,7 +12,7 @@ end
 
 -- @return -p @packageName -f -r portrait -o @projectPath
 function GET_CREATE_PROJECT_COMMAND_ARGS( projectPath, packageName, isPortrait )
-    local screen = (isPortrait and " -r portrait") or "-r landscape"
+    local screen = (isPortrait and " -r portrait") or " -r landscape"
 
     local cmd = "-f -p "..packageName..screen.." -o "..projectPath
     return  cmd, " "

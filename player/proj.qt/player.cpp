@@ -255,6 +255,10 @@ void Player::onSaveQuickRootPath(QString absPath)
     QSettings settings;
     settings.setValue(ENV_KEY_QUICK_ROOT_PATH, absPath);
     settings.sync();
+
+    SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(absPath.toUtf8().data());
+    m_projectConfig.resetToWelcome();
+    restartWithProjectConfig(m_projectConfig);
 }
 
 void Player::onOpenRecentProject()

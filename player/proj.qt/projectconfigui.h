@@ -38,6 +38,14 @@ private Q_SLOTS:
 
     void on_showDebugConsole_clicked(bool checked);
 
+    void on_screenWidth_textChanged(const QString &arg1);
+
+    void on_screenHeight_textChanged(const QString &arg1);
+
+private:
+    void clearUIDataAndSignal();
+    void reconnectUISignal();
+
 private:
     Ui::ProjectConfigUI *ui;
     ProjectConfig m_projectConfig;

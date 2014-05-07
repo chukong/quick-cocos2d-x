@@ -95,6 +95,7 @@ public Q_SLOTS:
     void onOpenURL(const char *path);
     void onRestartWithArgs(QStringList args);
     void openDemoWithArgs(QString cmds);
+    // save ENV & restart play
     void onSaveQuickRootPath(QString absPath);
     void onOpenRecentProject();
     void onClearRecentMenu();
