@@ -58,11 +58,11 @@ void MobClickCppForLua::setLogEnabled(bool value) {
 }
 
 void MobClickCppForLua::initJniForCocos2dx3(void* vm, void* context) {
-    MobClickCpp::initJniForCocos2dx3(vm, context);
+    //MobClickCpp::initJniForCocos2dx3(vm, context);
 }
 
 void MobClickCppForLua::initJniForCocos2dx2(void* vm, const char *activityName) {
-    MobClickCpp::initJniForCocos2dx2(vm, activityName);
+    //MobClickCpp::initJniForCocos2dx2(vm, activityName);
 }
 
 void MobClickCppForLua::startWithAppkey(const char * appKey, const char * channelId) {
