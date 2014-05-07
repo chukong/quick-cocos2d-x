@@ -2,7 +2,7 @@
 #define PROJECTCONFIGUI_H
 
 #include <QDialog>
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 namespace Ui {
 class ProjectConfigUI;

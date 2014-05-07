@@ -3,7 +3,7 @@
 #include <QFileDialog>
 #include <QProcess>
 #include <QMessageBox>
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 #include "player.h"
 #include <QtDebug>
 

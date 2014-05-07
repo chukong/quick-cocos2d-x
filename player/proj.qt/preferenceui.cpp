@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QSettings>
 #include <QMessageBox>
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 PreferenceUI::PreferenceUI(QWidget *parent) :
     QDialog(parent),

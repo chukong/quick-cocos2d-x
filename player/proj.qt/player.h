@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 #include "quickdemowebview.h"
 #include "FastDelegate.h"
 #include "msghandlerwapper.h"
