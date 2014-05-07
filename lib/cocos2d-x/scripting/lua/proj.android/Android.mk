@@ -27,6 +27,9 @@ ifndef $(QUICK_MINI_TARGET)
                         ../cocos2dx_support/CCBProxy.cpp \
                         ../cocos2dx_support/Lua_extensions_CCB.cpp \
                         ../cocos2dx_support/lua_cocos2dx_extensions_manual.cpp \
+                        ../cocos2dx_support/lua_cocos2dx_cocostudio_manual.cpp \
+                        ../cocos2dx_support/lua_cocos2dx_manual.cpp \
+                        ../cocos2dx_support/LuaCocoStudio.cpp \
                         ../lua_extensions/cjson/fpconv.c \
                         ../lua_extensions/cjson/lua_cjson.c \
                         ../lua_extensions/cjson/strbuf.c \

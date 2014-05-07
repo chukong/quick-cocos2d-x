@@ -314,9 +314,9 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
         lua_newtable(L);
         lua_newtable(L);
         int i = 1;
-        for (CCSetIterator it = pTouches->begin(); it != pTouches->end(); ++it)
+        for (CCSetIterator it2 = pTouches->begin(); it2 != pTouches->end(); ++it2)
         {
-            CCTouch* pTouch = (CCTouch*)*it;
+            CCTouch* pTouch = (CCTouch*)*it2;
             const CCPoint pt = pDirector->convertToGL(pTouch->getLocationInView());
             lua_pushnumber(L, pt.x);
             lua_rawseti(L, -3, i);
