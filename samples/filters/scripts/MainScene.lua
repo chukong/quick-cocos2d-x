@@ -54,6 +54,15 @@ function MainScene:_addUI()
 		:align(display.BOTTOM_CENTER, display.cx+100, display.bottom)
 		:addTo(self, 0)
 		:onButtonClicked(handler(self, self._onNext))
+	
+	
+	ui.newMenu({
+		ui.newTTFLabelMenuItem({
+				text="clear filter",
+				listener=handler(self, self._onClearFilter)
+		}):pos(display.cx, 100)
+	})
+		:addTo(self)
 
 	self._title = ui.newTTFLabel({
 		text="Filters test",
@@ -110,6 +119,7 @@ function MainScene:_onPrev()
 end
 
 function MainScene:_onReset()
+	self:_showFilter()
 end
 
 function MainScene:_onNext()
@@ -118,6 +128,13 @@ function MainScene:_onNext()
 		self._curFilter = 1
 	end
 	self:_showFilter()
+end
+
+function MainScene:_onClearFilter()
+	print("onCliearFilter")
+	if self._filterSprite then
+		self._filterSprite:clearFilter()
+	end
 end
 
 function MainScene:_onClose()
