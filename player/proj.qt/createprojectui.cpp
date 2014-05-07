@@ -55,17 +55,15 @@ void CreateProjectUI::createNewProject()
 {
     QProcess createProject;
     QString shell(SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().data());
-#if defined(_WINDOWS)
+#if defined(Q_OS_WIN)
     shell.append("bin/create_project.bat");
 #else
     shell.append("bin/create_project.sh");
 #endif
 
-    QString cmdString = Player::instance()->getCreateProjectCommand(ui->projectPath->text(),
-                                                                    ui->packageName->text(),
-                                                                    ui->portait->isChecked());
-    QStringList args;
-    args << cmdString;
+    QStringList args = Player::instance()->getCreateProjectCommandArgs(ui->projectPath->text(),
+                                                                       ui->packageName->text(),
+                                                                       ui->portait->isChecked());
     createProject.start(shell, args);
     if (!createProject.waitForFinished())
     {
