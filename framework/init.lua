@@ -1,41 +1,98 @@
+--[[
 
-local ok, socket = pcall(function()
-    return require("socket")
-end)
+Copyright (c) 2011-2014 chukong-inc.com
 
-if ok then
-    math.randomseed(socket.gettime() * 1000)
-else
-    math.randomseed(os.time())
-end
-math.random()
-math.random()
-math.random()
-math.random()
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-if type(DEBUG) ~= "number" then DEBUG = 1 end
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+quick framework 初始化
+
+载入 quick framework 预定义的常量、模块。
+
+### 常量
+
+在初始化框架之前，可以定义以下常量：
+
+-   DEBUG: 设置框架的调试输出级别
+
+    0: 不输出任何调试信息（默认值）
+    1: 输出基本的调试信息
+    >1: 输出详细的调试信息
+
+-   DEBUG_FPS: 设置是否在画面中显示渲染帧率等信息
+
+    false: 不显示（默认值）
+    true: 显示
+
+-   DEBUG_MEM: 设置是否输出内存占用信息
+
+    false: 不输出（默认值）
+    true: 每 10 秒输出一次
+
+<br />
+
+### 自动载入的模块
+
+框架初始化时，会自动载入以下基本模块：
+
+-   debug: 调试接口
+-   functions: 提供一组常用的函数，以及对 Lua 标准库的扩展
+-   cocos2dx: 对 cocos2d-x C++ 接口的封装和扩展
+-   device: 针对设备接口的扩展
+-   transition: 与动作相关的接口
+-   display: 创建场景、图像、动画的接口
+-   audio: 音乐和音效的接口
+-   network: 网络相关的接口
+-   crypto: 加密相关的接口
+-   json: JSON 的编码和解码接口
+-   luaj: 提供从 Lua 调用 Java 方法的接口（仅限 Android 平台）
+-   luaoc: 提供从 Lua 调用 Objective-C 方法的接口（仅限 iOS 平台）
+-   cc: quick 框架扩展的基础类和组件
+
+]]
+
 local CURRENT_MODULE_NAME = ...
+
+if type(DEBUG) ~= "number" then DEBUG = 0 end
 
 cc = cc or {}
 cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
-cc.VERSION = "2.2.0"
-cc.FRAMEWORK_NAME = "quick-cocos2d-x client"
-cc.FRAMEWORK_GLOBALS = {}
+cc.VERSION = "2.2.3"
+cc.FRAMEWORK_NAME = "quick-cocos2d-x"
 
 require(cc.PACKAGE_NAME .. ".debug")
 require(cc.PACKAGE_NAME .. ".functions")
 require(cc.PACKAGE_NAME .. ".cocos2dx")
 
-echoInfo("")
-echoInfo("# DEBUG                        = "..DEBUG)
-echoInfo("#")
+printInfo("")
+printInfo("# DEBUG                        = "..DEBUG)
+printInfo("#")
 
 device     = require(cc.PACKAGE_NAME .. ".device")
 transition = require(cc.PACKAGE_NAME .. ".transition")
 display    = require(cc.PACKAGE_NAME .. ".display")
 audio      = require(cc.PACKAGE_NAME .. ".audio")
-network    = require(cc.PACKAGE_NAME .. ".network")
 ui         = require(cc.PACKAGE_NAME .. ".ui")
+network    = require(cc.PACKAGE_NAME .. ".network")
 crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 json       = require(cc.PACKAGE_NAME .. ".json")
 
@@ -57,16 +114,24 @@ if not NO_FILTER then
 	filter = require(cc.PACKAGE_NAME .. ".filter")
 end
 
+require(cc.PACKAGE_NAME .. ".deprecated")
+
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
 local function showMemoryUsage()
     echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
 end
 
-if DEBUG_FPS then
-    sharedDirector:setDisplayStats(true)
+if DEBUG > 0 and DEBUG_FPS then
+    CCDirector:sharedDirector():setDisplayStats(true)
 end
 
-if DEBUG_MEM then
-    sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, 10.0, false)
+if DEBUG > 0 and DEBUG_MEM then
+    local sharedTextureCache = CCTextureCache:sharedTextureCache()
+    local function showMemoryUsage()
+        printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
+        sharedTextureCache:dumpCachedTextureInfo()
+        printInfo("---------------------------------------------------")
+    end
+    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(showMemoryUsage, DEBUG_MEM_INTERVAL or 10.0, false)
 end

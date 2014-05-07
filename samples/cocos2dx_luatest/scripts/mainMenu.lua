@@ -118,7 +118,7 @@ function CreateTestMenu()
     -- add close menu
     local s = CCDirector:sharedDirector():getWinSize()
     local CloseItem = CCMenuItemImage:create(s_pPathClose, s_pPathClose)
-    CloseItem:registerScriptTapHandler(closeCallback)
+    CloseItem:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, closeCallback)
     CloseItem:setPosition(ccp(s.width - 30, s.height - 30))
 
     local CloseMenu = CCMenu:create()
@@ -136,7 +136,7 @@ function CreateTestMenu()
         if not obj.isSupported then
             testMenuItem:setEnabled(false)
         end
-        testMenuItem:registerScriptTapHandler(menuCallback)
+        testMenuItem:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
         testMenuItem:setPosition(ccp(s.width / 2, (s.height - (index) * LINE_SPACE)))
         MainMenu:addChild(testMenuItem, index + 10000, index + 10000)
     end

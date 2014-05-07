@@ -45,8 +45,8 @@ function UISlider:ctor(direction, images, options)
     self.images_ = clone(images)
     self.scale9_ = options.scale9
     self.scale9Size_ = nil
-    self.min_ = tonum(options.min or 0)
-    self.max_ = tonum(options.max or 100)
+    self.min_ = checknumber(options.min or 0)
+    self.max_ = checknumber(options.max or 100)
     self.value_ = self.min_
     self.buttonPositionRange_ = {min = 0, max = 0}
     self.buttonPositionOffset_ = {x = 0, y = 0}
@@ -294,7 +294,7 @@ function UISlider:updateImage_()
         self.barSprite_:setAnchorPoint(self:getAnchorPoint())
         self.barSprite_:setPosition(0, 0)
     else
-        echoError("UISlider:updateImage_() - not set bar image for state %s", state)
+        printError("UISlider:updateImage_() - not set bar image for state %s", state)
     end
 
     if buttonImage then
@@ -311,7 +311,7 @@ function UISlider:updateImage_()
         self.buttonSprite_:setRotation(self.buttonRotation_)
         self:updateButtonPosition_()
     else
-        echoError("UISlider:updateImage_() - not set button image for state %s", state)
+        printError("UISlider:updateImage_() - not set button image for state %s", state)
     end
 end
 

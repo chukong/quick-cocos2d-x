@@ -17,11 +17,8 @@ xcuserdata/
 lib/cocos2d-x/cocos2dx/platform/android/java/bin
 lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
-player/proj.win32/Debug/
-player/proj.win32/Release/
-lib/proj.win32/Debug/
-lib/proj.win32/Release/
-
+*/proj.win32/Debug/
+*/*/proj.win32/Debug/
 */*/proj.android/bin/
 */*/proj.android/gen/
 */*/proj.android/lint.xml

@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2010-2012 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -54,31 +54,22 @@ enum ccScriptType {
  * @js NA
  * @lua NA
  */
-class CCScriptHandlerEntry : public CCObject
+class CCScriptListenerHandle : public CCObject
 {
 public:
-    static CCScriptHandlerEntry* create(int nHandler);
-    ~CCScriptHandlerEntry(void);
-    
-    int getHandler(void) {
-        return m_nHandler;
-    }
-    
-    int getEntryId(void) {
-        return m_nEntryId;
-    }
-    
+    static CCScriptListenerHandle *create(int listener);
+    ~CCScriptListenerHandle(void);
+
+    int getListener(void);
+    int getHandle(void);
+
 protected:
-    CCScriptHandlerEntry(int nHandler)
-    : m_nHandler(nHandler)
-    {
-        static int newEntryId = 0;
-        newEntryId++;
-        m_nEntryId = newEntryId;
-    }
-    
-    int m_nHandler;
-    int m_nEntryId;
+    CCScriptListenerHandle(int listener);
+
+    int m_listener;
+    int m_handle;
+
+    static int s_nextHandleId;
 };
 
 /**
@@ -88,80 +79,24 @@ protected:
  * @lua NA
  */
 
-class CCSchedulerScriptHandlerEntry : public CCScriptHandlerEntry
+class CCSchedulerScriptHandle : public CCScriptListenerHandle
 {
 public:
     // nHandler return by tolua_ref_function(), called from LuaCocos2d.cpp
-    static CCSchedulerScriptHandlerEntry* create(int nHandler, float fInterval, bool bPaused);
-    ~CCSchedulerScriptHandlerEntry(void);
-    
-    cocos2d::CCTimer* getTimer(void) {
-        return m_pTimer;
-    }
-    
-    bool isPaused(void) {
-        return m_bPaused;
-    }
-    
-    void markedForDeletion(void) {
-        m_bMarkedForDeletion = true;
-    }
-    
-    bool isMarkedForDeletion(void) {
-        return m_bMarkedForDeletion;
-    }
-    
-private:
-    CCSchedulerScriptHandlerEntry(int nHandler)
-    : CCScriptHandlerEntry(nHandler)
-    , m_pTimer(NULL)
-    , m_bPaused(false)
-    , m_bMarkedForDeletion(false)
-    {
-    }
-    bool init(float fInterval, bool bPaused);
-    
-    cocos2d::CCTimer*   m_pTimer;
-    bool                m_bPaused;
-    bool                m_bMarkedForDeletion;
-};
+    static CCSchedulerScriptHandle *create(int listener, float interval, bool paused);
+    ~CCSchedulerScriptHandle(void);
 
+    cocos2d::CCTimer *getTimer(void);
+    bool isPaused(void);
+    void markedForDeletion(void);
+    bool isMarkedForDeletion(void);
 
-/**
- * @js NA
- * @lua NA
- */
-class CCTouchScriptHandlerEntry : public CCScriptHandlerEntry
-{
-public:
-    static CCTouchScriptHandlerEntry* create(int nHandler, bool bIsMultiTouches, int nPriority, bool bSwallowsTouches);
-    ~CCTouchScriptHandlerEntry(void);
-    
-    bool isMultiTouches(void) {
-        return m_bIsMultiTouches;
-    }
-    
-    int getPriority(void) {
-        return m_nPriority;
-    }
-    
-    bool getSwallowsTouches(void) {
-        return m_bSwallowsTouches;
-    }
-    
 private:
-    CCTouchScriptHandlerEntry(int nHandler)
-    : CCScriptHandlerEntry(nHandler)
-    , m_bIsMultiTouches(false)
-    , m_nPriority(0)
-    , m_bSwallowsTouches(false)
-    {
-    }
-    bool init(bool bIsMultiTouches, int nPriority, bool bSwallowsTouches);
-    
-    bool    m_bIsMultiTouches;
-    int     m_nPriority;
-    bool    m_bSwallowsTouches;
+    CCSchedulerScriptHandle(int listener, float interval, bool paused);
+
+    cocos2d::CCTimer *m_timer;
+    bool m_paused;
+    bool m_markedForDeletion;
 };
 
 
@@ -176,19 +111,19 @@ class CC_DLL CCScriptEngineProtocol
 {
 public:
     virtual ~CCScriptEngineProtocol() {};
-    
+
     /** Get script type */
     virtual ccScriptType getScriptType() { return kScriptTypeNone; };
 
     /** Remove script object. */
     virtual void removeScriptObjectByCCObject(CCObject* pObj) = 0;
-    
+
     /** Remove script function handler, only CCLuaEngine class need to implement this function. */
     virtual void removeScriptHandler(int nHandler) {};
-    
+
     /** Reallocate script function handler, only CCLuaEngine class need to implement this function. */
     virtual int reallocateScriptHandler(int nHandler) { return -1;}
-    
+
     /**
      @brief Execute script code contained in the given string.
      @param codes holding the valid script code that should be executed.
@@ -196,13 +131,13 @@ public:
      @return other if the string is executed wrongly.
      */
     virtual int executeString(const char* codes) = 0;
-    
+
     /**
      @brief Execute a script file.
      @param filename String object holding the filename of the script file that is to be executed
      */
     virtual int executeScriptFile(const char* filename) = 0;
-    
+
     /**
      @brief Execute a scripted global function.
      @brief The function should not take any parameters and should return an integer.
@@ -210,24 +145,34 @@ public:
      @return The integer value returned from the script function.
      */
     virtual int executeGlobalFunction(const char* functionName, int numArgs = 0) = 0;
-    
+
     /**
      @brief Execute a node event function
      @param pNode which node produce this event
-     @param nAction kCCNodeOnEnter,kCCNodeOnExit,kCCMenuItemActivated,kCCNodeOnEnterTransitionDidFinish,kCCNodeOnExitTransitionDidStart
+     @param nAction kCCNodeOnEnter, kCCNodeOnExit,
+     kCCNodeOnEnterTransitionDidFinish, kCCNodeOnExitTransitionDidStart,
+     kCCMenuItemActivated
      @return The integer value returned from the script function.
      */
-    virtual int executeNodeEvent(CCNode* pNode, int nAction, float dt = 0) = 0;
-    
+    virtual int executeNodeEvent(CCNode* pNode, int nAction) = 0;
+    /**
+     kCCNodeOnEnterFrame
+     */
+    virtual int executeNodeEnterFrameEvent(CCNode* pNode, float dt) = 0;
+
+    /**
+     CCMenuItem Event
+     */
     virtual int executeMenuItemEvent(CCMenuItem* pMenuItem) = 0;
+
     /** Execute a notification event function */
     virtual int executeNotificationEvent(CCNotificationCenter* pNotificationCenter, const char* pszName, CCObject *obj = NULL) = 0;
-    
+
     /** execute a callfun event */
     virtual int executeCallFuncActionEvent(CCCallFunc* pAction, CCObject* pTarget = NULL) = 0;
     /** execute a schedule function */
     virtual int executeSchedule(int nHandler, float dt, CCNode* pNode = NULL) = 0;
-    
+
     /** functions for executing touch event */
     virtual int executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches) = 0;
     virtual int executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch) = 0;
@@ -240,11 +185,24 @@ public:
 
     /** function for common event */
     virtual int executeEvent(int nHandler, const char* pEventName, CCObject* pEventSource = NULL, const char* pEventSourceClassName = NULL) = 0;
-    
+
+    /** function for c++ call back lua funtion */
+    virtual int executeEventWithArgs(int nHandler, CCArray* pArgs) { return 0; }
+
     /** called by CCAssert to allow scripting engine to handle failed assertions
      * @return true if the assert was handled by the script engine, false otherwise.
      */
     virtual bool handleAssert(const char *msg) = 0;
+
+    /**
+     *
+     */
+    enum ConfigType
+    {
+        NONE,
+        COCOSTUDIO,
+    };
+    virtual bool parseConfig(ConfigType type, const std::string& str) = 0;
 };
 
 /**
@@ -258,22 +216,22 @@ class CC_DLL CCScriptEngineManager
 {
 public:
     ~CCScriptEngineManager(void);
-    
-    CCScriptEngineProtocol* getScriptEngine(void) {
+
+    inline CCScriptEngineProtocol* getScriptEngine(void) {
         return m_pScriptEngine;
     }
     void setScriptEngine(CCScriptEngineProtocol *pScriptEngine);
     void removeScriptEngine(void);
-    
+
     static CCScriptEngineManager* sharedManager(void);
     static void purgeSharedManager(void);
-    
+
 private:
     CCScriptEngineManager(void)
     : m_pScriptEngine(NULL)
     {
     }
-    
+
     CCScriptEngineProtocol *m_pScriptEngine;
 };
 

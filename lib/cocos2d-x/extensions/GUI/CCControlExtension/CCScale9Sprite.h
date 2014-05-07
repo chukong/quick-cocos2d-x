@@ -297,7 +297,7 @@ public:
     virtual bool updateWithBatchNode(CCSpriteBatchNode* batchnode, CCRect rect, bool rotated, CCRect capInsets);
 
     virtual void setSpriteFrame(CCSpriteFrame * spriteFrame);
-    
+
     virtual void setBlendFunc(ccBlendFunc blendFunc);
     /**
      * @js NA

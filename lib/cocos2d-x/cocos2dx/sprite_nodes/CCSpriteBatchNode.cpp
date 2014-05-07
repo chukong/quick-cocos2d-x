@@ -1,29 +1,29 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2009-2010 Ricardo Quesada
-Copyright (c) 2009      Matt Oswald
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2009-2010 Ricardo Quesada
+ Copyright (c) 2009      Matt Oswald
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 #include "CCSpriteBatchNode.h"
 #include "ccConfig.h"
 #include "CCSprite.h"
@@ -43,8 +43,8 @@ THE SOFTWARE.
 NS_CC_BEGIN
 
 /*
-* creation with CCTexture2D
-*/
+ * creation with CCTexture2D
+ */
 
 CCSpriteBatchNode* CCSpriteBatchNode::createWithTexture(CCTexture2D* tex, unsigned int capacity/* = kDefaultSpriteBatchCapacity*/)
 {
@@ -56,8 +56,8 @@ CCSpriteBatchNode* CCSpriteBatchNode::createWithTexture(CCTexture2D* tex, unsign
 }
 
 /*
-* creation with File Image
-*/
+ * creation with File Image
+ */
 
 CCSpriteBatchNode* CCSpriteBatchNode::create(const char *fileImage, unsigned int capacity/* = kDefaultSpriteBatchCapacity*/)
 {
@@ -69,8 +69,8 @@ CCSpriteBatchNode* CCSpriteBatchNode::create(const char *fileImage, unsigned int
 }
 
 /*
-* init with CCTexture2D
-*/
+ * init with CCTexture2D
+ */
 bool CCSpriteBatchNode::initWithTexture(CCTexture2D *tex, unsigned int capacity)
 {
     CCAssert(tex, "CCSpriteBatchNode::initWithTexture() - invalid tex");
@@ -82,7 +82,7 @@ bool CCSpriteBatchNode::initWithTexture(CCTexture2D *tex, unsigned int capacity)
     {
         capacity = kDefaultSpriteBatchCapacity;
     }
-    
+
     m_pobTextureAtlas->initWithTexture(tex, capacity);
 
     updateBlendFunc();
@@ -106,8 +106,8 @@ bool CCSpriteBatchNode::init()
 }
 
 /*
-* init with FileImage
-*/
+ * init with FileImage
+ */
 bool CCSpriteBatchNode::initWithFile(const char* fileImage, unsigned int capacity)
 {
     CCTexture2D *pTexture2D = CCTextureCache::sharedTextureCache()->addImage(fileImage);
@@ -300,7 +300,7 @@ void CCSpriteBatchNode::updateAtlasIndex(CCSprite* sprite, int* curIndex)
     {
         count = pArray->count();
     }
-    
+
     int oldIndex = 0;
 
     if( count == 0 )
@@ -417,8 +417,8 @@ void CCSpriteBatchNode::increaseAtlasCapacity(void)
     unsigned int quantity = (m_pobTextureAtlas->getCapacity() + 1) * 4 / 3;
 
     CCLOG("cocos2d: CCSpriteBatchNode: resizing TextureAtlas capacity from [%lu] to [%lu].",
-        (long)m_pobTextureAtlas->getCapacity(),
-        (long)quantity);
+          (long)m_pobTextureAtlas->getCapacity(),
+          (long)quantity);
 
     if (! m_pobTextureAtlas->resizeCapacity(quantity))
     {
@@ -443,7 +443,7 @@ unsigned int CCSpriteBatchNode::rebuildIndexInOrder(CCSprite *pobParent, unsigne
                 uIndex = rebuildIndexInOrder(pChild, uIndex);
             }
         }
-    }    
+    }
 
     // ignore self (batch node)
     if (! pobParent->isEqual(this))
@@ -578,7 +578,7 @@ void CCSpriteBatchNode::insertChild(CCSprite *pSprite, unsigned int uIndex)
 
     // update indices
     unsigned int i = uIndex+1;
-    
+
     CCSprite* pChild = NULL;
     for(; i<descendantsData->num; i++){
         pChild = (CCSprite*)descendantsData->arr[i];
@@ -618,7 +618,7 @@ void CCSpriteBatchNode::appendChild(CCSprite* sprite)
     m_pobTextureAtlas->insertQuad(&quad, index);
 
     // add children recursively
-    
+
     CCObject* pObj = NULL;
     CCARRAY_FOREACH(sprite->getChildren(), pObj)
     {
@@ -642,7 +642,7 @@ void CCSpriteBatchNode::removeSpriteFromAtlas(CCSprite *pobSprite)
 
         // update all sprites beyond this one
         unsigned int count = m_pobDescendants->count();
-        
+
         for(; uIndex < count; ++uIndex)
         {
             CCSprite* s = (CCSprite*)(m_pobDescendants->objectAtIndex(uIndex));
@@ -730,21 +730,21 @@ void CCSpriteBatchNode::updateQuadFromSprite(CCSprite *sprite, unsigned int inde
 {
     CCAssert(sprite != NULL, "Argument must be non-nil");
     CCAssert(dynamic_cast<CCSprite*>(sprite) != NULL, "CCSpriteBatchNode only supports CCSprites as children");
-    
+
 	// make needed room
 	while (index >= m_pobTextureAtlas->getCapacity() || m_pobTextureAtlas->getCapacity() == m_pobTextureAtlas->getTotalQuads())
     {
 		this->increaseAtlasCapacity();
     }
-    
+
 	//
 	// update the quad directly. Don't add the sprite to the scene graph
 	//
 	sprite->setBatchNode(this);
     sprite->setAtlasIndex(index);
-    
+
 	sprite->setDirty(true);
-	
+
 	// UpdateTransform updates the textureAtlas quad
 	sprite->updateTransform();
 }
@@ -759,24 +759,23 @@ CCSpriteBatchNode * CCSpriteBatchNode::addSpriteWithoutQuad(CCSprite*child, unsi
 
     // XXX: optimize with a binary search
     int i=0;
- 
+
     CCObject* pObject = NULL;
     CCARRAY_FOREACH(m_pobDescendants, pObject)
     {
         CCSprite* pChild = (CCSprite*) pObject;
         if (pChild && (pChild->getAtlasIndex() >= z))
-        {
-            ++i;
-        }
+            break;
+        ++i;
     }
     
     m_pobDescendants->insertObject(child, i);
-
+    
     // IMPORTANT: Call super, and not self. Avoid adding it to the texture atlas array
     CCNode::addChild(child, z, aTag);
     //#issue 1262 don't use lazy sorting, tiles are added as quads not as sprites, so sprites need to be added in order
     reorderBatch(false);
-
+    
     return this;
 }
 

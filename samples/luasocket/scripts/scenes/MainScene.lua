@@ -9,9 +9,9 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-	echoInfo("socket.getTime:%f", cc.net.SocketTCP.getTime())
-	echoInfo("os.gettime:%f", os.time())
-	echoInfo("socket._VERSION: %s", cc.net.SocketTCP._VERSION)
+	printInfo("socket.getTime:%f", cc.net.SocketTCP.getTime())
+	printInfo("os.gettime:%f", os.time())
+	printInfo("socket._VERSION: %s", cc.net.SocketTCP._VERSION)
 
 	local __luaSocketLabel = ui.newTTFLabelMenuItem({
 		text = "lua socket connect",
@@ -35,7 +35,7 @@ function MainScene:ctor()
 end
 
 function MainScene:onStatus(__event)
-	echoInfo("socket status: %s", __event.name)
+	printInfo("socket status: %s", __event.name)
 end
 
 function MainScene:send2Socket(__method, __msg)

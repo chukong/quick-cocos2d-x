@@ -102,7 +102,7 @@ local function CocosDenshionTest()
     for  i = 1, m_nTestCount do
         local  label = CCLabelTTF:create(testItems[i], "Arial", 24)
         local  pMenuItem = CCMenuItemLabel:create(label)
-        pMenuItem:registerScriptTapHandler(menuCallback)
+        pMenuItem:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
         m_pItmeMenu:addChild(pMenuItem, i + 10000 -1)
         pMenuItem:setPosition( ccp( VisibleRect:center().x, (VisibleRect:top().y - i * LINE_SPACE) ))
     end

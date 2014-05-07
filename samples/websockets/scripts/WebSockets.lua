@@ -28,11 +28,11 @@ end
 
 function WebSockets:send(data, messageType)
     if not self:isReady() then
-        echoError("WebSockets:send() - socket is't ready")
+        printError("WebSockets:send() - socket is't ready")
         return false
     end
 
-    messageType = toint(messageType)
+    messageType = checkint(messageType)
     if messageType == WebSockets.TEXT_MESSAGE then
         self.socket:sendTextMsg(tostring(data))
     elseif messageType == WebSockets.BINARY_ARRAY_MESSAGE then

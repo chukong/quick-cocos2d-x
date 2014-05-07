@@ -22,7 +22,7 @@ local function getBaseLayer()
 
     local itemMode = CCMenuItemToggle:create(CCMenuItemFont:create("Use High Quality Mode"))
 	itemMode:addSubItem(CCMenuItemFont:create("Use Fast Mode"))
-	itemMode:registerScriptTapHandler(modeCallback)
+	itemMode:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, modeCallback)
     local menuMode = CCMenu:create()
 	menuMode:addChild(itemMode)
     menuMode:setPosition(ccp(s.width / 2, s.height / 4))

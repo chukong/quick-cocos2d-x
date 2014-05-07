@@ -1,4 +1,31 @@
+--[[
 
+Copyright (c) 2011-2014 chukong-inc.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+
+]]
 CCSceneExtend = class("CCSceneExtend", CCNodeExtend)
 CCSceneExtend.__index = CCSceneExtend
 
@@ -12,7 +39,7 @@ function CCSceneExtend.extend(target)
 
     local function handler(event)
         if event == "enter" then
-            echoInfo("Scene \"%s:onEnter()\"", target.name or (target.__cname or "unknown"))
+            printInfo("Scene \"%s:onEnter()\"", target.name or (target.__cname or "unknown"))
             target:onEnter()
         elseif event == "enterTransitionFinish" then
             target:onEnterTransitionFinish()
@@ -21,7 +48,7 @@ function CCSceneExtend.extend(target)
         elseif event == "cleanup" then
             target:onCleanup()
         elseif event == "exit" then
-            echoInfo("Scene \"%s:onExit()\"", target.name or (target.__cname or "unknown"))
+            printInfo("Scene \"%s:onExit()\"", target.name or (target.__cname or "unknown"))
 
             if target.autoCleanupImages_ then
                 for imageName, v in pairs(target.autoCleanupImages_) do
@@ -33,10 +60,10 @@ function CCSceneExtend.extend(target)
             target:onExit()
 
             if DEBUG_MEM then
-                echoInfo("----------------------------------------")
-                echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
+                printInfo("----------------------------------------")
+                printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
                 CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
-                echoInfo("----------------------------------------")
+                printInfo("----------------------------------------")
             end
         end
     end

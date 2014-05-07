@@ -1,26 +1,144 @@
+--[[
+
+Copyright (c) 2011-2014 chukong-inc.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+网络服务
+
+]]
 
 local network = {}
 
+--[[--
+
+检查地 WIFI 网络是否可用
+
+提示： WIFI 网络可用不代表可以访问互联网。
+
+@return boolean 网络是否可用
+
+]]
 function network.isLocalWiFiAvailable()
     return CCNetwork:isLocalWiFiAvailable()
 end
 
+--[[--
+
+检查互联网连接是否可用
+
+通常，这里接口返回 3G 网络的状态，具体情况与设备和操作系统有关。 
+
+@return boolean 网络是否可用
+
+]]
 function network.isInternetConnectionAvailable()
     return CCNetwork:isInternetConnectionAvailable()
 end
 
+--[[--
+
+检查是否可以解析指定的主机名
+
+~~~ lua
+
+if network.isHostNameReachable("www.google.com") then
+    -- 域名可以解析
+end
+
+~~~
+
+注意： 该接口会阻塞程序，因此在调用该接口时应该提醒用户应用程序在一段时间内会失去响应。 
+
+@return boolean 主机名是否可以解析
+
+]]
 function network.isHostNameReachable(hostname)
     if type(hostname) ~= "string" then
-        echoError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
+        printError("network.isHostNameReachable() - invalid hostname %s", tostring(hostname))
         return false
     end
     return CCNetwork:isHostNameReachable(hostname)
 end
 
+--[[--
+
+返回互联网连接状态值
+
+状态值有三种：
+
+-   kCCNetworkStatusNotReachable: 无法访问互联网
+-   kCCNetworkStatusReachableViaWiFi: 通过 WIFI
+-   kCCNetworkStatusReachableViaWWAN: 通过 3G 网络
+
+@return string 互联网连接状态值
+
+]]
 function network.getInternetConnectionStatus()
     return CCNetwork:getInternetConnectionStatus()
 end
 
+--[[--
+
+创建异步 HTTP 请求，并返回 CCHTTPRequest 对象。 
+
+~~~ lua
+
+function onRequestFinished(event)
+    local ok = (event.name == "completed")
+    local request = event.request
+ 
+    if not ok then
+        -- 请求失败，显示错误代码和错误消息
+        print(request:getErrorCode(), request:getErrorMessage())
+        return
+    end
+ 
+    local code = request:getResponseStatusCode()
+    if code ~= 200 then
+        -- 请求结束，但没有返回 200 响应代码
+        print(code)
+        return
+    end
+ 
+    -- 请求成功，显示服务端返回的内容
+    local response = request:getResponseString()
+    print(response)
+end
+ 
+-- 创建一个请求，并以 POST 方式发送数据到服务端
+local url = "http://www.mycompany.com/request.php"
+local request = network.createHTTPRequest(onRequestFinished, url, "POST")
+request:addPOSTValue("KEY", "VALUE")
+ 
+-- 开始请求。当请求完成时会调用 callback() 函数
+request:start()
+
+~~~
+
+@return CCHTTPRequest 结果
+
+]]
 function network.createHTTPRequest(callback, url, method)
     if not method then method = "GET" end
     if string.upper(tostring(method)) == "GET" then
@@ -127,7 +245,7 @@ function network.parseCookie(cookieString)
                 access = parseTrueFalse(parts[2]),
                 path = parts[3],
                 secure = parseTrueFalse(parts[4]),
-                expire = toint(parts[5]),
+                expire = checkint(parts[5]),
                 name = parts[6],
                 value = string.urldecode(parts[7]),
             }

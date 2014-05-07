@@ -249,7 +249,7 @@ function Actor:onRelive_(event)
 end
 
 function Actor:onLeaveFiring_(event)
-    local cooldown = tonum(event.args[1])
+    local cooldown = checknumber(event.args[1])
     if cooldown > 0 then
         -- 如果开火后的冷却时间大于 0，则需要等待
         scheduler.performWithDelayGlobal(function()

@@ -5,6 +5,9 @@
 #include "CCLuaEngine.h"
 #endif
 
+#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+
 USING_NS_CC;
 USING_NS_CC_EXTRA;
 

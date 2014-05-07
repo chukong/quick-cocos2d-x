@@ -1,28 +1,28 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2008-2010 Ricardo Quesada
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2008-2010 Ricardo Quesada
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 
 #include "CCSpriteBatchNode.h"
 #include "CCAnimation.h"
@@ -121,13 +121,13 @@ CCSprite* CCSprite::createWithSpriteFrame(CCSpriteFrame *pSpriteFrame)
 CCSprite* CCSprite::createWithSpriteFrameName(const char *pszSpriteFrameName)
 {
     CCSpriteFrame *pFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(pszSpriteFrameName);
-    
+
 #if COCOS2D_DEBUG > 0
     char msg[256] = {0};
     sprintf(msg, "Invalid spriteFrameName: %s", pszSpriteFrameName);
     CCAssert(pFrame != NULL, msg);
 #endif
-    
+
     return createWithSpriteFrame(pFrame);
 }
 
@@ -154,28 +154,28 @@ bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool r
     if (CCNode::init())
     {
         m_pobBatchNode = NULL;
-        
+
         m_bRecursiveDirty = false;
         setDirty(false);
-        
+
         m_bOpacityModifyRGB = true;
-        
+
         m_sBlendFunc.src = CC_BLEND_SRC;
         m_sBlendFunc.dst = CC_BLEND_DST;
-        
+
         m_bFlipX = m_bFlipY = false;
-        
+
         // default transform anchor: center
         setAnchorPoint(ccp(0.5f, 0.5f));
-        
+
         // zwoptex default values
         m_obOffsetPosition = CCPointZero;
-        
+
         m_bHasChildren = false;
-        
+
         // clean the Quad
         memset(&m_sQuad, 0, sizeof(m_sQuad));
-        
+
         // Atlas: Color
         ccColor4B tmpColor = { 255, 255, 255, 255 };
         m_sQuad.bl.colors = tmpColor;
@@ -185,15 +185,15 @@ bool CCSprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool r
 
         // shader program
         setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor));
-        
+
         // update texture (calls updateBlendFunc)
         setTexture(pTexture);
         setTextureRect(rect, rotated, rect.size);
-        
+
         // by default use "Self Render".
         // if the sprite is added to a batchnode, then it will automatically switch to "batchnode Render"
         setBatchNode(NULL);
-        
+
         return true;
     }
     else
@@ -213,7 +213,7 @@ bool CCSprite::initWithTexture(CCTexture2D *pTexture)
 
     CCRect rect = CCRectZero;
     rect.size = pTexture->getContentSize();
-    
+
     return initWithTexture(pTexture, rect);
 }
 
@@ -231,7 +231,7 @@ bool CCSprite::initWithFile(const char *pszFilename)
 
     // don't release here.
     // when load texture failed, it's better to get a "transparent" sprite then a crashed program
-    // this->release(); 
+    // this->release();
     return false;
 }
 
@@ -247,7 +247,7 @@ bool CCSprite::initWithFile(const char *pszFilename, const CCRect& rect)
 
     // don't release here.
     // when load texture failed, it's better to get a "transparent" sprite then a crashed program
-    // this->release(); 
+    // this->release();
     return false;
 }
 
@@ -271,29 +271,29 @@ bool CCSprite::initWithSpriteFrameName(const char *pszSpriteFrameName)
 
 // XXX: deprecated
 /*
-CCSprite* CCSprite::initWithCGImage(CGImageRef pImage)
-{
-    // todo
-    // because it is deprecated, so we do not implement it
+ CCSprite* CCSprite::initWithCGImage(CGImageRef pImage)
+ {
+ // todo
+ // because it is deprecated, so we do not implement it
 
-    return NULL;
-}
-*/
+ return NULL;
+ }
+ */
 
 /*
-CCSprite* CCSprite::initWithCGImage(CGImageRef pImage, const char *pszKey)
-{
-    CCAssert(pImage != NULL);
+ CCSprite* CCSprite::initWithCGImage(CGImageRef pImage, const char *pszKey)
+ {
+ CCAssert(pImage != NULL);
 
-    // XXX: possible bug. See issue #349. New API should be added
-    CCTexture2D *pTexture = CCTextureCache::sharedTextureCache()->addCGImage(pImage, pszKey);
+ // XXX: possible bug. See issue #349. New API should be added
+ CCTexture2D *pTexture = CCTextureCache::sharedTextureCache()->addCGImage(pImage, pszKey);
 
-    const CCSize& size = pTexture->getContentSize();
-    CCRect rect = CCRectMake(0 ,0, size.width, size.height);
+ const CCSize& size = pTexture->getContentSize();
+ CCRect rect = CCRectMake(0 ,0, size.width, size.height);
 
-    return initWithTexture(texture, rect);
-}
-*/
+ return initWithTexture(texture, rect);
+ }
+ */
 
 CCSprite::CCSprite(void)
 : m_bShouldBeHidden(false),
@@ -345,7 +345,7 @@ void CCSprite::setTextureRect(const CCRect& rect, bool rotated, const CCSize& un
     else
     {
         // self rendering
-        
+
         // Atlas: Vertex
         float x1 = 0 + m_obOffsetPosition.x;
         float y1 = 0 + m_obOffsetPosition.y;
@@ -462,7 +462,7 @@ void CCSprite::updateTransform(void)
             m_sQuad.br.vertices = m_sQuad.tl.vertices = m_sQuad.tr.vertices = m_sQuad.bl.vertices = vertex3(0,0,0);
             m_bShouldBeHidden = true;
         }
-        else 
+        else
         {
             m_bShouldBeHidden = false;
 
@@ -470,7 +470,7 @@ void CCSprite::updateTransform(void)
             {
                 m_transformToBatch = nodeToParentTransform();
             }
-            else 
+            else
             {
                 CCAssert( dynamic_cast<CCSprite*>(m_pParent), "Logic error in CCSprite. Parent must be a CCSprite");
                 m_transformToBatch = CCAffineTransformConcat( nodeToParentTransform() , ((CCSprite*)m_pParent)->m_transformToBatch );
@@ -517,19 +517,19 @@ void CCSprite::updateTransform(void)
 		{
             m_pobTextureAtlas->updateQuad(&m_sQuad, m_uAtlasIndex);
         }
-		
+
         m_bRecursiveDirty = false;
         setDirty(false);
     }
 
     // MARMALADE CHANGED
     // recursively iterate over children
-/*    if( m_bHasChildren ) 
-    {
-        // MARMALADE: CHANGED TO USE CCNode*
-        // NOTE THAT WE HAVE ALSO DEFINED virtual CCNode::updateTransform()
-        arrayMakeObjectsPerformSelector(m_pChildren, updateTransform, CCSprite*);
-    }*/
+    /*    if( m_bHasChildren )
+     {
+     // MARMALADE: CHANGED TO USE CCNode*
+     // NOTE THAT WE HAVE ALSO DEFINED virtual CCNode::updateTransform()
+     arrayMakeObjectsPerformSelector(m_pChildren, updateTransform, CCSprite*);
+     }*/
     CCNode::updateTransform();
 
 #if CC_SPRITE_DEBUG_DRAW
@@ -671,7 +671,7 @@ void CCSprite::removeChild(CCNode *pChild, bool bCleanup)
     }
 
     CCNode::removeChild(pChild, bCleanup);
-    
+
 }
 
 void CCSprite::removeAllChildrenWithCleanup(bool bCleanup)
@@ -690,7 +690,7 @@ void CCSprite::removeAllChildrenWithCleanup(bool bCleanup)
     }
 
     CCNode::removeAllChildrenWithCleanup(bCleanup);
-    
+
     m_bHasChildren = false;
 }
 
@@ -768,13 +768,13 @@ void CCSprite::setDirtyRecursively(bool bValue)
 
 // XXX HACK: optimization
 #define SET_DIRTY_RECURSIVELY() {                                    \
-                    if (m_pobBatchNode && ! m_bRecursiveDirty) {    \
-                        m_bRecursiveDirty = true;                    \
-                        setDirty(true);                              \
-                        if ( m_bHasChildren)                        \
-                            setDirtyRecursively(true);                \
-                        }                                            \
-                    }
+if (m_pobBatchNode && ! m_bRecursiveDirty) {    \
+m_bRecursiveDirty = true;                    \
+setDirty(true);                              \
+if ( m_bHasChildren)                        \
+setDirtyRecursively(true);                \
+}                                            \
+}
 
 void CCSprite::setPosition(const CCPoint& pos)
 {
@@ -889,7 +889,7 @@ bool CCSprite::isFlipY(void)
 void CCSprite::updateColor(void)
 {
     ccColor4B color4 = { m_displayedColor.r, m_displayedColor.g, m_displayedColor.b, m_displayedOpacity};
-    
+
     // special opacity for premultiplied textures
 	if (m_bOpacityModifyRGB)
     {
@@ -953,14 +953,14 @@ bool CCSprite::isOpacityModifyRGB(void)
 void CCSprite::updateDisplayedColor(const ccColor3B& parentColor)
 {
     CCNode::updateDisplayedColor(parentColor);
-    
+
     updateColor();
 }
 
 void CCSprite::updateDisplayedOpacity(GLubyte opacity)
 {
     CCNode::updateDisplayedOpacity(opacity);
-    
+
     updateColor();
 }
 
@@ -1010,10 +1010,10 @@ bool CCSprite::isFrameDisplayed(CCSpriteFrame *pFrame)
 CCSpriteFrame* CCSprite::displayFrame(void)
 {
     return CCSpriteFrame::createWithTexture(m_pobTexture,
-                                           CC_RECT_POINTS_TO_PIXELS(m_obRect),
-                                           m_bRectRotated,
-                                           CC_POINT_POINTS_TO_PIXELS(m_obUnflippedOffsetPositionFromCenter),
-                                           CC_SIZE_POINTS_TO_PIXELS(m_obContentSize));
+                                            CC_RECT_POINTS_TO_PIXELS(m_obRect),
+                                            m_bRectRotated,
+                                            CC_POINT_POINTS_TO_PIXELS(m_obUnflippedOffsetPositionFromCenter),
+                                            CC_SIZE_POINTS_TO_PIXELS(m_obContentSize));
 }
 
 CCSpriteBatchNode* CCSprite::getBatchNode(void)

@@ -1,28 +1,28 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2008-2010 Ricardo Quesada
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2008-2010 Ricardo Quesada
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 
 #include "CCScheduler.h"
 #include "ccMacros.h"
@@ -166,7 +166,7 @@ void CCTimer::update(float dt)
                 }
                 m_fElapsed = 0;
             }
-        }    
+        }
         else
         {//advanced usage
             m_fElapsed += dt;
@@ -306,7 +306,7 @@ void CCScheduler::scheduleSelector(SEL_SCHEDULE pfnSelector, CCObject *pTarget, 
     {
         pElement->timers = ccArrayNew(10);
     }
-    else 
+    else
     {
         for (unsigned int i = 0; i < pElement->timers->num; ++i)
         {
@@ -317,7 +317,7 @@ void CCScheduler::scheduleSelector(SEL_SCHEDULE pfnSelector, CCObject *pTarget, 
                 CCLOG("CCScheduler#scheduleSelector. Selector already scheduled. Updating interval from: %.4f to %.4f", timer->getInterval(), fInterval);
                 timer->setInterval(fInterval);
                 return;
-            }        
+            }
         }
         ccArrayEnsureExtraCapacity(pElement->timers, 1);
     }
@@ -325,7 +325,7 @@ void CCScheduler::scheduleSelector(SEL_SCHEDULE pfnSelector, CCObject *pTarget, 
     CCTimer *pTimer = new CCTimer();
     pTimer->initWithTarget(pTarget, pfnSelector, fInterval, repeat, delay);
     ccArrayAppendObject(pElement->timers, pTimer);
-    pTimer->release();    
+    pTimer->release();
 }
 
 void CCScheduler::unscheduleSelector(SEL_SCHEDULE pfnSelector, CCObject *pTarget)
@@ -465,7 +465,11 @@ void CCScheduler::scheduleUpdateForTarget(CCObject *pTarget, int nPriority, bool
     HASH_FIND_INT(m_pHashForUpdates, &pTarget, pHashElement);
     if (pHashElement)
     {
-        if (!pHashElement->entry->markedForDeletion) return;
+#if COCOS2D_DEBUG >= 1
+        CCAssert(pHashElement->entry->markedForDeletion,"");
+#endif
+        // TODO: check if priority has changed!
+
         pHashElement->entry->markedForDeletion = false;
         return;
     }
@@ -552,18 +556,18 @@ void CCScheduler::unscheduleAllWithMinPriority(int nMinPriority)
 
     // Updates selectors
     tListEntry *pEntry, *pTmp;
-    if(nMinPriority < 0) 
+    if(nMinPriority < 0)
     {
         DL_FOREACH_SAFE(m_pUpdatesNegList, pEntry, pTmp)
         {
-            if(pEntry->priority >= nMinPriority) 
+            if(pEntry->priority >= nMinPriority)
             {
                 unscheduleUpdateForTarget(pEntry->target);
             }
         }
     }
 
-    if(nMinPriority <= 0) 
+    if(nMinPriority <= 0)
     {
         DL_FOREACH_SAFE(m_pUpdates0List, pEntry, pTmp)
         {
@@ -573,7 +577,7 @@ void CCScheduler::unscheduleAllWithMinPriority(int nMinPriority)
 
     DL_FOREACH_SAFE(m_pUpdatesPosList, pEntry, pTmp)
     {
-        if(pEntry->priority >= nMinPriority) 
+        if(pEntry->priority >= nMinPriority)
         {
             unscheduleUpdateForTarget(pEntry->target);
         }
@@ -623,22 +627,22 @@ void CCScheduler::unscheduleAllForTarget(CCObject *pTarget)
 
 unsigned int CCScheduler::scheduleScriptFunc(unsigned int nHandler, float fInterval, bool bPaused)
 {
-    CCSchedulerScriptHandlerEntry* pEntry = CCSchedulerScriptHandlerEntry::create(nHandler, fInterval, bPaused);
+    CCSchedulerScriptHandle* pEntry = CCSchedulerScriptHandle::create(nHandler, fInterval, bPaused);
     if (!m_pScriptHandlerEntries)
     {
         m_pScriptHandlerEntries = CCArray::createWithCapacity(20);
         m_pScriptHandlerEntries->retain();
     }
     m_pScriptHandlerEntries->addObject(pEntry);
-    return pEntry->getEntryId();
+    return pEntry->getHandle();
 }
 
 void CCScheduler::unscheduleScriptEntry(unsigned int uScheduleScriptEntryID)
 {
     for (int i = m_pScriptHandlerEntries->count() - 1; i >= 0; i--)
     {
-        CCSchedulerScriptHandlerEntry* pEntry = static_cast<CCSchedulerScriptHandlerEntry*>(m_pScriptHandlerEntries->objectAtIndex(i));
-        if (pEntry->getEntryId() == (int)uScheduleScriptEntryID)
+        CCSchedulerScriptHandle* pEntry = static_cast<CCSchedulerScriptHandle*>(m_pScriptHandlerEntries->objectAtIndex(i));
+        if (pEntry->getHandle() == (int)uScheduleScriptEntryID)
         {
             pEntry->markedForDeletion();
             break;
@@ -701,7 +705,7 @@ bool CCScheduler::isTargetPaused(CCObject *pTarget)
     {
         return pElement->paused;
     }
-    
+
     // We should check update selectors if target does not have custom selectors
 	tHashUpdateEntry *elementUpdate = NULL;
 	HASH_FIND_INT(m_pHashForUpdates, &pTarget, elementUpdate);
@@ -709,7 +713,7 @@ bool CCScheduler::isTargetPaused(CCObject *pTarget)
     {
 		return elementUpdate->entry->paused;
     }
-    
+
     return false;  // should never get here
 }
 
@@ -733,11 +737,11 @@ CCSet* CCScheduler::pauseAllTargetsWithMinPriority(int nMinPriority)
 
     // Updates selectors
     tListEntry *entry, *tmp;
-    if(nMinPriority < 0) 
+    if(nMinPriority < 0)
     {
-        DL_FOREACH_SAFE( m_pUpdatesNegList, entry, tmp ) 
+        DL_FOREACH_SAFE( m_pUpdatesNegList, entry, tmp )
         {
-            if(entry->priority >= nMinPriority) 
+            if(entry->priority >= nMinPriority)
             {
                 entry->paused = true;
                 idsWithSelectors->addObject(entry->target);
@@ -745,7 +749,7 @@ CCSet* CCScheduler::pauseAllTargetsWithMinPriority(int nMinPriority)
         }
     }
 
-    if(nMinPriority <= 0) 
+    if(nMinPriority <= 0)
     {
         DL_FOREACH_SAFE( m_pUpdates0List, entry, tmp )
         {
@@ -754,9 +758,9 @@ CCSet* CCScheduler::pauseAllTargetsWithMinPriority(int nMinPriority)
         }
     }
 
-    DL_FOREACH_SAFE( m_pUpdatesPosList, entry, tmp ) 
+    DL_FOREACH_SAFE( m_pUpdatesPosList, entry, tmp )
     {
-        if(entry->priority >= nMinPriority) 
+        if(entry->priority >= nMinPriority)
         {
             entry->paused = true;
             idsWithSelectors->addObject(entry->target);
@@ -859,7 +863,7 @@ void CCScheduler::update(float dt)
     {
         for (int i = m_pScriptHandlerEntries->count() - 1; i >= 0; i--)
         {
-            CCSchedulerScriptHandlerEntry* pEntry = static_cast<CCSchedulerScriptHandlerEntry*>(m_pScriptHandlerEntries->objectAtIndex(i));
+            CCSchedulerScriptHandle* pEntry = static_cast<CCSchedulerScriptHandle*>(m_pScriptHandlerEntries->objectAtIndex(i));
             if (pEntry->isMarkedForDeletion())
             {
                 m_pScriptHandlerEntries->removeObjectAtIndex(i);
@@ -880,7 +884,7 @@ void CCScheduler::update(float dt)
             this->removeUpdateFromHash(pEntry);
         }
     }
-
+    
     // updates with priority == 0
     DL_FOREACH_SAFE(m_pUpdates0List, pEntry, pTmp)
     {
@@ -889,7 +893,7 @@ void CCScheduler::update(float dt)
             this->removeUpdateFromHash(pEntry);
         }
     }
-
+    
     // updates with priority > 0
     DL_FOREACH_SAFE(m_pUpdatesPosList, pEntry, pTmp)
     {
@@ -898,9 +902,9 @@ void CCScheduler::update(float dt)
             this->removeUpdateFromHash(pEntry);
         }
     }
-
+    
     m_bUpdateHashLocked = false;
-
+    
     m_pCurrentTarget = NULL;
 }
 

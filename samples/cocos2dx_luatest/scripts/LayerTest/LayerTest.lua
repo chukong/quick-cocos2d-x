@@ -496,7 +496,7 @@ local function LayerGradient()
         gradient:setCompressedInterpolation(not gradient:isCompressedInterpolation())
     end
 
-    item:registerScriptTapHandler(toggleItem)
+    item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, toggleItem)
 
     local menu = CCMenu:createWithItem(item)
     ret:addChild(menu)
@@ -558,7 +558,7 @@ local function LayerIgnoreAnchorPointPos()
     end
 
     local item = CCMenuItemFont:create("Toggle ignore anchor point")
-    item:registerScriptTapHandler(onToggle)
+    item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onToggle)
 
     local menu = CCMenu:createWithItem(item)
     ret:addChild(menu)
@@ -597,7 +597,7 @@ local function LayerIgnoreAnchorPointRot()
     end
 
     local item = CCMenuItemFont:create("Toogle ignore anchor point")
-    item:registerScriptTapHandler(onToggle)
+    item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onToggle)
 
     local menu = CCMenu:createWithItem(item)
     ret:addChild(menu)
@@ -641,7 +641,7 @@ local function LayerIgnoreAnchorPointScale()
     end
 
     local item = CCMenuItemFont:create("Toogle ignore anchor point")
-    item:registerScriptTapHandler(onToggle)
+    item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onToggle)
 
     local menu = CCMenu:createWithItem(item)
     ret:addChild(menu)

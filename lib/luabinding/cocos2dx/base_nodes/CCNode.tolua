@@ -25,17 +25,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-typedef enum {
-    kCCTouchesAllAtOnce,
-    kCCTouchesOneByOne,
-} ccTouchesMode;
-
-#define kCCTouchIgnore              0
-#define kCCTouchBegan               1
-#define kCCTouchBeganNoSwallows     2
-#define kCCTouchMoved               0
-#define kCCTouchMovedSwallows       1
-#define kCCTouchMovedReleaseOthers  2
+#define kCCTouchesAllAtOnce                 0
+#define kCCTouchesOneByOne                  1
 
 /**
  * @addtogroup base_nodes
@@ -97,7 +88,7 @@ typedef enum {
  - Each node has a camera. By default it points to the center of the CCNode.
  */
 
-class CCNode : public CCEventDispatcher
+class CCNode : public CCScriptEventDispatcher
 {
     /// @{
     /// @name Constructor, Distructor and Initializers
@@ -520,6 +511,7 @@ class CCNode : public CCEventDispatcher
      * If the node orphan, then nothing happens.
      * @see removeFromParentAndCleanup(bool)
      */
+    void removeSelf();
     void removeFromParent();
     /**
      * Removes this node itself from its parent node.
@@ -704,41 +696,6 @@ class CCNode : public CCEventDispatcher
     bool isRunning();
 
 
-    /// @{
-    /// @name Script Bindings for lua
-
-    /**
-     * Registers a script function that will be called in onEnter() & onExit() seires functions.
-     *
-     * This handler will be removed automatically after onExit() called.
-     * @code
-     * -- lua sample
-     * local function sceneEventHandler(eventType)
-     *     if eventType == kCCNodeOnEnter then
-     *         -- do something
-     *     elseif evetType == kCCNodeOnExit then
-     *         -- do something
-     *     end
-     * end
-     * scene::registerScriptHandler(sceneEventHandler)
-     * @endcode
-     *
-     * @warning This method is for internal usage, don't call it manually.
-     * @todo Perhaps we should rename it to get/set/removeScriptHandler acoording to the function name style.
-     *
-     * @param handler   A number that indicates a lua function.
-     */
-    void registerScriptHandler(LUA_FUNCTION handler);
-    /**
-     * Unregisters a script function that will be called in onEnter() & onExit() series functions.
-     *
-     * @see registerScriptHandler(int)
-     */
-    void unregisterScriptHandler(void);
-
-    /// @}  end Script Bindings
-
-
     /**
      * Stops all running actions and schedulers
      */
@@ -829,22 +786,34 @@ class CCNode : public CCEventDispatcher
     /// @{
     /// @name Scheduler and Timer
 
+    /**
+     * Schedules the "update" method.
+     *
+     * It will use the order number 0. This method will be called every frame.
+     * Scheduled methods with a lower order value will be called before the ones that have a higher order value.
+     * Only one "update" method could be scheduled per node.
+     * @lua NA
+     */
+    void scheduleUpdate(void);
+
+    /**
+     * Schedules the "update" method with a custom priority.
+     *
+     * This selector will be called every frame.
+     * Scheduled methods with a lower priority will be called before the ones that have a higher value.
+     * Only one "update" selector could be scheduled per node (You can't have 2 'update' selectors).
+     * @lua NA
+     */
+    void scheduleUpdateWithPriority(int priority);
+
     /*
      * Unschedules the "update" method.
      * @see scheduleUpdate();
      */
     void unscheduleUpdate(void);
 
-    /**
-     * Schedules for lua script.
-     */
-    void scheduleUpdateWithPriorityLua(LUA_FUNCTION nHandler, int priority = 0);
-    void scheduleUpdateWithPriorityLua @ scheduleUpdate (LUA_FUNCTION nHandler, int priority = 0);
-
-	// 2014-04-16 zrong start tolua
     void resumeSchedulerAndActions(void);
     void pauseSchedulerAndActions(void);
-	// 2014-04-16 zrong end
 
     /// @} end of Scheduler and Timer
 
@@ -974,20 +943,27 @@ class CCNode : public CCEventDispatcher
     void updateDisplayedOpacity(GLubyte opacity);
     /// @}
 
+    /// @{
+
     CCScene *getScene();
 
-    void registerScriptTouchHandler(LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
-    void registerScriptTouchHandler @ addTouchEventListener (LUA_FUNCTION nHandler, bool bIsMultiTouches = false, int nPriority = 0, bool bSwallowsTouches = false);
+    /** whether or not it will receive Touch events.
+     You can enable / disable touch events with this property.
+     Only the touches of this node will be affected. This "method" is not propagated to it's children.
+     @since v0.8.1
+     */
+    bool isTouchCaptureEnabled();
+    void setTouchCaptureEnabled(bool value);
 
-    void unregisterScriptTouchHandler(void);
-    void unregisterScriptTouchHandler @ removeTouchEventListener (void);
+    bool isTouchSwallowEnabled();
+    void setTouchSwallowEnabled(bool value);
 
-    void setTouchEnabled(bool value);
     bool isTouchEnabled();
+    void setTouchEnabled(bool value);
+
+    void setTouchMode(int mode);
     int getTouchMode();
-    void setTouchMode(ccTouchesMode mode);
-    int getTouchPriority();
-    void setTouchPriority(int priority);
+    /// @}
 };
 
 // end of base_node group

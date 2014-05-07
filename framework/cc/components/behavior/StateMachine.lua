@@ -315,7 +315,7 @@ end
 
 function StateMachine:onError_(event, error, message)
     printf("ERROR: error %s, event %s, from %s to %s", tostring(error), event.name, event.from, event.to)
-    echoError(message)
+    printError(message)
 end
 
 return StateMachine

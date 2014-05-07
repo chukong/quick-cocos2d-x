@@ -32,11 +32,11 @@ void CCLuaLog(const char * pszLog)
         memset(logbuff, 0, sizeof(logbuff));
         strncpy(logbuff, pszLog, kMaxLogLen);
         puts(logbuff);
-}
+    }
     else
-{
+    {
         puts(pszLog);
-}
+    }
 }
 
 #endif

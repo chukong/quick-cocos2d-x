@@ -29,7 +29,6 @@ THE SOFTWARE.
 
 #include "base_nodes/CCNode.h"
 #include "CCProtocols.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "platform/CCAccelerometerDelegate.h"
 #include "keypad_dispatcher/CCKeypadDelegate.h"
 #include "cocoa/CCArray.h"
@@ -64,7 +63,6 @@ public:
      *  @js NA
      *  @lua NA
      */
-    virtual ~CCLayer();
     virtual bool init();
 
     /** create one layer */
@@ -85,37 +83,11 @@ public:
      */
     virtual void onEnterTransitionDidFinish();
 
-    // default implements are used to call script callback if exist
-    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
-    virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
-
-    // default implements are used to call script callback if exist
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
     /**
      * @js NA
      * @lua NA
      */
     virtual void didAccelerate(CCAcceleration* pAccelerationValue);
-    void registerScriptAccelerateHandler(int nHandler);
-    void unregisterScriptAccelerateHandler(void);
-
-    /** If isTouchEnabled, this method is called onEnter. Override it to change the
-    way CCLayer receives touch events.
-    ( Default: CCTouchDispatcher::sharedDispatcher()->addStandardDelegate(this,0); )
-    Example:
-    void CCLayer::registerWithTouchDispatcher()
-    {
-    CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,INT_MIN+1,true);
-    }
-    @since v0.8.0
-    */
-    virtual void registerWithTouchDispatcher(void);
-    virtual void unregisterWithTouchDispatcher(void);
 
     /** whether or not it will receive Accelerometer events
     You can enable / disable accelerometer events with this property.
@@ -132,23 +104,11 @@ public:
     virtual bool isKeypadEnabled();
     virtual void setKeypadEnabled(bool value);
 
-    /** Register keypad events handler */
-    void registerScriptKeypadHandler(int nHandler);
-    /** Unregister keypad events handler */
-    void unregisterScriptKeypadHandler(void);
-
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
-
-    inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
-    inline CCScriptHandlerEntry* getScriptAccelerateHandlerEntry() { return m_pScriptAccelerateHandlerEntry; };
 protected:
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
-
-    // Script touch events handler
-    CCScriptHandlerEntry* m_pScriptKeypadHandlerEntry;
-    CCScriptHandlerEntry* m_pScriptAccelerateHandlerEntry;
 };
 
 //

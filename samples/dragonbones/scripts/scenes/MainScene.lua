@@ -67,7 +67,7 @@ end
 function MainScene:addDragon()
     local dragon = CCNodeExtend.extend(CCArmature:create("Dragon"))
 	dragon:connectMovementEventSignal(function(__evtType, __moveId)
-			echoInfo("movement, evtType: %d, moveId: %s", __evtType, __moveId)
+			printInfo("movement, evtType: %d, moveId: %s", __evtType, __moveId)
 		end)
     local animation = dragon:getAnimation()
     animation:setAnimationScale(24 / 60) -- Flash fps is 24, cocos2d-x is 60

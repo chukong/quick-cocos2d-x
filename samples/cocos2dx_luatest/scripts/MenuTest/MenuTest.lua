@@ -38,14 +38,14 @@ local function MenuLayerMainMenu()
         tolua.cast(ret:getParent(), "CCLayerMultiplex"):switchTo(1)
     end
 
-    item1:registerScriptTapHandler(menuCallback)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     -- Image Item
     local function menuCallback2(sender)
         tolua.cast(ret:getParent(), "CCLayerMultiplex"):switchTo(2)
     end
 
     local  item2 = CCMenuItemImage:create(s_SendScore, s_PressSendScore)
-    item2:registerScriptTapHandler(menuCallback2)
+    item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback2)
 
 
     local schedulerEntry = nil
@@ -72,7 +72,7 @@ local function MenuLayerMainMenu()
     -- Label Item (LabelAtlas)
     local  labelAtlas = CCLabelAtlas:create("0123456789", "fonts/labelatlas.png", 16, 24, string.byte('.'))
     local  item3 = CCMenuItemLabel:create(labelAtlas)
-    item3:registerScriptTapHandler(menuCallbackDisabled)
+    item3:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackDisabled)
     item3:setDisabledColor( ccc3(32,32,64) )
     item3:setColor( ccc3(200,200,255) )
 
@@ -82,7 +82,7 @@ local function MenuLayerMainMenu()
 
     -- Font Item
     local item4 = CCMenuItemFont:create("I toggle enable items")
-    item4:registerScriptTapHandler(menuCallbackEnable)
+    item4:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackEnable)
 
     item4:setFontSizeObj(20)
     CCMenuItemFont:setFontName("Marker Felt")
@@ -94,7 +94,7 @@ local function MenuLayerMainMenu()
     -- Label Item (CCLabelBMFont)
     local  label = CCLabelBMFont:create("configuration", "fonts/bitmapFontTest3.fnt")
     local  item5 = CCMenuItemLabel:create(label)
-    item5:registerScriptTapHandler(menuCallbackConfig)
+    item5:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackConfig)
 
     -- Testing issue #500
     item5:setScale( 0.8 )
@@ -106,7 +106,7 @@ local function MenuLayerMainMenu()
     -- Events
     CCMenuItemFont:setFontName("Marker Felt")
     local item6 = CCMenuItemFont:create("Priority Test")
-    item6:registerScriptTapHandler(menuCallbackPriorityTest)
+    item6:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackPriorityTest)
 
     local function menuCallbackBugsTest(pSender)
         tolua.cast(ret:getParent(), "CCLayerMultiplex"):switchTo(5)
@@ -114,7 +114,7 @@ local function MenuLayerMainMenu()
 
     -- Bugs Item
     local item7 = CCMenuItemFont:create("Bugs")
-    item7:registerScriptTapHandler(menuCallbackBugsTest)
+    item7:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackBugsTest)
 
     local function onQuit(sender)
         cclog("onQuit item is clicked.")
@@ -122,14 +122,14 @@ local function MenuLayerMainMenu()
 
     -- Font Item
     local  item8 = CCMenuItemFont:create("Quit")
-    item8:registerScriptTapHandler(onQuit)
+    item8:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, onQuit)
 
     local function menuMovingCallback(pSender)
         tolua.cast(ret:getParent(), "CCLayerMultiplex"):switchTo(6)
     end
 
     local  item9 = CCMenuItemFont:create("Remove menu item when moving")
-    item9:registerScriptTapHandler(menuMovingCallback)
+    item9:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuMovingCallback)
 
     local  color_action = CCTintBy:create(0.5, 0, -255, -255)
     local  color_back = color_action:reverse()
@@ -277,13 +277,13 @@ local function MenuLayer2()
     local i = 0
     for i=0, 1 do
         local  item1 = CCMenuItemImage:create(s_PlayNormal, s_PlaySelect)
-        item1:registerScriptTapHandler(menuCallback)
+        item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
 
         local  item2 = CCMenuItemImage:create(s_HighNormal, s_HighSelect)
-        item2:registerScriptTapHandler(menuCallbackOpacity)
+        item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackOpacity)
 
         local  item3 = CCMenuItemImage:create(s_AboutNormal, s_AboutSelect)
-        item3:registerScriptTapHandler(menuCallbackAlign)
+        item3:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallbackAlign)
 
         item1:setScaleX( 1.5 )
         item2:setScaleX( 0.5 )
@@ -339,10 +339,10 @@ local function MenuLayer3()
 
     local  label = CCLabelBMFont:create("Enable AtlasItem", "fonts/bitmapFontTest3.fnt")
     local  item1 = CCMenuItemLabel:create(label)
-    item1:registerScriptTapHandler(menuCallback2)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback2)
 
     local  item2 = CCMenuItemFont:create("--- Go Back ---")
-    item2:registerScriptTapHandler(menuCallback)
+    item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
 
     local spriteNormal   = CCSprite:create(s_MenuItem,  CCRectMake(0,23*2,115,23))
     local spriteSelected = CCSprite:create(s_MenuItem,  CCRectMake(0,23*1,115,23))
@@ -350,7 +350,7 @@ local function MenuLayer3()
 
 
     local  item3 = CCMenuItemSprite:create(spriteNormal, spriteSelected, spriteDisabled)
-    item3:registerScriptTapHandler(menuCallback3)
+    item3:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback3)
     m_disabledItem = item3
     item3:retain()
     m_disabledItem:setEnabled( false )
@@ -424,7 +424,7 @@ local function MenuLayer4()
         tolua.cast(ret:getParent(), "CCLayerMultiplex"):switchTo(0)
     end
 
-    item1:registerScriptTapHandler(menuCallback)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     item1:addSubItem(CCMenuItemFont:create( "Off"))
 
     CCMenuItemFont:setFontName( "American Typewriter" )
@@ -434,7 +434,7 @@ local function MenuLayer4()
     CCMenuItemFont:setFontName( "Marker Felt" )
     CCMenuItemFont:setFontSize(34)
     local item2 = CCMenuItemToggle:create(CCMenuItemFont:create( "On" ))
-    item2:registerScriptTapHandler(menuCallback)
+    item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     item2:addSubItem(CCMenuItemFont:create( "Off"))
 
     CCMenuItemFont:setFontName( "American Typewriter" )
@@ -444,7 +444,7 @@ local function MenuLayer4()
     CCMenuItemFont:setFontName( "Marker Felt" )
     CCMenuItemFont:setFontSize(34)
     local item3 = CCMenuItemToggle:create(CCMenuItemFont:create( "High" ))
-    item3:registerScriptTapHandler(menuCallback)
+    item3:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     item3:addSubItem(CCMenuItemFont:create( "Low" ))
 
     CCMenuItemFont:setFontName( "American Typewriter" )
@@ -454,7 +454,7 @@ local function MenuLayer4()
     CCMenuItemFont:setFontName( "Marker Felt" )
     CCMenuItemFont:setFontSize(34)
     local item4 = CCMenuItemToggle:create(CCMenuItemFont:create( "Off" ))
-    item4:registerScriptTapHandler(menuCallback)
+    item4:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
 
     item4:getSubItems():addObject( CCMenuItemFont:create( "33%" ) )
     item4:getSubItems():addObject( CCMenuItemFont:create( "66%" ) )
@@ -468,7 +468,7 @@ local function MenuLayer4()
 
     local label = CCLabelBMFont:create( "go back", "fonts/bitmapFontTest3.fnt" )
     local  back = CCMenuItemLabel:create(label)
-    back:registerScriptTapHandler(backCallback)
+    back:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, backCallback)
 
     local menu = CCMenu:create()
 
@@ -537,9 +537,9 @@ local function MenuLayerPriorityTest()
     CCMenuItemFont:setFontName("Marker Felt")
     CCMenuItemFont:setFontSize(18)
     local item1 = CCMenuItemFont:create("Return to Main Menu")
-    item1:registerScriptTapHandler(menuCallback)
+    item1:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, menuCallback)
     local item2 = CCMenuItemFont:create("Disable menu for 5 seconds")
-    item2:registerScriptTapHandler(disableMenuCallback)
+    item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, disableMenuCallback)
 
     m_pMenu1:addChild(item1)
     m_pMenu1:addChild(item2)
@@ -552,7 +552,7 @@ local function MenuLayerPriorityTest()
     m_bPriority = true
     CCMenuItemFont:setFontSize(48)
     item1 = CCMenuItemFont:create("Toggle priority")
-    item2:registerScriptTapHandler(togglePriorityCallback)
+    item2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, togglePriorityCallback)
     item1:setColor(ccc3(0,0,255))
     m_pMenu2:addChild(item1)
     ret:addChild(m_pMenu2)
@@ -583,11 +583,11 @@ local function BugsTest()
 
 
     local issue1410 = CCMenuItemFont:create("Issue 1410")
-    issue1410:registerScriptTapHandler(issue1410MenuCallback)
+    issue1410:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, issue1410MenuCallback)
     local issue1410_2 = CCMenuItemFont:create("Issue 1410 #2")
-    issue1410_2:registerScriptTapHandler(issue1410v2MenuCallback)
+    issue1410_2:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, issue1410v2MenuCallback)
     local back = CCMenuItemFont:create("Back")
-    back:registerScriptTapHandler(backMenuCallback)
+    back:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, backMenuCallback)
 
     local menu = CCMenu:create()
     menu:addChild(issue1410)
@@ -618,7 +618,7 @@ local function RemoveMenuItemWhenMove()
         tolua.cast(ret:getParent(), "CCLayerMultiplex"):switchTo(0)
     end
 
-    back:registerScriptTapHandler(goBack)
+    back:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, goBack)
 
     local menu = CCMenu:create()
     menu:addChild(item)

@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,10 +27,10 @@
 CCBReader* CCBProxy::createCCBReader()
 {
     CCNodeLoaderLibrary *ccNodeLoaderLibrary = CCNodeLoaderLibrary::sharedCCNodeLoaderLibrary();
-        
+
     CCBReader * pCCBReader = new CCBReader(ccNodeLoaderLibrary);
     pCCBReader->autorelease();
-    
+
     return pCCBReader;
 }
 CCNode* CCBProxy::readCCBFromFile(const char *pszFileName,CCBReader* pCCBReader,bool bSetOwner)
@@ -46,8 +46,8 @@ CCNode* CCBProxy::readCCBFromFile(const char *pszFileName,CCBReader* pCCBReader,
     {
         pNode = pCCBReader->readNodeGraphFromFile(pszFileName);
     }
-    
-    
+
+
     return pNode;
 }
 
@@ -56,7 +56,7 @@ const char* CCBProxy::getNodeTypeName(CCNode* pNode)
     if (NULL == pNode) {
         return NULL;
     }
-    
+
     if (NULL != dynamic_cast<CCLabelTTF*>(pNode)) {
         return "CCLabelTTF";
     }
@@ -68,47 +68,47 @@ const char* CCBProxy::getNodeTypeName(CCNode* pNode)
     if (NULL != dynamic_cast<CCSprite*>(pNode)) {
         return "CCSprite";
     }
-    
+
     if (NULL != dynamic_cast<CCControlButton*>(pNode)) {
         return "CCControlButton";
     }
-    
+
     if (NULL != dynamic_cast<CCLayerGradient*>(pNode)) {
         return "CCLayerGradient";
     }
-    
+
     if (NULL != dynamic_cast<CCLayerColor*>(pNode)) {
         return "CCLayerColor";
     }
-    
+
     if (NULL != dynamic_cast<CCScale9Sprite*>(pNode)) {
         return "CCLayerGradient";
     }
-    
+
     if (NULL != dynamic_cast<CCMenu*>(pNode)) {
         return "CCMenu";
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItemAtlasFont*>(pNode)) {
         return "CCMenuItemAtlasFont";
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItemFont*>(pNode)) {
         return "CCMenuItemFont";
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItemLabel*>(pNode)) {
         return "CCMenuItemLabel";
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItemImage*>(pNode)) {
         return "CCMenuItemImage";
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItemToggle*>(pNode)) {
         return "CCMenuItemToggle";
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItemSprite*>(pNode)) {
         return "CCMenuItemSprite";
     }
@@ -124,7 +124,7 @@ const char* CCBProxy::getNodeTypeName(CCNode* pNode)
     if (NULL != dynamic_cast<CCString*>(pNode)) {
         return "CCString";
     }
-    
+
     if (NULL != dynamic_cast<CCParticleSystemQuad*>(pNode)) {
         return "CCParticleSystemQuad";
     }
@@ -137,17 +137,17 @@ void CCBProxy::setCallback(CCNode* pNode,int nHandle,int nControlEvents)
     if (NULL == pNode) {
         return;
     }
-    
+
     if (NULL != dynamic_cast<CCMenuItem*>(pNode))
     {
         CCMenuItem *pMenuItem = dynamic_cast<CCMenuItem*>(pNode);
         if (NULL != pMenuItem) {
-            pMenuItem->registerScriptTapHandler(nHandle);
+            pMenuItem->addScriptEventListener(MENU_ITEM_CLICKED_EVENT, nHandle);
         }
     }
     else  if (NULL != dynamic_cast<CCControl*>(pNode))
     {
-        
+
         CCControl* pControl = dynamic_cast<CCControl*>(pNode);
         if (NULL != pControl)
         {
