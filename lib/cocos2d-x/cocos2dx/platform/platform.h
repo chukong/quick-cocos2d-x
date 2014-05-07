@@ -37,7 +37,9 @@ NS_CC_BEGIN
  * @{
  */
 
-unsigned int hash_code(const std::type_info& info);
+unsigned int class_hash_code(const std::type_info& info);
+
+#define CLASS_HASH_CODE class_hash_code
 
 struct CC_DLL cc_timeval
 {

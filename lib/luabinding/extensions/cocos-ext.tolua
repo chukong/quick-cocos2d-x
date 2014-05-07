@@ -1,8 +1,6 @@
 
 $#include "cocos-ext.h"
 $#include "AssetsManager/AssetsManager.h"
-$#include "CCArmature/CCArmature.h"
-$#include "CCArmature/utils/CCArmatureDataManager.h"
 $#include "filters/cocos2dFilters.h"
 
 $using namespace cocos2d::extension;
@@ -24,14 +22,6 @@ $pfile "extensions/GUI/CCEditBox/CCEditBox.tolua"
 $pfile "extensions/GUI/CCScrollView/CCScrollView.tolua"
 $pfile "extensions/GUI/CCScrollView/CCTableView.tolua"
 
-$pfile "extensions/CocoStudio/Armature/animation/CCArmatureAnimation.tolua"
-$pfile "extensions/CocoStudio/Armature/animation/CCProcessBase.tolua"
-$pfile "extensions/CocoStudio/Armature/datas/CCDatas.tolua"
-$pfile "extensions/CocoStudio/Armature/display/CCBatchNode.tolua"
-$pfile "extensions/CocoStudio/Armature/utils/CCArmatureDataManager.tolua"
-$pfile "extensions/CocoStudio/Armature/CCArmature.tolua"
-$pfile "extensions/CocoStudio/Armature/CCBone.tolua"
-
 $pfile "extensions/filters/nodes/CCFilteredSprite.tolua"
 $pfile "extensions/filters/filters/CCFilter.tolua"
 $pfile "extensions/filters/filters/CCBlurFilter.tolua"
@@ -47,5 +37,3 @@ $pfile "extensions/filters/filters/CCMaskFilter.tolua"
 $pfile "extensions/filters/filters/CCRGBFilter.tolua"
 $pfile "extensions/filters/filters/CCSaturationFilter.tolua"
 $pfile "extensions/filters/filters/CCSharpenFilter.tolua"
-
-// $pfile "extensions/GameCenter/GameCenter.tolua"

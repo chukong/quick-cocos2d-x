@@ -434,8 +434,8 @@ int CCLuaStack::loadChunksFromZIP(const char *zipFilePath)
 void CCLuaStack::setXXTEAKeyAndSign()
 {
 #include "xxdefaultkey.h"
-setXXTEAKeyAndSign(LUASTACK_XXTEA_KEY_Z, strlen(LUASTACK_XXTEA_KEY_Z), 
-						   LUASTACK_XXTEA_SIGN_Z, strlen(LUASTACK_XXTEA_SIGN_Z));
+    setXXTEAKeyAndSign(LUASTACK_XXTEA_KEY_Z, strlen(LUASTACK_XXTEA_KEY_Z),
+                       LUASTACK_XXTEA_SIGN_Z, strlen(LUASTACK_XXTEA_SIGN_Z));
 }
 
 void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen)
@@ -864,10 +864,11 @@ NS_CC_END
 USING_NS_CC;
 
 static map<unsigned int, char*> hash_type_mapping;
-TOLUA_API void toluafix_add_type_mapping(size_t type,const char *clsName)
+
+TOLUA_API void toluafix_add_type_mapping(const size_t type, const char *clsName)
 {
 
-    if(hash_type_mapping.find(type) == hash_type_mapping.end())
+    if (hash_type_mapping.find(type) == hash_type_mapping.end())
     {
         hash_type_mapping[type] = strdup(clsName);
     }
@@ -886,7 +887,7 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
     }
 
     CCObject *ptr = static_cast<CCObject*>(vptr);
-    unsigned int hash = hash_code(typeid(*ptr));
+    unsigned int hash = CLASS_HASH_CODE(typeid(*ptr));
     char* type = hash_type_mapping[hash];
     if (type == NULL)
     {
@@ -911,10 +912,10 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
         lua_pushstring(L, type ? type : vtype);                     /* stack: refid_type refid type */
         lua_rawset(L, -3);                /* refid_type[refid] = type, stack: refid_type */
         lua_pop(L, 1);                                              /* stack: - */
-
+        
         //printf("[LUA] push CCObject OK - refid: %d, ptr: %x, type: %s\n", *p_refid, (int)ptr, type);
     }
-
+    
     tolua_pushusertype_and_addtoroot(L, ptr, type ? type : vtype);
     return 0;
 }
