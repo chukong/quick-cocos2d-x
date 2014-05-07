@@ -61,7 +61,7 @@ public:
      * @param isPortrait
      * @return
      */
-    QString getCreateProjectCommand(QString projectPath, QString packageName, bool isPortrait);
+    QStringList getCreateProjectCommandArgs(QString projectPath, QString packageName, bool isPortrait);
 
     fastdelegate::FastDelegate0<void> enterBackgroundDelegate;
     fastdelegate::FastDelegate0<void> enterForegroundDelegate;
@@ -95,6 +95,7 @@ public Q_SLOTS:
     void onOpenURL(const char *path);
     void onRestartWithArgs(QStringList args);
     void openDemoWithArgs(QString cmds);
+    // save ENV & restart play
     void onSaveQuickRootPath(QString absPath);
     void onOpenRecentProject();
     void onClearRecentMenu();

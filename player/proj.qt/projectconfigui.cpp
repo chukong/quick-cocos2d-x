@@ -9,6 +9,12 @@ ProjectConfigUI::ProjectConfigUI(ProjectConfig& projectConfig, QWidget *parent)
     , ui(new Ui::ProjectConfigUI)
 {
     ui->setupUi(this);
+
+    QRegExp regx("[0-9]+$");
+    QValidator *validator = new QRegExpValidator(regx, this );
+    ui->screenWidth->setValidator(validator);
+    ui->screenHeight->setValidator(validator);
+
     setDataForUI(projectConfig);
 }
 
@@ -21,11 +27,13 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
 {
     m_projectConfig = projectConfig;
 
+    clearUIDataAndSignal();
     ui->projectDir->setText(projectConfig.getProjectDir().data());
     ui->scriptFileName->setText(projectConfig.getScriptFile().data());
     ui->writablePath->setText(projectConfig.getWritablePath().data());
 
-    for (int i = 0; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++)
+    int i = 0;
+    for (; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++)
     {
         const SimulatorScreenSize &screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(i);
         ui->screenSizeComboBox->addItem(screenSize.title.data());
@@ -34,9 +42,12 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
         if ((screenSize.width == size.width && screenSize.height == size.height)
             ||(screenSize.width == size.height && screenSize.height == size.width))
         {
-            ui->screenSizeComboBox->setCurrentIndex(i);
+            break;
         }
     }
+
+    ui->screenSizeComboBox->addItem(tr("Customized Size"));
+    ui->screenSizeComboBox->setCurrentIndex(i);
 
     if (projectConfig.isLandscapeFrame())
         ui->landscapeCheckBox->setChecked(true);
@@ -48,6 +59,8 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
 
     ui->loadPreFramework->setChecked(projectConfig.isLoadPrecompiledFramework());
     ui->logToFile->setChecked(projectConfig.isWriteDebugLogToFile());
+
+    reconnectUISignal();
 }
 
 ProjectConfig ProjectConfigUI::getProjectConfig()
@@ -118,17 +131,24 @@ void ProjectConfigUI::on_writeablePathButton_clicked()
 
 void ProjectConfigUI::on_screenSizeComboBox_activated(int index)
 {
-    const SimulatorScreenSize& screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(index);
-    m_projectConfig.setFrameSize(CCSize(screenSize.width, screenSize.height));
-    if (ui->landscapeCheckBox->isChecked())
+    if (index >= SimulatorConfig::sharedDefaults()->getScreenSizeCount())
     {
-        m_projectConfig.changeFrameOrientationToLandscape();
+        m_projectConfig.setFrameSize(CCSize(ui->screenWidth->text().toInt(), ui->screenHeight->text().toInt()));
     }
     else
     {
-        m_projectConfig.changeFrameOrientationToPortait();
+        const SimulatorScreenSize& screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(index);
+        m_projectConfig.setFrameSize(CCSize(screenSize.width, screenSize.height));
+        if (ui->landscapeCheckBox->isChecked())
+        {
+            m_projectConfig.changeFrameOrientationToLandscape();
+        }
+        else
+        {
+            m_projectConfig.changeFrameOrientationToPortait();
+        }
+        setDataForUI(m_projectConfig);
     }
-    setDataForUI(m_projectConfig);
 }
 
 void ProjectConfigUI::on_protratCheckBox_clicked(bool checked)
@@ -175,4 +195,39 @@ void ProjectConfigUI::on_showDebugConsole_clicked(bool checked)
 {
     m_projectConfig.setShowConsole(checked);
     setDataForUI(m_projectConfig);
+}
+
+void ProjectConfigUI::on_screenWidth_textChanged(const QString &arg1)
+{
+    m_projectConfig.setFrameSize(CCSize(arg1.toInt(), ui->screenHeight->text().toInt()));
+    setDataForUI(m_projectConfig);
+}
+
+void ProjectConfigUI::on_screenHeight_textChanged(const QString &arg1)
+{
+    m_projectConfig.setFrameSize(CCSize(ui->screenWidth->text().toInt(), arg1.toInt()));
+    setDataForUI(m_projectConfig);
+}
+
+void ProjectConfigUI::clearUIDataAndSignal()
+{
+    disconnect(ui->landscapeCheckBox, SIGNAL(clicked(bool)), this, SLOT(on_landscapeCheckBox_clicked(bool)));
+    disconnect(ui->protratCheckBox, SIGNAL(clicked(bool)), this, SLOT(on_protratCheckBox_clicked(bool)));
+
+    disconnect(ui->screenWidth, SIGNAL(textChanged(QString)), this, SLOT(on_screenWidth_textChanged(QString)));
+    disconnect(ui->screenHeight, SIGNAL(textChanged(QString)), this, SLOT(on_screenHeight_textChanged(QString)));
+
+    ui->landscapeCheckBox->setChecked(false);
+    ui->protratCheckBox->setChecked(false);
+
+    ui->screenSizeComboBox->clear();
+}
+
+void ProjectConfigUI::reconnectUISignal()
+{
+    connect(ui->landscapeCheckBox, SIGNAL(clicked(bool)), this, SLOT(on_landscapeCheckBox_clicked(bool)));
+    connect(ui->protratCheckBox, SIGNAL(clicked(bool)), this, SLOT(on_protratCheckBox_clicked(bool)));
+
+    connect(ui->screenWidth, SIGNAL(textChanged(QString)), this, SLOT(on_screenWidth_textChanged(QString)));
+    connect(ui->screenHeight, SIGNAL(textChanged(QString)), this, SLOT(on_screenHeight_textChanged(QString)));
 }
