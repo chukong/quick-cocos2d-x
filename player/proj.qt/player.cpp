@@ -516,18 +516,19 @@ QMenuBar *Player::getMenuBar()
     return this->m_mainMenu;
 }
 
-QString Player::getCreateProjectCommand(QString projectPath, QString packageName, bool isPortrait)
+QStringList Player::getCreateProjectCommandArgs(QString projectPath, QString packageName, bool isPortrait)
 {
     // lua logic
     lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    lua_getglobal(L, "GET_CREATE_PROJECT_COMMAND");
+    lua_getglobal(L, "GET_CREATE_PROJECT_COMMAND_ARGS");
     lua_pushstring(L, projectPath.toUtf8().data());
     lua_pushstring(L, packageName.toUtf8().data());
     lua_pushboolean(L, isPortrait);
-    lua_pcall(L, 3, 1, 0);
-    QString cmdString(lua_tostring(L, -1));
+    lua_pcall(L, 3, 2, 0);
+    QString argString(lua_tostring(L, -2));
+    QString splitKey(lua_tostring(L, -1));
 
-    return cmdString;
+    return argString.split(splitKey);
 }
 
 void Player::initScreenMenu()

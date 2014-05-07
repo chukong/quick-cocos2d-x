@@ -61,7 +61,7 @@ public:
      * @param isPortrait
      * @return
      */
-    QString getCreateProjectCommand(QString projectPath, QString packageName, bool isPortrait);
+    QStringList getCreateProjectCommandArgs(QString projectPath, QString packageName, bool isPortrait);
 
     fastdelegate::FastDelegate0<void> enterBackgroundDelegate;
     fastdelegate::FastDelegate0<void> enterForegroundDelegate;
