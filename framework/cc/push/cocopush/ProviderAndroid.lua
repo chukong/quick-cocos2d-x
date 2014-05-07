@@ -20,8 +20,6 @@ function ProviderAndroid:startPush()
         return false
     end
 
-    self:addListener()
-
     return true
 end
 
@@ -31,8 +29,6 @@ function ProviderAndroid:stopPush()
         echoError("cc.push.ProviderAndroid:ctor() - call stopPush failed.")
         return false
     end
-
-    self:removeListener()
 
     return true
 end

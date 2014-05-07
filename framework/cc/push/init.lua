@@ -37,6 +37,14 @@ function push:start(name)
     end
 end
 
+function push:stop(name)
+    local provider = self:getProvider(name)
+    if provider then
+        provider:removeListener()
+        self.providers_[name or DEFAULT_PROVIDER_OBJECT_NAME] = nil
+    end
+end
+
 function push:startPush(name)
     local provider = self:getProvider(name)
     if provider then
@@ -48,7 +56,6 @@ function push:stopPush(name)
     local provider = self:getProvider(name)
     if provider then
         provider:stopPush()
-        self.providers_[name or DEFAULT_PROVIDER_OBJECT_NAME] = nil
     end
 end
 

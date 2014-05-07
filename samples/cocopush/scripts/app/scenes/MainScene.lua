@@ -11,15 +11,17 @@ function MainScene:ctor()
     end
 end
 
-function MainScene:showPushView()    
+function MainScene:showPushView()
+    self.innerSpace = 80
+
     cc.ui.UILabel.new({text = "CocoPush demo", size = 48, align = cc.ui.TEXT_ALIGN_CENTER})
-        :pos(display.cx, display.top - 50)
+        :pos(display.cx, display.top - self.innerSpace*1)
         :align(display.CENTER)
         :addTo(self)
 
     -- result show
     local resultLabel = cc.ui.UILabel.new({text = "result: -", size = 20, align = cc.ui.TEXT_ALIGN_CENTER})
-        :pos(display.cx, display.top - 100)
+        :pos(display.cx, display.top - self.innerSpace*2)
         :align(display.CENTER)
         :addTo(self)
     self.resultLabel = resultLabel
@@ -31,7 +33,7 @@ function MainScene:showPushView()
         :onButtonClicked(function()
             cc.push:startPush()
         end)
-        :pos(100, display.top - 150)
+        :pos(100, display.top - self.innerSpace*3)
         :addTo(self)
 
     -- disabel btn
@@ -41,7 +43,7 @@ function MainScene:showPushView()
         :onButtonClicked(function()
             cc.push:stopPush()
         end)
-        :pos(300, display.top - 150)
+        :pos(300, display.top - self.innerSpace*3)
         :addTo(self)
 
     -- set tag
@@ -55,17 +57,18 @@ function MainScene:showPushView()
             end
             cc.push:setTags(string.split(text, ","))
         end)
-        :pos(100, display.top - 200)
+        :pos(100, display.top - self.innerSpace*4)
         :addTo(self)
 
     -- tag input
     local inputSetTagEdit = ui.newEditBox({
         image = "EditBoxBg.png",
-        size = CCSize(180, 50),
-        x = 300,
-        y = display.top - 200,
+        size = CCSize(300, 50),
+        x = 350,
+        y = display.top - self.innerSpace*4,
         listener = function()end})
     :addTo(self)
+    inputSetTagEdit:setText("tag1,tag2")
     self.textSetTag = inputSetTagEdit
 
     -- del tag
@@ -79,17 +82,18 @@ function MainScene:showPushView()
             end
             cc.push:delTags(string.split(text, ","))
         end)
-        :pos(100, display.top - 250)
+        :pos(100, display.top - self.innerSpace*5)
         :addTo(self)
 
     -- tag input
     local inputDelTagEdit = ui.newEditBox({
         image = "EditBoxBg.png",
-        size = CCSize(180, 56),
-        x = 300,
-        y = display.top - 250,
+        size = CCSize(300, 50),
+        x = 350,
+        y = display.top - self.innerSpace*5,
         listener = function()end})
     :addTo(self)
+    inputDelTagEdit:setText("tag1,tag2")
     self.textDelTag = inputDelTagEdit
 
     -- set alial
@@ -103,17 +107,18 @@ function MainScene:showPushView()
             end
             cc.push:setAlias(text)
         end)
-        :pos(100, display.top - 300)
+        :pos(100, display.top - self.innerSpace*6)
         :addTo(self)
 
     -- tag input
     local inputSetAliasEdit = ui.newEditBox({
         image = "EditBoxBg.png",
-        size = CCSize(180, 50),
-        x = 300,
-        y = display.top - 300,
+        size = CCSize(300, 50),
+        x = 350,
+        y = display.top - self.innerSpace*6,
         listener = function()end})
     :addTo(self)
+    inputSetAliasEdit:setText("aliasname")
     self.textAlias = inputSetAliasEdit
 
     -- del alias
@@ -123,7 +128,7 @@ function MainScene:showPushView()
         :onButtonClicked(function()
             cc.push:delAlias()
         end)
-        :pos(100, display.top - 350)
+        :pos(100, display.top - self.innerSpace*7)
         :addTo(self)
 
     -- use EventProxy, ensure remove the listener when leave current the scene
@@ -136,7 +141,7 @@ function MainScene:showPushView()
         --  sucTags, 不为nil表示成功了的tag
         --  failTags, 不为nil表示失败了的tag
         --  }
-        self.resultLabel:setString("result: " .. event.code)
+        self.resultLabel:setString("result: " .. event.type .. "-" .. event.code)
     end)
 end
 
