@@ -6,6 +6,8 @@ public:
 
 	CCArray* getFilters();
 	void setFilters(CCArray* pFilters);
+
+	void clearFilter();
 };
 
 class CCFilteredSpriteWithOne : public CCFilteredSprite
