@@ -26,7 +26,7 @@ end
 
 function AppBase:exit()
     CCDirector:sharedDirector():endToLua()
-    os.exit()
+    -- os.exit()
 end
 
 function AppBase:enterScene(sceneName, args, transitionType, time, more)
