@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E7C459B18F3F2EB003F5E6D /* CCBProxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C459718F3F2EB003F5E6D /* CCBProxy.cpp */; };
 		2E7C459C18F3F2EB003F5E6D /* Lua_extensions_CCB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C459918F3F2EB003F5E6D /* Lua_extensions_CCB.cpp */; };
+		2EABC195191A3A0500F8C312 /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EABC193191A3A0500F8C312 /* SimulatorConfig.cpp */; };
 		2EE72B12191A297C00E07EA5 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EE72B10191A297C00E07EA5 /* ActionManager.cpp */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
@@ -393,6 +394,8 @@
 		2E7C459918F3F2EB003F5E6D /* Lua_extensions_CCB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lua_extensions_CCB.cpp; sourceTree = "<group>"; };
 		2E7C459A18F3F2EB003F5E6D /* Lua_extensions_CCB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lua_extensions_CCB.h; sourceTree = "<group>"; };
 		2E7C459D18F3F790003F5E6D /* ExtensionExport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionExport.h; sourceTree = "<group>"; };
+		2EABC193191A3A0500F8C312 /* SimulatorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorConfig.cpp; sourceTree = "<group>"; };
+		2EABC194191A3A0500F8C312 /* SimulatorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorConfig.h; sourceTree = "<group>"; };
 		2EE72B10191A297C00E07EA5 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
 		2EE72B11191A297C00E07EA5 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
 		B2DC798F181BA55A001341D6 /* lsqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsqlite3.c; sourceTree = "<group>"; };
@@ -1242,6 +1245,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EABC192191A3A0500F8C312 /* ProjectConfig */ = {
+			isa = PBXGroup;
+			children = (
+				2EABC193191A3A0500F8C312 /* SimulatorConfig.cpp */,
+				2EABC194191A3A0500F8C312 /* SimulatorConfig.h */,
+			);
+			path = ProjectConfig;
+			sourceTree = "<group>";
+		};
 		B2DC798E181BA55A001341D6 /* lsqlite3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2519,6 +2531,7 @@
 				F42825F417575DD7001479DC /* ExtensionMacros.h */,
 				F40DD3ED18EFE98E0052053F /* GUI */,
 				F4A8F6BC17F0B1E500110198 /* network */,
+				2EABC192191A3A0500F8C312 /* ProjectConfig */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -3317,6 +3330,7 @@
 				F40DD43218EFE98E0052053F /* CCTableView.cpp in Sources */,
 				F40DD3B818EFE9860052053F /* CCArmatureDataManager.cpp in Sources */,
 				F4E882BF177015C400577406 /* CCSet.cpp in Sources */,
+				2EABC195191A3A0500F8C312 /* SimulatorConfig.cpp in Sources */,
 				F459EB03180D04E1006CBDF1 /* cpRatchetJoint.c in Sources */,
 				F4E882C0177015C400577406 /* CCString.cpp in Sources */,
 				F4E882C1177015C400577406 /* CCZone.cpp in Sources */,

@@ -25,7 +25,7 @@
 #import "EAGLView.h"
 
 #include <string>
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 #include "AppDelegate.h"
 
 @interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>

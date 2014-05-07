@@ -222,41 +222,58 @@ void ProjectConfig::setWindowOffset(CCPoint windowOffset)
     m_windowOffset = windowOffset;
 }
 
+int ProjectConfig::getDebuggerType(void)
+{
+    return m_debuggerType;
+}
+
+void ProjectConfig::setDebuggerType(int debuggerType)
+{
+    m_debuggerType = debuggerType;
+}
+
 void ProjectConfig::parseCommandLine(vector<string>& args)
 {
-    for (vector<string>::iterator it = args.begin(); it != args.end(); ++it)
+    vector<string>::iterator it = args.begin();
+    while (it != args.end())
     {
         const string& arg = *it;
 
         if (arg.compare("-quick") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath((*it).c_str());
         }
         else if (arg.compare("-workdir") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             setProjectDir(*it);
             if (m_writablePath.length() == 0) setWritablePath(*it);
         }
         else if (arg.compare("-writable") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             setWritablePath(*it);
         }
         else if (arg.compare("-file") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             setScriptFile(*it);
         }
         else if (arg.compare("-package.path") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             setPackagePath(*it);
         }
         else if (arg.compare("-size") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             const string& sizeStr(*it);
             size_t pos = sizeStr.find('x');
             int width = 0;
@@ -274,6 +291,7 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
         else if (arg.compare("-scale") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             float scale = atof((*it).c_str());
             setFrameScale(scale);
         }
@@ -304,12 +322,21 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
         else if (arg.compare("-offset") == 0)
         {
             ++it;
+            if (it == args.end()) break;
             CCPoint pos = CCPointFromString((*it).c_str());
             setWindowOffset(pos);
         }
-    }
+        else if (arg.compare("-debugger-ldt") == 0)
+        {
+            setDebuggerType(kCCLuaDebuggerLDT);
+        }
+        else if (arg.compare("-disable-debugger") == 0)
+        {
+            setDebuggerType(kCCLuaDebuggerNone);
+        }
 
-    dump();
+        ++it;
+    }
 }
 
 const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfigAll */)
@@ -432,6 +459,19 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
         }
     }
 
+    if (mask & kProjectConfigDebugger)
+    {
+        switch (getDebuggerType())
+        {
+            case kCCLuaDebuggerLDT:
+                buff << " -debugger-ldt";
+                break;
+            case kCCLuaDebuggerNone:
+            default:
+                buff << " -disable-debugger";
+        }
+    }
+
     return buff.str();
 }
 
@@ -446,17 +486,18 @@ bool ProjectConfig::validate(void)
 
 void ProjectConfig::dump(void)
 {
-    printf("Project Config:\n");
-    printf("    quick root path: %s\n", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str());
-    printf("    project dir: %s\n", m_projectDir.c_str());
-    printf("    writable path: %s\n", m_writablePath.length() ? m_writablePath.c_str() : "-");
-    printf("    script file: %s\n", m_scriptFile.c_str());
-    printf("    package.path: %s\n", m_packagePath.length() ? m_packagePath.c_str() : "-");
-    printf("    frame size: %0.0f x %0.0f\n", m_frameSize.width, m_frameSize.height);
-    printf("    frame scale: %0.2f\n", m_frameScale);
-    printf("    show console: %s\n", m_showConsole ? "YES" : "NO");
-    printf("    write debug log: %s\n", m_writeDebugLogToFile ? "YES" : "NO");
-    printf("\n\n");
+    CCLog("Project Config:");
+    CCLog("    quick root path: %s", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str());
+    CCLog("    project dir: %s", m_projectDir.c_str());
+    CCLog("    writable path: %s", m_writablePath.length() ? m_writablePath.c_str() : "-");
+    CCLog("    script file: %s", m_scriptFile.c_str());
+    CCLog("    package.path: %s", m_packagePath.length() ? m_packagePath.c_str() : "-");
+    CCLog("    frame size: %0.0f x %0.0f", m_frameSize.width, m_frameSize.height);
+    CCLog("    frame scale: %0.2f", m_frameScale);
+    CCLog("    show console: %s", m_showConsole ? "YES" : "NO");
+    CCLog("    write debug log: %s", m_writeDebugLogToFile ? "YES" : "NO");
+    CCLog("    debugger: %s", m_debuggerType == kCCLuaDebuggerLDT ? "Eclipse LDT" : "NONE");
+    CCLog("\n\n");
 }
 
 void ProjectConfig::normalize(void)
@@ -548,6 +589,9 @@ const string ProjectConfig::replaceProjectDirToFullPath(const string& path)
 
 bool ProjectConfig::isAbsolutePath(const string& path)
 {
+#ifdef CC_TARGET_QT
+    return cocos2d::CCFileUtils::sharedFileUtils()->isAbsolutePath(path);
+#endif
     if (DIRECTORY_SEPARATOR_CHAR == '/')
     {
         return path.length() > 0 && path[0] == '/';

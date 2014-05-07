@@ -17,21 +17,22 @@ using namespace cocos2d;
 #define DIRECTORY_SEPARATOR_CHAR '/'
 #endif
 
-#define kProjectConfigProjectDir                1
-#define kProjectConfigScriptFile                2
-#define kProjectConfigPackagePath               4
-#define kProjectConfigWritablePath              8
-#define kProjectConfigFrameSize                 16
-#define kProjectConfigFrameScale                32
-#define kProjectConfigShowConsole               64
-#define kProjectConfigLoadPrecompiledFramework  128
-#define kProjectConfigWriteDebugLogToFile       256
+#define kProjectConfigQuickRootPath             1
+#define kProjectConfigProjectDir                2
+#define kProjectConfigScriptFile                4
+#define kProjectConfigPackagePath               8
+#define kProjectConfigWritablePath              16
+#define kProjectConfigFrameSize                 32
+#define kProjectConfigFrameScale                64
+#define kProjectConfigShowConsole               128
+#define kProjectConfigLoadPrecompiledFramework  256
+#define kProjectConfigWriteDebugLogToFile       512
 #define kProjectConfigWindowOffset              1024
 #define kProjectConfigDebugger                  2048
 
 #define kProjectConfigOpenRecent (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile)
 
-#define kProjectConfigAll (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset | kProjectConfigDebugger)
+#define kProjectConfigAll (kProjectConfigQuickRootPath | kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset | kProjectConfigDebugger)
 
 
 class ProjectConfig
@@ -53,7 +54,7 @@ public:
         normalize();
     }
 
-	bool isWelcome(void) { return m_isWelcome; };
+	bool isWelcome(void);
     void resetToWelcome(void);
 
     const string getProjectDir(void);

@@ -53,9 +53,6 @@ private:
     void writeDebugLog(const char *log);
 
     // menu callback
-    void onFileOpenProject(void);
-    void onFileCreateProjectShortcut(void);
-    void onFileProjectConfig(void);
     void onFileRelaunch(void);
     void onFileExit(void);
 
@@ -63,10 +60,6 @@ private:
     void onViewChangeOrientation(int viewMenuID);
     void onViewChangeZoom(int scaleMode);
 
-    void onHelpAbout(void);
-
     // windows callback
     static LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL *pProcessed);
-    static INT_PTR CALLBACK AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
-    static INT CALLBACK OpenProjectCallback(HWND hwnd, UINT uMsg, LPARAM lp, LPARAM pData);
 };

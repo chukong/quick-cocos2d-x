@@ -12,9 +12,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectConfigDialog.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\sources\AppDelegate.cpp">
       <Filter>sources</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="ProjectConfigDialog.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\sources\AppDelegate.h">

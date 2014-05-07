@@ -34,7 +34,6 @@
 		F4D26BCD16C7D0D2004442B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D26BC916C7D0D2004442B6 /* main.m */; };
 		F4D26BCE16C7D0D2004442B6 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4D26BCB16C7D0D2004442B6 /* RootViewController.mm */; };
 		F4E50FE516CF7B6500AA7E90 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E50FE316CF7B6500AA7E90 /* AppDelegate.cpp */; };
-		F4F34ED2183CD04B0077580F /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F34ED0183CD04B0077580F /* SimulatorConfig.cpp */; };
 		F4F40D1B16573CE0007937AD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F40D1A16573CE0007937AD /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,8 +82,6 @@
 		F4D26BCB16C7D0D2004442B6 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
 		F4E50FE316CF7B6500AA7E90 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		F4E50FE416CF7B6500AA7E90 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F4F34ED0183CD04B0077580F /* SimulatorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorConfig.cpp; sourceTree = "<group>"; };
-		F4F34ED1183CD04B0077580F /* SimulatorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorConfig.h; sourceTree = "<group>"; };
 		F4F40D1A16573CE0007937AD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -217,8 +214,6 @@
 			children = (
 				F4E50FE316CF7B6500AA7E90 /* AppDelegate.cpp */,
 				F4E50FE416CF7B6500AA7E90 /* AppDelegate.h */,
-				F4F34ED0183CD04B0077580F /* SimulatorConfig.cpp */,
-				F4F34ED1183CD04B0077580F /* SimulatorConfig.h */,
 			);
 			name = sources;
 			path = ../../sources;
@@ -311,7 +306,6 @@
 			files = (
 				F4D26BCC16C7D0D2004442B6 /* AppController.mm in Sources */,
 				F4D26BCD16C7D0D2004442B6 /* main.m in Sources */,
-				F4F34ED2183CD04B0077580F /* SimulatorConfig.cpp in Sources */,
 				F4D26BCE16C7D0D2004442B6 /* RootViewController.mm in Sources */,
 				F4E50FE516CF7B6500AA7E90 /* AppDelegate.cpp in Sources */,
 			);

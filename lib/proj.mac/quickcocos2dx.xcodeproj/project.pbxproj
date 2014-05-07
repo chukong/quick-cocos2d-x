@@ -127,6 +127,7 @@
 		2E0F5D9719090E50005FF94D /* lua_cocos2dx_cocostudio_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5D9319090E50005FF94D /* lua_cocos2dx_cocostudio_manual.cpp */; };
 		2E0F5D9819090E50005FF94D /* lua_cocos2dx_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5D9519090E50005FF94D /* lua_cocos2dx_manual.cpp */; };
 		2E0F5D9B19090E5C005FF94D /* LuaCocoStudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F5D9919090E5C005FF94D /* LuaCocoStudio.cpp */; };
+		2E4E41C9191A38B500888513 /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E41C7191A38B500888513 /* SimulatorConfig.cpp */; };
 		2EBAD941191A1C3B00FF9BD6 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EBAD93F191A1C3B00FF9BD6 /* ActionManager.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
@@ -638,6 +639,8 @@
 		2E0F5D9619090E50005FF94D /* lua_cocos2dx_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2dx_manual.h; sourceTree = "<group>"; };
 		2E0F5D9919090E5C005FF94D /* LuaCocoStudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocoStudio.cpp; sourceTree = "<group>"; };
 		2E0F5D9A19090E5C005FF94D /* LuaCocoStudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocoStudio.h; sourceTree = "<group>"; };
+		2E4E41C7191A38B500888513 /* SimulatorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorConfig.cpp; sourceTree = "<group>"; };
+		2E4E41C8191A38B500888513 /* SimulatorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorConfig.h; sourceTree = "<group>"; };
 		2EBAD93F191A1C3B00FF9BD6 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
 		2EBAD940191A1C3B00FF9BD6 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
@@ -1771,6 +1774,15 @@
 			path = CCScrollView;
 			sourceTree = "<group>";
 		};
+		2E4E41C6191A38B500888513 /* ProjectConfig */ = {
+			isa = PBXGroup;
+			children = (
+				2E4E41C7191A38B500888513 /* SimulatorConfig.cpp */,
+				2E4E41C8191A38B500888513 /* SimulatorConfig.h */,
+			);
+			path = ProjectConfig;
+			sourceTree = "<group>";
+		};
 		F411F3D9175CEAEA00EF549A /* luajit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2279,6 +2291,7 @@
 				F477B92C175740BF00260C19 /* ExtensionMacros.h */,
 				2E0F5CEA19090DE2005FF94D /* GUI */,
 				F41D98F117F08B85007171D8 /* network */,
+				2E4E41C6191A38B500888513 /* ProjectConfig */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -3398,6 +3411,7 @@
 				2E0F5D5519090DE3005FF94D /* CocosGUI.cpp in Sources */,
 				F477225D1843450000EBA0D4 /* debugger.c in Sources */,
 				F431529F180CF7E30046351C /* cpSpaceHash.c in Sources */,
+				2E4E41C9191A38B500888513 /* SimulatorConfig.cpp in Sources */,
 				2E0F5D7119090DE3005FF94D /* PageViewReader.cpp in Sources */,
 				F4E880DD1770074500577406 /* CCDevice.mm in Sources */,
 				F4E880DE1770074500577406 /* CCDirectorCaller.mm in Sources */,

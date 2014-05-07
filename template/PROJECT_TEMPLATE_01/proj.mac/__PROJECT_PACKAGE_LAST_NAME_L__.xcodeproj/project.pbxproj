@@ -21,7 +21,6 @@
 		F4B0814F175C89050029F472 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B08148175C89050029F472 /* main.m */; };
 		F4B08157175C89E90029F472 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B08156175C89E30029F472 /* libquickcocos2dx.a */; };
 		F4B0815E175C8A1E0029F472 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B0815A175C8A1E0029F472 /* AppDelegate.cpp */; };
-		F4B0815F175C8A1E0029F472 /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4B0815C175C8A1E0029F472 /* SimulatorConfig.cpp */; };
 		F4B4EF6616CA2A8B00736FFE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */; };
 		F4BA6EB315F499A300CE7A10 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */; };
 		F4BA6EBD15F499EE00CE7A10 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA6EBC15F499EE00CE7A10 /* Security.framework */; };
@@ -59,8 +58,6 @@
 		F4B08151175C89E30029F472 /* quickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = quickcocos2dx.xcodeproj; path = lib/proj.mac/quickcocos2dx.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F4B0815A175C8A1E0029F472 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		F4B0815B175C8A1E0029F472 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F4B0815C175C8A1E0029F472 /* SimulatorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorConfig.cpp; sourceTree = "<group>"; };
-		F4B0815D175C8A1E0029F472 /* SimulatorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorConfig.h; sourceTree = "<group>"; };
 		F4B4EF6516CA2A8B00736FFE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F4BA6EB215F499A300CE7A10 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F4BA6EBA15F499CC00CE7A10 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -165,8 +162,6 @@
 			children = (
 				F4B0815A175C8A1E0029F472 /* AppDelegate.cpp */,
 				F4B0815B175C8A1E0029F472 /* AppDelegate.h */,
-				F4B0815C175C8A1E0029F472 /* SimulatorConfig.cpp */,
-				F4B0815D175C8A1E0029F472 /* SimulatorConfig.h */,
 			);
 			name = sources;
 			path = ../sources;
@@ -254,7 +249,6 @@
 				F4B0814A175C89050029F472 /* AppController.mm in Sources */,
 				F4B0814F175C89050029F472 /* main.m in Sources */,
 				F4B0815E175C8A1E0029F472 /* AppDelegate.cpp in Sources */,
-				F4B0815F175C8A1E0029F472 /* SimulatorConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

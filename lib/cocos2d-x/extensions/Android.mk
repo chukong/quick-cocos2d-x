@@ -17,6 +17,7 @@ LOCAL_SRC_FILES := \
 ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_SRC_FILES += \
+        ProjectConfig/SimulatorConfig.cpp \
         AssetsManager/AssetsManager.cpp \
         CCBReader/CCBAnimationManager.cpp \
         CCBReader/CCBFileLoader.cpp \
@@ -144,7 +145,8 @@ endif
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
-                           $(LOCAL_PATH)/GUI/CCEditBox
+                           $(LOCAL_PATH)/GUI/CCEditBox \
+                           $(LOCAL_PATH)/ProjectConfig
 
 
 ifndef $(QUICK_MINI_TARGET)
