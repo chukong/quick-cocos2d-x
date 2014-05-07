@@ -322,6 +322,9 @@
     <Filter Include="cocos2d-x\extensions\CocoStudio\Reader\WidgetReader">
       <UniqueIdentifier>{e6a4fe38-1ef6-4e46-8f5a-1d4bbdf7be6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\extensions\ProjectConfig">
+      <UniqueIdentifier>{baba8be5-7563-4af0-85c3-4cb11e854d07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -1349,6 +1352,9 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Trigger\ObjectFactory.cpp">
       <Filter>cocos2d-x\extensions\CocoStudio\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\ProjectConfig\SimulatorConfig.cpp">
+      <Filter>cocos2d-x\extensions\ProjectConfig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2680,6 +2686,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Trigger\ObjectFactory.h">
       <Filter>cocos2d-x\extensions\CocoStudio\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\ProjectConfig\SimulatorConfig.h">
+      <Filter>cocos2d-x\extensions\ProjectConfig</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

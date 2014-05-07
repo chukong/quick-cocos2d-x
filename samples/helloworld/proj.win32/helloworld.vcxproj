@@ -12,13 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\sources\AppDelegate.cpp" />
-    <ClCompile Include="..\sources\SimulatorConfig.cpp" />
     <ClCompile Include="helloworld.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\sources\AppDelegate.h" />
-    <ClInclude Include="..\sources\SimulatorConfig.h" />
     <ClInclude Include="helloworld.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

@@ -10,7 +10,7 @@
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 using namespace std;
 using namespace cocos2d;

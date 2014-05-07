@@ -265,6 +265,7 @@
     <ClCompile Include="..\cocos2d-x\extensions\GUI\CCScrollView\CCTableViewCell.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\network\WebSocket.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\proj.win32\Win32InputBox.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\ProjectConfig\SimulatorConfig.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsBody.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsDebugNode.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsShape.cpp" />
@@ -795,6 +796,7 @@
     <ClInclude Include="..\cocos2d-x\extensions\GUI\CCScrollView\CCTableViewCell.h" />
     <ClInclude Include="..\cocos2d-x\extensions\network\WebSocket.h" />
     <ClInclude Include="..\cocos2d-x\extensions\proj.win32\Win32InputBox.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\ProjectConfig\SimulatorConfig.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsBody.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsDebugNode.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsShape.h" />

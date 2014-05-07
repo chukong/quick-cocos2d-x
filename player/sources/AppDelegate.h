@@ -4,7 +4,7 @@
 
 #include "cocoa/CCObject.h"
 #include "CCApplication.h"
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 class StartupCall;
 
