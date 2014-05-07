@@ -4,10 +4,6 @@
 #import "PBBannerView.h"
 
 @interface PunchBoxAdSDK : NSObject
-{
-    PBBannerView *viewAd;
-    NSString *command;
-}
 
 
 + (PunchBoxAdSDK*) getInstance;
