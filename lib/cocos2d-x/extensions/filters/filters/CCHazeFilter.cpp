@@ -28,7 +28,7 @@ CCHazeFilter::CCHazeFilter()
 CCGLProgram* CCHazeFilter::loadShader()
 {
 	CCGLProgram* __p = new CCGLProgram();
-	CCLOG("CCHazeFilter::loadShader, program:%d", __p);
+	//CCLOG("CCHazeFilter::loadShader, program:%d", __p);
 	__p->initWithVertexShaderByteArray(ccPositionTexture_vert, ccFilterShader_haze_frag);
 	return __p;
 }
@@ -42,7 +42,7 @@ void CCHazeFilter::setParameter(float $hazeDistance, float $slope)
 
 void CCHazeFilter::setAttributes(CCGLProgram* $cgp)
 {
-	CCLOG("CCHazeFilter::setAttributes");
+	//CCLOG("CCHazeFilter::setAttributes");
 	$cgp->addAttribute(kCCAttributeNamePosition, kCCVertexAttrib_Position);
 	$cgp->addAttribute(kCCAttributeNameTexCoord, kCCVertexAttrib_TexCoords);
 }
