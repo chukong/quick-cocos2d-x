@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1060" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AppController">
             <connections>
                 <outlet property="delegate" destination="536" id="537"/>
-                <outlet property="menu" destination="29" id="650"/>
+                <outlet property="menu" destination="29" id="RGo-Y7-T4b"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
-                <menuItem title="quick-x-player" id="56">
-                    <menu key="submenu" title="quick-x-player" systemMenu="apple" id="57">
+                <menuItem title="helloworld" id="56">
+                    <menu key="submenu" title="helloworld" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About quick-x-player" id="58">
+                            <menuItem title="About helloworld" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
@@ -27,21 +27,13 @@
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Preferences…" keyEquivalent="," id="129">
-                                <connections>
-                                    <action selector="onServicePreferences:" target="-1" id="671"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="143">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Services" id="131">
                                 <menu key="submenu" title="Services" systemMenu="services" id="130"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="144">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Hide quick-x-player" keyEquivalent="h" id="134">
+                            <menuItem title="Hide helloworld" keyEquivalent="h" id="134">
                                 <connections>
                                     <action selector="hide:" target="-1" id="367"/>
                                 </connections>
@@ -60,7 +52,7 @@
                             <menuItem isSeparatorItem="YES" id="149">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit quick-x-player" keyEquivalent="q" id="136">
+                            <menuItem title="Quit helloworld" keyEquivalent="q" id="136">
                                 <connections>
                                     <action selector="terminate:" target="-3" id="449"/>
                                 </connections>
@@ -71,36 +63,9 @@
                 <menuItem title="File" id="83">
                     <menu key="submenu" title="File" id="81">
                         <items>
-                            <menuItem title="New Player" keyEquivalent="N" id="656">
+                            <menuItem title="Relaunch" keyEquivalent="r" id="01T-Iz-Pcm">
                                 <connections>
-                                    <action selector="onFileNewPlayer:" target="-1" id="658"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="599"/>
-                            <menuItem title="Open..." keyEquivalent="o" id="73">
-                                <connections>
-                                    <action selector="onFileOpen:" target="-1" id="659"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Recent" id="600">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Open Recent" id="601">
-                                    <items>
-                                        <menuItem isSeparatorItem="YES" id="615"/>
-                                        <menuItem title="Clear Menu" id="616">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="onFileOpenRecentClearMenu:" target="-1" id="660"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="585"/>
-                            <menuItem isSeparatorItem="YES" id="673"/>
-                            <menuItem title="Close" keyEquivalent="w" id="611">
-                                <connections>
-                                    <action selector="onFileClose:" target="-1" id="661"/>
+                                    <action selector="onFileRelaunch:" target="-1" id="JKQ-fG-ndn"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -319,73 +284,6 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Player" id="633">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Player" id="634">
-                        <items>
-                            <menuItem title="Write Debug Log to File" id="636">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="onPlayerWriteDebugLogToFile:" target="-1" id="662"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Debug Log" id="637">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="onPlayerOpenDebugLog:" target="-1" id="663"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Upload to Device..." tag="1" enabled="NO" keyEquivalent="u" id="617">
-                                <connections>
-                                    <action selector="fileUploadToDevice:" target="-1" id="624"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Create Launcher..." tag="1" enabled="NO" id="112">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="fileCreateProjectShortcut:" target="-1" id="625"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="610"/>
-                            <menuItem title="Build" id="605">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Build" id="606">
-                                    <items>
-                                        <menuItem title="iOS..." tag="1" enabled="NO" keyEquivalent="b" id="607">
-                                            <connections>
-                                                <action selector="fileBuildIOS:" target="-1" id="621"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Android..." tag="1" enabled="NO" keyEquivalent="B" id="609">
-                                            <connections>
-                                                <action selector="fileBuildAndroid:" target="-1" id="622"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="608"/>
-                            <menuItem title="Relaunch" keyEquivalent="r" id="589">
-                                <connections>
-                                    <action selector="onPlayerRelaunch:" target="-1" id="664"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="612"/>
-                            <menuItem title="Show Project Sandbox" id="613">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="onPlayerShowProjectSandbox:" target="-1" id="665"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Show Project Files" id="614">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="onPlayerShowProjectFiles:" target="-1" id="666"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
                 <menuItem title="Screen" id="295">
                     <menu key="submenu" title="Screen" id="296">
                         <items>
@@ -453,15 +351,6 @@
                 </menuItem>
                 <menuItem title="Help" id="490">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" systemMenu="help" id="491">
-                        <items>
-                            <menuItem title="quick-x-player Help" keyEquivalent="?" id="492">
-                                <connections>
-                                    <action selector="showHelp:" target="-1" id="493"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                 </menuItem>
             </items>
         </menu>

@@ -6,6 +6,11 @@
 #define strcasecmp _stricmp
 #endif
 
+bool ProjectConfig::isWelcome(void)
+{
+    return m_isWelcome;
+}
+
 void ProjectConfig::resetToWelcome(void)
 {
 	m_isWelcome = true;
@@ -223,7 +228,12 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
     {
         const string& arg = *it;
 
-        if (arg.compare("-workdir") == 0)
+        if (arg.compare("-quick") == 0)
+        {
+            ++it;
+            SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath((*it).c_str());
+        }
+        else if (arg.compare("-workdir") == 0)
         {
             ++it;
             setProjectDir(*it);
@@ -306,19 +316,29 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
 {
     stringstream buff;
 
+    if (mask & kProjectConfigQuickRootPath)
+    {
+        const string path = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+        if (path.length())
+        {
+            buff << " -quick ";
+            buff << path;
+        }
+    }
+
     if (mask & kProjectConfigProjectDir)
     {
-		string path = getProjectDir();
+		const string path = getProjectDir();
 		if (path.length())
 		{
-			buff << "-workdir ";
+			buff << " -workdir ";
 			buff << path;
 		}
     }
 
     if (mask & kProjectConfigScriptFile)
     {
-		string path = getScriptFileRealPath();
+		const string path = getScriptFileRealPath();
 		if (path.length())
 		{
 			buff << " -file ";
@@ -328,7 +348,7 @@ const string ProjectConfig::makeCommandLine(unsigned int mask /* = kProjectConfi
 
     if (mask & kProjectConfigWritablePath)
     {
-		string path = getWritableRealPath();
+		const string path = getWritableRealPath();
 		if (path.length())
 		{
 			buff << " -writable ";
@@ -426,17 +446,17 @@ bool ProjectConfig::validate(void)
 
 void ProjectConfig::dump(void)
 {
-    CCLOG("----------------------------------------");
-    CCLOG("Project Config:");
-    CCLOG("  project dir: %s", m_projectDir.c_str());
-    CCLOG("  writable path: %s", m_writablePath.length() ? m_writablePath.c_str() : "-");
-    CCLOG("  script file: %s", m_scriptFile.c_str());
-    CCLOG("  package.path: %s", m_packagePath.length() ? m_packagePath.c_str() : "-");
-    CCLOG("  frame size: %0.0f x %0.0f", m_frameSize.width, m_frameSize.height);
-    CCLOG("  frame scale: %0.2f", m_frameScale);
-    CCLOG("  show console: %s", m_showConsole ? "YES" : "NO");
-    CCLOG("  write debug log: %s", m_writeDebugLogToFile ? "YES" : "NO");
-    CCLOG("----------------------------------------");
+    printf("Project Config:\n");
+    printf("    quick root path: %s\n", SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath().c_str());
+    printf("    project dir: %s\n", m_projectDir.c_str());
+    printf("    writable path: %s\n", m_writablePath.length() ? m_writablePath.c_str() : "-");
+    printf("    script file: %s\n", m_scriptFile.c_str());
+    printf("    package.path: %s\n", m_packagePath.length() ? m_packagePath.c_str() : "-");
+    printf("    frame size: %0.0f x %0.0f\n", m_frameSize.width, m_frameSize.height);
+    printf("    frame scale: %0.2f\n", m_frameScale);
+    printf("    show console: %s\n", m_showConsole ? "YES" : "NO");
+    printf("    write debug log: %s\n", m_writeDebugLogToFile ? "YES" : "NO");
+    printf("\n\n");
 }
 
 void ProjectConfig::normalize(void)
