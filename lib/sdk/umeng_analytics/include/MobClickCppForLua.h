@@ -45,9 +45,9 @@ public:
      @return void
      */
     
-    static void initJniForCocos2dx3(void* vm, void* context);
+    //static void initJniForCocos2dx3(void* vm, void* context);
     
-    static void initJniForCocos2dx2(void* vm, const char *activityName);
+    //static void initJniForCocos2dx2(void* vm, const char *activityName);
     //#endif
     /** 开启友盟统计,默认以BATCH方式发送log.
      

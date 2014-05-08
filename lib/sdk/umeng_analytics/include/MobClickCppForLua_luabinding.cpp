@@ -1,6 +1,6 @@
 /*
 ** Lua binding: MobClickCppForLua_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed May  7 18:07:54 2014.
+** Generated automatically by tolua++-1.0.92 on Thu May  8 14:35:51 2014.
 */
 
 #include "MobClickCppForLua_luabinding.h"
@@ -8,9 +8,10 @@
 
 using namespace cocos2d;
 
+#include "MobClickCppForLua.h"
 
 
-
+#include <typeinfo>
 
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
@@ -100,68 +101,6 @@ static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_setLogEnabled00(
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setLogEnabled'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: initJniForCocos2dx3 of class  MobClickCppForLua */
-#ifndef TOLUA_DISABLE_tolua_MobClickCppForLua_luabinding_MobClickCppForLua_initJniForCocos2dx300
-static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_initJniForCocos2dx300(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"MobClickCppForLua",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,2,0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  void* vm = ((void*)  tolua_touserdata(tolua_S,2,0));
-  void* context = ((void*)  tolua_touserdata(tolua_S,3,0));
-  {
-   MobClickCppForLua::initJniForCocos2dx3(vm,context);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'initJniForCocos2dx3'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: initJniForCocos2dx2 of class  MobClickCppForLua */
-#ifndef TOLUA_DISABLE_tolua_MobClickCppForLua_luabinding_MobClickCppForLua_initJniForCocos2dx200
-static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_initJniForCocos2dx200(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertable(tolua_S,1,"MobClickCppForLua",0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  void* vm = ((void*)  tolua_touserdata(tolua_S,2,0));
-  const char* activityName = ((const char*)  tolua_tostring(tolua_S,3,0));
-  {
-   MobClickCppForLua::initJniForCocos2dx2(vm,activityName);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'initJniForCocos2dx2'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1139,8 +1078,6 @@ TOLUA_API int tolua_MobClickCppForLua_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setAppVersion",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_setAppVersion00);
    tolua_function(tolua_S,"setCrashReportEnabled",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_setCrashReportEnabled00);
    tolua_function(tolua_S,"setLogEnabled",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_setLogEnabled00);
-   tolua_function(tolua_S,"initJniForCocos2dx3",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_initJniForCocos2dx300);
-   tolua_function(tolua_S,"initJniForCocos2dx2",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_initJniForCocos2dx200);
    tolua_function(tolua_S,"startWithAppkey",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_startWithAppkey00);
    tolua_function(tolua_S,"applicationDidEnterBackground",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_applicationDidEnterBackground00);
    tolua_function(tolua_S,"applicationWillEnterForeground",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_applicationWillEnterForeground00);

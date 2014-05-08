@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49651290191A331400473695 /* MobClickCppForLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4965128F191A331400473695 /* MobClickCppForLua.cpp */; };
-		49651293191A372100473695 /* MobClickCppForLua_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49651291191A372100473695 /* MobClickCppForLua_luabinding.cpp */; };
-		49ECFD2F191A1397009149AD /* libMobClickCppWithLibCpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ECFD2D191A1397009149AD /* libMobClickCppWithLibCpp.a */; };
+		4965129C191B0FF800473695 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ECFD31191A13E6009149AD /* libz.dylib */; };
+		496512A3191B5BF700473695 /* MobClickCppForLua_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4965129F191B5BF700473695 /* MobClickCppForLua_luabinding.cpp */; };
+		496512A4191B5BF700473695 /* MobClickCppForLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 496512A1191B5BF700473695 /* MobClickCppForLua.cpp */; };
 		F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590816D21F8C000651BE /* libquickcocos2dx.a */; };
 		F4482F2116A0555000FDDDAD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1A16A0555000FDDDAD /* Default-568h@2x.png */; };
 		F4482F2216A0555000FDDDAD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F4482F1B16A0555000FDDDAD /* Default.png */; };
@@ -52,14 +52,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4965128F191A331400473695 /* MobClickCppForLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MobClickCppForLua.cpp; sourceTree = "<group>"; };
-		49651291191A372100473695 /* MobClickCppForLua_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MobClickCppForLua_luabinding.cpp; sourceTree = "<group>"; };
-		49651292191A372100473695 /* MobClickCppForLua_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCppForLua_luabinding.h; sourceTree = "<group>"; };
-		49ECFD2C191A1397009149AD /* libMobClickCpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickCpp.a; sourceTree = "<group>"; };
+		4965129E191B5BF700473695 /* MobClickCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCpp.h; sourceTree = "<group>"; };
+		4965129F191B5BF700473695 /* MobClickCppForLua_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MobClickCppForLua_luabinding.cpp; sourceTree = "<group>"; };
+		496512A0191B5BF700473695 /* MobClickCppForLua_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCppForLua_luabinding.h; sourceTree = "<group>"; };
+		496512A1191B5BF700473695 /* MobClickCppForLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MobClickCppForLua.cpp; sourceTree = "<group>"; };
+		496512A2191B5BF700473695 /* MobClickCppForLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCppForLua.h; sourceTree = "<group>"; };
 		49ECFD2D191A1397009149AD /* libMobClickCppWithLibCpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickCppWithLibCpp.a; sourceTree = "<group>"; };
 		49ECFD31191A13E6009149AD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		49ECFD34191A1444009149AD /* MobClickCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCpp.h; sourceTree = "<group>"; };
-		49ECFD36191A21E7009149AD /* MobClickCppForLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCppForLua.h; sourceTree = "<group>"; };
 		F4482F1A16A0555000FDDDAD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F4482F1B16A0555000FDDDAD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F4482F1C16A0555000FDDDAD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -104,9 +103,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4965129C191B0FF800473695 /* libz.dylib in Frameworks */,
 				F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */,
 				F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */,
-				49ECFD2F191A1397009149AD /* libMobClickCppWithLibCpp.a in Frameworks */,
 				F456F0FD15EE0CF600FCF3E2 /* SystemConfiguration.framework in Frameworks */,
 				F456ECC615EE018E00FCF3E2 /* QuartzCore.framework in Frameworks */,
 				F4949C7B1699554600DB561E /* CoreTelephony.framework in Frameworks */,
@@ -130,7 +129,6 @@
 		49ECFD2A191A1397009149AD /* sdk */ = {
 			isa = PBXGroup;
 			children = (
-				49ECFD33191A1444009149AD /* include */,
 				49ECFD2B191A1397009149AD /* umeng_analytics_ios */,
 			);
 			path = sdk;
@@ -139,22 +137,9 @@
 		49ECFD2B191A1397009149AD /* umeng_analytics_ios */ = {
 			isa = PBXGroup;
 			children = (
-				49ECFD2C191A1397009149AD /* libMobClickCpp.a */,
 				49ECFD2D191A1397009149AD /* libMobClickCppWithLibCpp.a */,
 			);
 			path = umeng_analytics_ios;
-			sourceTree = "<group>";
-		};
-		49ECFD33191A1444009149AD /* include */ = {
-			isa = PBXGroup;
-			children = (
-				49651291191A372100473695 /* MobClickCppForLua_luabinding.cpp */,
-				49651292191A372100473695 /* MobClickCppForLua_luabinding.h */,
-				4965128F191A331400473695 /* MobClickCppForLua.cpp */,
-				49ECFD36191A21E7009149AD /* MobClickCppForLua.h */,
-				49ECFD34191A1444009149AD /* MobClickCpp.h */,
-			);
-			path = include;
 			sourceTree = "<group>";
 		};
 		F456ECB615EE018E00FCF3E2 = {
@@ -259,6 +244,11 @@
 		F4E50FE216CF7B6500AA7E90 /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				4965129E191B5BF700473695 /* MobClickCpp.h */,
+				4965129F191B5BF700473695 /* MobClickCppForLua_luabinding.cpp */,
+				496512A0191B5BF700473695 /* MobClickCppForLua_luabinding.h */,
+				496512A1191B5BF700473695 /* MobClickCppForLua.cpp */,
+				496512A2191B5BF700473695 /* MobClickCppForLua.h */,
 				F4E50FE316CF7B6500AA7E90 /* AppDelegate.cpp */,
 				F4E50FE416CF7B6500AA7E90 /* AppDelegate.h */,
 				F4F34ED0183CD04B0077580F /* SimulatorConfig.cpp */,
@@ -372,11 +362,11 @@
 			files = (
 				F4D26BCC16C7D0D2004442B6 /* AppController.mm in Sources */,
 				F4D26BCD16C7D0D2004442B6 /* main.m in Sources */,
-				49651290191A331400473695 /* MobClickCppForLua.cpp in Sources */,
 				F4F34ED2183CD04B0077580F /* SimulatorConfig.cpp in Sources */,
 				F4D26BCE16C7D0D2004442B6 /* RootViewController.mm in Sources */,
-				49651293191A372100473695 /* MobClickCppForLua_luabinding.cpp in Sources */,
+				496512A3191B5BF700473695 /* MobClickCppForLua_luabinding.cpp in Sources */,
 				F4E50FE516CF7B6500AA7E90 /* AppDelegate.cpp in Sources */,
+				496512A4191B5BF700473695 /* MobClickCppForLua.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
