@@ -46,9 +46,18 @@ end
 ]]
 function DEPRECATED(f, name, newname)
     return function(...)
-        print(string.format("[DEPRECATED API] %s, new API: %s", name, newname))
+        PRINT_DEPRECATED(string.format(" API %s is deprecated, please use new API %s", name, newname))
         return f(...)
     end
+end
+
+--[[--
+
+显示作废信息
+
+]]
+function PRINT_DEPRECATED(msg)
+    printf("[DEPRECATED] %s", msg)
 end
 
 --[[--

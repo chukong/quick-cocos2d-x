@@ -29,9 +29,9 @@ THE SOFTWARE.
 ]]
 
 -- debug
-echoLog   = DEPRECATED(printLog, "echoLog", "printLog")
+echoLog = DEPRECATED(printLog, "echoLog", "printLog")
 echoError = DEPRECATED(printError, "echoError", "printError")
-echoInfo  = DEPRECATED(printInfo, "echoInfo", "printInfo")
+echoInfo = DEPRECATED(printInfo, "echoInfo", "printInfo")
 
 -- functions
 tonum = DEPRECATED(checknumber, "tonum", "checknumber")
@@ -45,3 +45,26 @@ table.keyOfItem = DEPRECATED(table.keyof, "table.keyOfItem", "table.keyof")
 table.removeItem = DEPRECATED(table.removebyvalue, "table.removeItem", "table.removebyvalue")
 
 string.htmlspecialcharsDecode = DEPRECATED(string.restorehtmlspecialchars, "string.htmlspecialcharsDecode", "string.restorehtmlspecialchars")
+
+-- audio
+audio.getBackgroundMusicVolume = DEPRECATED(audio.getMusicVolume, "audio.getBackgroundMusicVolume", "audio.getMusicVolume")
+audio.setBackgroundMusicVolume = DEPRECATED(audio.setMusicVolume, "audio.setBackgroundMusicVolume", "audio.setMusicVolume")
+audio.getEffectsVolume = DEPRECATED(audio.getSoundsVolume, "audio.getEffectsVolume", "audio.getSoundsVolume")
+audio.setEffectsVolume = DEPRECATED(audio.setSoundsVolume, "audio.setEffectsVolume", "audio.setSoundsVolume")
+audio.preloadBackgroundMusic = DEPRECATED(audio.preloadMusic, "audio.preloadBackgroundMusic", "audio.preloadMusic")
+audio.playBackgroundMusic = DEPRECATED(audio.playMusic, "audio.playBackgroundMusic", "audio.playMusic")
+audio.stopBackgroundMusic = DEPRECATED(audio.stopMusic, "audio.stopBackgroundMusic", "audio.stopMusic")
+audio.pauseBackgroundMusic = DEPRECATED(audio.pauseMusic, "audio.pauseBackgroundMusic", "audio.pauseMusic")
+audio.resumeBackgroundMusic = DEPRECATED(audio.resumeMusic, "audio.resumeBackgroundMusic", "audio.resumeMusic")
+audio.rewindBackgroundMusic = DEPRECATED(audio.rewindMusic, "audio.rewindBackgroundMusic", "audio.rewindMusic")
+audio.willPlayBackgroundMusic = DEPRECATED(audio.willPlayMusic, "audio.willPlayBackgroundMusic", "audio.willPlayMusic")
+audio.isBackgroundMusicPlaying = DEPRECATED(audio.isMusicPlaying, "audio.isBackgroundMusicPlaying", "audio.isMusicPlaying")
+audio.playEffect = DEPRECATED(audio.playSound, "audio.playEffect", "audio.playSound")
+audio.pauseEffect = DEPRECATED(audio.pauseSound, "audio.pauseEffect", "audio.pauseSound")
+audio.pauseAllEffects = DEPRECATED(audio.pauseAllSounds, "audio.pauseAllEffects", "audio.pauseAllSounds")
+audio.resumeEffect = DEPRECATED(audio.resumeSound, "audio.resumeEffect", "audio.resumeSound")
+audio.resumeAllEffects = DEPRECATED(audio.resumeAllSounds, "audio.resumeAllEffects", "audio.resumeAllSounds")
+audio.stopEffect = DEPRECATED(audio.stopSound, "audio.stopEffect", "audio.stopSound")
+audio.stopAllEffects = DEPRECATED(audio.stopAllSounds, "audio.stopAllEffects", "audio.stopAllSounds")
+audio.preloadEffect = DEPRECATED(audio.preloadSound, "audio.preloadEffect", "audio.preloadSound")
+audio.unloadEffect = DEPRECATED(audio.unloadSound, "audio.unloadEffect", "audio.unloadSound")

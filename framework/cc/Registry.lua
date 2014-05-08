@@ -20,7 +20,7 @@ function Registry.exists(name)
     return Registry.classes_[name] ~= nil
 end
 
-function Registry.newObject(name)
+function Registry.newObject(name, ...)
     local cls = Registry.classes_[name]
     if not cls then
         -- auto load
@@ -30,7 +30,7 @@ function Registry.newObject(name)
         end)
     end
     assert(cls ~= nil, string.format("Registry.newObject() - invalid class \"%s\"", tostring(name)))
-    return cls.new()
+    return cls.new(...)
 end
 
 function Registry.setObject(object, name)

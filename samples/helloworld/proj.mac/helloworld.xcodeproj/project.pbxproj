@@ -37,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F44C957215F49004004D4151 /* helloworld-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "helloworld-player.app"; path = helloworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44C957215F49004004D4151 /* helloworld-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "helloworld-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44C957915F49004004D4151 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F44C957A15F49004004D4151 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -100,7 +100,7 @@
 		F44C957315F49004004D4151 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F44C957215F49004004D4151 /* helloworld-player.app */,
+				F44C957215F49004004D4151 /* helloworld.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,7 +132,7 @@
 				F4B08159175C8A1E0029F472 /* sources */,
 				F4B08158175C8A100029F472 /* mac */,
 			);
-			name = helloworld;
+			name = "helloworld";
 			sourceTree = "<group>";
 		};
 		F4B08152175C89E30029F472 /* Products */ = {
@@ -172,7 +172,7 @@
 /* Begin PBXNativeTarget section */
 		F44C957115F49004004D4151 /* helloworld */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "helloworld" */;
+			buildConfigurationList = F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "helloworld-player" */;
 			buildPhases = (
 				F44C956E15F49004004D4151 /* Sources */,
 				F44C956F15F49004004D4151 /* Frameworks */,
@@ -182,9 +182,9 @@
 			);
 			dependencies = (
 			);
-			name = helloworld;
-			productName = helloworld;
-			productReference = F44C957215F49004004D4151 /* helloworld-player.app */;
+			name = "helloworld";
+			productName = "helloworld";
+			productReference = F44C957215F49004004D4151 /* helloworld.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

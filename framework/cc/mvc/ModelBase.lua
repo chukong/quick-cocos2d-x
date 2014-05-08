@@ -45,9 +45,9 @@ function ModelBase:setProperties(properties)
             assert(type(val) == typ, string.format("%s:setProperties() - type mismatch, %s expected %s, actual is %s", self.class.__cname, field, typ, type(val)))
             self[propname] = val
         elseif self[propname] == nil and def ~= nil then
-            if type(def) == "table" then 
-                val = clone(def) 
-            elseif type(def) == "function" then 
+            if type(def) == "table" then
+                val = clone(def)
+            elseif type(def) == "function" then
                 val = def()
             else
                 val = def

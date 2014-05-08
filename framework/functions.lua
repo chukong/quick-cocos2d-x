@@ -361,22 +361,21 @@ print(iskindof(Duck.new(), "Animal")) -- 输出 true
 ]]
 function iskindof(obj, classname)
     local t = type(obj)
-
+    local mt
     if t == "table" then
-        local mt = getmetatable(obj)
-        while mt and mt.__index do
-            if mt.__index.__cname == classname then
-                return true
-            end
-            mt = mt.super
-        end
-        return false
-
+        mt = getmetatable(obj)
     elseif t == "userdata" then
-
-    else
-        return false
+        mt = tolua.getpeer(obj)
     end
+
+    while mt do
+        if mt.__cname == classname then
+            return true
+        end
+        mt = mt.super
+    end
+
+    return false
 end
 
 --[[--

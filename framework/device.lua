@@ -118,6 +118,9 @@ printInfo("#")
 
 ]]
 function device.showActivityIndicator()
+    if DEBUG > 1 then
+        printInfo("device.showActivityIndicator()")
+    end
     CCNative:showActivityIndicator()
 end
 
@@ -127,6 +130,9 @@ end
 
 ]]
 function device.hideActivityIndicator()
+    if DEBUG > 1 then
+        printInfo("device.hideActivityIndicator()")
+    end
     CCNative:hideActivityIndicator()
 end
 
@@ -143,12 +149,13 @@ local function onButtonClicked(event)
         .... 玩家选择了 NO 按钮
     end
 end
- 
+
 device.showAlert("Confirm Exit", "Are you sure exit game ?", {"YES", "NO"}, onButtonClicked)
 
 ~~~
 
-当没有指定按钮标题时，对话框会默认显示一个“OK”按钮。回调函数获得的表格对象中，buttonIndex 指示玩家选择了哪一个按钮，其值是按钮的显示顺序。 
+当没有指定按钮标题时，对话框会默认显示一个“OK”按钮。
+回调函数获得的表格中，buttonIndex 指示玩家选择了哪一个按钮，其值是按钮的显示顺序。
 
 @param string title 对话框标题
 @param string message 内容
@@ -159,6 +166,14 @@ device.showAlert("Confirm Exit", "Are you sure exit game ?", {"YES", "NO"}, onBu
 function device.showAlert(title, message, buttonLabels, listener)
     if type(buttonLabels) ~= "table" then
         buttonLabels = {tostring(buttonLabels)}
+    else
+        table.map(buttonLabels, function(v) return tostring(v) end)
+    end
+
+    if DEBUG > 1 then
+        printInfo("device.showAlert() - title: %s", title)
+        printInfo("    message: %s", message)
+        printInfo("    buttonLabels: %s", table.concat(buttonLabels, ", "))
     end
 
 	if device.platform == "android" then
@@ -194,10 +209,13 @@ end
 
 取消正在显示的对话框。
 
-提示：取消对话框，不会执行显示对话框时指定的回调函数。 
+提示：取消对话框，不会执行显示对话框时指定的回调函数。
 
 ]]
 function device.cancelAlert()
+    if DEBUG > 1 then
+        printInfo("device.cancelAlert()")
+    end
     CCNative:cancelAlert()
 end
 
@@ -216,7 +234,11 @@ OpenUDID 是为设备仿造的 UDID（唯一设备识别码），可以用来识
 
 ]]
 function device.getOpenUDID()
-    return CCNative:getOpenUDID()
+    local ret = CCNative:getOpenUDID()
+    if DEBUG > 1 then
+        printInfo("device.getOpenUDID() - Open UDID: %s", tostring(ret))
+    end
+    return ret
 end
 
 --[[--
@@ -227,14 +249,14 @@ end
 
 -- 打开网页
 device.openURL("http://dualface.github.com/quick-cocos2d-x/")
- 
+
 -- 打开设备上的邮件程序，并创建新邮件，填入收件人地址
 device.openURL("mailto:nobody@mycompany.com")
 -- 增加主题和内容
 local subject = string.urlencode("Hello")
 local body = string.urlencode("How are you ?")
 device.openURL(string.format("mailto:nobody@mycompany.com?subject=%s&body=%s", subject, body))
- 
+
 -- 打开设备上的拨号程序
 device.openURL("tel:123-456-7890")
 
@@ -244,6 +266,9 @@ device.openURL("tel:123-456-7890")
 
 ]]
 function device.openURL(url)
+    if DEBUG > 1 then
+        printInfo("device.openURL() - url: %s", tostring(url))
+    end
     CCNative:openURL(url)
 end
 
@@ -251,7 +276,7 @@ end
 
 显示一个输入框，并返回用户输入的内容。
 
-当用户点击取消按钮时，showInputBox() 函数返回空字符串。 
+当用户点击取消按钮时，showInputBox() 函数返回空字符串。
 
 @param string title 对话框标题
 @param string message 提示信息
@@ -261,9 +286,14 @@ end
 
 ]]
 function device.showInputBox(title, message, defaultValue)
-    title = title or "INPUT TEXT"
-    message = message or "INPUT TEXT, CLICK OK BUTTON"
-    defaultValue = defaultValue or ""
+    title = tostring(title or "INPUT TEXT")
+    message = tostring(message or "INPUT TEXT, CLICK OK BUTTON")
+    defaultValue = tostring(defaultValue or "")
+    if DEBUG > 1 then
+        printInfo("device.showInputBox() - title: %s", tostring(title))
+        printInfo("    message: %s", tostring(message))
+        printInfo("    defaultValue: %s", tostring(defaultValue))
+    end
     return CCNative:getInputText(title, message, defaultValue)
 end
 

@@ -235,7 +235,6 @@ using namespace cocos2d::extra;
         args.push_back([[nsargs objectAtIndex:i] cStringUsingEncoding:NSUTF8StringEncoding]);
     }
     config->parseCommandLine(args);
-    config->dump();
 }
 
 - (void) launch:(NSArray*)args

@@ -8,6 +8,8 @@ MODULE DOC
 ]]
 local Context = class("Context")
 
+PRINT_DEPRECATED("module api.Context is deprecated")
+
 --[[--
 
 ]]

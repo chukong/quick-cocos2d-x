@@ -1,6 +1,8 @@
 
 local GameState = {}
 
+PRINT_DEPRECATED("module api.GameState is deprecated, please use cc.utils.State")
+
 GameState.ERROR_INVALID_FILE_CONTENTS = -1
 GameState.ERROR_HASH_MISS_MATCH       = -2
 GameState.ERROR_STATE_FILE_NOT_FOUND  = -3

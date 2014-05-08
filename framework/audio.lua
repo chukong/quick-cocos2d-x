@@ -36,104 +36,125 @@ local sharedEngine = SimpleAudioEngine:sharedEngine()
 
 返回音乐的音量值
 
-@return number 返回值在 0 到 1 之间，0 表示完全静音，1 表示 100% 音量。
+@return number 返回值在 0.0 到 1.0 之间，0.0 表示完全静音，1.0 表示 100% 音量
 
 ]]
 function audio.getMusicVolume()
-    return sharedEngine:getBackgroundMusicVolume()
+    local volume = sharedEngine:getBackgroundMusicVolume()
+    if DEBUG > 1 then
+        printInfo("audio.getMusicVolume() - volume: %0.1f", volume)
+    end
+    return volume
 end
-audio.getBackgroundMusicVolume = audio.getMusicVolume
+
 
 --[[--
 
 设置音乐的音量
 
-@param number 0 到 1 之间, 0 表示完全静音,1 表示 100% 音量。
+@param number volume 音量在 0.0 到 1.0 之间, 0.0 表示完全静音，1.0 表示 100% 音量
 
 ]]
 function audio.setMusicVolume(volume)
+    volume = checknumber(volume)
+    if DEBUG > 1 then
+        printInfo("audio.setMusicVolume() - volume: %0.1f", volume)
+    end
     sharedEngine:setBackgroundMusicVolume(volume)
 end
-audio.setBackgroundMusicVolume = audio.setMusicVolume
 
 --[[--
 
 返回音效的音量值
 
-@return number 0 到 1 之间，0 表示完全静音，1 表示 100% 音量。
+@return number 返回值在 0.0 到 1.0 之间, 0.0 表示完全静音，1.0 表示 100% 音量
 
 ]]
 function audio.getSoundsVolume()
-    return sharedEngine:getEffectsVolume()
+    local volume = sharedEngine:getEffectsVolume()
+    if DEBUG > 1 then
+        printInfo("audio.getSoundsVolume() - volume: %0.1f", volume)
+    end
+    return volume
 end
-audio.getEffectsVolume = audio.getSoundsVolume
 
 --[[--
 
 设置音效的音量
 
-@param number 0 到 1 之间，0 表示完全静音，1 表示 100% 音量。
+@param number volume 音量在 0.0 到 1.0 之间, 0.0 表示完全静音，1.0 表示 100% 音量
 
 ]]
 function audio.setSoundsVolume(volume)
+    volume = checknumber(volume)
+    if DEBUG > 1 then
+        printInfo("audio.setSoundsVolume() - volume: %0.1f", volume)
+    end
     sharedEngine:setEffectsVolume(volume)
 end
-audio.setEffectsVolume = audio.setSoundsVolume
 
 --[[--
 
 预载入一个音乐文件
 
-在播放音乐前预先载入，可以在需要播放音乐时无延迟立即播放。不过限于硬件设备和操作系统的限制，通常只能预载入一个音乐文件。
+在播放音乐前预先载入，可以在需要播放音乐时无延迟立即播放。
+不过限于硬件设备和操作系统的限制，通常只能预载入一个音乐文件。
 
-@param string 音乐文件名
+@param string filename 音乐文件名
 
 ]]
 function audio.preloadMusic(filename)
+    if not filename then
+        printError("audio.preloadMusic() - invalid filename")
+        return
+    end
     if DEBUG > 1 then
         printInfo("audio.preloadMusic() - filename: %s", tostring(filename))
     end
     sharedEngine:preloadBackgroundMusic(filename)
 end
-audio.preloadBackgroundMusic = audio.preloadMusic
 
 --[[--
 
 播放音乐
 
-如果音乐文件尚未载入，则会首先载入音乐文件，然后开始播放。默认会无限循环播放音乐。
+如果音乐文件尚未载入，则会首先载入音乐文件，然后开始播放。
 
-注意:即便音乐音量为 0，playMusic() 仍然会进行播放操作。如果希望停止音乐来降低 CPU 占用，应该使用 stopMusic() 接口完全停止音乐播放。
+注意：即便音乐音量为 0.0，audio.playMusic() 仍然会进行播放操作。
+如果希望停止音乐来降低 CPU 占用，应该使用 audio.stopMusic() 接口完全停止音乐播放。
 
-@param string 音乐文件名
-@param boolean 是否循环播放
+@param string filename 音乐文件名
+@param boolean isLoop 是否循环播放，默认为 true
 
 ]]
 function audio.playMusic(filename, isLoop)
+    if not filename then
+        printError("audio.playMusic() - invalid filename")
+        return
+    end
     if type(isLoop) ~= "boolean" then isLoop = true end
 
-    audio.stopMusic(true)
+    audio.stopMusic()
     if DEBUG > 1 then
         printInfo("audio.playMusic() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
     end
     sharedEngine:playBackgroundMusic(filename, isLoop)
 end
-audio.playBackgroundMusic = audio.playMusic
 
 --[[--
 
 停止播放音乐
 
-默认在停止音乐时不会立即释放音乐数据占用的内存
-
-@param boolean 是否释放音乐数据
+@param boolean isReleaseData 是否释放音乐数据，默认为 true
 
 ]]
 function audio.stopMusic(isReleaseData)
-    if type(isReleaseData) ~= "boolean" then isReleaseData = false end
+    isReleaseData = checkbool(isReleaseData)
+    if DEBUG > 1 then
+        printInfo("audio.stopMusic() - isReleaseData: %s", tostring(isReleaseData))
+    end
     sharedEngine:stopBackgroundMusic(isReleaseData)
 end
-audio.stopBackgroundMusic = audio.stopMusic
 
 --[[--
 
@@ -141,9 +162,11 @@ audio.stopBackgroundMusic = audio.stopMusic
 
 ]]
 function audio.pauseMusic()
+    if DEBUG > 1 then
+        printInfo("audio.pauseMusic()")
+    end
     sharedEngine:pauseBackgroundMusic()
 end
-audio.pauseBackgroundMusic = audio.pauseMusic
 
 --[[--
 
@@ -151,9 +174,11 @@ audio.pauseBackgroundMusic = audio.pauseMusic
 
 ]]
 function audio.resumeMusic()
+    if DEBUG > 1 then
+        printInfo("audio.resumeMusic()")
+    end
     sharedEngine:resumeBackgroundMusic()
 end
-audio.resumeBackgroundMusic = audio.resumeMusic
 
 --[[--
 
@@ -161,9 +186,11 @@ audio.resumeBackgroundMusic = audio.resumeMusic
 
 ]]
 function audio.rewindMusic()
+    if DEBUG > 1 then
+        printInfo("audio.rewindMusic()")
+    end
     ending:rewindBackgroundMusic()
 end
-audio.rewindBackgroundMusic = audio.rewindMusic
 
 --[[--
 
@@ -173,13 +200,16 @@ audio.rewindBackgroundMusic = audio.rewindMusic
 
 如果尚未载入音乐，或者载入的音乐格式不被设备所支持，该方法将返回 false。
 
-@return boolean 
+@return boolean
 
 ]]
 function audio.willPlayMusic()
-    return sharedEngine:willPlayBackgroundMusic()
+    local ret = sharedEngine:willPlayBackgroundMusic()
+    if DEBUG > 1 then
+        printInfo("audio.willPlayMusic() - ret: %s", tostring(ret))
+    end
+    return ret
 end
-audio.willPlayBackgroundMusic = audio.willPlayMusic
 
 --[[--
 
@@ -187,13 +217,16 @@ audio.willPlayBackgroundMusic = audio.willPlayMusic
 
 如果有音乐正在播放则返回 true，否则返回 false
 
-@return boolean 
+@return boolean
 
 ]]
 function audio.isMusicPlaying()
-    return sharedEngine:isBackgroundMusicPlaying()
+    local ret = sharedEngine:isBackgroundMusicPlaying()
+    if DEBUG > 1 then
+        printInfo("audio.isMusicPlaying() - ret: %s", tostring(ret))
+    end
+    return ret
 end
-audio.isBackgroundMusicPlaying = audio.isMusicPlaying
 
 --[[--
 
@@ -201,22 +234,25 @@ audio.isBackgroundMusicPlaying = audio.isMusicPlaying
 
 如果音效尚未载入，则会载入后开始播放。
 
-该方法返回的音效句柄用于 stopSound()、pauseSound() 等方法。
+该方法返回的音效句柄用于 audio.stopSound()、audio.pauseSound() 等方法。
 
-@param string 音效文件名
-@param boolean 是否重复播放
+@param string filename 音效文件名
+@param boolean isLoop 是否重复播放，默认为 false
 
 @return integer 音效句柄
 
 ]]
 function audio.playSound(filename, isLoop)
+    if not filename then
+        printError("audio.playSound() - invalid filename")
+        return
+    end
     if type(isLoop) ~= "boolean" then isLoop = false end
     if DEBUG > 1 then
         printInfo("audio.playSound() - filename: %s, isLoop: %s", tostring(filename), tostring(isLoop))
     end
     return sharedEngine:playEffect(filename, isLoop)
 end
-audio.playEffect = audio.playSound
 
 --[[--
 
@@ -226,9 +262,15 @@ audio.playEffect = audio.playSound
 
 ]]
 function audio.pauseSound(handle)
+    if not handle then
+        printError("audio.pauseSound() - invalid handle")
+        return
+    end
+    if DEBUG > 1 then
+        printInfo("audio.pauseSound() - handle: %s", tostring(handle))
+    end
     sharedEngine:pauseEffect(handle)
 end
-audio.pauseEffect = audio.pauseSound
 
 --[[--
 
@@ -236,9 +278,11 @@ audio.pauseEffect = audio.pauseSound
 
 ]]
 function audio.pauseAllSounds()
+    if DEBUG > 1 then
+        printInfo("audio.pauseAllSounds()")
+    end
     sharedEngine:pauseAllEffects()
 end
-audio.pauseAllEffects = audio.pauseAllSounds
 
 --[[--
 
@@ -248,9 +292,15 @@ audio.pauseAllEffects = audio.pauseAllSounds
 
 ]]
 function audio.resumeSound(handle)
+    if not handle then
+        printError("audio.resumeSound() - invalid handle")
+        return
+    end
+    if DEBUG > 1 then
+        printInfo("audio.resumeSound() - handle: %s", tostring(handle))
+    end
     sharedEngine:resumeEffect(handle)
 end
-audio.resumeEffect = audio.resumeSound
 
 --[[--
 
@@ -258,9 +308,11 @@ audio.resumeEffect = audio.resumeSound
 
 ]]
 function audio.resumeAllSounds()
+    if DEBUG > 1 then
+        printInfo("audio.resumeAllSounds()")
+    end
     sharedEngine:resumeAllEffects()
 end
-audio.resumeAllEffects = audio.resumeAllSounds
 
 --[[--
 
@@ -270,9 +322,15 @@ audio.resumeAllEffects = audio.resumeAllSounds
 
 ]]
 function audio.stopSound(handle)
+    if not handle then
+        printError("audio.stopSound() - invalid handle")
+        return
+    end
+    if DEBUG > 1 then
+        printInfo("audio.stopSound() - handle: %s", tostring(handle))
+    end
     sharedEngine:stopEffect(handle)
 end
-audio.stopEffect = audio.stopSound
 
 --[[--
 
@@ -280,9 +338,11 @@ audio.stopEffect = audio.stopSound
 
 ]]
 function audio.stopAllSounds()
+    if DEBUG > 1 then
+        printInfo("audio.stopAllSounds()")
+    end
     sharedEngine:stopAllEffects()
 end
-audio.stopAllEffects = audio.stopAllSounds
 
 --[[--
 
@@ -294,12 +354,15 @@ audio.stopAllEffects = audio.stopAllSounds
 
 ]]
 function audio.preloadSound(filename)
+    if not filename then
+        printError("audio.preloadSound() - invalid filename")
+        return
+    end
     if DEBUG > 1 then
         printInfo("audio.preloadSound() - filename: %s", tostring(filename))
     end
     sharedEngine:preloadEffect(filename)
 end
-audio.preloadEffect = audio.preloadSound
 
 --[[--
 
@@ -311,8 +374,14 @@ audio.preloadEffect = audio.preloadSound
 
 ]]
 function audio.unloadSound(filename)
+    if not filename then
+        printError("audio.unloadSound() - invalid filename")
+        return
+    end
+    if DEBUG > 1 then
+        printInfo("audio.unloadSound() - filename: %s", tostring(filename))
+    end
     sharedEngine:unloadEffect(filename)
 end
-audio.unloadEffect = audio.unloadSound
 
 return audio

@@ -24,6 +24,7 @@
 #include "CCLuaEngine.h"
 #include "CCLuaStack.h"
 #include "SimpleAudioEngine.h"
+#include "ProjectConfigDialog.h"
 
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -78,6 +79,9 @@ HelloworldPlayer::HelloworldPlayer(void)
 
 int HelloworldPlayer::run(void)
 {
+    const char *QUICK_COCOS2DX_ROOT = getenv("QUICK_COCOS2DX_ROOT");
+    SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(QUICK_COCOS2DX_ROOT);
+
     loadProjectConfig();
 
     HWND hwndConsole = NULL;
@@ -108,8 +112,6 @@ int HelloworldPlayer::run(void)
             CCLOG("Cannot create debug log file %s", debugLogFilePath.c_str());
         }
     }
-
-    m_project.dump();
 
     do
     {
@@ -286,6 +288,82 @@ void HelloworldPlayer::writeDebugLog(const char *log)
     fflush(m_writeDebugLogFile);
 }
 
+// menu callback
+void HelloworldPlayer::onFileOpenProject(void)
+{
+    ProjectConfig project;
+    if (!m_project.isWelcome())
+    {
+        project = m_project;
+    }
+    if (ProjectConfigDialog::showModal(m_hwnd, &project))
+    {
+        m_project = project;
+        relaunch();
+    }
+}
+
+void HelloworldPlayer::onFileCreateProjectShortcut(void)
+{
+    WCHAR shortcutPathBuff[MAX_PATH + 1] = {0};
+
+    OPENFILENAME ofn = {0};
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner   = m_hwnd;
+    ofn.lpstrFilter = L"Shortcut (*.lnk)\0*.lnk\0";
+    ofn.lpstrTitle  = L"Create Project Shortcut";
+    ofn.Flags       = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
+    ofn.lpstrFile   = shortcutPathBuff;
+    ofn.nMaxFile    = MAX_PATH;
+
+    if (!GetSaveFileName(&ofn)) return;
+
+    // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
+    // has already been called.
+    IShellLink* psl;
+    HRESULT hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
+
+    if (SUCCEEDED(hres))
+    {
+        IPersistFile* ppf;
+
+        // args
+        string args = m_project.makeCommandLine();
+
+        // Set the path to the shortcut target and add the description.
+        psl->SetPath(__wargv[0]);
+        wstring wargs;
+        wargs.assign(args.begin(), args.end());
+        psl->SetArguments(wargs.c_str());
+        psl->SetDescription(L"HelloworldPlayer");
+
+        // Query IShellLink for the IPersistFile interface, used for saving the
+        // shortcut in persistent storage.
+        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf);
+
+        if (SUCCEEDED(hres))
+        {
+            // Save the link by calling IPersistFile::Save.
+            size_t len = wcslen(shortcutPathBuff);
+            if (_wcsicmp(shortcutPathBuff + len - 4, L".lnk") != 0)
+            {
+                wcscat_s(shortcutPathBuff, L".lnk");
+            }
+            hres = ppf->Save(shortcutPathBuff, TRUE);
+            ppf->Release();
+        }
+        psl->Release();
+    }
+}
+
+void HelloworldPlayer::onFileProjectConfig(void)
+{
+    if (ProjectConfigDialog::showModal(m_hwnd, &m_project, "Change Project Config", "Relaunch"))
+    {
+        relaunch();
+    }
+}
+
 void HelloworldPlayer::onFileRelaunch(void)
 {
     relaunch();
@@ -351,6 +429,11 @@ void HelloworldPlayer::onViewChangeZoom(int scaleMode)
     updateMenu();
 }
 
+void HelloworldPlayer::onHelpAbout(void)
+{
+    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUTBOX), m_hwnd, AboutDialogCallback);
+}
+
 // windows callback
 LRESULT HelloworldPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
 {
@@ -366,6 +449,18 @@ LRESULT HelloworldPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam,
 
         switch (wmId)
         {
+        case ID_FILE_OPEN_PROJECT:
+            host->onFileOpenProject();
+            break;
+
+        case ID_FILE_CREATE_PROJECT_SHORTCUT:
+            host->onFileCreateProjectShortcut();
+            break;
+
+        case ID_FILE_PROJECT_CONFIG:
+            host->onFileProjectConfig();
+            break;
+
         case ID_FILE_RELAUNCH:
             host->onFileRelaunch();
             break;
@@ -382,6 +477,10 @@ LRESULT HelloworldPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam,
         case ID_VIEW_RESET_ZOOM:
         case ID_VIEW_ZOOM_OUT:
             host->onViewChangeZoom(wmId);
+            break;
+
+        case ID_HELP_ABOUT:
+            host->onHelpAbout();
             break;
 
         default:
@@ -419,4 +518,23 @@ LRESULT HelloworldPlayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam,
 
     *pProcessed = TRUE;
     return 0;
+}
+
+INT_PTR CALLBACK HelloworldPlayer::AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    UNREFERENCED_PARAMETER(lParam);
+    switch (message)
+    {
+    case WM_INITDIALOG:
+        return (INT_PTR)TRUE;
+
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+        {
+            EndDialog(hDlg, LOWORD(wParam));
+            return (INT_PTR)TRUE;
+        }
+        break;
+    }
+    return (INT_PTR)FALSE;
 }
