@@ -6,14 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>736</width>
-    <height>299</height>
+    <width>800</width>
+    <height>500</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>Courier New</family>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Log</string>
@@ -33,7 +28,7 @@
        <item>
         <widget class="QPushButton" name="openLogButton">
          <property name="text">
-          <string>Open Log</string>
+          <string>Open Log File</string>
          </property>
         </widget>
        </item>
@@ -51,29 +46,32 @@
         </spacer>
        </item>
        <item>
-        <widget class="QSplitter" name="splitter">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QCheckBox" name="allwaysTop">
+         <property name="text">
+          <string>Always on Top</string>
          </property>
-         <widget class="QCheckBox" name="allwaysTop">
-          <property name="text">
-           <string>allways top</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="scrollButton">
-          <property name="text">
-           <string>scroll button</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="scrollButton">
+         <property name="text">
+          <string>Auto Scroll</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
       <widget class="QTextBrowser" name="textBrowser">
+       <property name="font">
+        <font>
+         <family>Monaco</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
