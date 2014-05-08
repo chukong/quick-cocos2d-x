@@ -10,12 +10,12 @@
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 using namespace std;
 using namespace cocos2d;
 
-class CC_DLL HelloworldPlayer : public CCObject
+class CC_DLL App : public CCObject
 {
 public:
     static int createAndRun(void);
@@ -29,11 +29,11 @@ public:
     }
 
 private:
-    static HelloworldPlayer *s_sharedInstance;
-    static HelloworldPlayer *sharedInstance(void);
+    static App *s_sharedInstance;
+    static App *sharedInstance(void);
     static void purgeSharedInstance(void);
 
-    HelloworldPlayer(void);
+    App(void);
 
     AppDelegate *m_app;
     ProjectConfig m_project;
@@ -46,16 +46,12 @@ private:
     void loadProjectConfig(void);
     void createViewMenu(void);
     void updateMenu(void);
-    void updateWindowTitle(void);
     void relaunch(void);
 
     // debug log
     void writeDebugLog(const char *log);
 
     // menu callback
-    void onFileOpenProject(void);
-    void onFileCreateProjectShortcut(void);
-    void onFileProjectConfig(void);
     void onFileRelaunch(void);
     void onFileExit(void);
 
@@ -63,10 +59,6 @@ private:
     void onViewChangeOrientation(int viewMenuID);
     void onViewChangeZoom(int scaleMode);
 
-    void onHelpAbout(void);
-
     // windows callback
     static LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL *pProcessed);
-    static INT_PTR CALLBACK AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
-    static INT CALLBACK OpenProjectCallback(HWND hwnd, UINT uMsg, LPARAM lp, LPARAM pData);
 };
