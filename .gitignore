@@ -28,5 +28,12 @@ lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
 player/build-*-Debug/
 player/proj.qt/*.pro.user
+player/proj.qt/*.pro.user.*
 lib/debug/*
 lib/proj.qt/Makefile.libquickqt
+lib/proj.qt/obj/
+lib/proj.qt/Makefile.libchipmunk
+lib/proj.qt/Makefile.libchipmunk.Debug
+lib/proj.qt/Makefile.libchipmunk.Release
+lib/proj.qt/Makefile.libquickqt.Debug
+lib/proj.qt/Makefile.libquickqt.Release
