@@ -3,7 +3,7 @@
 #pragma comment(linker, "\"/manifestdependency:type='Win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='X86' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 #include "stdafx.h"
-#include "__PROJECT_PACKAGE_LAST_NAME_L__.h"
+#include "app.h"
 #include <io.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -24,7 +24,6 @@
 #include "CCLuaEngine.h"
 #include "CCLuaStack.h"
 #include "SimpleAudioEngine.h"
-#include "ProjectConfigDialog.h"
 
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -34,29 +33,29 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-    return __PROJECT_PACKAGE_LAST_NAME_UF__Player::createAndRun();
+    return App::createAndRun();
 }
 
-int __PROJECT_PACKAGE_LAST_NAME_UF__Player::createAndRun(void)
+int App::createAndRun(void)
 {
-    __PROJECT_PACKAGE_LAST_NAME_UF__Player *host = __PROJECT_PACKAGE_LAST_NAME_UF__Player::sharedInstance();
+    App *host = App::sharedInstance();
     int ret = host->run();
-    __PROJECT_PACKAGE_LAST_NAME_UF__Player::purgeSharedInstance();
+    App::purgeSharedInstance();
     return ret;
 }
 
-__PROJECT_PACKAGE_LAST_NAME_UF__Player *__PROJECT_PACKAGE_LAST_NAME_UF__Player::s_sharedInstance = NULL;
+App *App::s_sharedInstance = NULL;
 
-__PROJECT_PACKAGE_LAST_NAME_UF__Player *__PROJECT_PACKAGE_LAST_NAME_UF__Player::sharedInstance(void)
+App *App::sharedInstance(void)
 {
     if (!s_sharedInstance)
     {
-        s_sharedInstance = new __PROJECT_PACKAGE_LAST_NAME_UF__Player();
+        s_sharedInstance = new App();
     }
     return s_sharedInstance;
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::purgeSharedInstance(void)
+void App::purgeSharedInstance(void)
 {
     if (s_sharedInstance)
     {
@@ -65,7 +64,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::purgeSharedInstance(void)
     }
 }
 
-__PROJECT_PACKAGE_LAST_NAME_UF__Player::__PROJECT_PACKAGE_LAST_NAME_UF__Player(void)
+App::App(void)
 : m_app(NULL)
 , m_hwnd(NULL)
 , m_exit(TRUE)
@@ -77,7 +76,7 @@ __PROJECT_PACKAGE_LAST_NAME_UF__Player::__PROJECT_PACKAGE_LAST_NAME_UF__Player(v
     InitCommonControlsEx(&InitCtrls);
 }
 
-int __PROJECT_PACKAGE_LAST_NAME_UF__Player::run(void)
+int App::run(void)
 {
     const char *QUICK_COCOS2DX_ROOT = getenv("QUICK_COCOS2DX_ROOT");
     SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(QUICK_COCOS2DX_ROOT);
@@ -102,6 +101,8 @@ int __PROJECT_PACKAGE_LAST_NAME_UF__Player::run(void)
             BringWindowToTop(hwndConsole);
         }
     }
+
+    m_project.dump();
 
     if (m_project.isWriteDebugLogToFile())
     {
@@ -136,7 +137,7 @@ int __PROJECT_PACKAGE_LAST_NAME_UF__Player::run(void)
         // make window actived
         m_hwnd = eglView->getHWnd();
         BringWindowToTop(m_hwnd);
-        SetWindowTextA(m_hwnd, "__PROJECT_PACKAGE_LAST_NAME_L__-player");
+        SetWindowTextA(m_hwnd, "__PROJECT_PACKAGE_LAST_NAME_L__");
 
         // restore window position
         const CCPoint windowOffset = m_project.getWindowOffset();
@@ -182,7 +183,7 @@ int __PROJECT_PACKAGE_LAST_NAME_UF__Player::run(void)
     return 0;
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::loadProjectConfig(void)
+void App::loadProjectConfig(void)
 {
     vector<string> args;
     for (int i = 0; i < __argc; ++i)
@@ -195,7 +196,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::loadProjectConfig(void)
     m_project.parseCommandLine(args);
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::createViewMenu(void)
+void App::createViewMenu(void)
 {
     HMENU menu = GetMenu(m_hwnd);
     HMENU viewMenu = GetSubMenu(menu, 1);
@@ -219,7 +220,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::createViewMenu(void)
     }
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::updateMenu(void)
+void App::updateMenu(void)
 {
     HMENU menu = GetMenu(m_hwnd);
     HMENU viewMenu = GetSubMenu(menu, 1);
@@ -253,11 +254,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::updateMenu(void)
     }
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::updateWindowTitle(void)
-{
-}
-
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::relaunch(void)
+void App::relaunch(void)
 {
     string commandLine = m_project.makeCommandLine(kProjectConfigAll);
     TCHAR moduleName[MAX_PATH];
@@ -279,7 +276,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::relaunch(void)
     }
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::writeDebugLog(const char *log)
+void App::writeDebugLog(const char *log)
 {
     if (!m_writeDebugLogFile) return;
 
@@ -289,92 +286,18 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::writeDebugLog(const char *log)
 }
 
 // menu callback
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onFileOpenProject(void)
-{
-    ProjectConfig project;
-    if (!m_project.isWelcome())
-    {
-        project = m_project;
-    }
-    if (ProjectConfigDialog::showModal(m_hwnd, &project))
-    {
-        m_project = project;
-        relaunch();
-    }
-}
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onFileCreateProjectShortcut(void)
-{
-    WCHAR shortcutPathBuff[MAX_PATH + 1] = {0};
-
-    OPENFILENAME ofn = {0};
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner   = m_hwnd;
-    ofn.lpstrFilter = L"Shortcut (*.lnk)\0*.lnk\0";
-    ofn.lpstrTitle  = L"Create Project Shortcut";
-    ofn.Flags       = OFN_DONTADDTORECENT | OFN_ENABLESIZING | OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
-    ofn.lpstrFile   = shortcutPathBuff;
-    ofn.nMaxFile    = MAX_PATH;
-
-    if (!GetSaveFileName(&ofn)) return;
-
-    // Get a pointer to the IShellLink interface. It is assumed that CoInitialize
-    // has already been called.
-    IShellLink* psl;
-    HRESULT hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
-
-    if (SUCCEEDED(hres))
-    {
-        IPersistFile* ppf;
-
-        // args
-        string args = m_project.makeCommandLine();
-
-        // Set the path to the shortcut target and add the description.
-        psl->SetPath(__wargv[0]);
-        wstring wargs;
-        wargs.assign(args.begin(), args.end());
-        psl->SetArguments(wargs.c_str());
-        psl->SetDescription(L"__PROJECT_PACKAGE_LAST_NAME_UF__Player");
-
-        // Query IShellLink for the IPersistFile interface, used for saving the
-        // shortcut in persistent storage.
-        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf);
-
-        if (SUCCEEDED(hres))
-        {
-            // Save the link by calling IPersistFile::Save.
-            size_t len = wcslen(shortcutPathBuff);
-            if (_wcsicmp(shortcutPathBuff + len - 4, L".lnk") != 0)
-            {
-                wcscat_s(shortcutPathBuff, L".lnk");
-            }
-            hres = ppf->Save(shortcutPathBuff, TRUE);
-            ppf->Release();
-        }
-        psl->Release();
-    }
-}
-
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onFileProjectConfig(void)
-{
-    if (ProjectConfigDialog::showModal(m_hwnd, &m_project, "Change Project Config", "Relaunch"))
-    {
-        relaunch();
-    }
-}
-
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onFileRelaunch(void)
+void App::onFileRelaunch(void)
 {
     relaunch();
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onFileExit(void)
+void App::onFileExit(void)
 {
     DestroyWindow(m_hwnd);
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onViewChangeFrameSize(int viewMenuID)
+void App::onViewChangeFrameSize(int viewMenuID)
 {
     int index = viewMenuID - ID_VIEW_SIZE;
 
@@ -396,7 +319,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onViewChangeFrameSize(int viewMenuI
     }
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onViewChangeOrientation(int viewMenuID)
+void App::onViewChangeOrientation(int viewMenuID)
 {
     bool isLandscape = m_project.isLandscapeFrame();
     bool isNeedRelaunch = false;
@@ -414,7 +337,7 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onViewChangeOrientation(int viewMen
     if (isNeedRelaunch) relaunch();
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onViewChangeZoom(int scaleMode)
+void App::onViewChangeZoom(int scaleMode)
 {
     float scale = 1.0f;
     if (scaleMode == ID_VIEW_ZOOM_OUT)
@@ -429,16 +352,11 @@ void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onViewChangeZoom(int scaleMode)
     updateMenu();
 }
 
-void __PROJECT_PACKAGE_LAST_NAME_UF__Player::onHelpAbout(void)
-{
-    DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_ABOUTBOX), m_hwnd, AboutDialogCallback);
-}
-
 // windows callback
-LRESULT __PROJECT_PACKAGE_LAST_NAME_UF__Player::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
+LRESULT App::WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL* pProcessed)
 {
     int wmId, wmEvent;
-    __PROJECT_PACKAGE_LAST_NAME_UF__Player *host = __PROJECT_PACKAGE_LAST_NAME_UF__Player::sharedInstance();
+    App *host = App::sharedInstance();
     HWND hwnd = host->getWindowHandle();
 
     switch (message)
@@ -449,18 +367,6 @@ LRESULT __PROJECT_PACKAGE_LAST_NAME_UF__Player::WindowProc(UINT message, WPARAM 
 
         switch (wmId)
         {
-        case ID_FILE_OPEN_PROJECT:
-            host->onFileOpenProject();
-            break;
-
-        case ID_FILE_CREATE_PROJECT_SHORTCUT:
-            host->onFileCreateProjectShortcut();
-            break;
-
-        case ID_FILE_PROJECT_CONFIG:
-            host->onFileProjectConfig();
-            break;
-
         case ID_FILE_RELAUNCH:
             host->onFileRelaunch();
             break;
@@ -477,10 +383,6 @@ LRESULT __PROJECT_PACKAGE_LAST_NAME_UF__Player::WindowProc(UINT message, WPARAM 
         case ID_VIEW_RESET_ZOOM:
         case ID_VIEW_ZOOM_OUT:
             host->onViewChangeZoom(wmId);
-            break;
-
-        case ID_HELP_ABOUT:
-            host->onHelpAbout();
             break;
 
         default:
@@ -518,23 +420,4 @@ LRESULT __PROJECT_PACKAGE_LAST_NAME_UF__Player::WindowProc(UINT message, WPARAM 
 
     *pProcessed = TRUE;
     return 0;
-}
-
-INT_PTR CALLBACK __PROJECT_PACKAGE_LAST_NAME_UF__Player::AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }

@@ -12,16 +12,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>win32</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectConfigDialog.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\sources\AppDelegate.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\sources\SimulatorConfig.cpp">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="__PROJECT_PACKAGE_LAST_NAME_L__.cpp">
+    <ClCompile Include="app.cpp">
       <Filter>win32</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,16 +29,10 @@
     <ClInclude Include="targetver.h">
       <Filter>win32</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectConfigDialog.h">
-      <Filter>win32</Filter>
-    </ClInclude>
     <ClInclude Include="..\sources\AppDelegate.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\sources\SimulatorConfig.h">
-      <Filter>sources</Filter>
-    </ClInclude>
-    <ClInclude Include="__PROJECT_PACKAGE_LAST_NAME_L__.h">
+    <ClInclude Include="app.h">
       <Filter>win32</Filter>
     </ClInclude>
   </ItemGroup>
