@@ -189,6 +189,9 @@ $${ROOT}/lib/cocos2d-x/extensions/GUI/CCScrollView/*.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/network/WebSocket.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/proj.win32/Win32InputBox.cpp \
 $${ROOT}/lib/cocos2d-x/external/chipmunk/cocos2dx_support/*.cpp \
+$${ROOT}/lib/cocos2d-x/extensions/filters/filters/*.cpp \
+$${ROOT}/lib/cocos2d-x/extensions/filters/nodes/*.cpp \
+$${ROOT}/lib/cocos2d-x/extensions/filters/shaders/*.cpp \
 $${ROOT}/lib/cocos2d-x/external/chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp \
 #$${ROOT}/lib/cocos2d-x/external/chipmunk/src/chipmunk.c \
 #$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpConstraint.c \
