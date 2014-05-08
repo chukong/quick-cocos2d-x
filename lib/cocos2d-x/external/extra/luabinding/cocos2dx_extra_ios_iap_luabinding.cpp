@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_ios_iap_luabinding
-** Generated automatically by tolua++-1.0.92 on 04/14/14 12:34:38.
+** Generated automatically by tolua++-1.0.92 on Thu May  8 17:28:16 2014.
 */
 
 #include "cocos2dx_extra_ios_iap_luabinding.h"
@@ -21,7 +21,7 @@ static void tolua_reg_types (lua_State* tolua_S)
 {
  
  
- tolua_usertype(tolua_S,"CCStore"); toluafix_add_type_mapping(typeid(CCStore).hash_code(), "CCStore");
+ tolua_usertype(tolua_S,"CCStore"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCStore)), "CCStore");
 }
 
 /* method: sharedStore of class  CCStore */

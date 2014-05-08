@@ -1,18 +1,17 @@
 /*
 ** Lua binding: CZHelperFunc_luabinding
-** Generated automatically by tolua++-1.0.92 on 01/10/14 14:10:29.
+** Generated automatically by tolua++-1.0.92 on Thu May  8 17:28:16 2014.
 */
 
 #include "CZHelperFunc_luabinding.h"
 #include "CCLuaEngine.h"
-#include "apptools/HelperFunc.h"
-#include <typeinfo>
 
 using namespace cocos2d;
 
 
 
 
+#include "../apptools/HelperFunc.h"
 
 /* function to release collected object via destructor */
 #ifdef __cplusplus
@@ -24,7 +23,7 @@ using namespace cocos2d;
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"CZHelperFunc"); toluafix_add_type_mapping(typeid(CZHelperFunc).hash_code(), "CZHelperFunc");
+ tolua_usertype(tolua_S,"CZHelperFunc"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CZHelperFunc)), "CZHelperFunc");
  
 }
 
