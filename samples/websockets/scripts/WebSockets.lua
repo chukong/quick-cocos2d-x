@@ -36,7 +36,7 @@ function WebSockets:send(data, messageType)
     if messageType == WebSockets.TEXT_MESSAGE then
         self.socket:sendTextMsg(tostring(data))
     elseif messageType == WebSockets.BINARY_ARRAY_MESSAGE then
-        data = totable(data)
+        data = checktable(data)
         self.socket:sendBinaryMsg(data, table.nums(data))
     else
         self.socket:sendBinaryStringMsg(tostring(data))
