@@ -431,32 +431,9 @@ int CCLuaStack::loadChunksFromZIP(const char *zipFilePath)
     return ret;
 }
 
-void CCLuaStack::setXXTEAKeyAndSign()
-{
-#include "xxdefaultkey.h"
-    setXXTEAKeyAndSign(LUASTACK_XXTEA_KEY_Z, strlen(LUASTACK_XXTEA_KEY_Z),
-                       LUASTACK_XXTEA_SIGN_Z, strlen(LUASTACK_XXTEA_SIGN_Z));
-}
-
-void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen)
-{
-    setXXTEAKeyAndSign(key, keyLen, kCCLuaEncryptXXTEADefaultSign, kCCLuaEncryptXXTEADefaultSignLen);
-}
-
 void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen)
 {
-    if (m_xxteaKey)
-    {
-        free(m_xxteaKey);
-        m_xxteaKey = NULL;
-        m_xxteaKeyLen = 0;
-    }
-    if (m_xxteaSign)
-    {
-        free(m_xxteaSign);
-        m_xxteaSign = NULL;
-        m_xxteaSignLen = 0;
-    }
+    cleanupXXTEAKeyAndSign();
 
     if (key && keyLen && sign && signLen)
     {
@@ -474,6 +451,23 @@ void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen, const char *sig
     {
         m_xxteaEnabled = false;
     }
+}
+
+void CCLuaStack::cleanupXXTEAKeyAndSign(void)
+{
+    if (m_xxteaKey)
+    {
+        free(m_xxteaKey);
+        m_xxteaKey = NULL;
+        m_xxteaKeyLen = 0;
+    }
+    if (m_xxteaSign)
+    {
+        free(m_xxteaSign);
+        m_xxteaSign = NULL;
+        m_xxteaSignLen = 0;
+    }
+
 }
 
 bool CCLuaStack::handleAssert(const char *msg)
@@ -865,9 +859,8 @@ USING_NS_CC;
 
 static map<unsigned int, char*> hash_type_mapping;
 
-TOLUA_API void toluafix_add_type_mapping(const size_t type, const char *clsName)
+TOLUA_API void toluafix_add_type_mapping(unsigned int type, const char *clsName)
 {
-
     if (hash_type_mapping.find(type) == hash_type_mapping.end())
     {
         hash_type_mapping[type] = strdup(clsName);

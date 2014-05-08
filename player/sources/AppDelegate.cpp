@@ -109,7 +109,6 @@ void StartupCall::startup()
 {
     CCLuaEngine *pEngine = CCLuaEngine::defaultEngine();
     CCLuaStack *pStack = pEngine->getLuaStack();
-	pStack->setXXTEAKeyAndSign();
 
     ProjectConfig &projectConfig = m_app->m_projectConfig;
 

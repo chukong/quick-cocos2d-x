@@ -43,9 +43,6 @@ class CCLuaStack;
 typedef std::map<lua_State*, CCLuaStack*> CCLuaStackMap;
 typedef CCLuaStackMap::iterator CCLuaStackMapIterator;
 
-#define kCCLuaEncryptXXTEADefaultSign       "XXTEA"
-#define kCCLuaEncryptXXTEADefaultSignLen    5
-
 #define kCCLuaDebuggerNone      0
 #define kCCLuaDebuggerLDT       1
 #define kCCLuaDebuggerGlobalKey "DEBUG_DISABLE_QUICK_LUA_LOADER"
@@ -139,9 +136,8 @@ public:
 
     virtual int loadChunksFromZIP(const char *zipFilePath);
 
-    virtual void setXXTEAKeyAndSign(const char *key, int keyLen);
     virtual void setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen);
-    virtual void setXXTEAKeyAndSign();
+    virtual void cleanupXXTEAKeyAndSign(void);
     virtual bool handleAssert(const char *msg);
 
 protected:
