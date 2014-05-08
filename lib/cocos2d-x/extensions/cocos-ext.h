@@ -66,5 +66,6 @@
 #include "CocoStudio/Reader/SceneReader.h"
 
 #include "CocoStudio/Action/ActionManager.h"
+#include "CocoStudio/Action/CCActionNode.h"
 
 #endif /* __COCOS2D_EXT_H__ */
