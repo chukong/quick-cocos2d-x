@@ -329,224 +329,79 @@ static int tolua_collect_Slider (lua_State* tolua_S)
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"UILayoutParameter");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UILayoutParameter)), "UILayoutParameter");
-
- tolua_usertype(tolua_S,"ListView");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ListView)), "ListView");
-
- tolua_usertype(tolua_S,"PageView");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(PageView)), "PageView");
-
- tolua_usertype(tolua_S,"CCComController");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComController)), "CCComController");
-
- tolua_usertype(tolua_S,"CheckBox");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CheckBox)), "CheckBox");
-
- tolua_usertype(tolua_S,"CCArmatureData");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmatureData)), "CCArmatureData");
-
- tolua_usertype(tolua_S,"ccColor3B");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccColor3B)), "ccColor3B");
-
- tolua_usertype(tolua_S,"RichElementCustomNode");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElementCustomNode)), "RichElementCustomNode");
-
- tolua_usertype(tolua_S,"LayoutParameter");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LayoutParameter)), "LayoutParameter");
-
- tolua_usertype(tolua_S,"LabelBMFont");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LabelBMFont)), "LabelBMFont");
-
- tolua_usertype(tolua_S,"CCComAudio");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComAudio)), "CCComAudio");
-
- tolua_usertype(tolua_S,"CCTextureAtlas");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTextureAtlas)), "CCTextureAtlas");
-
- tolua_usertype(tolua_S,"CCAnimationData");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAnimationData)), "CCAnimationData");
-
- tolua_usertype(tolua_S,"Button");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Button)), "Button");
-
- tolua_usertype(tolua_S,"LinearLayoutParameter");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LinearLayoutParameter)), "LinearLayoutParameter");
-
- tolua_usertype(tolua_S,"CCAffineTransform");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAffineTransform)), "CCAffineTransform");
-
- tolua_usertype(tolua_S,"ccBlendFunc");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccBlendFunc)), "ccBlendFunc");
-
- tolua_usertype(tolua_S,"CCComRender");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComRender)), "CCComRender");
-
- tolua_usertype(tolua_S,"LoadingBar");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LoadingBar)), "LoadingBar");
-
- tolua_usertype(tolua_S,"CCComponent");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComponent)), "CCComponent");
-
- tolua_usertype(tolua_S,"CCSprite");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSprite)), "CCSprite");
-
- tolua_usertype(tolua_S,"CCMovementBoneData");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMovementBoneData)), "CCMovementBoneData");
-
- tolua_usertype(tolua_S,"CCBatchNode");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBatchNode)), "CCBatchNode");
-
- tolua_usertype(tolua_S,"Widget");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Widget)), "Widget");
-
- tolua_usertype(tolua_S,"CCPoint");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPoint)), "CCPoint");
-
- tolua_usertype(tolua_S,"CCLayer");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLayer)), "CCLayer");
-
- tolua_usertype(tolua_S,"Label");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Label)), "Label");
-
- tolua_usertype(tolua_S,"UIRelativeLayoutParameter");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIRelativeLayoutParameter)), "UIRelativeLayoutParameter");
-
- tolua_usertype(tolua_S,"ActionObject");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ActionObject)), "ActionObject");
-
- tolua_usertype(tolua_S,"CCDictionary");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDictionary)), "CCDictionary");
-
- tolua_usertype(tolua_S,"CCNode");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCNode)), "CCNode");
-
- tolua_usertype(tolua_S,"ImageView");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ImageView)), "ImageView");
-
- tolua_usertype(tolua_S,"CCBlendProtocol");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBlendProtocol)), "CCBlendProtocol");
-
- tolua_usertype(tolua_S,"CCTween");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTween)), "CCTween");
-
- tolua_usertype(tolua_S,"CCBaseData");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBaseData)), "CCBaseData");
-
- tolua_usertype(tolua_S,"RichText");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichText)), "RichText");
-
- tolua_usertype(tolua_S,"CCArmatureDataManager");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmatureDataManager)), "CCArmatureDataManager");
-
- tolua_usertype(tolua_S,"RichElementImage");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElementImage)), "RichElementImage");
-
- tolua_usertype(tolua_S,"RichElementText");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElementText)), "RichElementText");
-
- tolua_usertype(tolua_S,"CCObject");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCObject)), "CCObject");
-
- tolua_usertype(tolua_S,"ScrollView");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ScrollView)), "ScrollView");
-
- tolua_usertype(tolua_S,"DisplayType");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(DisplayType)), "DisplayType");
-
- tolua_usertype(tolua_S,"UIRelativeAlign");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIRelativeAlign)), "UIRelativeAlign");
-
- tolua_usertype(tolua_S,"SceneReader");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(SceneReader)), "SceneReader");
-
- tolua_usertype(tolua_S,"ActionManager");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ActionManager)), "ActionManager");
-
- tolua_usertype(tolua_S,"GUIReader");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(GUIReader)), "GUIReader");
-
- tolua_usertype(tolua_S,"ActionNode");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ActionNode)), "ActionNode");
-
- tolua_usertype(tolua_S,"CCComAttribute");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComAttribute)), "CCComAttribute");
-
- tolua_usertype(tolua_S,"CCTexture2D");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTexture2D)), "CCTexture2D");
-
- tolua_usertype(tolua_S,"CCTouch");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTouch)), "CCTouch");
-
- tolua_usertype(tolua_S,"TextField");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(TextField)), "TextField");
-
- tolua_usertype(tolua_S,"Layout");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Layout)), "Layout");
-
- tolua_usertype(tolua_S,"CCSize");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSize)), "CCSize");
-
- tolua_usertype(tolua_S,"LabelAtlas");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LabelAtlas)), "LabelAtlas");
-
- tolua_usertype(tolua_S,"CCBone");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBone)), "CCBone");
-
- tolua_usertype(tolua_S,"CCSkin");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSkin)), "CCSkin");
-
- tolua_usertype(tolua_S,"CCArmature");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmature)), "CCArmature");
-
- tolua_usertype(tolua_S,"CCArray");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArray)), "CCArray");
-
- tolua_usertype(tolua_S,"ccColor4B");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccColor4B)), "ccColor4B");
-
- tolua_usertype(tolua_S,"CCNode");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCNode)), "CCNode");
-
+ tolua_usertype(tolua_S,"UILayoutParameter"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UILayoutParameter)), "UILayoutParameter");
+ tolua_usertype(tolua_S,"ListView"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ListView)), "ListView");
+ tolua_usertype(tolua_S,"PageView"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(PageView)), "PageView");
+ tolua_usertype(tolua_S,"CCComController"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComController)), "CCComController");
+ tolua_usertype(tolua_S,"CheckBox"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CheckBox)), "CheckBox");
+ tolua_usertype(tolua_S,"CCArmatureData"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmatureData)), "CCArmatureData");
+ tolua_usertype(tolua_S,"ccColor3B"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccColor3B)), "ccColor3B");
+ tolua_usertype(tolua_S,"RichElementCustomNode"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElementCustomNode)), "RichElementCustomNode");
+ tolua_usertype(tolua_S,"LayoutParameter"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LayoutParameter)), "LayoutParameter");
+ tolua_usertype(tolua_S,"LabelBMFont"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LabelBMFont)), "LabelBMFont");
+ tolua_usertype(tolua_S,"CCComAudio"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComAudio)), "CCComAudio");
+ tolua_usertype(tolua_S,"CCTextureAtlas"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTextureAtlas)), "CCTextureAtlas");
+ tolua_usertype(tolua_S,"CCAnimationData"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAnimationData)), "CCAnimationData");
+ tolua_usertype(tolua_S,"Button"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Button)), "Button");
+ tolua_usertype(tolua_S,"LinearLayoutParameter"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LinearLayoutParameter)), "LinearLayoutParameter");
+ tolua_usertype(tolua_S,"CCAffineTransform"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCAffineTransform)), "CCAffineTransform");
+ tolua_usertype(tolua_S,"ccBlendFunc"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccBlendFunc)), "ccBlendFunc");
+ tolua_usertype(tolua_S,"CCComRender"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComRender)), "CCComRender");
+ tolua_usertype(tolua_S,"LoadingBar"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LoadingBar)), "LoadingBar");
+ tolua_usertype(tolua_S,"CCComponent"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComponent)), "CCComponent");
+ tolua_usertype(tolua_S,"CCSprite"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSprite)), "CCSprite");
+ tolua_usertype(tolua_S,"CCMovementBoneData"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCMovementBoneData)), "CCMovementBoneData");
+ tolua_usertype(tolua_S,"CCBatchNode"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBatchNode)), "CCBatchNode");
+ tolua_usertype(tolua_S,"Widget"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Widget)), "Widget");
+ tolua_usertype(tolua_S,"CCPoint"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPoint)), "CCPoint");
+ tolua_usertype(tolua_S,"CCLayer"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCLayer)), "CCLayer");
+ tolua_usertype(tolua_S,"Label"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Label)), "Label");
+ tolua_usertype(tolua_S,"UIRelativeLayoutParameter"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIRelativeLayoutParameter)), "UIRelativeLayoutParameter");
+ tolua_usertype(tolua_S,"ActionObject"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ActionObject)), "ActionObject");
+ tolua_usertype(tolua_S,"CCDictionary"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDictionary)), "CCDictionary");
+ tolua_usertype(tolua_S,"CCNode"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCNode)), "CCNode");
+ tolua_usertype(tolua_S,"ImageView"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ImageView)), "ImageView");
+ tolua_usertype(tolua_S,"CCBlendProtocol"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBlendProtocol)), "CCBlendProtocol");
+ tolua_usertype(tolua_S,"CCTween"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTween)), "CCTween");
+ tolua_usertype(tolua_S,"CCBaseData"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBaseData)), "CCBaseData");
+ tolua_usertype(tolua_S,"RichText"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichText)), "RichText");
+ tolua_usertype(tolua_S,"CCArmatureDataManager"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmatureDataManager)), "CCArmatureDataManager");
+ tolua_usertype(tolua_S,"RichElementImage"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElementImage)), "RichElementImage");
+ tolua_usertype(tolua_S,"RichElementText"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElementText)), "RichElementText");
+ tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCObject)), "CCObject");
+ tolua_usertype(tolua_S,"ScrollView"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ScrollView)), "ScrollView");
+ tolua_usertype(tolua_S,"DisplayType"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(DisplayType)), "DisplayType");
+ tolua_usertype(tolua_S,"UIRelativeAlign"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIRelativeAlign)), "UIRelativeAlign");
+ tolua_usertype(tolua_S,"SceneReader"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(SceneReader)), "SceneReader");
+ tolua_usertype(tolua_S,"ActionManager"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ActionManager)), "ActionManager");
+ tolua_usertype(tolua_S,"GUIReader"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(GUIReader)), "GUIReader");
+ tolua_usertype(tolua_S,"ActionNode"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ActionNode)), "ActionNode");
+ tolua_usertype(tolua_S,"CCComAttribute"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCComAttribute)), "CCComAttribute");
+ tolua_usertype(tolua_S,"CCTexture2D"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTexture2D)), "CCTexture2D");
+ tolua_usertype(tolua_S,"CCTouch"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTouch)), "CCTouch");
+ tolua_usertype(tolua_S,"TextField"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(TextField)), "TextField");
+ tolua_usertype(tolua_S,"Layout"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Layout)), "Layout");
+ tolua_usertype(tolua_S,"CCSize"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSize)), "CCSize");
+ tolua_usertype(tolua_S,"LabelAtlas"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(LabelAtlas)), "LabelAtlas");
+ tolua_usertype(tolua_S,"CCBone"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBone)), "CCBone");
+ tolua_usertype(tolua_S,"CCSkin"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCSkin)), "CCSkin");
+ tolua_usertype(tolua_S,"CCArmature"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmature)), "CCArmature");
+ tolua_usertype(tolua_S,"CCArray"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArray)), "CCArray");
+ tolua_usertype(tolua_S,"ccColor4B"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccColor4B)), "ccColor4B");
+ tolua_usertype(tolua_S,"CCNode"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCNode)), "CCNode");
  tolua_usertype(tolua_S,"rapidjson::Value");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(rapidjson::Value)), "rapidjson::Value");
-
- tolua_usertype(tolua_S,"CCArmatureAnimation");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmatureAnimation)), "CCArmatureAnimation");
-
- tolua_usertype(tolua_S,"CCEvent");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEvent)), "CCEvent");
-
- tolua_usertype(tolua_S,"CCProcessBase");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCProcessBase)), "CCProcessBase");
-
- tolua_usertype(tolua_S,"CCRect");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCRect)), "CCRect");
-
- tolua_usertype(tolua_S,"UIHelper");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIHelper)), "UIHelper");
-
- tolua_usertype(tolua_S,"UIScrollInterface");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIScrollInterface)), "UIScrollInterface");
-
- tolua_usertype(tolua_S,"RichElement");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElement)), "RichElement");
-
- tolua_usertype(tolua_S,"TouchGroup");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(TouchGroup)), "TouchGroup");
-
- tolua_usertype(tolua_S,"CCDisplayData");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDisplayData)), "CCDisplayData");
-
- tolua_usertype(tolua_S,"CCInputDelegate");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCInputDelegate)), "CCInputDelegate");
-
- tolua_usertype(tolua_S,"CCDisplayManager");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDisplayManager)), "CCDisplayManager");
-
- tolua_usertype(tolua_S,"Slider");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Slider)), "Slider");
+ tolua_usertype(tolua_S,"CCArmatureAnimation"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArmatureAnimation)), "CCArmatureAnimation");
+ tolua_usertype(tolua_S,"CCEvent"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEvent)), "CCEvent");
+ tolua_usertype(tolua_S,"CCProcessBase"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCProcessBase)), "CCProcessBase");
+ tolua_usertype(tolua_S,"CCRect"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCRect)), "CCRect");
+ tolua_usertype(tolua_S,"UIHelper"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIHelper)), "UIHelper");
+ tolua_usertype(tolua_S,"UIScrollInterface"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(UIScrollInterface)), "UIScrollInterface");
+ tolua_usertype(tolua_S,"RichElement"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(RichElement)), "RichElement");
+ tolua_usertype(tolua_S,"TouchGroup"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(TouchGroup)), "TouchGroup");
+ tolua_usertype(tolua_S,"CCDisplayData"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDisplayData)), "CCDisplayData");
+ tolua_usertype(tolua_S,"CCInputDelegate"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCInputDelegate)), "CCInputDelegate");
+ tolua_usertype(tolua_S,"CCDisplayManager"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDisplayManager)), "CCDisplayManager");
+ tolua_usertype(tolua_S,"Slider"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(Slider)), "Slider");
 }
 
 /* method: create of class  CCArmature */
