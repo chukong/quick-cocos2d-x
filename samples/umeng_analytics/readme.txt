@@ -45,6 +45,9 @@ LOCAL_LDLIBS := $(LOCAL_PATH)/../libs/cocos2dx2_libMobClickCpp.a
 MobClickCpp::initJniForCocos2dx2((void*)vm,
         "此处填写上一步修改的activity的名字 如org/cocos2d_x/samples/umeng_analytics/Umeng_analytics");
 
+2.2.4
+修改游戏中主activity，见样例中的Umeng_analytics
+
 3.android,ios都有
 在
 AppDelegate::applicationDidFinishLaunching
