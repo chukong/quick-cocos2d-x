@@ -37,7 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F44C957215F49004004D4151 /* helloworld-player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "helloworld-player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44C957215F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "__PROJECT_PACKAGE_LAST_NAME_L__.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44C957615F49004004D4151 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F44C957915F49004004D4151 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		F44C957A15F49004004D4151 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -172,7 +172,7 @@
 /* Begin PBXNativeTarget section */
 		F44C957115F49004004D4151 /* __PROJECT_PACKAGE_LAST_NAME_L__ */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "__PROJECT_PACKAGE_LAST_NAME_L__-player" */;
+			buildConfigurationList = F44C959015F49004004D4151 /* Build configuration list for PBXNativeTarget "__PROJECT_PACKAGE_LAST_NAME_L__" */;
 			buildPhases = (
 				F44C956E15F49004004D4151 /* Sources */,
 				F44C956F15F49004004D4151 /* Frameworks */,

@@ -22,32 +22,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "EAGLView.h"
+@class RootViewController;
 
-#include <string>
-#include "ProjectConfig/SimulatorConfig.h"
-#include "AppDelegate.h"
+#define kOpenGameImmediately    0
+#define kOpenGameWaitForAlert   1
+#define kOpenGameExit           2
 
-@interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>
-{
-    NSWindow *window;
-    EAGLView *glView;
-    NSMenu *menu;
+@interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate, UIApplicationDelegate, UIAlertViewDelegate> {
+    UIWindow *window;
+    @public RootViewController *viewController;
 
-    BOOL isAlwaysOnTop;
-
-    AppDelegate *app;
-    ProjectConfig projectConfig;
+    int openGame;
+    int appUpdateCheckResult;
 }
 
-@property (nonatomic, assign) IBOutlet NSMenu* menu;
-
-- (IBAction) onFileRelaunch:(id)sender;
-
-- (IBAction) onScreenPortait:(id)sender;
-- (IBAction) onScreenLandscape:(id)sender;
-- (IBAction) onScreenZoomOut:(id)sender;
-
-- (IBAction) onWindowAlwaysOnTop:(id)sender;
-
 @end
+

@@ -3,7 +3,7 @@ local Component = class("Component")
 
 function Component:ctor(name, depends)
     self.name_ = name
-    self.depends_ = totable(depends)
+    self.depends_ = checktable(depends)
 end
 
 function Component:getName()

@@ -34,7 +34,7 @@ end
 function AppBase:enterScene(sceneName, args, transitionType, time, more)
     local scenePackageName = self. packageRoot .. ".scenes." .. sceneName
     local sceneClass = require(scenePackageName)
-    local scene = sceneClass.new(unpack(totable(args)))
+    local scene = sceneClass.new(unpack(checktable(args)))
     display.replaceScene(scene, transitionType, time, more)
 end
 

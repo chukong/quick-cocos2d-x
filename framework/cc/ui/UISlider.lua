@@ -39,7 +39,7 @@ function UISlider:ctor(direction, images, options)
     makeUIControl_(self)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
 
-    options = totable(options)
+    options = checktable(options)
     self.direction_ = direction
     self.isHorizontal_ = direction == display.LEFT_TO_RIGHT or direction == display.RIGHT_TO_LEFT
     self.images_ = clone(images)

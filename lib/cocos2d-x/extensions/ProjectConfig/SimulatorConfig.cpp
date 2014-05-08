@@ -270,6 +270,14 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
             if (it == args.end()) break;
             setPackagePath(*it);
         }
+        else if (arg.compare("-landscape") == 0)
+        {
+            setFrameSize(CCSize(DEFAULT_HEIGHT, DEFAULT_WIDTH));
+        }
+        else if (arg.compare("-portrait") == 0)
+        {
+            setFrameSize(CCSize(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+        }
         else if (arg.compare("-size") == 0)
         {
             ++it;

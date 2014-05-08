@@ -54,6 +54,9 @@ public:
         normalize();
     }
 
+    static const int DEFAULT_WIDTH = 640;
+    static const int DEFAULT_HEIGHT = 960;
+
 	bool isWelcome(void);
     void resetToWelcome(void);
 

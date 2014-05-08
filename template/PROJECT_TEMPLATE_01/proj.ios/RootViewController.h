@@ -1,5 +1,6 @@
 /****************************************************************************
- Copyright (c) 2010 cocos2d-x.org
+ Copyright (c) 2010-2011 cocos2d-x.org
+ Copyright (c) 2010      Ricardo Quesada
 
  http://www.cocos2d-x.org
 
@@ -22,32 +23,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "EAGLView.h"
+#import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
 
-#include <string>
-#include "ProjectConfig/SimulatorConfig.h"
-#include "AppDelegate.h"
+@interface RootViewController : UIViewController <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
 
-@interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>
-{
-    NSWindow *window;
-    EAGLView *glView;
-    NSMenu *menu;
-
-    BOOL isAlwaysOnTop;
-
-    AppDelegate *app;
-    ProjectConfig projectConfig;
-}
-
-@property (nonatomic, assign) IBOutlet NSMenu* menu;
-
-- (IBAction) onFileRelaunch:(id)sender;
-
-- (IBAction) onScreenPortait:(id)sender;
-- (IBAction) onScreenLandscape:(id)sender;
-- (IBAction) onScreenZoomOut:(id)sender;
-
-- (IBAction) onWindowAlwaysOnTop:(id)sender;
+- (BOOL) prefersStatusBarHidden;
 
 @end
