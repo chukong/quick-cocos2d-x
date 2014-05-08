@@ -94,11 +94,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     #warning 改为真实的应用ID，第二参数为渠道号(可选)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     //ios版的应用id
-    #warning 当前编译的是ios版
     MobClickCpp::startWithAppkey("5369de0b56240b5363019991");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     //android版的应用id
-    #warning 当前编译的是android版
     MobClickCpp::startWithAppkey("536b184d56240bb2cd02adbf");
 #endif
 

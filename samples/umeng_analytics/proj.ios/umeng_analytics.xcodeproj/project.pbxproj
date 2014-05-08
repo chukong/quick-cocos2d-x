@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4964093F191B751B003D0411 /* libMobClickCppWithLibCpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ECFD2D191A1397009149AD /* libMobClickCppWithLibCpp.a */; };
 		4965129C191B0FF800473695 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 49ECFD31191A13E6009149AD /* libz.dylib */; };
 		496512A3191B5BF700473695 /* MobClickCppForLua_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4965129F191B5BF700473695 /* MobClickCppForLua_luabinding.cpp */; };
 		496512A4191B5BF700473695 /* MobClickCppForLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 496512A1191B5BF700473695 /* MobClickCppForLua.cpp */; };
@@ -103,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4964093F191B751B003D0411 /* libMobClickCppWithLibCpp.a in Frameworks */,
 				4965129C191B0FF800473695 /* libz.dylib in Frameworks */,
 				F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */,
 				F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */,
