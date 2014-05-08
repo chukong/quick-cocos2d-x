@@ -25,3 +25,8 @@ lib/cocos2d-x/cocos2dx/platform/android/java/gen
 */*/proj.android/obj/
 */*/proj.android/assets/
 */*/proj.android/libs/
+
+player/build-*-Debug/
+player/proj.qt/*.pro.user
+lib/debug/*
+lib/proj.qt/Makefile.libquickqt
