@@ -105,6 +105,7 @@ Player::~Player()
     CC_SAFE_DELETE(m_mainMenu);
     CC_SAFE_DELETE(m_consoleUI);
     CC_SAFE_DELETE(m_demoWidget);
+    CC_SAFE_DELETE(m_projectConfigUI);
 }
 
 Player *Player::instance()
