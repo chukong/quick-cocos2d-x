@@ -26,6 +26,17 @@ int main(int argc, char *argv[])
         SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(quickCocos2dxRoot.toLocal8Bit().constData());
     }
 
+    // recent files
+    CCLuaValueArray recentArray;
+    QVariantList recents = settings.value(kOpenRecentFiles).toList();
+    Q_FOREACH(QVariant recentItem, recents)
+    {
+        QVariantMap item = recentItem.toMap();
+        QString title = item.value(kRecentItemTitle).toString();
+        recentArray.push_back(CCLuaValue::stringValue(title.toUtf8().constData()));
+    }
+    app.setOpenRecents(recentArray);
+
     ProjectConfig projectConfig;
     // parse argv
     std::vector<std::string> args;

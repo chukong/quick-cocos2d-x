@@ -2,17 +2,19 @@
 require("framework.init") -- for cjson
 
 local simpleList = {
-    {id="demo1_id", text="<b>One Demo</b> <br/> <img src=:/QuickIcon.png</img>"},
-    {id="demo2_id", text="<b>Two Demo</b> <br/> <img src=:/QuickIcon.png</img>"},
+    {id="demo1_id", text="<b>One Demo</b> <br/> <img src=:/QuickIcon.png</img>", args=""},
+    {id="demo2_id", text="<b>Two Demo</b> <br/> <img src=:/QuickIcon.png</img>", args=""},
 }
 
-function getDemoData()
-    -- body
-    local demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=:/fQuickIcon.png</img>"}
-                  , {id="demo2", text="<b>Two Demo</b> <br/> <img src=:/QuickIcon.png</img>"}}
+-- string.split()
 
-    QT_INTERFACE("core.addDemoList", json.encode(demoDataList))
+function lua_string_split(s, p)
+    local rt= {}
+    string.gsub(s, '[^'..p..']+', function(w) table.insert(rt, w) end )
+    return rt
 end
+  
+-- helper
 
 -- @return -p @packageName -f -r portrait -o @projectPath
 function GET_CREATE_PROJECT_COMMAND_ARGS( projectPath, packageName, isPortrait )
@@ -26,24 +28,50 @@ function GET_QUICK_SIMPLES()
     return json.encode(simpleList)
 end
 
-function openDemo( demoId )
+-- core
+
+local core = {}
+function core.openDemo( demoId )
     QT_INTERFACE("core.openProject")
 end
 
+function core.login( data )
+    user = json.decode(data)
+    print(user.user..user.pwd)
+end
+
+function core.positionNofity(name)
+    local notificationCenter = CCNotificationCenter:sharedNotificationCenter()
+    notificationCenter:postNotification(name)
+end
+
+
+-- player : register submodule
+
+local PLAYER = {core=core}
+
+-- interface for player
+
 function LUA_Interface(messageId, messageData)
-    -- print("messageId: ", messageId, "data : ", messageData)
-    if messageId == "core.openDemo" then
-        openDemo(messageData)
+    local messageList = lua_string_split(messageId, ".")
+    local messageSize = #messageList;
+
+    if messageSize == 1 then
+        PLAYER[messageId](messageData)
+    else
+        local object = PLAYER[messageList[1]]
+        for i=2, messageSize-1 do
+            object = object[messageList[i]]
+            i=i+1
+        end
+        local functionName = messageList[messageSize]
+
+        object[functionName](messageData)
     end
+
 end
 
-function PlayerLoginCallback(userName, password)
-    print("Get username: ", userName, " passworld: ", password)
-    -- return true, ""
-    -- return false, "user name or password is invalid"
-    return true, "user name or password is error"
-end
-
+-- init 
 function __QT_INIT()
     local notificationCenter = CCNotificationCenter:sharedNotificationCenter()
     notificationCenter:registerScriptObserver(nil, function() QT_INTERFACE("core.newProject") end, "WELCOME_NEW_PROJECT")
