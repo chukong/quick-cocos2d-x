@@ -58,7 +58,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Project package name: (etc: com.mycomp.games.mygame)</string>
+        <string>Project package name: (etc: com.quick2dx.samples.hello)</string>
        </property>
       </widget>
      </item>
@@ -130,7 +130,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QTextEdit" name="cmdLog">
+      <widget class="QTextBrowser" name="cmdLog">
        <property name="minimumSize">
         <size>
          <width>0</width>
