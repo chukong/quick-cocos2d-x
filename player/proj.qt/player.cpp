@@ -32,10 +32,8 @@
 
 #define kPortrait               1
 #define kLandscape              2
-#define kOpenRecentFiles        "recents"
 #define kDefaultMaxRecents      "maxfiles"
 #define kDefaultMaxRecentValue  5
-#define kRecentItemTitle        "title"
 #define kRecentItemArgs         "args"
 #define MODULE_NAME_SEPARATOR   "."
 #define MODULE_NAME_CORE        "core"

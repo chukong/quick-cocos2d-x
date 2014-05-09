@@ -7,9 +7,11 @@
 #include "FastDelegate.h"
 #include "msghandlerwapper.h"
 
-#define RESTART_ARGS "restart_args"
-#define APP_EXIT_CODE 'q'
+#define RESTART_ARGS            "restart_args"
+#define APP_EXIT_CODE           'q'
 #define ENV_KEY_QUICK_ROOT_PATH "QUICK_COCOS2DX_ROOT"
+#define kOpenRecentFiles        "recents"
+#define kRecentItemTitle        "title"
 
 class QTextBrowser;
 class ConsoleUI;
