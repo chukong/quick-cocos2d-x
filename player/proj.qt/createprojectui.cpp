@@ -5,7 +5,6 @@
 #include <QMessageBox>
 #include "ProjectConfig/SimulatorConfig.h"
 #include "player.h"
-#include <QtDebug>
 
 CreateProjectUI::CreateProjectUI(QWidget *parent) :
     QDialog(parent),
@@ -90,6 +89,5 @@ void CreateProjectUI::accept()
     else
     {
         this->createNewProject();
-//        QDialog::accept();
     }
 }
