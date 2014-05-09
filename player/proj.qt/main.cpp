@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
     player->initConsole();
 
     // set quick root path from env
-    qApp->setOrganizationDomain("apps.qeeplay.com");
-    qApp->setApplicationName("quick-x-player-qt");
+    qApp->setOrganizationDomain("com.cocoachina.quick");
+    qApp->setApplicationName("quick-cocos2d-x player");
     QSettings settings;
     QString quickCocos2dxRoot = settings.value(ENV_KEY_QUICK_ROOT_PATH).toString();
     if (!quickCocos2dxRoot.isEmpty())
