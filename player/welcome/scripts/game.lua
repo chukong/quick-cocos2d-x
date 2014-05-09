@@ -11,20 +11,11 @@ function game.startup()
     game.openWelcome()
 end
 
-function settings()
-    demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
-                      , {id="demo2", text="<b>Two Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}}
-    settings = {demoList = demoDataList}
-    QT_INTERFACE("core.settings", json.encode(settings))
-end
-
 function game.exit()
     os.exit()
 end
 
 function game.openWelcome()
-	settings()
-
     local WelcomeScene = require("scenes.WelcomeScene")
     display.replaceScene(WelcomeScene.new())
 end

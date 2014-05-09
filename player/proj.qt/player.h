@@ -127,7 +127,7 @@ protected:
 
     QKeySequence convertKeyEventToKeySequence(QKeyEvent *e);
 
-    void readSettings(QString data);
+    QVariantList getSimplesData();
 
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
