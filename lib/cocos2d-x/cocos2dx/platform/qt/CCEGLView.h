@@ -27,7 +27,12 @@ THE SOFTWARE.
 
 #include <QMouseEvent>
 #include <QWidget>
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#define USING_QWINDOW 1
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+#define USING_QWINDOW 0
+#endif
+
+#if USING_QWINDOW == 1
 #include <QWindow>
 #endif
 
@@ -68,7 +73,11 @@ public:
     void mouseRelease(QMouseEvent *event);
     void setAccelerometerKeyHook(MyAccelerometerDelegate accelerometerDelegate);
     QWidget * getGLWidget();
-    QWindow * getIntegrationWindow();
+#if	USING_QWINDOW == 1
+    QWindow* getIntegrationWindow();
+#else
+	QWidget* getIntegrationWindow();
+#endif
     void setInterval(int interval_ms);
 
 private:
