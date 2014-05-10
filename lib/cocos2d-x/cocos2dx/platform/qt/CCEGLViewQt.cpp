@@ -37,8 +37,7 @@ THE SOFTWARE.
 /// Qt
 #include <QApplication>
 #include <QDesktopWidget>
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-#define USING_QWINDOW 1
+#if	USING_QWINDOW == 1
 #include <QOpenGLContext>
 #include <QWindow>
 #endif
@@ -810,7 +809,11 @@ QWidget *CCEGLView::getGLWidget()
     return m_glParentWidget;
 }
 
+#if	USING_QWINDOW == 1
 QWindow *CCEGLView::getIntegrationWindow()
+#else
+QWidget *CCEGLView::getIntegrationWindow()
+#endif
 {
     return m_integration;
 }
