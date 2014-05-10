@@ -65,7 +65,7 @@ local function onEdit(event, editbox)
         -- 从输入框返回
     end
 end
- 
+
 local editbox = ui.newEditBox({
     image = "EditBox.png",
     listener = onEdit,
@@ -80,7 +80,7 @@ local editbox = ui.newEditBox({
 
 注意：事件触发机制，player模拟器上与真机不同，请使用真机实测(不同ios版本貌似也略有不同)。
 
-注意：changed事件中，需要条件性使用setText（如trim或转化大小写等），否则在某些ios版本中会造成死循环。 
+注意：changed事件中，需要条件性使用setText（如trim或转化大小写等），否则在某些ios版本中会造成死循环。
 
 ~~~ lua
 
@@ -176,13 +176,13 @@ end
 local function onButtonClicked(tag)
     -- 按钮被按下
 end
- 
+
 local item = ui.newImageMenuItem({
     image = "Button.png",
     imageSelected = "ButtonSelected.png",
     listener = onButtonClicked
 })
- 
+
 -- 创建菜单并加入场景，否则菜单项不会工作
 local menu = ui.newMenu({item})
 scene:addChild(menu)
@@ -232,7 +232,7 @@ end
 
 --[[--
 
-创建一个文字标签菜单项，并返回 CCMenuItemLabel 对象。 
+创建一个文字标签菜单项，并返回 CCMenuItemLabel 对象。
 
 可用参数：
 
@@ -241,7 +241,7 @@ end
 -   x, y: 坐标（可选）
 -   sound: 按钮按下时播放什么音效（可选）
 
-以及所有可以用于 ui.newTTFLabel() 的参数。 
+以及所有可以用于 ui.newTTFLabel() 的参数。
 
 @param table 参数表格对象
 
@@ -278,9 +278,9 @@ end
 
 --[[--
 
-用位图字体创建文本显示对象，并返回 CCLabelBMFont 对象。 
+用位图字体创建文本显示对象，并返回 CCLabelBMFont 对象。
 
-BMFont 通常用于显示英文内容，因为英文字母加数字和常用符号也不多，生成的 BMFont 文件较小。如果是中文，应该用 TTFLabel。 
+BMFont 通常用于显示英文内容，因为英文字母加数字和常用符号也不多，生成的 BMFont 文件较小。如果是中文，应该用 TTFLabel。
 
 可用参数：
 
@@ -334,7 +334,7 @@ end
 
 --[[--
 
-使用 TTF 字体创建文字显示对象，并返回 CCLabelTTF 对象。 
+使用 TTF 字体创建文字显示对象，并返回 CCLabelTTF 对象。
 
 可用参数：
 
@@ -365,7 +365,7 @@ local label = ui.newTTFLabel({
     size = 64,
     align = ui.TEXT_ALIGN_CENTER -- 文字内部居中对齐
 })
- 
+
 -- 左对齐，并且多行文字顶部对齐
 local label = ui.newTTFLabel({
     text = "Hello, World\n您好，世界",

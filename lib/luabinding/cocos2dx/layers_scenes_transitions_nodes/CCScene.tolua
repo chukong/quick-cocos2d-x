@@ -39,7 +39,7 @@ additional logic.
 
 It is a good practice to use and CCScene as the parent of all your nodes.
 */
-class CCScene : public CCNode
+class CCScene : public CCLayer
 {
     static CCScene *create(void);
 };

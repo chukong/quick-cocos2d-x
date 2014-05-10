@@ -26,19 +26,18 @@ THE SOFTWARE.
  * @addtogroup platform
  * @{
  */
+typedef enum
+{
+    kFmtJpg = 0,
+    kFmtPng,
+    kFmtTiff,
+    kFmtWebp,
+    kFmtRawData,
+    kFmtUnKnown
+} EImageFormat;
 
 class CCImage : public CCObject
 {
-    typedef enum
-    {
-        kFmtJpg = 0,
-        kFmtPng,
-        kFmtTiff,
-        kFmtWebp,
-        kFmtRawData,
-        kFmtUnKnown
-    } EImageFormat;
-
     CCImage();
     ~CCImage();
 

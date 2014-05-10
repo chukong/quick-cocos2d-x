@@ -2,7 +2,6 @@
 $#include "LuaCocos2d.h"
 
 $pfile "cocos2dx/include/ccTypes.tolua"
-$pfile "cocos2dx/kazmath/kazmath.tolua"
 
 $pfile "cocos2dx/cocoa/CCObject.tolua"
 $pfile "cocos2dx/cocoa/CCString.tolua"
@@ -75,7 +74,6 @@ $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXLayer.tolua"
 $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXObjectGroup.tolua"
 $pfile "cocos2dx/tilemap_parallax_nodes/CCTMXTiledMap.tolua"
 
-$pfile "cocos2dx/draw_nodes/CCDrawingPrimitives.tolua"
 $pfile "cocos2dx/draw_nodes/CCShapeNode.tolua"
 $pfile "cocos2dx/draw_nodes/CCDrawNode.tolua"
 
@@ -102,4 +100,3 @@ $pfile "cocos2dx/menu_nodes/CCMenuItem.tolua"
 $pfile "cocos2dx/CCDirector.tolua"
 $pfile "cocos2dx/CCScheduler.tolua"
 $pfile "cocos2dx/CCConfiguration.tolua"
-$pfile "cocos2dx/CCDisplayLinkDirector.tolua"

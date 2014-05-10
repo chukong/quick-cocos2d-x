@@ -39,6 +39,16 @@ class CCFreeTypeFont;
  * @{
  */
 
+typedef enum
+{
+    kFmtJpg = 0,
+    kFmtPng,
+    kFmtTiff,
+    kFmtWebp,
+    kFmtRawData,
+    kFmtUnKnown
+}EImageFormat;
+
 class CC_DLL CCImage : public CCObject
 {
 public:
@@ -51,16 +61,6 @@ public:
      * @lua NA
      */
     ~CCImage();
-
-    typedef enum
-    {
-        kFmtJpg = 0,
-        kFmtPng,
-        kFmtTiff,
-        kFmtWebp,
-        kFmtRawData,
-        kFmtUnKnown
-    }EImageFormat;
 
     typedef enum
     {

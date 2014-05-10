@@ -29,10 +29,11 @@ using namespace cocos2d;
 #define kProjectConfigWriteDebugLogToFile       512
 #define kProjectConfigWindowOffset              1024
 #define kProjectConfigDebugger                  2048
+#define kProjectConfigExitWhenRelaunch          4096
 
 #define kProjectConfigOpenRecent (kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile)
 
-#define kProjectConfigAll (kProjectConfigQuickRootPath | kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset | kProjectConfigDebugger)
+#define kProjectConfigAll (kProjectConfigQuickRootPath | kProjectConfigProjectDir | kProjectConfigScriptFile | kProjectConfigPackagePath | kProjectConfigWritablePath | kProjectConfigFrameSize | kProjectConfigFrameScale | kProjectConfigShowConsole | kProjectConfigLoadPrecompiledFramework | kProjectConfigWriteDebugLogToFile | kProjectConfigWindowOffset | kProjectConfigDebugger | kProjectConfigExitWhenRelaunch)
 
 
 class ProjectConfig
@@ -50,6 +51,7 @@ public:
     , m_writeDebugLogToFile(true)
     , m_windowOffset(0, 0)
     , m_debuggerType(kCCLuaDebuggerNone)
+    , m_exitWhenRelaunch(false)
     {
         normalize();
     }
@@ -103,6 +105,9 @@ public:
     int getDebuggerType(void);
     void setDebuggerType(int debuggerType);
 
+    bool isExitWhenRelaunch(void);
+    void setExitWhenRelaunch(bool isExitWhenRelaunch);
+
     void parseCommandLine(vector<string>& args);
     const string makeCommandLine(unsigned int mask = kProjectConfigAll);
 
@@ -123,6 +128,7 @@ private:
     bool    m_restartProcess;
     CCPoint	m_windowOffset;
     int     m_debuggerType;
+    bool    m_exitWhenRelaunch;
 
     void normalize(void);
     const string replaceProjectDirToMacro(const string& path);

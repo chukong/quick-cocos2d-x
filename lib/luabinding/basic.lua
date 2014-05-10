@@ -59,7 +59,6 @@ local CCObjectTypes = {
     "CCDictionary",
     "CCDirector",
     "CCDisplayData",
-    "CCDisplayLinkDirector",
     "CCDouble",
     "CCDrawNode",
     "CCEaseBackIn",

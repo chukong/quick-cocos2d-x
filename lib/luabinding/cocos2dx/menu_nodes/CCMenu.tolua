@@ -30,12 +30,6 @@ THE SOFTWARE.
  * @{
  */
 
-typedef enum
-{
-    kCCMenuStateWaiting,
-    kCCMenuStateTrackingTouch
-} tCCMenuState;
-
 /** @brief A CCMenu
 *
 * Features and Limitation:

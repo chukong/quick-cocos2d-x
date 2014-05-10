@@ -4,6 +4,15 @@ DEBUG = 2
 DEBUG_FPS = true
 DEBUG_MEM = false
 
+-- auto encapsulation C++ object
+AUTO_CC = false
+
+-- auto binding short methods when encapsulation C++ object
+AUTO_CC_SHORTCODES = true
+
+-- load deprecated API
+LOAD_DEPRECATED_API = false
+
 -- screen orientation
 CONFIG_SCREEN_ORIENTATION = "__SCREEN_ORIENTATION_L__"
 

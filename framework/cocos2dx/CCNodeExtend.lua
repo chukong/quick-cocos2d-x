@@ -80,6 +80,8 @@ function CCNodeExtend:onCleanup()
 end
 
 function CCNodeExtend:setNodeEventEnabled(enabled, handler)
+    PRINT_DEPRECATED("CCNodeExtend:setNodeEventEnabled() is deprecated, please use cc(node):addEventListener()")
+
     if enabled then
         if not handler then
             handler = function(event)

@@ -625,16 +625,16 @@ bool CCRenderTexture::saveToFile(const char *szFilePath)
     CCImage *pImage = newCCImage(true);
     if (pImage)
     {
-        bRet = pImage->saveToFile(szFilePath, kCCImageFormatJPEG);
+        bRet = pImage->saveToFile(szFilePath, kFmtJpg);
     }
 
     CC_SAFE_DELETE(pImage);
     return bRet;
 }
-bool CCRenderTexture::saveToFile(const char *fileName, tCCImageFormat format)
+bool CCRenderTexture::saveToFile(const char *fileName, EImageFormat format)
 {
     bool bRet = false;
-    CCAssert(format == kCCImageFormatJPEG || format == kCCImageFormatPNG,
+    CCAssert(format == kFmtJpg || format == kFmtPng,
              "the image can only be saved as JPG or PNG format");
 
     CCImage *pImage = newCCImage(true);
@@ -699,11 +699,11 @@ CCImage* CCRenderTexture::newCCImage(bool flipImage)
                        nSavedBufferWidth * 4);
             }
 
-            pImage->initWithImageData(pBuffer, nSavedBufferWidth * nSavedBufferHeight * 4, CCImage::kFmtRawData, nSavedBufferWidth, nSavedBufferHeight, 8);
+            pImage->initWithImageData(pBuffer, nSavedBufferWidth * nSavedBufferHeight * 4, kFmtRawData, nSavedBufferWidth, nSavedBufferHeight, 8);
         }
         else
         {
-            pImage->initWithImageData(pTempData, nSavedBufferWidth * nSavedBufferHeight * 4, CCImage::kFmtRawData, nSavedBufferWidth, nSavedBufferHeight, 8);
+            pImage->initWithImageData(pTempData, nSavedBufferWidth * nSavedBufferHeight * 4, kFmtRawData, nSavedBufferWidth, nSavedBufferHeight, 8);
         }
         
     } while (0);

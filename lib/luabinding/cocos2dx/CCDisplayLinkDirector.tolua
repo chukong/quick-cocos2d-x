@@ -1,3 +1,0 @@
-class CCDisplayLinkDirector : public CCDirector
-{
-};

@@ -232,6 +232,16 @@ void ProjectConfig::setDebuggerType(int debuggerType)
     m_debuggerType = debuggerType;
 }
 
+bool ProjectConfig::isExitWhenRelaunch(void)
+{
+    return m_exitWhenRelaunch;
+}
+
+void ProjectConfig::setExitWhenRelaunch(bool isExitWhenRelaunch)
+{
+    m_exitWhenRelaunch = isExitWhenRelaunch;
+}
+
 void ProjectConfig::parseCommandLine(vector<string>& args)
 {
     vector<string>::iterator it = args.begin();
@@ -341,6 +351,14 @@ void ProjectConfig::parseCommandLine(vector<string>& args)
         else if (arg.compare("-disable-debugger") == 0)
         {
             setDebuggerType(kCCLuaDebuggerNone);
+        }
+        else if (arg.compare("-relaunch-off") == 0)
+        {
+            setExitWhenRelaunch(true);
+        }
+        else if (arg.compare("-relaunch-on") == 0)
+        {
+            setExitWhenRelaunch(false);
         }
 
         ++it;
