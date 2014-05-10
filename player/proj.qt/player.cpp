@@ -32,17 +32,15 @@
 
 #define kPortrait               1
 #define kLandscape              2
-#define kOpenRecentFiles        "recents"
 #define kDefaultMaxRecents      "maxfiles"
 #define kDefaultMaxRecentValue  5
-#define kRecentItemTitle        "title"
 #define kRecentItemArgs         "args"
 #define MODULE_NAME_SEPARATOR   "."
 #define MODULE_NAME_CORE        "core"
 #define MENU_BAR_FIXED_HEIGHT   25
 
 #define EDITOR_CALL_LUA         "LUA_Interface"
-#define SETTINGS_DEMO_LIST      "demoList"
+#define SETTINGS_DEMO_LIST      "simples"
 
 #ifdef Q_OS_WIN
 static const QString shortcutFileTemplate("%1/%2 %3\n");
@@ -90,6 +88,7 @@ Player::Player(QObject *parent)
     , m_mainMenu(0)
     , m_openRecentMenu(0)
     , m_consoleUI(0)
+    , m_projectConfigUI(0)
     , m_demoWidget(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
@@ -104,6 +103,7 @@ Player::~Player()
     CC_SAFE_DELETE(m_mainMenu);
     CC_SAFE_DELETE(m_consoleUI);
     CC_SAFE_DELETE(m_demoWidget);
+    CC_SAFE_DELETE(m_projectConfigUI);
 }
 
 Player *Player::instance()
@@ -152,15 +152,6 @@ int Player::openQuickDemoWithWebView(lua_State * /*L*/)
     return 0;
 }
 
-int Player::newProject(lua_State * /*L*/)
-{
-    CreateProjectUI ui(0);
-    if (ui.exec() == QDialog::Accepted) {
-        ui.createNewProject();
-    }
-    return 0;
-}
-
 /**
  * @brief Player::onOpenProject
  * save the recent menu order and restart the player with args
@@ -168,10 +159,22 @@ int Player::newProject(lua_State * /*L*/)
 void Player::onOpenProject()
 {
     ProjectConfig config = Player::instance()->getProjectConfig();
-    ProjectConfigUI ui(config, 0);
-    if (ui.exec() == QDialog::Accepted)
+
+    if (!m_projectConfigUI)
     {
-        config = ui.getProjectConfig();
+        m_projectConfigUI = new ProjectConfigUI(config, 0);
+        m_projectConfigUI->setModal(true);
+        connect(m_projectConfigUI, SIGNAL(accepted()), this, SLOT(doOpenProject()));
+    }
+
+    m_projectConfigUI->show();
+}
+
+void Player::doOpenProject()
+{
+   if (m_projectConfigUI)
+   {
+        ProjectConfig config = m_projectConfigUI->getProjectConfig();
 
         // save recent menu order
 
@@ -193,7 +196,7 @@ void Player::onOpenProject()
 
         // restart the player
         Player::instance()->restartWithProjectConfig(config);
-    }
+   }
 }
 
 int Player::openProject(lua_State * /*L*/)
@@ -315,11 +318,6 @@ void Player::onMemoryWarning()
 void Player::registerAllCpp()
 {
     lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    lua_register(L, "openURL", &Player::openURL);
-    lua_register(L, "openQuickDemoWithWebView", &Player::openQuickDemoWithWebView);
-    lua_register(L, "newProject", &Player::newProject);
-    lua_register(L, "openProject", &Player::openProject);
-    lua_register(L, "showLoginUI", &Player::showLoginUI);
     lua_register(L, "QT_INTERFACE", &Player::sendMessage);
 }
 
@@ -383,6 +381,7 @@ void Player::initMainMenu()
     QMenu *playerMenu = m_mainMenu->addMenu(QObject::tr("&Player"));
     m_writeDebugAction = playerMenu->addAction(QObject::tr("Write Debug Log to File"));
     m_writeDebugAction->setCheckable(true);
+    m_writeDebugAction->setChecked(m_projectConfig.isWriteDebugLogToFile());
     connect(m_writeDebugAction, SIGNAL(triggered(bool)), this, SLOT(onWriteDebugLog(bool)));
 
 
@@ -754,9 +753,15 @@ QKeySequence Player::convertKeyEventToKeySequence(QKeyEvent *e)
     return QKeySequence(keyInt);
 }
 
-void Player::readSettings(QString data)
+QVariantList Player::getSimplesData()
 {
-    m_settings = QxTools::stringToVariant(data).toMap();
+    // lua logic
+    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
+    lua_getglobal(L, "GET_QUICK_SIMPLES");
+    lua_pcall(L, 0, 1, 0);
+    QString argString(lua_tostring(L, -1));
+
+    return QxTools::stringToVariant(argString).toList();
 }
 
 void Player::eventDispatch(QString messageName, QString data)
@@ -790,10 +795,6 @@ void Player::eventDispatch(QString messageName, QString data)
             else if (tmpMsgName == "addDemoList")
             {
                 this->onAddDemoList(data);
-            }
-            else if (tmpMsgName == "settings")
-            {
-                readSettings(data);
             }
             else
             {
@@ -913,7 +914,8 @@ void Player::onOpenQuickDemoWebview()
         m_demoWidget->installEventFilter(this);
         connect(m_demoWidget, SIGNAL(sigOpenDemo(QString)), this, SLOT(onOpenDemo(QString)));
 
-        m_demoWidget->addDemos(m_settings[SETTINGS_DEMO_LIST].toList());
+        m_demoWidget->addDemos(getSimplesData());
+//        m_demoWidget->addDemos(m_settings[SETTINGS_DEMO_LIST].toList());
     }
 
     m_demoWidget->raise();
@@ -991,7 +993,10 @@ void Player::restartWithProjectConfig(ProjectConfig &config)
 
 void Player::onNewProject()
 {
-    this->newProject(0);
+    CreateProjectUI *ui = new CreateProjectUI();
+    ui->setAttribute(Qt::WA_DeleteOnClose);
+    ui->setModal(true);
+    ui->show();
 }
 
 void Player::onCreateNewPlayer()
@@ -1005,7 +1010,7 @@ void Player::onCreateNewPlayer()
     QStringList args = cmd.split(" ");
 
 #ifdef Q_OS_MAC
-    QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+    QProcess::startDetached(qApp->applicationFilePath(), args);
 #else
     QProcess::startDetached(qApp->applicationFilePath(), args);
 #endif
@@ -1158,7 +1163,7 @@ void Player::onLogin(QString userName, QString password)
     data["user"] = userName;
     data["pwd"] = password;
 
-    sendMessageToLua("core.message", QxTools::variantToString(data));
+    sendMessageToLua("core.login", QxTools::variantToString(data));
 }
 
 void Player::sendMessageToLua(QString eventId, QString eventData)

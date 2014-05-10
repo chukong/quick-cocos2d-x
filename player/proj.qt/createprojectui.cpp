@@ -5,7 +5,6 @@
 #include <QMessageBox>
 #include "ProjectConfig/SimulatorConfig.h"
 #include "player.h"
-#include <QtDebug>
 
 CreateProjectUI::CreateProjectUI(QWidget *parent) :
     QDialog(parent),
@@ -64,6 +63,7 @@ void CreateProjectUI::createNewProject()
     QStringList args = Player::instance()->getCreateProjectCommandArgs(ui->projectPath->text(),
                                                                        ui->packageName->text(),
                                                                        ui->portait->isChecked());
+    QString commandLine = shell + " " + args.join(" ");
     createProject.start(shell, args);
     if (!createProject.waitForFinished())
     {
@@ -72,6 +72,7 @@ void CreateProjectUI::createNewProject()
                                    QMessageBox::Ok);
     }
     ui->cmdLog->setText( createProject.readAll() );
+    ui->cmdLog->append(commandLine);
     QTextCursor c =  ui->cmdLog->textCursor();
     c.movePosition(QTextCursor::End);
     ui->cmdLog->setTextCursor(c);
@@ -88,6 +89,5 @@ void CreateProjectUI::accept()
     else
     {
         this->createNewProject();
-//        QDialog::accept();
     }
 }

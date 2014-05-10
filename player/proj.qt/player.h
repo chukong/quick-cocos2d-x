@@ -7,12 +7,15 @@
 #include "FastDelegate.h"
 #include "msghandlerwapper.h"
 
-#define RESTART_ARGS "restart_args"
-#define APP_EXIT_CODE 'q'
+#define RESTART_ARGS            "restart_args"
+#define APP_EXIT_CODE           'q'
 #define ENV_KEY_QUICK_ROOT_PATH "QUICK_COCOS2DX_ROOT"
+#define kOpenRecentFiles        "recents"
+#define kRecentItemTitle        "title"
 
 class QTextBrowser;
 class ConsoleUI;
+class ProjectConfigUI;
 class Player : public QObject
 {
     Q_OBJECT
@@ -28,7 +31,6 @@ public:
     static void registerAllCpp();
     static int openURL(lua_State *L);        /* path: 使用系统默认的方式打开 */
     static int openQuickDemoWithWebView(lua_State *L);
-    static int newProject(lua_State *L);
     static int openProject(lua_State *L);
     static int showLoginUI(lua_State *L);
     /**
@@ -76,6 +78,7 @@ public Q_SLOTS:
     void restartWithProjectConfig(ProjectConfig &config);
     void onNewProject();
     void onOpenProject();
+    void doOpenProject();
     void onCreateNewPlayer();
     void onClose();
     void onShowWelcome();
@@ -127,7 +130,7 @@ protected:
 
     QKeySequence convertKeyEventToKeySequence(QKeyEvent *e);
 
-    void readSettings(QString data);
+    QVariantList getSimplesData();
 
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
@@ -159,6 +162,7 @@ private:
     QAction         *m_writeDebugAction;
 
     ConsoleUI       *m_consoleUI;
+    ProjectConfigUI *m_projectConfigUI;
     QuickDemoList   *m_demoWidget;
     QMap<QKeySequence, QAction*> m_actionMap;
 #ifdef Q_OS_WIN

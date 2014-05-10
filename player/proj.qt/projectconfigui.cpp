@@ -33,6 +33,7 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
     ui->writablePath->setText(projectConfig.getWritablePath().data());
 
     int i = 0;
+    int currentIndex = -1;
     for (; i < SimulatorConfig::sharedDefaults()->getScreenSizeCount(); i++)
     {
         const SimulatorScreenSize &screenSize = SimulatorConfig::sharedDefaults()->getScreenSize(i);
@@ -42,12 +43,12 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
         if ((screenSize.width == size.width && screenSize.height == size.height)
             ||(screenSize.width == size.height && screenSize.height == size.width))
         {
-            break;
+            currentIndex = i;
         }
     }
 
     ui->screenSizeComboBox->addItem(tr("Customized Size"));
-    ui->screenSizeComboBox->setCurrentIndex(i);
+    ui->screenSizeComboBox->setCurrentIndex(currentIndex == -1 ? i : currentIndex);
 
     if (projectConfig.isLandscapeFrame())
         ui->landscapeCheckBox->setChecked(true);
@@ -66,6 +67,19 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
 ProjectConfig ProjectConfigUI::getProjectConfig()
 {
     return m_projectConfig;
+}
+
+void ProjectConfigUI::accept()
+{
+    QString errorString;
+    if (!isAllDataOK(errorString))
+    {
+        QMessageBox::warning(0, "error", errorString);
+    }
+    else
+    {
+        QDialog::accept();
+    }
 }
 
 void ProjectConfigUI::on_projectDirButton_clicked()
@@ -230,4 +244,36 @@ void ProjectConfigUI::reconnectUISignal()
 
     connect(ui->screenWidth, SIGNAL(textChanged(QString)), this, SLOT(on_screenWidth_textChanged(QString)));
     connect(ui->screenHeight, SIGNAL(textChanged(QString)), this, SLOT(on_screenHeight_textChanged(QString)));
+}
+
+bool ProjectConfigUI::isAllDataOK(QString &errorString)
+{
+    //
+    QDir projectDir(ui->projectDir->text());
+    if (!projectDir.exists())
+    {
+        errorString += "Project Directory: \n" + projectDir.absolutePath() + " does not exists.\n\n";
+    }
+
+    QString writablePath = ui->writablePath->text();
+    writablePath = writablePath.replace("$PROJDIR", ui->projectDir->text());
+    QFileInfo writablePathInfo(writablePath);
+    if (!writablePathInfo.exists())
+    {
+        errorString += "Writable Path: \n" + writablePathInfo.filePath() + " does not exists.\n\n";
+    }
+    else if(!writablePathInfo.isWritable())
+    {
+        errorString += "Writable Path: \n" + writablePathInfo.filePath() + " is not writable.\n\n";
+    }
+
+    QString scriptFileName = ui->scriptFileName->text();
+    scriptFileName = scriptFileName.replace("$PROJDIR", ui->projectDir->text());
+    QFileInfo scriptFileInfo(scriptFileName);
+    if (!scriptFileInfo.exists())
+    {
+        errorString += "Lua file: \n" + scriptFileInfo.filePath() + " is not exists.\n\n";
+    }
+
+    return errorString.isEmpty();
 }

@@ -19,6 +19,8 @@ public:
     void setDataForUI(ProjectConfig& projectConfig);
 
     ProjectConfig getProjectConfig();
+
+    void accept();
 private Q_SLOTS:
     void on_projectDirButton_clicked();
 
@@ -45,6 +47,7 @@ private Q_SLOTS:
 private:
     void clearUIDataAndSignal();
     void reconnectUISignal();
+    bool isAllDataOK(QString &errorString);
 
 private:
     Ui::ProjectConfigUI *ui;
