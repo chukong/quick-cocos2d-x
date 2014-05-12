@@ -124,7 +124,6 @@ function ui.newEditBox(params)
     local editbox = CCEditBox:create(params.size, imageNormal, imagePressed, imageDisabled)
 
     if editbox then
-        CCNodeExtend.extend(editbox)
         editbox:addEditBoxEventListener(params.listener)
         if params.x and params.y then
             editbox:setPosition(params.x, params.y)
@@ -145,7 +144,7 @@ end
 ]]
 function ui.newMenu(items)
     local menu
-    menu = CCNodeExtend.extend(CCMenu:create())
+    menu = CCMenu:create()
 
     for k, item in pairs(items) do
         if not tolua.isnull(item) then
@@ -216,9 +215,8 @@ function ui.newImageMenuItem(params)
 
     local item = CCMenuItemSprite:create(imageNormal, imageSelected, imageDisabled)
     if item then
-        CCNodeExtend.extend(item)
         if type(listener) == "function" then
-            item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
+            item:addNodeEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
                 if sound then audio.playSound(sound) end
                 listener(tag)
             end)
@@ -262,9 +260,8 @@ function ui.newTTFLabelMenuItem(params)
 
     local item = CCMenuItemLabel:create(label)
     if item then
-        CCNodeExtend.extend(item)
         if type(listener) == "function" then
-            item:addScriptEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
+            item:addNodeEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
                 if sound then audio.playSound(sound) end
                 listener(tag)
             end)
@@ -316,7 +313,6 @@ function ui.newBMFontLabel(params)
     local label = CCLabelBMFont:create(text, font, kCCLabelAutomaticWidth, textAlign)
     if not label then return end
 
-    CCNodeExtend.extend(label)
     if type(x) == "number" and type(y) == "number" then
         label:setPosition(x, y)
     end
@@ -408,7 +404,6 @@ function ui.newTTFLabel(params)
     end
 
     if label then
-        CCNodeExtend.extend(label)
         label:setColor(color)
 
         function label:realign(x, y)

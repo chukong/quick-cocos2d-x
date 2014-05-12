@@ -22,10 +22,8 @@ THE SOFTWARE.
 
 ]]
 
---[[--
+PRINT_DEPRECATED("CCSceneExtend is deprecated, please use cc.SceneEx")
 
-
-]]
 CCSceneExtend = class("CCSceneExtend", CCNodeExtend)
 CCSceneExtend.__index = CCSceneExtend
 

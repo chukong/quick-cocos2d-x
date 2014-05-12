@@ -24,46 +24,17 @@ THE SOFTWARE.
 
 --[[--
 
-初始化 cc 扩展
-
-cc 扩展在 cocos2dx C++ API 和 quick 基本模块的基础上，提供了符合脚本风格的事件接口、组件架构等扩展。
+定义 cocos2dx 中的事件
 
 ]]
 
-local CURRENT_MODULE_NAME = ...
+local c = cc
 
--- init base classes
-cc.Registry   = import(".Registry")
-cc.GameObject = import(".GameObject")
-cc.EventProxy = import(".EventProxy")
-
--- init components
-local components = {
-    "components.behavior.StateMachine",
-    "components.behavior.EventProtocol",
-    "components.ui.BasicLayoutProtocol",
-    "components.ui.LayoutProtocol",
-}
-for _, packageName in ipairs(components) do
-    cc.Registry.add(import("." .. packageName, CURRENT_MODULE_NAME), packageName)
-end
-
--- load MVC
-cc.mvc = import(".mvc.init")
-
--- load more library
-cc.ui = import(".ui.init")
-
--- load extensions
-cc.ad = import(".ad.init").new()
-cc.push = import(".push.init").new()
-
--- cc = cc.GameObject.extend()
-local ccmt = {}
-ccmt.__call = function(self, target)
-    if target then
-        return cc.GameObject.extend(target)
-    end
-    printError("cc() - invalid target")
-end
-setmetatable(cc, ccmt)
+-- cocos2dx 引擎级事件
+c.NODE_EVENT                        = 0
+c.NODE_ENTER_FRAME_EVENT            = 1
+c.NODE_TOUCH_EVENT                  = 2
+c.NODE_TOUCH_CAPTURE_EVENT          = 3
+c.MENU_ITEM_CLICKED_EVENT           = 4
+c.ACCELERATE_EVENT                  = 5
+c.KEYPAD_EVENT                      = 6

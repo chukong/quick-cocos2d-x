@@ -102,19 +102,13 @@ elseif device.platform == "ios" then
     require(cc.PACKAGE_NAME .. ".platform.ios")
 end
 
-if not NO_EXTENSIONS then
-    require(cc.PACKAGE_NAME .. ".cc.init")
+require(cc.PACKAGE_NAME .. ".cc.init")
+
+if LOAD_DEPRECATED_API then
+    require(cc.PACKAGE_NAME .. ".deprecated")
 end
 
-if not NO_SHORTCODES then
-    require(cc.PACKAGE_NAME .. ".shortcodes")
-end
-
-if not NO_FILTER then
-	filter = require(cc.PACKAGE_NAME .. ".filter")
-end
-
-require(cc.PACKAGE_NAME .. ".deprecated")
+----
 
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
@@ -123,7 +117,7 @@ local function showMemoryUsage()
 end
 
 if DEBUG > 0 and DEBUG_FPS then
-    CCDirector:sharedDirector():setDisplayStats(true)
+    sharedDirector:setDisplayStats(true)
 end
 
 if DEBUG > 0 and DEBUG_MEM then
@@ -133,5 +127,5 @@ if DEBUG > 0 and DEBUG_MEM then
         sharedTextureCache:dumpCachedTextureInfo()
         printInfo("---------------------------------------------------")
     end
-    CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(showMemoryUsage, DEBUG_MEM_INTERVAL or 10.0, false)
+    sharedDirector:getScheduler():scheduleScriptFunc(showMemoryUsage, DEBUG_MEM_INTERVAL or 10.0, false)
 end

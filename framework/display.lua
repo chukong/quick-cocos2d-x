@@ -430,7 +430,7 @@ transition.moveBy(group, {time = 2.0, x = 100})
 
 ]]
 function display.newNode()
-    return CCNodeExtend.extend(CCNode:create())
+    return CCNode:create()
 end
 
 --[[--
@@ -463,7 +463,7 @@ scene:addChild(clipnode)
 
 ]]
 function display.newClippingRegionNode(rect)
-    return CCNodeExtend.extend(CCClippingRegionNode:create(rect))
+    return CCClippingRegionNode:create(rect)
 end
 
 --[[--
@@ -784,7 +784,7 @@ end
 
 ]]
 function display.newCircle(radius, params)
-    local circle = CCNodeExtend.extend(CCCircleShape:create(radius))
+    local circle = CCCircleShape:create(radius)
 	local x,y = 0,0
 	local align=display.CENTER
 	if params then
@@ -847,7 +847,7 @@ function display.newRect(width, height, params)
         end
     end
 
-    local rect = CCNodeExtend.extend(CCRectShape:create(CCSize(width, height)))
+    local rect = CCRectShape:create(CCSize(width, height))
 	local align=display.CENTER
 	if type(height) == "table" then params = hight end
 	if type(params) == "table" then
@@ -898,7 +898,7 @@ function display.newPolygon(points, scale)
         arr:add(p)
     end
 
-    return CCNodeExtend.extend(CCPolygonShape:create(arr))
+    return CCPolygonShape:create(arr)
 end
 
 --[[--
@@ -1087,7 +1087,7 @@ end
 
 ]]
 function display.newBatchNode(image, capacity)
-    return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
+    return CCSpriteBatchNode:create(image, capacity or 100)
 end
 
 --[[--
@@ -1256,7 +1256,7 @@ function display.newProgressTimer(image, progresssType)
         image = display.newSprite(image)
     end
 
-    local progress = CCNodeExtend.extend(CCProgressTimer:create(image))
+    local progress = CCProgressTimer:create(image)
     progress:setType(progresssType)
     return progress
 end

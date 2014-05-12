@@ -22,10 +22,8 @@ THE SOFTWARE.
 
 ]]
 
---[[--
+PRINT_DEPRECATED("CCSpriteExtend is deprecated, please use cc.SpriteEx")
 
-
-]]
 CCSpriteExtend = class("CCSpriteExtend", CCNodeExtend)
 CCSpriteExtend.__index = CCSpriteExtend
 

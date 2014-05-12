@@ -24,28 +24,20 @@ THE SOFTWARE.
 
 --[[--
 
+针对 cc.Node 的扩展
 
 ]]
-CCNodeExtend = class("CCNodeExtend")
-CCNodeExtend.__index = CCNodeExtend
 
-function CCNodeExtend.extend(target)
-    local t = tolua.getpeer(target)
-    if not t then
-        t = {}
-        tolua.setpeer(target, t)
-    end
-    setmetatable(t, CCNodeExtend)
-    return target
-end
+local c = cc
+local Node = c.Node
 
-function CCNodeExtend:align(anchorPoint, x, y)
+function Node:align(anchorPoint, x, y)
     self:setAnchorPoint(display.ANCHOR_POINTS[anchorPoint])
     if x and y then self:setPosition(x, y) end
     return self
 end
 
-function CCNodeExtend:schedule(callback, interval)
+function Node:schedule(callback, interval)
     local seq = transition.sequence({
         CCDelayTime:create(interval),
         CCCallFunc:create(callback),
@@ -55,7 +47,7 @@ function CCNodeExtend:schedule(callback, interval)
     return action
 end
 
-function CCNodeExtend:performWithDelay(callback, delay)
+function Node:performWithDelay(callback, delay)
     local action = transition.sequence({
         CCDelayTime:create(delay),
         CCCallFunc:create(callback),
@@ -64,43 +56,65 @@ function CCNodeExtend:performWithDelay(callback, delay)
     return action
 end
 
-function CCNodeExtend:onEnter()
+function Node:onEnter()
 end
 
-function CCNodeExtend:onExit()
+function Node:onExit()
 end
 
-function CCNodeExtend:onEnterTransitionFinish()
+function Node:onEnterTransitionFinish()
 end
 
-function CCNodeExtend:onExitTransitionStart()
+function Node:onExitTransitionStart()
 end
 
-function CCNodeExtend:onCleanup()
+function Node:onCleanup()
 end
 
-function CCNodeExtend:setNodeEventEnabled(enabled, handler)
-    PRINT_DEPRECATED("CCNodeExtend:setNodeEventEnabled() is deprecated, please use cc(node):addEventListener()")
-
+function Node:setNodeEventEnabled(enabled, listener)
+    local handle
     if enabled then
-        if not handler then
-            handler = function(event)
-                if event == "enter" then
+        if not listener then
+            listener = function(event)
+                local name = event.name
+                if name == "enter" then
                     self:onEnter()
-                elseif event == "exit" then
+                elseif name == "exit" then
                     self:onExit()
-                elseif event == "enterTransitionFinish" then
+                elseif name == "enterTransitionFinish" then
                     self:onEnterTransitionFinish()
-                elseif event == "exitTransitionStart" then
+                elseif name == "exitTransitionStart" then
                     self:onExitTransitionStart()
-                elseif event == "cleanup" then
+                elseif name == "cleanup" then
                     self:onCleanup()
                 end
             end
         end
-        self:addScriptEventListener(cc.NODE_EVENT, handler)
+        handle = self:addNodeEventListener(c.NODE_EVENT, listener)
     else
-        self:removeScriptEventListenersByEvent(cc.NODE_EVENT)
+        self:removeNodeEventListener(handle)
     end
     return self
+end
+
+function Node:removeScriptEventListenersByEvent(event)
+    PRINT_DEPRECATED("Node:removeScriptEventListenersByEvent() is deprecated, please use c.node):removeNodeEventListenersByEvent()")
+    self:removeNodeEventListenersByEvent(event)
+end
+
+function Node:registerScriptHandler(listener)
+    PRINT_DEPRECATED("Node:registerScriptHandler() is deprecated, please use Node:addNodeEventListener()")
+    return self:addNodeEventListener(c.NODE_EVENT, listener)
+end
+
+function Node:unregisterScriptHandler()
+    PRINT_DEPRECATED("Node:unregisterScriptHandler() is deprecated, please use Node:removeAllNodeEventListeners()")
+    return self:removeAllNodeEventListeners()
+end
+
+function Node:addTouchEventListener(handler)
+    PRINT_DEPRECATED("Node:addTouchEventListener() is deprecated, please use Node:addNodeEventListener()")
+    return self:addNodeEventListener(c.NODE_TOUCH_EVENT, function(event)
+        return handler(event.name, event.x, event.y, event.prevX, event.prevY)
+    end)
 end

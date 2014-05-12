@@ -24,31 +24,18 @@ THE SOFTWARE.
 
 --[[--
 
+OpenGL 相关定义
 
 ]]
 
-local Event = {}
-
-Event.ENTER_SCENE                 = "ENTER_SCENE"
-Event.EXIT_SCENE                  = "EXIT_SCENE"
-Event.ENTER_TRANSITION_DID_FINISH = "ENTER_TRANSITION_DID_FINISH"
-Event.EXIT_TRANSITION_DID_START   = "EXIT_TRANSITION_DID_START"
-Event.CLEANUP                     = "CLEANUP"
-
-Event.ENTER_FRAME                 = "ENTER_FRAME"
-
-Event.TOUCH_BEGAN                 = "TOUCH_BEGAN"
-Event.TOUCH_MOVED                 = "TOUCH_MOVED"
-Event.TOUCH_ENDED                 = "TOUCH_ENDED"
-Event.TOUCH_CANCELLED             = "TOUCH_CANCELLED"
-Event.TOUCH_CAPTURE_BEGAN         = "TOUCH_CAPTURE_BEGAN"
-Event.TOUCH_CAPTURE_MOVED         = "TOUCH_CAPTURE_MOVED"
-Event.TOUCH_CAPTURE_ENDED         = "TOUCH_CAPTURE_ENDED"
-Event.TOUCH_CAPTURE_CANCELLED     = "TOUCH_CAPTURE_CANCELLED"
-
-Event.MENU_ITEM_CLICKED           = "MENU_ITEM_CLICKED"
-
-Event.ACCELERATE                  = "ACCELERATE"
-Event.KEYPAD                      = "KEYPAD"
-
-return Event
+gl = gl or {}
+gl.GL_ZERO                = GL_ZERO
+gl.GL_ONE                 = GL_ONE
+gl.GL_SRC_COLOR           = GL_SRC_COLOR
+gl.GL_ONE_MINUS_SRC_COLOR = GL_ONE_MINUS_SRC_COLOR
+gl.GL_SRC_ALPHA           = GL_SRC_ALPHA
+gl.GL_ONE_MINUS_SRC_ALPHA = GL_ONE_MINUS_SRC_ALPHA
+gl.GL_DST_ALPHA           = GL_DST_ALPHA
+gl.GL_ONE_MINUS_DST_ALPHA = GL_ONE_MINUS_DST_ALPHA
+gl.GL_DST_COLOR           = GL_DST_COLOR
+gl.GL_ONE_MINUS_DST_COLOR = GL_ONE_MINUS_DST_COLOR

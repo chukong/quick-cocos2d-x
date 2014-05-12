@@ -78,7 +78,13 @@ printLog("WARN", "Network connection lost at %d", os.time())
 
 ]]
 function printLog(tag, fmt, ...)
-    print(string.format("[%s] %s", string.upper(tostring(tag)), string.format(tostring(fmt), ...)))
+    local t = {
+        "[",
+        string.upper(tostring(tag)),
+        "] ",
+        string.format(tostring(fmt), ...)
+    }
+    print(table.concat(t))
 end
 
 --[[--

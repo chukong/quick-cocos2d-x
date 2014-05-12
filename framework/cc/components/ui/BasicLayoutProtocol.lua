@@ -27,7 +27,7 @@ function BasicLayoutProtocol:setLayoutSize(width, height)
     else
         self.layoutSize_ = {width = checknumber(width), height = checknumber(height)}
     end
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:getLayoutMinSize()
@@ -37,7 +37,7 @@ end
 function BasicLayoutProtocol:setLayoutMinSize(width, height)
     self.minSize_.width = checknumber(width)
     self.minSize_.height = checknumber(height)
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:getLayoutMaxSize()
@@ -47,7 +47,7 @@ end
 function BasicLayoutProtocol:setLayoutMaxSize(width, height)
     self.maxSize_.width = checknumber(width)
     self.maxSize_.height = checknumber(height)
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:getLayoutSizePolicy()
@@ -66,7 +66,7 @@ end
 function BasicLayoutProtocol:setLayoutSizePolicy(horizontal, vertical)
     self.sizePolicy_.horizontal = checkSizePolicy(horizontal)
     self.sizePolicy_.vertical = checkSizePolicy(vertical)
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:getLayoutPadding()
@@ -78,7 +78,7 @@ function BasicLayoutProtocol:setLayoutPadding(top, right, bottom, left)
     self.padding_.right = checknumber(right)
     self.padding_.bottom = checknumber(bottom)
     self.padding_.left = checknumber(left)
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:getLayoutMargin()
@@ -90,7 +90,7 @@ function BasicLayoutProtocol:setLayoutMargin(top, right, bottom, left)
     self.margin_.right = checknumber(right)
     self.margin_.bottom = checknumber(bottom)
     self.margin_.left = checknumber(left)
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:exportMethods()
@@ -108,7 +108,7 @@ function BasicLayoutProtocol:exportMethods()
         "getLayoutMargin",
         "setLayoutMargin",
     })
-    return self
+    return self.target_
 end
 
 function BasicLayoutProtocol:onBind_()
