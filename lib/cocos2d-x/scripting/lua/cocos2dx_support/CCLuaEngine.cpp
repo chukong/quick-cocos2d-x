@@ -210,6 +210,44 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
     if (listeners.size() == 0) return 0;
 
+    lua_State *L = getLuaStack()->getLuaState();
+    lua_settop(L, 0);
+    lua_newtable(L);
+    switch (eventType)
+    {
+        case CCTOUCHBEGAN:
+            lua_pushliteral(L, "began");
+            break;
+
+        case CCTOUCHMOVED:
+            lua_pushliteral(L, "moved");
+            break;
+
+        case CCTOUCHENDED:
+            lua_pushliteral(L, "ended");
+            break;
+
+        case CCTOUCHCANCELLED:
+            lua_pushliteral(L, "cancelled");
+            break;
+
+        default:
+            lua_pop(L, 1);
+            return 0;
+    }
+    lua_setfield(L, -2, "name");
+
+    const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
+    lua_pushnumber(L, pt.x);
+    lua_setfield(L, -2, "x");
+    lua_pushnumber(L, pt.y);
+    lua_setfield(L, -2, "y");
+    const CCPoint prev = CCDirector::sharedDirector()->convertToGL(pTouch->getPreviousLocationInView());
+    lua_pushnumber(L, prev.x);
+    lua_setfield(L, -2, "prevX");
+    lua_pushnumber(L, prev.y);
+    lua_setfield(L, -2, "prevY");
+
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
@@ -222,48 +260,15 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
             continue;
         }
 
-        switch (eventType)
-        {
-            case CCTOUCHBEGAN:
-                m_stack->pushString("began");
-                break;
+        lua_pushvalue(L, -1);
+        int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
+        lua_settop(L, 1);
 
-            case CCTOUCHMOVED:
-                m_stack->pushString("moved");
-                break;
-
-            case CCTOUCHENDED:
-                m_stack->pushString("ended");
-                break;
-
-            case CCTOUCHCANCELLED:
-                m_stack->pushString("cancelled");
-                break;
-
-            default:
-                return 0;
-        }
-
-        const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
-        const CCPoint prev = CCDirector::sharedDirector()->convertToGL(pTouch->getPreviousLocationInView());
-        m_stack->pushFloat(pt.x);
-        m_stack->pushFloat(pt.y);
-        m_stack->pushFloat(prev.x);
-        m_stack->pushFloat(prev.y);
-        int ret = m_stack->executeFunctionByHandler((*it).listener, 5);
-        m_stack->clean();
-
-        if (ret == false)
+        if ((eventType == CCTOUCHBEGAN) && (ret == false))
         {
             // false = ignore
             (*it).enabled = false;
         }
-
-        if (ret == true)
-        {
-
-        }
-
     }
 
     return 1;

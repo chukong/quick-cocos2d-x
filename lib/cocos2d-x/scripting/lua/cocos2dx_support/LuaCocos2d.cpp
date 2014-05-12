@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Sun May 11 00:18:27 2014.
+** Generated automatically by tolua++-1.0.92 on Tue May 13 01:18:27 2014.
 */
 
 /****************************************************************************
@@ -7768,8 +7768,8 @@ static int tolua_Cocos2d_CCDouble_create00(lua_State* tolua_S)
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: addScriptEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_addNodeEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_addNodeEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -7801,15 +7801,15 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00(lua_St
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'addScriptEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'addNodeEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: removeScriptEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListener00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -7834,15 +7834,15 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListener00(lua
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeScriptEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeNodeEventListener'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: removeScriptEventListenersByEvent of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByEvent00
-static int tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByEvent00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByEvent00
+static int tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByEvent00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -7867,15 +7867,15 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByEve
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeScriptEventListenersByEvent'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeNodeEventListenersByEvent'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: removeScriptEventListenersByTag of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByTag00
-static int tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByTag00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByTag00
+static int tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByTag00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -7900,15 +7900,15 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByTag
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeScriptEventListenersByTag'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeNodeEventListenersByTag'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: removeAllScriptEventListeners of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeAllScriptEventListeners00
-static int tolua_Cocos2d_CCScriptEventDispatcher_removeAllScriptEventListeners00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00
+static int tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -7931,15 +7931,15 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeAllScriptEventListeners00
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeAllScriptEventListeners'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'removeAllNodeEventListeners'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
 /* method: hasScriptEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_hasScriptEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_hasScriptEventListener00(lua_State* tolua_S)
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00
+static int tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -7965,7 +7965,7 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_hasScriptEventListener00(lua_St
  return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'hasScriptEventListener'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'hasNodeEventListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -59900,12 +59900,12 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"KEYPAD_EVENT",KEYPAD_EVENT);
   tolua_cclass(tolua_S,"CCScriptEventDispatcher","CCScriptEventDispatcher","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCScriptEventDispatcher");
-   tolua_function(tolua_S,"addScriptEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addScriptEventListener00);
-   tolua_function(tolua_S,"removeScriptEventListener",tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListener00);
-   tolua_function(tolua_S,"removeScriptEventListenersByEvent",tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByEvent00);
-   tolua_function(tolua_S,"removeScriptEventListenersByTag",tolua_Cocos2d_CCScriptEventDispatcher_removeScriptEventListenersByTag00);
-   tolua_function(tolua_S,"removeAllScriptEventListeners",tolua_Cocos2d_CCScriptEventDispatcher_removeAllScriptEventListeners00);
-   tolua_function(tolua_S,"hasScriptEventListener",tolua_Cocos2d_CCScriptEventDispatcher_hasScriptEventListener00);
+   tolua_function(tolua_S,"addNodeEventListener",tolua_Cocos2d_CCScriptEventDispatcher_addNodeEventListener00);
+   tolua_function(tolua_S,"removeNodeEventListener",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListener00);
+   tolua_function(tolua_S,"removeNodeEventListenersByEvent",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByEvent00);
+   tolua_function(tolua_S,"removeNodeEventListenersByTag",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByTag00);
+   tolua_function(tolua_S,"removeAllNodeEventListeners",tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00);
+   tolua_function(tolua_S,"hasNodeEventListener",tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00);
   tolua_endmodule(tolua_S);
   tolua_function(tolua_S,"CCLuaLog",tolua_Cocos2d_CCLuaLog00);
   tolua_function(tolua_S,"CCMessageBox",tolua_Cocos2d_CCMessageBox00);

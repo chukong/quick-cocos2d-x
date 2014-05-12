@@ -299,6 +299,7 @@ void CCScene::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
 {
     dispatchingTouchEvent(pTouches, pEvent, CCTOUCHENDED);
     // remove all touching nodes
+//    CCLOG("TOUCH ENDED, REMOVE ALL TOUCH TARGETS");
     m_touchingTargets->removeAllObjects();
 }
 
@@ -306,6 +307,7 @@ void CCScene::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
 {
     dispatchingTouchEvent(pTouches, pEvent, CCTOUCHCANCELLED);
     // remove all touching nodes
+//    CCLOG("TOUCH CANCELLED, REMOVE ALL TOUCH TARGETS");
     m_touchingTargets->removeAllObjects();
 }
 

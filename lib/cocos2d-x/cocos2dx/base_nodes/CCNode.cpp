@@ -1552,7 +1552,7 @@ CCScene *CCNode::getScene()
 
 void CCNode::registerWithTouchDispatcher()
 {
-    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
+//    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
     CCScene *scene = getScene();
     if (scene)
     {
@@ -1562,7 +1562,7 @@ void CCNode::registerWithTouchDispatcher()
 
 void CCNode::unregisterWithTouchDispatcher()
 {
-    CCLOG("CCNODE: REGISTER WITH TOUCH DISPATHCER <%p>", this);
+//    CCLOG("CCNODE: UNREGISTER WITH TOUCH DISPATHCER <%p>", this);
     CCScene *scene = getScene();
     if (scene)
     {

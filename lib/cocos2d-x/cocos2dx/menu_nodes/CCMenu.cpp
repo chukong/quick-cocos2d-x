@@ -124,6 +124,7 @@ bool CCMenu::initWithArray(CCArray* pArrayOfItems)
     {
         setTouchMode(kCCTouchesOneByOne);
         setTouchEnabled(true);
+        setTouchSwallowEnabled(false);
 
         m_bEnabled = true;
         // menu in the center of the screen
@@ -215,6 +216,7 @@ bool CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
     CC_UNUSED_PARAM(event);
     if (m_eState != kCCMenuStateWaiting || ! m_bVisible || !m_bEnabled)
     {
+        setTouchSwallowEnabled(false);
         return false;
     }
 
@@ -222,6 +224,7 @@ bool CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
     {
         if (c->isVisible() == false)
         {
+            setTouchSwallowEnabled(false);
             return false;
         }
     }
@@ -231,8 +234,10 @@ bool CCMenu::ccTouchBegan(CCTouch* touch, CCEvent* event)
     {
         m_eState = kCCMenuStateTrackingTouch;
         m_pSelectedItem->selected();
+        setTouchSwallowEnabled(true);
         return true;
     }
+    setTouchSwallowEnabled(false);
     return false;
 }
 
