@@ -46,7 +46,7 @@ end
 ]]
 function DEPRECATED(f, name, newname)
     return function(...)
-        PRINT_DEPRECATED(string.format(" API %s is deprecated, please use new API %s", name, newname))
+        PRINT_DEPRECATED(string.format("%s() is deprecated, please use %s()", name, newname))
         return f(...)
     end
 end

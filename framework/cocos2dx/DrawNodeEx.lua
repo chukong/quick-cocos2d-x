@@ -26,26 +26,15 @@ THE SOFTWARE.
 
 ]]
 
+local c = cc
+local DrawNode = c.DrawNode
 
-CCDrawNodeExtend = class("CCDrawNodeExtend", CCNodeExtend)
-CCDrawNodeExtend.__index = CCDrawNodeExtend
-
-function CCDrawNodeExtend.extend(target)
-    local t = tolua.getpeer(target)
-    if not t then
-        t = {}
-        tolua.setpeer(target, t)
-    end
-    setmetatable(t, CCDrawNodeExtend)
-    return target
-end
-
-function CCDrawNodeExtend:drawPol(points, params)
-	PRINT_DEPRECATED("CCDrawNodeExtend.drawPol() is deprecated, please use CCDrawNodeExtend.drawPolygon()")
+function DrawNode:drawPol(points, params)
+	PRINT_DEPRECATED("DrawNode.drawPol() is deprecated, please use DrawNode.drawPolygon()")
 	return self:drawPolygon(points, params)
 end
 
-function CCDrawNodeExtend:drawPolygon(points, params)
+function DrawNode:drawPolygon(points, params)
 	local segments = #points
 	fillColor = cc.c4f(1,1,1,1)
 	borderWidth  = 0
@@ -63,7 +52,7 @@ function CCDrawNodeExtend:drawPolygon(points, params)
 	return self
 end
 
-function CCDrawNodeExtend:drawCircle(radius, params)
+function DrawNode:drawCircle(radius, params)
 	local fillColor = cc.c4f(1,1,1,1)
 	local borderColor = cc.c4f(1,1,1,1)
 	local segments = 32
@@ -99,12 +88,12 @@ function CCDrawNodeExtend:drawCircle(radius, params)
 	return self
 end
 
-function CCDrawNodeExtend:drawDot(point, radius, color)
+function DrawNode:drawDot(point, radius, color)
 	getmetatable(self).drawDot(self, point, radius, color)
 	return self
 end
 
-function CCDrawNodeExtend:drawRect(xywh, params)
+function DrawNode:drawRect(xywh, params)
 	local points = {}
 	local x = 0
 	local y = 0
@@ -140,7 +129,7 @@ function CCDrawNodeExtend:drawRect(xywh, params)
 	return self
 end
 
-function CCDrawNodeExtend:drawLine(from, to, radius, color)
+function DrawNode:drawLine(from, to, radius, color)
 	radius = radius or 1
 	color = color or cc.c4f(0,0,0,1)
 	assert(from or to, "Need a from point and a to point!")
@@ -149,10 +138,5 @@ function CCDrawNodeExtend:drawLine(from, to, radius, color)
 		to = cc.p(to[1], to[2])
 	end
 	self:drawSegment(from, to, radius, color)
-	return self
-end
-
-function CCDrawNodeExtend:clear()
-	getmetatable(self).clear(self)
 	return self
 end

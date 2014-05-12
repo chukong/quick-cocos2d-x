@@ -2,7 +2,7 @@
 local UIStretch = class("UIStretch")
 
 function UIStretch:ctor()
-    cc.GameObject.extend(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
+    cc(self):addComponent("components.ui.LayoutProtocol"):exportMethods()
     self:setLayoutSizePolicy(display.AUTO_SIZE, display.AUTO_SIZE)
     self.position_ = {x = 0, y = 0}
     self.anchorPoint_ = display.ANCHOR_POINTS[display.CENTER]

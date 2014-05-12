@@ -55,14 +55,15 @@ cc.mvc = import(".mvc.init")
 cc.ui = import(".ui.init")
 
 -- load extensions
-cc.ad = import(".ad.init").new()
-cc.push = import(".push.init").new()
+-- cc.ad = import(".ad.init").new()
+-- cc.push = import(".push.init").new()
 
 -- cc = cc.GameObject.extend()
+local GameObject = cc.GameObject
 local ccmt = {}
 ccmt.__call = function(self, target)
     if target then
-        return cc.GameObject.extend(target)
+        return GameObject.extend(target)
     end
     printError("cc() - invalid target")
 end

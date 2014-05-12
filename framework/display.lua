@@ -232,7 +232,9 @@ display.TEXTURES_PIXEL_FORMAT = {}
 
 ]]
 function display.newScene(name)
-    local scene = CCSceneExtend.extend(CCScene:create())
+    local scene = CCScene:create()
+    scene:setNodeEventEnabled(true)
+    scene:setAutoCleanupEnabled()
     scene.name = name or "<unknown-scene>"
     return scene
 end
@@ -387,7 +389,7 @@ CCLayer 对象提供了触摸事件、重力感应、Android 按键检测等功�
 
 ]]
 function display.newLayer()
-    return CCLayerExtend.extend(CCLayer:create())
+    return CCLayer:create()
 end
 
 --[[--
@@ -404,7 +406,7 @@ CCLayerColor 对象使用指定的颜色填充。
 
 ]]
 function display.newColorLayer(color)
-    return CCLayerExtend.extend(CCLayerColor:create(color))
+    return CCLayerColor:create(color)
 end
 
 --[[--
@@ -545,7 +547,6 @@ function display.newSprite(filename, x, y, params)
     end
 
     if sprite then
-        CCSpriteExtend.extend(sprite)
         if x and y then sprite:setPosition(x, y) end
         if size then sprite:setContentSize(size) end
     else
@@ -604,7 +605,6 @@ function display.newTilesSprite(filename, rect)
     tp.wrapS = 10497
     tp.wrapT = 10497
     sprite:getTexture():setTexParameters(tp)
-    CCSpriteExtend.extend(sprite)
 
     display.align(sprite, display.LEFT_BOTTOM, 0, 0)
 
@@ -679,11 +679,8 @@ function display.newMaskedSprite(__mask, __pic)
 	__picSprite:visit()
 	__canva:endToLua()
 
-	local __resultSprite = CCSpriteExtend.extend(
-		CCSprite:createWithTexture(
-			__canva:getSprite():getTexture()
-		))
-		:flipY(true)
+	local __resultSprite = CCSprite:createWithTexture(__canva:getSprite():getTexture())
+    __resultSprite:setFlipY(true)
 	return __resultSprite
 end
 
@@ -754,7 +751,7 @@ function display.newGraySprite(filename, params)
 end
 
 function display.newDrawNode()
-	return CCDrawNodeExtend.extend(CCDrawNode:create())
+	return CCDrawNode:create()
 end
 
 --- Create a circle or a sector or a pie by CCDrawNode

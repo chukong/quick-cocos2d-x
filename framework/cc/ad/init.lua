@@ -16,7 +16,7 @@ local ad = class("cc.ad")
 local DEFAULT_PROVIDER_OBJECT_NAME = "ad.default"
 
 function ad:ctor()
-    cc.GameObject.extend(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
     self.events = import(".events", CURRENT_MODULE_NAME)
     self.errors = import(".errors", CURRENT_MODULE_NAME)
     self.providers_ = {}

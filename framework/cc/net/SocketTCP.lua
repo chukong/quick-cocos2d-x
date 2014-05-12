@@ -35,7 +35,8 @@ function SocketTCP.getTime()
 end
 
 function SocketTCP:ctor(__host, __port, __retryConnectWhenFailure)
-	require("framework.api.EventProtocol").extend(self)
+	cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+
     self.host = __host
     self.port = __port
 	self.tickScheduler = nil			-- timer for data
@@ -77,7 +78,7 @@ function SocketTCP:connect(__host, __port, __retryConnectWhenFailure)
 	self.tcp:settimeout(0)
 
 	local function __checkConnect()
-		local __succ = self:_connect() 
+		local __succ = self:_connect()
 		if __succ then
 			self:_onConnected()
 		end
@@ -163,7 +164,7 @@ function SocketTCP:_onConnected()
 		    	self:close()
 		    	if self.isConnected then
 		    		self:_onDisconnect()
-		    	else 
+		    	else
 		    		self:_connectFailure()
 		    	end
 		   		return

@@ -5,8 +5,7 @@ AppBase.APP_ENTER_BACKGROUND_EVENT = "APP_ENTER_BACKGROUND_EVENT"
 AppBase.APP_ENTER_FOREGROUND_EVENT = "APP_ENTER_FOREGROUND_EVENT"
 
 function AppBase:ctor(appName, packageRoot)
-    cc.GameObject.extend(self)
-    self:addComponent("components.behavior.EventProtocol"):exportMethods()
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
 
     self.name = appName
     self.packageRoot = packageRoot or "app"

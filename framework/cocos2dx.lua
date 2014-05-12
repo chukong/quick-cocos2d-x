@@ -51,21 +51,12 @@ THE SOFTWARE.
 
 local p = cc.PACKAGE_NAME .. ".cocos2dx."
 
-function CCNode:fuck()
-    print("FUCK")
-end
-
-function CCSprite:fuck()
-    print("FUCK SPRITE")
-end
-
 require(p .. "Global")
 require(p .. "ObjectBinding")
 require(p .. "OpenGL")
 require(p .. "Geometry")
 require(p .. "Event")
 require(p .. "NodeEx")
-require(p .. "LayerEx")
 require(p .. "SceneEx")
 require(p .. "SpriteEx")
 require(p .. "DrawNodeEx")

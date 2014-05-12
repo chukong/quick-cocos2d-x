@@ -16,7 +16,7 @@ local push = class("cc.push")
 local DEFAULT_PROVIDER_OBJECT_NAME = "push.default"
 
 function push:ctor()
-    cc.GameObject.extend(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
     self.events = import(".events", CURRENT_MODULE_NAME)
     self.providers_ = {}
 end
@@ -76,7 +76,7 @@ end
 function push:setTags(tags, name)
     if type(tags) ~= "table" then
         echoError("cc.push:setTags() - args must be table")
-        return 
+        return
     end
 
     local provider = self:getProvider(name)
@@ -88,7 +88,7 @@ end
 function push:delTags(tags, name)
     if type(tags) ~= "table" then
         echoError("cc.push:delTags() - args must be table")
-        return 
+        return
     end
 
     local provider = self:getProvider(name)

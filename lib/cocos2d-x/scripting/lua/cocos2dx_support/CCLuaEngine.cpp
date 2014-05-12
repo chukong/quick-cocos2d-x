@@ -99,33 +99,34 @@ int CCLuaEngine::executeGlobalFunction(const char* functionName, int numArgs /* 
 
 int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
 {
-    m_stack->clean();
+    CCLuaValueDict event;
     switch (nAction)
     {
         case kCCNodeOnEnter:
-            m_stack->pushString("enter");
+            event["name"] = CCLuaValue::stringValue("enter");
             break;
 
         case kCCNodeOnExit:
-            m_stack->pushString("exit");
+            event["name"] = CCLuaValue::stringValue("exit");
             break;
 
         case kCCNodeOnEnterTransitionDidFinish:
-            m_stack->pushString("enterTransitionFinish");
+            event["name"] = CCLuaValue::stringValue("enterTransitionFinish");
             break;
 
         case kCCNodeOnExitTransitionDidStart:
-            m_stack->pushString("exitTransitionStart");
+            event["name"] = CCLuaValue::stringValue("exitTransitionStart");
             break;
 
         case kCCNodeOnCleanup:
-            m_stack->pushString("cleanup");
+            event["name"] = CCLuaValue::stringValue("cleanup");
             break;
 
         default:
             return 0;
     }
 
+    m_stack->pushCCLuaValueDict(event);
     CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
@@ -210,44 +211,39 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
     if (listeners.size() == 0) return 0;
 
-    lua_State *L = getLuaStack()->getLuaState();
-    lua_settop(L, 0);
-    lua_newtable(L);
+    m_stack->clean();
+    CCLuaValueDict event;
     switch (eventType)
     {
         case CCTOUCHBEGAN:
-            lua_pushliteral(L, "began");
+            event["name"] = CCLuaValue::stringValue("began");
             break;
 
         case CCTOUCHMOVED:
-            lua_pushliteral(L, "moved");
+            event["name"] = CCLuaValue::stringValue("moved");
             break;
 
         case CCTOUCHENDED:
-            lua_pushliteral(L, "ended");
+            event["name"] = CCLuaValue::stringValue("ended");
             break;
 
         case CCTOUCHCANCELLED:
-            lua_pushliteral(L, "cancelled");
+            event["name"] = CCLuaValue::stringValue("cancelled");
             break;
 
         default:
-            lua_pop(L, 1);
+            m_stack->clean();
             return 0;
     }
-    lua_setfield(L, -2, "name");
 
     const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
-    lua_pushnumber(L, pt.x);
-    lua_setfield(L, -2, "x");
-    lua_pushnumber(L, pt.y);
-    lua_setfield(L, -2, "y");
+    event["x"] = CCLuaValue::floatValue(pt.x);
+    event["y"] = CCLuaValue::floatValue(pt.y);
     const CCPoint prev = CCDirector::sharedDirector()->convertToGL(pTouch->getPreviousLocationInView());
-    lua_pushnumber(L, prev.x);
-    lua_setfield(L, -2, "prevX");
-    lua_pushnumber(L, prev.y);
-    lua_setfield(L, -2, "prevY");
+    event["prevX"] = CCLuaValue::floatValue(prev.x);
+    event["prevY"] = CCLuaValue::floatValue(prev.y);
 
+    m_stack->pushCCLuaValueDict(event);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
@@ -260,9 +256,9 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
             continue;
         }
 
-        lua_pushvalue(L, -1);
+        m_stack->copyValue(1);
         int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
-        lua_settop(L, 1);
+        m_stack->settop(1);
 
         if ((eventType == CCTOUCHBEGAN) && (ret == false))
         {
@@ -270,6 +266,8 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
             (*it).enabled = false;
         }
     }
+
+    m_stack->clean();
 
     return 1;
 }
@@ -279,8 +277,52 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
     CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
     if (listeners.size() == 0) return 0;
 
+    m_stack->clean();
+    CCLuaValueDict event;
+    switch (eventType)
+    {
+        case CCTOUCHBEGAN:
+            event["name"] = CCLuaValue::stringValue("began");
+            break;
+
+        case CCTOUCHMOVED:
+            event["name"] = CCLuaValue::stringValue("moved");
+            break;
+
+        case CCTOUCHENDED:
+            event["name"] = CCLuaValue::stringValue("ended");
+            break;
+
+        case CCTOUCHCANCELLED:
+            event["name"] = CCLuaValue::stringValue("cancelled");
+            break;
+
+        default:
+            m_stack->clean();
+            return 0;
+    }
+
+    CCLuaValueDict points;
     CCDirector* pDirector = CCDirector::sharedDirector();
-    lua_State *L = m_stack->getLuaState();
+    char touchId[64];
+    for (CCSetIterator touchIt = pTouches->begin(); touchIt != pTouches->end(); ++touchIt)
+    {
+        CCLuaValueDict point;
+        CCTouch* pTouch = (CCTouch*)*touchIt;
+        sprintf(touchId, "%d", pTouch->getID());
+        point["id"] = CCLuaValue::stringValue(touchId);
+
+        const CCPoint pt = pDirector->convertToGL(pTouch->getLocationInView());
+        point["x"] = CCLuaValue::floatValue(pt.x);
+        point["y"] = CCLuaValue::floatValue(pt.y);
+        const CCPoint prev = pDirector->convertToGL(pTouch->getPreviousLocationInView());
+        point["prevX"] = CCLuaValue::floatValue(prev.x);
+        point["prevY"] = CCLuaValue::floatValue(prev.y);
+
+        points[touchId] = CCLuaValue::dictValue(point);
+    }
+    event["points"] = CCLuaValue::dictValue(points);
+    m_stack->pushCCLuaValueDict(event);
 
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
@@ -293,55 +335,9 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
         {
             continue;
         }
-
-        switch (eventType)
-        {
-            case CCTOUCHBEGAN:
-                m_stack->pushString("began");
-                break;
-
-            case CCTOUCHMOVED:
-                m_stack->pushString("moved");
-                break;
-
-            case CCTOUCHENDED:
-                m_stack->pushString("ended");
-                break;
-
-            case CCTOUCHCANCELLED:
-                m_stack->pushString("cancelled");
-                break;
-
-            default:
-                return 0;
-        }
-
-        lua_newtable(L);
-        lua_newtable(L);
-        int i = 1;
-        for (CCSetIterator it2 = pTouches->begin(); it2 != pTouches->end(); ++it2)
-        {
-            CCTouch* pTouch = (CCTouch*)*it2;
-            const CCPoint pt = pDirector->convertToGL(pTouch->getLocationInView());
-            lua_pushnumber(L, pt.x);
-            lua_rawseti(L, -3, i);
-            lua_pushnumber(L, pt.y);
-            lua_rawseti(L, -3, i + 1);
-            lua_pushinteger(L, pTouch->getID());
-            lua_rawseti(L, -3, i + 2);
-
-            const CCPoint prev = pDirector->convertToGL(pTouch->getPreviousLocationInView());
-            lua_pushnumber(L, prev.x);
-            lua_rawseti(L, -2, i);
-            lua_pushnumber(L, prev.y);
-            lua_rawseti(L, -2, i + 1);
-            lua_pushinteger(L, pTouch->getID());
-            lua_rawseti(L, -2, i + 2);
-            
-            i += 3;
-        }
-        int ret = m_stack->executeFunctionByHandler((*it).listener, 3);
-        m_stack->clean();
+        m_stack->copyValue(1);
+        int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
+        m_stack->settop(1);
 
         if (ret == 0)
         {
@@ -349,6 +345,8 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
             (*it).enabled = false;
         }
     }
+
+    m_stack->clean();
     
     return 1;
 }

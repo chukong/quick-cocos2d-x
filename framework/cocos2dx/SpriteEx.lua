@@ -22,33 +22,21 @@ THE SOFTWARE.
 
 ]]
 
-PRINT_DEPRECATED("CCSpriteExtend is deprecated, please use cc.SpriteEx")
+local c = cc
+local Sprite = c.Sprite
 
-CCSpriteExtend = class("CCSpriteExtend", CCNodeExtend)
-CCSpriteExtend.__index = CCSpriteExtend
-
-function CCSpriteExtend.extend(target)
-    local t = tolua.getpeer(target)
-    if not t then
-        t = {}
-        tolua.setpeer(target, t)
-    end
-    setmetatable(t, CCSpriteExtend)
-    return target
-end
-
-function CCSpriteExtend:playAnimationOnce(animation, removeWhenFinished, onComplete, delay)
+function Sprite:playAnimationOnce(animation, removeWhenFinished, onComplete, delay)
     return transition.playAnimationOnce(self, animation, removeWhenFinished, onComplete, delay)
 end
 
-function CCSpriteExtend:playAnimationForever(animation, delay)
+function Sprite:playAnimationForever(animation, delay)
     return transition.playAnimationForever(self, animation, delay)
 end
 
 -- NOTE!!! The method is very slowly! Please use it in carefully.
 -- The memory will leak if you don't release it manually.
 -- @return A CCImage pointer.
-function CCSpriteExtend:getCCImage()
+function Sprite:getCCImage()
 	-- Create a new Texture to get the pixel datas.
 	local __size = self:getContentSize()
 	local __rt = CCRenderTexture:create(__size.width, __size.height)
@@ -72,7 +60,7 @@ end
 -- @param __point A coordinate for color.
 -- @param __convertToNodeSpace Optional, default is true, convert a coordinate to node space from world space.
 -- @param __isFloat Optional, default is false, convert a coordinate to node space from world space.
-function CCSpriteExtend:getColor(__point, __convertToNodeSpace, __isFloat)
+function Sprite:getColor(__point, __convertToNodeSpace, __isFloat)
 	if __convertToNodeSpace == nil then
 		__convertToNodeSpace = true
 	end
@@ -91,7 +79,7 @@ function CCSpriteExtend:getColor(__point, __convertToNodeSpace, __isFloat)
 end
 
 -- Only get a alpha value.
-function CCSpriteExtend:getColorAlpha(__point, __convertToNodeSpace, __isFloat)
+function Sprite:getColorAlpha(__point, __convertToNodeSpace, __isFloat)
 	local color = self:getColor(__point, __convertToNodeSpace, __isFloat)
 	return color.a
 end

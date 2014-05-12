@@ -12,8 +12,7 @@ local function filterProperties(properties, filter)
 end
 
 function ModelBase:ctor(properties)
-    cc.GameObject.extend(self)
-    self:addComponent("components.behavior.EventProtocol"):exportMethods()
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
 
     self.isModelBase_ = true
     if type(properties) ~= "table" then properties = {} end

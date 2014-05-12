@@ -118,3 +118,21 @@ function Node:addTouchEventListener(handler)
         return handler(event.name, event.x, event.y, event.prevX, event.prevY)
     end)
 end
+
+function Node:registerScriptTouchHandler(handler)
+    PRINT_DEPRECATED("Node:registerScriptTouchHandler() is deprecated, please use Node:addNodeEventListener()")
+    return self:addNodeEventListener(c.NODE_TOUCH_EVENT, function(event)
+        return handler(event.name, event.x, event.y, event.prevX, event.prevY)
+    end)
+end
+
+Node.scheduleUpdate_ = Node.scheduleUpdate
+function Node:scheduleUpdate(handler)
+    if handler then
+        PRINT_DEPRECATED("Node:scheduleUpdate(handler) is deprecated, please use Node:addNodeEventListener()")
+        self:addNodeEventListener(c.NODE_ENTER_FRAME_EVENT, handler)
+        self:scheduleUpdate_()
+    else
+        self:scheduleUpdate_()
+    end
+end

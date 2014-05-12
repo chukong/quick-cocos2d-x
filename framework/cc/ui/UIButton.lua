@@ -13,7 +13,7 @@ UIButton.LABEL_ZORDER = 0
 
 function UIButton:ctor(events, initialState, options)
     self.fsm_ = {}
-    cc.GameObject.extend(self.fsm_)
+    cc(self.fsm_)
         :addComponent("components.behavior.StateMachine")
         :exportMethods()
     self.fsm_:setupState({
