@@ -133,7 +133,7 @@ using namespace cocos2d::extra;
     if (projectDir.length())
     {
         CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
-        }
+    }
 
     const string writablePath = projectConfig.getWritableRealPath();
     if (writablePath.length())
@@ -155,7 +155,8 @@ using namespace cocos2d::extra;
     for (int i = config->getScreenSizeCount() - 1; i >= 0; --i)
     {
         SimulatorScreenSize size = config->getScreenSize(i);
-        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithCString:size.title.c_str() encoding:NSUTF8StringEncoding]
+        NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[NSString stringWithCString:size.title.c_str()
+                                                                                 encoding:NSUTF8StringEncoding]
                                                        action:@selector(onScreenChangeFrameSize:)
                                                 keyEquivalent:@""] autorelease];
         [item setTag:i];
@@ -166,7 +167,7 @@ using namespace cocos2d::extra;
         }
         [submenu insertItem:item atIndex:0];
     }
-    }
+}
 
 - (void) updateUI
 {
@@ -212,7 +213,7 @@ using namespace cocos2d::extra;
     }
 
     [window setTitle:[NSString stringWithFormat:@"helloworld (%0.0f%%)", projectConfig.getFrameScale() * 100]];
-    }
+}
 
 - (NSMutableArray*) makeCommandLineArgsFromProjectConfig
 {
@@ -222,7 +223,8 @@ using namespace cocos2d::extra;
 - (NSMutableArray*) makeCommandLineArgsFromProjectConfig:(unsigned int)mask
 {
     projectConfig.setWindowOffset(CCPoint(window.frame.origin.x, window.frame.origin.y));
-    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine(mask).c_str() encoding:NSUTF8StringEncoding];
+    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine(mask).c_str()
+                                               encoding:NSUTF8StringEncoding];
     return [NSMutableArray arrayWithArray:[commandLine componentsSeparatedByString:@" "]];
 }
 
@@ -241,7 +243,8 @@ using namespace cocos2d::extra;
 - (void) launch:(NSArray*)args
 {
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-    NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments];
+    NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithObject:args
+                                                                            forKey:NSWorkspaceLaunchConfigurationArguments];
     NSError *error = [[[NSError alloc] init] autorelease];
     [[NSWorkspace sharedWorkspace] launchApplicationAtURL:url
                                                   options:NSWorkspaceLaunchNewInstance
@@ -250,8 +253,15 @@ using namespace cocos2d::extra;
 
 - (void) relaunch:(NSArray*)args
 {
-    [self launch:args];
-    [[NSApplication sharedApplication] terminate:self];
+    if (projectConfig.isExitWhenRelaunch())
+    {
+        exit(99);
+    }
+    else
+    {
+        [self launch:args];
+        [[NSApplication sharedApplication] terminate:self];
+    }
 }
 
 - (void) relaunch
@@ -297,8 +307,8 @@ using namespace cocos2d::extra;
 
 - (IBAction) onFileRelaunch:(id)sender
 {
-            [self relaunch];
-        }
+    [self relaunch];
+}
 
 - (IBAction) onScreenChangeFrameSize:(id)sender
 {

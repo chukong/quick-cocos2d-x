@@ -250,8 +250,15 @@ using namespace cocos2d::extra;
 
 - (void) relaunch:(NSArray*)args
 {
-    [self launch:args];
-    [[NSApplication sharedApplication] terminate:self];
+    if (projectConfig.isExitWhenRelaunch())
+    {
+        exit(99);
+    }
+    else
+    {
+        [self launch:args];
+        [[NSApplication sharedApplication] terminate:self];
+    }
 }
 
 - (void) relaunch
