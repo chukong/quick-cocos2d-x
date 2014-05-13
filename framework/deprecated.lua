@@ -68,3 +68,6 @@ audio.stopEffect = DEPRECATED(audio.stopSound, "audio.stopEffect", "audio.stopSo
 audio.stopAllEffects = DEPRECATED(audio.stopAllSounds, "audio.stopAllEffects", "audio.stopAllSounds")
 audio.preloadEffect = DEPRECATED(audio.preloadSound, "audio.preloadEffect", "audio.preloadSound")
 audio.unloadEffect = DEPRECATED(audio.unloadSound, "audio.unloadEffect", "audio.unloadSound")
+
+-- constants
+kCCMenuHandlerPriority = 0
