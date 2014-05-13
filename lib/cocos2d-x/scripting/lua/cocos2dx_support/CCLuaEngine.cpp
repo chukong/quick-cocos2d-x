@@ -232,7 +232,6 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
             break;
 
         default:
-            m_stack->clean();
             return 0;
     }
 
@@ -298,7 +297,6 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
             break;
 
         default:
-            m_stack->clean();
             return 0;
     }
 
@@ -354,20 +352,23 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
 int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
 {
     m_stack->clean();
+    CCLuaValueDict event;
+    event["name"] = CCLuaValue::stringValue("clicked");
     switch (eventType)
     {
         case kTypeBackClicked:
-            m_stack->pushString("back");
+            event["key"] = CCLuaValue::stringValue("back");
             break;
 
         case kTypeMenuClicked:
-            m_stack->pushString("menu");
+            event["key"] = CCLuaValue::stringValue("menu");
             break;
 
         default:
             return 0;
     }
 
+    m_stack->pushCCLuaValueDict(event);
     CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(KEYPAD_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
@@ -382,16 +383,22 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
 
 int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAccelerationValue)
 {
+    m_stack->clean();
+    CCLuaValueDict event;
+    event["name"] = CCLuaValue::stringValue("changed");
+    event["x"] = CCLuaValue::floatValue(pAccelerationValue->x);
+    event["y"] = CCLuaValue::floatValue(pAccelerationValue->y);
+    event["z"] = CCLuaValue::floatValue(pAccelerationValue->z);
+    event["timestamp"] = CCLuaValue::floatValue(pAccelerationValue->timestamp);
+
+    m_stack->pushCCLuaValueDict(event);
     CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(ACCELERATE_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
-        m_stack->pushFloat(pAccelerationValue->x);
-        m_stack->pushFloat(pAccelerationValue->y);
-        m_stack->pushFloat(pAccelerationValue->z);
-        m_stack->pushFloat(pAccelerationValue->timestamp);
-        m_stack->executeFunctionByHandler(it->listener, 4);
-        m_stack->clean();
+        m_stack->copyValue(1);
+        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->settop(1);
     }
     return 0;
 }
