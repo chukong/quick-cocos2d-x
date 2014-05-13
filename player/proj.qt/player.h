@@ -100,6 +100,7 @@ public Q_SLOTS:
     void openDemoWithArgs(QString cmds);
     // save ENV & restart play
     void onSaveQuickRootPath(QString absPath);
+    QString getQuickRootPathFromSystem();
     void onOpenRecentProject();
     void onClearRecentMenu();
 
