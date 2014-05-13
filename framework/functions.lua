@@ -1313,7 +1313,7 @@ function string.ucfirst(input)
     return string.upper(string.sub(input, 1, 1)) .. string.sub(input, 2)
 end
 
-local function urlencodeChar(char)
+local function urlencodechar(char)
     return "%" .. string.format("%02X", string.byte(char))
 end
 
