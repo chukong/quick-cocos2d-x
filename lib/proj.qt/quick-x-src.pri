@@ -1,9 +1,3 @@
-# 行首插入
-# :%s/^/xo
-# 行尾添加
-# :%s/$/xo
-# 删除包含某字符串的行
-# :1,$ s/.*Word.*\n*//         #\n* 是防止在文件尾出现, 没有\n结尾
 
 include (quick-x-common.pri)
 
@@ -126,7 +120,6 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/support/image_support/TGAlib.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/support/tinyxml2/tinyxml2.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/support/TransformUtils.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/support/user_default/CCUserDefault.cpp \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/support/user_default/CCUserDefaultAndroid.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/support/xxtea.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/support/zip_support/ioapi.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/support/zip_support/ioapi_mem.cpp \
@@ -148,7 +141,6 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/tilemap_parallax_nodes/CCTMXXMLParser.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/touch_dispatcher/CCTouch.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/touch_dispatcher/CCTouchDispatcher.cpp \
 $${ROOT}/lib/cocos2d-x/cocos2dx/touch_dispatcher/CCTouchHandler.cpp \
-#$${ROOT}/lib/cocos2d-x/CocosDenshion/qt/SimpleAudioEngineQt5.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/ProjectConfig/SimulatorConfig.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/AssetsManager/AssetsManager.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/CocoStudio/Action/*.cpp \
@@ -193,40 +185,10 @@ $${ROOT}/lib/cocos2d-x/extensions/filters/filters/*.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/filters/nodes/*.cpp \
 $${ROOT}/lib/cocos2d-x/extensions/filters/shaders/*.cpp \
 $${ROOT}/lib/cocos2d-x/external/chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/chipmunk.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpConstraint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedRotarySpring.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpDampedSpring.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGearJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpGrooveJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPinJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpPivotJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRatchetJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpRotaryLimitJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSimpleMotor.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/constraints/cpSlideJoint.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArbiter.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpArray.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBB.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBBTree.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpBody.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpCollision.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpHashSet.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpPolyShape.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpShape.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpace.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceComponent.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceHash.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceQuery.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpaceStep.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSpatialIndex.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpSweep1D.c \
-#$${ROOT}/lib/cocos2d-x/external/chipmunk/src/cpVect.c \
 $${ROOT}/lib/cocos2d-x/external/extra/apptools/HelperFunc.cpp \
 $${ROOT}/lib/cocos2d-x/external/extra/crypto/base64/libbase64.c \
 $${ROOT}/lib/cocos2d-x/external/extra/crypto/CCCrypto.cpp \
 $${ROOT}/lib/cocos2d-x/external/extra/crypto/md5/md5.c \
-#$${ROOT}/lib/cocos2d-x/external/extra/luabinding/cocos2dx_extra_ios_iap_luabinding.cpp \
 $${ROOT}/lib/cocos2d-x/external/extra/luabinding/cocos2dx_extra_luabinding.cpp \
 $${ROOT}/lib/cocos2d-x/external/extra/luabinding/CZHelperFunc_luabinding.cpp \
 $${ROOT}/lib/cocos2d-x/external/extra/network/CCHTTPRequest.cpp \
@@ -298,35 +260,13 @@ win32 {
 }
 
 OBJECTIVE_SOURCES += \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCApplication.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCCommon.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCDevice.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCDirectorCaller.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCEGLView.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCEventDispatcherMac.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCFileUtilsMac.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCImage.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCThread.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCWindow.m \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/EAGLView.mm \
 $${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDAudioManager.m \
 $${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDOpenALSupport.m \
 $${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CDXMacOSXSupport.mm \
 $${ROOT}/lib/cocos2d-x/CocosDenshion/mac/CocosDenshion.m \
 $${ROOT}/lib/cocos2d-x/CocosDenshion/mac/SimpleAudioEngine.mm \
 $${ROOT}/lib/cocos2d-x/CocosDenshion/mac/SimpleAudioEngine_objc.m \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCCryptoIOS.mm \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCNative.mm \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCNativeIOS.mm \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCStore.mm \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCStoreIOS.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCStorePaymentTransactionWrapper.mm \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/CCStoreReceiptVerifyRequestIOS.mm \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/json/SBJSON.m \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/json/SBJsonBase.m \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/json/SBJsonParser.m \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/json/SBJsonWriter.m \
-#$${ROOT}/lib/cocos2d-x/external/extra/platform/ios/openudid/OpenUDIDIOS.m \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/ios_mac/CCNetworkIOSMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/ios_mac/ReachabilityIOSMac.m \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCCryptoMac.mm \
@@ -335,5 +275,3 @@ $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNativeMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/openudid/OpenUDIDMac.m \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCImage.mm \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCFileUtilsMac.mm
-#$${ROOT}/lib/cocos2d-x/scripting/lua/cocos2dx_support/platform/ios/CCLuaObjcBridge.mm \
-#$${ROOT}/lib/cocos2d-x/cocos2dx/support/user_default/CCUserDefault.mm \
