@@ -22,6 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVAudioSession.h>
 #import "AppController.h"
 #import "cocos2d.h"
 #import "EAGLView.h"
@@ -96,6 +97,8 @@ static AppDelegate s_sharedApplication;
     /*
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
+    NSError *err;
+    [[AVAudioSession sharedInstance] setActive:true error:&err];
     cocos2d::CCApplication::sharedApplication()->applicationWillEnterForeground();
 }
 

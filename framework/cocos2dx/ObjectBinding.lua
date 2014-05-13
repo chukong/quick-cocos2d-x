@@ -215,6 +215,7 @@ c.TransitionProgressOutIn      = CCTransitionProgressOutIn
 
 -- menu nodes
 c.Menu                         = CCMenu
+c.MenuItem                     = CCMenuItem
 c.MenuItemLabel                = CCMenuItemLabel
 c.MenuItemAtlasFont            = CCMenuItemAtlasFont
 c.MenuItemFont                 = CCMenuItemFont
