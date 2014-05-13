@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QDesktopServices>
+#include <QMessageBox>
 
 ProjectConfigUI::ProjectConfigUI(ProjectConfig& projectConfig, QWidget *parent)
     : QDialog(parent)

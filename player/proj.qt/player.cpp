@@ -39,6 +39,8 @@
 #define MODULE_NAME_CORE        "core"
 #define MENU_BAR_FIXED_HEIGHT   25
 
+#define ENV_WIN_CURRENT_USER_QUICK_ROOT_PATH "HKEY_CURRENT_USER\\Environment"
+
 #define EDITOR_CALL_LUA         "LUA_Interface"
 #define SETTINGS_DEMO_LIST      "simples"
 
@@ -272,6 +274,24 @@ void Player::onSaveQuickRootPath(QString absPath)
     SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(absPath.toUtf8().data());
     m_projectConfig.resetToWelcome();
     restartWithProjectConfig(m_projectConfig);
+}
+
+QString Player::getQuickRootPathFromSystem()
+{
+    QSettings settings;
+    QString quickCocos2dxRoot = settings.value(ENV_KEY_QUICK_ROOT_PATH).toString();
+
+#ifdef Q_OS_WIN
+    {
+        QSettings settings(ENV_WIN_CURRENT_USER_QUICK_ROOT_PATH, QSettings::NativeFormat);
+        QString quickEnvPath = settings.value(ENV_KEY_QUICK_ROOT_PATH).toString();
+        if (!quickEnvPath.isEmpty())
+        {
+            quickCocos2dxRoot = quickEnvPath;
+        }
+    }
+#endif
+    return quickCocos2dxRoot;
 }
 
 void Player::onOpenRecentProject()
