@@ -185,7 +185,17 @@ void Player::doOpenProject()
         newItem[kRecentItemTitle] = config.getProjectDir().data();
         QStringList args = QString::fromStdString(config.makeCommandLine()).split(" ");
         newItem[kRecentItemArgs]  = args;
-        recents.removeAll(newItem);
+
+        // remove duplicated menu
+        Q_FOREACH(QVariant variant, recents)
+        {
+            QVariantMap tmpVar = variant.toMap();
+            if (tmpVar.value(kRecentItemTitle) == newItem.value(kRecentItemTitle))
+            {
+                recents.removeOne(variant);
+            }
+        }
+
         recents.insert(0, newItem);
 
         if (recents.size() > maxRecent)
