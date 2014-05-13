@@ -19,8 +19,7 @@ int main(int argc, char *argv[])
     // set quick root path from env
     qApp->setOrganizationDomain("com.cocoachina.quick");
     qApp->setApplicationName("quick-cocos2d-x player");
-    QSettings settings;
-    QString quickCocos2dxRoot = settings.value(ENV_KEY_QUICK_ROOT_PATH).toString();
+    QString quickCocos2dxRoot = player->getQuickRootPathFromSystem();
     if (!quickCocos2dxRoot.isEmpty())
     {
         SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath(quickCocos2dxRoot.toLocal8Bit().constData());
@@ -28,6 +27,7 @@ int main(int argc, char *argv[])
 
     // recent files
     CCLuaValueArray recentArray;
+    QSettings settings;
     QVariantList recents = settings.value(kOpenRecentFiles).toList();
     Q_FOREACH(QVariant recentItem, recents)
     {
