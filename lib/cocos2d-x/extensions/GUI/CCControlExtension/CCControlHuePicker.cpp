@@ -40,7 +40,6 @@ CCControlHuePicker::CCControlHuePicker()
 , m_background(NULL)
 , m_slider(NULL)
 {
-
 }
 
 CCControlHuePicker::~CCControlHuePicker()
@@ -74,6 +73,10 @@ bool CCControlHuePicker::initWithTargetAndPos(CCNode* target, CCPoint pos)
         // Sets the default value
         m_hue=0.0f;
         m_huePercentage=0.0f;
+
+        setCascadeColorEnabled(false);
+        setCascadeOpacityEnabled(false);
+
         return true;
     }
     else

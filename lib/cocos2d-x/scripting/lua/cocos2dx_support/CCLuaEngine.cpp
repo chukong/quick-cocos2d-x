@@ -235,6 +235,7 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
             return 0;
     }
 
+    event["mode"] = CCLuaValue::intValue(kCCTouchesOneByOne);
     const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
     event["x"] = CCLuaValue::floatValue(pt.x);
     event["y"] = CCLuaValue::floatValue(pt.y);
@@ -300,6 +301,7 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
             return 0;
     }
 
+    event["mode"] = CCLuaValue::intValue(kCCTouchesAllAtOnce);
     CCLuaValueDict points;
     CCDirector* pDirector = CCDirector::sharedDirector();
     char touchId[64];
