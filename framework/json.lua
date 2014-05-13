@@ -29,6 +29,7 @@ JSON 编码与解码
 ]]
 local json = {}
 local cjson = require("cjson")
+cjson.encode_sparse_convert()
 
 --[[--
 
