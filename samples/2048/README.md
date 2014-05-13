@@ -1,6 +1,8 @@
 quick-cocos2d-x-2048
 ====================
 
+Copyright 涵曦
+
 ----
 
 ### 使用引擎quick-cocos2d-x
