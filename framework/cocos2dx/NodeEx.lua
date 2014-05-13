@@ -104,7 +104,9 @@ end
 
 function Node:registerScriptHandler(listener)
     PRINT_DEPRECATED("Node:registerScriptHandler() is deprecated, please use Node:addNodeEventListener()")
-    return self:addNodeEventListener(c.NODE_EVENT, listener)
+    return self:addNodeEventListener(c.NODE_EVENT, function(event)
+        listener(event.name)
+    end)
 end
 
 function Node:unregisterScriptHandler()
