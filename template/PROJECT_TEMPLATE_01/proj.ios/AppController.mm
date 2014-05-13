@@ -22,6 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVAudioSession.h>
 #import "AppController.h"
 #import "cocos2d.h"
 #import "EAGLView.h"
