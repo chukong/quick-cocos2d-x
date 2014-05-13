@@ -104,6 +104,7 @@ end
 
 require(cc.PACKAGE_NAME .. ".cc.init")
 
+if type(LOAD_DEPRECATED_API) ~= "boolean" then LOAD_DEPRECATED_API = true end
 if LOAD_DEPRECATED_API then
     require(cc.PACKAGE_NAME .. ".deprecated")
 end
