@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/umeng_socialize_window_shadow_pad"
+    android:padding="5dp" >
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@null"
+        android:orientation="vertical" >
+
+        <include
+            android:id="@+id/umeng_socialize_post_comment_titlebar"
+            layout="@layout/umeng_socialize_titile_bar" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#D8DDE4" >
+
+            <RelativeLayout
+                android:id="@+id/umeng_socialize_post_comment_bottom_area"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/umeng_socialize_light_bar_bg_pad"
+                android:focusable="false"
+                android:gravity="center_vertical" >
+
+                <ImageButton
+                    android:id="@+id/umeng_socialize_post_comment_fetch_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/umeng_socialize_divider_line"
+                    android:padding="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/umeng_socialize_pv"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/umeng_socialize_post_comment_location"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="0.5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/umeng_socialize_post_comment_fetch_img"
+                    android:background="@drawable/umeng_socialize_divider_line"
+                    android:padding="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/umeng_socialize_fetch_location_disabled"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/umeng_socialize_post_comment_previewImg"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="14dp"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/umeng_socialize_location_ic"
+                        android:layout_width="30dp"
+                        android:layout_height="40dp"
+                        android:background="@null"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="7.5dp"
+                        android:paddingRight="7.5dp"
+                        android:paddingTop="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/umeng_socialize_location_off"
+                        android:visibility="gone" />
+
+                    <ProgressBar
+                        android:id="@+id/umeng_socialize_location_progressbar"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/umeng_socialize_post_ws_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@id/umeng_socialize_post_comment_bottom_area" >
+
+                <EditText
+                    android:id="@+id/umeng_socialize_post_comment_edittext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffff"
+                    android:bufferType="spannable"
+                    android:gravity="top"
+                    android:hint="说点什么吧。。。"
+                    android:padding="2dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

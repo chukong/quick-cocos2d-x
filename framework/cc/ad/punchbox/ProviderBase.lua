@@ -58,4 +58,12 @@ function ProviderBase:callback_(event)
     self.interface_:dispatchEvent(evt)
 end
 
+function ProviderBase:doCommand(args)
+    if args.command == "banner" or args.command == "interstitial" or args.command == "moregame" then
+        self:show(args.command, args.args)
+    else
+        echoError("cc.ad.punchbox.ProviderBase:doCommand() - invaild command:" .. args.command)
+    end
+end
+
 return ProviderBase

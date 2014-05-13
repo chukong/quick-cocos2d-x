@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/umeng_socialize_comments_bg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/umeng_socialize_titile_bar" />
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+		<RelativeLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="50dp"
+		    android:id="@+id/umeng_socialize_line_edit"
+		    android:layout_alignParentBottom="true"
+		    android:background="#C4C4C4">
+	     <EditText
+            android:id="@+id/umeng_socialize_comment_write"
+            style="@style/umeng_socialize_edit_padding"
+            android:layout_centerVertical="true"
+            android:paddingLeft="12dp"
+            android:hint="@string/umeng_socialize_text_comment_hint"
+            android:textColor="@color/umeng_socialize_text_time"
+            android:editable="false"
+            android:focusable="false"
+         />	    
+		</RelativeLayout>
+        <com.umeng.socialize.view.wigets.PullToRefreshListView
+            android:id="@+id/umeng_socialize_comment_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/umeng_socialize_line_edit"
+            android:divider="#EEEEEE"
+            android:dividerHeight="1dip"
+            android:fadingEdgeLength="0.0sp"
+            android:fastScrollEnabled="true"
+            android:visibility="gone"
+            android:scrollingCache="true" />
+        <RelativeLayout
+            android:id="@+id/umeng_socialize_comment_list_progress"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/umeng_socialize_line_edit" >
+            <ProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_centerInParent="true"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

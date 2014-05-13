@@ -27,4 +27,30 @@ function ProviderBase:callback_(event)
 
 end
 
+function ProviderBase:doCommand(args)
+    if args.command == "startPush" then
+        self:startPush()
+    elseif args.command == "stopPush" then
+        self:stopPush()
+    elseif args.command == "setAlias" then
+        self:setAlias(args.args)
+    elseif args.command == "delAlias" then
+        self:delAlias(args.args)
+    elseif args.command == "setTags" then
+        if type(args.args) ~= "table" then
+            echoError("cc.push.cocopush.ProviderBase:doCommand() - args must be table")
+            return 
+        end
+        self:setTags(args.args)
+    elseif args.command == "delTags" then
+        if type(args.args) ~= "table" then
+            echoError("cc.push.cocopush.ProviderBase:doCommand() - args must be table")
+            return 
+        end
+        self:delTags(args.args)
+    else
+        echoError("cc.push.cocopush.ProviderBase:doCommand() - invaild command:" .. args.command)
+    end
+end
+
 return ProviderBase

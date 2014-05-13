@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/slide_menu_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="用户"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="#5ac3b6" />
+
+    <RelativeLayout
+                 android:id="@+id/msg_user_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp" >
+
+        <ImageView
+            android:id="@+id/msg_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_default_avatar" />
+
+        <TextView
+            android:id="@+id/msg_name"
+            android:layout_width="fill_parent"
+            android:layout_height="22dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/msg_icon"
+            android:gravity="center_vertical"
+            android:text="登录账号"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/msg_gender"
+            android:layout_width="fill_parent"
+            android:layout_height="22dp"
+            android:layout_below="@id/msg_name"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/msg_icon"
+            android:gravity="center_vertical"
+            android:text="性别"
+            android:textColor="#82949c"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="分享设置"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="#5ac3b6" />
+    <!-- 平台设置 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_qzone_on" />
+
+        <Switch
+            android:id="@+id/switch_qzone"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="QQ空间"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_sina_on" />
+
+        <Switch
+            android:id="@+id/switch_sina"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="新浪微博"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_tx_on" />
+
+        <Switch
+            android:id="@+id/switch_tenc"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="腾讯微博"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_renren_on" />
+
+        <Switch
+            android:id="@+id/switch_renr"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="人人网"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_douban_on" />
+
+        <Switch
+            android:id="@+id/switch_douban"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="豆瓣"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_facebook" />
+
+        <Switch
+            android:id="@+id/switch_facebook"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="Facebook"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+    
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_twitter" />
+
+        <Switch
+            android:id="@+id/switch_twitter"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="Twitter"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/slide_menu_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/umeng_socialize_google" />
+
+        <Switch
+            android:id="@+id/switch_google"
+            android:layout_width="fill_parent"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:singleLine="true"
+            android:text="Google+"
+            android:textColor="#82949c"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 平台设置 -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="其他"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="#5ac3b6" />
+
+</LinearLayout>

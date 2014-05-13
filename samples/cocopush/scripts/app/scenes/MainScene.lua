@@ -31,7 +31,7 @@ function MainScene:showPushView()
         :setButtonLabel(cc.ui.UILabel.new({text = "Enable Push", size = 22, color = display.COLOR_BLACK}))
         :setButtonSize(180, 50)
         :onButtonClicked(function()
-            cc.push:startPush()
+            cc.push:doCommand{command = "startPush"}
         end)
         :pos(100, display.top - self.innerSpace*3)
         :addTo(self)
@@ -41,7 +41,7 @@ function MainScene:showPushView()
         :setButtonLabel(cc.ui.UILabel.new({text = "Disable Push", size = 22, color = display.COLOR_BLACK}))
         :setButtonSize(180, 50)
         :onButtonClicked(function()
-            cc.push:stopPush()
+            cc.push:doCommand{command = "stopPush"}
         end)
         :pos(300, display.top - self.innerSpace*3)
         :addTo(self)
@@ -55,7 +55,7 @@ function MainScene:showPushView()
             if string.utf8len(text) < 1 then
                 return
             end
-            cc.push:setTags(string.split(text, ","))
+            cc.push:doCommand{command = "setTags", args = string.split(text, ",")}
         end)
         :pos(100, display.top - self.innerSpace*4)
         :addTo(self)
@@ -80,7 +80,7 @@ function MainScene:showPushView()
             if string.utf8len(text) < 1 then
                 return
             end
-            cc.push:delTags(string.split(text, ","))
+            cc.push:doCommand{command = "delTags", args = string.split(text, ",")}
         end)
         :pos(100, display.top - self.innerSpace*5)
         :addTo(self)
@@ -105,7 +105,7 @@ function MainScene:showPushView()
             if string.utf8len(text) < 1 then
                 return
             end
-            cc.push:setAlias(text)
+            cc.push:doCommand{command = "setAlias", args = text}
         end)
         :pos(100, display.top - self.innerSpace*6)
         :addTo(self)
@@ -126,7 +126,7 @@ function MainScene:showPushView()
         :setButtonLabel(cc.ui.UILabel.new({text = "del alias", size = 22, color = display.COLOR_BLACK}))
         :setButtonSize(180, 50)
         :onButtonClicked(function()
-            cc.push:delAlias()
+            cc.push:doCommand{command = "delAlias"}
         end)
         :pos(100, display.top - self.innerSpace*7)
         :addTo(self)

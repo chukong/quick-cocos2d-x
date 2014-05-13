@@ -2,6 +2,7 @@ local CURRENT_MODULE_NAME = ...
 
 local providers = {
     "CocoPush",
+    "UmengPush"
 }
 
 for _, packageName in ipairs(providers) do
@@ -18,6 +19,7 @@ local DEFAULT_PROVIDER_OBJECT_NAME = "push.default"
 function push:ctor()
     cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
     self.events = import(".events", CURRENT_MODULE_NAME)
+    self.umengAliasType = import(".UmengAliasType", CURRENT_MODULE_NAME)
     self.providers_ = {}
 end
 
@@ -45,59 +47,20 @@ function push:stop(name)
     end
 end
 
-function push:startPush(name)
+--[[
+args {
+    command = "要执行的命令",
+    providerName = "模块名字",
+    args = "执行命令的参数"
+}
+]]
+function push:doCommand(args)
     local provider = self:getProvider(name)
     if provider then
-        provider:startPush()
+        provider:doCommand(args)
     end
 end
 
-function push:stopPush(name)
-    local provider = self:getProvider(name)
-    if provider then
-        provider:stopPush()
-    end
-end
-
-function push:setAlias(alias, name)
-    local provider = self:getProvider(name)
-    if provider then
-        provider:setAlias(alias)
-    end
-end
-
-function push:delAlias()
-    local provider = self:getProvider(name)
-    if provider then
-        provider:delAlias()
-    end
-end
-
-function push:setTags(tags, name)
-    if type(tags) ~= "table" then
-        echoError("cc.push:setTags() - args must be table")
-        return
-    end
-
-    local provider = self:getProvider(name)
-    if provider then
-        provider:setTags(tags)
-    end
-end
-
-function push:delTags(tags, name)
-    if type(tags) ~= "table" then
-        echoError("cc.push:delTags() - args must be table")
-        return
-    end
-
-    local provider = self:getProvider(name)
-    if provider then
-        provider:delTags(tags)
-    end
-end
-
--- private
 function push:getProvider(name)
     name = name or DEFAULT_PROVIDER_OBJECT_NAME
     if self.providers_[name] then

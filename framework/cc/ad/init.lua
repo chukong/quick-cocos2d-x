@@ -54,10 +54,17 @@ function ad:stop(name)
     end
 end
 
-function ad:show(adType, options, name)
+--[[
+args {
+    command = "要执行的命令",
+    providerName = "模块名字",
+    args = "执行命令的参数"
+}
+]]
+function ad:doCommand(args)
     local provider = self:getProvider(name)
     if provider then
-        provider:show(adType, options)
+        provider:doCommand(args)
     end
 end
 

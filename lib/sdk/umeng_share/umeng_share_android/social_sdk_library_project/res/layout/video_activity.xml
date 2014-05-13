@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <SurfaceView
+        android:id="@+id/video_surfaceview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+    </SurfaceView>
+
+    <!-- 退出按钮 -->
+
+    <ImageView
+        android:id="@+id/quitBtn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="10dp"
+        android:alpha="0.6"
+        android:contentDescription="@string/quit"
+        android:padding="5dp"
+        android:src="@drawable/left" >
+    </ImageView>
+
+    <!-- 播放、暂停按钮 -->
+
+    <ImageView
+        android:id="@+id/playBtn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:alpha="0.6"
+        android:contentDescription="@string/play"
+        android:src="@drawable/gtk_media_play" >
+    </ImageView>
+
+    <!-- 进度条 -->
+
+    <include
+        layout="@layout/video_progressbar"/>
+
+</FrameLayout>

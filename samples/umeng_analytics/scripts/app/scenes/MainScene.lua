@@ -33,10 +33,13 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 通过支付宝用 10元钱 购买了 1000 个金币
-            MobClickCppForLua:pay(10, 2, 1000)
+            cc.analytics:doCommand{command = "payCoin", args = {cash = 10, source = 2, coin = 1000}}
+            -- MobClickCppForLua:pay(10, 2, 1000)
 
             -- 10元购买 2个魔法药水,每个药水50个金币
-            MobClickCppForLua:pay(10, 2, "magic_bottle", 2, 500);
+            cc.analytics:doCommand{command = "payItem",
+                    args = {cash = 10, source = 2, item = "magic_bottle", amount = 2, price = 500}}
+            -- MobClickCppForLua:pay(10, 2, "magic_bottle", 2, 500);
         end)
         :pos(display.cx/2, display.top - self.innerSpace*2)
         :addTo(self)
@@ -46,7 +49,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 使用金币购买了1个头盔，一个头盔价值 1000 金币
-            MobClickCppForLua:buy("helmet", 1, 1000)
+            cc.analytics:doCommand{command = "buy",
+                    args = {item = "helmet", amount = 1, price = 1000}}
+            -- MobClickCppForLua:buy("helmet", 1, 1000)
         end)
         :pos(display.cx + display.cx/2, display.top - self.innerSpace*2)
         :addTo(self)
@@ -56,7 +61,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 使用了2瓶魔法药水,每个需要50个虚拟币
-            MobClickCppForLua:use("magic_bottle", 2, 50)
+            cc.analytics:doCommand{command = "use",
+                    args = {item = "magic_bottle", amount = 2, price = 50}}
+            -- MobClickCppForLua:use("magic_bottle", 2, 50)
         end)
         :pos(display.cx/2, display.top - self.innerSpace*3)
         :addTo(self)
@@ -66,7 +73,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 连续5天登陆游戏奖励1000金币
-            MobClickCppForLua:bonus(1000, 1);
+            cc.analytics:doCommand{command = "bonusCoin",
+                    args = {coin = 1000, source = 1}}
+            -- MobClickCppForLua:bonus(1000, 1);
         end)
         :pos(display.cx + display.cx/2, display.top - self.innerSpace*3)
         :addTo(self)
@@ -76,7 +85,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 统计微博应用中"转发"事件发生的次数
-            MobClickCppForLua:event("forward");
+            cc.analytics:doCommand{command = "event",
+                    args = {eventId = "forward"}}
+            -- MobClickCppForLua:event("forward");
         end)
         :pos(display.cx/2, display.top - self.innerSpace*4)
         :addTo(self)
@@ -92,7 +103,9 @@ function MainScene:show()
             -- 同时因为第二个参数类型的改变，会造成与普通事件的event函数有二义性，所以名字与原生也有变动
             -- 详情可参见$QUICK_COCOS2DX_ROOT/lib/sdk/umeng_analytics/include/MobClickCppForLua.h
             local attributes = "type,book|quantity,3"
-            MobClickCppForLua:eventCustom("purchase", attributes)
+            cc.analytics:doCommand{command = "eventCustom",
+                    args = {eventId = "purchase", attributes = attributes}}
+            -- MobClickCppForLua:eventCustom("purchase", attributes)
         end)
         :pos(display.cx + display.cx/2, display.top - self.innerSpace*4)
         :addTo(self)
@@ -102,7 +115,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 跟踪播放音乐事件发生的总时间,音乐播放开始时调用
-            MobClickCppForLua:beginEvent("music_play")
+            cc.analytics:doCommand{command = "beginEvent",
+                    args = {eventId = "music_play"}}
+            -- MobClickCppForLua:beginEvent("music_play")
         end)
         :pos(display.cx/2, display.top - self.innerSpace*5)
         :addTo(self)
@@ -112,7 +127,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 跟踪播放音乐事件发生的总时间,音乐播放结束时调用
-            MobClickCppForLua:endEvent("music_play")
+            cc.analytics:doCommand{command = "endEvent",
+                    args = {eventId = "music_play"}}
+            -- MobClickCppForLua:endEvent("music_play")
         end)
         :pos(display.cx + display.cx/2, display.top - self.innerSpace*5)
         :addTo(self)
@@ -122,7 +139,9 @@ function MainScene:show()
         :setButtonSize(display.cx - 20, 60)
         :onButtonClicked(function()
             -- 跟踪播放音乐事件发生的总时间,音乐播放结束时调用
-            local value = MobClickCppForLua:getConfigParams("author")
+            local value = cc.analytics:doCommand{command = "getConfigParams",
+                    args = {key = "author"}}
+            -- local value = MobClickCppForLua:getConfigParams("author")
             if value then
                 print("online config author:" .. value)
             else
@@ -136,7 +155,9 @@ end
 
 function MainScene:onEnter()
     if device.platform == "android" or device.platform == "ios" then
-        MobClickCppForLua:beginScene("MainScene");
+        cc.analytics:doCommand{command = "beginScene",
+                    args = {sceneName = "MainScene"}}
+        -- MobClickCppForLua:beginScene("MainScene");
     end
 
     if device.platform == "android" then
@@ -156,7 +177,9 @@ end
 
 function MainScene:onExit()
     if device.platform == "android" or device.platform == "ios" then
-        MobClickCppForLua:endScene("MainScene");
+        cc.analytics:doCommand{command = "endScene",
+                    args = {sceneName = "MainScene"}}
+        -- MobClickCppForLua:endScene("MainScene");
     end
 end
 
