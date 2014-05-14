@@ -48,18 +48,6 @@ for _, packageName in ipairs(components) do
     cc.Registry.add(import("." .. packageName, CURRENT_MODULE_NAME), packageName)
 end
 
--- load MVC
-cc.mvc = import(".mvc.init")
-
--- load more library
-cc.ui = import(".ui.init")
-
--- load extensions
--- cc.ad = import(".ad.init").new()
--- cc.push = import(".push.init").new()
--- cc.analytics = import(".analytics.init").new()
--- cc.share = import(".share.init").new()
-
 -- cc = cc.GameObject.extend()
 local GameObject = cc.GameObject
 local ccmt = {}
@@ -70,3 +58,15 @@ ccmt.__call = function(self, target)
     printError("cc() - invalid target")
 end
 setmetatable(cc, ccmt)
+
+-- load MVC
+cc.mvc = import(".mvc.init")
+
+-- load more library
+cc.ui = import(".ui.init")
+
+-- load extensions
+cc.ad = import(".ad.init").new()
+cc.push = import(".push.init").new()
+cc.analytics = import(".analytics.init").new()
+cc.share = import(".share.init").new()

@@ -8,8 +8,6 @@ function ProviderBase:ctor(interface)
 end
 
 function ProviderBase:callback_(event)
-	echoInfo("cc.share.UmengShare.ProviderBase:callback() - event:" .. event)
-
     local infos = string.split(event, "|")
     local evt = {
     provider = "share.UmengShare",
@@ -45,7 +43,7 @@ function ProviderBase:doCommand(args)
     	self:shareMusic(args.args.shareText, args.args.shareVideo,
         		args.args.shareVideoImg, args.args.shareTitle)
     else
-        echoError("cc.share.umengshare.ProviderBase:doCommand() - invaild command:" .. args.command)
+        printError("cc.share.umengshare.ProviderBase:doCommand() - invaild command:" .. args.command)
     end
 end
 

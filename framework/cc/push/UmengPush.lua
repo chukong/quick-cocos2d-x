@@ -9,7 +9,7 @@ function UmengPush.getInstance(interface)
 	if device.platform == "android" then
         providerClass = import(".umengpush.ProviderAndroid", CURRENT_MODULE_NAME)
     else
-        echoError("push.UmengPush.getInstance() - not supported platform %s", device.platform)
+        printError("push.UmengPush.getInstance() - not supported platform %s", device.platform)
         return nil
     end
 

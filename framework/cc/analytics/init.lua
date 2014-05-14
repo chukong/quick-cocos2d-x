@@ -26,7 +26,7 @@ function analytics:start(name)
         local providerFactoryClass = cc.Registry.newObject(name)
         local provider = providerFactoryClass.getInstance(self)
         if not provider then
-            echoError("cc.analytics:start() - create analytics provider failed")
+            printError("cc.analytics:start() - create analytics provider failed")
             return
         end
 
@@ -65,7 +65,7 @@ function analytics:getProvider(name)
     if self.providers_[name] then
         return self.providers_[name]
     end
-    echoError("cc.analytics:getProvider() - provider %s not exists", name)
+    printError("cc.analytics:getProvider() - provider %s not exists", name)
 end
 
 return analytics

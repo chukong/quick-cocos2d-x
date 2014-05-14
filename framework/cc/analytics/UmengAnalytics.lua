@@ -9,7 +9,7 @@ function UmengAnalytics.getInstance(interface)
 	if device.platform == "android" or device.platform == "ios" then
         providerClass = import(".umenganalytics.Provider", CURRENT_MODULE_NAME)
     else
-        echoError("push.UmengAnalytics.getInstance() - not supported platform %s", device.platform)
+        printError("push.UmengAnalytics.getInstance() - not supported platform %s", device.platform)
         return nil
     end
 

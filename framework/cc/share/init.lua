@@ -18,6 +18,7 @@ local DEFAULT_PROVIDER_OBJECT_NAME = "share.default"
 
 function share:ctor()
     cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+    self.events = import(".events", CURRENT_MODULE_NAME)
     self.umengShareMedia = import(".UmengShareMedia", CURRENT_MODULE_NAME)
     self.providers_ = {}
 end
@@ -27,7 +28,7 @@ function share:start(name)
         local providerFactoryClass = cc.Registry.newObject(name)
         local provider = providerFactoryClass.getInstance(self)
         if not provider then
-            echoError("cc.share:start() - create share provider failed")
+            printError("cc.share:start() - create share provider failed")
             return
         end
 
@@ -65,7 +66,7 @@ function share:getProvider(name)
     if self.providers_[name] then
         return self.providers_[name]
     end
-    echoError("cc.share:getProvider() - provider %s not exists", name)
+    printError("cc.share:getProvider() - provider %s not exists", name)
 end
 
 return share

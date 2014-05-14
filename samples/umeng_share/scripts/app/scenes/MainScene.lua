@@ -4,7 +4,7 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    if "ios" == device.platform and "android" == device.platform then
+    if "ios" == device.platform or "android" == device.platform then
         self:showView()
     else
         self:showNotSupport()
@@ -33,16 +33,17 @@ function MainScene:showView()
         :addTo(self)
 
     -- use EventProxy, ensure remove the listener when leave current the scene
-    local proxy = cc.EventProxy.new(cc.push, self)
-    proxy:addEventListener(cc.push.events.LISTENER, function(event)
+    cc.share:addEventListener(cc.share.events.LISTENER, function(event)
         dump(event, "umeng share receive event:")
     end)
 end
 
 function MainScene:showNotSupport()
-    ui.newTTFLabel({text = "UmengShare Demo\n\nPlease run this demo on IOS or Android device.",
-        size = 24, align = ui.TEXT_ALIGN_CENTER})
+    cc.ui.UILabel.new({text = "UmengPush demo\nPlease run this demo on IOS or Android device.",
+            size = 24,
+            align = cc.ui.TEXT_ALIGN_CENTER})
         :pos(display.cx, display.cy)
+        :align(display.CENTER)
         :addTo(self)
 end
 

@@ -15,7 +15,7 @@ end
 function ProviderAndroid:startPush()
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "startPush")
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call startPush failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call startPush failed.")
         return false
     end
 
@@ -25,7 +25,7 @@ end
 function ProviderAndroid:stopPush()
 	local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "stopPush")
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call stopPush failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call stopPush failed.")
         return false
     end
 
@@ -35,7 +35,7 @@ end
 function ProviderAndroid:setAlias(alias, aliasType)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "setAlias", {alias, aliasType})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call setAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call setAlias failed.")
         return false
     end
 
@@ -45,7 +45,7 @@ end
 function ProviderAndroid:delAlias(alias, aliasType)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "delAlias", {alias, aliasType})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 
@@ -55,7 +55,7 @@ end
 function ProviderAndroid:setTags(tags)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "setTags", {table.concat(tags, ",")})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 
@@ -65,7 +65,7 @@ end
 function ProviderAndroid:delTags(tags)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "delTags", {table.concat(tags, ",")})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 

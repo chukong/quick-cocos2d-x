@@ -8,8 +8,6 @@ function ProviderBase:ctor(interface)
 end
 
 function ProviderBase:callback_(event)
-	echoInfo("cc.push.cocopush.ProviderBase:callback() - event:" .. event)
-
     local infos = string.split(event, "|")
     local evt = {
     provider = "push.CocoPush",
@@ -38,18 +36,18 @@ function ProviderBase:doCommand(args)
         self:delAlias(args.args)
     elseif args.command == "setTags" then
         if type(args.args) ~= "table" then
-            echoError("cc.push.cocopush.ProviderBase:doCommand() - args must be table")
+            printError("cc.push.cocopush.ProviderBase:doCommand() - args must be table")
             return 
         end
         self:setTags(args.args)
     elseif args.command == "delTags" then
         if type(args.args) ~= "table" then
-            echoError("cc.push.cocopush.ProviderBase:doCommand() - args must be table")
+            printError("cc.push.cocopush.ProviderBase:doCommand() - args must be table")
             return 
         end
         self:delTags(args.args)
     else
-        echoError("cc.push.cocopush.ProviderBase:doCommand() - invaild command:" .. args.command)
+        printError("cc.push.cocopush.ProviderBase:doCommand() - invaild command:" .. args.command)
     end
 end
 

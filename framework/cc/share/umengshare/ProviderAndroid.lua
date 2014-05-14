@@ -16,7 +16,7 @@ end
 function ProviderAndroid:setAppWebSite(shareMedia, webSite)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "setAppWebSite", {shareMedia, webSite})
     if not ok then
-        echoError("cc.share.ProviderAndroid:ctor() - call setAppWebSite failed.")
+        printError("cc.share.ProviderAndroid:ctor() - call setAppWebSite failed.")
         return false
     end
 
@@ -26,7 +26,7 @@ end
 function ProviderAndroid:removePlatform(shareMedia)
 	local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "removePlatform", {shareMedia})
     if not ok then
-        echoError("cc.share.ProviderAndroid:ctor() - call removePlatform failed.")
+        printError("cc.share.ProviderAndroid:ctor() - call removePlatform failed.")
         return false
     end
 
@@ -36,7 +36,7 @@ end
 function ProviderAndroid:reorderPlatform(shareMedia)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "reorderPlatform", {shareMedia})
     if not ok then
-        echoError("cc.share.ProviderAndroid:ctor() - call reorderPlatform failed.")
+        printError("cc.share.ProviderAndroid:ctor() - call reorderPlatform failed.")
         return false
     end
 
@@ -46,7 +46,7 @@ end
 function ProviderAndroid:shareText(text)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareText", {text})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 
@@ -56,7 +56,7 @@ end
 function ProviderAndroid:shareImg(text, img, imgType)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareImg", {text, img, imgType})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 
@@ -66,7 +66,7 @@ end
 function ProviderAndroid:shareMusic(text, music, musicImg, title, author)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "delTags", {text, music, musicImg, title, author})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 
@@ -76,7 +76,7 @@ end
 function ProviderAndroid:shareVideo(text, video, videoImg, title)
     local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "delTags", {text, video, videoImg, title})
     if not ok then
-        echoError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
+        printError("cc.push.ProviderAndroid:ctor() - call delAlias failed.")
         return false
     end
 

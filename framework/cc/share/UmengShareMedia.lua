@@ -20,3 +20,5 @@ local UmengShareMedia = {
 	INSTAGRAM = "INSTAGRAM",
 	GENERIC = "GENERIC",
 }
+
+return UmengShareMedia

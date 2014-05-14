@@ -8,7 +8,7 @@ function ProviderBase:ctor(interface)
 end
 
 function ProviderBase:callback_(event)
-	echoInfo("cc.push.umengush.ProviderBase:callback() - event:" .. event)
+	printInfo("cc.push.umengush.ProviderBase:callback() - event:" .. event)
 
     local infos = string.split(event, "|")
     local evt = {
@@ -52,18 +52,18 @@ function ProviderBase:doCommand(args)
         self:delAlias(val[1], val[2])
     elseif args.command == "setTags" then
         if type(args.args) ~= "table" then
-            echoError("cc.push.umengpush.ProviderBase:doCommand() - args must be table")
+            printError("cc.push.umengpush.ProviderBase:doCommand() - args must be table")
             return 
         end
         self:setTags(args.args)
     elseif args.command == "delTags" then
         if type(args.args) ~= "table" then
-            echoError("cc.push.umengpush.ProviderBase:doCommand() - args must be table")
+            printError("cc.push.umengpush.ProviderBase:doCommand() - args must be table")
             return 
         end
         self:delTags(args.args)
     else
-        echoError("cc.push.umengpush.ProviderBase:doCommand() - invaild command:" .. args.command)
+        printError("cc.push.umengpush.ProviderBase:doCommand() - invaild command:" .. args.command)
     end
 end
 

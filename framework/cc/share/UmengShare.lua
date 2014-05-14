@@ -10,7 +10,7 @@ function UmengShare.getInstance(interface)
     elseif device.platform == "ios" then
     	providerClass = import(".umengshare.ProviderIOS", CURRENT_MODULE_NAME)
     else
-        echoError("share.UmengShare.getInstance() - not supported platform %s", device.platform)
+        printError("share.UmengShare.getInstance() - not supported platform %s", device.platform)
         return nil
     end
 

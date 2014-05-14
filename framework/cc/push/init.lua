@@ -28,7 +28,7 @@ function push:start(name)
         local providerFactoryClass = cc.Registry.newObject(name)
         local provider = providerFactoryClass.getInstance(self)
         if not provider then
-            echoError("cc.push:start() - create push provider failed")
+            printError("cc.push:start() - create push provider failed")
             return
         end
 
@@ -66,7 +66,7 @@ function push:getProvider(name)
     if self.providers_[name] then
         return self.providers_[name]
     end
-    echoError("cc.push:getProvider() - provider %s not exists", name)
+    printError("cc.push:getProvider() - provider %s not exists", name)
 end
 
 return push

@@ -40,7 +40,7 @@ end
 
 function ProviderBase:callback_(event)
     event, errcode = unpack(string.split(string.lower(event), ","))
-    echoInfo("cc.ad.punchbox CALLBACK, event %s", event)
+    printInfo("cc.ad.punchbox CALLBACK, event %s", event)
     local evt = {provider = "ad.PunchBox"}
     if event == "received" then
         evt.name = events.RECEIVED
@@ -62,7 +62,7 @@ function ProviderBase:doCommand(args)
     if args.command == "banner" or args.command == "interstitial" or args.command == "moregame" then
         self:show(args.command, args.args)
     else
-        echoError("cc.ad.punchbox.ProviderBase:doCommand() - invaild command:" .. args.command)
+        printError("cc.ad.punchbox.ProviderBase:doCommand() - invaild command:" .. args.command)
     end
 end
 

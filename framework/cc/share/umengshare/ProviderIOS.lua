@@ -13,31 +13,31 @@ function ProviderIOS:removeListener()
 end
 
 function ProviderIOS:setAppWebSite()
-	echoInfo("cc.share.ProviderIOS not support setAppWebSite")
+	printInfo("cc.share.ProviderIOS not support setAppWebSite")
 end
 
 function ProviderIOS:removePlatform()
-	echoInfo("cc.share.ProviderIOS not support removePlatform")
+	printInfo("cc.share.ProviderIOS not support removePlatform")
 end
 
 function ProviderIOS:reorderPlatform()
-	echoInfo("cc.share.ProviderIOS not support reorderPlatform")
+	printInfo("cc.share.ProviderIOS not support reorderPlatform")
 end
 
 function ProviderIOS:shareText()
-	echoInfo("cc.share.ProviderIOS not support shareText")
+	printInfo("cc.share.ProviderIOS not support shareText")
 end
 
 function ProviderIOS:shareImg()
-	echoInfo("cc.share.ProviderIOS not support shareImg")
+	printInfo("cc.share.ProviderIOS not support shareImg")
 end
 
 function ProviderIOS:shareMusic()
-	echoInfo("cc.share.ProviderIOS not support shareMusic")
+	printInfo("cc.share.ProviderIOS not support shareMusic")
 end
 
 function ProviderIOS:shareVideo()
-	echoInfo("cc.share.ProviderIOS not support shareVideo")
+	printInfo("cc.share.ProviderIOS not support shareVideo")
 end
 
 return ProviderIOS

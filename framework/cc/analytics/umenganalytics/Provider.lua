@@ -88,7 +88,7 @@ function Provider:doCommand(args)
     elseif args.command == "endScene" then
         MobClickCppForLua:endScene(args.args.sceneName)
     else
-        echoError("cc.analytics.umenganalytics.Provider:doCommand() - not support command")
+        printError("cc.analytics.umenganalytics.Provider:doCommand() - not support command")
     end
 
 end
