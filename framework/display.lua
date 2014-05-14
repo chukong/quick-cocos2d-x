@@ -388,12 +388,6 @@ end
 function display.newMaskedSprite(mask, pic, offset)
 	local maskSprite = nil
 	local picSprite = nil
-	local ox = 0
-	local oy = 0
-	if offset then
-		ox = offset.x or offset[1]
-		oy = offset.y or offset[2]
-	end
 	if type(mask) == "string" then
 		maskSprite = display.newSprite(mask)
 		picSprite = display.newSprite(pic)
@@ -404,7 +398,9 @@ function display.newMaskedSprite(mask, pic, offset)
 
 	local maskSize = maskSprite:getContentSize()
 	local picSize  = picSprite:getContentSize()
-	if ox ~= 0 or oy ~= 0 then
+	if offset then
+		local ox = offset.x or offset[1]
+		local oy = offset.y or offset[2]
 		assert( maskSize.width < picSize.width and maskSize.height < picSize.height, 
 				"The picture sprite must be greater than the mask sprite!")
 		picSprite = display.newSpriteWithRect(picSprite, {ox, oy, maskSize.width, maskSize.height})
