@@ -24,8 +24,11 @@ function ProviderIOS:reorderPlatform()
 	printInfo("cc.share.ProviderIOS not support reorderPlatform")
 end
 
-function ProviderIOS:shareText()
-	printInfo("cc.share.ProviderIOS not support shareText")
+function ProviderIOS:shareText(text)
+	local ok = luaoc.callStaticMethod(SDK_CLASS_NAME, "share", {shareText = text})
+	if not ok then
+        printError("cc.share.ProviderIOS:ctor() - call shareText failed.")
+    end
 end
 
 function ProviderIOS:shareImg()

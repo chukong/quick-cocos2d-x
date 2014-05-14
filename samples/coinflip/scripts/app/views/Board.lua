@@ -81,7 +81,7 @@ function Board:flipCoin(coin, includeNeighbour)
         end
     end)
     if includeNeighbour then
-        audio.playEffect(GAME_SFX.flipCoin)
+        audio.playSound(GAME_SFX.flipCoin)
         self.batch:reorderChild(coin, COIN_ZORDER + 1)
         self:performWithDelay(function()
             self:flipCoin(self:getCoin(coin.row - 1, coin.col))

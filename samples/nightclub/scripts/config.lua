@@ -28,5 +28,5 @@ end
 
 -- preload all effects
 for k, v in pairs(EFFECT) do
-    audio.preloadEffect(v)
+    audio.preloadSound(v)
 end
