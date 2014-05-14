@@ -27,7 +27,7 @@ function ad:start(options, name)
         local providerFactoryClass = cc.Registry.newObject(name)
         local provider = providerFactoryClass.getInstance(self, options)
         if not provider then
-            echoError("cc.ad:start() - create ad provider failed")
+            printError("cc.ad:start() - create ad provider failed")
             return
         end
 
@@ -43,7 +43,7 @@ function ad:getProvider(name)
     if self.providers_[name] then
         return self.providers_[name]
     end
-    echoError("cc.ad:getProvider() - provider %s not exists", name)
+    printError("cc.ad:getProvider() - provider %s not exists", name)
 end
 
 function ad:stop(name)
@@ -54,10 +54,17 @@ function ad:stop(name)
     end
 end
 
-function ad:show(adType, options, name)
+--[[
+args {
+    command = "要执行的命令",
+    providerName = "模块名字",
+    args = "执行命令的参数"
+}
+]]
+function ad:doCommand(args)
     local provider = self:getProvider(name)
     if provider then
-        provider:show(adType, options)
+        provider:doCommand(args)
     end
 end
 

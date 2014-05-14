@@ -77,7 +77,7 @@ void MobClickCppForLua::applicationWillEnterForeground() {
     MobClickCpp::applicationWillEnterForeground();
 }
 
-void MobClickCppForLua::end() {
+void MobClickCppForLua::endAnalytics() {
     MobClickCpp::end();
 }
 

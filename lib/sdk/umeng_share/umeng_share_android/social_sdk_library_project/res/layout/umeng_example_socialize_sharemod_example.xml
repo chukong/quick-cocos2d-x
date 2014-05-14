@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+	<ScrollView 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+	    <LinearLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical">
+	    <Button
+	        android:id="@+id/share_bt"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="分享(先选择平台)" />
+	
+	    <Button
+	        android:id="@+id/direct_share_bt"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="一键分享到腾讯微博（无编辑界面）" />  
+	
+	    <Button
+	        android:id="@+id/quick_share"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="底层分享接口（打开编辑页）" />
+	
+	    <Button
+	        android:id="@+id/interface_share_bt"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="自定义按钮分享到新浪微博" />
+	
+	    <Button
+	        android:id="@+id/share_multi_bt"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="一键分享到所有已经授权平台" />
+	
+	    <Button
+	        android:id="@+id/interface_oauth"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="授权新浪微博" />
+	
+	    <Button
+	        android:id="@+id/interface_deleteoauth"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="解除新浪微博授权" />
+	    
+	    <Button
+	        android:id="@+id/sort"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="指定平台顺序" />
+	    
+	    <Button
+	        android:id="@+id/remove_platform"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="去掉豆瓣和人人" />	        
+		<Button
+	        android:id="@+id/close_sso"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="关闭SSO" />
+		<Button
+	        android:id="@+id/open_sso"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="打开SSO" />
+		<Button
+	        android:id="@+id/oauth_directshare"
+	        android:layout_width="fill_parent"
+	        android:layout_height="45dp"
+	        android:text="授权+直接分享" />		        
+		    </LinearLayout>
+	</ScrollView>
+</LinearLayout>
