@@ -66,7 +66,7 @@ public:
 
 const QEvent::Type AppDidFinishLaunchingEvent::EventType = (QEvent::Type)QEvent::registerEventType(QEvent::User+100);
 
-#if USING_QWINDOW==1
+#if USING_QWINDOW == 1
 class Cocos2DQt5OpenGLIntegration : public QWindow {
     public:
         Cocos2DQt5OpenGLIntegration(int width, int height);
@@ -117,6 +117,13 @@ class Cocos2DQt5OpenGLIntegration : public QWindow {
             if (!m_context) {
 
                 m_context = new QOpenGLContext(this);
+
+                // fix
+                QSurfaceFormat format;
+                format.setStencilBufferSize(8);
+                format.setDepthBufferSize(24);
+                m_context->setFormat(format);
+
                 m_context->create();
                 if (!m_context->makeCurrent(this)) {
                     CCLOG(">> shit. makeCurrent failed!");
