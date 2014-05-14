@@ -424,11 +424,11 @@ function display.newMaskedSprite(mask, pic, offset)
 	picSprite:align(display.LEFT_BOTTOM, 0, 0)
 	picSprite:setBlendFunc(pb)
 
-	local canva = CCRenderTexture:create(maskSize.width,maskSize.height)
-	canva:begin()
+	local canvas = CCRenderTexture:create(maskSize.width,maskSize.height)
+	canvas:begin()
 	maskSprite:visit()
 	picSprite:visit()
-	canva:endToLua()
+	canvas:endToLua()
 
 	local newTex = canvas:getSprite():getTexture()
 
