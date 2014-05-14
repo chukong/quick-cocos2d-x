@@ -3,7 +3,7 @@ local ScrollView = class("ScrollView", function(rect)
     if not rect then rect = CCRect(0, 0, 0, 0) end
     local node = display.newClippingRegionNode(rect)
     node:setNodeEventEnabled(true)
-    require("framework.api.EventProtocol").extend(node)
+    cc(node):addComponent("components.behavior.EventProtocol"):exportMethods()
     return node
 end)
 
@@ -26,10 +26,10 @@ function ScrollView:ctor(rect, direction)
     self.cells = {}
     self.currentIndex = 0
 
-    self:registerScriptHandler(function(event)
-        if event == "enter" then
+    self:addNodeEventListener(cc.NODE_EVENT, function(event)
+        if event.name == "enter" then
             self:onEnter()
-        elseif event == "exit" then
+        elseif event.name == "exit" then
             self:onExit()
         end
     end)

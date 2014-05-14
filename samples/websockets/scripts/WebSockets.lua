@@ -11,7 +11,7 @@ WebSockets.CLOSE_EVENT   = "close"
 WebSockets.ERROR_EVENT   = "error"
 
 function WebSockets:ctor(url)
-    require("framework.api.EventProtocol").extend(self)
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
     self.socket = WebSocket:create(url)
 
     if self.socket then

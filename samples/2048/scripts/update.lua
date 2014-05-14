@@ -220,21 +220,6 @@ function UpdateScene:onEnter()
 	self:requestFromServer(self.requesting)
 
     self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) self:onEnterFrame(dt) end)
-
-    print("device.platform", device.platform)
-    if device.platform ~= "android" then return end
-
-    -- avoid unmeant back
-    self:performWithDelay(function()
-        -- keypad layer, for android
-        local layer = display.newLayer()
-        layer:addKeypadEventListener(function(event)
-            if event == "back" then game.exit() end
-        end)
-        self:addChild(layer)
-
-        layer:setKeypadEnabled(true)
-    end, 0.5)
 end
 
 function UpdateScene:onExit()
