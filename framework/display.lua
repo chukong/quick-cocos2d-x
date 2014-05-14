@@ -353,10 +353,37 @@ function display.newTiledBatchNode(filename, plistFile, size, hPadding, vPadding
 	return __batch, __newSize.width, __newSize.height
 end
 
+--- Create a sprite with offset coordinates.
+-- @author zrong(zengrong.net)
+-- Creation: 2014-05-14
+-- @param sprite A sprite file or a Sprite object.
+-- @param rect A rect object.
+function display.newSpriteWithRect(sprite, rect)
+	local x = rect.x or rect[1] or rect.origin.x
+	local y = rect.y or rect[2] or rect.origin.y
+	local w = rect.w or rect[3] or rect.size.width
+	local h = rect.h or rect[4] or rect.size.height
+	if type(sprite) == "string" then
+		sprite = display.newSprite(sprite)
+	end
+	local picRect = sprite:getTextureRect()
+	assert( w < picRect.size.width and h < picRect.size.height, 
+			"The picture sprite must be greater than the rect size!")
+	return CCSpriteExtend.extend(
+		CCSprite:createWithTexture(
+				sprite:getTexture(),
+				cc.rect(picRect.origin.x+x, picRect.origin.y+y, w, h)
+			)
+		)
+end
+
 --- Create a masked sprite
 -- @author zrong(zengrong.net)
 -- Creation: 2014-01-21
--- Last Modification: 2014-04-29
+-- Last Modification: 2014-05-14
+-- @param mask A mask file or a mask CCSprite.
+-- @param pic A picture file or a picture CCSprite.
+-- @param offset The offset coordinates for picture, TOP LEFT base.
 function display.newMaskedSprite(mask, pic, offset)
 	local maskSprite = nil
 	local picSprite = nil
@@ -374,6 +401,14 @@ function display.newMaskedSprite(mask, pic, offset)
 		picSprite = pic
 	end
 
+	local maskSize = maskSprite:getContentSize()
+	local picSize  = picSprite:getContentSize()
+	if ox ~= 0 or oy ~= 0 then
+		assert( maskSize.width < picSize.width and maskSize.height < picSize.height, 
+				"The picture sprite must be greater than the mask sprite!")
+		picSprite = display.newSpriteWithRect(picSprite, {ox, oy, maskSize.width, maskSize.height})
+	end
+
 	local mb = ccBlendFunc()
 	mb.src = GL_ONE
 	mb.dst = GL_ZERO
@@ -382,13 +417,12 @@ function display.newMaskedSprite(mask, pic, offset)
 	pb.src = GL_DST_ALPHA
 	pb.dst = GL_ZERO
 
-	maskSprite:align(display.LEFT_BOTTOM, ox, oy)
+	maskSprite:align(display.LEFT_BOTTOM, 0, 0)
 	maskSprite:setBlendFunc(mb)
 
 	picSprite:align(display.LEFT_BOTTOM, 0, 0)
 	picSprite:setBlendFunc(pb)
 
-	local maskSize = maskSprite:getContentSize()
 	local canva = CCRenderTexture:create(maskSize.width,maskSize.height)
 	canva:begin()
 	maskSprite:visit()
