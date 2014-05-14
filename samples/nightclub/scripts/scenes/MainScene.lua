@@ -202,12 +202,12 @@ function MainScene:onEnter()
         self:genInitObjects()
         self:genObjects(91)
         -- 注册touch事件处理函数
-        self.touchLayer:addTouchEventListener(function(event, x, y)
-            return self:onTouch(event, x, y)
+        self.touchLayer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+            return self:onTouch(event.name, event.x, event.y)
         end)
         self.touchLayer:setTouchEnabled(true)
         -- 注册帧事件处理函数
-        self:scheduleUpdate(function(dt) self:updateFrame(dt) end)
+        self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) self:updateFrame(dt) end)
         -- 检查更新
         self:checkUpdate()
     end)

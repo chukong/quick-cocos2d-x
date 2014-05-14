@@ -219,7 +219,7 @@ function UpdateScene:onEnter()
 	self.dataRecv = nil
 	self:requestFromServer(self.requesting)
 
-    self:scheduleUpdate(function(dt) self:onEnterFrame(dt) end)
+    self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) self:onEnterFrame(dt) end)
 
     print("device.platform", device.platform)
     if device.platform ~= "android" then return end
