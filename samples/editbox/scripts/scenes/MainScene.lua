@@ -9,20 +9,20 @@ function newButton(imageName, listener, setAlpha)
     if setAlpha == nil then setAlpha = true end
 
     sprite:setTouchEnabled(true)
-    sprite:addTouchEventListener(function(event, x, y)
-        if event == "began" then
+    sprite:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        if event.name == "began" then
             if setAlpha then sprite:setOpacity(128) end
             return true
         end
 
-        local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
-        if event == "moved" then
+        local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(event.x, event.y))
+        if event.name == "moved" then
             if touchInSprite then
                 if setAlpha then sprite:setOpacity(128) end
             else
                 sprite:setOpacity(255)
             end
-        elseif event == "ended" then
+        elseif event.name == "ended" then
             if touchInSprite then listener() end
             sprite:setOpacity(255)
         else
