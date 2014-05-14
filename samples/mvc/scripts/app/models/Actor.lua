@@ -59,7 +59,7 @@ function Actor:ctor(properties, events, callbacks)
         {name = "relive", from = "dead",    to = "idle"},
     }
     -- 如果继承类提供了其他事件，则合并
-    table.insertTo(defaultEvents, checktable(events))
+    table.insertto(defaultEvents, checktable(events))
 
     -- 设定状态机的默认回调
     local defaultCallbacks = {
