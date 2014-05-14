@@ -60,6 +60,9 @@ int main(int argc, char *argv[])
     CCFileUtils::sharedFileUtils()->setWritablePath(projectConfig.getWritableRealPath().data());
     CCFileUtils::sharedFileUtils()->setCachePath(projectConfig.getWritableRealPath().data());
 
+    // load lua bridge module
+    player->loadLuaBridgeModule();
+
     // console settings
     if (projectConfig.isWriteDebugLogToFile())
     {

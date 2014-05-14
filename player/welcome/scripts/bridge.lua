@@ -1,6 +1,4 @@
 
-require("framework.init") -- for cjson
-
 local simpleList = {
     {id="demo1_id", text="<b>One Demo</b> <br/> <img src=:/QuickIcon.png</img>", args=""},
     {id="demo2_id", text="<b>Two Demo</b> <br/> <img src=:/QuickIcon.png</img>", args=""},
