@@ -384,6 +384,7 @@ end
 -- @param mask A mask file or a mask CCSprite.
 -- @param pic A picture file or a picture CCSprite.
 -- @param offset The offset coordinates for picture, TOP LEFT base.
+-- @return A sprite and a CCTexture2D.
 function display.newMaskedSprite(mask, pic, offset)
 	local maskSprite = nil
 	local picSprite = nil
@@ -429,12 +430,12 @@ function display.newMaskedSprite(mask, pic, offset)
 	picSprite:visit()
 	canva:endToLua()
 
+	local newTex = canvas:getSprite():getTexture()
+
 	local resultSprite = CCSpriteExtend.extend(
-		CCSprite:createWithTexture(
-			canva:getSprite():getTexture()
-		))
+		CCSprite:createWithTexture(newTex))
 		:flipY(true)
-	return resultSprite
+	return resultSprite, newTex
 end
 
 --- Create a Filtered Sprite
