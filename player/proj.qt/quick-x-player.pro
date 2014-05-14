@@ -18,9 +18,8 @@ TEMPLATE = app
 include(../../lib/proj.qt/quick-x-common.pri)
 
 #CONFIG += warn_off
-macx {
-    ICON = QuickIcon.icns
-}
+macx:ICON = QuickIcon.icns
+win32:RC_ICONS = quick-x-icon.ico
 
 INCLUDEPATH += ../sources .
 
@@ -59,10 +58,40 @@ FORMS    += \
     logindialog.ui \
     preferenceui.ui
 
-OTHER_FILES +=
+
 
 DESTDIR = $${LIB_OUTPUT_DIR}
 
 RESOURCES += \
     res.qrc
 
+#
+# copy files
+#
+win32{
+    COPY = copy /y
+}else{
+    COPY = cp -a
+}
+
+IN__PROPERTY_FILE = $$PWD/bridge.lua
+
+win32 {
+    OUT_PATH = $$DESTDIR
+    OUT_PATH = $$replace(OUT_PATH, /, \\)
+    OUT_PROPERTY_FILE = $$OUT_PATH/bridge.lua
+    !exists($$OUT_PATH):system(md $$OUT_PATH)
+}
+
+macx {
+    OUT_PATH = $${DESTDIR}/quick-x-player.app/Contents/MacOS
+    OUT_PROPERTY_FILE = $$OUT_PATH/bridge.lua
+    !exists($$OUT_PATH):system(mkdir -p $$OUT_PATH)
+}
+
+win32{
+    IN__PROPERTY_FILE = $$replace(IN__PROPERTY_FILE, /, \\)
+    OUT_PROPERTY_FILE = $$replace(OUT_PROPERTY_FILE, /, \\)
+}
+
+system($$COPY $$IN__PROPERTY_FILE $$OUT_PROPERTY_FILE)
