@@ -184,7 +184,8 @@ void Player::doOpenProject()
         QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
         int maxRecent = settings.value(kDefaultMaxRecents, kDefaultMaxRecentValue).toInt();
         QVariantMap newItem;
-        newItem[kRecentItemTitle] = config.getProjectDir().data();
+        QString title = QDir::toNativeSeparators(config.getProjectDir().data());
+        newItem[kRecentItemTitle] = title;
         QStringList args = QString::fromStdString(config.makeCommandLine()).split(" ");
         newItem[kRecentItemArgs]  = args;
 
@@ -562,6 +563,15 @@ QStringList Player::getCreateProjectCommandArgs(QString projectPath, QString pac
     QString splitKey(lua_tostring(L, -1));
 
     return argString.split(splitKey);
+}
+
+void Player::loadLuaBridgeModule()
+{
+    ProjectConfig welcomeProjectConfig;
+    welcomeProjectConfig.resetToWelcome();
+    std::string projectPath = welcomeProjectConfig.getProjectDir();
+    projectPath = projectPath.append("/scripts/bridge.lua");
+    cocos2d::CCLuaEngine::defaultEngine()->executeScriptFile(projectPath.data());
 }
 
 void Player::initScreenMenu()

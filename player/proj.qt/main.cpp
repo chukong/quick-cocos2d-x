@@ -46,14 +46,22 @@ int main(int argc, char *argv[])
     }
     projectConfig.parseCommandLine(args);
 
+    const string projectDir = projectConfig.getProjectDir();
     // show the welcome UI as default
-    if (projectConfig.getProjectDir().length() <= 0)
+    if (projectDir.length() <= 0)
     {
         projectConfig.resetToWelcome();
+    }
+    else
+    {
+        CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
     }
 
     CCFileUtils::sharedFileUtils()->setWritablePath(projectConfig.getWritableRealPath().data());
     CCFileUtils::sharedFileUtils()->setCachePath(projectConfig.getWritableRealPath().data());
+
+    // load lua bridge module
+    player->loadLuaBridgeModule();
 
     // console settings
     if (projectConfig.isWriteDebugLogToFile())

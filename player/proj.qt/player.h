@@ -65,6 +65,13 @@ public:
      */
     QStringList getCreateProjectCommandArgs(QString projectPath, QString packageName, bool isPortrait);
 
+    /**
+     * @brief loadLuaBridgeModule
+     * 加载 welcome/script/bridge.lua 文件
+     * player 与 lua 交互的文件, 如 创建工程的参数, 样例数据等等
+     */
+    void loadLuaBridgeModule();
+
     fastdelegate::FastDelegate0<void> enterBackgroundDelegate;
     fastdelegate::FastDelegate0<void> enterForegroundDelegate;
 public Q_SLOTS:
