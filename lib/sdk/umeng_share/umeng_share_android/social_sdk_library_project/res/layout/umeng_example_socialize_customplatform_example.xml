@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:gravity="center" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="48dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="48dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/share_by_weixin"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:text="@string/share_by_weixin" />
+
+            <Button
+                android:id="@+id/share_by_qq"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/share_by_qq" />
+
+            <Button
+                android:id="@+id/share_by_yixin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/share_by_yixin" />
+
+            <Button
+                android:id="@+id/goto_facebook_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goto_facebook" />
+
+            <Button
+                android:id="@+id/goto_laiwang_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/laiwang_share" />
+
+            <Button
+                android:id="@+id/share_by_instagram_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/instagram_share" />
+            <!-- 分割线 -->
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/listDivider" />
+
+            <Button
+                android:id="@+id/shake_openshare"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/shake_openshare" />
+
+            <Button
+                android:id="@+id/shake_share"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shake_share" />
+
+            <Button
+                android:id="@+id/shake_scrshot"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shake_scrshot" />
+
+            <Button
+                android:id="@+id/video_activity_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/goto_video" />
+
+            <ImageView
+                android:id="@+id/scrshot_imgview"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/take_scrshot" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

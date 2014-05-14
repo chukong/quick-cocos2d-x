@@ -57,22 +57,43 @@ AppDelegate::applicationWillEnterForeground
 
 AppDelegate::applicationDidFinishLaunching中还需要调用luaopen_MobClickCppForLua_luabinding函数
 
-4.在lua中通过MobClickCppForLua调用MobClickCpp的各种函数
-参见MainScene中的用法
+4.在lua中调用cc.analytics:doCommand函数可间接调到MobClickCpp中提供的函数
+例如
+doCommand中的参数为
+{
+	command = "setCrashReportEnabled",	--对应函数名字
+	args =								--args中对应的参数为MobClickCpp中参数的名字
+ 		{	value = boolean
+ 		}
+}
 
 
 
 注意:
 ---------------------------------------------------------------------
-基本上MobClickCpp中的函数都可以通过MobClickCppForLua调用到
+基本上MobClickCpp中的函数都可以直接把doCommand中的参数command设置为函数名
 
 MobClickCpp中有需要传eventDict类型参数，已改为传string类型，对应格式为 “k,v” 或 “k,v|k,v”
 
-因为参数的改变，MobClickCppForLua把MobClickCpp中的
-static void event(const char * eventId, eventDict * attributes, int counter = 0);
-函数名改为
-void eventCustom(const char * eventId, const char * attributes, int counter = 0);
-用法实例在 MainScene 中
+函数名与command不同的情况
+
+command = event
+void event(const char * eventId, const char * label = 0)
+
+command = eventCustom
+void eventCustom(const char * eventId, const char * attributes, int counter = 0)
+
+command = payCoin
+void pay(double cash, int source, double coin)
+
+command = payItem
+void pay(double cash, int source, const char * item, int amount, double price);
+
+command = bonusCoin
+void bonus(double coin, int source)
+
+command = bonusItem
+void bonus(const char * item, int amount, double price, int source)
 
 
 

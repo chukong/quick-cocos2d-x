@@ -8,7 +8,7 @@ local SDK_CLASS_NAME = "com.quick2dx.sdk.PunchBoxSDK"
 function ProviderAndroid:start()
     local ok, ret = luaj.callStaticMethod(SDK_CLASS_NAME, "start", {tostring(self.options_.appId)})
     if not ok then
-        echoError("cc.ad.ProviderAndroid:ctor() - init SDK failed.")
+        printError("cc.ad.ProviderAndroid:ctor() - init SDK failed.")
         return false
     end
 

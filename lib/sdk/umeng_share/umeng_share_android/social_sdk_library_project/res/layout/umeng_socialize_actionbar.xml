@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48dp"
+    android:background="#ECECEC" >
+
+    <LinearLayout
+        android:id="@+id/umeng_socialize_funcation_area"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/umeng_socialize_comment_bt"
+            style="@style/umeng_socialize_action_bar_itemlayout" 
+            android:gravity="center"
+            >
+            <ImageView
+                android:id="@+id/umeng_socialize_action_comment_im"
+                style="@style/umeng_socialize_action_bar_item_im"
+                android:src="@drawable/umeng_socialize_comment_icon" />
+
+            <TextView
+                android:id="@+id/umeng_socialize_action_comment_tv"
+                style="@style/umeng_socialize_action_bar_item_tv"
+                android:layout_toRightOf="@id/umeng_socialize_action_comment_im"
+                android:textColor="#646464" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/umeng_socialize_like_bt"
+            style="@style/umeng_socialize_action_bar_itemlayout" >
+
+            <RelativeLayout
+                android:id="@+id/umeng_socialize_like_bt_show"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/umeng_socialize_like_icon"
+                    style="@style/umeng_socialize_action_bar_item_im"
+                    android:src="@drawable/umeng_socialize_action_like" />
+
+                <TextView
+                    android:id="@+id/umeng_socialize_action_like_tv"
+                    style="@style/umeng_socialize_action_bar_item_tv"
+                    android:layout_toRightOf="@id/umeng_socialize_like_icon"
+                    android:textColor="#646464" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/umeng_socialize_like_bt_progress"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:visibility="gone" >
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/umeng_socialize_share_bt"
+            style="@style/umeng_socialize_action_bar_itemlayout" >
+
+            <ImageView
+                android:id="@+id/umeng_socialize_action_share_im"
+                style="@style/umeng_socialize_action_bar_item_im"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/umeng_socialize_action_share_icon" />
+
+            <TextView
+                android:id="@+id/umeng_socialize_action_share_tv"
+                style="@style/umeng_socialize_action_bar_item_tv"
+                android:layout_toRightOf="@id/umeng_socialize_action_share_im"
+                android:textColor="#646464"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/umeng_socialize_user_center_bt"
+            style="@style/umeng_socialize_action_bar_itemlayout" >
+
+            <ImageView
+                android:id="@+id/umeng_socialize_action_user_center_im"
+                style="@style/umeng_socialize_action_bar_item_im"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/umeng_socialize_action_personal_icon" />
+
+            <TextView
+                android:id="@+id/umeng_socialize_action_user_center_tv"
+                style="@style/umeng_socialize_action_bar_item_tv"
+                android:layout_toRightOf="@id/umeng_socialize_action_user_center_im"
+                android:textColor="#646464"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/umeng_socialize_comment_bt"
+        style="@style/umeng_socialize_action_bar_itemlayout"
+        android:layout_width="fill_parent"
+        android:layout_toLeftOf="@id/umeng_socialize_funcation_area"
+        android:visibility="gone"
+        android:paddingLeft="6dp" >
+
+        <ImageView
+            android:id="@+id/umeng_socialize_action_pv_im"
+            style="@style/umeng_socialize_action_bar_item_im"
+            android:src="@drawable/umeng_socialize_pv" />
+
+        <TextView
+            android:id="@+id/umeng_socialize_action_pv_tv"
+            style="@style/umeng_socialize_action_bar_item_tv"
+            android:layout_toRightOf="@id/umeng_socialize_action_pv_im" />
+    </RelativeLayout>
+
+</RelativeLayout>

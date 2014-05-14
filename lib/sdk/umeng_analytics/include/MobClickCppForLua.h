@@ -73,7 +73,7 @@ public:
      
      @return void
      */
-    static void end();
+    static void endAnalytics();
     
     ///---------------------------------------------------------------------------------------
     /// @name  事件统计
