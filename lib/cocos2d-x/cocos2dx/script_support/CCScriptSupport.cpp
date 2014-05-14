@@ -82,6 +82,7 @@ CCSchedulerScriptHandle* CCSchedulerScriptHandle::create(int listener, float int
 CCSchedulerScriptHandle::CCSchedulerScriptHandle(int listener, float interval, bool paused)
 : CCScriptListenerHandle(listener)
 , m_paused(paused)
+, m_markedForDeletion(false)
 {
     m_timer = new CCTimer();
     m_timer->initWithScriptHandler(listener, interval);
