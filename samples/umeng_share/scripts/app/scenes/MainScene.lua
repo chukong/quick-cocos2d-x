@@ -39,7 +39,7 @@ function MainScene:showView()
 end
 
 function MainScene:showNotSupport()
-    cc.ui.UILabel.new({text = "UmengPush demo\nPlease run this demo on IOS or Android device.",
+    cc.ui.UILabel.new({text = "UmengShare demo\nPlease run this demo on IOS or Android device.",
             size = 24,
             align = cc.ui.TEXT_ALIGN_CENTER})
         :pos(display.cx, display.cy)

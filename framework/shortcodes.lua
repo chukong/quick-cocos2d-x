@@ -123,7 +123,7 @@ end
 local Layer = c.Layer
 
 function Layer:onTouch(listener)
-    self:addNodeEventListener(c.TOUCH_EVENT, listener)
+    self:addNodeEventListener(c.NODE_TOUCH_EVENT, listener)
     return self
 end
 

@@ -4,12 +4,11 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    -- if device.platform == "android" then
-    --     self:showPushView()
-    -- else
-    --     self:noPushView()
-    -- end
-    self:showPushView()
+    if device.platform == "android" then
+        self:showPushView()
+    else
+        self:noPushView()
+    end
 end
 
 function MainScene:showPushView()

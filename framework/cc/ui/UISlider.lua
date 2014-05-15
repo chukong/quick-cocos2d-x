@@ -65,7 +65,9 @@ function UISlider:ctor(direction, images, options)
     self:updateButtonPosition_()
 
     self:setTouchEnabled(true)
-    self:addNodeEventListener(cc.NODE_TOUCH_EVENT, handler(self, self.onTouch_))
+    self:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch_(event.name, event.x, event.y)
+    end)
 end
 
 function UISlider:setSliderSize(width, height)
@@ -155,9 +157,8 @@ function UISlider:onSliderStateChanged(callback)
     return self
 end
 
-function UISlider:onTouch_(event)
-    local name, x, y = event.name, event.x, event.y
-    if name == "began" then
+function UISlider:onTouch_(event, x, y)
+    if event == "began" then
         if not self:checkTouchInButton_(x, y) then return false end
         local buttonPosition = self:convertToWorldSpace(self.buttonSprite_:getPositionInCCPoint())
         self.buttonPositionOffset_.x = buttonPosition.x - x
@@ -201,7 +202,7 @@ function UISlider:onTouch_(event)
 
     self:setSliderValue(offset * (self.max_ - self.min_) + self.min_)
 
-    if name ~= "moved" and self.fsm_:canDoEvent("release") then
+    if event ~= "moved" and self.fsm_:canDoEvent("release") then
         self.fsm_:doEvent("release")
         self:dispatchEvent({name = UISlider.RELEASE_EVENT, x = x, y = y, touchInTarget = touchInTarget})
     end

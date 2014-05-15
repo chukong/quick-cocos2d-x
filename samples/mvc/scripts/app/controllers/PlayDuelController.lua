@@ -70,11 +70,14 @@ function PlayDuelController:ctor()
         :addTo(self)
 
     -- 注册帧事件
-    self:addScriptEventListener(cc.Event.ENTER_FRAME, handler(self, self.tick))
+    self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, handler(self, self.tick))
+    self:scheduleUpdate_()
 
     -- 在视图清理后，检查模型上注册的事件，看看是否存在内存泄露
-    self:addScriptEventListener(cc.Event.CLEANUP, function()
-        self.player:getComponent("components.behavior.EventProtocol"):dumpAllEventListeners()
+    self:addNodeEventListener(cc.NODE_EVENT, function(event)
+        if event.name == "exit" then
+            self.player:getComponent("components.behavior.EventProtocol"):dumpAllEventListeners()
+        end
     end)
 end
 

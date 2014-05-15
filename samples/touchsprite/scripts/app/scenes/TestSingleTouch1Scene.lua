@@ -29,21 +29,22 @@ function TestSingleTouch1Scene:ctor()
     button1.name = "button1"
 
     button1parent:setTouchEnabled(true)
-    button1parent:addTouchEventListener(handler(self, self.onTouch))
-
+    button1parent:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        self.onTouch(event.name, event.x, event.y, event.prevX, event.prevY)
+    end)
 
     -- 启用触摸
     button1:setTouchEnabled(true)
     -- 添加触摸事件处理函数
-    button1:addTouchEventListener(function(event, x, y, prevX, prevY)
-        -- event 是触摸事件的状态：began, moved, ended, cancelled
+    button1:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        local name, x, y, prevX, prevY = event.name, event.x, event.y, event.prevX, event.prevY
+
+        -- name 是触摸事件的状态：began, moved, ended, cancelled
         -- x, y 是触摸点当前位置
         -- prevX, prevY 是触摸点之前的位置
         -- offset 是触摸点相对于 button1 的位置
 
-
-
-        if event == "began" then
+        if name == "began" then
             -- 在 began 状态需要返回 true，表示接收该触摸事件的后续状态
             return true
         end

@@ -87,7 +87,7 @@ function MainScene:_showFilter()
 	if __params and #__params == 0 then
 		__params = nil
 	end
-	self._filterSprite = display.newFSprite("helloworld.png", __filters, __params)
+	self._filterSprite = display.newFilteredSprite("helloworld.png", __filters, __params)
 		:align(display.CENTER, display.cx, display.cy)
 		:addTo(self, 10)
         local __title = ""
