@@ -17,7 +17,6 @@ echo "  APP_ANDROID_ROOT    = $APP_ANDROID_ROOT"
 
 # if use DEBUG, set NDK_DEBUG=1, otherwise set NDK_DEBUG=0
 NDK_DEBUG=1
-NDK_BUILD_FLAGS="CPPFLAGS=\"-DCOCOS2D_DEBUG=1\""
 
 echo "- cleanup"
 find "$APP_ANDROID_ROOT" -type d | xargs chmod 755 $1
