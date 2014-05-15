@@ -41,7 +41,7 @@ function TestSingleTouch1Scene:ctor()
         -- prevX, prevY 是触摸点之前的位置
         -- offset 是触摸点相对于 button1 的位置
 
-        
+
 
         if event == "began" then
             -- 在 began 状态需要返回 true，表示接收该触摸事件的后续状态
