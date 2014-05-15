@@ -20,10 +20,10 @@ function HeroView:ctor(hero)
     -- EventProxy.new() 第一个参数是要注册事件的对象，第二个参数是绑定的视图
     -- 如果指定了第二个参数，那么在视图删除时，会自动清理注册的事件
     cc.EventProxy.new(hero, self)
-        :addEventListener(cls.CHANGE_STATE_EVENT, self.onStateChange_, self)
-        :addEventListener(cls.KILL_EVENT, self.onKill_, self)
-        :addEventListener(cls.HP_CHANGED_EVENT, self.updateLabel_, self)
-        :addEventListener(cls.EXP_CHANGED_EVENT, self.updateLabel_, self)
+        :addEventListener(cls.CHANGE_STATE_EVENT, handler(self, self.onStateChange_), self)
+        :addEventListener(cls.KILL_EVENT, handler(self, self.onKill_), self)
+        :addEventListener(cls.HP_CHANGED_EVENT, handler(self, self.updateLabel_), self)
+        :addEventListener(cls.EXP_CHANGED_EVENT, handler(self, self.updateLabel_), self)
 
     self.hero_ = hero
     self.sprite_ = display.newSprite():addTo(self)
