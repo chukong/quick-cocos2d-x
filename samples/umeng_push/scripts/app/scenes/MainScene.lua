@@ -4,12 +4,11 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    -- if device.platform == "android" then
-    --     self:showPushView()
-    -- else
-    --     self:noPushView()
-    -- end
-    self:showPushView()
+    if device.platform == "android" then
+        self:showPushView()
+    else
+        self:noPushView()
+    end
 end
 
 function MainScene:showPushView()
@@ -182,21 +181,6 @@ function MainScene:noPushView()
 end
 
 function MainScene:onEnter()
-    print("htl, MainScene entry")
-
-    if device.platform == "android" then
-        -- avoid unmeant back
-        self:performWithDelay(function()
-            -- keypad layer, for android
-            local layer = display.newLayer()
-            layer:addKeypadEventListener(function(event)
-                if event == "back" then app.exit() end
-            end)
-            self:addChild(layer)
-
-            layer:setKeypadEnabled(true)
-        end, 0.5)
-    end
 end
 
 function MainScene:onExit()

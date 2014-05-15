@@ -6,8 +6,10 @@ function EventProxy:ctor(eventDispatcher, view)
     self.handles_ = {}
 
     if view then
-        cc(view):addEventListener(cc.Event.CLEANUP, function()
-            self:removeAllEventListeners()
+        cc(view):addNodeEventListener(cc.NODE_EVENT, function(event)
+            if event.name == "exit" then
+                self:removeAllEventListeners()
+            end
         end)
     end
 end
@@ -41,7 +43,7 @@ end
 
 function EventProxy:removeAllEventListeners()
     for _, handle in ipairs(self.handles_) do
-        self.eventDispatcher_:removeEventListener(handle[1], handle[2])
+        self.eventDispatcher_:removeEventListener(handle[2])
     end
     self.handles_ = {}
     return self

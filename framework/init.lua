@@ -119,7 +119,7 @@ end
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
 local function showMemoryUsage()
-    echoInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
+    printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
 end
 
 if DEBUG > 0 and DEBUG_FPS then

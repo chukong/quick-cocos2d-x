@@ -39,7 +39,7 @@ function MainScene:showView()
 end
 
 function MainScene:showNotSupport()
-    cc.ui.UILabel.new({text = "UmengPush demo\nPlease run this demo on IOS or Android device.",
+    cc.ui.UILabel.new({text = "UmengShare demo\nPlease run this demo on IOS or Android device.",
             size = 24,
             align = cc.ui.TEXT_ALIGN_CENTER})
         :pos(display.cx, display.cy)
@@ -48,19 +48,6 @@ function MainScene:showNotSupport()
 end
 
 function MainScene:onEnter()
-    if device.platform == "android" then
-        -- avoid unmeant back
-        self:performWithDelay(function()
-            -- keypad layer, for android
-            local layer = display.newLayer()
-            layer:addKeypadEventListener(function(event)
-                if event == "back" then app.exit() end
-            end)
-            self:addChild(layer)
-
-            layer:setKeypadEnabled(true)
-        end, 0.5)
-    end
 end
 
 function MainScene:onExit()

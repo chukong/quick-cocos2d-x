@@ -490,7 +490,8 @@ void Player::initMainMenu()
     //
     // Preferences
     //
-    QAction *m_preference = moreMenu->addAction(tr("&Preferences"));
+    playerMenu->addSeparator();
+    QAction *m_preference = playerMenu->addAction(tr("&Preferences"));
     m_preference->setMenuRole(QAction::PreferencesRole);
     connect(m_preference, SIGNAL(triggered()), this, SLOT(onShowPreferences()));
 }
@@ -567,11 +568,8 @@ QStringList Player::getCreateProjectCommandArgs(QString projectPath, QString pac
 
 void Player::loadLuaBridgeModule()
 {
-    ProjectConfig welcomeProjectConfig;
-    welcomeProjectConfig.resetToWelcome();
-    std::string projectPath = welcomeProjectConfig.getProjectDir();
-    projectPath = projectPath.append("/scripts/bridge.lua");
-    cocos2d::CCLuaEngine::defaultEngine()->executeScriptFile(projectPath.data());
+    QString bridgeFilePath = qApp->applicationDirPath() + "/bridge.lua";
+    cocos2d::CCLuaEngine::defaultEngine()->executeScriptFile(bridgeFilePath.toUtf8().constData());
 }
 
 void Player::initScreenMenu()

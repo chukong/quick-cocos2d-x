@@ -39,6 +39,11 @@ function MainScene:onStatus(__event)
 end
 
 function MainScene:send2Socket(__method, __msg)
+	if not self._socket then
+		print("connect first")
+		return
+	end
+
 	local __def = Protocol.getSend(__method)
 	local __buf = PacketBuffer.createPacket(__def, __msg)
 	printf("send %u packet: %s", __method, __buf:toString(16))

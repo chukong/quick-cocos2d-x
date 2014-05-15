@@ -50,7 +50,7 @@ function PlayLevelScene:ctor(levelIndex)
 end
 
 function PlayLevelScene:onLevelCompleted()
-    audio.playEffect(GAME_SFX.levelCompleted)
+    audio.playSound(GAME_SFX.levelCompleted)
 
     local dialog = display.newSprite("#LevelCompletedDialogBg.png")
     dialog:setPosition(display.cx, display.top + dialog:getContentSize().height / 2 + 40)
