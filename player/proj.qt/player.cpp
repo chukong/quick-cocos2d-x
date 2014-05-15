@@ -41,6 +41,8 @@
 
 #define ENV_WIN_CURRENT_USER_QUICK_ROOT_PATH "HKEY_CURRENT_USER\\Environment"
 
+#define SETTING_POS             "pos"
+
 #define EDITOR_CALL_LUA         "LUA_Interface"
 #define SETTINGS_DEMO_LIST      "simples"
 
@@ -86,12 +88,10 @@ struct ScaleActionData
 
 Player::Player(QObject *parent)
     : QObject(parent)
-    , m_renderWidget(0)
     , m_mainMenu(0)
     , m_openRecentMenu(0)
     , m_consoleUI(0)
     , m_projectConfigUI(0)
-    , m_demoWidget(0)
 #ifdef Q_OS_WIN
     , m_mainWindow(0)
 	, m_container(0)
@@ -104,7 +104,6 @@ Player::~Player()
 {
     CC_SAFE_DELETE(m_mainMenu);
     CC_SAFE_DELETE(m_consoleUI);
-    CC_SAFE_DELETE(m_demoWidget);
     CC_SAFE_DELETE(m_projectConfigUI);
 }
 
@@ -148,11 +147,6 @@ int Player::openURL(lua_State *L)
     return 0;
 }
 
-int Player::openQuickDemoWithWebView(lua_State * /*L*/)
-{
-    Player::instance()->onOpenQuickDemoWebview();
-    return 0;
-}
 
 /**
  * @brief Player::onOpenProject
@@ -358,7 +352,7 @@ void Player::initMainMenu()
     m_mainMenu = new QMenuBar(0);
     m_mainMenu->setNativeMenuBar(true);
 #else
-    m_mainMenu = new QMenuBar(m_renderWidget);
+    m_mainMenu = new QMenuBar();
 #endif
 
     //
@@ -479,7 +473,6 @@ void Player::initMainMenu()
     QMenu *moreMenu = m_mainMenu->addMenu(QObject::tr("&More"));
     moreMenu->addAction(tr("AboutQt"), this, SLOT(on_actionAboutQt_triggered()));
     moreMenu->addAction(tr("About"), this, SLOT(on_actionAbout_triggered()));
-    moreMenu->addAction(tr("Simples"), this, SLOT(onOpenQuickDemoWebview()));
     moreMenu->addAction(tr("open.cocoachina.com"), this, SLOT(onShowOpenCocoaChinaWebView()));
     moreMenu->addAction(tr("show console"), this, SLOT(onShowConsole()));
     moreMenu->addAction(tr("Login Test"), this, SLOT(onShowLoginUI()));
@@ -570,6 +563,41 @@ void Player::loadLuaBridgeModule()
 {
     QString bridgeFilePath = qApp->applicationDirPath() + "/bridge.lua";
     cocos2d::CCLuaEngine::defaultEngine()->executeScriptFile(bridgeFilePath.toUtf8().constData());
+}
+
+void Player::restoreSetting()
+{
+    QSettings settings;
+
+    // restore position
+    QPoint    windowPosition;
+    if (m_projectConfig.getWindowOffset().x != 0 && m_projectConfig.getWindowOffset().y != 0)
+    {
+        windowPosition = QPoint(m_projectConfig.getWindowOffset().x, m_projectConfig.getWindowOffset().y);
+    }
+    else if (settings.value(SETTING_POS).isValid())
+    {
+        windowPosition = settings.value(SETTING_POS).toPoint();
+    }
+#ifdef Q_OS_MAC
+        CCEGLView::sharedOpenGLView()->getGLWidget()->move(windowPosition);
+#else
+        m_mainWindow->move(windowPosition);
+#endif
+}
+
+void Player::saveSetting()
+{
+    QSettings settings;
+
+    // save position
+#ifdef Q_OS_MAC
+    settings.setValue(SETTING_POS, CCEGLView::sharedOpenGLView()->getGLWidget()->pos());
+#else
+    settings.setValue(SETTING_POS, m_mainWindow->pos());
+#endif
+
+    settings.sync();
 }
 
 void Player::initScreenMenu()
@@ -681,6 +709,7 @@ void Player::applySettingAndRestart()
 {
     QStringList args;
 
+    m_projectConfig.setWindowOffset(CCPoint(m_playerPosition.x(), m_playerPosition.y()));
     QString cmd(m_projectConfig.makeCommandLine().data());
     args = cmd.split(" ");
     qApp->setProperty(RESTART_ARGS, args);
@@ -709,7 +738,7 @@ bool Player::eventFilter(QObject *o, QEvent *e)
 {
 #ifdef Q_OS_WIN
     // shortcut
-    if (o == m_consoleUI || o == m_demoWidget || o == CCEGLView::sharedOpenGLView()->getGLWidget())
+    if (o == m_consoleUI || o == CCEGLView::sharedOpenGLView()->getGLWidget())
     {
         if (e->type() == QEvent::KeyPress)
         {
@@ -727,11 +756,10 @@ bool Player::eventFilter(QObject *o, QEvent *e)
             {
                 m_consoleUI->close();
             }
-
-            if (m_demoWidget)
-            {
-                m_demoWidget->close();
-            }
+        }
+        else if (e->type() == QEvent::Move)
+        {
+            m_currentPlayerPosition = m_mainWindow->pos();
         }
     }
 #elif defined(Q_OS_MAC)
@@ -744,15 +772,14 @@ bool Player::eventFilter(QObject *o, QEvent *e)
                 m_consoleUI->close();
             }
 
-            if (m_demoWidget)
-            {
-                m_demoWidget->close();
-            }
-
             if (m_mainMenu)
             {
                 m_mainMenu->close();
             }
+        }
+        else if (e->type() == QEvent::Move)
+        {
+            m_playerPosition = CCEGLView::sharedOpenGLView()->getGLWidget()->pos();
         }
     }
 #endif
@@ -791,17 +818,6 @@ QKeySequence Player::convertKeyEventToKeySequence(QKeyEvent *e)
     return QKeySequence(keyInt);
 }
 
-QVariantList Player::getSimplesData()
-{
-    // lua logic
-    lua_State *L = cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
-    lua_getglobal(L, "GET_QUICK_SIMPLES");
-    lua_pcall(L, 0, 1, 0);
-    QString argString(lua_tostring(L, -1));
-
-    return QxTools::stringToVariant(argString).toList();
-}
-
 void Player::eventDispatch(QString messageName, QString data)
 {
     QStringList messageList = messageName.split(MODULE_NAME_SEPARATOR);
@@ -826,17 +842,16 @@ void Player::eventDispatch(QString messageName, QString data)
             {
                 this->onNewProject();
             }
-            else if (tmpMsgName == "openDemo")
-            {
-                this->onOpenQuickDemoWebview();
-            }
-            else if (tmpMsgName == "addDemoList")
-            {
-                this->onAddDemoList(data);
-            }
             else
             {
-                QMetaObject::invokeMethod(this, tmpMsgName.toUtf8().data(), Qt::DirectConnection);
+                if (data.isEmpty())
+                {
+                    QMetaObject::invokeMethod(this, tmpMsgName.toUtf8().data(), Qt::DirectConnection);
+                }
+                else
+                {
+                    QMetaObject::invokeMethod(this, tmpMsgName.toUtf8().data(), Qt::DirectConnection, Q_ARG(QString, data));
+                }
             }
         }
     }
@@ -889,7 +904,7 @@ void Player::on_actionOpen_triggered()
         dialogOptions |= QFileDialog::DontUseNativeDialog;
     #endif
 #endif
-    dir = QFileDialog::getExistingDirectory(m_renderWidget, tr("Open Directory"), dir, dialogOptions);
+    dir = QFileDialog::getExistingDirectory(0, tr("Open Directory"), dir, dialogOptions);
 
     if (!dir.isEmpty())
     {
@@ -944,38 +959,9 @@ void Player::onScreenScaleTriggered()
     updateTitle();
 }
 
-void Player::onOpenQuickDemoWebview()
-{
-    if (!m_demoWidget)
-    {
-        m_demoWidget = new QuickDemoList();
-        m_demoWidget->installEventFilter(this);
-        connect(m_demoWidget, SIGNAL(sigOpenDemo(QString)), this, SLOT(onOpenDemo(QString)));
-
-        m_demoWidget->addDemos(getSimplesData());
-//        m_demoWidget->addDemos(m_settings[SETTINGS_DEMO_LIST].toList());
-    }
-
-    m_demoWidget->raise();
-    m_demoWidget->show();
-}
-
-void Player::onAddDemoList(QString data)
-{
-    if (m_demoWidget)
-    {
-        m_demoWidget->addDemos(QxTools::stringToVariant(data).toList());
-    }
-}
-
-void Player::onOpenDemo(QString demoId)
-{
-    sendMessageToLua("core.openDemo", demoId);
-}
-
 void Player::on_actionAbout_triggered()
 {
-    AboutUI *aboutUI = new AboutUI(m_renderWidget);
+    AboutUI *aboutUI = new AboutUI(0);
     aboutUI->show();
 }
 
@@ -1046,12 +1032,7 @@ void Player::onCreateNewPlayer()
 
     QString cmd(newPlayerConfig.makeCommandLine().data());
     QStringList args = cmd.split(" ");
-
-#ifdef Q_OS_MAC
     QProcess::startDetached(qApp->applicationFilePath(), args);
-#else
-    QProcess::startDetached(qApp->applicationFilePath(), args);
-#endif
 }
 
 void Player::onClose()
