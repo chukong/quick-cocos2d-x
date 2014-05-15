@@ -39,29 +39,30 @@ function UIPushButton:setButtonImage(state, image, ignoreEmpty)
 end
 
 function UIPushButton:onTouch_(event)
-    if event.name == "began" then
-        if not self:checkTouchInSprite_(event.x, event.y) then return false end
+    local name, x, y = event.name, event.x, event.y
+    if name == "began" then
+        if not self:checkTouchInSprite_(x, y) then return false end
         self.fsm_:doEvent("press")
-        self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = event.x, y = event.y, touchInTarget = true})
+        self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         return true
     end
 
-    local touchInTarget = self:checkTouchInSprite_(event.x, event.y)
-    if event.name == "moved" then
+    local touchInTarget = self:checkTouchInSprite_(x, y)
+    if name == "moved" then
         if touchInTarget and self.fsm_:canDoEvent("press") then
             self.fsm_:doEvent("press")
-            self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = event.x, y = event.y, touchInTarget = true})
+            self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         elseif not touchInTarget and self.fsm_:canDoEvent("release") then
             self.fsm_:doEvent("release")
-            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = event.x, y = event.y, touchInTarget = false})
+            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = false})
         end
     else
         if self.fsm_:canDoEvent("release") then
             self.fsm_:doEvent("release")
-            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = event.x, y = event.y, touchInTarget = touchInTarget})
+            self:dispatchEvent({name = UIButton.RELEASE_EVENT, x = x, y = y, touchInTarget = touchInTarget})
         end
-        if event.name == "ended" and touchInTarget then
-            self:dispatchEvent({name = UIButton.CLICKED_EVENT, x = event.x, y = event.y, touchInTarget = true})
+        if name == "ended" and touchInTarget then
+            self:dispatchEvent({name = UIButton.CLICKED_EVENT, x = x, y = y, touchInTarget = true})
         end
     end
 end

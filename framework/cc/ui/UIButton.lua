@@ -272,9 +272,9 @@ end
 
 function UIButton:checkTouchInSprite_(x, y)
     if self.touchInSpriteOnly_ then
-        return self.sprite_ and self.sprite_:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+        return self.sprite_ and self.sprite_:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     else
-        return self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+        return self:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     end
 end
 
