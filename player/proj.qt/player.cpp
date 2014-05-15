@@ -591,12 +591,7 @@ void Player::saveSetting()
     QSettings settings;
 
     // save position
-#ifdef Q_OS_MAC
-    settings.setValue(SETTING_POS, CCEGLView::sharedOpenGLView()->getGLWidget()->pos());
-#else
-    settings.setValue(SETTING_POS, m_mainWindow->pos());
-#endif
-
+    settings.setValue(SETTING_POS, m_playerPosition);
     settings.sync();
 }
 
@@ -759,7 +754,7 @@ bool Player::eventFilter(QObject *o, QEvent *e)
         }
         else if (e->type() == QEvent::Move)
         {
-            m_currentPlayerPosition = m_mainWindow->pos();
+            m_playerPosition = m_mainWindow->pos();
         }
     }
 #elif defined(Q_OS_MAC)
@@ -1026,9 +1021,8 @@ void Player::onNewProject()
 void Player::onCreateNewPlayer()
 {
     ProjectConfig newPlayerConfig = m_projectConfig;
-    QWidget *window = CCEGLView::sharedOpenGLView()->getGLWidget();
     newPlayerConfig.resetToWelcome();
-    newPlayerConfig.setWindowOffset(CCPoint(window->pos().x()+50, window->pos().y()+10));
+    newPlayerConfig.setWindowOffset(CCPoint(m_playerPosition.x()+50, m_playerPosition.y()+10));
 
     QString cmd(newPlayerConfig.makeCommandLine().data());
     QStringList args = cmd.split(" ");
