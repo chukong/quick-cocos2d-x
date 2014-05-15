@@ -17,7 +17,6 @@ rem set NDK_BUILD_FLAGS=CPPFLAGS=-DQUICK_MINI_TARGET=1 QUICK_MINI_TARGET=1
 
 rem if use DEBUG, set NDK_DEBUG=1, otherwise set NDK_DEBUG=0
 set NDK_DEBUG=1
-set NDK_BUILD_FLAGS=CPPFLAGS="-DCOCOS2D_DEBUG=1"
 
 echo - cleanup
 if exist "%APP_ANDROID_ROOT%bin" rmdir /s /q "%APP_ANDROID_ROOT%bin"
