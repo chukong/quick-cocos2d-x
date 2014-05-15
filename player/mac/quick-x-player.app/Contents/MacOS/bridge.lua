@@ -1,9 +1,4 @@
 
-local simpleList = {
-    {id="demo1_id", text="<b>One Demo</b> <br/> <img src=:/QuickIcon.png</img>", args=""},
-    {id="demo2_id", text="<b>Two Demo</b> <br/> <img src=:/QuickIcon.png</img>", args=""},
-}
-
 -- string.split()
 
 function lua_string_split(s, p)
@@ -22,10 +17,6 @@ function GET_CREATE_PROJECT_COMMAND_ARGS( projectPath, packageName, isPortrait )
     return  cmd, " "
 end
 
-function GET_QUICK_SIMPLES()
-    return json.encode(simpleList)
-end
-
 -- core
 
 local core = {}
@@ -35,7 +26,8 @@ end
 
 function core.login( data )
     user = json.decode(data)
-    print(user.user..user.pwd)
+    -- process user.user & user.pwd
+    print(data)
 end
 
 function core.positionNofity(name)
