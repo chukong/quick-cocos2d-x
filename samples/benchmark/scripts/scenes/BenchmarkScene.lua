@@ -52,8 +52,9 @@ function BenchmarkScene:ctor()
     self.bottom = display.bottom + display.height / 3
 end
 
-function BenchmarkScene:onTouch(event, x, y)
-    if event == "began" then
+function BenchmarkScene:onTouch(event)
+    local name, x, y = event.name, event.x, event.y
+    if name == "began" then
         local p = CCPoint(x, y)
         if self.addCoinButtonBoundingBox:containsPoint(p) then
             self.state = "ADD"
@@ -63,7 +64,7 @@ function BenchmarkScene:onTouch(event, x, y)
             self.state = "IDLE"
         end
         return true
-    elseif event ~= "moved" then
+    elseif name ~= "moved" then
         self.state = "IDLE"
     end
 end
@@ -110,9 +111,8 @@ end
 
 function BenchmarkScene:onEnter()
     self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) self:onEnterFrame(dt) end)
-    self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        return self:onTouch(event.name, event.x, event.y)
-    end)
+    self:scheduleUpdate()
+    self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, handler(self, self.onTouch))
     self.layer:setTouchEnabled(true)
 end
 
