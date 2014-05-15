@@ -1284,7 +1284,7 @@ function display.printscreen(node, args)
 	if sp then
 		local texture = canvas:getSprite():getTexture()
 		if filters then
-			sp = display.newFSprite(texture, filters, filterParams)
+			sp = display.newFilteredSprite(texture, filters, filterParams)
 		else
 			sp = display.newSprite(texture)
 		end
