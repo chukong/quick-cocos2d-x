@@ -15,6 +15,8 @@ function TestUIImageScene:ctor()
 end
 
 function TestUIImageScene:createFixedSizeImages()
+    self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) print(dt) end)
+    self:scheduleUpdate()
     cc.ui.UIImage.new("PinkScale9Block.png")
         :align(display.LEFT_TOP, display.cx - 400, display.cy + 285)
         :addTo(self)
