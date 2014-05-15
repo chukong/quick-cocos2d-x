@@ -110,6 +110,7 @@ end
 
 function BenchmarkScene:onEnter()
     self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) self:onEnterFrame(dt) end)
+    self:scheduleUpdate_()
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
         return self:onTouch(event.name, event.x, event.y)
     end)
