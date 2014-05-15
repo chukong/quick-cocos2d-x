@@ -25,15 +25,16 @@ function createSimpleButton(imageName, name, movable, listener)
     sprite:setTouchEnabled(true) -- enable sprite touch
     -- sprite:setTouchMode(cc.TOUCH_ALL_AT_ONCE) -- enable multi touches
     sprite:setTouchSwallowEnabled(false)
-    sprite:addTouchEventListener(function(event, x, y, prevX, prevY)
-        if event == "began" then
+    sprite:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        local name, x, y, prevX, prevY = event.name, event.x, event.y, event.prevX, event.prevY
+        if name == "began" then
             sprite:setOpacity(128)
             -- return cc.TOUCH_BEGAN -- stop event dispatching
             return cc.TOUCH_BEGAN_NO_SWALLOWS -- continue event dispatching
         end
 
         local touchInSprite = sprite:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
-        if event == "moved" then
+        if name == "moved" then
             sprite:setOpacity(128)
             if movable then
                 local offsetX = x - prevX
@@ -44,7 +45,7 @@ function createSimpleButton(imageName, name, movable, listener)
                 -- return cc.TOUCH_MOVED_SWALLOWS -- stop event dispatching
             end
 
-        elseif event == "ended" then
+        elseif name == "ended" then
             if touchInSprite then listener() end
             sprite:setOpacity(255)
         else
