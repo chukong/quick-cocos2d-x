@@ -281,6 +281,14 @@ void CCEditBoxImplQt::openKeyboard()
 		m_pDelegate->editBoxEditingDidEnd(m_pEditBox);
 		m_pDelegate->editBoxReturn(m_pEditBox);
 	}
+
+    if (pEditBox && pEditBox->getScriptEditBoxHandler())
+    {
+        cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
+        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "changed",pEditBox);
+        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "ended",pEditBox);
+        pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "return",pEditBox);
+    }
 }
 
 void CCEditBoxImplQt::closeKeyboard()
