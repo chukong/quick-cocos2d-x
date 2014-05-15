@@ -21,7 +21,7 @@ end
 
 function UIGroup:onTouch(listener)
     if not listener then listener = function() return true end end
-    self:addTouchEventListener(listener)
+    self:addNodeEventListener(cc.NODE_TOUCH_EVENT, listener)
     return self
 end
 
