@@ -263,8 +263,8 @@ end
 
 function MainScene:onEnter()
     local layer = display.newLayer()
-    layer:addTouchEventListener(function (event,x,y)
-        return self:onTouch(event,x,y)
+    layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch(event.name, event.x, event.y)
     end)
     layer:setTouchEnabled(true)
     self:addChild(layer)

@@ -13,12 +13,12 @@ CC_ROOT=$${ROOT}/lib/cocos2d-x/
 DEFINES +=  COCOS2D_DEBUG=1
 DEFINES +=  DEBUG=1
 
-CONFIG += no_batch
-greaterThan(QT_MAJOR_VERSION, 4) {
-  CONFIG += object_parallel_to_source
-} else:equals(PWD, $$OUT_PWD) {
-  CONFIG += object_with_source
-}
+#CONFIG += no_batch
+#greaterThan(QT_MAJOR_VERSION, 4) {
+#  CONFIG += object_parallel_to_source
+#} else:equals(PWD, $$OUT_PWD) {
+#  CONFIG += object_with_source
+#}
 
 CONFIG(debug, debug|release) {
     BUILD_TYPE = debug

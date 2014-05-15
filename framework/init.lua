@@ -109,6 +109,11 @@ if LOAD_DEPRECATED_API then
     require(cc.PACKAGE_NAME .. ".deprecated")
 end
 
+if type(LOAD_SHORTCODES_API) ~= "boolean" then LOAD_SHORTCODES_API = true end
+if LOAD_SHORTCODES_API then
+    require(cc.PACKAGE_NAME .. ".shortcodes")
+end
+
 ----
 
 local sharedTextureCache = CCTextureCache:sharedTextureCache()

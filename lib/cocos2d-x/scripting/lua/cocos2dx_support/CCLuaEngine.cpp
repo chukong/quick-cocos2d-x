@@ -232,6 +232,7 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
             break;
 
         default:
+            CCAssert(false, "INVALID touch event");
             return 0;
     }
 
@@ -247,23 +248,22 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
-        if (eventType == CCTOUCHBEGAN || eventType == CCTOUCHENDED || eventType == CCTOUCHCANCELLED)
+        if (eventType == CCTOUCHBEGAN)
         {
+            // enable listener when touch began
             (*it).enabled = true;
         }
-        else if (!(*it).enabled)
-        {
-            continue;
-        }
 
-        m_stack->copyValue(1);
-        int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
-        m_stack->settop(1);
-
-        if ((eventType == CCTOUCHBEGAN) && (ret == false))
+        if ((*it).enabled)
         {
-            // false = ignore
-            (*it).enabled = false;
+            m_stack->copyValue(1);
+            int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
+            if (eventType == CCTOUCHBEGAN && ret == false)
+            {
+                // if listener return false when touch began, disable this listener
+                (*it).enabled = false;
+            }
+            m_stack->settop(1);
         }
     }
 

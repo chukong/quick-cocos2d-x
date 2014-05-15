@@ -68,7 +68,9 @@ function DisplayTestScene:layerMultiTouchTest()
     end
 
     self.layerTouch = display.newLayer()
-    self.layerTouch:addTouchEventListener(onTouch, true)
+    self.layerTouch:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch(event.name, event.x, event.y)
+    end)
     self.layerTouch:setTouchEnabled(true)
     self:addChild(self.layerTouch)
 end

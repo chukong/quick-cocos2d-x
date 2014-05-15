@@ -47,7 +47,9 @@ function Board:ctor(levelData)
         end
     end
 
-    self:addTouchEventListener(handler(self, self.onTouch))
+    self:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch(event.name, event.x, event.y)
+    end)
     self:setNodeEventEnabled(true)
 end
 

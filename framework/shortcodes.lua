@@ -29,9 +29,7 @@ THE SOFTWARE.
 local c = cc
 local Node = c.Node
 
-----------------------------------------
--- CCNode
-----------------------------------------
+-- Node
 
 function Node:add(child, zorder, tag)
     self:addChild(child, zorder or 0, tag or 0)
@@ -91,6 +89,69 @@ function Node:zorder(z)
     self:setZOrder(z)
     return self
 end
+
+
+-- Sprite
+
+local Sprite = c.Sprite
+
+Sprite.playOnce = Sprite.playAnimationOnce
+Sprite.playForever = Sprite.playAnimationForever
+
+function Sprite:displayFrame(frame, index)
+    if type(frame) == "string" then
+        self:setDisplayFrame(frame, index or 0)
+    else
+        self:setDisplayFrame(frame)
+    end
+    return self
+end
+
+function Sprite:flipX(b)
+    self:setFlipX(b)
+    return self
+end
+
+function Sprite:flipY(b)
+    self:setFlipY(b)
+    return self
+end
+
+
+-- Layer
+
+local Layer = c.Layer
+
+function Layer:onTouch(listener)
+    self:addNodeEventListener(c.TOUCH_EVENT, listener)
+    return self
+end
+
+function Layer:enableTouch(enabled)
+    self:setTouchEnabled(enabled)
+    return self
+end
+
+function Layer:onKeypad(listener)
+    self:addNodeEventListener(c.KEYPAD_EVENT, listener)
+    return self
+end
+
+function Layer:enableKeypad(enabled)
+    self:setKeypadEnabled(enabled)
+    return self
+end
+
+function Layer:onAccelerate(listener)
+    self:addNodeEventListener(c.ACCELERATE_EVENT, listener)
+    return self
+end
+
+function Layer:enableAccelerometer(enabled)
+    self:setAccelerometerEnabled(enabled)
+    return self
+end
+
 
 -- actions
 
@@ -159,69 +220,5 @@ end
 
 function Node:tintBy(time, r, g, b)
     self:runAction(CCTintBy:create(time, r or 0, g or 0, b or 0))
-    return self
-end
-
-----------------------------------------
--- CCSprite
-----------------------------------------
-
-local Sprite = c.Sprite
-
-Sprite.playOnce = Sprite.playAnimationOnce
-Sprite.playForever = Sprite.playAnimationForever
-
-function Sprite:displayFrame(frame, index)
-    if type(frame) == "string" then
-        self:setDisplayFrame(frame, index or 0)
-    else
-        self:setDisplayFrame(frame)
-    end
-    return self
-end
-
-function Sprite:flipX(b)
-    self:setFlipX(b)
-    return self
-end
-
-function Sprite:flipY(b)
-    self:setFlipY(b)
-    return self
-end
-
-----------------------------------------
--- CCLayer
-----------------------------------------
-
-local Layer = c.Layer
-
-function Layer:onTouch(listener)
-    self:addNodeEventListener(c.TOUCH_EVENT, listener)
-    return self
-end
-
-function Layer:enableTouch(enabled)
-    self:setTouchEnabled(enabled)
-    return self
-end
-
-function Layer:onKeypad(listener)
-    self:addNodeEventListener(c.KEYPAD_EVENT, listener)
-    return self
-end
-
-function Layer:enableKeypad(enabled)
-    self:setKeypadEnabled(enabled)
-    return self
-end
-
-function Layer:onAccelerate(listener)
-    self:addNodeEventListener(c.ACCELERATE_EVENT, listener)
-    return self
-end
-
-function Layer:enableAccelerometer(enabled)
-    self:setAccelerometerEnabled(enabled)
     return self
 end
