@@ -8,7 +8,6 @@ LOCAL_MODULE_FILENAME := libgame
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
     ../../sources/AppDelegate.cpp \
-    ../../sources/SimulatorConfig.cpp \
     ../../sources/MobClickCppForLua_luabinding.cpp \
     ../../sources/MobClickCppForLua.cpp
 

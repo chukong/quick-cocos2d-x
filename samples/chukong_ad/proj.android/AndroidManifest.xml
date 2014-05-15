@@ -10,7 +10,7 @@
     <supports-screens android:largeScreens="true"
         android:smallScreens="true"
         android:anyDensity="true"
-        android:normalScreens="true" />
+        android:normalScreens="true"/>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,9 +21,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_name"
-        android:icon="@drawable/icon" android:debuggable="true">
+        android:icon="@drawable/icon">
 
-        <activity android:name="org.cocos2d_x.samples.chukong_ad.Chukong_ad"
+        <activity android:name=".Chukong_ad"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait"
@@ -43,5 +43,4 @@
         </service>
 
     </application>
-
 </manifest>
