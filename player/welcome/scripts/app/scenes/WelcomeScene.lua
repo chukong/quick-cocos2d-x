@@ -14,7 +14,7 @@ function WelcomeScene:ctor()
     self:createCopyright()
 
     local recents = __G__OPEN_RECENTS__
-    __G__OPEN_RECENTS__ = nil
+    -- __G__OPEN_RECENTS__ = nil
     if type(recents) ~= "table" then
         recents = {}
     end
