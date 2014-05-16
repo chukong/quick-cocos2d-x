@@ -19,6 +19,10 @@
 		2EDD2799191B639C004F9539 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD2794191B639C004F9539 /* AppController.mm */; };
 		2EDD279A191B639C004F9539 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD2795191B639C004F9539 /* main.m */; };
 		2EDD279B191B639C004F9539 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD2798191B639C004F9539 /* RootViewController.mm */; };
+		49A6FE1F1925E50D00C3C211 /* PunchBoxAdHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A6FE121925E50D00C3C211 /* PunchBoxAdHandler.m */; };
+		49A6FE201925E50D00C3C211 /* PunchBoxAdSDK.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49A6FE141925E50D00C3C211 /* PunchBoxAdSDK.mm */; };
+		49A6FE211925E50D00C3C211 /* libPunchBoxAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A6FE161925E50D00C3C211 /* libPunchBoxAd.a */; };
+		49A6FE221925E50D00C3C211 /* PunchBoxAdRes.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49A6FE1E1925E50D00C3C211 /* PunchBoxAdRes.bundle */; };
 		F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590816D21F8C000651BE /* libquickcocos2dx.a */; };
 		F452BFC51687EEF900DC5BCC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFC41687EEF900DC5BCC /* CoreText.framework */; };
 		F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFCF1687F0F200DC5BCC /* UIKit.framework */; };
@@ -65,6 +69,20 @@
 		2EDD2796191B639C004F9539 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		2EDD2797191B639C004F9539 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		2EDD2798191B639C004F9539 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
+		49A6FE101925E50D00C3C211 /* PunchBoxAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAdDelegate.h; sourceTree = "<group>"; };
+		49A6FE111925E50D00C3C211 /* PunchBoxAdHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAdHandler.h; sourceTree = "<group>"; };
+		49A6FE121925E50D00C3C211 /* PunchBoxAdHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunchBoxAdHandler.m; sourceTree = "<group>"; };
+		49A6FE131925E50D00C3C211 /* PunchBoxAdSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAdSDK.h; sourceTree = "<group>"; };
+		49A6FE141925E50D00C3C211 /* PunchBoxAdSDK.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PunchBoxAdSDK.mm; sourceTree = "<group>"; };
+		49A6FE161925E50D00C3C211 /* libPunchBoxAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPunchBoxAd.a; sourceTree = "<group>"; };
+		49A6FE171925E50D00C3C211 /* PBADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBADRequest.h; sourceTree = "<group>"; };
+		49A6FE181925E50D00C3C211 /* PBBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBannerView.h; sourceTree = "<group>"; };
+		49A6FE191925E50D00C3C211 /* PBInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBInterstitial.h; sourceTree = "<group>"; };
+		49A6FE1A1925E50D00C3C211 /* PBMoreGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMoreGame.h; sourceTree = "<group>"; };
+		49A6FE1B1925E50D00C3C211 /* PBOfferWall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBOfferWall.h; sourceTree = "<group>"; };
+		49A6FE1C1925E50D00C3C211 /* PBRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBRequestError.h; sourceTree = "<group>"; };
+		49A6FE1D1925E50D00C3C211 /* PunchBoxAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunchBoxAd.h; sourceTree = "<group>"; };
+		49A6FE1E1925E50D00C3C211 /* PunchBoxAdRes.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PunchBoxAdRes.bundle; sourceTree = "<group>"; };
 		F4499C7116C7CDE20059FF37 /* quickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = quickcocos2dx.xcodeproj; path = lib/proj.ios/quickcocos2dx.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F452BFC41687EEF900DC5BCC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		F452BFCF1687F0F200DC5BCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -96,6 +114,7 @@
 				F456F0FD15EE0CF600FCF3E2 /* SystemConfiguration.framework in Frameworks */,
 				F456ECC615EE018E00FCF3E2 /* QuartzCore.framework in Frameworks */,
 				F4949C7B1699554600DB561E /* CoreTelephony.framework in Frameworks */,
+				49A6FE211925E50D00C3C211 /* libPunchBoxAd.a in Frameworks */,
 				F456ECD415EE018E00FCF3E2 /* CoreGraphics.framework in Frameworks */,
 				F4949C791699553B00DB561E /* AddressBook.framework in Frameworks */,
 				F456ECC815EE018E00FCF3E2 /* OpenGLES.framework in Frameworks */,
@@ -160,9 +179,40 @@
 			name = ios;
 			sourceTree = "<group>";
 		};
+		49A6FE0F1925E50D00C3C211 /* punchbox_ad_ios */ = {
+			isa = PBXGroup;
+			children = (
+				49A6FE101925E50D00C3C211 /* PunchBoxAdDelegate.h */,
+				49A6FE111925E50D00C3C211 /* PunchBoxAdHandler.h */,
+				49A6FE121925E50D00C3C211 /* PunchBoxAdHandler.m */,
+				49A6FE131925E50D00C3C211 /* PunchBoxAdSDK.h */,
+				49A6FE141925E50D00C3C211 /* PunchBoxAdSDK.mm */,
+				49A6FE151925E50D00C3C211 /* src */,
+			);
+			name = punchbox_ad_ios;
+			path = ../../../lib/sdk/punchbox_ad/punchbox_ad_ios;
+			sourceTree = "<group>";
+		};
+		49A6FE151925E50D00C3C211 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				49A6FE161925E50D00C3C211 /* libPunchBoxAd.a */,
+				49A6FE171925E50D00C3C211 /* PBADRequest.h */,
+				49A6FE181925E50D00C3C211 /* PBBannerView.h */,
+				49A6FE191925E50D00C3C211 /* PBInterstitial.h */,
+				49A6FE1A1925E50D00C3C211 /* PBMoreGame.h */,
+				49A6FE1B1925E50D00C3C211 /* PBOfferWall.h */,
+				49A6FE1C1925E50D00C3C211 /* PBRequestError.h */,
+				49A6FE1D1925E50D00C3C211 /* PunchBoxAd.h */,
+				49A6FE1E1925E50D00C3C211 /* PunchBoxAdRes.bundle */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		F456ECB615EE018E00FCF3E2 = {
 			isa = PBXGroup;
 			children = (
+				49A6FE0F1925E50D00C3C211 /* punchbox_ad_ios */,
 				F4499C7116C7CDE20059FF37 /* quickcocos2dx.xcodeproj */,
 				2EDD2792191B6392004F9539 /* ios */,
 				2EDD2769191B6258004F9539 /* sources */,
@@ -283,6 +333,7 @@
 				2EDD278C191B62CA004F9539 /* Icon@2x.png in Resources */,
 				2EDD278A191B62CA004F9539 /* Icon-72.png in Resources */,
 				2EDD278B191B62CA004F9539 /* Icon.png in Resources */,
+				49A6FE221925E50D00C3C211 /* PunchBoxAdRes.bundle in Resources */,
 				2EDD2790191B62D6004F9539 /* res in Resources */,
 				2EDD2787191B62CA004F9539 /* Default-568h@2x.png in Resources */,
 				2EDD2788191B62CA004F9539 /* Default.png in Resources */,
@@ -298,6 +349,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EDD279B191B639C004F9539 /* RootViewController.mm in Sources */,
+				49A6FE1F1925E50D00C3C211 /* PunchBoxAdHandler.m in Sources */,
+				49A6FE201925E50D00C3C211 /* PunchBoxAdSDK.mm in Sources */,
 				2EDD276C191B6258004F9539 /* AppDelegate.cpp in Sources */,
 				2EDD279A191B639C004F9539 /* main.m in Sources */,
 				2EDD2799191B639C004F9539 /* AppController.mm in Sources */,
@@ -459,6 +512,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/ios\"",
+					"$(PROJECT_DIR)/sdk/PunchBoxAd",
+					"/Users/htl/Documents/Work/quick-cocos2d-x/lib/sdk/punchbox_ad/punchbox_ad_ios/src",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -528,6 +583,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/ios\"",
+					"$(PROJECT_DIR)/sdk/PunchBoxAd",
+					"/Users/htl/Documents/Work/quick-cocos2d-x/lib/sdk/punchbox_ad/punchbox_ad_ios/src",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
