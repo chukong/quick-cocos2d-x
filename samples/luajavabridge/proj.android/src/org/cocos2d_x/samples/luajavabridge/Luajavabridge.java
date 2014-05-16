@@ -20,8 +20,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-****************************************************************************/
+ ****************************************************************************/
 package org.cocos2d_x.samples.luajavabridge;
+
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxLuaJavaBridge;
@@ -31,41 +32,42 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 public class Luajavabridge extends Cocos2dxActivity {
-	static private Luajavabridge s_instance;
+    static private Luajavabridge s_instance;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		s_instance = this;
-	}
-
-    static {
-    	System.loadLibrary("game");
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        s_instance = this;
     }
 
-	static public void showAlertDialog(final String title,
-			final String message, final int luaCallbackFunction) {
-		s_instance.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				AlertDialog alertDialog = new AlertDialog.Builder(s_instance).create();
-				alertDialog.setTitle(title);
-				alertDialog.setMessage(message);
-				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						s_instance.runOnGLThread(new Runnable() {
-							@Override
-							public void run() {
-								Cocos2dxLuaJavaBridge.callLuaFunctionWithString(luaCallbackFunction, "CLICKED");
-								Cocos2dxLuaJavaBridge.releaseLuaFunction(luaCallbackFunction);
-							}
-						});
-					}
-				});
-				alertDialog.setIcon(R.drawable.icon);
-				alertDialog.show();
-			}
-		});
-	}
+    static {
+        System.loadLibrary("game");
+    }
+
+    static public void showAlertDialog(final String title,
+            final String message, final int luaCallbackFunction) {
+        s_instance.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog alertDialog = new AlertDialog.Builder(s_instance).create();
+                alertDialog.setTitle(title);
+                alertDialog.setMessage(message);
+                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        s_instance.runOnGLThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Cocos2dxLuaJavaBridge.callLuaFunctionWithString(luaCallbackFunction, "CLICKED");
+                                Cocos2dxLuaJavaBridge.releaseLuaFunction(luaCallbackFunction);
+                            }
+                        });
+                    }
+                });
+                alertDialog.setIcon(R.drawable.icon);
+                alertDialog.show();
+            }
+        });
+    }
 
 }

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: MobClickCppForLua_luabinding
-** Generated automatically by tolua++-1.0.92 on Thu May  8 14:35:51 2014.
+** Generated automatically by tolua++-1.0.92 on Fri May 16 14:45:30 2014.
 */
 
 #include "MobClickCppForLua_luabinding.h"
@@ -16,7 +16,7 @@ using namespace cocos2d;
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
- tolua_usertype(tolua_S,"MobClickCppForLua"); toluafix_add_type_mapping(typeid(MobClickCppForLua).hash_code(), "MobClickCppForLua");
+ tolua_usertype(tolua_S,"MobClickCppForLua"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(MobClickCppForLua)), "MobClickCppForLua");
 }
 
 /* method: setAppVersion of class  MobClickCppForLua */
@@ -191,9 +191,9 @@ static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_applicationWillE
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: end of class  MobClickCppForLua */
-#ifndef TOLUA_DISABLE_tolua_MobClickCppForLua_luabinding_MobClickCppForLua_end00
-static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_end00(lua_State* tolua_S)
+/* method: endAnalytics of class  MobClickCppForLua */
+#ifndef TOLUA_DISABLE_tolua_MobClickCppForLua_luabinding_MobClickCppForLua_endAnalytics00
+static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_endAnalytics00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -206,13 +206,13 @@ static int tolua_MobClickCppForLua_luabinding_MobClickCppForLua_end00(lua_State*
 #endif
  {
   {
-   MobClickCppForLua::end();
+   MobClickCppForLua::endAnalytics();
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'end'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'endAnalytics'.",&tolua_err);
  return 0;
 #endif
 }
@@ -1081,7 +1081,7 @@ TOLUA_API int tolua_MobClickCppForLua_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"startWithAppkey",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_startWithAppkey00);
    tolua_function(tolua_S,"applicationDidEnterBackground",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_applicationDidEnterBackground00);
    tolua_function(tolua_S,"applicationWillEnterForeground",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_applicationWillEnterForeground00);
-   tolua_function(tolua_S,"end",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_end00);
+   tolua_function(tolua_S,"endAnalytics",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_endAnalytics00);
    tolua_function(tolua_S,"event",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_event00);
    tolua_function(tolua_S,"eventCustom",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_eventCustom00);
    tolua_function(tolua_S,"beginEvent",tolua_MobClickCppForLua_luabinding_MobClickCppForLua_beginEvent00);

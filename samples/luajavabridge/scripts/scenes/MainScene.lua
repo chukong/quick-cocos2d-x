@@ -17,7 +17,7 @@ function MainScene:ctor()
             end
             
             -- call Java method
-            local javaClassName = "com/quick_x/sample/luajavabridge/Luajavabridge"
+            local javaClassName = "org/cocos2d_x/samples/luajavabridge/Luajavabridge"
             local javaMethodName = "showAlertDialog"
             local javaParams = {
                 "How are you ?",

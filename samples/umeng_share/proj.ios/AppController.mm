@@ -69,8 +69,6 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
     cocos2d::CCApplication::sharedApplication()->run();
 
-#warning 替换为自己的appid
-    [[UmengShareSDK getInstance] setAppKey:@"5369de0b56240b5363019991"];
     [[UmengShareSDK getInstance] setUIView:viewController];
     
     return YES;
