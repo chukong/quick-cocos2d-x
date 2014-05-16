@@ -7,58 +7,73 @@ local TestSingleTouch1Scene = class("TestSingleTouch1Scene", function()
 end)
 
 function TestSingleTouch1Scene:ctor()
-    self.debugLabel = cc.ui.UILabel.new({text = "touch state: -\n\n\n"})
-        :pos(display.cx, display.top - 160)
-        :addTo(self)
-
-    -- button1parent 是 button1 的父节点
-    local button1parent = createTouchableSprite({
-        image = "WhiteButton.png",
-        size = CCSize(600, 500),
-        label = "Touchable Node\n\nTOUCH ME !"})
+    -- parentButton 是 button1 的父节点
+    self.parentButton = createTouchableSprite({
+            image = "WhiteButton.png",
+            size = CCSize(600, 500),
+            label = "TOUCH ME !",
+            labelColor = cc.c3(255, 0, 0)})
         :pos(display.cx, display.cy)
         :addTo(self)
-    button1parent.name = "button1parent"
+    self.parentButton.name = "parentButton"
+    drawBoundingBox(self, self.parentButton, cc.c4f(0, 1.0, 0, 1.0))
 
-    local button1 = createTouchableSprite({
-        image = "GreenButton.png",
-        size = CCSize(400, 360),
-        label = "Touchable Node\n\nTOUCH ME !"})
-        :pos(300, 250)
-        :addTo(button1parent)
-    button1.name = "button1"
-
-    button1parent:setTouchEnabled(true)
-    button1parent:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        self:onTouch(event.name, event.x, event.y, event.prevX, event.prevY)
+    -- -- 启用触摸
+    self.parentButton:setTouchEnabled(true)
+    -- -- 添加触摸事件处理函数
+    self.parentButton:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        -- event.name 是触摸事件的状态：began, moved, ended, cancelled
+        -- event.x, event.y 是触摸点当前位置
+        -- event.prevX, event.prevY 是触摸点之前的位置
+        local label = string.format("parentButton: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
+        self.parentButton.label:setString(label)
+        -- 返回 true 表示要继续接收该触摸事件的状态变化
+        return true
     end)
 
-    -- 启用触摸
-    button1:setTouchEnabled(true)
-    -- 添加触摸事件处理函数
-    button1:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        local name, x, y, prevX, prevY = event.name, event.x, event.y, event.prevX, event.prevY
+    -- button1 响应触摸后，会吞噬掉触摸事件
+    self.button1 = createTouchableSprite({
+            image = "GreenButton.png",
+            size = CCSize(400, 120),
+            label = "TOUCH ME !"})
+        :pos(300, 400)
+        :addTo(self.parentButton)
+    cc.ui.UILabel.new({text = "SWALLOW = YES", size = 24})
+        :align(display.CENTER, 200, 90)
+        :addTo(self.button1)
+    drawBoundingBox(self, self.button1, cc.c4f(1.0, 0, 0, 1.0))
 
-        -- name 是触摸事件的状态：began, moved, ended, cancelled
-        -- x, y 是触摸点当前位置
-        -- prevX, prevY 是触摸点之前的位置
-        -- offset 是触摸点相对于 button1 的位置
+    self.button1:setTouchEnabled(true)
+    self.button1:setTouchSwallowEnabled(true) -- 是否吞噬事件，默认值为 true
+    self.button1:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        local label = string.format("button1: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
+        self.button1.label:setString(label)
+        return true
+    end)
 
-        if name == "began" then
-            -- 在 began 状态需要返回 true，表示接收该触摸事件的后续状态
-            return true
-        end
+    -- button2 响应触摸后，不会吞噬掉触摸事件
+    self.button2 = createTouchableSprite({
+            image = "PinkButton.png",
+            size = CCSize(400, 120),
+            label = "TOUCH ME !"})
+        :pos(300, 200)
+        :addTo(self.parentButton)
+    cc.ui.UILabel.new({text = "SWALLOW = NO", size = 24})
+        :align(display.CENTER, 200, 90)
+        :addTo(self.button2)
+    drawBoundingBox(self, self.button2, cc.c4f(0, 0, 1.0, 1.0))
+
+    self.button2:setTouchEnabled(true)
+    self.button2:setTouchSwallowEnabled(false)
+    self.button2:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        local label = string.format("button1: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
+        self.button2.label:setString(label)
+        return true
     end)
 
     --
     app:createNextButton(self)
-    app:createTitle(self, "Test Single Touch 1")
-    self.button1 = button1
-end
-
-function TestSingleTouch1Scene:onTouch(event, x, y, prevX, prevY)
-    local offset = self.button1:convertToNodeSpace(CCPoint(x, y))
-    self.debugLabel:setString(string.format("touch button1 state: %s\nx,y: %0.2f, %0.2f\nprevX, prevY: %0.2f, %0.2f\noffsetX, offsetY: %0.2f, %0.2f", event, x, y, prevX, prevY, offset.x, offset.y))
+    app:createTitle(self, "Test Single-Touch 1")
 end
 
 return TestSingleTouch1Scene

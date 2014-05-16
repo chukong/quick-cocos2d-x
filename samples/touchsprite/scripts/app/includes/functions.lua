@@ -4,13 +4,13 @@ function createTouchableSprite(p)
     sprite:setContentSize(p.size)
 
     local cs = sprite:getContentSize()
-    local label = ui.newTTFLabel({text = p.label})
-    label:setPosition(cs.width / 2, cs.height / 2)
+    local label = ui.newTTFLabel({text = p.label, color = p.labelColor})
+    label:setPosition(cs.width / 2, label:getContentSize().height)
     sprite:addChild(label)
+    sprite.label = label
 
     return sprite
 end
-
 
 function createSimpleButton(imageName, name, movable, listener)
     local sprite = display.newSprite(imageName)
@@ -19,7 +19,7 @@ function createSimpleButton(imageName, name, movable, listener)
         local cs = sprite:getContentSize()
         local label = ui.newTTFLabel({text = name, color = display.COLOR_BLACK})
         label:setPosition(cs.width / 2, cs.height / 2)
-        sprite:addChild(label)
+        -- sprite:addChild(label)
     end
 
     sprite:setTouchEnabled(true) -- enable sprite touch
@@ -54,4 +54,19 @@ function createSimpleButton(imageName, name, movable, listener)
     end)
 
     return sprite
+end
+
+function drawBoundingBox(parent, target, color)
+    local cbb = target:getCascadeBoundingBox(true)
+    local left, bottom, width, height = cbb.origin.x, cbb.origin.y, cbb.size.width, cbb.size.height
+    local points = {
+        {left, bottom},
+        {left + width, bottom},
+        {left + width, bottom + height},
+        {left, bottom + height},
+        {left, bottom},
+    }
+    local box = display.newPolygon(points, 1.0)
+    box:setLineColor(color)
+    parent:addChild(box, 1000)
 end
