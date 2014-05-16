@@ -168,6 +168,11 @@ void StartupCall::startup()
         ++i;
     }
     lua_setglobal(L, "__G__OPEN_RECENTS__");
+
+    // set quick-cocos2d-x root path
+    std::string quickPath = SimulatorConfig::sharedDefaults()->getQuickCocos2dxRootPath();
+    lua_pushstring(L, quickPath.c_str());
+    lua_setglobal(L, "__G__QUICK_PATH__");
     
     CCLOG("------------------------------------------------");
     CCLOG("LOAD LUA FILE: %s", path.c_str());
