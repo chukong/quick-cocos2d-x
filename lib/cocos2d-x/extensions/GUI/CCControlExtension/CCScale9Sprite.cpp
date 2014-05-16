@@ -98,8 +98,9 @@ bool CCScale9Sprite::initWithBatchNode(CCSpriteBatchNode* batchnode, CCRect rect
         this->updateWithBatchNode(batchnode, rect, rotated, capInsets);
         this->setAnchorPoint(ccp(0.5f, 0.5f));
     }
+    this->updatePositions();
     this->m_positionsAreDirty = true;
-    
+
     return true;
 }
 
@@ -401,6 +402,7 @@ bool CCScale9Sprite::updateWithBatchNode(CCSpriteBatchNode* batchnode, CCRect re
 void CCScale9Sprite::setContentSize(const CCSize &size)
 {
     CCNode::setContentSize(size);
+    this->updatePositions();
     this->m_positionsAreDirty = true;
 }
 

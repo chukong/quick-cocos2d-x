@@ -68,7 +68,6 @@ CCNode::CCNode(void)
 , m_obAnchorPointInPoints(CCPointZero)
 , m_obAnchorPoint(CCPointZero)
 , m_obContentSize(CCSizeZero)
-, m_obTextureSize(CCSizeZero)
 , m_sAdditionalTransform(CCAffineTransformMakeIdentity())
 , m_pCamera(NULL)
 // children (lazy allocs)
@@ -549,79 +548,50 @@ CCRect CCNode::boundingBox()
     return CCRectApplyAffineTransform(rect, nodeToParentTransform());
 }
 
-CCRect CCNode::getCascadeBoundingBox(bool convertToWorld)
+CCRect CCNode::getCascadeBoundingBox(bool convertToWorld /* = true */)
 {
-    float minx, miny, maxx, maxy = 0;
-
-    bool first = true;
-
-    CCRect box = CCRect(0, 0, 0, 0);
-    CCObject *object = NULL;
-    CCARRAY_FOREACH(m_pChildren, object)
-    {
-        CCRect r = dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false);
-        if (r.size.width == 0 || r.size.height == 0) continue;
-        r = CCRectApplyAffineTransform(r, nodeToParentTransform());
-
-        if (first)
-        {
-            box = r;
-            first = false;
-        }
-        else
-        {
-            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
-            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
-            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
-            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
-            box.setRect(minx, miny, maxx - minx, maxy - miny);
-        }
-    }
-
-    CCRect r;
-    bool mergeRect = false;
+    CCRect cbb;
     if (m_cascadeBoundingBox.size.width > 0 && m_cascadeBoundingBox.size.height > 0)
     {
-        r = CCRectApplyAffineTransform(m_cascadeBoundingBox, nodeToParentTransform());
-        mergeRect = true;
-    }
-    else if (m_obTextureSize.width > 0 && m_obTextureSize.height > 0)
-    {
-        r = CCRectApplyAffineTransform(CCRectMake(0, 0, m_obTextureSize.width, m_obTextureSize.height), nodeToParentTransform());
-        mergeRect = true;
-    }
-
-    if (mergeRect)
-    {
-        if (first)
-        {
-            box = r;
-        }
-        else
-        {
-            minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
-            miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
-            maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
-            maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
-            box.setRect(minx, miny, maxx - minx, maxy - miny);
-        }
+        // if cascade bounding box set by user, ignore all childrens bounding box
+        cbb = m_cascadeBoundingBox;
     }
     else
-	{
-		r = CCRectMake(0, 0, m_obContentSize.width, m_obContentSize.height);
-		r = CCRectApplyAffineTransform(r, nodeToParentTransform());
-		minx = r.getMinX() < box.getMinX() ? r.getMinX() : box.getMinX();
-		miny = r.getMinY() < box.getMinY() ? r.getMinY() : box.getMinY();
-		maxx = r.getMaxX() > box.getMaxX() ? r.getMaxX() : box.getMaxX();
-		maxy = r.getMaxY() > box.getMaxY() ? r.getMaxY() : box.getMaxY();
-		box.setRect(minx, miny, maxx - minx, maxy - miny);
-	}
-
-    if (convertToWorld && m_pParent)
     {
-        box = CCRectApplyAffineTransform(box, m_pParent->nodeToWorldTransform());
+        // check all childrens bounding box, get maximize box
+        CCObject *object = NULL;
+        CCNode* children = NULL;
+        bool merge = false;
+        CCARRAY_FOREACH(m_pChildren, object)
+        {
+            children = dynamic_cast<CCNode*>(object);
+            if (!children->isVisible()) continue;
+            if (!merge)
+            {
+                cbb = children->getCascadeBoundingBox(false);
+                merge = true;
+            }
+            else
+            {
+                cbb.merge(dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false));
+            }
+        }
+
+        // merge content size
+        if (m_obContentSize.width > 0 && m_obContentSize.height > 0)
+        {
+            if (!merge)
+            {
+                cbb = CCRect(0, 0, m_obContentSize.width, m_obContentSize.height);
+            }
+            else
+            {
+                cbb.merge(CCRect(0, 0, m_obContentSize.width, m_obContentSize.height));
+            }
+        }
     }
-    return box;
+
+    return CCRectApplyAffineTransform(cbb, convertToWorld ? nodeToWorldTransform() : nodeToParentTransform());
 }
 
 void CCNode::setCascadeBoundingBox(const cocos2d::CCRect &boundingBox)
