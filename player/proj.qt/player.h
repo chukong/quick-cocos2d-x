@@ -82,8 +82,10 @@ public Q_SLOTS:
     void restartWithProjectConfig(ProjectConfig &config);
     void onNewProject();
     void onOpenProject();
+    void onOpenProjectWithArgs(QString data);
     void doOpenProject();
     void onCreateNewPlayer();
+    void onCreateNewPlayerWithArgs(QString data);
     void onClose();
     void onShowWelcome();
     void onCreateSnapshot();

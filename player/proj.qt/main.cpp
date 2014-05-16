@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
         args.push_back(argv[i]);
     }
     projectConfig.parseCommandLine(args);
+    projectConfig.dump();
 
     const string projectDir = projectConfig.getProjectDir();
     // show the welcome UI as default
@@ -67,10 +68,8 @@ int main(int argc, char *argv[])
     if (projectConfig.isWriteDebugLogToFile())
     {
         QString logFilePath(projectConfig.getWritableRealPath().data());
-        QString suffix = QDateTime::currentDateTime().toString("yyyy-MM-dd-") + QTime::currentTime().toString("HHmmss");
-        QString logFileName = QString("%1/debug-%2.log")
-                                        .arg(logFilePath)
-                                        .arg(suffix);
+//        QString suffix = QDateTime::currentDateTime().toString("yyyy-MM-dd-") + QTime::currentTime().toString("HHmmss");
+        QString logFileName = QString("%1/debug.log").arg(logFilePath);
         player->setLogFileName(logFileName);
     }
 
