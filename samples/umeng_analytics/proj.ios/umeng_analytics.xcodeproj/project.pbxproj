@@ -19,6 +19,9 @@
 		2EDD2799191B639C004F9539 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD2794191B639C004F9539 /* AppController.mm */; };
 		2EDD279A191B639C004F9539 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD2795191B639C004F9539 /* main.m */; };
 		2EDD279B191B639C004F9539 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD2798191B639C004F9539 /* RootViewController.mm */; };
+		49A6FE2A1925E87E00C3C211 /* libMobClickCppWithLibCpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A6FE281925E87E00C3C211 /* libMobClickCppWithLibCpp.a */; };
+		49A6FE3A1925EF4800C3C211 /* MobClickCppForLua_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49A6FE361925EF4800C3C211 /* MobClickCppForLua_luabinding.cpp */; };
+		49A6FE3B1925EF4800C3C211 /* MobClickCppForLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49A6FE381925EF4800C3C211 /* MobClickCppForLua.cpp */; };
 		F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F590816D21F8C000651BE /* libquickcocos2dx.a */; };
 		F452BFC51687EEF900DC5BCC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFC41687EEF900DC5BCC /* CoreText.framework */; };
 		F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F452BFCF1687F0F200DC5BCC /* UIKit.framework */; };
@@ -65,6 +68,12 @@
 		2EDD2796191B639C004F9539 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		2EDD2797191B639C004F9539 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		2EDD2798191B639C004F9539 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
+		49A6FE281925E87E00C3C211 /* libMobClickCppWithLibCpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickCppWithLibCpp.a; sourceTree = "<group>"; };
+		49A6FE351925EF4800C3C211 /* MobClickCpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCpp.h; sourceTree = "<group>"; };
+		49A6FE361925EF4800C3C211 /* MobClickCppForLua_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MobClickCppForLua_luabinding.cpp; sourceTree = "<group>"; };
+		49A6FE371925EF4800C3C211 /* MobClickCppForLua_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCppForLua_luabinding.h; sourceTree = "<group>"; };
+		49A6FE381925EF4800C3C211 /* MobClickCppForLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MobClickCppForLua.cpp; sourceTree = "<group>"; };
+		49A6FE391925EF4800C3C211 /* MobClickCppForLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickCppForLua.h; sourceTree = "<group>"; };
 		F4499C7116C7CDE20059FF37 /* quickcocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = quickcocos2dx.xcodeproj; path = lib/proj.ios/quickcocos2dx.xcodeproj; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F452BFC41687EEF900DC5BCC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		F452BFCF1687F0F200DC5BCC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -93,6 +102,7 @@
 			files = (
 				F4323CF716D3298E0072B773 /* libquickcocos2dx.a in Frameworks */,
 				F452BFD01687F0F200DC5BCC /* UIKit.framework in Frameworks */,
+				49A6FE2A1925E87E00C3C211 /* libMobClickCppWithLibCpp.a in Frameworks */,
 				F456F0FD15EE0CF600FCF3E2 /* SystemConfiguration.framework in Frameworks */,
 				F456ECC615EE018E00FCF3E2 /* QuartzCore.framework in Frameworks */,
 				F4949C7B1699554600DB561E /* CoreTelephony.framework in Frameworks */,
@@ -116,6 +126,11 @@
 		2EDD2769191B6258004F9539 /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				49A6FE351925EF4800C3C211 /* MobClickCpp.h */,
+				49A6FE361925EF4800C3C211 /* MobClickCppForLua_luabinding.cpp */,
+				49A6FE371925EF4800C3C211 /* MobClickCppForLua_luabinding.h */,
+				49A6FE381925EF4800C3C211 /* MobClickCppForLua.cpp */,
+				49A6FE391925EF4800C3C211 /* MobClickCppForLua.h */,
 				2EDD276A191B6258004F9539 /* AppDelegate.cpp */,
 				2EDD276B191B6258004F9539 /* AppDelegate.h */,
 			);
@@ -160,9 +175,19 @@
 			name = ios;
 			sourceTree = "<group>";
 		};
+		49A6FE261925E87E00C3C211 /* umeng_analytics_ios */ = {
+			isa = PBXGroup;
+			children = (
+				49A6FE281925E87E00C3C211 /* libMobClickCppWithLibCpp.a */,
+			);
+			name = umeng_analytics_ios;
+			path = ../../../lib/sdk/umeng_analytics/umeng_analytics_ios;
+			sourceTree = "<group>";
+		};
 		F456ECB615EE018E00FCF3E2 = {
 			isa = PBXGroup;
 			children = (
+				49A6FE261925E87E00C3C211 /* umeng_analytics_ios */,
 				F4499C7116C7CDE20059FF37 /* quickcocos2dx.xcodeproj */,
 				2EDD2792191B6392004F9539 /* ios */,
 				2EDD2769191B6258004F9539 /* sources */,
@@ -299,7 +324,9 @@
 			files = (
 				2EDD279B191B639C004F9539 /* RootViewController.mm in Sources */,
 				2EDD276C191B6258004F9539 /* AppDelegate.cpp in Sources */,
+				49A6FE3B1925EF4800C3C211 /* MobClickCppForLua.cpp in Sources */,
 				2EDD279A191B639C004F9539 /* main.m in Sources */,
+				49A6FE3A1925EF4800C3C211 /* MobClickCppForLua_luabinding.cpp in Sources */,
 				2EDD2799191B639C004F9539 /* AppController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,6 +486,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/ios\"",
+					"/Users/htl/Documents/Work/quick-cocos2d-x/lib/sdk/umeng_analytics/umeng_analytics_ios",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -528,6 +556,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/luajit/ios\"",
+					"/Users/htl/Documents/Work/quick-cocos2d-x/lib/sdk/umeng_analytics/umeng_analytics_ios",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
