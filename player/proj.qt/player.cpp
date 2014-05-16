@@ -166,6 +166,21 @@ void Player::onOpenProject()
     m_projectConfigUI->show();
 }
 
+void Player::onOpenProjectWithArgs(QString data)
+{
+    QVariantList variantList = QxTools::stringToVariant(data).toList();
+    ProjectConfig config;
+    std::vector<std::string> argsStdList;
+    Q_FOREACH(QVariant variant, variantList)
+    {
+        QString argv = variant.toString();
+        argsStdList.push_back(argv.toStdString());
+    }
+
+    config.parseCommandLine(argsStdList);
+    Player::instance()->restartWithProjectConfig(config);
+}
+
 void Player::doOpenProject()
 {
    if (m_projectConfigUI)
@@ -1027,6 +1042,18 @@ void Player::onCreateNewPlayer()
     QString cmd(newPlayerConfig.makeCommandLine().data());
     QStringList args = cmd.split(" ");
     QProcess::startDetached(qApp->applicationFilePath(), args);
+}
+
+void Player::onCreateNewPlayerWithArgs(QString data)
+{
+    QVariantList variantList = QxTools::stringToVariant(data).toList();
+    QStringList  argsList;
+    Q_FOREACH(QVariant variant, variantList)
+    {
+        QString argv = variant.toString();
+        argsList << argv;
+    }
+    QProcess::startDetached(qApp->applicationFilePath(), argsList);
 }
 
 void Player::onClose()
