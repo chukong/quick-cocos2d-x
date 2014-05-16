@@ -78,6 +78,10 @@ public:
     /** @brief Set POST data to the request body, POST only. */
     void setPOSTData(const char *data);
 
+
+	void addFormFile(const char *name, const char *filePath, const char *fileType="application/octet-stream");
+	void addFormContents(const char *name, const char *value);
+
     /** @brief Set/Get cookie string. */
     void setCookieString(const char *cookie);
     const string getCookieString(void);
@@ -144,6 +148,8 @@ private:
     , m_responseBufferLength(0)
     , m_responseDataLength(0)
     , m_curlState(kCCHTTPRequestCURLStateIdle)
+	, m_formPost(NULL)
+	, m_lastPost(NULL)
     {
     }
     bool initWithDelegate(CCHTTPRequestDelegate* delegate, const char *url, int method);
@@ -163,6 +169,9 @@ private:
     CCHTTPRequestDelegate* m_delegate;
     int m_listener;
     int m_curlState;
+
+	curl_httppost *m_formPost;
+	curl_httppost *m_lastPost;
 
     int     m_state;
     int     m_errorCode;

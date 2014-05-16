@@ -5,11 +5,10 @@ local EventProtocol = class("EventProtocol", Component)
 function EventProtocol:ctor()
     EventProtocol.super.ctor(self, "EventProtocol")
     self.listeners_ = {}
-    self.listenerHandleIndex_ = 0
-    self.debug_ = false
+    self.nextListenerHandleIndex_ = 0
 end
 
-function EventProtocol:addEventListener(eventName, listener, data)
+function EventProtocol:addEventListener(eventName, listener, tag)
     assert(type(eventName) == "string" and eventName ~= "",
         "EventProtocol:addEventListener() - invalid eventName")
     eventName = string.upper(eventName)
@@ -17,81 +16,120 @@ function EventProtocol:addEventListener(eventName, listener, data)
         self.listeners_[eventName] = {}
     end
 
-    self.listenerHandleIndex_ = self.listenerHandleIndex_ + 1
-    local handle = tostring(self.listenerHandleIndex_)
-    self.listeners_[eventName][handle] = {listener, data}
+    self.nextListenerHandleIndex_ = self.nextListenerHandleIndex_ + 1
+    local handle = tostring(self.nextListenerHandleIndex_)
+    tag = tag or ""
+    self.listeners_[eventName][handle] = {listener, tag}
 
-    if self.debug_ then
-        if data then
-            echoInfo("EventProtocol:addEventListener() - add listener [%s] %s:%s for event %s", handle, tostring(data), tostring(listener), eventName)
-        else
-            echoInfo("EventProtocol:addEventListener() - add listener [%s] %s for event %s", handle, tostring(listener), eventName)
-        end
+    if DEBUG > 1 then
+        printInfo("%s [EventProtocol] addEventListener() - event: %s, handle: %s, tag: %s", tostring(self.target_), eventName, handle, tostring(tag))
     end
 
     return handle
 end
 
 function EventProtocol:dispatchEvent(event)
-    event.name = string.upper(event.name)
+    event.name = string.upper(tostring(event.name))
     local eventName = event.name
-    if self.debug_ then
-        echoInfo("EventProtocol:dispatchEvent() - dispatching event %s", eventName)
+    if DEBUG > 1 then
+        printInfo("%s [EventProtocol] dispatchEvent() - event %s", tostring(self.target_), eventName)
     end
 
     if self.listeners_[eventName] == nil then return end
     event.target = self.target_
+    event.stop_ = false
+    event.stop = function(self)
+        self.stop_ = true
+    end
 
     for handle, listener in pairs(self.listeners_[eventName]) do
-        if self.debug_ then
-            echoInfo("EventProtocol:dispatchEvent() - dispatching event %s to listener [%s]", eventName, handle)
+        if DEBUG > 1 then
+            printInfo("%s [EventProtocol] dispatchEvent() - dispatching event %s to listener %s", tostring(self.target_), eventName, handle)
         end
-        local ret
-        if listener[2] then
-            ret = listener[1](listener[2], event)
-        else
-            ret = listener[1](event)
-        end
-        if ret == false then
-            if self.debug_ then
-                echoInfo("EventProtocol:dispatchEvent() - break dispatching for event %s", eventName)
+        -- listener[1] = listener
+        -- listener[2] = tag
+        listener[1](event)
+        if event.stop_ then
+            if DEBUG > 1 then
+                printInfo("%s [EventProtocol] dispatchEvent() - break dispatching for event %s", tostring(self.target_), eventName)
             end
             break
         end
     end
-    return self
+
+    return self.target_
 end
 
-function EventProtocol:removeEventListener(eventName, key1, key2)
-    eventName = string.upper(eventName)
-    if self.listeners_[eventName] == nil then return end
+function EventProtocol:removeEventListener(handleToRemove, key1, key2)
+    if key2 then
+        PRINT_DEPRECATED("EventProtocol:removeEventListener(eventName, method, target) is deprecated, please use EventProtocol:removeEventListener(handle)")
+        printLog("WARN", "EventProtocol:removeEventListener(eventName, method, target) cannot remove listener")
+        return self.target_
+    elseif key1 then
+        PRINT_DEPRECATED("EventProtocol:removeEventListener(eventName, handle) is deprecated, please use EventProtocol:removeEventListener(handle)")
+        handleToRemove = key1
+    end
 
-    for handle, listener in pairs(self.listeners_[eventName]) do
-        if key1 == handle or (key1 == listener[1] and key2 == listener[2]) then
-            self.listeners_[eventName][handle] = nil
-            if self.debug_ then
-                echoInfo("EventProtocol:removeEventListener() - remove listener [%s] for event %s", handle, eventName)
+    for eventName, listenersForEvent in pairs(self.listeners_) do
+        for handle, _ in pairs(listenersForEvent) do
+            if handle == handleToRemove then
+                listenersForEvent[handle] = nil
+                if DEBUG > 1 then
+                    printInfo("%s [EventProtocol] removeEventListener() - remove listener [%s] for event %s", tostring(self.target_), handle, eventName)
+                end
+                return self.target_
             end
-            return handle
         end
     end
-    return self
+
+    return self.target_
+end
+
+function EventProtocol:removeEventListenersByTag(tagToRemove)
+    for eventName, listenersForEvent in pairs(self.listeners_) do
+        for handle, listener in pairs(listenersForEvent) do
+            -- listener[1] = listener
+            -- listener[2] = tag
+            if listener[2] == tagToRemove then
+                listenersForEvent[handle] = nil
+                if DEBUG > 1 then
+                    printInfo("%s [EventProtocol] removeEventListener() - remove listener [%s] for event %s", tostring(self.target_), handle, eventName)
+                end
+            end
+        end
+    end
+
+    return self.target_
+end
+
+function EventProtocol:removeEventListenersByEvent(eventName)
+    self.listeners_[string.upper(eventName)] = nil
+    if DEBUG > 1 then
+        printInfo("%s [EventProtocol] removeAllEventListenersForEvent() - remove all listeners for event %s", tostring(self.target_), eventName)
+    end
+    return self.target_
 end
 
 function EventProtocol:removeAllEventListenersForEvent(eventName)
-    self.listeners_[string.upper(eventName)] = nil
-    if self.debug_ then
-        echoInfo("EventProtocol:removeAllEventListenersForEvent() - remove all listeners for event %s", eventName)
-    end
-    return self
+    PRINT_DEPRECATED("EventProtocol:removeAllEventListenersForEvent() is deprecated, please use EventProtocol:removeEventListenersByEvent()")
+    return self:removeEventListenersByEvent(eventName)
 end
 
 function EventProtocol:removeAllEventListeners()
     self.listeners_ = {}
-    if self.debug_ then
-        echoInfo("EventProtocol:removeAllEventListeners() - remove all listeners")
+    if DEBUG > 1 then
+        printInfo("%s [EventProtocol] removeAllEventListeners() - remove all listeners", tostring(self.target_))
     end
-    return self
+    return self.target_
+end
+
+function EventProtocol:hasEventListener(eventName)
+    event.name = string.upper(tostring(eventName))
+    local t = self.listeners_[eventName]
+    for _, __ in pairs(t) do
+        return true
+    end
+    return false
 end
 
 function EventProtocol:dumpAllEventListeners()
@@ -99,15 +137,10 @@ function EventProtocol:dumpAllEventListeners()
     for name, listeners in pairs(self.listeners_) do
         printf("-- event: %s", name)
         for handle, listener in pairs(listeners) do
-            printf("--     handle: %s, %s", tostring(handle), tostring(listener))
+            printf("--     listener: %s, handle: %s", tostring(listener[1]), tostring(handle))
         end
     end
-    return self
-end
-
-function EventProtocol:setEventProtocolDebugEnabled(enabled)
-    self.debug_ = enabled
-    return self
+    return self.target_
 end
 
 function EventProtocol:exportMethods()
@@ -117,8 +150,9 @@ function EventProtocol:exportMethods()
         "removeEventListener",
         "removeAllEventListenersForEvent",
         "removeAllEventListeners",
+        "dumpAllEventListeners",
     })
-    return self
+    return self.target_
 end
 
 function EventProtocol:onBind_()

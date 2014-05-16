@@ -1,18 +1,27 @@
 
--- init ui library
+local c = cc
 local ui = {}
 
 function makeUIControl_(control)
-    cc.GameObject.extend(control)
+    cc(control)
     control:addComponent("components.ui.LayoutProtocol"):exportMethods()
     control:addComponent("components.behavior.EventProtocol"):exportMethods()
 
     control:setCascadeOpacityEnabled(true)
     control:setCascadeColorEnabled(true)
-    control:addScriptEventListener(cc.Event.CLEANUP, function()
-        control:removeAllEventListeners()
+    control:addNodeEventListener(c.NODE_EVENT, function(event)
+        if event.name == "cleanup" then
+            control:removeAllEventListeners()
+        end
     end)
 end
+
+ui.TEXT_ALIGN_LEFT    = kCCTextAlignmentLeft
+ui.TEXT_ALIGN_CENTER  = kCCTextAlignmentCenter
+ui.TEXT_ALIGN_RIGHT   = kCCTextAlignmentRight
+ui.TEXT_VALIGN_TOP    = kCCVerticalTextAlignmentTop
+ui.TEXT_VALIGN_CENTER = kCCVerticalTextAlignmentCenter
+ui.TEXT_VALIGN_BOTTOM = kCCVerticalTextAlignmentBottom
 
 ui.UIGroup               = import(".UIGroup")
 ui.UIImage               = import(".UIImage")

@@ -1,4 +1,32 @@
+--[[
 
+Copyright (c) 2011-2014 chukong-inc.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+--[[--
+
+Lua 与 Objective-C 的交互接口
+
+]]
 local luaoc = {}
 
 local callStaticMethod = CCLuaObjcBridge.callStaticMethod
@@ -9,17 +37,17 @@ function luaoc.callStaticMethod(className, methodName, args)
         local msg = string.format("luaoc.callStaticMethod(\"%s\", \"%s\", \"%s\") - error: [%s] ",
                 className, methodName, tostring(args), tostring(ret))
         if ret == -1 then
-            echoError(msg .. "INVALID PARAMETERS")
+            printError(msg .. "INVALID PARAMETERS")
         elseif ret == -2 then
-            echoError(msg .. "CLASS NOT FOUND")
+            printError(msg .. "CLASS NOT FOUND")
         elseif ret == -3 then
-            echoError(msg .. "METHOD NOT FOUND")
+            printError(msg .. "METHOD NOT FOUND")
         elseif ret == -4 then
-            echoError(msg .. "EXCEPTION OCCURRED")
+            printError(msg .. "EXCEPTION OCCURRED")
         elseif ret == -5 then
-            echoError(msg .. "INVALID METHOD SIGNATURE")
+            printError(msg .. "INVALID METHOD SIGNATURE")
         else
-            echoError(msg .. "UNKNOWN")
+            printError(msg .. "UNKNOWN")
         end
     end
     return ok, ret

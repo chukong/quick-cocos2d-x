@@ -41,9 +41,9 @@ static int tolua_collect_CCBProxy (lua_State* tolua_S)
 /* function to release collected object via destructor */
 static void tolua_reg_extensions_ccb_type(lua_State* tolua_S)
 {
-    tolua_usertype(tolua_S, "CCBAnimationManager"); toluafix_add_type_mapping(typeid(CCBAnimationManager).hash_code(), "CCBAnimationManager");
-    tolua_usertype(tolua_S, "CCBReader"); toluafix_add_type_mapping(typeid(CCBReader).hash_code(), "CCBReader");
-    tolua_usertype(tolua_S, "CCBProxy"); toluafix_add_type_mapping(typeid(CCBProxy).hash_code(), "CCBProxy");
+    tolua_usertype(tolua_S, "CCBAnimationManager"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBAnimationManager)), "CCBAnimationManager");
+    tolua_usertype(tolua_S, "CCBReader"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBReader)), "CCBReader");
+    tolua_usertype(tolua_S, "CCBProxy"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBProxy)), "CCBProxy");
 }
 
 /* method: delete of class  CCBReader */

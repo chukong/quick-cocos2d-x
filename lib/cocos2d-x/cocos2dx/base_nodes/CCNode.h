@@ -31,14 +31,14 @@
 #include "ccMacros.h"
 #include "cocoa/CCAffineTransform.h"
 #include "cocoa/CCArray.h"
-#include "cocoa/CCEventDispatcher.h"
+#include "cocoa/CCScriptEventDispatcher.h"
 #include "CCGL.h"
 #include "shaders/ccGLStateCache.h"
 #include "shaders/CCGLProgram.h"
 #include "kazmath/kazmath.h"
-#include "script_support/CCScriptSupport.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "CCProtocols.h"
+#include "touch_dispatcher/CCTouchDelegateProtocol.h"
+#include "script_support/CCScriptSupport.h"
 
 NS_CC_BEGIN
 
@@ -64,23 +64,15 @@ enum {
     kCCNodeTagInvalid = -1,
 };
 
-typedef enum {
-	kCCTouchesAllAtOnce,
-	kCCTouchesOneByOne,
-} ccTouchesMode;
+#define kCCNodeOnEnter                      0
+#define kCCNodeOnExit                       1
+#define kCCNodeOnEnterTransitionDidFinish   2
+#define kCCNodeOnExitTransitionDidStart     3
+#define kCCNodeOnCleanup                    4
 
-#define kCCTouchIgnore              0
+#define kCCTouchesAllAtOnce                 0
+#define kCCTouchesOneByOne                  1
 
-#define kCCTouchBegan               1
-#define kCCTouchBeganSwallows       kCCTouchBegan
-#define kCCTouchBeganNoSwallows     2
-
-#define kCCTouchMoved               1
-#define kCCTouchMovedSwallows       kCCTouchMoved
-#define kCCTouchMovedNoSwallows     0
-#define kCCTouchMovedReleaseOthers  2
-
-class CCTouchScriptHandlerEntry;
 
 /** @brief CCNode is the main element. Anything that gets drawn or contains things that get drawn is a CCNode.
  The most popular CCNodes are: CCScene, CCLayer, CCSprite, CCMenu.
@@ -137,7 +129,7 @@ class CCTouchScriptHandlerEntry;
  - Each node has a camera. By default it points to the center of the CCNode.
  */
 
-class CC_DLL CCNode : public CCEventDispatcher, public CCTouchDelegate
+class CC_DLL CCNode : public CCScriptEventDispatcher, public CCTouchDelegate
 {
 public:
     /// @{
@@ -618,7 +610,7 @@ public:
      *
      * @return a CCNode object whose tag equals to the input parameter
      */
-    CCNode * getChildByTag(int tag);
+    virtual CCNode * getChildByTag(int tag);
     /**
      * Return an array of children
      *
@@ -642,7 +634,7 @@ public:
      *
      * @return The amount of children.
      */
-    unsigned int getChildrenCount(void) const;
+    virtual unsigned int getChildrenCount(void) const;
 
     /**
      * Sets the parent node
@@ -662,6 +654,12 @@ public:
 
     ////// REMOVES //////
 
+    /**
+     * Removes this node itself from its parent node with a cleanup.
+     * If the node orphan, then nothing happens.
+     * @see removeFromParentAndCleanup(bool)
+     */
+    virtual void removeSelf();
     /**
      * Removes this node itself from its parent node with a cleanup.
      * If the node orphan, then nothing happens.
@@ -894,58 +892,6 @@ public:
      */
     virtual bool isRunning();
 
-
-    /// @{
-    /// @name Script Bindings for lua
-
-    /**
-     * Registers a script function that will be called in onEnter() & onExit() seires functions.
-     *
-     * This handler will be removed automatically after onExit() called.
-     * @code
-     * -- lua sample
-     * local function sceneEventHandler(eventType)
-     *     if eventType == kCCNodeOnEnter then
-     *         -- do something
-     *     elseif evetType == kCCNodeOnExit then
-     *         -- do something
-     *     end
-     * end
-     * scene::registerScriptHandler(sceneEventHandler)
-     * @endcode
-     *
-     * @warning This method is for internal usage, don't call it manually.
-     * @todo Perhaps we should rename it to get/set/removeScriptHandler acoording to the function name style.
-     *
-     * @param handler   A number that indicates a lua function.
-     */
-    virtual void registerScriptHandler(int handler);
-    /**
-     * Unregisters a script function that will be called in onEnter() & onExit() series functions.
-     *
-     * @see registerScriptHandler(int)
-     */
-    virtual void unregisterScriptHandler(void);
-    /**
-     * Gets script handler for onEnter/onExit event.
-     * This is an internal method. g
-     * @see registerScriptHandler(int)
-     *
-     * @return A number that indicates a lua function.
-     */
-    inline int getScriptHandler() { return m_nScriptHandler; };
-
-    /**
-     * Schedules for lua script.
-     * @js NA
-     */
-    void scheduleUpdateWithPriorityLua(int nHandler, int priority);
-
-    virtual void scheduleUpdateForNodeEvent();
-
-    /// @}  end Script Bindings
-
-
     /// @{
     /// @name Event Callbacks
 
@@ -1022,8 +968,6 @@ public:
      * @js getBoundingBox
      */
     virtual CCRect boundingBox(void);
-
-    virtual const CCSize getTextureSize(void) { return m_obTextureSize; };
 
     /**
      * This boundingBox will calculate all children's boundingBox every time
@@ -1330,53 +1274,53 @@ public:
      *  @note The additional transform will be concatenated at the end of nodeToParentTransform.
      *        It could be used to simulate `parent-child` relationship between two nodes (e.g. one is in BatchNode, another isn't).
      *  @code
-        // create a batchNode
-        CCSpriteBatchNode* batch= CCSpriteBatchNode::create("Icon-114.png");
-        this->addChild(batch);
+     // create a batchNode
+     CCSpriteBatchNode* batch= CCSpriteBatchNode::create("Icon-114.png");
+     this->addChild(batch);
 
-        // create two sprites, spriteA will be added to batchNode, they are using different textures.
-        CCSprite* spriteA = CCSprite::createWithTexture(batch->getTexture());
-        CCSprite* spriteB = CCSprite::create("Icon-72.png");
+     // create two sprites, spriteA will be added to batchNode, they are using different textures.
+     CCSprite* spriteA = CCSprite::createWithTexture(batch->getTexture());
+     CCSprite* spriteB = CCSprite::create("Icon-72.png");
 
-        batch->addChild(spriteA);
+     batch->addChild(spriteA);
 
-        // We can't make spriteB as spriteA's child since they use different textures. So just add it to layer.
-        // But we want to simulate `parent-child` relationship for these two node.
-        this->addChild(spriteB);
+     // We can't make spriteB as spriteA's child since they use different textures. So just add it to layer.
+     // But we want to simulate `parent-child` relationship for these two node.
+     this->addChild(spriteB);
 
-        //position
-        spriteA->setPosition(ccp(200, 200));
+     //position
+     spriteA->setPosition(ccp(200, 200));
 
-        // Gets the spriteA's transform.
-        CCAffineTransform t = spriteA->nodeToParentTransform();
+     // Gets the spriteA's transform.
+     CCAffineTransform t = spriteA->nodeToParentTransform();
 
-        // Sets the additional transform to spriteB, spriteB's postion will based on its pseudo parent i.e. spriteA.
-        spriteB->setAdditionalTransform(t);
+     // Sets the additional transform to spriteB, spriteB's postion will based on its pseudo parent i.e. spriteA.
+     spriteB->setAdditionalTransform(t);
 
-        //scale
-        spriteA->setScale(2);
+     //scale
+     spriteA->setScale(2);
 
-        // Gets the spriteA's transform.
-        t = spriteA->nodeToParentTransform();
+     // Gets the spriteA's transform.
+     t = spriteA->nodeToParentTransform();
 
-        // Sets the additional transform to spriteB, spriteB's scale will based on its pseudo parent i.e. spriteA.
-        spriteB->setAdditionalTransform(t);
+     // Sets the additional transform to spriteB, spriteB's scale will based on its pseudo parent i.e. spriteA.
+     spriteB->setAdditionalTransform(t);
 
-        //rotation
-        spriteA->setRotation(20);
+     //rotation
+     spriteA->setRotation(20);
 
-        // Gets the spriteA's transform.
-        t = spriteA->nodeToParentTransform();
+     // Gets the spriteA's transform.
+     t = spriteA->nodeToParentTransform();
 
-        // Sets the additional transform to spriteB, spriteB's rotation will based on its pseudo parent i.e. spriteA.
-        spriteB->setAdditionalTransform(t);
+     // Sets the additional transform to spriteB, spriteB's rotation will based on its pseudo parent i.e. spriteA.
+     spriteB->setAdditionalTransform(t);
      *  @endcode
      */
     void setAdditionalTransform(const CCAffineTransform& additionalTransform);
 
     /// @} end of Coordinate Converters
 
-      /// @{
+    /// @{
     /// @name component functions
     /**
      *   gets a component by its name
@@ -1392,6 +1336,11 @@ public:
      *   removes a component by its name
      */
     virtual bool removeComponent(const char *pName);
+
+    /**
+     *   removes a component by its pointer
+     */
+    virtual bool removeComponent(CCComponent *pComponent);
 
     /**
      *   removes all components
@@ -1494,35 +1443,37 @@ public:
     virtual void registerWithTouchDispatcher(void);
     virtual void unregisterWithTouchDispatcher(void);
 
-    /** Register script touch events handler */
-    virtual void registerScriptTouchHandler(int nHandler, bool bIsMultiTouches = false, int nPriority = INT_MIN, bool bSwallowsTouches = false);
-    /** Unregister script touch events handler */
-    virtual void unregisterScriptTouchHandler(void);
-
     /** whether or not it will receive Touch events.
      You can enable / disable touch events with this property.
      Only the touches of this node will be affected. This "method" is not propagated to it's children.
      @since v0.8.1
      */
+    virtual bool isTouchCaptureEnabled();
+    virtual void setTouchCaptureEnabled(bool value);
+    virtual bool isTouchSwallowEnabled();
+    virtual void setTouchSwallowEnabled(bool value);
+
+    virtual bool ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget);
+    virtual bool ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget);
+    virtual void ccTouchCaptureEnded(CCTouch *pTouch, CCNode *pTarget);
+    virtual void ccTouchCaptureCancelled(CCTouch *pTouch, CCNode *pTarget);
+
+    virtual bool ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget);
+    virtual bool ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget);
+    virtual void ccTouchesCaptureEnded(CCSet *pTouches, CCNode *pTarget);
+    virtual void ccTouchesCaptureCancelled(CCSet *pTouches, CCNode *pTarget);
+
     virtual bool isTouchEnabled();
     virtual void setTouchEnabled(bool value);
 
-    virtual void setTouchMode(ccTouchesMode mode);
+    virtual void setTouchMode(int mode);
     virtual int getTouchMode();
 
-    /** priority of the touch events. Default is 0 */
-    virtual void setTouchPriority(int priority);
-    virtual int getTouchPriority();
-
-    inline CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry() { return m_pScriptTouchHandlerEntry; };
-
-    // default implements are used to call script callback if exist
-    virtual int ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-    virtual int ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
+    virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+    virtual void ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
     virtual void ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent);
 
-    // default implements are used to call script callback if exist
     virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
@@ -1567,6 +1518,7 @@ protected:
     CCSize m_obTextureSize;
     CCRect m_cascadeBoundingBox;
 
+
     CCAffineTransform m_sAdditionalTransform; ///< transform
     CCAffineTransform m_sTransform;     ///< transform
     CCAffineTransform m_sInverse;       ///< transform
@@ -1603,16 +1555,12 @@ protected:
     bool m_bVisible;                    ///< is this node visible
 
     bool m_bIgnoreAnchorPointForPosition; ///< true if the Anchor Point will be (0,0) when you position the CCNode, false otherwise.
-                                          ///< Used by CCLayer and CCScene.
+    ///< Used by CCLayer and CCScene.
 
     bool m_bReorderChildDirty;          ///< children order dirty flag
 
-    int m_nScriptHandler;               ///< script handler for onEnter() & onExit(), used in Javascript binding and Lua binding.
-    int m_nUpdateScriptHandler;         ///< script handler for update() callback per frame, which is invoked from lua & javascript.
-    ccScriptType m_eScriptType;         ///< type of script binding, lua or javascript
-
     CCComponentContainer *m_pComponentContainer;        ///< Dictionary of components
-
+    
     GLubyte m_displayedOpacity;
     GLubyte m_realOpacity;
     bool m_isOpacityModifyRGB;
@@ -1620,19 +1568,20 @@ protected:
     ccColor3B m_realColor;
     bool m_cascadeColorEnabled;
     bool m_cascadeOpacityEnabled;
-
+    
     unsigned int m_drawOrder;
     static unsigned int g_drawOrder;
-
+    
     // touch events
+    bool m_bTouchCaptureEnabled;
+    bool m_bTouchSwallowEnabled;
     bool m_bTouchEnabled;
     int m_nTouchPriority;
-    ccTouchesMode m_eTouchMode;
-    CCTouchScriptHandlerEntry* m_pScriptTouchHandlerEntry;
-
-    virtual int excuteScriptTouchHandler(int nEventType, CCTouch *pTouch);
-    virtual int excuteScriptTouchHandler(int nEventType, CCSet *pTouches);
-
+    int m_eTouchMode;
+    
+    virtual int executeScriptTouchHandler(int nEventType, CCTouch *pTouch);
+    virtual int executeScriptTouchHandler(int nEventType, CCSet *pTouches);
+    
     friend class CCScene;
 };
 

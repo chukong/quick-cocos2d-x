@@ -4,7 +4,7 @@
 
 #include "cocoa/CCObject.h"
 #include "CCApplication.h"
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 class StartupCall;
 
@@ -16,7 +16,11 @@ class StartupCall;
 class  AppDelegate : public cocos2d::CCApplication
 {
 public:
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+    AppDelegate(int argc, char *argv[]);
+#else
     AppDelegate();
+#endif
     virtual ~AppDelegate();
 
     /**
@@ -39,9 +43,11 @@ public:
     virtual void applicationWillEnterForeground();
 
     void setProjectConfig(const ProjectConfig& config);
+    void setOpenRecents(const CCLuaValueArray& recents);
 
 private:
     ProjectConfig m_projectConfig;
+    CCLuaValueArray m_openRecents;
 
     friend class StartupCall;
 };

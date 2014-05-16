@@ -626,7 +626,7 @@ void CCControlButton::needsLayout()
 
 
 
-int CCControlButton::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool CCControlButton::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!isTouchInside(pTouch) || !isEnabled() || !isVisible() || !hasVisibleParents() )
     {
@@ -647,7 +647,7 @@ int CCControlButton::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     return true;
 }
 
-int CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
     if (!isEnabled() || !isPushed() || isSelected())
     {
@@ -655,7 +655,7 @@ int CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
         {
             setHighlighted(false);
         }
-        return kCCTouchMoved;
+        return;
     }
 
     bool isTouchMoveInside = isTouchInside(pTouch);
@@ -678,8 +678,6 @@ int CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     {
         sendActionsForControlEvents(CCControlEventTouchDragOutside);
     }
-
-    return kCCTouchMoved;
 }
 
 void CCControlButton::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)

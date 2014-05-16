@@ -8,7 +8,7 @@ Store.TRANSACTION_FAILED        = "TRANSACTION_FAILED"
 Store.TRANSACTION_UNKNOWN_ERROR = "TRANSACTION_UNKNOWN_ERROR"
 
 function Store:ctor()
-    require("framework.api.EventProtocol").extend(self)
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
 
     self.provider = require("framework.api.Store")
     self.provider.init(handler(self, self.transactionCallback))

@@ -48,7 +48,7 @@ static CCTexture2D* getDefaultTexture()
 
         pImage = new CCImage();
         CC_BREAK_IF(NULL == pImage);
-        bRet = pImage->initWithImageData((void*)__firePngData, sizeof(__firePngData), CCImage::kFmtPng);
+        bRet = pImage->initWithImageData((void*)__firePngData, sizeof(__firePngData), kFmtPng);
         CC_BREAK_IF(!bRet);
 
         pTexture = CCTextureCache::sharedTextureCache()->addUIImage(pImage, key);

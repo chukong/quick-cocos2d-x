@@ -334,7 +334,7 @@ void ccDrawSolidPoly( const CCPoint *poli, unsigned int numberOfPoints, ccColor4
     CC_INCREMENT_GL_DRAWS(1);
 }
 
-void ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY)
+void ccDrawCircle(const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, float scaleX, float scaleY, bool fill)
 {
     lazy_init();
 
@@ -371,16 +371,16 @@ void ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned in
 #else
     glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, 0, vertices);
 #endif // EMSCRIPTEN
-    glDrawArrays(GL_LINE_STRIP, 0, (GLsizei) segments+additionalSegment);
+	glDrawArrays(fill ? GL_TRIANGLE_FAN : GL_LINE_STRIP, 0, (GLsizei)segments + additionalSegment);
 
     free( vertices );
 
     CC_INCREMENT_GL_DRAWS(1);
 }
 
-void CC_DLL ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter)
+void CC_DLL ccDrawCircle( const CCPoint& center, float radius, float angle, unsigned int segments, bool drawLineToCenter, bool fill)
 {
-    ccDrawCircle(center, radius, angle, segments, drawLineToCenter, 1.0f, 1.0f);
+	ccDrawCircle(center, radius, angle, segments, drawLineToCenter, 1.0f, 1.0f, fill);
 }
 
 void ccDrawQuadBezier(const CCPoint& origin, const CCPoint& control, const CCPoint& destination, unsigned int segments)

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include "CCCommon.h"
 #include "CCStdC.h"
 #include "CCFileUtils.h"
+#include "apptools/HelperFunc.h"
 #include "png.h"
 
 #ifndef QUICK_MINI_TARGET
@@ -139,7 +140,8 @@ bool CCImage::initWithImageFile(const char * strPath, EImageFormat eImgFmt/* = e
 #else
     unsigned long nSize = 0;
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(strPath);
-    unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str(), "rb", &nSize);
+    //unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str(), "rb", &nSize);
+    unsigned char* pBuffer = CZHelperFunc::getFileData(fullPath.c_str(), "rb", &nSize);
     if (pBuffer != NULL && nSize > 0)
     {
         bRet = initWithImageData(pBuffer, nSize, eImgFmt);
@@ -154,11 +156,12 @@ bool CCImage::initWithImageFileThreadSafe(const char *fullpath, EImageFormat ima
 {
     bool bRet = false;
     unsigned long nSize = 0;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if 0//(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     CCFileUtilsAndroid *fileUitls = (CCFileUtilsAndroid*)CCFileUtils::sharedFileUtils();
     unsigned char *pBuffer = fileUitls->getFileDataForAsync(fullpath, "rb", &nSize);
 #else
-    unsigned char *pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullpath, "rb", &nSize);
+    //unsigned char *pBuffer = CCFileUtils::sharedFileUtils()->getFileData(fullpath, "rb", &nSize);
+    unsigned char* pBuffer = CZHelperFunc::getFileData(fullpath, "rb", &nSize);
 #endif
     if (pBuffer != NULL && nSize > 0)
     {

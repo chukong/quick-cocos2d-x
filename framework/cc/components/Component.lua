@@ -3,7 +3,7 @@ local Component = class("Component")
 
 function Component:ctor(name, depends)
     self.name_ = name
-    self.depends_ = totable(depends)
+    self.depends_ = checktable(depends)
 end
 
 function Component:getName()
@@ -21,15 +21,15 @@ end
 function Component:exportMethods_(methods)
     self.exportedMethods_ = methods
     local target = self.target_
-    local name = self.name_
     local com = self
     for _, key in ipairs(methods) do
         if not target[key] then
+            local m = com[key]
             target[key] = function(__, ...)
-                local r = {com[key](self, ...)}
-                if r[1] == self then r[1] = target end
-                return unpack(r)
+                return m(self, ...)
             end
+        elseif DEBUG > 1 then
+            printInfo("Component:exportMethods_() - method %s cannot set on target %s", key, tostring(target))
         end
     end
     return self

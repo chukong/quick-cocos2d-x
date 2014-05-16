@@ -13,7 +13,7 @@ UIButton.LABEL_ZORDER = 0
 
 function UIButton:ctor(events, initialState, options)
     self.fsm_ = {}
-    cc.GameObject.extend(self.fsm_)
+    cc(self.fsm_)
         :addComponent("components.behavior.StateMachine")
         :exportMethods()
     self.fsm_:setupState({
@@ -27,7 +27,7 @@ function UIButton:ctor(events, initialState, options)
     makeUIControl_(self)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
     self:setButtonEnabled(true)
-    self:addTouchEventListener(handler(self, self.onTouch_))
+    self:addNodeEventListener(cc.NODE_TOUCH_EVENT, handler(self, self.onTouch_))
 
     self.touchInSpriteOnly_ = options and options.touchInSprite
     self.currentImage_ = nil
@@ -42,8 +42,10 @@ function UIButton:ctor(events, initialState, options)
 
     display.align(self, display.CENTER)
 
-    self:addScriptEventListener(cc.Event.ENTER_SCENE, function()
-        self:updateButtonImage_()
+    self:addNodeEventListener(cc.NODE_EVENT, function(event)
+        if event.name == "enter" then
+            self:updateButtonImage_()
+        end
     end)
 end
 
@@ -152,39 +154,39 @@ function UIButton:isButtonEnabled()
     return self.fsm_:canDoEvent("disable")
 end
 
-function UIButton:addButtonClickedEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.CLICKED_EVENT, callback, isWeakReference)
+function UIButton:addButtonClickedEventListener(callback)
+    return self:addEventListener(UIButton.CLICKED_EVENT, callback)
 end
 
-function UIButton:onButtonClicked(callback, isWeakReference)
-    self:addButtonClickedEventListener(callback, isWeakReference)
+function UIButton:onButtonClicked(callback)
+    self:addButtonClickedEventListener(callback)
     return self
 end
 
-function UIButton:addButtonPressedEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.PRESSED_EVENT, callback, isWeakReference)
+function UIButton:addButtonPressedEventListener(callback)
+    return self:addEventListener(UIButton.PRESSED_EVENT, callback)
 end
 
-function UIButton:onButtonPressed(callback, isWeakReference)
-    self:addButtonPressedEventListener(callback, isWeakReference)
+function UIButton:onButtonPressed(callback)
+    self:addButtonPressedEventListener(callback)
     return self
 end
 
-function UIButton:addButtonReleaseEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.RELEASE_EVENT, callback, isWeakReference)
+function UIButton:addButtonReleaseEventListener(callback)
+    return self:addEventListener(UIButton.RELEASE_EVENT, callback)
 end
 
-function UIButton:onButtonRelease(callback, isWeakReference)
-    self:addButtonReleaseEventListener(callback, isWeakReference)
+function UIButton:onButtonRelease(callback)
+    self:addButtonReleaseEventListener(callback)
     return self
 end
 
-function UIButton:addButtonStateChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UIButton.STATE_CHANGED_EVENT, callback, isWeakReference)
+function UIButton:addButtonStateChangedEventListener(callback)
+    return self:addEventListener(UIButton.STATE_CHANGED_EVENT, callback)
 end
 
-function UIButton:onButtonStateChanged(callback, isWeakReference)
-    self:addButtonStateChangedEventListener(callback, isWeakReference)
+function UIButton:onButtonStateChanged(callback)
+    self:addButtonStateChangedEventListener(callback)
     return self
 end
 
@@ -196,7 +198,7 @@ function UIButton:onChangeState_(event)
 end
 
 function UIButton:onTouch_(event, x, y)
-    echoError("UIButton:onTouch_() - must override in inherited class")
+    printError("UIButton:onTouch_() - must override in inherited class")
 end
 
 function UIButton:updateButtonImage_()
@@ -234,7 +236,7 @@ function UIButton:updateButtonImage_()
         self.sprite_:setAnchorPoint(self:getAnchorPoint())
         self.sprite_:setPosition(0, 0)
     else
-        echoError("UIButton:updateButtonImage_() - not set image for state %s", state)
+        printError("UIButton:updateButtonImage_() - not set image for state %s", state)
     end
 end
 
@@ -270,9 +272,9 @@ end
 
 function UIButton:checkTouchInSprite_(x, y)
     if self.touchInSpriteOnly_ then
-        return self.sprite_ and self.sprite_:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+        return self.sprite_ and self.sprite_:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     else
-        return self:getCascadeBoundingBox():containsPoint(CCPoint(x, y))
+        return self:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     end
 end
 

@@ -23,11 +23,9 @@
  ****************************************************************************/
 
 #import "EAGLView.h"
-#import "NSApplication+SheetAdditions.h"
-#import "ConsoleWindowController.h"
 
 #include <string>
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 #include "AppDelegate.h"
 
 @interface AppController : NSObject <NSApplicationDelegate, NSWindowDelegate>
@@ -36,38 +34,15 @@
     EAGLView *glView;
     NSMenu *menu;
 
-    BOOL waitForRestart;
     BOOL isAlwaysOnTop;
-    BOOL isMaximized;
 
     AppDelegate *app;
     ProjectConfig projectConfig;
-    BOOL hasPopupDialog;
-
-    int debugLogFile;
-
-    //log file
-    ConsoleWindowController *consoleController;
-    NSFileHandle *fileHandle;
-    //console pipe
-    NSPipe *pipe;
-    NSFileHandle *pipeReadHandle;
 }
 
 @property (nonatomic, assign) IBOutlet NSMenu* menu;
 
-- (IBAction) onServicePreferences:(id)sender;
-
-- (IBAction) onFileNewPlayer:(id)sender;
-- (IBAction) onFileOpen:(id)sender;
-- (IBAction) onFileOpenRecentClearMenu:(id)sender;
-- (IBAction) onFileClose:(id)sender;
-
-- (IBAction) onPlayerWriteDebugLogToFile:(id)sender;
-- (IBAction) onPlayerOpenDebugLog:(id)sender;
-- (IBAction) onPlayerRelaunch:(id)sender;
-- (IBAction) onPlayerShowProjectSandbox:(id)sender;
-- (IBAction) onPlayerShowProjectFiles:(id)sender;
+- (IBAction) onFileRelaunch:(id)sender;
 
 - (IBAction) onScreenPortait:(id)sender;
 - (IBAction) onScreenLandscape:(id)sender;

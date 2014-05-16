@@ -110,6 +110,7 @@ public:
     * @since v0.8
     * @lua NA
     */
+    
     void addImageAsync(const char *path, CCObject *target, SEL_CallFuncO selector);
     void addImageAsync(const char *path, int handler);
     void addImageAsyncImpl(const char *path, CCObject *target, SEL_CallFuncO selector, int handler = 0);
@@ -134,6 +135,15 @@ public:
     @since v0.99.5
     */
     CCTexture2D* textureForKey(const char* key);
+    
+    /** Reload texture from the image file
+     * If the file image hasn't loaded before, load it.
+     * Otherwise the texture will be reloaded from the file image.
+     * The "filenName" parameter is the related/absolute path of the file image.
+     * Return true if the reloading is succeed, otherwise return false.
+     */
+    bool reloadTexture(const char* fileName);
+
     /** Purges the dictionary of loaded textures.
     * Call this method if you receive the "Memory Warning"
     * In the short term: it will free some resources preventing your app from being killed
@@ -204,7 +214,7 @@ public:
     VolatileTexture(CCTexture2D *t);
     ~VolatileTexture();
 
-    static void addImageTexture(CCTexture2D *tt, const char* imageFileName, CCImage::EImageFormat format);
+    static void addImageTexture(CCTexture2D *tt, const char* imageFileName, EImageFormat format);
     static void addStringTexture(CCTexture2D *tt, const char* text, const CCSize& dimensions, CCTextAlignment alignment, 
                                  CCVerticalTextAlignment vAlignment, const char *fontName, float fontSize);
     static void addDataTexture(CCTexture2D *tt, void* data, CCTexture2DPixelFormat pixelFormat, const CCSize& contentSize);
@@ -235,7 +245,7 @@ protected:
     CCTexture2DPixelFormat m_PixelFormat;
 
     std::string m_strFileName;
-    CCImage::EImageFormat m_FmtImage;
+    EImageFormat m_FmtImage;
 
     ccTexParams     m_texParams;
     CCSize          m_size;

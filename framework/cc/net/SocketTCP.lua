@@ -35,7 +35,8 @@ function SocketTCP.getTime()
 end
 
 function SocketTCP:ctor(__host, __port, __retryConnectWhenFailure)
-	require("framework.api.EventProtocol").extend(self)
+	cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+
     self.host = __host
     self.port = __port
 	self.tickScheduler = nil			-- timer for data
@@ -72,12 +73,12 @@ function SocketTCP:connect(__host, __port, __retryConnectWhenFailure)
 	if __port then self.port = __port end
 	if __retryConnectWhenFailure ~= nil then self.isRetryConnect = __retryConnectWhenFailure end
 	assert(self.host or self.port, "Host and port are necessary!")
-	--echoInfo("%s.connect(%s, %d)", self.name, self.host, self.port)
+	--printInfo("%s.connect(%s, %d)", self.name, self.host, self.port)
 	self.tcp = socket.tcp()
 	self.tcp:settimeout(0)
 
 	local function __checkConnect()
-		local __succ = self:_connect() 
+		local __succ = self:_connect()
 		if __succ then
 			self:_onConnected()
 		end
@@ -88,7 +89,7 @@ function SocketTCP:connect(__host, __port, __retryConnectWhenFailure)
 		-- check whether connection is success
 		-- the connection is failure if socket isn't connected after SOCKET_CONNECT_FAIL_TIMEOUT seconds
 		local __connectTimeTick = function ()
-			--echoInfo("%s.connectTimeTick", self.name)
+			--printInfo("%s.connectTimeTick", self.name)
 			if self.isConnected then return end
 			self.waitConnect = self.waitConnect or 0
 			self.waitConnect = self.waitConnect + SOCKET_TICK_TIME
@@ -109,11 +110,10 @@ function SocketTCP:send(__data)
 end
 
 function SocketTCP:close( ... )
-	--echoInfo("%s.close", self.name)
+	--printInfo("%s.close", self.name)
 	self.tcp:close();
 	if self.connectTimeTickScheduler then scheduler.unscheduleGlobal(self.connectTimeTickScheduler) end
 	if self.tickScheduler then scheduler.unscheduleGlobal(self.tickScheduler) end
-	if self.connectTimeTickScheduler then scheduler.unscheduleGlobal(self.connectTimeTickScheduler) end
 	self:dispatchEvent({name=SocketTCP.EVENT_CLOSE})
 end
 
@@ -142,7 +142,7 @@ function SocketTCP:_disconnect()
 end
 
 function SocketTCP:_onDisconnect()
-	--echoInfo("%s._onDisConnect", self.name);
+	--printInfo("%s._onDisConnect", self.name);
 	self.isConnected = false
 	self:dispatchEvent({name=SocketTCP.EVENT_CLOSED})
 	self:_reconnect();
@@ -150,7 +150,7 @@ end
 
 -- connecte success, cancel the connection timerout timer
 function SocketTCP:_onConnected()
-	--echoInfo("%s._onConnectd", self.name)
+	--printInfo("%s._onConnectd", self.name)
 	self.isConnected = true
 	self:dispatchEvent({name=SocketTCP.EVENT_CONNECTED})
 	if self.connectTimeTickScheduler then scheduler.unscheduleGlobal(self.connectTimeTickScheduler) end
@@ -164,7 +164,7 @@ function SocketTCP:_onConnected()
 		    	self:close()
 		    	if self.isConnected then
 		    		self:_onDisconnect()
-		    	else 
+		    	else
 		    		self:_connectFailure()
 		    	end
 		   		return
@@ -182,7 +182,7 @@ function SocketTCP:_onConnected()
 end
 
 function SocketTCP:_connectFailure(status)
-	--echoInfo("%s._connectFailure", self.name);
+	--printInfo("%s._connectFailure", self.name);
 	self:dispatchEvent({name=SocketTCP.EVENT_CONNECT_FAILURE})
 	self:_reconnect();
 end
@@ -190,7 +190,7 @@ end
 -- if connection is initiative, do not reconnect
 function SocketTCP:_reconnect(__immediately)
 	if not self.isRetryConnect then return end
-	echoInfo("%s._reconnect", self.name)
+	printInfo("%s._reconnect", self.name)
 	if __immediately then self:connect() return end
 	if self.reconnectScheduler then scheduler.unscheduleGlobal(self.reconnectScheduler) end
 	local __doReConnect = function ()

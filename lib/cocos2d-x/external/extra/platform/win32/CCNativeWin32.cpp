@@ -3,6 +3,10 @@
 #include "platform/win32/CCNativeWin32def.h"
 #include "CCEGLView.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+#include <QInputDialog>
+#endif
+
 CCNativeWin32* CCNativeWin32::s_sharedInstance = NULL;
 
 CCNativeWin32* CCNativeWin32::sharedInstance(void)
@@ -92,6 +96,16 @@ void CCNativeWin32::removeAlertViewLuaListener(void)
 
 const string CCNativeWin32::getInputText(const char* title, const char* message, const char* defaultValue)
 {
+#if (CC_TARGET_PLATFORM==CC_PLATFORM_QT)
+    bool ok;
+    QString retText = QInputDialog::getText(0
+                                            , title ? title : "INPUT TEXT"
+                                            , message ? message : "INPUT TEXT, PRESS ENTER"
+                                            , QLineEdit::Normal
+                                            , QString::fromUtf8(defaultValue ? defaultValue : "")
+                                            , &ok);
+    return retText.toStdString();
+#else
 	HWND handle = CCEGLView::sharedOpenGLView()->getHWnd();
 
 	CCNativeWin32InputBoxStruct inputbox;
@@ -100,4 +114,5 @@ const string CCNativeWin32::getInputText(const char* title, const char* message,
 	inputbox.value = string(defaultValue ? defaultValue : "");
 	SendMessage(handle, WM_CUT, 998, (LPARAM)&inputbox);
 	return inputbox.value;
+#endif
 }

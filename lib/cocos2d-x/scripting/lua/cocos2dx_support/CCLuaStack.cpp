@@ -47,22 +47,24 @@ extern "C" {
 #include "Cocos2dxLuaLoader.h"
 
 
-#ifndef QUICK_MINI_TARGET
-
 // cocos2d-x luabinding
 #include "LuaCocos2d.h"
 
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
-// luaproxy
-#include "luaopen_LuaProxy.h"
-// cocos-extensions
-#include "cocos-ext.h"
-#include "lua_cocos2dx_extensions_manual.h"
-// cocosbuilder
+
+// CCB
 #include "Lua_extensions_CCB.h"
+
+// cocos-extensions
+#include "LuaCocoStudio.h"
+#include "lua_cocos2dx_manual.h"
+#include "lua_cocos2dx_extensions_manual.h"
+#include "lua_cocos2dx_cocostudio_manual.h"
+
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
+#include "CZHelperFunc_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "cocos2dx_extra_ios_iap_luabinding.h"
 #endif
@@ -75,13 +77,6 @@ extern "C" {
 // debugger
 #include "debugger/debugger.h"
 #endif
-
-#else // QUICK_MINI_TARGET
-
-// cocos2d-x luabinding
-#include "LuaCocos2d-mini.h"
-
-#endif // QUICK_MINI_TARGET
 
 #include <string>
 
@@ -130,6 +125,15 @@ bool CCLuaStack::init(void)
     toluafix_open(m_state);
     tolua_Cocos2d_open(m_state);
 
+    // CCB
+    tolua_extensions_ccb_open(m_state);
+
+    // CocoStudio
+    tolua_CocoStudio_open(m_state);
+    register_all_cocos2dx_manual(m_state);
+    register_all_cocos2dx_extension_manual(m_state);
+    register_all_cocos2dx_studio_manual(m_state);
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     CCLuaObjcBridge::luaopen_luaoc(m_state);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -140,8 +144,6 @@ bool CCLuaStack::init(void)
     // load debugger
     luaopen_debugger(m_state);
 #endif
-
-    addLuaLoader(cocos2dx_lua_loader);
 
     // register lua print
     lua_pushcfunction(m_state, lua_print);
@@ -154,18 +156,13 @@ bool CCLuaStack::init(void)
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
-#if QUICK_MINI_TARGET == 0
-
     // chipmunk
     luaopen_CCPhysicsWorld_luabinding(m_state);
-    // luaproxy
-    luaopen_LuaProxy(m_state);
 	// cocos-extensions
     register_all_cocos2dx_extension_manual(m_state);
-    // cocosbuilder
-    tolua_extensions_ccb_open(m_state);
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
+	luaopen_CZHelperFunc_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(m_state);
 #endif
@@ -174,7 +171,8 @@ bool CCLuaStack::init(void)
     // lua extensions
     luaopen_lua_extensions(m_state);
 
-#endif // QUICK_MINI_TARGET
+    // add cocos2dx loader
+    addLuaLoader(cocos2dx_lua_loader);
 
     return true;
 }
@@ -275,6 +273,11 @@ int CCLuaStack::executeGlobalFunction(const char *functionName, int numArgs /* =
         CCLOG("[LUA ERROR] name '%s' does not represent a Lua function", functionName);
         lua_pop(m_state, 1);
         return 0;
+    }
+
+    if (numArgs > 0)
+    {
+        lua_insert(m_state, -(numArgs + 1));                        /* L: ... func arg1 arg2 ... */
     }
     return executeFunction(numArgs);
 }
@@ -428,25 +431,9 @@ int CCLuaStack::loadChunksFromZIP(const char *zipFilePath)
     return ret;
 }
 
-void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen)
-{
-    setXXTEAKeyAndSign(key, keyLen, kCCLuaEncryptXXTEADefaultSign, kCCLuaEncryptXXTEADefaultSignLen);
-}
-
 void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen, const char *sign, int signLen)
 {
-    if (m_xxteaKey)
-    {
-        free(m_xxteaKey);
-        m_xxteaKey = NULL;
-        m_xxteaKeyLen = 0;
-    }
-    if (m_xxteaSign)
-    {
-        free(m_xxteaSign);
-        m_xxteaSign = NULL;
-        m_xxteaSignLen = 0;
-    }
+    cleanupXXTEAKeyAndSign();
 
     if (key && keyLen && sign && signLen)
     {
@@ -466,6 +453,23 @@ void CCLuaStack::setXXTEAKeyAndSign(const char *key, int keyLen, const char *sig
     }
 }
 
+void CCLuaStack::cleanupXXTEAKeyAndSign(void)
+{
+    if (m_xxteaKey)
+    {
+        free(m_xxteaKey);
+        m_xxteaKey = NULL;
+        m_xxteaKeyLen = 0;
+    }
+    if (m_xxteaSign)
+    {
+        free(m_xxteaSign);
+        m_xxteaSign = NULL;
+        m_xxteaSignLen = 0;
+    }
+
+}
+
 bool CCLuaStack::handleAssert(const char *msg)
 {
     if (m_callFromLua == 0) return false;
@@ -483,16 +487,7 @@ int CCLuaStack::reallocateScriptHandler(int nHandler)
     {
         nNewHandle = toluafix_ref_function(m_state,lua_gettop(m_state),0);
     }
-    /*
-     toluafix_get_function_by_refid(m_state,nNewHandle);
-     if (!lua_isfunction(m_state, -1))
-     {
-     CCLOG("Error!");
-     }
-     lua_settop(m_state, 0);
-     */
     return nNewHandle;
-
 }
 
 int CCLuaStack::lua_print(lua_State *L)
@@ -649,7 +644,7 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         unsigned char *zipFileData = utils->getFileData(zipFilePath.c_str(), "rb", &size);
         CCZipFile *zip = NULL;
 
-        bool isXXTEA = stack && stack->m_xxteaEnabled;
+        bool isXXTEA = stack && stack->m_xxteaEnabled && zipFileData;
         for (unsigned int i = 0; isXXTEA && i < stack->m_xxteaSignLen && i < size; ++i)
         {
             isXXTEA = zipFileData[i] == stack->m_xxteaSign[i];
@@ -670,7 +665,9 @@ int CCLuaStack::lua_loadChunksFromZIP(lua_State *L)
         }
         else
         {
-            zip = CCZipFile::createWithBuffer(zipFileData, size);
+            if (zipFileData) {
+                zip = CCZipFile::createWithBuffer(zipFileData, size);
+            }
         }
 
         if (zip)
@@ -860,11 +857,11 @@ NS_CC_END
 
 USING_NS_CC;
 
-static map<size_t,char*> hash_type_mapping;
-TOLUA_API void toluafix_add_type_mapping(size_t type,const char *clsName)
-{
+static map<unsigned int, char*> hash_type_mapping;
 
-    if(hash_type_mapping.find(type) == hash_type_mapping.end())
+TOLUA_API void toluafix_add_type_mapping(unsigned int type, const char *clsName)
+{
+    if (hash_type_mapping.find(type) == hash_type_mapping.end())
     {
         hash_type_mapping[type] = strdup(clsName);
     }
@@ -883,7 +880,7 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
     }
 
     CCObject *ptr = static_cast<CCObject*>(vptr);
-    size_t hash= typeid(*ptr).hash_code();
+    unsigned int hash = CLASS_HASH_CODE(typeid(*ptr));
     char* type = hash_type_mapping[hash];
     if (type == NULL)
     {
@@ -908,10 +905,10 @@ TOLUA_API int toluafix_pushusertype_ccobject(lua_State *L,
         lua_pushstring(L, type ? type : vtype);                     /* stack: refid_type refid type */
         lua_rawset(L, -3);                /* refid_type[refid] = type, stack: refid_type */
         lua_pop(L, 1);                                              /* stack: - */
-
+        
         //printf("[LUA] push CCObject OK - refid: %d, ptr: %x, type: %s\n", *p_refid, (int)ptr, type);
     }
-
+    
     tolua_pushusertype_and_addtoroot(L, ptr, type ? type : vtype);
     return 0;
 }

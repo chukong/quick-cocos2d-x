@@ -144,7 +144,6 @@ public:
      *  @lua NA
      */
     virtual void onExit();
-//    virtual void registerWithTouchDispatcher();
 
     /**
  * Sends action messages for the given control events.

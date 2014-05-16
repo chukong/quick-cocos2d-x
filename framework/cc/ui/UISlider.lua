@@ -20,7 +20,7 @@ UISlider.BUTTON_ZORDER = 1
 
 function UISlider:ctor(direction, images, options)
     self.fsm_ = {}
-    cc.GameObject.extend(self.fsm_)
+    cc(self.fsm_)
         :addComponent("components.behavior.StateMachine")
         :exportMethods()
     self.fsm_:setupState({
@@ -39,14 +39,14 @@ function UISlider:ctor(direction, images, options)
     makeUIControl_(self)
     self:setLayoutSizePolicy(display.FIXED_SIZE, display.FIXED_SIZE)
 
-    options = totable(options)
+    options = checktable(options)
     self.direction_ = direction
     self.isHorizontal_ = direction == display.LEFT_TO_RIGHT or direction == display.RIGHT_TO_LEFT
     self.images_ = clone(images)
     self.scale9_ = options.scale9
     self.scale9Size_ = nil
-    self.min_ = tonum(options.min or 0)
-    self.max_ = tonum(options.max or 100)
+    self.min_ = checknumber(options.min or 0)
+    self.max_ = checknumber(options.max or 100)
     self.value_ = self.min_
     self.buttonPositionRange_ = {min = 0, max = 0}
     self.buttonPositionOffset_ = {x = 0, y = 0}
@@ -65,7 +65,9 @@ function UISlider:ctor(direction, images, options)
     self:updateButtonPosition_()
 
     self:setTouchEnabled(true)
-    self:addTouchEventListener(handler(self, self.onTouch_))
+    self:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch_(event.name, event.x, event.y)
+    end)
 end
 
 function UISlider:setSliderSize(width, height)
@@ -119,39 +121,39 @@ function UISlider:setSliderButtonRotation(rotation)
     return self
 end
 
-function UISlider:addSliderValueChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.VALUE_CHANGED_EVENT, callback, isWeakReference)
+function UISlider:addSliderValueChangedEventListener(callback)
+    return self:addEventListener(UISlider.VALUE_CHANGED_EVENT, callback)
 end
 
-function UISlider:onSliderValueChanged(callback, isWeakReference)
-    self:addSliderValueChangedEventListener(callback, isWeakReference)
+function UISlider:onSliderValueChanged(callback)
+    self:addSliderValueChangedEventListener(callback)
     return self
 end
 
-function UISlider:addSliderPressedEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.PRESSED_EVENT, callback, isWeakReference)
+function UISlider:addSliderPressedEventListener(callback)
+    return self:addEventListener(UISlider.PRESSED_EVENT, callback)
 end
 
-function UISlider:onSliderPressed(callback, isWeakReference)
-    self:addSliderPressedEventListener(callback, isWeakReference)
+function UISlider:onSliderPressed(callback)
+    self:addSliderPressedEventListener(callback)
     return self
 end
 
-function UISlider:addSliderReleaseEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.RELEASE_EVENT, callback, isWeakReference)
+function UISlider:addSliderReleaseEventListener(callback)
+    return self:addEventListener(UISlider.RELEASE_EVENT, callback)
 end
 
-function UISlider:onSliderRelease(callback, isWeakReference)
-    self:addSliderReleaseEventListener(callback, isWeakReference)
+function UISlider:onSliderRelease(callback)
+    self:addSliderReleaseEventListener(callback)
     return self
 end
 
-function UISlider:addSliderStateChangedEventListener(callback, isWeakReference)
-    return self:addEventListener(UISlider.STATE_CHANGED_EVENT, callback, isWeakReference)
+function UISlider:addSliderStateChangedEventListener(callback)
+    return self:addEventListener(UISlider.STATE_CHANGED_EVENT, callback)
 end
 
-function UISlider:onSliderStateChanged(callback, isWeakReference)
-    self:addSliderStateChangedEventListener(callback, isWeakReference)
+function UISlider:onSliderStateChanged(callback)
+    self:addSliderStateChangedEventListener(callback)
     return self
 end
 
@@ -294,7 +296,7 @@ function UISlider:updateImage_()
         self.barSprite_:setAnchorPoint(self:getAnchorPoint())
         self.barSprite_:setPosition(0, 0)
     else
-        echoError("UISlider:updateImage_() - not set bar image for state %s", state)
+        printError("UISlider:updateImage_() - not set bar image for state %s", state)
     end
 
     if buttonImage then
@@ -311,7 +313,7 @@ function UISlider:updateImage_()
         self.buttonSprite_:setRotation(self.buttonRotation_)
         self:updateButtonPosition_()
     else
-        echoError("UISlider:updateImage_() - not set button image for state %s", state)
+        printError("UISlider:updateImage_() - not set button image for state %s", state)
     end
 end
 

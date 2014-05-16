@@ -2,6 +2,8 @@
 local EventProtocol = {}
 
 function EventProtocol.extend(object)
+    PRINT_DEPRECATED("module api.EventProtocol is deprecated, please use cc.components.behavior.EventProtocol")
+
     object.listeners_ = {}
     object.listenerHandleIndex_ = 0
 

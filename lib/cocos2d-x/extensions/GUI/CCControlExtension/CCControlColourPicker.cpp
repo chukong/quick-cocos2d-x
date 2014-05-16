@@ -207,7 +207,7 @@ void CCControlColourPicker::colourSliderValueChanged(CCObject * sender, CCContro
 }
 
 //ignore all touches, handled by children
-int CCControlColourPicker::ccTouchBegan(CCTouch* touch, CCEvent* pEvent)
+bool CCControlColourPicker::ccTouchBegan(CCTouch* touch, CCEvent* pEvent)
 {
     return false;
 }

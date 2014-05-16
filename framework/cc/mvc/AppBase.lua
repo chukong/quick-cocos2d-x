@@ -5,8 +5,7 @@ AppBase.APP_ENTER_BACKGROUND_EVENT = "APP_ENTER_BACKGROUND_EVENT"
 AppBase.APP_ENTER_FOREGROUND_EVENT = "APP_ENTER_FOREGROUND_EVENT"
 
 function AppBase:ctor(appName, packageRoot)
-    cc.GameObject.extend(self)
-    self:addComponent("components.behavior.EventProtocol"):exportMethods()
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
 
     self.name = appName
     self.packageRoot = packageRoot or "app"
@@ -26,13 +25,15 @@ end
 
 function AppBase:exit()
     CCDirector:sharedDirector():endToLua()
-    os.exit()
+    if device.platform == "windows" or device.platform == "mac" then
+        os.exit()
+    end
 end
 
 function AppBase:enterScene(sceneName, args, transitionType, time, more)
     local scenePackageName = self. packageRoot .. ".scenes." .. sceneName
     local sceneClass = require(scenePackageName)
-    local scene = sceneClass.new(unpack(totable(args)))
+    local scene = sceneClass.new(unpack(checktable(args)))
     display.replaceScene(scene, transitionType, time, more)
 end
 

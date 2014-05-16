@@ -1,6 +1,8 @@
 
 local Localize = {}
 
+PRINT_DEPRECATED("module api.Localize is deprecated, please use new cc.utils.Localize")
+
 Localize.strings = {}
 
 function Localize.loadStrings(strings)

@@ -201,6 +201,9 @@ class CCTexture2D : public CCObject
     /** shader program used by drawAtPoint and drawInRect */
     CCGLProgram *getShaderProgram();
 
+	void drawAtPoint(CCPoint point);
+	void drawInRect(CCRect rect);
+
     /** whether or not the texture has their Alpha premultiplied */
     bool hasPremultipliedAlpha();
 

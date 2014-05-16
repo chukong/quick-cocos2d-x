@@ -82,7 +82,7 @@ public:
     static CCGraySprite* createWithSpriteFrameName(const char *pszSpriteFrameName);
 
     /// @}  end of creators group
-    
+
 	virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
 	virtual void draw(void);
 };

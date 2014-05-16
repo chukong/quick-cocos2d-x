@@ -1,8 +1,6 @@
 --[[
 
-Copyright (c) 2011-2012 qeeplay.com
-
-http://dualface.github.com/quick-cocos2d-x/
+Copyright (c) 2011-2014 chukong-inc.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +22,14 @@ THE SOFTWARE.
 
 ]]
 
-if CCLuaLog then
-    io.output():setvbuf('no')
-elseif ngx and ngx.log then
+--[[--
+
+提供调试接口
+
+]]
+
+if ngx and ngx.log then
+    -- 如果运行在
     print = function(...)
         local arg = {...}
         for k,v in pairs(arg) do
@@ -36,36 +39,100 @@ elseif ngx and ngx.log then
     end
 end
 
-echo = print
+--[[--
 
-function printf(fmt, ...)
-    echo(string.format(tostring(fmt), ...))
+定义一个作废的接口
+
+]]
+function DEPRECATED(f, name, newname)
+    return function(...)
+        PRINT_DEPRECATED(string.format("%s() is deprecated, please use %s()", name, newname))
+        return f(...)
+    end
 end
 
-function echoError(fmt, ...)
-    echoLog("ERR", fmt, ...)
+--[[--
+
+显示作废信息
+
+]]
+function PRINT_DEPRECATED(msg)
+    printf("[DEPRECATED] %s", msg)
+end
+
+--[[--
+
+打印调试信息
+
+### 用法示例
+
+~~~ lua
+
+printLog("WARN", "Network connection lost at %d", os.time())
+
+~~~
+
+@param string tag 调试信息的 tag
+@param string fmt 调试信息格式
+@param [mixed ...] 更多参数
+
+]]
+function printLog(tag, fmt, ...)
+    local t = {
+        "[",
+        string.upper(tostring(tag)),
+        "] ",
+        string.format(tostring(fmt), ...)
+    }
+    print(table.concat(t))
+end
+
+--[[--
+
+输出 tag 为 ERR 的调试信息
+
+@param string fmt 调试信息格式
+@param [mixed ...] 更多参数
+
+]]
+function printError(fmt, ...)
+    printLog("ERR", fmt, ...)
     print(debug.traceback("", 2))
 end
 
-function echoInfo(fmt, ...)
-    echoLog("INFO", fmt, ...)
+--[[--
+
+输出 tag 为 INFO 的调试信息
+
+@param string fmt 调试信息格式
+@param [mixed ...] 更多参数
+
+]]
+function printInfo(fmt, ...)
+    printLog("INFO", fmt, ...)
 end
 
-function echoLog(tag, fmt, ...)
-    echo(string.format("[%s] %s", string.upper(tostring(tag)), string.format(tostring(fmt), ...)))
-end
+--[[--
 
-function throw(errorType, fmt, ...)
-    local arg = {...}
-    for k,v in pairs(arg) do
-        arg[k] = tostring(v)
-    end
-    local msg = string.format(tostring(fmt), unpack(arg))
-    error(string.format("<<%s>> - %s", tostring(errorType), msg), 2)
-end
+输出值的内容
 
-function dump(object, label, isReturnContents, nesting)
-    if type(nesting) ~= "number" then nesting = 99 end
+### 用法示例
+
+~~~ lua
+
+local t = {comp = "chukong", engine = "quick"}
+
+dump(t)
+
+~~~
+
+@param mixed value 要输出的值
+@param [string desciption] 输出内容前的文字描述
+@parma [integer nesting] 输出时的嵌套层级，默认为 3
+
+]]
+function dump(value, desciption, nesting)
+    if type(nesting) ~= "number" then nesting = 3 end
 
     local lookupTable = {}
     local result = {}
@@ -78,29 +145,29 @@ function dump(object, label, isReturnContents, nesting)
     end
 
     local traceback = string.split(debug.traceback("", 2), "\n")
-    echo("dump from: " .. string.trim(traceback[3]))
+    print("dump from: " .. string.trim(traceback[3]))
 
-    local function _dump(object, label, indent, nest, keylen)
-        label = label or "<var>"
+    local function _dump(value, desciption, indent, nest, keylen)
+        desciption = desciption or "<var>"
         spc = ""
         if type(keylen) == "number" then
-            spc = string.rep(" ", keylen - string.len(_v(label)))
+            spc = string.rep(" ", keylen - string.len(_v(desciption)))
         end
-        if type(object) ~= "table" then
-            result[#result +1 ] = string.format("%s%s%s = %s", indent, _v(label), spc, _v(object))
-        elseif lookupTable[object] then
-            result[#result +1 ] = string.format("%s%s%s = *REF*", indent, label, spc)
+        if type(value) ~= "table" then
+            result[#result +1 ] = string.format("%s%s%s = %s", indent, _v(desciption), spc, _v(value))
+        elseif lookupTable[value] then
+            result[#result +1 ] = string.format("%s%s%s = *REF*", indent, desciption, spc)
         else
-            lookupTable[object] = true
+            lookupTable[value] = true
             if nest > nesting then
-                result[#result +1 ] = string.format("%s%s = *MAX NESTING*", indent, label)
+                result[#result +1 ] = string.format("%s%s = *MAX NESTING*", indent, desciption)
             else
-                result[#result +1 ] = string.format("%s%s = {", indent, _v(label))
+                result[#result +1 ] = string.format("%s%s = {", indent, _v(desciption))
                 local indent2 = indent.."    "
                 local keys = {}
                 local keylen = 0
                 local values = {}
-                for k, v in pairs(object) do
+                for k, v in pairs(value) do
                     keys[#keys + 1] = k
                     local vk = _v(k)
                     local vkl = string.len(vk)
@@ -121,67 +188,9 @@ function dump(object, label, isReturnContents, nesting)
             end
         end
     end
-    _dump(object, label, "- ", 1)
-
-    if isReturnContents then
-        return table.concat(result, "\n")
-    end
+    _dump(value, desciption, "- ", 1)
 
     for i, line in ipairs(result) do
-        echo(line)
+        print(line)
     end
-end
-
-function vardump(object, label)
-    local lookupTable = {}
-    local result = {}
-
-    local function _v(v)
-        if type(v) == "string" then
-            v = "\"" .. v .. "\""
-        end
-        return tostring(v)
-    end
-
-    local function _vardump(object, label, indent, nest)
-        label = label or "<var>"
-        local postfix = ""
-        if nest > 1 then postfix = "," end
-        if type(object) ~= "table" then
-            if type(label) == "string" then
-                result[#result +1] = string.format("%s%s = %s%s", indent, label, _v(object), postfix)
-            else
-                result[#result +1] = string.format("%s%s%s", indent, _v(object), postfix)
-            end
-        elseif not lookupTable[object] then
-            lookupTable[object] = true
-
-            if type(label) == "string" then
-                result[#result +1 ] = string.format("%s%s = {", indent, label)
-            else
-                result[#result +1 ] = string.format("%s{", indent)
-            end
-            local indent2 = indent .. "    "
-            local keys = {}
-            local values = {}
-            for k, v in pairs(object) do
-                keys[#keys + 1] = k
-                values[k] = v
-            end
-            table.sort(keys, function(a, b)
-                if type(a) == "number" and type(b) == "number" then
-                    return a < b
-                else
-                    return tostring(a) < tostring(b)
-                end
-            end)
-            for i, k in ipairs(keys) do
-                _vardump(values[k], k, indent2, nest + 1)
-            end
-            result[#result +1] = string.format("%s}%s", indent, postfix)
-        end
-    end
-    _vardump(object, label, "", 1)
-
-    return table.concat(result, "\n")
 end

@@ -244,7 +244,8 @@ EOT;
             $contents = str_replace($find, $replace, $contents);
         }
 
-        $contents = preg_replace('/tolua_usertype\(tolua_S,"(\w+)"\);/', 'tolua_usertype(tolua_S,"\1"); toluafix_add_type_mapping(typeid(\1).hash_code(), "\1");', $contents);
+        // $contents = preg_replace('/tolua_usertype\(tolua_S,"(\w+)"\);/', 'tolua_usertype(tolua_S,"\1"); toluafix_add_type_mapping(typeid(\1).hash_code(), "\1");', $contents);
+        $contents = preg_replace('/tolua_usertype\(tolua_S,"(\w+)"\);/', 'tolua_usertype(tolua_S,"\1"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(\1)), "\1");', $contents);
 
         file_put_contents($this->outputSourcePath_, $contents);
     }

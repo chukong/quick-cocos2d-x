@@ -6,6 +6,7 @@ LOCAL_MODULE := cocos_external_static
 LOCAL_MODULE_FILENAME := libcocos_external_static
 
 LOCAL_SRC_FILES := \
+    extra/apptools/HelperFunc.cpp \
     extra/crypto/CCCrypto.cpp \
     extra/crypto/base64/libbase64.c \
     extra/network/CCHTTPRequest.cpp \
@@ -14,16 +15,13 @@ LOCAL_SRC_FILES := \
     extra/platform/android/CCNativeAndroid.cpp \
     extra/platform/android/CCNetworkAndroid.cpp \
     extra/luabinding/cocos2dx_extra_luabinding.cpp \
+    extra/luabinding/CZHelperFunc_luabinding.cpp \
     chipmunk/cocos2dx_support/CCPhysicsBody.cpp \
     chipmunk/cocos2dx_support/CCPhysicsDebugNode.cpp \
     chipmunk/cocos2dx_support/CCPhysicsShape.cpp \
     chipmunk/cocos2dx_support/CCPhysicsSupport.cpp \
     chipmunk/cocos2dx_support/CCPhysicsWorld.cpp \
-    chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp \
-    luaproxy/LuaEventHandler.cpp \
-    luaproxy/tolua/luaopen_LuaProxy.cpp \
-    luaproxy/ui/CursorTextField.cpp \
-    luaproxy/ui/UIUtil.cpp
+    chipmunk/luabinding/CCPhysicsWorld_luabinding.cpp
 
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
@@ -31,17 +29,12 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/extra/luabinding \
                            $(LOCAL_PATH)/chipmunk/include \
                            $(LOCAL_PATH)/chipmunk/cocos2dx_support \
-                           $(LOCAL_PATH)/chipmunk/luabinding \
-                           $(LOCAL_PATH)/luaproxy \
-                           $(LOCAL_PATH)/luaproxy/tolua
+                           $(LOCAL_PATH)/chipmunk/luabinding
 
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
     LOCAL_PATH/chipmunk/cocos2dx_support \
     LOCAL_PATH/chipmunk/luabinding \
-    LOCAL_PATH/chipmunk/include \
-    LOCAL_PATH/luaproxy \
-    LOCAL_PATH/luaproxy/tolua \
-    LOCAL_PATH/luaproxy/ui
+    LOCAL_PATH/chipmunk/include
 
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1 $(ANDROID_COCOS2D_BUILD_FLAGS) -std=c++11
 LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API -DCC_LUA_ENGINE_ENABLED=1

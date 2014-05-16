@@ -9,9 +9,9 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-	echoInfo("socket.getTime:%f", cc.net.SocketTCP.getTime())
-	echoInfo("os.gettime:%f", os.time())
-	echoInfo("socket._VERSION: %s", cc.net.SocketTCP._VERSION)
+	printInfo("socket.getTime:%f", cc.net.SocketTCP.getTime())
+	printInfo("os.gettime:%f", os.time())
+	printInfo("socket._VERSION: %s", cc.net.SocketTCP._VERSION)
 
 	local __luaSocketLabel = ui.newTTFLabelMenuItem({
 		text = "lua socket connect",
@@ -26,7 +26,7 @@ function MainScene:ctor()
 		size = 32,
 		x = display.cx,
 		y = display.top - 64,
-		listener = handler(self, function() self:send2Socket(1201, {8000, 1,1}) end)
+		listener = handler(self, function() self:send2Socket(1000, {8000, 1,1}) end)
 	})
 
     self:addChild(ui.newMenu({__luaSocketLabel, __luaSocket1000Label}))
@@ -35,10 +35,15 @@ function MainScene:ctor()
 end
 
 function MainScene:onStatus(__event)
-	echoInfo("socket status: %s", __event.name)
+	printInfo("socket status: %s", __event.name)
 end
 
 function MainScene:send2Socket(__method, __msg)
+	if not self._socket then
+		print("connect first")
+		return
+	end
+
 	local __def = Protocol.getSend(__method)
 	local __buf = PacketBuffer.createPacket(__def, __msg)
 	printf("send %u packet: %s", __method, __buf:toString(16))

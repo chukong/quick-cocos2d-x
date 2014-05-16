@@ -305,7 +305,9 @@ TOLUA_API void tolua_open (lua_State* L)
         lua_pushboolean(L,1);
         lua_rawset(L,LUA_REGISTRYINDEX);
 
-        // create value root table
+        
+        /** create value root table
+         */
         lua_pushstring(L, TOLUA_VALUE_ROOT);
         lua_newtable(L);
         lua_rawset(L, LUA_REGISTRYINDEX);

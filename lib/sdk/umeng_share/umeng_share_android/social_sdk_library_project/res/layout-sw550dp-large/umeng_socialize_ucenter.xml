@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+     >
+
+    <include
+        android:id="@+id/umeng_socialize_title"
+        layout="@layout/umeng_socialize_titile_bar" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/umeng_socialize_title"
+        android:background="@color/umeng_socialize_ucenter_bg">
+        <RelativeLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+	 <FrameLayout
+        android:id="@+id/umeng_socialize_load_error"
+        android:layout_width="fill_parent"
+        android:layout_height="158dp"
+        android:visibility="gone" >
+        <include layout="@layout/umeng_socialize_failed_load_page" />
+    </FrameLayout>
+    <RelativeLayout
+        android:id="@+id/umeng_socialize_ucenter_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/umeng_socialize_load_error"
+        android:background="#ffffff"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/umeng_socialize_ic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/umeng_socialize_default_avatar" />
+
+        <TextView
+            android:id="@+id/umeng_socialize_title_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="登录账号"
+            android:textColor="@color/umeng_socialize_list_item_textcolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/umeng_socialize_ic" >
+
+            <TextView
+                android:id="@+id/umeng_socialize_loginNm"
+                android:layout_width="fill_parent"
+                android:layout_height="29.5dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="星座运势新解"
+                android:textColor="@color/umeng_socialize_list_item_textcolor"
+                android:textSize="18sp"
+                />
+
+            <ViewFlipper
+                android:id="@+id/umeng_socialize_login_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@id/umeng_socialize_loginNm"
+                android:layout_centerHorizontal="true"
+                android:autoStart="false"
+                android:paddingLeft="5dp" >
+
+                <Button
+                    android:id="@+id/umeng_socialize_loginButton"
+                    android:layout_width="80dp"
+                    android:textColor="#ffffff"
+                    android:layout_height="fill_parent"
+                    android:text="点击登录"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/umeng_socialize_button_login"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/umeng_socialize_loginAddr"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:lines="2"
+                    android:text="http://www.umeng.com/"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </ViewFlipper>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/umeng_socialize_share_area"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/umeng_socialize_ucenter_info"
+        android:layout_marginBottom="12dp"
+        android:background="#EEEEEE"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+         >
+
+        <TextView
+            android:id="@+id/umeng_socialize_share_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="分享设置"
+            android:textColor="@color/umeng_socialize_list_item_textcolor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/umeng_xp_ScrollView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/umeng_socialize_share_tv"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:scrollbars="none" >
+			</ScrollView>
+            <LinearLayout
+                android:id="@+id/umeng_socialize_share_config_area"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/umeng_socialize_share_tv"
+                android:orientation="vertical" >
+            </LinearLayout>
+    </RelativeLayout>            
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

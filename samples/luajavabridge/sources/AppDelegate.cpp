@@ -39,13 +39,24 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLuaStack *pStack = pEngine->getLuaStack();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    // load framework
     pStack->loadChunksFromZIP("res/framework_precompiled.zip");
+
+    // set script path
     string path = CCFileUtils::sharedFileUtils()->fullPathForFilename("scripts/main.lua");
 #else
-    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(getStartupScriptFilename().c_str());
+    // load framework
+    if (m_projectConfig.isLoadPrecompiledFramework())
+    {
+        const string precompiledFrameworkPath = SimulatorConfig::sharedDefaults()->getPrecompiledFrameworkPath();
+        pStack->loadChunksFromZIP(precompiledFrameworkPath.c_str());
+    }
+
+    // set script path
+    string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(m_projectConfig.getScriptFileRealPath().c_str());
 #endif
 
-    int pos;
+    size_t pos;
     while ((pos = path.find_first_of("\\")) != std::string::npos)
     {
         path.replace(pos, 1, "/");
@@ -83,7 +94,7 @@ void AppDelegate::applicationDidEnterBackground()
     CCDirector::sharedDirector()->pause();
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->pauseAllEffects();
-    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_BACKGROUND");
+    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_BACKGROUND_EVENT");
 }
 
 // this function will be called when the app is active again
@@ -93,5 +104,10 @@ void AppDelegate::applicationWillEnterForeground()
     CCDirector::sharedDirector()->resume();
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->resumeAllEffects();
-    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_FOREGROUND");
+    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_ENTER_FOREGROUND_EVENT");
+}
+
+void AppDelegate::setProjectConfig(const ProjectConfig& config)
+{
+    m_projectConfig = config;
 }

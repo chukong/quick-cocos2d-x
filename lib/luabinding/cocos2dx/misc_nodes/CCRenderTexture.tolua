@@ -28,11 +28,6 @@ THE SOFTWARE.
  * @{
  */
 
-typedef enum {
-    kCCImageFormatJPEG      = 0,
-    kCCImageFormatPNG       = 1,
-} tCCImageFormat;
-
 /**
 @brief CCRenderTexture is a generic rendering target. To render things into it,
 simply construct a render target, call begin on it, call visit on any cocos
@@ -96,7 +91,7 @@ class CCRenderTexture : public CCNode
     /** saves the texture into a file. The format could be JPG or PNG. The file will be saved in the Documents folder.
         Returns YES if the operation is successful.
      */
-    bool saveToFile(const char *name, tCCImageFormat format);
+    bool saveToFile(const char *name, EImageFormat format);
 
     /** saves the texture into a file using JPEG format. The file will be saved in the Documents folder.
         Returns YES if the operation is successful.

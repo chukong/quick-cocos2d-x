@@ -36,6 +36,8 @@ public:
     static LUA_STRING decodeBase64Lua @ decodeBase64 (const char* input);
 
     static LUA_STRING MD5Lua @ MD5 (char* input, bool isRawOutput);
+
+    static LUA_STRING MD5FileLua @ MD5File(const char* path);
 };
 
 //
@@ -89,6 +91,8 @@ class CCHTTPRequest : public CCObject
     void addRequestHeader(const char* header);
     void addPOSTValue(const char* key, const char* value);
     void setPOSTData(const char* data);
+    void addFormFile(const char *name, const char *filePath, const char * fileType="application/octet-stream");
+    void addFormContents(const char *name, const char *value);
     void setCookieString(const char *cookie);
     string getCookieString(void);
     void setAcceptEncoding(int acceptEncoding);

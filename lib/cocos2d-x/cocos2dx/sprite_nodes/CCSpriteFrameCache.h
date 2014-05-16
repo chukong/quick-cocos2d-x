@@ -1,30 +1,30 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2008-2010 Ricardo Quesada
-Copyright (c) 2009      Jason Booth
-Copyright (c) 2009      Robert J Payne
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2008-2010 Ricardo Quesada
+ Copyright (c) 2009      Jason Booth
+ Copyright (c) 2009      Robert J Payne
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 
 #ifndef __SPRITE_CCSPRITE_FRAME_CACHE_H__
 #define __SPRITE_CCSPRITE_FRAME_CACHE_H__
@@ -89,7 +89,7 @@ public:
      */
     void addSpriteFramesWithFile(const char* plist, const char* textureFileName);
 
-    /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames. 
+    /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames.
      * @js addSpriteFrames
      */
     void addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture);
@@ -113,28 +113,28 @@ public:
      */
     void removeUnusedSpriteFrames(void);
 
-    /** Deletes an sprite frame from the sprite frame cache. 
+    /** Deletes an sprite frame from the sprite frame cache.
      *  @js getSpriteFrame
      */
     void removeSpriteFrameByName(const char *pszName);
 
     /** Removes multiple Sprite Frames from a plist file.
-    * Sprite Frames stored in this file will be removed.
-    * It is convenient to call this method when a specific texture needs to be removed.
-    * @since v0.99.5
-    */
+     * Sprite Frames stored in this file will be removed.
+     * It is convenient to call this method when a specific texture needs to be removed.
+     * @since v0.99.5
+     */
     void removeSpriteFramesFromFile(const char* plist);
 
 private:
     /** Removes multiple Sprite Frames from CCDictionary.
-    * @since v0.99.5
-    */
+     * @since v0.99.5
+     */
     void removeSpriteFramesFromDictionary(CCDictionary* dictionary);
 public:
     /** Removes all Sprite Frames associated with the specified textures.
-    * It is convenient to call this method when a specific texture needs to be removed.
-    * @since v0.995.
-    */
+     * It is convenient to call this method when a specific texture needs to be removed.
+     * @since v0.995.
+     */
     void removeSpriteFramesFromTexture(CCTexture2D* texture);
 
     /** Returns an Sprite Frame that was previously added.
@@ -145,7 +145,7 @@ public:
     CCSpriteFrame* spriteFrameByName(const char *pszName);
 
 public:
-    /** Returns the shared instance of the Sprite Frame cache 
+    /** Returns the shared instance of the Sprite Frame cache
      *  @js getInstance
      */
     static CCSpriteFrameCache* sharedSpriteFrameCache(void);
@@ -155,7 +155,7 @@ public:
 
 private:
     // MARMALADE: Made this protected not private, as deriving from this class is pretty useful
-//    CCSpriteFrameCache(void) : m_pSpriteFrames(NULL), m_pSpriteFramesAliases(NULL){}
+    //    CCSpriteFrameCache(void) : m_pSpriteFrames(NULL), m_pSpriteFramesAliases(NULL){}
 protected:
     CCDictionary* m_pSpriteFrames;
     CCDictionary* m_pSpriteFramesAliases;

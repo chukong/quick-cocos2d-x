@@ -196,7 +196,7 @@ static int tolua_collect_WebSocket (lua_State* tolua_S)
 /* function to release collected object via destructor */
 static void tolua_reg_Web_Socket_type(lua_State* tolua_S)
 {
-    tolua_usertype(tolua_S, "WebSocket"); toluafix_add_type_mapping(typeid(WebSocket).hash_code(), "WebSocket");
+    tolua_usertype(tolua_S, "WebSocket"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(WebSocket)), "WebSocket");
 }
 
 /* method: create of class WebSocket */

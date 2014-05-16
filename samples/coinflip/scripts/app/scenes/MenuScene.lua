@@ -21,7 +21,6 @@ function MenuScene:ctor()
         sound = GAME_SFX.tapButton,
         prepare = function()
             self.menu:setEnabled(false)
-            self.layer:setKeypadEnabled(false)
         end,
         listener = function()
             app:enterMoreGamesScene()
@@ -35,7 +34,6 @@ function MenuScene:ctor()
         sound = GAME_SFX.tapButton,
         prepare = function()
             self.menu:setEnabled(false)
-            self.layer:setKeypadEnabled(false)
         end,
         listener = function()
             app:enterChooseLevelScene()
@@ -44,23 +42,9 @@ function MenuScene:ctor()
 
     self.menu = ui.newMenu({self.moreGamesButton, self.startButton})
     self:addChild(self.menu)
-
-    -- keypad layer, for android
-    self.layer = display.newLayer()
-    self.layer:addKeypadEventListener(function(event)
-        if event == "back" then
-            audio.playSound(GAME_SFX.backButton)
-            app:exit()
-        end
-    end)
-    self:addChild(self.layer)
 end
 
 function MenuScene:onEnter()
-    -- avoid unmeant back
-    self:performWithDelay(function()
-        self.layer:setKeypadEnabled(true)
-    end, 0.5)
 end
 
 return MenuScene

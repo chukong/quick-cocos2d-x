@@ -65,12 +65,12 @@ function MainScene:onTouch(event, x, y)
 end
 
 function MainScene:addDragon()
-    local dragon = CCNodeExtend.extend(CCArmature:create("Dragon"))
-	dragon:connectMovementEventSignal(function(__evtType, __moveId)
-			echoInfo("movement, evtType: %d, moveId: %s", __evtType, __moveId)
-		end)
+    local dragon = CCArmature:create("Dragon")
+	-- dragon:connectMovementEventSignal(function(__evtType, __moveId)
+	-- 		printInfo("movement, evtType: %d, moveId: %s", __evtType, __moveId)
+	-- 	end)
     local animation = dragon:getAnimation()
-    animation:setAnimationScale(24 / 60) -- Flash fps is 24, cocos2d-x is 60
+    animation:setSpeedScale(24 / 60) -- Flash fps is 24, cocos2d-x is 60
 	local aniName = self.animationNames[math.random(1,4)]
     animation:play(aniName)
     dragon:setPosition(math.random(display.left, display.right), math.random(display.bottom, display.top))
@@ -84,7 +84,7 @@ end
 
 function MainScene:removeDragon()
     local dragon = self.dragons[self.dragonsCount]
-	dragon:disconnectMovementEventSignal()
+	-- dragon:disconnectMovementEventSignal()
     dragon:removeSelf()
     table.remove(self.dragons, self.dragonsCount)
     self.dragonsCount = self.dragonsCount - 1
@@ -100,9 +100,10 @@ function MainScene:onEnterFrame(dt)
 end
 
 function MainScene:onEnter()
-    self:scheduleUpdate(function(dt) self:onEnterFrame(dt) end)
-    self.layer:addTouchEventListener(function(event, x, y)
-        return self:onTouch(event, x, y)
+    self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(dt) self:onEnterFrame(dt) end)
+    self:scheduleUpdate_()
+    self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+        return self:onTouch(event.name, event.x, event.y)
     end)
     self.layer:setTouchEnabled(true)
 end

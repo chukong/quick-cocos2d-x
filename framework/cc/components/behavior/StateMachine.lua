@@ -70,7 +70,7 @@ function StateMachine:setupState(cfg)
         self:doEvent(self.initial_.event)
     end
 
-    return self
+    return self.target_
 end
 
 function StateMachine:isReady()
@@ -217,7 +217,7 @@ function StateMachine:exportMethods()
         "doEventForce",
         "doEvent",
     })
-    return self
+    return self.target_
 end
 
 function StateMachine:onBind_()
@@ -314,8 +314,8 @@ function StateMachine:enterState_(event)
 end
 
 function StateMachine:onError_(event, error, message)
-    printf("ERROR: error %s, event %s, from %s to %s", tostring(error), event.name, event.from, event.to)
-    echoError(message)
+    printf("%s [StateMachine] ERROR: error %s, event %s, from %s to %s", tostring(self.target_), tostring(error), event.name, event.from, event.to)
+    printError(message)
 end
 
 return StateMachine

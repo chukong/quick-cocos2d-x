@@ -1,0 +1,11 @@
+class CCSharpenFilter : public CCFilter
+{
+
+public:
+	static CCSharpenFilter* create();
+	static CCSharpenFilter* create(float sharpness, float widthFactor, float heightFactor);
+	static CCSharpenFilter* create(float sharpness, int amount);
+	void setParameter(float sharpness, float widthFactor, float heightFactor);
+	void setParameter(float sharpness, int amount);
+	void initSprite(CCFilteredSprite* sprite);
+};

@@ -11,8 +11,13 @@ function MainScene:ctor()
         y = display.cy,
         align = ui.TEXT_ALIGN_CENTER,
         listener = function()
+            if device.platform ~= "android" then
+                print("please run this on android device")
+                return
+            end
+            
             -- call Java method
-            local javaClassName = "com.quick_x.sample.luajavabridge.Luajavabridge"
+            local javaClassName = "com/quick_x/sample/luajavabridge/Luajavabridge"
             local javaMethodName = "showAlertDialog"
             local javaParams = {
                 "How are you ?",
@@ -29,19 +34,6 @@ function MainScene:ctor()
 end
 
 function MainScene:onEnter()
-    if device.platform ~= "android" then return end
-
-    -- avoid unmeant back
-    self:performWithDelay(function()
-        -- keypad layer, for android
-        local layer = display.newLayer()
-        layer:addKeypadEventListener(function(event)
-            if event == "back" then game.exit() end
-        end)
-        self:addChild(layer)
-
-        layer:setKeypadEnabled(true)
-    end, 0.5)
 end
 
 return MainScene

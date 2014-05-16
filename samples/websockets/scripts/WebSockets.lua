@@ -11,7 +11,7 @@ WebSockets.CLOSE_EVENT   = "close"
 WebSockets.ERROR_EVENT   = "error"
 
 function WebSockets:ctor(url)
-    require("framework.api.EventProtocol").extend(self)
+    cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
     self.socket = WebSocket:create(url)
 
     if self.socket then
@@ -28,15 +28,15 @@ end
 
 function WebSockets:send(data, messageType)
     if not self:isReady() then
-        echoError("WebSockets:send() - socket is't ready")
+        printError("WebSockets:send() - socket is't ready")
         return false
     end
 
-    messageType = toint(messageType)
+    messageType = checkint(messageType)
     if messageType == WebSockets.TEXT_MESSAGE then
         self.socket:sendTextMsg(tostring(data))
     elseif messageType == WebSockets.BINARY_ARRAY_MESSAGE then
-        data = totable(data)
+        data = checktable(data)
         self.socket:sendBinaryMsg(data, table.nums(data))
     else
         self.socket:sendBinaryStringMsg(tostring(data))

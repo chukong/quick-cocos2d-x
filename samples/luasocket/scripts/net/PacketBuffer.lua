@@ -9,7 +9,7 @@ Creation: 2013-11-14
 local PacketBuffer = class("PacketBuffer")
 local Protocol = require("net.Protocol")
 
-PacketBuffer.ENDIAN = cc.utils.ByteArrayVarint.ENDIAN_LITTLE
+PacketBuffer.ENDIAN = cc.utils.ByteArrayVarint.ENDIAN_BIG
 
 PacketBuffer.MASK1 = 0x86
 PacketBuffer.MASK2 = 0x7b

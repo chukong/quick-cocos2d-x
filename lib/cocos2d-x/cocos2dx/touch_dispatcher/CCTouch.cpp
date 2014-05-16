@@ -70,4 +70,11 @@ CCPoint CCTouch::getDelta() const
     return ccpSub(getLocation(), getPreviousLocation()); 
 }
 
+CCTouch *CCTouch::copy()
+{
+    CCTouch *copy = new CCTouch();
+    copy->setTouchInfo(getID(), m_point.x, m_point.y);
+    return copy;
+}
+
 NS_CC_END

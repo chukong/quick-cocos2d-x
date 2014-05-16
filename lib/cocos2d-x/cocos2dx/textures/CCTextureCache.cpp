@@ -43,6 +43,7 @@ THE SOFTWARE.
 #include <cctype>
 #include <queue>
 #include <list>
+#include "apptools/HelperFunc.h"
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
 #include <pthread.h>
@@ -69,7 +70,7 @@ typedef struct _ImageInfo
 {
     AsyncStruct *asyncStruct;
     CCImage        *image;
-    CCImage::EImageFormat imageType;
+    EImageFormat imageType;
 } ImageInfo;
 
 static pthread_t s_loadingThread;
@@ -94,26 +95,26 @@ static std::queue<AsyncStruct*>* s_pAsyncStructQueue = NULL;
 static std::queue<ImageInfo*>*   s_pImageQueue = NULL;
 
 
-static CCImage::EImageFormat computeImageFormatType(string& filename)
+static EImageFormat computeImageFormatType(string& filename)
 {
-    CCImage::EImageFormat ret = CCImage::kFmtUnKnown;
+    EImageFormat ret = kFmtUnKnown;
 
     if ((std::string::npos != filename.find(".jpg")) || (std::string::npos != filename.find(".jpeg")))
     {
-        ret = CCImage::kFmtJpg;
+        ret = kFmtJpg;
     }
     else if ((std::string::npos != filename.find(".png")) || (std::string::npos != filename.find(".PNG")))
     {
-        ret = CCImage::kFmtPng;
+        ret = kFmtPng;
     }
     else if ((std::string::npos != filename.find(".tiff")) || (std::string::npos != filename.find(".TIFF")))
     {
-        ret = CCImage::kFmtTiff;
+        ret = kFmtTiff;
     }
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
     else if ((std::string::npos != filename.find(".webp")) || (std::string::npos != filename.find(".WEBP")))
     {
-        ret = CCImage::kFmtWebp;
+        ret = kFmtWebp;
     }
 #endif
    
@@ -125,8 +126,8 @@ static void loadImageData(AsyncStruct *pAsyncStruct)
     const char *filename = pAsyncStruct->filename.c_str();
 
     // compute image type
-    CCImage::EImageFormat imageType = computeImageFormatType(pAsyncStruct->filename);
-    if (imageType == CCImage::kFmtUnKnown)
+    EImageFormat imageType = computeImageFormatType(pAsyncStruct->filename);
+    if (imageType == kFmtUnKnown)
     {
         CCLOG("unsupported format %s",filename);
         delete pAsyncStruct;
@@ -462,30 +463,30 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
 #endif // QUICK_MINI_TARGET
 
             {
-                CCImage::EImageFormat eImageFormat = CCImage::kFmtUnKnown;
+                EImageFormat eImageFormat = kFmtUnKnown;
                 if (std::string::npos != lowerCase.find(".png"))
                 {
-                    eImageFormat = CCImage::kFmtPng;
+                    eImageFormat = kFmtPng;
                 }
 
 #ifndef QUICK_MINI_TARGET
 
                 else if (std::string::npos != lowerCase.find(".jpg") || std::string::npos != lowerCase.find(".jpeg"))
                 {
-                    eImageFormat = CCImage::kFmtJpg;
+                    eImageFormat = kFmtJpg;
                 }
                 else if (std::string::npos != lowerCase.find(".tif") || std::string::npos != lowerCase.find(".tiff"))
                 {
-                    eImageFormat = CCImage::kFmtTiff;
+                    eImageFormat = kFmtTiff;
                 }
 #endif // QUICK_MINI_TARGET
 
                 else if (std::string::npos != lowerCase.find(".webp"))
                 {
-                    eImageFormat = CCImage::kFmtWebp;
+                    eImageFormat = kFmtWebp;
                 }
                 
-//                CC_BREAK_IF(eImageFormat == CCImage::kFmtUnKnown);
+//                CC_BREAK_IF(eImageFormat == kFmtUnKnown);
 
                 pImage = new CCImage();
                 CC_BREAK_IF(NULL == pImage);
@@ -540,7 +541,7 @@ CCTexture2D * CCTextureCache::addPVRImage(const char* path)
     {
 #if CC_ENABLE_CACHE_TEXTURE_DATA
         // cache the texture file name
-        VolatileTexture::addImageTexture(texture, fullpath.c_str(), CCImage::kFmtRawData);
+        VolatileTexture::addImageTexture(texture, fullpath.c_str(), kFmtRawData);
 #endif
         m_pTextures->setObject(texture, key.c_str());
         texture->autorelease();
@@ -629,6 +630,37 @@ CCTexture2D* CCTextureCache::addUIImage(CCImage *image, const char *key)
 #endif
     
     return texture;
+}
+
+bool CCTextureCache::reloadTexture(const char* fileName)
+{
+    std::string fullpath = CCFileUtils::sharedFileUtils()->fullPathForFilename(fileName);
+    if (fullpath.size() == 0)
+    {
+        return false;
+    }
+    
+    CCTexture2D * texture = (CCTexture2D*) m_pTextures->objectForKey(fullpath);
+    
+    bool ret = false;
+    if (! texture) {
+        texture = this->addImage(fullpath.c_str());
+        ret = (texture != NULL);
+    }
+    else
+    {
+        do {
+            CCImage* image = new CCImage();
+            CC_BREAK_IF(NULL == image);
+            
+            bool bRet = image->initWithImageFile(fullpath.c_str());
+            CC_BREAK_IF(!bRet);
+            
+            ret = texture->initWithImage(image);
+        } while (0);
+    }
+    
+    return ret;
 }
 
 // TextureCache - Remove
@@ -752,7 +784,7 @@ VolatileTexture::VolatileTexture(CCTexture2D *t)
 , m_pTextureData(NULL)
 , m_PixelFormat(kTexture2DPixelFormat_RGBA8888)
 , m_strFileName("")
-, m_FmtImage(CCImage::kFmtPng)
+, m_FmtImage(kFmtPng)
 , m_alignment(kCCTextAlignmentCenter)
 , m_vAlignment(kCCVerticalTextAlignmentCenter)
 , m_strFontName("")
@@ -774,7 +806,7 @@ VolatileTexture::~VolatileTexture()
     CC_SAFE_RELEASE(uiImage);
 }
 
-void VolatileTexture::addImageTexture(CCTexture2D *tt, const char* imageFileName, CCImage::EImageFormat format)
+void VolatileTexture::addImageTexture(CCTexture2D *tt, const char* imageFileName, EImageFormat format)
 {
     if (isReloading)
     {
@@ -920,7 +952,8 @@ void VolatileTexture::reloadAllTextures()
                 {
                     CCImage* pImage = new CCImage();
                     unsigned long nSize = 0;
-                    unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(vt->m_strFileName.c_str(), "rb", &nSize);
+                    //unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(vt->m_strFileName.c_str(), "rb", &nSize);
+                    unsigned char* pBuffer = CZHelperFunc::getFileData(vt->m_strFileName.c_str(), "rb", &nSize);
 
                     if (pImage && pImage->initWithImageData((void*)pBuffer, nSize, vt->m_FmtImage))
                     {

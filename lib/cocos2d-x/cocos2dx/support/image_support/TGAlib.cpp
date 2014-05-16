@@ -27,6 +27,7 @@ THE SOFTWARE.
 
 #include "TGAlib.h"
 #include "platform/CCFileUtils.h"
+#include "apptools/HelperFunc.h"
 
 namespace cocos2d {
 
@@ -199,7 +200,8 @@ tImageTGA * tgaLoad(const char *pszFilename)
     tImageTGA *info = NULL;
     
     unsigned long nSize = 0;
-    unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(pszFilename, "rb", &nSize);
+    //unsigned char* pBuffer = CCFileUtils::sharedFileUtils()->getFileData(pszFilename, "rb", &nSize);
+    unsigned char* pBuffer = CZHelperFunc::getFileData(pszFilename, "rb", &nSize);
 
     do
     {

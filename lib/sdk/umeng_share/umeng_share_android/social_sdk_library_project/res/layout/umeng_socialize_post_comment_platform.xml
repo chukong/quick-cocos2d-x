@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:gravity="center" >
+
+    <ImageButton
+        android:id="@+id/umeng_socialize_post_cws_ic"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@null"
+        android:padding="12dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/umeng_socialize_default_avatar" />
+
+    <ImageView
+        android:id="@+id/umeng_socialize_post_cws_selected"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="32dp"
+        android:src="@drawable/umeng_socialize_checked"
+        android:visibility="invisible" />
+
+</RelativeLayout>

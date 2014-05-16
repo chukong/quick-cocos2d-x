@@ -1,52 +1,64 @@
+--[[
 
-ccp = CCPoint
-ccsize = CCSize
-ccrect = CCRect
+Copyright (c) 2011-2014 chukong-inc.com
 
-cc.p = CCPoint
-cc.size = CCSize
-cc.rect = CCRect
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-cc.c3 = ccc3
-cc.c4 = ccc4
-cc.c4f = ccc4f
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-cc.TOUCH_IGNORE               = 0
-cc.TOUCH_BEGAN                = 1
-cc.TOUCH_BEGAN_SWALLOWS       = cc.TOUCH_BEGAN
-cc.TOUCH_BEGAN_NO_SWALLOWS    = 2
-cc.TOUCH_MOVED                = 1
-cc.TOUCH_MOVED_SWALLOWS       = cc.TOUCH_MOVED
-cc.TOUCH_MOVED_NO_SWALLOWS    = 0
-cc.TOUCH_MOVED_RELEASE_OTHERS = 2
-cc.MULTI_TOUCHES_ON           = true
-cc.MULTI_TOUCHES_OFF          = false
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
-cc.size2t = function(size)
-    return {width = size.width, height = size.height}
-end
+]]
 
-cc.point2t = function(point)
-    return {x = point.x, y = point.y}
-end
+--[[--
 
-cc.rect2t = function(rect)
-    return {origin = cc.point2t(rect.origin), size = cc.size2t(rect.size)}
-end
+针对 cocos2d-x 的一些封装和扩展
 
-cc.t2size = function(t)
-    return CCSize(t.width, t.height)
-end
+预定义的节点事件：
 
-cc.t2point = function(t)
-    return CCPoint(t.x, t.y)
-end
+-   cc.NODE_EVENT - enter, exit 等事件
+-   cc.NODE_ENTER_FRAME_EVENT - 帧事件
+-   cc.NODE_TOUCH_EVENT - 触摸事件
+-   cc.NODE_TOUCH_CAPTURE_EVENT - 捕获触摸事件
 
-cc.t2rect = function(t)
-    return CCRect(t.origin.x, t.origin.y, t.size.width, t.size.height)
-end
+预定义的层事件：
 
-require(cc.PACKAGE_NAME .. ".cocos2dx.CCNodeExtend")
-require(cc.PACKAGE_NAME .. ".cocos2dx.CCSceneExtend")
-require(cc.PACKAGE_NAME .. ".cocos2dx.CCSpriteExtend")
-require(cc.PACKAGE_NAME .. ".cocos2dx.CCLayerExtend")
+-   cc.ACCELERATE_EVENT - 重力感应事件
+-   cc.KEYPAD_EVENT - 硬件按键事件
+
+预定义的菜单事件：
+
+-   cc.MENU_ITEM_CLICKED_EVENT - CCMenu 菜单项点击事件
+
+预定义的触摸模式：
+
+-   cc.TOUCH_MODE_ALL_AT_ONCE - 多点触摸
+-   cc.TOUCH_MODE_ONE_BY_ONE - 单点触摸
+
+]]
+
+local p = cc.PACKAGE_NAME .. ".cocos2dx."
+
+require(p .. "Global")
+require(p .. "ObjectBinding")
+require(p .. "OpenGL")
+require(p .. "Geometry")
+require(p .. "Event")
+require(p .. "NodeEx")
+require(p .. "LayerEx")
+require(p .. "SceneEx")
+require(p .. "SpriteEx")
+require(p .. "DrawNodeEx")
+require(p .. "MenuItemEx")

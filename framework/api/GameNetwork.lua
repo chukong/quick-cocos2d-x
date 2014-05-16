@@ -18,6 +18,8 @@ See http://support.openfeint.com/dev/game-center-compatibility/ for details.
 
 local GameNetwork = {}
 
+PRINT_DEPRECATED("module api.GameNetwork is deprecated, please use cc.sdk.social")
+
 local provider = __FRAMEWORK_GLOBALS__["api.GameNetwork"]
 
 --[[--
@@ -99,12 +101,12 @@ when the user is not logged in.
 ]]
 function GameNetwork.init(providerName, params)
     if provider then
-        echoError("[framework.api.GameNetwork] ERR, init() GameNetwork already init")
+        printError("[framework.api.GameNetwork] ERR, init() GameNetwork already init")
         return false
     end
 
     if type(params) ~= "table" then
-        echoError("[framework.api.GameNetwork] ERR, init() invalid params")
+        printError("[framework.api.GameNetwork] ERR, init() invalid params")
         return false
     end
 
@@ -116,7 +118,7 @@ function GameNetwork.init(providerName, params)
     elseif providerName == "CHINAMOBILE" then
         provider = require("framework.api.gamenetwork.ChinaMobile")
     else
-        echoError("[framework.api.GameNetwork] ERR, init() invalid providerName: %s", providerName)
+        printError("[framework.api.GameNetwork] ERR, init() invalid providerName: %s", providerName)
         return false
     end
 
@@ -195,7 +197,7 @@ Parmeters used in the commands.
 ]]
 function GameNetwork.request(command, ...)
     if not provider then
-        echoError("[framework.api.GameNetwork] ERR, request() GameNetwork not init")
+        printError("[framework.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 
@@ -265,7 +267,7 @@ Parameters used by command.
 ]]
 function GameNetwork.show(command, ...)
     if not provider then
-        echoError("[framework.api.GameNetwork] ERR, request() GameNetwork not init")
+        printError("[framework.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 
@@ -274,7 +276,7 @@ end
 
 function GameNetwork.exit()
     if not provider then
-        echoError("[framework.api.GameNetwork] ERR, request() GameNetwork not init")
+        printError("[framework.api.GameNetwork] ERR, request() GameNetwork not init")
         return
     end
 

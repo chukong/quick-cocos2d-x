@@ -478,7 +478,7 @@ int CCBReader::readInt(bool pSigned) {
             num = (int)(-current / 2);
         }
     } else {
-        num = (int)(current - 1);
+        num = current - 1;
     }
     
     this->alignBits();
@@ -1002,7 +1002,7 @@ void CCBReader::addDocumentCallbackControlEvents(CCControlEvent eventType)
 }
 
 CCArray* CCBReader::getOwnerCallbackNames() {
-    CCArray* pRet = CCArray::createWithCapacity((unsigned int)mOwnerCallbackNames.size());
+    CCArray* pRet = CCArray::createWithCapacity(mOwnerCallbackNames.size());
     std::vector<std::string>::iterator it = mOwnerCallbackNames.begin();
     for (; it != mOwnerCallbackNames.end(); ++it)
     {
@@ -1022,7 +1022,7 @@ CCArray* CCBReader::getOwnerCallbackControlEvents()
 }
 
 CCArray* CCBReader::getOwnerOutletNames() {
-    CCArray* pRet = CCArray::createWithCapacity((unsigned int)mOwnerOutletNames.size());
+    CCArray* pRet = CCArray::createWithCapacity(mOwnerOutletNames.size());
     std::vector<std::string>::iterator it = mOwnerOutletNames.begin();
     for (; it != mOwnerOutletNames.end(); ++it)
     {

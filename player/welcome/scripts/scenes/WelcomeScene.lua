@@ -1,7 +1,42 @@
-
 local WelcomeScene = class("WelcomeScene", function()
     return display.newScene("WelcomeScene")
 end)
+
+function getDemoData()
+    -- body
+    local demoDataList = {{id="demo1", text="<b>One Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}
+                  , {id="demo2", text="<b>Two Demo</b> <br/> <img src=\":/QuickIcon.png\"</img>"}}
+
+    QT_INTERFACE("core.addDemoList", json.encode(demoDataList))
+end
+
+-- @return -p @packageName -f -r portrait -o @projectPath
+function GET_CREATE_PROJECT_COMMAND_ARGS( projectPath, packageName, isPortrait )
+    local screen = (isPortrait and " -r portrait") or " -r landscape"
+
+    local cmd = "-f -p "..packageName..screen.." -o "..projectPath
+    return  cmd, " "
+end
+
+function openDemo( demoId )
+    QT_INTERFACE("core.openProject")
+end
+
+function LUA_Interface(messageId, messageData)
+    print("messageId: ", messageId, "data : ", messageData)
+    if messageId == "getDemoData" then
+        getDemoData()
+    elseif messageId == "core.openDemo" then
+        openDemo(messageData)
+    end
+end
+
+function PlayerLoginCallback(userName, password)
+    print("Get username: ", userName, " passworld: ", password)
+    -- return true, ""
+    -- return false, "user name or password is invalid"
+    return true, "user name or password is error"
+end
 
 function WelcomeScene:ctor()
     self.menu = nil -- self:createButtons()
@@ -142,18 +177,26 @@ end
 -- listeners
 
 function WelcomeScene:onNewProjectButtonClicked()
+    QT_INTERFACE("core.newProject")
+    --newProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_NEW_PROJECT")
 end
 
 function WelcomeScene:onOpenButtonClicked()
+    QT_INTERFACE("core.openProject")
+    --openProject();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN")
 end
 
 function WelcomeScene:onSamplesButtonClicked()
+    QT_INTERFACE("core.openDemo")
+    --openQuickDemoWithWebView();
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_SAMPLES")
 end
 
 function WelcomeScene:onGetStartedButtonClicked()
+    QT_INTERFACE("core.openURL", "http://quick.cocoachina.com/wiki/doku.php?id=zh_cn")
+    --openURL("http://wiki.quick-x.com/doku.php");
     CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_GET_STARTED")
 end
 

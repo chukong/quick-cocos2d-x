@@ -59,7 +59,7 @@ function Actor:ctor(properties, events, callbacks)
         {name = "relive", from = "dead",    to = "idle"},
     }
     -- 如果继承类提供了其他事件，则合并
-    table.insertTo(defaultEvents, totable(events))
+    table.insertto(defaultEvents, checktable(events))
 
     -- 设定状态机的默认回调
     local defaultCallbacks = {
@@ -74,7 +74,7 @@ function Actor:ctor(properties, events, callbacks)
         onleavefiring = handler(self, self.onLeaveFiring_),
     }
     -- 如果继承类提供了其他回调，则合并
-    table.merge(defaultCallbacks, totable(callbacks))
+    table.merge(defaultCallbacks, checktable(callbacks))
 
     self.fsm__:setupState({
         events = defaultEvents,
@@ -249,7 +249,7 @@ function Actor:onRelive_(event)
 end
 
 function Actor:onLeaveFiring_(event)
-    local cooldown = tonum(event.args[1])
+    local cooldown = checknumber(event.args[1])
     if cooldown > 0 then
         -- 如果开火后的冷却时间大于 0，则需要等待
         scheduler.performWithDelayGlobal(function()

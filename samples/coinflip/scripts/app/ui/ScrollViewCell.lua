@@ -3,7 +3,7 @@ local ScrollViewCell = class("ScrollViewCell", function(contentSize)
     local node = display.newNode()
     if contentSize then node:setContentSize(contentSize) end
     node:setNodeEventEnabled(true)
-    require("framework.api.EventProtocol").extend(node)
+    cc(node):addComponent("components.behavior.EventProtocol"):exportMethods()
     return node
 end)
 

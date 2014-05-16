@@ -40,7 +40,6 @@ CCControlHuePicker::CCControlHuePicker()
 , m_background(NULL)
 , m_slider(NULL)
 {
-
 }
 
 CCControlHuePicker::~CCControlHuePicker()
@@ -74,6 +73,10 @@ bool CCControlHuePicker::initWithTargetAndPos(CCNode* target, CCPoint pos)
         // Sets the default value
         m_hue=0.0f;
         m_huePercentage=0.0f;
+
+        setCascadeColorEnabled(false);
+        setCascadeOpacityEnabled(false);
+
         return true;
     }
     else
@@ -165,7 +168,7 @@ bool CCControlHuePicker::checkSliderPosition(CCPoint location)
     return false;
 }
 
-int CCControlHuePicker::ccTouchBegan(CCTouch* touch, CCEvent* event)
+bool CCControlHuePicker::ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
     if (!isEnabled() || !isVisible())
     {
@@ -180,7 +183,7 @@ int CCControlHuePicker::ccTouchBegan(CCTouch* touch, CCEvent* event)
 }
 
 
-int CCControlHuePicker::ccTouchMoved(CCTouch* touch, CCEvent* event)
+void CCControlHuePicker::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
     // Get the touch location
     CCPoint touchLocation=getTouchLocation(touch);
@@ -190,8 +193,6 @@ int CCControlHuePicker::ccTouchMoved(CCTouch* touch, CCEvent* event)
 //     sendActionsForControlEvents(CCControlEventValueChanged);
     // Check the touch position on the slider
     checkSliderPosition(touchLocation);
-
-    return kCCTouchMoved;
 }
 
 NS_CC_EXT_END

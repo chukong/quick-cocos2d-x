@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent">
+    
+    
+    
+    <LinearLayout
+        android:id="@+id/menu_content"
+        android:layout_width="250dip"
+        android:layout_height="fill_parent"
+        android:background="@android:color/holo_green_light"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    
+    <FrameLayout
+        android:id="@+id/overlay"
+        android:layout_toLeftOf="@id/menu_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+    
+
+</RelativeLayout>

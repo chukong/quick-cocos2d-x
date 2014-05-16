@@ -169,7 +169,7 @@ bool CCGraySprite::initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bo
 
 		return true;
 	} while (0);
-    
+
 	return false;
 }
 

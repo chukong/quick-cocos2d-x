@@ -1,28 +1,28 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2008-2010 Ricardo Quesada
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2008-2010 Ricardo Quesada
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-****************************************************************************/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 
 #include <stdarg.h>
 #include "CCLayer.h"
@@ -45,18 +45,10 @@ NS_CC_BEGIN
 CCLayer::CCLayer()
 : m_bAccelerometerEnabled(false)
 , m_bKeypadEnabled(false)
-, m_pScriptKeypadHandlerEntry(NULL)
-, m_pScriptAccelerateHandlerEntry(NULL)
 {
     m_bIgnoreAnchorPointForPosition = true;
     m_eTouchMode = kCCTouchesOneByOne;
     setAnchorPoint(ccp(0.5f, 0.5f));
-}
-
-CCLayer::~CCLayer()
-{
-    unregisterScriptKeypadHandler();
-    unregisterScriptAccelerateHandler();
 }
 
 bool CCLayer::init()
@@ -67,7 +59,7 @@ bool CCLayer::init()
         CCDirector * pDirector;
         CC_BREAK_IF(!(pDirector = CCDirector::sharedDirector()));
         const CCSize &winSize = pDirector->getWinSize();
-        this->setContentSize(winSize);
+        setContentSize(winSize);
         setCascadeBoundingBox(CCRect(0, 0, winSize.width, winSize.height));
         m_bTouchEnabled = false;
         m_bAccelerometerEnabled = false;
@@ -92,44 +84,7 @@ CCLayer *CCLayer::create()
     }
 }
 
-/// Touch and Accelerometer related
-
-void CCLayer::registerWithTouchDispatcher()
-{
-//    CCLOG("CCLAYER: REGISTER WITH TOUCH DISPATHCER");
-    CCTouchDispatcher* pDispatcher = CCDirector::sharedDirector()->getTouchDispatcher();
-
-    // Using LuaBindings
-    if (m_pScriptTouchHandlerEntry)
-    {
-	    if (m_pScriptTouchHandlerEntry->isMultiTouches())
-	    {
-	       pDispatcher->addStandardDelegate(this, 0);
-	       LUALOG("[LUA] Add multi-touches event handler: %d", m_pScriptTouchHandlerEntry->getHandler());
-	    }
-	    else
-	    {
-	       pDispatcher->addTargetedDelegate(this,
-						m_pScriptTouchHandlerEntry->getPriority(),
-						m_pScriptTouchHandlerEntry->getSwallowsTouches());
-	       LUALOG("[LUA] Add touch event handler: %d", m_pScriptTouchHandlerEntry->getHandler());
-	    }
-    }
-    else
-    {
-        if( m_eTouchMode == kCCTouchesAllAtOnce ) {
-            pDispatcher->addStandardDelegate(this, 0);
-        } else {
-            pDispatcher->addTargetedDelegate(this, m_nTouchPriority, true);
-        }
-    }
-}
-
-void CCLayer::unregisterWithTouchDispatcher()
-{
-//    CCLOG("CCLAYER: UNREGISTER WITH TOUCH DISPATHCER");
-                CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-            }
+/// Accelerometer related
 
 /// isAccelerometerEnabled getter
 bool CCLayer::isAccelerometerEnabled()
@@ -173,23 +128,12 @@ void CCLayer::setAccelerometerInterval(double interval) {
 
 void CCLayer::didAccelerate(CCAcceleration* pAccelerationValue)
 {
-   CC_UNUSED_PARAM(pAccelerationValue);
-   if ( m_eScriptType != kScriptTypeNone)
-   {
-       CCScriptEngineManager::sharedManager()->getScriptEngine()->executeAccelerometerEvent(this, pAccelerationValue);
-   }
-}
+    CC_UNUSED_PARAM(pAccelerationValue);
 
-void CCLayer::registerScriptAccelerateHandler(int nHandler)
-{
-    unregisterScriptAccelerateHandler();
-    m_pScriptAccelerateHandlerEntry = CCScriptHandlerEntry::create(nHandler);
-    m_pScriptAccelerateHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptAccelerateHandler(void)
-{
-    CC_SAFE_RELEASE_NULL(m_pScriptAccelerateHandlerEntry);
+    if (hasScriptEventListener(ACCELERATE_EVENT))
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()->executeAccelerometerEvent(this, pAccelerationValue);
+    }
 }
 
 /// isKeypadEnabled getter
@@ -219,21 +163,9 @@ void CCLayer::setKeypadEnabled(bool enabled)
     }
 }
 
-void CCLayer::registerScriptKeypadHandler(int nHandler)
-{
-    unregisterScriptKeypadHandler();
-    m_pScriptKeypadHandlerEntry = CCScriptHandlerEntry::create(nHandler);
-    m_pScriptKeypadHandlerEntry->retain();
-}
-
-void CCLayer::unregisterScriptKeypadHandler(void)
-{
-    CC_SAFE_RELEASE_NULL(m_pScriptKeypadHandlerEntry);
-}
-
 void CCLayer::keyBackClicked(void)
 {
-    if (m_pScriptKeypadHandlerEntry || m_eScriptType == kScriptTypeJavascript)
+    if (hasScriptEventListener(KEYPAD_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeBackClicked);
     }
@@ -241,7 +173,7 @@ void CCLayer::keyBackClicked(void)
 
 void CCLayer::keyMenuClicked(void)
 {
-    if (m_pScriptKeypadHandlerEntry)
+    if (hasScriptEventListener(KEYPAD_EVENT))
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeMenuClicked);
     }
@@ -298,102 +230,6 @@ void CCLayer::onEnterTransitionDidFinish()
     CCNode::onEnterTransitionDidFinish();
 }
 
-int CCLayer::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        return excuteScriptTouchHandler(CCTOUCHBEGAN, pTouch) == 0 ? false : true;
-    }
-
-    CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
-    CCAssert(false, "Layer#ccTouchBegan override me");
-    return true;
-}
-
-int CCLayer::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        return excuteScriptTouchHandler(CCTOUCHMOVED, pTouch);
-    }
-
-    CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
-    return kCCTouchMoved;
-}
-
-void CCLayer::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHENDED, pTouch);
-        return;
-    }
-
-    CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
-}
-
-void CCLayer::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouch);
-        return;
-    }
-
-    CC_UNUSED_PARAM(pTouch);
-    CC_UNUSED_PARAM(pEvent);
-}
-
-void CCLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHBEGAN, pTouches);
-        return;
-    }
-
-    CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
-}
-
-void CCLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHMOVED, pTouches);
-        return;
-    }
-
-    CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
-}
-
-void CCLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHENDED, pTouches);
-        return;
-    }
-
-    CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
-}
-
-void CCLayer::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
-{
-    if (kScriptTypeNone != m_eScriptType)
-    {
-        excuteScriptTouchHandler(CCTOUCHCANCELLED, pTouches);
-        return;
-    }
-
-    CC_UNUSED_PARAM(pTouches);
-    CC_UNUSED_PARAM(pEvent);
-}
 
 /// CCLayerColor
 
@@ -881,12 +717,12 @@ void CCLayerMultiplex::switchToAndReleaseMe(unsigned int n)
     CCAssert( n < m_pLayers->count(), "Invalid index in MultiplexLayer switchTo message" );
 
     this->removeChild((CCNode*)m_pLayers->objectAtIndex(m_nEnabledLayer), true);
-
+    
     //[layers replaceObjectAtIndex:enabledLayer withObject:[NSNull null]];
     m_pLayers->replaceObjectAtIndex(m_nEnabledLayer, NULL);
-
+    
     m_nEnabledLayer = n;
-
+    
     this->addChild((CCNode*)m_pLayers->objectAtIndex(n));
 }
 

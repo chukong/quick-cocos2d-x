@@ -33,9 +33,13 @@
 #include <vector>
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+#include <QDir>
+    #else
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+    #endif
 #endif
 
 #include "support/zip_support/unzip.h"
@@ -278,7 +282,7 @@ bool AssetsManager::uncompress()
         {
 			// get all dir
 			string fileNameStr = string(fileName);
-			size_t position = 0;
+            size_t position = 0;
 			while((position=fileNameStr.find_first_of("/",position))!=string::npos)
 			{
 				string dirPath =_storagePath + fileNameStr.substr(0, position);
@@ -361,7 +365,12 @@ bool AssetsManager::uncompress()
  */
 bool AssetsManager::createDirectory(const char *path)
 {
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
+    QDir dir(path);
+    if (dir.exists())
+        return true;
+    return dir.mkpath(QString::fromUtf8(path));
+#elif (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
     mode_t processMask = umask(0);
     int ret = mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
     umask(processMask);
