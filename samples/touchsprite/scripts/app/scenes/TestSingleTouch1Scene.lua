@@ -30,7 +30,7 @@ function TestSingleTouch1Scene:ctor()
 
     button1parent:setTouchEnabled(true)
     button1parent:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        self.onTouch(event.name, event.x, event.y, event.prevX, event.prevY)
+        self:onTouch(event.name, event.x, event.y, event.prevX, event.prevY)
     end)
 
     -- 启用触摸
@@ -53,10 +53,11 @@ function TestSingleTouch1Scene:ctor()
     --
     app:createNextButton(self)
     app:createTitle(self, "Test Single Touch 1")
+    self.button1 = button1
 end
 
 function TestSingleTouch1Scene:onTouch(event, x, y, prevX, prevY)
-    local offset = button1:convertToNodeSpace(CCPoint(x, y))
+    local offset = self.button1:convertToNodeSpace(CCPoint(x, y))
     self.debugLabel:setString(string.format("touch button1 state: %s\nx,y: %0.2f, %0.2f\nprevX, prevY: %0.2f, %0.2f\noffsetX, offsetY: %0.2f, %0.2f", event, x, y, prevX, prevY, offset.x, offset.y))
 end
 

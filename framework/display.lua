@@ -890,8 +890,9 @@ polygon:setClose(true) -- 将第一个点和最后一个点相连
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
     local arr = CCPointArray:create(#points)
+    local cpp = cc.p
     for i, p in ipairs(points) do
-        p = CCPoint(p[1] * scale, p[2] * scale)
+        p = ccp(p[1] * scale, p[2] * scale)
         arr:add(p)
     end
 
@@ -1284,7 +1285,7 @@ function display.printscreen(node, args)
 	if sp then
 		local texture = canvas:getSprite():getTexture()
 		if filters then
-			sp = display.newFSprite(texture, filters, filterParams)
+			sp = display.newFilteredSprite(texture, filters, filterParams)
 		else
 			sp = display.newSprite(texture)
 		end
