@@ -4,7 +4,6 @@
 
 @interface UmengShareSDK : NSObject
 
-- (void) setAppKey:(NSString*) appid;
 - (void) setUIView:(UIViewController*) view;
 
 + (UmengShareSDK*) getInstance;
