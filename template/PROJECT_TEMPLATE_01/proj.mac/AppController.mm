@@ -92,6 +92,22 @@ using namespace cocos2d::extra;
     float bottom = NSHeight([[NSScreen mainScreen] visibleFrame]) - frameSize.height;
     bottom -= [[[NSApplication sharedApplication] menu] menuBarHeight] + 10;
 
+    NSDictionary *state = [[NSUserDefaults standardUserDefaults] objectForKey:@"last-state"];
+    if (state)
+    {
+        NSNumber *x = [state objectForKey:@"x"];
+        NSNumber *y = [state objectForKey:@"y"];
+        if (x && y)
+        {
+            projectConfig.setWindowOffset(CCPoint([x floatValue], [y floatValue]));
+        }
+        NSNumber *scale = [state objectForKey:@"scale"];
+        if (scale)
+        {
+            projectConfig.setFrameScale([scale floatValue]);
+        }
+    }
+
     // create the window
     // note that using NSResizableWindowMask causes the window to be a little
     // smaller and therefore ipad graphics are not loaded
@@ -133,7 +149,7 @@ using namespace cocos2d::extra;
     if (projectDir.length())
     {
         CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
-        }
+    }
 
     const string writablePath = projectConfig.getWritableRealPath();
     if (writablePath.length())
@@ -166,7 +182,7 @@ using namespace cocos2d::extra;
         }
         [submenu insertItem:item atIndex:0];
     }
-    }
+}
 
 - (void) updateUI
 {
@@ -212,7 +228,7 @@ using namespace cocos2d::extra;
     }
 
     [window setTitle:[NSString stringWithFormat:@"__PROJECT_PACKAGE_LAST_NAME_L__ (%0.0f%%)", projectConfig.getFrameScale() * 100]];
-    }
+}
 
 - (NSMutableArray*) makeCommandLineArgsFromProjectConfig
 {
@@ -222,7 +238,8 @@ using namespace cocos2d::extra;
 - (NSMutableArray*) makeCommandLineArgsFromProjectConfig:(unsigned int)mask
 {
     projectConfig.setWindowOffset(CCPoint(window.frame.origin.x, window.frame.origin.y));
-    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine(mask).c_str() encoding:NSUTF8StringEncoding];
+    NSString *commandLine = [NSString stringWithCString:projectConfig.makeCommandLine(mask).c_str()
+                                               encoding:NSUTF8StringEncoding];
     return [NSMutableArray arrayWithArray:[commandLine componentsSeparatedByString:@" "]];
 }
 
@@ -241,7 +258,8 @@ using namespace cocos2d::extra;
 - (void) launch:(NSArray*)args
 {
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-    NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithObject:args forKey:NSWorkspaceLaunchConfigurationArguments];
+    NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithObject:args
+                                                                            forKey:NSWorkspaceLaunchConfigurationArguments];
     NSError *error = [[[NSError alloc] init] autorelease];
     [[NSWorkspace sharedWorkspace] launchApplicationAtURL:url
                                                   options:NSWorkspaceLaunchNewInstance
@@ -250,6 +268,7 @@ using namespace cocos2d::extra;
 
 - (void) relaunch:(NSArray*)args
 {
+    [self saveLastState];
     if (projectConfig.isExitWhenRelaunch())
     {
         exit(99);
@@ -269,10 +288,10 @@ using namespace cocos2d::extra;
 - (void) showAlertWithoutSheet:(NSString*)message withTitle:(NSString*)title
 {
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-	[alert addButtonWithTitle:@"OK"];
-	[alert setMessageText:message];
-	[alert setInformativeText:title];
-	[alert setAlertStyle:NSWarningAlertStyle];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:message];
+    [alert setInformativeText:title];
+    [alert setAlertStyle:NSWarningAlertStyle];
     [alert runModal];
 }
 
@@ -299,13 +318,23 @@ using namespace cocos2d::extra;
     isAlwaysOnTop = alwaysOnTop;
 }
 
+-(void) saveLastState
+{
+    NSMutableDictionary *state = [NSMutableDictionary dictionary];
+    [state setObject:[NSNumber numberWithInt:window.frame.origin.x] forKey:@"x"];
+    [state setObject:[NSNumber numberWithInt:window.frame.origin.y] forKey:@"y"];
+    [state setObject:[NSNumber numberWithFloat:projectConfig.getFrameScale()] forKey:@"scale"];
+    [[NSUserDefaults standardUserDefaults] setObject:state forKey:@"last-state"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark -
 #pragma mark IB Actions
 
 - (IBAction) onFileRelaunch:(id)sender
 {
-            [self relaunch];
-        }
+    [self relaunch];
+}
 
 - (IBAction) onScreenChangeFrameSize:(id)sender
 {
