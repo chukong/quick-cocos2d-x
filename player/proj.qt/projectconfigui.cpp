@@ -59,6 +59,7 @@ void ProjectConfigUI::setDataForUI(ProjectConfig &projectConfig)
     ui->screenWidth->setText(QString::number(projectConfig.getFrameSize().width));
     ui->screenHeight->setText(QString::number(projectConfig.getFrameSize().height));
 
+    ui->showDebugConsole->setChecked(projectConfig.isShowConsole());
     ui->loadPreFramework->setChecked(projectConfig.isLoadPrecompiledFramework());
     ui->logToFile->setChecked(projectConfig.isWriteDebugLogToFile());
 

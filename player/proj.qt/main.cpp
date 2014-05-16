@@ -88,17 +88,6 @@ int main(int argc, char *argv[])
         scale = 1.0f;
     view->setFrameZoomFactor(scale);
 
-    if (projectConfig.getWindowOffset().x <= 1 && projectConfig.getWindowOffset().y <= 1)
-    {
-    }
-    else
-    {
-//        view->getGLWindow()->setPosition(projectConfig.getWindowOffset().x,
-//                                         projectConfig.getWindowOffset().y);
-        view->getGLWidget()->move(projectConfig.getWindowOffset().x,
-                                  projectConfig.getWindowOffset().y);
-    }
-
     player->initMainMenu();
     player->makeMainWindow(view->getGLWidget(), player->getMenuBar());
     player->enterBackgroundDelegate.bind(&app, &AppDelegate::applicationDidEnterBackground);
@@ -121,7 +110,9 @@ int main(int argc, char *argv[])
     // menu
     player->setProjectConfig(projectConfig);
 
+    player->restoreSetting();
     int ret = app.run();
+    player->saveSetting();
 
     MsgHandlerWapper::instance()->cancelHandler();
     while (ret == APP_EXIT_CODE)

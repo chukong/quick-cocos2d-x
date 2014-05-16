@@ -29,7 +29,6 @@ SOURCES += main.cpp\
     aboutui.cpp \
     projectconfigui.cpp \
     player.cpp \
-    quickdemowebview.cpp \
     createprojectui.cpp \
     consoleui.cpp \
     msghandlerwapper.cpp \
@@ -43,7 +42,6 @@ HEADERS  += \
     aboutui.h \
     projectconfigui.h \
     player.h \
-    quickdemowebview.h \
     createprojectui.h \
     consoleui.h \
     msghandlerwapper.h \
