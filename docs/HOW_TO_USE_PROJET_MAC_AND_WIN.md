@@ -7,7 +7,7 @@
 4.  从右侧选中 "Arguments"
 5.  在 Arguments Passed On Launch 里点 "+" 添加命令参数
 
-    ~~~ 
+    ~~~
     -quick $(QUICK_COCOS2DX_ROOT)
     -workdir $(SRCROOT)/../
     -landscape
@@ -27,7 +27,7 @@
 4.  从对话框左侧选中 "Configuration Properties / Debugging"
 5.  从右侧选中 "Command Arguments"，添加内容：
 
-    ~~~ 
+    ~~~
     -quick $(QUICK_COCOS2DX_ROOT)
     -workdir $(ProjectDir)/../
     -landscape
