@@ -974,6 +974,7 @@ public:
      */
     virtual CCRect getCascadeBoundingBox(bool convertToWorld = true);
     virtual void setCascadeBoundingBox(const CCRect &boundingBox);
+    virtual void resetCascadeBoundingBox(void);
 
     /// @{
     /// @name Actions

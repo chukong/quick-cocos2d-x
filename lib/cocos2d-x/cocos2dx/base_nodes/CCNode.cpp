@@ -599,6 +599,11 @@ void CCNode::setCascadeBoundingBox(const cocos2d::CCRect &boundingBox)
     m_cascadeBoundingBox = boundingBox;
 }
 
+void CCNode::resetCascadeBoundingBox(void)
+{
+    m_cascadeBoundingBox = CCRectZero;
+}
+
 CCNode * CCNode::create(void)
 {
 	CCNode * pRet = new CCNode();

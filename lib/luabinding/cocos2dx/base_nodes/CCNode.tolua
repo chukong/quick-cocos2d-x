@@ -725,6 +725,7 @@ class CCNode : public CCScriptEventDispatcher
      */
     CCRect getCascadeBoundingBox(bool convertToWorld = true);
     void setCascadeBoundingBox(CCRect boundingBox);
+    void resetCascadeBoundingBox(void);
 
     /// @{
     /// @name Actions
