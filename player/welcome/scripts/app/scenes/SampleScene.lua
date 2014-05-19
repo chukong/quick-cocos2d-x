@@ -4,13 +4,21 @@ local SampleScene = class("SampleScene", function()
 end)
 
 function SampleScene:ctor()
+    self.ccs = {}
+    self.ccs.TouchEventType = 
+    {
+        began = 0,
+        moved = 1,
+        ended = 2,
+        canceled = 3,
+    }
     self.samples     = require(__G__QUICK_PATH__ .. "/samples/samples.lua")
     self.sampleIndex = 1
     local bg         = CCLayerColor:create(ccc4(255, 255, 255, 255))
     self:addChild(bg)
 
     self:createLogo()
-    self:createButtons()
+    self:createPageView()
     self:createCopyright()
 end
 
@@ -20,113 +28,7 @@ function SampleScene:createLogo()
             CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_APP") 
         end)
         :align(display.LEFT_TOP, display.left + 20, display.top - 4)
-        :addTo(self)
-end
-
-function SampleScene:createButtons()
-    if self.uiLayer then
-        self:removeChild(self.uiLayer, true)
-    end
-    self.uiLayer = display.newLayer()
-    self:addChild(self.uiLayer)
-
-    local function onButtonClicked(tag)
-        self:createButtons()
-    end
-
-    local item = ui.newTTFLabelMenuItem({
-        text = "NEXT",
-        size = 20,
-        color = ccc3(255, 0, 0),
-        x = display.width - 30,
-        y = display.BOTTOM_RIGHT + 20,
-        listener = onButtonClicked,
-    })
-
-    -- 创建菜单并加入场景，否则菜单项不会工作
-    local menu = ui.newMenu({item})
-    self:addChild(menu)
-
-    
-    local originLeft = display.left + 150
-    local left = originLeft
-    local top = display.top - 150
-    
-    local vMargin = 20
-    local hMargin = 30
-
-    local imageWidth = 200
-    local imageHeight = 150
-
-    -- [[
-    local c = 1
-    local sampleCount = #self.samples
-    local maxNum = 12
-
-    for index=1,maxNum do
-
-        if self.sampleIndex > sampleCount then 
-            self.sampleIndex = 1
-            break
-        end
-
-        local sample = self.samples[self.sampleIndex]
-        self.sampleIndex = self.sampleIndex + 1
-
-
-        local title = ui.newTTFLabel({
-            text  = sample.title,
-            size  = 14,
-            color = ccc3(144, 144, 144),
-            x     = left,
-            y     = top+90,
-            align = ui.TEXT_ALIGN_CENTER,
-        })
-        self.uiLayer:addChild(title)
-
-        local description = ui.newTTFLabel({
-            text  = sample.description,
-            size  = 12,
-            color = ccc3(50, 144, 144),
-            x     = left,
-            y     = top+75,
-            align = ui.TEXT_ALIGN_CENTER
-            })
-        self.uiLayer:addChild(description)
-
-        local button = cc.ui.UIPushButton.new(sample.image or "ListSamplesButton_zh.png")
-            :onButtonClicked(function()
-                local configPath = __G__QUICK_PATH__ .. sample.path .. "/scripts/config.lua"
-                package.loaded[configPath] = nil
-                require(configPath)
-                local args = {
-                    "-workdir",
-                    __G__QUICK_PATH__ .. sample.path,
-                    "-size",
-                    CONFIG_SCREEN_WIDTH.."x"..CONFIG_SCREEN_HEIGHT,
-                    "-" .. CONFIG_SCREEN_ORIENTATION,
-                }
-                SampleScene.projectArgs = CCString:create(json.encode(args))
-                print(json.encode(args))
-                CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT_ARGS",SampleScene.projectArgs)
-            end)
-            :pos(left, top)
-            :addTo(self.uiLayer)
-
-        --
-        left = left + vMargin + imageWidth
-
-        --
-        if c >= 4 then
-            c = 0
-            left = originLeft
-            top  = top - hMargin - imageHeight
-        end
-        c = c + 1
-    end
-
-    --]]
-
+        :addTo(self, 1)
 end
 
 function SampleScene:createCopyright()
@@ -140,5 +42,111 @@ function SampleScene:createCopyright()
     })
     self:addChild(label)
 end
+
+function SampleScene:createPageView()
+
+    local originLeft  = display.left + 150
+    local left        = originLeft
+    local originTop   = display.top - 180
+    local top         = originTop
+    
+    local vMargin     = 20
+    local hMargin     = 30
+    
+    local imageWidth  = 200
+    local imageHeight = 150
+
+    local sampleCount = #self.samples
+    local maxNum      = 12
+    
+    local pageCount = math.ceil(sampleCount / maxNum)
+    local pageSize  = CCSize(display.width - 40 ,display.height - 50)
+    local pageView  = PageView:create()
+    pageView:setTouchEnabled(true)
+    pageView:setSize(pageSize)
+    pageView:setAnchorPoint(ccp(0.5,0.5))
+    pageView:setPosition(CCPoint(display.width / 2, display.height / 2))
+    
+    for pageCount = 1, pageCount do
+        local layout = Layout:create()
+        layout:setSize(pageSize)
+        
+        top = originTop
+        for i = 1, 3 do
+            for j = 1, 4 do
+                local sample = self.samples[self.sampleIndex]
+                self.sampleIndex = self.sampleIndex + 1
+
+                if sample ~= nil then
+                    layout:addChild(self:createDemoTitle(sample, left, top+90))
+                    layout:addChild(self:createDemoDescription(sample ,left ,top+70))
+                    layout:addChild(self:createDemoButton(sample, left, top))
+                else
+                    break
+                end
+                left = left + vMargin + imageWidth
+            end
+
+            left = originLeft
+            top  = top - hMargin - imageHeight
+        end
+
+        pageView:addPage(layout)
+    end 
+
+    local uiLayer = TouchGroup:create()
+    uiLayer:addWidget(pageView)
+    self:addChild(uiLayer)
+end
+
+-- helper
+
+function SampleScene:createDemoTitle(sample, x, y)
+    local title = Label:create()
+    title:setText(sample.title)
+    title:setFontSize(14)
+    title:setFontName("Monaco")
+    title:setColor(ccc3(144,144,144))
+    title:setPosition(ccp(x, y))
+    return title
+end
+
+function SampleScene:createDemoDescription(sample, x, y)
+    local description = Label:create()
+    description:setText(sample.description)
+    description:setFontSize(12)
+    description:setColor(ccc3(50,144,144))
+    description:setPosition(ccp(x, y))
+    return description
+end
+
+function SampleScene:createDemoButton(sample, x, y)
+    function onButtonClick(sender,eventType)
+        if eventType == self.ccs.TouchEventType.ended then
+            local configPath = __G__QUICK_PATH__ .. sample.path .. "/scripts/config.lua"
+            package.loaded[configPath] = nil
+            require(configPath)
+            local args = {
+                "-workdir",
+                __G__QUICK_PATH__ .. sample.path,
+                "-size",
+                CONFIG_SCREEN_WIDTH.."x"..CONFIG_SCREEN_HEIGHT,
+                "-" .. CONFIG_SCREEN_ORIENTATION,
+            }
+            self.projectArgs = CCString:create(json.encode(args))
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT_ARGS",self.projectArgs)
+        end
+    end
+
+    local demoImage = sample.image or "ListSamplesButton_zh.png"
+    local button = Button:create()
+    button:setTouchEnabled(true)
+    button:setScale9Enabled(false)
+    button:loadTextures(demoImage, demoImage, "")
+    button:setPosition(CCPoint(x, y))
+    button:addTouchEventListener(onButtonClick)
+    return button
+end
+
 
 return SampleScene
