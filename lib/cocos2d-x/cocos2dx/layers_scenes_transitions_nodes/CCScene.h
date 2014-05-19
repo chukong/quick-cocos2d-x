@@ -136,6 +136,7 @@ protected:
     CCArray *m_touchableNodes;
     CCArray *m_touchingTargets;
     bool m_touchDispatchingEnabled;
+    bool m_touchRegistered;
 
     CCTouchTargetNode *findTouchingNode(CCNode *node);
     void sortAllTouchableNodes(CCArray *nodes);

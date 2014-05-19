@@ -587,7 +587,7 @@ int CCLuaStack::lua_execute(lua_State *L, int numArgs, bool removeResult)
             CCLOG("[LUA ERROR] %s", lua_tostring(L, - 1));        /* L: ... error */
             lua_pop(L, 1); // remove error message from stack
         }
-        else                                                            /* L: ... G error */
+        else                                                      /* L: ... [G] error */
         {
             lua_pop(L, 2); // remove __G__TRACKBACK__ and error message from stack
         }
@@ -606,7 +606,7 @@ int CCLuaStack::lua_execute(lua_State *L, int numArgs, bool removeResult)
             ret = lua_toboolean(L, -1);
         }
         // remove return value from stack
-        lua_pop(L, 1);                                            /* L: ... [G] */
+        lua_pop(L, 1);                                            /* L: ... */
     }
     else
     {

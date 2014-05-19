@@ -31,10 +31,13 @@ THE SOFTWARE.
 local c = cc
 
 -- cocos2dx 引擎级事件
-c.NODE_EVENT                        = 0
-c.NODE_ENTER_FRAME_EVENT            = 1
-c.NODE_TOUCH_EVENT                  = 2
-c.NODE_TOUCH_CAPTURE_EVENT          = 3
-c.MENU_ITEM_CLICKED_EVENT           = 4
-c.ACCELERATE_EVENT                  = 5
-c.KEYPAD_EVENT                      = 6
+c.NODE_EVENT                 = 0
+c.NODE_ENTER_FRAME_EVENT     = 1
+c.NODE_TOUCH_EVENT           = 2
+c.NODE_TOUCH_CAPTURE_EVENT   = 3
+c.MENU_ITEM_CLICKED_EVENT    = 4
+c.ACCELERATE_EVENT           = 5
+c.KEYPAD_EVENT               = 6
+
+c.NODE_TOUCH_CAPTURING_PHASE = 0
+c.NODE_TOUCH_TARGETING_PHASE = 1

@@ -206,10 +206,10 @@ int CCLuaEngine::executeSchedule(int nHandler, float dt, CCNode* pNode/* = NULL*
     return ret;
 }
 
-int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch)
+int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch, int phase)
 {
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
-    if (listeners.size() == 0) return 0;
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(phase == NODE_TOUCH_CAPTURING_PHASE ? NODE_TOUCH_CAPTURE_EVENT : NODE_TOUCH_EVENT);
+    if (listeners.size() == 0) return 1;
 
     m_stack->clean();
     CCLuaValueDict event;
@@ -237,6 +237,20 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     }
 
     event["mode"] = CCLuaValue::intValue(kCCTouchesOneByOne);
+    switch (phase)
+    {
+        case NODE_TOUCH_CAPTURING_PHASE:
+            event["phase"] = CCLuaValue::stringValue("capturing");
+            break;
+
+        case NODE_TOUCH_TARGETING_PHASE:
+            event["phase"] = CCLuaValue::stringValue("targeting");
+            break;
+
+        default:
+            event["phase"] = CCLuaValue::stringValue("unknown");
+    }
+
     const CCPoint pt = CCDirector::sharedDirector()->convertToGL(pTouch->getLocationInView());
     event["x"] = CCLuaValue::floatValue(pt.x);
     event["y"] = CCLuaValue::floatValue(pt.y);
@@ -246,6 +260,7 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
 
     m_stack->pushCCLuaValueDict(event);
     CCScriptEventListenersForEventIterator it = listeners.begin();
+    int ret = 1;
     for (; it != listeners.end(); ++it)
     {
         if (eventType == CCTOUCHBEGAN)
@@ -257,11 +272,12 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
         if ((*it).enabled)
         {
             m_stack->copyValue(1);
-            int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
-            if (eventType == CCTOUCHBEGAN && ret == false)
+            int listenerRet = m_stack->executeFunctionByHandler((*it).listener, 1);
+            if (eventType == CCTOUCHBEGAN && listenerRet == 0)
             {
                 // if listener return false when touch began, disable this listener
                 (*it).enabled = false;
+                ret = 0;
             }
             m_stack->settop(1);
         }
@@ -269,13 +285,13 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
 
     m_stack->clean();
 
-    return 1;
+    return ret;
 }
 
-int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches)
+int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches, int phase)
 {
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_TOUCH_EVENT);
-    if (listeners.size() == 0) return 0;
+    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(phase == NODE_TOUCH_CAPTURING_PHASE ? NODE_TOUCH_CAPTURE_EVENT : NODE_TOUCH_EVENT);
+    if (listeners.size() == 0) return 1;
 
     m_stack->clean();
     CCLuaValueDict event;
@@ -302,9 +318,23 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
     }
 
     event["mode"] = CCLuaValue::intValue(kCCTouchesAllAtOnce);
+    switch (phase)
+    {
+        case NODE_TOUCH_CAPTURING_PHASE:
+            event["phase"] = CCLuaValue::stringValue("capturing");
+            break;
+
+        case NODE_TOUCH_TARGETING_PHASE:
+            event["phase"] = CCLuaValue::stringValue("targeting");
+            break;
+
+        default:
+            event["phase"] = CCLuaValue::stringValue("unknown");
+    }
+
     CCLuaValueDict points;
     CCDirector* pDirector = CCDirector::sharedDirector();
-    char touchId[64];
+    char touchId[16];
     for (CCSetIterator touchIt = pTouches->begin(); touchIt != pTouches->end(); ++touchIt)
     {
         CCLuaValueDict point;
@@ -327,23 +357,9 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
     CCScriptEventListenersForEventIterator it = listeners.begin();
     for (; it != listeners.end(); ++it)
     {
-        if (eventType == CCTOUCHBEGAN || eventType == CCTOUCHENDED || eventType == CCTOUCHCANCELLED)
-        {
-            (*it).enabled = true;
-        }
-        else if (!(*it).enabled)
-        {
-            continue;
-        }
         m_stack->copyValue(1);
-        int ret = m_stack->executeFunctionByHandler((*it).listener, 1);
+        m_stack->executeFunctionByHandler((*it).listener, 1);
         m_stack->settop(1);
-
-        if (ret == 0)
-        {
-            // false = ignore
-            (*it).enabled = false;
-        }
     }
 
     m_stack->clean();

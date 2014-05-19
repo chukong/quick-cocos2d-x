@@ -61,6 +61,10 @@ public:
 #define ACCELERATE_EVENT            5
 #define KEYPAD_EVENT                6
 
+#define NODE_TOUCH_CAPTURING_PHASE  0
+#define NODE_TOUCH_TARGETING_PHASE  1
+
+
 // listener handle -> listener pair
 typedef vector<CCScriptHandlePair> CCScriptEventListenersForEvent;
 typedef CCScriptEventListenersForEvent::iterator CCScriptEventListenersForEventIterator;

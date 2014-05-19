@@ -1454,12 +1454,12 @@ public:
     virtual void setTouchSwallowEnabled(bool value);
 
     virtual bool ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget);
-    virtual bool ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget);
+    virtual void ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget);
     virtual void ccTouchCaptureEnded(CCTouch *pTouch, CCNode *pTarget);
     virtual void ccTouchCaptureCancelled(CCTouch *pTouch, CCNode *pTarget);
 
-    virtual bool ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget);
-    virtual bool ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget);
+    virtual void ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget);
+    virtual void ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget);
     virtual void ccTouchesCaptureEnded(CCSet *pTouches, CCNode *pTarget);
     virtual void ccTouchesCaptureCancelled(CCSet *pTouches, CCNode *pTarget);
 
@@ -1578,9 +1578,9 @@ protected:
     int m_nTouchPriority;
     int m_eTouchMode;
     
-    virtual int executeScriptTouchHandler(int nEventType, CCTouch *pTouch);
-    virtual int executeScriptTouchHandler(int nEventType, CCSet *pTouches);
-    
+    virtual int executeScriptTouchHandler(int nEventType, CCTouch *pTouch, int phase = NODE_TOUCH_TARGETING_PHASE);
+    virtual int executeScriptTouchHandler(int nEventType, CCSet *pTouches, int phase = NODE_TOUCH_TARGETING_PHASE);
+
     friend class CCScene;
 };
 

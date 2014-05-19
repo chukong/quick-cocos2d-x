@@ -94,6 +94,7 @@ CCScene::CCScene()
 : m_touchableNodes(NULL)
 , m_touchingTargets(NULL)
 , m_touchDispatchingEnabled(false)
+, m_touchRegistered(false)
 {
     m_touchableNodes = CCArray::createWithCapacity(100);
     m_touchableNodes->retain();
@@ -169,6 +170,8 @@ void CCScene::removeTouchableNode(CCNode *node)
 
 void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
+    if (!m_touchDispatchingEnabled) return;
+
     // cleanup
     m_touchingTargets->removeAllObjects();
 
@@ -248,7 +251,7 @@ void CCScene::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
             node = dynamic_cast<CCNode*>(path->objectAtIndex(i));
             if (touchMode == kCCTouchesAllAtOnce)
             {
-                dispatchingContinue = node->ccTouchesCaptureBegan(pTouches, touchTarget->getNode());
+                node->ccTouchesCaptureBegan(pTouches, touchTarget->getNode());
             }
             else
             {
@@ -363,14 +366,16 @@ void CCScene::sortAllTouchableNodes(CCArray *nodes)
 
 void CCScene::enableTouchDispatching()
 {
-    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
-    CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
+    if (!m_touchRegistered)
+    {
+        CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this, 0);
+        m_touchRegistered = true;
+    }
     m_touchDispatchingEnabled = true;
 }
 
 void CCScene::disableTouchDispatching()
 {
-    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
     m_touchDispatchingEnabled = false;
 }
 
@@ -418,8 +423,7 @@ void CCScene::dispatchingTouchEvent(CCSet *pTouches, CCEvent *pEvent, int event)
 
         // phase: capturing
         // from parent to child
-        bool dispatchingContinue = true;
-        for (int i = path->count() - 1; dispatchingContinue && i >= 0; --i)
+        for (int i = path->count() - 1; i >= 0; --i)
         {
             node = dynamic_cast<CCNode*>(path->objectAtIndex(i));
             if (touchMode == kCCTouchesAllAtOnce)
@@ -427,7 +431,7 @@ void CCScene::dispatchingTouchEvent(CCSet *pTouches, CCEvent *pEvent, int event)
                 switch (event)
                 {
                     case CCTOUCHMOVED:
-                        dispatchingContinue = node->ccTouchesCaptureMoved(pTouches, touchTarget->getNode());
+                        node->ccTouchesCaptureMoved(pTouches, touchTarget->getNode());
                         break;
 
                     case CCTOUCHENDED:
@@ -444,7 +448,7 @@ void CCScene::dispatchingTouchEvent(CCSet *pTouches, CCEvent *pEvent, int event)
                 switch (event)
                 {
                     case CCTOUCHMOVED:
-                        dispatchingContinue = node->ccTouchCaptureMoved(touch, touchTarget->getNode());
+                        node->ccTouchCaptureMoved(touch, touchTarget->getNode());
                         break;
 
                     case CCTOUCHENDED:
@@ -456,12 +460,6 @@ void CCScene::dispatchingTouchEvent(CCSet *pTouches, CCEvent *pEvent, int event)
                         break;
                 }
             }
-        }
-
-        if (!dispatchingContinue)
-        {
-            // the target stop dispatching, try to next
-            continue;
         }
 
         // phase: targeting

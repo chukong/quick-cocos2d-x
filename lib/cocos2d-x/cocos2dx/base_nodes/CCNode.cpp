@@ -1564,52 +1564,84 @@ bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pTarget);
-    return true;
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        return executeScriptTouchHandler(CCTOUCHBEGAN, pTouch, NODE_TOUCH_CAPTURING_PHASE);
+    }
+    else
+    {
+        return true;
+    }
 }
 
-bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget)
+void CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pTarget);
-    return true;
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouch, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
 void CCNode::ccTouchCaptureEnded(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pTarget);
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHENDED, pTouch, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
 void CCNode::ccTouchCaptureCancelled(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pTarget);
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHCANCELLED, pTouch, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
-bool CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget)
+void CCNode::ccTouchesCaptureBegan(CCSet *pTouches, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pTarget);
-    return true;
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHBEGAN, pTouches, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
-bool CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget)
+void CCNode::ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pTarget);
-    return true;
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHMOVED, pTouches, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
 void CCNode::ccTouchesCaptureEnded(CCSet *pTouches, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pTarget);
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHENDED, pTouches, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
 void CCNode::ccTouchesCaptureCancelled(CCSet *pTouches, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouches);
     CC_UNUSED_PARAM(pTarget);
+    if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
+    {
+        executeScriptTouchHandler(CCTOUCHCANCELLED, pTouches, NODE_TOUCH_CAPTURING_PHASE);
+    }
 }
 
 bool CCNode::isTouchEnabled()
@@ -1736,14 +1768,14 @@ void CCNode::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
     }
 }
 
-int CCNode::executeScriptTouchHandler(int nEventType, CCTouch *pTouch)
+int CCNode::executeScriptTouchHandler(int nEventType, CCTouch *pTouch, int phase /* = NODE_TOUCH_TARGETING_PHASE */)
 {
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchEvent(this, nEventType, pTouch);
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchEvent(this, nEventType, pTouch, phase);
 }
 
-int CCNode::executeScriptTouchHandler(int nEventType, CCSet *pTouches)
+int CCNode::executeScriptTouchHandler(int nEventType, CCSet *pTouches, int phase /* = NODE_TOUCH_TARGETING_PHASE */)
 {
-    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches);
+    return CCScriptEngineManager::sharedManager()->getScriptEngine()->executeNodeTouchesEvent(this, nEventType, pTouches, phase);
 }
 
 NS_CC_END
