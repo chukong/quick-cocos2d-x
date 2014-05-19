@@ -58,7 +58,7 @@ function CCDragonBonesExtend:removeScriptListener(evtType)
 	if not self._listeners then self._listeners = {} end
 	local __listener = self._listeners[evtType]
 	if __listener then
-		self:removeScriptListener(evtType, __listener)
+		self:unregisterScriptHandler(evtType)
 		self._listeners[evtType] = nil
 	end
 	return self
