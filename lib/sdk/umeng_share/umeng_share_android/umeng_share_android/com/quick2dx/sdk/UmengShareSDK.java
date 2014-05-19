@@ -4,13 +4,14 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxLuaJavaBridge;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.RequestType;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMVideo;
 import com.umeng.socialize.media.UMusic;
@@ -18,6 +19,7 @@ import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.TencentWBSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
+import com.umeng.socialize.sso.UMWXHandler;
 
 public class UmengShareSDK {
 
@@ -43,6 +45,19 @@ public class UmengShareSDK {
         mController.getConfig().setSsoHandler(new QZoneSsoHandler(activity));
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
         mController.getConfig().setSsoHandler(new TencentWBSsoHandler());
+        mController.registerListener(new SnsPostListener() {
+
+            @Override
+            public void onComplete(SHARE_MEDIA platform, int eCode, SocializeEntity entity) {
+                onReceiverInfo("share|" + eCode + "|" + platform.name());
+            }
+
+            @Override
+            public void onStart() {
+            }
+
+        });
+
     }
 
     public static void setAppWebSite(final String shareMedia, final String webSite) {
@@ -61,6 +76,22 @@ public class UmengShareSDK {
             }
 
         });
+    }
+
+    public static void addPlatform(final String shareMedia) {
+        mContext.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                UmengShareSDK shareSDK = getInstance();
+                SHARE_MEDIA[] sm = shareSDK.str2SHAREMEDIA(shareMedia);
+                if (null == sm) {
+                    return ;
+                }
+                //TODO
+            }
+        });
+
     }
 
     public static void removePlatform(final String shareMedia) {
@@ -91,6 +122,16 @@ public class UmengShareSDK {
                     return ;
                 }
 
+                for (SHARE_MEDIA med : sm) {
+                    if (med == SHARE_MEDIA.WEIXIN) {
+                        UmengShareSDK.getInstance().addWXPlatform();
+                    } else if (med == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                        UmengShareSDK.getInstance().addWXCirclePlatform();
+                    } else if (med == SHARE_MEDIA.QQ) {
+                        UmengShareSDK.getInstance().addQQPlatform();
+                    }
+                }
+
                 shareSDK.mController.getConfig().setPlatformOrder(sm);
             }
 
@@ -111,35 +152,26 @@ public class UmengShareSDK {
         });
     }
 
-    public static void shareImg(final String text, final String img, final int imgType) {
+    public static void shareImg(final String text, final String img) {
         mContext.runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
                 getInstance().mController.setShareContent(text);
 
-                switch (imgType) {
-                    case 0: {
-                        //local resource
-                        int nRes = Integer.valueOf(img).intValue();
-                        getInstance().mController.setShareMedia(new UMImage(mContext, nRes));
-                        break;
+                UMImage image = null;
+                try {
+                    if (img.startsWith("http")) {
+                        image = new UMImage(mContext, img);
+                    } else {
+                        //image = new UMImage(mContext, BitmapFactory.decodeStream(mContext.getAssets().open(img)));
                     }
-                    case 1: {
-                        //local path
-                        getInstance().mController.setShareMedia(new UMImage(mContext,
-                                BitmapFactory.decodeFile(img)));
-                        break;
-                    }
-                    case 2: {
-                        //web url
-                        getInstance().mController.setShareMedia(new UMImage(mContext,
-                                img));
-                        break;
-                    }
-                    default: {
-                        break;
-                    }
+                } catch (Exception e) {
+                    image = null;
+                }
+
+                if (null != image) {
+                    getInstance().mController.setShareMedia(new UMImage(mContext, img));
                 }
 
                 getInstance().mController.openShare(mContext, false);
@@ -190,6 +222,30 @@ public class UmengShareSDK {
 
         });
 
+    }
+
+    private void addWXPlatform() {
+        // 添加微信平台
+        UMWXHandler wxHandler = mController.getConfig().supportWXPlatform(
+                mContext, mWxAppId, mWebUrl);
+        wxHandler.setWXTitle("QuickX集成");
+
+        // 支持微信朋友圈
+        UMWXHandler circleHandler = mController.getConfig()
+                .supportWXCirclePlatform(mContext, mWxAppId, mWebUrl);
+        circleHandler.setCircleTitle("QuickX集成");
+    }
+
+    private void addWXCirclePlatform() {
+        // 支持微信朋友圈
+        UMWXHandler circleHandler = mController.getConfig()
+                .supportWXCirclePlatform(mContext, mWxAppId, mWebUrl);
+        circleHandler.setCircleTitle("QuickX集成");
+    }
+
+    private void addQQPlatform() {
+        // 添加QQ支持, 并且设置QQ分享内容的target url
+        mController.getConfig().supportQQPlatform(mContext, false, mWebUrl);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -262,4 +318,8 @@ public class UmengShareSDK {
     private static int mListener;
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.quick2dx.sdk",
             RequestType.SOCIAL);
+
+    // mWxAppId是你在微信开发平台注册应用的AppID, 这里需要替换成你注册的AppID
+    private static String mWxAppId = "wx967daebe835fbeac";
+    private static String mWebUrl = "http://quick.cocoachina.com/";
 }

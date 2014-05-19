@@ -16,23 +16,70 @@ function ProviderIOS:setAppWebSite()
 	printInfo("cc.share.ProviderIOS not support setAppWebSite")
 end
 
-function ProviderIOS:removePlatform()
-	printInfo("cc.share.ProviderIOS not support removePlatform")
+function ProviderIOS:addPlatform(shareMedia)
+	local strMedia
+	if type(shareMedia) == "table" then
+		strMedia = table.concat(shareMedia, ",")
+	elseif type(shareMedia) == "string" then
+		strMedia = shareMedia
+	else
+		printError("cc.share.ProviderIOS:addPlatform - invalild args shareMedia")
+		return
+	end
+
+	local ok = luaoc.callStaticMethod(SDK_CLASS_NAME, "addPlatform", {shareMedias = strMedia})
+	if not ok then
+        printError("cc.share.ProviderIOS:addPlatform() - call addPlatform failed.")
+    end
 end
 
-function ProviderIOS:reorderPlatform()
-	printInfo("cc.share.ProviderIOS not support reorderPlatform")
+function ProviderIOS:removePlatform(shareMedia)
+	local strMedia
+	if type(shareMedia) == "table" then
+		strMedia = table.concat(shareMedia, ",")
+	elseif type(shareMedia) == "string" then
+		strMedia = shareMedia
+	else
+		printError("cc.share.ProviderIOS:removePlatform - invalild args shareMedia")
+		return
+	end
+
+	local ok = luaoc.callStaticMethod(SDK_CLASS_NAME, "removePlatform", {shareMedias = strMedia})
+	if not ok then
+        printError("cc.share.ProviderIOS:removePlatform() - call removePlatform failed.")
+    end
+end
+
+function ProviderIOS:reorderPlatform(shareMedia)
+	local strMedia
+	if type(shareMedia) == "table" then
+		strMedia = table.concat(shareMedia, ",")
+	elseif type(shareMedia) == "string" then
+		strMedia = shareMedia
+	else
+		printError("cc.share.ProviderIOS:reorderPlatform - invalild args shareMedia")
+		return
+	end
+
+	local ok = luaoc.callStaticMethod(SDK_CLASS_NAME, "reorderPlatform", {shareMedias = strMedia})
+	if not ok then
+        printError("cc.share.ProviderIOS:reorderPlatform() - call reorderPlatform failed.")
+    end
 end
 
 function ProviderIOS:shareText(text)
 	local ok = luaoc.callStaticMethod(SDK_CLASS_NAME, "share", {shareText = text})
 	if not ok then
-        printError("cc.share.ProviderIOS:ctor() - call shareText failed.")
+        printError("cc.share.ProviderIOS:shareText() - call shareText failed.")
     end
 end
 
-function ProviderIOS:shareImg()
-	printInfo("cc.share.ProviderIOS not support shareImg")
+function ProviderIOS:shareImg(text, img)
+	local ok = luaoc.callStaticMethod(SDK_CLASS_NAME, "share",
+		{shareText = text, shareImage = img})
+	if not ok then
+        printError("cc.share.ProviderIOS:shareImg() - call shareImg failed.")
+    end
 end
 
 function ProviderIOS:shareMusic()
