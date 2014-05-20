@@ -104,23 +104,25 @@ function ProviderAndroid:shareImg(text, img)
 end
 
 function ProviderAndroid:shareMusic(text, music, musicImg, title, author)
-    local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareMusic", {text, music, musicImg, title, author})
-    if not ok then
-        printError("cc.push.ProviderAndroid:shareMusic() - call shareMusic failed.")
-        return false
-    end
+    printInfo("cc.share.ProviderAndroid not support shareMusic")
+    -- local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareMusic", {text, music, musicImg, title, author})
+    -- if not ok then
+    --     printError("cc.push.ProviderAndroid:shareMusic() - call shareMusic failed.")
+    --     return false
+    -- end
 
-    return true
+    -- return true
 end
 
 function ProviderAndroid:shareVideo(text, video, videoImg, title)
-    local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareVideo", {text, video, videoImg, title})
-    if not ok then
-        printError("cc.push.ProviderAndroid:shareVideo() - call shareVideo failed.")
-        return false
-    end
+    printInfo("cc.share.ProviderAndroid not support shareVideo")
+    -- local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareVideo", {text, video, videoImg, title})
+    -- if not ok then
+    --     printError("cc.push.ProviderAndroid:shareVideo() - call shareVideo failed.")
+    --     return false
+    -- end
 
-    return true
+    -- return true
 end
 
 return ProviderAndroid

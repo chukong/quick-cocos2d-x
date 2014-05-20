@@ -141,6 +141,7 @@ static int functionId = 0;
     } else if (NSOrderedSame == [@"GENERIC" compare:platform]) {
         return nil;
     }
+    return nil;
 }
 
 + (void) addPlatform:(NSDictionary*)options {
@@ -174,14 +175,26 @@ static int functionId = 0;
 + (void) reorderPlatform:(NSDictionary*)options {
     NSString *strMedia = [options objectForKey:@"shareMedias"];
     NSArray* values = [strMedia componentsSeparatedByString:@","];
-    int i, count, idx;
+    int i, count, idx, orderN;
     NSString* value;
+    NSString* snsName;
     count = values.count;
+    orderN = 0;
     for (i = 0; i < count; i++)
     {
         value = values[i];
-        idx = [[UmengShareSDK getInstance] getIndex:[[UmengShareSDK getInstance] getShareSns:value]];
-        if (- 1 != idx) {
+        snsName = [[UmengShareSDK getInstance] getShareSns:value];
+        if (nil == snsName) {
+            continue;
+        }
+        idx = [[UmengShareSDK getInstance] getIndex:snsName];
+        if (- 1 == idx) {
+            //not exits so add
+            [[UmengShareSDK getInstance]->arraySns
+                                    insertObject:snsName
+                                        atIndex:i];
+        } else {
+            //exist so reorder
             [[UmengShareSDK getInstance]->arraySns exchangeObjectAtIndex:idx withObjectAtIndex:i];
         }
     }
@@ -192,7 +205,11 @@ static int functionId = 0;
     NSString *shareImage = [[options objectForKey:@"shareImage"] copy];
     UIImage *image = nil;
     if (nil != shareImage) {
-        image = [UIImage imageNamed:shareImage];
+        if(1 == [shareImage hasPrefix:@"http"]) {
+            [[UMSocialData defaultData].urlResource setResourceType:UMSocialUrlResourceTypeImage url:shareImage];
+        } else {
+            image = [UIImage imageNamed:shareImage];
+        }
     }
     
     NSArray* snsArr = nil;
