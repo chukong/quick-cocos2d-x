@@ -21,7 +21,7 @@ include(../../lib/proj.qt/quick-x-common.pri)
 macx:ICON = QuickIcon.icns
 win32:RC_ICONS = quick-x-icon.ico
 
-INCLUDEPATH += ../sources .
+INCLUDEPATH += $$PWD/../sources .
 
 LIBS += $${LINK_AGAINST_COCOS2DX}
 
@@ -36,7 +36,7 @@ SOURCES += main.cpp\
     preferenceui.cpp \
     qxjson.cpp
 
-SOURCES += ../sources/*.cpp
+SOURCES += $$PWD/../sources/*.cpp
 
 HEADERS  += \
     aboutui.h \
