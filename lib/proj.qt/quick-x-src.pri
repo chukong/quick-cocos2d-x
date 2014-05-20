@@ -47,7 +47,6 @@ $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/GL/mat4stack.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/GL/matrix.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/mat3.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/mat4.c \
-$${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/neon_matrix_impl.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/plane.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/quaternion.c \
 $${ROOT}/lib/cocos2d-x/cocos2dx/kazmath/src/ray2.c \
