@@ -95,6 +95,12 @@ void bonus(double coin, int source)
 command = bonusItem
 void bonus(const char * item, int amount, double price, int source)
 
+command = checkUpdate
+void checkUpdate()
+
+command = checkUpdateWithArgs
+void checkUpdate(const char * title, const char * cancelTitle, const char * otherTitle)
+
 
 
 友盟在http://dev.umeng.com/game/game-cocos2d/quick-start中没提到android需要ACCESS_WIFI_STATE权限，
