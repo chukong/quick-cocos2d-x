@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="10dp"
+    android:background="@android:color/transparent" >
+
+    <RelativeLayout
+        android:id="@+id/umeng_fb_list_reply_header"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/umeng_fb_reply_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/umeng_fb_reply_date_default"
+            android:textColor="#666666"
+            android:textScaleX="0.8"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/umeng_fb_reply_date"
+            android:background="#BBBBBB" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/umeng_fb_reply_date"
+            android:background="#BBBBBB" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/umeng_fb_list_reply_header" >
+
+        <TextView
+            android:id="@+id/umeng_fb_reply_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/umeng_fb_reply_right_bg"
+            android:maxWidth="200dp"
+            android:text="@string/umeng_fb_reply_content_default"
+            android:textColor="#000000"
+            android:textIsSelectable="true"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
