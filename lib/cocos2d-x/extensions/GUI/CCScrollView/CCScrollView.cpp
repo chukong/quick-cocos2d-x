@@ -587,6 +587,9 @@ void CCScrollView::visit()
 		this->draw();
     }
 
+    // reset for next frame
+    m_uOrderOfArrival = 0;
+
     this->afterDraw();
 	if ( m_pGrid && m_pGrid->isActive())
     {
