@@ -12,7 +12,7 @@ function SampleScene:ctor()
         ended = 2,
         canceled = 3,
     }
-    self.samples     = require(__G__QUICK_PATH__ .. "/samples/samples.lua")
+    self.samples     = dofile(__G__QUICK_PATH__ .. "/samples/samples.lua")
     self.sampleIndex = 1
     local bg         = CCLayerColor:create(ccc4(255, 255, 255, 255))
     self:addChild(bg)
@@ -124,8 +124,7 @@ function SampleScene:createDemoButton(sample, x, y)
     function onButtonClick(sender,eventType)
         if eventType == self.ccs.TouchEventType.ended then
             local configPath = __G__QUICK_PATH__ .. sample.path .. "/scripts/config.lua"
-            package.loaded[configPath] = nil
-            require(configPath)
+            dofile(configPath)
             local args = {
                 "-workdir",
                 __G__QUICK_PATH__ .. sample.path,
