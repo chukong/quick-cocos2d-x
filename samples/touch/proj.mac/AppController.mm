@@ -79,6 +79,7 @@ using namespace cocos2d::extra;
 
 - (void) windowWillClose:(NSNotification *)notification
 {
+    CCDirector::sharedDirector()->end();
     [[NSApplication sharedApplication] terminate:self];
 }
 
