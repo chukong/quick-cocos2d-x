@@ -6,4 +6,4 @@ function __G__TRACKBACK__(errorMessage)
     print("----------------------------------------")
 end
 
-require("app.TouchSpriteApp").new():run()
+require("app.MyApp").new():run()

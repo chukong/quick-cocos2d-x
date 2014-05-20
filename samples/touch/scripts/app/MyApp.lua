@@ -1,27 +1,26 @@
 
 require("config")
 require("framework.init")
-require("framework.shortcodes")
-require("framework.cc.init")
 
-local TouchSpriteApp = class("TouchSpriteApp", cc.mvc.AppBase)
+local MyApp = class("MyApp", cc.mvc.AppBase)
 
 local TESTS_LIST = {
+    -- "MainScene",
     "TestSingleTouch1Scene",
     "TestSingleTouch2Scene",
 }
 
-function TouchSpriteApp:run()
+function MyApp:run()
     CCFileUtils:sharedFileUtils():addSearchPath("res/")
     self:enterNextScene()
 end
 
-function TouchSpriteApp:enterScene(sceneName, ...)
+function MyApp:enterScene(sceneName, ...)
     self.currentSceneName_ = sceneName
-    TouchSpriteApp.super.enterScene(self, sceneName, ...)
+    MyApp.super.enterScene(self, sceneName, ...)
 end
 
-function TouchSpriteApp:enterNextScene()
+function MyApp:enterNextScene()
     local index = 1
     while index <= #TESTS_LIST do
         if TESTS_LIST[index] == self.currentSceneName_ then
@@ -34,13 +33,13 @@ function TouchSpriteApp:enterNextScene()
     self:enterScene(TESTS_LIST[index])
 end
 
-function TouchSpriteApp:createTitle(scene, title)
+function MyApp:createTitle(scene, title)
     cc.ui.UILabel.new({text = "-- " .. title .. " --", size = 24})
         :align(display.CENTER, display.cx, display.top - 20)
         :addTo(scene)
 end
 
-function TouchSpriteApp:createNextButton(scene)
+function MyApp:createNextButton(scene)
     cc.ui.UIPushButton.new("BlueButton.png", {scale9 = true})
         :setButtonSize(160, 60)
         :setButtonLabel(cc.ui.UILabel.new({text = "Next", size = 32}))
@@ -51,4 +50,4 @@ function TouchSpriteApp:createNextButton(scene)
         :addTo(scene)
 end
 
-return TouchSpriteApp
+return MyApp

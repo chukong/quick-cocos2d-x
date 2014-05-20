@@ -7,6 +7,8 @@ local TestSingleTouch1Scene = class("TestSingleTouch1Scene", function()
 end)
 
 function TestSingleTouch1Scene:ctor()
+    -- createTouchableSprite() 定义在 includes/functions.lua 中
+
     -- parentButton 是 button1 的父节点
     self.parentButton = createTouchableSprite({
             image = "WhiteButton.png",
@@ -17,17 +19,16 @@ function TestSingleTouch1Scene:ctor()
         :addTo(self)
     self.parentButton.name = "parentButton"
     drawBoundingBox(self, self.parentButton, cc.c4f(0, 1.0, 0, 1.0))
-
-    -- -- 启用触摸
+    -- 启用触摸
     self.parentButton:setTouchEnabled(true)
-    -- -- 添加触摸事件处理函数
+    -- 添加触摸事件处理函数
     self.parentButton:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
         -- event.name 是触摸事件的状态：began, moved, ended, cancelled
         -- event.x, event.y 是触摸点当前位置
         -- event.prevX, event.prevY 是触摸点之前的位置
         local label = string.format("parentButton: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
         self.parentButton.label:setString(label)
-        -- 返回 true 表示要继续接收该触摸事件的状态变化
+        -- 返回 true 表示要响应该触摸事件，并继续接收该触摸事件的状态变化
         return true
     end)
 
