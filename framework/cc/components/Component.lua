@@ -23,9 +23,11 @@ function Component:exportMethods_(methods)
     local target = self.target_
     local com = self
     for _, key in ipairs(methods) do
-        local m = com[key]
-        target[key] = function(__, ...)
-            return m(self, ...)
+        if not target[key] then
+            local m = com[key]
+            target[key] = function(__, ...)
+                return m(com, ...)
+            end
         end
     end
     return self
