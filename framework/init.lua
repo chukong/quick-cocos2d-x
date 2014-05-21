@@ -70,9 +70,18 @@ quick framework 初始化
 
 ]]
 
-local CURRENT_MODULE_NAME = ...
 
 if type(DEBUG) ~= "number" then DEBUG = 0 end
+if type(DEBUG_FPS) ~= "boolean" then DEBUG_FPS = false end
+if type(DEBUG_MEM) ~= "boolean" then DEBUG_MEM = false end
+if type(LOAD_SHORTCODES_API) ~= "boolean" then LOAD_SHORTCODES_API = true end
+if type(LOAD_DEPRECATED_API) ~= "boolean" then LOAD_DEPRECATED_API = false end
+if type(DISABLE_DEPRECATED_WARNING) ~= "boolean" then DISABLE_DEPRECATED_WARNING = false end
+if type(USE_DEPRECATED_EVENT_ARGUMENTS) ~= "boolean" then USE_DEPRECATED_EVENT_ARGUMENTS = false end
+
+----
+
+local CURRENT_MODULE_NAME = ...
 
 cc = cc or {}
 cc.PACKAGE_NAME = string.sub(CURRENT_MODULE_NAME, 1, -6)
@@ -104,12 +113,10 @@ end
 
 require(cc.PACKAGE_NAME .. ".cc.init")
 
-if type(LOAD_DEPRECATED_API) ~= "boolean" then LOAD_DEPRECATED_API = true end
 if LOAD_DEPRECATED_API then
     require(cc.PACKAGE_NAME .. ".deprecated")
 end
 
-if type(LOAD_SHORTCODES_API) ~= "boolean" then LOAD_SHORTCODES_API = true end
 if LOAD_SHORTCODES_API then
     require(cc.PACKAGE_NAME .. ".shortcodes")
 end
@@ -122,11 +129,11 @@ local function showMemoryUsage()
     printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
 end
 
-if DEBUG > 0 and DEBUG_FPS then
+if DEBUG_FPS then
     sharedDirector:setDisplayStats(true)
 end
 
-if DEBUG > 0 and DEBUG_MEM then
+if DEBUG_MEM then
     local sharedTextureCache = CCTextureCache:sharedTextureCache()
     local function showMemoryUsage()
         printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))

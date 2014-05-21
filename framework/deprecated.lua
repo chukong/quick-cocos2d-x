@@ -45,6 +45,7 @@ table.keyOfItem = DEPRECATED(table.keyof, "table.keyOfItem", "table.keyof")
 table.removeItem = DEPRECATED(table.removebyvalue, "table.removeItem", "table.removebyvalue")
 
 string.htmlspecialcharsDecode = DEPRECATED(string.restorehtmlspecialchars, "string.htmlspecialcharsDecode", "string.restorehtmlspecialchars")
+string.formatNumberThousands = DEPRECATED(string.formatnumberthousands, "string.formatNumberThousands", "string.formatnumberthousands")
 
 -- audio
 audio.getBackgroundMusicVolume = DEPRECATED(audio.getMusicVolume, "audio.getBackgroundMusicVolume", "audio.getMusicVolume")

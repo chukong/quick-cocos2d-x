@@ -28,7 +28,7 @@ function Component:exportMethods_(methods)
             target[key] = function(__, ...)
                 return m(self, ...)
             end
-        elseif DEBUG > 1 then
+        elseif DEBUG > 0 then
             printInfo("Component:exportMethods_() - method %s cannot set on target %s", key, tostring(target))
         end
     end

@@ -123,7 +123,13 @@ end
 local Layer = c.Layer
 
 function Layer:onTouch(listener)
-    self:addNodeEventListener(c.NODE_TOUCH_EVENT, listener)
+    if USE_DEPRECATED_EVENT_ARGUMENTS then
+        self:addNodeEventListener(c.NODE_TOUCH_EVENT, function(event)
+            return listener(event.name, event.x, event.y, event.prevX, event.prevY)
+        end)
+    else
+        self:addNodeEventListener(c.NODE_TOUCH_EVENT, listener)
+    end
     return self
 end
 
@@ -133,7 +139,13 @@ function Layer:enableTouch(enabled)
 end
 
 function Layer:onKeypad(listener)
-    self:addNodeEventListener(c.KEYPAD_EVENT, listener)
+    if USE_DEPRECATED_EVENT_ARGUMENTS then
+        self:addNodeEventListener(c.KEYPAD_EVENT, function(event)
+            return listener(event.name)
+        end)
+    else
+        self:addNodeEventListener(c.KEYPAD_EVENT, listener)
+    end
     return self
 end
 
@@ -143,7 +155,13 @@ function Layer:enableKeypad(enabled)
 end
 
 function Layer:onAccelerate(listener)
-    self:addNodeEventListener(c.ACCELERATE_EVENT, listener)
+    if USE_DEPRECATED_EVENT_ARGUMENTS then
+        self:addNodeEventListener(c.ACCELERATE_EVENT, function(event)
+            return listener(event.x, event.y, event.z, event.timestamp)
+        end)
+    else
+        self:addNodeEventListener(c.ACCELERATE_EVENT, listener)
+    end
     return self
 end
 

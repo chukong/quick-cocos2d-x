@@ -57,7 +57,9 @@ end
 
 ]]
 function PRINT_DEPRECATED(msg)
-    printf("[DEPRECATED] %s", msg)
+    if not DISABLE_DEPRECATED_WARNING then
+        printf("[DEPRECATED] %s", msg)
+    end
 end
 
 --[[--
