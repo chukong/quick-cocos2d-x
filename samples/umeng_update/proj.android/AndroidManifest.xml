@@ -15,6 +15,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 
     <application android:label="@string/app_name"
         android:icon="@drawable/icon">
@@ -29,5 +30,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <service
+            android:name="com.umeng.common.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity 
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <meta-data android:value="536b184d56240bb2cd02adbf" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="10001" android:name="UMENG_CHANNEL"/>
     </application>
 </manifest>

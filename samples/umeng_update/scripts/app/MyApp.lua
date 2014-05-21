@@ -10,6 +10,11 @@ end
 
 function MyApp:run()
     CCFileUtils:sharedFileUtils():addSearchPath("res/")
+
+    if device.platform == "android" then
+    	cc.update:start("update.UmengUpdate")
+    end
+
     self:enterScene("MainScene")
 end
 
