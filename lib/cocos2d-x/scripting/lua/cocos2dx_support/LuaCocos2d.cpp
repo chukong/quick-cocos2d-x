@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue May 20 00:16:13 2014.
+** Generated automatically by tolua++-1.0.92 on Wed May 21 12:57:16 2014.
 */
 
 /****************************************************************************
@@ -21506,20 +21506,18 @@ static int tolua_Cocos2d_CCNode_getCascadeBoundingBox00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCNode",0,&tolua_err) ||
-     !tolua_isboolean(tolua_S,2,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCNode* self = (CCNode*)  tolua_tousertype(tolua_S,1,0);
-  bool convertToWorld = ((bool)  tolua_toboolean(tolua_S,2,true));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getCascadeBoundingBox'", NULL);
 #endif
   {
-   CCRect tolua_ret = (CCRect)  self->getCascadeBoundingBox(convertToWorld);
+   CCRect tolua_ret = (CCRect)  self->getCascadeBoundingBox();
    {
 #ifdef __cplusplus
     void* tolua_obj = Mtolua_new((CCRect)(tolua_ret));

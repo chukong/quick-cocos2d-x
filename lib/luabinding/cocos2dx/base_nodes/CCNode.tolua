@@ -723,7 +723,7 @@ class CCNode : public CCScriptEventDispatcher
     /**
      * This boundingBox will calculate all children's boundingBox every time
      */
-    CCRect getCascadeBoundingBox(bool convertToWorld = true);
+    CCRect getCascadeBoundingBox(void);
     void setCascadeBoundingBox(CCRect boundingBox);
     void resetCascadeBoundingBox(void);
 
