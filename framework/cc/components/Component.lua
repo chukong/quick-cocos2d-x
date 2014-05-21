@@ -23,13 +23,9 @@ function Component:exportMethods_(methods)
     local target = self.target_
     local com = self
     for _, key in ipairs(methods) do
-        if not target[key] then
-            local m = com[key]
-            target[key] = function(__, ...)
-                return m(self, ...)
-            end
-        elseif DEBUG > 0 then
-            printInfo("Component:exportMethods_() - method %s cannot set on target %s", key, tostring(target))
+        local m = com[key]
+        target[key] = function(__, ...)
+            return m(self, ...)
         end
     end
     return self
