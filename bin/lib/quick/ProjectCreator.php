@@ -166,7 +166,7 @@ class ProjectCreator
             }
             else if ($this->config['onlyproj'])
             {
-                if (substr($sourceFilename, 0, 5) != 'proj.' && substr($sourceFilename, 0, 8) != 'sources/')
+                if (substr($sourceFilename, 0, 5) != 'proj.' && substr($sourceFilename, 0, 8) != 'sources/' && substr($sourceFilename, 0, 10) != 'run-mac.sh' )
                 {
                     continue;
                 }
