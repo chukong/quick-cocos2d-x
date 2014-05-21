@@ -50,7 +50,7 @@ static AppDelegate s_sharedApplication;
                                    multiSampling: NO
                                  numberOfSamples: 0];
     // Enable multi-touches
-    // [__glView setMultipleTouchEnabled:YES];
+    [__glView setMultipleTouchEnabled:YES];
 
     // Use RootViewController manage EAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
