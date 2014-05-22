@@ -6,9 +6,17 @@ end)
 function MainScene:ctor()
     if device.platform == "android" or device.platform == "ios" then
         self:show()
+
+        self:checkUpdateIf()
     else
         self:showNotSupport()
     end
+end
+
+function MainScene:checkUpdateIf()
+    cc.analytics:doCommand{command = "checkUpdate"}
+    -- cc.analytics:doCommand{command = "checkUpdateWithArgs",
+    --     args = {title = "这是标题", cancelTitle = "取消", otherTitle = "更新"}}
 end
 
 function MainScene:showNotSupport()
