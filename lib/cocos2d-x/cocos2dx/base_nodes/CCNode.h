@@ -1455,7 +1455,7 @@ public:
     virtual void setTouchSwallowEnabled(bool value);
 
     virtual bool ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget);
-    virtual void ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget);
+    virtual bool ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget);
     virtual void ccTouchCaptureEnded(CCTouch *pTouch, CCNode *pTarget);
     virtual void ccTouchCaptureCancelled(CCTouch *pTouch, CCNode *pTarget);
 
