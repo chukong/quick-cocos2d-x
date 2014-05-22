@@ -11,14 +11,19 @@
 #import "PBADRequest.h"
 #import "PBRequestError.h"
 
+typedef NS_ENUM(unsigned int, PBMoreGameStatus) {
+    PBMoreGameStatus_Hide,
+    PBMoreGameStatus_Showing,
+    PBMoreGameStatus_Show,
+    PBMoreGameStatus_Hiding,
+};
+
 @protocol PBMoreGameDelegate;
 
 @interface PBMoreGame : NSObject
 
-// 是否准备好
-@property (nonatomic, readonly) BOOL isReady;
-// 支持的方向
-@property (nonatomic, assign) PBOrientationSupported orientationSupported;
+// 精品推荐当前状态
+@property (nonatomic, readonly) PBMoreGameStatus status;
 // 释放PBMoreGame前，必须将delegate设置为nil。
 @property (nonatomic, assign) id <PBMoreGameDelegate> delegate;
 
@@ -36,20 +41,16 @@
  *	@brief	显示精品推荐
  *
  *	@param 	scale 	显示比例
- *
- *	@return	是否能展现出来
  */
-- (BOOL)showMoreGameWithScale:(CGFloat)scale;
+- (void)showMoreGameWithScale:(CGFloat)scale;
 
 /**
  *	@brief	显示精品推荐
  *
  *	@param 	rootView 	精品推荐的父视图
  *	@param 	scale 	显示比例
- *
- *	@return	是否能展现出来
  */
-- (BOOL)showMoreGameOnRootView:(UIView *)rootView withScale:(CGFloat)scale;
+- (void)showMoreGameOnRootView:(UIView *)rootView withScale:(CGFloat)scale;
 
 
 /**

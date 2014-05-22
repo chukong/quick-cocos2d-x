@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, PBRequestErrorCode) {
+typedef NS_ENUM(unsigned int, PBRequestErrorCode) {
     // 1000~1999 为服务器端错误
     PBRequestErrorCode_Success,
     PBRequestErrorCode_NoServices = 1000,    // 服务未开启
@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, PBRequestErrorCode) {
     PBRequestErrorCode_FrequentRequest,      // 频繁的请求
     PBRequestErrorCode_RegionSwitchClosed,   // 地域开关关闭
     PBRequestErrorCode_Cheat = 1015,         // 作弊
+    PBRequestErrorCode_NoCoin = 1030,        // 未得到积分
     // 2000~2999为SDK错误码
     PBRequestErrorCode_NetError = 2001,      // 网络错误
     PBRequestErrorCode_NoData,               // 服务器返回内容为空
