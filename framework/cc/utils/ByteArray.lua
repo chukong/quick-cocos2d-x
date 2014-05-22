@@ -245,6 +245,8 @@ function ByteArray:writeLuaNumber(__number)
 	return self
 end
 
+--- The differently about (read/write)StringBytes and (read/write)String 
+-- are use pack libraty or not.
 function ByteArray:readStringBytes(__len)
 	assert(__len, "Need a length of the string!")
 	if __len == 0 then return "" end
@@ -259,18 +261,11 @@ function ByteArray:writeStringBytes(__string)
 	return self
 end
 
---- DO NOT use this method, it's inefficient.
--- Alternatively use readStringBytes.
 function ByteArray:readString(__len)
 	assert(__len, "Need a length of the string!")
 	if __len == 0 then return "" end
 	self:_checkAvailable()
-	local __bytes = ""
-	for i=self._pos, #self._buf do
-		local __byte = string.byte(self._buf[i])
-		__bytes = __bytes .. string.char(__byte)
-	end
-	return __bytes
+	return self:readBuf(__len)
 end
 
 function ByteArray:writeString(__string)
@@ -390,7 +385,7 @@ function ByteArray:writeRawByte(__rawByte)
 			self._buf[i] = string.char(0)
 		end
 	end
-	self._buf[self._pos] = __rawByte
+	self._buf[self._pos] = string.sub(__rawByte, 1,1)
 	self._pos = self._pos + 1
 	return self
 end
