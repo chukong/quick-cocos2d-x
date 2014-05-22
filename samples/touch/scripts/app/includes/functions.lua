@@ -57,7 +57,7 @@ function createSimpleButton(imageName, name, movable, listener)
 end
 
 function drawBoundingBox(parent, target, color)
-    local cbb = target:getCascadeBoundingBox(true)
+    local cbb = target:getCascadeBoundingBox()
     local left, bottom, width, height = cbb.origin.x, cbb.origin.y, cbb.size.width, cbb.size.height
     local points = {
         {left, bottom},

@@ -1409,3 +1409,29 @@ function string.utf8len(input)
     end
     return cnt
 end
+
+--[[--
+
+将数值格式化为包含千分位分隔符的字符串
+
+~~~ lua
+
+print(string.formatnumberthousands(1924235))
+-- 输出 1,924,235
+
+~~~
+
+@param number num 数值
+
+@return string 格式化结果
+
+]]
+function string.formatnumberthousands(num)
+    local formatted = tostring(tonum(num))
+    local k
+    while true do
+        formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+        if k == 0 then break end
+    end
+    return formatted
+end

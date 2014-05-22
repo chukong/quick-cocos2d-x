@@ -548,7 +548,7 @@ CCRect CCNode::boundingBox()
     return CCRectApplyAffineTransform(rect, nodeToParentTransform());
 }
 
-CCRect CCNode::getCascadeBoundingBox(bool convertToWorld /* = true */)
+CCRect CCNode::getCascadeBoundingBox(void)
 {
     CCRect cbb;
     if (m_cascadeBoundingBox.size.width > 0 && m_cascadeBoundingBox.size.height > 0)
@@ -560,38 +560,43 @@ CCRect CCNode::getCascadeBoundingBox(bool convertToWorld /* = true */)
     {
         // check all childrens bounding box, get maximize box
         CCObject *object = NULL;
-        CCNode* children = NULL;
+        CCNode* child = NULL;
         bool merge = false;
         CCARRAY_FOREACH(m_pChildren, object)
         {
-            children = dynamic_cast<CCNode*>(object);
-            if (!children->isVisible()) continue;
+            child = dynamic_cast<CCNode*>(object);
+            if (!child->isVisible()) continue;
+
+            const CCRect box = child->getCascadeBoundingBox();
+            if (box.size.width <= 0 || box.size.height <= 0) continue;
+
             if (!merge)
             {
-                cbb = children->getCascadeBoundingBox(false);
+                cbb = box;
                 merge = true;
             }
             else
             {
-                cbb.merge(dynamic_cast<CCNode*>(object)->getCascadeBoundingBox(false));
+                cbb.merge(box);
             }
         }
 
         // merge content size
         if (m_obContentSize.width > 0 && m_obContentSize.height > 0)
         {
+            const CCRect box = CCRectApplyAffineTransform(CCRect(0, 0, m_obContentSize.width, m_obContentSize.height), nodeToWorldTransform());
             if (!merge)
             {
-                cbb = CCRect(0, 0, m_obContentSize.width, m_obContentSize.height);
+                cbb = box;
             }
             else
             {
-                cbb.merge(CCRect(0, 0, m_obContentSize.width, m_obContentSize.height));
+                cbb.merge(box);
             }
         }
     }
 
-    return CCRectApplyAffineTransform(cbb, convertToWorld ? nodeToWorldTransform() : nodeToParentTransform());
+    return cbb;
 }
 
 void CCNode::setCascadeBoundingBox(const cocos2d::CCRect &boundingBox)

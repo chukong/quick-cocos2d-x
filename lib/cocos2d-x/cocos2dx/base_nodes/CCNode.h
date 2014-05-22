@@ -972,7 +972,7 @@ public:
     /**
      * This boundingBox will calculate all children's boundingBox every time
      */
-    virtual CCRect getCascadeBoundingBox(bool convertToWorld = true);
+    virtual CCRect getCascadeBoundingBox(void);
     virtual void setCascadeBoundingBox(const CCRect &boundingBox);
     virtual void resetCascadeBoundingBox(void);
 

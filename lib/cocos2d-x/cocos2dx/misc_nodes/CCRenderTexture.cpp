@@ -550,8 +550,6 @@ void CCRenderTexture::visit()
     }
 	
 	kmGLPopMatrix();
-
-    m_uOrderOfArrival = 0;
 }
 
 void CCRenderTexture::draw()

@@ -16,6 +16,13 @@ function EventProtocol:addEventListener(eventName, listener, tag)
         self.listeners_[eventName] = {}
     end
 
+    local ttag = type(tag)
+    if ttag == "table" or ttag == "userdata" then
+        PRINT_DEPRECATED("EventProtocol:addEventListener(eventName, listener, target) is deprecated, please use EventProtocol:addEventListener(eventName, handler(target, listener), tag)")
+        listener = handler(tag, listener)
+        tag = ""
+    end
+
     self.nextListenerHandleIndex_ = self.nextListenerHandleIndex_ + 1
     local handle = tostring(self.nextListenerHandleIndex_)
     tag = tag or ""

@@ -26,10 +26,8 @@ function Component:exportMethods_(methods)
         if not target[key] then
             local m = com[key]
             target[key] = function(__, ...)
-                return m(self, ...)
+                return m(com, ...)
             end
-        elseif DEBUG > 1 then
-            printInfo("Component:exportMethods_() - method %s cannot set on target %s", key, tostring(target))
         end
     end
     return self
