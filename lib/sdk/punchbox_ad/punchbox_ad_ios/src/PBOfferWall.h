@@ -11,20 +11,36 @@
 #import "PBADRequest.h"
 #import "PBRequestError.h"
 
+typedef NS_ENUM(unsigned int, PBOfferWallStatus) {
+    PBOfferWallStatus_Hide,
+    PBOfferWallStatus_Showing,
+    PBOfferWallStatus_Show,
+    PBOfferWallStatus_Hiding,
+};
+
 @protocol PBOfferWallDelegate;
 
 @interface PBOfferWall : NSObject
 
-// 是否准备好
-@property (nonatomic, readonly) BOOL isReady;
-
-// 支持的方向
-@property (nonatomic, assign) PBOrientationSupported orientationSupported;
+// 积分墙当前状态
+@property (nonatomic, readonly) PBOfferWallStatus status;
 // 释放PBOfferWall前，必须将delegate设置为nil。
 @property (nonatomic, assign) id <PBOfferWallDelegate> delegate;
 
 // 积分墙只有一个
 + (PBOfferWall *)sharedOfferWall;
+
+/**
+ *	@brief	查询积分
+ *
+ *  注意：queryResult为空时，必须先设置delegate并实现相关协议方法
+ *
+ *	@param 	taskCoins 	taskCoins中的元素为NSDictionary类型（taskCoins为空表示无积分返回，为nil表示查询出错）
+ *                            键值说明：taskContent  NSString   任务名称
+ *                                    coins        NSNumber    赚得金币数量
+ *	@param 	error 	taskCoins为nil时有效，查询失败原因
+ */
+- (void)queryRewardCoin:(void (^)(NSArray *taskCoins, PBRequestError *error))queryResult;
 
 /**
  *	@brief	加载积分墙数据
@@ -37,20 +53,16 @@
  *	@brief	显示积分墙
  *
  *	@param 	scale 	显示比例
- *
- *	@return	是否能展现出来
  */
-- (BOOL)showOfferWallWithScale:(CGFloat)scale;
+- (void)showOfferWallWithScale:(CGFloat)scale;
 
 /**
  *	@brief	显示积分墙
  *
  *	@param 	rootView 	积分墙的父视图
  *	@param 	scale 	显示比例
- *
- *	@return	是否能展现出来
  */
-- (BOOL)showOfferWallOnRootView:(UIView *)rootView withScale:(CGFloat)scale;
+- (void)showOfferWallOnRootView:(UIView *)rootView withScale:(CGFloat)scale;
 
 
 /**
@@ -63,11 +75,17 @@
 
 @protocol PBOfferWallDelegate <NSObject>
 
-// 用户完成积分墙任务的回调，给用户充值
-// taskCoins中的元素为NSDictionary类型
-//     键值说明：taskContent  NSString   任务名称
-//             coins  NSNumber  赚得金币数量x
-- (void)pbOfferWall:(PBOfferWall *)pbOfferWall finishTaskRewardCoin:(NSArray *)taskCoins;
+/**
+ *	@brief	用户完成积分墙任务的回调
+ *
+ *	@param 	pbOfferWall 	pbOfferWall
+ *	@param 	taskCoins 	taskCoins中的元素为NSDictionary类型（taskCoins为空表示无积分返回，为nil表示查询出错）
+ *                            键值说明：taskContent  NSString   任务名称
+ *                                    coins        NSNumber    赚得金币数量
+ *	@param 	error 	taskCoins为nil时有效，查询失败原因
+ */
+- (void)pbOfferWall:(PBOfferWall *)pbOfferWall queryResult:(NSArray *)taskCoins
+          withError:(PBRequestError *)error;
 
 @optional
 
