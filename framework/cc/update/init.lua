@@ -18,10 +18,16 @@ local DEFAULT_PROVIDER_OBJECT_NAME = "update.default"
 
 function update:ctor()
     cc(self):addComponent("components.behavior.EventProtocol"):exportMethods()
+    self.events = import(".events", CURRENT_MODULE_NAME)
+    self.errors = import(".errors", CURRENT_MODULE_NAME)
     self.providers_ = {}
 end
 
 function update:start(name)
+    if not name then
+        return
+    end
+
     if not self.providers_[name] then
         local providerFactoryClass = cc.Registry.newObject(name)
         local provider = providerFactoryClass.getInstance(self)

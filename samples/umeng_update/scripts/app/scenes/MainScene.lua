@@ -73,8 +73,8 @@ end
 
 function MainScene:onEnter()
 	if device.platform == "android" then
-		-- cc.update:doCommand{command = "update"}
-		cc.update:doCommand{command = "silentUpdate"}
+		cc.update:doCommand{command = "update"}
+		-- cc.update:doCommand{command = "silentUpdate"}
 	end
 end
 

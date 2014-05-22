@@ -3,9 +3,8 @@ local CURRENT_MODULE_NAME = ...
 
 local UmengUpdate = class("UmengUpdate")
 
-function UmengUpdate:getInstance(interface)
+function UmengUpdate.getInstance(interface)
 	local providerClass
-
 	if device.platform == "android" then
 		providerClass = import(".umengupdate.ProviderAndroid", CURRENT_MODULE_NAME)
 	else

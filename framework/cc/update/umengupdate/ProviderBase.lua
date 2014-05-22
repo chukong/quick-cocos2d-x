@@ -8,7 +8,7 @@ function ProviderBase:ctor(interface)
 end
 
 function ProviderBase:callback_(event)
-	local typeName, status, dlStatus, file = string.split(event, "|")
+	local typeName, status, dlStatus, file = unpack(string.split(event, "|"))
 	local evt = {}
 	evt.type = typeName
 	if status == "haveUpdate" then
