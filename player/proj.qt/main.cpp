@@ -10,15 +10,28 @@
 
 int main(int argc, char *argv[])
 {
+    //
+    // save the argv first
+    // crash sometimes on OSX
+    //
+    std::vector<std::string> args;
+    for (int i = 1; i < argc; i++)
+    {
+        args.push_back(argv[i]);
+    }
 
     AppDelegate app(argc, argv);
     MsgHandlerWapper::instance();
     Player *player = Player::instance();
     player->initConsole();
 
-    // set quick root path from env
+
+    // mac: ~/Library/Preferences/com.com-cocoachina-quick.quick-cocos2d-x player.plist
+    // win: regedit
     qApp->setOrganizationDomain("com.cocoachina.quick");
     qApp->setApplicationName("quick-cocos2d-x player");
+
+    // set quick root path from env
     QString quickCocos2dxRoot = player->getQuickRootPathFromSystem();
     if (!quickCocos2dxRoot.isEmpty())
     {
@@ -38,12 +51,6 @@ int main(int argc, char *argv[])
     app.setOpenRecents(recentArray);
 
     ProjectConfig projectConfig;
-    // parse argv
-    std::vector<std::string> args;
-    for (int i = 1; i < argc; i++)
-    {
-        args.push_back(argv[i]);
-    }
     projectConfig.parseCommandLine(args);
     projectConfig.dump();
 
