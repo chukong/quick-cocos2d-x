@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
     view->setFrameZoomFactor(scale);
 
     player->initMainMenu();
+    player->setProjectConfig(projectConfig);
     player->makeMainWindow(view->getGLWidget(), player->getMenuBar());
     player->enterBackgroundDelegate.bind(&app, &AppDelegate::applicationDidEnterBackground);
     player->enterForegroundDelegate.bind(&app, &AppDelegate::applicationWillEnterForeground);
@@ -112,9 +113,6 @@ int main(int argc, char *argv[])
         qApp->setFont(font);
     }
 #endif
-
-    // menu
-    player->setProjectConfig(projectConfig);
 
     player->restoreSetting();
     int ret = app.run();
