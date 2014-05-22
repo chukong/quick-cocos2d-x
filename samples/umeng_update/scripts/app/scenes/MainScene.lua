@@ -12,10 +12,10 @@ function MainScene:ctor()
 end
 
 function MainScene:showView()
-	-- cc.ui.UILabel.new({text = "UmengUpdate demo", size = 48, align = cc.ui.TEXT_ALIGN_CENTER})
- --        :pos(display.cx, display.top - 70*1)
- --        :align(display.CENTER)
- --        :addTo(self)
+	cc.ui.UILabel.new({text = "UmengUpdate demo v1.0", size = 48, align = cc.ui.TEXT_ALIGN_CENTER})
+        :pos(display.cx, display.top - 70*1)
+        :align(display.CENTER)
+        :addTo(self)
 
 	cc.ui.UIPushButton.new("Button01.png", {scale9 = true})
 		:setButtonLabel(cc.ui.UILabel.new({text = "update", size = 22, color = display.COLOR_BLACK}))
