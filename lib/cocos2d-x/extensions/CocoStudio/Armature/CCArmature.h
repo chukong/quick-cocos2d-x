@@ -209,6 +209,13 @@ protected:
 #elif ENABLE_PHYSICS_CHIPMUNK_DETECT
     CC_PROPERTY(cpBody *, m_pBody, Body);
 #endif
+protected:
+    //参考以前zrong的回调方法，实现的骨骼动画播放回调
+	void onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId);
+	int m_nScriptMovementHandler;
+public:
+	void connectMovementEventSignal(int nHandler);
+	void disconnectMovementEventSignal();
 };
 
 NS_CC_EXT_END
