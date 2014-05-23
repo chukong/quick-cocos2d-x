@@ -12,6 +12,9 @@
 
 @protocol PBBannerViewDelegate;
 
+#define PBBannerSize_iPhone   CGSizeMake(320.0f, 50.0f)
+#define PBBannerSize_iPad     CGSizeMake(728.0f, 90.0f)
+
 // iPhone 和 iPod Touch Banner广告大小。目前只有一种 320x50.
 // iPad Banner广告大小。目前只有一种 728x90.
 @interface PBBannerView : UIView

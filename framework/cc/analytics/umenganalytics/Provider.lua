@@ -53,7 +53,7 @@ function Provider:doCommand(args)
         MobClickCppForLua:endLogPageView(args.args.pageName)
     elseif args.command == "checkUpdate" then
         MobClickCppForLua:checkUpdate()
-    elseif args.command == "checkUpdate" then
+    elseif args.command == "checkUpdateWithArgs" then
         MobClickCppForLua:checkUpdate(args.args.title, args.args.cancelTitle, args.args.otherTitle)
     elseif args.command == "setUpdateOnlyWifi" then
         MobClickCppForLua:setUpdateOnlyWifi(args.args.updateOnlyWifi)

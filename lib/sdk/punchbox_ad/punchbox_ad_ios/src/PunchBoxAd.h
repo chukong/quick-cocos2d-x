@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "PBADRequest.h"
+#import "PBRequestError.h"
+#import "PBBannerView.h"
+#import "PBInterstitial.h"
+#import "PBMoreGame.h"
+#import "PBOfferWall.h"
+#import "PBOfferWallData.h"
 
 
-// 该类是为开发者提供的展示Banner、精品推荐、弹出广告的快捷调用
+#define SDK_Version  @"4.2.1"
+
+
+// 该类是为开发者提供的展示Banner、精品推荐、弹出广告的快捷调用，即一句代码展现广告
 @interface PunchBoxAd : NSObject
 
 /**
@@ -21,6 +30,13 @@
  *	@param 	publisherID 	publisherID
  */
 + (void)startSession:(NSString *)publisherID;
+
+/**
+ *	@brief	用于积分墙广告，开发者设置自己的用户系统信息，长度限制64（不建议使用中文符号）
+ *
+ *	@param 	userInfo 	用户信息，可设置用户ID等信息
+ */
++ (void)setUserInfo:(NSString *)userInfo;
 
 /**
  *	@brief	获取SDK版本号
@@ -36,7 +52,7 @@
  *	@brief	快捷显示Banner广告
  *
  *	@param 	superView 	父视图
- *	@param 	position 	Banner显示位置
+ *	@param 	position 	Banner左上角所在位置
  */
 + (void)showBannerViewOn:(UIView *)superView atPosition:(CGPoint)position;
 
@@ -52,20 +68,16 @@
  *	@brief	快捷显示弹出广告
  *
  *	@param 	scale 	图片显示比例
- *	@param 	orientationSupported 	支持的方向
  */
-+ (void)showInterstitialWithScale:(CGFloat)scale
-          andOrientationSupported:(PBOrientationSupported)orientationSupported;
++ (void)showInterstitialWithScale:(CGFloat)scale;
 
 /**
  *	@brief	快捷显示弹出广告
  *
  *	@param 	rootView 	弹出广告的父视图
  *	@param 	scale 	图片显示比例
- *	@param 	orientationSupported 	支持的方向
  */
-+ (void)showInterstitialOnRootView:(UIView *)rootView withScale:(CGFloat)scale
-           andOrientationSupported:(PBOrientationSupported)orientationSupported;
++ (void)showInterstitialOnRootView:(UIView *)rootView withScale:(CGFloat)scale;
 
 /**
  *	@brief	关闭弹出广告
@@ -76,30 +88,6 @@
 #pragma mark - 精品推荐
 
 /**
- *	@brief	快捷显示精品推荐
- *
- *	@param 	scale 	精品推荐显示比例
- *	@param 	orientationSupported 	支持的方向
- */
-+ (void)showMoreGameWithScale:(CGFloat)scale
-      andOrientationSupported:(PBOrientationSupported)orientationSupported;
-
-/**
- *	@brief	快捷显示精品推荐
- *
- *	@param 	rootView 	精品推荐的父视图
- *	@param 	scale 	精品推荐显示比例
- *	@param 	orientationSupported 	支持的方向
- */
-+ (void)showMoreGameOnRootView:(UIView *)rootView withScale:(CGFloat)scale
-       andOrientationSupported:(PBOrientationSupported)orientationSupported;
-
-/**
- *	@brief	关闭精品推荐
- */
-+ (void)closeMoreGame;
-
-/**
  *	@brief	显示精品推荐动画按钮
  *
  *	@param 	frameButton 	按钮位置。默认按钮尺寸：iPhone为55，iPad为110
@@ -107,12 +95,9 @@
  *	@param 	showBadge 	是否显示徽章
  *	@param 	animationImages 	按钮的帧图片
  *	@param 	duration 	帧间隔时间
- *	@param 	target 	按钮响应的target
- *	@param 	action 	按钮响应的action
  */
 + (void)showMoreGameButton:(CGRect)frameButton andBadge:(BOOL)showBadge onView:(UIView *)superViewButton
-       withAnimationImages:(NSArray *)animationImages duration:(NSTimeInterval)duration
-                 andTarget:(id)target action:(SEL)action;
+       withAnimationImages:(NSArray *)animationImages duration:(NSTimeInterval)duration;
 
 /**
  *	@brief	移除精品推荐动画按钮

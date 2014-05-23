@@ -4,11 +4,12 @@ local MainScene = class("MainScene", function()
 end)
 
 function MainScene:ctor()
-    if "ios" == device.platform or "android" == device.platform then
-        self:showView()
-    else
-        self:showNotSupport()
-    end
+    -- if "ios" == device.platform or "android" == device.platform then
+    --     self:showView()
+    -- else
+    --     self:showNotSupport()
+    -- end
+    self:showView()
 end
 
 function MainScene:showView()
@@ -61,7 +62,6 @@ function MainScene:showView()
 
     -- use EventProxy, ensure remove the listener when leave current the scene
     cc.share:addEventListener(cc.share.events.LISTENER, function(event)
-        dump(cc.share.errors, "share.errors")
         printInfo("suc:" .. cc.share.errors.SUCCESS)
         if cc.share.errors.SUCCESS == tonumber(event.code) then
             printInfo("share success to " .. event.shareSns)
