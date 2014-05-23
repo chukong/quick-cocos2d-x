@@ -35,6 +35,8 @@ THE SOFTWARE.
 #include "chipmunk.h"
 #endif
 
+//zrong 2013-11-07 for lua export
+#include "CCLuaEngine.h"
 
 NS_CC_EXT_BEGIN
 
@@ -835,6 +837,46 @@ cpShape *CCArmature::getShapeList()
     }
 }
 #endif
+
+//zrong 2013-12-12 export to lua
+void CCArmature::onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId)
+{
+    ccScriptType m_eScriptType = CCScriptEngineManager::sharedManager()->getScriptEngine()->getScriptType();
+	LUALOG("[LUA] kScriptTypeNone:%d, m_eScriptType:%d, m_nScriptMovementHandler:%d", kScriptTypeNone, m_eScriptType, m_nScriptMovementHandler);
+	if (kScriptTypeNone != m_eScriptType && m_nScriptMovementHandler)
+	{
+		CCLuaEngine* __luaEngine = dynamic_cast<CCLuaEngine*>(CCScriptEngineManager::sharedManager()->getScriptEngine());
+		if(__luaEngine)
+		{
+			CCArray* __param = CCArray::create();
+			__param->addObject(CCInteger::create(evtType));
+			__param->addObject(CCString::create(movId));
+			__luaEngine->executeEventWithArgs(m_nScriptMovementHandler, __param);
+		}
+	}
+}
+
+//zrong 2013-12-12 export to lua
+void CCArmature::connectMovementEventSignal(int nHandler)
+{
+	disconnectMovementEventSignal();
+	m_nScriptMovementHandler = nHandler;
+	
+	m_pAnimation->setMovementEventCallFunc(this, movementEvent_selector(CCArmature::onMovementEvent));
+	LUALOG("[LUA] Add CCArmature script movement handler: %d", m_nScriptMovementHandler);
+}
+
+//zrong 2013-12-12 export to luas
+void CCArmature::disconnectMovementEventSignal()
+{
+	if(m_nScriptMovementHandler)
+	{
+		m_pAnimation->setMovementEventCallFunc(NULL, NULL);
+		CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptMovementHandler);
+        LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
+	}
+	m_nScriptMovementHandler = NULL;
+}
 
 
 NS_CC_EXT_END
