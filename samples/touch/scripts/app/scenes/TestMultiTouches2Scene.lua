@@ -1,11 +1,11 @@
 
 import("..includes.functions")
 
-local TestSingleTouch2Scene = class("TestSingleTouch2Scene", function()
-    return display.newScene("TestSingleTouch2Scene")
+local TestMultiTouches2Scene = class("TestMultiTouches2Scene", function()
+    return display.newScene("TestMultiTouches2Scene")
 end)
 
-function TestSingleTouch2Scene:ctor()
+function TestMultiTouches2Scene:ctor()
     -- parentButton 是 button1 的父节点
     self.parentButton = createTouchableSprite({
             image = "WhiteButton.png",
@@ -17,8 +17,9 @@ function TestSingleTouch2Scene:ctor()
     self.parentButton.name = "parentButton"
     drawBoundingBox(self, self.parentButton, cc.c4f(0, 1.0, 0, 1.0))
     self.parentButton:setTouchEnabled(true)
+    self.parentButton:setTouchMode(cc.TOUCH_MODE_ALL_AT_ONCE) -- 多点
     self.parentButton:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        local label = string.format("parentButton: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
+        local label = string.format("parentButton: %s", event.name)
         self.parentButton.label:setString(label)
         return true
     end)
@@ -36,9 +37,10 @@ function TestSingleTouch2Scene:ctor()
     drawBoundingBox(self, self.button1, cc.c4f(1.0, 0, 0, 1.0))
 
     self.button1:setTouchEnabled(true)
+    self.button1:setTouchMode(cc.TOUCH_MODE_ALL_AT_ONCE) -- 多点
     self.button1:setTouchSwallowEnabled(true) -- 是否吞噬事件，默认值为 true
     self.button1:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        local label = string.format("button1: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
+        local label = string.format("button1: %s", event.name)
         self.button1.label:setString(label)
         return true
     end)
@@ -56,9 +58,10 @@ function TestSingleTouch2Scene:ctor()
     drawBoundingBox(self, self.button2, cc.c4f(0, 0, 1.0, 1.0))
 
     self.button2:setTouchEnabled(true)
+    self.button2:setTouchMode(cc.TOUCH_MODE_ALL_AT_ONCE) -- 多点
     self.button2:setTouchSwallowEnabled(false) -- 当不吞噬事件时，触摸事件会从上层对象往下层对象传递，称为“穿透”
     self.button2:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        local label = string.format("button1: %s x,y: %0.2f, %0.2f", event.name, event.x, event.y)
+        local label = string.format("button1: %s", event.name)
         self.button2.label:setString(label)
         return true
     end)
@@ -92,7 +95,7 @@ function TestSingleTouch2Scene:ctor()
     --
 
     app:createNextButton(self)
-    app:createTitle(self, "单点触摸测试 - 事件穿透和事件捕获")
+    app:createTitle(self, "多点触摸测试 - 事件穿透和事件捕获")
 end
 
-return TestSingleTouch2Scene
+return TestMultiTouches2Scene

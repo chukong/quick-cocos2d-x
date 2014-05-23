@@ -890,7 +890,7 @@ polygon:setClose(true) -- 将第一个点和最后一个点相连
 function display.newPolygon(points, scale)
     if type(scale) ~= "number" then scale = 1 end
     local arr = CCPointArray:create(#points)
-    local cpp = cc.p
+    local ccp = cc.p
     for i, p in ipairs(points) do
         p = ccp(p[1] * scale, p[2] * scale)
         arr:add(p)

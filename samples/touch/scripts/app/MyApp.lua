@@ -5,9 +5,12 @@ require("framework.init")
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
 local TESTS_LIST = {
-    -- "MainScene",
     "TestSingleTouch1Scene",
     "TestSingleTouch2Scene",
+    "TestSingleTouch3Scene",
+    "TestSingleTouch4Scene",
+    "TestMultiTouches1Scene",
+    "TestMultiTouches2Scene",
 }
 
 function MyApp:run()
