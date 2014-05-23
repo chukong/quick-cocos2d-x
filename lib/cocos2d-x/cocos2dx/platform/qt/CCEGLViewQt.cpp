@@ -710,8 +710,8 @@ void CCEGLView::setScissorInPoints(float x , float y , float w , float h)
 {
     glScissor((GLint)(x * m_fScaleX * m_fFrameZoomFactor + m_obViewPortRect.origin.x * m_fFrameZoomFactor),
               (GLint)(y * m_fScaleY * m_fFrameZoomFactor + m_obViewPortRect.origin.y * m_fFrameZoomFactor),
-              (GLsizei)(w * m_fScaleX * m_fFrameZoomFactor),
-              (GLsizei)(h * m_fScaleY * m_fFrameZoomFactor));
+              (GLsizei)(w * m_fScaleX * m_fFrameZoomFactor * qApp->devicePixelRatio()),
+              (GLsizei)(h * m_fScaleY * m_fFrameZoomFactor * qApp->devicePixelRatio()));
 }
 
 CCEGLView* CCEGLView::sharedOpenGLView()
