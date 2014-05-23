@@ -29,13 +29,13 @@ public:
 
 public Q_SLOTS:
     void dealWithMessageOutput(QtMsgType /*type*/, const QString &msg);
+    void onLogClear();
 
 protected:
     void closeEvent(QCloseEvent *);
     void showEvent(QShowEvent *);
 
 private Q_SLOTS:
-    void onLogClear();
     void onAllwaysTop(bool checked);
     void onOpenLogFile();
     void appendMsg(const QString &msg);

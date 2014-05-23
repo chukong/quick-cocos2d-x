@@ -273,16 +273,24 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
         {
             m_stack->copyValue(1);
             int listenerRet = m_stack->executeFunctionByHandler((*it).listener, 1);
-            if (eventType == CCTOUCHBEGAN && listenerRet == 0)
+            if (listenerRet == 0)
             {
-                // if listener return false when touch began, disable this listener
-                (*it).enabled = false;
-                ret = 0;
+                if (phase == NODE_TOUCH_CAPTURING_PHASE && (eventType == CCTOUCHBEGAN || eventType == CCTOUCHMOVED))
+                {
+                    ret = 0;
+                }
+                else if (phase == NODE_TOUCH_TARGETING_PHASE && eventType == CCTOUCHBEGAN)
+                {
+                    // if listener return false when touch began, disable this listener
+                    (*it).enabled = false;
+                    ret = 0;
+                }
             }
             m_stack->settop(1);
         }
     }
 
+    //CCLOG("executeNodeTouchEvent %p, ret = %d, event = %d, phase = %d", pNode, ret, eventType, phase);
     m_stack->clean();
 
     return ret;

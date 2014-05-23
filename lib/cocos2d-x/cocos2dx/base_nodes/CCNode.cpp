@@ -1584,13 +1584,17 @@ bool CCNode::ccTouchCaptureBegan(CCTouch *pTouch, CCNode *pTarget)
     }
 }
 
-void CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget)
+bool CCNode::ccTouchCaptureMoved(CCTouch *pTouch, CCNode *pTarget)
 {
     CC_UNUSED_PARAM(pTouch);
     CC_UNUSED_PARAM(pTarget);
     if (hasScriptEventListener(NODE_TOUCH_CAPTURE_EVENT))
     {
-        executeScriptTouchHandler(CCTOUCHMOVED, pTouch, NODE_TOUCH_CAPTURING_PHASE);
+        return executeScriptTouchHandler(CCTOUCHMOVED, pTouch, NODE_TOUCH_CAPTURING_PHASE);
+    }
+    else
+    {
+        return true;
     }
 }
 
