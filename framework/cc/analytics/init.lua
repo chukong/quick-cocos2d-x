@@ -55,7 +55,7 @@ args {
 function analytics:doCommand(args)
     local provider = self:getProvider(args.providerName)
     if provider then
-        provider:doCommand(args)
+        return provider:doCommand(args)
     end
 end
 

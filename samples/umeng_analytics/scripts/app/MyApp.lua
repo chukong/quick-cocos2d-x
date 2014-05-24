@@ -25,6 +25,7 @@ function MyApp:run()
     	cc.analytics:doCommand{command = "startWithAppkey",
     			args = {appKey = "5369de0b56240b5363019991"}}
     end
+    cc.analytics:doCommand{command = "updateOnlineConfig"}
 
     self:enterScene("MainScene")
 end

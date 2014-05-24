@@ -99,8 +99,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 //    //android版的应用id
 //    MobClickCpp::startWithAppkey("536b184d56240bb2cd02adbf");
 //#endif
-
-    MobClickCpp::updateOnlineConfig();
+//
+//    MobClickCpp::updateOnlineConfig();
     
     return true;
 }
