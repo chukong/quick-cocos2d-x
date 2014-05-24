@@ -18,6 +18,14 @@ function MyApp:run()
         cc.analytics:start("analytics.UmengAnalytics")
     end
 
+    if device.platform == "android" then
+    	cc.analytics:doCommand{command = "startWithAppkey",
+    			args = {appKey = "536b184d56240bb2cd02adbf"}}
+    elseif device.platform == "ios" then
+    	cc.analytics:doCommand{command = "startWithAppkey",
+    			args = {appKey = "5369de0b56240b5363019991"}}
+    end
+
     self:enterScene("MainScene")
 end
 
