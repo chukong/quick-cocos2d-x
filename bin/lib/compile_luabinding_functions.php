@@ -239,9 +239,15 @@ EOT;
 
         foreach ($this->rules_ as $find => $replace)
         {
-            $find = str_replace('##LUABINDING_FILENAME##', $this->outputFilename_, $find);
-            $replace = str_replace('##LUABINDING_FILENAME##', $this->outputFilename_, $replace);
-            $contents = str_replace($find, $replace, $contents);
+        		$find = str_replace("\r", '', $find);
+						$find = str_replace('##LUABINDING_FILENAME##', $this->outputFilename_, $find);
+						$replace = str_replace("\r", '', $replace);
+						$replace = str_replace('##LUABINDING_FILENAME##', $this->outputFilename_, $replace);
+						$contents = str_replace($find, $replace, $contents);
+
+            //$find = str_replace('##LUABINDING_FILENAME##', $this->outputFilename_, $find);
+            //$replace = str_replace('##LUABINDING_FILENAME##', $this->outputFilename_, $replace);
+            //$contents = str_replace($find, $replace, $contents);
         }
 
         // $contents = preg_replace('/tolua_usertype\(tolua_S,"(\w+)"\);/', 'tolua_usertype(tolua_S,"\1"); toluafix_add_type_mapping(typeid(\1).hash_code(), "\1");', $contents);
