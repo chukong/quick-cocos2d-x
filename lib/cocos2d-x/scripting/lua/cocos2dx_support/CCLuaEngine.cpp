@@ -126,6 +126,7 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
             return 0;
     }
 
+    m_stack->clean();
     m_stack->pushCCLuaValueDict(event);
     CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_EVENT);
     CCScriptEventListenersForEventIterator it = listeners.begin();

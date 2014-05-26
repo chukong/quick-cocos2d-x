@@ -72,8 +72,12 @@ function Node:onCleanup()
 end
 
 function Node:setNodeEventEnabled(enabled, listener)
-    local handle
     if enabled then
+        if self.__node_event_handle__ then
+            self:removeNodeEventListener(self.__node_event_handle__)
+            self.__node_event_handle__ = nil
+        end
+
         if not listener then
             listener = function(event)
                 local name = event.name
@@ -90,9 +94,10 @@ function Node:setNodeEventEnabled(enabled, listener)
                 end
             end
         end
-        handle = self:addNodeEventListener(c.NODE_EVENT, listener)
-    else
-        self:removeNodeEventListener(handle)
+        self.__node_event_handle__ = self:addNodeEventListener(c.NODE_EVENT, listener)
+    elseif self.__node_event_handle__ then
+        self:removeNodeEventListener(self.__node_event_handle__)
+        self.__node_event_handle__ = nil
     end
     return self
 end
