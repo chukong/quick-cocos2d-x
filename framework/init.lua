@@ -104,6 +104,7 @@ ui         = require(cc.PACKAGE_NAME .. ".ui")
 network    = require(cc.PACKAGE_NAME .. ".network")
 crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 json       = require(cc.PACKAGE_NAME .. ".json")
+filter     = require(cc.PACKAGE_NAME .. ".filter")
 
 if device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")
