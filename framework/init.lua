@@ -34,19 +34,31 @@ quick framework 初始化
 
 -   DEBUG: 设置框架的调试输出级别
 
-    0: 不输出任何调试信息（默认值）
-    1: 输出基本的调试信息
-    >1: 输出详细的调试信息
+    ```lua
+    DEBUG = 0           -- 不输出任何调试信息（默认值）
+    DEBUG = 1           -- 输出基本的调试信息
+    DEBUG = 2           -- 输出详细的调试信息
+    ```
 
 -   DEBUG_FPS: 设置是否在画面中显示渲染帧率等信息
 
-    false: 不显示（默认值）
-    true: 显示
+    ```lua
+    DEBUG_FPS = false   -- 不显示（默认值）
+    DEBUG_FPS = true    -- 显示
+    ```
 
 -   DEBUG_MEM: 设置是否输出内存占用信息
 
-    false: 不输出（默认值）
-    true: 每 10 秒输出一次
+    ```lua
+    DEBUG_MEM = false   -- 不输出（默认值）
+    DEBUG_MEM = true    -- 每 10 秒输出一次
+    ```
+
+-   LOAD_DEPRECATED_API: 是否载入过时的 API 定义，默认为 false
+
+-   DISABLE_DEPRECATED_WARNING: 使用过时的 API 时是否显示警告信息，默认为 true
+
+-   USE_DEPRECATED_EVENT_ARGUMENTS: 是否使用过时的 Node 事件参数格式，默认为 false
 
 <br />
 
@@ -60,6 +72,7 @@ quick framework 初始化
 -   device: 针对设备接口的扩展
 -   transition: 与动作相关的接口
 -   display: 创建场景、图像、动画的接口
+-   filter: 具备过滤器渲染的 Sprite 接口
 -   audio: 音乐和音效的接口
 -   network: 网络相关的接口
 -   crypto: 加密相关的接口
@@ -99,12 +112,12 @@ printInfo("#")
 device     = require(cc.PACKAGE_NAME .. ".device")
 transition = require(cc.PACKAGE_NAME .. ".transition")
 display    = require(cc.PACKAGE_NAME .. ".display")
+filter     = require(cc.PACKAGE_NAME .. ".filter")
 audio      = require(cc.PACKAGE_NAME .. ".audio")
 ui         = require(cc.PACKAGE_NAME .. ".ui")
 network    = require(cc.PACKAGE_NAME .. ".network")
 crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 json       = require(cc.PACKAGE_NAME .. ".json")
-filter     = require(cc.PACKAGE_NAME .. ".filter")
 
 if device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")
@@ -126,9 +139,6 @@ end
 
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
 local sharedDirector = CCDirector:sharedDirector()
-local function showMemoryUsage()
-    printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
-end
 
 if DEBUG_FPS then
     sharedDirector:setDisplayStats(true)
@@ -136,6 +146,9 @@ end
 
 if DEBUG_MEM then
     local sharedTextureCache = CCTextureCache:sharedTextureCache()
+    --[[--
+    @ignore
+    ]]
     local function showMemoryUsage()
         printInfo(string.format("LUA VM MEMORY USED: %0.2f KB", collectgarbage("count")))
         sharedTextureCache:dumpCachedTextureInfo()
