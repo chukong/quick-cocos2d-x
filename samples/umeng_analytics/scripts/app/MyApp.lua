@@ -10,6 +10,14 @@ function MyApp:ctor()
     MyApp.super.ctor(self)
 end
 
+function MyApp:onEnterBackground()
+    cc.analytics:doCommand{command = "applicationDidEnterBackground"}
+end
+
+function MyApp:onEnterForeground()
+    cc.analytics:doCommand{command = "applicationWillEnterForeground"}
+end
+
 function MyApp:run()
     CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
@@ -18,6 +26,7 @@ function MyApp:run()
         cc.analytics:start("analytics.UmengAnalytics")
     end
 
+    -- 改为真实的应用ID，第二参数为渠道号(可选)
     if device.platform == "android" then
     	cc.analytics:doCommand{command = "startWithAppkey",
     			args = {appKey = "536b184d56240bb2cd02adbf"}}

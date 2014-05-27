@@ -43,15 +43,9 @@ $(QUICK_COCOS2DX_ROOT)/lib/sdk/umeng_analytics/include中的
 	5. 修改游戏中主activity，见样例中的Umeng_analytics
 
 ### android,ios都有 ###
-	1. 在
-	AppDelegate::applicationDidFinishLaunching
-	AppDelegate::applicationDidEnterBackground
-	AppDelegate::applicationWillEnterForeground
-	调用MobClickCpp对应的函数
+	1. AppDelegate::applicationDidFinishLaunching中还需要调用luaopen_MobClickCppForLua_luabinding函数
 
-	2. AppDelegate::applicationDidFinishLaunching中还需要调用luaopen_MobClickCppForLua_luabinding函数
-
-	3. 在lua中调用cc.analytics:doCommand函数可间接调到MobClickCpp中提供的函数
+	2. 在lua中调用cc.analytics:doCommand函数可间接调到MobClickCpp中提供的函数
 
 	例如
 
