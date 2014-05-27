@@ -152,6 +152,8 @@ private Q_SLOTS:
 
     void onLogin(QString userName, QString password);
 
+    void onClearLog();
+
     void sendMessageToLua(QString eventId, QString eventData);
 
 private:

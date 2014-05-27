@@ -24,7 +24,7 @@ void ProjectConfig::resetToWelcome(void)
     setFrameScale(1.0f);
     setLoadPrecompiledFramework(true);
     setPackagePath("");
-    setShowConsole(false);
+    setShowConsole(true);
     setWindowOffset(CCPointZero);
     setWriteDebugLogToFile(false);
 }

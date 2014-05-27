@@ -76,7 +76,9 @@ enum {
     ShortCut_SCALE_50   = Qt::CTRL + Qt::Key_5,
     ShortCut_SCALE_25   = Qt::CTRL + Qt::Key_4,
 
-    ShortCut_SNAPSHOT   = Qt::CTRL + Qt::Key_S
+    ShortCut_SNAPSHOT   = Qt::CTRL + Qt::Key_S,
+
+    ShortCut_CLEAR_LOG  = Qt::CTRL + Qt::Key_K
 };
 
 struct ScaleActionData
@@ -490,6 +492,11 @@ void Player::initMainMenu()
     moreMenu->addAction(tr("About"), this, SLOT(on_actionAbout_triggered()));
     moreMenu->addAction(tr("open.cocoachina.com"), this, SLOT(onShowOpenCocoaChinaWebView()));
     moreMenu->addAction(tr("show console"), this, SLOT(onShowConsole()));
+
+    QAction *clearLogAct = moreMenu->addAction(tr("clear console"));
+    connect(clearLogAct, SIGNAL(triggered()), this, SLOT(onClearLog()));
+    clearLogAct->setShortcut(ShortCut_CLEAR_LOG);
+
     moreMenu->addAction(tr("Login Test"), this, SLOT(onShowLoginUI()));
 
     m_mainMenu->show();
@@ -508,7 +515,6 @@ void Player::makeMainWindow(QWidget *w, QMenuBar *bar)
 {
 #ifdef Q_OS_MAC
     Q_UNUSED(bar);
-
     if (w)
     {
         w->show();
@@ -1204,6 +1210,14 @@ void Player::onLogin(QString userName, QString password)
     data["pwd"] = password;
 
     sendMessageToLua("core.login", QxTools::variantToString(data));
+}
+
+void Player::onClearLog()
+{
+    if (m_consoleUI)
+    {
+        m_consoleUI->onLogClear();
+    }
 }
 
 void Player::sendMessageToLua(QString eventId, QString eventData)

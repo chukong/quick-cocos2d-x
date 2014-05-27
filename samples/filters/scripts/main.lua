@@ -6,9 +6,5 @@ function __G__TRACKBACK__(errorMessage)
     print("----------------------------------------")
 end
 
-package.path = package.path
-	 .. ";d:/cocos2dx/quick/?.lua"
-	 --.. ";/Users/Team1201/cocos2dx/quick/?.lua"
-
 require("game")
 game.startup()
