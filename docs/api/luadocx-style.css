@@ -278,17 +278,17 @@ table.function_list {
 
 table.function_list td {
     padding: 0.5em;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     line-height: 1.5em;
 }
 
 
 table.function_list tr:first-child td {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
 }
 
 table.function_list tr:last-child td {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
 }
 
 table.function_list td:first-child {
@@ -299,14 +299,22 @@ table.function_list td:last-child {
     border: 1px solid #ccc;
 }
 
+table.function_list { width: 90%; }
+table.function_list td.name {
+    background-color: #fff;
+    min-width: 200px;
+    border-bottom: none !important;
+}
+table.function_list td.summary {
+    width: 100%;
+    background-color: #fff;
+    border-top: none !important;
+}
 
-table.function_list td.name { background-color: #f0f0f0; ; min-width: 200px; }
-table.function_list td.summary { width: 100%; }
-
-dl.table dt, dl.function dt {border-top: 1px solid #ccc; padding-top: 1em; margin-top: 20px;}
-dl.table dd, dl.function dd {padding-bottom: 1em; margin: 10px 0 0 20px;}
-dl.table h3, dl.function h3 {font-size: 1.2em;}
-dd.member_method, dt.member_method {padding-left: 1em;}
+dl.table dt, dl.function dt { padding-top: 1em; margin-top: 20px; }
+dl.table dd, dl.function dd { padding-bottom: 1em; margin: 10px 0 0 20px; }
+dl.table h3, dl.function h3 { font-size: 1.2em; }
+dd.member_method, dt.member_method { padding-left: 1em; }
 
 table {
     margin: 1em 2em 2em 1em;
@@ -325,11 +333,9 @@ th {
 
 td {
     line-height: 1.2em;
-    border: 1px solid #eee;
 }
 
 tr {
-    border-top: 1px solid #eee;
 }
 
 tr:first-child td {
