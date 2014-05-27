@@ -89,18 +89,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCLOG("LOAD LUA FILE: %s", path.c_str());
     CCLOG("------------------------------------------------");
     pEngine->executeScriptFile(path.c_str());
-
-    //for umeng analytics
-//    #warning 改为真实的应用ID，第二参数为渠道号(可选)
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-//    //ios版的应用id
-//    MobClickCpp::startWithAppkey("5369de0b56240b5363019991");
-//#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-//    //android版的应用id
-//    MobClickCpp::startWithAppkey("536b184d56240bb2cd02adbf");
-//#endif
-//
-//    MobClickCpp::updateOnlineConfig();
     
     return true;
 }
@@ -108,8 +96,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground()
 {
-    MobClickCpp::applicationDidEnterBackground();
-    
     CCDirector::sharedDirector()->stopAnimation();
     CCDirector::sharedDirector()->pause();
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
@@ -120,8 +106,6 @@ void AppDelegate::applicationDidEnterBackground()
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
-    MobClickCpp::applicationWillEnterForeground();
-    
     CCDirector::sharedDirector()->startAnimation();
     CCDirector::sharedDirector()->resume();
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
