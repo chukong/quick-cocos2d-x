@@ -26,9 +26,11 @@ THE SOFTWARE.
 
 与显示图像、场景有关的功能
 
+<br />
+
 display 模块封装了绝大部分与显示有关的功能，并负责根据 config.lua 中定义的分辨率设定计算屏幕的设计分辨率。
 
-关于设计分辨率，请参考 自适应多种分辨率 。
+<br />
 
 框架初始化后，display 模块提供下列属性：
 
@@ -51,6 +53,8 @@ display 模块封装了绝大部分与显示有关的功能，并负责根据 co
 -   display.c_top,
 -   display.c_right,
 -   display.c_bottom 当父对象在屏幕中央时，屏幕四边的坐标
+
+<br />
 
 颜色：
 
