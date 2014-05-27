@@ -1006,7 +1006,7 @@ end
 ]]
 function table.walk(t, fn)
     for k,v in pairs(t) do
-        fun(v, k)
+        fn(v, k)
     end
 end
 
