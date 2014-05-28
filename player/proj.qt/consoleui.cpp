@@ -58,6 +58,11 @@ void ConsoleUI::showEvent(QShowEvent *e)
     if (!ui) {
         ui = new Ui::ConsoleUI;
         ui->setupUi(this);
+#ifdef Q_OS_WIN
+        QFont font("Consolas");
+        font.setPixelSize(12);
+        ui->textBrowser->setFont(font);
+#endif
         if (!m_logFile.fileName().isEmpty())
         {
             setWindowTitle(m_logFile.fileName());
