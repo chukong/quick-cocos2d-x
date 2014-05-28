@@ -1006,7 +1006,7 @@ end
 ]]
 function table.walk(t, fn)
     for k,v in pairs(t) do
-        fun(v, k)
+        fn(v, k)
     end
 end
 
@@ -1427,7 +1427,7 @@ print(string.formatnumberthousands(1924235))
 
 ]]
 function string.formatnumberthousands(num)
-    local formatted = tostring(tonum(num))
+    local formatted = tostring(checknumber(num))
     local k
     while true do
         formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')

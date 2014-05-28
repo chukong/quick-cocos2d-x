@@ -51,20 +51,12 @@ int main(int argc, char *argv[])
     app.setOpenRecents(recentArray);
 
     ProjectConfig projectConfig;
+    projectConfig.resetToWelcome();
     projectConfig.parseCommandLine(args);
     projectConfig.dump();
 
     const string projectDir = projectConfig.getProjectDir();
-    // show the welcome UI as default
-    if (projectDir.length() <= 0)
-    {
-        projectConfig.resetToWelcome();
-    }
-    else
-    {
-        CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
-    }
-
+    CCFileUtils::sharedFileUtils()->setSearchRootPath(projectDir.c_str());
     CCFileUtils::sharedFileUtils()->setWritablePath(projectConfig.getWritableRealPath().data());
     CCFileUtils::sharedFileUtils()->setCachePath(projectConfig.getWritableRealPath().data());
 
