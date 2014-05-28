@@ -21,6 +21,9 @@ CreateProjectUI::~CreateProjectUI()
 
 void CreateProjectUI::onSelectFolder()
 {
+	CCDirector *pDirector = CCDirector::sharedDirector();
+	pDirector->stopAnimation();
+
     QFileDialog::Options dialogOptions = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
 #ifdef Q_OS_MAC
     // https://bugreports.qt-project.org/browse/QTBUG-2587
@@ -36,6 +39,8 @@ void CreateProjectUI::onSelectFolder()
     {
         ui->projectPath->setText(folderPath);
     }
+
+	pDirector->startAnimation();
 }
 
 void CreateProjectUI::onOk()

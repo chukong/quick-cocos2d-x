@@ -86,6 +86,10 @@ void ProjectConfigUI::accept()
 
 void ProjectConfigUI::on_projectDirButton_clicked()
 {
+	//stop render
+	CCDirector *pDirector = CCDirector::sharedDirector();
+	pDirector->stopAnimation();
+
     QString dir = qApp->applicationDirPath();
     if (m_projectConfig.getProjectDir().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getProjectDir().data());
@@ -104,10 +108,15 @@ void ProjectConfigUI::on_projectDirButton_clicked()
         m_projectConfig.setProjectDir(dir.toLocal8Bit().constData());
         setDataForUI(m_projectConfig);
     }
+
+	pDirector->startAnimation();
 }
 
 void ProjectConfigUI::on_scriptFileNameButton_clicked()
 {
+	CCDirector *pDirector = CCDirector::sharedDirector();
+	pDirector->stopAnimation();
+
     QString dir = qApp->applicationDirPath();
     if (m_projectConfig.getWritablePath().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getWritablePath().data());
@@ -121,10 +130,15 @@ void ProjectConfigUI::on_scriptFileNameButton_clicked()
         m_projectConfig.setScriptFile(luaFile.toLocal8Bit().constData());
         setDataForUI(m_projectConfig);
     }
+	
+	pDirector->startAnimation();
 }
 
 void ProjectConfigUI::on_writeablePathButton_clicked()
 {
+	CCDirector *pDirector = CCDirector::sharedDirector();
+	pDirector->stopAnimation();
+
     QString dir = qApp->applicationDirPath();
     if (m_projectConfig.getWritablePath().length() > 0)
         dir = QString::fromLocal8Bit(m_projectConfig.getWritablePath().data());
@@ -143,6 +157,7 @@ void ProjectConfigUI::on_writeablePathButton_clicked()
         m_projectConfig.setWritablePath(dir.toLocal8Bit().constData());
         setDataForUI(m_projectConfig);
     }
+	pDirector->startAnimation();
 }
 
 void ProjectConfigUI::on_screenSizeComboBox_activated(int index)
