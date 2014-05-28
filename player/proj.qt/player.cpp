@@ -435,7 +435,10 @@ void Player::initMainMenu()
 
     playerMenu->addAction(tr("Create Launcher"), this, SLOT(onCreateLauncher()))->setEnabled(false);
 
-    playerMenu->addAction(tr("Auto Connect Debugger"), this, SLOT(onAutoConnectDebugger()))->setCheckable(true);
+    m_autoConnectDebugger = playerMenu->addAction(tr("Auto Connect Debugger"));
+    m_autoConnectDebugger->setCheckable(true);
+    m_autoConnectDebugger->setChecked(setting.value(kAutoDebugger).toBool());
+    connect(m_autoConnectDebugger, SIGNAL(triggered(bool)), this, SLOT(onAutoConnectDebugger(bool)));
 
     playerMenu->addSeparator();
     QMenu *buildMenu = playerMenu->addMenu(tr("Build"));
@@ -726,6 +729,16 @@ void Player::applySettingAndRestart()
     QStringList args;
 
     m_projectConfig.setWindowOffset(CCPoint(m_playerPosition.x(), m_playerPosition.y()));
+
+    if (m_autoConnectDebugger->isChecked())
+    {
+        m_projectConfig.setDebuggerType(kCCLuaDebuggerLDT);
+    }
+    else
+    {
+        m_projectConfig.setDebuggerType(kCCLuaDebuggerNone);
+    }
+
     QString cmd(m_projectConfig.makeCommandLine().data());
     args = cmd.split(" ");
     qApp->setProperty(RESTART_ARGS, args);
@@ -906,27 +919,6 @@ void Player::on_actionRelaunch_triggered()
 void Player::on_actionOpen_triggered()
 {
     this->on_actionConfig_triggered();
-    return ;
-
-    // old
-    QString dir = qApp->applicationDirPath();
-    if (m_projectConfig.getProjectDir().length() > 0)
-        dir = QString::fromLocal8Bit(m_projectConfig.getProjectDir().data());
-
-    QFileDialog::Options dialogOptions = QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks;
-#ifdef Q_OS_MAC
-    // https://bugreports.qt-project.org/browse/QTBUG-2587
-    #if (QT_VERSION <= QT_VERSION_CHECK(5, 2, 0))
-        dialogOptions |= QFileDialog::DontUseNativeDialog;
-    #endif
-#endif
-    dir = QFileDialog::getExistingDirectory(0, tr("Open Directory"), dir, dialogOptions);
-
-    if (!dir.isEmpty())
-    {
-        m_projectConfig.setProjectDir(dir.toLocal8Bit().constData());
-        this->applySettingAndRestart();
-    }
 }
 
 void Player::onScreenSizeTriggered()
@@ -1133,9 +1125,11 @@ void Player::onCreateLauncher()
 
 }
 
-void Player::onAutoConnectDebugger()
+void Player::onAutoConnectDebugger(bool checked)
 {
-
+    QSettings settings;
+    settings.setValue(kAutoDebugger, checked);
+    settings.sync();
 }
 
 void Player::onBuildIOS()
