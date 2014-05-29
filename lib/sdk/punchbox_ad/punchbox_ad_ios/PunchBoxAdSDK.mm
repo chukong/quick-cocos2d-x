@@ -300,4 +300,18 @@ loadAdFailureWithError:(PBRequestError *)requestError
     //[PunchBoxAdSDK callListener:@"rewardcoin"];
 }
 
+/**
+ *	@brief	用户完成积分墙任务的回调
+ *
+ *	@param 	pbOfferWall 	pbOfferWall
+ *	@param 	taskCoins 	taskCoins中的元素为NSDictionary类型（taskCoins为空表示无积分返回，为nil表示查询出错）
+ *                            键值说明：taskContent  NSString   任务名称
+ *                                    coins        NSNumber    赚得金币数量
+ *	@param 	error 	taskCoins为nil时有效，查询失败原因
+ */
+- (void)pbOfferWall:(PBOfferWall *)pbOfferWall queryResult:(NSArray *)taskCoins
+          withError:(PBRequestError *)error {
+    
+}
+
 @end
