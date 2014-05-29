@@ -11,6 +11,8 @@
 #define ENV_KEY_QUICK_ROOT_PATH "QUICK_COCOS2DX_ROOT"
 #define kOpenRecentFiles        "recents"
 #define kRecentItemTitle        "title"
+#define kAutoDebugger           "autoDebugger"
+#define kAutoWriteLog           "autoWriteLog"
 
 class QTextBrowser;
 class ConsoleUI;
@@ -94,7 +96,7 @@ public Q_SLOTS:
     void onOpenDebugLog(bool);
     void onUploadToDevice();
     void onCreateLauncher();
-    void onAutoConnectDebugger();
+    void onAutoConnectDebugger(bool checked);
     void onBuildIOS();
     void onBuildAndroid();
     void onShowProjectSandBox();
@@ -166,6 +168,7 @@ private:
     QList<QAction*> m_recentFileActionList;
     QAction         *m_landscapeAction, *m_portraitAction;
     QAction         *m_writeDebugAction;
+    QAction         *m_autoConnectDebugger;
 
     ConsoleUI       *m_consoleUI;
     ProjectConfigUI *m_projectConfigUI;

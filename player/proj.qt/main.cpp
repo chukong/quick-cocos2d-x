@@ -52,6 +52,12 @@ int main(int argc, char *argv[])
 
     ProjectConfig projectConfig;
     projectConfig.resetToWelcome();
+
+    if (settings.value(kAutoDebugger).toBool())
+    {
+        projectConfig.setDebuggerType(kCCLuaDebuggerLDT);
+    }
+
     projectConfig.parseCommandLine(args);
     projectConfig.dump();
 
