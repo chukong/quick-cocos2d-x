@@ -228,7 +228,7 @@ display.TEXTURES_PIXEL_FORMAT = {}
 
 指定场景名称方便调试。
 
-@param string 场景名称
+@param string name 场景名称
 
 @return CCScene 场景对象
 
@@ -619,11 +619,12 @@ end
 
 create a tiled CCSpriteBatchNode, the image can not a POT file.
 
-@param filename As same a the first parameter for display.newSprite
-@param plistFile Texture(plist) image filename, filename must be a part of the texture.
-@param size The tiled node size, use cc.size create it please.
-@param hPadding Horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
-@param vPadding Vertical padding.
+@param mixed filename As same a the first parameter for display.newSprite
+@param string plistFile Texture(plist) image filename, filename must be a part of the texture.
+@param CCSize size The tiled node size, use cc.size create it please.
+@param integer hPadding Horizontal padding, it will display 1 px gap on moving the node, set padding for fix it.
+@param integer vPadding Vertical padding.
+
 @return A CCSpriteBatchNode
 
 ]]
@@ -692,14 +693,17 @@ end
 
 Create a Filtered Sprite
 
-@param filename As same a the first parameter for display.newSprite
-@param filters One of the following:
-		A CCFilter name;
-		More CCFilter names(in a table);
-		An instance of CCFilter;
-		Some instances of CCFilter(in a table);
-		A CCArray inclueds some instances of CCFilter.
-@param params A or some parameters for CCFilter.
+@param mixed filename As same a the first parameter for display.newSprite
+@param mixed filters One of the following:
+
+- A CCFilter name;
+- More CCFilter names(in a table);
+- An instance of CCFilter;
+- Some instances of CCFilter(in a table);
+- A CCArray inclueds some instances of CCFilter.
+
+@param table params A or some parameters for CCFilter.
+
 @return An instance of CCFilteredSprite
 
 ]]
@@ -745,8 +749,9 @@ end
 
 Create a Gray Sprite by CCFilteredSprite
 
-@param filename As same a the first parameter for display.newSprite
-@param params As same as the third parameter for display.newFilteredSprite
+@param mixed filename As same a the first parameter for display.newSprite
+@param table params As same as the third parameter for display.newFilteredSprite
+
 @return An instance of CCFilteredSprite
 
 ]]
@@ -758,9 +763,20 @@ function display.newDrawNode()
 	return CCDrawNode:create()
 end
 
---- Create a circle or a sector or a pie by CCDrawNode
--- @author zrong(zengrong.net)
--- Creation: 2014-03-11
+--[[--
+
+Create a circle or a sector or a pie by CCDrawNode
+
+Creation: 2014-03-11
+
+@author zrong(zengrong.net)
+
+@param mixed filename As same a the first parameter for display.newSprite
+@param table params As same as the third parameter for display.newFilteredSprite
+
+@return An instance of CCFilteredSprite
+
+]]
 function display.newSolidCircle(radius, params)
 	local circle = display.newDrawNode()
 	circle:drawCircle(radius, params)
@@ -1047,7 +1063,7 @@ end
 
 此外，CCScene 提供了 markAutoCleanupImage() 接口，可以指定场景退出时需要自动清理的图像，推荐使用。
 
-@param string 图像文件名
+@param string imageName 图像文件名
 
 ]]
 function display.removeSpriteFrameByImageName(imageName)

@@ -31,6 +31,19 @@ local luaoc = {}
 
 local callStaticMethod = CCLuaObjcBridge.callStaticMethod
 
+--[[--
+
+调用Object-C类的接口。
+
+只能调用Object-C类的类方法
+
+@param string className Object-C类名
+@param string methodName Object-C类方法名
+@param table args Object-C类方法所需要的各种参数字典,key值为方法的参数名
+
+@return boolean ok, mixed ret ok为是否调用成功, ok为true时,ret为java方法的返回值,ok为false时,ret为出错原因
+
+]]
 function luaoc.callStaticMethod(className, methodName, args)
     local ok, ret = callStaticMethod(className, methodName, args)
     if not ok then
