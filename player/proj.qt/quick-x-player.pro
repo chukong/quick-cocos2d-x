@@ -24,18 +24,8 @@ win32:RC_ICONS = quick-x-icon.ico
 INCLUDEPATH += $$PWD/../sources .
 
 # TrackerbirdSDK
-INCLUDEPATH += 3rd/TrackerbirdSDK
-LIBS += \
--framework Cocoa \
--framework Foundation \
--framework CoreFoundation \
--framework AppKit \
--framework Security \
--framework SystemConfiguration \
--framework WebKit \
--framework IOKit
-LIBS += -lz
-LIBS += -L$$PWD/3rd/TrackerbirdSDK -lTrackerbirdSDK-MacOS-CPP
+DEFINES += USING_TRACKERBIRD
+include($$PWD/3rd/TrackerbirdSDK/trackerbird.pri)
 # TrackerbirdSDK END__
 
 LIBS += $${LINK_AGAINST_COCOS2DX}

@@ -8,16 +8,34 @@
 #include "AppDelegate.h"
 #include "player.h"
 
-#include "TrackerbirdSDK.h"
+#ifdef USING_TRACKERBIRD
+//#include "TrackerbirdSDK.h"
+#include "Trackerbird.h"
+#endif
+
 static void trackerStart()
 {
+    #ifdef USING_TRACKERBIRD
+#if defined(Q_OS_WIN)
+    //Initialize the Trackerbird Configuration
+    tbCreateConfig( L"http://18787.tbnet1.com",
+                    L"2382168764",
+                    L"2.2.3",
+                    L"5AC234",
+                    false);
+    tbSetProductEdition( L"win-Beta");
+    tbSetProductLanguage(L"zh");
+
+    tbStart(TB_START_NO_SYN);
+
+#elif defined(Q_OS_MAC)
     //Initialize the Trackerbird Configuration
     std::string url                 = std::string("http://18787.tbnet1.com");
     std::string productID           = std::string("2382168764");
     std::string productVersion      = std::string("2.2.3");
     std::string productBuildNumber  = std::string("5AC234");
     bool multiSessionEnabled        = false;
-    std::string productEdition      = std::string("Beta");
+    std::string productEdition      = std::string("mac-Beta");
     std::string productLanguage     = std::string("zh");
     std::string filePath            = std::string();
 
@@ -26,12 +44,20 @@ static void trackerStart()
                                                                productEdition, productLanguage, filePath);
     //Inform Trackerbird that a new runtime session has been started.
     TrackerbirdSDK::TBApp::start(config, NULL);
+#endif
+#endif // USING_TRACKERBIRD __END
 }
 
 static void trackerEnd()
 {
+#ifdef USING_TRACKERBIRD
+#if defined(Q_OS_WIN)
+    tbStop(TB_STOP_NO_SYN);
+#elif defined(Q_OS_MAC)
     //Program closing - inform Trackerbird that this runtime session is closing down.
     TrackerbirdSDK::TBApp::stop(NULL);
+#endif
+#endif // USING_TRACKERBIRD __END
 }
 
 int main(int argc, char *argv[])
