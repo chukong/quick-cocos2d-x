@@ -9,8 +9,11 @@
 #include "player.h"
 
 #ifdef USING_TRACKERBIRD
-//#include "TrackerbirdSDK.h"
+#if defined(Q_OS_WIN)
 #include "Trackerbird.h"
+#elif defined(Q_OS_MAC)
+#include "TrackerbirdSDK.h"
+#endif
 #endif
 
 static void trackerStart()

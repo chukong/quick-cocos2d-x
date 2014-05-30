@@ -4,6 +4,7 @@ win32 {
 }
 
 mac {
+    INCLUDEPATH += $$PWD/mac
     LIBS += \
     -framework Cocoa \
     -framework Foundation \
@@ -14,5 +15,5 @@ mac {
     -framework WebKit \
     -framework IOKit
     LIBS += -lz
-    LIBS += -L$$PWD/3rd/TrackerbirdSDK/mac -lTrackerbirdSDK-MacOS-CPP
+    LIBS += -L$$PWD/mac -lTrackerbirdSDK-MacOS-CPP
 }
