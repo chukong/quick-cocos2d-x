@@ -8,6 +8,32 @@
 #include "AppDelegate.h"
 #include "player.h"
 
+#include "TrackerbirdSDK.h"
+static void trackerStart()
+{
+    //Initialize the Trackerbird Configuration
+    std::string url                 = std::string("http://18787.tbnet1.com");
+    std::string productID           = std::string("2382168764");
+    std::string productVersion      = std::string("2.2.3");
+    std::string productBuildNumber  = std::string("5AC234");
+    bool multiSessionEnabled        = false;
+    std::string productEdition      = std::string("Beta");
+    std::string productLanguage     = std::string("zh");
+    std::string filePath            = std::string();
+
+    TrackerbirdSDK::TBConfig config = TrackerbirdSDK::TBConfig(url, productID, productVersion,
+                                                               productBuildNumber, multiSessionEnabled,
+                                                               productEdition, productLanguage, filePath);
+    //Inform Trackerbird that a new runtime session has been started.
+    TrackerbirdSDK::TBApp::start(config, NULL);
+}
+
+static void trackerEnd()
+{
+    //Program closing - inform Trackerbird that this runtime session is closing down.
+    TrackerbirdSDK::TBApp::stop(NULL);
+}
+
 int main(int argc, char *argv[])
 {
     //
@@ -20,6 +46,7 @@ int main(int argc, char *argv[])
         args.push_back(argv[i]);
     }
 
+    trackerStart();
     AppDelegate app(argc, argv);
     MsgHandlerWapper::instance();
     Player *player = Player::instance();
@@ -116,8 +143,10 @@ int main(int argc, char *argv[])
     int ret = app.run();
     player->saveSetting();
 
+    trackerEnd();
+
     MsgHandlerWapper::instance()->cancelHandler();
-    while (ret == APP_EXIT_CODE)
+    if (ret == APP_EXIT_CODE)
     {
         QProcess::startDetached(qApp->applicationFilePath()
                               , qApp->property(RESTART_ARGS).toStringList());
