@@ -86,26 +86,31 @@ void CreateProjectUI::createNewProject()
                                                                        ui->portait->isChecked());
     QString commandLine = shell + " " + args.join(" ");
     createProject.start(shell, args);
+
     if (!createProject.waitForFinished())
     {
         QMessageBox::warning(this, tr("quick-x-cocos2d"),
                                    tr("Create new project failed."),
                                    QMessageBox::Ok);
     }
+
     ui->cmdLog->setText( createProject.readAll() );
     ui->cmdLog->append(commandLine);
     QTextCursor c =  ui->cmdLog->textCursor();
     c.movePosition(QTextCursor::End);
     ui->cmdLog->setTextCursor(c);
 
-    // change ui
-    m_status = CreateProjectUIStatus_showProject;
-    ui->cancel->setText(tr("Close"));
+    if (createProject.exitCode() == 0)
+    {
+        // change ui
+        m_status = CreateProjectUIStatus_showProject;
+        ui->cancel->setText(tr("Close"));
 #ifdef Q_OS_MAC
-    ui->ok->setText(tr("Finder"));
+        ui->ok->setText(tr("Finder"));
 #elif
-    ui->ok->setText(tr("Show in Explorer"));
+        ui->ok->setText(tr("Show in Explorer"));
 #endif
+    }
 }
 
 bool CreateProjectUI::checkAllInfor()
