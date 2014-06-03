@@ -203,7 +203,6 @@ void Player::onOpenProjectWithArgs(QString data)
     {
         updateProjectConfigWithLuaConfigFile(argsStdList, config);
         config.parseCommandLine(argsStdList);
-        config.dump();
     }
 
     Player::instance()->restartWithProjectConfig(config);
