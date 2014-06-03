@@ -15,7 +15,6 @@
 #include <QVBoxLayout>
 #include <QGuiApplication>
 #include <QScreen>
-#include <QDebug>
 
 // 3rd library
 #include "cocos2d.h"
@@ -179,7 +178,34 @@ void Player::onOpenProjectWithArgs(QString data)
         argsStdList.push_back(argv.toStdString());
     }
 
-    config.parseCommandLine(argsStdList);
+    if (variantList.at(0).toString() == "-recent")
+    {
+        config.parseCommandLine(argsStdList);
+        QSettings settings;
+        QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
+        Q_FOREACH(QVariant item, recents)
+        {
+            QVariantMap oneRecentItem = item.toMap();
+            QString title = oneRecentItem.value(kRecentItemTitle).toString();
+            if (title == QString::fromStdString(config.getProjectDir()))
+            {
+                QStringList args = oneRecentItem.value(kRecentItemArgs).toStringList();
+                std::vector<std::string> argsVector;
+                Q_FOREACH(QString item, args)
+                {
+                    argsVector.push_back(item.toStdString());
+                }
+                config.parseCommandLine(argsVector);
+            }
+        }
+    }
+    else
+    {
+        updateProjectConfigWithLuaConfigFile(argsStdList, config);
+        config.parseCommandLine(argsStdList);
+        config.dump();
+    }
+
     Player::instance()->restartWithProjectConfig(config);
 }
 
@@ -188,35 +214,6 @@ void Player::doOpenProject()
    if (m_projectConfigUI)
    {
         ProjectConfig config = m_projectConfigUI->getProjectConfig();
-
-        // save recent menu order
-
-        QSettings settings;
-        QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
-        int maxRecent = settings.value(kDefaultMaxRecents, kDefaultMaxRecentValue).toInt();
-        QVariantMap newItem;
-        QString title = QDir::toNativeSeparators(config.getProjectDir().data());
-        newItem[kRecentItemTitle] = title;
-        QStringList args = QString::fromStdString(config.makeCommandLine()).split(" ");
-        newItem[kRecentItemArgs]  = args;
-
-        // remove duplicated menu
-        Q_FOREACH(QVariant variant, recents)
-        {
-            QVariantMap tmpVar = variant.toMap();
-            if (tmpVar.value(kRecentItemTitle) == newItem.value(kRecentItemTitle))
-            {
-                recents.removeOne(variant);
-            }
-        }
-
-        recents.insert(0, newItem);
-
-        if (recents.size() > maxRecent)
-        {
-            recents.removeLast();
-        }
-        settings.setValue(kOpenRecentFiles, recents);
 
         // restart the player
         Player::instance()->restartWithProjectConfig(config);
@@ -311,8 +308,6 @@ void Player::onOpenRecentProject()
     QAction *action = dynamic_cast<QAction*> (sender());
     if (action)
     {
-        int oldIndex = m_recentFileActionList.indexOf(action);
-        m_recentFileActionList.move(oldIndex, 0);
         QStringList args = action->data().toStringList();
         std::vector<std::string> argsVector;
         Q_FOREACH(QString item, args)
@@ -320,14 +315,8 @@ void Player::onOpenRecentProject()
             argsVector.push_back(item.toStdString());
         }
 
-        // update recents data
-        QSettings settings;
-        QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
-        recents.move(oldIndex, 0);
-        settings.setValue(kOpenRecentFiles, recents);
-
         m_projectConfig.parseCommandLine(argsVector);
-        applySettingAndRestart();
+        restartWithProjectConfig(m_projectConfig);
     }
 }
 
@@ -617,6 +606,56 @@ void Player::saveSetting()
     // save position
     settings.setValue(SETTING_POS, m_playerPosition);
     settings.sync();
+}
+
+void Player::updateProjectConfigWithLuaConfigFile(const std::vector<std::string> &args, ProjectConfig &projectConfig)
+{
+    //
+    std::string projectDirArg;
+    std::vector<std::string>::const_iterator it = args.begin();
+    while (it != args.end())
+    {
+        const string& arg = *it;
+        if (arg.compare("-workdir") == 0)
+        {
+            ++it;
+            if (it == args.end()) break;
+            projectDirArg = *it;
+            projectConfig.setProjectDir(*it);
+        }
+        ++it;
+    }
+
+    if (projectDirArg.size() > 0)
+    {
+        projectDirArg.append("/scripts/config.lua");
+        cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->executeScriptFile(projectDirArg.c_str());
+        lua_State *L =  cocos2d::CCLuaEngine::defaultEngine()->getLuaStack()->getLuaState();
+
+        lua_getglobal(L, "CONFIG_SCREEN_WIDTH");
+        lua_getglobal(L, "CONFIG_SCREEN_HEIGHT");
+        if (lua_isnumber(L, -2) && lua_isnumber(L, -1))
+        {
+            int width = lua_tointeger(L, -2);
+            int height = lua_tointeger(L, -1);
+            projectConfig.setFrameSize(cocos2d::CCSize(width, height));
+        }
+
+        lua_getglobal(L, "CONFIG_SCREEN_ORIENTATION");
+        if (lua_isstring(L, -1))
+        {
+            QString orientation( lua_tostring(L, -1) );
+            if (orientation == "landscape")
+            {
+                projectConfig.changeFrameOrientationToLandscape();
+            }
+            else if (orientation == "portrait")
+            {
+                projectConfig.changeFrameOrientationToPortait();
+            }
+        }
+    }
+    //
 }
 
 void Player::initScreenMenu()
@@ -1017,9 +1056,43 @@ void Player::onShowLoginUI()
     dialog->show();
 }
 
+void Player::saveRecentMenu(ProjectConfig &config)
+{
+    QSettings settings;
+    QVariantList recents = settings.value(kOpenRecentFiles, QVariantList()).toList();
+    int maxRecent = settings.value(kDefaultMaxRecents, kDefaultMaxRecentValue).toInt();
+    QVariantMap newItem;
+    QString title = QDir::toNativeSeparators(config.getProjectDir().data());
+    newItem[kRecentItemTitle] = title;
+    QStringList args = QString::fromStdString(config.makeCommandLine()).split(" ");
+    newItem[kRecentItemArgs]  = args;
+
+    // remove duplicated menu
+    Q_FOREACH(QVariant variant, recents)
+    {
+        QVariantMap tmpVar = variant.toMap();
+        if (tmpVar.value(kRecentItemTitle) == newItem.value(kRecentItemTitle))
+        {
+            recents.removeOne(variant);
+        }
+    }
+
+    recents.insert(0, newItem);
+
+    if (recents.size() > maxRecent)
+    {
+        recents.removeLast();
+    }
+    settings.setValue(kOpenRecentFiles, recents);
+}
+
 void Player::restartWithProjectConfig(ProjectConfig &config)
 {
     m_projectConfig = config;
+
+    // save recent menu order
+    saveRecentMenu(config);
+
     applySettingAndRestart();
 }
 
