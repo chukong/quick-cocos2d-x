@@ -78,8 +78,8 @@ function SampleScene:createPageView()
                 self.sampleIndex = self.sampleIndex + 1
 
                 if sample ~= nil then
-                    layout:addChild(self:createDemoTitle(sample, left, top+90))
-                    layout:addChild(self:createDemoDescription(sample ,left ,top+70))
+                    layout:addChild(self:createDemoTitle(sample, left, top + 95))
+                    layout:addChild(self:createDemoDescription(sample ,left ,top + 75))
                     layout:addChild(self:createDemoButton(sample, left, top))
                 else
                     break
@@ -97,6 +97,8 @@ function SampleScene:createPageView()
     local uiLayer = TouchGroup:create()
     uiLayer:addWidget(pageView)
     self:addChild(uiLayer)
+
+    self:createBackButton()
 end
 
 -- helper
@@ -147,5 +149,15 @@ function SampleScene:createDemoButton(sample, x, y)
     return button
 end
 
+function SampleScene:createBackButton()
+    cc.ui.UIPushButton.new("Button01.png", {scale9 = true})
+        :setButtonSize(100, 50)
+        :setButtonLabel(cc.ui.UILabel.new({text = "Back", size = 20, color = display.COLOR_BLACK}))
+        :pos(display.width - 80, 30)
+        :addTo(self)
+        :onButtonClicked(function()
+            app:backToMainScene()
+        end)
+end
 
 return SampleScene
