@@ -18,7 +18,11 @@ function WelcomeApp:enterMainFrame()
 end
 
 function WelcomeApp:enterSampleScene()
-    self:enterScene("SampleScene", nil, "slideInR", 0.3, display.COLOR_WHITE) 
+    self:enterScene("SampleScene", nil, "pageTurn", 0.5, false) 
+end
+
+function WelcomeApp:backToMainScene()
+    self:enterScene("WelcomeScene", nil, "pageTurn", 0.5, true) 
 end
 
 return WelcomeApp
