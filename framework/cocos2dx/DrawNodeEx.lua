@@ -89,8 +89,10 @@ function DrawNode:drawCircle(radius, params)
 	return self
 end
 
+local drawDot = DrawNode.drawDot
 function DrawNode:drawDot(point, radius, color)
-	getmetatable(self).drawDot(self, point, radius, color)
+	drawDot(self, point, radius, color)
+	-- getmetatable(self).drawDot(self, point, radius, color)
 	return self
 end
 
