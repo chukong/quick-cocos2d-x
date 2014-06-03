@@ -107,7 +107,7 @@ void CreateProjectUI::createNewProject()
         ui->cancel->setText(tr("Close"));
 #ifdef Q_OS_MAC
         ui->ok->setText(tr("Finder"));
-#elif
+#else
         ui->ok->setText(tr("Show in Explorer"));
 #endif
     }
