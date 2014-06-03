@@ -234,6 +234,26 @@ static int class_index_event (lua_State* L)
     return 1;
 }
 
+static int class_table_get_index (lua_State* L)
+{
+    // stack:  obj key ... obj
+    
+    while (lua_getmetatable(L,-1))
+    {   /* stack: obj key obj mt */
+        lua_remove(L,-2);                      /* stack: ... mt */
+        {
+            lua_pushvalue(L,2);                    /* stack: ... mt key */
+            lua_rawget(L,-2);                      /* stack: ... mt value */
+            if (!lua_isnil(L,-1))
+                return 1;
+            else
+                lua_pop(L,1);
+        }
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
 /* Newindex function
     * It first searches for a C/C++ varaible to be set.
     * Then, it either stores it in the alternative ubox table (in the case it is
@@ -293,10 +313,32 @@ static int class_newindex_event (lua_State* L)
     else if (t== LUA_TTABLE)
     {
 //        module_newindex_event(L);
-        lua_pushstring(L,".set");
-		lua_rawget(L,-4);
 		lua_settop(L,3);
-		lua_rawset(L,-3);
+        lua_pushvalue(L,1);                     /* stack: obj key value obj */
+        class_table_get_index(L);
+        /* stack: obj key value mt old_value */
+        if (!lua_isnil(L, -1))
+        {
+            //Save old value to new key value
+            const char * key = lua_tostring(L, 2);
+            if (key)
+            {
+                size_t len = strlen(key) + 3;
+                char * bak_key = (char*)malloc(len);
+                if (bak_key)
+                {
+                    strcpy(bak_key, key);
+                    strcat(bak_key, "_C");
+                    lua_pushstring(L, bak_key);
+                    lua_insert(L, -2);
+                    lua_rawset(L, 1);
+                    free(bak_key);
+                }
+            }
+        }
+		lua_settop(L,3);
+        //Set new value
+		lua_rawset(L,1);
     }
     return 0;
 }
