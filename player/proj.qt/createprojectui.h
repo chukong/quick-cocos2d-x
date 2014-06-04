@@ -17,16 +17,18 @@ public:
     void createNewProject();
 
     void accept();
-
 private Q_SLOTS:
     void onSelectFolder();
     void onOk();
+    void updateProjectFolderLabel();
 
 private:
     void initData();
-
+    bool checkAllInfor();
 private:
     Ui::CreateProjectUI *ui;
+    int m_status;
+    QString m_projectFolder;
 };
 
 #endif // CREATEPROJECTUI_H
