@@ -2,7 +2,6 @@
 #include <QProcess>
 #include <QMenuBar>
 #include <QSettings>
-#include <QDebug>
 
 #include "cocos2d.h"
 #include "AppDelegate.h"
@@ -114,6 +113,7 @@ int main(int argc, char *argv[])
         projectConfig.setDebuggerType(kCCLuaDebuggerLDT);
     }
 
+    player->updateProjectConfigWithLuaConfigFile(args, projectConfig);
     projectConfig.parseCommandLine(args);
     projectConfig.dump();
 

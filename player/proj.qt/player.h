@@ -75,6 +75,8 @@ public:
     void restoreSetting();
     void saveSetting();
 
+    void updateProjectConfigWithLuaConfigFile(const std::vector<std::string> &args, ProjectConfig &projectConfig);
+
     fastdelegate::FastDelegate0<void> enterBackgroundDelegate;
     fastdelegate::FastDelegate0<void> enterForegroundDelegate;
 public Q_SLOTS:
@@ -139,6 +141,7 @@ protected:
 
     QKeySequence convertKeyEventToKeySequence(QKeyEvent *e);
 
+    void saveRecentMenu(ProjectConfig &config);
 private Q_SLOTS:
     void on_actionRelaunch_triggered();
     void on_actionOpen_triggered();
