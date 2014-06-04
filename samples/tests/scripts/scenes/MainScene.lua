@@ -8,6 +8,7 @@ function MainScene:ctor()
         "framework.display",
         "framework.crypto",
         "framework.network",
+        "framework.luabinding",
     }
 
     self:addChild(game.createMenu(items, handler(self, self.openTest)))
