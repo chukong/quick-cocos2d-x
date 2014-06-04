@@ -92,11 +92,15 @@ function SampleScene:createPageView()
         end
 
         pageView:addPage(layout)
-    end 
+    end
 
     local uiLayer = TouchGroup:create()
     uiLayer:addWidget(pageView)
     self:addChild(uiLayer)
+
+    pageView:addEventListenerPageView(function(tagret, eventType)
+        self:updateArrow()
+    end)
 
     self.pageView = pageView
 
