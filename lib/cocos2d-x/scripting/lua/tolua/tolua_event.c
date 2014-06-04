@@ -13,6 +13,8 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "tolua++.h"
 
@@ -313,7 +315,7 @@ static int class_newindex_event (lua_State* L)
     else if (t== LUA_TTABLE)
     {
 //        module_newindex_event(L);
-		lua_settop(L,3);
+        lua_settop(L,3);
         lua_pushvalue(L,1);                     /* stack: obj key value obj */
         class_table_get_index(L);
         /* stack: obj key value mt old_value */
@@ -336,9 +338,9 @@ static int class_newindex_event (lua_State* L)
                 }
             }
         }
-		lua_settop(L,3);
+        lua_settop(L,3);
         //Set new value
-		lua_rawset(L,1);
+        lua_rawset(L,1);
     }
     return 0;
 }
@@ -579,4 +581,3 @@ TOLUA_API void tolua_classevents (lua_State* L)
     /*lua_pushcfunction(L,class_gc_event);*/
     lua_rawset(L,-3);
 }
-
