@@ -45,9 +45,32 @@ int CCNativeWin32::addAlertButton(const char* buttonTitle)
 
 void CCNativeWin32::showAlertViewWithDelegate(CCAlertViewDelegate *delegate)
 {
+	/*
 	wstring title(m_alertViewTitle.begin(), m_alertViewTitle.end());
 	wstring message(m_alertViewMessage.begin(), m_alertViewMessage.end());
 	int button = MessageBox(NULL, message.c_str(), title.c_str(), MB_OKCANCEL);
+	*/
+	// 显示unicode编码的字符  by zhanglei0321@gmail.com
+	WCHAR *wszTitleBuf;
+        WCHAR *wszMessageBuf;
+
+        int titleBufLen = MultiByteToWideChar(CP_UTF8, 0, m_alertViewTitle.c_str(), -1, NULL, 0);
+        int messageBufLen = MultiByteToWideChar(CP_UTF8, 0, m_alertViewMessage.c_str(), -1, NULL, 0);
+
+        wszTitleBuf = new WCHAR[titleBufLen+1];
+        wszMessageBuf = new WCHAR[messageBufLen+1];
+
+        memset(wszTitleBuf, 0, sizeof(WCHAR)*(titleBufLen + 1) );
+
+        memset(wszMessageBuf, 0, sizeof(WCHAR)*(messageBufLen + 1) );
+        MultiByteToWideChar(CP_UTF8, 0, m_alertViewTitle.c_str(), -1, wszTitleBuf, titleBufLen);
+        MultiByteToWideChar(CP_UTF8, 0, m_alertViewMessage.c_str(),-1, wszMessageBuf, messageBufLen);
+
+        int button = MessageBox(NULL,wszMessageBuf, wszTitleBuf, MB_OKCANCEL);
+
+        delete [] wszTitleBuf;
+        delete [] wszMessageBuf;
+        
 	if (button == IDOK || button == IDYES)
 	{
 		delegate->alertViewClickedButtonAtIndex(0);
@@ -69,9 +92,31 @@ void CCNativeWin32::cancelAlertView(void)
 #if CC_LUA_ENGINE_ENABLED > 0
 void CCNativeWin32::showAlertViewWithLuaListener(LUA_FUNCTION listener)
 {
+	/*
 	wstring title(m_alertViewTitle.begin(), m_alertViewTitle.end());
 	wstring message(m_alertViewMessage.begin(), m_alertViewMessage.end());
 	int button = MessageBox(NULL, message.c_str(), title.c_str(), MB_OKCANCEL);
+	*/
+	// 显示unicode编码的字符  by zhanglei0321@gmail.com
+	WCHAR *wszTitleBuf;
+        WCHAR *wszMessageBuf;
+
+        int titleBufLen = MultiByteToWideChar(CP_UTF8, 0, m_alertViewTitle.c_str(), -1, NULL, 0);
+        int messageBufLen = MultiByteToWideChar(CP_UTF8, 0, m_alertViewMessage.c_str(), -1, NULL, 0);
+
+        wszTitleBuf = new WCHAR[titleBufLen+1];
+        wszMessageBuf = new WCHAR[messageBufLen+1];
+
+        memset(wszTitleBuf, 0, sizeof(WCHAR)*(titleBufLen + 1) );
+
+        memset(wszMessageBuf, 0, sizeof(WCHAR)*(messageBufLen + 1) );
+        MultiByteToWideChar(CP_UTF8, 0, m_alertViewTitle.c_str(), -1, wszTitleBuf, titleBufLen);
+        MultiByteToWideChar(CP_UTF8, 0, m_alertViewMessage.c_str(),-1, wszMessageBuf, messageBufLen);
+
+        int button = MessageBox(NULL,wszMessageBuf, wszTitleBuf, MB_OKCANCEL);
+
+        delete [] wszTitleBuf;
+        delete [] wszMessageBuf;
     
     CCLuaValueDict event;
     event["action"] = CCLuaValue::stringValue("clicked");
