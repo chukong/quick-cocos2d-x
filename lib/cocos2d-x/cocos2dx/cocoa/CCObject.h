@@ -63,11 +63,19 @@ public:
     unsigned int        m_uID;
     // Lua reference id
     int                 m_nLuaID;
+    // count of living objects
+    static int s_livingCount;
+    // count of created object before autorelease
+    static int s_createdInFrameCount;
+    // count of removed object after autorelease
+    static int s_removedInFrameCount;
+
 protected:
     // count of references
     unsigned int        m_uReference;
     // count of autorelease
     unsigned int        m_uAutoReleaseCount;
+
 public:
     CCObject(void);
     /**

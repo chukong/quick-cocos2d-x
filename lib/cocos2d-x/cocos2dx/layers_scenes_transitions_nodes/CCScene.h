@@ -131,6 +131,7 @@ public:
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
 
     virtual void visit();
+    virtual void cleanup(void);
 
 protected:
     CCArray *m_touchableNodes;

@@ -128,7 +128,7 @@ bool CCDirector::init(void)
     m_pSPFLabel = NULL;
     m_pDrawsLabel = NULL;
     m_uTotalFrames = m_uFrames = 0;
-    m_pszFPS = new char[10];
+    m_pszFPS = new char[32];
     m_pLastUpdate = new struct cc_timeval();
     m_fSecondsPerFrame = 0.0f;
 
@@ -839,7 +839,7 @@ void CCDirector::showStats(void)
                 m_uFrames = 0;
                 m_fAccumDt = 0;
                 
-                sprintf(m_pszFPS, "%.1f", m_fFrameRate);
+                sprintf(m_pszFPS, "%.1f %05d", m_fFrameRate, CCObject::s_livingCount);
                 m_pFPSLabel->setString(m_pszFPS);
                 
                 sprintf(m_pszFPS, "%4lu", (unsigned long)g_uNumberOfDraws);

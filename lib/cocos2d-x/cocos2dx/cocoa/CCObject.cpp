@@ -30,6 +30,10 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+int CCObject::s_livingCount = 0;
+int CCObject::s_createdInFrameCount = 0;
+int CCObject::s_removedInFrameCount = 0;
+
 CCObject* CCCopying::copyWithZone(CCZone *pZone)
 {
     CC_UNUSED_PARAM(pZone);
@@ -45,14 +49,18 @@ CCObject::CCObject(void)
     static unsigned int uObjectCount = 0;
 
     m_uID = ++uObjectCount;
+    ++s_createdInFrameCount;
+    ++s_livingCount;
 }
 
 CCObject::~CCObject(void)
 {
+    --s_livingCount;
     // if the object is managed, we should remove it
     // from pool manager
     if (m_uAutoReleaseCount > 0)
     {
+        ++s_removedInFrameCount;
         CCPoolManager::sharedPoolManager()->removeObject(this);
     }
 

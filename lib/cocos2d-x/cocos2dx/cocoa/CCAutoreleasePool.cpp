@@ -151,12 +151,15 @@ void CCPoolManager::push()
 
 void CCPoolManager::pop()
 {
+    CCObject::s_createdInFrameCount = 0;
+    CCObject::s_removedInFrameCount = 0;
+
     if (! m_pCurReleasePool)
     {
         return;
     }
 
-     int nCount = m_pReleasePoolStack->count();
+    int nCount = m_pReleasePoolStack->count();
 
     m_pCurReleasePool->clear();
  
