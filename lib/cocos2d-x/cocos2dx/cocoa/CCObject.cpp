@@ -30,9 +30,11 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
-int CCObject::s_livingCount = 0;
+#if COCOS2D_DEBUG > 0
 int CCObject::s_createdInFrameCount = 0;
 int CCObject::s_removedInFrameCount = 0;
+set<CCObject*> CCObject::s_livingObjects;
+#endif
 
 CCObject* CCCopying::copyWithZone(CCZone *pZone)
 {
@@ -49,18 +51,23 @@ CCObject::CCObject(void)
     static unsigned int uObjectCount = 0;
 
     m_uID = ++uObjectCount;
+#if COCOS2D_DEBUG > 0
     ++s_createdInFrameCount;
-    ++s_livingCount;
+    s_livingObjects.insert(this);
+#endif
 }
 
 CCObject::~CCObject(void)
 {
-    --s_livingCount;
+#if COCOS2D_DEBUG > 0
+    ++s_removedInFrameCount;
+    s_livingObjects.erase(this);
+#endif
+
     // if the object is managed, we should remove it
     // from pool manager
     if (m_uAutoReleaseCount > 0)
     {
-        ++s_removedInFrameCount;
         CCPoolManager::sharedPoolManager()->removeObject(this);
     }
 
@@ -126,6 +133,11 @@ bool CCObject::isEqual(const CCObject *pObject)
 void CCObject::acceptVisitor(CCDataVisitor &visitor)
 {
     visitor.visitObject(this);
+}
+
+void CCObject::dumpLivingObjects()
+{
+    
 }
 
 NS_CC_END

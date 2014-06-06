@@ -838,8 +838,12 @@ void CCDirector::showStats(void)
                 m_fFrameRate = m_uFrames / m_fAccumDt;
                 m_uFrames = 0;
                 m_fAccumDt = 0;
-                
-                sprintf(m_pszFPS, "%.1f %05d", m_fFrameRate, CCObject::s_livingCount);
+
+#if COCOS2D_DEBUG > 0
+                sprintf(m_pszFPS, "%.1f %05lu", m_fFrameRate, CCObject::s_livingObjects.size());
+#else
+                sprintf(m_pszFPS, "%.1f", m_fFrameRate);
+#endif
                 m_pFPSLabel->setString(m_pszFPS);
                 
                 sprintf(m_pszFPS, "%4lu", (unsigned long)g_uNumberOfDraws);

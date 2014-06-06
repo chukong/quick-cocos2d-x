@@ -27,9 +27,13 @@ THE SOFTWARE.
 
 #include "CCDataVisitor.h"
 
+#include <set>
+
 #ifdef EMSCRIPTEN
 #include <GLES2/gl2.h>
 #endif // EMSCRIPTEN
+
+using namespace std;
 
 NS_CC_BEGIN
 
@@ -63,12 +67,6 @@ public:
     unsigned int        m_uID;
     // Lua reference id
     int                 m_nLuaID;
-    // count of living objects
-    static int s_livingCount;
-    // count of created object before autorelease
-    static int s_createdInFrameCount;
-    // count of removed object after autorelease
-    static int s_removedInFrameCount;
 
 protected:
     // count of references
@@ -96,6 +94,19 @@ public:
     virtual void update(float dt) {CC_UNUSED_PARAM(dt);};
     
     friend class CCAutoreleasePool;
+
+#if COCOS2D_DEBUG > 0
+public:
+    static void dumpLivingObjects();
+
+    // set of living objects
+    static set<CCObject*> s_livingObjects;
+    // count of created object before autorelease
+    static int s_createdInFrameCount;
+    // count of removed object after autorelease
+    static int s_removedInFrameCount;
+
+#endif
 };
 
 
