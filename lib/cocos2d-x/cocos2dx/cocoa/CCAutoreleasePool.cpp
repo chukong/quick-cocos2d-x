@@ -151,8 +151,10 @@ void CCPoolManager::push()
 
 void CCPoolManager::pop()
 {
+#if COCOS2D_DEBUG > 0
     CCObject::s_createdInFrameCount = 0;
     CCObject::s_removedInFrameCount = 0;
+#endif
 
     if (! m_pCurReleasePool)
     {
