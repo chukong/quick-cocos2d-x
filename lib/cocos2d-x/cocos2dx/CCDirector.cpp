@@ -840,7 +840,7 @@ void CCDirector::showStats(void)
                 m_fAccumDt = 0;
 
 #if COCOS2D_DEBUG > 0
-                sprintf(m_pszFPS, "%.1f %05lu", m_fFrameRate, CCObject::s_livingObjects.size());
+                sprintf(m_pszFPS, "%.1f %05d", m_fFrameRate, CCObject::s_livingCount);
 #else
                 sprintf(m_pszFPS, "%.1f", m_fFrameRate);
 #endif

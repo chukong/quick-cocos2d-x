@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-
 #include "CCObject.h"
 #include "CCAutoreleasePool.h"
 #include "ccMacros.h"
@@ -33,7 +32,7 @@ NS_CC_BEGIN
 #if COCOS2D_DEBUG > 0
 int CCObject::s_createdInFrameCount = 0;
 int CCObject::s_removedInFrameCount = 0;
-set<CCObject*> CCObject::s_livingObjects;
+int CCObject::s_livingCount = 0;
 #endif
 
 CCObject* CCCopying::copyWithZone(CCZone *pZone)
@@ -53,7 +52,7 @@ CCObject::CCObject(void)
     m_uID = ++uObjectCount;
 #if COCOS2D_DEBUG > 0
     ++s_createdInFrameCount;
-    s_livingObjects.insert(this);
+    ++s_livingCount;
 #endif
 }
 
@@ -61,7 +60,7 @@ CCObject::~CCObject(void)
 {
 #if COCOS2D_DEBUG > 0
     ++s_removedInFrameCount;
-    s_livingObjects.erase(this);
+    --s_livingCount;
 #endif
 
     // if the object is managed, we should remove it
@@ -133,11 +132,6 @@ bool CCObject::isEqual(const CCObject *pObject)
 void CCObject::acceptVisitor(CCDataVisitor &visitor)
 {
     visitor.visitObject(this);
-}
-
-void CCObject::dumpLivingObjects()
-{
-    
 }
 
 NS_CC_END
