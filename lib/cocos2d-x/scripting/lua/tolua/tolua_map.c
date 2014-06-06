@@ -295,14 +295,14 @@ static int tolua_bnd_getpeer(lua_State* L) {
 /* Get the index which have been override
     2014.6.5 by SunLightJuly
  */
-static int tolua_bnd_getbackup(lua_State* L) {
+static int tolua_bnd_getcfunction(lua_State* L) {
     if (!lua_isstring(L, 2)) {
-        lua_pushstring(L, "Invalid argument #2 to getbackup: string expected.");
+        lua_pushstring(L, "Invalid argument #2 to getcfunction: string expected.");
         lua_error(L);
     }
     
     if (!lua_getmetatable(L, 1)) {
-        lua_pushstring(L, "Invalid argument #1 to getbackup: class or object expected.");
+        lua_pushstring(L, "Invalid argument #1 to getcfunction: class or object expected.");
         lua_error(L);
     }
     
@@ -413,7 +413,7 @@ TOLUA_API void tolua_open (lua_State* L)
         tolua_function(L, "setpeer", tolua_bnd_setpeer);
         tolua_function(L, "getpeer", tolua_bnd_getpeer);
 #endif
-        tolua_function(L,"getbackup", tolua_bnd_getbackup);
+        tolua_function(L,"getcfunction", tolua_bnd_getcfunction);
 
         tolua_endmodule(L);
         tolua_endmodule(L);
