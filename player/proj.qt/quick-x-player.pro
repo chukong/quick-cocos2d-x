@@ -23,11 +23,6 @@ win32:RC_ICONS = quick-x-icon.ico
 
 INCLUDEPATH += $$PWD/../sources .
 
-# TrackerbirdSDK
-DEFINES += USING_TRACKERBIRD
-include($$PWD/3rd/TrackerbirdSDK/trackerbird.pri)
-# TrackerbirdSDK END__
-
 LIBS += $${LINK_AGAINST_COCOS2DX}
 
 SOURCES += main.cpp\
