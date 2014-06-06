@@ -49,8 +49,9 @@ void ConsoleUI::setRecordDebugLog(bool recording)
 
 void ConsoleUI::closeEvent(QCloseEvent *e)
 {
-    this->hide();
-    e->ignore();
+    QApplication::quit();
+//    this->hide();
+//    e->ignore();
 }
 
 void ConsoleUI::showEvent(QShowEvent *e)
