@@ -57,6 +57,8 @@ function LuabindingTestScene:getCppFunctionTest()
 
     -- restore C++ method
     tolua.resetcfunction(cc.Node, "setPosition")
+    print("expected - no output")
+    node:setPosition(100, 100)
 end
 
 return LuabindingTestScene
