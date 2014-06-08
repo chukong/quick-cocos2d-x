@@ -58,7 +58,9 @@ FORMS    += \
 
 
 
-DESTDIR = $${LIB_OUTPUT_DIR}
+#DESTDIR = $${LIB_OUTPUT_DIR}
+win32:DESTDIR = $$PWD/../win
+macx:DESTDIR = $$PWD/../mac
 
 RESOURCES += \
     res.qrc
