@@ -1,6 +1,8 @@
 
 #include "CCLuaObjcBridge.h"
 
+#import <Foundation/Foundation.h>
+
 extern "C"{
 #include "tolua++.h"
 #include "tolua_fix.h"
