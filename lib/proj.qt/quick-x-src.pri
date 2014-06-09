@@ -273,4 +273,5 @@ $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNative.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/CCNativeMac.mm \
 $${ROOT}/lib/cocos2d-x/external/extra/platform/mac/openudid/OpenUDIDMac.m \
 $${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCImage.mm \
-$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCFileUtilsMac.mm
+$${ROOT}/lib/cocos2d-x/cocos2dx/platform/mac/CCFileUtilsMac.mm \
+$${ROOT}/lib/cocos2d-x/scripting/lua/cocos2dx_support/platform/ios/CCLuaObjcBridge.mm \

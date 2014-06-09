@@ -38,7 +38,7 @@ extern "C" {
 #include "platform/CCZipFile.h"
 #include "platform/CCFileUtils.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || (CC_TARGET_PLATFORM == CC_PLATFORM_QT && defined(Q_OS_MAC)))
 #include "platform/ios/CCLuaObjcBridge.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "platform/android/CCLuaJavaBridge.h"
@@ -134,7 +134,7 @@ bool CCLuaStack::init(void)
     register_all_cocos2dx_extension_manual(m_state);
     register_all_cocos2dx_studio_manual(m_state);
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || (CC_TARGET_PLATFORM == CC_PLATFORM_QT && defined(Q_OS_MAC)))
     CCLuaObjcBridge::luaopen_luaoc(m_state);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     CCLuaJavaBridge::luaopen_luaj(m_state);
