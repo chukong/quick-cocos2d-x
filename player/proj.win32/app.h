@@ -27,7 +27,7 @@ public:
     HWND getWindowHandle(void) {
         return m_hwnd;
     }
-	
+    
 private:
     static QuickXPlayer *s_sharedInstance;
     static QuickXPlayer *sharedInstance(void);
@@ -45,20 +45,27 @@ private:
     int run(void);
     void loadProjectConfig(void);
     void loadOpenRecents(void);
+    void createRecentMenu(void);
     void createViewMenu(void);
+    void updateOpenRecent(void);
     void updateMenu(void);
     void updateWindowTitle(void);
+    void saveRecents(void);
+    void clearRecents(void);
     void relaunch(void);
+    void relaunch(string &commandLine);
+    CCLuaValueArray getOpenRecentsForLua(void);
     
     // debug log
-	void writeDebugLog(const char *log);
+    void writeDebugLog(const char *log);
 
-	// welcome callback
-	void onWelcomeNewProject(CCObject *object);
-	void onWelcomeOpen(CCObject *object);
-	void onWelcomeSamples(CCObject *object);
-	void onWelcomeGetStarted(CCObject *object);
-	void onWelcomeGetCommunity(CCObject *object);
+    // welcome callback
+    void onWelcomeNewProject(CCObject *object);
+    void onWelcomeOpen(CCObject *object);
+    void onWelcomeSamples(CCObject *object);
+    void onWelcomeGetStarted(CCObject *object);
+    void onWelcomeGetCommunity(CCObject *object);
+    void onWelcomeOpenRecent(CCObject *object);
 
     // menu callback
     void onFileNewProject(void);
@@ -67,12 +74,15 @@ private:
     void onFileCreateProjectShortcut(void);
     void onFileProjectConfig(void);
     void onFileRelaunch(void);
-	void onFileWelcome(void);
+    void onFileWelcome(void);
     void onFileExit(void);
+    void onFileRecentClear(void);
 
     void onViewChangeFrameSize(int viewMenuID);
     void onViewChangeOrientation(int viewMenuID);
     void onViewChangeZoom(int scaleMode);
+
+    void onOpenRecent(int recentId);
 
     void onHelpAbout(void);
 
