@@ -65,6 +65,7 @@ class AppControllerBridge;
 - (void) welcomeSamples;
 - (void) welcomeGetStarted;
 - (void) welcomeCommunity;
+- (void) welcomeOpenRecent:(cocos2d::CCObject*)object;
 
 - (IBAction) onServicePreferences:(id)sender;
 

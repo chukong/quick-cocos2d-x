@@ -212,7 +212,8 @@ using namespace cocos2d::extra;
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeSamples), "WELCOME_SAMPLES", NULL);
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetStarted), "WELCOME_OPEN_DOCUMENTS", NULL);
     CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeGetCommunity), "WELCOME_OPEN_COMMUNITY", NULL);
-
+    CCNotificationCenter::sharedNotificationCenter()->addObserver(bridge, callfuncO_selector(AppControllerBridge::onWelcomeOpenRecent), "WELCOME_OPEN_PROJECT_ARGS", NULL);
+    
     // send recent to Lua
     CCLuaValueArray titleArray;
     NSArray *recents = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recents"];
@@ -580,6 +581,30 @@ using namespace cocos2d::extra;
 - (void) welcomeCommunity
 {
     CCNative::openURL("http://www.cocoachina.com/bbs/thread.php?fid=56");
+}
+
+- (void) welcomeOpenRecent:(cocos2d::CCObject *)object
+{
+
+    cocos2d::CCString *stringData = dynamic_cast<cocos2d::CCString*>(object);
+    if (stringData)
+    {
+        NSString *data = [NSString stringWithUTF8String:stringData->getCString()];
+        [self relaunch:[data componentsSeparatedByString:@","]];
+    }
+    
+    cocos2d::CCInteger *intData = dynamic_cast<cocos2d::CCInteger*>(object);
+    if (intData)
+    {
+        int index = intData->getValue();
+        
+        NSArray *recents = [[NSUserDefaults standardUserDefaults] objectForKey:@"recents"];
+        if (index < recents.count)
+        {
+            NSDictionary *recentItem = [recents objectAtIndex:index];
+            [self relaunch: [recentItem objectForKey:@"args"]];
+        }
+    }
 }
 
 #pragma mark -

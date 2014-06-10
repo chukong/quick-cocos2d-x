@@ -26,3 +26,8 @@ void AppControllerBridge::onWelcomeGetCommunity(CCObject *object)
 {
     [(AppController*)m_controller welcomeCommunity];
 }
+
+void AppControllerBridge::onWelcomeOpenRecent(CCObject *object)
+{
+    [(AppController*)m_controller welcomeOpenRecent:object];
+}

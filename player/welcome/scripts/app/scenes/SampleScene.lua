@@ -141,7 +141,9 @@ function SampleScene:createDemoButton(sample, x, y)
                 CONFIG_SCREEN_WIDTH.."x"..CONFIG_SCREEN_HEIGHT,
                 "-" .. CONFIG_SCREEN_ORIENTATION,
             }
-            self.projectArgs = CCString:create(json.encode(args))
+            local projectPath = __G__QUICK_PATH__ .. sample.path
+            local commandline = "-workdir," .. projectPath .. ",-size," .. CONFIG_SCREEN_WIDTH.."x"..CONFIG_SCREEN_HEIGHT .. ",-" .. CONFIG_SCREEN_ORIENTATION
+            self.projectArgs = CCString:create(commandline) --CCString:create(json.encode(args))
             CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT_ARGS",self.projectArgs)
         end
     end
