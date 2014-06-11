@@ -146,7 +146,7 @@ function MainScene:showPushView()
 end
 
 function MainScene:noPushView()
-    cc.ui.UILabel.new({text = "CocoPush demo\n\nPlease run this demo on Android device.",
+    cc.ui.UILabel.new({text = "CocoPush demo\nPlease run this demo on Android device.",
             size = 24,
             align = cc.ui.TEXT_ALIGN_CENTER})
         :pos(display.cx, display.cy)

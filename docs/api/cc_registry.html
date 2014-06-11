@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - cc.Registry</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="audio.html">audio</a></li>
+            <li><a href="cocos2dx.html">cocos2dx</a></li>
+            <li><a href="crypto.html">crypto</a></li>
+            <li><a href="debug.html">debug</a></li>
+            <li><a href="deprecated.html">deprecated</a></li>
+            <li><a href="device.html">device</a></li>
+            <li><a href="display.html">display</a></li>
+            <li><a href="filter.html">filter</a></li>
+            <li><a href="functions.html">functions</a></li>
+            <li><a href="index.html">init</a></li>
+            <li><a href="json.html">json</a></li>
+            <li><a href="luaj.html">luaj</a></li>
+            <li><a href="luaoc.html">luaoc</a></li>
+            <li><a href="network.html">network</a></li>
+            <li><a href="scheduler.html">scheduler</a></li>
+            <li><a href="shortcodes.html">shortcodes</a></li>
+            <li><a href="transition.html">transition</a></li>
+            <li><a href="ui.html">ui</a></li>
+            <li><a href="api_context.html">api.Context</a></li>
+            <li><a href="api_eventprotocol.html">api.EventProtocol</a></li>
+            <li><a href="api_gamenetwork.html">api.GameNetwork</a></li>
+            <li><a href="api_gamestate.html">api.GameState</a></li>
+            <li><a href="api_localize.html">api.Localize</a></li>
+            <li><a href="api_store.html">api.Store</a></li>
+            <li><a href="api_timer.html">api.Timer</a></li>
+            <li><a href="cc_eventproxy.html">cc.EventProxy</a></li>
+            <li><a href="cc_gameobject.html">cc.GameObject</a></li>
+            <li><strong>cc.Registry</strong></li>
+            <li><a href="cc_ad_punchbox.html">cc.ad.PunchBox</a></li>
+            <li><a href="cc_ad_errors.html">cc.ad.errors</a></li>
+            <li><a href="cc_ad_events.html">cc.ad.events</a></li>
+            <li><a href="cc_ad_init.html">cc.ad.init</a></li>
+            <li><a href="cc_ad_punchbox_providerandroid.html">cc.ad.punchbox.ProviderAndroid</a></li>
+            <li><a href="cc_ad_punchbox_providerbase.html">cc.ad.punchbox.ProviderBase</a></li>
+            <li><a href="cc_ad_punchbox_providerios.html">cc.ad.punchbox.ProviderIOS</a></li>
+            <li><a href="cc_analytics_umenganalytics.html">cc.analytics.UmengAnalytics</a></li>
+            <li><a href="cc_analytics_init.html">cc.analytics.init</a></li>
+            <li><a href="cc_analytics_umenganalytics_provider.html">cc.analytics.umenganalytics.Provider</a></li>
+            <li><a href="cc_components_component.html">cc.components.Component</a></li>
+            <li><a href="cc_components_behavior_eventprotocol.html">cc.components.behavior.EventProtocol</a></li>
+            <li><a href="cc_components_behavior_statemachine.html">cc.components.behavior.StateMachine</a></li>
+            <li><a href="cc_components_ui_basiclayoutprotocol.html">cc.components.ui.BasicLayoutProtocol</a></li>
+            <li><a href="cc_components_ui_layoutprotocol.html">cc.components.ui.LayoutProtocol</a></li>
+            <li><a href="cc_feedback_umengfeedback.html">cc.feedback.UmengFeedback</a></li>
+            <li><a href="cc_feedback_events.html">cc.feedback.events</a></li>
+            <li><a href="cc_feedback_init.html">cc.feedback.init</a></li>
+            <li><a href="cc_feedback_umengfeedback_providerandroid.html">cc.feedback.umengfeedback.ProviderAndroid</a></li>
+            <li><a href="cc_feedback_umengfeedback_providerbase.html">cc.feedback.umengfeedback.ProviderBase</a></li>
+            <li><a href="cc_feedback_umengfeedback_providerios.html">cc.feedback.umengfeedback.ProviderIOS</a></li>
+            <li><a href="cc_init.html">cc.init</a></li>
+            <li><a href="cc_mvc_appbase.html">cc.mvc.AppBase</a></li>
+            <li><a href="cc_mvc_modelbase.html">cc.mvc.ModelBase</a></li>
+            <li><a href="cc_mvc_init.html">cc.mvc.init</a></li>
+            <li><a href="cc_net_sockettcp.html">cc.net.SocketTCP</a></li>
+            <li><a href="cc_net_init.html">cc.net.init</a></li>
+            <li><a href="cc_push_cocopush.html">cc.push.CocoPush</a></li>
+            <li><a href="cc_push_umengaliastype.html">cc.push.UmengAliasType</a></li>
+            <li><a href="cc_push_umengpush.html">cc.push.UmengPush</a></li>
+            <li><a href="cc_push_cocopush_providerandroid.html">cc.push.cocopush.ProviderAndroid</a></li>
+            <li><a href="cc_push_cocopush_providerbase.html">cc.push.cocopush.ProviderBase</a></li>
+            <li><a href="cc_push_events.html">cc.push.events</a></li>
+            <li><a href="cc_push_init.html">cc.push.init</a></li>
+            <li><a href="cc_push_umengpush_providerandroid.html">cc.push.umengpush.ProviderAndroid</a></li>
+            <li><a href="cc_push_umengpush_providerbase.html">cc.push.umengpush.ProviderBase</a></li>
+            <li><a href="cc_share_umengshare.html">cc.share.UmengShare</a></li>
+            <li><a href="cc_share_umengsharemedia.html">cc.share.UmengShareMedia</a></li>
+            <li><a href="cc_share_errors.html">cc.share.errors</a></li>
+            <li><a href="cc_share_events.html">cc.share.events</a></li>
+            <li><a href="cc_share_init.html">cc.share.init</a></li>
+            <li><a href="cc_share_umengshare_providerandroid.html">cc.share.umengshare.ProviderAndroid</a></li>
+            <li><a href="cc_share_umengshare_providerbase.html">cc.share.umengshare.ProviderBase</a></li>
+            <li><a href="cc_share_umengshare_providerios.html">cc.share.umengshare.ProviderIOS</a></li>
+            <li><a href="cc_ui_uiboxlayout.html">cc.ui.UIBoxLayout</a></li>
+            <li><a href="cc_ui_uibutton.html">cc.ui.UIButton</a></li>
+            <li><a href="cc_ui_uicheckboxbutton.html">cc.ui.UICheckBoxButton</a></li>
+            <li><a href="cc_ui_uicheckboxbuttongroup.html">cc.ui.UICheckBoxButtonGroup</a></li>
+            <li><a href="cc_ui_uigroup.html">cc.ui.UIGroup</a></li>
+            <li><a href="cc_ui_uiimage.html">cc.ui.UIImage</a></li>
+            <li><a href="cc_ui_uilabel.html">cc.ui.UILabel</a></li>
+            <li><a href="cc_ui_uilayout.html">cc.ui.UILayout</a></li>
+            <li><a href="cc_ui_uipushbutton.html">cc.ui.UIPushButton</a></li>
+            <li><a href="cc_ui_uislider.html">cc.ui.UISlider</a></li>
+            <li><a href="cc_ui_uistretch.html">cc.ui.UIStretch</a></li>
+            <li><a href="cc_ui_init.html">cc.ui.init</a></li>
+            <li><a href="cc_update_umengupdate.html">cc.update.UmengUpdate</a></li>
+            <li><a href="cc_update_errors.html">cc.update.errors</a></li>
+            <li><a href="cc_update_events.html">cc.update.events</a></li>
+            <li><a href="cc_update_init.html">cc.update.init</a></li>
+            <li><a href="cc_update_umengupdate_providerandroid.html">cc.update.umengupdate.ProviderAndroid</a></li>
+            <li><a href="cc_update_umengupdate_providerbase.html">cc.update.umengupdate.ProviderBase</a></li>
+            <li><a href="cc_utils_bytearray.html">cc.utils.ByteArray</a></li>
+            <li><a href="cc_utils_bytearrayvarint.html">cc.utils.ByteArrayVarint</a></li>
+            <li><a href="cc_utils_gettext.html">cc.utils.Gettext</a></li>
+            <li><a href="cc_utils_init.html">cc.utils.init</a></li>
+            <li><a href="cocos2dx_drawnodeex.html">cocos2dx.DrawNodeEx</a></li>
+            <li><a href="cocos2dx_event.html">cocos2dx.Event</a></li>
+            <li><a href="cocos2dx_geometry.html">cocos2dx.Geometry</a></li>
+            <li><a href="cocos2dx_global.html">cocos2dx.Global</a></li>
+            <li><a href="cocos2dx_layerex.html">cocos2dx.LayerEx</a></li>
+            <li><a href="cocos2dx_menuitemex.html">cocos2dx.MenuItemEx</a></li>
+            <li><a href="cocos2dx_nodeex.html">cocos2dx.NodeEx</a></li>
+            <li><a href="cocos2dx_objectbinding.html">cocos2dx.ObjectBinding</a></li>
+            <li><a href="cocos2dx_opengl.html">cocos2dx.OpenGL</a></li>
+            <li><a href="cocos2dx_sceneex.html">cocos2dx.SceneEx</a></li>
+            <li><a href="cocos2dx_spriteex.html">cocos2dx.SpriteEx</a></li>
+            <li><a href="platform_android.html">platform.android</a></li>
+            <li><a href="platform_ios.html">platform.ios</a></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+<h1>cc.Registry</h1>
+
+          </div>
+
+          <!-- END module doc -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2014-05-28 09:50:13, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.3</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>

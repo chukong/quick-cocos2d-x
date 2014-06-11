@@ -155,8 +155,11 @@ function EventProtocol:exportMethods()
         "addEventListener",
         "dispatchEvent",
         "removeEventListener",
+        "removeEventListenersByTag",
+        "removeEventListenersByEvent",
         "removeAllEventListenersForEvent",
         "removeAllEventListeners",
+        "hasEventListener",
         "dumpAllEventListeners",
     })
     return self.target_

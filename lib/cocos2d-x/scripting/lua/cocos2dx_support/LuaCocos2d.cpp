@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed May 21 12:57:16 2014.
+** Generated automatically by tolua++-1.0.92 on Fri Jun  6 18:09:54 2014.
 */
 
 /****************************************************************************
@@ -62715,6 +62715,26 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setParameter",tolua_Cocos2d_CCSharpenFilter_setParameter01);
    tolua_function(tolua_S,"initSprite",tolua_Cocos2d_CCSharpenFilter_initSprite00);
   tolua_endmodule(tolua_S);
+
+  { /* begin embedded lua code */
+   int top = lua_gettop(tolua_S);
+   static const unsigned char B[] = {
+    10,102,117,110, 99,116,105,111,110, 32,116,111,108,117, 97,
+     46,114,101,115,101,116, 99,102,117,110, 99,116,105,111,110,
+     40, 99,108,115, 44, 32,109,101,116,104,111,100,110, 97,109,
+    101, 41, 10,108,111, 99, 97,108, 32, 99,102,117,110, 99,116,
+    105,111,110, 32, 61, 32,116,111,108,117, 97, 46,103,101,116,
+     99,102,117,110, 99,116,105,111,110, 40, 99,108,115, 44, 32,
+    109,101,116,104,111,100,110, 97,109,101, 41, 10,105,102, 32,
+     99,102,117,110, 99,116,105,111,110, 32,116,104,101,110, 10,
+     99,108,115, 91,109,101,116,104,111,100,110, 97,109,101, 93,
+     32, 61, 32, 99,102,117,110, 99,116,105,111,110, 10,101,110,
+    100, 10,101,110,100, 45, 45, 45, 45, 45,32
+   };
+   tolua_dobuffer(tolua_S,(char*)B,sizeof(B),"tolua: embedded Lua code 1");
+   lua_settop(tolua_S, top);
+  } /* end of embedded lua code */
+
  tolua_endmodule(tolua_S);
  return 1;
 }

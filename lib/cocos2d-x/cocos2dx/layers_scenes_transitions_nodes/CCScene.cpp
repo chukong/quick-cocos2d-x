@@ -320,6 +320,15 @@ void CCScene::visit()
     CCLayer::visit();
 }
 
+void CCScene::cleanup(void)
+{
+    m_touchableNodes->removeAllObjects();
+    m_touchingTargets->removeAllObjects();
+    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+
+    CCLayer::cleanup();
+}
+
 CCTouchTargetNode *CCScene::findTouchingNode(CCNode *node)
 {
     CCObject *obj;
