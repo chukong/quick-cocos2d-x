@@ -178,8 +178,10 @@ public class AdHandler implements AdListener {
     public void onPresentScreen() {
         Log.d("PunchBoxAd", "AdHandler.onPresentScreen");
 
-        ViewGroup group = (ViewGroup)bannerAd.getParent().getParent();
-        group.findViewById(Cocos2dxActivity.GLVIEW_ID).requestFocus();
+        if (adType.compareToIgnoreCase("banner") == 0) {
+            ViewGroup group = (ViewGroup)bannerAd.getParent().getParent();
+            group.findViewById(Cocos2dxActivity.GLVIEW_ID).requestFocus();
+        }
 
         listener.onPresentScreen();
     }
