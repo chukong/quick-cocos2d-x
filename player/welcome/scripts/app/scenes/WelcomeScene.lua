@@ -57,12 +57,7 @@ function WelcomeScene:createOpenRecents(recents)
         -- touch event
         label:setTouchEnabled(true)
         label:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
-            local args = {
-                "-recent",
-                "-workdir",
-                path,
-            }
-            self.projectArgs = CCString:create(json.encode(args))
+            self.projectArgs = CCInteger:create(i-1)
             CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT_ARGS",self.projectArgs)
         end)
     end
