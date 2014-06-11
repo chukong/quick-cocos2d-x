@@ -73,14 +73,20 @@ public class AdHandler implements AdListener {
             context.addContentView(relativeLayout, new LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT));
             relativeLayout.addView(bannerAd, relativeParams);
+            relativeLayout.setFocusable(false);
         } else {
             LinearLayout bannerAdLayout = new LinearLayout(context);
             bannerAdLayout.setOrientation(LinearLayout.VERTICAL);
             context.addContentView(bannerAdLayout, new LayoutParams(LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT));
             bannerAdLayout.addView(bannerAd);
+            bannerAdLayout.setFocusable(false);
         }
 
+        ViewGroup group = (ViewGroup)bannerAd.getParent().getParent();
+        group.findViewById(Cocos2dxActivity.GLVIEW_ID).requestFocus();
+
+        bannerAd.setFocusable(false);
         bannerAd.setAdListener(this);
         bannerAd.loadAd(new AdRequest());
     }
@@ -171,6 +177,10 @@ public class AdHandler implements AdListener {
     @Override
     public void onPresentScreen() {
         Log.d("PunchBoxAd", "AdHandler.onPresentScreen");
+
+        ViewGroup group = (ViewGroup)bannerAd.getParent().getParent();
+        group.findViewById(Cocos2dxActivity.GLVIEW_ID).requestFocus();
+
         listener.onPresentScreen();
     }
 
