@@ -39,6 +39,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	// Constants
 	// ===========================================================
 
+	public static final int GLVIEW_ID = 1000;
 	private static final String TAG = Cocos2dxActivity.class.getSimpleName();
 
 	// ===========================================================
@@ -137,6 +138,8 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 
         // Cocos2dxGLSurfaceView
         this.mGLSurfaceView = this.onCreateView();
+        //set id for GlSurfaceView, so can find by id and set focus on
+        this.mGLSurfaceView.setId(GLVIEW_ID);
 
         // ...add to FrameLayout
         framelayout.addView(this.mGLSurfaceView);

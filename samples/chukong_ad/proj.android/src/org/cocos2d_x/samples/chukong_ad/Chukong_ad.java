@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-****************************************************************************/
+ ****************************************************************************/
 package org.cocos2d_x.samples.chukong_ad;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
@@ -29,12 +29,16 @@ import android.os.Bundle;
 
 public class Chukong_ad extends Cocos2dxActivity {
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onBackPressed() {
+    }
 
     static {
-    	System.loadLibrary("game");
+        System.loadLibrary("game");
     }
 }
