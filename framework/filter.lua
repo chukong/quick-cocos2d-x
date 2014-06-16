@@ -36,8 +36,8 @@ function filter.newFilter(__filterName, __param)
 	assert(__filterData, "filter.newFilter() - filter "..__filterName.." is not found.")
 	local __cls, __count, __default = unpack(__filterData)
 	local __paramCount = (__param and #__param) or 0
-	print("filter.newFilter:", __paramCount, __filterName, __count)
-	print("filter.newFilter __param:", __param)
+	-- print("filter.newFilter:", __paramCount, __filterName, __count)
+	-- print("filter.newFilter __param:", __param)
 	-- If count is nil, it means the Filter does not need a parameter.
 	if __count == nil then
 		if __paramCount == 0 then
