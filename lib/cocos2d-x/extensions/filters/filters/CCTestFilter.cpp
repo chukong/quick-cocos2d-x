@@ -28,7 +28,7 @@ CCTestFilter::CCTestFilter()
 CCGLProgram* CCTestFilter::loadShader()
 {
 	CCGLProgram* __p = new CCGLProgram();
-	CCLOG("CCTestFilter::loadShader, program:%d", __p);
+	CCLOG("CCTestFilter::loadShader, program: %p", __p);
 	__p->initWithVertexShaderByteArray(ccFilterShader_test_vert,
 		ccFilterShader_test_frag);
 	return __p;
@@ -41,7 +41,6 @@ void CCTestFilter::setParameter(float $resolation)
 
 void CCTestFilter::initSprite(CCFilteredSprite* $sprite)
 {
-	float __aspectRatio = 1.0f;
 	CCSize __size = $sprite->getContentSize();
 	/*_textureWidth = __size.width;
 	_textureHeight = __size.height;*/

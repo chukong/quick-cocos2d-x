@@ -196,7 +196,7 @@ protected:
 
     static std::map<int, CCArmature *> m_sArmatureIndexDic;	//! Use to save armature zorder info,
 
-    ccBlendFunc m_sBlendFunc;                    
+    ccBlendFunc m_sBlendFunc;
 
     CCPoint m_pOffsetPoint;
 
@@ -210,7 +210,6 @@ protected:
     CC_PROPERTY(cpBody *, m_pBody, Body);
 #endif
 protected:
-    //参考以前zrong的回调方法，实现的骨骼动画播放回调
 	void onMovementEvent(CCArmature* m_pArmature, MovementEventType evtType, const char* movId);
 	int m_nScriptMovementHandler;
 public:

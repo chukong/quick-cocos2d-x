@@ -128,7 +128,7 @@ bool CCDirector::init(void)
     m_pSPFLabel = NULL;
     m_pDrawsLabel = NULL;
     m_uTotalFrames = m_uFrames = 0;
-    m_pszFPS = new char[10];
+    m_pszFPS = new char[32];
     m_pLastUpdate = new struct cc_timeval();
     m_fSecondsPerFrame = 0.0f;
 
@@ -458,7 +458,11 @@ void CCDirector::purgeCachedData(void)
     CCLabelBMFont::purgeCachedData();
     if (s_SharedDirector->getOpenGLView())
     {
+        CCSpriteFrameCache::sharedSpriteFrameCache()->purgeSharedSpriteFrameCache();
         CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+#if defined(COCOS2D_DEBUG) && (COCOS2D_DEBUG > 0)
+        CCTextureCache::sharedTextureCache()->dumpCachedTextureInfo();
+#endif
     }
     CCFileUtils::sharedFileUtils()->purgeCachedEntries();
 }
@@ -838,8 +842,12 @@ void CCDirector::showStats(void)
                 m_fFrameRate = m_uFrames / m_fAccumDt;
                 m_uFrames = 0;
                 m_fAccumDt = 0;
-                
+
+#if COCOS2D_DEBUG > 0
+                sprintf(m_pszFPS, "%.1f %05d", m_fFrameRate, CCObject::s_livingCount);
+#else
                 sprintf(m_pszFPS, "%.1f", m_fFrameRate);
+#endif
                 m_pFPSLabel->setString(m_pszFPS);
                 
                 sprintf(m_pszFPS, "%4lu", (unsigned long)g_uNumberOfDraws);

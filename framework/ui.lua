@@ -101,7 +101,7 @@ end
 
 ~~~
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCEditBox 文字输入框
 
@@ -137,7 +137,7 @@ end
 
 创建菜单，并返回 CCMenu 对象。
 
-@param table 菜单项的数组表
+@param table items 菜单项的数组表
 
 @return CCMenu CCMenu对象
 
@@ -188,7 +188,7 @@ scene:addChild(menu)
 
 ~~~
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCMenuItemSprite CCMenuItemSprite对象
 
@@ -241,7 +241,7 @@ end
 
 以及所有可以用于 ui.newTTFLabel() 的参数。
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCMenuItemLabel CCMenuItemLabel对象
 
@@ -295,7 +295,7 @@ local label = ui.newBMFontLabel({
 
 ~~~
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCLabelBMFont CCLabelBMFont对象
 
@@ -375,7 +375,7 @@ local label = ui.newTTFLabel({
 
 ~~~
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCLabelTTF CCLabelTTF对象
 
@@ -430,7 +430,7 @@ end
 
 -   shadowColor: 阴影颜色（可选），用 ccc3() 指定，默认为黑色
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCLabelTTF CCLabelTTF对象
 
@@ -498,7 +498,7 @@ end
 
     outlineColor: 描边颜色（可选），用 ccc3() 指定，默认为黑色
 
-@param table 参数表格对象
+@param table params 参数表格对象
 
 @return CCLabelTTF CCLabelTTF对象
 

@@ -63,11 +63,13 @@ public:
     unsigned int        m_uID;
     // Lua reference id
     int                 m_nLuaID;
+
 protected:
     // count of references
     unsigned int        m_uReference;
     // count of autorelease
     unsigned int        m_uAutoReleaseCount;
+
 public:
     CCObject(void);
     /**
@@ -88,6 +90,17 @@ public:
     virtual void update(float dt) {CC_UNUSED_PARAM(dt);};
     
     friend class CCAutoreleasePool;
+
+#if COCOS2D_DEBUG > 0
+public:
+    // count of created object before autorelease
+    static int s_createdInFrameCount;
+    // count of removed object after autorelease
+    static int s_removedInFrameCount;
+    // count of living objects
+    static int s_livingCount;
+
+#endif
 };
 
 

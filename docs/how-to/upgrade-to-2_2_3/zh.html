@@ -1,0 +1,152 @@
+<h1 id="&#21319;&#32423;&#21040;-2.2.3">&#21319;&#32423;&#21040; 2.2.3</h1>
+<p>&#26412;&#25991;&#26723;&#25551;&#36848;&#20102;&#21319;&#32423;&#21040; quick-cocos2d-x 2.2.3 &#38656;&#35201;&#30340;&#27880;&#24847;&#30340;&#20107;&#39033;&#21644;&#20195;&#30721;&#20462;&#25913;&#33539;&#20363;&#12290;</p>
+<p>&#39033;&#30446;&#36816;&#34892;&#26102;&#65292;&#22914;&#26524;&#20986;&#29616; [DEPRECATED] &#30456;&#20851;&#20449;&#24687;&#65292;&#24212;&#35813;&#23558;&#36825;&#20123;&#24050;&#32463;&#20316;&#24223;&#30340; API &#26367;&#25442;&#20026;&#26032; API&#12290;</p>
+<p>&#24050;&#20316;&#24223; API &#35831;&#21442;&#32771; framework/deprecated.lua &#25991;&#20214;&#12290;</p>
+<p>~</p>
+<h3 id="&#24555;&#36895;&#21319;&#32423;&#24050;&#26377;&#39033;&#30446;">&#24555;&#36895;&#21319;&#32423;&#24050;&#26377;&#39033;&#30446;</h3>
+<p>&#22312;&#29616;&#26377;&#28216;&#25103;&#30340; config.lua &#20013;&#28155;&#21152;&#22914;&#19979;&#20195;&#30721;&#65306;</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">LOAD_DEPRECATED_API <span class="ot">=</span> <span class="kw">true</span>               <span class="co">-- &#22312;&#26694;&#26550;&#21021;&#22987;&#21270;&#26102;&#36733;&#20837;&#36807;&#26102;&#30340; API &#23450;&#20041;</span>
+USE_DEPRECATED_EVENT_ARGUMENTS <span class="ot">=</span> <span class="kw">true</span>    <span class="co">-- &#20351;&#29992;&#36807;&#26102;&#30340;&#20107;&#20214;&#22238;&#35843;&#21442;&#25968;</span>
+DISABLE_DEPRECATED_WARNING <span class="ot">=</span> <span class="kw">false</span>       <span class="co">-- true: &#19981;&#26174;&#31034;&#36807;&#26102; API &#35686;&#21578;&#65292;false: &#35201;&#26174;&#31034;&#35686;&#21578;</span></code></pre>
+<p>&#21152;&#20837;&#19978;&#36848;&#19977;&#34892;&#20195;&#30721;&#21518;&#65292;&#29616;&#26377;&#39033;&#30446;&#30340;&#32477;&#22823;&#37096;&#20998;&#21151;&#33021;&#37117;&#21487;&#20197;&#27491;&#24120;&#36816;&#34892;&#65292;&#20294;&#21487;&#33021;&#20986;&#29616;&#20197;&#19979;&#38169;&#35823;&#65306;</p>
+<ul>
+<li><code>CCNodeExtend.extend()</code> &#26410;&#23450;&#20041;&#65306;&#36825;&#31867;&#38169;&#35823;&#30452;&#25509;&#21435;&#25481; CCNodeExtend.extend() &#35843;&#29992;&#21363;&#21487;&#65292;&#31867;&#20284;&#30340;&#38169;&#35823;&#36824;&#26377; CCLayer.extend() &#31561;</li>
+</ul>
+<p>&#24555;&#36895;&#21319;&#32423;&#36866;&#21512;&#24403;&#21069;&#39033;&#30446;&#22312;&#26032;&#29256;&#26694;&#26550;&#19979;&#30340;&#27979;&#35797;&#65292;&#20294;&#20135;&#21697;&#21457;&#24067;&#21069;&#36824;&#26159;&#24212;&#35813;&#25353;&#29031;&#26412;&#25991;&#26723;&#20462;&#25913;&#30456;&#20851;&#30340;&#20195;&#30721;&#12290;&#23558;&#36807;&#26102; API &#30340;&#20351;&#29992;&#25913;&#20026;&#26032; API&#65292;&#22240;&#20026;&#36807;&#26102;&#30340; API &#22312;&#19979;&#19968;&#29256;&#26412;&#21457;&#24067;&#26102;&#21487;&#33021;&#20250;&#21024;&#38500;&#12290;</p>
+<p>~</p>
+<h3 id="&#20107;&#20214;&#26426;&#21046;&#30340;&#25913;&#21464;">&#20107;&#20214;&#26426;&#21046;&#30340;&#25913;&#21464;</h3>
+<ul>
+<li><p>registerScriptHandler(handler)</p>
+<p>&#36807;&#26102;&#30340;&#29992;&#27861;:</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">node:registerScriptHandler<span class="ot">(</span><span class="kw">function</span><span class="ot">(</span>event<span class="ot">)</span>
+    <span class="fu">print</span><span class="ot">(</span>event<span class="ot">)</span>
+<span class="kw">end</span><span class="ot">)</span></code></pre>
+<p>&#26032;&#29992;&#27861;:</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">node:addNodeEventListener<span class="ot">(</span>cc<span class="ot">.</span>NODE_EVENT<span class="ot">,</span> <span class="kw">function</span><span class="ot">(</span>event<span class="ot">)</span>
+    <span class="co">-- event.name &#30340;&#20540;&#26159;&#19979;&#21015;&#20043;&#19968;&#65306;</span>
+    <span class="co">-- enter &#33410;&#28857;&#36827;&#20837;&#22330;&#26223;</span>
+    <span class="co">-- exit &#33410;&#28857;&#36864;&#20986;&#22330;&#26223;</span>
+    <span class="co">-- cleanup &#33410;&#28857;&#36827;&#34892;&#28165;&#29702;</span>
+    <span class="co">-- enterTransitionFinish &#33410;&#28857;&#36827;&#20837;&#22330;&#26223;&#30340;&#21464;&#25442;&#23436;&#25104;</span>
+    <span class="co">-- exitTransitionStart &#33410;&#28857;&#36864;&#20986;&#22330;&#26223;&#30340;&#21464;&#25442;&#24320;&#22987;</span>
+    <span class="fu">print</span><span class="ot">(</span>event<span class="ot">.</span>name<span class="ot">)</span>
+<span class="kw">end</span><span class="ot">)</span></code></pre></li>
+</ul>
+<p>~</p>
+<ul>
+<li><p>scheduleUpdate(handler)</p>
+<p>&#36807;&#26102;&#30340;&#29992;&#27861;&#65306;</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">node:scheduleUpdate<span class="ot">(</span><span class="kw">function</span><span class="ot">(</span>dt<span class="ot">)</span>
+    <span class="fu">print</span><span class="ot">(</span>dt<span class="ot">)</span>
+<span class="kw">end</span><span class="ot">)</span></code></pre>
+<p>&#26032;&#29992;&#27861;&#65306;</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">self:addNodeEventListener<span class="ot">(</span>cc<span class="ot">.</span>NODE_ENTER_FRAME_EVENT<span class="ot">,</span> <span class="kw">function</span><span class="ot">(</span>dt<span class="ot">)</span>
+    <span class="co">-- dt &#26159;&#19978;&#19968;&#24103;&#21040;&#36825;&#19968;&#24103;&#20043;&#38388;&#30340;&#38388;&#38548;&#20107;&#20214;&#65292;&#36890;&#24120;&#20026; 60 &#20998;&#20043;&#19968;&#31186;</span>
+    <span class="fu">print</span><span class="ot">(</span>dt<span class="ot">)</span>
+<span class="kw">end</span><span class="ot">)</span>
+self:scheduleUpdate<span class="ot">()</span></code></pre></li>
+</ul>
+<p>~</p>
+<ul>
+<li><p>registerScriptTouchHandler(handler)</p>
+<p>&#36807;&#26102;&#30340;&#29992;&#27861;&#65306;</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">node:registerScriptTouchHandler<span class="ot">(</span><span class="kw">function</span><span class="ot">(</span>event<span class="ot">,</span> x<span class="ot">,</span> y<span class="ot">)</span>
+<span class="kw">end</span><span class="ot">)</span></code></pre>
+<p>&#26032;&#29992;&#27861;:</p>
+<pre class="sourceCode lua"><code class="sourceCode lua"><span class="co">-- &#35774;&#32622;&#35302;&#25720;&#27169;&#24335;</span>
+node:setTouchMode<span class="ot">(</span>cc<span class="ot">.</span>TOUCH_MODE_ONE_BY_ONE<span class="ot">)</span> <span class="co">-- &#21333;&#28857;&#35302;&#25720;</span>
+<span class="co">-- &#25110;&#32773;</span>
+node:setTouchMode<span class="ot">(</span>cc<span class="ot">.</span>TOUCH_MODE_ALL_AT_ONCE<span class="ot">)</span> <span class="co">-- &#22810;&#28857;&#35302;&#25720;</span>
+
+<span class="co">-- &#26159;&#21542;&#21551;&#29992;&#35302;&#25720;</span>
+<span class="co">-- &#40664;&#35748;&#20540;&#65306; false</span>
+node:setTouchEnabled<span class="ot">(</span><span class="kw">true</span><span class="ot">)</span>
+
+<span class="co">-- &#26159;&#21542;&#20801;&#35768;&#24403;&#21069; node &#21644;&#25152;&#26377;&#23376; node &#25429;&#33719;&#35302;&#25720;&#20107;&#20214;</span>
+<span class="co">-- &#40664;&#35748;&#20540;&#65306; true</span>
+node:setTouchCaptureEnabled<span class="ot">(</span><span class="kw">true</span><span class="ot">)</span>
+
+<span class="co">-- &#22914;&#26524;&#24403;&#21069; node &#21709;&#24212;&#20102;&#35302;&#25720;&#65292;&#26159;&#21542;&#21534;&#22124;&#35302;&#25720;&#20107;&#20214;&#65288;&#38459;&#27490;&#20107;&#20214;&#32487;&#32493;&#20256;&#36882;&#65289;</span>
+<span class="co">-- &#40664;&#35748;&#20540;&#65306; true</span>
+<span class="kw">not</span>:setTouchSwallowEnabled<span class="ot">(</span><span class="kw">true</span><span class="ot">)</span>
+
+<span class="co">-- &#28155;&#21152;&#35302;&#25720;&#20107;&#20214;&#22788;&#29702;&#20989;&#25968;</span>
+node:addNodeEventListener<span class="ot">(</span>cc<span class="ot">.</span>NODE_TOUCH_EVENT<span class="ot">,</span> <span class="kw">function</span><span class="ot">(</span>event<span class="ot">)</span>
+    <span class="co">-- event.phase &#30340;&#20540;&#26159;&#65306;</span>
+    <span class="co">-- cc.NODE_TOUCH_TARGETING_PHASE</span>
+
+    <span class="co">-- event.mode &#30340;&#20540;&#26159;&#19979;&#21015;&#20043;&#19968;&#65306;</span>
+    <span class="co">-- cc.TOUCH_MODE_ONE_BY_ONE &#21333;&#28857;&#35302;&#25720;</span>
+    <span class="co">-- cc.TOUCH_MODE_ALL_AT_ONCE &#22810;&#28857;&#35302;&#25720;</span>
+
+    <span class="co">-- event.name &#30340;&#20540;&#26159;&#19979;&#21015;&#20043;&#19968;&#65306;</span>
+    <span class="co">-- began &#35302;&#25720;&#24320;&#22987;</span>
+    <span class="co">-- moved &#35302;&#25720;&#28857;&#31227;&#21160;</span>
+    <span class="co">-- ended &#35302;&#25720;&#32467;&#26463;</span>
+    <span class="co">-- cancelled &#35302;&#25720;&#34987;&#21462;&#28040;</span>
+
+    <span class="co">-- &#22914;&#26524;&#26159;&#21333;&#28857;&#35302;&#25720;&#65306;</span>
+    <span class="co">-- event.x, event.y &#26159;&#35302;&#25720;&#28857;&#20301;&#32622;</span>
+    <span class="co">-- event.prevX, event.prevY &#26159;&#35302;&#25720;&#28857;&#20043;&#21069;&#30340;&#20301;&#32622;</span>
+
+    <span class="co">-- &#22914;&#26524;&#26159;&#22810;&#28857;&#35302;&#25720;&#65306;</span>
+    <span class="co">-- event.points &#21253;&#21547;&#20102;&#25152;&#26377;&#35302;&#25720;&#28857;&#30340;&#20449;&#24687;</span>
+    <span class="co">-- event.points = {point, point, ...}</span>
+    <span class="co">-- &#27599;&#19968;&#20010;&#35302;&#25720;&#28857;&#30340;&#20540;&#21253;&#21547;&#65306;</span>
+    <span class="co">-- point.x, point.y &#35302;&#25720;&#28857;&#30340;&#24403;&#21069;&#20301;&#32622;</span>
+    <span class="co">-- point.prevX, point.prevY &#35302;&#25720;&#28857;&#20043;&#21069;&#30340;&#20301;&#32622;</span>
+    <span class="co">-- point.id &#35302;&#25720;&#28857; id&#65292;&#29992;&#20110;&#30830;&#23450;&#35302;&#25720;&#28857;&#30340;&#21464;&#21270;</span>
+
+    <span class="kw">if</span> event<span class="ot">.</span>name <span class="ot">==</span> <span class="st">&quot;began&quot;</span> <span class="kw">then</span>
+        <span class="co">-- &#22312;&#21333;&#28857;&#35302;&#25720;&#27169;&#24335;&#19979;&#65306;&#22312;&#35302;&#25720;&#20107;&#20214;&#24320;&#22987;&#26102;&#65292;&#24517;&#39035;&#36820;&#22238; true</span>
+        <span class="co">-- &#36820;&#22238; true &#34920;&#31034;&#21709;&#24212;&#26412;&#27425;&#35302;&#25720;&#20107;&#20214;&#65292;&#24182;&#19988;&#25509;&#25910;&#21518;&#32493;&#29366;&#24577;&#26356;&#26032;</span>
+        <span class="kw">return</span> <span class="kw">true</span>
+    <span class="kw">end</span>
+<span class="kw">end</span><span class="ot">)</span>
+
+<span class="co">-- &#28155;&#21152;&#35302;&#25720;&#20107;&#20214;&#25429;&#33719;&#20989;&#25968;</span>
+node:addNodeEventListener<span class="ot">(</span>cc<span class="ot">.</span>NODE_TOUCH_CAPTURE_EVENT<span class="ot">,</span> <span class="kw">function</span><span class="ot">(</span>event<span class="ot">)</span>
+    <span class="co">-- event.phase &#30340;&#20540;&#26159;&#65306;</span>
+    <span class="co">-- cc.NODE_TOUCH_CAPTURING_PHASE</span>
+
+    <span class="co">-- event.mode &#30340;&#20540;&#26159;&#19979;&#21015;&#20043;&#19968;&#65306;</span>
+    <span class="co">-- cc.TOUCH_MODE_ONE_BY_ONE &#21333;&#28857;&#35302;&#25720;</span>
+    <span class="co">-- cc.TOUCH_MODE_ALL_AT_ONCE &#22810;&#28857;&#35302;&#25720;</span>
+
+    <span class="co">-- event.name &#30340;&#20540;&#26159;&#19979;&#21015;&#20043;&#19968;&#65306;</span>
+    <span class="co">-- began &#35302;&#25720;&#24320;&#22987;</span>
+    <span class="co">-- moved &#35302;&#25720;&#28857;&#31227;&#21160;</span>
+    <span class="co">-- ended &#35302;&#25720;&#32467;&#26463;</span>
+    <span class="co">-- cancelled &#35302;&#25720;&#34987;&#21462;&#28040;</span>
+
+    <span class="co">-- &#22914;&#26524;&#26159;&#21333;&#28857;&#35302;&#25720;&#65306;</span>
+    <span class="co">-- event.x, event.y &#26159;&#35302;&#25720;&#28857;&#20301;&#32622;</span>
+    <span class="co">-- event.prevX, event.prevY &#26159;&#35302;&#25720;&#28857;&#20043;&#21069;&#30340;&#20301;&#32622;</span>
+
+    <span class="co">-- &#22914;&#26524;&#26159;&#22810;&#28857;&#35302;&#25720;&#65306;</span>
+    <span class="co">-- event.points &#21253;&#21547;&#20102;&#25152;&#26377;&#35302;&#25720;&#28857;&#30340;&#20449;&#24687;</span>
+    <span class="co">-- event.points = {point, point, ...}</span>
+    <span class="co">-- &#27599;&#19968;&#20010;&#35302;&#25720;&#28857;&#30340;&#20540;&#21253;&#21547;&#65306;</span>
+    <span class="co">-- point.x, point.y &#35302;&#25720;&#28857;&#30340;&#24403;&#21069;&#20301;&#32622;</span>
+    <span class="co">-- point.prevX, point.prevY &#35302;&#25720;&#28857;&#20043;&#21069;&#30340;&#20301;&#32622;</span>
+    <span class="co">-- point.id &#35302;&#25720;&#28857; id&#65292;&#29992;&#20110;&#30830;&#23450;&#35302;&#25720;&#28857;&#30340;&#21464;&#21270;</span>
+
+    <span class="kw">if</span> event<span class="ot">.</span>name <span class="ot">==</span> <span class="st">&quot;began&quot;</span> <span class="kw">then</span>
+        <span class="co">-- &#22312;&#21333;&#28857;&#35302;&#25720;&#27169;&#24335;&#19979;&#65306;&#22312;&#35302;&#25720;&#20107;&#20214;&#24320;&#22987;&#25429;&#33719;&#26102;&#65292;&#24517;&#39035;&#36820;&#22238; true</span>
+        <span class="co">-- &#36820;&#22238; true &#34920;&#31034;&#35201;&#25429;&#33719;&#26412;&#27425;&#35302;&#25720;&#20107;&#20214;</span>
+        <span class="kw">return</span> <span class="kw">true</span>
+    <span class="kw">end</span>
+<span class="kw">end</span><span class="ot">)</span></code></pre>
+<p>&#20851;&#20110;&#35302;&#25720;&#26426;&#21046;&#30340;&#35814;&#32454;&#29992;&#27861;&#65292;&#35831;&#21442;&#32771; samples/touch &#31034;&#20363;&#12290;</p></li>
+</ul>
+<p>~</p>
+<h3 id="&#25193;&#23637;&#21151;&#33021;&#30340;&#21464;&#21270;">&#25193;&#23637;&#21151;&#33021;&#30340;&#21464;&#21270;</h3>
+<ul>
+<li><p>api.EventProtocol.extend(target)</p>
+<p>&#36807;&#26102;&#30340;&#29992;&#27861;&#65306;</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">api<span class="ot">.</span>EventProtocol<span class="ot">.</span>extend<span class="ot">(</span>target<span class="ot">)</span></code></pre>
+<p>&#26032;&#29992;&#27861;&#65306;</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">cc<span class="ot">(</span>target<span class="ot">)</span>
+    :addComponent<span class="ot">(</span><span class="st">&quot;components.behavior.EventProtocol&quot;</span><span class="ot">)</span>
+    :exportMethods<span class="ot">()</span></code></pre></li>
+</ul>

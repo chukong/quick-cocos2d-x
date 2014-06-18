@@ -120,7 +120,24 @@ static  int lua_isusertable (lua_State* L, int lo, const char* type)
 {
     int r = 0;
     if (lo < 0) lo = lua_gettop(L)+lo+1;
-    lua_pushvalue(L,lo);
+    lua_pushvalue(L, lo);                   // stack: ... table
+
+    // A class table must use metatable to get it's type now. 2014.6.5 by SunLightJuly
+    if (lua_istable(L, -1)) {
+        lua_pushliteral(L, ".isclass");
+        lua_rawget(L, -2);                  // stack: ... table class_flag
+        if (!lua_isnil(L, -1)) {
+            lua_pop(L, 1);                  // stack: ... table
+            if (lua_getmetatable(L, -1)) {
+                                            // stack: ... table mt
+                lua_remove(L, -2);          // stack: ... mt
+            }
+        }
+        else {
+            lua_pop(L, 1);                  // stack: ... table
+        }
+    }
+    
     lua_rawget(L,LUA_REGISTRYINDEX);  /* get registry[t] */
     if (lua_isstring(L,-1))
     {

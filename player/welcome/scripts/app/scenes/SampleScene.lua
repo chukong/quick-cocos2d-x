@@ -45,7 +45,7 @@ end
 
 function SampleScene:createPageView()
 
-    local originLeft  = display.left + 150
+    local originLeft  = display.left + 130
     local left        = originLeft
     local originTop   = display.top - 180
     local top         = originTop
@@ -78,8 +78,8 @@ function SampleScene:createPageView()
                 self.sampleIndex = self.sampleIndex + 1
 
                 if sample ~= nil then
-                    layout:addChild(self:createDemoTitle(sample, left, top+90))
-                    layout:addChild(self:createDemoDescription(sample ,left ,top+70))
+                    layout:addChild(self:createDemoTitle(sample, left, top + 95))
+                    layout:addChild(self:createDemoDescription(sample ,left ,top + 75))
                     layout:addChild(self:createDemoButton(sample, left, top))
                 else
                     break
@@ -92,11 +92,20 @@ function SampleScene:createPageView()
         end
 
         pageView:addPage(layout)
-    end 
+    end
 
     local uiLayer = TouchGroup:create()
     uiLayer:addWidget(pageView)
     self:addChild(uiLayer)
+
+    pageView:addEventListenerPageView(function(tagret, eventType)
+        self:updateArrow()
+    end)
+
+    self.pageView = pageView
+
+    self:createBackButton()
+    self:createLRButton()
 end
 
 -- helper
@@ -132,7 +141,9 @@ function SampleScene:createDemoButton(sample, x, y)
                 CONFIG_SCREEN_WIDTH.."x"..CONFIG_SCREEN_HEIGHT,
                 "-" .. CONFIG_SCREEN_ORIENTATION,
             }
-            self.projectArgs = CCString:create(json.encode(args))
+            local projectPath = __G__QUICK_PATH__ .. sample.path
+            local commandline = "-workdir," .. projectPath .. ",-size," .. CONFIG_SCREEN_WIDTH.."x"..CONFIG_SCREEN_HEIGHT .. ",-" .. CONFIG_SCREEN_ORIENTATION
+            self.projectArgs = CCString:create(commandline) --CCString:create(json.encode(args))
             CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT_ARGS",self.projectArgs)
         end
     end
@@ -147,5 +158,48 @@ function SampleScene:createDemoButton(sample, x, y)
     return button
 end
 
+function SampleScene:createBackButton()
+    cc.ui.UIPushButton.new("Button01.png", {scale9 = true})
+        :setButtonSize(100, 50)
+        :setButtonLabel(cc.ui.UILabel.new({text = "Back", size = 20, color = display.COLOR_BLACK}))
+        :pos(display.width - 80, 30)
+        :addTo(self)
+        :onButtonClicked(function()
+            app:backToMainScene()
+        end)
+end
+
+function SampleScene:createLRButton()
+    cc.ui.UIPushButton.new("arrow_left.png", {scale9 = true})
+        :setButtonSize(50, 50)
+        :pos(30, display.cy)
+        :addTo(self, 0, 100)
+        :onButtonClicked(function()
+            self.pageView:scrollToPage(0)
+            self:updateArrow()
+        end)
+
+    cc.ui.UIPushButton.new("arrow_right.png", {scale9 = true})
+        :setButtonSize(50, 50)
+        :pos(display.width - 30, display.cy)
+        :addTo(self, 0, 101)
+        :onButtonClicked(function()
+            self.pageView:scrollToPage(1)
+            self:updateArrow()
+        end)
+
+    self:updateArrow()
+end
+
+function SampleScene:updateArrow()
+    local pageIdx = self.pageView:getCurPageIndex()
+    if 0 == pageIdx then
+        self:getChildByTag(100):setVisible(false)
+        self:getChildByTag(101):setVisible(true)
+    else
+        self:getChildByTag(100):setVisible(true)
+        self:getChildByTag(101):setVisible(false)
+    end
+end
 
 return SampleScene

@@ -1,8 +1,6 @@
 
 require("config")
 require("framework.init")
-require("framework.shortcodes")
-require("framework.cc.init")
 
 local WelcomeApp = class("WelcomeApp", cc.mvc.AppBase)
 
@@ -14,11 +12,15 @@ function WelcomeApp:run()
 end
 
 function WelcomeApp:enterMainFrame()
-    self:enterScene("WelcomeScene", nil, "slideInL", 0.3, display.COLOR_WHITE) 
+    self:enterScene("WelcomeScene", nil, "slideInL", 0.3, display.COLOR_WHITE)
 end
 
 function WelcomeApp:enterSampleScene()
-    self:enterScene("SampleScene", nil, "slideInR", 0.3, display.COLOR_WHITE) 
+    self:enterScene("SampleScene", nil, "pageTurn", 0.5, false)
+end
+
+function WelcomeApp:backToMainScene()
+    self:enterScene("WelcomeScene", nil, "pageTurn", 0.5, true)
 end
 
 return WelcomeApp

@@ -256,8 +256,6 @@ end
 
 class() 的这种用法让我们可以在 C++ 对象基础上任意扩展行为。
 
-~
-
 既然是继承，自然就可以覆盖 C++ 对象的方法：
 
 ~~~ lua
@@ -392,8 +390,8 @@ app/
 app/classes/
 app/classes/MyClass.lua
 app/classes/MyClassBase.lua
-app/data/Data1.lua
-app/data/Data2.lua
+app/classes/data/Data1.lua
+app/classes/data/Data2.lua
 
 ~~~
 

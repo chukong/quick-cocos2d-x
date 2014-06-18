@@ -123,6 +123,8 @@ if device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")
 elseif device.platform == "ios" then
     require(cc.PACKAGE_NAME .. ".platform.ios")
+elseif device.platform == "mac" then
+    require(cc.PACKAGE_NAME .. ".platform.mac")
 end
 
 require(cc.PACKAGE_NAME .. ".cc.init")

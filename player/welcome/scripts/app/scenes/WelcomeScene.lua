@@ -1,4 +1,4 @@
-
+    
 local WelcomeScene = class("WelcomeScene", function()
     return display.newScene("WelcomeScene")
 end)
@@ -53,6 +53,13 @@ function WelcomeScene:createOpenRecents(recents)
         })
         label:align(display.LEFT_TOP, display.left + 680, display.top - 360 - 28 * (i - 1))
         label:addTo(self)
+
+        -- touch event
+        label:setTouchEnabled(true)
+        label:addNodeEventListener(cc.NODE_TOUCH_EVENT, function ( event )
+            self.projectArgs = CCInteger:create(i-1)
+            CCNotificationCenter:sharedNotificationCenter():postNotification("WELCOME_OPEN_PROJECT_ARGS",self.projectArgs)
+        end)
     end
 end
 

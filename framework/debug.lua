@@ -129,7 +129,9 @@ dump(t)
 ~~~
 
 @param mixed value 要输出的值
+
 @param [string desciption] 输出内容前的文字描述
+
 @parma [integer nesting] 输出时的嵌套层级，默认为 3
 
 ]]

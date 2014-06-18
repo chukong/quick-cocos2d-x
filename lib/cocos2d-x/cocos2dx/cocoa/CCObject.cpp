@@ -22,13 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-
 #include "CCObject.h"
 #include "CCAutoreleasePool.h"
 #include "ccMacros.h"
 #include "script_support/CCScriptSupport.h"
 
 NS_CC_BEGIN
+
+#if COCOS2D_DEBUG > 0
+int CCObject::s_createdInFrameCount = 0;
+int CCObject::s_removedInFrameCount = 0;
+int CCObject::s_livingCount = 0;
+#endif
 
 CCObject* CCCopying::copyWithZone(CCZone *pZone)
 {
@@ -45,10 +50,19 @@ CCObject::CCObject(void)
     static unsigned int uObjectCount = 0;
 
     m_uID = ++uObjectCount;
+#if COCOS2D_DEBUG > 0
+    ++s_createdInFrameCount;
+    ++s_livingCount;
+#endif
 }
 
 CCObject::~CCObject(void)
 {
+#if COCOS2D_DEBUG > 0
+    ++s_removedInFrameCount;
+    --s_livingCount;
+#endif
+
     // if the object is managed, we should remove it
     // from pool manager
     if (m_uAutoReleaseCount > 0)

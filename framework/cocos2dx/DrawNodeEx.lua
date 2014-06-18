@@ -89,8 +89,10 @@ function DrawNode:drawCircle(radius, params)
 	return self
 end
 
+local drawDot = DrawNode.drawDot
 function DrawNode:drawDot(point, radius, color)
-	getmetatable(self).drawDot(self, point, radius, color)
+	drawDot(self, point, radius, color)
+	-- getmetatable(self).drawDot(self, point, radius, color)
 	return self
 end
 
@@ -126,7 +128,7 @@ function DrawNode:drawRect(xywh, params)
 	points[2] = {x,y+h}
 	points[3] = {x+w,y+h}
 	points[4] = {x+w,y}
-	self:drawPol(points, params)
+	self:drawPolygon(points, params)
 	return self
 end
 

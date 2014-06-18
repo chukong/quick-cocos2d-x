@@ -13,6 +13,8 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "tolua++.h"
 
@@ -130,6 +132,26 @@ static int module_newindex_event (lua_State* L)
     return 0;
 }
 
+static int class_table_get_index (lua_State* L)
+{
+    // stack:  obj key ... obj
+    
+    while (lua_getmetatable(L,-1))
+    {   /* stack: obj key obj mt */
+        lua_remove(L,-2);                      /* stack: ... mt */
+        {
+            lua_pushvalue(L,2);                    /* stack: ... mt key */
+            lua_rawget(L,-2);                      /* stack: ... mt value */
+            if (!lua_isnil(L,-1))
+                return 1;
+            else
+                lua_pop(L,1);
+        }
+    }
+    lua_pushnil(L);
+    return 1;
+}
+
 /* Class index function
     * If the object is a userdata (ie, an object), it searches the field in
     * the alternative table stored in the corresponding "ubox" table.
@@ -227,11 +249,64 @@ static int class_index_event (lua_State* L)
     }
     else if (t== LUA_TTABLE)
     {
-        module_index_event(L);
+//        module_index_event(L);
+        lua_pushvalue(L,1);
+        class_table_get_index(L);
         return 1;
     }
     lua_pushnil(L);
     return 1;
+}
+
+static int class_backup_before_newindex (lua_State* L)
+{
+    /* stack: t k v */
+    int m;
+    
+    lua_pushvalue(L, 1);
+    m = lua_getmetatable(L,-1);  /* stack: t k v t mt */
+    while (m>0 && lua_istable(L,-1)) {
+        lua_remove(L, -2);       /* stack: t k v mt */
+        //Check if key had been backup
+        lua_pushstring(L, ".backup");
+        lua_rawget(L, -2);  /* stack: t k v mt mt[".backup"] */
+        if (!lua_isnil(L, -1)) {
+            lua_pushvalue(L, 2);    /* stack: t k v mt mt[".backup"] k */
+            lua_rawget(L, -2);
+            if (!lua_isnil(L, -1)) {
+                // key had been backup
+                return 0;
+            }
+            lua_pop(L, 1);
+        }
+        lua_pop(L, 1);  /* stack: t k v mt */
+        
+        //Check if key is exist in mt
+        lua_pushvalue(L, 2);
+        lua_rawget(L, -2);  /* stack: t k v mt mt[k] */
+        if (!lua_isnil(L, -1)) {
+            lua_pushvalue(L, -2);   /* stack: t k v mt mt[k] mt */
+            lua_pushstring(L, ".backup");
+            lua_rawget(L, -2);  /* stack: t k v mt mt[k] mt mt[".backup"] */
+            if (lua_isnil(L, -1)) {
+                //Create a table and set to mt[".backup"]
+                lua_pop(L, 1);  /* stack: t k v mt mt[k] mt */
+                lua_pushstring(L, ".backup");
+                lua_newtable(L);
+                lua_rawset(L, -3);
+                lua_pushstring(L, ".backup");
+                lua_rawget(L, -2);  /* stack: t k v mt mt[k] mt mt[".backup"] */
+            }
+            lua_pushvalue(L, 2);    /* stack: t k v mt mt[k] mt mt[".backup"] k */
+            lua_pushvalue(L, -4);   /* stack: t k v mt mt[k] mt mt[".backup"] k mt[k] */
+            lua_rawset(L, -3);
+            return 0;
+        }
+        lua_pop(L, 1);  /* stack: t k v mt */
+        m = lua_getmetatable(L,-1);  /* stack: t k v mt base_mt */
+    }
+    
+    return 0;
 }
 
 /* Newindex function
@@ -293,10 +368,12 @@ static int class_newindex_event (lua_State* L)
     else if (t== LUA_TTABLE)
     {
 //        module_newindex_event(L);
-        lua_pushstring(L,".set");
-		lua_rawget(L,-4);
 		lua_settop(L,3);
-		lua_rawset(L,-3);
+        class_backup_before_newindex(L);
+		lua_settop(L,3);
+        lua_getmetatable(L,1);  /* stack: t k v mt */
+        lua_replace(L, 1);      /* stack: mt k v */
+		lua_rawset(L,1);
     }
     return 0;
 }
@@ -304,15 +381,21 @@ static int class_newindex_event (lua_State* L)
 static int class_call_event(lua_State* L) {
 
     if (lua_istable(L, 1)) {
-        lua_pushstring(L, ".call");
-        lua_rawget(L, 1);
-        if (lua_isfunction(L, -1)) {
-
-            lua_insert(L, 1);
-            lua_call(L, lua_gettop(L)-1, 1);
-
-            return 1;
-        };
+        //class is not a metatable now, so must get it's metatable to access ".call" function. 2014.6.5 by SunLightJuly
+        if (lua_getmetatable(L, 1))
+        {
+            lua_replace(L, 1);
+            lua_pushstring(L, ".call");
+            lua_rawget(L, 1);
+            if (lua_isfunction(L, -1)) {
+                
+                lua_insert(L, 1);
+                lua_call(L, lua_gettop(L)-1, 1);
+                
+                return 1;
+            };
+        }
+        
     };
     tolua_error(L,"Attempt to call a non-callable object.",NULL);
     return 0;
@@ -537,4 +620,3 @@ TOLUA_API void tolua_classevents (lua_State* L)
     /*lua_pushcfunction(L,class_gc_event);*/
     lua_rawset(L,-3);
 }
-

@@ -2,6 +2,12 @@
 -- @author zrong(zengrong.net)
 -- Creation 2014-03-31
 
+--[[--
+
+滤镜功能
+
+]]
+
 local filter = {}
 
 local FILTERS = {
@@ -31,6 +37,16 @@ local MULTI_FILTERS = {
 GAUSSIAN_BLUR = {},
 }
 
+--[[--
+
+创建一个滤镜效果，并返回 CCFilter 场景对象。
+
+@param string __filterName 滤镜名称
+@param table __param
+
+@return CCFilter的子类
+
+]]
 function filter.newFilter(__filterName, __param)
 	local __filterData = FILTERS[__filterName]
 	assert(__filterData, "filter.newFilter() - filter "..__filterName.." is not found.")
@@ -56,6 +72,16 @@ function filter.newFilter(__filterName, __param)
 	return __cls:create(unpack(__param))
 end
 
+--[[--
+
+创建滤镜数组，并返回 CCFilter 的数组对象
+
+@param table __filterNames 滤镜名称数组
+@param table __params 对应参数数组
+
+@return CCFilter数组
+
+]]
 function filter.newFilters(__filterNames, __params)
 	assert(#__filterNames == #__params, 
 		"filter.newFilters() - Please ensure the filters and the parameters have the same amount.")
