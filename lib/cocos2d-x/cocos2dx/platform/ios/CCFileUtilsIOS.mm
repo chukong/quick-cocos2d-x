@@ -339,14 +339,14 @@ CCDictionary* CCFileUtilsIOS::createCCDictionaryWithContentsOfFile(const std::st
     //NSDictionary* pDict = [NSDictionary dictionaryWithContentsOfFile:pPath];
 	unsigned long fileSize = 0;
 	unsigned char* pFileData = CZHelperFunc::getFileData(fullPath.c_str(), "rb", &fileSize);
-    NSData *data = [[NSData alloc] initWithBytes:pFileData length:fileSize];
+    NSData *data = [[[NSData alloc] initWithBytes:pFileData length:fileSize] autorelease];
 	delete []pFileData;
     NSPropertyListFormat format;
     NSString *error;
-    NSMutableDictionary *pDict = (NSMutableDictionary *)[[NSPropertyListSerialization propertyListFromData:data
+    NSMutableDictionary *pDict = (NSMutableDictionary *)[NSPropertyListSerialization propertyListFromData:data
                                                                                           mutabilityOption:NSPropertyListMutableContainersAndLeaves
                                                                                                     format:&format
-                                                                                          errorDescription:&error] retain];
+                                                                                          errorDescription:&error];
     
     if (pDict != nil)
     {
