@@ -52,7 +52,7 @@
 		F4DDD22C1926532400D37F83 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(SRCROOT)/bin";
+			dstPath = "$(SRCROOT)/../mac";
 			dstSubfolderSpec = 0;
 			files = (
 				F4DDD22D1926533C00D37F83 /* player.app in Copy Files */,
@@ -175,7 +175,7 @@
 				F4B08159175C8A1E0029F472 /* sources */,
 				F4B08158175C8A100029F472 /* mac */,
 			);
-			name = "player";
+			name = player;
 			sourceTree = "<group>";
 		};
 		F4B08152175C89E30029F472 /* Products */ = {
@@ -244,7 +244,7 @@
 			dependencies = (
 			);
 			name = player;
-			productName = "player";
+			productName = player;
 			productReference = F44C957215F49004004D4151 /* player.app */;
 			productType = "com.apple.product-type.application";
 		};

@@ -575,7 +575,7 @@ using namespace cocos2d::extra;
 
 - (void) welcomeGetStarted
 {
-    CCNative::openURL("http://quick.cocoachina.com/wiki/doku.php?id=zh_cn");
+    CCNative::openURL("http://cn.cocos2d-x.org/tutorial/index?type=quick-cocos2d-x");
 }
 
 - (void) welcomeCommunity

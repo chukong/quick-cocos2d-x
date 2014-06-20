@@ -491,7 +491,7 @@ void QuickXPlayer::onWelcomeSamples(CCObject *object)
 
 void QuickXPlayer::onWelcomeGetStarted(CCObject *object)
 {
-    ShellExecuteA(NULL, "open", "http://quick.cocoachina.com/wiki/doku.php?id=zh_cn", NULL, NULL, SW_SHOWNORMAL);
+    ShellExecuteA(NULL, "open", "http://cn.cocos2d-x.org/tutorial/index?type=quick-cocos2d-x", NULL, NULL, SW_SHOWNORMAL);
 }
 
 void QuickXPlayer::onWelcomeGetCommunity(CCObject *object)
