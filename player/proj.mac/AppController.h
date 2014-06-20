@@ -67,8 +67,6 @@ class AppControllerBridge;
 - (void) welcomeCommunity;
 - (void) welcomeOpenRecent:(cocos2d::CCObject*)object;
 
-- (IBAction) onServicePreferences:(id)sender;
-
 - (IBAction) onFileNewProject:(id)sender;
 - (IBAction) onFileNewPlayer:(id)sender;
 - (IBAction) onFileOpen:(id)sender;

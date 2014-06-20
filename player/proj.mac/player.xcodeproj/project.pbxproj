@@ -11,9 +11,7 @@
 		9F27C1EF1945A8E70029D37A /* ConsoleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F27C1E31945A8E70029D37A /* ConsoleWindowController.m */; };
 		9F27C1F01945A8E70029D37A /* CreateNewProjectDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9F27C1E51945A8E70029D37A /* CreateNewProjectDialogController.mm */; };
 		9F27C1F21945A8E70029D37A /* NSApplication+SheetAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F27C1E81945A8E70029D37A /* NSApplication+SheetAdditions.m */; };
-		9F27C1F31945A8E70029D37A /* PlayerPreferencesDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F27C1EA1945A8E70029D37A /* PlayerPreferencesDialogController.m */; };
 		9F27C1F41945A8E70029D37A /* ProjectConfigDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9F27C1EC1945A8E70029D37A /* ProjectConfigDialogController.mm */; };
-		9FF4924B1946B02800F4CBA0 /* PlayerPreferencesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FF4924A1946B02800F4CBA0 /* PlayerPreferencesDialog.xib */; };
 		9FFD54621945AB0700850221 /* ConsoleWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54611945AB0700850221 /* ConsoleWindow.xib */; };
 		9FFD54651945AB2800850221 /* CreateNewProjectDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54641945AB2800850221 /* CreateNewProjectDialog.xib */; };
 		9FFD54671945AB3800850221 /* ProjectConfigDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54661945AB3800850221 /* ProjectConfigDialog.xib */; };
@@ -71,11 +69,8 @@
 		9F27C1E51945A8E70029D37A /* CreateNewProjectDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CreateNewProjectDialogController.mm; sourceTree = "<group>"; };
 		9F27C1E71945A8E70029D37A /* NSApplication+SheetAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+SheetAdditions.h"; sourceTree = "<group>"; };
 		9F27C1E81945A8E70029D37A /* NSApplication+SheetAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+SheetAdditions.m"; sourceTree = "<group>"; };
-		9F27C1E91945A8E70029D37A /* PlayerPreferencesDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerPreferencesDialogController.h; sourceTree = "<group>"; };
-		9F27C1EA1945A8E70029D37A /* PlayerPreferencesDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerPreferencesDialogController.m; sourceTree = "<group>"; };
 		9F27C1EB1945A8E70029D37A /* ProjectConfigDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectConfigDialogController.h; sourceTree = "<group>"; };
 		9F27C1EC1945A8E70029D37A /* ProjectConfigDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProjectConfigDialogController.mm; sourceTree = "<group>"; };
-		9FF4924A1946B02800F4CBA0 /* PlayerPreferencesDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerPreferencesDialog.xib; sourceTree = "<group>"; };
 		9FFD54611945AB0700850221 /* ConsoleWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsoleWindow.xib; sourceTree = "<group>"; };
 		9FFD54641945AB2800850221 /* CreateNewProjectDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateNewProjectDialog.xib; sourceTree = "<group>"; };
 		9FFD54661945AB3800850221 /* ProjectConfigDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectConfigDialog.xib; sourceTree = "<group>"; };
@@ -189,7 +184,6 @@
 		F4B08158175C8A100029F472 /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				9FF4924A1946B02800F4CBA0 /* PlayerPreferencesDialog.xib */,
 				9FFD54681945AB4300850221 /* MainMenu.xib */,
 				9F27C1E01945A8E70029D37A /* AppControllerBridge.h */,
 				9F27C1E11945A8E70029D37A /* AppControllerBridge.mm */,
@@ -201,8 +195,6 @@
 				9FFD54641945AB2800850221 /* CreateNewProjectDialog.xib */,
 				9F27C1E71945A8E70029D37A /* NSApplication+SheetAdditions.h */,
 				9F27C1E81945A8E70029D37A /* NSApplication+SheetAdditions.m */,
-				9F27C1E91945A8E70029D37A /* PlayerPreferencesDialogController.h */,
-				9F27C1EA1945A8E70029D37A /* PlayerPreferencesDialogController.m */,
 				9FFD54661945AB3800850221 /* ProjectConfigDialog.xib */,
 				9F27C1EB1945A8E70029D37A /* ProjectConfigDialogController.h */,
 				9F27C1EC1945A8E70029D37A /* ProjectConfigDialogController.mm */,
@@ -304,7 +296,6 @@
 				9FFD54651945AB2800850221 /* CreateNewProjectDialog.xib in Resources */,
 				F4B0814D175C89050029F472 /* Icon.icns in Resources */,
 				9FFD54621945AB0700850221 /* ConsoleWindow.xib in Resources */,
-				9FF4924B1946B02800F4CBA0 /* PlayerPreferencesDialog.xib in Resources */,
 				F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */,
 				9FFD54691945AB4300850221 /* MainMenu.xib in Resources */,
 			);
@@ -323,7 +314,6 @@
 				9F27C1EF1945A8E70029D37A /* ConsoleWindowController.m in Sources */,
 				9F27C1F41945A8E70029D37A /* ProjectConfigDialogController.mm in Sources */,
 				F4B0815E175C8A1E0029F472 /* AppDelegate.cpp in Sources */,
-				9F27C1F31945A8E70029D37A /* PlayerPreferencesDialogController.m in Sources */,
 				9F27C1EE1945A8E70029D37A /* AppControllerBridge.mm in Sources */,
 				9F27C1F21945A8E70029D37A /* NSApplication+SheetAdditions.m in Sources */,
 			);

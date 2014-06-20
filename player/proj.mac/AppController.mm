@@ -25,7 +25,6 @@
 #import "AppController.h"
 #import "CreateNewProjectDialogController.h"
 #import "ProjectConfigDialogController.h"
-#import "PlayerPreferencesDialogController.h"
 #import "ConsoleWindowController.h"
 
 #include <sys/stat.h>
@@ -66,11 +65,21 @@ using namespace cocos2d::extra;
     hasPopupDialog = NO;
     debugLogFile = 0;
 
-    NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
-    if (path && [path length])
+    // load QUICK_COCOS2DX_ROOT from ~/.QUICK_COCOS2DX_ROOT
+    NSMutableString *path = [NSMutableString stringWithString:NSHomeDirectory()];
+    [path appendString:@"/.QUICK_COCOS2DX_ROOT"];
+    NSError *error = nil;
+    NSString *env = [NSString stringWithContentsOfFile:path
+                                              encoding:NSUTF8StringEncoding
+                                                 error:&error];
+    if (error || env.length == 0)
     {
-        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
+        [self showAlertWithoutSheet:@"Please run \"setup.app\", set quick-cocos2d-x root path." withTitle:@"quick player error"];
+        [[NSApplication sharedApplication] terminate:self];
     }
+
+    env = [env stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([env cStringUsingEncoding:NSUTF8StringEncoding]);
 
     [self updateProjectConfigFromCommandLineArgs:&projectConfig];
     [self createWindowAndGLView];
@@ -119,7 +128,7 @@ using namespace cocos2d::extra;
     if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
     {
         perror("Unable to redirect output");
-        [self showAlert:@"Unable to redirect output to console!" withTitle:@"quick-x-player error"];
+        [self showAlert:@"Unable to redirect output to console!" withTitle:@"quick player error"];
     }
     else
     {
@@ -155,7 +164,7 @@ using namespace cocos2d::extra;
 
     // set window parameters
     [window setContentView:glView];
-    [window setTitle:@"quick-x-player"];
+    [window setTitle:@"quick player"];
     [window center];
 
     if (projectConfig.getProjectDir().length())
@@ -175,14 +184,6 @@ using namespace cocos2d::extra;
 
 - (void) startup
 {
-//    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"QUICK_COCOS2DX_ROOT"];
-    NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
-    if (!path || [path length] == 0)
-    {
-        [self showPreferences:YES];
-        [self showAlertWithoutSheet:@"Please set quick-cocos2d-x root path." withTitle:@"quick-x-player error"];
-    }
-
     const string projectDir = projectConfig.getProjectDir();
     if (projectDir.length())
     {
@@ -367,7 +368,7 @@ using namespace cocos2d::extra;
         [menuRecents insertItem:item atIndex:0];
     }
 
-    [window setTitle:[NSString stringWithFormat:@"quick-x-player (%0.0f%%)", projectConfig.getFrameScale() * 100]];
+    [window setTitle:[NSString stringWithFormat:@"quick player (%0.0f%%)", projectConfig.getFrameScale() * 100]];
 }
 
 - (void) showModelSheet
@@ -531,25 +532,6 @@ using namespace cocos2d::extra;
     isAlwaysOnTop = alwaysOnTop;
 }
 
-- (void) showPreferences:(BOOL)relaunch
-{
-    [self showModelSheet];
-    PlayerPreferencesDialogController *controller = [[PlayerPreferencesDialogController alloc] initWithWindowNibName:@"PlayerPreferencesDialog"];
-    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
-        [self stopModelSheet];
-        [controller release];
-
-        NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:@"QUICK_COCOS2DX_ROOT"];
-        SimulatorConfig::sharedDefaults()->setQuickCocos2dxRootPath([path cStringUsingEncoding:NSUTF8StringEncoding]);
-
-        if (relaunch)
-        {
-            projectConfig.resetToWelcome();
-            [self relaunch];
-        }
-    }];
-}
-
 #pragma mark -
 #pragma mark interfaces
 
@@ -610,14 +592,9 @@ using namespace cocos2d::extra;
 #pragma mark -
 #pragma mark IB Actions
 
-- (IBAction) onServicePreferences:(id)sender
-{
-    [self showPreferences:NO];
-}
-
 - (IBAction) onFileNewProject:(id)sender
 {
-//    [self showAlert:@"Coming soon :-)" withTitle:@"quick-x-player"];
+//    [self showAlert:@"Coming soon :-)" withTitle:@"quick-player"];
     [self showModelSheet];
     CreateNewProjectDialogController *controller = [[CreateNewProjectDialogController alloc] initWithWindowNibName:@"CreateNewProjectDialog"];
     [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
