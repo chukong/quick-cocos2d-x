@@ -26,9 +26,9 @@ IDESourceTreeDisplayNames=`defaults read com.apple.dt.Xcode IDESourceTreeDisplay
 
 echo "> Xcode settings updated."
 
-# set quick-x-player
-defaults write com.qeeplay.apps.quick-x-player QUICK_COCOS2DX_ROOT "$QUICK_COCOS2DX_ROOT"
-echo "> quick-x-player settings updated."
+# set quick player
+defaults write org.cocos.quick.player QUICK_COCOS2DX_ROOT "$QUICK_COCOS2DX_ROOT"
+echo "> quick player settings updated."
 
 # set .bash_profile or .profile
 if [ -f ~/.bash_profile ]; then
@@ -41,7 +41,7 @@ sed -e '/QUICK_COCOS2DX_ROOT/d' $PROFILE_NAME | sed -e '/add by quick-cocos2d-x 
 
 DATE=`date "+DATE: %Y-%m-%d TIME: %H:%M:%S"`
 echo "# add by quick-cocos2d-x setup, $DATE" >> $PROFILE_NAME.tmp
-echo "export QUICK_COCOS2DX_ROOT=\"$QUICK_COCOS2DX_ROOT\"" >> $PROFILE_NAME.tmp
+echo "export QUICK_COCOS2DX_ROOT=\`cat ~/.QUICK_COCOS2DX_ROOT\`" >> $PROFILE_NAME.tmp
 
 DATE=`date "+%Y-%m-%d-%H%M%S"`
 cp $PROFILE_NAME $PROFILE_NAME-$DATE.bak
@@ -50,5 +50,10 @@ rm $PROFILE_NAME.tmp
 
 echo "> $PROFILE_NAME updated."
 echo ""
+
+echo "$QUICK_COCOS2DX_ROOT" > ~/.QUICK_COCOS2DX_ROOT
+echo "> ~/.QUICK_COCOS2DX_ROOT updated."
+echo ""
+
 echo "done."
 echo ""
