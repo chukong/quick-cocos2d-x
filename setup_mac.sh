@@ -55,5 +55,17 @@ echo "$QUICK_COCOS2DX_ROOT" > ~/.QUICK_COCOS2DX_ROOT
 echo "> ~/.QUICK_COCOS2DX_ROOT updated."
 echo ""
 
+while true; do
+    read -p "Do you wish to install LuaJIT (Y/N) ? " yn
+    case $yn in
+        [Yy]* ) echo ""; $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+echo ""
+echo ""
+
 echo "done."
 echo ""
