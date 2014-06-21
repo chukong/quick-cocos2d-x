@@ -1,14 +1,18 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-BASENAME=`basename $DIR`
-
+BASENAME=`basename "$DIR"`
 if [ "$BASENAME" = "Resources" ]; then
-    DIR=`dirname $DIR`
-    DIR=`dirname $DIR`
-    DIR=`dirname $DIR`
+    DIR=`dirname "$DIR"`
+    DIR=`dirname "$DIR"`
+    DIR=`dirname "$DIR"`
 elif [ "$BASENAME" = "bin" ]; then
-    DIR=`dirname $DIR`
+    DIR=`dirname "$DIR"`
 fi
+
+if [ "$2" != "" ]; then
+    CALL_BY_PKG=YES
+    DIR=$2
+fi;
 
 QUICK_COCOS2DX_ROOT="$DIR"
 
@@ -18,9 +22,7 @@ echo ""
 
 # set Xcode
 defaults write com.apple.dt.Xcode IDEApplicationwideBuildSettings -dict-add QUICK_COCOS2DX_ROOT "$QUICK_COCOS2DX_ROOT"
-
 defaults write com.apple.dt.Xcode IDESourceTreeDisplayNames -dict-add QUICK_COCOS2DX_ROOT QUICK_COCOS2DX_ROOT
-
 IDEApplicationwideBuildSettings=`defaults read com.apple.dt.Xcode IDEApplicationwideBuildSettings`
 IDESourceTreeDisplayNames=`defaults read com.apple.dt.Xcode IDESourceTreeDisplayNames`
 
@@ -49,23 +51,31 @@ cp $PROFILE_NAME.tmp $PROFILE_NAME
 rm $PROFILE_NAME.tmp
 
 echo "> $PROFILE_NAME updated."
-echo ""
-
 echo "$QUICK_COCOS2DX_ROOT" > ~/.QUICK_COCOS2DX_ROOT
 echo "> ~/.QUICK_COCOS2DX_ROOT updated."
 echo ""
 
-while true; do
-    read -p "Do you wish to install LuaJIT (Y/N) ? " yn
-    case $yn in
-        [Yy]* ) echo ""; $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh; break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+if [ "$CALL_BY_PKG" != "" ]; then
+
+    $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh
+    ln -s $QUICK_COCOS2DX_ROOT/player/mac/player.app $QUICK_COCOS2DX_ROOT/player.app
+
+else
+
+    while true; do
+        read -p "Do you wish to install LuaJIT (Y/N) ? " yn
+        case $yn in
+            [Yy]* ) echo ""; $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh; break;;
+            [Nn]* ) exit;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+
+fi;
 
 echo ""
 echo ""
 
 echo "done."
 echo ""
+
