@@ -1,64 +1,22 @@
-## CHINESE => [README_CN.md](README_CN.md)
+根据我们的项目需要，我对 [quick-cocos2d-x][3] 做了一些修改。
 
-quick-cocos2d-x is a **quick** framework, based on cocos2d-x. Make mobile games in Lua.
+这个版本基于 quick 被收购前停止更新几个月的过程中，quick社区推送多个pr后的最新的一个版本。quick 升级到 2.2.3 后有许多大的修改，例如更新player到QT，重写framework架构，对framework中的部分class进行重命名等等。由于对现有项目影响太大，我没有跟进。
 
-**CODE LESS, PLAY MORE !**
+所以，这个版本与目前的quick 2.2.3 不兼容。
 
-> [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
+这个版本主要进行了如下修改，这些修改有的已经同步到官方quick库中，有的则没有。
 
-<br />
+没有同步的原因同上。
 
-## Run Player
+1. 加入 [SocketTCP][4] 对 luasocket 进行了封装；
+1. 模仿AS3用lua实现了 [ByteArray][5]；
+1. 加入 [DragonBonesCPP][1] 组件，使用 CCDragonBones.lua 进行了封装；
+2. 加入 [cocos2d-x-filter][2] 组件，使用 filters.lua 进行了封装；
+3. 加入了 CCDrawNodeExtend.lua 对 CCDrawNode 的常用方法进行封装；
+4. 增加 printscreen, upload 等多个常用方法……
 
-Open quick-cocos2d-x/player/bin/mac/quick-x-player.app, or quick-cocos2d-x/player/bin/win32/quick-x-player.exe
-
-![](http://cn.quick-x.com/wp-content/uploads/2013/08/player_01.png)
-
-1.  Select menu: File -> Open
-2.  Set Project Directory to **quick-cocos2d-x/sample/coinflip**
-3.  Set Script File to **scripts/main.lua**
-4.  Set Screen Direction to **Portrait**
-5.  Click "Open Project" button.
-
-Get Started: 
-
--   quick-cocos2d-x official site: [quick-x.com](http://quick-x.com/)
--   chinese official site: [cn.quick-x.com](http://cn.quick-x.com/)
-
-
-<br />
-
-----
-
-## Why quick-cocos2d-x
-
-QUICK = SUCCESS !
-
--   **No risk**: cocos2d-x's Lua support already exists two years, mature, reliable, the choice of large companies.
-
--   **Full-featured framework**: Write the entire game using Lua, no C++ requirements.
-
--   **Native extensions**: Integration of third-party components, including Payment, Ad, Analysis. Lua-ObjectiveC and Lua-Java bridge make life easy.
-
--   **Enhanced Simulator**: Run the game from any directory, multiple resolution switching, debug console.
-
--   **100% FREE**: cocos2d-x, Lua, quick-cocos2d-x all is Open-Sources project. licensed under MIT.
-
-<br />
-
-### Framework main features:
-
--   display: creates scenes, display objects, animation ...
--   transition: moving, fades, creates animation programing easy ...
--   audio: play background music, effect sounds ...
--   ui: creates button, menu, label ...
--   luaoc: Lua call Objective-C, Objective-C call Lua ...
--   luaj: Lua call Java, Java call Lua ...
--   network: Asynchronous HTTP requests, JSON, check the network status ...
-
-<br />
-
-If you want to support the development of this project, please donate to the ongoing pledgie.org campagin.
-
-<a href='https://pledgie.com/campaigns/22966'><img alt='Click here to lend your support to: quick-cocos2d-x and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/22966.png?skin_name=chrome' border='0' ></a>
-
+[1]: https://github.com/DragonBones/DragonBonesCPP
+[2]: https://github.com/zrong/cocos2d-x-filters
+[3]: https://github.com/chukong/quick-cocos2d-x
+[4]: http://zengrong.net/post/1980.htm
+[5]: http://zengrong.net/post/1968.htm
