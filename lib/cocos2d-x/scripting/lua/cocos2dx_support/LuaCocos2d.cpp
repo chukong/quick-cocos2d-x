@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on 05/07/14 12:31:44.
+** Generated automatically by tolua++-1.0.92 on Mon Jun 23 18:22:22 2014.
 */
 
 /****************************************************************************
@@ -49,6 +49,7 @@ using namespace CocosDenshion;
 #include "CCArmature/utils/CCArmatureDataManager.h"
 #include "filters/cocos2dFilters.h"
 #include "DragonBones/DragonBonesHeaders.h"
+#include "webview/ZYWebView.h"
 using namespace cocos2d::extension;
 using namespace dragonBones;
 using namespace std;
@@ -224,6 +225,13 @@ static int tolua_collect_AnimationData (lua_State* tolua_S)
     return 0;
 }
 
+static int tolua_collect_Bone (lua_State* tolua_S)
+{
+ Bone* self = (Bone*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
 static int tolua_collect_Animation (lua_State* tolua_S)
 {
  Animation* self = (Animation*) tolua_tousertype(tolua_S,1,0);
@@ -266,9 +274,9 @@ static int tolua_collect_CCImage (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_Bone (lua_State* tolua_S)
+static int tolua_collect_ZYWebView (lua_State* tolua_S)
 {
- Bone* self = (Bone*) tolua_tousertype(tolua_S,1,0);
+ ZYWebView* self = (ZYWebView*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -643,6 +651,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCDragonBones).hash_code(), "CCDragonBones");
  tolua_usertype(tolua_S,"CCStopGrid");
  toluafix_add_type_mapping(typeid(CCStopGrid).hash_code(), "CCStopGrid");
+ tolua_usertype(tolua_S,"ZYWebView");
+ toluafix_add_type_mapping(typeid(ZYWebView).hash_code(), "ZYWebView");
  tolua_usertype(tolua_S,"CCControlButton");
  toluafix_add_type_mapping(typeid(CCControlButton).hash_code(), "CCControlButton");
  tolua_usertype(tolua_S,"CCTMXMapInfo");
@@ -70710,6 +70720,229 @@ static int tolua_Cocos2d_CCSharpenFilter_initSprite00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: new of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_new00
+static int tolua_Cocos2d_ZYWebView_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   ZYWebView* tolua_ret = (ZYWebView*)  Mtolua_new((ZYWebView)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"ZYWebView");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_new00_local
+static int tolua_Cocos2d_ZYWebView_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   ZYWebView* tolua_ret = (ZYWebView*)  Mtolua_new((ZYWebView)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"ZYWebView");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: delete of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_delete00
+static int tolua_Cocos2d_ZYWebView_delete00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ZYWebView* self = (ZYWebView*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
+#endif
+  Mtolua_delete(self);
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: init of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_init00
+static int tolua_Cocos2d_ZYWebView_init00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ZYWebView* self = (ZYWebView*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'init'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->init();
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'init'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: showWebView of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_showWebView00
+static int tolua_Cocos2d_ZYWebView_showWebView00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ZYWebView* self = (ZYWebView*)  tolua_tousertype(tolua_S,1,0);
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+  float x = ((float)  tolua_tonumber(tolua_S,3,0));
+  float y = ((float)  tolua_tonumber(tolua_S,4,0));
+  float width = ((float)  tolua_tonumber(tolua_S,5,0));
+  float height = ((float)  tolua_tonumber(tolua_S,6,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'showWebView'", NULL);
+#endif
+  {
+   self->showWebView(url,x,y,width,height);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'showWebView'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: updateURL of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_updateURL00
+static int tolua_Cocos2d_ZYWebView_updateURL00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ZYWebView* self = (ZYWebView*)  tolua_tousertype(tolua_S,1,0);
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'updateURL'", NULL);
+#endif
+  {
+   self->updateURL(url);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'updateURL'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: removeWebView of class  ZYWebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_ZYWebView_removeWebView00
+static int tolua_Cocos2d_ZYWebView_removeWebView00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"ZYWebView",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  ZYWebView* self = (ZYWebView*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeWebView'", NULL);
+#endif
+  {
+   self->removeWebView();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeWebView'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
 {
@@ -74172,6 +74405,21 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setParameter",tolua_Cocos2d_CCSharpenFilter_setParameter00);
    tolua_function(tolua_S,"setParameter",tolua_Cocos2d_CCSharpenFilter_setParameter01);
    tolua_function(tolua_S,"initSprite",tolua_Cocos2d_CCSharpenFilter_initSprite00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"ZYWebView","ZYWebView","CCObject",tolua_collect_ZYWebView);
+  #else
+  tolua_cclass(tolua_S,"ZYWebView","ZYWebView","CCObject",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"ZYWebView");
+   tolua_function(tolua_S,"new",tolua_Cocos2d_ZYWebView_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_ZYWebView_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_ZYWebView_new00_local);
+   tolua_function(tolua_S,"delete",tolua_Cocos2d_ZYWebView_delete00);
+   tolua_function(tolua_S,"init",tolua_Cocos2d_ZYWebView_init00);
+   tolua_function(tolua_S,"showWebView",tolua_Cocos2d_ZYWebView_showWebView00);
+   tolua_function(tolua_S,"updateURL",tolua_Cocos2d_ZYWebView_updateURL00);
+   tolua_function(tolua_S,"removeWebView",tolua_Cocos2d_ZYWebView_removeWebView00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;
