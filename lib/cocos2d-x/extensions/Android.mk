@@ -124,6 +124,7 @@ ifndef $(QUICK_MINI_TARGET)
 		DragonBones/utils/DBDataUtil.cpp \
 		DragonBones/utils/DBGeometry.cpp \
 		DragonBones/utils/TransformUtil.cpp \
+		webview/android/ZYWebView.cpp \
 
 endif
 
@@ -162,7 +163,8 @@ ifndef $(QUICK_MINI_TARGET)
                                $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
                                $(LOCAL_PATH)/CCArmature/utils \
                                $(LOCAL_PATH)/filters \
-                               $(LOCAL_PATH)/DragonBones
+                               $(LOCAL_PATH)/DragonBones \
+                               $(LOCAL_PATH)/webview
 
 endif
 

@@ -18,7 +18,7 @@
 
 #warning 如果想在你的工程中嵌入，前务必修改这个包名，值为Andriod工程Main Activity的路径
 #warning If you want to use this CCXWebview in your project, please modify this packageName as your Android project.
-const char* kJNIPakageName = "org/go3k/ccxwebview/CCXWebview";
+const char* kJNIPakageName = "us/t1201/testplayer/Testplayer";
 
 ZYWebView::ZYWebView()
 {
