@@ -124,7 +124,7 @@ ifndef $(QUICK_MINI_TARGET)
 		DragonBones/utils/DBDataUtil.cpp \
 		DragonBones/utils/DBGeometry.cpp \
 		DragonBones/utils/TransformUtil.cpp \
-		webview/android/ZYWebView.cpp \
+		webview/android/CCWebView.cpp \
 
 endif
 

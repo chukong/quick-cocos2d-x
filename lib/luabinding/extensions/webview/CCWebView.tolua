@@ -1,0 +1,16 @@
+class CCWebView : public CCObject
+{
+public:
+    static CCWebView* create();
+    static CCWebView* create(const char* activityName);
+
+    CCWebView();
+    CCWebView(const char* activityName);
+    ~CCWebView();
+    
+	bool init();
+    void showWebView(const char* url, float x, float y, float width, float height);
+    void updateURL(const char* url);
+    void removeWebView();
+    const char* getActivityName();
+};

@@ -5,7 +5,7 @@ $#include "CCArmature/CCArmature.h"
 $#include "CCArmature/utils/CCArmatureDataManager.h"
 $#include "filters/cocos2dFilters.h"
 $#include "DragonBones/DragonBonesHeaders.h"
-$#include "webview/ZYWebView.h"
+$#include "webview/CCWebView.h"
 
 $using namespace cocos2d::extension;
 $using namespace dragonBones;
@@ -64,6 +64,6 @@ $pfile "extensions/filters/filters/CCRGBFilter.tolua"
 $pfile "extensions/filters/filters/CCSaturationFilter.tolua"
 $pfile "extensions/filters/filters/CCSharpenFilter.tolua"
 
-$pfile "extensions/webview/ZYWebView.tolua"
+$pfile "extensions/webview/CCWebView.tolua"
 
 // $pfile "extensions/GameCenter/GameCenter.tolua"

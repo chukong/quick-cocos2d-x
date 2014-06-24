@@ -1,15 +1,15 @@
 //
-//  ZYWebView_iOS.m
-//  CCXWebview
+//  CCWebView_iOS.m
 //
-//  Created by Vincent on 12-11-27.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+// Created by Vincent on 12-11-27.
+// From https://github.com/go3k/CCXWebview
+// Modified by zrong on 2014-06-24.
 //
 
-#import "ZYWebView_iOS.h"
+#import "CCWebView_iOS.h"
 #import "EAGLView.h"
 
-@implementation ZYWebView_iOS
+@implementation CCWebView_iOS
 
 
 - (void)showWebView_x:(float)x y:(float)y width:(float) widht height:(float)height
@@ -31,15 +31,15 @@
             { 
                 UIScrollView* scView = (UIScrollView *)aView;
                 
-//                [(UIScrollView *)aView setShowsVerticalScrollIndicator:NO]; //右侧的滚动条 （水平的类似）
-                [scView setShowsHorizontalScrollIndicator:NO];
-//                scView.bounces = NO;
+                //[(UIScrollView *)aView setShowsVerticalScrollIndicator:YES]; //右侧的滚动条 （水平的类似）
+                [scView setShowsHorizontalScrollIndicator:YES];
+                //scView.bounces = NO;
                 
                 for (UIView *shadowView in aView.subviews)  
                 {
                     if ([shadowView isKindOfClass:[UIImageView class]]) 
                     { 
-                        shadowView.hidden = YES;  //上下滚动出边界时的黑色的图片 也就是拖拽后的上下阴影
+                        shadowView.hidden = NO;  //上下滚动出边界时的黑色的图片 也就是拖拽后的上下阴影
                     } 
                 } 
             } 
