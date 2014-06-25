@@ -12,7 +12,7 @@
 
 1. 删除 CCB 支持，这个编辑器的开发早已停止，我并不使用它；
 2. 删除 CCArmature，因为已经使用了DragonBonesCPP；
-3. 加入 iOS 和 Android 的WebView组件，mac 和 windows 不可用。位于 extensions，可以在游戏的最上层显示内嵌网页，这个功能基于 [CCXWebview][6] 进行修改。[详细使用说明][7] 。
+3. 加入 iOS 和 Android 的WebView组件，位于 extensions，详见：[在 cocos2d-x 中嵌入浏览器][7] 。
 
 之前的更新：
 

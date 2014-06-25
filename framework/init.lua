@@ -37,6 +37,8 @@ network    = require(cc.PACKAGE_NAME .. ".network")
 ui         = require(cc.PACKAGE_NAME .. ".ui")
 crypto     = require(cc.PACKAGE_NAME .. ".crypto")
 json       = require(cc.PACKAGE_NAME .. ".json")
+filter     = require(cc.PACKAGE_NAME .. ".filter")
+webview    = require(cc.PACKAGE_NAME .. ".webview")
 
 if device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")
@@ -50,10 +52,6 @@ end
 
 if not NO_SHORTCODES then
     require(cc.PACKAGE_NAME .. ".shortcodes")
-end
-
-if not NO_FILTER then
-	filter = require(cc.PACKAGE_NAME .. ".filter")
 end
 
 local sharedTextureCache = CCTextureCache:sharedTextureCache()
