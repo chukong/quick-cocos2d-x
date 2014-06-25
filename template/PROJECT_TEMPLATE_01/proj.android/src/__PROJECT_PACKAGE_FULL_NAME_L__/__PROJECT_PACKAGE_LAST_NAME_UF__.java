@@ -25,16 +25,84 @@ package __PROJECT_PACKAGE_FULL_NAME_L__;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+
 
 public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
+
+	public static Activity actInstance;
+	private LinearLayout _webLayout;
+	private WebView _webView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		_webLayout = new LinearLayout(this);
+		actInstance.addContentView(_webLayout, new LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 	}
 
     static {
     	System.loadLibrary("game");
     }
+
+	public static Object getJavaActivity() {
+		return actInstance;
+	}
+
+	// WebView
+	public void displayWebView(final int x, final int y, final int width,
+			final int height) {
+			//Log.e("Vincent", "showWebView");
+
+		this.runOnUiThread(new Runnable() {
+			public void run() {
+				_webView = new WebView(actInstance);
+				_webLayout.addView(_webView);
+
+				LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) _webView
+						.getLayoutParams();
+				linearParams.leftMargin = x;
+				linearParams.topMargin = y;
+				linearParams.width = width;
+				linearParams.height = height;
+				_webView.setLayoutParams(linearParams);
+
+				_webView.setBackgroundColor(0);
+				_webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+				_webView.getSettings().setAppCacheEnabled(false);
+
+				_webView.setWebViewClient(new WebViewClient() {
+					@Override
+					public boolean shouldOverrideUrlLoading(WebView view,
+							String url) {
+						return false;
+					}
+				});
+			}
+		});
+	}
+
+	public void updateURL(final String url) {
+		this.runOnUiThread(new Runnable() {
+			public void run() {
+				_webView.loadUrl(url);
+			}
+		});
+	}
+
+	public void removeWebView() {
+		this.runOnUiThread(new Runnable() {
+			public void run() {
+				_webLayout.removeView(_webView);
+				_webView.destroy();
+			}
+		});
+	}
 }

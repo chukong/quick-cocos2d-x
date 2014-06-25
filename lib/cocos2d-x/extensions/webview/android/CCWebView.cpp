@@ -11,15 +11,6 @@
 #include "platform/android/jni/JniHelper.h"
 #include <android/log.h>
 
-/*
- More info about JNI using, check this:
- http://go3k.org/?p=49
- */
-
-#warning 如果想在你的工程中嵌入，前务必修改这个包名，值为Andriod工程Main Activity的路径
-#warning If you want to use this CCXWebview in your project, please modify this packageName as your Android project.
-//const char* kJNIPakageName = "us/t1201/testplayer/Testplayer";
-
 CCWebView* CCWebView::create()
 {
 	CCWebView* webview = new CCWebView();

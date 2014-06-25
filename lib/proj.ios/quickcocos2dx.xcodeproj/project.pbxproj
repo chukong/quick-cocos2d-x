@@ -57,8 +57,8 @@
 		7F67276E18D6A04400CCEAEB /* GameCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7F67276C18D6A04400CCEAEB /* GameCenter.mm */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
-		E563AE741958300900BCF801 /* CCWebView_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = E563AE711958300900BCF801 /* CCWebView_iOS.mm */; };
-		E563AE751958300900BCF801 /* CCWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E563AE721958300900BCF801 /* CCWebView.mm */; };
+		E511C32E195A77B900FFDE22 /* CCWebView_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */; };
+		E511C32F195A77B900FFDE22 /* CCWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C32D195A77B900FFDE22 /* CCWebView.mm */; };
 		F40118C2180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40118BE180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp */; };
 		F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */; };
 		F40AFDD916BD153500565A5E /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDD816BD153500565A5E /* CCLuaObjcBridge.mm */; };
@@ -487,9 +487,9 @@
 		B2DC7990181BA55A001341D6 /* lsqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lsqlite3.h; sourceTree = "<group>"; };
 		B2DC7991181BA55A001341D6 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		B2DC7992181BA55A001341D6 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
-		E563AE701958300900BCF801 /* CCWebView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView_iOS.h; path = webview/ios/CCWebView_iOS.h; sourceTree = "<group>"; };
-		E563AE711958300900BCF801 /* CCWebView_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView_iOS.mm; path = webview/ios/CCWebView_iOS.mm; sourceTree = "<group>"; };
-		E563AE721958300900BCF801 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/ios/CCWebView.mm; sourceTree = "<group>"; };
+		E511C32B195A77B900FFDE22 /* CCWebView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView_iOS.h; path = webview/ios/CCWebView_iOS.h; sourceTree = "<group>"; };
+		E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView_iOS.mm; path = webview/ios/CCWebView_iOS.mm; sourceTree = "<group>"; };
+		E511C32D195A77B900FFDE22 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/ios/CCWebView.mm; sourceTree = "<group>"; };
 		E563AE731958300900BCF801 /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView.h; path = webview/CCWebView.h; sourceTree = "<group>"; };
 		F40118BE180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2dx_extensions_manual.cpp; sourceTree = "<group>"; };
 		F40118BF180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2dx_extensions_manual.h; sourceTree = "<group>"; };
@@ -1408,9 +1408,9 @@
 		E563AE761958301700BCF801 /* webview */ = {
 			isa = PBXGroup;
 			children = (
-				E563AE701958300900BCF801 /* CCWebView_iOS.h */,
-				E563AE711958300900BCF801 /* CCWebView_iOS.mm */,
-				E563AE721958300900BCF801 /* CCWebView.mm */,
+				E511C32B195A77B900FFDE22 /* CCWebView_iOS.h */,
+				E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */,
+				E511C32D195A77B900FFDE22 /* CCWebView.mm */,
 				E563AE731958300900BCF801 /* CCWebView.h */,
 			);
 			name = webview;
@@ -2901,6 +2901,7 @@
 				42C222D31912286A00C3F4AE /* CCContrastFilter.cpp in Sources */,
 				F45A2DE9166B16B100760194 /* CCLuaEngine.cpp in Sources */,
 				F459EB14180D04E1006CBDF1 /* cpSpaceStep.c in Sources */,
+				E511C32F195A77B900FFDE22 /* CCWebView.mm in Sources */,
 				F459EB19180D04E1006CBDF1 /* luaopen_LuaProxy.cpp in Sources */,
 				F45A2DEA166B16B100760194 /* Cocos2dxLuaLoader.cpp in Sources */,
 				F45A2DEB166B16B100760194 /* LuaCocos2d.cpp in Sources */,
@@ -2950,12 +2951,10 @@
 				F4E882A6177015C400577406 /* CCAction.cpp in Sources */,
 				F459EB90180D0513006CBDF1 /* lua_zlib.c in Sources */,
 				F4E882A7177015C400577406 /* CCActionCamera.cpp in Sources */,
-				E563AE741958300900BCF801 /* CCWebView_iOS.mm in Sources */,
 				F4E882A8177015C400577406 /* CCActionCatmullRom.cpp in Sources */,
 				F4E882A9177015C400577406 /* CCActionEase.cpp in Sources */,
 				F4E882AA177015C400577406 /* CCActionGrid.cpp in Sources */,
 				42C222851912286200C3F4AE /* Slot.cpp in Sources */,
-				E563AE751958300900BCF801 /* CCWebView.mm in Sources */,
 				42C222881912286200C3F4AE /* DBDataUtil.cpp in Sources */,
 				42C222DA1912286A00C3F4AE /* CCHueFilter.cpp in Sources */,
 				F459EB17180D04E1006CBDF1 /* cpVect.c in Sources */,
@@ -3149,6 +3148,7 @@
 				F4E8833E177015FF00577406 /* CCFileUtilsIOS.mm in Sources */,
 				F459EB8E180D0513006CBDF1 /* usocket.c in Sources */,
 				F459EB7B180D0513006CBDF1 /* strbuf.c in Sources */,
+				E511C32E195A77B900FFDE22 /* CCWebView_iOS.mm in Sources */,
 				F4A8F6C217F0B21200110198 /* Lua_web_socket.cpp in Sources */,
 				F4E8833F177015FF00577406 /* CCImage.mm in Sources */,
 				F459EB85180D0513006CBDF1 /* mime.c in Sources */,
