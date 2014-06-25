@@ -59,8 +59,6 @@ extern "C" {
 // cocos-extensions
 #include "cocos-ext.h"
 #include "lua_cocos2dx_extensions_manual.h"
-// cocosbuilder
-#include "Lua_extensions_CCB.h"
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -162,8 +160,6 @@ bool CCLuaStack::init(void)
     luaopen_LuaProxy(m_state);
 	// cocos-extensions
     register_all_cocos2dx_extension_manual(m_state);
-    // cocosbuilder
-    tolua_extensions_ccb_open(m_state);
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

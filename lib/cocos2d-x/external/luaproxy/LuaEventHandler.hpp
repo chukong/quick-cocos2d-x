@@ -40,7 +40,7 @@ typedef LuaStack CCLuaStack;
 typedef DictElement CCDictElement;
 #endif
 
-class LuaEventHandler : public CCLayer, public CCBAnimationManagerDelegate,
+class LuaEventHandler : public CCLayer,
 public CCTableViewDelegate, public CCTableViewDataSource
 #ifdef LUAPROXY_CCEDITBOX_ENABLED
 ,public EditBoxDelegate
@@ -54,8 +54,6 @@ protected:
 	bool _multiTouches;
 	int _priority;
 	bool _swallows;
-	CCBAnimationManager *_aniMGR;
-	LuaEventHandler() : _aniMGR(NULL), _lua(NULL), _handler(0), _handlerRef(0){}
 public:
 	enum class Events{
 		KeyBack = 1,
@@ -188,15 +186,6 @@ public:
 		_handlerRef = lua_ref(_lua, _handler);
 		return this;
 	}
-	// Handle for CCBAnimationManager with optional function
-	LuaEventHandler * handle(CCBAnimationManager *m, int handler = 0){
-		if(handler > 0){
-			handle(handler);
-		}
-		_aniMGR = m;
-		m->setDelegate(this);
-		return this;
-	}
 	inline void unhandle(){
 		if(_handler > 0){
 			toluafix_remove_function_by_refid(_lua, _handler);
@@ -241,16 +230,7 @@ public:
 	void action(CCObject *sender){
 		if(_handler){
 			pushCCObject(sender, _typename.empty()? "CCObject" : _typename.c_str());
-			runFunctionHandler(_handler, 1);
-		}
-	}
-	// An animation of ccb complated
-	void completedAnimationSequenceNamed(const char *n){
-		if(_handler){
-			pushCCObject(_aniMGR, "CCBAnimationManager");
-			pushString(n);
-			pushCCObject(this, "LuaEventHandler");
-			runFunctionHandler(_handler, 3);
+			runFunctionHandler(_handler, 1); 
 		}
 	}
 	// Call lua func with a string

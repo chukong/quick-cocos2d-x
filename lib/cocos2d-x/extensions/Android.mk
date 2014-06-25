@@ -18,53 +18,6 @@ ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_SRC_FILES += \
         AssetsManager/AssetsManager.cpp \
-        CCBReader/CCBAnimationManager.cpp \
-        CCBReader/CCBFileLoader.cpp \
-        CCBReader/CCBKeyframe.cpp \
-        CCBReader/CCBReader.cpp \
-        CCBReader/CCBSequence.cpp \
-        CCBReader/CCBSequenceProperty.cpp \
-        CCBReader/CCBValue.cpp \
-        CCBReader/CCControlButtonLoader.cpp \
-        CCBReader/CCControlLoader.cpp \
-        CCBReader/CCData.cpp \
-        CCBReader/CCLabelBMFontLoader.cpp \
-        CCBReader/CCLabelTTFLoader.cpp \
-        CCBReader/CCLayerColorLoader.cpp \
-        CCBReader/CCLayerGradientLoader.cpp \
-        CCBReader/CCLayerLoader.cpp \
-        CCBReader/CCMenuItemImageLoader.cpp \
-        CCBReader/CCMenuItemLoader.cpp \
-        CCBReader/CCNode+CCBRelativePositioning.cpp \
-        CCBReader/CCNodeLoader.cpp \
-        CCBReader/CCNodeLoaderLibrary.cpp \
-        CCBReader/CCParticleSystemQuadLoader.cpp \
-        CCBReader/CCScale9SpriteLoader.cpp \
-        CCBReader/CCScrollViewLoader.cpp \
-        CCBReader/CCSpriteLoader.cpp \
-        CCArmature/animation/CCArmatureAnimation.cpp \
-        CCArmature/animation/CCProcessBase.cpp \
-        CCArmature/animation/CCTween.cpp \
-        CCArmature/CCArmature.cpp \
-        CCArmature/CCBone.cpp \
-        CCArmature/datas/CCDatas.cpp \
-        CCArmature/display/CCBatchNode.cpp \
-        CCArmature/display/CCDecorativeDisplay.cpp \
-        CCArmature/display/CCDisplayFactory.cpp \
-        CCArmature/display/CCDisplayManager.cpp \
-        CCArmature/display/CCShaderNode.cpp \
-        CCArmature/display/CCSkin.cpp \
-        CCArmature/external_tool/CCTexture2DMutable.cpp \
-        CCArmature/external_tool/Json/CSContentJsonDictionary.cpp \
-        CCArmature/external_tool/Json/lib_json/json_reader.cpp \
-        CCArmature/external_tool/Json/lib_json/json_value.cpp \
-        CCArmature/external_tool/Json/lib_json/json_writer.cpp \
-        CCArmature/utils/CCArmatureDataManager.cpp \
-        CCArmature/utils/CCDataReaderHelper.cpp \
-        CCArmature/utils/CCSpriteFrameCacheHelper.cpp \
-        CCArmature/utils/CCTransformHelp.cpp \
-        CCArmature/utils/CCTweenFunction.cpp \
-        CCArmature/utils/CCUtilMath.cpp \
         GUI/CCControlExtension/CCControlColourPicker.cpp \
         GUI/CCControlExtension/CCControlHuePicker.cpp \
         GUI/CCControlExtension/CCControlPotentiometer.cpp \
@@ -151,17 +104,8 @@ ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_EXPORT_C_INCLUDES += \
                                $(LOCAL_PATH)/network \
-                               $(LOCAL_PATH)/CCBReader \
                                $(LOCAL_PATH)/Components \
                                $(LOCAL_PATH)/GUI/CCScrollView \
-                               $(LOCAL_PATH)/CCArmature \
-                               $(LOCAL_PATH)/CCArmature/animation \
-                               $(LOCAL_PATH)/CCArmature/datas \
-                               $(LOCAL_PATH)/CCArmature/display \
-                               $(LOCAL_PATH)/CCArmature/external_tool \
-                               $(LOCAL_PATH)/CCArmature/external_tool/Json \
-                               $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
-                               $(LOCAL_PATH)/CCArmature/utils \
                                $(LOCAL_PATH)/filters \
                                $(LOCAL_PATH)/DragonBones \
                                $(LOCAL_PATH)/webview

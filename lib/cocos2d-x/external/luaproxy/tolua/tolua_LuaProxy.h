@@ -126,22 +126,6 @@ static int tolua_LuaProxy_handleEditEvent(lua_State *l){
 	tolua_pushusertype(l, p, "LuaProxy");
 	return 1;
 }
-//LuaProxy::handleAnimationComplate
-static int tolua_LuaProxy_handleAnimationComplate(lua_State *l){
-#ifndef TOLUA_RELEASE
-	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isusertype(l, 2, "CCBAnimationManager", 0, &err) ||
-		!toluafix_isfunction(l, 3, "LUA_FUNCTION", 0, &err)){
-		tolua_error(l,"#ferror in function 'LuaProxy.handleAnimationComplate'.",&err);
-		return 0;
-	}
-#endif
-	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
-	CCBAnimationManager *m = (CCBAnimationManager *)tolua_tousertype(l, 2, NULL);
-	if(p && m){p->handleEvent(m, toluafix_ref_function(l, 3, 0));}
-	tolua_pushusertype(l, p, "LuaProxy");
-	return 1;
-}
 //LuaProxy::handleSelector
 static int tolua_LuaProxy_handleSelector(lua_State *l){
 #ifndef TOLUA_RELEASE
@@ -246,22 +230,6 @@ static int tolua_LuaProxy_deliverChildren(lua_State *l){
 			n->removeFromParentAndCleanup(true);
 			nt->addChild(n);
 		}
-	}
-	return 1;
-}
-//LuaProxy::readCCBFromFile(const char *f)
-static int tolua_LuaProxy_readCCBFromFile(lua_State *l){
-#ifndef TOLUA_RELEASE
-	tolua_Error err;
-	if(!tolua_isusertype(l, 1, "LuaProxy", 0, &err) || !tolua_isstring(l, 2, 0, &err)){
-		tolua_error(l,"#ferror in function 'LuaProxy.readCCBFromFile'.",&err);
-		return 0;
-	}
-#endif
-	LuaProxy *p = (LuaProxy *)tolua_tousertype(l, 1, NULL);
-	const char *f = tolua_tostring(l, 2, 0);
-	if(p){
-		tolua_pushusertype(l, p->readCCBFromFile(f), "CCNode");
 	}
 	return 1;
 }

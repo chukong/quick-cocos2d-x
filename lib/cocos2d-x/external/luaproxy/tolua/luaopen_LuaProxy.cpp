@@ -403,7 +403,6 @@ TOLUA_API int luaopen_LuaProxy(lua_State* l){
 			tolua_function(l, "handleControlEvent", tolua_LuaProxy_handleControlEvent);
 			tolua_function(l, "handleKeypad", tolua_LuaProxy_handleKeypad);
 			tolua_function(l, "handleMenuEvent", tolua_LuaProxy_handleMenuEvent);
-			tolua_function(l, "handleAnimationComplate", tolua_LuaProxy_handleAnimationComplate);
 			tolua_function(l, "handleSelector", tolua_LuaProxy_handleSelector);
 			tolua_function(l, "removeHandler", tolua_LuaProxy_removeHandler);
 			tolua_function(l, "removeFunction", tolua_LuaProxy_removeFunction);
@@ -411,7 +410,6 @@ TOLUA_API int luaopen_LuaProxy(lua_State* l){
 			tolua_function(l, "getSelectorHandler", tolua_LuaProxy_getSelectorHandler);
 			tolua_function(l, "setSelectorHandler", tolua_LuaProxy_setSelectorHandler);
 			tolua_function(l, "deliverChildren", tolua_LuaProxy_deliverChildren);
-			tolua_function(l, "readCCBFromFile", tolua_LuaProxy_readCCBFromFile);
 		tolua_endmodule(l);
 		tolua_cclass(l, "CCCameraEyeAction", "CCCameraEyeAction", "CCActionInterval", NULL);
 		tolua_beginmodule(l, "CCCameraEyeAction");

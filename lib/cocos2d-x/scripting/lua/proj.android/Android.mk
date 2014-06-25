@@ -24,8 +24,6 @@ ifndef $(QUICK_MINI_TARGET)
     LOCAL_SRC_FILES += \
                         ../cocos2dx_support/LuaCocos2d.cpp \
                         ../cocos2dx_support/Lua_web_socket.cpp \
-                        ../cocos2dx_support/CCBProxy.cpp \
-                        ../cocos2dx_support/Lua_extensions_CCB.cpp \
                         ../cocos2dx_support/lua_cocos2dx_extensions_manual.cpp \
                         ../lua_extensions/cjson/fpconv.c \
                         ../lua_extensions/cjson/lua_cjson.c \

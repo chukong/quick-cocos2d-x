@@ -34,7 +34,7 @@ THE SOFTWARE.
 USING_NS_CC;
 USING_NS_CC_EXT;
 
-class LuaProxy : public CCLayer, public CCBScriptOwnerProtocol, public CCBSelectorResolver, public CCBMemberVariableAssigner{
+class LuaProxy : public CCLayer{
 protected:
 	lua_State *_lua;
 	CCDictionary *_memVars;
@@ -52,8 +52,19 @@ public:
 		CC_SAFE_RELEASE(_handlers);
 		CC_SAFE_RELEASE(_selectorHandler);
 	}
+    
+    static LuaProxy* create()
+    {
+        LuaProxy* ptr = new LuaProxy();
+        if(ptr != NULL && ptr->init())
+        {
+            ptr->autorelease();
+            return ptr;
+        }
+        CC_SAFE_DELETE(ptr);
+        return NULL;
+    }
 	
-	CCB_STATIC_NEW_AUTORELEASE_OBJECT_WITH_INIT_METHOD(LuaProxy, create);
 	void releaseMembers(){
 		_memVars->removeAllObjects();
 		_handlers->removeAllObjects();
@@ -89,18 +100,6 @@ public:
 		return true;
 	}
 
-	virtual bool onAssignCCBCustomProperty(CCObject* o, const char* var, CCBValue* v) {
-		return false;
-	}
-
-	virtual void onNodeLoaded(CCNode * n, CCNodeLoader * l){
-	}
-
-	virtual CCBSelectorResolver * createNew(){
-		LuaProxy *p = new LuaProxy();
-		return dynamic_cast<CCBSelectorResolver *>(p);
-	}
-
 	//create LuaEventHandler contains a lua function(handler), for handler control's event
 
 	void handleEvent(CCControl *n, const int handler, bool multiTouches = false,
@@ -124,9 +123,6 @@ public:
 		n->setDelegate(h);
 	}
 #endif
-	void handleEvent(CCBAnimationManager *m, const int handler){
-		addHandler(handler)->handle(m);
-	}
 
 	void handleKeypad(const int handler){
 		LuaEventHandler::sharedDirector()->getKeypadDispatcher()->addDelegate(addHandler(handler));
@@ -165,8 +161,6 @@ public:
         else if(strcmp("CCMenuItemImage", t) == 0)	tolua_pushusertype(l, dynamic_cast<CCMenuItemImage *>(o), t);
         else if(strcmp("CCString", t) == 0)			tolua_pushusertype(l, dynamic_cast<CCString *>(o), t);
         else if(strcmp("CCParticleSystemQuad", t) == 0)tolua_pushusertype(l, dynamic_cast<CCParticleSystemQuad *>(o), t);
-        else if(strcmp("CCBFile", t) == 0)			tolua_pushusertype(l, dynamic_cast<CCBFile *>(o), t);
-        else if(strcmp("CCBAnimationManager", t) == 0)			tolua_pushusertype(l, dynamic_cast<CCBAnimationManager *>(o), t);
         else tolua_pushusertype(l, dynamic_cast<CCNode *>(o), "CCNode");
     }
 
@@ -240,21 +234,6 @@ public:
 	// Get member variable in node for key
 	CCNode * getNode(const char *n){
 		return (CCNode *)_memVars->objectForKey(n);
-	}
-	// Read ccbi file (f). 2nd argument not use yet.
-	CCNode * readCCBFromFile(const char *f){
-		//assert(f && strlen(f) > 0, "File name must not be null or empty string.");
-		CCBReader * reader = new CCBReader(
-#if COCOS2D_VERSION >= 0x00030000
-			NodeLoaderLibrary::getInstance());
-#else
-			CCNodeLoaderLibrary::sharedCCNodeLoaderLibrary());
-#endif
-		CCNode *node = reader->readNodeGraphFromFile(f, this);
-		CCBAnimationManager *m = reader->getAnimationManager();
-		reader->autorelease();
-		node->setUserObject(m);
-		return node;
 	}
 //	void changeResolutionScale(CCNode *n, CCBAnimationManager *m, float resolutionScale);
 };

@@ -33,7 +33,7 @@ CCWebView* CCWebView::create(const char* activityName)
 }
 
 CCWebView::CCWebView()
-: _JNIPackageName(NULL)
+: _activityName(NULL)
 {
     
 }
