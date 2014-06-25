@@ -43,6 +43,7 @@ public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		actInstance = this;
 		_webLayout = new LinearLayout(this);
 		actInstance.addContentView(_webLayout, new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
@@ -56,11 +57,8 @@ public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
 		return actInstance;
 	}
 
-	// WebView
 	public void displayWebView(final int x, final int y, final int width,
 			final int height) {
-			//Log.e("Vincent", "showWebView");
-
 		this.runOnUiThread(new Runnable() {
 			public void run() {
 				_webView = new WebView(actInstance);

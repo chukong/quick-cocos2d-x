@@ -11,7 +11,7 @@ local _browser = nil
 local function createBrowser()
 	assert(_activityName, "ActivityName is necessary!")
 	if not _browser then
-		_browser = CCWebView:create()
+		_browser = CCWebView:create(_activityName)
 		_browser:retain()
 	end
 end
@@ -20,7 +20,7 @@ function webview.setActivityName(name)
 	_activityName = name
 end
 
-function webview.gettActivityName()
+function webview.getActivityName()
 	return _activityName
 end
 
@@ -42,17 +42,15 @@ function webview.getSize()
 	return _w, _h
 end
 
-function webview.update(url)
-	createBrowser()
-	_browser:updateURL(url)
-end
-webview.updateURL = webview.update
-
 function webview.show(url, x,y,w,h)
 	if x and y then webview.setPos(x,y) end
 	if w and h then webview.setSize(w,h) end
-	createBrowser()
-	_browser:showWebView(url, _x, _y, _w, _h)
+	if _browser then
+		_browser:updateURL(url)
+	else
+		createBrowser()
+		_browser:showWebView(url, _x, _y, _w, _h)
+	end
 end
 webview.showWebView = webview.show
 
