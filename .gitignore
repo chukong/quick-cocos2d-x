@@ -39,6 +39,3 @@ lib/proj.qt/Makefile.libchipmunk.Debug
 lib/proj.qt/Makefile.libchipmunk.Release
 lib/proj.qt/Makefile.libquickqt.Debug
 lib/proj.qt/Makefile.libquickqt.Release
-build-quick-x-Desktop_Qt_5_3_0_clang_64bit-Debug
-quick-x.pro.user
-build-quick-x-Desktop_Qt_5_3_0_clang_64bit-Release
