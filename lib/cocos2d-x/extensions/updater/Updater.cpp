@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "AssetsManager.h"
+#include "Updater.h"
 #include "cocos2d.h"
 
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WINRT) && (CC_TARGET_PLATFORM != CC_PLATFORM_WP8)
@@ -53,28 +53,28 @@ NS_CC_EXT_BEGIN;
 #define MAX_FILENAME   512
 
 // Message type
-#define ASSETSMANAGER_MESSAGE_UPDATE_SUCCEED                0
-#define ASSETSMANAGER_MESSAGE_RECORD_DOWNLOADED_VERSION     1
-#define ASSETSMANAGER_MESSAGE_PROGRESS                      2
-#define ASSETSMANAGER_MESSAGE_ERROR                         3
+#define UPDATER_MESSAGE_UPDATE_SUCCEED                0
+#define UPDATER_MESSAGE_RECORD_DOWNLOADED_VERSION     1
+#define UPDATER_MESSAGE_PROGRESS                      2
+#define UPDATER_MESSAGE_ERROR                         3
 
 // Some data struct for sending messages
 
 struct ErrorMessage
 {
-    AssetsManager::ErrorCode code;
-    AssetsManager* manager;
+    Updater::ErrorCode code;
+    Updater* manager;
 };
 
 struct ProgressMessage
 {
     int percent;
-    AssetsManager* manager;
+    Updater* manager;
 };
 
-// Implementation of AssetsManager
+// Implementation of Updater
 
-AssetsManager::AssetsManager(const char* packageUrl/* =NULL */, const char* versionFileUrl/* =NULL */, const char* storagePath/* =NULL */)
+Updater::Updater(const char* packageUrl/* =NULL */, const char* versionFileUrl/* =NULL */, const char* storagePath/* =NULL */)
 :  _storagePath(storagePath)
 , _version("")
 , _packageUrl(packageUrl)
@@ -90,7 +90,7 @@ AssetsManager::AssetsManager(const char* packageUrl/* =NULL */, const char* vers
     _schedule = new Helper();
 }
 
-AssetsManager::~AssetsManager()
+Updater::~Updater()
 {
     if (_schedule)
     {
@@ -99,7 +99,7 @@ AssetsManager::~AssetsManager()
     unregisterScriptHandler();
 }
 
-void AssetsManager::checkStoragePath()
+void Updater::checkStoragePath()
 {
     if (_storagePath.size() > 0 && _storagePath[_storagePath.size() - 1] != '/')
     {
@@ -115,7 +115,46 @@ static size_t getVersionCode(void *ptr, size_t size, size_t nmemb, void *userdat
     return (size * nmemb);
 }
 
-bool AssetsManager::checkUpdate()
+static size_t getUpdateInfoFun(void *ptr, size_t size, size_t nmemb, void *userdata)
+{
+    string *updateInfo = (string*)userdata;
+    updateInfo->append((char*)ptr, size * nmemb);
+    
+    return (size * nmemb);
+}
+
+const char* Updater::getUpdateInfo(const char* path)
+{
+    _curl = curl_easy_init();
+    CCLOG("getUpdateInfo:%s", path);
+    if (! _curl)
+    {
+        CCLOG("can not init curl");
+        return "";
+    }
+    
+    std::string updateInfoString;
+    
+    CURLcode res;
+    curl_easy_setopt(_curl, CURLOPT_URL, path);
+    curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
+    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, getUpdateInfoFun);
+    curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &updateInfoString);
+    if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
+    res = curl_easy_perform(_curl);
+    
+    if (res != 0)
+    {
+        sendErrorMessage(kNetwork);
+        CCLOG("can not get version file content, error code is %d", res);
+        curl_easy_cleanup(_curl);
+        return "";
+    }
+    
+    return updateInfoString.c_str();
+}
+
+bool Updater::checkUpdate()
 {
     if (_versionFileUrl.size() == 0) return false;
     
@@ -162,7 +201,7 @@ bool AssetsManager::checkUpdate()
 
 void* assetsManagerDownloadAndUncompress(void *data)
 {
-    AssetsManager* self = (AssetsManager*)data;
+    Updater* self = (Updater*)data;
     
     do
     {
@@ -171,8 +210,8 @@ void* assetsManagerDownloadAndUncompress(void *data)
             if (! self->downLoad()) break;
             
             // Record downloaded version.
-            AssetsManager::Message *msg1 = new AssetsManager::Message();
-            msg1->what = ASSETSMANAGER_MESSAGE_RECORD_DOWNLOADED_VERSION;
+            Updater::Message *msg1 = new Updater::Message();
+            msg1->what = UPDATER_MESSAGE_RECORD_DOWNLOADED_VERSION;
             msg1->obj = self;
             self->_schedule->sendMessage(msg1);
         }
@@ -180,13 +219,13 @@ void* assetsManagerDownloadAndUncompress(void *data)
         // Uncompress zip file.
         if (! self->uncompress())
         {
-            self->sendErrorMessage(AssetsManager::kUncompress);
+            self->sendErrorMessage(Updater::kUncompress);
             break;
         }
         
         // Record updated version and remove downloaded zip file
-        AssetsManager::Message *msg2 = new AssetsManager::Message();
-        msg2->what = ASSETSMANAGER_MESSAGE_UPDATE_SUCCEED;
+        Updater::Message *msg2 = new Updater::Message();
+        msg2->what = UPDATER_MESSAGE_UPDATE_SUCCEED;
         msg2->obj = self;
         self->_schedule->sendMessage(msg2);
     } while (0);
@@ -200,7 +239,7 @@ void* assetsManagerDownloadAndUncompress(void *data)
     return NULL;
 }
 
-void AssetsManager::update()
+void Updater::update()
 {
     if (_tid) return;
     
@@ -224,7 +263,7 @@ void AssetsManager::update()
     pthread_create(&(*_tid), NULL, assetsManagerDownloadAndUncompress, this);
 }
 
-bool AssetsManager::uncompress()
+bool Updater::uncompress()
 {
     // Open the zip file
     string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
@@ -282,16 +321,16 @@ bool AssetsManager::uncompress()
 			while((position=fileNameStr.find_first_of("/",position))!=string::npos)
 			{
 				string dirPath =_storagePath + fileNameStr.substr(0, position);
-            // Entry is a direcotry, so create it.
-            // If the directory exists, it will failed scilently.
+				// Entry is a direcotry, so create it.
+				// If the directory exists, it will failed scilently.
 				if (!createDirectory(dirPath.c_str()))
-            {
-					CCLOG("can not create directory %s", dirPath.c_str());
-					//unzClose(zipfile);
-					//return false;
-            }
+				{
+						CCLOG("can not create directory %s", dirPath.c_str());
+						//unzClose(zipfile);
+						//return false;
+				}
 				position++;
-        }
+			}
         }
         else
         {
@@ -359,7 +398,7 @@ bool AssetsManager::uncompress()
 /*
  * Create a direcotry is platform depended.
  */
-bool AssetsManager::createDirectory(const char *path)
+bool Updater::createDirectory(const char *path)
 {
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
     mode_t processMask = umask(0);
@@ -381,7 +420,7 @@ bool AssetsManager::createDirectory(const char *path)
 #endif
 }
 
-void AssetsManager::setSearchPath()
+void Updater::setSearchPath()
 {
     vector<string> searchPaths = CCFileUtils::sharedFileUtils()->getSearchPaths();
     vector<string>::iterator iter = searchPaths.begin();
@@ -398,9 +437,9 @@ static size_t downLoadPackage(void *ptr, size_t size, size_t nmemb, void *userda
 
 int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownloaded, double totalToUpLoad, double nowUpLoaded)
 {
-    AssetsManager* manager = (AssetsManager*)ptr;
-    AssetsManager::Message *msg = new AssetsManager::Message();
-    msg->what = ASSETSMANAGER_MESSAGE_PROGRESS;
+    Updater* manager = (Updater*)ptr;
+    Updater::Message *msg = new Updater::Message();
+    msg->what = UPDATER_MESSAGE_PROGRESS;
     
     ProgressMessage *progressData = new ProgressMessage();
     progressData->percent = (int)(nowDownloaded/totalToDownload*100);
@@ -414,7 +453,7 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
     return 0;
 }
 
-bool AssetsManager::downLoad()
+bool Updater::downLoad()
 {
     // Create a file to save package.
     string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
@@ -450,78 +489,78 @@ bool AssetsManager::downLoad()
     return true;
 }
 
-const char* AssetsManager::getPackageUrl() const
+const char* Updater::getPackageUrl() const
 {
     return _packageUrl.c_str();
 }
 
-void AssetsManager::setPackageUrl(const char *packageUrl)
+void Updater::setPackageUrl(const char *packageUrl)
 {
     _packageUrl = packageUrl;
 }
 
-const char* AssetsManager::getStoragePath() const
+const char* Updater::getStoragePath() const
 {
     return _storagePath.c_str();
 }
 
-void AssetsManager::setStoragePath(const char *storagePath)
+void Updater::setStoragePath(const char *storagePath)
 {
     _storagePath = storagePath;
     checkStoragePath();
 }
 
-const char* AssetsManager::getVersionFileUrl() const
+const char* Updater::getVersionFileUrl() const
 {
     return _versionFileUrl.c_str();
 }
 
-void AssetsManager::setVersionFileUrl(const char *versionFileUrl)
+void Updater::setVersionFileUrl(const char *versionFileUrl)
 {
     _versionFileUrl = versionFileUrl;
 }
 
-string AssetsManager::getVersion()
+string Updater::getVersion()
 {
     return CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_VERSION);
 }
 
-void AssetsManager::deleteVersion()
+void Updater::deleteVersion()
 {
     CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_VERSION, "");
 }
 
-void AssetsManager::setDelegate(AssetsManagerDelegateProtocol *delegate)
+void Updater::setDelegate(UpdaterDelegateProtocol *delegate)
 {
     _delegate = delegate;
 }
 
-void AssetsManager::registerScriptHandler(int handler)
+void Updater::registerScriptHandler(int handler)
 {
     unregisterScriptHandler();
     _scriptHandler = handler;
 }
 
-void AssetsManager::unregisterScriptHandler(void)
+void Updater::unregisterScriptHandler(void)
 {
     CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(_scriptHandler);
     _scriptHandler = 0;
 }
 
-void AssetsManager::setConnectionTimeout(unsigned int timeout)
+void Updater::setConnectionTimeout(unsigned int timeout)
 {
     _connectionTimeout = timeout;
 }
 
-unsigned int AssetsManager::getConnectionTimeout()
+unsigned int Updater::getConnectionTimeout()
 {
     return _connectionTimeout;
 }
 
-void AssetsManager::sendErrorMessage(AssetsManager::ErrorCode code)
+void Updater::sendErrorMessage(Updater::ErrorCode code)
 {
     Message *msg = new Message();
-    msg->what = ASSETSMANAGER_MESSAGE_ERROR;
+    msg->what = UPDATER_MESSAGE_ERROR;
     
     ErrorMessage *errorMessage = new ErrorMessage();
     errorMessage->code = code;
@@ -531,29 +570,29 @@ void AssetsManager::sendErrorMessage(AssetsManager::ErrorCode code)
     _schedule->sendMessage(msg);
 }
 
-// Implementation of AssetsManagerHelper
+// Implementation of UpdaterHelper
 
-AssetsManager::Helper::Helper()
+Updater::Helper::Helper()
 {
     _messageQueue = new list<Message*>();
     pthread_mutex_init(&_messageQueueMutex, NULL);
     CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
 }
 
-AssetsManager::Helper::~Helper()
+Updater::Helper::~Helper()
 {
     CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
     delete _messageQueue;
 }
 
-void AssetsManager::Helper::sendMessage(Message *msg)
+void Updater::Helper::sendMessage(Message *msg)
 {
     pthread_mutex_lock(&_messageQueueMutex);
     _messageQueue->push_back(msg);
     pthread_mutex_unlock(&_messageQueueMutex);
 }
 
-void AssetsManager::Helper::update(float dt)
+void Updater::Helper::update(float dt)
 {
     Message *msg = NULL;
     
@@ -571,17 +610,17 @@ void AssetsManager::Helper::update(float dt)
     pthread_mutex_unlock(&_messageQueueMutex);
     
     switch (msg->what) {
-        case ASSETSMANAGER_MESSAGE_UPDATE_SUCCEED:
+        case UPDATER_MESSAGE_UPDATE_SUCCEED:
             handleUpdateSucceed(msg);
             
             break;
-        case ASSETSMANAGER_MESSAGE_RECORD_DOWNLOADED_VERSION:
+        case UPDATER_MESSAGE_RECORD_DOWNLOADED_VERSION:
             CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_DOWNLOADED_VERSION,
-                                                                ((AssetsManager*)msg->obj)->_version.c_str());
+                                                                ((Updater*)msg->obj)->_version.c_str());
             CCUserDefault::sharedUserDefault()->flush();
             
             break;
-        case ASSETSMANAGER_MESSAGE_PROGRESS:
+        case UPDATER_MESSAGE_PROGRESS:
             if (((ProgressMessage*)msg->obj)->manager->_delegate)
             {
                 ((ProgressMessage*)msg->obj)->manager->_delegate->onProgress(((ProgressMessage*)msg->obj)->percent);
@@ -596,7 +635,7 @@ void AssetsManager::Helper::update(float dt)
             delete (ProgressMessage*)msg->obj;
             
             break;
-        case ASSETSMANAGER_MESSAGE_ERROR:
+        case UPDATER_MESSAGE_ERROR:
             // error call back
             if (((ErrorMessage*)msg->obj)->manager->_delegate)
             {
@@ -640,9 +679,9 @@ void AssetsManager::Helper::update(float dt)
     delete msg;
 }
 
-void AssetsManager::Helper::handleUpdateSucceed(Message *msg)
+void Updater::Helper::handleUpdateSucceed(Message *msg)
 {
-    AssetsManager* manager = (AssetsManager*)msg->obj;
+    Updater* manager = (Updater*)msg->obj;
     
     // Record new version code.
     CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_VERSION, manager->_version.c_str());

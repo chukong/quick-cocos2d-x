@@ -1,6 +1,6 @@
 
 $#include "cocos-ext.h"
-$#include "AssetsManager/AssetsManager.h"
+$#include "updater/Updater.h"
 $#include "filters/cocos2dFilters.h"
 $#include "DragonBones/DragonBonesHeaders.h"
 $#include "webview/CCWebView.h"
@@ -9,7 +9,7 @@ $using namespace cocos2d::extension;
 $using namespace dragonBones;
 $using namespace std;
 
-$pfile "extensions/AssetsManager/AssetsManager.tolua"
+$pfile "extensions/updater/Updater.tolua"
 $pfile "extensions/GUI/CCControlExtension/CCControl.tolua"
 $pfile "extensions/GUI/CCControlExtension/CCControlButton.tolua"
 $pfile "extensions/GUI/CCControlExtension/CCControlColourPicker.tolua"

@@ -57,6 +57,7 @@
 		7F67276E18D6A04400CCEAEB /* GameCenter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7F67276C18D6A04400CCEAEB /* GameCenter.mm */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
+		E504CA55195FF89900FF7CC7 /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E504CA53195FF89900FF7CC7 /* Updater.cpp */; };
 		E511C32E195A77B900FFDE22 /* CCWebView_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */; };
 		E511C32F195A77B900FFDE22 /* CCWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C32D195A77B900FFDE22 /* CCWebView.mm */; };
 		F40118C2180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40118BE180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp */; };
@@ -78,7 +79,6 @@
 		F428259617575DA8001479DC /* CCZipFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428256E17575DA8001479DC /* CCZipFile.cpp */; };
 		F42825A517575DA8001479DC /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428258F17575DA8001479DC /* platform.cpp */; };
 		F42825BA17575DBE001479DC /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42825B417575DBE001479DC /* libwebp.a */; };
-		F428262517575DD7001479DC /* AssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42825BC17575DD7001479DC /* AssetsManager.cpp */; };
 		F428264A17575DD7001479DC /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F428261117575DD7001479DC /* CCEditBox.cpp */; };
 		F428264C17575DD7001479DC /* CCEditBoxImplIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = F428261717575DD7001479DC /* CCEditBoxImplIOS.mm */; };
 		F42F313C17A272FA00A20E45 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */; };
@@ -487,6 +487,8 @@
 		B2DC7990181BA55A001341D6 /* lsqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lsqlite3.h; sourceTree = "<group>"; };
 		B2DC7991181BA55A001341D6 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
 		B2DC7992181BA55A001341D6 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		E504CA53195FF89900FF7CC7 /* Updater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Updater.cpp; sourceTree = "<group>"; };
+		E504CA54195FF89900FF7CC7 /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
 		E511C32B195A77B900FFDE22 /* CCWebView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView_iOS.h; path = webview/ios/CCWebView_iOS.h; sourceTree = "<group>"; };
 		E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView_iOS.mm; path = webview/ios/CCWebView_iOS.mm; sourceTree = "<group>"; };
 		E511C32D195A77B900FFDE22 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/ios/CCWebView.mm; sourceTree = "<group>"; };
@@ -546,8 +548,6 @@
 		F42825B617575DBE001479DC /* decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decode.h; sourceTree = "<group>"; };
 		F42825B717575DBE001479DC /* encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encode.h; sourceTree = "<group>"; };
 		F42825B817575DBE001479DC /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		F42825BC17575DD7001479DC /* AssetsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsManager.cpp; sourceTree = "<group>"; };
-		F42825BD17575DD7001479DC /* AssetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsManager.h; sourceTree = "<group>"; };
 		F42825F417575DD7001479DC /* ExtensionMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionMacros.h; sourceTree = "<group>"; };
 		F428261117575DD7001479DC /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
 		F428261217575DD7001479DC /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
@@ -1405,6 +1405,15 @@
 			path = lsqlite3;
 			sourceTree = "<group>";
 		};
+		E504CA52195FF89900FF7CC7 /* updater */ = {
+			isa = PBXGroup;
+			children = (
+				E504CA53195FF89900FF7CC7 /* Updater.cpp */,
+				E504CA54195FF89900FF7CC7 /* Updater.h */,
+			);
+			path = updater;
+			sourceTree = "<group>";
+		};
 		E563AE761958301700BCF801 /* webview */ = {
 			isa = PBXGroup;
 			children = (
@@ -1515,15 +1524,6 @@
 				F42825B817575DBE001479DC /* types.h */,
 			);
 			path = webp;
-			sourceTree = "<group>";
-		};
-		F42825BB17575DD7001479DC /* AssetsManager */ = {
-			isa = PBXGroup;
-			children = (
-				F42825BC17575DD7001479DC /* AssetsManager.cpp */,
-				F42825BD17575DD7001479DC /* AssetsManager.h */,
-			);
-			path = AssetsManager;
 			sourceTree = "<group>";
 		};
 		F42825F517575DD7001479DC /* GUI */ = {
@@ -2147,11 +2147,11 @@
 		F45A2E11166B16DC00760194 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E504CA52195FF89900FF7CC7 /* updater */,
 				E563AE761958301700BCF801 /* webview */,
 				42C2228B1912286900C3F4AE /* filters */,
 				42C222191912286200C3F4AE /* DragonBones */,
 				7F67276A18D6A04400CCEAEB /* GameCenter */,
-				F42825BB17575DD7001479DC /* AssetsManager */,
 				F4E8839E1770162A00577406 /* cocos-ext.h */,
 				F42825F417575DD7001479DC /* ExtensionMacros.h */,
 				F42825F517575DD7001479DC /* GUI */,
@@ -2943,7 +2943,6 @@
 				42C2228A1912286200C3F4AE /* TransformUtil.cpp in Sources */,
 				F428259617575DA8001479DC /* CCZipFile.cpp in Sources */,
 				F42825A517575DA8001479DC /* platform.cpp in Sources */,
-				F428262517575DD7001479DC /* AssetsManager.cpp in Sources */,
 				F428264A17575DD7001479DC /* CCEditBox.cpp in Sources */,
 				F459EAF7180D04E1006CBDF1 /* CCPhysicsShape.cpp in Sources */,
 				F428264C17575DD7001479DC /* CCEditBoxImplIOS.mm in Sources */,
@@ -3186,6 +3185,7 @@
 				42C2226F1912286200C3F4AE /* AnimationState.cpp in Sources */,
 				F4E883C71770163800577406 /* CCControlSaturationBrightnessPicker.cpp in Sources */,
 				F459EB12180D04E1006CBDF1 /* cpSpaceHash.c in Sources */,
+				E504CA55195FF89900FF7CC7 /* Updater.cpp in Sources */,
 				F4E883C81770163800577406 /* CCControlSlider.cpp in Sources */,
 				F4E883C91770163800577406 /* CCControlStepper.cpp in Sources */,
 				F4E883CA1770163800577406 /* CCControlSwitch.cpp in Sources */,

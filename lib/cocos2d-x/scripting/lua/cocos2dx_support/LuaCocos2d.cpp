@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jun 25 10:47:55 2014.
+** Generated automatically by tolua++-1.0.92 on Sun Jun 29 18:19:41 2014.
 */
 
 /****************************************************************************
@@ -44,7 +44,7 @@ using namespace CocosDenshion;
 
 #include "LuaCocos2d.h"
 #include "cocos-ext.h"
-#include "AssetsManager/AssetsManager.h"
+#include "updater/Updater.h"
 #include "filters/cocos2dFilters.h"
 #include "DragonBones/DragonBonesHeaders.h"
 #include "webview/CCWebView.h"
@@ -202,9 +202,9 @@ static int tolua_collect_CCSize (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_AssetsManager (lua_State* tolua_S)
+static int tolua_collect_CCInteger (lua_State* tolua_S)
 {
- AssetsManager* self = (AssetsManager*) tolua_tousertype(tolua_S,1,0);
+ CCInteger* self = (CCInteger*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -223,9 +223,9 @@ static int tolua_collect_AnimationData (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCInteger (lua_State* tolua_S)
+static int tolua_collect_CCScrollView (lua_State* tolua_S)
 {
- CCInteger* self = (CCInteger*) tolua_tousertype(tolua_S,1,0);
+ CCScrollView* self = (CCScrollView*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -314,9 +314,9 @@ static int tolua_collect_CCBool (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCScrollView (lua_State* tolua_S)
+static int tolua_collect_Updater (lua_State* tolua_S)
 {
- CCScrollView* self = (CCScrollView*) tolua_tousertype(tolua_S,1,0);
+ Updater* self = (Updater*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -795,8 +795,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCTransitionJumpZoom).hash_code(), "CCTransitionJumpZoom");
  tolua_usertype(tolua_S,"CCTMXLayer");
  toluafix_add_type_mapping(typeid(CCTMXLayer).hash_code(), "CCTMXLayer");
- tolua_usertype(tolua_S,"AssetsManager");
- toluafix_add_type_mapping(typeid(AssetsManager).hash_code(), "AssetsManager");
+ tolua_usertype(tolua_S,"CCLabelBMFont");
+ toluafix_add_type_mapping(typeid(CCLabelBMFont).hash_code(), "CCLabelBMFont");
  tolua_usertype(tolua_S,"CCDropShadowFilter");
  toluafix_add_type_mapping(typeid(CCDropShadowFilter).hash_code(), "CCDropShadowFilter");
  tolua_usertype(tolua_S,"CCScheduler");
@@ -834,8 +834,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCCallFunc).hash_code(), "CCCallFunc");
  tolua_usertype(tolua_S,"CCLabelAtlas");
  toluafix_add_type_mapping(typeid(CCLabelAtlas).hash_code(), "CCLabelAtlas");
- tolua_usertype(tolua_S,"CCLabelBMFont");
- toluafix_add_type_mapping(typeid(CCLabelBMFont).hash_code(), "CCLabelBMFont");
+ tolua_usertype(tolua_S,"Updater");
+ toluafix_add_type_mapping(typeid(Updater).hash_code(), "Updater");
  tolua_usertype(tolua_S,"CCEaseBounceIn");
  toluafix_add_type_mapping(typeid(CCEaseBounceIn).hash_code(), "CCEaseBounceIn");
  tolua_usertype(tolua_S,"CCPlace");
@@ -50250,14 +50250,14 @@ static int tolua_Cocos2d_SimpleAudioEngine_stopAllEffects00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_new00
-static int tolua_Cocos2d_AssetsManager_new00(lua_State* tolua_S)
+/* method: new of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_new00
+static int tolua_Cocos2d_Updater_new00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,1,&tolua_err) ||
      !tolua_isstring(tolua_S,3,1,&tolua_err) ||
      !tolua_isstring(tolua_S,4,1,&tolua_err) ||
@@ -50271,8 +50271,8 @@ static int tolua_Cocos2d_AssetsManager_new00(lua_State* tolua_S)
   const char* versionFileUrl = ((const char*)  tolua_tostring(tolua_S,3,NULL));
   const char* storagePath = ((const char*)  tolua_tostring(tolua_S,4,NULL));
   {
-   AssetsManager* tolua_ret = (AssetsManager*)  Mtolua_new((AssetsManager)(packageUrl,versionFileUrl,storagePath));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AssetsManager");
+   Updater* tolua_ret = (Updater*)  Mtolua_new((Updater)(packageUrl,versionFileUrl,storagePath));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Updater");
   }
  }
  return 1;
@@ -50284,14 +50284,14 @@ static int tolua_Cocos2d_AssetsManager_new00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: new_local of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_new00_local
-static int tolua_Cocos2d_AssetsManager_new00_local(lua_State* tolua_S)
+/* method: new_local of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_new00_local
+static int tolua_Cocos2d_Updater_new00_local(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertable(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertable(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,1,&tolua_err) ||
      !tolua_isstring(tolua_S,3,1,&tolua_err) ||
      !tolua_isstring(tolua_S,4,1,&tolua_err) ||
@@ -50305,8 +50305,8 @@ static int tolua_Cocos2d_AssetsManager_new00_local(lua_State* tolua_S)
   const char* versionFileUrl = ((const char*)  tolua_tostring(tolua_S,3,NULL));
   const char* storagePath = ((const char*)  tolua_tostring(tolua_S,4,NULL));
   {
-   AssetsManager* tolua_ret = (AssetsManager*)  Mtolua_new((AssetsManager)(packageUrl,versionFileUrl,storagePath));
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"AssetsManager");
+   Updater* tolua_ret = (Updater*)  Mtolua_new((Updater)(packageUrl,versionFileUrl,storagePath));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Updater");
     tolua_register_gc(tolua_S,lua_gettop(tolua_S));
   }
  }
@@ -50319,21 +50319,21 @@ static int tolua_Cocos2d_AssetsManager_new00_local(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: delete of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_delete00
-static int tolua_Cocos2d_AssetsManager_delete00(lua_State* tolua_S)
+/* method: delete of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_delete00
+static int tolua_Cocos2d_Updater_delete00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
 #endif
@@ -50348,21 +50348,21 @@ static int tolua_Cocos2d_AssetsManager_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: checkUpdate of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_checkUpdate00
-static int tolua_Cocos2d_AssetsManager_checkUpdate00(lua_State* tolua_S)
+/* method: checkUpdate of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_checkUpdate00
+static int tolua_Cocos2d_Updater_checkUpdate00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'checkUpdate'", NULL);
 #endif
@@ -50380,21 +50380,21 @@ static int tolua_Cocos2d_AssetsManager_checkUpdate00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: update of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_update00
-static int tolua_Cocos2d_AssetsManager_update00(lua_State* tolua_S)
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update00
+static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
 #endif
@@ -50411,21 +50411,21 @@ static int tolua_Cocos2d_AssetsManager_update00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getPackageUrl of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_getPackageUrl00
-static int tolua_Cocos2d_AssetsManager_getPackageUrl00(lua_State* tolua_S)
+/* method: getPackageUrl of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getPackageUrl00
+static int tolua_Cocos2d_Updater_getPackageUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getPackageUrl'", NULL);
 #endif
@@ -50443,14 +50443,14 @@ static int tolua_Cocos2d_AssetsManager_getPackageUrl00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setPackageUrl of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_setPackageUrl00
-static int tolua_Cocos2d_AssetsManager_setPackageUrl00(lua_State* tolua_S)
+/* method: setPackageUrl of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_setPackageUrl00
+static int tolua_Cocos2d_Updater_setPackageUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -50458,7 +50458,7 @@ static int tolua_Cocos2d_AssetsManager_setPackageUrl00(lua_State* tolua_S)
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
   const char* packageUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setPackageUrl'", NULL);
@@ -50476,21 +50476,21 @@ static int tolua_Cocos2d_AssetsManager_setPackageUrl00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getVersionFileUrl of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_getVersionFileUrl00
-static int tolua_Cocos2d_AssetsManager_getVersionFileUrl00(lua_State* tolua_S)
+/* method: getVersionFileUrl of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getVersionFileUrl00
+static int tolua_Cocos2d_Updater_getVersionFileUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVersionFileUrl'", NULL);
 #endif
@@ -50508,14 +50508,14 @@ static int tolua_Cocos2d_AssetsManager_getVersionFileUrl00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setVersionFileUrl of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_setVersionFileUrl00
-static int tolua_Cocos2d_AssetsManager_setVersionFileUrl00(lua_State* tolua_S)
+/* method: setVersionFileUrl of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_setVersionFileUrl00
+static int tolua_Cocos2d_Updater_setVersionFileUrl00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -50523,7 +50523,7 @@ static int tolua_Cocos2d_AssetsManager_setVersionFileUrl00(lua_State* tolua_S)
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
   const char* versionFileUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setVersionFileUrl'", NULL);
@@ -50541,21 +50541,21 @@ static int tolua_Cocos2d_AssetsManager_setVersionFileUrl00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getVersion of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_getVersion00
-static int tolua_Cocos2d_AssetsManager_getVersion00(lua_State* tolua_S)
+/* method: getVersion of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getVersion00
+static int tolua_Cocos2d_Updater_getVersion00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVersion'", NULL);
 #endif
@@ -50573,21 +50573,21 @@ static int tolua_Cocos2d_AssetsManager_getVersion00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: deleteVersion of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_deleteVersion00
-static int tolua_Cocos2d_AssetsManager_deleteVersion00(lua_State* tolua_S)
+/* method: deleteVersion of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_deleteVersion00
+static int tolua_Cocos2d_Updater_deleteVersion00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'deleteVersion'", NULL);
 #endif
@@ -50604,21 +50604,21 @@ static int tolua_Cocos2d_AssetsManager_deleteVersion00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getStoragePath of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_getStoragePath00
-static int tolua_Cocos2d_AssetsManager_getStoragePath00(lua_State* tolua_S)
+/* method: getStoragePath of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getStoragePath00
+static int tolua_Cocos2d_Updater_getStoragePath00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getStoragePath'", NULL);
 #endif
@@ -50636,14 +50636,14 @@ static int tolua_Cocos2d_AssetsManager_getStoragePath00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setStoragePath of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_setStoragePath00
-static int tolua_Cocos2d_AssetsManager_setStoragePath00(lua_State* tolua_S)
+/* method: setStoragePath of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_setStoragePath00
+static int tolua_Cocos2d_Updater_setStoragePath00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -50651,7 +50651,7 @@ static int tolua_Cocos2d_AssetsManager_setStoragePath00(lua_State* tolua_S)
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
   const char* storagePath = ((const char*)  tolua_tostring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setStoragePath'", NULL);
@@ -50669,14 +50669,14 @@ static int tolua_Cocos2d_AssetsManager_setStoragePath00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: setConnectionTimeout of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_setConnectionTimeout00
-static int tolua_Cocos2d_AssetsManager_setConnectionTimeout00(lua_State* tolua_S)
+/* method: setConnectionTimeout of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_setConnectionTimeout00
+static int tolua_Cocos2d_Updater_setConnectionTimeout00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -50684,7 +50684,7 @@ static int tolua_Cocos2d_AssetsManager_setConnectionTimeout00(lua_State* tolua_S
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
   unsigned int timeout = ((unsigned int)  tolua_tonumber(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setConnectionTimeout'", NULL);
@@ -50702,21 +50702,21 @@ static int tolua_Cocos2d_AssetsManager_setConnectionTimeout00(lua_State* tolua_S
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getConnectionTimeout of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_getConnectionTimeout00
-static int tolua_Cocos2d_AssetsManager_getConnectionTimeout00(lua_State* tolua_S)
+/* method: getConnectionTimeout of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getConnectionTimeout00
+static int tolua_Cocos2d_Updater_getConnectionTimeout00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getConnectionTimeout'", NULL);
 #endif
@@ -50734,14 +50734,14 @@ static int tolua_Cocos2d_AssetsManager_getConnectionTimeout00(lua_State* tolua_S
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: registerScriptHandler of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_registerScriptHandler00
-static int tolua_Cocos2d_AssetsManager_registerScriptHandler00(lua_State* tolua_S)
+/* method: registerScriptHandler of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_registerScriptHandler00
+static int tolua_Cocos2d_Updater_registerScriptHandler00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
@@ -50749,7 +50749,7 @@ static int tolua_Cocos2d_AssetsManager_registerScriptHandler00(lua_State* tolua_
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
   LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'registerScriptHandler'", NULL);
@@ -50767,21 +50767,21 @@ static int tolua_Cocos2d_AssetsManager_registerScriptHandler00(lua_State* tolua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: unregisterScriptHandler of class  AssetsManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_unregisterScriptHandler00
-static int tolua_Cocos2d_AssetsManager_unregisterScriptHandler00(lua_State* tolua_S)
+/* method: unregisterScriptHandler of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_unregisterScriptHandler00
+static int tolua_Cocos2d_Updater_unregisterScriptHandler00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
-     !tolua_isusertype(tolua_S,1,"AssetsManager",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,2,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  AssetsManager* self = (AssetsManager*)  tolua_tousertype(tolua_S,1,0);
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterScriptHandler'", NULL);
 #endif
@@ -50793,6 +50793,74 @@ static int tolua_Cocos2d_AssetsManager_unregisterScriptHandler00(lua_State* tolu
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'unregisterScriptHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createDirectory of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_createDirectory00
+static int tolua_Cocos2d_Updater_createDirectory00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'createDirectory'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->createDirectory(path);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'createDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getUpdateInfo of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getUpdateInfo00
+static int tolua_Cocos2d_Updater_getUpdateInfo00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getUpdateInfo'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->getUpdateInfo(url);
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getUpdateInfo'.",&tolua_err);
  return 0;
 #endif
 }
@@ -68932,29 +69000,31 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"stopAllEffects",tolua_Cocos2d_SimpleAudioEngine_stopAllEffects00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
-  tolua_cclass(tolua_S,"AssetsManager","AssetsManager","",tolua_collect_AssetsManager);
+  tolua_cclass(tolua_S,"Updater","Updater","",tolua_collect_Updater);
   #else
-  tolua_cclass(tolua_S,"AssetsManager","AssetsManager","",NULL);
+  tolua_cclass(tolua_S,"Updater","Updater","",NULL);
   #endif
-  tolua_beginmodule(tolua_S,"AssetsManager");
-   tolua_function(tolua_S,"new",tolua_Cocos2d_AssetsManager_new00);
-   tolua_function(tolua_S,"new_local",tolua_Cocos2d_AssetsManager_new00_local);
-   tolua_function(tolua_S,".call",tolua_Cocos2d_AssetsManager_new00_local);
-   tolua_function(tolua_S,"delete",tolua_Cocos2d_AssetsManager_delete00);
-   tolua_function(tolua_S,"checkUpdate",tolua_Cocos2d_AssetsManager_checkUpdate00);
-   tolua_function(tolua_S,"update",tolua_Cocos2d_AssetsManager_update00);
-   tolua_function(tolua_S,"getPackageUrl",tolua_Cocos2d_AssetsManager_getPackageUrl00);
-   tolua_function(tolua_S,"setPackageUrl",tolua_Cocos2d_AssetsManager_setPackageUrl00);
-   tolua_function(tolua_S,"getVersionFileUrl",tolua_Cocos2d_AssetsManager_getVersionFileUrl00);
-   tolua_function(tolua_S,"setVersionFileUrl",tolua_Cocos2d_AssetsManager_setVersionFileUrl00);
-   tolua_function(tolua_S,"getVersion",tolua_Cocos2d_AssetsManager_getVersion00);
-   tolua_function(tolua_S,"deleteVersion",tolua_Cocos2d_AssetsManager_deleteVersion00);
-   tolua_function(tolua_S,"getStoragePath",tolua_Cocos2d_AssetsManager_getStoragePath00);
-   tolua_function(tolua_S,"setStoragePath",tolua_Cocos2d_AssetsManager_setStoragePath00);
-   tolua_function(tolua_S,"setConnectionTimeout",tolua_Cocos2d_AssetsManager_setConnectionTimeout00);
-   tolua_function(tolua_S,"getConnectionTimeout",tolua_Cocos2d_AssetsManager_getConnectionTimeout00);
-   tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_AssetsManager_registerScriptHandler00);
-   tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_AssetsManager_unregisterScriptHandler00);
+  tolua_beginmodule(tolua_S,"Updater");
+   tolua_function(tolua_S,"new",tolua_Cocos2d_Updater_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_Updater_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_Updater_new00_local);
+   tolua_function(tolua_S,"delete",tolua_Cocos2d_Updater_delete00);
+   tolua_function(tolua_S,"checkUpdate",tolua_Cocos2d_Updater_checkUpdate00);
+   tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update00);
+   tolua_function(tolua_S,"getPackageUrl",tolua_Cocos2d_Updater_getPackageUrl00);
+   tolua_function(tolua_S,"setPackageUrl",tolua_Cocos2d_Updater_setPackageUrl00);
+   tolua_function(tolua_S,"getVersionFileUrl",tolua_Cocos2d_Updater_getVersionFileUrl00);
+   tolua_function(tolua_S,"setVersionFileUrl",tolua_Cocos2d_Updater_setVersionFileUrl00);
+   tolua_function(tolua_S,"getVersion",tolua_Cocos2d_Updater_getVersion00);
+   tolua_function(tolua_S,"deleteVersion",tolua_Cocos2d_Updater_deleteVersion00);
+   tolua_function(tolua_S,"getStoragePath",tolua_Cocos2d_Updater_getStoragePath00);
+   tolua_function(tolua_S,"setStoragePath",tolua_Cocos2d_Updater_setStoragePath00);
+   tolua_function(tolua_S,"setConnectionTimeout",tolua_Cocos2d_Updater_setConnectionTimeout00);
+   tolua_function(tolua_S,"getConnectionTimeout",tolua_Cocos2d_Updater_getConnectionTimeout00);
+   tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_Updater_registerScriptHandler00);
+   tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_Updater_unregisterScriptHandler00);
+   tolua_function(tolua_S,"createDirectory",tolua_Cocos2d_Updater_createDirectory00);
+   tolua_function(tolua_S,"getUpdateInfo",tolua_Cocos2d_Updater_getUpdateInfo00);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"CCControlEventTouchDown",CCControlEventTouchDown);
   tolua_constant(tolua_S,"CCControlEventTouchDragInside",CCControlEventTouchDragInside);

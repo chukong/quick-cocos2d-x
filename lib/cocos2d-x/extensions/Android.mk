@@ -17,7 +17,7 @@ LOCAL_SRC_FILES := \
 ifndef $(QUICK_MINI_TARGET)
 
     LOCAL_SRC_FILES += \
-        AssetsManager/AssetsManager.cpp \
+        updater/Updater.cpp \
         GUI/CCControlExtension/CCControlColourPicker.cpp \
         GUI/CCControlExtension/CCControlHuePicker.cpp \
         GUI/CCControlExtension/CCControlPotentiometer.cpp \
