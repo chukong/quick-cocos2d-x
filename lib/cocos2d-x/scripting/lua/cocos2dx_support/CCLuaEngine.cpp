@@ -322,6 +322,14 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
             event["name"] = CCLuaValue::stringValue("cancelled");
             break;
 
+        case CCTOUCHADDED:
+            event["name"] = CCLuaValue::stringValue("added");
+            break;
+
+        case CCTOUCHREMOVED:
+            event["name"] = CCLuaValue::stringValue("removed");
+            break;
+
         default:
             return 0;
     }
