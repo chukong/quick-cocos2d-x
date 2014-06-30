@@ -110,6 +110,7 @@ void Updater::checkStoragePath()
 static size_t getUpdateInfoFun(void *ptr, size_t size, size_t nmemb, void *userdata)
 {
     string *updateInfo = (string*)userdata;
+	CCLOG("updateInfo:%s", updateInfo->c_str());
     updateInfo->append((char*)ptr, size * nmemb);
     
     return (size * nmemb);

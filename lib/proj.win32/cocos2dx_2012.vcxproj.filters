@@ -169,9 +169,6 @@
     <Filter Include="cocos2d-x\cocos2dx\support\user_default">
       <UniqueIdentifier>{ac11a4e1-1474-49de-8aa5-484fbef36de5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cocos2d-x\extensions\AssetsManager">
-      <UniqueIdentifier>{231a7fe7-3cc2-4ec4-8e37-f57af3f9c45c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocos2d-x\scripting\lua\luajit">
       <UniqueIdentifier>{878d493e-17aa-47d1-a0a5-b7e7300ee88b}</UniqueIdentifier>
     </Filter>
@@ -339,6 +336,9 @@
     </Filter>
     <Filter Include="cocos2d-x\extensions\webview">
       <UniqueIdentifier>{2e27fa8d-9b00-4174-84d6-5ce8bd1e5f71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\updater">
+      <UniqueIdentifier>{86869069-0138-4a3e-9bc5-c94ea29326af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -722,9 +722,6 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\support\user_default\CCUserDefault.cpp">
       <Filter>cocos2d-x\cocos2dx\support\user_default</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\AssetsManager\AssetsManager.cpp">
-      <Filter>cocos2d-x\extensions\AssetsManager</Filter>
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\cocos2dx\platform\win32\CCDevice.cpp">
       <Filter>cocos2d-x\cocos2dx\platform\win32</Filter>
@@ -1226,6 +1223,9 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\webview\win32\CCWebView.cpp">
       <Filter>cocos2d-x\extensions\webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\updater\Updater.cpp">
+      <Filter>cocos2d-x\extensions\updater</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1810,9 +1810,6 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\user_default\CCUserDefault.h">
       <Filter>cocos2d-x\cocos2dx\support\user_default</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\AssetsManager\AssetsManager.h">
-      <Filter>cocos2d-x\extensions\AssetsManager</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\ExtensionMacros.h">
       <Filter>cocos2d-x\extensions</Filter>
@@ -2437,6 +2434,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\webview\CCWebView.h">
       <Filter>cocos2d-x\extensions\webview</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\updater\Updater.h">
+      <Filter>cocos2d-x\extensions\updater</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
