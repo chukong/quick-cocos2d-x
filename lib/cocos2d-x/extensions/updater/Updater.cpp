@@ -107,14 +107,6 @@ void Updater::checkStoragePath()
     }
 }
 
-static size_t getVersionCode(void *ptr, size_t size, size_t nmemb, void *userdata)
-{
-    string *version = (string*)userdata;
-    version->append((char*)ptr, size * nmemb);
-    
-    return (size * nmemb);
-}
-
 static size_t getUpdateInfoFun(void *ptr, size_t size, size_t nmemb, void *userdata)
 {
     string *updateInfo = (string*)userdata;
@@ -126,7 +118,6 @@ static size_t getUpdateInfoFun(void *ptr, size_t size, size_t nmemb, void *userd
 const char* Updater::getUpdateInfo(const char* path)
 {
     _curl = curl_easy_init();
-    CCLOG("getUpdateInfo:%s", path);
     if (! _curl)
     {
         CCLOG("can not init curl");
@@ -152,51 +143,6 @@ const char* Updater::getUpdateInfo(const char* path)
     }
     
     return updateInfoString.c_str();
-}
-
-bool Updater::checkUpdate()
-{
-    if (_versionFileUrl.size() == 0) return false;
-    
-    _curl = curl_easy_init();
-    if (! _curl)
-    {
-        CCLOG("can not init curl");
-        return false;
-    }
-    
-    // Clear _version before assign new value.
-    _version.clear();
-    
-    CURLcode res;
-    curl_easy_setopt(_curl, CURLOPT_URL, _versionFileUrl.c_str());
-    curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
-    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, getVersionCode);
-    curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &_version);
-    if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
-    res = curl_easy_perform(_curl);
-    
-    if (res != 0)
-    {
-        sendErrorMessage(kNetwork);
-        CCLOG("can not get version file content, error code is %d", res);
-        curl_easy_cleanup(_curl);
-        return false;
-    }
-    
-    string recordedVersion = CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_VERSION);
-    if (recordedVersion == _version)
-    {
-        sendErrorMessage(kNoNewVersion);
-        CCLOG("there is not new version");
-        // Set resource search path.
-        setSearchPath();
-        return false;
-    }
-    
-    CCLOG("there is a new version: %s", _version.c_str());
-    
-    return true;
 }
 
 void* assetsManagerDownloadAndUncompress(void *data)
@@ -252,9 +198,6 @@ void Updater::update()
         CCLOG("no version file url, or no package url, or the package is not a zip file");
         return;
     }
-    
-    // Check if there is a new version.
-    if (! checkUpdate()) return;
     
     // Is package already downloaded?
     _downloadedVersion = CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_DOWNLOADED_VERSION);
@@ -518,11 +461,6 @@ const char* Updater::getVersionFileUrl() const
 void Updater::setVersionFileUrl(const char *versionFileUrl)
 {
     _versionFileUrl = versionFileUrl;
-}
-
-string Updater::getVersion()
-{
-    return CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_VERSION);
 }
 
 void Updater::deleteVersion()

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Sun Jun 29 18:19:41 2014.
+** Generated automatically by tolua++-1.0.92 on Mon Jun 30 10:35:32 2014.
 */
 
 /****************************************************************************
@@ -50348,38 +50348,6 @@ static int tolua_Cocos2d_Updater_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: checkUpdate of class  Updater */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_checkUpdate00
-static int tolua_Cocos2d_Updater_checkUpdate00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'checkUpdate'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->checkUpdate();
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'checkUpdate'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: update of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update00
 static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
@@ -50536,38 +50504,6 @@ static int tolua_Cocos2d_Updater_setVersionFileUrl00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'setVersionFileUrl'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: getVersion of class  Updater */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getVersion00
-static int tolua_Cocos2d_Updater_getVersion00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getVersion'", NULL);
-#endif
-  {
-   std::string tolua_ret = (std::string)  self->getVersion();
-   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getVersion'.",&tolua_err);
  return 0;
 #endif
 }
@@ -69009,13 +68945,11 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_Cocos2d_Updater_new00_local);
    tolua_function(tolua_S,".call",tolua_Cocos2d_Updater_new00_local);
    tolua_function(tolua_S,"delete",tolua_Cocos2d_Updater_delete00);
-   tolua_function(tolua_S,"checkUpdate",tolua_Cocos2d_Updater_checkUpdate00);
    tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update00);
    tolua_function(tolua_S,"getPackageUrl",tolua_Cocos2d_Updater_getPackageUrl00);
    tolua_function(tolua_S,"setPackageUrl",tolua_Cocos2d_Updater_setPackageUrl00);
    tolua_function(tolua_S,"getVersionFileUrl",tolua_Cocos2d_Updater_getVersionFileUrl00);
    tolua_function(tolua_S,"setVersionFileUrl",tolua_Cocos2d_Updater_setVersionFileUrl00);
-   tolua_function(tolua_S,"getVersion",tolua_Cocos2d_Updater_getVersion00);
    tolua_function(tolua_S,"deleteVersion",tolua_Cocos2d_Updater_deleteVersion00);
    tolua_function(tolua_S,"getStoragePath",tolua_Cocos2d_Updater_getStoragePath00);
    tolua_function(tolua_S,"setStoragePath",tolua_Cocos2d_Updater_setStoragePath00);
