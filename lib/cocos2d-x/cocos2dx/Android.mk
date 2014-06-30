@@ -141,6 +141,7 @@ LOCAL_SRC_FILES := \
     touch_dispatcher/CCTouchDispatcher.cpp \
     touch_dispatcher/CCTouchHandler.cpp \
     touch_dispatcher/CCTouch.cpp \
+    touch_dispatcher/CCTouchTargetNode.cpp \
     support/image_support/TGAlib.cpp \
     textures/CCTextureETC.cpp \
     textures/CCTexturePVR.cpp \
