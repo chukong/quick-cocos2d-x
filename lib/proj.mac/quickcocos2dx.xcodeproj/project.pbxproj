@@ -104,6 +104,7 @@
 		4983220E187FE0A900733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4983220C187FE0A900733BFB /* HelperFunc.cpp */; };
 		49832211187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4983220F187FE0BE00733BFB /* CZHelperFunc_luabinding.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit.a */; };
+		F414F4471961EB5D007C18E4 /* CCTouchTargetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F414F4451961EB5D007C18E4 /* CCTouchTargetNode.cpp */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
 		F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D98FB17F08B9E007171D8 /* libwebsockets.a */; };
 		F41D98FF17F08BEB007171D8 /* Lua_web_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98FD17F08BEB007171D8 /* Lua_web_socket.cpp */; };
@@ -637,6 +638,8 @@
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
 		F411F3DE175CEAFC00EF549A /* lualib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lualib.h; sourceTree = "<group>"; };
 		F411F3E0175CEAFC00EF549A /* libluajit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libluajit.a; sourceTree = "<group>"; };
+		F414F4451961EB5D007C18E4 /* CCTouchTargetNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouchTargetNode.cpp; sourceTree = "<group>"; };
+		F414F4461961EB5D007C18E4 /* CCTouchTargetNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTouchTargetNode.h; sourceTree = "<group>"; };
 		F41D98F217F08B85007171D8 /* WebSocket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebSocket.cpp; sourceTree = "<group>"; };
 		F41D98F317F08B85007171D8 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
 		F41D98F917F08B9E007171D8 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
@@ -3067,6 +3070,8 @@
 				F4E880451770071600577406 /* CCTouchDispatcher.h */,
 				F4E880461770071600577406 /* CCTouchHandler.cpp */,
 				F4E880471770071600577406 /* CCTouchHandler.h */,
+				F414F4451961EB5D007C18E4 /* CCTouchTargetNode.cpp */,
+				F414F4461961EB5D007C18E4 /* CCTouchTargetNode.h */,
 			);
 			path = touch_dispatcher;
 			sourceTree = "<group>";
@@ -3613,6 +3618,7 @@
 				F4315297180CF7E30046351C /* cpBBTree.c in Sources */,
 				F4E8813A17700E5E00577406 /* CCMenuItemLoader.cpp in Sources */,
 				F4CB86C1180D017700D81CF3 /* CCNetworkIOSMac.mm in Sources */,
+				F414F4471961EB5D007C18E4 /* CCTouchTargetNode.cpp in Sources */,
 				F4E8813B17700E5E00577406 /* CCNode+CCBRelativePositioning.cpp in Sources */,
 				F4E8813C17700E5E00577406 /* CCNodeLoader.cpp in Sources */,
 				F4E8813D17700E5E00577406 /* CCNodeLoaderLibrary.cpp in Sources */,
