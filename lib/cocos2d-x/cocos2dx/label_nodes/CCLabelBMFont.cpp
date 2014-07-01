@@ -1,35 +1,35 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2008-2010 Ricardo Quesada
-Copyright (c) 2011      Zynga Inc.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2008-2010 Ricardo Quesada
+ Copyright (c) 2011      Zynga Inc.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
 
-Use any of these editors to generate BMFonts:
-http://glyphdesigner.71squared.com/ (Commercial, Mac OS X)
-http://www.n4te.com/hiero/hiero.jnlp (Free, Java)
-http://slick.cokeandcode.com/demos/hiero.jnlp (Free, Java)
-http://www.angelcode.com/products/bmfont/ (Free, Windows only)
+ Use any of these editors to generate BMFonts:
+ http://glyphdesigner.71squared.com/ (Commercial, Mac OS X)
+ http://www.n4te.com/hiero/hiero.jnlp (Free, Java)
+ http://slick.cokeandcode.com/demos/hiero.jnlp (Free, Java)
+ http://www.angelcode.com/products/bmfont/ (Free, Windows only)
 
-****************************************************************************/
+ ****************************************************************************/
 #include "CCLabelBMFont.h"
 #include "cocoa/CCString.h"
 #include "platform/platform.h"
@@ -80,7 +80,7 @@ CCBMFontConfiguration* FNTConfigLoadFile( const char *fntFile)
         if (pRet)
         {
             s_pConfigurations->setObject(pRet, fntFile);
-        }        
+        }
     }
 
     return pRet;
@@ -115,9 +115,9 @@ bool CCBMFontConfiguration::initWithFNTfile(const char *FNTfile)
 {
     m_pKerningDictionary = NULL;
     m_pFontDefDictionary = NULL;
-    
+
     m_pCharacterSet = this->parseConfigFile(FNTfile);
-    
+
     if (! m_pCharacterSet)
     {
         return false;
@@ -152,27 +152,27 @@ CCBMFontConfiguration::~CCBMFontConfiguration()
 const char* CCBMFontConfiguration::description(void)
 {
     return CCString::createWithFormat(
-        "<CCBMFontConfiguration = " CC_FORMAT_PRINTF_SIZE_T " | Glphys:%d Kernings:%d | Image = %s>",
-        (size_t)this,
-        HASH_COUNT(m_pFontDefDictionary),
-        HASH_COUNT(m_pKerningDictionary),
-        m_sAtlasName.c_str()
-    )->getCString();
+                                      "<CCBMFontConfiguration = " CC_FORMAT_PRINTF_SIZE_T " | Glphys:%d Kernings:%d | Image = %s>",
+                                      (size_t)this,
+                                      HASH_COUNT(m_pFontDefDictionary),
+                                      HASH_COUNT(m_pKerningDictionary),
+                                      m_sAtlasName.c_str()
+                                      )->getCString();
 }
 
 void CCBMFontConfiguration::purgeKerningDictionary()
 {
     tCCKerningHashElement *current;
-    while(m_pKerningDictionary) 
+    while(m_pKerningDictionary)
     {
-        current = m_pKerningDictionary; 
+        current = m_pKerningDictionary;
         HASH_DEL(m_pKerningDictionary,current);
         free(current);
     }
 }
 
 void CCBMFontConfiguration::purgeFontDefDictionary()
-{    
+{
     tCCFontDefHashElement *current, *tmp;
 
     HASH_ITER(hh, m_pFontDefDictionary, current, tmp) {
@@ -182,12 +182,12 @@ void CCBMFontConfiguration::purgeFontDefDictionary()
 }
 
 std::set<unsigned int>* CCBMFontConfiguration::parseConfigFile(const char *controlFile)
-{    
+{
     std::string fullpath = CCFileUtils::sharedFileUtils()->fullPathForFilename(controlFile);
     CCString *contents = CCString::createWithContentsOfFile(fullpath.c_str());
 
     CCAssert(contents, "CCBMFontConfiguration::parseConfigFile | Open file error.");
-    
+
     set<unsigned int> *validCharsString = new set<unsigned int>();
 
     if (!contents)
@@ -216,7 +216,7 @@ std::set<unsigned int>* CCBMFontConfiguration::parseConfigFile(const char *contr
             strLeft.erase();
         }
 
-        if(line.substr(0,strlen("info face")) == "info face") 
+        if(line.substr(0,strlen("info face")) == "info face")
         {
             // XXX: info parsing is incomplete
             // Not needed for the Hiero editors, but needed for the AngelCode editor
@@ -244,19 +244,19 @@ std::set<unsigned int>* CCBMFontConfiguration::parseConfigFile(const char *contr
 
             element->key = element->fontDef.charID;
             HASH_ADD_INT(m_pFontDefDictionary, key, element);
-            
+
             validCharsString->insert(element->fontDef.charID);
         }
-//        else if(line.substr(0,strlen("kernings count")) == "kernings count")
-//        {
-//            this->parseKerningCapacity(line);
-//        }
+        //        else if(line.substr(0,strlen("kernings count")) == "kernings count")
+        //        {
+        //            this->parseKerningCapacity(line);
+        //        }
         else if(line.substr(0,strlen("kerning first")) == "kerning first")
         {
             this->parseKerningEntry(line);
         }
     }
-    
+
     return validCharsString;
 }
 
@@ -272,7 +272,7 @@ void CCBMFontConfiguration::parseImageFileName(std::string line, const char *fnt
     size_t index2 = line.find(' ', index);
     std::string value = line.substr(index, index2-index);
     CCAssert(atoi(value.c_str()) == 0, "LabelBMFont file could not be found");
-    // file 
+    // file
     index = line.find('"')+1;
     index2 = line.find('"', index);
     value = line.substr(index, index2-index);
@@ -328,10 +328,10 @@ void CCBMFontConfiguration::parseCommonArguments(std::string line)
 }
 
 void CCBMFontConfiguration::parseCharacterDefinition(std::string line, ccBMFontDef *characterDefinition)
-{    
+{
     //////////////////////////////////////////////////////////////////////////
     // line to parse:
-    // char id=32   x=0     y=0     width=0     height=0     xoffset=0     yoffset=44    xadvance=14     page=0  chnl=0 
+    // char id=32   x=0     y=0     width=0     height=0     xoffset=0     yoffset=44    xadvance=14     page=0  chnl=0
     //////////////////////////////////////////////////////////////////////////
 
     // Character ID
@@ -378,7 +378,7 @@ void CCBMFontConfiguration::parseCharacterDefinition(std::string line, ccBMFontD
 }
 
 void CCBMFontConfiguration::parseKerningEntry(std::string line)
-{        
+{
     //////////////////////////////////////////////////////////////////////////
     // line to parse:
     // kerning first=121  second=44  amount=-7
@@ -469,9 +469,9 @@ bool CCLabelBMFont::initWithString(const char *theString, const char *fntFile, f
 {
     CCAssert(!m_pConfiguration, "re-init is no longer supported");
     CCAssert( (theString && fntFile) || (theString==NULL && fntFile==NULL), "Invalid params for CCLabelBMFont");
-    
+
     CCTexture2D *texture = NULL;
-    
+
     if (fntFile)
     {
         CCBMFontConfiguration *newConf = FNTConfigLoadFile(fntFile);
@@ -481,16 +481,16 @@ bool CCLabelBMFont::initWithString(const char *theString, const char *fntFile, f
             release();
             return false;
         }
-        
+
         newConf->retain();
         CC_SAFE_RELEASE(m_pConfiguration);
         m_pConfiguration = newConf;
-        
+
         m_sFntFile = fntFile;
-        
+
         texture = CCTextureCache::sharedTextureCache()->addImage(m_pConfiguration->getAtlasName());
     }
-    else 
+    else
     {
         texture = new CCTexture2D();
         texture->autorelease();
@@ -505,25 +505,25 @@ bool CCLabelBMFont::initWithString(const char *theString, const char *fntFile, f
     {
         m_fWidth = width;
         m_pAlignment = alignment;
-        
+
         m_displayedOpacity = m_realOpacity = 255;
 		m_displayedColor = m_realColor = ccWHITE;
         m_cascadeOpacityEnabled = true;
         m_cascadeColorEnabled = true;
-        
+
         m_obContentSize = CCSizeZero;
-        
+
         m_isOpacityModifyRGB = m_pobTextureAtlas->getTexture()->hasPremultipliedAlpha();
         m_obAnchorPoint = ccp(0.5f, 0.5f);
-        
+
         m_tImageOffset = imageOffset;
-        
+
         m_pReusedChar = new CCSprite();
         m_pReusedChar->initWithTexture(m_pobTextureAtlas->getTexture(), CCRectMake(0, 0, 0, 0), false);
         m_pReusedChar->setBatchNode(this);
-        
+
         this->setString(theString, true);
-        
+
         return true;
     }
     return false;
@@ -558,7 +558,7 @@ int CCLabelBMFont::kerningAmountForFirst(unsigned short first, unsigned short se
 
     if( m_pConfiguration->m_pKerningDictionary ) {
         tCCKerningHashElement *element = NULL;
-        HASH_FIND_INT(m_pConfiguration->m_pKerningDictionary, &key, element);        
+        HASH_FIND_INT(m_pConfiguration->m_pKerningDictionary, &key, element);
         if(element)
             ret = element->amount;
     }
@@ -598,7 +598,7 @@ void CCLabelBMFont::createFontChars()
 
     totalHeight = m_pConfiguration->m_nCommonHeight * quantityOfLines;
     nextFontPositionY = 0-(m_pConfiguration->m_nCommonHeight - m_pConfiguration->m_nCommonHeight * quantityOfLines);
-    
+
     CCRect rect;
     ccBMFontDef fontDef;
 
@@ -612,15 +612,15 @@ void CCLabelBMFont::createFontChars()
             nextFontPositionY -= m_pConfiguration->m_nCommonHeight;
             continue;
         }
-        
+
         if (charSet->find(c) == charSet->end())
         {
             CCLOGWARN("cocos2d::CCLabelBMFont: Attempted to use character not defined in this bitmap: %d", c);
-            continue;      
+            continue;
         }
 
         kerningAmount = this->kerningAmountForFirst(prev, c);
-        
+
         tCCFontDefHashElement *element = NULL;
 
         // unichar is a short, and an int is needed on HASH_FIND_INT
@@ -669,10 +669,10 @@ void CCLabelBMFont::createFontChars()
                 addChild(fontChar, i, i);
                 fontChar->release();
 			}
-            
+
             // Apply label properties
 			fontChar->setOpacityModifyRGB(m_isOpacityModifyRGB);
-            
+
 			// Color MUST be set before opacity, since opacity might change color if OpacityModifyRGB is on
 			fontChar->updateDisplayedColor(m_displayedColor);
 			fontChar->updateDisplayedOpacity(m_displayedOpacity);
@@ -684,7 +684,7 @@ void CCLabelBMFont::createFontChars()
         // See issue 1343. cast( signed short + unsigned integer ) == unsigned integer (sign is lost!)
         int yOffset = m_pConfiguration->m_nCommonHeight - fontDef.yOffset;
         CCPoint fontPos = ccp( (float)nextFontPositionX + fontDef.xOffset + fontDef.rect.size.width*0.5f + kerningAmount,
-            (float)nextFontPositionY + yOffset - rect.size.height*0.5f * CC_CONTENT_SCALE_FACTOR() );
+                              (float)nextFontPositionY + yOffset - rect.size.height*0.5f * CC_CONTENT_SCALE_FACTOR() );
         fontChar->setPosition(CC_POINT_PIXELS_TO_POINTS(fontPos));
 
         // update kerning
@@ -695,7 +695,7 @@ void CCLabelBMFont::createFontChars()
         {
             longestLine = nextFontPositionX;
         }
-        
+
         if (! hasSprite)
         {
             updateQuadFromSprite(fontChar, i);
@@ -735,7 +735,7 @@ void CCLabelBMFont::setString(const char *newString, bool needUpdateLabel)
     unsigned short* utf16String = cc_utf8_to_utf16(newString);
     setString(utf16String, needUpdateLabel);
     CC_SAFE_DELETE_ARRAY(utf16String);
- }
+}
 
 void CCLabelBMFont::setString(unsigned short *newString, bool needUpdateLabel)
 {
@@ -751,7 +751,7 @@ void CCLabelBMFont::setString(unsigned short *newString, bool needUpdateLabel)
         m_sInitialString = copyUTF16StringN(newString);
         CC_SAFE_DELETE_ARRAY(tmp);
     }
-    
+
     if (m_pChildren && m_pChildren->count() != 0)
     {
         CCObject* child;
@@ -765,7 +765,7 @@ void CCLabelBMFont::setString(unsigned short *newString, bool needUpdateLabel)
         }
     }
     this->createFontChars();
-    
+
     if (needUpdateLabel) {
         updateLabel();
     }
@@ -816,14 +816,14 @@ void CCLabelBMFont::updateLabel()
         {
             CCSprite* characterSprite;
             unsigned int justSkipped = 0;
-            
+
             while (!(characterSprite = (CCSprite*)this->getChildByTag(j + skip + justSkipped)))
             {
                 justSkipped++;
             }
-            
+
             skip += justSkipped;
-            
+
             if (!characterSprite->isVisible())
                 continue;
 
@@ -962,7 +962,7 @@ void CCLabelBMFont::updateLabel()
         str_new[size] = '\0';
 
         this->setString(str_new, false);
-        
+
         CC_SAFE_DELETE_ARRAY(str_new);
     }
 
@@ -998,14 +998,14 @@ void CCLabelBMFont::updateLabel()
                 float shift = 0;
                 switch (m_pAlignment)
                 {
-                case kCCTextAlignmentCenter:
-                    shift = getContentSize().width/2.0f - lineWidth/2.0f;
-                    break;
-                case kCCTextAlignmentRight:
-                    shift = getContentSize().width - lineWidth;
-                    break;
-                default:
-                    break;
+                    case kCCTextAlignmentCenter:
+                        shift = getContentSize().width/2.0f - lineWidth/2.0f;
+                        break;
+                    case kCCTextAlignmentRight:
+                        shift = getContentSize().width - lineWidth;
+                        break;
+                    default:
+                        break;
                 }
 
                 if (shift != 0)
@@ -1016,7 +1016,10 @@ void CCLabelBMFont::updateLabel()
                         if (index < 0) continue;
 
                         CCSprite* characterSprite = (CCSprite*)getChildByTag(index);
-                        characterSprite->setPosition(ccpAdd(characterSprite->getPosition(), ccp(shift, 0.0f)));
+                        if (characterSprite)
+                        {
+                            characterSprite->setPosition(ccpAdd(characterSprite->getPosition(), ccp(shift, 0.0f)));
+                        }
                     }
                 }
 
@@ -1085,15 +1088,15 @@ void CCLabelBMFont::setFntFile(const char* fntFile)
     if (fntFile != NULL && strcmp(fntFile, m_sFntFile.c_str()) != 0 )
     {
         CCBMFontConfiguration *newConf = FNTConfigLoadFile(fntFile);
-
+        
         CCAssert( newConf, "CCLabelBMFont: Impossible to create font. Please check file");
-
+        
         m_sFntFile = fntFile;
-
+        
         CC_SAFE_RETAIN(newConf);
         CC_SAFE_RELEASE(m_pConfiguration);
         m_pConfiguration = newConf;
-
+        
         this->setTexture(CCTextureCache::sharedTextureCache()->addImage(m_pConfiguration->getAtlasName()));
         this->createFontChars();
     }
