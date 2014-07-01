@@ -2,7 +2,7 @@ class Updater
 {
     Updater(const char* packageUrl = NULL, const char* versionFileUrl = NULL, const char* storagePath = NULL);
     ~Updater();
-    void update();
+    void update(const char* zipUrl, const char* zipFile, const char* unzipoTmpDir);
     const char* getPackageUrl();
     void setPackageUrl(const char* packageUrl);
     const char* getVersionFileUrl();
@@ -16,5 +16,6 @@ class Updater
     void unregisterScriptHandler(void);
 
 	bool createDirectory(const char *path);
+	bool removeDirectory(const char *path);
 	const char* getUpdateInfo(const char* url);
 };

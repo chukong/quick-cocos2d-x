@@ -84,7 +84,7 @@ public:
     /* @brief Download new package if there is a new version, and uncompress downloaded zip file.
      *        Ofcourse it will set search path that stores downloaded files.
      */
-    virtual void update();
+    virtual void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir);
     
     /* @brief Gets url of package.
      */
@@ -134,6 +134,7 @@ public:
      */
     unsigned int getConnectionTimeout();
     bool createDirectory(const char *path);
+    bool removeDirectory(const char* path);
     const char* getUpdateInfo(const char* url);
     
     /* downloadAndUncompress is the entry of a new thread 
@@ -142,11 +143,17 @@ public:
     friend int assetsManagerProgressFunc(void *, double, double, double, double);
     
 protected:
-    bool downLoad();
+    bool downLoad(const char* zipUrl, const char* zipFile);
     void checkStoragePath();
-    bool uncompress();
+    bool uncompress(const char* zipFile, const char* unzipTmpDir);
     void setSearchPath();
     void sendErrorMessage(ErrorCode code);
+    
+    
+    std::string _zipFile;
+    std::string _zipUrl;
+    std::string _unzipTmpDir;
+    std::string _updateInfoString;
     
 private:
     typedef struct _Message
@@ -184,6 +191,7 @@ private:
     std::string _versionFileUrl;
     
     std::string _downloadedVersion;
+
     
     CURL *_curl;
     Helper *_schedule;

@@ -85,6 +85,10 @@ Updater::Updater(const char* packageUrl/* =NULL */, const char* versionFileUrl/*
 , _connectionTimeout(0)
 , _delegate(NULL)
 , _scriptHandler(0)
+, _zipUrl("")
+, _zipFile("")
+, _unzipTmpDir("")
+, _updateInfoString("")
 {
     checkStoragePath();
     _schedule = new Helper();
@@ -115,8 +119,9 @@ static size_t getUpdateInfoFun(void *ptr, size_t size, size_t nmemb, void *userd
     return (size * nmemb);
 }
 
-const char* Updater::getUpdateInfo(const char* path)
+const char* Updater::getUpdateInfo(const char* url)
 {
+    CCLOG("Updater::getUpdateInfo(%s)", url);
     _curl = curl_easy_init();
     if (! _curl)
     {
@@ -124,25 +129,25 @@ const char* Updater::getUpdateInfo(const char* path)
         return "";
     }
     
-    std::string updateInfoString;
+    _updateInfoString.clear();
     
     CURLcode res;
-    curl_easy_setopt(_curl, CURLOPT_URL, path);
+    curl_easy_setopt(_curl, CURLOPT_URL, url);
     curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
     curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, getUpdateInfoFun);
-    curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &updateInfoString);
+    curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &_updateInfoString);
     if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
     res = curl_easy_perform(_curl);
     
     if (res != 0)
     {
         sendErrorMessage(kNetwork);
-        CCLOG("can not get version file content, error code is %d", res);
+        CCLOG("can not get version file content %s, error code is %d", url, res);
         curl_easy_cleanup(_curl);
         return "";
     }
     
-    return updateInfoString.c_str();
+    return _updateInfoString.c_str();
 }
 
 void* assetsManagerDownloadAndUncompress(void *data)
@@ -151,19 +156,10 @@ void* assetsManagerDownloadAndUncompress(void *data)
     
     do
     {
-        if (self->_downloadedVersion != self->_version)
-        {
-            if (! self->downLoad()) break;
-            
-            // Record downloaded version.
-            Updater::Message *msg1 = new Updater::Message();
-            msg1->what = UPDATER_MESSAGE_RECORD_DOWNLOADED_VERSION;
-            msg1->obj = self;
-            self->_schedule->sendMessage(msg1);
-        }
+        if (! self->downLoad(self->_zipUrl.c_str(), self->_zipFile.c_str())) break;
         
         // Uncompress zip file.
-        if (! self->uncompress())
+        if (! self->uncompress(self->_zipFile.c_str(), self->_unzipTmpDir.c_str()))
         {
             self->sendErrorMessage(Updater::kUncompress);
             break;
@@ -185,31 +181,42 @@ void* assetsManagerDownloadAndUncompress(void *data)
     return NULL;
 }
 
-void Updater::update()
+void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir)
 {
     if (_tid) return;
     
+    _zipUrl.clear();
+    _zipUrl.append(zipUrl);
+    _zipFile.clear();
+    _zipFile.append(zipFile);
+    _unzipTmpDir.clear();
+    _unzipTmpDir.append(unzipTmpDir);
+    
     // 1. Urls of package and version should be valid;
     // 2. Package should be a zip file.
-    if (_versionFileUrl.size() == 0 ||
-        _packageUrl.size() == 0 ||
-        std::string::npos == _packageUrl.find(".zip"))
+    if (_zipUrl.size() == 0 ||
+        _zipFile.size() == 0 ||
+        std::string::npos == _zipUrl.find(".zip"))
     {
         CCLOG("no version file url, or no package url, or the package is not a zip file");
         return;
     }
     
-    // Is package already downloaded?
-    _downloadedVersion = CCUserDefault::sharedUserDefault()->getStringForKey(KEY_OF_DOWNLOADED_VERSION);
-    
     _tid = new pthread_t();
     pthread_create(&(*_tid), NULL, assetsManagerDownloadAndUncompress, this);
 }
 
-bool Updater::uncompress()
+bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir)
 {
+    // Create unzipTmpDir
+    if(CCFileUtils::sharedFileUtils()->isFileExist(unzipTmpDir))
+    {
+        this->removeDirectory(unzipTmpDir);
+    }
+    this->createDirectory(unzipTmpDir);
+    
     // Open the zip file
-    string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
+    string outFileName = std::string(zipFilePath);
     unzFile zipfile = unzOpen(outFileName.c_str());
     if (! zipfile)
     {
@@ -252,7 +259,7 @@ bool Updater::uncompress()
             return false;
         }
         
-        string fullPath = _storagePath + fileName;
+        string fullPath = std::string(unzipTmpDir) + fileName;
         
         // Check if this entry is a directory or a file.
         const size_t filenameLength = strlen(fileName);
@@ -263,7 +270,7 @@ bool Updater::uncompress()
 			size_t position = 0;
 			while((position=fileNameStr.find_first_of("/",position))!=string::npos)
 			{
-				string dirPath =_storagePath + fileNameStr.substr(0, position);
+				string dirPath =unzipTmpDir + fileNameStr.substr(0, position);
 				// Entry is a direcotry, so create it.
 				// If the directory exists, it will failed scilently.
 				if (!createDirectory(dirPath.c_str()))
@@ -338,6 +345,27 @@ bool Updater::uncompress()
     return true;
 }
 
+bool Updater::removeDirectory(const char* path)
+{
+    int succ = -1;
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
+    string command = "rm -r ";
+    // Path may include space.
+    command += "\"" + string(path) + "\"";
+    succ = system(command.c_str());
+#else
+    string command = "rd /s /q ";
+    // Path may include space.
+    command += "\"" + pathToSave + "\"";
+    succ = system(command.c_str());
+#endif
+    if(succ != 0)
+    {
+        return false;
+    }
+    return true;
+}
+
 /*
  * Create a direcotry is platform depended.
  */
@@ -396,10 +424,10 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
     return 0;
 }
 
-bool Updater::downLoad()
+bool Updater::downLoad(const char* zipUrl, const char* zipFile)
 {
     // Create a file to save package.
-    string outFileName = _storagePath + TEMP_PACKAGE_FILE_NAME;
+    string outFileName = string(zipFile);
     FILE *fp = fopen(outFileName.c_str(), "wb");
     if (! fp)
     {
@@ -410,7 +438,7 @@ bool Updater::downLoad()
     
     // Download pacakge
     CURLcode res;
-    curl_easy_setopt(_curl, CURLOPT_URL, _packageUrl.c_str());
+    curl_easy_setopt(_curl, CURLOPT_URL, zipUrl);
     curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, downLoadPackage);
     curl_easy_setopt(_curl, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(_curl, CURLOPT_NOPROGRESS, false);
@@ -426,7 +454,7 @@ bool Updater::downLoad()
         return false;
     }
     
-    CCLOG("succeed downloading package %s", _packageUrl.c_str());
+    CCLOG("succeed downloading package %s", zipUrl);
     
     fclose(fp);
     return true;
@@ -552,12 +580,6 @@ void Updater::Helper::update(float dt)
             handleUpdateSucceed(msg);
             
             break;
-        case UPDATER_MESSAGE_RECORD_DOWNLOADED_VERSION:
-            CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_DOWNLOADED_VERSION,
-                                                                ((Updater*)msg->obj)->_version.c_str());
-            CCUserDefault::sharedUserDefault()->flush();
-            
-            break;
         case UPDATER_MESSAGE_PROGRESS:
             if (((ProgressMessage*)msg->obj)->manager->_delegate)
             {
@@ -632,7 +654,7 @@ void Updater::Helper::handleUpdateSucceed(Message *msg)
     manager->setSearchPath();
     
     // Delete unloaded zip file.
-    string zipfileName = manager->_storagePath + TEMP_PACKAGE_FILE_NAME;
+    string zipfileName = manager->_zipFile;
     if (remove(zipfileName.c_str()) != 0)
     {
         CCLOG("can not remove downloaded zip file %s", zipfileName.c_str());

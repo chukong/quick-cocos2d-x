@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Mon Jun 30 10:35:32 2014.
+** Generated automatically by tolua++-1.0.92 on Tue Jul  1 12:29:25 2014.
 */
 
 /****************************************************************************
@@ -50356,18 +50356,24 @@ static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* zipUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* zipFile = ((const char*)  tolua_tostring(tolua_S,3,0));
+  const char* unzipoTmpDir = ((const char*)  tolua_tostring(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
 #endif
   {
-   self->update();
+   self->update(zipUrl,zipFile,unzipoTmpDir);
   }
  }
  return 0;
@@ -50768,6 +50774,40 @@ static int tolua_Cocos2d_Updater_createDirectory00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: removeDirectory of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_removeDirectory00
+static int tolua_Cocos2d_Updater_removeDirectory00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeDirectory'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->removeDirectory(path);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'removeDirectory'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getUpdateInfo of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_getUpdateInfo00
 static int tolua_Cocos2d_Updater_getUpdateInfo00(lua_State* tolua_S)
@@ -50790,7 +50830,7 @@ static int tolua_Cocos2d_Updater_getUpdateInfo00(lua_State* tolua_S)
 #endif
   {
    const char* tolua_ret = (const char*)  self->getUpdateInfo(url);
-   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+   tolua_pushstring(tolua_S, tolua_ret);
   }
  }
  return 1;
@@ -68958,6 +68998,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_Updater_registerScriptHandler00);
    tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_Updater_unregisterScriptHandler00);
    tolua_function(tolua_S,"createDirectory",tolua_Cocos2d_Updater_createDirectory00);
+   tolua_function(tolua_S,"removeDirectory",tolua_Cocos2d_Updater_removeDirectory00);
    tolua_function(tolua_S,"getUpdateInfo",tolua_Cocos2d_Updater_getUpdateInfo00);
   tolua_endmodule(tolua_S);
   tolua_constant(tolua_S,"CCControlEventTouchDown",CCControlEventTouchDown);
