@@ -861,7 +861,7 @@ void CCArmature::connectMovementEventSignal(int nHandler)
 {
 	disconnectMovementEventSignal();
 	m_nScriptMovementHandler = nHandler;
-	
+
 	m_pAnimation->setMovementEventCallFunc(this, movementEvent_selector(CCArmature::onMovementEvent));
 	LUALOG("[LUA] Add CCArmature script movement handler: %d", m_nScriptMovementHandler);
 }
@@ -875,7 +875,7 @@ void CCArmature::disconnectMovementEventSignal()
 		CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptMovementHandler);
         LUALOG("[LUA] Remove CCArmature script movement handler: %d", m_nScriptMovementHandler);
 	}
-	m_nScriptMovementHandler = NULL;
+	m_nScriptMovementHandler = 0;
 }
 
 

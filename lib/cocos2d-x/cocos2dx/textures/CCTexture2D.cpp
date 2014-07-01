@@ -39,12 +39,8 @@ THE SOFTWARE.
 #include "CCGL.h"
 #include "support/ccUtils.h"
 #include "platform/CCPlatformMacros.h"
-
-#ifndef QUICK_MINI_TARGET
 #include "textures/CCTexturePVR.h"
 #include "textures/CCTextureETC.h"
-#endif
-
 #include "CCDirector.h"
 #include "shaders/CCGLProgram.h"
 #include "shaders/ccGLStateCache.h"
@@ -695,8 +691,6 @@ void CCTexture2D::drawInRect(const CCRect& rect)
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
-#ifndef QUICK_MINI_TARGET
-
 bool CCTexture2D::initWithPVRFile(const char* file)
 {
     bool bRet = false;
@@ -756,8 +750,6 @@ bool CCTexture2D::initWithETCFile(const char* file)
     
     return bRet;
 }
-
-#endif // QUICK_MINI_TARGET
 
 void CCTexture2D::PVRImagesHavePremultipliedAlpha(bool haveAlphaPremultiplied)
 {
