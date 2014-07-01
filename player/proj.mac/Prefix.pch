@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'quick-x-player' target in the 'quick-x-player' project
+// Prefix header for all source files of the 'quick-player' target in the 'quick-player' project
 //
 
 #ifdef __OBJC__

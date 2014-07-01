@@ -61,7 +61,8 @@ _nodes(NULL),
 _color(ccWHITE),
 _opacity(255),
 _flippedX(false),
-_flippedY(false)
+_flippedY(false),
+_scriptObjectDict(NULL)
 {
     
 }
@@ -76,6 +77,7 @@ Widget::~Widget()
     CC_SAFE_RELEASE(_layoutParameterDictionary);
     _nodes->removeAllObjects();
     CC_SAFE_RELEASE(_nodes);
+    CC_SAFE_RELEASE_NULL(_scriptObjectDict);
 }
 
 Widget* Widget::create()
@@ -131,12 +133,12 @@ void Widget::visit()
 
 void Widget::addChild(CCNode *child)
 {
-    CCNode::addChild(child);
+    addChild(child, child->getZOrder(), child->getTag());
 }
 
 void Widget::addChild(CCNode * child, int zOrder)
 {
-    CCNode::addChild(child, zOrder);
+    addChild(child, zOrder, child->getTag());
 }
     
 void Widget::addChild(CCNode* child, int zOrder, int tag)
@@ -1109,6 +1111,18 @@ void Widget::updateRGBAToRenderer(CCNode* renderer)
 {
     renderer->setColor(_color);
     renderer->setOpacity(_opacity);
+}
+    
+void Widget::setScriptObjectDict(cocos2d::CCDictionary* scriptObjectDict)
+{
+    CC_SAFE_RETAIN(scriptObjectDict);
+    CC_SAFE_RELEASE(_scriptObjectDict);
+    _scriptObjectDict = scriptObjectDict;
+}
+    
+cocos2d::CCDictionary* Widget::getScriptObjectDict() const
+{
+    return _scriptObjectDict;
 }
     
 }

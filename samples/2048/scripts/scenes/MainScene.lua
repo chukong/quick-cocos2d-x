@@ -267,6 +267,7 @@ function MainScene:onEnter()
         return self:onTouch(event.name, event.x, event.y)
     end)
     layer:setTouchEnabled(true)
+    layer:setTouchSwallowEnabled(false)
     self:addChild(layer)
 end
 

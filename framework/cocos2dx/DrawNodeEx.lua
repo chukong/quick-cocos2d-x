@@ -128,7 +128,7 @@ function DrawNode:drawRect(xywh, params)
 	points[2] = {x,y+h}
 	points[3] = {x+w,y+h}
 	points[4] = {x+w,y}
-	self:drawPol(points, params)
+	self:drawPolygon(points, params)
 	return self
 end
 

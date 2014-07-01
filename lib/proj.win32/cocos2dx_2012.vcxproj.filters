@@ -1185,6 +1185,99 @@
     <ClCompile Include="..\cocos2d-x\extensions\ProjectConfig\SimulatorConfig.cpp">
       <Filter>cocos2d-x\extensions\ProjectConfig</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCScriptEventDispatcher.cpp">
+      <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\touch_dispatcher\CCTouchTargetNode.cpp">
+      <Filter>cocos2d-x\cocos2dx\touch_dispatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionEaseEx.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrame.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrameEasing.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionNode.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionObject.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCActionTimeline.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCActionTimelineCache.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCFrame.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCNodeReader.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCTimeLine.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCArmatureAnimation.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCProcessBase.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCTween.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCArmature.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCBone.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\datas\CCDatas.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCBatchNode.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDecorativeDisplay.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayFactory.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayManager.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCSkin.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\physics\CCColliderDetector.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDataManager.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDefine.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCDataReaderHelper.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCSpriteFrameCacheHelper.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTransformHelp.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTweenFunction.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCUtilMath.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Components\CCComAttribute.cpp">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
     </ClCompile>
@@ -1260,6 +1353,9 @@
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\GUI\UIWidgets\UITextField.cpp">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Json\CocoLoader.cpp">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Json\DictionaryHelper.cpp">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
     </ClCompile>
@@ -1325,81 +1421,6 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\ActionManager.cpp">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionEaseEx.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrame.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrameEasing.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionNode.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionObject.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCArmatureAnimation.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCProcessBase.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCTween.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCArmature.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCBone.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\datas\CCDatas.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCBatchNode.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDecorativeDisplay.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayFactory.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayManager.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCSkin.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\physics\CCColliderDetector.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDataManager.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDefine.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCDataReaderHelper.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCSpriteFrameCacheHelper.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTransformHelp.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTweenFunction.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCUtilMath.cpp">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCScriptEventDispatcher.cpp">
-      <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2531,6 +2552,105 @@
     <ClInclude Include="..\cocos2d-x\extensions\ProjectConfig\SimulatorConfig.h">
       <Filter>cocos2d-x\extensions\ProjectConfig</Filter>
     </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCScriptEventDispatcher.h">
+      <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\touch_dispatcher\CCTouchTargetNode.h">
+      <Filter>cocos2d-x\cocos2dx\touch_dispatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionEaseEx.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrame.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrameEasing.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionNode.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionObject.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCActionTimeline.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCActionTimelineCache.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCFrame.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCNodeReader.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCTimeLine.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\ActionTimeline\CCTimelineMacro.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCArmatureAnimation.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCProcessBase.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCTween.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCArmature.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCBone.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\datas\CCDatas.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCBatchNode.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDecorativeDisplay.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayFactory.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayManager.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCSkin.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\external_tool\sigslot.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\physics\CCColliderDetector.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDataManager.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDefine.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCDataReaderHelper.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCSpriteFrameCacheHelper.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTransformHelp.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTweenFunction.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCUtilMath.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Components\CCComAttribute.h">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
     </ClInclude>
@@ -2616,6 +2736,9 @@
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\GUI\UIWidgets\UITextField.h">
+      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Json\CocoLoader.h">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Json\DictionaryHelper.h">
@@ -2716,84 +2839,6 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\ActionManager.h">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionEaseEx.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrame.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionFrameEasing.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionNode.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\CCActionObject.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCArmatureAnimation.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCProcessBase.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\animation\CCTween.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCArmature.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\CCBone.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\datas\CCDatas.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCBatchNode.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDecorativeDisplay.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayFactory.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCDisplayManager.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\display\CCSkin.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\external_tool\sigslot.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\physics\CCColliderDetector.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDataManager.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCArmatureDefine.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCDataReaderHelper.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCSpriteFrameCacheHelper.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTransformHelp.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCTweenFunction.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Armature\utils\CCUtilMath.h">
-      <Filter>cocos2d-x\extensions\CocoStudio</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCScriptEventDispatcher.h">
-      <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

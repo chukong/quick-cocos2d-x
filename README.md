@@ -45,3 +45,28 @@ quick-cocos2d-x 是 cocos2d-x 开发商“[触控科技](http://www.chukong-inc.
 -   network: Asynchronous HTTP requests, JSON, check the network status ...
 -   physics: Chipmunk integration ...
 
+### How to start
+
+- [搭建MAC下的编译环境][2]
+- [搭建Windows的编译环境][3]
+- [创建一个新工程][4]
+- [在Mac,Windows下工程的设置][5]
+- [关于QTPlayer的编译][6]
+- [升级到233的注意事项][7]
+- [如何断点调试Lua工程][8]
+- [集成第三方SDK的方法][9]
+
+### Quick Framework API
+
+[去查询][1]
+
+
+[1]: ./docs/api/index.html
+[2]: ./docs/how-to/setup_development_environment_on_mac/zh.html
+[3]: ./docs/how-to/setup_development_environment_on_windows/zh.html
+[4]: ./docs/how-to/get_started_create_new_project/zh.html
+[5]: ./docs/how-to/use-project-mac-and-win/zh.html
+[6]: ./docs/how-to/compile_qt_player/zh.html
+[7]: ./docs/how-to/upgrade-to-2_2_3/zh.html
+[8]: ./docs/how-to/debug_with_eclipse_ldt/zh.html
+[9]: ./docs/how-to/integration_third_party_sdk/zh.html

@@ -322,6 +322,14 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
             event["name"] = CCLuaValue::stringValue("cancelled");
             break;
 
+        case CCTOUCHADDED:
+            event["name"] = CCLuaValue::stringValue("added");
+            break;
+
+        case CCTOUCHREMOVED:
+            event["name"] = CCLuaValue::stringValue("removed");
+            break;
+
         default:
             return 0;
     }
@@ -456,8 +464,6 @@ int CCLuaEngine::reallocateScriptHandler(int nHandler)
     return nRet;
 }
 
-#ifndef QUICK_MINI_TARGET
-
 int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTableView* pTableView,void* pValue, CCArray* pResultArray)
 {
     if (NULL == pTableView)
@@ -512,8 +518,6 @@ int CCLuaEngine::executeTableViewEvent(int nEventType,cocos2d::extension::CCTabl
     }
     return nRet;
 }
-
-#endif // QUICK_MINI_TARGET
 
 int CCLuaEngine::executeEventWithArgs(int nHandler, CCArray* pArgs)
 {

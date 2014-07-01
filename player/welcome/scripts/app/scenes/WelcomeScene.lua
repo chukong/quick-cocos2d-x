@@ -1,4 +1,4 @@
-    
+
 local WelcomeScene = class("WelcomeScene", function()
     return display.newScene("WelcomeScene")
 end)
@@ -34,6 +34,7 @@ end
 
 function WelcomeScene:createOpenRecents(recents)
     local label = cc.ui.UILabel.new({
+        font = "Arial",
         text = "最近打开的项目:",
         align = ui.TEXT_ALIGN_LEFT,
         color = ccc3(48, 48, 48),
