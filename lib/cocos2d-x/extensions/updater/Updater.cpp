@@ -54,9 +54,10 @@ NS_CC_EXT_BEGIN;
 
 // Message type
 #define UPDATER_MESSAGE_UPDATE_SUCCEED                0
-#define UPDATER_MESSAGE_RECORD_DOWNLOADED_VERSION     1
+#define UPDATER_MESSAGE_STATE                         1
 #define UPDATER_MESSAGE_PROGRESS                      2
 #define UPDATER_MESSAGE_ERROR                         3
+
 
 // Some data struct for sending messages
 
@@ -69,6 +70,12 @@ struct ErrorMessage
 struct ProgressMessage
 {
     int percent;
+    Updater* manager;
+};
+
+struct StateMessage
+{
+    Updater::StateCode code;
     Updater* manager;
 };
 
@@ -241,6 +248,8 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
     
     CCLOG("start uncompressing");
     
+    this->sendStateMessage(kUncompressStart);
+    
     // Loop to extract all files.
     uLong i;
     for (i = 0; i < global_info.number_entry; ++i)
@@ -262,8 +271,10 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
             return false;
         }
         
+        CCLOG("fullName:%s", fileName);
         string fullPath = std::string(unzipTmpDir) + fileName;
         
+        CCLOG("fullPath:%s", fullPath.c_str());
         // Check if this entry is a directory or a file.
         const size_t filenameLength = strlen(fileName);
         if (fileName[filenameLength-1] == '/')
@@ -344,6 +355,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
     }
     
     CCLOG("end uncompressing");
+    this->sendStateMessage(kUncompressDone);
     
     return true;
 }
@@ -401,7 +413,8 @@ static size_t downLoadPackage(void *ptr, size_t size, size_t nmemb, void *userda
     return written;
 }
 
-int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownloaded, double totalToUpLoad, double nowUpLoaded)
+int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownloaded,
+                              double totalToUpLoad, double nowUpLoaded)
 {
     Updater* manager = (Updater*)ptr;
     Updater::Message *msg = new Updater::Message();
@@ -431,6 +444,8 @@ bool Updater::downLoad(const char* zipUrl, const char* zipFile)
         return false;
     }
     
+    this->sendStateMessage(kDownStart);
+    
     // Download pacakge
     CURLcode res;
     curl_easy_setopt(_curl, CURLOPT_URL, zipUrl);
@@ -452,6 +467,7 @@ bool Updater::downLoad(const char* zipUrl, const char* zipFile)
     CCLOG("succeed downloading package %s", zipUrl);
     
     fclose(fp);
+    this->sendStateMessage(kDownDone);
     return true;
 }
 
@@ -468,7 +484,8 @@ void Updater::registerScriptHandler(int handler)
 
 void Updater::unregisterScriptHandler(void)
 {
-    CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(_scriptHandler);
+    CCScriptEngineManager::sharedManager()->getScriptEngine()->
+        removeScriptHandler(_scriptHandler);
     _scriptHandler = 0;
 }
 
@@ -495,18 +512,33 @@ void Updater::sendErrorMessage(Updater::ErrorCode code)
     _schedule->sendMessage(msg);
 }
 
+void Updater::sendStateMessage(Updater::StateCode code)
+{
+    Message *msg = new Message();
+    msg->what = UPDATER_MESSAGE_STATE;
+    
+    StateMessage *stateMessage = new StateMessage();
+    stateMessage->code = code;
+    stateMessage->manager = this;
+    msg->obj = stateMessage;
+    
+    _schedule->sendMessage(msg);
+}
+
 // Implementation of UpdaterHelper
 
 Updater::Helper::Helper()
 {
     _messageQueue = new list<Message*>();
     pthread_mutex_init(&_messageQueueMutex, NULL);
-    CCDirector::sharedDirector()->getScheduler()->scheduleUpdateForTarget(this, 0, false);
+    CCDirector::sharedDirector()->getScheduler()
+        ->scheduleUpdateForTarget(this, 0, false);
 }
 
 Updater::Helper::~Helper()
 {
-    CCDirector::sharedDirector()->getScheduler()->unscheduleAllForTarget(this);
+    CCDirector::sharedDirector()->getScheduler()
+        ->unscheduleAllForTarget(this);
     delete _messageQueue;
 }
 
@@ -537,59 +569,15 @@ void Updater::Helper::update(float dt)
     switch (msg->what) {
         case UPDATER_MESSAGE_UPDATE_SUCCEED:
             handleUpdateSucceed(msg);
-            
+            break;
+        case UPDATER_MESSAGE_STATE:
+            handlerState(msg);
             break;
         case UPDATER_MESSAGE_PROGRESS:
-            if (((ProgressMessage*)msg->obj)->manager->_delegate)
-            {
-                ((ProgressMessage*)msg->obj)->manager->_delegate->onProgress(((ProgressMessage*)msg->obj)->percent);
-            }
-            if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
-            {
-                char buff[10];
-                sprintf(buff, "%d", ((ProgressMessage*)msg->obj)->percent);
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, buff);
-            }
-            
-            delete (ProgressMessage*)msg->obj;
-            
+            handlerProgress(msg);
             break;
         case UPDATER_MESSAGE_ERROR:
-            // error call back
-            if (((ErrorMessage*)msg->obj)->manager->_delegate)
-            {
-                ((ErrorMessage*)msg->obj)->manager->_delegate->onError(((ErrorMessage*)msg->obj)->code);
-            }
-            if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
-            {
-                std::string errorMessage;
-                switch ((int)((ErrorMessage*)msg->obj)->code)
-                {
-                case kCreateFile:
-                    errorMessage = "errorCreateFile";
-                    break;
-            
-                case kNetwork:
-                    errorMessage = "errorNetwork";
-                    break;
-
-                case kNoNewVersion:
-                    errorMessage = "errorNoNewVersion";
-                    break;
-
-                case kUncompress:
-                    errorMessage = "errorUncompress";
-                    break;
-
-                default:
-                    errorMessage = "errorUnknown";
-                }
-
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, errorMessage.c_str());
-            }
-
-            delete ((ErrorMessage*)msg->obj);
-            
+            handlerError(msg);
             break;
         default:
             break;
@@ -614,12 +602,133 @@ void Updater::Helper::handleUpdateSucceed(Message *msg)
         if (manager->_delegate)
         {
             manager->_delegate->onSuccess();
-}
+        }
         if (manager->_scriptHandler)
         {
-            CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(manager->_scriptHandler, "success");
+            CCScriptEngineManager::sharedManager()
+                ->getScriptEngine()
+                ->executeEvent(
+                               manager->_scriptHandler,
+                               "success",
+                               CCString::create("success"),
+                               "CCString"
+                               );
         }
     }
+}
+
+void Updater::Helper::handlerState(Message *msg)
+{
+    StateMessage* stateMsg = (StateMessage*)msg->obj;
+    if(stateMsg->manager->_delegate)
+    {
+        stateMsg->manager->_delegate->onState(stateMsg->code);
+    }
+    if (stateMsg->manager->_scriptHandler)
+    {
+        std::string stateMessage;
+        switch ((StateCode)stateMsg->code)
+        {
+            case kDownStart:
+                stateMessage = "downloadStart";
+                break;
+                
+            case kDownDone:
+                stateMessage = "downloadDone";
+                break;
+                
+            case kUncompressStart:
+                stateMessage = "uncompressStart";
+                break;
+            case kUncompressDone:
+                stateMessage = "uncompressDone";
+                break;
+                
+            default:
+                stateMessage = "stateUnknown";
+        }
+        
+        CCScriptEngineManager::sharedManager()
+            ->getScriptEngine()
+            ->executeEvent(
+                           stateMsg->manager->_scriptHandler,
+                           "state",
+                           CCString::create(stateMessage.c_str()),
+                           "CCString");
+    }
+    
+    delete ((StateMessage*)msg->obj);
+}
+
+void Updater::Helper::handlerError(Message* msg)
+{
+    ErrorMessage* errorMsg = (ErrorMessage*)msg->obj;
+    if (errorMsg->manager->_delegate)
+    {
+        errorMsg->manager->_delegate
+            ->onError(errorMsg->code);
+    }
+    if (errorMsg->manager->_scriptHandler)
+    {
+        std::string errorMessage;
+        switch (errorMsg->code)
+        {
+            case kCreateFile:
+                errorMessage = "errorCreateFile";
+                break;
+                
+            case kNetwork:
+                errorMessage = "errorNetwork";
+                break;
+                
+            case kNoNewVersion:
+                errorMessage = "errorNoNewVersion";
+                break;
+                
+            case kUncompress:
+                errorMessage = "errorUncompress";
+                break;
+                
+            default:
+                errorMessage = "errorUnknown";
+        }
+        
+        CCScriptEngineManager::sharedManager()
+            ->getScriptEngine()
+            ->executeEvent(
+                           errorMsg->manager->_scriptHandler,
+                           "error",
+                           CCString::create(errorMessage.c_str()),
+                           "CCString"
+                           );
+    }
+    
+    delete ((ErrorMessage*)msg->obj);
+}
+
+void Updater::Helper::handlerProgress(Message* msg)
+{
+    ProgressMessage* progMsg = (ProgressMessage*)msg->obj;
+    if (progMsg->manager->_delegate)
+    {
+        progMsg->manager->_delegate
+            ->onProgress(progMsg->percent);
+    }
+    if (progMsg->manager->_scriptHandler)
+    {
+        //char buff[10];
+        //sprintf(buff, "%d", ((ProgressMessage*)msg->obj)->percent);
+        CCScriptEngineManager::sharedManager()
+            ->getScriptEngine()
+            ->executeEvent(
+                       progMsg->manager->_scriptHandler,
+                       "progress",
+                       CCInteger::create(progMsg->percent),
+                       "CCInteger"
+                       );
+    }
+    
+    delete (ProgressMessage*)msg->obj;
 }
 
 NS_CC_EXT_END;

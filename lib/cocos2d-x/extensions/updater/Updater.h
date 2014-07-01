@@ -71,6 +71,14 @@ public:
         kUncompress,
     };
     
+    enum StateCode
+    {
+        kDownStart,
+        kDownDone,
+        kUncompressStart,
+        kUncompressDone,
+    };
+    
     /* @brief Creates a Updater with new package url, version code url and storage path.
      *
      * @param packageUrl URL of new package, the package should be a zip file.
@@ -115,6 +123,7 @@ protected:
     bool downLoad(const char* zipUrl, const char* zipFile);
     bool uncompress(const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip);
     void sendErrorMessage(ErrorCode code);
+    void sendStateMessage(StateCode code);
     void checkUnZipTmpDir();
     
     std::string _zipFile;
@@ -143,6 +152,9 @@ private:
         
     private:
         void handleUpdateSucceed(Message *msg);
+        void handlerState(Message* msg);
+        void handlerError(Message* msg);
+        void handlerProgress(Message* msg);
         
         std::list<Message*> *_messageQueue;
         pthread_mutex_t _messageQueueMutex;
@@ -178,6 +190,7 @@ public:
     /** @brief Call back function for success
      */
     virtual void onSuccess() {};
+    virtual void onState(Updater::StateCode stateCode) {};
 };
 
 NS_CC_EXT_END;
