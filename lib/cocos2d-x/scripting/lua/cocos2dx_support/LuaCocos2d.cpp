@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul  2 01:16:35 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Jul  2 02:23:43 2014.
 */
 
 /****************************************************************************
