@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCActionManager.h"
+#include "ActionManager.h"
 #include "../Json/DictionaryHelper.h"
 #include "../Json/CocoLoader.h"
 

@@ -42,7 +42,7 @@ LOCAL_SRC_FILES := \
     CocoStudio/Action/CCActionEaseEx.cpp \
     CocoStudio/Action/CCActionFrame.cpp \
     CocoStudio/Action/CCActionFrameEasing.cpp \
-    CocoStudio/Action/CCActionManager.cpp \
+    CocoStudio/Action/ActionManager.cpp \
     CocoStudio/Action/CCActionNode.cpp \
     CocoStudio/Action/CCActionObject.cpp \
     CocoStudio/ActionTimeline/CCActionTimeline.cpp \

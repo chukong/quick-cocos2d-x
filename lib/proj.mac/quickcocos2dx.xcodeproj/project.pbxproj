@@ -139,7 +139,6 @@
 		F4D26D63196320050087295D /* CCActionEaseEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26C95196320040087295D /* CCActionEaseEx.cpp */; };
 		F4D26D64196320050087295D /* CCActionFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26C97196320040087295D /* CCActionFrame.cpp */; };
 		F4D26D65196320050087295D /* CCActionFrameEasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26C99196320040087295D /* CCActionFrameEasing.cpp */; };
-		F4D26D66196320050087295D /* CCActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26C9B196320040087295D /* CCActionManager.cpp */; };
 		F4D26D67196320050087295D /* CCActionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26C9D196320040087295D /* CCActionNode.cpp */; };
 		F4D26D68196320050087295D /* CCActionObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26C9F196320040087295D /* CCActionObject.cpp */; };
 		F4D26D69196320050087295D /* CCActionTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4D26CA2196320040087295D /* CCActionTimeline.cpp */; };
@@ -225,6 +224,7 @@
 		F4DE0B3E16800261005DB2DB /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0AF916800261005DB2DB /* tolua_map.c */; };
 		F4DE0B3F16800261005DB2DB /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0AFA16800261005DB2DB /* tolua_push.c */; };
 		F4DE0B4016800261005DB2DB /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = F4DE0AFB16800261005DB2DB /* tolua_to.c */; };
+		F4E1251919632DC600AF8E9B /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E1251719632DC600AF8E9B /* ActionManager.cpp */; };
 		F4E87F37177006E900577406 /* CCAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E87F16177006E900577406 /* CCAction.cpp */; };
 		F4E87F38177006E900577406 /* CCActionCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E87F18177006E900577406 /* CCActionCamera.cpp */; };
 		F4E87F39177006E900577406 /* CCActionCatmullRom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E87F1A177006E900577406 /* CCActionCatmullRom.cpp */; };
@@ -698,8 +698,6 @@
 		F4D26C98196320040087295D /* CCActionFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionFrame.h; sourceTree = "<group>"; };
 		F4D26C99196320040087295D /* CCActionFrameEasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionFrameEasing.cpp; sourceTree = "<group>"; };
 		F4D26C9A196320040087295D /* CCActionFrameEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionFrameEasing.h; sourceTree = "<group>"; };
-		F4D26C9B196320040087295D /* CCActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionManager.cpp; sourceTree = "<group>"; };
-		F4D26C9C196320040087295D /* CCActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionManager.h; sourceTree = "<group>"; };
 		F4D26C9D196320040087295D /* CCActionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionNode.cpp; sourceTree = "<group>"; };
 		F4D26C9E196320040087295D /* CCActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionNode.h; sourceTree = "<group>"; };
 		F4D26C9F196320040087295D /* CCActionObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionObject.cpp; sourceTree = "<group>"; };
@@ -886,6 +884,8 @@
 		F4DE0AF916800261005DB2DB /* tolua_map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_map.c; sourceTree = "<group>"; };
 		F4DE0AFA16800261005DB2DB /* tolua_push.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_push.c; sourceTree = "<group>"; };
 		F4DE0AFB16800261005DB2DB /* tolua_to.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_to.c; sourceTree = "<group>"; };
+		F4E1251719632DC600AF8E9B /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
+		F4E1251819632DC600AF8E9B /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
 		F4E87F16177006E900577406 /* CCAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAction.cpp; sourceTree = "<group>"; };
 		F4E87F17177006E900577406 /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		F4E87F18177006E900577406 /* CCActionCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActionCamera.cpp; sourceTree = "<group>"; };
@@ -1950,14 +1950,14 @@
 		F4D26C94196320040087295D /* Action */ = {
 			isa = PBXGroup;
 			children = (
+				F4E1251719632DC600AF8E9B /* ActionManager.cpp */,
+				F4E1251819632DC600AF8E9B /* ActionManager.h */,
 				F4D26C95196320040087295D /* CCActionEaseEx.cpp */,
 				F4D26C96196320040087295D /* CCActionEaseEx.h */,
 				F4D26C97196320040087295D /* CCActionFrame.cpp */,
 				F4D26C98196320040087295D /* CCActionFrame.h */,
 				F4D26C99196320040087295D /* CCActionFrameEasing.cpp */,
 				F4D26C9A196320040087295D /* CCActionFrameEasing.h */,
-				F4D26C9B196320040087295D /* CCActionManager.cpp */,
-				F4D26C9C196320040087295D /* CCActionManager.h */,
 				F4D26C9D196320040087295D /* CCActionNode.cpp */,
 				F4D26C9E196320040087295D /* CCActionNode.h */,
 				F4D26C9F196320040087295D /* CCActionObject.cpp */,
@@ -3491,6 +3491,7 @@
 				F4E880781770071600577406 /* CCParticleExamples.cpp in Sources */,
 				F4E880791770071600577406 /* CCParticleSystem.cpp in Sources */,
 				F4E8807A1770071600577406 /* CCParticleSystemQuad.cpp in Sources */,
+				F4E1251919632DC600AF8E9B /* ActionManager.cpp in Sources */,
 				F4D26D90196320050087295D /* UIButton.cpp in Sources */,
 				F4A3A8E6182DA3E50000EDD1 /* xxtea.c in Sources */,
 				F4D26D73196320050087295D /* CCDatas.cpp in Sources */,
@@ -3659,7 +3660,6 @@
 				F4D26D7E196320050087295D /* CCTransformHelp.cpp in Sources */,
 				F4CB86C1180D017700D81CF3 /* CCNetworkIOSMac.mm in Sources */,
 				F4D26D64196320050087295D /* CCActionFrame.cpp in Sources */,
-				F4D26D66196320050087295D /* CCActionManager.cpp in Sources */,
 				F4D26D9C196320050087295D /* GUIReader.cpp in Sources */,
 				F414F4471961EB5D007C18E4 /* CCTouchTargetNode.cpp in Sources */,
 				F4E8813B17700E5E00577406 /* CCNode+CCBRelativePositioning.cpp in Sources */,
