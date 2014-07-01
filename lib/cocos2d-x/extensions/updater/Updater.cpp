@@ -74,13 +74,8 @@ struct ProgressMessage
 
 // Implementation of Updater
 
-Updater::Updater(const char* packageUrl/* =NULL */, const char* versionFileUrl/* =NULL */, const char* storagePath/* =NULL */)
-:  _storagePath(storagePath)
-, _version("")
-, _packageUrl(packageUrl)
-, _versionFileUrl(versionFileUrl)
-, _downloadedVersion("")
-, _curl(NULL)
+Updater::Updater()
+: _curl(NULL)
 , _tid(NULL)
 , _connectionTimeout(0)
 , _delegate(NULL)
@@ -89,8 +84,8 @@ Updater::Updater(const char* packageUrl/* =NULL */, const char* versionFileUrl/*
 , _zipFile("")
 , _unzipTmpDir("")
 , _updateInfoString("")
+, _resetBeforeUnZip(true)
 {
-    checkStoragePath();
     _schedule = new Helper();
 }
 
@@ -103,11 +98,11 @@ Updater::~Updater()
     unregisterScriptHandler();
 }
 
-void Updater::checkStoragePath()
+void Updater::checkUnZipTmpDir()
 {
-    if (_storagePath.size() > 0 && _storagePath[_storagePath.size() - 1] != '/')
+    if (_unzipTmpDir.size() > 0 && _unzipTmpDir[_unzipTmpDir.size() - 1] != '/')
     {
-        _storagePath.append("/");
+        _unzipTmpDir.append("/");
     }
 }
 
@@ -160,7 +155,7 @@ void* assetsManagerDownloadAndUncompress(void *data)
         if (! self->downLoad(self->_zipUrl.c_str(), self->_zipFile.c_str())) break;
         
         // Uncompress zip file.
-        if (! self->uncompress(self->_zipFile.c_str(), self->_unzipTmpDir.c_str()))
+        if (! self->uncompress(self->_zipFile.c_str(), self->_unzipTmpDir.c_str(),self->_resetBeforeUnZip))
         {
             self->sendErrorMessage(Updater::kUncompress);
             break;
@@ -182,7 +177,7 @@ void* assetsManagerDownloadAndUncompress(void *data)
     return NULL;
 }
 
-void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir)
+void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip)
 {
     if (_tid) return;
     
@@ -192,6 +187,9 @@ void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipT
     _zipFile.append(zipFile);
     _unzipTmpDir.clear();
     _unzipTmpDir.append(unzipTmpDir);
+    _resetBeforeUnZip = resetBeforeUnZip;
+    
+    checkUnZipTmpDir();
     
     // 1. Urls of package and version should be valid;
     // 2. Package should be a zip file.
@@ -207,13 +205,17 @@ void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipT
     pthread_create(&(*_tid), NULL, assetsManagerDownloadAndUncompress, this);
 }
 
-bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir)
+bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool resetBeforeUnZip)
 {
-    // Create unzipTmpDir
-    if(CCFileUtils::sharedFileUtils()->isFileExist(unzipTmpDir))
+    if(resetBeforeUnZip)
     {
-        this->removeDirectory(unzipTmpDir);
+        // Create unzipTmpDir
+        if(CCFileUtils::sharedFileUtils()->isFileExist(unzipTmpDir))
+        {
+            this->removeDirectory(unzipTmpDir);
+        }
     }
+    
     this->createDirectory(unzipTmpDir);
     
     // Open the zip file
@@ -392,14 +394,6 @@ bool Updater::createDirectory(const char *path)
 #endif
 }
 
-void Updater::setSearchPath()
-{
-    vector<string> searchPaths = CCFileUtils::sharedFileUtils()->getSearchPaths();
-    vector<string>::iterator iter = searchPaths.begin();
-    searchPaths.insert(iter, _storagePath);
-    CCFileUtils::sharedFileUtils()->setSearchPaths(searchPaths);
-}
-
 static size_t downLoadPackage(void *ptr, size_t size, size_t nmemb, void *userdata)
 {
     FILE *fp = (FILE*)userdata;
@@ -459,42 +453,6 @@ bool Updater::downLoad(const char* zipUrl, const char* zipFile)
     
     fclose(fp);
     return true;
-}
-
-const char* Updater::getPackageUrl() const
-{
-    return _packageUrl.c_str();
-}
-
-void Updater::setPackageUrl(const char *packageUrl)
-{
-    _packageUrl = packageUrl;
-}
-
-const char* Updater::getStoragePath() const
-{
-    return _storagePath.c_str();
-}
-
-void Updater::setStoragePath(const char *storagePath)
-{
-    _storagePath = storagePath;
-    checkStoragePath();
-}
-
-const char* Updater::getVersionFileUrl() const
-{
-    return _versionFileUrl.c_str();
-}
-
-void Updater::setVersionFileUrl(const char *versionFileUrl)
-{
-    _versionFileUrl = versionFileUrl;
-}
-
-void Updater::deleteVersion()
-{
-    CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_VERSION, "");
 }
 
 void Updater::setDelegate(UpdaterDelegateProtocol *delegate)
@@ -643,16 +601,6 @@ void Updater::Helper::update(float dt)
 void Updater::Helper::handleUpdateSucceed(Message *msg)
 {
     Updater* manager = (Updater*)msg->obj;
-    
-    // Record new version code.
-    CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_VERSION, manager->_version.c_str());
-    
-    // Unrecord downloaded version code.
-    CCUserDefault::sharedUserDefault()->setStringForKey(KEY_OF_DOWNLOADED_VERSION, "");
-    CCUserDefault::sharedUserDefault()->flush();
-    
-    // Set resource search path.
-    manager->setSearchPath();
     
     // Delete unloaded zip file.
     string zipfileName = manager->_zipFile;

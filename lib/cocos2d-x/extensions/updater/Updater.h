@@ -77,45 +77,14 @@ public:
      * @param versionFileUrl URL of version file. It should contain version code of new package.
      * @param storagePath The path to store downloaded resources.
      */
-    Updater(const char* packageUrl = NULL, const char* versionFileUrl = NULL, const char* storagePath = NULL);
+    Updater();
     
     virtual ~Updater();
     
     /* @brief Download new package if there is a new version, and uncompress downloaded zip file.
      *        Ofcourse it will set search path that stores downloaded files.
      */
-    virtual void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir);
-    
-    /* @brief Gets url of package.
-     */
-    const char* getPackageUrl() const;
-    
-    /* @brief Sets package url.
-     */
-    void setPackageUrl(const char* packageUrl);
-    
-    /* @brief Gets version file url.
-     */
-    const char* getVersionFileUrl() const;
-    
-    /* @brief Gets version file url.
-     */
-    void setVersionFileUrl(const char* versionFileUrl);
-    
-    /* @brief Deletes recorded version code.
-     */
-    void deleteVersion();
-    
-    /* @brief Gets storage path.
-     */
-    const char* getStoragePath() const;
-    
-    /* @brief Sets storage path.
-     *
-     * @param storagePath The path to store downloaded resources.
-     * @warm The path should be a valid path.
-     */
-    void setStoragePath(const char* storagePath);
+    virtual void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip=true);
     
     /** @brief Sets delegate, the delegate will receive messages
      */
@@ -144,16 +113,15 @@ public:
     
 protected:
     bool downLoad(const char* zipUrl, const char* zipFile);
-    void checkStoragePath();
-    bool uncompress(const char* zipFile, const char* unzipTmpDir);
-    void setSearchPath();
+    bool uncompress(const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip);
     void sendErrorMessage(ErrorCode code);
-    
+    void checkUnZipTmpDir();
     
     std::string _zipFile;
     std::string _zipUrl;
     std::string _unzipTmpDir;
     std::string _updateInfoString;
+    bool _resetBeforeUnZip;
     
 private:
     typedef struct _Message
@@ -183,16 +151,7 @@ private:
 private:
     //! The path to store downloaded resources.
     std::string _storagePath;
-    
-    //! The version of downloaded resources.
-    std::string _version;
-    
-    std::string _packageUrl;
-    std::string _versionFileUrl;
-    
-    std::string _downloadedVersion;
 
-    
     CURL *_curl;
     Helper *_schedule;
     pthread_t *_tid;

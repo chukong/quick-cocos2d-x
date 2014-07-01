@@ -1,15 +1,9 @@
 class Updater
 {
-    Updater(const char* packageUrl = NULL, const char* versionFileUrl = NULL, const char* storagePath = NULL);
+    Updater();
     ~Updater();
     void update(const char* zipUrl, const char* zipFile, const char* unzipoTmpDir);
-    const char* getPackageUrl();
-    void setPackageUrl(const char* packageUrl);
-    const char* getVersionFileUrl();
-    void setVersionFileUrl(const char* versionFileUrl);
-    void deleteVersion();
-    const char* getStoragePath();
-    void setStoragePath(const char* storagePath);
+
     void setConnectionTimeout(unsigned int timeout);
     unsigned int getConnectionTimeout();
     void registerScriptHandler(LUA_FUNCTION handler);
