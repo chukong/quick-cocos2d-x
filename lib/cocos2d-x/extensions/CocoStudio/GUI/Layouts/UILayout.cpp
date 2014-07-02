@@ -815,18 +815,27 @@ GLubyte Layout::getBackGroundImageOpacity()
     
 void Layout::updateBackGroundImageColor()
 {
-    _backGroundImage->setColor(_backGroundImageColor);
+    if (_backGroundImage)
+    {
+        _backGroundImage->setColor(_backGroundImageColor);
+    }
 }
     
 void Layout::updateBackGroundImageOpacity()
 {
-    _backGroundImage->setOpacity(_backGroundImageOpacity);
+    if (_backGroundImage)
+    {
+        _backGroundImage->setOpacity(_backGroundImageOpacity);
+    }
 }
     
 void Layout::updateBackGroundImageRGBA()
 {
-    _backGroundImage->setColor(_backGroundImageColor);
-    _backGroundImage->setOpacity(_backGroundImageOpacity);
+    if (_backGroundImage)
+    {
+        _backGroundImage->setColor(_backGroundImageColor);
+        _backGroundImage->setOpacity(_backGroundImageOpacity);
+    }
 }
 
 const CCSize& Layout::getBackGroundImageTextureSize() const
