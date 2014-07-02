@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Jul  1 15:21:42 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Jul  2 11:18:58 2014.
 */
 
 /****************************************************************************
@@ -8932,6 +8932,38 @@ static int tolua_Cocos2d_CCFileUtils_addSearchResolutionsOrder00(lua_State* tolu
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'addSearchResolutionsOrder'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getSearchRootPath of class  CCFileUtils */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCFileUtils_getSearchRootPath00
+static int tolua_Cocos2d_CCFileUtils_getSearchRootPath00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCFileUtils",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCFileUtils* self = (CCFileUtils*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getSearchRootPath'", NULL);
+#endif
+  {
+   const char* tolua_ret = (const char*)  self->getSearchRootPath();
+   tolua_pushstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getSearchRootPath'.",&tolua_err);
  return 0;
 #endif
 }
@@ -50347,7 +50379,8 @@ static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
      !tolua_isstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isstring(tolua_S,3,0,&tolua_err) ||
      !tolua_isstring(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isboolean(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -50357,11 +50390,12 @@ static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
   const char* zipUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
   const char* zipFile = ((const char*)  tolua_tostring(tolua_S,3,0));
   const char* unzipoTmpDir = ((const char*)  tolua_tostring(tolua_S,4,0));
+  bool resetBeforeUnZip = ((bool)  tolua_toboolean(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
 #endif
   {
-   self->update(zipUrl,zipFile,unzipoTmpDir);
+   self->update(zipUrl,zipFile,unzipoTmpDir,resetBeforeUnZip);
   }
  }
  return 0;
@@ -66697,6 +66731,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setFilenameLookupDictionary",tolua_Cocos2d_CCFileUtils_setFilenameLookupDictionary00);
    tolua_function(tolua_S,"fullPathFromRelativeFile",tolua_Cocos2d_CCFileUtils_fullPathFromRelativeFile00);
    tolua_function(tolua_S,"addSearchResolutionsOrder",tolua_Cocos2d_CCFileUtils_addSearchResolutionsOrder00);
+   tolua_function(tolua_S,"getSearchRootPath",tolua_Cocos2d_CCFileUtils_getSearchRootPath00);
    tolua_function(tolua_S,"setSearchRootPath",tolua_Cocos2d_CCFileUtils_setSearchRootPath00);
    tolua_function(tolua_S,"addSearchPath",tolua_Cocos2d_CCFileUtils_addSearchPath00);
    tolua_function(tolua_S,"getWritablePath",tolua_Cocos2d_CCFileUtils_getWritablePath00);

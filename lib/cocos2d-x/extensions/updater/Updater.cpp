@@ -271,10 +271,10 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
             return false;
         }
         
-        CCLOG("fullName:%s", fileName);
+        //CCLOG("fullName:%s", fileName);
         string fullPath = std::string(unzipTmpDir) + fileName;
         
-        CCLOG("fullPath:%s", fullPath.c_str());
+        //CCLOG("fullPath:%s", fullPath.c_str());
         // Check if this entry is a directory or a file.
         const size_t filenameLength = strlen(fileName);
         if (fileName[filenameLength-1] == '/')

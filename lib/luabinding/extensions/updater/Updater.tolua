@@ -2,7 +2,7 @@ class Updater
 {
     Updater();
     ~Updater();
-    void update(const char* zipUrl, const char* zipFile, const char* unzipoTmpDir);
+    void update(const char* zipUrl, const char* zipFile, const char* unzipoTmpDir, bool resetBeforeUnZip);
 
     void setConnectionTimeout(unsigned int timeout);
     unsigned int getConnectionTimeout();

@@ -261,6 +261,7 @@ public:
      */
     virtual void setSearchPaths(const std::vector<std::string>& searchPaths);
     
+    const char* getSearchRootPath();
     /**
      * Set search root path.
       */

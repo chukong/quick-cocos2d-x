@@ -700,6 +700,11 @@ void CCFileUtils::setSearchPaths(const std::vector<std::string>& searchPaths)
     m_searchPathArray.assign(searchPaths.begin(), searchPaths.end());
     updateSearchPathArrayCheck();
         }
+
+const char* CCFileUtils::getSearchRootPath()
+{
+    return m_strDefaultResRootPath.c_str();
+}
     
 void CCFileUtils::setSearchRootPath(const char* path)
     {

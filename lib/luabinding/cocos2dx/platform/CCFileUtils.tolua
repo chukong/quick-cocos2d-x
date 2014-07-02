@@ -177,6 +177,7 @@ class CCFileUtils
       */
     void addSearchResolutionsOrder(const char* order);
 
+	const char* getSearchRootPath();
     /**
      * Set search root path.
      */
