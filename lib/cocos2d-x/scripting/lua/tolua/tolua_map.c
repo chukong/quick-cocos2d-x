@@ -313,8 +313,7 @@ static int tolua_bnd_getcfunction(lua_State* L) {
         if (!lua_isnil(L, -1)) {
             lua_pushvalue(L, 2);    /* stack: class key mt mt[".backup"] key */
             lua_rawget(L, -2);
-            if (!lua_isnil(L, -1)) {
-                // key had been found
+            if (!lua_isnil(L, -1)) { // key had been found
                 return 1;
             }
             lua_pop(L, 1);
@@ -343,10 +342,8 @@ TOLUA_API void tolua_open (lua_State* L)
         lua_pushstring(L,"tolua_opened");
         lua_pushboolean(L,1);
         lua_rawset(L,LUA_REGISTRYINDEX);
-
         
-        /** create value root table
-         */
+        // create value root table
         lua_pushstring(L, TOLUA_VALUE_ROOT);
         lua_newtable(L);
         lua_rawset(L, LUA_REGISTRYINDEX);
