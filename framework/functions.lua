@@ -88,7 +88,7 @@ end
 
 --[[--
 
-检查值是否是一个表格，如果不是则返回一个空表格
+检查值是否是一个表格，如果不是则用表格封装并返回
 
 @param mixed value 要检查的值
 
@@ -96,8 +96,8 @@ end
 
 ]]
 function checktable(value)
-    if type(value) ~= "table" then value = {} end
-    return value
+    if type(value) == "table" then return value end
+    return {value}
 end
 
 --[[--
