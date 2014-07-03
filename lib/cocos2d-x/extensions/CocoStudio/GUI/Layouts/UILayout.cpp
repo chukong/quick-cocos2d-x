@@ -388,10 +388,21 @@ const CCRect& Layout::getClippingRect()
     if (_clippingRectDirty)
     {
         _handleScissor = true;
-        CCPoint worldPos = convertToWorldSpace(CCPointZero);
+        
+       CCPoint worldPos = m_obPosition;
+        if (this->getParent()) {
+            worldPos = this->getParent()->convertToWorldSpace(m_obPosition);
+        }
+        
         CCAffineTransform t = nodeToWorldTransform();
         float scissorWidth = _size.width*t.a;
         float scissorHeight = _size.height*t.d;
+        
+        if (!isIgnoreAnchorPointForPosition()) {
+            worldPos.x -= scissorWidth * m_obAnchorPoint.x;
+            worldPos.y -= scissorHeight * m_obAnchorPoint.y;
+        }
+        
         CCRect parentClippingRect;
         Layout* parent = this;
         bool firstClippingParentFounded = false;
@@ -417,11 +428,12 @@ const CCRect& Layout::getClippingRect()
             }
         }
         
+        
         if (_clippingParent)
         {
             parentClippingRect = _clippingParent->getClippingRect();
-            float finalX = worldPos.x - (scissorWidth * m_obAnchorPoint.x);
-            float finalY = worldPos.y - (scissorHeight * m_obAnchorPoint.y);
+            float finalX = worldPos.x;
+            float finalY = worldPos.y;
             float finalWidth = scissorWidth;
             float finalHeight = scissorHeight;
             
@@ -429,7 +441,7 @@ const CCRect& Layout::getClippingRect()
             if (leftOffset < 0.0f)
             {
                 finalX = parentClippingRect.origin.x;
-                finalWidth += leftOffset;
+                finalWidth -= leftOffset;
             }
             float rightOffset = (worldPos.x + scissorWidth) - (parentClippingRect.origin.x + parentClippingRect.size.width);
             if (rightOffset > 0.0f)
@@ -439,13 +451,13 @@ const CCRect& Layout::getClippingRect()
             float topOffset = (worldPos.y + scissorHeight) - (parentClippingRect.origin.y + parentClippingRect.size.height);
             if (topOffset > 0.0f)
             {
-                finalHeight -= topOffset;
+               finalHeight -= topOffset;
             }
             float bottomOffset = worldPos.y - parentClippingRect.origin.y;
             if (bottomOffset < 0.0f)
             {
                 finalY = parentClippingRect.origin.x;
-                finalHeight += bottomOffset;
+                finalHeight -= bottomOffset;
             }
             if (finalWidth < 0.0f)
             {
@@ -462,8 +474,8 @@ const CCRect& Layout::getClippingRect()
         }
         else
         {
-            _clippingRect.origin.x = worldPos.x - (scissorWidth * m_obAnchorPoint.x);
-            _clippingRect.origin.y = worldPos.y - (scissorHeight * m_obAnchorPoint.y);
+            _clippingRect.origin.x = worldPos.x;
+            _clippingRect.origin.y = worldPos.y;
             _clippingRect.size.width = scissorWidth;
             _clippingRect.size.height = scissorHeight;
         }
