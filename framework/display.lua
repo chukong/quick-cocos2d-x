@@ -255,12 +255,13 @@ function display.newSprite(filename, x, y, params)
                 sprite = spriteClass:createWithSpriteFrame(frame)
             end
         else
+			local absfilename = io.getres(filename)
             if display.TEXTURES_PIXEL_FORMAT[filename] then
                 CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-                sprite = spriteClass:create(filename)
+                sprite = spriteClass:create(absfilename)
                 CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
-                sprite = spriteClass:create(filename)
+                sprite = spriteClass:create(absfilename)
             end
         end
     elseif t == "CCSpriteFrame" then
@@ -295,7 +296,7 @@ function display.newTilesSprite(filename, rect)
     if not rect then
         rect = CCRect(0, 0, display.width, display.height)
     end
-    local sprite = CCSprite:create(filename, rect)
+    local sprite = CCSprite:create(io.getres(filename), rect)
     if not sprite then
         echoError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
@@ -648,6 +649,7 @@ function display.removeSpriteFrameByImageName(imageName)
 end
 
 function display.newBatchNode(image, capacity)
+	local image = io.getres(image)
     return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
 end
 

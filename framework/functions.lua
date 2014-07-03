@@ -1,3 +1,5 @@
+require("lfs")
+
 function tonum(v, base)
     return tonumber(v, base) or 0
 end
@@ -234,6 +236,43 @@ function io.filesize(path)
     return size
 end
 
+function io.mkdir(path)
+	if not io.exists(path) then
+		return lfs.mkdir(path)
+	end
+	return true
+end
+
+function io.rmdir(path)
+	if io.exists(path) then
+		local function _rmdir(path)
+			local iter, dir_obj = lfs.dir(path)
+			while true do
+				local dir = iter(dir_obj)
+				if dir == nil then break end
+				if dir ~= "." and dir ~= ".." then
+					local curDir = path..dir
+					local mode = lfs.attributes(curDir, "mode") 
+					if mode == "directory" then
+						_rmdir(curDir.."/")
+					elseif mode == "file" then
+						os.remove(curDir)
+					end
+				end
+			end
+			local succ, des = os.remove(path)
+			if des then print(des) end
+			return succ
+		end
+		_rmdir(path)
+	end
+	return true
+end
+
+function io.getres(path)
+	return path
+end
+
 function table.nums(t)
     local count = 0
     for k, v in pairs(t) do
@@ -376,6 +415,13 @@ function table.unique(t)
         end
     end
     return n
+end
+
+function table.pushUnique(t, item)
+	for __, itemInTable in pairs(t) do
+		if itemInTable == item then return end
+	end
+	 t[#t+1] = item
 end
 
 function table.keyOfItem(t, item)
