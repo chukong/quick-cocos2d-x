@@ -128,26 +128,32 @@ int CCLuaEngine::executeNodeEvent(CCNode* pNode, int nAction)
 
     m_stack->clean();
     m_stack->pushCCLuaValueDict(event);
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_EVENT);
-    CCScriptEventListenersForEventIterator it = listeners.begin();
-    for (; it != listeners.end(); ++it)
+
+    CCArray *listeners = pNode->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != NODE_EVENT || p->removed) continue;
         m_stack->copyValue(1);
-        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->executeFunctionByHandler(p->listener, 1);
         m_stack->settop(1);
     }
+
     m_stack->clean();
     return 0;
 }
 
 int CCLuaEngine::executeNodeEnterFrameEvent(CCNode* pNode, float dt)
 {
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(NODE_ENTER_FRAME_EVENT);
-    CCScriptEventListenersForEventIterator it = listeners.begin();
-    for (; it != listeners.end(); ++it)
+    CCArray *listeners = pNode->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != NODE_ENTER_FRAME_EVENT || p->removed) continue;
         m_stack->pushFloat(dt);
-        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->executeFunctionByHandler(p->listener, 1);
         m_stack->clean();
     }
     return 0;
@@ -155,13 +161,15 @@ int CCLuaEngine::executeNodeEnterFrameEvent(CCNode* pNode, float dt)
 
 int CCLuaEngine::executeMenuItemEvent(CCMenuItem* pMenuItem)
 {
-    CCScriptEventListenersForEvent &listeners = pMenuItem->getScriptEventListenersByEvent(MENU_ITEM_CLICKED_EVENT);
-    CCScriptEventListenersForEventIterator it = listeners.begin();
-    for (; it != listeners.end(); ++it)
+    CCArray *listeners = pMenuItem->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != MENU_ITEM_CLICKED_EVENT || p->removed) continue;
         m_stack->pushInt(pMenuItem->getTag());
         m_stack->pushCCObject(pMenuItem, "CCMenuItem");
-        m_stack->executeFunctionByHandler(it->listener, 2);
+        m_stack->executeFunctionByHandler(p->listener, 2);
         m_stack->clean();
     }
     return 0;
@@ -209,9 +217,6 @@ int CCLuaEngine::executeSchedule(int nHandler, float dt, CCNode* pNode/* = NULL*
 
 int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pTouch, int phase)
 {
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(phase == NODE_TOUCH_CAPTURING_PHASE ? NODE_TOUCH_CAPTURE_EVENT : NODE_TOUCH_EVENT);
-    if (listeners.size() == 0) return 1;
-
     m_stack->clean();
     CCLuaValueDict event;
     switch (eventType)
@@ -260,20 +265,26 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
     event["prevY"] = CCLuaValue::floatValue(prev.y);
 
     m_stack->pushCCLuaValueDict(event);
-    CCScriptEventListenersForEventIterator it = listeners.begin();
+
+    int eventInt = (phase == NODE_TOUCH_CAPTURING_PHASE) ? NODE_TOUCH_CAPTURE_EVENT : NODE_TOUCH_EVENT;
+    CCArray *listeners = pNode->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
     int ret = 1;
-    for (; it != listeners.end(); ++it)
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != eventInt || p->removed) continue;
+
         if (eventType == CCTOUCHBEGAN)
         {
             // enable listener when touch began
-            (*it).enabled = true;
+            p->enabled = true;
         }
 
-        if ((*it).enabled)
+        if (p->enabled)
         {
             m_stack->copyValue(1);
-            int listenerRet = m_stack->executeFunctionByHandler((*it).listener, 1);
+            int listenerRet = m_stack->executeFunctionByHandler(p->listener, 1);
             if (listenerRet == 0)
             {
                 if (phase == NODE_TOUCH_CAPTURING_PHASE && (eventType == CCTOUCHBEGAN || eventType == CCTOUCHMOVED))
@@ -283,7 +294,7 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
                 else if (phase == NODE_TOUCH_TARGETING_PHASE && eventType == CCTOUCHBEGAN)
                 {
                     // if listener return false when touch began, disable this listener
-                    (*it).enabled = false;
+                    p->enabled = false;
                     ret = 0;
                 }
             }
@@ -299,9 +310,6 @@ int CCLuaEngine::executeNodeTouchEvent(CCNode* pNode, int eventType, CCTouch *pT
 
 int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pTouches, int phase)
 {
-    CCScriptEventListenersForEvent &listeners = pNode->getScriptEventListenersByEvent(phase == NODE_TOUCH_CAPTURING_PHASE ? NODE_TOUCH_CAPTURE_EVENT : NODE_TOUCH_EVENT);
-    if (listeners.size() == 0) return 1;
-
     m_stack->clean();
     CCLuaValueDict event;
     switch (eventType)
@@ -371,11 +379,15 @@ int CCLuaEngine::executeNodeTouchesEvent(CCNode* pNode, int eventType, CCSet *pT
     event["points"] = CCLuaValue::dictValue(points);
     m_stack->pushCCLuaValueDict(event);
 
-    CCScriptEventListenersForEventIterator it = listeners.begin();
-    for (; it != listeners.end(); ++it)
+    int eventInt = (phase == NODE_TOUCH_CAPTURING_PHASE) ? NODE_TOUCH_CAPTURE_EVENT : NODE_TOUCH_EVENT;
+    CCArray *listeners = pNode->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != eventInt || p->removed) continue;
         m_stack->copyValue(1);
-        m_stack->executeFunctionByHandler((*it).listener, 1);
+        m_stack->executeFunctionByHandler(p->listener, 1);
         m_stack->settop(1);
     }
 
@@ -403,13 +415,14 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
             return 0;
     }
 
-    m_stack->pushCCLuaValueDict(event);
-    CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(KEYPAD_EVENT);
-    CCScriptEventListenersForEventIterator it = listeners.begin();
-    for (; it != listeners.end(); ++it)
+    CCArray *listeners = pLayer->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != KEYPAD_EVENT || p->removed) continue;
         m_stack->copyValue(1);
-        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->executeFunctionByHandler(p->listener, 1);
         m_stack->settop(1);
     }
     m_stack->clean();
@@ -427,12 +440,15 @@ int CCLuaEngine::executeAccelerometerEvent(CCLayer* pLayer, CCAcceleration* pAcc
     event["timestamp"] = CCLuaValue::floatValue(pAccelerationValue->timestamp);
 
     m_stack->pushCCLuaValueDict(event);
-    CCScriptEventListenersForEvent &listeners = pLayer->getScriptEventListenersByEvent(ACCELERATE_EVENT);
-    CCScriptEventListenersForEventIterator it = listeners.begin();
-    for (; it != listeners.end(); ++it)
+
+    CCArray *listeners = pLayer->getAllScriptEventListeners();
+    CCScriptHandlePair *p;
+    for (int i = listeners->count() - 1; i >= 0; --i)
     {
+        p = dynamic_cast<CCScriptHandlePair*>(listeners->objectAtIndex(i));
+        if (p->event != ACCELERATE_EVENT || p->removed) continue;
         m_stack->copyValue(1);
-        m_stack->executeFunctionByHandler(it->listener, 1);
+        m_stack->executeFunctionByHandler(p->listener, 1);
         m_stack->settop(1);
     }
     return 0;

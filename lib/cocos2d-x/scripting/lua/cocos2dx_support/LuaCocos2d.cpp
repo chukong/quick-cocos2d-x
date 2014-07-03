@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul  2 02:23:43 2014.
+** Generated automatically by tolua++-1.0.92 on Thu Jul  3 15:49:08 2014.
 */
 
 /****************************************************************************
@@ -7780,8 +7780,7 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addNodeEventListener00(lua_Stat
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
-     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -7791,12 +7790,11 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_addNodeEventListener00(lua_Stat
   int event = ((int)  tolua_tonumber(tolua_S,2,0));
   LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,3,0));
   int tag = ((int)  tolua_tonumber(tolua_S,4,0));
-  int priority = ((int)  tolua_tonumber(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addScriptEventListener'", NULL);
 #endif
   {
-   int tolua_ret = (int)  self->addScriptEventListener(event,listener,tag,priority);
+   int tolua_ret = (int)  self->addScriptEventListener(event,listener,tag);
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
@@ -7934,40 +7932,6 @@ static int tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00(l
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'removeAllNodeEventListeners'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: hasScriptEventListener of class  CCScriptEventDispatcher */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00
-static int tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCScriptEventDispatcher",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCScriptEventDispatcher* self = (CCScriptEventDispatcher*)  tolua_tousertype(tolua_S,1,0);
-  int event = ((int)  tolua_tonumber(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'hasScriptEventListener'", NULL);
-#endif
-  {
-   bool tolua_ret = (bool)  self->hasScriptEventListener(event);
-   tolua_pushboolean(tolua_S,(bool)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'hasNodeEventListener'.",&tolua_err);
  return 0;
 #endif
 }
@@ -60275,7 +60239,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"removeNodeEventListenersByEvent",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByEvent00);
    tolua_function(tolua_S,"removeNodeEventListenersByTag",tolua_Cocos2d_CCScriptEventDispatcher_removeNodeEventListenersByTag00);
    tolua_function(tolua_S,"removeAllNodeEventListeners",tolua_Cocos2d_CCScriptEventDispatcher_removeAllNodeEventListeners00);
-   tolua_function(tolua_S,"hasNodeEventListener",tolua_Cocos2d_CCScriptEventDispatcher_hasNodeEventListener00);
   tolua_endmodule(tolua_S);
   tolua_function(tolua_S,"CCLuaLog",tolua_Cocos2d_CCLuaLog00);
   tolua_function(tolua_S,"CCMessageBox",tolua_Cocos2d_CCMessageBox00);
