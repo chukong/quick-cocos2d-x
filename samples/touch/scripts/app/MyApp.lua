@@ -11,6 +11,7 @@ local TESTS_LIST = {
     "TestSingleTouch4Scene",
     "TestMultiTouches1Scene",
     "TestMultiTouches2Scene",
+    "TestMultiTouches3Scene",
 }
 
 function MyApp:run()

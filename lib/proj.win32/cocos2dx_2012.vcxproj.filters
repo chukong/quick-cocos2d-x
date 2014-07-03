@@ -1401,6 +1401,9 @@
     <ClCompile Include="..\cocos2d-x\cocos2dx\cocoa\CCScriptEventDispatcher.cpp">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\cocos2dx\touch_dispatcher\CCTouchTargetNode.cpp">
+      <Filter>cocos2d-x\cocos2dx\touch_dispatcher</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h">
@@ -2794,6 +2797,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\cocoa\CCScriptEventDispatcher.h">
       <Filter>cocos2d-x\cocos2dx\cocoa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\cocos2dx\touch_dispatcher\CCTouchTargetNode.h">
+      <Filter>cocos2d-x\cocos2dx\touch_dispatcher</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

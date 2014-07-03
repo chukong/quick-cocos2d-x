@@ -156,6 +156,7 @@
 		F4A8F6BB17F0B1A400110198 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A8F6BA17F0B1A400110198 /* libwebsockets.a */; };
 		F4A8F6BF17F0B1F500110198 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A8F6BD17F0B1F500110198 /* WebSocket.cpp */; };
 		F4A8F6C217F0B21200110198 /* Lua_web_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A8F6C017F0B21200110198 /* Lua_web_socket.cpp */; };
+		F4AB02781961CC53006430E9 /* CCTouchTargetNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4AB02761961CC53006430E9 /* CCTouchTargetNode.cpp */; };
 		F4ABAD81191A8A4E00FEA3CD /* CCScriptEventDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4ABAD7F191A8A4E00FEA3CD /* CCScriptEventDispatcher.cpp */; };
 		F4ABAD86191A8A7700FEA3CD /* SimulatorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4ABAD84191A8A7700FEA3CD /* SimulatorConfig.cpp */; };
 		F4ABAE49191A8A7E00FEA3CD /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4ABAD89191A8A7D00FEA3CD /* ActionManager.cpp */; };
@@ -754,6 +755,8 @@
 		F4A8F6BE17F0B1F500110198 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
 		F4A8F6C017F0B21200110198 /* Lua_web_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Lua_web_socket.cpp; sourceTree = "<group>"; };
 		F4A8F6C117F0B21200110198 /* Lua_web_socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lua_web_socket.h; sourceTree = "<group>"; };
+		F4AB02761961CC53006430E9 /* CCTouchTargetNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTouchTargetNode.cpp; sourceTree = "<group>"; };
+		F4AB02771961CC53006430E9 /* CCTouchTargetNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTouchTargetNode.h; sourceTree = "<group>"; };
 		F4ABAD7F191A8A4E00FEA3CD /* CCScriptEventDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCScriptEventDispatcher.cpp; sourceTree = "<group>"; };
 		F4ABAD80191A8A4E00FEA3CD /* CCScriptEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScriptEventDispatcher.h; sourceTree = "<group>"; };
 		F4ABAD82191A8A7100FEA3CD /* ExtensionExport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionExport.h; sourceTree = "<group>"; };
@@ -3192,6 +3195,8 @@
 				F4E882A3177015C400577406 /* CCTouchDispatcher.h */,
 				F4E882A4177015C400577406 /* CCTouchHandler.cpp */,
 				F4E882A5177015C400577406 /* CCTouchHandler.h */,
+				F4AB02761961CC53006430E9 /* CCTouchTargetNode.cpp */,
+				F4AB02771961CC53006430E9 /* CCTouchTargetNode.h */,
 			);
 			path = touch_dispatcher;
 			sourceTree = "<group>";
@@ -3514,6 +3519,7 @@
 				F4ABAE84191A8A7E00FEA3CD /* LayoutReader.cpp in Sources */,
 				F459EB01180D04E1006CBDF1 /* cpPinJoint.c in Sources */,
 				F459EB8B180D0513006CBDF1 /* timeout.c in Sources */,
+				F4AB02781961CC53006430E9 /* CCTouchTargetNode.cpp in Sources */,
 				F459EAF8180D04E1006CBDF1 /* CCPhysicsSupport.cpp in Sources */,
 				F4E882C4177015C400577406 /* CCShapeNode.cpp in Sources */,
 				F4ABAD86191A8A7700FEA3CD /* SimulatorConfig.cpp in Sources */,
