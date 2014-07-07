@@ -141,6 +141,7 @@ LOCAL_SRC_FILES := \
     touch_dispatcher/CCTouchDispatcher.cpp \
     touch_dispatcher/CCTouchHandler.cpp \
     touch_dispatcher/CCTouch.cpp \
+    touch_dispatcher/CCTouchTargetNode.cpp \
     support/image_support/TGAlib.cpp \
     textures/CCTextureETC.cpp \
     textures/CCTexturePVR.cpp \
@@ -170,11 +171,8 @@ LOCAL_EXPORT_LDLIBS := -lGLESv2 \
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
-
-ifndef $(QUICK_MINI_TARGET)
-    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
-    LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
-endif
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
 
 # define the macro to compile through support/zip_support/ioapi.c
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API $(ANDROID_COCOS2D_BUILD_FLAGS)
@@ -184,9 +182,6 @@ include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,libpng)
 $(call import-module,libwebp)
-
-ifndef $(QUICK_MINI_TARGET)
 $(call import-module,libjpeg)
 $(call import-module,libtiff)
-    $(call import-module,libcurl)
-endif
+$(call import-module,libcurl)

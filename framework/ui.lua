@@ -124,7 +124,10 @@ function ui.newEditBox(params)
     local editbox = CCEditBox:create(params.size, imageNormal, imagePressed, imageDisabled)
 
     if editbox then
-        editbox:addEditBoxEventListener(params.listener)
+        if params.listener then
+          -- 仅当 监听 方法传入时，才绑定监听方法。以避免 cocos2d-x 层面抛出异常
+          editbox:addEditBoxEventListener(params.listener)
+        end
         if params.x and params.y then
             editbox:setPosition(params.x, params.y)
         end

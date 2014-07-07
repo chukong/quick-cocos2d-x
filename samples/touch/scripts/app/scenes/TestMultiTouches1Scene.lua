@@ -30,7 +30,7 @@ function TestMultiTouches1Scene:ctor()
     -- self.sprite:setTouchMode(cc.TOUCH_MODE_ONE_BY_ONE) -- 单点（默认模式）
     -- 添加触摸事件处理函数
     self.sprite:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
-        -- event.name 是触摸事件的状态：began, moved, ended, cancelled
+        -- event.name 是触摸事件的状态：began, moved, ended, cancelled, added（仅限多点触摸）, removed（仅限多点触摸）
         -- event.x, event.y 是触摸点当前位置
         -- event.prevX, event.prevY 是触摸点之前的位置
         local str = {}
@@ -41,23 +41,31 @@ function TestMultiTouches1Scene:ctor()
         table.sort(str)
         labelPoints:setString(table.concat(str, "\n"))
 
-        if event.name == "began" then
+        if event.name == "began" or event.name == "added" then
             self.touchIndex = self.touchIndex + 1
             for id, point in pairs(event.points) do
                 local cursor = display.newSprite("Cursor.png")
                     :pos(point.x, point.y)
+                    :scale(1.2)
                     :addTo(self)
                 self.cursors[id] = cursor
             end
         elseif event.name == "moved" then
-            for id, cursor in pairs(self.cursors) do
-                local point = event.points[id]
-                if point then
-                    cursor:setOpacity(255)
+            for id, point in pairs(event.points) do
+                local cursor = self.cursors[id]
+                local rect = self.sprite:getBoundingBox()
+                if rect:containsPoint(cc.p(point.x, point.y)) then
+                    -- 检查触摸点的位置是否在矩形内
                     cursor:setPosition(point.x, point.y)
+                    cursor:setVisible(true)
                 else
-                    cursor:setOpacity(128)
+                    cursor:setVisible(false)
                 end
+            end
+        elseif event.name == "removed" then
+            for id, point in pairs(event.points) do
+                self.cursors[id]:removeSelf()
+                self.cursors[id] = nil
             end
         else
             for _, cursor in pairs(self.cursors) do
@@ -68,15 +76,21 @@ function TestMultiTouches1Scene:ctor()
 
         local label = string.format("sprite: %s , count = %d, index = %d", event.name, pointsCount, self.touchIndex)
         self.sprite.label:setString(label)
-        print(label)
 
         if event.name == "ended" or event.name == "cancelled" then
-            print("")
+            self.sprite.label:setString("")
+            labelPoints:setString("")
         end
 
         -- 返回 true 表示要响应该触摸事件，并继续接收该触摸事件的状态变化
         return true
     end)
+
+    cc.ui.UILabel.new({
+        text = "注册多点触摸后，目标将收到所有触摸点的数据\nadded 和 removed 指示触摸点的加入和移除",
+        size= 24})
+        :align(display.CENTER, display.cx, display.top - 80)
+        :addTo(self)
 
     --
 

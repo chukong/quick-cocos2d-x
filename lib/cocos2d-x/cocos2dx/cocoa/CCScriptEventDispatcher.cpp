@@ -29,10 +29,7 @@
 
 NS_CC_BEGIN
 
-CCScriptEventListenersForEvent CCScriptEventDispatcher::s_emptyListenersForEvent;
-CCScriptEventListenersForDispatcher CCScriptEventDispatcher::s_emptyListeners;
-int CCScriptEventDispatcher::s_nextScriptEventHandleIndex = 0;
-int CCScriptEventDispatcher::s_removeTag = 0;
+unsigned int CCScriptEventDispatcher::s_nextScriptEventHandleIndex = 0;
 
 CCScriptEventDispatcher::CCScriptEventDispatcher()
 : m_scriptEventListeners(NULL)
@@ -44,42 +41,40 @@ CCScriptEventDispatcher::~CCScriptEventDispatcher()
     if (m_scriptEventListeners)
     {
         removeAllScriptEventListeners();
-        delete m_scriptEventListeners;
+        m_scriptEventListeners->release();
     }
 }
 
-int CCScriptEventDispatcher::addScriptEventListener(int event, int listener, int tag /* = 0 */, int priority /* = 0 */)
+int CCScriptEventDispatcher::addScriptEventListener(int event, int listener, int tag /* = 0 */)
 {
     if (!m_scriptEventListeners)
     {
-        m_scriptEventListeners = new CCScriptEventListenersForDispatcher();
+        m_scriptEventListeners = CCArray::createWithCapacity(10);
+        m_scriptEventListeners->retain();
     }
 
     s_nextScriptEventHandleIndex++;
-    CCScriptEventListenersForEvent &listeners = (*m_scriptEventListeners)[event];
-    listeners.push_back(CCScriptHandlePair(s_nextScriptEventHandleIndex, listener, tag, priority));
-    std::sort(listeners.begin(), listeners.end(), sortListenerCompare);
+    m_scriptEventListeners->addObject(CCScriptHandlePair::create(s_nextScriptEventHandleIndex, event, listener, tag));
 
     return s_nextScriptEventHandleIndex;
 }
 
-void CCScriptEventDispatcher::removeScriptEventListener(int handle)
+void CCScriptEventDispatcher::removeScriptEventListener(unsigned int handle)
 {
     if (!m_scriptEventListeners) return;
 
-    CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
-    for (; it != m_scriptEventListeners->end(); ++it)
+    CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
+    unsigned int c = m_scriptEventListeners->count();
+    CCScriptHandlePair *p;
+    for (unsigned int i = 0; i < c; ++i)
     {
-        CCScriptEventListenersForEventIterator it2 = it->second.begin();
-        for (; it2 != it->second.end(); ++it2)
+        p = dynamic_cast<CCScriptHandlePair*>(m_scriptEventListeners->objectAtIndex(i));
+        if (p->handle != handle) continue;
+        if (!p->removed)
         {
-            if (it2->index == handle)
-            {
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(it2->listener);
-                LUALOG("[LUA] Remove script event listener: %d", it2->listener);
-                it->second.erase(it2);
-                return;
-            }
+            p->removed = true;
+            engine->removeScriptHandler(p->listener);
+            break;
         }
     }
 }
@@ -89,17 +84,16 @@ void CCScriptEventDispatcher::removeScriptEventListenersByEvent(int event)
     if (!m_scriptEventListeners) return;
 
     CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
-    CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->find(event);
-    if (it != m_scriptEventListeners->end())
+    unsigned int c = m_scriptEventListeners->count();
+    CCScriptHandlePair *p;
+    for (unsigned int i = 0; i < c; ++i)
     {
-        CCScriptEventListenersForEvent &listeners = it->second;
-        CCScriptEventListenersForEventIterator it2 = listeners.begin();
-        for (; it2 != listeners.end(); ++it2)
+        p = dynamic_cast<CCScriptHandlePair*>(m_scriptEventListeners->objectAtIndex(i));
+        if (!p->removed && p->event == event)
         {
-            engine->removeScriptHandler(it2->listener);
-            LUALOG("[LUA] Remove script event listener: %d", it2->listener);
+            p->removed = true;
+            engine->removeScriptHandler(p->listener);
         }
-        m_scriptEventListeners->erase(it);
     }
 }
 
@@ -107,12 +101,17 @@ void CCScriptEventDispatcher::removeScriptEventListenersByTag(int tag)
 {
     if (!m_scriptEventListeners) return;
 
-    CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
-    s_removeTag = tag;
-    for (; it != m_scriptEventListeners->end(); ++it)
+    CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
+    unsigned int c = m_scriptEventListeners->count();
+    CCScriptHandlePair *p;
+    for (unsigned int i = 0; i < c; ++i)
     {
-        CCScriptEventListenersForEvent &listeners = it->second;
-        remove_if(listeners.begin(), listeners.end(), removeListenerByTag);
+        p = dynamic_cast<CCScriptHandlePair*>(m_scriptEventListeners->objectAtIndex(i));
+        if (!p->removed && p->tag == tag)
+        {
+            p->removed = true;
+            engine->removeScriptHandler(p->listener);
+        }
     }
 }
 
@@ -121,52 +120,16 @@ void CCScriptEventDispatcher::removeAllScriptEventListeners()
     if (!m_scriptEventListeners) return;
 
     CCScriptEngineProtocol *engine = CCScriptEngineManager::sharedManager()->getScriptEngine();
-    CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->begin();
-    for (; it != m_scriptEventListeners->end(); ++it)
+    unsigned int c = m_scriptEventListeners->count();
+    CCScriptHandlePair *p;
+    for (unsigned int i = 0; i < c; ++i)
     {
-        CCScriptEventListenersForEventIterator it2 = it->second.begin();
-        for (; it2 != it->second.end(); ++it2)
+        p = dynamic_cast<CCScriptHandlePair*>(m_scriptEventListeners->objectAtIndex(i));
+        if (!p->removed)
         {
-            engine->removeScriptHandler(it2->listener);
-            LUALOG("[LUA] Remove script event listener: %d", it2->listener);
+            p->removed = true;
+            engine->removeScriptHandler(p->listener);
         }
-    }
-    m_scriptEventListeners->clear();
-}
-
-bool CCScriptEventDispatcher::hasScriptEventListener(int event)
-{
-    return m_scriptEventListeners && m_scriptEventListeners->find(event) != m_scriptEventListeners->end();
-}
-
-CCScriptEventListenersForEvent &CCScriptEventDispatcher::getScriptEventListenersByEvent(int event) const
-{
-    if (!m_scriptEventListeners) return s_emptyListenersForEvent;
-
-    CCScriptEventListenersForDispatcherIterator it = m_scriptEventListeners->find(event);
-    return  it != m_scriptEventListeners->end() ? it->second : s_emptyListenersForEvent;
-}
-
-CCScriptEventListenersForDispatcher &CCScriptEventDispatcher::getAllScriptEventListeners() const
-{
-    return m_scriptEventListeners ? *m_scriptEventListeners : s_emptyListeners;
-}
-
-bool CCScriptEventDispatcher::sortListenerCompare(const CCScriptHandlePair &a, const CCScriptHandlePair &b)
-{
-    return a.priority < b.priority;
-}
-
-bool CCScriptEventDispatcher::removeListenerByTag(CCScriptHandlePair &p)
-{
-    if (p.tag == s_removeTag)
-    {
-        CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(p.listener);
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }
 

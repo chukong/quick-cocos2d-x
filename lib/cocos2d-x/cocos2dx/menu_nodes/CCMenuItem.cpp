@@ -96,7 +96,7 @@ void CCMenuItem::activate()
             (m_pListener->*m_pfnSelector)(this);
         }
 
-        if (hasScriptEventListener(MENU_ITEM_CLICKED_EVENT))
+        if (m_scriptEventListeners)
         {
             CCScriptEngineManager::sharedManager()->getScriptEngine()->executeMenuItemEvent(this);
         }

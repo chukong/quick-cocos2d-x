@@ -15,7 +15,6 @@
 		9FFD54621945AB0700850221 /* ConsoleWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54611945AB0700850221 /* ConsoleWindow.xib */; };
 		9FFD54651945AB2800850221 /* CreateNewProjectDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54641945AB2800850221 /* CreateNewProjectDialog.xib */; };
 		9FFD54671945AB3800850221 /* ProjectConfigDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54661945AB3800850221 /* ProjectConfigDialog.xib */; };
-		9FFD54691945AB4300850221 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD54681945AB4300850221 /* MainMenu.xib */; };
 		F40EE898163F83E000090121 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957915F49004004D4151 /* AppKit.framework */; };
 		F44C957715F49004004D4151 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44C957615F49004004D4151 /* Cocoa.framework */; };
 		F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4703CBC177955E100A8A9E9 /* MainMenu.xib */; };
@@ -246,11 +245,11 @@
 		F44C956915F49004004D4151 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = quick.cocoachina.com;
 				TargetAttributes = {
 					F44C957115F49004004D4151 = {
-						DevelopmentTeam = 73D5UVY728;
+						DevelopmentTeam = U7E7529TA5;
 					};
 				};
 			};
@@ -297,7 +296,6 @@
 				F4B0814D175C89050029F472 /* Icon.icns in Resources */,
 				9FFD54621945AB0700850221 /* ConsoleWindow.xib in Resources */,
 				F4703CBE177955E200A8A9E9 /* MainMenu.xib in Resources */,
-				9FFD54691945AB4300850221 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,9 +324,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -361,9 +359,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -388,7 +386,6 @@
 		F44C959115F49004004D4151 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "Developer ID Application";
@@ -443,7 +440,6 @@
 		F44C959215F49004004D4151 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "Developer ID Application";

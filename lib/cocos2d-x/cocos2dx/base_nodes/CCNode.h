@@ -1463,6 +1463,8 @@ public:
     virtual void ccTouchesCaptureMoved(CCSet *pTouches, CCNode *pTarget);
     virtual void ccTouchesCaptureEnded(CCSet *pTouches, CCNode *pTarget);
     virtual void ccTouchesCaptureCancelled(CCSet *pTouches, CCNode *pTarget);
+    virtual void ccTouchesCaptureAdded(CCSet *pTouches, CCNode *pTarget);
+    virtual void ccTouchesCaptureRemoved(CCSet *pTouches, CCNode *pTarget);
 
     virtual bool isTouchEnabled();
     virtual void setTouchEnabled(bool value);
@@ -1479,6 +1481,8 @@ public:
     virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
     virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesAdded(CCSet *pTouches, CCEvent *pEvent);
+    virtual void ccTouchesRemoved(CCSet *pTouches, CCEvent *pEvent);
 
     /// @}
 

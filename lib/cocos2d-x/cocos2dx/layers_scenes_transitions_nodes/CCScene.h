@@ -27,40 +27,12 @@
 #ifndef __CCSCENE_H__
 #define __CCSCENE_H__
 
+#include <set>
 #include "layers_scenes_transitions_nodes/CCLayer.h"
-
-using namespace std;
 
 NS_CC_BEGIN
 
-/**
- * @addtogroup scene
- * @{
- */
-
-class CC_DLL CCTouchTargetNode : public CCObject
-{
-public:
-    static CCTouchTargetNode *create(CCNode *node);
-    ~CCTouchTargetNode();
-
-    CCNode *getNode();
-
-    int getTouchMode();
-
-    int getTouchId();
-    void setTouchId(int touchId);
-
-    CCTouch *findTouch(CCSet *touches);
-    static CCTouch *findTouchFromTouchesSet(CCSet *touches, int touchId);
-
-private:
-    CCTouchTargetNode(CCNode *node);
-
-    CCNode *m_node;
-    int m_touchMode;
-    int m_touchId;
-};
+class CCTouchTargetNode;
 
 /** @brief CCScene is a subclass of CCNode that is used only as an abstract concept.
 
@@ -134,12 +106,12 @@ public:
     virtual void cleanup(void);
 
 protected:
+    std::set<int> m_touchingIds;
     CCArray *m_touchableNodes;
     CCArray *m_touchingTargets;
     bool m_touchDispatchingEnabled;
     bool m_touchRegistered;
 
-    CCTouchTargetNode *findTouchingNode(CCNode *node);
     void sortAllTouchableNodes(CCArray *nodes);
     void enableTouchDispatching();
     void disableTouchDispatching();

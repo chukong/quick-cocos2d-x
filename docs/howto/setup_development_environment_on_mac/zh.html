@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>设置 quick-cocos2d-x 在 Mac 下的编译环境</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+html,body{color:black}*:not('#mkdbuttons'){margin:0;padding:0}#wrapper{font:15px helvetica,arial,freesans,clean,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7;padding:3px;background:#fff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}p{margin:1em 0}a{color:#4183c4;text-decoration:none}#wrapper{background-color:#fff;padding:30px;margin:15px;font-size:15px;line-height:1.6}#wrapper>*:first-child{margin-top:0 !important}#wrapper>*:last-child{margin-bottom:0 !important}@media screen{#wrapper{box-shadow:0 0 0 1px #cacaca, 0 0 0 4px #eee}}h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.7;cursor:text;position:relative;margin:1em 0 15px;padding:0}h1{font-size:2.5em;border-bottom:1px solid #ddd}h2{font-size:2em;border-bottom:1px solid #eee}h3{font-size:1.5em}h4{font-size:1.2em}h5{font-size:1em}h6{color:#777;font-size:1em}p,blockquote,table,pre{margin:15px 0}ul{padding-left:30px}ol{padding-left:30px}ol li ul:first-of-type{margin-top:0px}hr{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;border:0 none;color:#ccc;height:4px;margin:15px 0;padding:0}#wrapper>h2:first-child{margin-top:0;padding-top:0}#wrapper>h1:first-child{margin-top:0;padding-top:0}#wrapper>h1:first-child+h2{margin-top:0;padding-top:0}#wrapper>h3:first-child,#wrapper>h4:first-child,#wrapper>h5:first-child,#wrapper>h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1+p,h2+p,h3+p,h4+p,h5+p,h6+p,ul li>:first-child,ol li>:first-child{margin-top:0}dl{padding:0}dl dt{font-size:14px;font-weight:bold;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt>:first-child{margin-top:0}dl dt>:last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd>:first-child{margin-top:0}dl dd>:last-child{margin-bottom:0}blockquote{border-left:4px solid #DDD;padding:0 15px;color:#777}blockquote>:first-child{margin-top:0}blockquote>:last-child{margin-bottom:0}table{border-collapse:collapse;border-spacing:0;font-size:100%;font:inherit}table th{font-weight:bold;border:1px solid #ccc;padding:6px 13px}table td{border:1px solid #ccc;padding:6px 13px}table tr{border-top:1px solid #ccc;background-color:#fff}table tr:nth-child(2n){background-color:#f8f8f8}img{max-width:100%}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px;font-family:Consolas, 'Liberation Mono', Courier, monospace;font-size:12px;color:#333}pre>code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:14px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px;margin:26px 0}pre code,pre tt{background-color:transparent;border:none}.poetry pre{font-family:Georgia, Garamond, serif !important;font-style:italic;font-size:110% !important;line-height:1.6em;display:block;margin-left:1em}.poetry pre code{font-family:Georgia, Garamond, serif !important;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;white-space:pre-wrap}sup,sub,a.footnote{font-size:1.4ex;height:0;line-height:1;vertical-align:super;position:relative}sub{vertical-align:sub;top:-1px}@media print{body{background:#fff}img,pre,table,figure{page-break-inside:avoid}#wrapper{background:#fff;border:none}pre code{overflow:visible}}@media screen{body.inverted{color:#eee !important;border-color:#555;box-shadow:none}.inverted #wrapper,.inverted hr,.inverted p,.inverted td,.inverted li,.inverted h1,.inverted h2,.inverted h3,.inverted h4,.inverted h5,.inverted h6,.inverted th,.inverted .math,.inverted caption,.inverted dd,.inverted dt,.inverted blockquote{color:#eee !important;border-color:#555;box-shadow:none}.inverted td,.inverted th{background:#333}.inverted pre,.inverted code,.inverted tt{background:#eeeeee !important;color:#111}.inverted h2{border-color:#555555}.inverted hr{border-color:#777;border-width:1px !important}::selection{background:rgba(157,193,200,0.5)}h1::selection{background-color:rgba(45,156,208,0.3)}h2::selection{background-color:rgba(90,182,224,0.3)}h3::selection,h4::selection,h5::selection,h6::selection,li::selection,ol::selection{background-color:rgba(133,201,232,0.3)}code::selection{background-color:rgba(0,0,0,0.7);color:#eeeeee}code span::selection{background-color:rgba(0,0,0,0.7) !important;color:#eeeeee !important}a::selection{background-color:rgba(255,230,102,0.2)}.inverted a::selection{background-color:rgba(255,230,102,0.6)}td::selection,th::selection,caption::selection{background-color:rgba(180,237,95,0.5)}.inverted{background:#0b2531;background:#252a2a}.inverted #wrapper{background:#252a2a}.inverted a{color:#acd1d5}}.highlight .c{color:#998;font-style:italic}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .k,.highlight .o{font-weight:bold}.highlight .cm{color:#998;font-style:italic}.highlight .cp{color:#999;font-weight:bold}.highlight .c1{color:#998;font-style:italic}.highlight .cs{color:#999;font-weight:bold;font-style:italic}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .ge{font-style:italic}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:bold}.highlight .gu{color:#800080;font-weight:bold}.highlight .gt{color:#a00}.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr{font-weight:bold}.highlight .kt{color:#458;font-weight:bold}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:#008080}.highlight .nb{color:#0086B3}.highlight .nc{color:#458;font-weight:bold}.highlight .no{color:#008080}.highlight .ni{color:#800080}.highlight .ne,.highlight .nf{color:#900;font-weight:bold}.highlight .nn{color:#555}.highlight .nt{color:#000080}.highlight .nv{color:#008080}.highlight .ow{font-weight:bold}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .sb,.highlight .sc,.highlight .sd,.highlight .s2,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:#008080}.highlight .il{color:#099}.highlight .gc{color:#999;background-color:#EAF2F5}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:normal}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}body.dark #wrapper{background:transparent !important;box-shadow:none !important}
+
+@media print{
+#generated-toc-clone,#generated-toc{display:none!important}
+}
+
+</style>
+<style>#wrapper { max-width:540px; margin:0 auto }</style>
+</head>
+<body class="normal mkscrivannotations firstload">
+  <div id="wrapper">
+      <h1 id="quick-cocos2d-xmac">设置 quick-cocos2d-x 在 Mac 下的编译环境</h1>
+
+<p>如果不需要在 Android 上运行，那么可以跳过 3/4 两个步骤。 </p>
+
+<p>配置编译环境的基本步骤： </p>
+
+<ol>
+<li>下载 quick-cocos2d-x 源代码</li>
+<li>设置运行环境</li>
+<li>安装最新的 Android ADT bundle 和 Android NDK</li>
+<li>编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</li>
+</ol>
+
+<h2 id="step1quick-cocos2d-x">Step 1: 下载 quick-cocos2d-x 源代码</h2>
+
+<p>访问 <a href="https://github.com/chukong/quick-cocos2d-x/releases">https://github.com/chukong/quick-cocos2d-x/releases</a> 下载最新版 quick 源代码。 </p>
+
+<p>quick-cocos2d-x 目录的放置有一定要求 ** ： </p>
+
+<ol>
+<li>不能放在根目录</li>
+<li>路径中不能包含中文和空格（所以别放桌面了）</li>
+</ol>
+
+<p>~ </p>
+
+<h2 id="step2">Step 2: 设置运行环境</h2>
+
+<p>运行 <strong>setup.app</strong>，完成运行环境的设置工作，成功会看到如下界面： </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_00.png" alt="" />
+</figure>
+
+<p>~ </p>
+
+<p>启动 <strong>player/mac/player.app</strong>，如果是首次运行，会提示设置 quick-cocos2d-x 源代码所在路径。如果不是首次运行，请按 CMD+, 键打开偏好设置对话框进行设置： </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_01.png" alt="" />
+</figure>
+
+<p>上述设置完成后，即可使用 player 运行示例和您的项目。 </p>
+
+<p>~ </p>
+
+<h2 id="step3androidadtbundleandroidndk">Step 3: 安装最新的 Android ADT bundle 和 Android NDK</h2>
+
+<ol>
+<li>从 http://developer.android.com/sdk/ 下载 ADT Bundle for Mac</li>
+<li>解压缩 adt-bundle-mac-x86_64-2013????.zip</li>
+<li>将 adt-bundle-mac-x86_64-2014???? 目录改名为 android</li>
+<li>将 android/sdk 目录改名为 android/android-sdk-macosx</li>
+<li>从 http://developer.android.com/tools/sdk/ndk/index.html 下载 Android NDK</li>
+<li>解压缩 android-ndk-r9?-mac-x86_64.tar.bz2</li>
+<li>移动目录 android-ndk-r9? 到 android/android-ndk-r9? (目录结构如下图)</li>
+</ol>
+
+<p>最终的目录结构:</p>
+
+<pre><code>&lt;PATH_TO&gt;/android/android-ndk-r9?
+&lt;PATH_TO&gt;/android/android-sdk-macosx
+&lt;PATH_TO&gt;/android/eclipse  
+</code></pre>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_02.png" alt="" />
+</figure>
+
+<p>运行 android/android-sdk-macosx/tools/android, 选中 Android SDK 2.2（如果看不到 Android SDK 2.2，请设置代理）, 并完成安装。<br/>
+<img src="res/howto_setup_development_environment_mac_03.png" alt="" /> </p>
+
+<p>~ </p>
+
+<p>启动 终端 应用程序, 运行命令:</p>
+<pre><code>
+$ if [ -f ~/.profile ]; then open ~/.profile -a TextEdit; fi
+</code></pre>
+
+<p>如果没看到文本编辑窗口出现，则运行以下命令：</p>
+<pre><code>
+$ if [ -f ~/.bash_profile ]; then open ~/.bash_profile -a TextEdit; fi
+</code></pre>
+
+<p>添加下列代码:</p>
+<pre><code>
+export ANDROID_NDK_ROOT=&lt;PATH_TO&gt;/android/android-ndk-r8e
+export ANDROID_SDK_ROOT=&lt;PATH_TO&gt;/android/android-sdk-macosx
+export ANDROID_HOME=${ANDROID_SDK_ROOT}
+</code></pre>
+
+<p>~ </p>
+
+<h2 id="step4luajavabridgeandroid">Step 4: 编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</h2>
+
+<p>启动 终端 应用程序, 改变当前目录为 &lt;PATH_TO&gt;/quick-cocos2d-x/sample/luajavabridge/proj.android, 运行 build_native.sh:</p>
+<pre><code>
+$ cd quick-cocos2d-x/sample/luajavabridge/proj.android
+$ ./build_native.sh
+</code></pre>
+
+<p>如果一切顺利，将看到:</p>
+<pre><code>
+SharedLibrary  : libgame.so
+Install        : libgame.so =&gt; libs/armeabi/libgame.so
+</code></pre>
+
+<h3 id="eclipseadt">将项目导入 Eclipse ADT</h3>
+
+<p>启动 &lt;PATH_TO&gt;/eclipse/eclipse.app 应用程序, 导入 libcocos2dx 库. </p>
+
+<p>1.选择菜单 File -&gt; Import, 再选择 Android -&gt; Existing Android Code Into Workspace : </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_05.png" alt="" />
+</figure>
+
+<p>2.点击 Browse 按钮, 选择 &lt;PATH_TO&gt;/quick-cocos2d-x/lib/cocos2d-x/cocos2dx/platform/android/java : </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_06.png" alt="" />
+</figure>
+
+<p>3.点击 Finish. </p>
+
+<p>4.重复上述步骤，导入 luajavabridge/proj.android: </p>
+
+<p>5.在 Package Explorer 中选中 LuajavaBridge，点击右键选择菜单 Properties: </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_07.png" alt="" />
+</figure>
+
+<p>6.如果 ** Library ** 列表里 ** libcocos2dx ** 已经存在，就先删除。点击 ** Add ** 按钮, 选中 ** libcocos2dx **. </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_08.png" alt="" />
+</figure>
+
+<p>7.完成。 </p>
+
+<h3 id="android">设置 Android 设备允许真机调试</h3>
+
+<p>Android 官方文档：http://developer.android.com/tools/device.html </p>
+
+<ol>
+<li>Enable USB debugging on your device.
+
+<ul>
+<li>On most devices running Android 3.2 or older, you can find the option under Settings &gt; Applications &gt; Development.</li>
+<li>On Android 4.0 and newer, it’s in Settings &gt; Developer options.</li>
+</ul>
+
+<p>Note: On Android 4.2 and newer, Developer options is hidden by default. To make it available, go to Settings &gt; About phone and tap Build number seven times. Return to the previous screen to find Developer options.<br/>
+* 在系统设置中找到“开发者选项”，打开“USB调试”。 </p></li>
+<li>Set up your system to detect your device.
+
+<ul>
+<li>If you’re developing on Windows, you need to install a USB driver for adb. For an installation guide and links to OEM drivers, see the OEM USB Drivers document.</li>
+<li>根据不同的机型，也许需要安装该机型特定的 USB 驱动程序。例如 Moto 就必须安装 Moto 的 USB 驱动。</li>
+</ul></li>
+</ol>
+
+<h3 id="luajavabridge">在设备上测试 LuaJavaBridge 示例</h3>
+
+<ol>
+<li><p>在 Eclipse 里选择菜单 Window -&gt; Show View -&gt; Other…, 再选择 Android -&gt; Devices. </p></li>
+<li><p>如果设备设置完成，那么在 Devices 标签页中就可以看到你的设备: </p></li>
+<li><p>在项目 LuajavaBridge 上点击鼠标右键, 选择菜单 Debug As -&gt; Android Application. 如果一切正常，等一会儿就可以在设备上看到运行画面了： </p></li>
+</ol>
+
+<figure>
+<img src="res/howto_setup_development_environment_mac_09.png" alt="" />
+</figure>
+
+<p>-EOF-</p>
+<!-- ##END MARKED WRAPPER## -->
+    </div>
+</body>
+</html>
