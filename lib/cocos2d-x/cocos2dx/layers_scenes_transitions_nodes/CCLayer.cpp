@@ -129,8 +129,7 @@ void CCLayer::setAccelerometerInterval(double interval) {
 void CCLayer::didAccelerate(CCAcceleration* pAccelerationValue)
 {
     CC_UNUSED_PARAM(pAccelerationValue);
-
-    if (hasScriptEventListener(ACCELERATE_EVENT))
+    if (m_scriptEventListeners)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeAccelerometerEvent(this, pAccelerationValue);
     }
@@ -165,7 +164,7 @@ void CCLayer::setKeypadEnabled(bool enabled)
 
 void CCLayer::keyBackClicked(void)
 {
-    if (hasScriptEventListener(KEYPAD_EVENT))
+    if (m_scriptEventListeners)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeBackClicked);
     }
@@ -173,7 +172,7 @@ void CCLayer::keyBackClicked(void)
 
 void CCLayer::keyMenuClicked(void)
 {
-    if (hasScriptEventListener(KEYPAD_EVENT))
+    if (m_scriptEventListeners)
     {
         CCScriptEngineManager::sharedManager()->getScriptEngine()->executeLayerKeypadEvent(this, kTypeMenuClicked);
     }

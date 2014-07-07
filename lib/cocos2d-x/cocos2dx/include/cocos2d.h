@@ -241,14 +241,6 @@ THE SOFTWARE.
     #include "platform/tizen/CCStdC.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_TIZEN
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-     #include "platform/qt/CCAccelerometer.h"
-     #include "platform/qt/CCApplication.h"
-     #include "platform/qt/CCEGLView.h"
-     #include "platform/qt/CCGL.h"
-     #include "platform/qt/CCStdC.h"
- #endif // CC_TARGET_PLATFORM == CC_PLATFORM_QT
-
 // script_support
 #include "script_support/CCScriptSupport.h"
 
@@ -296,8 +288,8 @@ THE SOFTWARE.
 #include "tilemap_parallax_nodes/CCTileMapAtlas.h"
 
 // touch_dispatcher
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "touch_dispatcher/CCTouch.h"
+#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "touch_dispatcher/CCTouchDispatcher.h"
 #include "touch_dispatcher/CCTouchHandler.h"
 

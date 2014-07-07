@@ -50,6 +50,14 @@ class CCMotionStreak : public CCNode
 
     bool isStartingPositionInitialized();
     void setStartingPositionInitialized(bool bStartingPositionInitialized);
+
+    /// @{
+    /// @name Functions inherited from CCTextureProtocol
+    void setTexture(CCTexture2D *texture);
+    CCTexture2D* getTexture(void);
+    void setBlendFunc(ccBlendFunc blendFunc);
+    ccBlendFunc getBlendFunc(void);
+    /// @}
 };
 
 // end of misc_nodes group
