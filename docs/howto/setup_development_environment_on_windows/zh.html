@@ -1,145 +1,200 @@
-<h1 id="&#35774;&#32622;-quick-cocos2d-x-&#22312;-windows-&#19979;&#30340;&#32534;&#35793;&#29615;&#22659;">&#35774;&#32622; quick-cocos2d-x &#22312; Windows &#19979;&#30340;&#32534;&#35793;&#29615;&#22659;</h1>
-<p>&#37197;&#32622;&#32534;&#35793;&#29615;&#22659;&#30340;&#22522;&#26412;&#27493;&#39588;&#65306;</p>
-<ol style="list-style-type: decimal">
-<li>&#23433;&#35013; Visual Studio 2012</li>
-<li>&#23433;&#35013; Java SDK</li>
-<li>&#23433;&#35013;&#26368;&#26032;&#30340; Android ADT bundle &#21644; Android NDK</li>
-<li>&#19979;&#36733; quick-cocos2d-x &#28304;&#20195;&#30721;</li>
-<li>&#35774;&#32622;&#29615;&#22659;&#21464;&#37327;</li>
-<li>&#32534;&#35793; quick-x-player proj.win32 &#24037;&#31243;</li>
-<li>&#32534;&#35793; LuaJavaBridge &#31034;&#20363;&#65292;&#24182;&#22312; Android &#30495;&#26426;&#19978;&#36827;&#34892;&#27979;&#35797;</li>
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>设置 quick-cocos2d-x 在 Windows 下的编译环境</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+html,body{color:black}*:not('#mkdbuttons'){margin:0;padding:0}#wrapper{font:15px helvetica,arial,freesans,clean,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7;padding:3px;background:#fff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px}p{margin:1em 0}a{color:#4183c4;text-decoration:none}#wrapper{background-color:#fff;padding:30px;margin:15px;font-size:15px;line-height:1.6}#wrapper>*:first-child{margin-top:0 !important}#wrapper>*:last-child{margin-bottom:0 !important}@media screen{#wrapper{box-shadow:0 0 0 1px #cacaca, 0 0 0 4px #eee}}h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1.7;cursor:text;position:relative;margin:1em 0 15px;padding:0}h1{font-size:2.5em;border-bottom:1px solid #ddd}h2{font-size:2em;border-bottom:1px solid #eee}h3{font-size:1.5em}h4{font-size:1.2em}h5{font-size:1em}h6{color:#777;font-size:1em}p,blockquote,table,pre{margin:15px 0}ul{padding-left:30px}ol{padding-left:30px}ol li ul:first-of-type{margin-top:0px}hr{background:transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;border:0 none;color:#ccc;height:4px;margin:15px 0;padding:0}#wrapper>h2:first-child{margin-top:0;padding-top:0}#wrapper>h1:first-child{margin-top:0;padding-top:0}#wrapper>h1:first-child+h2{margin-top:0;padding-top:0}#wrapper>h3:first-child,#wrapper>h4:first-child,#wrapper>h5:first-child,#wrapper>h6:first-child{margin-top:0;padding-top:0}a:first-child h1,a:first-child h2,a:first-child h3,a:first-child h4,a:first-child h5,a:first-child h6{margin-top:0;padding-top:0}h1+p,h2+p,h3+p,h4+p,h5+p,h6+p,ul li>:first-child,ol li>:first-child{margin-top:0}dl{padding:0}dl dt{font-size:14px;font-weight:bold;font-style:italic;padding:0;margin:15px 0 5px}dl dt:first-child{padding:0}dl dt>:first-child{margin-top:0}dl dt>:last-child{margin-bottom:0}dl dd{margin:0 0 15px;padding:0 15px}dl dd>:first-child{margin-top:0}dl dd>:last-child{margin-bottom:0}blockquote{border-left:4px solid #DDD;padding:0 15px;color:#777}blockquote>:first-child{margin-top:0}blockquote>:last-child{margin-bottom:0}table{border-collapse:collapse;border-spacing:0;font-size:100%;font:inherit}table th{font-weight:bold;border:1px solid #ccc;padding:6px 13px}table td{border:1px solid #ccc;padding:6px 13px}table tr{border-top:1px solid #ccc;background-color:#fff}table tr:nth-child(2n){background-color:#f8f8f8}img{max-width:100%}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px;font-family:Consolas, 'Liberation Mono', Courier, monospace;font-size:12px;color:#333}pre>code{margin:0;padding:0;white-space:pre;border:none;background:transparent}.highlight pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:14px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px;margin:26px 0}pre code,pre tt{background-color:transparent;border:none}.poetry pre{font-family:Georgia, Garamond, serif !important;font-style:italic;font-size:110% !important;line-height:1.6em;display:block;margin-left:1em}.poetry pre code{font-family:Georgia, Garamond, serif !important;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;white-space:pre-wrap}sup,sub,a.footnote{font-size:1.4ex;height:0;line-height:1;vertical-align:super;position:relative}sub{vertical-align:sub;top:-1px}@media print{body{background:#fff}img,pre,table,figure{page-break-inside:avoid}#wrapper{background:#fff;border:none}pre code{overflow:visible}}@media screen{body.inverted{color:#eee !important;border-color:#555;box-shadow:none}.inverted #wrapper,.inverted hr,.inverted p,.inverted td,.inverted li,.inverted h1,.inverted h2,.inverted h3,.inverted h4,.inverted h5,.inverted h6,.inverted th,.inverted .math,.inverted caption,.inverted dd,.inverted dt,.inverted blockquote{color:#eee !important;border-color:#555;box-shadow:none}.inverted td,.inverted th{background:#333}.inverted pre,.inverted code,.inverted tt{background:#eeeeee !important;color:#111}.inverted h2{border-color:#555555}.inverted hr{border-color:#777;border-width:1px !important}::selection{background:rgba(157,193,200,0.5)}h1::selection{background-color:rgba(45,156,208,0.3)}h2::selection{background-color:rgba(90,182,224,0.3)}h3::selection,h4::selection,h5::selection,h6::selection,li::selection,ol::selection{background-color:rgba(133,201,232,0.3)}code::selection{background-color:rgba(0,0,0,0.7);color:#eeeeee}code span::selection{background-color:rgba(0,0,0,0.7) !important;color:#eeeeee !important}a::selection{background-color:rgba(255,230,102,0.2)}.inverted a::selection{background-color:rgba(255,230,102,0.6)}td::selection,th::selection,caption::selection{background-color:rgba(180,237,95,0.5)}.inverted{background:#0b2531;background:#252a2a}.inverted #wrapper{background:#252a2a}.inverted a{color:#acd1d5}}.highlight .c{color:#998;font-style:italic}.highlight .err{color:#a61717;background-color:#e3d2d2}.highlight .k,.highlight .o{font-weight:bold}.highlight .cm{color:#998;font-style:italic}.highlight .cp{color:#999;font-weight:bold}.highlight .c1{color:#998;font-style:italic}.highlight .cs{color:#999;font-weight:bold;font-style:italic}.highlight .gd{color:#000;background-color:#fdd}.highlight .gd .x{color:#000;background-color:#faa}.highlight .ge{font-style:italic}.highlight .gr{color:#a00}.highlight .gh{color:#999}.highlight .gi{color:#000;background-color:#dfd}.highlight .gi .x{color:#000;background-color:#afa}.highlight .go{color:#888}.highlight .gp{color:#555}.highlight .gs{font-weight:bold}.highlight .gu{color:#800080;font-weight:bold}.highlight .gt{color:#a00}.highlight .kc,.highlight .kd,.highlight .kn,.highlight .kp,.highlight .kr{font-weight:bold}.highlight .kt{color:#458;font-weight:bold}.highlight .m{color:#099}.highlight .s{color:#d14}.highlight .na{color:#008080}.highlight .nb{color:#0086B3}.highlight .nc{color:#458;font-weight:bold}.highlight .no{color:#008080}.highlight .ni{color:#800080}.highlight .ne,.highlight .nf{color:#900;font-weight:bold}.highlight .nn{color:#555}.highlight .nt{color:#000080}.highlight .nv{color:#008080}.highlight .ow{font-weight:bold}.highlight .w{color:#bbb}.highlight .mf,.highlight .mh,.highlight .mi,.highlight .mo{color:#099}.highlight .sb,.highlight .sc,.highlight .sd,.highlight .s2,.highlight .se,.highlight .sh,.highlight .si,.highlight .sx{color:#d14}.highlight .sr{color:#009926}.highlight .s1{color:#d14}.highlight .ss{color:#990073}.highlight .bp{color:#999}.highlight .vc,.highlight .vg,.highlight .vi{color:#008080}.highlight .il{color:#099}.highlight .gc{color:#999;background-color:#EAF2F5}.type-csharp .highlight .k,.type-csharp .highlight .kt{color:#00F}.type-csharp .highlight .nf{color:#000;font-weight:normal}.type-csharp .highlight .nc{color:#2B91AF}.type-csharp .highlight .nn{color:#000}.type-csharp .highlight .s,.type-csharp .highlight .sc{color:#A31515}body.dark #wrapper{background:transparent !important;box-shadow:none !important}
+
+@media print{
+#generated-toc-clone,#generated-toc{display:none!important}
+}
+
+</style>
+<style>#wrapper { max-width:540px; margin:0 auto }</style>
+</head>
+<body class="normal mkscrivannotations firstload">
+  <div id="wrapper">
+      <h1 id="quick-cocos2d-xwindows">设置 quick-cocos2d-x 在 Windows 下的编译环境</h1>
+
+<p>配置编译环境的基本步骤： </p>
+
+<ol>
+<li>下载 quick-cocos2d-x 源代码</li>
+<li>设置运行环境</li>
+<li>安装 Java SDK</li>
+<li>安装最新的 Android ADT bundle 和 Android NDK</li>
+<li>编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</li>
 </ol>
-<h2 id="step-1-&#23433;&#35013;-visual-studio-2012">Step 1: &#23433;&#35013; Visual Studio 2012</h2>
-<p>&#20174; <a href="http://www.microsoft.com/visualstudio/">http://www.microsoft.com/visualstudio/</a> &#19979;&#36733; Visual Studio 2012&#65292;&#24182;&#36827;&#34892;&#23433;&#35013;&#12290;</p>
-<p>&#25903;&#25345;&#30340;&#29256;&#26412;&#65306;</p>
-<ul>
-<li>Visual Studio 2012</li>
-<li>Visual Studio Express 2012 for Windows Desktop</li>
-</ul>
-<p>&#27880;&#24847;&#65306;&#24517;&#39035;&#20351;&#29992; ** Windows Vista/7/8 ** &#25805;&#20316;&#31995;&#32479;&#12290;</p>
-<h2 id="step-2-&#23433;&#35013;-java-sdk">Step 2: &#23433;&#35013; Java SDK</h2>
-<p>&#20174; <a href="http://www.oracle.com/technetwork/java/javase/downloads/">http://www.oracle.com/technetwork/java/javase/downloads/</a> &#19979;&#36733;&#26368;&#26032;&#29256;&#30340; Java SDK (JDK, &#25512;&#33616;&#20351;&#29992; ** 32bit &#29256;&#26412; ** )&#65292;&#24182;&#36827;&#34892;&#23433;&#35013;&#12290;</p>
-<h2 id="step-3-&#23433;&#35013;&#26368;&#26032;&#30340;-android-adt-bundle-&#21644;-android-ndk">Step 3: &#23433;&#35013;&#26368;&#26032;&#30340; Android ADT bundle &#21644; Android NDK</h2>
-<p>1.&#20174; <a href="http://developer.android.com/sdk/">http://developer.android.com/sdk/</a> &#19979;&#36733;&#26368;&#26032;&#30340; ** ADT Bundle for Windows ** ( &#25512;&#33616; ** 32bit ** &#29256;&#26412;&#65292;&#25110;&#32773;&#21644; ** JDK ** &#21305;&#37197;&#30340;&#29256;&#26412; )&#12290;</p>
-<p>2.&#35299;&#21387;&#32553; adt-bundle-windows-x86-2013????.zip &#12290;</p>
-<p>3.&#23558;&#30446;&#24405; adt-bundle-windows-x86-2013???? &#25913;&#21517;&#20026; android &#12290;</p>
-<p>4.&#23558;&#30446;&#24405; android&#25913;&#21517;&#20026; android-sdk-windows &#12290;</p>
-<p>5.&#20174; <a href="http://developer.android.com/tools/sdk/ndk/index.html">http://developer.android.com/tools/sdk/ndk/index.html</a> &#19979;&#36733; Android NDK r?</p>
-<p>6.&#35299;&#21387;&#32553; android-ndk-r?-windows-x86.zip</p>
-<p>7.&#23558;&#30446;&#24405; android-ndk-r? &#31227;&#21160;&#21040; android-ndk-r?</p>
-<pre><code>&#26368;&#32456;&#30340;&#30446;&#24405;&#32467;&#26500;:</code></pre>
+
+<h2 id="step1quick-cocos2d-x">Step 1: 下载 quick-cocos2d-x 源代码</h2>
+
+<p>访问 <a href="https://github.com/chukong/quick-cocos2d-x/releases">https://github.com/chukong/quick-cocos2d-x/releases</a> 下载最新版 quick 源代码。 </p>
+
+<p>由于 ** Android SDK ** 和 ** NDK ** 的问题，** quick-cocos2d-x 目录的放置有一定要求 ** ： </p>
+
+<ol>
+<li>必须和 Android SDK/NDK 在同一个分区</li>
+<li>不能放在根目录</li>
+<li>路径中不能包含中文和空格（所以别放桌面了）</li>
+</ol>
+
+<p>~ </p>
+
+<h2 id="step2">Step 2: 设置运行环境</h2>
+
+<p>运行 <strong>setup.bat</strong>，完成运行环境的设置工作，成功会看到如下界面： </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_00.png" alt="" />
+</figure>
+
+<p>启动 <strong>player/win/player.exe</strong>，即可运行示例和您的项目。 </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_00_.png" alt="" />
+</figure>
+
+<p>~ </p>
+
+<h2 id="step3javasdk">Step 3: 安装 Java SDK</h2>
+
+<p>从 <a href="http://www.oracle.com/technetwork/java/javase/downloads/">http://www.oracle.com/technetwork/java/javase/downloads/</a> 下载最新版的 Java SDK，并进行安装。 </p>
+
+<p>~ </p>
+
+<h2 id="step4androidadtbundleandroidndk">Step 4: 安装最新的 Android ADT bundle 和 Android NDK</h2>
+
+<p>1.从 <a href="http://developer.android.com/sdk/">http://developer.android.com/sdk/</a> 下载最新的 ** ADT Bundle for Windows **。 </p>
+
+<p>2.解压缩 adt-bundle-windows-x86-2014????.zip 。 </p>
+
+<p>3.将目录 adt-bundle-windows-x86-2014???? 改名为 android 。 </p>
+
+<p>4.将目录 android\sdk 改名为 android\android-sdk-windows 。 </p>
+
+<p>5.从 <a href="http://developer.android.com/tools/sdk/ndk/index.html">http://developer.android.com/tools/sdk/ndk/index.html</a> 下载 Android NDK r9? </p>
+
+<p>6.解压缩 android-ndk-r9?-windows-x86.zip </p>
+
+<p>7.将目录 android-ndk-r9? 移动到 android\android-ndk-r9?</p>
+
+<pre><code>最终的目录结构:
+</code></pre>
 <pre><code>
-    &lt;PATH_TO&gt;\android\android-ndk-r?
+    &lt;PATH_TO&gt;\android\android-ndk-r9?
     &lt;PATH_TO&gt;\android\android-sdk-windows
     &lt;PATH_TO&gt;\android\eclipse
-    </code></pre>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_01.png" />
-</div>
-<p>8.&#36816;&#34892; ** android-sdk-windows.bat ** , &#36873;&#20013; ** Android SDK 2.2 <strong>&#65288; </strong> &#22914;&#26524;&#30475;&#19981;&#21040; Android SDK 2.2&#65292;&#35831;&#35774;&#32622;&#20195;&#29702; ** &#65289;, &#28982;&#21518;&#23433;&#35013;&#38656;&#35201;&#30340;&#21253;&#12290;</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_02.png" />
-</div>
-<h2 id="step-4-&#19979;&#36733;-quick-cocos2d-x-&#28304;&#20195;&#30721;">Step 4: &#19979;&#36733; quick-cocos2d-x &#28304;&#20195;&#30721;</h2>
-<p>&#26041;&#27861; 1: &#26368;&#24555;&#36895;&#33719;&#24471;&#28304;&#20195;&#30721;&#30340;&#36884;&#24452;&#26159;&#36890;&#36807; <a href="http://quick.cocoachina.com/">quick-cocos2d-x</a> &#23448;&#26041;&#32593;&#31449;&#19978;&#30340;&#19979;&#36733;&#39029;&#38754;&#12290;&#36825;&#37324;&#21015;&#20986;&#20102;&#25152;&#26377;&#30340;&#31283;&#23450;&#29256;&#26412;&#21450;&#20854;&#19979;&#36733;&#38142;&#25509;&#12290;</p>
-<p>&#30001;&#20110; ** Android SDK ** &#21644; ** NDK ** &#30340;&#38382;&#39064;&#65292;** quick-cocos2d-x &#30446;&#24405;&#30340;&#25918;&#32622;&#26377;&#19968;&#23450;&#35201;&#27714; ** &#65306;</p>
-<ol style="list-style-type: decimal">
-<li>&#24517;&#39035;&#21644; Android SDK/NDK &#22312;&#21516;&#19968;&#20010;&#20998;&#21306;</li>
-<li>&#19981;&#33021;&#25918;&#22312;&#26681;&#30446;&#24405;</li>
-<li>&#36335;&#24452;&#20013;&#19981;&#33021;&#21253;&#21547;&#20013;&#25991;&#21644;&#31354;&#26684;&#65288;&#25152;&#20197;&#21035;&#25918;&#26700;&#38754;&#20102;&#65289;</li>
-</ol>
-<p>&#26041;&#27861; 2: &#20351;&#29992; git &#24037;&#20855;&#20811;&#38534; quick-cocos2d-x &#20179;&#24211;&#12290;&#21551;&#21160; ** &#32456;&#31471; ** &#24212;&#29992;&#31243;&#24207;, &#36816;&#34892;&#21629;&#20196;:</p>
-<pre><code>
-$ git clone git://github.com/dualface/quick-cocos2d-x.git
+</code></pre>
 
-    Cloning into &#39;quick-cocos2d-x&#39;...
-</code></pre>
-<p>&#22914;&#26524;&#35775;&#38382; github.com &#36895;&#24230;&#22826;&#24930;&#65292;&#21487;&#20197;&#20351;&#29992;&#22269;&#20869;&#38236;&#20687;&#20179;&#24211;&#65292;&#32593;&#39029;&#65306;<a href="https://code.csdn.net/liaoyulei01/quick-cocos2d-x">https://code.csdn.net/liaoyulei01/quick-cocos2d-x</a></p>
-<h2 id="step-5-&#35774;&#32622;&#29615;&#22659;&#21464;&#37327;">Step 5: &#35774;&#32622;&#29615;&#22659;&#21464;&#37327;</h2>
-<p>&#25171;&#24320; ** &#31995;&#32479;&#23646;&#24615; ** -&gt; ** &#39640;&#32423; ** -&gt; ** &#29615;&#22659;&#21464;&#37327; **:</p>
-<p>&#28155;&#21152;&#19979;&#21015;&#29615;&#22659;&#21464;&#37327;&#65288;&#27880;&#24847;&#20462;&#25913; &#20026;&#20320; quick-cocos2d-x &#28304;&#20195;&#30721;&#25152;&#22312;&#30340;&#23454;&#38469;&#36335;&#24452;&#65289;&#65306;</p>
-<pre><code>
-ANDROID_NDK_ROOT=&lt;PATH_TO&gt;\android-ndk-r8e
-ANDROID_SDK_ROOT=&lt;PATH_TO&gt;\android-sdk-windows
-QUICK_COCOS2DX_ROOT=&lt;PATH_TO&gt;\quick-cocos2d-x
-COCOS2DX_ROOT=%QUICK_COCOS2DX_ROOT%\lib\cocos2d-x
-ANDROID_HOME=%ANDROID_SDK_ROOT%
-PATH=%QUICK_COCOS2DX_ROOT%\bin\win32
-</code></pre>
-<p>&#22914;&#26524; PATH &#21464;&#37327;&#24050;&#32463;&#23384;&#22312;&#65292;&#21017;&#22312; PATH &#21464;&#37327;&#26368;&#21518;&#28155;&#21152; ** ;%QUICK_COCOS2DX_ROOT%32 ** &#12290;</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_05.png" />
-</div>
-<h2 id="step-6-&#32534;&#35793;-quick-x-player-proj.win32-&#24037;&#31243;">Step 6: &#32534;&#35793; quick-x-player proj.win32 &#24037;&#31243;</h2>
-<p>&#21551;&#21160; Visual Studio&#65292;&#25171;&#24320; ** &lt;PATH_TO&gt;-cocos2d-x.win32-x-player_2012.sln ** &#24037;&#31243;&#12290;</p>
-<p>&#32534;&#35793;&#26102;&#22914;&#26524;&#25552;&#31034;&#25991;&#20214;&#25214;&#19981;&#21040;&#65292;&#35831;&#20570;&#20197;&#19979;&#26816;&#26597;&#65306;</p>
-<ol style="list-style-type: decimal">
-<li>&#29615;&#22659;&#21464;&#37327;&#35774;&#32622;&#26159;&#21542;&#27491;&#30830;</li>
-<li>&#35774;&#32622;&#21644;&#20462;&#25913;&#29615;&#22659;&#21464;&#37327;&#21518;&#65292;&#24517;&#39035;&#37325;&#26032;&#21551;&#21160; Visual Studio</li>
-</ol>
-<h2 id="step-7-&#32534;&#35793;-luajavabridge-&#31034;&#20363;&#24182;&#22312;-android-&#30495;&#26426;&#19978;&#36827;&#34892;&#27979;&#35797;">Step 7: &#32534;&#35793; LuaJavaBridge &#31034;&#20363;&#65292;&#24182;&#22312; Android &#30495;&#26426;&#19978;&#36827;&#34892;&#27979;&#35797;</h2>
-<p>&#21551;&#21160; &#21629;&#20196;&#34892;&#25552;&#31034;&#31526; &#31243;&#24207;, &#25913;&#21464;&#24403;&#21069;&#30446;&#24405;&#20026; <PATH_TO>-cocos2d-x.android, &#36816;&#34892; build_native.bat:</p>
+<figure>
+<img src="res/howto_setup_development_environment_windows_01.png" alt="" />
+</figure>
+
+<p>8.运行 ** android\android-sdk-windows\tools\android.bat ** , 选中 ** Android SDK 2.2 **（ ** 如果看不到 Android SDK 2.2，请设置代理 ** ）, 然后安装需要的包。 </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_02.png" alt="" />
+</figure>
+
+<p>~ </p>
+
+<h2 id="step5luajavabridgeandroid">Step 5: 编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</h2>
+
+<p>启动 命令行提示符 程序, 改变当前目录为 &lt;PATH_TO&gt;\quick-cocos2d-x\sample\luajavabridge\proj.android, 运行 build_native.bat:</p>
 <pre><code>
 cd quick-cocos2d-x\sample\luajavabridge\proj.android
 build_native.bat
 </code></pre>
-<p>&#22914;&#26524;&#19968;&#20999;&#27491;&#24120;&#65292;&#31561;&#24453;&#20960;&#20998;&#38047;&#20197;&#21518;&#20250;&#30475;&#21040;&#22914;&#19979;&#20449;&#24687;&#65306;</p>
+
+<p>如果一切正常，等待几分钟以后会看到如下信息：</p>
 <pre><code>
 SharedLibrary  : libgame.so
 Install        : libgame.so =&gt; libs/armeabi/libgame.so
 </code></pre>
-<h3 id="&#23558;&#39033;&#30446;&#23548;&#20837;-eclipse-adt">&#23558;&#39033;&#30446;&#23548;&#20837; Eclipse ADT</h3>
-<p>&#21551;&#21160; &lt;PATH_TO&gt;.exe, &#23548;&#20837; ** libcocos2dx ** &#24211;&#65288;&#36825;&#20010;&#24211;&#26159; cocos2d-x &#30340; Java &#25903;&#25345;&#65289;.</p>
-<p>1.&#36873;&#25321;&#33756;&#21333; ** File ** -&gt; ** Import <strong>, &#20877;&#36873;&#25321; </strong> Android ** -&gt; ** Existing Android Code Into Workspace ** :</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_06.png" />
-</div>
-<p>2.&#28857;&#20987; ** Browse ** &#25353;&#38062;, &#36873;&#25321; ** -cocos2d-x2d-x2dx* &#30446;&#24405;:</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_07.png" />
-</div>
-<p>3.&#28857;&#20987; Finish.</p>
-<p>4.&#37325;&#22797;&#19978;&#36848;&#27493;&#39588;, &#23558; ** luajavabridge.android ** &#30446;&#24405;&#23548;&#20837; Eclipse:</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_08.png" />
-</div>
-<p>5.&#22312;&#24038;&#20391; ** Package Explorer ** &#37324;&#30340; ** LuajavaBridge ** &#39033;&#30446;&#19978;&#28857;&#20987;&#40736;&#26631;&#21491;&#38190;&#65292;&#36873;&#25321;&#33756;&#21333; ** Properties ** :</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_09.png" />
-</div>
-<p>6.&#22914;&#26524; ** Library ** &#20013;&#24050;&#32463;&#23384;&#22312; ** libcocos2dx ** &#39033;&#65292;&#35831;&#20808;&#21024;&#38500;&#12290;&#28982;&#21518;&#28857;&#20987; ** Add ** &#25353;&#38062;, &#20877;&#36873;&#25321;&#28155;&#21152; ** libcocos2dx ** &#24211;.</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_10.png" />
-</div>
-<p>7.&#23548;&#20837;&#23436;&#25104;&#12290;</p>
-<h3 id="&#35774;&#32622;-android-&#35774;&#22791;&#20801;&#35768;&#30495;&#26426;&#35843;&#35797;">&#35774;&#32622; Android &#35774;&#22791;&#20801;&#35768;&#30495;&#26426;&#35843;&#35797;</h3>
-<p>Android &#23448;&#26041;&#25991;&#26723;&#65306;<a href="http://developer.android.com/tools/device.html">http://developer.android.com/tools/device.html</a></p>
-<ol style="list-style-type: decimal">
+
+<h3 id="eclipseadt">将项目导入 Eclipse ADT</h3>
+
+<p>启动 &lt;PATH_TO&gt;\eclipse\eclipse.exe, 导入 ** libcocos2dx ** 库（这个库是 cocos2d-x 的 Java 支持）. </p>
+
+<p>1.选择菜单 ** File ** -&gt; ** Import **, 再选择 ** Android ** -&gt; ** Existing Android Code Into Workspace ** : </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_06.png" alt="" />
+</figure>
+
+<p>2.点击 ** Browse ** 按钮, 选择 ** \quick-cocos2d-x\lib\cocos2d-x\cocos2dx\platform\android\java ** 目录: </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_07.png" alt="" />
+</figure>
+
+<p>3.点击 Finish. </p>
+
+<p>4.重复上述步骤, 将 ** luajavabridge\proj.android ** 目录导入 Eclipse: </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_08.png" alt="" />
+</figure>
+
+<p>5.在左侧 ** Package Explorer ** 里的 ** LuajavaBridge ** 项目上点击鼠标右键，选择菜单 ** Properties ** : </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_09.png" alt="" />
+</figure>
+
+<p>6.如果 ** Library ** 中已经存在 ** libcocos2dx ** 项，请先删除。然后点击 ** Add ** 按钮, 再选择添加 ** libcocos2dx ** 库. </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_10.png" alt="" />
+</figure>
+
+<p>7.导入完成。 </p>
+
+<h3 id="android">设置 Android 设备允许真机调试</h3>
+
+<p>Android 官方文档：<a href="http://developer.android.com/tools/device.html">http://developer.android.com/tools/device.html</a> </p>
+
+<ol>
 <li>Enable USB debugging on your device.
+
 <ul>
 <li>On most devices running Android 3.2 or older, you can find the option under Settings &gt; Applications &gt; Development.</li>
-<li>On Android 4.0 and newer, it&#8217;s in Settings &gt; Developer options.</li>
+<li>On Android 4.0 and newer, it’s in Settings &gt; Developer options.</li>
 </ul>
-Note: On Android 4.2 and newer, Developer options is hidden by default. To make it available, go to Settings &gt; About phone and tap Build number seven times. Return to the previous screen to find Developer options.
-<ul>
-<li>&#22312;&#31995;&#32479;&#35774;&#32622;&#20013;&#25214;&#21040;&#8220;&#24320;&#21457;&#32773;&#36873;&#39033;&#8221;&#65292;&#25171;&#24320;&#8220;USB&#35843;&#35797;&#8221;&#12290;</li>
-</ul></li>
+
+<p>Note: On Android 4.2 and newer, Developer options is hidden by default. To make it available, go to Settings &gt; About phone and tap Build number seven times. Return to the previous screen to find Developer options.<br/>
+- 在系统设置中找到“开发者选项”，打开“USB调试”。 </p></li>
 <li>Set up your system to detect your device.
+
 <ul>
-<li>If you&#8217;re developing on Windows, you need to install a USB driver for adb. For an installation guide and links to OEM drivers, see the OEM USB Drivers document.</li>
-<li>&#26681;&#25454;&#19981;&#21516;&#30340;&#26426;&#22411;&#65292;&#20063;&#35768;&#38656;&#35201;&#23433;&#35013;&#35813;&#26426;&#22411;&#29305;&#23450;&#30340; USB &#39537;&#21160;&#31243;&#24207;&#12290;&#20363;&#22914; Moto &#23601;&#24517;&#39035;&#23433;&#35013; Moto &#30340; USB &#39537;&#21160;&#12290;</li>
+<li>If you’re developing on Windows, you need to install a USB driver for adb. For an installation guide and links to OEM drivers, see the OEM USB Drivers document.</li>
+<li>根据不同的机型，也许需要安装该机型特定的 USB 驱动程序。例如 Moto 就必须安装 Moto 的 USB 驱动。</li>
 </ul></li>
 </ol>
-<h3 id="&#22312;&#35774;&#22791;&#19978;&#27979;&#35797;-luajavabridge-&#31034;&#20363;">&#22312;&#35774;&#22791;&#19978;&#27979;&#35797; LuaJavaBridge &#31034;&#20363;</h3>
-<p>1.&#22312; Eclipse &#37324;&#36873;&#25321;&#33756;&#21333; ** Window ** -&gt; ** Show View ** -&gt; ** Other&#8230; ** , &#20877;&#36873;&#25321; ** Android ** -&gt; ** Devices **.</p>
-<p>2.&#22914;&#26524;&#35774;&#22791;&#35774;&#32622;&#23436;&#25104;&#65292;&#24182;&#19988;&#23433;&#35013;&#20102;&#27491;&#30830;&#30340; USB &#39537;&#21160;&#65292;&#37027;&#20040;&#22312; Devices &#26631;&#31614;&#39029;&#20013;&#23601;&#21487;&#20197;&#30475;&#21040;&#20320;&#30340;&#35774;&#22791;:</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_11.png" />
-</div>
-<p>&#22914;&#26524;&#30475;&#19981;&#21040;&#35774;&#22791;&#65292;&#35831;&#20180;&#32454;&#26816;&#26597;&#35774;&#22791;&#35774;&#32622;&#21644;&#39537;&#21160;&#31243;&#24207;&#12290;</p>
-<p>3.&#22312;&#39033;&#30446; ** LuajavaBridge ** &#19978;&#28857;&#20987;&#40736;&#26631;&#21491;&#38190;, &#36873;&#25321;&#33756;&#21333; ** Debug As ** -&gt; ** Android Application **. &#22914;&#26524;&#19968;&#20999;&#27491;&#24120;&#65292;&#31561;&#19968;&#20250;&#20799;&#23601;&#21487;&#20197;&#22312;&#35774;&#22791;&#19978;&#30475;&#21040;&#36816;&#34892;&#30011;&#38754;&#20102;&#65306;</p>
-<div class="figure">
-<img src="res/howto_setup_development_environment_windows_12.png" />
-</div>
-<h4 id="&#25552;&#31034;">&#25552;&#31034;</h4>
-<p>&#25130;&#27490;2014.5.28, <strong>NDK</strong> &#24050;&#26356;&#26032;&#21040; <strong>android-ndk-r9d</strong>,&#35831;&#29992;&#26032;&#30340;NDK&#29256;&#26412;</p>
+
+<h3 id="luajavabridge">在设备上测试 LuaJavaBridge 示例</h3>
+
+<p>1.在 Eclipse 里选择菜单 ** Window ** -&gt; ** Show View ** -&gt; ** Other… ** , 再选择 ** Android ** -&gt; ** Devices **. </p>
+
+<p>2.如果设备设置完成，并且安装了正确的 USB 驱动，那么在 Devices 标签页中就可以看到你的设备: </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_11.png" alt="" />
+</figure>
+
+<p>如果看不到设备，请仔细检查设备设置和驱动程序。 </p>
+
+<p>3.在项目 ** LuajavaBridge ** 上点击鼠标右键, 选择菜单 ** Debug As ** -&gt; ** Android Application **. 如果一切正常，等一会儿就可以在设备上看到运行画面了： </p>
+
+<figure>
+<img src="res/howto_setup_development_environment_windows_12.png" alt="" />
+</figure>
+
+<p>-EOF-</p>
+<!-- ##END MARKED WRAPPER## -->
+    </div>
+</body>
+</html>

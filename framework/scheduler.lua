@@ -26,7 +26,7 @@ THE SOFTWARE.
 
  全局计时器、计划任务
 
-«该模块在框架初始化时不会自动载入» 
+该模块在框架初始化时不会自动载入
 
 ]]
 local scheduler = {}
@@ -39,7 +39,7 @@ local sharedScheduler = CCDirector:sharedDirector():getScheduler()
 
 全局帧事件在任何场景中都会执行，因此可以在整个应用程序范围内实现较为精确的全局计时器。
 
-该函数返回的句柄用作 scheduler.unscheduleGlobal() 的参数，可以取消指定的计划。 
+该函数返回的句柄用作 scheduler.unscheduleGlobal() 的参数，可以取消指定的计划。
 
 @param function 回调函数
 
@@ -52,15 +52,15 @@ end
 
 --[[--
 
-计划一个以指定时间间隔执行的全局事件回调，并返回该计划的句柄。 
+计划一个以指定时间间隔执行的全局事件回调，并返回该计划的句柄。
 
 ~~~ lua
 
 local function onInterval(dt)
 end
- 
+
 -- 每 0.5 秒执行一次 onInterval()
-local handle = scheduler.scheduleGlobal(onInterval, 0.5) 
+local handle = scheduler.scheduleGlobal(onInterval, 0.5)
 
 ~~~
 
@@ -76,7 +76,7 @@ end
 
 --[[--
 
-取消一个全局计划 
+取消一个全局计划
 
 scheduler.unscheduleGlobal() 的参数就是 scheduler.scheduleUpdateGlobal() 和 scheduler.scheduleGlobal() 的返回值。
 
