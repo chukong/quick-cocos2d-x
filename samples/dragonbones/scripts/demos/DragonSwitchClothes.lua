@@ -14,12 +14,17 @@ local _moveDirection = 0
 local _isJumping = false
 local _speedX = 0
 local _speedY = 0
+local _footY = 100
 local _textureIndex = 1
 
 function DragonSwitchClothes:ctor(...)
-	self.mainTitle = "Dragon SWitch Clothes"
+	self.mainTitle = "Dragon Switch Clothes"
 	self:_createDB()
 	DragonSwitchClothes.super.ctor(self, ...)
+	self:_updateBehavior()
+	self:scheduleUpdate(function(dt)
+		self:_update(dt)
+	end)
 end
 
 function DragonSwitchClothes:_addUI()
@@ -32,24 +37,24 @@ function DragonSwitchClothes:_addUI()
 		ui.newTTFLabelMenuItem({text="Switch Clothes" ,listener=handler(self, self._onSwitchClothes)}),
 	})
 		:pos(display.left+100, display.cy)
-		:addTo(self, 0)
+		:addTo(self, 10)
 	menu:alignItemsVertically()
 
 end
 
 function DragonSwitchClothes:_onMoveLeft()
 	_moveDirection = -1;
-	self:updateBehavior()
+	self:_updateBehavior()
 end
 
 function DragonSwitchClothes:_onMoveRight()
 	_moveDirection = 1;
-	self:updateBehavior()
+	self:_updateBehavior()
 end
 
 function DragonSwitchClothes:_onStop()
 	_moveDirection = 0;
-	self:updateBehavior()
+	self:_updateBehavior()
 end
 
 function DragonSwitchClothes:_onJump()
@@ -61,7 +66,7 @@ end
 
 function DragonSwitchClothes:_onSwitchClothes()
 	_textureIndex = _textureIndex + 1
-	if _textureIndex >= #_TEXTURES then
+	if _textureIndex > #_TEXTURES then
 		_textureIndex = _textureIndex - #_TEXTURES
 	end
 
@@ -116,8 +121,22 @@ function DragonSwitchClothes:_createDB()
 			aniName="",
 		})
 		:addTo(self, 10)
-		:pos(display.cx, display.cy-200)
+		:pos(display.cx, _footY)
 	self._db:gotoAndPlay("walk")
+end
+
+function DragonSwitchClothes:onExit()
+	DragonSwitchClothes.super.onExit(self)
+	print("DragonSwitchClothes onExit")
+	self:unscheduleUpdate()
+	self._db:removeSelf(true)
+	self._db = nil
+	_moveDirection = 0
+	_isJumping = false
+	_speedX = 0
+	_speedY = 0
+	_footY = 100
+	_textureIndex = 1
 end
 
 return DragonSwitchClothes

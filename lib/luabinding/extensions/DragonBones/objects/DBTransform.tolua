@@ -1,0 +1,15 @@
+class DBTransform
+{
+public:
+	Number x;
+	Number y;
+	Number skewX;
+	Number skewY;
+	Number scaleX;
+	Number scaleY;
+	Number getRotation();
+	void setRotation(Number value);
+	DBTransform();
+	DBTransform(const DBTransform & transform);
+	String toString();
+};

@@ -18,20 +18,20 @@ end
 function DragonBonesDemo:_addUI()
 	cc.ui.UIPushButton.new("close.png")
 		:align(display.RIGHT_BOTTOM, display.width, display.bottom)
-		:addTo(self, 0)
+		:addTo(self, 10)
 		:onButtonClicked(self._onClose)
 	
 	self._prevBtn = cc.ui.UIPushButton.new({normal="b1.png",pressed="b2.png"})
 		:align(display.BOTTOM_CENTER, display.cx-100, display.bottom)
-		:addTo(self, 0)
+		:addTo(self, 10)
 		:onButtonClicked(self._onPrev)
 	self._resetBtn = cc.ui.UIPushButton.new({normal="r1.png",pressed="r2.png"})
 		:align(display.BOTTOM_CENTER, display.cx, display.bottom)
-		:addTo(self, 0)
+		:addTo(self, 10)
 		:onButtonClicked(self._onReset)
 	self._nextBtn = cc.ui.UIPushButton.new({normal="f1.png",pressed="f2.png"})
 		:align(display.BOTTOM_CENTER, display.cx+100, display.bottom)
-		:addTo(self, 0)
+		:addTo(self, 10)
 		:onButtonClicked(self._onNext)
 
 	self._title = ui.newTTFLabel({
@@ -56,7 +56,7 @@ function DragonBonesDemo:_showTitles()
 end
 
 function DragonBonesDemo:onExit()
-	print("DragonBonesDemo exit")
+	print("DragonBonesDemo onExit")
 	self._onNext = nil
 	self._onPrev = nil
 	self._onReset = nil

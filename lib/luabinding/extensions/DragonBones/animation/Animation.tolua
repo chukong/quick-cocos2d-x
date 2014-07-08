@@ -7,7 +7,8 @@
         static const String SAME_LAYER_AND_GROUP;
         static const String ALL;
         
-        String getMovementID();
+        String getLastAnimationName();
+		String getLastAnimationName @ getMovementID();
 		AnimationData* getAnimationData(String &name);
         AnimationState *getLastAnimationState();
         bool getIsPlaying();

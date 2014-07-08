@@ -163,6 +163,18 @@ namespace dragonBones
     {
         return m_Armature->getAnimation();
     }
+    
+    CCArray* CCDragonBones::getAnimationList()
+    {
+         std::vector<String> aniList = getAnimation()->getAnimationList();
+        
+        CCArray* aniArr = CCArray::createWithCapacity(static_cast<unsigned int>(aniList.size()));
+        for (auto aniName : aniList)
+        {
+            aniArr->addObject(CCString::create(aniName.c_str()));
+        }
+        return aniArr;
+    }
 
     void CCDragonBones::onExit()
     {

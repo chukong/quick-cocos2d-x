@@ -21,6 +21,7 @@ public:
 	CCNode* getDisplayNode();
 	Armature* getArmature();
 	Animation* getAnimation();
+	CCArray* getAnimationList();
 	void gotoAndPlay(   const char *animationName,
 						float fadeInTime = -1,
 						float duration = -1,

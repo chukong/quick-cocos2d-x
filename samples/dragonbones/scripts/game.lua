@@ -9,6 +9,7 @@ game.DragonBonesDemo = require("DragonBonesDemo")
 game._DEMOS= {
 	require("demos.DragonDemoEntry"),
 	require("demos.DragonSwitchClothes"),
+	require("demos.DragonChaseStarling"),
 }
 
 function game.startup()

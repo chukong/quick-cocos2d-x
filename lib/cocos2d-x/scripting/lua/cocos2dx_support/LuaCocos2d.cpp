@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul  2 11:18:58 2014.
+** Generated automatically by tolua++-1.0.92 on Tue Jul  8 15:02:32 2014.
 */
 
 /****************************************************************************
@@ -226,6 +226,13 @@ static int tolua_collect_AnimationData (lua_State* tolua_S)
 static int tolua_collect_CCScrollView (lua_State* tolua_S)
 {
  CCScrollView* self = (CCScrollView*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_DBTransform (lua_State* tolua_S)
+{
+ DBTransform* self = (DBTransform*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -644,24 +651,24 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCAccelerometer).hash_code(), "CCAccelerometer");
  tolua_usertype(tolua_S,"CCSplitCols");
  toluafix_add_type_mapping(typeid(CCSplitCols).hash_code(), "CCSplitCols");
- tolua_usertype(tolua_S,"CCRect");
- toluafix_add_type_mapping(typeid(CCRect).hash_code(), "CCRect");
  tolua_usertype(tolua_S,"CCControlButton");
  toluafix_add_type_mapping(typeid(CCControlButton).hash_code(), "CCControlButton");
- tolua_usertype(tolua_S,"CCActionInstant");
- toluafix_add_type_mapping(typeid(CCActionInstant).hash_code(), "CCActionInstant");
+ tolua_usertype(tolua_S,"CCRect");
+ toluafix_add_type_mapping(typeid(CCRect).hash_code(), "CCRect");
  tolua_usertype(tolua_S,"CCSaturationFilter");
  toluafix_add_type_mapping(typeid(CCSaturationFilter).hash_code(), "CCSaturationFilter");
+ tolua_usertype(tolua_S,"CCActionInstant");
+ toluafix_add_type_mapping(typeid(CCActionInstant).hash_code(), "CCActionInstant");
+ tolua_usertype(tolua_S,"CCRGBFilter");
+ toluafix_add_type_mapping(typeid(CCRGBFilter).hash_code(), "CCRGBFilter");
  tolua_usertype(tolua_S,"CCTurnOffTiles");
  toluafix_add_type_mapping(typeid(CCTurnOffTiles).hash_code(), "CCTurnOffTiles");
  tolua_usertype(tolua_S,"CCParticleSnow");
  toluafix_add_type_mapping(typeid(CCParticleSnow).hash_code(), "CCParticleSnow");
- tolua_usertype(tolua_S,"CCRGBFilter");
- toluafix_add_type_mapping(typeid(CCRGBFilter).hash_code(), "CCRGBFilter");
- tolua_usertype(tolua_S,"CCMenuItemImage");
- toluafix_add_type_mapping(typeid(CCMenuItemImage).hash_code(), "CCMenuItemImage");
  tolua_usertype(tolua_S,"CCMaskFilter");
  toluafix_add_type_mapping(typeid(CCMaskFilter).hash_code(), "CCMaskFilter");
+ tolua_usertype(tolua_S,"CCMenuItemImage");
+ toluafix_add_type_mapping(typeid(CCMenuItemImage).hash_code(), "CCMenuItemImage");
  tolua_usertype(tolua_S,"CCHueFilter");
  toluafix_add_type_mapping(typeid(CCHueFilter).hash_code(), "CCHueFilter");
  tolua_usertype(tolua_S,"CCHazeFilter");
@@ -672,30 +679,32 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCDisplayLinkDirector).hash_code(), "CCDisplayLinkDirector");
  tolua_usertype(tolua_S,"CCBrightnessFilter");
  toluafix_add_type_mapping(typeid(CCBrightnessFilter).hash_code(), "CCBrightnessFilter");
+ tolua_usertype(tolua_S,"CCZoomBlurFilter");
+ toluafix_add_type_mapping(typeid(CCZoomBlurFilter).hash_code(), "CCZoomBlurFilter");
  tolua_usertype(tolua_S,"ccTexParams");
  toluafix_add_type_mapping(typeid(ccTexParams).hash_code(), "ccTexParams");
  tolua_usertype(tolua_S,"CCEaseSineOut");
  toluafix_add_type_mapping(typeid(CCEaseSineOut).hash_code(), "CCEaseSineOut");
- tolua_usertype(tolua_S,"CCZoomBlurFilter");
- toluafix_add_type_mapping(typeid(CCZoomBlurFilter).hash_code(), "CCZoomBlurFilter");
- tolua_usertype(tolua_S,"CCCallFuncN");
- toluafix_add_type_mapping(typeid(CCCallFuncN).hash_code(), "CCCallFuncN");
  tolua_usertype(tolua_S,"CCGaussianVBlurFilter");
  toluafix_add_type_mapping(typeid(CCGaussianVBlurFilter).hash_code(), "CCGaussianVBlurFilter");
- tolua_usertype(tolua_S,"CCTransitionPageTurn");
- toluafix_add_type_mapping(typeid(CCTransitionPageTurn).hash_code(), "CCTransitionPageTurn");
+ tolua_usertype(tolua_S,"CCCallFuncN");
+ toluafix_add_type_mapping(typeid(CCCallFuncN).hash_code(), "CCCallFuncN");
  tolua_usertype(tolua_S,"CCVBlurFilter");
  toluafix_add_type_mapping(typeid(CCVBlurFilter).hash_code(), "CCVBlurFilter");
- tolua_usertype(tolua_S,"ccFontDefinition");
- toluafix_add_type_mapping(typeid(ccFontDefinition).hash_code(), "ccFontDefinition");
+ tolua_usertype(tolua_S,"CCTransitionPageTurn");
+ toluafix_add_type_mapping(typeid(CCTransitionPageTurn).hash_code(), "CCTransitionPageTurn");
  tolua_usertype(tolua_S,"CCHBlurFilter");
  toluafix_add_type_mapping(typeid(CCHBlurFilter).hash_code(), "CCHBlurFilter");
+ tolua_usertype(tolua_S,"ccFontDefinition");
+ toluafix_add_type_mapping(typeid(ccFontDefinition).hash_code(), "ccFontDefinition");
  tolua_usertype(tolua_S,"CCFilteredSpriteWithMulti");
  toluafix_add_type_mapping(typeid(CCFilteredSpriteWithMulti).hash_code(), "CCFilteredSpriteWithMulti");
  tolua_usertype(tolua_S,"CCFilteredSpriteWithOne");
  toluafix_add_type_mapping(typeid(CCFilteredSpriteWithOne).hash_code(), "CCFilteredSpriteWithOne");
  tolua_usertype(tolua_S,"CCFilteredSprite");
  toluafix_add_type_mapping(typeid(CCFilteredSprite).hash_code(), "CCFilteredSprite");
+ tolua_usertype(tolua_S,"DBTransform");
+ toluafix_add_type_mapping(typeid(DBTransform).hash_code(), "DBTransform");
  tolua_usertype(tolua_S,"ccFontStroke");
  toluafix_add_type_mapping(typeid(ccFontStroke).hash_code(), "ccFontStroke");
  tolua_usertype(tolua_S,"TransformTimeline");
@@ -60256,6 +60265,126 @@ static int tolua_Cocos2d_DBObject_delete00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* get function: global of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_get_DBObject_global
+static int tolua_get_DBObject_global(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'global'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->global,"DBTransform");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: global of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_set_DBObject_global
+static int tolua_set_DBObject_global(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'global'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"DBTransform",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->global = *((DBTransform*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: origin of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_get_DBObject_origin
+static int tolua_get_DBObject_origin(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'origin'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->origin,"DBTransform");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: origin of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_set_DBObject_origin
+static int tolua_set_DBObject_origin(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'origin'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"DBTransform",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->origin = *((DBTransform*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: offset of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_get_DBObject_offset
+static int tolua_get_DBObject_offset(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'offset'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->offset,"DBTransform");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: offset of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_set_DBObject_offset
+static int tolua_set_DBObject_offset(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'offset'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"DBTransform",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->offset = *((DBTransform*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: tween of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_get_DBObject_tween
+static int tolua_get_DBObject_tween(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'tween'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)&self->tween,"DBTransform");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: tween of class  DBObject */
+#ifndef TOLUA_DISABLE_tolua_set_DBObject_tween
+static int tolua_set_DBObject_tween(lua_State* tolua_S)
+{
+  DBObject* self = (DBObject*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'tween'",NULL);
+  if ((tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"DBTransform",0,&tolua_err)))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->tween = *((DBTransform*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setVisible of class  DBObject */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_DBObject_setVisible00
 static int tolua_Cocos2d_DBObject_setVisible00(lua_State* tolua_S)
@@ -60493,7 +60622,39 @@ static int tolua_get_Animation_ALL(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getMovementID of class  Animation */
+/* method: getLastAnimationName of class  Animation */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Animation_getLastAnimationName00
+static int tolua_Cocos2d_Animation_getLastAnimationName00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Animation",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  Animation* self = (Animation*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLastAnimationName'", NULL);
+#endif
+  {
+    std::string tolua_ret = (  std::string)  self->getLastAnimationName();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getLastAnimationName'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getLastAnimationName of class  Animation */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Animation_getMovementID00
 static int tolua_Cocos2d_Animation_getMovementID00(lua_State* tolua_S)
 {
@@ -60509,10 +60670,10 @@ static int tolua_Cocos2d_Animation_getMovementID00(lua_State* tolua_S)
  {
   Animation* self = (Animation*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getMovementID'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getLastAnimationName'", NULL);
 #endif
   {
-    std::string tolua_ret = (  std::string)  self->getMovementID();
+    std::string tolua_ret = (  std::string)  self->getLastAnimationName();
    tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
   }
  }
@@ -62306,6 +62467,40 @@ static int tolua_Cocos2d_CCDragonBones_getAnimation00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: getAnimationList of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_getAnimationList00
+static int tolua_Cocos2d_CCDragonBones_getAnimationList00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCDragonBones* self = (CCDragonBones*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getAnimationList'", NULL);
+#endif
+  {
+   CCArray* tolua_ret = (CCArray*)  self->getAnimationList();
+    int nID = (tolua_ret) ? (int)tolua_ret->m_uID : -1;
+    int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
+    toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCArray");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getAnimationList'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: gotoAndPlay of class  CCDragonBones */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_gotoAndPlay00
 static int tolua_Cocos2d_CCDragonBones_gotoAndPlay00(lua_State* tolua_S)
@@ -63409,6 +63604,391 @@ static int tolua_Cocos2d_AnimationData_addTimeline00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'addTimeline'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: x of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_get_DBTransform_x
+static int tolua_get_DBTransform_x(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->x);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: x of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_set_DBTransform_x
+static int tolua_set_DBTransform_x(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'x'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->x = ((  float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: y of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_get_DBTransform_y
+static int tolua_get_DBTransform_y(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->y);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: y of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_set_DBTransform_y
+static int tolua_set_DBTransform_y(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'y'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->y = ((  float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: skewX of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_get_DBTransform_skewX
+static int tolua_get_DBTransform_skewX(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'skewX'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->skewX);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: skewX of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_set_DBTransform_skewX
+static int tolua_set_DBTransform_skewX(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'skewX'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->skewX = ((  float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: skewY of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_get_DBTransform_skewY
+static int tolua_get_DBTransform_skewY(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'skewY'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->skewY);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: skewY of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_set_DBTransform_skewY
+static int tolua_set_DBTransform_skewY(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'skewY'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->skewY = ((  float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: scaleX of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_get_DBTransform_scaleX
+static int tolua_get_DBTransform_scaleX(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'scaleX'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->scaleX);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: scaleX of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_set_DBTransform_scaleX
+static int tolua_set_DBTransform_scaleX(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'scaleX'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->scaleX = ((  float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: scaleY of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_get_DBTransform_scaleY
+static int tolua_get_DBTransform_scaleY(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'scaleY'",NULL);
+#endif
+  tolua_pushnumber(tolua_S,(lua_Number)self->scaleY);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: scaleY of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_set_DBTransform_scaleY
+static int tolua_set_DBTransform_scaleY(lua_State* tolua_S)
+{
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'scaleY'",NULL);
+  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->scaleY = ((  float)  tolua_tonumber(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: getRotation of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_getRotation00
+static int tolua_Cocos2d_DBTransform_getRotation00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getRotation'", NULL);
+#endif
+  {
+    float tolua_ret = (  float)  self->getRotation();
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'getRotation'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setRotation of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_setRotation00
+static int tolua_Cocos2d_DBTransform_setRotation00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+   float value = ((  float)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setRotation'", NULL);
+#endif
+  {
+   self->setRotation(value);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setRotation'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_new00
+static int tolua_Cocos2d_DBTransform_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   DBTransform* tolua_ret = (DBTransform*)  Mtolua_new((DBTransform)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"DBTransform");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_new00_local
+static int tolua_Cocos2d_DBTransform_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   DBTransform* tolua_ret = (DBTransform*)  Mtolua_new((DBTransform)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"DBTransform");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_new01
+static int tolua_Cocos2d_DBTransform_new01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const DBTransform",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const DBTransform* transform = ((const DBTransform*)  tolua_tousertype(tolua_S,2,0));
+  {
+   DBTransform* tolua_ret = (DBTransform*)  Mtolua_new((DBTransform)(*transform));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"DBTransform");
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_Cocos2d_DBTransform_new00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_new01_local
+static int tolua_Cocos2d_DBTransform_new01_local(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"const DBTransform",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const DBTransform* transform = ((const DBTransform*)  tolua_tousertype(tolua_S,2,0));
+  {
+   DBTransform* tolua_ret = (DBTransform*)  Mtolua_new((DBTransform)(*transform));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"DBTransform");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+tolua_lerror:
+ return tolua_Cocos2d_DBTransform_new00_local(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: toString of class  DBTransform */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_DBTransform_toString00
+static int tolua_Cocos2d_DBTransform_toString00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"DBTransform",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  DBTransform* self = (DBTransform*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'toString'", NULL);
+#endif
+  {
+    std::string tolua_ret = (  std::string)  self->toString();
+   tolua_pushcppstring(tolua_S,(const char*)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'toString'.",&tolua_err);
  return 0;
 #endif
 }
@@ -69240,6 +69820,10 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"new_local",tolua_Cocos2d_DBObject_new00_local);
    tolua_function(tolua_S,".call",tolua_Cocos2d_DBObject_new00_local);
    tolua_function(tolua_S,"delete",tolua_Cocos2d_DBObject_delete00);
+   tolua_variable(tolua_S,"global",tolua_get_DBObject_global,tolua_set_DBObject_global);
+   tolua_variable(tolua_S,"origin",tolua_get_DBObject_origin,tolua_set_DBObject_origin);
+   tolua_variable(tolua_S,"offset",tolua_get_DBObject_offset,tolua_set_DBObject_offset);
+   tolua_variable(tolua_S,"tween",tolua_get_DBObject_tween,tolua_set_DBObject_tween);
    tolua_function(tolua_S,"setVisible",tolua_Cocos2d_DBObject_setVisible00);
    tolua_function(tolua_S,"getVisible",tolua_Cocos2d_DBObject_getVisible00);
    tolua_function(tolua_S,"getArmature",tolua_Cocos2d_DBObject_getArmature00);
@@ -69258,6 +69842,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"SAME_GROUP",tolua_get_Animation_SAME_GROUP,NULL);
    tolua_variable(tolua_S,"SAME_LAYER_AND_GROUP",tolua_get_Animation_SAME_LAYER_AND_GROUP,NULL);
    tolua_variable(tolua_S,"ALL",tolua_get_Animation_ALL,NULL);
+   tolua_function(tolua_S,"getLastAnimationName",tolua_Cocos2d_Animation_getLastAnimationName00);
    tolua_function(tolua_S,"getMovementID",tolua_Cocos2d_Animation_getMovementID00);
    tolua_function(tolua_S,"getAnimationData",tolua_Cocos2d_Animation_getAnimationData00);
    tolua_function(tolua_S,"getLastAnimationState",tolua_Cocos2d_Animation_getLastAnimationState00);
@@ -69320,6 +69905,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getDisplayNode",tolua_Cocos2d_CCDragonBones_getDisplayNode00);
    tolua_function(tolua_S,"getArmature",tolua_Cocos2d_CCDragonBones_getArmature00);
    tolua_function(tolua_S,"getAnimation",tolua_Cocos2d_CCDragonBones_getAnimation00);
+   tolua_function(tolua_S,"getAnimationList",tolua_Cocos2d_CCDragonBones_getAnimationList00);
    tolua_function(tolua_S,"gotoAndPlay",tolua_Cocos2d_CCDragonBones_gotoAndPlay00);
    tolua_function(tolua_S,"setBoneTexture",tolua_Cocos2d_CCDragonBones_setBoneTexture00);
    tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_CCDragonBones_registerScriptHandler00);
@@ -69382,6 +69968,28 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"dispose",tolua_Cocos2d_AnimationData_dispose00);
    tolua_function(tolua_S,"getTimeline",tolua_Cocos2d_AnimationData_getTimeline00);
    tolua_function(tolua_S,"addTimeline",tolua_Cocos2d_AnimationData_addTimeline00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"DBTransform","DBTransform","",tolua_collect_DBTransform);
+  #else
+  tolua_cclass(tolua_S,"DBTransform","DBTransform","",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"DBTransform");
+   tolua_variable(tolua_S,"x",tolua_get_DBTransform_x,tolua_set_DBTransform_x);
+   tolua_variable(tolua_S,"y",tolua_get_DBTransform_y,tolua_set_DBTransform_y);
+   tolua_variable(tolua_S,"skewX",tolua_get_DBTransform_skewX,tolua_set_DBTransform_skewX);
+   tolua_variable(tolua_S,"skewY",tolua_get_DBTransform_skewY,tolua_set_DBTransform_skewY);
+   tolua_variable(tolua_S,"scaleX",tolua_get_DBTransform_scaleX,tolua_set_DBTransform_scaleX);
+   tolua_variable(tolua_S,"scaleY",tolua_get_DBTransform_scaleY,tolua_set_DBTransform_scaleY);
+   tolua_function(tolua_S,"getRotation",tolua_Cocos2d_DBTransform_getRotation00);
+   tolua_function(tolua_S,"setRotation",tolua_Cocos2d_DBTransform_setRotation00);
+   tolua_function(tolua_S,"new",tolua_Cocos2d_DBTransform_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_DBTransform_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_DBTransform_new00_local);
+   tolua_function(tolua_S,"new",tolua_Cocos2d_DBTransform_new01);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_DBTransform_new01_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_DBTransform_new01_local);
+   tolua_function(tolua_S,"toString",tolua_Cocos2d_DBTransform_toString00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCFilteredSprite","CCFilteredSprite","CCSprite",NULL);
   tolua_beginmodule(tolua_S,"CCFilteredSprite");

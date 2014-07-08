@@ -42,6 +42,7 @@ namespace dragonBones {
         CCNode* getDisplayNode();
         Armature* getArmature();
         Animation* getAnimation();
+        cocos2d::CCArray* getAnimationList();
         void gotoAndPlay(   const String &animationName,
                             Number fadeInTime = -1,
                             Number duration = -1,

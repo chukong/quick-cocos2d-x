@@ -55,6 +55,7 @@
 		42E41BAE190A40DA0097EAF5 /* DBGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B8E190A40DA0097EAF5 /* DBGeometry.cpp */; };
 		42E41BAF190A40DA0097EAF5 /* TransformUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B91190A40DA0097EAF5 /* TransformUtil.cpp */; };
 		E511C32A195A77A600FFDE22 /* CCWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C329195A77A600FFDE22 /* CCWebView.mm */; };
+		E588534F196B877F005BA388 /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E588534D196B877F005BA388 /* Updater.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
 		F41D98FC17F08B9E007171D8 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D98FB17F08B9E007171D8 /* libwebsockets.a */; };
@@ -113,7 +114,6 @@
 		F477B84C1757404200260C19 /* ccFPSImages.c in Sources */ = {isa = PBXBuildFile; fileRef = F477B73F1757404200260C19 /* ccFPSImages.c */; };
 		F477B84D1757404200260C19 /* CCScheduler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B7411757404200260C19 /* CCScheduler.cpp */; };
 		F477B8581757404200260C19 /* cocos2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B75C1757404200260C19 /* cocos2d.cpp */; };
-		F477B95D175740BF00260C19 /* AssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B8F4175740BF00260C19 /* AssetsManager.cpp */; };
 		F477B982175740BF00260C19 /* CCEditBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F477B949175740BF00260C19 /* CCEditBox.cpp */; };
 		F477B985175740BF00260C19 /* CCEditBoxImplMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = F477B951175740BF00260C19 /* CCEditBoxImplMac.mm */; };
 		F47872E3180C8EBD008F0508 /* lua_cocos2dx_extensions_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47872DF180C8EBC008F0508 /* lua_cocos2dx_extensions_manual.cpp */; };
@@ -468,6 +468,8 @@
 		42E41B92190A40DA0097EAF5 /* TransformUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformUtil.h; sourceTree = "<group>"; };
 		E511C321195A75B200FFDE22 /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView.h; path = webview/CCWebView.h; sourceTree = "<group>"; };
 		E511C329195A77A600FFDE22 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/mac/CCWebView.mm; sourceTree = "<group>"; };
+		E588534D196B877F005BA388 /* Updater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Updater.cpp; sourceTree = "<group>"; };
+		E588534E196B877F005BA388 /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F411F3DC175CEAFC00EF549A /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -592,8 +594,6 @@
 		F477B7411757404200260C19 /* CCScheduler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCScheduler.cpp; sourceTree = "<group>"; };
 		F477B7421757404200260C19 /* CCScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCScheduler.h; sourceTree = "<group>"; };
 		F477B75C1757404200260C19 /* cocos2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2d.cpp; sourceTree = "<group>"; };
-		F477B8F4175740BF00260C19 /* AssetsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AssetsManager.cpp; sourceTree = "<group>"; };
-		F477B8F5175740BF00260C19 /* AssetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsManager.h; sourceTree = "<group>"; };
 		F477B92C175740BF00260C19 /* ExtensionMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionMacros.h; sourceTree = "<group>"; };
 		F477B949175740BF00260C19 /* CCEditBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCEditBox.cpp; sourceTree = "<group>"; };
 		F477B94A175740BF00260C19 /* CCEditBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCEditBox.h; sourceTree = "<group>"; };
@@ -1335,6 +1335,15 @@
 			name = webview;
 			sourceTree = "<group>";
 		};
+		E588534C196B877F005BA388 /* updater */ = {
+			isa = PBXGroup;
+			children = (
+				E588534D196B877F005BA388 /* Updater.cpp */,
+				E588534E196B877F005BA388 /* Updater.h */,
+			);
+			path = updater;
+			sourceTree = "<group>";
+		};
 		F411F3D9175CEAEA00EF549A /* luajit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1641,15 +1650,6 @@
 			path = third_party;
 			sourceTree = "<group>";
 		};
-		F477B8F3175740BF00260C19 /* AssetsManager */ = {
-			isa = PBXGroup;
-			children = (
-				F477B8F4175740BF00260C19 /* AssetsManager.cpp */,
-				F477B8F5175740BF00260C19 /* AssetsManager.h */,
-			);
-			path = AssetsManager;
-			sourceTree = "<group>";
-		};
 		F477B92D175740BF00260C19 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1900,10 +1900,10 @@
 		F4DCACDF168C0F5900679DBE /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E588534C196B877F005BA388 /* updater */,
 				E511C320195A75A400FFDE22 /* webview */,
 				42E41B3E190A40DA0097EAF5 /* DragonBones */,
 				429423B018ED454000F8A2A7 /* filters */,
-				F477B8F3175740BF00260C19 /* AssetsManager */,
 				F4703CB81777F0D900A8A9E9 /* cocos-ext.h */,
 				F477B92C175740BF00260C19 /* ExtensionMacros.h */,
 				F477B92D175740BF00260C19 /* GUI */,
@@ -2761,6 +2761,7 @@
 				F426146717E816FE00D37B8D /* CCCommon.cpp in Sources */,
 				4294240718ED454100F8A2A7 /* ccFilterShaders.cpp in Sources */,
 				F4DE0AA816800201005DB2DB /* CDOpenALSupport.m in Sources */,
+				E588534F196B877F005BA388 /* Updater.cpp in Sources */,
 				F4DE0AAA16800201005DB2DB /* CDXMacOSXSupport.mm in Sources */,
 				F4DE0AAC16800201005DB2DB /* CocosDenshion.m in Sources */,
 				F4DE0AAD16800201005DB2DB /* SimpleAudioEngine.mm in Sources */,
@@ -2807,7 +2808,6 @@
 				F477B84C1757404200260C19 /* ccFPSImages.c in Sources */,
 				F477B84D1757404200260C19 /* CCScheduler.cpp in Sources */,
 				F477B8581757404200260C19 /* cocos2d.cpp in Sources */,
-				F477B95D175740BF00260C19 /* AssetsManager.cpp in Sources */,
 				F477B982175740BF00260C19 /* CCEditBox.cpp in Sources */,
 				F477B985175740BF00260C19 /* CCEditBoxImplMac.mm in Sources */,
 				F4E87F37177006E900577406 /* CCAction.cpp in Sources */,
@@ -3221,6 +3221,7 @@
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/cjson\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/scripting/lua/lua_extensions/zlib\"",
+					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/extensions/DragonBones\"",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform/third_party/mac/libraries\"",
