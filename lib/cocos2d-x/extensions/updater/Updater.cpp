@@ -371,7 +371,7 @@ bool Updater::removeDirectory(const char* path)
 #else
     string command = "rd /s /q ";
     // Path may include space.
-    command += "\"" + pathToSave + "\"";
+    command += "\"" + string(path) + "\"";
     succ = system(command.c_str());
 #endif
     if(succ != 0)
