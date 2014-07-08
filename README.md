@@ -8,6 +8,13 @@
 
 没有同步的原因同上。
 
+2014-07-08 更新：
+
+1. 修复 Mac 版本 player 的编译错误；
+2. 删除 samples/ccarmature ，因为 CCArmature 已经被删除，sample当然也没用了；
+3. 为 samples/dragonbones 加入了两个demo：SwitchClothes 和 ChaseStarling ；
+4. 增加几个lua导出方法以支持新假如的两个 demo。
+
 2014-06-25 更新：
 
 1. 删除 CCB 支持，这个编辑器的开发早已停止，我并不使用它；
