@@ -8,13 +8,19 @@
 
 没有同步的原因同上。
 
+2014-07-09 更新：
+
+1. 增加 samples/bytearray ；
+2. 解决 ByteArray 的bug；
+3. 删除 ByteArray:readLong/readULong/writeLong/writeULong，[原因见此][8] 。
+
 2014-07-08 更新：
 
 1. 修复 Mac/Win32 版本 player 的编译错误；
 2. 删除 extensions/AssetsManager 模块，使用 extensions/updater 取而代之；
 3. 删除 samples/ccarmature ，因为 CCArmature 已经被删除，sample当然也没用了；
 4. 为 samples/dragonbones 加入了两个demo：SwitchClothes 和 ChaseStarling ；
-5. 增加几个lua导出方法以支持新假如的两个 demo。
+5. 增加几个lua导出方法以支持新加入的两个 demo。
 
 2014-06-25 更新：
 
@@ -38,3 +44,4 @@
 [5]: http://zengrong.net/post/1968.htm
 [6]: https://github.com/go3k/CCXWebview
 [7]: http://zengrong.net/post/2123.htm
+[8]: http://zengrong.net/post/2134.htm

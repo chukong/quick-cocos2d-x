@@ -8,7 +8,7 @@ A sample: https://github.com/zrong/lua#ByteArray
 @author zrong(zengrong.net)
 
 Creation 2013-11-14
-Last Modification 2014-01-01
+Last Modification 2014-07-09
 ]]
 local ByteArray = class("ByteArray")
 
@@ -200,6 +200,9 @@ function ByteArray:writeUShort(__ushort)
 	return self
 end
 
+--[[
+-- 2014-07-09 Remove all of methods about Long in ByteArray.
+-- @see http://zengrong.net/post/2134.htm
 function ByteArray:readLong()
 	local __, __v = string.unpack(self:readBuf(8), self:_getLC("l"))
 	return __v
@@ -222,6 +225,7 @@ function ByteArray:writeULong(__ulong)
 	self:writeBuf(__s)
 	return self
 end
+]]
 
 function ByteArray:readUByte()
 	local __, __val = string.unpack(self:readRawByte(), "b")
@@ -401,7 +405,7 @@ end
 --- Write a encoded char array into buf
 function ByteArray:writeBuf(__s)
 	for i=1,#__s do
-		self:writeRawByte(__s:sub(i))
+		self:writeRawByte(string.sub(__s,i,i))
 	end
 	return self
 end
