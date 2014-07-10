@@ -415,6 +415,8 @@ int CCLuaEngine::executeLayerKeypadEvent(CCLayer* pLayer, int eventType)
             return 0;
     }
 
+	m_stack->pushCCLuaValueDict(event);
+
     CCArray *listeners = pLayer->getAllScriptEventListeners();
     CCScriptHandlePair *p;
     for (int i = listeners->count() - 1; i >= 0; --i)
