@@ -313,8 +313,7 @@ static int tolua_bnd_getcfunction(lua_State* L) {
         if (!lua_isnil(L, -1)) {
             lua_pushvalue(L, 2);    /* stack: class key mt mt[".backup"] key */
             lua_rawget(L, -2);
-            if (!lua_isnil(L, -1)) {
-                // key had been found
+            if (!lua_isnil(L, -1)) { // key had been found
                 return 1;
             }
             lua_pop(L, 1);
@@ -343,10 +342,8 @@ TOLUA_API void tolua_open (lua_State* L)
         lua_pushstring(L,"tolua_opened");
         lua_pushboolean(L,1);
         lua_rawset(L,LUA_REGISTRYINDEX);
-
         
-        /** create value root table
-         */
+        // create value root table
         lua_pushstring(L, TOLUA_VALUE_ROOT);
         lua_newtable(L);
         lua_rawset(L, LUA_REGISTRYINDEX);
@@ -484,22 +481,27 @@ TOLUA_API void tolua_usertype (lua_State* L, const char* type)
 */
 TOLUA_API void tolua_beginmodule (lua_State* L, const char* name)
 {
-    if (name)
-    {
-//---- The origin code was disable
-        //lua_pushstring(L,name);
-        //lua_rawget(L,-2);
-//---- now global[class_name] is a table, get it's metatable to store keys
-        luaL_getmetatable(L, name);
+    if (name) { // ... module
+//---- now module[name] is a table, get it's metatable to store keys
+        // get module[name]
+        lua_pushstring(L,name); // ... module name
+        lua_rawget(L,-2);       // ... module module[name]
+        // Is module[name] a class table?
+        lua_pushliteral(L, ".isclass");
+        lua_rawget(L, -2);                  // stack: ... module module[name] class_flag
         if (lua_isnil(L, -1)) {
-            lua_pop(L, 1);
-            lua_pushstring(L,name);
-            lua_rawget(L,-2);
+            lua_pop(L, 1);                  // stack: ... module module[name]
+            return;                         // not a class table, use origin table
+        }
+        lua_pop(L, 1);                      // stack: ... module class_table
+        // get metatable
+        if (lua_getmetatable(L, -1)) {  // ... module class_table mt
+            lua_remove(L, -2);          // ... module mt
         }
 //---- by SunLightJuly, 2014.6.5
-    }
-    else
+    } else {
         lua_pushvalue(L,LUA_GLOBALSINDEX);
+    }
 }
 
 /* End module

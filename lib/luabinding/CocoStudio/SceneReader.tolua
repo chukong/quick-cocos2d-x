@@ -1,0 +1,20 @@
+typedef enum {
+
+    ATTACH_EMPTY_NODE,
+
+    ATTACH_RENDER_NODE,
+
+    DEFAULT = ATTACH_EMPTY_NODE,
+} AttachComponentType;
+
+class SceneReader
+{
+    SceneReader(void);
+    virtual ~SceneReader(void);
+
+    static SceneReader* sharedSceneReader();
+    void purge();
+    static const char* sceneReaderVersion();
+    CCNode* createNodeWithSceneFile(const char *pszFileName, AttachComponentType eAttachComponent = ATTACH_EMPTY_NODE);
+    CCNode* getNodeByTag(int nTag);
+};

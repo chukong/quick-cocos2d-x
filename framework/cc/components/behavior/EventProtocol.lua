@@ -131,7 +131,7 @@ function EventProtocol:removeAllEventListeners()
 end
 
 function EventProtocol:hasEventListener(eventName)
-    event.name = string.upper(tostring(eventName))
+    eventName = string.upper(tostring(eventName))
     local t = self.listeners_[eventName]
     for _, __ in pairs(t) do
         return true

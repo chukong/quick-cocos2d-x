@@ -189,8 +189,12 @@ bool CCGLProgram::compileShader(GLuint * shader, GLenum type, const GLchar* sour
     }
     
     const GLchar *sources[] = {
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32 && CC_TARGET_PLATFORM != CC_PLATFORM_LINUX && CC_TARGET_PLATFORM != CC_PLATFORM_MAC && CC_TARGET_PLATFORM != CC_PLATFORM_QT)
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32 && CC_TARGET_PLATFORM != CC_PLATFORM_LINUX && CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_NACL
+        "precision highp float;\n"
+#else
         (type == GL_VERTEX_SHADER ? "precision highp float;\n" : "precision mediump float;\n"),
+#endif
 #endif
         "uniform mat4 CC_PMatrix;\n"
         "uniform mat4 CC_MVMatrix;\n"

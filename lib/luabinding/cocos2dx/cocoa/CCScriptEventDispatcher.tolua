@@ -32,10 +32,9 @@
 
 class CCScriptEventDispatcher : public CCObject
 {
-    int addScriptEventListener @ addNodeEventListener (int event, LUA_FUNCTION listener, int tag = 0, int priority = 0);
+    int addScriptEventListener @ addNodeEventListener (int event, LUA_FUNCTION listener, int tag = 0);
     void removeScriptEventListener @ removeNodeEventListener (int handle);
     void removeScriptEventListenersByEvent @ removeNodeEventListenersByEvent(int event);
     void removeScriptEventListenersByTag @ removeNodeEventListenersByTag(int tag);
     void removeAllScriptEventListeners @ removeAllNodeEventListeners();
-    bool hasScriptEventListener @ hasNodeEventListener(int event);
 };

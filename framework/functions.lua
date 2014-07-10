@@ -338,6 +338,12 @@ function class(classname, super)
     return cls
 end
 
+-- 提供假名以避免和 moonscript 发生冲突
+function quick_class(classname, super)
+  return class(classname, super)
+end
+
+
 --[[--
 
 如果对象是指定类或其子类的实例，返回 true，否则返回 false

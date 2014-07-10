@@ -446,9 +446,6 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
         // all images are handled by UIImage except PVR extension that is handled by our own handler
         do 
         {
-
-#ifndef QUICK_MINI_TARGET
-
             if (std::string::npos != lowerCase.find(".pvr"))
             {
                 texture = this->addPVRImage(fullpath.c_str());
@@ -459,18 +456,12 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                 texture = this->addETCImage(fullpath.c_str());
             }
             else
-
-#endif // QUICK_MINI_TARGET
-
             {
                 EImageFormat eImageFormat = kFmtUnKnown;
                 if (std::string::npos != lowerCase.find(".png"))
                 {
                     eImageFormat = kFmtPng;
                 }
-
-#ifndef QUICK_MINI_TARGET
-
                 else if (std::string::npos != lowerCase.find(".jpg") || std::string::npos != lowerCase.find(".jpeg"))
                 {
                     eImageFormat = kFmtJpg;
@@ -479,8 +470,6 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
                 {
                     eImageFormat = kFmtTiff;
                 }
-#endif // QUICK_MINI_TARGET
-
                 else if (std::string::npos != lowerCase.find(".webp"))
                 {
                     eImageFormat = kFmtWebp;
@@ -519,8 +508,6 @@ CCTexture2D * CCTextureCache::addImage(const char * path)
     //pthread_mutex_unlock(m_pDictLock);
     return texture;
 }
-
-#ifndef QUICK_MINI_TARGET
 
 CCTexture2D * CCTextureCache::addPVRImage(const char* path)
 {
@@ -583,8 +570,6 @@ CCTexture2D* CCTextureCache::addETCImage(const char* path)
     
     return texture;
 }
-
-#endif // QUICK_MINI_TARGET
 
 CCTexture2D* CCTextureCache::addUIImage(CCImage *image, const char *key)
 {
@@ -935,8 +920,6 @@ void VolatileTexture::reloadAllTextures()
                     lowerCase[i] = tolower(lowerCase[i]);
                 }
 
-#ifndef QUICK_MINI_TARGET
-
                 if (std::string::npos != lowerCase.find(".pvr")) 
                 {
                     CCTexture2DPixelFormat oldPixelFormat = CCTexture2D::defaultAlphaPixelFormat();
@@ -946,9 +929,6 @@ void VolatileTexture::reloadAllTextures()
                     CCTexture2D::setDefaultAlphaPixelFormat(oldPixelFormat);
                 } 
                 else 
-
-#endif
-
                 {
                     CCImage* pImage = new CCImage();
                     unsigned long nSize = 0;
