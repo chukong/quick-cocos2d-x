@@ -91,6 +91,7 @@ static id s_sharedDirectorCaller;
                       
 -(void) doCaller: (id) sender
 {
+    [EAGLContext setCurrentContext: [[EAGLView sharedEGLView] context]];
     cocos2d::CCDirector::sharedDirector()->mainLoop();
 }
 

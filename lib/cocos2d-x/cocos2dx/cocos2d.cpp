@@ -30,7 +30,7 @@ NS_CC_BEGIN
 
 const char* cocos2dVersion()
 {
-    return "quick-cocos2d-x 2.2.4";
+    return "quick-cocos2d-x 2.2.5";
 }
 
 NS_CC_END

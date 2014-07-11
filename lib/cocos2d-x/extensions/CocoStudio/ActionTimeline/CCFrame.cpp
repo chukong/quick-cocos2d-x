@@ -216,7 +216,7 @@ void SkewFrame::onEnter(Frame *nextFrame)
     _node->setSkewX(_skewX);
     _node->setSkewY(_skewY);
     
-    if(_tween && (_betweenSkewX != 0 || _betweenSkewY != 0))
+    if(_tween)
     {
         _betweenSkewX = static_cast<SkewFrame*>(nextFrame)->_skewX - _skewX;
         _betweenSkewY = static_cast<SkewFrame*>(nextFrame)->_skewY - _skewY;
@@ -226,7 +226,7 @@ void SkewFrame::onEnter(Frame *nextFrame)
 
 void SkewFrame::apply(float percent)
 {
-    if (_tween)
+    if (_tween && (_betweenSkewX != 0 || _betweenSkewY != 0))
     {
         float skewx = _skewX + percent * _betweenSkewX;
         float skewy = _skewY + percent * _betweenSkewY;
@@ -272,7 +272,7 @@ void RotationSkewFrame::onEnter(Frame *nextFrame)
     _node->setRotationX(_skewX);
     _node->setRotationY(_skewY);
     
-    if (_tween && (_betweenSkewX != 0 || _betweenSkewY != 0))
+    if (_tween)
     {
         _betweenSkewX = static_cast<RotationSkewFrame*>(nextFrame)->_skewX - _skewX;
         _betweenSkewY = static_cast<RotationSkewFrame*>(nextFrame)->_skewY - _skewY;
@@ -281,7 +281,7 @@ void RotationSkewFrame::onEnter(Frame *nextFrame)
 
 void RotationSkewFrame::apply(float percent)
 {
-    if (_tween)
+    if (_tween && (_betweenSkewX != 0 || _betweenSkewY != 0))
     {
         float skewx = _skewX + percent * _betweenSkewX;
         float skewy = _skewY + percent * _betweenSkewY;
@@ -503,6 +503,7 @@ ColorFrame::ColorFrame()
 
 void ColorFrame::onEnter(Frame *nextFrame)
 {
+    if (!_node) return;
     _node->setOpacity(_alpha);
     _node->setColor(_color);
     
@@ -518,12 +519,14 @@ void ColorFrame::onEnter(Frame *nextFrame)
 
     _node->setCascadeColorEnabled(true);
     _node->setCascadeOpacityEnabled(true);
+
 }
 
 void ColorFrame::apply(float percent)
 {
     if (_tween && (_betweenAlpha != 0 || _betweenRed != 0 || _betweenGreen != 0 || _betweenBlue != 0))
     {
+        if (!_node) return;
         GLubyte alpha = _alpha + _betweenAlpha * percent;
 
         cocos2d::ccColor3B color;

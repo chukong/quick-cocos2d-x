@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -81,8 +81,8 @@ void ActionManager::initWithBinary(const char* file, cocos2d::CCObject *root,  C
 	std::string fileName = path.substr(pos+1,path.length());
 	CCLOG("filename == %s",fileName.c_str());
 	CCArray* actionList = CCArray::create();
-    
-    stExpCocoNode *stChildArray = pCocoNode->GetChildArray();
+
+    stExpCocoNode *stChildArray = pCocoNode->GetChildArray(pCocoLoader);
     stExpCocoNode *actionNode = NULL;
     for (int i=0; i < pCocoNode->GetChildNum(); ++i) {
         std::string key = stChildArray[i].GetName(pCocoLoader);
@@ -97,9 +97,9 @@ void ActionManager::initWithBinary(const char* file, cocos2d::CCObject *root,  C
         for (int i = 0; i < actionCount; ++i) {
             ActionObject* action = new ActionObject();
             action->autorelease();
-            
-            action->initWithBinary(pCocoLoader, actionNode->GetChildArray(), root);
-            
+
+            action->initWithBinary(pCocoLoader, actionNode->GetChildArray(pCocoLoader), root);
+
             actionList->addObject(action);
         }
 	}

@@ -199,7 +199,7 @@ void NodeReader::purge()
 void NodeReader::init()
 {
     _funcs = new cocos2d::CCDictionary();
-    
+
     _funcs->setObject(NodeCreateCallFunc::create(this, NodeCreateCallback_selector(NodeReader::loadSimpleNode)), ClassName_Node);
     _funcs->setObject(NodeCreateCallFunc::create(this, NodeCreateCallback_selector(NodeReader::loadSprite)),     ClassName_Sprite);
     _funcs->setObject(NodeCreateCallFunc::create(this, NodeCreateCallback_selector(NodeReader::loadParticle)),   ClassName_Particle);
@@ -221,7 +221,7 @@ void NodeReader::init()
 	_funcs->setObject(NodeCreateCallFunc::create(this, NodeCreateCallback_selector(NodeReader::loadWidget)),   ClassName_Panel);
 	_funcs->setObject(NodeCreateCallFunc::create(this, NodeCreateCallback_selector(NodeReader::loadWidget)),   ClassName_Label);
 	_funcs->setObject(NodeCreateCallFunc::create(this, NodeCreateCallback_selector(NodeReader::loadWidget)),   ClassName_TextField);
-	
+
 
 	_guiReader = new WidgetPropertiesReader0300();
 }
@@ -266,12 +266,12 @@ cocos2d::CCNode* NodeReader::loadNodeWithContent(const std::string& content)
 {
     rapidjson::Document doc;
     doc.Parse<0>(content.c_str());
-    if (doc.HasParseError()) 
+    if (doc.HasParseError())
     {
         CCLOG("GetParseError %s\n", doc.GetParseError());
     }
-    
-    // decode plist 
+
+    // decode plist
     int length = DICTOOL->getArrayCount_json(doc, TEXTURES);
     for(int i=0; i<length; i++)
     {
@@ -319,6 +319,7 @@ cocos2d::CCNode* NodeReader::loadNode(const rapidjson::Value& json, cocos2d::CCN
             else
             {
                 cocos2d::ui::TouchGroup* group = cocos2d::ui::TouchGroup::create();
+                group->setZOrder(widget->getZOrder());
                 group->addWidget(widget);
                 parent->addChild(group);
             }
@@ -392,13 +393,11 @@ void NodeReader::initNode(cocos2d::CCNode* node, const rapidjson::Value& json)
 
     if(alpha != 255)
     {
-        node->setOpacity(alpha); 
-        node->setCascadeOpacityEnabled(true);
+        node->setOpacity(alpha);
     }
     if(red != 255 || green != 255 || blue != 255)
     {
         node->setColor(ccc3(red, green, blue));
-        node->setCascadeColorEnabled(true);
     }
 
     node->setTag(tag);
@@ -486,7 +485,7 @@ CCNode* NodeReader::loadWidget(const rapidjson::Value& json, cocos2d::CCNode* pa
 }
 
 bool NodeReader::isUiWidget(const std::string &type)
-{    
+{
     return (type == ClassName_Button
         || type == ClassName_CheckBox
         || type == ClassName_ImageView
@@ -497,7 +496,7 @@ bool NodeReader::isUiWidget(const std::string &type)
         || type == ClassName_Slider
         || type == ClassName_Layout
         || type == ClassName_ScrollView
-        || type == ClassName_ListView        
+        || type == ClassName_ListView
         || type == ClassName_PageView
         || type == ClassName_Widget
         || type == ClassName_Panel

@@ -57,7 +57,7 @@ public:
             DeleteObject(m_hFont);
             m_hFont = hDefFont;
         }
-		// release temp font resource	
+		// release temp font resource
 		if (m_curFontPath.size() > 0)
 		{
 			wchar_t * pwszBuffer = utf8ToUtf16(m_curFontPath);
@@ -74,7 +74,7 @@ public:
 	wchar_t * utf8ToUtf16(std::string nString)
 	{
 		wchar_t * pwszBuffer = NULL;
-		do 
+		do
 		{
 			if (nString.size() < 0)
 			{
@@ -82,13 +82,13 @@ public:
 			}
 			// utf-8 to utf-16
 			int nLen = nString.size();
-			int nBufLen  = nLen + 1;			
+			int nBufLen  = nLen + 1;
 			pwszBuffer = new wchar_t[nBufLen];
 			CC_BREAK_IF(! pwszBuffer);
 			memset(pwszBuffer,0,nBufLen);
-			nLen = MultiByteToWideChar(CP_UTF8, 0, nString.c_str(), nLen, pwszBuffer, nBufLen);		
+			nLen = MultiByteToWideChar(CP_UTF8, 0, nString.c_str(), nLen, pwszBuffer, nBufLen);
 			pwszBuffer[nLen] = '\0';
-		} while (0);	
+		} while (0);
 		return pwszBuffer;
 
 	}
@@ -96,7 +96,7 @@ public:
     bool setFont(const char * pFontName = NULL, int nSize = 0)
     {
         bool bRet = false;
-        do 
+        do
         {
             std::string fontName = pFontName;
             std::string fontPath;
@@ -105,7 +105,7 @@ public:
             LOGFONTA    tOldFont = {0};
             GetObjectA(hDefFont, sizeof(tNewFont), &tNewFont);
             if (fontName.c_str())
-            {    
+            {
                 // create font from ttf file
                 int nFindttf = fontName.find(".ttf");
                 int nFindTTF = fontName.find(".TTF");
@@ -115,7 +115,22 @@ public:
                     int nFindPos = fontName.rfind("/");
                     fontName = &fontName[nFindPos+1];
                     nFindPos = fontName.rfind(".");
-                    fontName = fontName.substr(0,nFindPos);                
+                    fontName = fontName.substr(0,nFindPos);
+                }
+                else
+                {
+                    size_t nFindPos = fontName.rfind("/");
+                    if (nFindPos != fontName.npos)
+                    {
+                        if (fontName.length() == nFindPos + 1)
+                        {
+                            fontName = "";
+                        }
+                        else
+                        {
+                            fontName = &fontName[nFindPos+1];
+                        }
+                    }
                 }
                 tNewFont.lfCharSet = DEFAULT_CHARSET;
                 strcpy_s(tNewFont.lfFaceName, LF_FACESIZE, fontName.c_str());
@@ -129,7 +144,7 @@ public:
             if (tOldFont.lfHeight == tNewFont.lfHeight
                 && 0 == strcmp(tOldFont.lfFaceName, tNewFont.lfFaceName))
             {
-                // already has the font 
+                // already has the font
                 bRet = true;
                 break;
             }
@@ -147,7 +162,7 @@ public:
 						if(RemoveFontResource(pwszBuffer))
 						{
 							SendMessage( m_hWnd, WM_FONTCHANGE, 0, 0);
-						}						
+						}
 						delete [] pwszBuffer;
 						pwszBuffer = NULL;
 					}
@@ -165,7 +180,7 @@ public:
 						if(AddFontResource(pwszBuffer))
 						{
 							SendMessage( m_hWnd, WM_FONTCHANGE, 0, 0);
-						}						
+						}
 						delete [] pwszBuffer;
 						pwszBuffer = NULL;
 					}
@@ -184,7 +199,7 @@ public:
                 m_hFont = hDefFont;
                 break;
             }
-            
+
             bRet = true;
         } while (0);
         return bRet;
@@ -193,7 +208,7 @@ public:
     SIZE sizeWithText(const wchar_t * pszText, int nLen, DWORD dwFmt, LONG nWidthLimit)
     {
         SIZE tRet = {0};
-        do 
+        do
         {
             CC_BREAK_IF(! pszText || nLen <= 0);
 
@@ -244,7 +259,7 @@ public:
     {
         int nRet = 0;
         wchar_t * pwszBuffer = 0;
-        do 
+        do
         {
             CC_BREAK_IF(! pszText);
 
@@ -336,7 +351,7 @@ public:
             // draw text
             HGDIOBJ hOldFont = SelectObject(m_hDC, m_hFont);
             HGDIOBJ hOldBmp  = SelectObject(m_hDC, m_hBmp);
-            
+
             SetBkMode(m_hDC, TRANSPARENT);
             SetTextColor(m_hDC, RGB(255, 255, 255)); // white color
 
@@ -367,17 +382,17 @@ static BitmapDC& sharedBitmapDC()
 }
 
 bool CCImage::initWithString(
-                               const char *    pText, 
-                               int             nWidth/* = 0*/, 
+                               const char *    pText,
+                               int             nWidth/* = 0*/,
                                int             nHeight/* = 0*/,
                                ETextAlign      eAlignMask/* = kAlignCenter*/,
                                const char *    pFontName/* = nil*/,
                                int             nSize/* = 0*/)
 {
     bool bRet = false;
-    do 
+    do
     {
-        CC_BREAK_IF(! pText);       
+        CC_BREAK_IF(! pText);
 
         BitmapDC& dc = sharedBitmapDC();
 
@@ -405,7 +420,7 @@ bool CCImage::initWithString(
             int mask[4];
         } bi = {0};
         bi.bmiHeader.biSize = sizeof(bi.bmiHeader);
-        CC_BREAK_IF(! GetDIBits(dc.getDC(), dc.getBitmap(), 0, 0, 
+        CC_BREAK_IF(! GetDIBits(dc.getDC(), dc.getBitmap(), 0, 0,
             NULL, (LPBITMAPINFO)&bi, DIB_RGB_COLORS));
 
         m_nWidth    = (short)width;
@@ -416,7 +431,7 @@ bool CCImage::initWithString(
         // copy pixed data
         bi.bmiHeader.biHeight = (bi.bmiHeader.biHeight > 0)
            ? - bi.bmiHeader.biHeight : bi.bmiHeader.biHeight;
-        GetDIBits(dc.getDC(), dc.getBitmap(), 0, m_nHeight, m_pData, 
+        GetDIBits(dc.getDC(), dc.getBitmap(), 0, m_nHeight, m_pData,
             (LPBITMAPINFO)&bi, DIB_RGB_COLORS);
 
         // change pixel's alpha value to 255, when it's RGB != 0
