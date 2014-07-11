@@ -1,5 +1,7 @@
 
 
+#include <algorithm>
+
 #include "LabelReader.h"
 #include "../../../GUI/UIWidgets/UILabel.h"
 
@@ -13,12 +15,12 @@ IMPLEMENT_CLASS_WIDGET_READER_INFO(LabelReader)
 
 LabelReader::LabelReader()
 {
-    
+
 }
 
 LabelReader::~LabelReader()
 {
-    
+
 }
 
 LabelReader* LabelReader::getInstance()
@@ -33,18 +35,18 @@ LabelReader* LabelReader::getInstance()
 void LabelReader::setPropsFromJsonDictionary(ui::Widget *widget, const rapidjson::Value &options)
 {
     WidgetReader::setPropsFromJsonDictionary(widget, options);
-    
-    
+
+
     std::string jsonPath = GUIReader::shareReader()->getFilePath();
-    
+
     ui::Label* label = (ui::Label*)widget;
     bool touchScaleChangeAble = DICTOOL->getBooleanValue_json(options, "touchScaleEnable");
     label->setTouchScaleChangeEnabled(touchScaleChangeAble);
     const char* text = DICTOOL->getStringValue_json(options, "text","Text Label");
     label->setText(text);
-   
+
     label->setFontSize(DICTOOL->getIntValue_json(options, "fontSize",20));
-    
+
     std::string fontName = DICTOOL->getStringValue_json(options, "fontName","微软雅黑");
     std::string file_extension = "";
     size_t pos = fontName.find_last_of('.');
@@ -53,7 +55,7 @@ void LabelReader::setPropsFromJsonDictionary(ui::Widget *widget, const rapidjson
         file_extension = fontName.substr(pos, fontName.length());
         std::transform(file_extension.begin(),file_extension.end(), file_extension.begin(), (int(*)(int))toupper);
     }
-    
+
     if (file_extension.compare(".TTF") == 0)
     {
         std::string fontFilePath = jsonPath.append(fontName);
@@ -63,7 +65,7 @@ void LabelReader::setPropsFromJsonDictionary(ui::Widget *widget, const rapidjson
     {
         label->setFontName(fontName);
     }
-    
+
     bool aw = DICTOOL->checkObjectExist_json(options, "areaWidth");
     bool ah = DICTOOL->checkObjectExist_json(options, "areaHeight");
     if (aw && ah)
@@ -81,25 +83,25 @@ void LabelReader::setPropsFromJsonDictionary(ui::Widget *widget, const rapidjson
     {
         label->setTextVerticalAlignment((CCVerticalTextAlignment)DICTOOL->getIntValue_json(options, "vAlignment"));
     }
-    
-    
+
+
     WidgetReader::setColorPropsFromJsonDictionary(widget, options);
 }
 
 void LabelReader::setPropsFromBinary(cocos2d::ui::Widget *widget, CocoLoader *pCocoLoader, stExpCocoNode *pCocoNode)
 {
     this->beginSetBasicProperties(widget);
-    
+
     stExpCocoNode *stChildArray = pCocoNode->GetChildArray(pCocoLoader);
-    
+
     ui::Label* label = static_cast<ui::Label*>(widget);
-    
-    
+
+
     for (int i = 0; i < pCocoNode->GetChildNum(); ++i) {
         std::string key = stChildArray[i].GetName(pCocoLoader);
         std::string value = stChildArray[i].GetValue(pCocoLoader);
         //            CCLOG("Text: key = %s, value = %s", key.c_str(), value.c_str());
-        
+
         if (key == "ignoreSize") {
             widget->ignoreContentAdaptWithSize(valueToBool(value));
         }else if(key == "sizeType"){
@@ -147,16 +149,16 @@ void LabelReader::setPropsFromBinary(cocos2d::ui::Widget *widget, CocoLoader *pC
             widget->setZOrder(valueToInt(value));
         }else if(key == "layoutParameter"){
             stExpCocoNode *layoutCocosNode = stChildArray[i].GetChildArray(pCocoLoader);
-            
+
             LinearLayoutParameter *linearParameter = LinearLayoutParameter::create();
             RelativeLayoutParameter *relativeParameter = RelativeLayoutParameter::create();
             Margin mg;
-            
+
             int paramType = -1;
             for (int j = 0; j < stChildArray[i].GetChildNum(); ++j) {
                 std::string innerKey = layoutCocosNode[j].GetName(pCocoLoader);
                 std::string innerValue = layoutCocosNode[j].GetValue(pCocoLoader);
-                
+
                 if (innerKey == "type") {
                     paramType = valueToInt(innerValue);
                 }else if(innerKey == "gravity"){
@@ -177,10 +179,10 @@ void LabelReader::setPropsFromBinary(cocos2d::ui::Widget *widget, CocoLoader *pC
                     mg.bottom = valueToFloat(innerValue);
                 }
             }
-            
+
             linearParameter->setMargin(mg);
             relativeParameter->setMargin(mg);
-            
+
             switch (paramType) {
                 case 1:
                 widget->setLayoutParameter(linearParameter);
@@ -191,7 +193,7 @@ void LabelReader::setPropsFromBinary(cocos2d::ui::Widget *widget, CocoLoader *pC
                 break;
             }
         }
-        
+
         else if (key == "opacity") {
             _opacity = valueToInt(value);
         }
@@ -215,7 +217,7 @@ void LabelReader::setPropsFromBinary(cocos2d::ui::Widget *widget, CocoLoader *pC
         else if (key == "touchScaleEnable") {
             label->setTouchScaleChangeEnabled(valueToBool(value));
         }
-        
+
         else if(key == "text"){
             label->setText(value);
         }else if(key == "fontSize"){
@@ -233,7 +235,7 @@ void LabelReader::setPropsFromBinary(cocos2d::ui::Widget *widget, CocoLoader *pC
         }else if(key == "vAlignment"){
             label->setTextVerticalAlignment((CCVerticalTextAlignment)valueToInt(value));
         }
-        
+
     } //end of for loop
     this->endSetBasicProperties(widget);
 }
