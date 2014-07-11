@@ -24,6 +24,7 @@
 #import <Foundation/Foundation.h>
 #import "CCDirectorCaller.h"
 #import "CCDirector.h"
+#import "EAGLView.h"
 
 static id s_sharedDirectorCaller;
 
