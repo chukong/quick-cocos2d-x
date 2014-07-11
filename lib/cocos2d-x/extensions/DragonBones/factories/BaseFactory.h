@@ -32,6 +32,9 @@ namespace dragonBones
         //add load function for SkeletonFile and TextureAtlasFile
         virtual void loadSkeletonFile(const String &skeletonFile , const String &name  = "") = 0;
         virtual void loadTextureAtlasFile(const String &textureAtlasFile , const String &name = "") = 0;
+
+		bool existSkeletonDataInDic(const String &name);
+		bool existTextureDataInDic(const String &name);
         /**
          * Parses the raw data and returns a SkeletonData instance.    
          * @example 

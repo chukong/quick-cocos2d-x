@@ -69,8 +69,6 @@ bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , uns
     setShaderProgram(CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture_uColor));
     m_nUniformColor = glGetUniformLocation( getShaderProgram()->getProgram(), "u_color");
 
-
-    // ���¶�������
     cocos2d::ccV3F_C4B_T2F_Quad & quad = textureAtlas->getQuads()[quadIndex];
 
     quad.bl.vertices.x = sourceRect.getMinX();

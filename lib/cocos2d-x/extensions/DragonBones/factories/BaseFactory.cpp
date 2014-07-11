@@ -10,6 +10,28 @@ namespace dragonBones
     BaseFactory::BaseFactory()
     {
     }
+	bool BaseFactory::existSkeletonDataInDic(const String &name)
+	{
+		if (_dataDic.find(name) != _dataDic.end())
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
+	}
+	bool BaseFactory::existTextureDataInDic(const String &name)
+	{
+		if (_textureAtlasDic.find(name) != _textureAtlasDic.end())
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
+	}
 
     /**
     * Parses the raw data and returns a SkeletonData instance.    

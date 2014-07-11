@@ -21,8 +21,8 @@ namespace dragonBones
         const char* animationName)
     {
         Cocos2dxFactory *fac = Cocos2dxFactory::getInstance();
-        fac->loadSkeletonFile(skeletonXMLFile);
-        fac->loadTextureAtlasFile(textureXMLFile);
+        fac->loadSkeletonFile(skeletonXMLFile, dragonBonesName);
+        fac->loadTextureAtlasFile(textureXMLFile, dragonBonesName);
         return fac->buildArmature(armatureName, animationName, dragonBonesName);
     }
 
@@ -46,7 +46,7 @@ namespace dragonBones
         CCDragonBones* pNew = new CCDragonBones();
         if (pNew && pNew->init())
         {
-            Armature*arm = CCDragonBones::buildArmature(skeletonXMLFile,
+            Armature* arm = CCDragonBones::buildArmature(skeletonXMLFile,
                 textureXMLFile,
                 dragonBonesName,
                 armatureName,
@@ -178,7 +178,9 @@ namespace dragonBones
 
     void CCDragonBones::onExit()
     {
+		DB_SAFE_DELETE(m_Armature);
         this->unscheduleAllSelectors();
+        CCNode::onExit();
     }
 
     void CCDragonBones::registerScriptHandler(int funId, String type)

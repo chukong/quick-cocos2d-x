@@ -57,6 +57,7 @@ namespace dragonBones
     */
     void Cocos2dxTextureAtlas::dispose()
     {
+		DB_SAFE_DELETE(_textureAtlasRawData);
         _textureAtlasRawData = 0;
         CC_SAFE_RELEASE_NULL(textureAtlas);
     }

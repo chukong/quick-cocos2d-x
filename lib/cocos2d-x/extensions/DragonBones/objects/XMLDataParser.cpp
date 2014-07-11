@@ -272,7 +272,18 @@ namespace dragonBones
         parseFrame(frameXML, frame, frameRate);
 
         frame->visible = uint(frameXML->IntAttribute(ConstValues::A_HIDE.c_str())) != 1;
-        frame->tweenEasing = Number(frameXML->DoubleAttribute(ConstValues::A_TWEEN_EASING.c_str()));
+
+        //frame->tweenEasing = Number(frameXML->DoubleAttribute(ConstValues::A_TWEEN_EASING.c_str()));
+	const char * tweenEasing = frameXML->Attribute(ConstValues::A_TWEEN_EASING.c_str());
+	if(tweenEasing  && strcmp( tweenEasing , "NaN" ) == 0)
+        {
+            frame->tweenEasing = NaN;
+        }
+        else
+        {
+            frame->tweenEasing = Number(frameXML->DoubleAttribute(ConstValues::A_TWEEN_EASING.c_str()));
+        }
+
         frame->tweenRotate = int(frameXML->DoubleAttribute(ConstValues::A_TWEEN_ROTATE.c_str()));
         frame->displayIndex = int(frameXML->DoubleAttribute(ConstValues::A_DISPLAY_INDEX.c_str()));
         //

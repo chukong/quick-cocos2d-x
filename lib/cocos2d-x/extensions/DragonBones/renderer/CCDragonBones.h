@@ -7,8 +7,8 @@
 //	Modified by zrong(zengrong.net) on 2014-04-22
 //
 
-#ifndef __QUICKCOCOS2DX__CCDRAGONBONES__
-#define __QUICKCOCOS2DX__CCDRAGONBONES__
+#ifndef __CCDRAGONBONES__
+#define __CCDRAGONBONES__
 
 #include <iostream>
 #include "cocos2d.h"
@@ -76,12 +76,12 @@ namespace dragonBones {
 
         
     private:
-        void initWithArmature(Armature*arm);
+        void initWithArmature(Armature* arm);
         void update(float dt);
         Armature* m_Armature; 
 		cocos2d::SEL_CallFuncND	m_Callback;
 		cocos2d::CCObject*	m_Caller;
-		void eventBridge(Event*e);
+		void eventBridge(Event* e);
     }; 
 }
-#endif // __QUICKCOCOS2DX__CCDRAGONBONES__
+#endif // __CCDRAGONBONES__

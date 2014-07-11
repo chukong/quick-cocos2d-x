@@ -449,7 +449,7 @@
 		42E41B7D190A40DA0097EAF5 /* Cocos2dxDisplayBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxDisplayBridge.h; sourceTree = "<group>"; };
 		42E41B7E190A40DA0097EAF5 /* Cocos2dxFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxFactory.cpp; sourceTree = "<group>"; };
 		42E41B7F190A40DA0097EAF5 /* Cocos2dxFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxFactory.h; sourceTree = "<group>"; };
-		42E41B80190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxTextureAtlas.cpp; sourceTree = "<group>"; };
+		42E41B80190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxTextureAtlas.cpp; sourceTree = "<group>"; usesTabs = 0; };
 		42E41B81190A40DA0097EAF5 /* Cocos2dxTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxTextureAtlas.h; sourceTree = "<group>"; };
 		42E41B82190A40DA0097EAF5 /* Slot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slot.cpp; sourceTree = "<group>"; };
 		42E41B83190A40DA0097EAF5 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
