@@ -26,7 +26,7 @@ CONFIG_SCREEN_AUTOSCALE = "FIXED_WIDTH"
 
 -- IAP Products ID
 STORE_PRODUCTS_ID = {
-    "com.quick-x.sample.iap4ios.product01",
-    "com.quick-x.sample.iap4ios.product02",
-    "com.quick-x.sample.iap4ios.product03",
+    "org.cocos.quick.samples.iap4ios.product01",
+    "org.cocos.quick.samples.iap4ios.product02",
+    "org.cocos.quick.samples.iap4ios.product03",
 }
