@@ -470,9 +470,24 @@ CCPhysicsShape *CCPhysicsBody::addCircleShape(float radius, float offsetX/*= 0*/
     return addShape(cpCircleShapeNew(m_body, radius, cpv(offsetX, offsetY)));
 }
 
-CCPhysicsShape *CCPhysicsBody::addBoxShape(float width, float height)
+/*CCPhysicsShape *CCPhysicsBody::addBoxShape(float width, float height)
 {
     return addShape(cpBoxShapeNew(m_body, width, height));
+}*/
+
+CCPhysicsShape *CCPhysicsBody::addBoxShape(float width, float height, float offsetX, float offsetY)
+{
+	cpFloat hw = width / 2.0f;
+	cpFloat hh = height / 2.0f;
+	cpBB box = cpBBNew(-hw, -hh, hw, hh);
+	cpVect verts[] = {
+		cpv(box.l, box.b),
+		cpv(box.l, box.t),
+		cpv(box.r, box.t),
+		cpv(box.r, box.b),
+	};
+
+	return addShape((cpShape *)cpPolyShapeInit(cpPolyShapeAlloc(), m_body, 4, verts, cpv(offsetX, offsetY)));
 }
 
 CCPhysicsShape *CCPhysicsBody::addPolygonShape(CCPointArray *vertexes, float offsetX/*= 0*/, float offsetY/*= 0*/)
