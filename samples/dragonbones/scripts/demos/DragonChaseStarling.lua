@@ -67,9 +67,10 @@ function DragonChaseStarling:_checkDistance()
 end
 
 function DragonChaseStarling:_updateBones()
+	local dbsize = self._db:getContentSize()
   	-- update the bones' pos or rotation
     _r = math.pi + math.atan2(self._db:getPositionY() + 
-		self._db:getContentSize().height / 2-_touchY , 
+		dbsize.height / 2-_touchY , 
 		_touchX - self._db:getPositionX())
     if _r > math.pi then
         _r = _r - math.pi * 2;
@@ -117,6 +118,7 @@ function DragonChaseStarling:_createDB()
 		:addTo(self, 10)
 		:pos(display.cx, display.cy-200)
 
+	self._db:setContentSize(cc.size(373,377))
     _head = self._db:getArmature():getBone("head")
     _armR = self._db:getArmature():getBone("armUpperR")
     _armL = self._db:getArmature():getBone("armUpperL")
