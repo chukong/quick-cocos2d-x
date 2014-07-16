@@ -8,6 +8,11 @@
 
 没有同步的原因同上。
 
+2014-07-16 更新：
+
+1. 更新 DragonBonesCPP 库到最新，解决一些内存泄露；
+2. 为 CCAnimationCache/CCSpriteFrameCache 加入异步加载支持。
+
 2014-07-09 更新：
 
 1. 增加 samples/bytearray ；
