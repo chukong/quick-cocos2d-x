@@ -42,6 +42,8 @@ class CCSpriteFrameCache : public CCObject
     */
     void addSpriteFramesWithFile(const char* plist, const char* textureFileName);
 
+    void addSpriteFramesWithFileAsync(const char *pszPlist, const char* textureFileName, LUA_FUNCTION handler);
+
     /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames. */
     void addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture);
 

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Jul  8 15:02:32 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Jul 16 11:40:38 2014.
 */
 
 /****************************************************************************
@@ -24820,6 +24820,43 @@ static int tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFile00(lua_State*
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: addSpriteFramesWithFileAsync of class  CCSpriteFrameCache */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFileAsync00
+static int tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFileAsync00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCSpriteFrameCache",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !toluafix_isfunction(tolua_S,4,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCSpriteFrameCache* self = (CCSpriteFrameCache*)  tolua_tousertype(tolua_S,1,0);
+  const char* pszPlist = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* textureFileName = ((const char*)  tolua_tostring(tolua_S,3,0));
+  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addSpriteFramesWithFileAsync'", NULL);
+#endif
+  {
+   self->addSpriteFramesWithFileAsync(pszPlist,textureFileName,handler);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addSpriteFramesWithFileAsync'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: addSpriteFramesWithFile of class  CCSpriteFrameCache */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFile01
 static int tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFile01(lua_State* tolua_S)
@@ -27577,6 +27614,41 @@ static int tolua_Cocos2d_CCAnimationCache_addAnimationsWithFile00(lua_State* tol
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'addAnimationsWithFile'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addAnimationsWithFileAsync of class  CCAnimationCache */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCAnimationCache_addAnimationsWithFileAsync00
+static int tolua_Cocos2d_CCAnimationCache_addAnimationsWithFileAsync00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCAnimationCache",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !toluafix_isfunction(tolua_S,3,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCAnimationCache* self = (CCAnimationCache*)  tolua_tousertype(tolua_S,1,0);
+  const char* plist = ((const char*)  tolua_tostring(tolua_S,2,0));
+  LUA_FUNCTION handler = (  toluafix_ref_function(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addAnimationsWithFileAsync'", NULL);
+#endif
+  {
+   self->addAnimationsWithFileAsync(plist,handler);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addAnimationsWithFileAsync'.",&tolua_err);
  return 0;
 #endif
 }
@@ -68207,6 +68279,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_cclass(tolua_S,"CCSpriteFrameCache","CCSpriteFrameCache","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCSpriteFrameCache");
    tolua_function(tolua_S,"addSpriteFramesWithFile",tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFile00);
+   tolua_function(tolua_S,"addSpriteFramesWithFileAsync",tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFileAsync00);
    tolua_function(tolua_S,"addSpriteFramesWithFile",tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFile01);
    tolua_function(tolua_S,"addSpriteFramesWithFile",tolua_Cocos2d_CCSpriteFrameCache_addSpriteFramesWithFile02);
    tolua_function(tolua_S,"addSpriteFrame",tolua_Cocos2d_CCSpriteFrameCache_addSpriteFrame00);
@@ -68306,6 +68379,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"animationByName",tolua_Cocos2d_CCAnimationCache_animationByName00);
    tolua_function(tolua_S,"addAnimationsWithDictionary",tolua_Cocos2d_CCAnimationCache_addAnimationsWithDictionary00);
    tolua_function(tolua_S,"addAnimationsWithFile",tolua_Cocos2d_CCAnimationCache_addAnimationsWithFile00);
+   tolua_function(tolua_S,"addAnimationsWithFileAsync",tolua_Cocos2d_CCAnimationCache_addAnimationsWithFileAsync00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCGraySprite","CCGraySprite","CCSprite",NULL);
   tolua_beginmodule(tolua_S,"CCGraySprite");

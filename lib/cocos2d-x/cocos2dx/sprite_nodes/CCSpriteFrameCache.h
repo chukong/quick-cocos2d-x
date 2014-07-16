@@ -75,6 +75,9 @@ private:
     /*Adds multiple Sprite Frames with a dictionary. The texture will be associated with the created sprite frames.
      */
     void addSpriteFramesWithDictionary(CCDictionary* pobDictionary, CCTexture2D *pobTexture);
+    void addTextureAsyncCallBack(CCObject* obj);
+    void doAsyncCallBack(CCObject* target, SEL_CallFuncO selector, int handler=0);
+    CCDictionary* disposeMetadata(const char * pszPlist, string& texturePath);
 public:
     /** Adds multiple Sprite Frames from a plist file.
      * A texture will be loaded automatically. The texture name will composed by replacing the .plist suffix with .png
@@ -82,14 +85,21 @@ public:
      * @js addSpriteFrames
      */
     void addSpriteFramesWithFile(const char *pszPlist);
+    
+    void addSpriteFramesWithFileAsync(const char *path, CCObject *target, SEL_CallFuncO selector);
+    void addSpriteFramesWithFileAsync(const char *path, int handler);
 
     /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames.
      @since v0.99.5
      @js addSpriteFrames
      */
     void addSpriteFramesWithFile(const char* plist, const char* textureFileName);
+    
+    void addSpriteFramesWithFileAsync(const char *path, const char* textureFileName, CCObject *target, SEL_CallFuncO selector);
+    void addSpriteFramesWithFileAsync(const char *path, const char* textureFileName, int handler);
+    void addSpriteFramesWithFileAsyncImpl(const char *path, const char* textureFileName, CCObject *target, SEL_CallFuncO selector, int handler = 0);
 
-    /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames. 
+    /** Adds multiple Sprite Frames from a plist file. The texture will be associated with the created sprite frames.
      * @js addSpriteFrames
      */
     void addSpriteFramesWithFile(const char *pszPlist, CCTexture2D *pobTexture);
@@ -160,6 +170,7 @@ protected:
     CCDictionary* m_pSpriteFrames;
     CCDictionary* m_pSpriteFramesAliases;
     std::set<std::string>*  m_pLoadedFileNames;
+
 };
 
 // end of sprite_nodes group

@@ -28,20 +28,34 @@ THE SOFTWARE.
 
 #include "cocoa/CCNS.h"
 #include "ccMacros.h"
+#include "CCDirector.h"
 #include "textures/CCTextureCache.h"
 #include "CCSpriteFrameCache.h"
 #include "CCSpriteFrame.h"
 #include "CCSprite.h"
 #include "support/TransformUtils.h"
 #include "platform/CCFileUtils.h"
+#include "CCScheduler.h"
 #include "cocoa/CCString.h"
 #include "cocoa/CCArray.h"
 #include "cocoa/CCDictionary.h"
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 NS_CC_BEGIN
+
+using AsyncStruct = struct _AsyncStruct
+{
+    std::string pszPlist;
+    std::string texture;
+    CCObject* target;
+    SEL_CallFuncO selector;
+    int handler;
+};
+
+static std::queue<AsyncStruct*>* s_pAsyncStructQueue = nullptr;
 
 static CCSpriteFrameCache *pSharedSpriteFrameCache = NULL;
 
@@ -74,6 +88,11 @@ CCSpriteFrameCache::~CCSpriteFrameCache(void)
     CC_SAFE_RELEASE(m_pSpriteFrames);
     CC_SAFE_RELEASE(m_pSpriteFramesAliases);
     CC_SAFE_DELETE(m_pLoadedFileNames);
+    if(!s_pAsyncStructQueue)
+    {
+        delete s_pAsyncStructQueue;
+        s_pAsyncStructQueue = nullptr;
+    }
 }
 
 void CCSpriteFrameCache::addSpriteFramesWithDictionary(CCDictionary* dictionary, CCTexture2D *pobTexture)
@@ -226,6 +245,164 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char* plist, const char* 
     }
 }
 
+void CCSpriteFrameCache::addSpriteFramesWithFileAsync(const char *pszPlist, const char* textureFileName, cocos2d::CCObject *target, SEL_CallFuncO selector)
+{
+    addSpriteFramesWithFileAsyncImpl(pszPlist, textureFileName, target, selector);
+}
+
+void CCSpriteFrameCache::addSpriteFramesWithFileAsync(const char *pszPlist, const char* textureFileName, int handler)
+{
+    addSpriteFramesWithFileAsyncImpl(pszPlist, textureFileName, nullptr, nullptr, handler);
+}
+
+void CCSpriteFrameCache::addSpriteFramesWithFileAsyncImpl(const char *pszPlist, const char* textureFileName, CCObject *target, SEL_CallFuncO selector, int handler)
+{
+    CCAssert(pszPlist, "pszPlist name should not be null");
+    string texturePath("");
+    if(!textureFileName)
+    {
+        CCDictionary* dict = disposeMetadata(pszPlist, texturePath);
+        if(!dict)
+        {
+            addSpriteFramesWithFileAsyncImpl(pszPlist, texturePath.c_str(), target, selector, handler);
+            return;
+        }
+    }
+    else
+    {
+        texturePath = textureFileName;
+    }
+    //CCLOG("CCSpriteFrameCache::addSpriteFramesWithFileAsyncImpl %s", texturePath.c_str());
+    if(!texturePath.empty())
+    {
+        CCTexture2D* texture = CCTextureCache::sharedTextureCache()
+            ->textureForKey(texturePath.c_str());
+        if (texture)
+        {
+            addSpriteFramesWithFile(pszPlist, texture);
+            doAsyncCallBack(target, selector, handler);
+            return;
+        }
+    }
+    if (!s_pAsyncStructQueue)
+    {
+        s_pAsyncStructQueue = new queue<AsyncStruct*>();
+    }
+    // generate async struct
+    AsyncStruct *data = new AsyncStruct();
+    data->pszPlist = pszPlist;
+    data->texture = texturePath;
+    data->target = target;
+    data->selector = selector;
+    data->handler = handler;
+    
+    s_pAsyncStructQueue->push(data);
+    
+    CCTextureCache::sharedTextureCache()->addImageAsync(
+        texturePath.c_str(), this, callfuncO_selector(CCSpriteFrameCache::addTextureAsyncCallBack));
+}
+
+void CCSpriteFrameCache::doAsyncCallBack(CCObject* target, SEL_CallFuncO selector, int handler)
+{
+    //CCLOG("CCSpriteFrameCache::doAsyncCallBack target:%d selector:%d, handler:%d", target, selector, handler);
+    if (target && selector)
+    {
+        (target->*selector)(target);
+    }
+    if (handler)
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()
+            ->executeEvent(handler, "addSpriteFramesWithFileAsync");
+    }
+}
+
+void CCSpriteFrameCache::addTextureAsyncCallBack(CCObject* obj)
+{
+    AsyncStruct *pAsyncStruct = nullptr;
+    std::queue<AsyncStruct*> *pQueue = s_pAsyncStructQueue;
+    if(pQueue->empty())
+    {
+        // do nothing
+    }
+    else
+    {
+        pAsyncStruct = pQueue->front();
+        pQueue->pop();
+        
+        CCObject *target = pAsyncStruct->target;
+        SEL_CallFuncO selector = pAsyncStruct->selector;
+        const char* pszPlist = pAsyncStruct->pszPlist.c_str();
+        const char* texture = pAsyncStruct->texture.c_str();
+        int handler = pAsyncStruct->handler;
+        
+        //CCLOG("CCSpriteFrameCache::addTextureAsyncCallBack plist:%s, texture:%s", pszPlist, texture);
+        addSpriteFramesWithFile(pszPlist, texture);
+        doAsyncCallBack(target, selector, handler);
+        delete pAsyncStruct;
+    }
+}
+
+CCDictionary* CCSpriteFrameCache::disposeMetadata(const char * pszPlist, string& texturePath)
+{
+    if (m_pLoadedFileNames->find(pszPlist) == m_pLoadedFileNames->end())
+    {
+        std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(pszPlist);
+        CCDictionary* dict = CCDictionary::createWithContentsOfFileThreadSafe(fullPath.c_str());
+        
+        CCDictionary* metadataDict = (CCDictionary*)dict->objectForKey("metadata");
+        if (metadataDict)
+        {
+            // try to read  texture file name from meta data
+            texturePath = metadataDict->valueForKey("textureFileName")->getCString();
+        }
+        
+        if (! texturePath.empty())
+        {
+            // build texture path relative to plist file
+            texturePath = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile(texturePath.c_str(), pszPlist);
+        }
+        else
+        {
+            // build texture path by replacing file extension
+            texturePath = pszPlist;
+            
+            // remove .xxx
+            size_t startPos = texturePath.find_last_of(".");
+            texturePath = texturePath.erase(startPos);
+            
+            // append .png
+            texturePath = texturePath.append(".png");
+            
+            CCLOG("cocos2d: CCSpriteFrameCache: Trying to use file %s as texture", texturePath.c_str());
+        }
+        dict->release();
+        return dict;
+    }
+    return nullptr;
+}
+
+void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist)
+{
+    CCAssert(pszPlist, "plist filename should not be NULL");
+    string texturePath("");
+    CCDictionary* dict = disposeMetadata(pszPlist, texturePath);
+    if(dict)
+    {
+        CCTexture2D *pTexture = CCTextureCache::sharedTextureCache()->addImage(texturePath.c_str());
+        
+        if (pTexture)
+        {
+            addSpriteFramesWithDictionary(dict, pTexture);
+            m_pLoadedFileNames->insert(pszPlist);
+        }
+        else
+        {
+            CCLOG("cocos2d: CCSpriteFrameCache: Couldn't load texture");
+        }
+    }
+}
+
+/*
 void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist)
 {
     CCAssert(pszPlist, "plist filename should not be NULL");
@@ -279,6 +456,16 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist)
         dict->release();
     }
 
+}
+*/
+void CCSpriteFrameCache::addSpriteFramesWithFileAsync(const char *pszPlist, cocos2d::CCObject *target, SEL_CallFuncO selector)
+{
+    addSpriteFramesWithFileAsyncImpl(pszPlist, nullptr, target, selector);
+}
+
+void CCSpriteFrameCache::addSpriteFramesWithFileAsync(const char *pszPlist, int handler)
+{
+    addSpriteFramesWithFileAsyncImpl(pszPlist, nullptr, nullptr, nullptr, handler);
 }
 
 void CCSpriteFrameCache::addSpriteFrame(CCSpriteFrame *pobFrame, const char *pszFrameName)

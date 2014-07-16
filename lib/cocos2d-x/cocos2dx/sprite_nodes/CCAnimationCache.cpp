@@ -30,10 +30,22 @@ THE SOFTWARE.
 #include "CCSpriteFrameCache.h"
 #include "cocoa/CCString.h"
 #include "platform/CCFileUtils.h"
+#include <queue>
 
 using namespace std;
 
 NS_CC_BEGIN
+
+using AsyncStruct = struct _AsyncStruct
+{
+    int plistCount = 0;
+    CCDictionary* animations;
+    CCObject* target;
+    SEL_CallFuncO selector;
+    int handler;
+};
+
+static std::queue<AsyncStruct*>* s_pAsyncStructQueue = nullptr;
 
 CCAnimationCache* CCAnimationCache::s_pSharedAnimationCache = NULL;
 
@@ -68,6 +80,11 @@ CCAnimationCache::~CCAnimationCache()
 {
     CCLOGINFO("cocos2d: deallocing %p", this);
     CC_SAFE_RELEASE(m_pAnimations);
+    if(!s_pAsyncStructQueue)
+    {
+        delete s_pAsyncStructQueue;
+        s_pAsyncStructQueue = nullptr;
+    }
 }
 
 void CCAnimationCache::addAnimation(CCAnimation *animation, const char * name)
@@ -252,5 +269,116 @@ void CCAnimationCache::addAnimationsWithFile(const char* plist)
     addAnimationsWithDictionary(dict);
 }
 
+void CCAnimationCache::addAnimationsWithFileAsync(const char* plist, cocos2d::CCObject *target, SEL_CallFuncO selector)
+{
+    addAnimationsWithFileAsyncImpl(plist, target, selector);
+}
+
+void CCAnimationCache::addAnimationsWithFileAsync(const char* plist, int handler)
+{
+    addAnimationsWithFileAsyncImpl(plist, nullptr, nullptr, handler);
+}
+
+void CCAnimationCache::addAnimationsWithFileAsyncImpl(const char *plist, CCObject *target, SEL_CallFuncO selector, int handler)
+{
+    CCAssert( plist, "Invalid texture file name");
+    
+    std::string path = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist);
+    CCDictionary* dict = CCDictionary::createWithContentsOfFile(path.c_str());
+    CCAssert( dict, "CCAnimationCache: File could not be found");
+    
+    CCDictionary* animations = (CCDictionary*)dict->objectForKey("animations");
+    
+    if ( animations == NULL ) {
+        CCLOG("cocos2d: CCAnimationCache: No animations were found in provided dictionary.");
+        return;
+    }
+    
+    unsigned int version = 1;
+    CCDictionary* properties = (CCDictionary*)dict->objectForKey("properties");
+    if( properties )
+    {
+        if (!s_pAsyncStructQueue)
+        {
+            s_pAsyncStructQueue = new queue<AsyncStruct*>();
+        }
+        
+        AsyncStruct *data = new AsyncStruct();
+        data->plistCount = 0;
+        data->animations = CCDictionary::createWithDictionary(animations);
+        data->animations->retain();
+        data->target = target;
+        data->selector = selector;
+        data->handler = handler;
+        s_pAsyncStructQueue->push(data);
+        
+        version = properties->valueForKey("format")->intValue();
+        CCArray* spritesheets = (CCArray*)properties->objectForKey("spritesheets");
+        
+        CCObject* pObj = NULL;
+        CCARRAY_FOREACH(spritesheets, pObj)
+        {
+            CCString* name = (CCString*)(pObj);
+            ++data->plistCount;
+            //CCLOG("addAnimationsWithFileAsyncImpl: %s %d", name->getCString(), data->plistCount);
+            CCSpriteFrameCache::sharedSpriteFrameCache()
+                ->addSpriteFramesWithFileAsync(name->getCString(),
+                                                 this,
+                                                 callfuncO_selector(CCAnimationCache::addSpriteFramesAsyncCallBack));
+        }
+    }
+    if(version > 2)
+    {
+        CCAssert(false, "Invalid animation format");
+    }
+    // The metadata version1 does't support async loading.
+    if(version == 1)
+    {
+        parseVersion1(animations);
+    }
+}
+
+void CCAnimationCache::addSpriteFramesAsyncCallBack(CCObject* obj)
+{
+    //CCLOG("CCAnimationCache::addSpriteFramesAsyncCallBack");
+    AsyncStruct *pAsyncStruct = nullptr;
+    if(s_pAsyncStructQueue->empty())
+    {
+        // do nothing
+    }
+    else
+    {
+        pAsyncStruct = s_pAsyncStructQueue->front();
+        --pAsyncStruct->plistCount;
+        if(pAsyncStruct->plistCount <= 0)
+        {
+            s_pAsyncStructQueue->pop();
+            
+            CCObject *target = pAsyncStruct->target;
+            SEL_CallFuncO selector = pAsyncStruct->selector;
+            int handler = pAsyncStruct->handler;
+            
+            parseVersion2(pAsyncStruct->animations);
+            
+            doAsyncCallBack(target, selector, handler);
+            CC_SAFE_RELEASE(pAsyncStruct->animations);
+            delete pAsyncStruct;
+        }
+
+    }
+}
+
+void CCAnimationCache::doAsyncCallBack(CCObject* target, SEL_CallFuncO selector, int handler)
+{
+    if (target && selector)
+    {
+        (target->*selector)(target);
+    }
+    if (handler)
+    {
+        CCScriptEngineManager::sharedManager()->getScriptEngine()
+            ->executeEvent(handler, "addAnimationsWithFileAsync");
+    }
+}
 
 NS_CC_END

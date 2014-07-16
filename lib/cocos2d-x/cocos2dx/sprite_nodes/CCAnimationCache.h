@@ -96,10 +96,16 @@ public:
      @js addAnimations
      */
     void addAnimationsWithFile(const char* plist);
+    
+    void addAnimationsWithFileAsync(const char *plist, CCObject *target, SEL_CallFuncO selector);
+    void addAnimationsWithFileAsync(const char *plist, int handler);
+    void addAnimationsWithFileAsyncImpl(const char *plist, CCObject *target, SEL_CallFuncO selector, int handler = 0);
 
     bool init(void);
 
 private:
+    void doAsyncCallBack(CCObject* target, SEL_CallFuncO selector, int handler=0);
+    void addSpriteFramesAsyncCallBack(CCObject* obj);
     void parseVersion1(CCDictionary* animations);
     void parseVersion2(CCDictionary* animations);
 private:

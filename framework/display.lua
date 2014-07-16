@@ -603,29 +603,45 @@ function display.addImageAsync(imagePath, callback)
     sharedTextureCache:addImageAsync(imagePath, callback)
 end
 
+function display.addSpriteFramesWithFileAsync(plistFilename, image, handler)
+	--print("display.addSpriteFramesWithFileAsync:", plistFilename, image, handler)
+	local async = type(handler) == "function"
+	local asyncHandler = nil
+	if async then
+		asyncHandler = function(evt)
+			printf("evt: %s, asyncdone: %s, %s.", evt, plistFilename, image)
+			handler(plistFilename, image)
+		end
+	end
+    if display.TEXTURES_PIXEL_FORMAT[image] then
+        CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
+		sharedSpriteFrameCache:addSpriteFramesWithFileAsync(plistFilename, image, asyncHandler)
+        CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
+    else
+		sharedSpriteFrameCache:addSpriteFramesWithFileAsync(plistFilename, image, asyncHandler)
+    end
+end
+
 function display.addSpriteFramesWithFile(plistFilename, image, handler)
 	local async = type(handler) == "function"
 	local asyncHandler = nil
 	if async then
 		asyncHandler = function()
-			-- printf("%s, %s async done.", plistFilename, image)
-			local texture = sharedTextureCache:textureForKey(image)
-			assert(texture, string.format("The texture %s, %s is unavailable.", plistFilename, image))
-			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, texture)
+			printf("evt: %s, asyncdone: %s, %s.", evt, plistFilename, image)
 			handler(plistFilename, image)
 		end
 	end
     if display.TEXTURES_PIXEL_FORMAT[image] then
         CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[image])
 		if async then
-			sharedTextureCache:addImageAsync(image, asyncHandler)
+			sharedSpriteFrameCache:addSpriteFramesWithFileAsync(plistFilename, image, asyncHandler)
 		else
 			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
 		end
         CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
     else
 		if async then
-			sharedTextureCache:addImageAsync(image, asyncHandler)
+			sharedSpriteFrameCache:addSpriteFramesWithFileAsync(plistFilename, image, asyncHandler)
 		else
 			sharedSpriteFrameCache:addSpriteFramesWithFile(plistFilename, image)
 		end
@@ -681,6 +697,14 @@ function display.newFrames(pattern, begin, length, isReversed)
         frames[#frames + 1] = frame
     end
     return frames
+end
+
+function display.addAnimationsWithFile(aniFile, handler)
+	if type(handler) == "function" then
+		sharedAnimationCache:addAnimationsWithFileAsync(aniFile, handler)
+		return
+	end
+	sharedAnimationCache:addAnimationsWithFile(aniFile)
 end
 
 function display.newAnimation(frames, time)

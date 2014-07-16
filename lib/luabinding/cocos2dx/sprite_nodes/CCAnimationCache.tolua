@@ -70,6 +70,8 @@ class CCAnimationCache : public CCObject
      @since v1.1
      */
     void addAnimationsWithFile(const char* plist);
+    void addAnimationsWithFileAsync(const char* plist, LUA_FUNCTION handler);
+
 };
 
 // end of sprite_nodes group
