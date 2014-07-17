@@ -29,7 +29,7 @@ namespace dragonBones {
 
         static CCDragonBones* create(Armature*arm);
 
-        static CCDragonBones* create(	const char* skeletonXMLFile,
+        static CCDragonBones* create(	const char* path,
 										const char* dragonBonesName,
 										const char* armatureName); 
 															 

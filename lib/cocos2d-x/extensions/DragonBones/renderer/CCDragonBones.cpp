@@ -26,12 +26,28 @@ namespace dragonBones
         return fac->buildArmature(armatureName, animationName, dragonBonesName);
     }
 
-    CCDragonBones*	CCDragonBones::create(const char* skeletonXMLFile,
+    CCDragonBones*	CCDragonBones::create(const char* path,
         const char* dragonBonesName,
         const char* armatureName)
     {
-        return CCDragonBones::create(skeletonXMLFile,
-            "texture.xml",
+        string dataDir = path;
+        size_t pos;
+        while ((pos = dataDir.find_first_of("\\")) != std::string::npos)
+        {
+            dataDir.replace(pos, 1, "/");
+        }
+        size_t slash = dataDir.find_last_of("/");
+        if(slash == std::string::npos)
+        {
+            dataDir.append("/");
+        }
+        string skeletonFile = dataDir + "skeleton.xml";
+        string textureFile = dataDir + "texture.xml";
+        
+        CCFileUtils::sharedFileUtils()->fullPathForFilename(path);
+        return CCDragonBones::create(
+            skeletonFile.c_str(),
+            textureFile.c_str(),
             dragonBonesName,
             armatureName,
             "");
@@ -51,9 +67,7 @@ namespace dragonBones
                 dragonBonesName,
                 armatureName,
                 animationName);
-            pNew->initWithArmature(arm);
-            pNew->autorelease();
-            return pNew;
+            return CCDragonBones::create(arm);
         }
         CC_SAFE_DELETE(pNew);
         return NULL;

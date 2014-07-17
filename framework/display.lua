@@ -500,14 +500,40 @@ function display.newDrawNode()
 	return CCDrawNodeExtend.extend(CCDrawNode:create())
 end
 
+--- Create a CCDragonBones object.
+-- @author zrong(zengrong.net)
+-- Creation：2014-07-17
+-- @param params
+-- {
+--		skeleton="dragon/skeleton.xml",
+--		texture="dragon/texture.xml",
+--		dragonBonesName="Dragon",
+--		armatureName="Dragon",
+--		aniName="",
+--	}
+--	or find skeleton.xml and texture.xml in a dictionary path.
+-- {
+--		path="dragon",
+--		dragonBonesName="Dragon",
+--		armatureName="Dragon",
+--		aniName="",
+--	}
 function display.newDragonBones(params)
 	local skeletonXMLFile = params.skeleton
 	local textureXMLFile = params.texture
 	local dbName = params.dragonBonesName
 	local armatureName = params.armatureName or dbName
 	local aniName = params.animationName or ""
+	local path = params.path
+	assert(dbName and armatureName, "dragonBonesName and armatureName are necessary!")
+	if path then
+		return CCDragonBonesExtend.extend(
+			CCDragonBones:create(path, dbName, armatureName)
+		)
+	end
+	assert(skeletonXMLFile and textureXMLFile, "skeleton and texture are necessary!")
 	return CCDragonBonesExtend.extend(
-		CCDragonBones:create( skeletonXMLFile, textureXMLFile, dbName, armatureName, aniName)
+		CCDragonBones:create(skeletonXMLFile, textureXMLFile, dbName, armatureName, aniName)
 	)
 end
 

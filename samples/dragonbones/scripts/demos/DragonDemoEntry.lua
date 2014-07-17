@@ -54,12 +54,17 @@ end
 
 function DragonDemoEntry:_createDB()
 	print("DragonDemoEntry", display.newDragonBones)
+	--self._db = display.newDragonBones({
+	--		skeleton="dragon/skeleton.xml",
+	--		texture="dragon/texture.xml",
+	--		dragonBonesName="Dragon",
+	--		armatureName="Dragon",
+	--		aniName="",
+	--	})
 	self._db = display.newDragonBones({
-			skeleton="dragon/skeleton.xml",
-			texture="dragon/texture.xml",
+			path="dragon",
 			dragonBonesName="Dragon",
 			armatureName="Dragon",
-			aniName="",
 		})
 		:addTo(self, 10)
 		:pos(display.cx,100)

@@ -12,9 +12,9 @@
 namespace dragonBones
 {
 
-        /**
-         * Creates a new StarlingFactory instance.
-         */
+    /**
+     * Creates a new Cocos2dxFactory instance.
+     */
     Cocos2dxFactory::Cocos2dxFactory()
     {
     }

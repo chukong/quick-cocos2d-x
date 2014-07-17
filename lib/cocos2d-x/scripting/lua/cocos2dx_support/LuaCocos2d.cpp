@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul 16 11:40:38 2014.
+** Generated automatically by tolua++-1.0.92 on Thu Jul 17 12:33:47 2014.
 */
 
 /****************************************************************************
@@ -62394,11 +62394,11 @@ static int tolua_Cocos2d_CCDragonBones_create01(lua_State* tolua_S)
   goto tolua_lerror;
  else
  {
-  const char* skeletonXMLFile = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
   const char* dragonBonesName = ((const char*)  tolua_tostring(tolua_S,3,0));
   const char* armatureName = ((const char*)  tolua_tostring(tolua_S,4,0));
   {
-   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::create(skeletonXMLFile,dragonBonesName,armatureName);
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::create(path,dragonBonesName,armatureName);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
   }
  }
