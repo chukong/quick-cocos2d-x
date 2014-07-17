@@ -36,7 +36,7 @@ using namespace std;
 
 NS_CC_BEGIN
 
-using AsyncStruct = struct _AsyncStruct
+struct ACAsyncStruct
 {
     int plistCount = 0;
     CCDictionary* animations;
@@ -45,7 +45,7 @@ using AsyncStruct = struct _AsyncStruct
     int handler;
 };
 
-static std::queue<AsyncStruct*>* s_pAsyncStructQueue = nullptr;
+static std::queue<ACAsyncStruct*>* s_pACAsyncStructQueue = nullptr;
 
 CCAnimationCache* CCAnimationCache::s_pSharedAnimationCache = NULL;
 
@@ -80,10 +80,10 @@ CCAnimationCache::~CCAnimationCache()
 {
     CCLOGINFO("cocos2d: deallocing %p", this);
     CC_SAFE_RELEASE(m_pAnimations);
-    if(!s_pAsyncStructQueue)
+    if(!s_pACAsyncStructQueue)
     {
-        delete s_pAsyncStructQueue;
-        s_pAsyncStructQueue = nullptr;
+        delete s_pACAsyncStructQueue;
+        s_pACAsyncStructQueue = nullptr;
     }
 }
 
@@ -298,19 +298,19 @@ void CCAnimationCache::addAnimationsWithFileAsyncImpl(const char *plist, CCObjec
     CCDictionary* properties = (CCDictionary*)dict->objectForKey("properties");
     if( properties )
     {
-        if (!s_pAsyncStructQueue)
+        if (!s_pACAsyncStructQueue)
         {
-            s_pAsyncStructQueue = new queue<AsyncStruct*>();
+            s_pACAsyncStructQueue = new queue<ACAsyncStruct*>();
         }
         
-        AsyncStruct *data = new AsyncStruct();
+        ACAsyncStruct *data = new ACAsyncStruct();
         data->plistCount = 0;
         data->animations = CCDictionary::createWithDictionary(animations);
         data->animations->retain();
         data->target = target;
         data->selector = selector;
         data->handler = handler;
-        s_pAsyncStructQueue->push(data);
+        s_pACAsyncStructQueue->push(data);
         
         version = properties->valueForKey("format")->intValue();
         CCArray* spritesheets = (CCArray*)properties->objectForKey("spritesheets");
@@ -341,28 +341,28 @@ void CCAnimationCache::addAnimationsWithFileAsyncImpl(const char *plist, CCObjec
 void CCAnimationCache::addSpriteFramesAsyncCallBack(CCObject* obj)
 {
     //CCLOG("CCAnimationCache::addSpriteFramesAsyncCallBack");
-    AsyncStruct *pAsyncStruct = nullptr;
-    if(s_pAsyncStructQueue->empty())
+    ACAsyncStruct *pACAsyncStruct = nullptr;
+    if(s_pACAsyncStructQueue->empty())
     {
         // do nothing
     }
     else
     {
-        pAsyncStruct = s_pAsyncStructQueue->front();
-        --pAsyncStruct->plistCount;
-        if(pAsyncStruct->plistCount <= 0)
+        pACAsyncStruct = s_pACAsyncStructQueue->front();
+        --pACAsyncStruct->plistCount;
+        if(pACAsyncStruct->plistCount <= 0)
         {
-            s_pAsyncStructQueue->pop();
+            s_pACAsyncStructQueue->pop();
             
-            CCObject *target = pAsyncStruct->target;
-            SEL_CallFuncO selector = pAsyncStruct->selector;
-            int handler = pAsyncStruct->handler;
+            CCObject *target = pACAsyncStruct->target;
+            SEL_CallFuncO selector = pACAsyncStruct->selector;
+            int handler = pACAsyncStruct->handler;
             
-            parseVersion2(pAsyncStruct->animations);
+            parseVersion2(pACAsyncStruct->animations);
             
             doAsyncCallBack(target, selector, handler);
-            CC_SAFE_RELEASE(pAsyncStruct->animations);
-            delete pAsyncStruct;
+            CC_SAFE_RELEASE(pACAsyncStruct->animations);
+            delete pACAsyncStruct;
         }
 
     }

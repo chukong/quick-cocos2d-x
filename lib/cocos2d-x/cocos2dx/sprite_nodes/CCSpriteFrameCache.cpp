@@ -46,7 +46,7 @@ using namespace std;
 
 NS_CC_BEGIN
 
-using AsyncStruct = struct _AsyncStruct
+struct SFCAsyncStruct
 {
     std::string pszPlist;
     std::string texture;
@@ -55,7 +55,7 @@ using AsyncStruct = struct _AsyncStruct
     int handler;
 };
 
-static std::queue<AsyncStruct*>* s_pAsyncStructQueue = nullptr;
+static std::queue<SFCAsyncStruct*>* s_pSFCAsyncStructQueue = nullptr;
 
 static CCSpriteFrameCache *pSharedSpriteFrameCache = NULL;
 
@@ -88,10 +88,10 @@ CCSpriteFrameCache::~CCSpriteFrameCache(void)
     CC_SAFE_RELEASE(m_pSpriteFrames);
     CC_SAFE_RELEASE(m_pSpriteFramesAliases);
     CC_SAFE_DELETE(m_pLoadedFileNames);
-    if(!s_pAsyncStructQueue)
+    if(!s_pSFCAsyncStructQueue)
     {
-        delete s_pAsyncStructQueue;
-        s_pAsyncStructQueue = nullptr;
+        delete s_pSFCAsyncStructQueue;
+        s_pSFCAsyncStructQueue = nullptr;
     }
 }
 
@@ -284,19 +284,19 @@ void CCSpriteFrameCache::addSpriteFramesWithFileAsyncImpl(const char *pszPlist, 
             return;
         }
     }
-    if (!s_pAsyncStructQueue)
+    if (!s_pSFCAsyncStructQueue)
     {
-        s_pAsyncStructQueue = new queue<AsyncStruct*>();
+        s_pSFCAsyncStructQueue = new queue<SFCAsyncStruct*>();
     }
     // generate async struct
-    AsyncStruct *data = new AsyncStruct();
+    SFCAsyncStruct *data = new SFCAsyncStruct();
     data->pszPlist = pszPlist;
     data->texture = texturePath;
     data->target = target;
     data->selector = selector;
     data->handler = handler;
     
-    s_pAsyncStructQueue->push(data);
+    s_pSFCAsyncStructQueue->push(data);
     
     CCTextureCache::sharedTextureCache()->addImageAsync(
         texturePath.c_str(), this, callfuncO_selector(CCSpriteFrameCache::addTextureAsyncCallBack));
@@ -318,27 +318,27 @@ void CCSpriteFrameCache::doAsyncCallBack(CCObject* target, SEL_CallFuncO selecto
 
 void CCSpriteFrameCache::addTextureAsyncCallBack(CCObject* obj)
 {
-    AsyncStruct *pAsyncStruct = nullptr;
-    std::queue<AsyncStruct*> *pQueue = s_pAsyncStructQueue;
+    SFCAsyncStruct *pSFCAsyncStruct = nullptr;
+    std::queue<SFCAsyncStruct*> *pQueue = s_pSFCAsyncStructQueue;
     if(pQueue->empty())
     {
         // do nothing
     }
     else
     {
-        pAsyncStruct = pQueue->front();
+        pSFCAsyncStruct = pQueue->front();
         pQueue->pop();
         
-        CCObject *target = pAsyncStruct->target;
-        SEL_CallFuncO selector = pAsyncStruct->selector;
-        const char* pszPlist = pAsyncStruct->pszPlist.c_str();
-        const char* texture = pAsyncStruct->texture.c_str();
-        int handler = pAsyncStruct->handler;
+        CCObject *target = pSFCAsyncStruct->target;
+        SEL_CallFuncO selector = pSFCAsyncStruct->selector;
+        const char* pszPlist = pSFCAsyncStruct->pszPlist.c_str();
+        const char* texture = pSFCAsyncStruct->texture.c_str();
+        int handler = pSFCAsyncStruct->handler;
         
         //CCLOG("CCSpriteFrameCache::addTextureAsyncCallBack plist:%s, texture:%s", pszPlist, texture);
         addSpriteFramesWithFile(pszPlist, texture);
         doAsyncCallBack(target, selector, handler);
-        delete pAsyncStruct;
+        delete pSFCAsyncStruct;
     }
 }
 
