@@ -267,6 +267,7 @@ void CCSpriteFrameCache::addSpriteFramesWithFileAsyncImpl(const char *pszPlist, 
             addSpriteFramesWithFileAsyncImpl(pszPlist, texturePath.c_str(), target, selector, handler);
             return;
         }
+        dict->release();
     }
     else
     {
@@ -375,7 +376,8 @@ CCDictionary* CCSpriteFrameCache::disposeMetadata(const char * pszPlist, string&
             
             CCLOG("cocos2d: CCSpriteFrameCache: Trying to use file %s as texture", texturePath.c_str());
         }
-        dict->release();
+        // 2014-07-18 zrong Need release the dict after user it.
+        //dict->release();
         return dict;
     }
     return nullptr;
@@ -394,6 +396,7 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist)
         {
             addSpriteFramesWithDictionary(dict, pTexture);
             m_pLoadedFileNames->insert(pszPlist);
+            dict->release();
         }
         else
         {
