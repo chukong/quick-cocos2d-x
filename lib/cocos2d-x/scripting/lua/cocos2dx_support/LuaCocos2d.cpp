@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Thu Jul 17 12:33:47 2014.
+** Generated automatically by tolua++-1.0.92 on Fri Jul 18 17:44:29 2014.
 */
 
 /****************************************************************************
@@ -216,13 +216,6 @@ static int tolua_collect_ccColor4B (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_AnimationData (lua_State* tolua_S)
-{
- AnimationData* self = (AnimationData*) tolua_tousertype(tolua_S,1,0);
-    Mtolua_delete(self);
-    return 0;
-}
-
 static int tolua_collect_CCScrollView (lua_State* tolua_S)
 {
  CCScrollView* self = (CCScrollView*) tolua_tousertype(tolua_S,1,0);
@@ -230,9 +223,23 @@ static int tolua_collect_CCScrollView (lua_State* tolua_S)
     return 0;
 }
 
+static int tolua_collect_AnimationData (lua_State* tolua_S)
+{
+ AnimationData* self = (AnimationData*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
 static int tolua_collect_DBTransform (lua_State* tolua_S)
 {
  DBTransform* self = (DBTransform*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_Animation (lua_State* tolua_S)
+{
+ Animation* self = (Animation*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -251,9 +258,9 @@ static int tolua_collect_CCLabelTTF (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_Animation (lua_State* tolua_S)
+static int tolua_collect_FrameEvent (lua_State* tolua_S)
 {
- Animation* self = (Animation*) tolua_tousertype(tolua_S,1,0);
+ FrameEvent* self = (FrameEvent*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -653,24 +660,24 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCSplitCols).hash_code(), "CCSplitCols");
  tolua_usertype(tolua_S,"CCControlButton");
  toluafix_add_type_mapping(typeid(CCControlButton).hash_code(), "CCControlButton");
- tolua_usertype(tolua_S,"CCRect");
- toluafix_add_type_mapping(typeid(CCRect).hash_code(), "CCRect");
  tolua_usertype(tolua_S,"CCSaturationFilter");
  toluafix_add_type_mapping(typeid(CCSaturationFilter).hash_code(), "CCSaturationFilter");
- tolua_usertype(tolua_S,"CCActionInstant");
- toluafix_add_type_mapping(typeid(CCActionInstant).hash_code(), "CCActionInstant");
+ tolua_usertype(tolua_S,"CCRect");
+ toluafix_add_type_mapping(typeid(CCRect).hash_code(), "CCRect");
  tolua_usertype(tolua_S,"CCRGBFilter");
  toluafix_add_type_mapping(typeid(CCRGBFilter).hash_code(), "CCRGBFilter");
+ tolua_usertype(tolua_S,"CCActionInstant");
+ toluafix_add_type_mapping(typeid(CCActionInstant).hash_code(), "CCActionInstant");
+ tolua_usertype(tolua_S,"CCMaskFilter");
+ toluafix_add_type_mapping(typeid(CCMaskFilter).hash_code(), "CCMaskFilter");
  tolua_usertype(tolua_S,"CCTurnOffTiles");
  toluafix_add_type_mapping(typeid(CCTurnOffTiles).hash_code(), "CCTurnOffTiles");
  tolua_usertype(tolua_S,"CCParticleSnow");
  toluafix_add_type_mapping(typeid(CCParticleSnow).hash_code(), "CCParticleSnow");
- tolua_usertype(tolua_S,"CCMaskFilter");
- toluafix_add_type_mapping(typeid(CCMaskFilter).hash_code(), "CCMaskFilter");
- tolua_usertype(tolua_S,"CCMenuItemImage");
- toluafix_add_type_mapping(typeid(CCMenuItemImage).hash_code(), "CCMenuItemImage");
  tolua_usertype(tolua_S,"CCHueFilter");
  toluafix_add_type_mapping(typeid(CCHueFilter).hash_code(), "CCHueFilter");
+ tolua_usertype(tolua_S,"CCMenuItemImage");
+ toluafix_add_type_mapping(typeid(CCMenuItemImage).hash_code(), "CCMenuItemImage");
  tolua_usertype(tolua_S,"CCHazeFilter");
  toluafix_add_type_mapping(typeid(CCHazeFilter).hash_code(), "CCHazeFilter");
  tolua_usertype(tolua_S,"CCGammaFilter");
@@ -681,36 +688,38 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(CCBrightnessFilter).hash_code(), "CCBrightnessFilter");
  tolua_usertype(tolua_S,"CCZoomBlurFilter");
  toluafix_add_type_mapping(typeid(CCZoomBlurFilter).hash_code(), "CCZoomBlurFilter");
+ tolua_usertype(tolua_S,"CCGaussianVBlurFilter");
+ toluafix_add_type_mapping(typeid(CCGaussianVBlurFilter).hash_code(), "CCGaussianVBlurFilter");
  tolua_usertype(tolua_S,"ccTexParams");
  toluafix_add_type_mapping(typeid(ccTexParams).hash_code(), "ccTexParams");
  tolua_usertype(tolua_S,"CCEaseSineOut");
  toluafix_add_type_mapping(typeid(CCEaseSineOut).hash_code(), "CCEaseSineOut");
- tolua_usertype(tolua_S,"CCGaussianVBlurFilter");
- toluafix_add_type_mapping(typeid(CCGaussianVBlurFilter).hash_code(), "CCGaussianVBlurFilter");
- tolua_usertype(tolua_S,"CCCallFuncN");
- toluafix_add_type_mapping(typeid(CCCallFuncN).hash_code(), "CCCallFuncN");
  tolua_usertype(tolua_S,"CCVBlurFilter");
  toluafix_add_type_mapping(typeid(CCVBlurFilter).hash_code(), "CCVBlurFilter");
- tolua_usertype(tolua_S,"CCTransitionPageTurn");
- toluafix_add_type_mapping(typeid(CCTransitionPageTurn).hash_code(), "CCTransitionPageTurn");
+ tolua_usertype(tolua_S,"CCCallFuncN");
+ toluafix_add_type_mapping(typeid(CCCallFuncN).hash_code(), "CCCallFuncN");
  tolua_usertype(tolua_S,"CCHBlurFilter");
  toluafix_add_type_mapping(typeid(CCHBlurFilter).hash_code(), "CCHBlurFilter");
- tolua_usertype(tolua_S,"ccFontDefinition");
- toluafix_add_type_mapping(typeid(ccFontDefinition).hash_code(), "ccFontDefinition");
+ tolua_usertype(tolua_S,"CCTransitionPageTurn");
+ toluafix_add_type_mapping(typeid(CCTransitionPageTurn).hash_code(), "CCTransitionPageTurn");
  tolua_usertype(tolua_S,"CCFilteredSpriteWithMulti");
  toluafix_add_type_mapping(typeid(CCFilteredSpriteWithMulti).hash_code(), "CCFilteredSpriteWithMulti");
+ tolua_usertype(tolua_S,"ccFontDefinition");
+ toluafix_add_type_mapping(typeid(ccFontDefinition).hash_code(), "ccFontDefinition");
  tolua_usertype(tolua_S,"CCFilteredSpriteWithOne");
  toluafix_add_type_mapping(typeid(CCFilteredSpriteWithOne).hash_code(), "CCFilteredSpriteWithOne");
  tolua_usertype(tolua_S,"CCFilteredSprite");
  toluafix_add_type_mapping(typeid(CCFilteredSprite).hash_code(), "CCFilteredSprite");
  tolua_usertype(tolua_S,"DBTransform");
  toluafix_add_type_mapping(typeid(DBTransform).hash_code(), "DBTransform");
- tolua_usertype(tolua_S,"ccFontStroke");
- toluafix_add_type_mapping(typeid(ccFontStroke).hash_code(), "ccFontStroke");
  tolua_usertype(tolua_S,"TransformTimeline");
  toluafix_add_type_mapping(typeid(TransformTimeline).hash_code(), "TransformTimeline");
+ tolua_usertype(tolua_S,"ccFontStroke");
+ toluafix_add_type_mapping(typeid(ccFontStroke).hash_code(), "ccFontStroke");
  tolua_usertype(tolua_S,"ccBezierConfig");
  toluafix_add_type_mapping(typeid(ccBezierConfig).hash_code(), "ccBezierConfig");
+ tolua_usertype(tolua_S,"CCAnimation");
+ toluafix_add_type_mapping(typeid(CCAnimation).hash_code(), "CCAnimation");
  tolua_usertype(tolua_S,"CCTintTo");
  toluafix_add_type_mapping(typeid(CCTintTo).hash_code(), "CCTintTo");
  tolua_usertype(tolua_S,"AnimationEvent");
@@ -952,8 +961,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(typeid(ITextureAtlas).hash_code(), "ITextureAtlas");
  tolua_usertype(tolua_S,"CCGraySprite");
  toluafix_add_type_mapping(typeid(CCGraySprite).hash_code(), "CCGraySprite");
- tolua_usertype(tolua_S,"CCAnimation");
- toluafix_add_type_mapping(typeid(CCAnimation).hash_code(), "CCAnimation");
+ tolua_usertype(tolua_S,"FrameEvent");
+ toluafix_add_type_mapping(typeid(FrameEvent).hash_code(), "FrameEvent");
  tolua_usertype(tolua_S,"CCRepeatForever");
  toluafix_add_type_mapping(typeid(CCRepeatForever).hash_code(), "CCRepeatForever");
  tolua_usertype(tolua_S,"CCTime");
@@ -62729,6 +62738,72 @@ static int tolua_Cocos2d_CCDragonBones_unregisterScriptHandler00(lua_State* tolu
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: unregisterAllScriptHandler of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_unregisterAllScriptHandler00
+static int tolua_Cocos2d_CCDragonBones_unregisterAllScriptHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCDragonBones* self = (CCDragonBones*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unregisterAllScriptHandler'", NULL);
+#endif
+  {
+   self->unregisterAllScriptHandler();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'unregisterAllScriptHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: hasScriptHandler of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_hasScriptHandler00
+static int tolua_Cocos2d_CCDragonBones_hasScriptHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCDragonBones* self = (CCDragonBones*)  tolua_tousertype(tolua_S,1,0);
+   std::string type = ((  std::string)  tolua_tocppstring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'hasScriptHandler'", NULL);
+#endif
+  {
+   bool tolua_ret = (bool)  self->hasScriptHandler(type);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+   tolua_pushcppstring(tolua_S,(const char*)type);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'hasScriptHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getScriptHandler of class  CCDragonBones */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_getScriptHandler00
 static int tolua_Cocos2d_CCDragonBones_getScriptHandler00(lua_State* tolua_S)
@@ -63245,6 +63320,216 @@ static int tolua_Cocos2d_AnimationEvent_getMovementID00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getMovementID'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: MOVEMENT_FRAME_EVENT of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_MOVEMENT_FRAME_EVENT
+static int tolua_get_FrameEvent_MOVEMENT_FRAME_EVENT(lua_State* tolua_S)
+{
+  tolua_pushcppstring(tolua_S,(const char*)FrameEvent::MOVEMENT_FRAME_EVENT);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: ANIMATION_FRAME_EVENT of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_ANIMATION_FRAME_EVENT
+static int tolua_get_FrameEvent_ANIMATION_FRAME_EVENT(lua_State* tolua_S)
+{
+  tolua_pushcppstring(tolua_S,(const char*)FrameEvent::ANIMATION_FRAME_EVENT);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: BONE_FRAME_EVENT of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_BONE_FRAME_EVENT
+static int tolua_get_FrameEvent_BONE_FRAME_EVENT(lua_State* tolua_S)
+{
+  tolua_pushcppstring(tolua_S,(const char*)FrameEvent::BONE_FRAME_EVENT);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: frameLabel of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_frameLabel
+static int tolua_get_FrameEvent_frameLabel(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'frameLabel'",NULL);
+#endif
+  tolua_pushcppstring(tolua_S,(const char*)self->frameLabel);
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: frameLabel of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_set_FrameEvent_frameLabel
+static int tolua_set_FrameEvent_frameLabel(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'frameLabel'",NULL);
+  if (!tolua_iscppstring(tolua_S,2,0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->frameLabel = ((  std::string)  tolua_tocppstring(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: bone of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_bone_ptr
+static int tolua_get_FrameEvent_bone_ptr(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'bone'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)self->bone,"Bone");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: bone of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_set_FrameEvent_bone_ptr
+static int tolua_set_FrameEvent_bone_ptr(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'bone'",NULL);
+  if (!tolua_isusertype(tolua_S,2,"Bone",0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->bone = ((Bone*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: armature of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_armature_ptr
+static int tolua_get_FrameEvent_armature_ptr(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'armature'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)self->armature,"Armature");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: armature of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_set_FrameEvent_armature_ptr
+static int tolua_set_FrameEvent_armature_ptr(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'armature'",NULL);
+  if (!tolua_isusertype(tolua_S,2,"Armature",0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->armature = ((Armature*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* get function: animationState of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_get_FrameEvent_animationState_ptr
+static int tolua_get_FrameEvent_animationState_ptr(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'animationState'",NULL);
+#endif
+   tolua_pushusertype(tolua_S,(void*)self->animationState,"AnimationState");
+ return 1;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* set function: animationState of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_set_FrameEvent_animationState_ptr
+static int tolua_set_FrameEvent_animationState_ptr(lua_State* tolua_S)
+{
+  FrameEvent* self = (FrameEvent*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  tolua_Error tolua_err;
+  if (!self) tolua_error(tolua_S,"invalid 'self' in accessing variable 'animationState'",NULL);
+  if (!tolua_isusertype(tolua_S,2,"AnimationState",0,&tolua_err))
+   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
+#endif
+  self->animationState = ((AnimationState*)  tolua_tousertype(tolua_S,2,0))
+;
+ return 0;
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_FrameEvent_new00
+static int tolua_Cocos2d_FrameEvent_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"FrameEvent",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string type = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   FrameEvent* tolua_ret = (FrameEvent*)  Mtolua_new((FrameEvent)(type));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"FrameEvent");
+   tolua_pushcppstring(tolua_S,(const char*)type);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  FrameEvent */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_FrameEvent_new00_local
+static int tolua_Cocos2d_FrameEvent_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"FrameEvent",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const std::string type = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  {
+   FrameEvent* tolua_ret = (FrameEvent*)  Mtolua_new((FrameEvent)(type));
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"FrameEvent");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+   tolua_pushcppstring(tolua_S,(const char*)type);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
  return 0;
 #endif
 }
@@ -69984,6 +70269,8 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setBoneTexture",tolua_Cocos2d_CCDragonBones_setBoneTexture00);
    tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_CCDragonBones_registerScriptHandler00);
    tolua_function(tolua_S,"unregisterScriptHandler",tolua_Cocos2d_CCDragonBones_unregisterScriptHandler00);
+   tolua_function(tolua_S,"unregisterAllScriptHandler",tolua_Cocos2d_CCDragonBones_unregisterAllScriptHandler00);
+   tolua_function(tolua_S,"hasScriptHandler",tolua_Cocos2d_CCDragonBones_hasScriptHandler00);
    tolua_function(tolua_S,"getScriptHandler",tolua_Cocos2d_CCDragonBones_getScriptHandler00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CocosNode","CocosNode","Object",NULL);
@@ -70020,6 +70307,23 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"FADE_IN_COMPLETE",tolua_get_AnimationEvent_FADE_IN_COMPLETE,NULL);
    tolua_variable(tolua_S,"FADE_OUT_COMPLETE",tolua_get_AnimationEvent_FADE_OUT_COMPLETE,NULL);
    tolua_function(tolua_S,"getMovementID",tolua_Cocos2d_AnimationEvent_getMovementID00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"FrameEvent","FrameEvent","Event",tolua_collect_FrameEvent);
+  #else
+  tolua_cclass(tolua_S,"FrameEvent","FrameEvent","Event",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"FrameEvent");
+   tolua_variable(tolua_S,"MOVEMENT_FRAME_EVENT",tolua_get_FrameEvent_MOVEMENT_FRAME_EVENT,NULL);
+   tolua_variable(tolua_S,"ANIMATION_FRAME_EVENT",tolua_get_FrameEvent_ANIMATION_FRAME_EVENT,NULL);
+   tolua_variable(tolua_S,"BONE_FRAME_EVENT",tolua_get_FrameEvent_BONE_FRAME_EVENT,NULL);
+   tolua_variable(tolua_S,"frameLabel",tolua_get_FrameEvent_frameLabel,tolua_set_FrameEvent_frameLabel);
+   tolua_variable(tolua_S,"bone",tolua_get_FrameEvent_bone_ptr,tolua_set_FrameEvent_bone_ptr);
+   tolua_variable(tolua_S,"armature",tolua_get_FrameEvent_armature_ptr,tolua_set_FrameEvent_armature_ptr);
+   tolua_variable(tolua_S,"animationState",tolua_get_FrameEvent_animationState_ptr,tolua_set_FrameEvent_animationState_ptr);
+   tolua_function(tolua_S,"new",tolua_Cocos2d_FrameEvent_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_FrameEvent_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_FrameEvent_new00_local);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"AnimationData","AnimationData","Timeline",tolua_collect_AnimationData);

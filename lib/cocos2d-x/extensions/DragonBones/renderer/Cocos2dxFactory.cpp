@@ -58,7 +58,7 @@ namespace dragonBones
 			doc.Parse(reinterpret_cast<char*>(texture_data),dummySize);
 			delete[] texture_data;
             
-			int pos = textureAtlasFile.find_last_of("/");
+			size_t pos = textureAtlasFile.find_last_of("/");
 			if (std::string::npos != pos){
 				std::string base_path = textureAtlasFile.substr(0, pos + 1);
                 

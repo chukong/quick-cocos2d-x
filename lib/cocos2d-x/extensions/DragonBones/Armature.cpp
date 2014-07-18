@@ -204,7 +204,7 @@ namespace dragonBones
          */
         Slot* Armature::getSlot(const String &slotName)
         {
-            int i = _slotList.size();
+            int i = static_cast<int>(_slotList.size());
             while(i --)
             {
                 if(_slotList[i]->name == slotName)
@@ -225,7 +225,7 @@ namespace dragonBones
         {
             if(display)
             {
-                int i = _slotList.size();
+                int i = static_cast<int>(_slotList.size());
                 while(i --)
                 {
                     if(_slotList[i]->getDisplay() == display)
@@ -286,7 +286,7 @@ namespace dragonBones
          */
         Bone* Armature::getBone(const String &boneName)
         {
-            int i = _boneList.size();
+            int i = static_cast<int>(_boneList.size());
             while(i --)
             {
                 if(_boneList[i]->name == boneName)

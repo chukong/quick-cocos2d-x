@@ -27,13 +27,13 @@ function CCDragonBonesExtend.extend(target)
 end
 
 function CCDragonBonesExtend:addMovementScriptListener(listener)
-	-- for __k, __v in pairs(CCDragonBonesExtend.EVENTS) do
-	-- 	print(__k, __v)
-	-- end
 	self:removeMovementScriptListener()
-	self:addScriptListener(CCDragonBonesExtend.EVENTS.START, listener)
-	self:addScriptListener(CCDragonBonesExtend.EVENTS.COMPLETE, listener)
-	self:addScriptListener(CCDragonBonesExtend.EVENTS.LOOP_COMPLETE, listener)
+	local __bridge = function(evt)
+		listener(evt:getType(), evt:getMovementID())
+	end
+	self:addScriptListener(CCDragonBonesExtend.EVENTS.START, __bridge)
+	self:addScriptListener(CCDragonBonesExtend.EVENTS.COMPLETE, __bridge)
+	self:addScriptListener(CCDragonBonesExtend.EVENTS.LOOP_COMPLETE, __bridge)
 	return self
 end
 
@@ -46,15 +46,12 @@ end
 
 function CCDragonBonesExtend:addScriptListener(evtType, listener)
 	self:removeScriptListener(evtType, listener)
-	local __bridge = function(evt)
-		listener(evt:getType(), evt:getMovementID())
-	end
-	self._listeners[evtType] = __bridge
-	self:registerScriptHandler(__bridge, evtType)
+	self._listeners[evtType] = listener
+	self:registerScriptHandler(listener, evtType)
 	return self
 end
 
-function CCDragonBonesExtend:removeScriptListener(evtType)
+function CCDragonBonesExtend:removeScriptListener(evtType, listener)
 	if not self._listeners then self._listeners = {} end
 	local __listener = self._listeners[evtType]
 	if __listener then

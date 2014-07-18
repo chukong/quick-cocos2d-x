@@ -37,5 +37,7 @@ public:
 	void setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName);
 	void registerScriptHandler(LUA_FUNCTION funId, String type);
 	void unregisterScriptHandler(String type);
+	void unregisterAllScriptHandler();
+    bool hasScriptHandler(String& type);
 	int  getScriptHandler(String type);
 }; 

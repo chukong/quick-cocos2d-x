@@ -10,6 +10,8 @@
 #include "CCDragonBones.h"
 #include "cocos2d.h"
 #include "DragonBonesHeaders.h"
+#include <sstream>
+#include "CCLuaEngine.h"
 using namespace cocos2d;
 
 namespace dragonBones
@@ -102,31 +104,6 @@ namespace dragonBones
         return m_Armature;
     }
 
-    void  CCDragonBones::addEventListener(const String &type, const String &key, cocos2d::CCObject*pObj, SEL_CallFuncND callback)
-    {
-        m_Caller = pObj;
-        m_Callback = callback;
-        std::function<void(Event*)> f = std::bind(&CCDragonBones::eventBridge, this, std::placeholders::_1);
-        m_Armature->addEventListener(type, f, key);
-    }
-
-    bool CCDragonBones::hasEventListener(const String &type)
-    {
-        return m_Armature->hasEventListener(type);
-    }
-    void CCDragonBones::removeEventListener(const String &type, const std::string &key)
-    {
-        m_Armature->removeEventListener(type, key);
-    }
-    void CCDragonBones::dispatchEvent(Event *event)
-    {
-        m_Armature->dispatchEvent(event);
-    }
-
-    void CCDragonBones::eventBridge(Event*e){
-        (m_Caller->*m_Callback)(this, e);
-    }
-
     void CCDragonBones::gotoAndPlay(
         const String &animationName,
         Number fadeInTime,
@@ -169,7 +146,7 @@ namespace dragonBones
         //CCLOG("CLOSE %d", clothesObj);
 
         Bone* bone = getArmature()->getBone(boneName);
-        CocosNode* oldClothesObj = static_cast<CocosNode*>(bone->getDisplay());
+        //CocosNode* oldClothesObj = static_cast<CocosNode*>(bone->getDisplay());
         bone->setDisplay(clothesObj);
     }
 
@@ -196,20 +173,158 @@ namespace dragonBones
         this->unscheduleAllSelectors();
         CCNode::onExit();
     }
-
+    
+    String CCDragonBones::pointerToString(cocos2d::CCObject *pObj)
+    {
+        stringstream ss;
+        ss<<pObj;
+        return ss.str();
+    }
+    
+    String CCDragonBones::funToString(int funId)
+    {
+        stringstream ss;
+        ss<<funId;
+        return String("db_script_") + ss.str();
+    }
+    
+    void  CCDragonBones::addEventListener(const String &type, cocos2d::CCObject *pObj, SEL_CallFuncND selector)
+    {
+        auto &callbackList = _eventHandlers[type];
+		callbackList.push_back(CocosCallback(pObj, selector));
+        EventDispatcher::Function f = std::bind(&CCDragonBones::cocosEventBridge, this, std::placeholders::_1);
+        String key = pointerToString(pObj);
+        CCLOG("%s pointer value: %s", __func__, key.c_str());
+        m_Armature->addEventListener(type, f, key);
+    }
+    
+    bool CCDragonBones::hasEventListener(const String &type)
+    {
+        return m_Armature->hasEventListener(type) &&
+            _eventHandlers.find(type) != _eventHandlers.end();
+    }
+    
+    bool CCDragonBones::hasEventListener(const String &type, cocos2d::CCObject *pObj)
+    {
+        auto iter = _eventHandlers.find(type);
+        if(iter == _eventHandlers.end()) return false;
+        
+        for(auto &iterCallback : iter->second)
+        {
+            if(iterCallback.first == pObj)
+            {
+                return m_Armature->hasEventListener(type, pointerToString(pObj));
+            }
+        }
+        return false;
+    }
+    
+    void CCDragonBones::removeEventListener(const String &type, cocos2d::CCObject *pObj)
+    {
+        m_Armature->removeEventListener(type, pointerToString(pObj));
+        
+        auto iter = _eventHandlers.find(type);
+        if(iter != _eventHandlers.end())
+        {
+            auto &funList = iter->second;
+            for(auto iterCallback = funList.begin() ; iterCallback != funList.end() ; )
+            {
+				if (iterCallback->first == pObj)
+                {
+                    iterCallback = funList.erase(iterCallback);
+                }
+                else
+                {
+                    iterCallback ++;
+                }
+            }
+        }
+    }
+    
+    void CCDragonBones::removeAllEventListener()
+    {
+        m_Armature->removeAllEventListener();
+        _eventHandlers.clear();
+    }
+    
+    void CCDragonBones::cocosEventBridge(Event *e)
+    {
+        string evtType = e->getType();
+        auto eventIter = _eventHandlers.find(evtType);
+        if(eventIter != _eventHandlers.end())
+        {
+            for(auto eventIterCallback : eventIter->second)
+            {
+                (eventIterCallback.first->*eventIterCallback.second)(this, e);
+            }
+        }
+        
+        //cocos2d::CCLog("dragonBones::EventDispatcher.dispatchEvent %s", event->getType());
+        // For script engine
+        auto scriptIter = _scriptHandlers.find(evtType);
+        
+        if (_scriptHandlers.end() != scriptIter)
+        {
+            cocos2d::CCLuaEngine* luaEngine = dynamic_cast<cocos2d::CCLuaEngine*>(cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine());
+            if (luaEngine)
+            {
+                /* CCArray* __param = CCArray::create();
+                 __param->addObject(CCInteger::create(evtType));
+                 __param->addObject(CCString::create(movId));
+                 __luaEngine->executeEventWithArgs(m_nScriptMovementHandler, __param);*/
+                
+                cocos2d::CCLuaStack *pStack = luaEngine->getLuaStack();
+                int luaHandler = scriptIter->second;
+                if (!luaHandler) return;
+                pStack->pushCCObject(e, "Event");
+                pStack->executeFunctionByHandler(luaHandler, 1);
+                pStack->clean();
+            }
+        }
+    }
+    
     void CCDragonBones::registerScriptHandler(int funId, String type)
     {
-        getArmature()->registerScriptHandler(funId, type);
-        //this->addEventListener(AnimationEvent::LOOP_COMPLETE, "aaa", this, callfuncND_selector(CCDragonBones::ttttt));
+        cocos2d::CCLog("%s %d %s", __func__, funId, type.c_str());
+        this->unregisterScriptHandler(type);
+        
+        EventDispatcher::Function f = std::bind(&CCDragonBones::cocosEventBridge, this, std::placeholders::_1);
+        String key = funToString(funId);
+        
+        CCLOG("%s funId value: %s", __func__, key.c_str());
+        m_Armature->addEventListener(type, f, key);
+        _scriptHandlers[type] = funId;
     }
-
+    
+    bool CCDragonBones::hasScriptHandler(const String &type)
+    {
+        return _scriptHandlers.find(type) != _scriptHandlers.end() &&
+            m_Armature->hasEventListener(type);
+    }
+    
     void CCDragonBones::unregisterScriptHandler(String type)
     {
-        getArmature()->unregisterScriptHandler(type);
+        m_Armature->removeEventListener(type);
+        auto iter = _scriptHandlers.find(type);
+        if (iter != _scriptHandlers.end())
+        {
+            _scriptHandlers.erase(iter);
+        }
     }
-
+    
+    void CCDragonBones::unregisterAllScriptHandler()
+    {
+        _scriptHandlers.clear();
+        m_Armature->removeAllEventListener();
+    }
+    
     int CCDragonBones::getScriptHandler(String type)
     {
-        return getArmature()->getScriptHandler(type);
+        auto iter = _scriptHandlers.find(type);
+        if (_scriptHandlers.end() != iter)
+        {
+            return iter->second;
+        }
+        return 0;
     }
 }

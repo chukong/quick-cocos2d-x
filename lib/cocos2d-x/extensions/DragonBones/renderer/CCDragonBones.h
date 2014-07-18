@@ -55,33 +55,40 @@ namespace dragonBones {
                             bool pauseFadeIn = true
 			);
  
-		void addEventListener(	const String &type, 
-                                const String &key,
-                                cocos2d::CCObject*pObj,
-                                cocos2d::SEL_CallFuncND callback); 
-		bool hasEventListener(const String &type);
-		void removeEventListener(const String &type, const std::string &key);
-		void dispatchEvent(Event *event);
-
+		void addEventListener(	const String &type,
+                                cocos2d::CCObject *pObj,
+                                cocos2d::SEL_CallFuncND selector);
+        void removeEventListener(const String &type, cocos2d::CCObject *pObj);
+        void removeAllEventListener();
+   		bool hasEventListener(const String &type);
+   		bool hasEventListener(const String &type, cocos2d::CCObject *pObj);
+		
+        // Methods for cocos2d-x users.
+        void setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName);
+        
+		// Override cocos2d-x method.
+		virtual void onExit();
+        
         // For script engine
         void registerScriptHandler(int funId, String type);
         void unregisterScriptHandler(String type);
+        void unregisterAllScriptHandler();
+        bool hasScriptHandler(const String &type);
         int  getScriptHandler(String type);
-
-		// Methods for cocos2d-x users.
-        void setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName);
-
-		// Override cocos2d-x method.
-		virtual void onExit();
-
         
     private:
         void initWithArmature(Armature* arm);
         void update(float dt);
-        Armature* m_Armature; 
-		cocos2d::SEL_CallFuncND	m_Callback;
-		cocos2d::CCObject*	m_Caller;
-		void eventBridge(Event* e);
+        Armature* m_Armature;
+        
+        String pointerToString(CCObject* pObj);
+		void cocosEventBridge(Event* e);
+        using CocosCallback = std::pair<cocos2d::CCObject*, cocos2d::SEL_CallFuncND>;
+        
+        // For script engine
+        String funToString(int funId);
+        std::map<String, int> _scriptHandlers;
+        std::map<String, std::list<CocosCallback>> _eventHandlers;
     }; 
 }
 #endif // __CCDRAGONBONES__

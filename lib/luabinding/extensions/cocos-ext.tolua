@@ -36,6 +36,7 @@ $pfile "extensions/DragonBones/renderer/CCDragonBones.tolua"
 $pfile "extensions/DragonBones/renderer/Cocos2dxFactory.tolua"
 //$pfile "extensions/DragonBones/events/Event.tolua"
 $pfile "extensions/DragonBones/events/AnimationEvent.tolua"
+$pfile "extensions/DragonBones/events/FrameEvent.tolua"
 $pfile "extensions/DragonBones/objects/AnimationData.tolua"
 $pfile "extensions/DragonBones/objects/DBTransform.tolua"
 

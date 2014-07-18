@@ -300,7 +300,7 @@ namespace dragonBones
         SkinData *skinDataCopy = 0;
         if(!animationName.empty() && animationName != armatureName)
         {
-            ArmatureData* animationArmatureData = data->getArmatureData(animationName);
+            //ArmatureData* animationArmatureData = data->getArmatureData(animationName);
             // 取默认动画
             //if(!animationArmatureData)
             //{
@@ -341,7 +341,7 @@ namespace dragonBones
         Slot* slot;
         DisplayData* displayData;
         Armature* childArmature;
-        int i;
+        size_t i;
         //var helpArray:Array = [];
         for(size_t j = 0 ; j < skinData->slotDataList.size() ; j ++)
         {
