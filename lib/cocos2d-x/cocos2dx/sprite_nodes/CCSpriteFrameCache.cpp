@@ -396,12 +396,12 @@ void CCSpriteFrameCache::addSpriteFramesWithFile(const char *pszPlist)
         {
             addSpriteFramesWithDictionary(dict, pTexture);
             m_pLoadedFileNames->insert(pszPlist);
-            dict->release();
         }
         else
         {
             CCLOG("cocos2d: CCSpriteFrameCache: Couldn't load texture");
         }
+        dict->release();
     }
 }
 

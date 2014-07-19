@@ -109,7 +109,7 @@ namespace dragonBones
      * </listing>
      * @see dragonBones.Armature
      */
-    class Cocos2dxFactory : public BaseFactory
+    class Cocos2dxFactory : public BaseFactory, public cocos2d::CCObject
     {
     public:
         /**
@@ -136,9 +136,39 @@ namespace dragonBones
 
         virtual void loadSkeletonFile(const String &skeletonFile , const String &name  = "");
         virtual void loadTextureAtlasFile(const String &textureAtlasFile , const String &name  = "");
+        
+        void loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName);
+        void loadDataFilesAsync(const String &skeletonFile,
+                                const String &textureAtlasFile,
+                                const String &dbName,
+                                cocos2d::CCObject* pObj,
+                                cocos2d::SEL_CallFuncO selector);
+        void loadDataFilesAsync(const String &skeletonFile,
+                                const String &textureAtlasFile,
+                                const String &dbName,
+                                int scriptHandler);
+        void loadDataFilesAsyncImpl(const String &skeletonFile,
+                                const String &textureAtlasFile,
+                                const String &dbName,
+                                cocos2d::CCObject* pObj,
+                                cocos2d::SEL_CallFuncO selector,
+                                int scriptHandler=0);
 
 	protected:
 		static Cocos2dxFactory *msCocos2dxFactory;
+    private:
+        struct AsyncStruct
+        {
+            const char* imagePath;
+            TextureAtlasData* pData;
+            cocos2d::CCObject* pObj;
+            cocos2d::SEL_CallFuncO pSelector;
+            int scriptHandler;
+        };
+        std::map<String, AsyncStruct*> _asyncList;
+        TextureAtlasData* parseTextureAtlasFile(const String &textureAtlasFile);
+        void doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler=0);
+        void loadTextureCallback(cocos2d::CCObject* pObj);
     };
 };
 #endif // __COCOS2DX_FACTORY_H__

@@ -702,6 +702,20 @@ void CCTextureCache::removeTextureForKey(const char *textureKeyName)
     m_pTextures->removeObjectForKey(fullPath);
 }
 
+const char* CCTextureCache::keyForTexture(CCTexture2D *texture)
+{
+    if( ! texture )
+    {
+        return NULL;
+    }
+    CCArray* keys = m_pTextures->allKeysForObject(texture);
+    if(keys->count() > 0)
+    {
+        return ((CCString*)keys->objectAtIndex(0))->getCString();
+    }
+    return NULL;
+}
+
 CCTexture2D* CCTextureCache::textureForKey(const char* key)
 {
     return (CCTexture2D*)m_pTextures->objectForKey(CCFileUtils::sharedFileUtils()->fullPathForFilename(key));

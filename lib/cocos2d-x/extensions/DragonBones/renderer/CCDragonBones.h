@@ -11,7 +11,6 @@
 #define __CCDRAGONBONES__
 
 #include <iostream>
-#include "cocos2d.h"
 #include "utils/preDB.h"
 #include "animation/Animation.h"
 #include "events/Event.h"

@@ -4,11 +4,14 @@
 #include "Cocos2dxAtlasNode.h"
 #include "utils/ConstValues.h"
 #include "objects/XMLDataParser.h"
-#include "platform/CCFileUtils.h"
 
+#include "platform/CCFileUtils.h"
+#include "platform/CCPlatformMacros.h"
+#include "textures/CCTextureCache.h"
 #include "cocoa/CCGeometry.h"
 #include "base_nodes/CCNode.h"
 #include "layers_scenes_transitions_nodes/CCLayer.h"
+#include "script_support/CCScriptSupport.h"
 namespace dragonBones
 {
 
@@ -49,34 +52,124 @@ namespace dragonBones
 		}
 		else
 		{
-			dragonBones::XMLDataParser parser;
-			unsigned long dummySize;
-            
-			dragonBones::XMLDocument doc;
-			unsigned char* texture_data = cocos2d::CCFileUtils::sharedFileUtils()->
-            getFileData(textureAtlasFile.c_str(), "rb", &dummySize);
-			doc.Parse(reinterpret_cast<char*>(texture_data),dummySize);
-			delete[] texture_data;
-            
-			size_t pos = textureAtlasFile.find_last_of("/");
-			if (std::string::npos != pos){
-				std::string base_path = textureAtlasFile.substr(0, pos + 1);
-                
-				std::string img_path = doc.RootElement()->Attribute(ConstValues::A_IMAGE_PATH.c_str());
-				std::string new_img_path = base_path + img_path;
-                
-				doc.RootElement()->SetAttribute(ConstValues::A_IMAGE_PATH.c_str(), new_img_path.c_str());
-			}
-            
-			TextureAtlasData *textureAtlasData = parser.parseTextureAtlasData(doc.RootElement());
+			TextureAtlasData *textureAtlasData = parseTextureAtlasFile(textureAtlasFile);
 			addTextureAtlas(new dragonBones::Cocos2dxTextureAtlas(textureAtlasData));
 		}
     }
+    
+    TextureAtlasData* Cocos2dxFactory::parseTextureAtlasFile(const String &textureAtlasFile)
+    {
+        dragonBones::XMLDataParser parser;
+        unsigned long dummySize;
         
+        dragonBones::XMLDocument doc;
+        unsigned char* texture_data = cocos2d::CCFileUtils::sharedFileUtils()->
+        getFileData(textureAtlasFile.c_str(), "rb", &dummySize);
+        doc.Parse(reinterpret_cast<char*>(texture_data),dummySize);
+        delete[] texture_data;
+        
+        size_t pos = textureAtlasFile.find_last_of("/");
+        if (std::string::npos != pos){
+            std::string base_path = textureAtlasFile.substr(0, pos + 1);
+            
+            std::string img_path = doc.RootElement()->Attribute(ConstValues::A_IMAGE_PATH.c_str());
+            std::string new_img_path = base_path + img_path;
+            
+            doc.RootElement()->SetAttribute(ConstValues::A_IMAGE_PATH.c_str(), new_img_path.c_str());
+        }
+        return parser.parseTextureAtlasData(doc.RootElement());
+    }
+    
+    void Cocos2dxFactory::loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName)
+    {
+        loadSkeletonFile(skeletonFile, dbName);
+        loadTextureAtlasFile(textureAtlasFile, dbName);
+    }
+    
+    void Cocos2dxFactory::loadDataFilesAsync(const String &skeletonFile,
+                                             const String &textureAtlasFile,
+                                             const String &dbName,
+                                             cocos2d::CCObject* pObj,
+                                             cocos2d::SEL_CallFuncO selector)
+    {
+        loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, pObj, selector);
+    }
+    
+    void Cocos2dxFactory::loadDataFilesAsync(const String &skeletonFile,
+                                             const String &textureAtlasFile,
+                                             const String &dbName,
+                                             int scriptHandler)
+    {
+        loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, nullptr, nullptr, scriptHandler);
+    }
+    
+    void Cocos2dxFactory::loadDataFilesAsyncImpl(const String &skeletonFile,
+                                                 const String &textureAtlasFile,
+                                                 const String &dbName,
+                                                 cocos2d::CCObject* pObj,
+                                                 cocos2d::SEL_CallFuncO selector,
+                                                 int scriptHandler)
+    {
+        loadSkeletonFile(skeletonFile, dbName);
+		if (existTextureDataInDic(dbName))
+		{
+			loadTextureAtlasFile(textureAtlasFile, dbName);
+            doAsyncCallBack(pObj, selector, scriptHandler);
+		}
+		else
+		{
+            TextureAtlasData *textureAtlasData = parseTextureAtlasFile(textureAtlasFile);
+            
+            Cocos2dxFactory::AsyncStruct* asyncObj = new Cocos2dxFactory::AsyncStruct();
+            asyncObj->pObj = pObj;
+            asyncObj->pData = textureAtlasData;
+            asyncObj->pSelector = selector;
+            asyncObj->scriptHandler = scriptHandler;
+            _asyncList[textureAtlasData->imagePath] = asyncObj;
+			
+            cocos2d::CCTextureCache::sharedTextureCache()->addImageAsync(textureAtlasData->imagePath.c_str(),
+                                                                         this,
+                                                                         cocos2d::SEL_CallFuncO(&Cocos2dxFactory::loadTextureCallback));
+		}
+    }
+    
+    void Cocos2dxFactory::loadTextureCallback(cocos2d::CCObject *pObj)
+    {
+        cocos2d::CCTexture2D* texture = static_cast<cocos2d::CCTexture2D*>(pObj);
+        const char* textureKey = cocos2d::CCTextureCache::sharedTextureCache()->keyForTexture(texture);
+        if(textureKey)
+        {
+            String keyName(textureKey);
+            auto iter = _asyncList.find(keyName);
+            if(iter != _asyncList.end())
+            {
+                Cocos2dxFactory::AsyncStruct* asyncObj = iter->second;
+                addTextureAtlas(new Cocos2dxTextureAtlas(asyncObj->pData));
+                doAsyncCallBack(asyncObj->pObj, asyncObj->pSelector, asyncObj->scriptHandler);
+                _asyncList.erase(keyName);
+                delete asyncObj;
+            }
+        }
+    }
+    
+    void Cocos2dxFactory::doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
+    {
+        CCLOG("%s target:%d selector:%d, handler:%d", __func__, target, selector, handler);
+        if (target && selector)
+        {
+            (target->*selector)(target);
+        }
+        if (handler)
+        {
+            cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine()
+                ->executeEvent(handler, "loadDataFilesAsync");
+        }
+    }
+    
     /** @private */
     ITextureAtlas* Cocos2dxFactory::generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData)
     {
-        return 0;
+        return nullptr;
         /*var texture:Texture;
         var bitmapData:BitmapData;
         if (content is BitmapData)
@@ -144,7 +237,9 @@ namespace dragonBones
         rect.size.width = region.width;
         rect.size.height = region.height;
 
-        cocos2d::Cocos2dxAtlasNode *atlasNode = cocos2d::Cocos2dxAtlasNode::create(ccTextureAtlas->getTextureAtlas() , ccTextureAtlas->getQuadIndex(fullName) , rect);
+        cocos2d::Cocos2dxAtlasNode *atlasNode = cocos2d::Cocos2dxAtlasNode::create(ccTextureAtlas->getTextureAtlas() ,
+                                                                                   ccTextureAtlas->getQuadIndex(fullName),
+                                                                                   rect);
         // cocos2d::ccBlendFunc func;
         // func.src = GL_SRC_ALPHA;
         // func.dst = GL_ONE_MINUS_SRC_ALPHA;

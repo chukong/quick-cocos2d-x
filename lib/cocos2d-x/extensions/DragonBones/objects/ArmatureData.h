@@ -54,7 +54,7 @@ namespace dragonBones
                     return boneDataList[i];
                 }
             }
-            return 0;
+            return nullptr;
         }
         
         SkinData* getSkinData(const String &skinName)
@@ -71,7 +71,7 @@ namespace dragonBones
                 }
             }
             
-            return 0;
+            return nullptr;
         }
         
         AnimationData* getAnimationData(const String &animationName)
@@ -83,7 +83,7 @@ namespace dragonBones
                     return animationDataList[i];
                 }
             }
-            return 0;
+            return nullptr;
         }
         
         void addBoneData(BoneData *boneData)

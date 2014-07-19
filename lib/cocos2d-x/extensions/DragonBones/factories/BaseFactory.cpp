@@ -235,13 +235,17 @@ namespace dragonBones
     * var armature:Armature = factory.buildArmature('dragon');
     * </listing>
     * @param    armatureName The name of this Armature instance.
-    * @param    The name of this animation->
+    * @param    The name of this animation
     * @param    The name of this SkeletonData.
     * @param    The name of this textureAtlas.
     * @param    The name of this skin.
     * @return A Armature instance.
     */
-    Armature* BaseFactory::buildArmature(const String &armatureName, const String &animationName, const String &skeletonName, const String &textureAtlasName, const String &skinName)
+    Armature* BaseFactory::buildArmature(const String &armatureName,
+                                         const String &animationName,
+                                         const String &skeletonName,
+                                         const String &textureAtlasName,
+                                         const String &skinName)
     {
         ArmatureData* armatureData = 0;
         SkeletonData *data = 0;
@@ -269,7 +273,7 @@ namespace dragonBones
 
         if(!armatureData)
         {
-            return 0;
+            return nullptr;
         }
 
         _currentDataName = skeletonName;
@@ -301,7 +305,7 @@ namespace dragonBones
         if(!animationName.empty() && animationName != armatureName)
         {
             //ArmatureData* animationArmatureData = data->getArmatureData(animationName);
-            // 取默认动画
+            // Get the default animation
             //if(!animationArmatureData)
             //{
             //    for (skeletonName in _dataDic)
@@ -334,7 +338,7 @@ namespace dragonBones
         SkinData* skinData = armatureData->getSkinData(skinName);
         if(!skinData)
         {
-            return 0;
+            return nullptr;
             //throw new ArgumentError();
         }
 
@@ -471,7 +475,7 @@ namespace dragonBones
 
             return generateDisplay(textureAtlas, textureName, pivotX, pivotY);
         }
-        return 0;
+        return nullptr;
     }
 
     /** @private */
@@ -519,7 +523,7 @@ namespace dragonBones
     /** @private */
     ITextureAtlas* BaseFactory::generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData)
     {
-        return 0;
+        return nullptr;
     }
 
     /**
@@ -528,7 +532,7 @@ namespace dragonBones
     */
     Armature* BaseFactory::generateArmature()
     {
-        return 0;
+        return nullptr;
     }
 
     /**
@@ -537,7 +541,7 @@ namespace dragonBones
     */
     Slot* BaseFactory::generateSlot()
     {
-        return 0;
+        return nullptr;
     }
 
     /**
@@ -550,6 +554,6 @@ namespace dragonBones
     */
     Object* BaseFactory::generateDisplay(ITextureAtlas *textureAtlas, const String &fullName, Number pivotX, Number pivotY)
     {
-        return 0;
+        return nullptr;
     }
 }

@@ -1,6 +1,6 @@
 #include "Cocos2dxAtlasNode.h"
 #include "textures/CCTextureAtlas.h"
-#include "textures/CCTextureCache.h"
+//#include "textures/CCTextureCache.h"
 #include "CCDirector.h"
 #include "shaders/CCGLProgram.h"
 #include "shaders/CCShaderCache.h"
