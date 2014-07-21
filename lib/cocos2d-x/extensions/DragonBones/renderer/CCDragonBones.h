@@ -82,7 +82,7 @@ namespace dragonBones {
         
         String pointerToString(CCObject* pObj);
 		void cocosEventBridge(Event* e);
-        using CocosCallback = std::pair<cocos2d::CCObject*, cocos2d::SEL_CallFuncND>;
+        typedef std::pair<cocos2d::CCObject*, cocos2d::SEL_CallFuncND> CocosCallback;
         
         // For script engine
         String funToString(int funId);

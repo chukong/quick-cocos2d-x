@@ -38,7 +38,7 @@ NS_CC_BEGIN
 
 struct ACAsyncStruct
 {
-    int plistCount = 0;
+    int plistCount;
     CCDictionary* animations;
     CCObject* target;
     SEL_CallFuncO selector;
