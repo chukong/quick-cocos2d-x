@@ -11,9 +11,9 @@ namespace dragonBones
     class DisplayObject;
     class TextureAtlasData;
     /**
-     * The Cocos2dxTextureAtlas creates and manipulates TextureAtlas from starling.display.DisplayObject.
+     * The CCDBTextureAtlas creates and manipulates TextureAtlas from starling.display.DisplayObject.
      */
-    class Cocos2dxTextureAtlas : public ITextureAtlas
+    class CCDBTextureAtlas : public ITextureAtlas
     {
     protected:
         TextureAtlasData *_textureAtlasRawData;
@@ -23,8 +23,8 @@ namespace dragonBones
         cocos2d::CCTextureAtlas *textureAtlas;
     public:
 
-        Cocos2dxTextureAtlas(TextureAtlasData *data);
-        virtual ~Cocos2dxTextureAtlas();
+        CCDBTextureAtlas(TextureAtlasData *data);
+        virtual ~CCDBTextureAtlas();
         /**
          * The name of this ITextureAtlas.
          */

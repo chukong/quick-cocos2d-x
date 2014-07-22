@@ -1,7 +1,7 @@
-#include "Cocos2dxFactory.h"
-#include "Cocos2dxDisplayBridge.h"
-#include "Cocos2dxTextureAtlas.h"
-#include "Cocos2dxAtlasNode.h"
+#include "CCDBManager.h"
+#include "CCDBDisplayBridge.h"
+#include "CCDBTextureAtlas.h"
+#include "CCDBAtlasNode.h"
 #include "utils/ConstValues.h"
 #include "objects/XMLDataParser.h"
 
@@ -16,16 +16,67 @@ namespace dragonBones
 {
 
     /**
-     * Creates a new Cocos2dxFactory instance.
+     * Creates a new CCDBManager instance.
      */
-    Cocos2dxFactory::Cocos2dxFactory()
+    CCDBManager::CCDBManager()
     {
     }
-    void Cocos2dxFactory::loadSkeletonFile(const String &skeletonFile , const String &name)
+    
+    void CCDBManager::parseXMLByDir(const String& path, String &skeletonXMLFile, String &textureXMLFile)
+    {
+        String dataDir(path);
+        size_t pos;
+        while ((pos = dataDir.find_first_of("\\")) != String::npos)
+        {
+            dataDir.replace(pos, 1, "/");
+        }
+        size_t slash = dataDir.find_last_of("/");
+        if(slash == String::npos)
+        {
+            dataDir.append("/");
+        }
+        skeletonXMLFile.append(dataDir + "skeleton.xml");
+        textureXMLFile.append(dataDir + "texture.xml");
+    }
+    
+    Armature* CCDBManager::createArmatureByDir(const String &path,
+                                               const String &armatureName,
+                                              const String &animationName,
+                                              const String &skeletonName,
+                                              const String &skinName)
+    {
+        String skeletonFile("");
+        String textureFile("");
+        parseXMLByDir(path, skeletonFile, textureFile);
+        return createArmatureByFiles(skeletonFile, textureFile, armatureName, animationName, skeletonName, skinName);
+    }
+    
+    Armature* CCDBManager::createArmatureByFiles(const String &skeletonXMLFile,
+                                                 const String &textureXMLFile,
+                                                 const String &armatureName,
+                                          const String &animationName,
+                                          const String &skeletonName,
+                                          const String &skinName)
+    {
+
+        loadDataFiles(skeletonXMLFile, textureXMLFile, skeletonName);
+        return createArmature(armatureName, animationName, skeletonName, skinName);
+    }
+    
+    Armature* CCDBManager::createArmature(const String &armatureName,
+                             const String &animationName,
+                             const String &skeletonName,
+                             const String &skinName)
+    {
+        return buildArmature(armatureName, animationName, skeletonName, skeletonName, skinName);
+    }
+    
+    void CCDBManager::loadSkeletonFile(const String &skeletonFile , const String &name)
     {
         if(existSkeletonDataInDic(name))
         {
             //todo
+            CCLOG("%s, name %s has already been in cache.", __func__, name.c_str());
         }
         else
         {
@@ -44,20 +95,21 @@ namespace dragonBones
         }
     }
 
-    void Cocos2dxFactory::loadTextureAtlasFile(const String &textureAtlasFile , const String &name)
+    void CCDBManager::loadTextureAtlasFile(const String &textureAtlasFile , const String &name)
     {
 		if (existTextureDataInDic(name))
 		{
 			//todo
+            CCLOG("%s, name %s has already been in cache.", __func__, name.c_str());
 		}
 		else
 		{
 			TextureAtlasData *textureAtlasData = parseTextureAtlasFile(textureAtlasFile);
-			addTextureAtlas(new dragonBones::Cocos2dxTextureAtlas(textureAtlasData));
+			addTextureAtlas(new dragonBones::CCDBTextureAtlas(textureAtlasData));
 		}
     }
     
-    TextureAtlasData* Cocos2dxFactory::parseTextureAtlasFile(const String &textureAtlasFile)
+    TextureAtlasData* CCDBManager::parseTextureAtlasFile(const String &textureAtlasFile)
     {
         dragonBones::XMLDataParser parser;
         unsigned long dummySize;
@@ -80,36 +132,29 @@ namespace dragonBones
         return parser.parseTextureAtlasData(doc.RootElement());
     }
     
-    void Cocos2dxFactory::loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName)
+    void CCDBManager::loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName)
     {
-        loadSkeletonFile(skeletonFile, dbName);
-        loadTextureAtlasFile(textureAtlasFile, dbName);
+        if(!skeletonFile.empty())
+            loadSkeletonFile(skeletonFile, dbName);
+        if(!textureAtlasFile.empty())
+            loadTextureAtlasFile(textureAtlasFile, dbName);
     }
-    
-    void Cocos2dxFactory::loadDataFilesAsync(const String &skeletonFile,
-                                             const String &textureAtlasFile,
-                                             const String &dbName,
-                                             cocos2d::CCObject* pObj,
-                                             cocos2d::SEL_CallFuncO selector)
-    {
-        loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, pObj, selector);
-    }
-    
-    void Cocos2dxFactory::loadDataFilesAsync(const String &skeletonFile,
-                                             const String &textureAtlasFile,
-                                             const String &dbName,
-                                             int scriptHandler)
-    {
-        loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, nullptr, nullptr, scriptHandler);
-    }
-    
-    void Cocos2dxFactory::loadDataFilesAsyncImpl(const String &skeletonFile,
+
+    void CCDBManager::loadDataFilesAsyncImpl(const String &skeletonFile,
                                                  const String &textureAtlasFile,
                                                  const String &dbName,
                                                  cocos2d::CCObject* pObj,
                                                  cocos2d::SEL_CallFuncO selector,
                                                  int scriptHandler)
     {
+        CCLOG("%s skeletonFile:%s, textureAtlasFile:%s dbName:%s pObj:%d selector:%d, handler:%d",
+              __func__,
+              skeletonFile.c_str(),
+              textureAtlasFile.c_str(),
+              dbName.c_str(),
+              pObj,
+              selector,
+              scriptHandler);
         loadSkeletonFile(skeletonFile, dbName);
 		if (existTextureDataInDic(dbName))
 		{
@@ -120,31 +165,39 @@ namespace dragonBones
 		{
             TextureAtlasData *textureAtlasData = parseTextureAtlasFile(textureAtlasFile);
             
-            Cocos2dxFactory::AsyncStruct* asyncObj = new Cocos2dxFactory::AsyncStruct();
+            CCDBManager::AsyncStruct* asyncObj = new CCDBManager::AsyncStruct();
             asyncObj->pObj = pObj;
             asyncObj->pData = textureAtlasData;
             asyncObj->pSelector = selector;
             asyncObj->scriptHandler = scriptHandler;
-            _asyncList[textureAtlasData->imagePath] = asyncObj;
+            std::string imgPath = cocos2d::CCFileUtils::sharedFileUtils()
+                ->fullPathForFilename(textureAtlasData->imagePath.c_str());
+            _asyncList[imgPath] = asyncObj;
 			
-            cocos2d::CCTextureCache::sharedTextureCache()->addImageAsync(textureAtlasData->imagePath.c_str(),
-                                                                         this,
-                                                                         cocos2d::SEL_CallFuncO(&Cocos2dxFactory::loadTextureCallback));
+            cocos2d::CCTextureCache::sharedTextureCache()
+                ->addImageAsync(imgPath.c_str(),
+                                this,
+                                cocos2d::SEL_CallFuncO(&CCDBManager::loadTextureCallback));
 		}
     }
     
-    void Cocos2dxFactory::loadTextureCallback(cocos2d::CCObject *pObj)
+    void CCDBManager::loadTextureCallback(cocos2d::CCObject *pObj)
     {
         cocos2d::CCTexture2D* texture = static_cast<cocos2d::CCTexture2D*>(pObj);
         const char* textureKey = cocos2d::CCTextureCache::sharedTextureCache()->keyForTexture(texture);
+        CCLOG("%s textureKey:%s object:%d", __func__, textureKey, pObj);
+        for(auto kename : _asyncList)
+        {
+            CCLOG("first:%s, second:", kename.first.c_str());
+        }
         if(textureKey)
         {
             String keyName(textureKey);
             auto iter = _asyncList.find(keyName);
             if(iter != _asyncList.end())
             {
-                Cocos2dxFactory::AsyncStruct* asyncObj = iter->second;
-                addTextureAtlas(new Cocos2dxTextureAtlas(asyncObj->pData));
+                CCDBManager::AsyncStruct* asyncObj = iter->second;
+                addTextureAtlas(new CCDBTextureAtlas(asyncObj->pData));
                 doAsyncCallBack(asyncObj->pObj, asyncObj->pSelector, asyncObj->scriptHandler);
                 _asyncList.erase(keyName);
                 delete asyncObj;
@@ -152,7 +205,7 @@ namespace dragonBones
         }
     }
     
-    void Cocos2dxFactory::doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
+    void CCDBManager::doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
     {
         CCLOG("%s target:%d selector:%d, handler:%d", __func__, target, selector, handler);
         if (target && selector)
@@ -167,7 +220,7 @@ namespace dragonBones
     }
     
     /** @private */
-    ITextureAtlas* Cocos2dxFactory::generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData)
+    ITextureAtlas* CCDBManager::generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData)
     {
         return nullptr;
         /*var texture:Texture;
@@ -213,23 +266,23 @@ namespace dragonBones
     }
     
     /** @private */
-    Armature* Cocos2dxFactory::generateArmature()
+    Armature* CCDBManager::generateArmature()
     {
         cocos2d::CCNodeRGBA *node = cocos2d::CCNodeRGBA::create();
         node->setCascadeOpacityEnabled(true);
-        return new Armature(new CocosNode(node));
+        return new Armature(new CCDBNode(node));
     }
     
     /** @private */
-    Slot* Cocos2dxFactory::generateSlot()
+    Slot* CCDBManager::generateSlot()
     {
-        return new Slot(new Cocos2dxDisplayBridge());
+        return new Slot(new CCDBDisplayBridge());
     }
     
     /** @private */
-    Object* Cocos2dxFactory::generateDisplay(ITextureAtlas *textureAtlas, const String &fullName, Number pivotX, Number pivotY)
+    Object* CCDBManager::generateDisplay(ITextureAtlas *textureAtlas, const String &fullName, Number pivotX, Number pivotY)
     {
-        Cocos2dxTextureAtlas *ccTextureAtlas = dynamic_cast<Cocos2dxTextureAtlas*>(textureAtlas);
+        CCDBTextureAtlas *ccTextureAtlas = dynamic_cast<CCDBTextureAtlas*>(textureAtlas);
         cocos2d::CCRect rect;
         rect.origin.x = 0;
         rect.origin.y = 0;
@@ -237,7 +290,7 @@ namespace dragonBones
         rect.size.width = region.width;
         rect.size.height = region.height;
 
-        cocos2d::Cocos2dxAtlasNode *atlasNode = cocos2d::Cocos2dxAtlasNode::create(ccTextureAtlas->getTextureAtlas() ,
+        cocos2d::CCDBAtlasNode *atlasNode = cocos2d::CCDBAtlasNode::create(ccTextureAtlas->getTextureAtlas() ,
                                                                                    ccTextureAtlas->getQuadIndex(fullName),
                                                                                    rect);
         // cocos2d::ccBlendFunc func;
@@ -247,7 +300,7 @@ namespace dragonBones
         atlasNode->setCascadeOpacityEnabled(true);
         atlasNode->setAnchorPoint(cocos2d::CCPoint(pivotX / (Number)region.width , (region.height-pivotY) / (Number)region.height));
         atlasNode->setContentSize(cocos2d::CCSize(region.width , region.height));
-        return new CocosNode(atlasNode);
+        return new CCDBNode(atlasNode);
         //static_cast<cocos2d::CCLayerColor*>(node->node)->initWithColor(cocos2d::ccc4(255,0,0,255) , 100 , 100);
         //return node;
         //DisplayObject *obj = new DisplayObject();
@@ -262,23 +315,23 @@ namespace dragonBones
         //return obj;
     }
 
-	Cocos2dxFactory * Cocos2dxFactory::msCocos2dxFactory = nullptr;
+	CCDBManager * CCDBManager::msCCDBManager = nullptr;
 
-	Cocos2dxFactory * Cocos2dxFactory::getInstance()
+	CCDBManager * CCDBManager::getInstance()
 	{
-		if (msCocos2dxFactory == nullptr)
+		if (msCCDBManager == nullptr)
 		{
-			msCocos2dxFactory = new Cocos2dxFactory();
+			msCCDBManager = new CCDBManager();
 		}
-		return msCocos2dxFactory;
+		return msCCDBManager;
 	}
 
-	void Cocos2dxFactory::destroyInstance()
+	void CCDBManager::destroyInstance()
 	{
-		if (msCocos2dxFactory)
+		if (msCCDBManager)
 		{
-			msCocos2dxFactory->dispose();
-			CC_SAFE_DELETE(msCocos2dxFactory);
+			msCCDBManager->dispose();
+			CC_SAFE_DELETE(msCCDBManager);
 		}
 	}
 

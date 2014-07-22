@@ -17,15 +17,15 @@ NS_CC_BEGIN
 
 class CCTextureAtlas;
 
-/** @brief Cocos2dxAtlasNode is a subclass of CCNode that implements the CCRGBAProtocol and CCTextureProtocol protocol
+/** @brief CCDBAtlasNode is a subclass of CCNode that implements the CCRGBAProtocol and CCTextureProtocol protocol
 
 It knows how to render a TextureAtlas object.
-If you are going to render a TextureAtlas consider subclassing Cocos2dxAtlasNode (or a subclass of Cocos2dxAtlasNode)
+If you are going to render a TextureAtlas consider subclassing CCDBAtlasNode (or a subclass of CCDBAtlasNode)
 
 All features from CCNode are valid, plus the following features:
 - opacity and RGB colors
 */
-class Cocos2dxAtlasNode : public CCNodeRGBA, public CCTextureProtocol , public dragonBones::Object
+class CCDBAtlasNode : public CCNodeRGBA, public CCTextureProtocol , public dragonBones::Object
 {
 protected:
     
@@ -47,11 +47,11 @@ protected:
     unsigned int m_nQuadIndex;
     
 public:
-    Cocos2dxAtlasNode();
-    virtual ~Cocos2dxAtlasNode();
+    CCDBAtlasNode();
+    virtual ~CCDBAtlasNode();
 
-    /** creates a Cocos2dxAtlasNode  with an Atlas file the width and height of each item and the quantity of items to render*/
-    static Cocos2dxAtlasNode * create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
+    /** creates a CCDBAtlasNode  with an Atlas file the width and height of each item and the quantity of items to render*/
+    static CCDBAtlasNode * create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
     bool initWithTextureAtlas(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect);
     
 

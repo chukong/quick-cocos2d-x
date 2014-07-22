@@ -1,14 +1,14 @@
-#include "Cocos2dxDisplayBridge.h"
-#include "Cocos2dxFactory.h"
+#include "CCDBDisplayBridge.h"
 #include "base_nodes/CCNode.h"
+#include "CCDBNode.h"
 namespace dragonBones
 {
 
-        bool Cocos2dxDisplayBridge::getVisible()
+        bool CCDBDisplayBridge::getVisible()
         {
             return true;
         }
-        void Cocos2dxDisplayBridge::setVisible(bool value)
+        void CCDBDisplayBridge::setVisible(bool value)
         {
             mDisplayNode->getNode()->setVisible(value);
         }
@@ -16,11 +16,11 @@ namespace dragonBones
         /**
          * Indicates the original display object relative to specific display engine.
          */
-        Object *Cocos2dxDisplayBridge::getDisplay()
+        Object *CCDBDisplayBridge::getDisplay()
         {
             return mDisplay;
         }
-        void Cocos2dxDisplayBridge::setDisplay(Object *value)
+        void CCDBDisplayBridge::setDisplay(Object *value)
         {
             cocos2d::CCNode *parent = 0;
             int zOrder = 0;
@@ -33,10 +33,10 @@ namespace dragonBones
             }
 
             mDisplay = value;
-            mDisplayNode = dynamic_cast<CocosNode*>(value);
+            mDisplayNode = dynamic_cast<CCDBNode*>(value);
             if(mDisplayNode && parent)
             {
-                CocosNode parentNode(parent);
+                CCDBNode parentNode(parent);
                 addDisplay(&parentNode , zOrder);
             }
         }
@@ -44,7 +44,7 @@ namespace dragonBones
         /**
          * Cleans up resources used by this IDisplayBridge instance.
          */
-        void Cocos2dxDisplayBridge::dispose()
+        void CCDBDisplayBridge::dispose()
         {
         }
         
@@ -53,7 +53,7 @@ namespace dragonBones
          * @param    matrix
          * @param    transform
          */
-        void Cocos2dxDisplayBridge::updateTransform(Matrix &matrix, DBTransform &transform)
+        void CCDBDisplayBridge::updateTransform(Matrix &matrix, DBTransform &transform)
         {
             if(mDisplayNode)
             {
@@ -77,7 +77,7 @@ namespace dragonBones
          * @param    gM
          * @param    bM
          */
-        void Cocos2dxDisplayBridge::updateColor(
+        void CCDBDisplayBridge::updateColor(
             Number aOffset, 
             Number rOffset, 
             Number gOffset, 
@@ -100,7 +100,7 @@ namespace dragonBones
          * Update the blend mode of the display object
          * @param blendMode The blend mode to use. 
          */
-        void Cocos2dxDisplayBridge::updateBlendMode(const String &blendMode)
+        void CCDBDisplayBridge::updateBlendMode(const String &blendMode)
         {
         }
         
@@ -109,11 +109,11 @@ namespace dragonBones
          * @param    container
          * @param    index
          */
-        void Cocos2dxDisplayBridge::addDisplay(Object *container, int index)
+        void CCDBDisplayBridge::addDisplay(Object *container, int index)
         {
             if(mDisplayNode)
             {
-                CocosNode *parent = dynamic_cast<CocosNode*>(container);
+                CCDBNode *parent = dynamic_cast<CCDBNode*>(container);
                 if(parent)
                 {
                     if(mDisplayNode->node->getParent())
@@ -126,7 +126,7 @@ namespace dragonBones
             }
             //if(mDisplayObject)
             //{
-            //    CocosNode *parent = dynamic_cast<CocosNode*>(container);
+            //    CCDBNode *parent = dynamic_cast<CCDBNode*>(container);
             //    if(parent)
             //    {
             //        if(mDisplayObject->atlasNode->getParent())
@@ -141,7 +141,7 @@ namespace dragonBones
         /**
          * remove the original display object from its parent.
          */
-        void Cocos2dxDisplayBridge::removeDisplay()
+        void CCDBDisplayBridge::removeDisplay()
         {
             if(mDisplayNode && mDisplayNode->node->getParent())
             {
@@ -149,12 +149,12 @@ namespace dragonBones
             }
         }
 
-        Cocos2dxDisplayBridge::~Cocos2dxDisplayBridge()
+        CCDBDisplayBridge::~CCDBDisplayBridge()
         {
             dispose();
         }
 
-        Cocos2dxDisplayBridge::Cocos2dxDisplayBridge()
+        CCDBDisplayBridge::CCDBDisplayBridge()
             : mDisplayNode(0)
             , mDisplay(0)
         {

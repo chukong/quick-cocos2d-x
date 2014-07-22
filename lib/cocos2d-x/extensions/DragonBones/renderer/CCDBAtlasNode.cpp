@@ -1,4 +1,4 @@
-#include "Cocos2dxAtlasNode.h"
+#include "CCDBAtlasNode.h"
 #include "textures/CCTextureAtlas.h"
 //#include "textures/CCTextureCache.h"
 #include "CCDirector.h"
@@ -13,11 +13,11 @@
 
 NS_CC_BEGIN
 
-// implementation Cocos2dxAtlasNode
+// implementation CCDBAtlasNode
 
-// Cocos2dxAtlasNode - Creation & Init
+// CCDBAtlasNode - Creation & Init
 
-Cocos2dxAtlasNode::Cocos2dxAtlasNode()
+CCDBAtlasNode::CCDBAtlasNode()
 : m_pTextureAtlas(NULL)
 , m_bIsOpacityModifyRGB(false)
 , m_nUniformColor(0)
@@ -25,14 +25,14 @@ Cocos2dxAtlasNode::Cocos2dxAtlasNode()
 {
 }
 
-Cocos2dxAtlasNode::~Cocos2dxAtlasNode()
+CCDBAtlasNode::~CCDBAtlasNode()
 {
     CC_SAFE_RELEASE(m_pTextureAtlas);
 }
 
-Cocos2dxAtlasNode * Cocos2dxAtlasNode::create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect)
+CCDBAtlasNode * CCDBAtlasNode::create(CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect)
 {
-    Cocos2dxAtlasNode * pRet = new Cocos2dxAtlasNode();
+    CCDBAtlasNode * pRet = new CCDBAtlasNode();
     if (pRet->initWithTextureAtlas(textureAtlas , quadIndex , sourceRect))
     {
         pRet->autorelease();
@@ -42,7 +42,7 @@ Cocos2dxAtlasNode * Cocos2dxAtlasNode::create(CCTextureAtlas* textureAtlas , uns
     return NULL;
 }
 
-bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect)
+bool CCDBAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , unsigned int quadIndex , const CCRect &sourceRect)
 {
     m_nQuadIndex = quadIndex;
 
@@ -56,7 +56,7 @@ bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , uns
 
     if (! m_pTextureAtlas)
     {
-        CCLOG("cocos2d: Could not initialize Cocos2dxAtlasNode. Invalid Texture.");
+        CCLOG("cocos2d: Could not initialize CCDBAtlasNode. Invalid Texture.");
         return false;
     }
     m_pTextureAtlas->retain();
@@ -97,8 +97,8 @@ bool Cocos2dxAtlasNode::initWithTextureAtlas( CCTextureAtlas* textureAtlas , uns
     return true;
 }
 
-// Cocos2dxAtlasNode - draw
-void Cocos2dxAtlasNode::draw()
+// CCDBAtlasNode - draw
+void CCDBAtlasNode::draw()
 {
     CC_NODE_DRAW_SETUP();
 
@@ -111,9 +111,9 @@ void Cocos2dxAtlasNode::draw()
 	m_pTextureAtlas->getQuads();
 }
 
-// Cocos2dxAtlasNode - RGBA protocol
+// CCDBAtlasNode - RGBA protocol
 
-const ccColor3B& Cocos2dxAtlasNode::getColor()
+const ccColor3B& CCDBAtlasNode::getColor()
 {
     if(m_bIsOpacityModifyRGB)
     {
@@ -122,7 +122,7 @@ const ccColor3B& Cocos2dxAtlasNode::getColor()
     return CCNodeRGBA::getColor();
 }
 
-void Cocos2dxAtlasNode::setColor(const ccColor3B& color3)
+void CCDBAtlasNode::setColor(const ccColor3B& color3)
 {
     ccColor3B tmp = color3;
     m_tColorUnmodified = color3;
@@ -136,7 +136,7 @@ void Cocos2dxAtlasNode::setColor(const ccColor3B& color3)
     CCNodeRGBA::setColor(tmp);
 }
 
-void Cocos2dxAtlasNode::setOpacity(GLubyte opacity)
+void CCDBAtlasNode::setOpacity(GLubyte opacity)
 {
     CCNodeRGBA::setOpacity(opacity);
 
@@ -145,41 +145,41 @@ void Cocos2dxAtlasNode::setOpacity(GLubyte opacity)
         this->setColor(m_tColorUnmodified);
 }
 
-void Cocos2dxAtlasNode::setOpacityModifyRGB(bool bValue)
+void CCDBAtlasNode::setOpacityModifyRGB(bool bValue)
 {
     ccColor3B oldColor = this->getColor();
     m_bIsOpacityModifyRGB = bValue;
     this->setColor(oldColor);
 }
 
-bool Cocos2dxAtlasNode::isOpacityModifyRGB()
+bool CCDBAtlasNode::isOpacityModifyRGB()
 {
     return m_bIsOpacityModifyRGB;
 }
 
-void Cocos2dxAtlasNode::updateOpacityModifyRGB()
+void CCDBAtlasNode::updateOpacityModifyRGB()
 {
     m_bIsOpacityModifyRGB = m_pTextureAtlas->getTexture()->hasPremultipliedAlpha();
 }
 
-void Cocos2dxAtlasNode::setIgnoreContentScaleFactor(bool bIgnoreContentScaleFactor)
+void CCDBAtlasNode::setIgnoreContentScaleFactor(bool bIgnoreContentScaleFactor)
 {
     m_bIgnoreContentScaleFactor = bIgnoreContentScaleFactor;
 }
 
-// Cocos2dxAtlasNode - CocosNodeTexture protocol
+// CCDBAtlasNode - CocosNodeTexture protocol
 
-ccBlendFunc Cocos2dxAtlasNode::getBlendFunc()
+ccBlendFunc CCDBAtlasNode::getBlendFunc()
 {
     return m_tBlendFunc;
 }
 
-void Cocos2dxAtlasNode::setBlendFunc(ccBlendFunc blendFunc)
+void CCDBAtlasNode::setBlendFunc(ccBlendFunc blendFunc)
 {
     m_tBlendFunc = blendFunc;
 }
 
-void Cocos2dxAtlasNode::updateBlendFunc()
+void CCDBAtlasNode::updateBlendFunc()
 {
     if( ! m_pTextureAtlas->getTexture()->hasPremultipliedAlpha() ) {
         m_tBlendFunc.src = GL_SRC_ALPHA;
@@ -187,26 +187,26 @@ void Cocos2dxAtlasNode::updateBlendFunc()
     }
 }
 
-void Cocos2dxAtlasNode::setTexture(CCTexture2D *texture)
+void CCDBAtlasNode::setTexture(CCTexture2D *texture)
 {
     m_pTextureAtlas->setTexture(texture);
     this->updateBlendFunc();
     this->updateOpacityModifyRGB();
 }
 
-CCTexture2D * Cocos2dxAtlasNode::getTexture()
+CCTexture2D * CCDBAtlasNode::getTexture()
 {
     return m_pTextureAtlas->getTexture();
 }
 
-void Cocos2dxAtlasNode::setTextureAtlas(CCTextureAtlas* var)
+void CCDBAtlasNode::setTextureAtlas(CCTextureAtlas* var)
 {
     CC_SAFE_RETAIN(var);
     CC_SAFE_RELEASE(m_pTextureAtlas);
     m_pTextureAtlas = var;
 }
 
-CCTextureAtlas * Cocos2dxAtlasNode::getTextureAtlas()
+CCTextureAtlas * CCDBAtlasNode::getTextureAtlas()
 {
     return m_pTextureAtlas;
 }

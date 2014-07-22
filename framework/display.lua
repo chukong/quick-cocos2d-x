@@ -507,34 +507,73 @@ end
 -- {
 --		skeleton="dragon/skeleton.xml",
 --		texture="dragon/texture.xml",
---		dragonBonesName="Dragon",
 --		armatureName="Dragon",
---		aniName="",
+--		animationName="walk",
+--		skeletonName="Dragon",
+--		skinName=""
 --	}
 --	or find skeleton.xml and texture.xml in a dictionary path.
 -- {
 --		path="dragon",
---		dragonBonesName="Dragon",
 --		armatureName="Dragon",
---		aniName="",
+--		animationName="",
+--		skeletonName="Dragon",
+--	}
+--	or create a armature directory if Skeleton data and texture data is in cache.
+-- {
+--		armatureName="Dragon",
+--		animationName="walk",
+--		skeletonName="Dragon",
+--		skinName = ""
 --	}
 function display.newDragonBones(params)
+	local armName = params.armatureName
+	local aniName = params.animationName or ""
+	local skeName = params.skeletonName or armName
+	local skinName = params.skinName or ""
+	local path = params.path
 	local skeletonXMLFile = params.skeleton
 	local textureXMLFile = params.texture
-	local dbName = params.dragonBonesName
-	local armatureName = params.armatureName or dbName
-	local aniName = params.animationName or ""
-	local path = params.path
-	assert(dbName and armatureName, "dragonBonesName and armatureName are necessary!")
+	assert(skeName and armName, "skeletonName and armatureName are necessary!")
 	if path then
 		return CCDragonBonesExtend.extend(
-			CCDragonBones:create(path, dbName, armatureName)
+			CCDragonBones:createByDir(path, armName, aniName, skeName, skinName)
 		)
 	end
-	assert(skeletonXMLFile and textureXMLFile, "skeleton and texture are necessary!")
+	if skeletonXMLFile and textureXMLFile then
+		return CCDragonBonesExtend.extend(
+			CCDragonBones:createByFiles(skeletonXMLFile, textureXMLFile, armName, aniName, skeName,skinName)
+		)
+	end
 	return CCDragonBonesExtend.extend(
-		CCDragonBones:create(skeletonXMLFile, textureXMLFile, dbName, armatureName, aniName)
+		CCDragonBones:createByName(armName, aniName, skeName, skinName)
 	)
+end
+
+function display.loadDragonBonesDataFiles(skeletonFile, textureFile, skeletonName, handler)
+	local dbManager = CCDBManager:getInstance()
+	if type(handler) == "function" then
+		dbManager:loadDataFilesAsync(skeletonFile, textureFile, skeletonName, handler)
+	else
+		dbManager:loadDataFiles(skeletonFile, textureFile, skeletonName)
+	end
+end
+
+function display.loadDragonBonesDataFileList(fileList, handler)
+	local dbManager = CCDBManager:getInstance()
+	local amount = #__list
+	local aHandler = nil
+	if type(handler) == "function" then
+		aHandler = function()
+			amount = __amount - 1
+			if amount <= 0 then
+				handler()
+			end
+		end
+	end
+	for __, adb in ipairs(fileList) do
+		display.loadDragonBonesDataFiles(adb.skeleton, adb.texture, adb.skeletonName, aHandler)
+	end
 end
 
 --- Create a circle or a sector or a pie by CCDrawNode

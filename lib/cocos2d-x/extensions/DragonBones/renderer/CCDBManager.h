@@ -6,31 +6,10 @@
 #include "Armature.h"
 #include "Slot.h"
 #include "base_nodes/CCNode.h"
+#include "CCDBNode.h"
+
 namespace dragonBones
 {
-    class CocosNode : public Object
-    {
-    public:
-        CocosNode(cocos2d::CCNode *n)
-            : node(n)
-        {
-            if(node)
-            {
-                node->retain();
-            }
-        }
-        virtual ~CocosNode()
-        {
-            if(node)
-            {
-                node->release();
-            }
-        }
-        cocos2d::CCNode *node;
-
-        const cocos2d::CCNode *getNode() const { return node; }
-        cocos2d::CCNode *getNode() { return node; }
-    };
 
     //class DisplayObject : public Object
     //{
@@ -109,19 +88,19 @@ namespace dragonBones
      * </listing>
      * @see dragonBones.Armature
      */
-    class Cocos2dxFactory : public BaseFactory, public cocos2d::CCObject
+    class CCDBManager : public BaseFactory, public cocos2d::CCObject
     {
     public:
         /**
          * Creates a new StarlingFactory instance.
          */
-        Cocos2dxFactory();
+        CCDBManager();
 
 		// get singleton
-		static Cocos2dxFactory *getInstance();
+		static CCDBManager *getInstance();
 		static void destroyInstance();
 
-        
+        static void parseXMLByDir(const String& path,String &skeletonXMLFile, String &textureXMLFile);
         /** @private */
         ITextureAtlas* generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData);
         
@@ -133,29 +112,49 @@ namespace dragonBones
         
         /** @private */
         virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const String &fullName, Number pivotX, Number pivotY);
-
+        
+        Armature* createArmatureByDir(const String &path,
+                                  const String &armatureName,
+                                 const String &animationName = "",
+                                 const String &skeletonName = "",
+                                 const String &skinName = "");
+        
+        Armature* createArmatureByFiles(const String &armatureName,
+                                 const String &animationName = "",
+                                 const String &skeletonName = "",
+                                 const String &skeletonXMLFile = "",
+                                 const String &textureXMLFile = "",
+                                 const String &skinName = "");
+        
+        Armature* createArmature(const String &armatureName,
+                                 const String &animationName = "",
+                                 const String &skeletonName = "",
+                                 const String &skinName = "");
+        
         virtual void loadSkeletonFile(const String &skeletonFile , const String &name  = "");
         virtual void loadTextureAtlasFile(const String &textureAtlasFile , const String &name  = "");
         
         void loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName);
-        void loadDataFilesAsync(const String &skeletonFile,
+        
+        inline void loadDataFilesAsync(const String &skeletonFile,
                                 const String &textureAtlasFile,
                                 const String &dbName,
                                 cocos2d::CCObject* pObj,
-                                cocos2d::SEL_CallFuncO selector);
-        void loadDataFilesAsync(const String &skeletonFile,
+                                cocos2d::SEL_CallFuncO selector)
+        {
+            loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, pObj, selector, 0);
+        };
+        
+        inline void loadDataFilesAsync(const String &skeletonFile,
                                 const String &textureAtlasFile,
                                 const String &dbName,
-                                int scriptHandler);
-        void loadDataFilesAsyncImpl(const String &skeletonFile,
-                                const String &textureAtlasFile,
-                                const String &dbName,
-                                cocos2d::CCObject* pObj,
-                                cocos2d::SEL_CallFuncO selector,
-                                int scriptHandler=0);
+                                int scriptHandler)
+        {
+            loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, nullptr, nullptr, scriptHandler);
+        };
 
 	protected:
-		static Cocos2dxFactory *msCocos2dxFactory;
+		static CCDBManager *msCCDBManager;
     private:
         struct AsyncStruct
         {
@@ -165,6 +164,12 @@ namespace dragonBones
             cocos2d::SEL_CallFuncO pSelector;
             int scriptHandler;
         };
+        void loadDataFilesAsyncImpl(const String &skeletonFile,
+                                    const String &textureAtlasFile,
+                                    const String &dbName,
+                                    cocos2d::CCObject* pObj,
+                                    cocos2d::SEL_CallFuncO selector,
+                                    int scriptHandler=0);
         std::map<String, AsyncStruct*> _asyncList;
         TextureAtlasData* parseTextureAtlasFile(const String &textureAtlasFile);
         void doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler=0);

@@ -16,65 +16,6 @@ using namespace cocos2d;
 
 namespace dragonBones
 {
-    Armature* CCDragonBones::buildArmature(const char* skeletonXMLFile,
-        const char* textureXMLFile,
-        const char* dragonBonesName,
-        const char* armatureName,
-        const char* animationName)
-    {
-        Cocos2dxFactory *fac = Cocos2dxFactory::getInstance();
-        fac->loadSkeletonFile(skeletonXMLFile, dragonBonesName);
-        fac->loadTextureAtlasFile(textureXMLFile, dragonBonesName);
-        return fac->buildArmature(armatureName, animationName, dragonBonesName);
-    }
-
-    CCDragonBones*	CCDragonBones::create(const char* path,
-        const char* dragonBonesName,
-        const char* armatureName)
-    {
-        string dataDir = path;
-        size_t pos;
-        while ((pos = dataDir.find_first_of("\\")) != std::string::npos)
-        {
-            dataDir.replace(pos, 1, "/");
-        }
-        size_t slash = dataDir.find_last_of("/");
-        if(slash == std::string::npos)
-        {
-            dataDir.append("/");
-        }
-        string skeletonFile = dataDir + "skeleton.xml";
-        string textureFile = dataDir + "texture.xml";
-        
-        CCFileUtils::sharedFileUtils()->fullPathForFilename(path);
-        return CCDragonBones::create(
-            skeletonFile.c_str(),
-            textureFile.c_str(),
-            dragonBonesName,
-            armatureName,
-            "");
-    }
-
-    CCDragonBones*	CCDragonBones::create(const char* skeletonXMLFile,
-        const char* textureXMLFile,
-        const char* dragonBonesName,
-        const char* armatureName,
-        const char* animationName)
-    {
-        CCDragonBones* pNew = new CCDragonBones();
-        if (pNew && pNew->init())
-        {
-            Armature* arm = CCDragonBones::buildArmature(skeletonXMLFile,
-                textureXMLFile,
-                dragonBonesName,
-                armatureName,
-                animationName);
-            return CCDragonBones::create(arm);
-        }
-        CC_SAFE_DELETE(pNew);
-        return NULL;
-    }
-
     CCDragonBones* CCDragonBones::create(Armature*arm)
     {
         CCDragonBones* pNew = new CCDragonBones();
@@ -83,6 +24,61 @@ namespace dragonBones
             pNew->initWithArmature(arm);
             pNew->autorelease();
             return pNew;
+        }
+        CC_SAFE_DELETE(pNew);
+        return NULL;
+    }
+    
+    CCDragonBones* CCDragonBones::createByName(const char* armatureName,
+                                       const char* animatioinName,
+                                        const char* skeletonName,
+                                       const char* skinName)
+    {
+        return CCDragonBones::createByFiles("", "", armatureName, animatioinName, skeletonName, skinName);
+    }
+    
+    CCDragonBones*	CCDragonBones::createByDir(const char* path,
+                                               const char* armatureName,
+                                               const char* animatioinName,
+                                               const char* skeletonName,
+                                               const char* skinName
+        )
+    {
+        CCDragonBones* pNew = new CCDragonBones();
+        if (pNew && pNew->init())
+        {
+            Armature* arm = CCDBManager::getInstance()
+                ->createArmatureByDir(
+                  path,
+                   armatureName,
+                   animatioinName,
+                   skeletonName,
+                   skinName);
+            return CCDragonBones::create(arm);
+        }
+        CC_SAFE_DELETE(pNew);
+        return NULL;
+    }
+
+    CCDragonBones*	CCDragonBones::createByFiles(const char* skeletonXMLFile,
+        const char* textureXMLFile,
+        const char* armatureName,
+        const char* animationName,
+        const char* skeletonName,
+        const char* skinName)
+    {
+        CCDragonBones* pNew = new CCDragonBones();
+        if (pNew && pNew->init())
+        {
+            Armature* arm = CCDBManager::getInstance()
+                ->createArmatureByFiles(
+                    skeletonXMLFile,
+                    textureXMLFile,
+                    armatureName,
+                    animationName,
+                    skeletonName,
+                    skinName);
+            return CCDragonBones::create(arm);
         }
         CC_SAFE_DELETE(pNew);
         return NULL;
@@ -96,7 +92,7 @@ namespace dragonBones
 
     CCNode* CCDragonBones::getDisplayNode()
     {
-        return static_cast<CocosNode*>(m_Armature->getDisplay())->getNode();
+        return static_cast<CCDBNode*>(m_Armature->getDisplay())->getNode();
     }
 
     Armature* CCDragonBones::getArmature()
@@ -134,13 +130,13 @@ namespace dragonBones
     {
         this->m_Armature = arm;
         this->schedule(schedule_selector(CCDragonBones::update), 0);
-        this->addChild(static_cast<CocosNode*>(m_Armature->getDisplay())->node);
+        this->addChild(static_cast<CCDBNode*>(m_Armature->getDisplay())->node);
     }
 
     void CCDragonBones::setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName)
     {
 
-        Cocos2dxFactory* fac = Cocos2dxFactory::getInstance();
+        CCDBManager* fac = CCDBManager::getInstance();
         Object* clothesObj = fac->getTextureDisplay(textureName, textureAtlasName);
 
         //CCLOG("CLOSE %d", clothesObj);

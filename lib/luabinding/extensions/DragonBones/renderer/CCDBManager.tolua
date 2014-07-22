@@ -1,15 +1,8 @@
-class CocosNode : public Object
+class CCDBManager : public BaseFactory
 {
 public:
-	const CCNode *getNode();
-	CCNode *getNode();
-};
-
-class Cocos2dxFactory : public BaseFactory
-{
-public:
-	Cocos2dxFactory();
-	static Cocos2dxFactory *getInstance();
+	CCDBManager();
+	static CCDBManager *getInstance();
 	static void destroyInstance();
 	ITextureAtlas* generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData);
 	virtual Armature* generateArmature();
@@ -17,4 +10,9 @@ public:
 	virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const char *fullName, Number pivotX, Number pivotY);
 	virtual void loadSkeletonFile(const char *skeletonFile , const char *name  = "");
 	virtual void loadTextureAtlasFile(const char *textureAtlasFile , const char *name  = "");
+	void loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName);
+	void loadDataFilesAsync(const String &skeletonFile,
+							const String &textureAtlasFile,
+							const String &dbName,
+							LUA_FUNCTION scriptHandler);
 };

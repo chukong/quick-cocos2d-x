@@ -1,12 +1,11 @@
-#include "Cocos2dxTextureAtlas.h"
+#include "CCDBTextureAtlas.h"
 #include "objects/TextureAtlasData.h"
 #include "textures/CCTextureAtlas.h"
 #include "textures/CCTexture2D.h"
-#include "Cocos2dxFactory.h"
 #include "cocoa/CCGeometry.h"
 namespace dragonBones
 {
-    Cocos2dxTextureAtlas::Cocos2dxTextureAtlas(TextureAtlasData *data)
+    CCDBTextureAtlas::CCDBTextureAtlas(TextureAtlasData *data)
         : _textureAtlasRawData(data)
     {
         textureAtlas = cocos2d::CCTextureAtlas::create(data->imagePath.c_str() , data->rects.size());
@@ -41,21 +40,21 @@ namespace dragonBones
             textureAtlas->insertQuad(&quad , index++);
         }
     }
-    Cocos2dxTextureAtlas::~Cocos2dxTextureAtlas()
+    CCDBTextureAtlas::~CCDBTextureAtlas()
     {
         dispose();
     }
     /**
     * The name of this ITextureAtlas.
     */
-    const String &Cocos2dxTextureAtlas::getName()
+    const String &CCDBTextureAtlas::getName()
     {
         return _textureAtlasRawData->name;
     }
     /**
     * Clean up resources.
     */
-    void Cocos2dxTextureAtlas::dispose()
+    void CCDBTextureAtlas::dispose()
     {
 		DB_SAFE_DELETE(_textureAtlasRawData);
         _textureAtlasRawData = 0;
@@ -66,7 +65,7 @@ namespace dragonBones
     * @param    name The name of the assets represented by that name.
     * @return Rectangle The rectangle area occupied by those assets.
     */
-    Rectangle Cocos2dxTextureAtlas::getRegion(const String &name)
+    Rectangle CCDBTextureAtlas::getRegion(const String &name)
     {
         TextureAtlasData::Rects::iterator iter = _textureAtlasRawData->rects.find(name);
         if(iter != _textureAtlasRawData->rects.end())
@@ -79,7 +78,7 @@ namespace dragonBones
         }
     }
 /*
-    void Cocos2dxTextureAtlas::updateTransform(DisplayObject *displayObject , Matrix &matrix, DBTransform &transform )
+    void CCDBTextureAtlas::updateTransform(DisplayObject *displayObject , Matrix &matrix, DBTransform &transform )
     {
         cocos2d::ccV3F_C4B_T2F_Quad & quad = textureAtlas->getQuads()[_textureNames[displayObject->fullName]];
 
@@ -115,7 +114,7 @@ namespace dragonBones
         quad.tr.vertices.y = -quad.tr.vertices.y;
     }
 
-    void Cocos2dxTextureAtlas::updateColor( DisplayObject *displayObject , Number aOffset, Number rOffset, Number gOffset, Number bOffset, Number aMultiplier, Number rMultiplier, Number gMultiplier, Number bMultiplier )
+    void CCDBTextureAtlas::updateColor( DisplayObject *displayObject , Number aOffset, Number rOffset, Number gOffset, Number bOffset, Number aMultiplier, Number rMultiplier, Number gMultiplier, Number bMultiplier )
     {
         cocos2d::ccV3F_C4B_T2F_Quad & quad = textureAtlas->getQuads()[_textureNames[displayObject->fullName]];
         quad.bl.colors.a = aMultiplier * 255;

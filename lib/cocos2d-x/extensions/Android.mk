@@ -67,10 +67,10 @@ ifndef $(QUICK_MINI_TARGET)
 		DragonBones/objects/TransformTimeline.cpp \
 		DragonBones/objects/XMLDataParser.cpp \
 		DragonBones/renderer/CCDragonBones.cpp \
-		DragonBones/renderer/Cocos2dxAtlasNode.cpp \
-		DragonBones/renderer/Cocos2dxDisplayBridge.cpp \
-		DragonBones/renderer/Cocos2dxFactory.cpp \
-		DragonBones/renderer/Cocos2dxTextureAtlas.cpp \
+		DragonBones/renderer/CCDBAtlasNode.cpp \
+		DragonBones/renderer/CCDBisplayBridge.cpp \
+		DragonBones/renderer/CCDBManager.cpp \
+		DragonBones/renderer/CCDBTextureAtlas.cpp \
 		DragonBones/Slot.cpp \
 		DragonBones/utils/BytesType.cpp \
 		DragonBones/utils/ConstValues.cpp \

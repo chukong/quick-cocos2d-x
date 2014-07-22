@@ -12,7 +12,6 @@ function DragonDemoEntry:ctor(...)
 	self.mainTitle = "Dragon Demo Entry"
 	self:_createDB()
 	DragonDemoEntry.super.ctor(self, ...)
-	self:_onChangeAnimation()
 end
 
 function DragonDemoEntry:_addUI()
@@ -54,13 +53,26 @@ end
 
 function DragonDemoEntry:_createDB()
 	print("DragonDemoEntry", display.newDragonBones)
-	--self._db = display.newDragonBones({
-	--		skeleton="dragon/skeleton.xml",
-	--		texture="dragon/texture.xml",
-	--		dragonBonesName="Dragon",
-	--		armatureName="Dragon",
-	--		aniName="",
-	--	})
+	--self:_createDBSync1()
+	--self:_createDBSync2()
+	self:_createDBAsync()
+end
+
+function DragonDemoEntry:_createDBSync1()
+	self._db = display.newDragonBones({
+			skeleton="dragon/skeleton.xml",
+			texture="dragon/texture.xml",
+			dragonBonesName="Dragon",
+			armatureName="Dragon",
+			aniName="",
+		})
+		:addTo(self, 10)
+		:pos(display.cx,100)
+		:addMovementScriptListener(handler(self, self._onMovement))
+	self:_updateAniList()
+end
+
+function DragonDemoEntry:_createDBSync2()
 	self._db = display.newDragonBones({
 			path="dragon",
 			dragonBonesName="Dragon",
@@ -69,10 +81,56 @@ function DragonDemoEntry:_createDB()
 		:addTo(self, 10)
 		:pos(display.cx,100)
 		:addMovementScriptListener(handler(self, self._onMovement))
+	self:_updateAniList()
+end
+
+function DragonDemoEntry:_createDBAsync()
+	local manager = CCDBManager:getInstance()
+	-- factory:loadDataFiles(
+	-- 		"dragon/skeleton.xml", 
+	-- 		"dragon/texture.xml",
+	-- 		"Dragon")
+	-- factory:loadSkeletonFile("dragon/skeleton.xml", "Dragon")
+	-- factory:loadTextureAtlasFile("dragon/texture.xml", "Dragon")
+
+	display.loadDragonBonesDataFiles("dragon/skeleton.xml",
+		"dragon/texture.xml", "Dragon",
+			function(evt)
+				print("async done")
+				print(evt)
+				self._db = display.newDragonBones({
+						dragonBonesName="Dragon",
+						armatureName="Dragon",
+					})
+					:addTo(self, 10)
+					:pos(display.cx,100)
+					:addMovementScriptListener(handler(self, self._onMovement))
+				self:_updateAniList()
+			end)
+	-- manager:loadDataFilesAsync(
+	-- 		"dragon/skeleton.xml", 
+	-- 		"dragon/texture.xml",
+	-- 		"Dragon",
+	-- 		function(evt)
+	-- 			print("async done")
+	-- 			print(evt)
+	-- 			self._db = display.newDragonBones({
+	-- 					dragonBonesName="Dragon",
+	-- 					armatureName="Dragon",
+	-- 				})
+	-- 				:addTo(self, 10)
+	-- 				:pos(display.cx,100)
+	-- 				:addMovementScriptListener(handler(self, self._onMovement))
+	-- 			self:_updateAniList()
+	-- 		end)
+end
+
+function DragonDemoEntry:_updateAniList()
 	local aniList = self._db:getAnimationList()
 	for i=0,aniList:count()-1 do
 		_ANIMATION_LIST[#_ANIMATION_LIST+1] = aniList:objectAtIndex(i):getCString()
 	end
+	self:_onChangeAnimation()
 end
 
 function DragonDemoEntry:onExit()

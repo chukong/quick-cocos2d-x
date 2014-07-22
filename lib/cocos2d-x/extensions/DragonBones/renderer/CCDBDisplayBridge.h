@@ -4,17 +4,17 @@
 #include "display/IDisplayBridge.h"
 namespace dragonBones
 {
-    class CocosNode;
+    class CCDBNode;
     class DisplayObject;
     /**
      * The StarlingDisplayBridge class is an implementation of the IDisplayBridge interface for starling.display.DisplayObject.
      *
      */
-    class Cocos2dxDisplayBridge : public IDisplayBridge
+    class CCDBDisplayBridge : public IDisplayBridge
     {
     public:
-        Cocos2dxDisplayBridge();;
-        virtual ~Cocos2dxDisplayBridge();
+        CCDBDisplayBridge();;
+        virtual ~CCDBDisplayBridge();
 
         virtual bool getVisible();
         virtual void setVisible(bool value);
@@ -82,7 +82,7 @@ namespace dragonBones
 
     protected:
         Object *mDisplay;
-        CocosNode *mDisplayNode;
+        CCDBNode *mDisplayNode;
         //DisplayObject *mDisplayObject;
     };
 }

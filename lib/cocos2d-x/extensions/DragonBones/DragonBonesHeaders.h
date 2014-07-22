@@ -11,10 +11,10 @@
 
 #include "renderer/CCDragonBones.h"  
 
-#include "renderer/Cocos2dxAtlasNode.h"
-#include "renderer/Cocos2dxDisplayBridge.h"
-#include "renderer/Cocos2dxFactory.h"
-#include "renderer/Cocos2dxTextureAtlas.h"
+#include "renderer/CCDBAtlasNode.h"
+#include "renderer/CCDBDisplayBridge.h"
+#include "renderer/CCDBManager.h"
+#include "renderer/CCDBTextureAtlas.h"
 
 #include "Armature.h"
 #include "Bone.h"

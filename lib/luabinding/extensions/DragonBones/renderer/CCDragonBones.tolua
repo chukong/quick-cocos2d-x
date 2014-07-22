@@ -1,22 +1,25 @@
 class CCDragonBones:public CCNode {
 public:
-	static Armature* buildArmature(	const char* skeletonXMLFile,
-									const char* textureXMLFile,
-									const char* dragonBonesName,
-									const char* armatureName,
-									const char* animationName = "");
-
 	static CCDragonBones* create(Armature*arm);
 
-	static CCDragonBones* create(	const char* path,
-									const char* dragonBonesName,
-									const char* armatureName); 
-														 
-	static CCDragonBones* create(	const char* skeletonXMLFile,
+	static CCDragonBones* createByName( const char* armatureName,
+										const char* animatioinName="",
+										const char* skeletonName="",
+										const char* skinName="");
+
+	static CCDragonBones* createByDir(	const char* path,
+										const char* armatureName,
+										const char* animatioinName="",
+										const char* skeletonName="",
+										const char* skinName="");
+							
+	static CCDragonBones* createByFiles(const char* skeletonXMLFile,
 									const char* textureXMLFile,
-									const char* dragonBonesName,
 									const char* armatureName,
-									const char* animationName = "");
+									const char* animationName = "",
+									const char* skeletonName = "",
+									const char* skinName="");
+	
 
 	CCNode* getDisplayNode();
 	Armature* getArmature();

@@ -44,10 +44,10 @@
 		42E41BA3190A40DA0097EAF5 /* TransformTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B73190A40DA0097EAF5 /* TransformTimeline.cpp */; };
 		42E41BA4190A40DA0097EAF5 /* XMLDataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B75190A40DA0097EAF5 /* XMLDataParser.cpp */; };
 		42E41BA5190A40DA0097EAF5 /* CCDragonBones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B78190A40DA0097EAF5 /* CCDragonBones.cpp */; };
-		42E41BA6190A40DA0097EAF5 /* Cocos2dxAtlasNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B7A190A40DA0097EAF5 /* Cocos2dxAtlasNode.cpp */; };
-		42E41BA7190A40DA0097EAF5 /* Cocos2dxDisplayBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B7C190A40DA0097EAF5 /* Cocos2dxDisplayBridge.cpp */; };
-		42E41BA8190A40DA0097EAF5 /* Cocos2dxFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B7E190A40DA0097EAF5 /* Cocos2dxFactory.cpp */; };
-		42E41BA9190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B80190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp */; };
+		42E41BA6190A40DA0097EAF5 /* CCDBAtlasNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B7A190A40DA0097EAF5 /* CCDBAtlasNode.cpp */; };
+		42E41BA7190A40DA0097EAF5 /* CCDBDisplayBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B7C190A40DA0097EAF5 /* CCDBDisplayBridge.cpp */; };
+		42E41BA8190A40DA0097EAF5 /* CCDBManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B7E190A40DA0097EAF5 /* CCDBManager.cpp */; };
+		42E41BA9190A40DA0097EAF5 /* CCDBTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B80190A40DA0097EAF5 /* CCDBTextureAtlas.cpp */; };
 		42E41BAA190A40DA0097EAF5 /* Slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B82190A40DA0097EAF5 /* Slot.cpp */; };
 		42E41BAB190A40DA0097EAF5 /* BytesType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B87190A40DA0097EAF5 /* BytesType.cpp */; };
 		42E41BAC190A40DA0097EAF5 /* ConstValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B8A190A40DA0097EAF5 /* ConstValues.cpp */; };
@@ -443,14 +443,14 @@
 		42E41B76190A40DA0097EAF5 /* XMLDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDataParser.h; sourceTree = "<group>"; };
 		42E41B78190A40DA0097EAF5 /* CCDragonBones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDragonBones.cpp; sourceTree = "<group>"; };
 		42E41B79190A40DA0097EAF5 /* CCDragonBones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDragonBones.h; sourceTree = "<group>"; };
-		42E41B7A190A40DA0097EAF5 /* Cocos2dxAtlasNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxAtlasNode.cpp; sourceTree = "<group>"; };
-		42E41B7B190A40DA0097EAF5 /* Cocos2dxAtlasNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxAtlasNode.h; sourceTree = "<group>"; };
-		42E41B7C190A40DA0097EAF5 /* Cocos2dxDisplayBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxDisplayBridge.cpp; sourceTree = "<group>"; };
-		42E41B7D190A40DA0097EAF5 /* Cocos2dxDisplayBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxDisplayBridge.h; sourceTree = "<group>"; };
-		42E41B7E190A40DA0097EAF5 /* Cocos2dxFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxFactory.cpp; sourceTree = "<group>"; };
-		42E41B7F190A40DA0097EAF5 /* Cocos2dxFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxFactory.h; sourceTree = "<group>"; };
-		42E41B80190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxTextureAtlas.cpp; sourceTree = "<group>"; usesTabs = 0; };
-		42E41B81190A40DA0097EAF5 /* Cocos2dxTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxTextureAtlas.h; sourceTree = "<group>"; };
+		42E41B7A190A40DA0097EAF5 /* CCDBAtlasNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBAtlasNode.cpp; sourceTree = "<group>"; };
+		42E41B7B190A40DA0097EAF5 /* CCDBAtlasNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBAtlasNode.h; sourceTree = "<group>"; };
+		42E41B7C190A40DA0097EAF5 /* CCDBDisplayBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBDisplayBridge.cpp; sourceTree = "<group>"; };
+		42E41B7D190A40DA0097EAF5 /* CCDBDisplayBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBDisplayBridge.h; sourceTree = "<group>"; };
+		42E41B7E190A40DA0097EAF5 /* CCDBManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBManager.cpp; sourceTree = "<group>"; };
+		42E41B7F190A40DA0097EAF5 /* CCDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBManager.h; sourceTree = "<group>"; };
+		42E41B80190A40DA0097EAF5 /* CCDBTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBTextureAtlas.cpp; sourceTree = "<group>"; usesTabs = 0; };
+		42E41B81190A40DA0097EAF5 /* CCDBTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBTextureAtlas.h; sourceTree = "<group>"; };
 		42E41B82190A40DA0097EAF5 /* Slot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slot.cpp; sourceTree = "<group>"; };
 		42E41B83190A40DA0097EAF5 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		42E41B85190A40DA0097EAF5 /* ITextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITextureAtlas.h; sourceTree = "<group>"; };
@@ -470,6 +470,7 @@
 		E511C329195A77A600FFDE22 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/mac/CCWebView.mm; sourceTree = "<group>"; };
 		E588534D196B877F005BA388 /* Updater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Updater.cpp; sourceTree = "<group>"; };
 		E588534E196B877F005BA388 /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
+		E5C4D660197E45F1004A4AF0 /* CCDBNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCDBNode.h; sourceTree = "<group>"; };
 		F411F3DB175CEAFC00EF549A /* lauxlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lauxlib.h; sourceTree = "<group>"; };
 		F411F3DC175CEAFC00EF549A /* lua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua.h; sourceTree = "<group>"; };
 		F411F3DD175CEAFC00EF549A /* luaconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaconf.h; sourceTree = "<group>"; };
@@ -1287,14 +1288,15 @@
 			children = (
 				42E41B78190A40DA0097EAF5 /* CCDragonBones.cpp */,
 				42E41B79190A40DA0097EAF5 /* CCDragonBones.h */,
-				42E41B7A190A40DA0097EAF5 /* Cocos2dxAtlasNode.cpp */,
-				42E41B7B190A40DA0097EAF5 /* Cocos2dxAtlasNode.h */,
-				42E41B7C190A40DA0097EAF5 /* Cocos2dxDisplayBridge.cpp */,
-				42E41B7D190A40DA0097EAF5 /* Cocos2dxDisplayBridge.h */,
-				42E41B7E190A40DA0097EAF5 /* Cocos2dxFactory.cpp */,
-				42E41B7F190A40DA0097EAF5 /* Cocos2dxFactory.h */,
-				42E41B80190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp */,
-				42E41B81190A40DA0097EAF5 /* Cocos2dxTextureAtlas.h */,
+				42E41B7A190A40DA0097EAF5 /* CCDBAtlasNode.cpp */,
+				42E41B7B190A40DA0097EAF5 /* CCDBAtlasNode.h */,
+				42E41B7C190A40DA0097EAF5 /* CCDBDisplayBridge.cpp */,
+				42E41B7D190A40DA0097EAF5 /* CCDBDisplayBridge.h */,
+				42E41B7E190A40DA0097EAF5 /* CCDBManager.cpp */,
+				42E41B7F190A40DA0097EAF5 /* CCDBManager.h */,
+				42E41B80190A40DA0097EAF5 /* CCDBTextureAtlas.cpp */,
+				42E41B81190A40DA0097EAF5 /* CCDBTextureAtlas.h */,
+				E5C4D660197E45F1004A4AF0 /* CCDBNode.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -2787,7 +2789,7 @@
 				F4B4EEC216C7E05800736FFE /* CCLuaBridge.cpp in Sources */,
 				F4B4EEC716C7E05F00736FFE /* CCLuaObjcBridge.mm in Sources */,
 				F4B4EECC16C7E06F00736FFE /* CCLuaStack.cpp in Sources */,
-				42E41BA8190A40DA0097EAF5 /* Cocos2dxFactory.cpp in Sources */,
+				42E41BA8190A40DA0097EAF5 /* CCDBManager.cpp in Sources */,
 				F4B4EECD16C7E06F00736FFE /* CCLuaValue.cpp in Sources */,
 				F43152A2180CF7E30046351C /* cpSpatialIndex.c in Sources */,
 				F4CB87B0180D02F600D81CF3 /* socket_scripts.c in Sources */,
@@ -2988,7 +2990,7 @@
 				F4315292180CF7E30046351C /* cpSimpleMotor.c in Sources */,
 				F4E880DA1770074500577406 /* CCZipFile.cpp in Sources */,
 				F4E880DB1770074500577406 /* CCApplication.mm in Sources */,
-				42E41BA9190A40DA0097EAF5 /* Cocos2dxTextureAtlas.cpp in Sources */,
+				42E41BA9190A40DA0097EAF5 /* CCDBTextureAtlas.cpp in Sources */,
 				42E41B95190A40DA0097EAF5 /* TimelineState.cpp in Sources */,
 				F4315298180CF7E30046351C /* cpBody.c in Sources */,
 				F4E880DC1770074500577406 /* CCCommon.mm in Sources */,
@@ -3008,7 +3010,7 @@
 				F4E880E11770074500577406 /* CCFileUtilsMac.mm in Sources */,
 				4294240218ED454100F8A2A7 /* CCSaturationFilter.cpp in Sources */,
 				F4E880E21770074500577406 /* CCImage.mm in Sources */,
-				42E41BA7190A40DA0097EAF5 /* Cocos2dxDisplayBridge.cpp in Sources */,
+				42E41BA7190A40DA0097EAF5 /* CCDBDisplayBridge.cpp in Sources */,
 				F4E880E31770074500577406 /* CCThread.mm in Sources */,
 				F4E880E41770074500577406 /* CCWindow.m in Sources */,
 				42E41B97190A40DA0097EAF5 /* Bone.cpp in Sources */,
@@ -3032,7 +3034,7 @@
 				F4CB86C1180D017700D81CF3 /* CCNetworkIOSMac.mm in Sources */,
 				F44A20D4182A51E800E181EB /* libbase64.c in Sources */,
 				F431528D180CF7E30046351C /* cpGrooveJoint.c in Sources */,
-				42E41BA6190A40DA0097EAF5 /* Cocos2dxAtlasNode.cpp in Sources */,
+				42E41BA6190A40DA0097EAF5 /* CCDBAtlasNode.cpp in Sources */,
 				F4CB87B3180D02F600D81CF3 /* udp.c in Sources */,
 				F4315287180CF7E30046351C /* CCPhysicsWorld_luabinding.cpp in Sources */,
 				F4CB87AE180D02F600D81CF3 /* select.c in Sources */,

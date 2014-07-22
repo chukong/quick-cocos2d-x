@@ -19,24 +19,25 @@ namespace dragonBones {
     class Armature;
     class CCDragonBones:public cocos2d::CCNode {
     public:
-		// create
-        static Armature* buildArmature(	const char* skeletonXMLFile,
-                                        const char* textureXMLFile,
-                                        const char* dragonBonesName,
-                                        const char* armatureName,
-                                        const char* animationName = "");
 
         static CCDragonBones* create(Armature*arm);
+        static CCDragonBones* createByName( const char* armatureName,
+                                           const char* animatioinName="",
+                                            const char* skeletonName="",
+                                            const char* skinName="");
 
-        static CCDragonBones* create(	const char* path,
-										const char* dragonBonesName,
-										const char* armatureName); 
-															 
-        static CCDragonBones* create(	const char* skeletonXMLFile,
+        static CCDragonBones* createByDir(	const char* path,
+                                            const char* armatureName,
+                                          const char* animatioinName="",
+                                            const char* skeletonName="",
+                                            const char* skinName="");
+								
+        static CCDragonBones* createByFiles(const char* skeletonXMLFile,
                                         const char* textureXMLFile,
-                                        const char* dragonBonesName,
                                         const char* armatureName,
-                                        const char* animationName = "");
+                                        const char* animationName = "",
+                                        const char* skeletonName = "",
+                                        const char* skinName="");
 
         CCNode* getDisplayNode();
         Armature* getArmature();
