@@ -113,18 +113,27 @@ namespace dragonBones
         /** @private */
         virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const String &fullName, Number pivotX, Number pivotY);
         
-        Armature* createArmatureByDir(const String &path,
+        inline Armature* createArmatureByDir(const String &path,
                                   const String &armatureName,
                                  const String &animationName = "",
                                  const String &skeletonName = "",
-                                 const String &skinName = "");
+                                 const String &skinName = "")
+        {
+            String skeletonFile(""), textureFile("");
+            parseXMLByDir(path, skeletonFile, textureFile);
+            return createArmatureByFiles(skeletonFile, textureFile, armatureName, animationName, skeletonName, skinName);
+        };
         
-        Armature* createArmatureByFiles(const String &armatureName,
+        inline Armature* createArmatureByFiles(const String &armatureName,
                                  const String &animationName = "",
                                  const String &skeletonName = "",
                                  const String &skeletonXMLFile = "",
                                  const String &textureXMLFile = "",
-                                 const String &skinName = "");
+                                 const String &skinName = "")
+        {
+            loadDataFiles(skeletonXMLFile, textureXMLFile, skeletonName);
+            return createArmature(armatureName, animationName, skeletonName, skinName);
+        };
         
         Armature* createArmature(const String &armatureName,
                                  const String &animationName = "",
@@ -134,23 +143,48 @@ namespace dragonBones
         virtual void loadSkeletonFile(const String &skeletonFile , const String &name  = "");
         virtual void loadTextureAtlasFile(const String &textureAtlasFile , const String &name  = "");
         
-        void loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName);
-        
-        inline void loadDataFilesAsync(const String &skeletonFile,
-                                const String &textureAtlasFile,
-                                const String &dbName,
-                                cocos2d::CCObject* pObj,
-                                cocos2d::SEL_CallFuncO selector)
+        inline void loadDataFilesByDir(const String &path, const String &skeletonName)
         {
-            loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, pObj, selector, 0);
+            String skeletonFile(""), textureFile("");
+            parseXMLByDir(path, skeletonFile, textureFile);
+            loadDataFiles(skeletonFile, textureFile, skeletonName);
+        };
+        void loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &skeletonName);
+        
+        inline void loadDataFilesByDirAsync(const String &path,
+                                            const String &skeletonName,
+                                            cocos2d::CCObject* pObj,
+                                            cocos2d::SEL_CallFuncO selector)
+        {
+            String skeletonFile(""), textureFile("");
+            parseXMLByDir(path, skeletonFile, textureFile);
+            loadDataFilesAsync(skeletonFile, textureFile, skeletonName, pObj, selector);
+        };
+        
+        inline void loadDataFilesByDirAsync(const String &path,
+                                            const String &skeletonName,
+                                            int scriptHandler)
+        {
+            String skeletonFile(""), textureFile("");
+            parseXMLByDir(path, skeletonFile, textureFile);
+            loadDataFilesAsync(skeletonFile, textureFile, skeletonName, scriptHandler);
         };
         
         inline void loadDataFilesAsync(const String &skeletonFile,
                                 const String &textureAtlasFile,
-                                const String &dbName,
+                                const String &skeletonName,
+                                cocos2d::CCObject* pObj,
+                                cocos2d::SEL_CallFuncO selector)
+        {
+            loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, skeletonName, pObj, selector, 0);
+        };
+        
+        inline void loadDataFilesAsync(const String &skeletonFile,
+                                const String &textureAtlasFile,
+                                const String &skeletonName,
                                 int scriptHandler)
         {
-            loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, dbName, nullptr, nullptr, scriptHandler);
+            loadDataFilesAsyncImpl(skeletonFile, textureAtlasFile, skeletonName, nullptr, nullptr, scriptHandler);
         };
 
 	protected:
@@ -166,7 +200,7 @@ namespace dragonBones
         };
         void loadDataFilesAsyncImpl(const String &skeletonFile,
                                     const String &textureAtlasFile,
-                                    const String &dbName,
+                                    const String &skeletonName,
                                     cocos2d::CCObject* pObj,
                                     cocos2d::SEL_CallFuncO selector,
                                     int scriptHandler=0);

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Jul 22 18:18:09 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Jul 23 15:27:29 2014.
 */
 
 /****************************************************************************
@@ -63351,21 +63351,58 @@ static int tolua_Cocos2d_CCDBManager_loadDataFiles00(lua_State* tolua_S)
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
   const std::string skeletonFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
   const std::string textureAtlasFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
-  const std::string dbName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFiles'", NULL);
 #endif
   {
-   self->loadDataFiles(skeletonFile,textureAtlasFile,dbName);
+   self->loadDataFiles(skeletonFile,textureAtlasFile,skeletonName);
    tolua_pushcppstring(tolua_S,(const char*)skeletonFile);
    tolua_pushcppstring(tolua_S,(const char*)textureAtlasFile);
-   tolua_pushcppstring(tolua_S,(const char*)dbName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
   }
  }
  return 3;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'loadDataFiles'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadDataFilesByDir of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataFilesByDir00
+static int tolua_Cocos2d_CCDBManager_loadDataFilesByDir00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFilesByDir'", NULL);
+#endif
+  {
+   self->loadDataFilesByDir(path,skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadDataFilesByDir'.",&tolua_err);
  return 0;
 #endif
 }
@@ -63392,22 +63429,61 @@ static int tolua_Cocos2d_CCDBManager_loadDataFilesAsync00(lua_State* tolua_S)
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
   const std::string skeletonFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
   const std::string textureAtlasFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
-  const std::string dbName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
   LUA_FUNCTION scriptHandler = (  toluafix_ref_function(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFilesAsync'", NULL);
 #endif
   {
-   self->loadDataFilesAsync(skeletonFile,textureAtlasFile,dbName,scriptHandler);
+   self->loadDataFilesAsync(skeletonFile,textureAtlasFile,skeletonName,scriptHandler);
    tolua_pushcppstring(tolua_S,(const char*)skeletonFile);
    tolua_pushcppstring(tolua_S,(const char*)textureAtlasFile);
-   tolua_pushcppstring(tolua_S,(const char*)dbName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
   }
  }
  return 3;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'loadDataFilesAsync'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: loadDataFilesByDirAsync of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataFilesByDirAsync00
+static int tolua_Cocos2d_CCDBManager_loadDataFilesByDirAsync00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !toluafix_isfunction(tolua_S,4,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  LUA_FUNCTION scriptHandler = (  toluafix_ref_function(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFilesByDirAsync'", NULL);
+#endif
+  {
+   self->loadDataFilesByDirAsync(path,skeletonName,scriptHandler);
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+  }
+ }
+ return 2;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'loadDataFilesByDirAsync'.",&tolua_err);
  return 0;
 #endif
 }
@@ -70499,7 +70575,9 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"loadSkeletonFile",tolua_Cocos2d_CCDBManager_loadSkeletonFile00);
    tolua_function(tolua_S,"loadTextureAtlasFile",tolua_Cocos2d_CCDBManager_loadTextureAtlasFile00);
    tolua_function(tolua_S,"loadDataFiles",tolua_Cocos2d_CCDBManager_loadDataFiles00);
+   tolua_function(tolua_S,"loadDataFilesByDir",tolua_Cocos2d_CCDBManager_loadDataFilesByDir00);
    tolua_function(tolua_S,"loadDataFilesAsync",tolua_Cocos2d_CCDBManager_loadDataFilesAsync00);
+   tolua_function(tolua_S,"loadDataFilesByDirAsync",tolua_Cocos2d_CCDBManager_loadDataFilesByDirAsync00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"AnimationEvent","AnimationEvent","Event",NULL);
   tolua_beginmodule(tolua_S,"AnimationEvent");

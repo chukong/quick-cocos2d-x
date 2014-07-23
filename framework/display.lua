@@ -526,23 +526,44 @@ end
 --		skeletonName="Dragon",
 --		skinName = ""
 --	}
+--	or create a 
 function display.newDragonBones(params)
 	local armName = params.armatureName
 	local aniName = params.animationName or ""
 	local skeName = params.skeletonName or armName
 	local skinName = params.skinName or ""
 	local path = params.path
-	local skeletonXMLFile = params.skeleton
-	local textureXMLFile = params.texture
+	local skeletonFile = params.skeleton
+	local textureFile = params.texture
 	assert(skeName and armName, "skeletonName and armatureName are necessary!")
+	local async = type(params.handler) == "function" 
+	if async then
+		local newDBHandler = function()
+			params.handler(
+				display.newDragonBones({
+					armatureName=armName, 
+					animationName=aniName, 
+					skeletonName=skeName, 
+			}))
+		end
+		display.loadDragonBonesDataFiles(
+			{
+				skeleton = skeletonFile,
+				texture = textureFile,
+				path = path,
+				skeletonName = skeName,
+				handler = newDBHandler,
+			})
+		return nil
+	end
 	if path then
 		return CCDragonBonesExtend.extend(
 			CCDragonBones:createByDir(path, armName, aniName, skeName, skinName)
 		)
 	end
-	if skeletonXMLFile and textureXMLFile then
+	if skeletonFile and textureFile then
 		return CCDragonBonesExtend.extend(
-			CCDragonBones:createByFiles(skeletonXMLFile, textureXMLFile, armName, aniName, skeName,skinName)
+			CCDragonBones:createByFiles(skeletonFile, textureFile, armName, aniName, skeName,skinName)
 		)
 	end
 	return CCDragonBonesExtend.extend(
@@ -550,21 +571,35 @@ function display.newDragonBones(params)
 	)
 end
 
-function display.loadDragonBonesDataFiles(skeletonFile, textureFile, skeletonName, handler)
+function display.loadDragonBonesDataFiles(params)
+	dump(params)
+	local skeletonFile = params.skeleton
+	local textureFile = params.texture
+	local path = params.path
+	local skeName = params.skeletonName
+	local async = params.handler and type(params.handler) == "function"
 	local dbManager = CCDBManager:getInstance()
-	if type(handler) == "function" then
-		dbManager:loadDataFilesAsync(skeletonFile, textureFile, skeletonName, handler)
+	if path then
+		if async then
+			dbManager:loadDataFilesByDirAsync(path, skeletonName, params.handler)
+		else
+			dbManager:loadDataFilesByDir(path, skeletonName)
+		end
 	else
-		dbManager:loadDataFiles(skeletonFile, textureFile, skeletonName)
+		assert(skeletonFile and textureFile, "Please provide skeleton and texture file!")
+		if async then
+			dbManager:loadDataFilesAsync(skeletonFile, textureFile, skeletonName, params.handler)
+		else
+			dbManager:loadDataFiles(skeletonFile, textureFile, skeletonName)
+		end
 	end
 end
 
 function display.loadDragonBonesDataFileList(fileList, handler)
-	local dbManager = CCDBManager:getInstance()
 	local amount = #__list
 	local aHandler = nil
 	if type(handler) == "function" then
-		aHandler = function()
+		aHandler = function(evt)
 			amount = __amount - 1
 			if amount <= 0 then
 				handler()
@@ -572,7 +607,13 @@ function display.loadDragonBonesDataFileList(fileList, handler)
 		end
 	end
 	for __, adb in ipairs(fileList) do
-		display.loadDragonBonesDataFiles(adb.skeleton, adb.texture, adb.skeletonName, aHandler)
+		if aHandler then
+			local param = clone(adb)
+			param.handler = aHandler
+			display.loadDragonBonesDataFiles(param)
+		else
+			display.loadDragonBonesDataFiles(adb)
+		end
 	end
 end
 

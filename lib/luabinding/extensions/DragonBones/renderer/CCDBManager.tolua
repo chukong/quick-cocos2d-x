@@ -10,9 +10,16 @@ public:
 	virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const char *fullName, Number pivotX, Number pivotY);
 	virtual void loadSkeletonFile(const char *skeletonFile , const char *name  = "");
 	virtual void loadTextureAtlasFile(const char *textureAtlasFile , const char *name  = "");
-	void loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName);
+	void loadDataFiles(const String &skeletonFile, 
+						const String &textureAtlasFile, 
+						const String &skeletonName);
+	void loadDataFilesByDir(const String &path, 
+							const String &skeletonName);
 	void loadDataFilesAsync(const String &skeletonFile,
 							const String &textureAtlasFile,
-							const String &dbName,
+							const String &skeletonName,
+							LUA_FUNCTION scriptHandler);
+	void loadDataFilesByDirAsync(const String &path,
+							const String &skeletonName,
 							LUA_FUNCTION scriptHandler);
 };

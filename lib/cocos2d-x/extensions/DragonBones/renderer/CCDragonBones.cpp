@@ -72,11 +72,11 @@ namespace dragonBones
         {
             Armature* arm = CCDBManager::getInstance()
                 ->createArmatureByFiles(
-                    skeletonXMLFile,
-                    textureXMLFile,
                     armatureName,
                     animationName,
                     skeletonName,
+                    skeletonXMLFile,
+                    textureXMLFile,
                     skinName);
             return CCDragonBones::create(arm);
         }

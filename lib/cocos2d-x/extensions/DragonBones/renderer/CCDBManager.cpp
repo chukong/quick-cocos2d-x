@@ -39,30 +39,6 @@ namespace dragonBones
         textureXMLFile.append(dataDir + "texture.xml");
     }
     
-    Armature* CCDBManager::createArmatureByDir(const String &path,
-                                               const String &armatureName,
-                                              const String &animationName,
-                                              const String &skeletonName,
-                                              const String &skinName)
-    {
-        String skeletonFile("");
-        String textureFile("");
-        parseXMLByDir(path, skeletonFile, textureFile);
-        return createArmatureByFiles(skeletonFile, textureFile, armatureName, animationName, skeletonName, skinName);
-    }
-    
-    Armature* CCDBManager::createArmatureByFiles(const String &skeletonXMLFile,
-                                                 const String &textureXMLFile,
-                                                 const String &armatureName,
-                                          const String &animationName,
-                                          const String &skeletonName,
-                                          const String &skinName)
-    {
-
-        loadDataFiles(skeletonXMLFile, textureXMLFile, skeletonName);
-        return createArmature(armatureName, animationName, skeletonName, skinName);
-    }
-    
     Armature* CCDBManager::createArmature(const String &armatureName,
                              const String &animationName,
                              const String &skeletonName,
@@ -132,33 +108,33 @@ namespace dragonBones
         return parser.parseTextureAtlasData(doc.RootElement());
     }
     
-    void CCDBManager::loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &dbName)
+    void CCDBManager::loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &skeletonName)
     {
         if(!skeletonFile.empty())
-            loadSkeletonFile(skeletonFile, dbName);
+            loadSkeletonFile(skeletonFile, skeletonName);
         if(!textureAtlasFile.empty())
-            loadTextureAtlasFile(textureAtlasFile, dbName);
+            loadTextureAtlasFile(textureAtlasFile, skeletonName);
     }
 
     void CCDBManager::loadDataFilesAsyncImpl(const String &skeletonFile,
                                                  const String &textureAtlasFile,
-                                                 const String &dbName,
+                                                 const String &skeletonName,
                                                  cocos2d::CCObject* pObj,
                                                  cocos2d::SEL_CallFuncO selector,
                                                  int scriptHandler)
     {
-        CCLOG("%s skeletonFile:%s, textureAtlasFile:%s dbName:%s pObj:%d selector:%d, handler:%d",
+        CCLOG("%s skeletonFile:%s, textureAtlasFile:%s skeletonName:%s pObj:%d selector:%d, handler:%d",
               __func__,
               skeletonFile.c_str(),
               textureAtlasFile.c_str(),
-              dbName.c_str(),
+              skeletonName.c_str(),
               pObj,
               selector,
               scriptHandler);
-        loadSkeletonFile(skeletonFile, dbName);
-		if (existTextureDataInDic(dbName))
+        loadSkeletonFile(skeletonFile, skeletonName);
+		if (existTextureDataInDic(skeletonName))
 		{
-			loadTextureAtlasFile(textureAtlasFile, dbName);
+			loadTextureAtlasFile(textureAtlasFile, skeletonName);
             doAsyncCallBack(pObj, selector, scriptHandler);
 		}
 		else
