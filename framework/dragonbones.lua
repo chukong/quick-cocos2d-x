@@ -33,6 +33,7 @@ local dbManager = CCDBManager:getInstance()
 --	}
 --	or create a 
 function db.new(params)
+	print("db.new:", vardump(params))
 	local path = params.path
 	local skeFile = params.skeleton
 	local texFile = params.texture
@@ -86,12 +87,22 @@ function db.new(params)
 				skinName)
 		)
 	end
-	return CCDragonBonesExtend.extend(
-		CCDragonBones:createByName(
-			armName, aniName, 
-			skeName, texName,
-			skinName)
-	)
+	printf("-----db armName:%s, aniName:%s, skeName:%s, texName:%s, skinName:%s", 
+		armName, aniName, 
+		skeName, texName, 
+		skinName)
+	local db = CCDragonBones:createByName(
+		armName, aniName, 
+		skeName, texName,
+		skinName)
+	print("-----db:", db)
+	return CCDragonBonesExtend.extend(db)
+	--return CCDragonBonesExtend.extend(
+	--	CCDragonBones:createByName(
+	--		armName, aniName, 
+	--		skeName, texName,
+	--		skinName)
+	--)
 end
 
 function db.loadData(params)

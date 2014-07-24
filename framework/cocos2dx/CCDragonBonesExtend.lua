@@ -69,3 +69,12 @@ function CCDragonBonesExtend:removeAllScriptListener()
 	return self
 end
 
+function CCDragonBonesExtend:getAnimations()
+	local aniList = self:getAnimationList()
+	local anis = {}
+	for i=0,aniList:count()-1 do
+		anis[#anis+1] = aniList:objectAtIndex(i):getCString()
+	end
+	return anis
+end
+

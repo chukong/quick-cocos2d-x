@@ -10,6 +10,11 @@ namespace dragonBones
     BaseFactory::BaseFactory()
     {
     }
+    BaseFactory::~BaseFactory()
+    {
+        dispose();
+    }
+    
 	bool BaseFactory::existSkeletonDataInDic(const String &name)
 	{
 		if (_dataDic.find(name) != _dataDic.end())
@@ -130,6 +135,7 @@ namespace dragonBones
         std::map<String , SkeletonData*>::iterator iter = _dataDic.find(name);
         if(iter != _dataDic.end())
         {
+            delete iter->second;
             _dataDic.erase(iter);
         }
     }
@@ -193,6 +199,7 @@ namespace dragonBones
         std::map<String , ITextureAtlas*>::iterator iter = _textureAtlasDic.find(name);
         if(iter != _textureAtlasDic.end())
         {
+            delete iter->second;
             _textureAtlasDic.erase(iter);
         }
     }
@@ -212,10 +219,12 @@ namespace dragonBones
             for(std::map<String , SkeletonData*>::iterator iter = _dataDic.begin() ; iter != _dataDic.end() ; iter ++)
             {
                 iter->second->dispose();
+                delete iter->second;
             }
             for(std::map<String , ITextureAtlas*>::iterator iter = _textureAtlasDic.begin() ; iter != _textureAtlasDic.end() ; iter ++)
             {
                 iter->second->dispose();
+                delete iter->second;
             }
         }
         _dataDic.clear();

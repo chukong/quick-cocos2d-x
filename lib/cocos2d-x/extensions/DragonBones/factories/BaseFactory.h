@@ -28,6 +28,7 @@ namespace dragonBones
         String _currentTextureAtlasName;
     public:
         BaseFactory();
+        virtual ~BaseFactory();
         
         //add load function for SkeletonFile and TextureAtlasFile
         virtual void loadSkeletonFile(const String &skeletonFile , const String &name  = "") = 0;
@@ -145,7 +146,7 @@ namespace dragonBones
          * </listing>
          * @param    (optional) Destroy all internal references.
          */
-        void dispose(bool disposeData = true);
+        virtual void dispose(bool disposeData = true);
         
         /**
          * Build and returns a new Armature instance.

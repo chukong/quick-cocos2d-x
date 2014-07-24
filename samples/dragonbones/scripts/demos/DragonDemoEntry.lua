@@ -66,10 +66,7 @@ function DragonDemoEntry:_createDB()
 end
 
 function DragonDemoEntry:_updateAniList()
-	local aniList = self._db:getAnimationList()
-	for i=0,aniList:count()-1 do
-		_ANIMATION_LIST[#_ANIMATION_LIST+1] = aniList:objectAtIndex(i):getCString()
-	end
+	_ANIMATION_LIST = self._db:getAnimations()
 	self:_onChangeAnimation()
 end
 

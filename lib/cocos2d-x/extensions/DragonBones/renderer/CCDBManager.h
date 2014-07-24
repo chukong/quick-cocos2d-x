@@ -95,6 +95,7 @@ namespace dragonBones
          * Creates a new StarlingFactory instance.
          */
         CCDBManager();
+        virtual void dispose(bool disposeData = true);
 
 		// get singleton
 		static CCDBManager *getInstance();

@@ -22,6 +22,20 @@ namespace dragonBones
     {
     }
     
+    void CCDBManager::dispose(bool disposeData)
+    {
+        
+        if(disposeData)
+        {
+            for(auto iter = _asyncList.begin() ; iter != _asyncList.end() ; iter ++)
+            {
+                delete iter->second;
+            }
+            _asyncList.clear();
+        }
+        BaseFactory::dispose(disposeData);
+    }
+    
     void CCDBManager::parseXMLByDir(const String& path, String &skeletonXMLFile, String &textureXMLFile)
     {
         String dataDir(path);
@@ -170,8 +184,8 @@ namespace dragonBones
                 CCDBManager::AsyncStruct* asyncObj = iter->second;
                 addTextureAtlas(new CCDBTextureAtlas(asyncObj->pData));
                 doAsyncCallBack(asyncObj->pObj, asyncObj->pSelector, asyncObj->scriptHandler);
-                _asyncList.erase(keyName);
                 delete asyncObj;
+                _asyncList.erase(keyName);
             }
         }
     }

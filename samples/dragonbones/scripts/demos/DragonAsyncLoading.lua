@@ -11,7 +11,8 @@ local _DB_FILES =
 	-- path is a directory name, it MUST in search pathes.
 	{
 		path = "cyborg",
-		armatureName = "Cyborg",
+		armatureName = "cyborg",
+		skeletonName = "Cyborg",
 	},
 	{
 		path = "dragon",
@@ -25,12 +26,14 @@ local _DB_FILES =
 	},
 	{
 		path = "knight",
-		armatureName = "Knight",
+		armatureName = "knight",
+		skeletonName = "Knight",
 	},
 	{
 		path = "motorcycle",
-		armatureName = "MotorcycleMan",
+		armatureName = "motorcycleMan",
 		skeletonName = "Motorcycle",
+		textureName = "Motorcycle",
 	},
 	-- The name is case sensitive.
 	{
@@ -43,6 +46,7 @@ local _DB_FILES =
 		path = "shark",
 		armatureName = "shank",
 		skeletonName = "Shark",
+		textureName = "Shark",
 	},
 }
 local _ANIMATION_LIST = {}
@@ -57,12 +61,11 @@ end
 function DragonAsyncLoading:_addUI()
 	DragonAsyncLoading.super._addUI(self)
 	local menu = ui.newMenu({
-		ui.newTTFLabelMenuItem({text="Add Dragon in Sync" ,listener=handler(self, self._onSync)}),
-		ui.newTTFLabelMenuItem({text="Add Dragon in Async" ,listener=handler(self, self._onAsync)}),
-		ui.newTTFLabelMenuItem({text="Add all animations" ,listener=handler(self, self._onAllAniAsync)}),
+		ui.newTTFLabelMenuItem({text="Add Dragon Sync" ,listener=handler(self, self._onSync)}),
+		ui.newTTFLabelMenuItem({text="Add Dragon Async" ,listener=handler(self, self._onAsync)}),
+		ui.newTTFLabelMenuItem({text="Add all animations Sync" ,listener=handler(self, self._onAllAniSync)}),
+		ui.newTTFLabelMenuItem({text="Add all animations Async" ,listener=handler(self, self._onAllAniAsync)}),
 		ui.newTTFLabelMenuItem({text="Remove all animation" ,listener=handler(self, self._onAllAniRemove)}),
-		ui.newTTFLabelMenuItem({text="add cache" ,listener=handler(self, self._onAddCache)}),
-		ui.newTTFLabelMenuItem({text="remove cache" ,listener=handler(self, self._onRemoveCache)}),
 	})
 		:pos(display.left+140, display.cy)
 		:addTo(self, 0)
@@ -79,11 +82,24 @@ function DragonAsyncLoading:_onAsync()
 	--self:_createDBAsync2()
 end
 
+function DragonAsyncLoading:_onAllAniSync()
+	dragonbones.loadDataList(_DB_FILES)
+	self:_addAllDBs()
+end
+
 function DragonAsyncLoading:_onAllAniAsync()
-	self:_createAllDBsAsync1()
+	dragonbones.loadDataList(
+		_DB_FILES,
+		function(evt)
+			print("async done")
+			print(evt)
+			self:_addAllDBs()
+			CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
+		end)
 end
 
 function DragonAsyncLoading:_onAllAniRemove()
+	self:_removeAllDB()
 	for __, value in ipairs(_DB_FILES) do
 		local obj = {}
 		if value.skeletonName then
@@ -96,60 +112,27 @@ function DragonAsyncLoading:_onAllAniRemove()
 	end
 	CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
 	collectgarbage()
-	do return end
-	_aniIndex = _aniIndex + 1
-	if _aniIndex > #_ANIMATION_LIST then
-		_aniIndex = _aniIndex - #_ANIMATION_LIST
-	end
-
-	self._db:gotoAndPlay(_ANIMATION_LIST[_aniIndex])
-end
-
-function DragonAsyncLoading:_onAddCache()
-	for __,v in ipairs(_DB_FILES) do
-		CCTextureCache:sharedTextureCache():addImage(v.path.."/texture.png")
-	end
-	CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
-end
-
-function DragonAsyncLoading:_onRemoveCache()
-	for __,v in ipairs(_DB_FILES) do
-		CCTextureCache:sharedTextureCache():removeTextureForKey(v.path.."/texture.png")
-	end
-	CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
-end
-
-function DragonAsyncLoading:_onMovement(evtType, movId)
-	do return end
-	printf("DragonAsyncLoading:_onMovement eventType:%s, movId:%s", evtType, movId)
-	if evtType == CCDragonBonesExtend.EVENTS.START then
-		print("This is the first start!")
-	end
-	print("getLastAnimationName:", self._db:getAnimation():getLastAnimationName())
 end
 
 function DragonAsyncLoading:_createDBSync1()
-	self._db = dragonbones.new({
+	self._dbs[#self._dbs+1] = dragonbones.new({
 			skeleton="dragon/skeleton.xml",
 			texture="dragon/texture.xml",
 			armatureName="Dragon",
 			aniName="",
+			aniName="",
 		})
 		:addTo(self, 10)
 		:pos(display.cx,100)
-		:addMovementScriptListener(handler(self, self._onMovement))
-	self:_updateAniList()
 end
 
 function DragonAsyncLoading:_createDBSync2()
-	self._db = dragonbones.new({
+	self._dbs[#self._dbs+1] = dragonbones.new({
 			path="dragon",
 			armatureName="Dragon",
 		})
-		:addTo(self, 10)
+		:addTo(self, -10)
 		:pos(display.cx,100)
-		:addMovementScriptListener(handler(self, self._onMovement))
-	self:_updateAniList()
 end
 
 function DragonAsyncLoading:_createDBAsync1()
@@ -157,10 +140,8 @@ function DragonAsyncLoading:_createDBAsync1()
 		path="dragon",
 		armatureName="Dragon",
 		handler=function(db)
-			self._db = db:addTo(self, 10)
+			self._dbs[#self._dbs] = db:addTo(self, -10)
 				:pos(display.cx,100)
-				:addMovementScriptListener(handler(self, self._onMovement))
-			self:_updateAniList()
 		end
 	})
 end
@@ -171,45 +152,48 @@ function DragonAsyncLoading:_createDBAsync2()
 		texture="dragon/texture.xml", 
 		armatureName="Dragon",
 		handler=function(evt)
-			print("async done")
-			print(evt)
-			self._db = dragonbones.new({
+			print("async done, evt:", evt)
+			self._dbs[#self._dbs+1] = dragonbones.new({
 					armatureName="Dragon",
 				})
-				:addTo(self, 10)
+				:addTo(self, -10)
 				:pos(display.cx,100)
-				:addMovementScriptListener(handler(self, self._onMovement))
-			self:_updateAniList()
 		end})
 end
 
-function DragonAsyncLoading:_createAllDBsAsync1()
-	dragonbones.loadDataList(
-		_DB_FILES,
-		function(evt)
-			print("async done")
-			print(evt)
-			CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
-		end)
+function DragonAsyncLoading:_removeAllDB()
+	for __, v in ipairs(self._dbs) do
+		v:removeSelf(true)
+	end
+	self._dbs = {}
 end
 
-function DragonAsyncLoading:_updateAniList()
-	do return end
-	local aniList = self._db:getAnimationList()
-	for i=0,aniList:count()-1 do
-		_ANIMATION_LIST[#_ANIMATION_LIST+1] = aniList:objectAtIndex(i):getCString()
+function DragonAsyncLoading:_addAllDBs()
+	for __, v in ipairs(_DB_FILES) do
+		local db = dragonbones.new({
+			armatureName = v.armatureName,
+			animationiName = v.animationName,
+			skeletonName = v.skeletonName,
+			textureName = v.textureName,
+			skinName = v.skinName,
+		})
+			:addTo(self, -10)
+			:pos(#self._dbs*100+100,display.cy-100)
+		self._dbs[#self._dbs+1] = db
+		self:_playDB(db)
 	end
-	self:_onChangeAnimation()
+end
+
+function DragonAsyncLoading:_playDB(db)
+	local aniList = db:getAnimations()
+	local aniIndex = math.random(#aniList)
+	db:gotoAndPlay(aniList[aniIndex])
 end
 
 function DragonAsyncLoading:onExit()
 	DragonAsyncLoading.super.onExit(self)
 	print("DragonAsyncLoading onExit")
-	self:unscheduleUpdate()
-	--self._db:removeMovementScriptListener()
-	--self._db:removeSelf(true)
-	--self._db = nil
-	--_aniIndex = 0
+	self:_onAllAniRemove()
 end
 
 return DragonAsyncLoading
