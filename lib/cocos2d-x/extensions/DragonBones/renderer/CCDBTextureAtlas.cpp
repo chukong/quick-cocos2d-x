@@ -51,6 +51,14 @@ namespace dragonBones
     {
         return _textureAtlasRawData->name;
     }
+    
+    /**
+     * The image path of this ITextureAtlas.
+     */
+    const String &CCDBTextureAtlas::getImagePath()
+    {
+        return _textureAtlasRawData->imagePath;
+    }
     /**
     * Clean up resources.
     */

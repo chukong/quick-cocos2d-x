@@ -53,7 +53,7 @@ namespace dragonBones
                 }
             }
             
-            return 0;
+            return nullptr;
         }
         
         void addArmatureData(ArmatureData *armatureData)
@@ -89,7 +89,7 @@ namespace dragonBones
             }
             else
             {
-                return 0;
+                return nullptr;
             }
         }
         

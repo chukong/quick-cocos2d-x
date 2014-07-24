@@ -150,10 +150,7 @@ namespace dragonBones
         {
             return iter->second;
         }
-        else
-        {
-            return 0;
-        }
+        return nullptr;
     }
 
     /**

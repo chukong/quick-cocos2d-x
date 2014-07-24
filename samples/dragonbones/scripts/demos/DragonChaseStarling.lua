@@ -107,13 +107,12 @@ function DragonChaseStarling:_updateBehavior(direction)
 end
 
 function DragonChaseStarling:_createDB()
-	print("DragonChaseStarling", display.newDragonBones)
-	self._db = display.newDragonBones({
+	self._db = dragonbones.new({
 			skeleton="dragon/skeleton.xml",
 			texture="dragon/texture.xml",
-			dragonBonesName="Dragon",
 			armatureName="Dragon",
 			aniName="",
+			skeletonName="Dragon",
 		})
 		:addTo(self, 10)
 		:pos(display.cx, display.cy-200)

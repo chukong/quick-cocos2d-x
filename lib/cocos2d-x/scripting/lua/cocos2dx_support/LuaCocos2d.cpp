@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul 23 15:27:29 2014.
+** Generated automatically by tolua++-1.0.92 on Thu Jul 24 09:33:20 2014.
 */
 
 /****************************************************************************
@@ -62515,31 +62515,160 @@ static int tolua_Cocos2d_CCDragonBones_createByName00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,1,&tolua_err) ||
-     !tolua_isstring(tolua_S,4,1,&tolua_err) ||
-     !tolua_isstring(tolua_S,5,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,6,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  const char* armatureName = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* animatioinName = ((const char*)  tolua_tostring(tolua_S,3,""));
-  const char* skeletonName = ((const char*)  tolua_tostring(tolua_S,4,""));
-  const char* skinName = ((const char*)  tolua_tostring(tolua_S,5,""));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
   {
-   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByName(armatureName,animatioinName,skeletonName,skinName);
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByName(armatureName);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
   }
  }
- return 1;
+ return 2;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'createByName'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByName of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByName01
+static int tolua_Cocos2d_CCDragonBones_createByName01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByName(armatureName,animationName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+  }
+ }
+ return 3;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByName00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByName of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByName02
+static int tolua_Cocos2d_CCDragonBones_createByName02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByName(armatureName,animationName,skeletonName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+  }
+ }
+ return 4;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByName01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByName of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByName03
+static int tolua_Cocos2d_CCDragonBones_createByName03(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByName(armatureName,animationName,skeletonName,textureAtlasName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+  }
+ }
+ return 5;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByName02(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByName of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByName04
+static int tolua_Cocos2d_CCDragonBones_createByName04(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  const std::string skinName = ((const std::string)  tolua_tocppstring(tolua_S,6,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByName(armatureName,animationName,skeletonName,textureAtlasName,skinName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+   tolua_pushcppstring(tolua_S,(const char*)skinName);
+  }
+ }
+ return 6;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByName03(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -62551,33 +62680,175 @@ static int tolua_Cocos2d_CCDragonBones_createByDir00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,4,1,&tolua_err) ||
-     !tolua_isstring(tolua_S,5,1,&tolua_err) ||
-     !tolua_isstring(tolua_S,6,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,7,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  const char* path = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* armatureName = ((const char*)  tolua_tostring(tolua_S,3,0));
-  const char* animatioinName = ((const char*)  tolua_tostring(tolua_S,4,""));
-  const char* skeletonName = ((const char*)  tolua_tostring(tolua_S,5,""));
-  const char* skinName = ((const char*)  tolua_tostring(tolua_S,6,""));
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
   {
-   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByDir(path,armatureName,animatioinName,skeletonName,skinName);
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByDir(path,armatureName);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
   }
  }
- return 1;
+ return 3;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'createByDir'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByDir of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByDir01
+static int tolua_Cocos2d_CCDragonBones_createByDir01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByDir(path,armatureName,animationName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+  }
+ }
+ return 4;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByDir00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByDir of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByDir02
+static int tolua_Cocos2d_CCDragonBones_createByDir02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByDir(path,armatureName,animationName,skeletonName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+  }
+ }
+ return 5;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByDir01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByDir of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByDir03
+static int tolua_Cocos2d_CCDragonBones_createByDir03(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,6,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByDir(path,armatureName,animationName,skeletonName,textureAtlasName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+  }
+ }
+ return 6;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByDir02(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByDir of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByDir04
+static int tolua_Cocos2d_CCDragonBones_createByDir04(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,6,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,7,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,6,0));
+  const std::string skinName = ((const std::string)  tolua_tocppstring(tolua_S,7,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByDir(path,armatureName,animationName,skeletonName,textureAtlasName,skinName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)path);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+   tolua_pushcppstring(tolua_S,(const char*)skinName);
+  }
+ }
+ return 7;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByDir03(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -62589,35 +62860,190 @@ static int tolua_Cocos2d_CCDragonBones_createByFiles00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,4,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,5,1,&tolua_err) ||
-     !tolua_isstring(tolua_S,6,1,&tolua_err) ||
-     !tolua_isstring(tolua_S,7,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,8,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
-  const char* skeletonXMLFile = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* textureXMLFile = ((const char*)  tolua_tostring(tolua_S,3,0));
-  const char* armatureName = ((const char*)  tolua_tostring(tolua_S,4,0));
-  const char* animationName = ((const char*)  tolua_tostring(tolua_S,5,""));
-  const char* skeletonName = ((const char*)  tolua_tostring(tolua_S,6,""));
-  const char* skinName = ((const char*)  tolua_tostring(tolua_S,7,""));
+  const std::string skeletonXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
   {
-   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByFiles(skeletonXMLFile,textureXMLFile,armatureName,animationName,skeletonName,skinName);
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByFiles(skeletonXMLFile,textureXMLFile,armatureName);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)skeletonXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
   }
  }
- return 1;
+ return 4;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'createByFiles'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByFiles of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByFiles01
+static int tolua_Cocos2d_CCDragonBones_createByFiles01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string skeletonXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByFiles(skeletonXMLFile,textureXMLFile,armatureName,animationName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)skeletonXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+  }
+ }
+ return 5;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByFiles00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByFiles of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByFiles02
+static int tolua_Cocos2d_CCDragonBones_createByFiles02(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,6,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string skeletonXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,6,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByFiles(skeletonXMLFile,textureXMLFile,armatureName,animationName,skeletonName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)skeletonXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+  }
+ }
+ return 6;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByFiles01(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByFiles of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByFiles03
+static int tolua_Cocos2d_CCDragonBones_createByFiles03(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,6,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,7,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,8,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string skeletonXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,6,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,7,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByFiles(skeletonXMLFile,textureXMLFile,armatureName,animationName,skeletonName,textureAtlasName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)skeletonXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+  }
+ }
+ return 7;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByFiles02(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: createByFiles of class  CCDragonBones */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_createByFiles04
+static int tolua_Cocos2d_CCDragonBones_createByFiles04(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,6,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,7,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,8,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,9,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  const std::string skeletonXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureXMLFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string armatureName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string animationName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,6,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,7,0));
+  const std::string skinName = ((const std::string)  tolua_tocppstring(tolua_S,8,0));
+  {
+   CCDragonBones* tolua_ret = (CCDragonBones*)  CCDragonBones::createByFiles(skeletonXMLFile,textureXMLFile,armatureName,animationName,skeletonName,textureAtlasName,skinName);
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDragonBones");
+   tolua_pushcppstring(tolua_S,(const char*)skeletonXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureXMLFile);
+   tolua_pushcppstring(tolua_S,(const char*)armatureName);
+   tolua_pushcppstring(tolua_S,(const char*)animationName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+   tolua_pushcppstring(tolua_S,(const char*)skinName);
+  }
+ }
+ return 8;
+tolua_lerror:
+ return tolua_Cocos2d_CCDragonBones_createByFiles03(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -63261,79 +63687,97 @@ static int tolua_Cocos2d_CCDBManager_generateDisplay00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: loadSkeletonFile of class  CCDBManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadSkeletonFile00
-static int tolua_Cocos2d_CCDBManager_loadSkeletonFile00(lua_State* tolua_S)
+/* method: loadData of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadData00
+static int tolua_Cocos2d_CCDBManager_loadData00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
-  const char* skeletonFile = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* name = ((const char*)  tolua_tostring(tolua_S,3,""));
+  const std::string skeletonFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureAtlasFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadSkeletonFile'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadData'", NULL);
 #endif
   {
-   self->loadSkeletonFile(skeletonFile,name);
+   self->loadData(skeletonFile,textureAtlasFile,skeletonName,textureAtlasName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasFile);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
   }
  }
- return 0;
+ return 4;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadSkeletonFile'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'loadData'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: loadTextureAtlasFile of class  CCDBManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadTextureAtlasFile00
-static int tolua_Cocos2d_CCDBManager_loadTextureAtlasFile00(lua_State* tolua_S)
+/* method: loadDataAsync of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataAsync00
+static int tolua_Cocos2d_CCDBManager_loadDataAsync00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,3,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,4,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,6,&tolua_err) || !toluafix_isfunction(tolua_S,6,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,7,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
-  const char* textureAtlasFile = ((const char*)  tolua_tostring(tolua_S,2,0));
-  const char* name = ((const char*)  tolua_tostring(tolua_S,3,""));
+  const std::string skeletonFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureAtlasFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,5,0));
+  LUA_FUNCTION scriptHandler = (  toluafix_ref_function(tolua_S,6,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadTextureAtlasFile'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataAsync'", NULL);
 #endif
   {
-   self->loadTextureAtlasFile(textureAtlasFile,name);
+   self->loadDataAsync(skeletonFile,textureAtlasFile,skeletonName,textureAtlasName,scriptHandler);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonFile);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasFile);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
   }
  }
- return 0;
+ return 4;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadTextureAtlasFile'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'loadDataAsync'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: loadDataFiles of class  CCDBManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataFiles00
-static int tolua_Cocos2d_CCDBManager_loadDataFiles00(lua_State* tolua_S)
+/* method: loadDataByDir of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataByDir00
+static int tolua_Cocos2d_CCDBManager_loadDataByDir00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -63349,68 +63793,31 @@ static int tolua_Cocos2d_CCDBManager_loadDataFiles00(lua_State* tolua_S)
 #endif
  {
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
-  const std::string skeletonFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
-  const std::string textureAtlasFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
-  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFiles'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataByDir'", NULL);
 #endif
   {
-   self->loadDataFiles(skeletonFile,textureAtlasFile,skeletonName);
-   tolua_pushcppstring(tolua_S,(const char*)skeletonFile);
-   tolua_pushcppstring(tolua_S,(const char*)textureAtlasFile);
+   self->loadDataByDir(path,skeletonName,textureAtlasName);
+   tolua_pushcppstring(tolua_S,(const char*)path);
    tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
   }
  }
  return 3;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadDataFiles'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'loadDataByDir'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: loadDataFilesByDir of class  CCDBManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataFilesByDir00
-static int tolua_Cocos2d_CCDBManager_loadDataFilesByDir00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
-     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
-  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
-  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFilesByDir'", NULL);
-#endif
-  {
-   self->loadDataFilesByDir(path,skeletonName);
-   tolua_pushcppstring(tolua_S,(const char*)path);
-   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
-  }
- }
- return 2;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadDataFilesByDir'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: loadDataFilesAsync of class  CCDBManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataFilesAsync00
-static int tolua_Cocos2d_CCDBManager_loadDataFilesAsync00(lua_State* tolua_S)
+/* method: loadDataByDirAsync of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataByDirAsync00
+static int tolua_Cocos2d_CCDBManager_loadDataByDirAsync00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -63427,65 +63834,92 @@ static int tolua_Cocos2d_CCDBManager_loadDataFilesAsync00(lua_State* tolua_S)
 #endif
  {
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
-  const std::string skeletonFile = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
-  const std::string textureAtlasFile = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
-  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
+  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,4,0));
   LUA_FUNCTION scriptHandler = (  toluafix_ref_function(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFilesAsync'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataByDirAsync'", NULL);
 #endif
   {
-   self->loadDataFilesAsync(skeletonFile,textureAtlasFile,skeletonName,scriptHandler);
-   tolua_pushcppstring(tolua_S,(const char*)skeletonFile);
-   tolua_pushcppstring(tolua_S,(const char*)textureAtlasFile);
+   self->loadDataByDirAsync(path,skeletonName,textureAtlasName,scriptHandler);
+   tolua_pushcppstring(tolua_S,(const char*)path);
    tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
   }
  }
  return 3;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadDataFilesAsync'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'loadDataByDirAsync'.",&tolua_err);
  return 0;
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: loadDataFilesByDirAsync of class  CCDBManager */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_loadDataFilesByDirAsync00
-static int tolua_Cocos2d_CCDBManager_loadDataFilesByDirAsync00(lua_State* tolua_S)
+/* method: unloadData of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_unloadData00
+static int tolua_Cocos2d_CCDBManager_unloadData00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
      !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !toluafix_isfunction(tolua_S,4,"LUA_FUNCTION",0,&tolua_err)) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
  else
 #endif
  {
   CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
-  const std::string path = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
-  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
-  LUA_FUNCTION scriptHandler = (  toluafix_ref_function(tolua_S,4,0));
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'loadDataFilesByDirAsync'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unloadData'", NULL);
 #endif
   {
-   self->loadDataFilesByDirAsync(path,skeletonName,scriptHandler);
-   tolua_pushcppstring(tolua_S,(const char*)path);
+   self->unloadData(skeletonName);
    tolua_pushcppstring(tolua_S,(const char*)skeletonName);
   }
  }
- return 2;
+ return 1;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'loadDataFilesByDirAsync'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'unloadData'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: unloadData of class  CCDBManager */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDBManager_unloadData01
+static int tolua_Cocos2d_CCDBManager_unloadData01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCDBManager",0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  CCDBManager* self = (CCDBManager*)  tolua_tousertype(tolua_S,1,0);
+  const std::string skeletonName = ((const std::string)  tolua_tocppstring(tolua_S,2,0));
+  const std::string textureAtlasName = ((const std::string)  tolua_tocppstring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'unloadData'", NULL);
+#endif
+  {
+   self->unloadData(skeletonName,textureAtlasName);
+   tolua_pushcppstring(tolua_S,(const char*)skeletonName);
+   tolua_pushcppstring(tolua_S,(const char*)textureAtlasName);
+  }
+ }
+ return 2;
+tolua_lerror:
+ return tolua_Cocos2d_CCDBManager_unloadData00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -70543,8 +70977,20 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
   tolua_beginmodule(tolua_S,"CCDragonBones");
    tolua_function(tolua_S,"create",tolua_Cocos2d_CCDragonBones_create00);
    tolua_function(tolua_S,"createByName",tolua_Cocos2d_CCDragonBones_createByName00);
+   tolua_function(tolua_S,"createByName",tolua_Cocos2d_CCDragonBones_createByName01);
+   tolua_function(tolua_S,"createByName",tolua_Cocos2d_CCDragonBones_createByName02);
+   tolua_function(tolua_S,"createByName",tolua_Cocos2d_CCDragonBones_createByName03);
+   tolua_function(tolua_S,"createByName",tolua_Cocos2d_CCDragonBones_createByName04);
    tolua_function(tolua_S,"createByDir",tolua_Cocos2d_CCDragonBones_createByDir00);
+   tolua_function(tolua_S,"createByDir",tolua_Cocos2d_CCDragonBones_createByDir01);
+   tolua_function(tolua_S,"createByDir",tolua_Cocos2d_CCDragonBones_createByDir02);
+   tolua_function(tolua_S,"createByDir",tolua_Cocos2d_CCDragonBones_createByDir03);
+   tolua_function(tolua_S,"createByDir",tolua_Cocos2d_CCDragonBones_createByDir04);
    tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles00);
+   tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles01);
+   tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles02);
+   tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles03);
+   tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles04);
    tolua_function(tolua_S,"getDisplayNode",tolua_Cocos2d_CCDragonBones_getDisplayNode00);
    tolua_function(tolua_S,"getArmature",tolua_Cocos2d_CCDragonBones_getArmature00);
    tolua_function(tolua_S,"getAnimation",tolua_Cocos2d_CCDragonBones_getAnimation00);
@@ -70572,12 +71018,12 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"generateArmature",tolua_Cocos2d_CCDBManager_generateArmature00);
    tolua_function(tolua_S,"generateSlot",tolua_Cocos2d_CCDBManager_generateSlot00);
    tolua_function(tolua_S,"generateDisplay",tolua_Cocos2d_CCDBManager_generateDisplay00);
-   tolua_function(tolua_S,"loadSkeletonFile",tolua_Cocos2d_CCDBManager_loadSkeletonFile00);
-   tolua_function(tolua_S,"loadTextureAtlasFile",tolua_Cocos2d_CCDBManager_loadTextureAtlasFile00);
-   tolua_function(tolua_S,"loadDataFiles",tolua_Cocos2d_CCDBManager_loadDataFiles00);
-   tolua_function(tolua_S,"loadDataFilesByDir",tolua_Cocos2d_CCDBManager_loadDataFilesByDir00);
-   tolua_function(tolua_S,"loadDataFilesAsync",tolua_Cocos2d_CCDBManager_loadDataFilesAsync00);
-   tolua_function(tolua_S,"loadDataFilesByDirAsync",tolua_Cocos2d_CCDBManager_loadDataFilesByDirAsync00);
+   tolua_function(tolua_S,"loadData",tolua_Cocos2d_CCDBManager_loadData00);
+   tolua_function(tolua_S,"loadDataAsync",tolua_Cocos2d_CCDBManager_loadDataAsync00);
+   tolua_function(tolua_S,"loadDataByDir",tolua_Cocos2d_CCDBManager_loadDataByDir00);
+   tolua_function(tolua_S,"loadDataByDirAsync",tolua_Cocos2d_CCDBManager_loadDataByDirAsync00);
+   tolua_function(tolua_S,"unloadData",tolua_Cocos2d_CCDBManager_unloadData00);
+   tolua_function(tolua_S,"unloadData",tolua_Cocos2d_CCDBManager_unloadData01);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"AnimationEvent","AnimationEvent","Event",NULL);
   tolua_beginmodule(tolua_S,"AnimationEvent");

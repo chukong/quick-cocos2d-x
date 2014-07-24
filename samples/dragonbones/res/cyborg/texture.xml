@@ -1,0 +1,19 @@
+<TextureAtlas name="Cyborg" imagePath="texture.png">
+  <SubTexture name="CyborgFolder/RightArm" x="16" y="89" width="10" height="19"/>
+  <SubTexture name="CyborgFolder/RightHand" x="119" y="11" width="7" height="9"/>
+  <SubTexture name="CyborgFolder/RightShoulder" x="0" y="89" width="14" height="19"/>
+  <SubTexture name="CyborgFolder/weapon4" x="0" y="0" width="101" height="23"/>
+  <SubTexture name="CyborgFolder/weapon3" x="0" y="25" width="92" height="22"/>
+  <SubTexture name="CyborgFolder/weapon2" x="0" y="49" width="91" height="20"/>
+  <SubTexture name="CyborgFolder/weapon1" x="0" y="71" width="70" height="16"/>
+  <SubTexture name="CyborgFolder/LeftShoulder" x="72" y="71" width="14" height="19"/>
+  <SubTexture name="CyborgFolder/LeftArm" x="28" y="89" width="10" height="19"/>
+  <SubTexture name="CyborgFolder/LeftHand" x="119" y="0" width="7" height="9"/>
+  <SubTexture name="CyborgFolder/RightThigh" x="109" y="64" width="14" height="28"/>
+  <SubTexture name="CyborgFolder/Head" x="94" y="44" width="32" height="18"/>
+  <SubTexture name="CyborgFolder/Chest" x="40" y="89" width="18" height="9"/>
+  <SubTexture name="CyborgFolder/Hip" x="119" y="22" width="4" height="4"/>
+  <SubTexture name="CyborgFolder/Trunk" x="60" y="89" width="10" height="16"/>
+  <SubTexture name="CyborgFolder/Leg" x="103" y="0" width="14" height="42"/>
+  <SubTexture name="CyborgFolder/LeftThigh" x="93" y="64" width="14" height="28"/>
+</TextureAtlas>

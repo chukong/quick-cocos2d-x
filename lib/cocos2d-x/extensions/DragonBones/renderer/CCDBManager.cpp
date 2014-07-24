@@ -39,14 +39,6 @@ namespace dragonBones
         textureXMLFile.append(dataDir + "texture.xml");
     }
     
-    Armature* CCDBManager::createArmature(const String &armatureName,
-                             const String &animationName,
-                             const String &skeletonName,
-                             const String &skinName)
-    {
-        return buildArmature(armatureName, animationName, skeletonName, skeletonName, skinName);
-    }
-    
     void CCDBManager::loadSkeletonFile(const String &skeletonFile , const String &name)
     {
         if(existSkeletonDataInDic(name))
@@ -66,7 +58,6 @@ namespace dragonBones
             delete[] skeleton_data;
             
             SkeletonData *skeleton = parser.parseSkeletonData(doc.RootElement());
-            
             addSkeletonData(skeleton , name);
         }
     }
@@ -108,20 +99,24 @@ namespace dragonBones
         return parser.parseTextureAtlasData(doc.RootElement());
     }
     
-    void CCDBManager::loadDataFiles(const String &skeletonFile, const String &textureAtlasFile, const String &skeletonName)
+    void CCDBManager::loadData(const String &skeletonFile,
+                                    const String &textureAtlasFile,
+                                    const String &skeletonName,
+                                    const String &textureAtlasName)
     {
         if(!skeletonFile.empty())
             loadSkeletonFile(skeletonFile, skeletonName);
         if(!textureAtlasFile.empty())
-            loadTextureAtlasFile(textureAtlasFile, skeletonName);
+            loadTextureAtlasFile(textureAtlasFile, textureAtlasName);
     }
 
-    void CCDBManager::loadDataFilesAsyncImpl(const String &skeletonFile,
-                                                 const String &textureAtlasFile,
-                                                 const String &skeletonName,
-                                                 cocos2d::CCObject* pObj,
-                                                 cocos2d::SEL_CallFuncO selector,
-                                                 int scriptHandler)
+    void CCDBManager::loadDataAsyncImpl(   const String &skeletonFile,
+                                                const String &textureAtlasFile,
+                                                const String &skeletonName,
+                                                const String &textureAtlasName,
+                                                cocos2d::CCObject* pObj,
+                                                cocos2d::SEL_CallFuncO selector,
+                                                int scriptHandler)
     {
         CCLOG("%s skeletonFile:%s, textureAtlasFile:%s skeletonName:%s pObj:%d selector:%d, handler:%d",
               __func__,
@@ -134,7 +129,7 @@ namespace dragonBones
         loadSkeletonFile(skeletonFile, skeletonName);
 		if (existTextureDataInDic(skeletonName))
 		{
-			loadTextureAtlasFile(textureAtlasFile, skeletonName);
+			loadTextureAtlasFile(textureAtlasFile, textureAtlasName);
             doAsyncCallBack(pObj, selector, scriptHandler);
 		}
 		else
@@ -193,6 +188,22 @@ namespace dragonBones
             cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine()
                 ->executeEvent(handler, "loadDataFilesAsync");
         }
+    }
+    
+    void CCDBManager::unloadData(const String &skeletonName, const String &textureAtlasName)
+    {
+        removeSkeletonData(skeletonName);
+        String texName(textureAtlasName.empty()?skeletonName:textureAtlasName);
+        CCDBTextureAtlas *texture = static_cast<CCDBTextureAtlas*>(getTextureAtlas(textureAtlasName));
+        if(texture)
+        {
+            String imagePath = texture->getImagePath();
+            cocos2d::CCTextureCache::sharedTextureCache()
+                ->removeTextureForKey(imagePath.c_str());
+        }
+        removeTextureAtlas(texName);
+        CCLOG("Dragon in skeleton cache:%d", existSkeletonDataInDic("Dragon"));
+        CCLOG("Dragon in texture cache:%d", existTextureDataInDic("Dragon"));
     }
     
     /** @private */
@@ -267,8 +278,8 @@ namespace dragonBones
         rect.size.height = region.height;
 
         cocos2d::CCDBAtlasNode *atlasNode = cocos2d::CCDBAtlasNode::create(ccTextureAtlas->getTextureAtlas() ,
-                                                                                   ccTextureAtlas->getQuadIndex(fullName),
-                                                                                   rect);
+                                                                           ccTextureAtlas->getQuadIndex(fullName),
+                                                                           rect);
         // cocos2d::ccBlendFunc func;
         // func.src = GL_SRC_ALPHA;
         // func.dst = GL_ONE_MINUS_SRC_ALPHA;

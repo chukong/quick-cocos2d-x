@@ -160,7 +160,9 @@ namespace dragonBones
          * @param    The name of this skin.
          * @return A Armature instance.
          */
-        Armature* buildArmature(const String &armatureName, const String &animationName = "", const String &skeletonName = "", const String &textureAtlasName = "", const String &skinName = "");
+        Armature* buildArmature(const String &armatureName, const String &animationName = "",
+                                const String &skeletonName = "", const String &textureAtlasName = "",
+                                const String &skinName = "");
         /**
          * Return the TextureDisplay.
          * @example 

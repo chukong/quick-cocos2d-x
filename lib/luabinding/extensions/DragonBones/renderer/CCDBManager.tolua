@@ -8,18 +8,22 @@ public:
 	virtual Armature* generateArmature();
 	Slot* generateSlot();
 	virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const char *fullName, Number pivotX, Number pivotY);
-	virtual void loadSkeletonFile(const char *skeletonFile , const char *name  = "");
-	virtual void loadTextureAtlasFile(const char *textureAtlasFile , const char *name  = "");
-	void loadDataFiles(const String &skeletonFile, 
-						const String &textureAtlasFile, 
-						const String &skeletonName);
-	void loadDataFilesByDir(const String &path, 
-							const String &skeletonName);
-	void loadDataFilesAsync(const String &skeletonFile,
-							const String &textureAtlasFile,
+
+	void loadData(const String &skeletonFile, const String &textureAtlasFile,
+				   const String &skeletonName, const String &textureAtlasName);
+	void loadDataAsync(const String &skeletonFile,
+						const String &textureAtlasFile,
+						const String &skeletonName,
+						const String &textureAtlasName,
+						LUA_FUNCTION scriptHandler);
+	
+	void loadDataByDir(const String &path,
+					   const String &skeletonName,
+					   const String &textureAtlasName);
+	void loadDataByDirAsync(const String &path,
 							const String &skeletonName,
+							const String &textureAtlasName,
 							LUA_FUNCTION scriptHandler);
-	void loadDataFilesByDirAsync(const String &path,
-							const String &skeletonName,
-							LUA_FUNCTION scriptHandler);
+
+	void unloadData(const String &skeletonName, const String &textureAtlasName="");	
 };

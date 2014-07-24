@@ -52,69 +52,17 @@ function DragonDemoEntry:_onMovement(evtType, movId)
 end
 
 function DragonDemoEntry:_createDB()
-	print("DragonDemoEntry", display.newDragonBones)
-	--self:_createDBSync1()
-	--self:_createDBSync2()
-	--self:_createDBAsync1()
-	self:_createDBAsync2()
-end
-
-function DragonDemoEntry:_createDBSync1()
-	self._db = display.newDragonBones({
+	self._db = dragonbones.new({
 			skeleton="dragon/skeleton.xml",
 			texture="dragon/texture.xml",
-			skeletonName="Dragon",
 			armatureName="Dragon",
 			aniName="",
-		})
-		:addTo(self, 10)
-		:pos(display.cx,100)
-		:addMovementScriptListener(handler(self, self._onMovement))
-	self:_updateAniList()
-end
-
-function DragonDemoEntry:_createDBSync2()
-	self._db = display.newDragonBones({
-			path="dragon",
 			skeletonName="Dragon",
-			armatureName="Dragon",
 		})
 		:addTo(self, 10)
 		:pos(display.cx,100)
 		:addMovementScriptListener(handler(self, self._onMovement))
 	self:_updateAniList()
-end
-
-function DragonDemoEntry:_createDBAsync1()
-	display.newDragonBones({
-		path="dragon",
-		armatureName="Dragon",
-		handler=function(db)
-			self._db = db:addTo(self, 10)
-				:pos(display.cx,100)
-				:addMovementScriptListener(handler(self, self._onMovement))
-			self:_updateAniList()
-		end
-	})
-end
-
-function DragonDemoEntry:_createDBAsync2()
-	display.loadDragonBonesDataFiles({
-		skeleton="dragon/skeleton.xml",
-		texture="dragon/texture.xml", 
-		armatureName="Dragon",
-		handler=function(evt)
-			print("async done")
-			print(evt)
-			self._db = display.newDragonBones({
-					skeletonName="Dragon",
-					armatureName="Dragon",
-				})
-				:addTo(self, 10)
-				:pos(display.cx,100)
-				:addMovementScriptListener(handler(self, self._onMovement))
-			self:_updateAniList()
-		end})
 end
 
 function DragonDemoEntry:_updateAniList()

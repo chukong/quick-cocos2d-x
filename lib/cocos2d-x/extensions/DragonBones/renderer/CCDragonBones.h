@@ -19,25 +19,30 @@ namespace dragonBones {
     class Armature;
     class CCDragonBones:public cocos2d::CCNode {
     public:
+        CCDragonBones();
+        virtual ~CCDragonBones();
 
         static CCDragonBones* create(Armature*arm);
-        static CCDragonBones* createByName( const char* armatureName,
-                                           const char* animatioinName="",
-                                            const char* skeletonName="",
-                                            const char* skinName="");
+        static CCDragonBones* createByName( const String &armatureName,
+                                            const String &animationName="",
+                                            const String &skeletonName="",
+                                            const String &textureAtlasName="",
+                                            const String &skinName="");
 
-        static CCDragonBones* createByDir(	const char* path,
-                                            const char* armatureName,
-                                          const char* animatioinName="",
-                                            const char* skeletonName="",
-                                            const char* skinName="");
+        static CCDragonBones* createByDir(	const String &path,
+                                            const String &armatureName,
+                                            const String &animationName="",
+                                            const String &skeletonName="",
+                                            const String &textureAtlasName="",
+                                            const String &skinName="");
 								
-        static CCDragonBones* createByFiles(const char* skeletonXMLFile,
-                                        const char* textureXMLFile,
-                                        const char* armatureName,
-                                        const char* animationName = "",
-                                        const char* skeletonName = "",
-                                        const char* skinName="");
+        static CCDragonBones* createByFiles(const String &skeletonXMLFile,
+                                            const String &textureXMLFile,
+                                            const String &armatureName,
+                                            const String &animationName="",
+                                            const String &skeletonName="",
+                                            const String &textureAtlasName="",
+                                            const String &skinName="");
 
         CCNode* getDisplayNode();
         Armature* getArmature();

@@ -1,0 +1,1178 @@
+<dragonBones name="Knight" frameRate="36" version="2.3">
+  <armature name="knight">
+    <bone name="armOutside" parent="body">
+      <transform x="-5" y="-14" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="body" parent="horseBody">
+      <transform x="0" y="-2" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="legOutside" parent="body">
+      <transform x="-3" y="-1" skX="-45" skY="-45" scX="1" scY="1"/>
+    </bone>
+    <bone name="head" parent="body">
+      <transform x="0" y="-16" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="armInside" parent="body">
+      <transform x="5" y="-15" skX="15" skY="15" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseBody">
+      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseHead" parent="horseBody">
+      <transform x="20" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseTail" parent="horseBody">
+      <transform x="-20" y="2" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseLegR1" parent="horseBody">
+      <transform x="7" y="16" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseLegR2" parent="horseBody">
+      <transform x="-14" y="16" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseLegL1" parent="horseBody">
+      <transform x="13" y="16" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="horseLegL2" parent="horseBody">
+      <transform x="-8" y="16" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="horseLegL2" parent="horseLegL2" z="0">
+        <display name="knightFolder/horseLeg" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
+        </display>
+      </slot>
+      <slot name="horseLegL1" parent="horseLegL1" z="1">
+        <display name="knightFolder/horseLeg" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
+        </display>
+      </slot>
+      <slot name="horseLegR2" parent="horseLegR2" z="2">
+        <display name="knightFolder/horseLeg" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
+        </display>
+      </slot>
+      <slot name="horseLegR1" parent="horseLegR1" z="3">
+        <display name="knightFolder/horseLeg" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
+        </display>
+      </slot>
+      <slot name="horseTail" parent="horseTail" z="4">
+        <display name="knightFolder/horseTail" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6" pY="2"/>
+        </display>
+      </slot>
+      <slot name="horseHead" parent="horseHead" z="5">
+        <display name="knightFolder/horseHead" type="armature">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="horseBody" parent="horseBody" z="6">
+        <display name="knightFolder/horseBody" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="20" pY="2"/>
+        </display>
+      </slot>
+      <slot name="armInside" parent="armInside" z="7">
+        <display name="knightFolder/arm" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="2" pY="4"/>
+        </display>
+      </slot>
+      <slot name="head" parent="head" z="8">
+        <display name="knightFolder/head" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="22" pY="37.95"/>
+        </display>
+      </slot>
+      <slot name="legOutside" parent="legOutside" z="9">
+        <display name="knightFolder/leg" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="0"/>
+        </display>
+      </slot>
+      <slot name="body" parent="body" z="10">
+        <display name="knightFolder/body" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="7" pY="14"/>
+        </display>
+      </slot>
+      <slot name="armOutside" parent="armOutside" z="11">
+        <display name="knightFolder/armOutside" type="armature">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="stand" fadeInTime="0.167" duration="2" scale="15" loop="0" tweenEasing="2">
+      <timeline name="horseLegL2" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="-8" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="1">
+          <transform x="-8" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegL1" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="13" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="1">
+          <transform x="13" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegR2" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="-14" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="-14" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegR1" scale="1" offset="0">
+        <frame z="3" duration="1">
+          <transform x="7" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" duration="1">
+          <transform x="7" y="16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseTail" scale="1" offset="0.8">
+        <frame z="4" duration="1">
+          <transform x="-20" y="2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" duration="1">
+          <transform x="-20" y="2.95" skX="15" skY="15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseHead" scale="1" offset="0.9">
+        <frame z="5" duration="1">
+          <transform x="20" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="5" duration="1">
+          <transform x="20.1" y="1" skX="5" skY="5" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseBody" scale="1" offset="0">
+        <frame z="6" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" duration="1">
+          <transform x="0" y="1" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armInside" scale="1" offset="0.8">
+        <frame z="7" duration="1">
+          <transform x="5" y="-15" skX="15" skY="15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" duration="1">
+          <transform x="5" y="-14" skX="21" skY="21" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="head" scale="1" offset="0.8">
+        <frame z="8" duration="1">
+          <transform x="0" y="-16" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" duration="1">
+          <transform x="0" y="-14" skX="8" skY="8" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legOutside" scale="1" offset="0">
+        <frame z="9" duration="1">
+          <transform x="-3" y="-1" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="9" duration="1">
+          <transform x="-3" y="0" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="body" scale="1" offset="0">
+        <frame z="10" duration="1">
+          <transform x="0" y="-2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="10" duration="1">
+          <transform x="0" y="-1" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armOutside" scale="1" offset="0">
+        <frame z="11" duration="1">
+          <transform x="-5" y="-14" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="11" duration="1">
+          <transform x="-5" y="-13" skX="6" skY="6" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="run" fadeInTime="0.111" duration="2" scale="9" loop="0" tweenEasing="2">
+      <timeline name="horseLegL2" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="-4.85" y="7.2" skX="64.3" skY="64.3" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="1">
+          <transform x="-8" y="16" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegL1" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="15.75" y="3.3" skX="-70.7" skY="-70.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="1">
+          <transform x="10.95" y="17.5" skX="51.99" skY="52" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegR2" scale="1" offset="0.9">
+        <frame z="2" duration="1">
+          <transform x="-10.7" y="8.35" skX="64.3" skY="64.3" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="-15.85" y="14.2" skX="-38" skY="-38" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegR1" scale="1" offset="0.9">
+        <frame z="3" duration="1">
+          <transform x="9.9" y="4.45" skX="-70.7" skY="-70.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" duration="1">
+          <transform x="5" y="16.75" skX="52" skY="52" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseTail" scale="1" offset="0.4">
+        <frame z="4" duration="1">
+          <transform x="-19.25" y="-4.3" skX="64.3" skY="64.3" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" duration="1">
+          <transform x="-20.1" y="-0.45" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseHead" scale="1" offset="0.8">
+        <frame z="5" duration="1">
+          <transform x="19.65" y="-13.75" skX="-20" skY="-20" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="5" duration="1">
+          <transform x="19.85" y="2.45" skX="27" skY="27" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseBody" scale="1" offset="0.1">
+        <frame z="6" duration="1">
+          <transform x="0" y="-10" skX="-10.7" skY="-10.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" duration="1">
+          <transform x="0" y="0" skX="7" skY="7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armInside" scale="1" offset="0.8">
+        <frame z="7" duration="1">
+          <transform x="2.65" y="-25.65" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" duration="1">
+          <transform x="7.15" y="-13.95" skX="30" skY="30" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="head" scale="1" offset="0.7">
+        <frame z="8" duration="1">
+          <transform x="-2.6" y="-26.75" skX="-22" skY="-22" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" duration="1">
+          <transform x="2.1" y="-13.8" skX="20" skY="20" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legOutside" scale="1" offset="0">
+        <frame z="9" duration="1">
+          <transform x="-2.8" y="-10.5" skX="-34.25" skY="-34.25" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="9" duration="1">
+          <transform x="-3.1" y="-1.5" skX="-5" skY="-5" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="body" scale="1" offset="0">
+        <frame z="10" duration="1">
+          <transform x="0" y="-12" skX="-10" skY="-10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="10" duration="1">
+          <transform x="0" y="-2" skX="10" skY="10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armOutside" scale="1" offset="0">
+        <frame z="11" duration="1">
+          <transform x="-7" y="-22.95" skX="-15" skY="-15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="11" duration="1">
+          <transform x="-2.8" y="-14.65" skX="15" skY="15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="jump" fadeInTime="0.167" duration="9" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="horseLegL2" scale="1" offset="0">
+        <frame z="0" duration="8">
+          <transform x="-7.2" y="16.4" skX="72.29" skY="72.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="1">
+          <transform x="-7.2" y="16.4" skX="72.29" skY="72.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegL1" scale="1" offset="0">
+        <frame z="1" duration="8">
+          <transform x="13.75" y="15.35" skX="-62.7" skY="-62.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="1">
+          <transform x="13.75" y="15.35" skX="-32.7" skY="-32.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegR2" scale="1" offset="0">
+        <frame z="2" duration="8">
+          <transform x="-13.15" y="16.65" skX="72.29" skY="72.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="-13.15" y="16.65" skX="72.29" skY="72.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseLegR1" scale="1" offset="0">
+        <frame z="3" duration="8">
+          <transform x="7.8" y="15.7" skX="-62.7" skY="-62.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" duration="1">
+          <transform x="7.8" y="15.7" skX="-32.7" skY="-32.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseTail" scale="1" offset="0">
+        <frame z="4" duration="8">
+          <transform x="-19.8" y="3" skX="12.29" skY="12.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" duration="1">
+          <transform x="-19.8" y="3" skX="102.29" skY="102.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseHead" scale="1" offset="0">
+        <frame z="5" duration="8">
+          <transform x="19.95" y="-0.95" skX="-12.01" skY="-12.01" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="5" duration="1">
+          <transform x="19.95" y="-0.95" skX="21.72" skY="21.72" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="horseBody" scale="1" offset="0">
+        <frame z="6" duration="8">
+          <transform x="0" y="0" skX="-2.7" skY="-2.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" duration="1">
+          <transform x="0" y="0" skX="-2.7" skY="-2.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armInside" scale="1" offset="0">
+        <frame z="7" duration="8">
+          <transform x="4.8" y="-15.15" skX="7.99" skY="7.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" duration="1">
+          <transform x="4.8" y="-15.15" skX="37.99" skY="37.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="head" scale="1" offset="0">
+        <frame z="8" duration="8">
+          <transform x="-0.2" y="-16.95" skX="-14" skY="-14.01" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" duration="1">
+          <transform x="-0.2" y="-16.95" skX="15.99" skY="15.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legOutside" scale="1" offset="0">
+        <frame z="9" duration="8">
+          <transform x="-2.7" y="-0.9" skX="-26.26" skY="-26.26" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="9" duration="1">
+          <transform x="-2.7" y="-0.9" skX="-26.26" skY="-26.26" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="body" scale="1" offset="0">
+        <frame z="10" duration="8">
+          <transform x="0.3" y="-2" skX="-2" skY="-2" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="10" duration="1">
+          <transform x="0.3" y="-2" skX="-2" skY="-2" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armOutside" scale="1" offset="0">
+        <frame z="11" duration="8">
+          <transform x="-7" y="-12.95" skX="-15" skY="-15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="11" duration="1">
+          <transform x="-7" y="-12.95" skX="12.5" skY="12.5" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="1"/>
+      <frame duration="8" sound="horse"/>
+    </animation>
+  </armature>
+  <armature name="knightFolder/horseHead">
+    <bone name="eye">
+      <transform x="17.35" y="-24.05" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="head">
+      <transform x="-2" y="2" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="head" parent="head" z="0">
+        <display name="knightFolder/horseHead_" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="48"/>
+        </display>
+      </slot>
+      <slot name="eye" parent="eye" z="1">
+        <display name="knightFolder/horseEye" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6.2" pY="6.2"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="unnamed" fadeInTime="0.167" duration="60" scale="1" loop="0" tweenEasing="NaN">
+      <timeline name="head" scale="1" offset="0">
+        <frame z="0" duration="60">
+          <transform x="-2" y="2" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="eye" scale="1" offset="0">
+        <frame z="1" duration="4">
+          <transform x="17.35" y="-24.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" tweenEasing="1" duration="3">
+          <transform x="17.35" y="-24.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" tweenEasing="0" duration="3">
+          <transform x="17.35" y="-24.05" skX="0" skY="0" scX="1" scY="0.04" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="50">
+          <transform x="17.35" y="-24.05" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+  <armature name="knightFolder/armOutside">
+    <bone name="bow">
+      <transform x="26" y="3" skX="10" skY="10" scX="1" scY="1"/>
+    </bone>
+    <bone name="arm">
+      <transform x="0" y="0" skX="120" skY="120" scX="1" scY="1"/>
+    </bone>
+    <bone name="weapon" parent="arm">
+      <transform x="-6" y="14" skX="30" skY="30" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="weapon" parent="weapon" z="1">
+        <display name="knightFolder/sword_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="11" pY="9"/>
+        </display>
+        <display name="knightFolder/pike_1" type="image">
+          <transform x="-27.15" y="0.4" skX="0" skY="0" scX="1" scY="1" pX="26" pY="8"/>
+        </display>
+        <display name="knightFolder/axe_1" type="image">
+          <transform x="-17.55" y="-0.35" skX="0" skY="0" scX="1" scY="1" pX="6" pY="9"/>
+        </display>
+      </slot>
+      <slot name="arm" parent="arm" z="2">
+        <display name="knightFolder/arm" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="2" pY="4"/>
+        </display>
+      </slot>
+      <slot name="bow" parent="bow" z="0">
+        <display name="knightFolder/bow" type="armature">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="ready_sword" fadeInTime="0.167" duration="1" scale="0" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="-6" y="14" skX="30" skY="30" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="120" skY="120" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="attack_sword_0" fadeInTime="0.3" duration="18" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" tweenEasing="1" duration="8">
+          <transform x="10" y="-12" skX="-134.79" skY="-134.79" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="10">
+          <transform x="-14" y="6" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" tweenRotate="1" duration="8">
+          <transform x="0" y="0" skX="-44.35" skY="-44.35" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="10">
+          <transform x="0" y="0" skX="165" skY="165" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="10"/>
+      <frame duration="8" event="ready"/>
+    </animation>
+    <animation name="attack_sword_1" fadeInTime="0.3" duration="18" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" tweenEasing="1" duration="8">
+          <transform x="5.7" y="15.4" skX="105" skY="105" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="10">
+          <transform x="15.7" y="-5.6" skX="-60" skY="-60" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" duration="8">
+          <transform x="0" y="0" skX="75" skY="75" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="10">
+          <transform x="0" y="0" skX="-12" skY="-12" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="10"/>
+      <frame duration="8" event="ready"/>
+    </animation>
+    <animation name="attack_sword_2" fadeInTime="0.3" duration="21" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" tweenEasing="1" duration="9">
+          <transform x="13.7" y="-7.6" skX="-89.99" skY="-89.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="12">
+          <transform x="-14.1" y="7.3" skX="150" skY="150" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" duration="9">
+          <transform x="0" y="0" skX="-20" skY="-20" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="12">
+          <transform x="0" y="0" skX="160" skY="160" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="11"/>
+      <frame duration="10" event="ready"/>
+    </animation>
+    <animation name="attack_sword_3" fadeInTime="0.167" duration="17" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" tweenEasing="1" duration="9">
+          <transform x="-14.1" y="7.3" skX="150" skY="150" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="8">
+          <transform x="9.95" y="13.05" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" tweenRotate="1" duration="9">
+          <transform x="0" y="0" skX="160" skY="160" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="8">
+          <transform x="0" y="0" skX="60" skY="60" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="16"/>
+      <frame duration="1" action="ready_sword"/>
+    </animation>
+    <animation name="attack_sword_5" fadeInTime="0.167" duration="8" scale="1" loop="0" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" tweenEasing="0" duration="7">
+          <transform x="1.65" y="15.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="1">
+          <transform x="1.65" y="15.7" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="0" tweenRotate="2" duration="7">
+          <transform x="0" y="0" skX="89.99" skY="89.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="89.99" skY="89.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="ready_pike" fadeInTime="0.3" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="1" duration="1">
+          <transform x="2.05" y="16" skX="5" skY="5" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="89.99" skY="89.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="attack_pike_1" fadeInTime="0.3" duration="22" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="9">
+          <transform x="9" y="-13.25" skX="-135" skY="-135" scX="1" scY="1" pX="27.15" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="13">
+          <transform x="-15" y="6" skX="60" skY="60" scX="1" scY="1" pX="27.15" pY="-0.4"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" tweenRotate="1" duration="9">
+          <transform x="0" y="0" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="13">
+          <transform x="0" y="0" skX="165" skY="165" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="12"/>
+      <frame duration="10" event="ready"/>
+    </animation>
+    <animation name="attack_pike_2" fadeInTime="0.3" duration="22" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="9">
+          <transform x="6" y="15" skX="135" skY="135" scX="1" scY="1" pX="27.15" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="13">
+          <transform x="15" y="-5" skX="-60" skY="-60" scX="1" scY="1" pX="27.15" pY="-0.4"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" duration="9">
+          <transform x="0" y="0" skX="75" skY="75" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="13">
+          <transform x="0" y="0" skX="-12" skY="-12" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="13"/>
+      <frame duration="9" event="ready"/>
+    </animation>
+    <animation name="attack_pike_3" fadeInTime="0" duration="22" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="3">
+          <transform x="15" y="-5" skX="-60" skY="-60" scX="1" scY="1" pX="27.15" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="9">
+          <transform x="-17" y="2" skX="0" skY="0" scX="1" scY="1" pX="-38.85" pY="0"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="10">
+          <transform x="16" y="1" skX="0" skY="0" scX="1" scY="1" pX="35.15" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" tweenRotate="1" duration="3">
+          <transform x="0" y="0" skX="-12" skY="-12" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="1" duration="9">
+          <transform x="0" y="0" skX="180" skY="180" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="10">
+          <transform x="0" y="0" skX="10" skY="10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="21"/>
+      <frame duration="1" action="ready_pike"/>
+    </animation>
+    <animation name="attack_pike_5" fadeInTime="0.167" duration="24" scale="1" loop="0" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="5">
+          <transform x="-16" y="0" skX="15" skY="15" scX="1" scY="1" pX="-38.6" pY="-0.95"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="1">
+          <transform x="13" y="9.05" skX="15" skY="15" scX="1" scY="1" pX="35.4" pY="-1"/>
+        </frame>
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="5">
+          <transform x="-16" y="-1" skX="0" skY="0" scX="1" scY="1" pX="-39.85" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="1">
+          <transform x="16" y="2" skX="0" skY="0" scX="1" scY="1" pX="36.15" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="5">
+          <transform x="-15" y="5.05" skX="-15" skY="-15" scX="1" scY="1" pX="-39.25" pY="-0.95"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="1">
+          <transform x="16" y="-1" skX="-15" skY="-15" scX="1" scY="1" pX="36.15" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" tweenEasing="1" duration="5">
+          <transform x="-16" y="-1" skX="0" skY="0" scX="1" scY="1" pX="-39.85" pY="-0.4"/>
+        </frame>
+        <frame z="1" displayIndex="1" duration="1">
+          <transform x="16" y="2" skX="0" skY="0" scX="1" scY="1" pX="36.15" pY="-0.4"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" duration="5">
+          <transform x="0" y="0" skX="-170" skY="-170" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="40" skY="40" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="1" duration="5">
+          <transform x="0" y="0" skX="-170" skY="-170" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="15" skY="15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="1" duration="5">
+          <transform x="0" y="0" skX="170" skY="170" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="0" tweenRotate="-1" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="1" duration="5">
+          <transform x="0" y="0" skX="-170" skY="-170" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="15" skY="15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="ready_axe" fadeInTime="0.3" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="2" duration="1">
+          <transform x="2" y="16" skX="15" skY="15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="89.99" skY="89.99" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="attack_axe_1" fadeInTime="0.167" duration="23" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="2" tweenEasing="1" duration="10">
+          <transform x="-8" y="14" skX="-45" skY="135" scX="1" scY="1" pX="17.55" pY="0.35"/>
+        </frame>
+        <frame z="1" displayIndex="2" duration="12">
+          <transform x="10" y="-12" skX="120" skY="-60" scX="1" scY="1" pX="17.55" pY="0.35"/>
+        </frame>
+        <frame z="1" displayIndex="2" tweenEasing="NaN" duration="1">
+          <transform x="10" y="-12" skX="120" skY="-60" scX="1" scY="1" pX="17.55" pY="0.35"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" duration="10">
+          <transform x="0" y="0" skX="125" skY="125" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="13">
+          <transform x="0" y="0" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="15"/>
+      <frame duration="8" event="ready"/>
+    </animation>
+    <animation name="attack_axe_2" fadeInTime="0.3" duration="22" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="2" tweenEasing="1" duration="9">
+          <transform x="10" y="-12" skX="-120" skY="-120" scX="1" scY="1" pX="17.55" pY="0.35"/>
+        </frame>
+        <frame z="1" displayIndex="2" duration="13">
+          <transform x="-15" y="5" skX="120" skY="120" scX="1" scY="1" pX="17.55" pY="0.35"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" tweenRotate="1" duration="9">
+          <transform x="0" y="0" skX="-45" skY="-45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="13">
+          <transform x="0" y="0" skX="170" skY="170" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="14"/>
+      <frame duration="8" event="ready"/>
+    </animation>
+    <animation name="attack_axe_3" fadeInTime="0.3" duration="21" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="weapon" scale="1" offset="0">
+        <frame z="1" displayIndex="2" tweenEasing="1" tweenRotate="1" duration="12">
+          <transform x="-15" y="5" skX="120" skY="120" scX="1" scY="1" pX="17.55" pY="0.35"/>
+        </frame>
+        <frame z="1" displayIndex="2" duration="9">
+          <transform x="11.05" y="12" skX="45" skY="45" scX="1" scY="1" pX="31.4" pY="0.6"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" tweenRotate="1" duration="12">
+          <transform x="0" y="0" skX="170" skY="170" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="9">
+          <transform x="0" y="0" skX="55" skY="55" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="20"/>
+      <frame duration="1" action="ready_axe"/>
+    </animation>
+    <animation name="ready_bow" fadeInTime="0.167" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="bow" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="26" y="3" skX="10" skY="10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="10" skY="10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="attack_bow_1" fadeInTime="0.167" duration="9" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="bow" scale="1" offset="0">
+        <frame z="0" duration="9">
+          <transform x="25" y="0" skX="-10" skY="-10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arm" scale="1" offset="0">
+        <frame z="2" tweenEasing="0" duration="3">
+          <transform x="0" y="0" skX="-38.3" skY="141.7" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" tweenEasing="1" duration="5">
+          <transform x="0" y="0" skX="36.93" skY="-143.07" scX="0.61" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="0" y="0" skX="10" skY="10" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <frame duration="3"/>
+      <frame duration="5" event="fire"/>
+      <frame duration="1" action="ready_bow"/>
+    </animation>
+  </armature>
+  <armature name="knightFolder/bow">
+    <bone name="arrowBackup">
+      <transform x="-33" y="-10" skX="120" skY="120" scX="0.2" scY="1"/>
+    </bone>
+    <bone name="a">
+      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="ba">
+      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="bb">
+      <transform x="0" y="0" skX="180" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="arrow">
+      <transform x="-8" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="ca">
+      <transform x="-9" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="cb">
+      <transform x="-9" y="0" skX="180" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="cb" parent="cb" z="0">
+        <display name="knightFolder/bow_b" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="30"/>
+        </display>
+      </slot>
+      <slot name="ca" parent="ca" z="1">
+        <display name="knightFolder/bow_b" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="30"/>
+        </display>
+      </slot>
+      <slot name="arrow" parent="arrow" z="2">
+        <display name="knightFolder/arrow_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10" pY="5"/>
+        </display>
+      </slot>
+      <slot name="bb" parent="bb" z="4">
+        <display name="knightFolder/bow_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="11" pY="50"/>
+        </display>
+      </slot>
+      <slot name="ba" parent="ba" z="5">
+        <display name="knightFolder/bow_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="11" pY="50"/>
+        </display>
+      </slot>
+      <slot name="a" parent="a" z="6">
+        <display name="knightFolder/bow_a" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="4" pY="4"/>
+        </display>
+      </slot>
+      <slot name="arrowBackup" parent="arrowBackup" z="3">
+        <display name="knightFolder/arrow_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10" pY="5"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="ready_bow" fadeInTime="0.3" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="cb" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="-9" y="0" skX="180" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="ca" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="-9" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arrow" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="-8" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="bb" scale="1" offset="0">
+        <frame z="4" duration="1">
+          <transform x="0" y="0" skX="180" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="ba" scale="1" offset="0">
+        <frame z="5" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="a" scale="1" offset="0">
+        <frame z="6" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="attack_bow_1" fadeInTime="0.167" duration="9" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="cb" scale="1" offset="0">
+        <frame z="0" tweenEasing="1" duration="3">
+          <transform x="-39" y="0" skX="150" skY="-30" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="6">
+          <transform x="-9" y="0" skX="180" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="ca" scale="1" offset="0">
+        <frame z="1" tweenEasing="1" duration="3">
+          <transform x="-39" y="0" skX="30" skY="30" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="6">
+          <transform x="-9" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arrow" scale="1" offset="0">
+        <frame z="2" tweenEasing="1" duration="3">
+          <transform x="-38" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" hide="1" duration="5">
+          <transform x="-13" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="1">
+          <transform x="-8" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arrowBackup" scale="1" offset="0">
+        <frame duration="1" displayIndex="-1"/>
+        <frame z="3" tweenEasing="0" tweenRotate="1" duration="7">
+          <transform x="-33" y="-10" skX="120" skY="120" scX="0.2" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" hide="1" duration="1">
+          <transform x="-8" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="bb" scale="1" offset="0">
+        <frame z="4" tweenEasing="1" duration="3">
+          <transform x="0" y="0" skX="-156" skY="24" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" duration="6">
+          <transform x="0" y="0" skX="180" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="ba" scale="1" offset="0">
+        <frame z="5" tweenEasing="1" duration="3">
+          <transform x="0" y="0" skX="-24" skY="-24" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="5" duration="6">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="a" scale="1" offset="0">
+        <frame z="6" tweenEasing="1" duration="3">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" duration="6">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+  <armature name="images">
+    <bone name="arrow_3">
+      <transform x="180" y="240" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="arrow_2">
+      <transform x="180" y="220" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="arrow_1">
+      <transform x="180" y="200" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="bow_3">
+      <transform x="170" y="320" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="bow_1">
+      <transform x="135" y="220" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="bow_2">
+      <transform x="136.55" y="271" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="axe_1">
+      <transform x="8" y="175" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="axe_2">
+      <transform x="5" y="230" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="axe_3">
+      <transform x="7" y="297" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="pike_1">
+      <transform x="30" y="100" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="pike_3">
+      <transform x="30" y="150" skX="-0.01" skY="0.01" scX="1" scY="1"/>
+    </bone>
+    <bone name="pike_2">
+      <transform x="30" y="120" skX="-0.01" skY="0.01" scX="1" scY="1"/>
+    </bone>
+    <bone name="sword_1">
+      <transform x="8" y="9" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="sword_3">
+      <transform x="14" y="67" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="sword_2">
+      <transform x="10" y="34" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="sword_2" parent="sword_2" z="0">
+        <display name="knightFolder/sword_2" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="13" pY="14"/>
+        </display>
+      </slot>
+      <slot name="sword_3" parent="sword_3" z="1">
+        <display name="knightFolder/sword_3" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="14" pY="18"/>
+        </display>
+      </slot>
+      <slot name="sword_1" parent="sword_1" z="2">
+        <display name="knightFolder/sword_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="11" pY="9"/>
+        </display>
+      </slot>
+      <slot name="pike_2" parent="pike_2" z="3">
+        <display name="knightFolder/pike_2" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="32" pY="12"/>
+        </display>
+      </slot>
+      <slot name="pike_3" parent="pike_3" z="4">
+        <display name="knightFolder/pike_3" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="36" pY="16"/>
+        </display>
+      </slot>
+      <slot name="pike_1" parent="pike_1" z="5">
+        <display name="knightFolder/pike_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="26" pY="8"/>
+        </display>
+      </slot>
+      <slot name="axe_3" parent="axe_3" z="6">
+        <display name="knightFolder/axe_3" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6" pY="32"/>
+        </display>
+      </slot>
+      <slot name="axe_2" parent="axe_2" z="7">
+        <display name="knightFolder/axe_2" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6" pY="20"/>
+        </display>
+      </slot>
+      <slot name="axe_1" parent="axe_1" z="8">
+        <display name="knightFolder/axe_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6" pY="9"/>
+        </display>
+      </slot>
+      <slot name="bow_2" parent="bow_2" z="9">
+        <display name="knightFolder/bow_2" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="16" pY="50"/>
+        </display>
+      </slot>
+      <slot name="bow_1" parent="bow_1" z="10">
+        <display name="knightFolder/bow_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="11" pY="50"/>
+        </display>
+      </slot>
+      <slot name="bow_3" parent="bow_3" z="11">
+        <display name="knightFolder/bow_3" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="23" pY="64"/>
+        </display>
+      </slot>
+      <slot name="arrow_1" parent="arrow_1" z="12">
+        <display name="knightFolder/arrow_1" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10" pY="5"/>
+        </display>
+      </slot>
+      <slot name="arrow_2" parent="arrow_2" z="13">
+        <display name="knightFolder/arrow_2" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10.25" pY="8.75"/>
+        </display>
+      </slot>
+      <slot name="arrow_3" parent="arrow_3" z="14">
+        <display name="knightFolder/arrow_3" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10.45" pY="12.5"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="1" fadeInTime="0.3" duration="1" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="sword_2" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="10" y="34" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="sword_3" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="14" y="67" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="sword_1" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="8" y="9" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="pike_2" scale="1" offset="0">
+        <frame z="3" duration="1">
+          <transform x="30" y="120" skX="-0.01" skY="0.01" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="pike_3" scale="1" offset="0">
+        <frame z="4" duration="1">
+          <transform x="30" y="150" skX="-0.01" skY="0.01" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="pike_1" scale="1" offset="0">
+        <frame z="5" duration="1">
+          <transform x="30" y="100" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="axe_3" scale="1" offset="0">
+        <frame z="6" duration="1">
+          <transform x="7" y="297" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="axe_2" scale="1" offset="0">
+        <frame z="7" duration="1">
+          <transform x="5" y="230" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="axe_1" scale="1" offset="0">
+        <frame z="8" duration="1">
+          <transform x="8" y="175" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="bow_2" scale="1" offset="0">
+        <frame z="9" duration="1">
+          <transform x="136.55" y="271" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="bow_1" scale="1" offset="0">
+        <frame z="10" duration="1">
+          <transform x="135" y="220" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="bow_3" scale="1" offset="0">
+        <frame z="11" duration="1">
+          <transform x="170" y="320" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arrow_1" scale="1" offset="0">
+        <frame z="12" duration="1">
+          <transform x="180" y="200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arrow_2" scale="1" offset="0">
+        <frame z="13" duration="1">
+          <transform x="180" y="220" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="arrow_3" scale="1" offset="0">
+        <frame z="14" duration="1">
+          <transform x="180" y="240" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+</dragonBones>

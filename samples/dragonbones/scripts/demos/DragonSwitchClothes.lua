@@ -112,17 +112,15 @@ function DragonSwitchClothes:_update(dt)
 end
 
 function DragonSwitchClothes:_createDB()
-	print("DragonSwitchClothes", display.newDragonBones)
-	self._db = display.newDragonBones({
+	self._db = dragonbones.new({
 			skeleton="dragon/skeleton.xml",
 			texture="dragon/texture.xml",
-			dragonBonesName="Dragon",
 			armatureName="Dragon",
 			aniName="",
+			skeletonName="Dragon",
 		})
 		:addTo(self, 10)
 		:pos(display.cx, _footY)
-	self._db:gotoAndPlay("walk")
 end
 
 function DragonSwitchClothes:onExit()

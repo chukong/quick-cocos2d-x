@@ -16,7 +16,21 @@ using namespace cocos2d;
 
 namespace dragonBones
 {
-    CCDragonBones* CCDragonBones::create(Armature*arm)
+    
+    CCDragonBones::CCDragonBones()
+    :m_Armature(nullptr)
+    {
+        
+    }
+    
+    CCDragonBones::~CCDragonBones()
+    {
+        removeAllEventListener();
+        unregisterAllScriptHandler();
+        CC_SAFE_DELETE(m_Armature);
+    }
+    
+    CCDragonBones* CCDragonBones::create(Armature *arm)
     {
         CCDragonBones* pNew = new CCDragonBones();
         if (pNew && pNew->init())
@@ -29,59 +43,59 @@ namespace dragonBones
         return NULL;
     }
     
-    CCDragonBones* CCDragonBones::createByName(const char* armatureName,
-                                       const char* animatioinName,
-                                        const char* skeletonName,
-                                       const char* skinName)
+    CCDragonBones* CCDragonBones::createByName(const String &armatureName,
+                                               const String &animationName,
+                                               const String &skeletonName,
+                                               const String &textureAtlasName,
+                                               const String &skinName)
     {
-        return CCDragonBones::createByFiles("", "", armatureName, animatioinName, skeletonName, skinName);
+        Armature* pArm = CCDBManager::getInstance()
+            ->buildArmature( armatureName,
+                              animationName,
+                              skeletonName,
+                              textureAtlasName,
+                              skinName);
+        if(pArm) return CCDragonBones::create(pArm);
+        return nullptr;
     }
     
-    CCDragonBones*	CCDragonBones::createByDir(const char* path,
-                                               const char* armatureName,
-                                               const char* animatioinName,
-                                               const char* skeletonName,
-                                               const char* skinName
-        )
+    CCDragonBones*	CCDragonBones::createByDir(const String &path,
+                                               const String &armatureName,
+                                               const String &animationName,
+                                               const String &skeletonName,
+                                               const String &textureAtlasName,
+                                               const String &skinName)
     {
-        CCDragonBones* pNew = new CCDragonBones();
-        if (pNew && pNew->init())
-        {
-            Armature* arm = CCDBManager::getInstance()
-                ->createArmatureByDir(
-                  path,
-                   armatureName,
-                   animatioinName,
-                   skeletonName,
-                   skinName);
-            return CCDragonBones::create(arm);
-        }
-        CC_SAFE_DELETE(pNew);
-        return NULL;
+        Armature* pArm = CCDBManager::getInstance()
+            ->createArmatureByDir(  path,
+                                    armatureName,
+                                    animationName,
+                                    skeletonName,
+                                    textureAtlasName,
+                                    skinName);
+        if(pArm) return CCDragonBones::create(pArm);
+        return nullptr;
     }
 
-    CCDragonBones*	CCDragonBones::createByFiles(const char* skeletonXMLFile,
-        const char* textureXMLFile,
-        const char* armatureName,
-        const char* animationName,
-        const char* skeletonName,
-        const char* skinName)
+    CCDragonBones*	CCDragonBones::createByFiles(const String &skeletonXMLFile,
+                                                 const String &textureXMLFile,
+                                                 const String &armatureName,
+                                                 const String &animationName,
+                                                 const String &skeletonName,
+                                                 const String &textureAtlasName,
+                                                 const String &skinName)
     {
-        CCDragonBones* pNew = new CCDragonBones();
-        if (pNew && pNew->init())
-        {
-            Armature* arm = CCDBManager::getInstance()
-                ->createArmatureByFiles(
-                    armatureName,
-                    animationName,
-                    skeletonName,
-                    skeletonXMLFile,
-                    textureXMLFile,
-                    skinName);
-            return CCDragonBones::create(arm);
-        }
-        CC_SAFE_DELETE(pNew);
-        return NULL;
+
+        Armature* pArm = CCDBManager::getInstance()
+            ->createArmatureByFiles(skeletonXMLFile,
+                                    textureXMLFile,
+                                    armatureName,
+                                    animationName,
+                                    skeletonName,
+                                    textureAtlasName,
+                                    skinName);
+        if(pArm) return CCDragonBones::create(pArm);
+        return nullptr;
     }
 
     void CCDragonBones::update(float dt)
@@ -100,30 +114,27 @@ namespace dragonBones
         return m_Armature;
     }
 
-    void CCDragonBones::gotoAndPlay(
-        const String &animationName,
-        Number fadeInTime,
-        Number duration,
-        Number loop,
-        uint layer,
-        const String &group,
-        const String &fadeOutMode,
-        bool displayControl,
-        bool pauseFadeOut,
-        bool pauseFadeIn
-        )
+    void CCDragonBones::gotoAndPlay(const String &animationName,
+                                    Number fadeInTime,
+                                    Number duration,
+                                    Number loop,
+                                    uint layer,
+                                    const String &group,
+                                    const String &fadeOutMode,
+                                    bool displayControl,
+                                    bool pauseFadeOut,
+                                    bool pauseFadeIn)
     {
         getAnimation()->gotoAndPlay(animationName,
-            fadeInTime,
-            duration,
-            loop,
-            layer,
-            group,
-            fadeOutMode,
-            displayControl,
-            pauseFadeOut,
-            pauseFadeIn
-            );
+                                    fadeInTime,
+                                    duration,
+                                    loop,
+                                    layer,
+                                    group,
+                                    fadeOutMode,
+                                    displayControl,
+                                    pauseFadeOut,
+                                    pauseFadeIn);
     }
 
     void CCDragonBones::initWithArmature(Armature*arm)
@@ -165,7 +176,6 @@ namespace dragonBones
 
     void CCDragonBones::onExit()
     {
-		DB_SAFE_DELETE(m_Armature);
         this->unscheduleAllSelectors();
         CCNode::onExit();
     }

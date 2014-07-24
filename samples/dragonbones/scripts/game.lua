@@ -10,12 +10,13 @@ game._DEMOS= {
 	require("demos.DragonDemoEntry"),
 	require("demos.DragonSwitchClothes"),
 	require("demos.DragonChaseStarling"),
+	require("demos.DragonAsyncLoading"),
 }
 
 function game.startup()
     CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
-	game._curDemo = 1
+	game._curDemo = 4
 	game._demoCount = #game._DEMOS
 
     game.showDemoScene()
@@ -31,7 +32,7 @@ function game.showDemoScene()
 		game._DEMOS[game._curDemo].new(
 			game._onNext, 
 			game._onPrev, 
-			game.onReset,
+			game._onReset,
 			game.exit
 		), 
 		"fade", 0.6, display.COLOR_WHITE)
@@ -46,6 +47,7 @@ function game._onPrev()
 end
 
 function game._onReset()
+	game.showDemoScene()
 end
 
 function game._onNext()
