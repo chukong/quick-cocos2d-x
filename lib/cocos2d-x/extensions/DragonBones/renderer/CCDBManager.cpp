@@ -132,6 +132,7 @@ namespace dragonBones
                                                 cocos2d::SEL_CallFuncO selector,
                                                 int scriptHandler)
     {
+        /*
         CCLOG("%s skeletonFile:%s, textureAtlasFile:%s skeletonName:%s pObj:%d selector:%d, handler:%d",
               __func__,
               skeletonFile.c_str(),
@@ -140,6 +141,7 @@ namespace dragonBones
               pObj,
               selector,
               scriptHandler);
+         //*/
         loadSkeletonFile(skeletonFile, skeletonName);
 		if (existTextureDataInDic(skeletonName))
 		{
@@ -170,7 +172,7 @@ namespace dragonBones
     {
         cocos2d::CCTexture2D* texture = static_cast<cocos2d::CCTexture2D*>(pObj);
         const char* textureKey = cocos2d::CCTextureCache::sharedTextureCache()->keyForTexture(texture);
-        CCLOG("%s textureKey:%s object:%d", __func__, textureKey, pObj);
+        //CCLOG("%s textureKey:%s object:%d", __func__, textureKey, pObj);
         for(auto kename : _asyncList)
         {
             CCLOG("first:%s, second:", kename.first.c_str());
@@ -192,7 +194,7 @@ namespace dragonBones
     
     void CCDBManager::doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
     {
-        CCLOG("%s target:%d selector:%d, handler:%d", __func__, target, selector, handler);
+        //CCLOG("%s target:%d selector:%d, handler:%d", __func__, target, selector, handler);
         if (target && selector)
         {
             (target->*selector)(target);
@@ -216,8 +218,8 @@ namespace dragonBones
                 ->removeTextureForKey(imagePath.c_str());
         }
         removeTextureAtlas(texName);
-        CCLOG("Dragon in skeleton cache:%d", existSkeletonDataInDic("Dragon"));
-        CCLOG("Dragon in texture cache:%d", existTextureDataInDic("Dragon"));
+        //CCLOG("Dragon in skeleton cache:%d", existSkeletonDataInDic("Dragon"));
+        //CCLOG("Dragon in texture cache:%d", existTextureDataInDic("Dragon"));
     }
     
     /** @private */

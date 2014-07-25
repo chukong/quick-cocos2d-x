@@ -73,21 +73,25 @@ function DragonAsyncLoading:_addUI()
 end
 
 function DragonAsyncLoading:_onSync()
+	self:_onAllAniRemove()
 	self:_createDBSync1()
 	--self:_createDBSync2()
 end
 
 function DragonAsyncLoading:_onAsync()
+	self:_onAllAniRemove()
 	self:_createDBAsync1()
 	--self:_createDBAsync2()
 end
 
 function DragonAsyncLoading:_onAllAniSync()
+	self:_onAllAniRemove()
 	dragonbones.loadDataList(_DB_FILES)
 	self:_addAllDBs()
 end
 
 function DragonAsyncLoading:_onAllAniAsync()
+	self:_onAllAniRemove()
 	dragonbones.loadDataList(
 		_DB_FILES,
 		function(evt)
@@ -124,6 +128,7 @@ function DragonAsyncLoading:_createDBSync1()
 		})
 		:addTo(self, 10)
 		:pos(display.cx,100)
+	self:_playDB(self._dbs[#self._dbs])
 end
 
 function DragonAsyncLoading:_createDBSync2()
@@ -133,6 +138,7 @@ function DragonAsyncLoading:_createDBSync2()
 		})
 		:addTo(self, -10)
 		:pos(display.cx,100)
+	self:_playDB(self._dbs[#self._dbs])
 end
 
 function DragonAsyncLoading:_createDBAsync1()
@@ -140,8 +146,9 @@ function DragonAsyncLoading:_createDBAsync1()
 		path="dragon",
 		armatureName="Dragon",
 		handler=function(db)
-			self._dbs[#self._dbs] = db:addTo(self, -10)
+			self._dbs[#self._dbs+1] = db:addTo(self, -10)
 				:pos(display.cx,100)
+			self:_playDB(db)
 		end
 	})
 end
@@ -158,6 +165,7 @@ function DragonAsyncLoading:_createDBAsync2()
 				})
 				:addTo(self, -10)
 				:pos(display.cx,100)
+			self:_playDB(self._dbs[#self._dbs])
 		end})
 end
 

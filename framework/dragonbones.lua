@@ -142,13 +142,16 @@ function db.loadData(params)
 end
 
 function db.loadDataList(fileList, handler)
-	local amount = #fileList
+	local total = #fileList
+	local cur = total 
 	local aHandler = nil
 	if type(handler) == "function" then
 		aHandler = function(evt)
-			amount = amount - 1
-			if amount <= 0 then
-				handler()
+			cur = cur - 1
+			if cur <= 0 then
+				handler(true, cur, total)
+			else
+				--handler(false, cur, total)
 			end
 		end
 	end
