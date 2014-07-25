@@ -58,7 +58,7 @@ namespace dragonBones
         if(existSkeletonDataInDic(name))
         {
             //todo
-            CCLOG("%s, name %s has already been in cache.", __func__, name.c_str());
+            CCLOG("%s, name %s has already been in cache.", __FUNCTION__, name.c_str());
         }
         else
         {
@@ -81,7 +81,7 @@ namespace dragonBones
 		if (existTextureDataInDic(name))
 		{
 			//todo
-            CCLOG("%s, name %s has already been in cache.", __func__, name.c_str());
+            CCLOG("%s, name %s has already been in cache.", __FUNCTION__, name.c_str());
 		}
 		else
 		{
@@ -134,7 +134,7 @@ namespace dragonBones
     {
         /*
         CCLOG("%s skeletonFile:%s, textureAtlasFile:%s skeletonName:%s pObj:%d selector:%d, handler:%d",
-              __func__,
+              __FUNCTION__,
               skeletonFile.c_str(),
               textureAtlasFile.c_str(),
               skeletonName.c_str(),
@@ -172,7 +172,7 @@ namespace dragonBones
     {
         cocos2d::CCTexture2D* texture = static_cast<cocos2d::CCTexture2D*>(pObj);
         const char* textureKey = cocos2d::CCTextureCache::sharedTextureCache()->keyForTexture(texture);
-        //CCLOG("%s textureKey:%s object:%d", __func__, textureKey, pObj);
+        //CCLOG("%s textureKey:%s object:%d", __FUNCTION__, textureKey, pObj);
         for(auto kename : _asyncList)
         {
             CCLOG("first:%s, second:", kename.first.c_str());
@@ -194,7 +194,7 @@ namespace dragonBones
     
     void CCDBManager::doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
     {
-        //CCLOG("%s target:%d selector:%d, handler:%d", __func__, target, selector, handler);
+        //CCLOG("%s target:%d selector:%d, handler:%d", __FUNCTION__, target, selector, handler);
         if (target && selector)
         {
             (target->*selector)(target);
