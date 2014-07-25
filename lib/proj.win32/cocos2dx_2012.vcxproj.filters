@@ -1137,18 +1137,6 @@
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxAtlasNode.cpp">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxDisplayBridge.cpp">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxFactory.cpp">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxTextureAtlas.cpp">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Armature.cpp">
       <Filter>cocos2d-x\extensions\DragonBones</Filter>
     </ClCompile>
@@ -1226,6 +1214,18 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\updater\Updater.cpp">
       <Filter>cocos2d-x\extensions\updater</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2297,18 +2297,6 @@
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.h">
       <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxAtlasNode.h">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxDisplayBridge.h">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxFactory.h">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\Cocos2dxTextureAtlas.h">
-      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Armature.h">
       <Filter>cocos2d-x\extensions\DragonBones</Filter>
     </ClInclude>
@@ -2437,6 +2425,21 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\updater\Updater.h">
       <Filter>cocos2d-x\extensions\updater</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBNode.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

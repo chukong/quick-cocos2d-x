@@ -200,7 +200,7 @@ namespace dragonBones
 		callbackList.push_back(CocosCallback(pObj, selector));
         EventDispatcher::Function f = std::bind(&CCDragonBones::cocosEventBridge, this, std::placeholders::_1);
         String key = pointerToString(pObj);
-        CCLOG("%s pointer value: %s", __func__, key.c_str());
+        CCLOG("%s pointer value: %s", __FUNCTION__, key.c_str());
         m_Armature->addEventListener(type, f, key);
     }
     
@@ -291,13 +291,13 @@ namespace dragonBones
     
     void CCDragonBones::registerScriptHandler(int funId, String type)
     {
-        cocos2d::CCLog("%s %d %s", __func__, funId, type.c_str());
+        cocos2d::CCLog("%s %d %s", __FUNCTION__, funId, type.c_str());
         this->unregisterScriptHandler(type);
         
         EventDispatcher::Function f = std::bind(&CCDragonBones::cocosEventBridge, this, std::placeholders::_1);
         String key = funToString(funId);
         
-        CCLOG("%s funId value: %s", __func__, key.c_str());
+        CCLOG("%s funId value: %s", __FUNCTION__, key.c_str());
         m_Armature->addEventListener(type, f, key);
         _scriptHandlers[type] = funId;
     }
