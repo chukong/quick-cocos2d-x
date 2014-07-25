@@ -16,11 +16,11 @@ namespace dragonBones
     class CCDBTextureAtlas : public ITextureAtlas
     {
     protected:
-        TextureAtlasData *_textureAtlasRawData = nullptr;
+        TextureAtlasData *_textureAtlasRawData;
 
         // the corresponding relationship for name and quads index in atlas.
         std::map<String , uint> _textureNames;
-        cocos2d::CCTextureAtlas *textureAtlas = nullptr;
+        cocos2d::CCTextureAtlas *textureAtlas;
     public:
 
         CCDBTextureAtlas(TextureAtlasData *data);

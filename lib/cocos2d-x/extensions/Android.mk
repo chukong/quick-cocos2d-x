@@ -68,7 +68,7 @@ ifndef $(QUICK_MINI_TARGET)
 		DragonBones/objects/XMLDataParser.cpp \
 		DragonBones/renderer/CCDragonBones.cpp \
 		DragonBones/renderer/CCDBAtlasNode.cpp \
-		DragonBones/renderer/CCDBisplayBridge.cpp \
+		DragonBones/renderer/CCDBDisplayBridge.cpp \
 		DragonBones/renderer/CCDBManager.cpp \
 		DragonBones/renderer/CCDBTextureAtlas.cpp \
 		DragonBones/Slot.cpp \

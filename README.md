@@ -8,6 +8,13 @@
 
 没有同步的原因同上。
 
+2014-07-25 更新：
+
+1. 解决 DragonBonesCPP 的内存泄露；
+2. 为 DragonBonesCPP 增加异步加载功能；
+3. 完善 lua framewark 支持，将所有DragonBones功能移到 [dragonbones.lua][9] 中。
+4. 为 [dragonbones sample][10] 增加一个 [DragonAsyncLoading][11] 范例，描述如何实现同步/异步加载，以及如何清理缓存。
+
 2014-07-16 更新：
 
 1. 更新 DragonBonesCPP 库到最新，解决一些内存泄露；
@@ -50,3 +57,6 @@
 [6]: https://github.com/go3k/CCXWebview
 [7]: http://zengrong.net/post/2123.htm
 [8]: http://zengrong.net/post/2134.htm
+[9]: https://github.com/zrong/quick-cocos2d-x/blob/zrong/framework/dragonbones.lua
+[10]: https://github.com/zrong/quick-cocos2d-x/blob/zrong/samples/dragonbones/
+[11]: https://github.com/zrong/quick-cocos2d-x/blob/zrong/samples/dragonbones/scripts/demos/DragonAsyncLoading.lua
