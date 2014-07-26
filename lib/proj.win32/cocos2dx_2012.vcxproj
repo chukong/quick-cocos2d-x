@@ -169,6 +169,7 @@
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\XMLDataParser.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.cpp" />
@@ -643,6 +644,7 @@
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\XMLDataParser.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBNode.h" />
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.h" />

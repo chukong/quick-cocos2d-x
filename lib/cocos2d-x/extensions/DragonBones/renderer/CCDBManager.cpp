@@ -14,28 +14,67 @@
 #include "script_support/CCScriptSupport.h"
 namespace dragonBones
 {
+	static unsigned int _tickCount;
 
-    /**
-     * Creates a new CCDBManager instance.
-     */
-    CCDBManager::CCDBManager()
-    {
-    }
-    
-    void CCDBManager::dispose(bool disposeData)
-    {
-        
-        if(disposeData)
-        {
-            for(auto iter = _asyncList.begin() ; iter != _asyncList.end() ; iter ++)
-            {
-                delete iter->second;
-            }
-            _asyncList.clear();
-        }
-        BaseFactory::dispose(disposeData);
-    }
-    
+	static void doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
+	{
+		//CCLOG("%s target:%d selector:%d, handler:%d", __FUNCTION__, target, selector, handler);
+		if (target && selector)
+		{
+			(target->*selector)(target);
+			target->release();
+		}
+		if (handler)
+		{
+			cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine()
+				->executeEvent(handler, "loadDataFilesAsync");
+		}
+	}
+
+	static CCDBManager *msCCDBManager = nullptr;
+
+	CCDBManager * CCDBManager::getInstance()
+	{
+		if (!msCCDBManager)
+		{
+			msCCDBManager = new CCDBManager();
+		}
+		return msCCDBManager;
+	}
+
+	/**
+	* Creates a new CCDBManager instance.
+	*/
+	CCDBManager::CCDBManager()
+	{
+		printTickCount();
+	}
+	CCDBManager::~CCDBManager()
+	{
+		CCLOG("~CCDBMAnager");
+		for (auto iter = _asyncList.begin(); iter != _asyncList.end(); iter++)
+		{
+			delete iter->second;
+		}
+		_asyncList.clear();
+		_factory.dispose(true);
+	}
+
+	void CCDBManager::destroyInstance()
+	{
+		CCLOG("CCDBMAnager::destroyInstance");
+		if (msCCDBManager)
+		{
+			CC_SAFE_DELETE(msCCDBManager);
+		}
+	}
+
+	void CCDBManager::printTickCount()
+	{
+		++_tickCount;
+		CCLOG("%s tickcount:%d thisptr:%d msCCDBManager:%d, sizeof(%d) %d, %d", __FUNCTION__, _tickCount, this, msCCDBManager, sizeof(CCDBManager), sizeof(BaseFactory), sizeof(CCObject));
+	}
+
     void CCDBManager::parseXMLByDir(const String& path, String &skeletonXMLFile, String &textureXMLFile)
     {
         String dataDir(path);
@@ -52,76 +91,16 @@ namespace dragonBones
         skeletonXMLFile.append(dataDir + "skeleton.xml");
         textureXMLFile.append(dataDir + "texture.xml");
     }
-    
-    void CCDBManager::loadSkeletonFile(const String &skeletonFile , const String &name)
-    {
-        if(existSkeletonDataInDic(name))
-        {
-            //todo
-            CCLOG("%s, name %s has already been in cache.", __FUNCTION__, name.c_str());
-        }
-        else
-        {
-            dragonBones::XMLDataParser parser;
-            unsigned long dummySize;
-            
-            dragonBones::XMLDocument doc;
-            unsigned char* skeleton_data = cocos2d::CCFileUtils::sharedFileUtils()->
-                getFileData(skeletonFile.c_str(), "rb", &dummySize);
-            doc.Parse(reinterpret_cast<char*>(skeleton_data),dummySize);
-            delete[] skeleton_data;
-            
-            SkeletonData *skeleton = parser.parseSkeletonData(doc.RootElement());
-            addSkeletonData(skeleton , name);
-        }
-    }
-
-    void CCDBManager::loadTextureAtlasFile(const String &textureAtlasFile , const String &name)
-    {
-		if (existTextureDataInDic(name))
-		{
-			//todo
-            CCLOG("%s, name %s has already been in cache.", __FUNCTION__, name.c_str());
-		}
-		else
-		{
-			TextureAtlasData *textureAtlasData = parseTextureAtlasFile(textureAtlasFile);
-			addTextureAtlas(new dragonBones::CCDBTextureAtlas(textureAtlasData));
-		}
-    }
-    
-    TextureAtlasData* CCDBManager::parseTextureAtlasFile(const String &textureAtlasFile)
-    {
-        dragonBones::XMLDataParser parser;
-        unsigned long dummySize;
-        
-        dragonBones::XMLDocument doc;
-        unsigned char* texture_data = cocos2d::CCFileUtils::sharedFileUtils()->
-        getFileData(textureAtlasFile.c_str(), "rb", &dummySize);
-        doc.Parse(reinterpret_cast<char*>(texture_data),dummySize);
-        delete[] texture_data;
-        
-        size_t pos = textureAtlasFile.find_last_of("/");
-        if (std::string::npos != pos){
-            std::string base_path = textureAtlasFile.substr(0, pos + 1);
-            
-            std::string img_path = doc.RootElement()->Attribute(ConstValues::A_IMAGE_PATH.c_str());
-            std::string new_img_path = base_path + img_path;
-            
-            doc.RootElement()->SetAttribute(ConstValues::A_IMAGE_PATH.c_str(), new_img_path.c_str());
-        }
-        return parser.parseTextureAtlasData(doc.RootElement());
-    }
-    
+      
     void CCDBManager::loadData(const String &skeletonFile,
                                     const String &textureAtlasFile,
                                     const String &skeletonName,
                                     const String &textureAtlasName)
     {
         if(!skeletonFile.empty())
-            loadSkeletonFile(skeletonFile, skeletonName);
+			_factory.loadSkeletonFile(skeletonFile, skeletonName);
         if(!textureAtlasFile.empty())
-            loadTextureAtlasFile(textureAtlasFile, textureAtlasName);
+			_factory.loadTextureAtlasFile(textureAtlasFile, textureAtlasName);
     }
 
     void CCDBManager::loadDataAsyncImpl(   const String &skeletonFile,
@@ -142,49 +121,59 @@ namespace dragonBones
               selector,
               scriptHandler);
          //*/
-        loadSkeletonFile(skeletonFile, skeletonName);
-		if (existTextureDataInDic(skeletonName))
+		_factory.loadSkeletonFile(skeletonFile, skeletonName);
+		//if (!_asyncList)
+		//	_asyncList = new std::map<String, AsyncStruct*>();
+		if (_factory.existTextureDataInDic(skeletonName))
 		{
-			loadTextureAtlasFile(textureAtlasFile, textureAtlasName);
+			_factory.loadTextureAtlasFile(textureAtlasFile, textureAtlasName);
             doAsyncCallBack(pObj, selector, scriptHandler);
 		}
 		else
 		{
-            TextureAtlasData *textureAtlasData = parseTextureAtlasFile(textureAtlasFile);
+            TextureAtlasData *textureAtlasData = CCDBFactory::parseTextureAtlasFile(textureAtlasFile);
             
             CCDBManager::AsyncStruct* asyncObj = new CCDBManager::AsyncStruct();
+			//auto asyncObj = new AsyncStruct();
             asyncObj->pObj = pObj;
             asyncObj->pData = textureAtlasData;
             asyncObj->pSelector = selector;
             asyncObj->scriptHandler = scriptHandler;
             std::string imgPath = cocos2d::CCFileUtils::sharedFileUtils()
                 ->fullPathForFilename(textureAtlasData->imagePath.c_str());
-            _asyncList[imgPath] = asyncObj;
-			
+            (_asyncList)[imgPath] = asyncObj;
+			CCLOG("loadDataAsyncImpl,size:%d", _asyncList.size());
+			if (pObj) pObj->retain();
+			printTickCount();
             cocos2d::CCTextureCache::sharedTextureCache()
                 ->addImageAsync(imgPath.c_str(),
-                                this,
+                                (cocos2d::CCObject*)msCCDBManager,
                                 cocos2d::SEL_CallFuncO(&CCDBManager::loadTextureCallback));
 		}
     }
-    
+
     void CCDBManager::loadTextureCallback(cocos2d::CCObject *pObj)
     {
         cocos2d::CCTexture2D* texture = static_cast<cocos2d::CCTexture2D*>(pObj);
         const char* textureKey = cocos2d::CCTextureCache::sharedTextureCache()->keyForTexture(texture);
         //CCLOG("%s textureKey:%s object:%d", __FUNCTION__, textureKey, pObj);
-        for(auto kename : _asyncList)
-        {
-            CCLOG("first:%s, second:", kename.first.c_str());
-        }
+        //for(auto kename : _asynclist)
+        //{
+        //    cclog("first:%s, second:", kename.first.c_str());
+        //}
+		CCLOG("CCDBManager::loadTextureCallback size %d", _asyncList.size());
+		CCLOG("CCDBManager::loadTextureCallback empty %d", _asyncList.empty());
+		printTickCount();
+		if (_asyncList.empty())
+			CCLOG("asyncList is empty");
         if(textureKey)
         {
             String keyName(textureKey);
             auto iter = _asyncList.find(keyName);
             if(iter != _asyncList.end())
             {
-                CCDBManager::AsyncStruct* asyncObj = iter->second;
-                addTextureAtlas(new CCDBTextureAtlas(asyncObj->pData));
+                auto asyncObj = iter->second;
+				_factory.addTextureAtlas(new CCDBTextureAtlas(asyncObj->pData));
                 doAsyncCallBack(asyncObj->pObj, asyncObj->pSelector, asyncObj->scriptHandler);
                 delete asyncObj;
                 _asyncList.erase(keyName);
@@ -192,150 +181,24 @@ namespace dragonBones
         }
     }
     
-    void CCDBManager::doAsyncCallBack(cocos2d::CCObject* target, cocos2d::SEL_CallFuncO selector, int handler)
-    {
-        //CCLOG("%s target:%d selector:%d, handler:%d", __FUNCTION__, target, selector, handler);
-        if (target && selector)
-        {
-            (target->*selector)(target);
-        }
-        if (handler)
-        {
-            cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine()
-                ->executeEvent(handler, "loadDataFilesAsync");
-        }
-    }
-    
     void CCDBManager::unloadData(const String &skeletonName, const String &textureAtlasName)
     {
-        removeSkeletonData(skeletonName);
+        _factory.removeSkeletonData(skeletonName);
         String texName(textureAtlasName.empty()?skeletonName:textureAtlasName);
-        CCDBTextureAtlas *texture = static_cast<CCDBTextureAtlas*>(getTextureAtlas(textureAtlasName));
+        CCDBTextureAtlas *texture = static_cast<CCDBTextureAtlas*>(_factory.getTextureAtlas(textureAtlasName));
         if(texture)
         {
             String imagePath = texture->getImagePath();
             cocos2d::CCTextureCache::sharedTextureCache()
                 ->removeTextureForKey(imagePath.c_str());
         }
-        removeTextureAtlas(texName);
+        _factory.removeTextureAtlas(texName);
         //CCLOG("Dragon in skeleton cache:%d", existSkeletonDataInDic("Dragon"));
         //CCLOG("Dragon in texture cache:%d", existTextureDataInDic("Dragon"));
     }
-    
-    /** @private */
-    ITextureAtlas* CCDBManager::generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData)
-    {
-        return nullptr;
-        /*var texture:Texture;
-        var bitmapData:BitmapData;
-        if (content is BitmapData)
-        {
-            bitmapData = content as BitmapData;
-            texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture);
-        }
-        else if (content is MovieClip)
-        {
-            var width:int = getNearest2N(content.width) * scaleForTexture;
-            var height:int = getNearest2N(content.height) * scaleForTexture;
-            
-            _helpMatrix.a = 1;
-            _helpMatrix.b = 0;
-            _helpMatrix.c = 0;
-            _helpMatrix.d = 1;
-            _helpMatrix.scale(scaleForTexture, scaleForTexture);
-            _helpMatrix.tx = 0;
-            _helpMatrix.ty = 0;                
-            var movieClip:MovieClip = content as MovieClip;
-            movieClip.gotoAndStop(1);
-            bitmapData = new BitmapData(width, height, true, 0xFF00FF);
-            bitmapData.draw(movieClip, _helpMatrix);
-            movieClip.gotoAndStop(movieClip.totalFrames);
-            texture = Texture.fromBitmapData(bitmapData, generateMipMaps, optimizeForRenderToTexture, scaleForTexture);
-        }
-        else
-        {
-            throw new Error();
-        }            
-        var textureAtlas:StarlingTextureAtlas = new StarlingTextureAtlas(texture, textureAtlasRawData, false);            
-        if (Starling.handleLostContext)
-        {
-            textureAtlas._bitmapData = bitmapData;
-        }
-        else
-        {
-            bitmapData.dispose();
-        }
-        return textureAtlas;*/
-    }
-    
-    /** @private */
-    Armature* CCDBManager::generateArmature()
-    {
-        cocos2d::CCNodeRGBA *node = cocos2d::CCNodeRGBA::create();
-        node->setCascadeOpacityEnabled(true);
-        return new Armature(new CCDBNode(node));
-    }
-    
-    /** @private */
-    Slot* CCDBManager::generateSlot()
-    {
-        return new Slot(new CCDBDisplayBridge());
-    }
-    
-    /** @private */
-    Object* CCDBManager::generateDisplay(ITextureAtlas *textureAtlas, const String &fullName, Number pivotX, Number pivotY)
-    {
-        CCDBTextureAtlas *ccTextureAtlas = dynamic_cast<CCDBTextureAtlas*>(textureAtlas);
-        cocos2d::CCRect rect;
-        rect.origin.x = 0;
-        rect.origin.y = 0;
-        Rectangle region = ccTextureAtlas->getRegion(fullName);
-        rect.size.width = region.width;
-        rect.size.height = region.height;
 
-        cocos2d::CCDBAtlasNode *atlasNode = cocos2d::CCDBAtlasNode::create(ccTextureAtlas->getTextureAtlas() ,
-                                                                           ccTextureAtlas->getQuadIndex(fullName),
-                                                                           rect);
-        // cocos2d::ccBlendFunc func;
-        // func.src = GL_SRC_ALPHA;
-        // func.dst = GL_ONE_MINUS_SRC_ALPHA;
-        // atlasNode->setBlendFunc(func);
-        atlasNode->setCascadeOpacityEnabled(true);
-        atlasNode->setAnchorPoint(cocos2d::CCPoint(pivotX / (Number)region.width , (region.height-pivotY) / (Number)region.height));
-        atlasNode->setContentSize(cocos2d::CCSize(region.width , region.height));
-        return new CCDBNode(atlasNode);
-        //static_cast<cocos2d::CCLayerColor*>(node->node)->initWithColor(cocos2d::ccc4(255,0,0,255) , 100 , 100);
-        //return node;
-        //DisplayObject *obj = new DisplayObject();
-        //obj->textureAtlas = dynamic_cast<Cocos2dxTextureAtlas*>(textureAtlas);
-        //obj->atlasNode = cocos2d::Cocos2dxAtlasNode::create(obj->textureAtlas->getTextureAtlas() , obj->textureAtlas->getQuadIndex(fullName));
-        //obj->atlasNode->retain();
-        //obj->fullName = fullName;
-        //obj->pivotX = pivotX;
-        //obj->pivotY = pivotY;
-
-
-        //return obj;
-    }
-
-	CCDBManager * CCDBManager::msCCDBManager = nullptr;
-
-	CCDBManager * CCDBManager::getInstance()
+	CCDBFactory& CCDBManager::getFactory()
 	{
-		if (msCCDBManager == nullptr)
-		{
-			msCCDBManager = new CCDBManager();
-		}
-		return msCCDBManager;
+		return _factory;
 	}
-
-	void CCDBManager::destroyInstance()
-	{
-		if (msCCDBManager)
-		{
-			msCCDBManager->dispose();
-			CC_SAFE_DELETE(msCCDBManager);
-		}
-	}
-
 };

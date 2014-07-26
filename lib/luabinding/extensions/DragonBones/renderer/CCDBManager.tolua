@@ -1,13 +1,8 @@
-class CCDBManager : public BaseFactory
+class CCDBManager : public CCDBFactory
 {
 public:
-	CCDBManager();
 	static CCDBManager *getInstance();
 	static void destroyInstance();
-	ITextureAtlas* generateTextureAtlas(Object *content, TextureAtlasData *textureAtlasRawData);
-	virtual Armature* generateArmature();
-	Slot* generateSlot();
-	virtual Object* generateDisplay(ITextureAtlas *textureAtlas, const char *fullName, Number pivotX, Number pivotY);
 
 	void loadData(const String &skeletonFile, const String &textureAtlasFile,
 				   const String &skeletonName, const String &textureAtlasName);

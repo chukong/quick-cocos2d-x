@@ -66,6 +66,7 @@ ifndef $(QUICK_MINI_TARGET)
 		DragonBones/objects/DisplayData.cpp \
 		DragonBones/objects/TransformTimeline.cpp \
 		DragonBones/objects/XMLDataParser.cpp \
+		DragonBones/renderer/CCDBFactory.cpp \
 		DragonBones/renderer/CCDragonBones.cpp \
 		DragonBones/renderer/CCDBAtlasNode.cpp \
 		DragonBones/renderer/CCDBDisplayBridge.cpp \

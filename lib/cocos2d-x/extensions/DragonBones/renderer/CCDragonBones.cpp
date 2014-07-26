@@ -50,7 +50,7 @@ namespace dragonBones
                                                const String &skinName)
     {
         Armature* pArm = CCDBManager::getInstance()
-            ->buildArmature( armatureName,
+            ->getFactory().buildArmature( armatureName,
                               animationName,
                               skeletonName,
                               textureAtlasName,
@@ -146,9 +146,7 @@ namespace dragonBones
 
     void CCDragonBones::setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName)
     {
-
-        CCDBManager* fac = CCDBManager::getInstance();
-        Object* clothesObj = fac->getTextureDisplay(textureName, textureAtlasName);
+		Object* clothesObj = CCDBManager::getInstance()->getFactory().getTextureDisplay(textureName, textureAtlasName);
 
         //CCLOG("CLOSE %d", clothesObj);
 

@@ -45,7 +45,7 @@ public:
     , m_frameSize(960, 640)
     , m_frameScale(1.0f)
     , m_showConsole(true)
-    , m_loadPrecompiledFramework(true)
+    , m_loadPrecompiledFramework(false)
     , m_writeDebugLogToFile(true)
     , m_windowOffset(0, 0)
     , m_debuggerType(kCCLuaDebuggerNone)

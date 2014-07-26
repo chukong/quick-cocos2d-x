@@ -9,9 +9,11 @@ namespace dragonBones
 
     BaseFactory::BaseFactory()
     {
+		CCLOG("BaseFactory");
     }
     BaseFactory::~BaseFactory()
     {
+		CCLOG("~BaseFactory");
         dispose();
     }
     

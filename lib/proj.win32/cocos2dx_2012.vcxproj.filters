@@ -1227,6 +1227,9 @@
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h">
@@ -2439,6 +2442,9 @@
       <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.h">
       <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
     </ClInclude>
   </ItemGroup>

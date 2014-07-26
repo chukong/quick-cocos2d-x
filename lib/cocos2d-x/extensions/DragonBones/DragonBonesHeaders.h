@@ -12,6 +12,7 @@
 #include "renderer/CCDragonBones.h"  
 
 #include "renderer/CCDBNode.h"
+#include "renderer/CCDBFactory.h"
 #include "renderer/CCDBAtlasNode.h"
 #include "renderer/CCDBDisplayBridge.h"
 #include "renderer/CCDBManager.h"

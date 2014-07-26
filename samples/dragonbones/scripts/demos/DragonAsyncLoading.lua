@@ -105,14 +105,16 @@ end
 function DragonAsyncLoading:_onAllAniRemove()
 	self:_removeAllDB()
 	for __, value in ipairs(_DB_FILES) do
-		local obj = {}
-		if value.skeletonName then
-			obj.skeletonName = value.skeletonName
-		else
-			obj.skeletonName = value.armatureName
+		if value.path ~= "dragon" then
+			local obj = {}
+			if value.skeletonName then
+				obj.skeletonName = value.skeletonName
+			else
+				obj.skeletonName = value.armatureName
+			end
+			obj.textureName = value.textureName
+			dragonbones.unloadData(obj)
 		end
-		obj.textureName = value.textureName
-		dragonbones.unloadData(obj)
 	end
 	CCTextureCache:sharedTextureCache():dumpCachedTextureInfo()
 	collectgarbage()
