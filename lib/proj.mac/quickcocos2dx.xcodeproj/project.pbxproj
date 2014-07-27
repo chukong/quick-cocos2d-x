@@ -55,6 +55,7 @@
 		42E41BAE190A40DA0097EAF5 /* DBGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B8E190A40DA0097EAF5 /* DBGeometry.cpp */; };
 		42E41BAF190A40DA0097EAF5 /* TransformUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42E41B91190A40DA0097EAF5 /* TransformUtil.cpp */; };
 		E511C32A195A77A600FFDE22 /* CCWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C329195A77A600FFDE22 /* CCWebView.mm */; };
+		E55F81971984B84200C81FE8 /* CCDBFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E55F81951984B84200C81FE8 /* CCDBFactory.cpp */; };
 		E588534F196B877F005BA388 /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E588534D196B877F005BA388 /* Updater.cpp */; };
 		F411F3E1175CEAFC00EF549A /* libluajit2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F411F3E0175CEAFC00EF549A /* libluajit2.a */; };
 		F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41D98F217F08B85007171D8 /* WebSocket.cpp */; };
@@ -468,6 +469,8 @@
 		42E41B92190A40DA0097EAF5 /* TransformUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformUtil.h; sourceTree = "<group>"; };
 		E511C321195A75B200FFDE22 /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView.h; path = webview/CCWebView.h; sourceTree = "<group>"; };
 		E511C329195A77A600FFDE22 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/mac/CCWebView.mm; sourceTree = "<group>"; };
+		E55F81951984B84200C81FE8 /* CCDBFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBFactory.cpp; sourceTree = "<group>"; };
+		E55F81961984B84200C81FE8 /* CCDBFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBFactory.h; sourceTree = "<group>"; };
 		E588534D196B877F005BA388 /* Updater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Updater.cpp; sourceTree = "<group>"; };
 		E588534E196B877F005BA388 /* Updater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Updater.h; sourceTree = "<group>"; };
 		E5C4D660197E45F1004A4AF0 /* CCDBNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCDBNode.h; sourceTree = "<group>"; };
@@ -1286,6 +1289,8 @@
 		42E41B77190A40DA0097EAF5 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				E55F81951984B84200C81FE8 /* CCDBFactory.cpp */,
+				E55F81961984B84200C81FE8 /* CCDBFactory.h */,
 				42E41B78190A40DA0097EAF5 /* CCDragonBones.cpp */,
 				42E41B79190A40DA0097EAF5 /* CCDragonBones.h */,
 				42E41B7A190A40DA0097EAF5 /* CCDBAtlasNode.cpp */,
@@ -2794,6 +2799,7 @@
 				F43152A2180CF7E30046351C /* cpSpatialIndex.c in Sources */,
 				F4CB87B0180D02F600D81CF3 /* socket_scripts.c in Sources */,
 				F4CB86AC180D017700D81CF3 /* md5.c in Sources */,
+				E55F81971984B84200C81FE8 /* CCDBFactory.cpp in Sources */,
 				42E41BA1190A40DA0097EAF5 /* dbtinyxml2.cpp in Sources */,
 				F4315289180CF7E30046351C /* cpConstraint.c in Sources */,
 				F4315296180CF7E30046351C /* cpBB.c in Sources */,
