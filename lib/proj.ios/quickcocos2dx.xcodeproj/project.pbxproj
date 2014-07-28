@@ -26,10 +26,6 @@
 		42C2227E1912286200C3F4AE /* TransformTimeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C2224E1912286200C3F4AE /* TransformTimeline.cpp */; };
 		42C2227F1912286200C3F4AE /* XMLDataParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222501912286200C3F4AE /* XMLDataParser.cpp */; };
 		42C222801912286200C3F4AE /* CCDragonBones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222531912286200C3F4AE /* CCDragonBones.cpp */; };
-		42C222811912286200C3F4AE /* Cocos2dxAtlasNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222551912286200C3F4AE /* Cocos2dxAtlasNode.cpp */; };
-		42C222821912286200C3F4AE /* Cocos2dxDisplayBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222571912286200C3F4AE /* Cocos2dxDisplayBridge.cpp */; };
-		42C222831912286200C3F4AE /* Cocos2dxFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222591912286200C3F4AE /* Cocos2dxFactory.cpp */; };
-		42C222841912286200C3F4AE /* Cocos2dxTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C2225B1912286200C3F4AE /* Cocos2dxTextureAtlas.cpp */; };
 		42C222851912286200C3F4AE /* Slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C2225D1912286200C3F4AE /* Slot.cpp */; };
 		42C222861912286200C3F4AE /* BytesType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222621912286200C3F4AE /* BytesType.cpp */; };
 		42C222871912286200C3F4AE /* ConstValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42C222651912286200C3F4AE /* ConstValues.cpp */; };
@@ -60,6 +56,11 @@
 		E504CA55195FF89900FF7CC7 /* Updater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E504CA53195FF89900FF7CC7 /* Updater.cpp */; };
 		E511C32E195A77B900FFDE22 /* CCWebView_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */; };
 		E511C32F195A77B900FFDE22 /* CCWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = E511C32D195A77B900FFDE22 /* CCWebView.mm */; };
+		E51D6D5D19860923005DA2F3 /* CCDBFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E51D6D5419860923005DA2F3 /* CCDBFactory.cpp */; };
+		E51D6D5E19860923005DA2F3 /* CCDBDisplayBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E51D6D5819860923005DA2F3 /* CCDBDisplayBridge.cpp */; };
+		E51D6D5F19860923005DA2F3 /* CCDBManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E51D6D5919860923005DA2F3 /* CCDBManager.cpp */; };
+		E51D6D6019860923005DA2F3 /* CCDBTextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E51D6D5B19860923005DA2F3 /* CCDBTextureAtlas.cpp */; };
+		E51D6D6119860923005DA2F3 /* CCDBAtlasNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E51D6D5C19860923005DA2F3 /* CCDBAtlasNode.cpp */; };
 		F40118C2180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40118BE180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp */; };
 		F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */; };
 		F40AFDD916BD153500565A5E /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDD816BD153500565A5E /* CCLuaObjcBridge.mm */; };
@@ -391,14 +392,6 @@
 		42C222511912286200C3F4AE /* XMLDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDataParser.h; sourceTree = "<group>"; };
 		42C222531912286200C3F4AE /* CCDragonBones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDragonBones.cpp; sourceTree = "<group>"; };
 		42C222541912286200C3F4AE /* CCDragonBones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDragonBones.h; sourceTree = "<group>"; };
-		42C222551912286200C3F4AE /* Cocos2dxAtlasNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxAtlasNode.cpp; sourceTree = "<group>"; };
-		42C222561912286200C3F4AE /* Cocos2dxAtlasNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxAtlasNode.h; sourceTree = "<group>"; };
-		42C222571912286200C3F4AE /* Cocos2dxDisplayBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxDisplayBridge.cpp; sourceTree = "<group>"; };
-		42C222581912286200C3F4AE /* Cocos2dxDisplayBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxDisplayBridge.h; sourceTree = "<group>"; };
-		42C222591912286200C3F4AE /* Cocos2dxFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxFactory.cpp; sourceTree = "<group>"; };
-		42C2225A1912286200C3F4AE /* Cocos2dxFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxFactory.h; sourceTree = "<group>"; };
-		42C2225B1912286200C3F4AE /* Cocos2dxTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cocos2dxTextureAtlas.cpp; sourceTree = "<group>"; };
-		42C2225C1912286200C3F4AE /* Cocos2dxTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxTextureAtlas.h; sourceTree = "<group>"; };
 		42C2225D1912286200C3F4AE /* Slot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Slot.cpp; sourceTree = "<group>"; };
 		42C2225E1912286200C3F4AE /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		42C222601912286200C3F4AE /* ITextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITextureAtlas.h; sourceTree = "<group>"; };
@@ -492,6 +485,17 @@
 		E511C32B195A77B900FFDE22 /* CCWebView_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView_iOS.h; path = webview/ios/CCWebView_iOS.h; sourceTree = "<group>"; };
 		E511C32C195A77B900FFDE22 /* CCWebView_iOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView_iOS.mm; path = webview/ios/CCWebView_iOS.mm; sourceTree = "<group>"; };
 		E511C32D195A77B900FFDE22 /* CCWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCWebView.mm; path = webview/ios/CCWebView.mm; sourceTree = "<group>"; };
+		E51D6D5219860923005DA2F3 /* CCDBNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBNode.h; sourceTree = "<group>"; };
+		E51D6D5319860923005DA2F3 /* CCDBDisplayBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBDisplayBridge.h; sourceTree = "<group>"; };
+		E51D6D5419860923005DA2F3 /* CCDBFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBFactory.cpp; sourceTree = "<group>"; };
+		E51D6D5519860923005DA2F3 /* CCDBAtlasNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBAtlasNode.h; sourceTree = "<group>"; };
+		E51D6D5619860923005DA2F3 /* CCDBFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBFactory.h; sourceTree = "<group>"; };
+		E51D6D5719860923005DA2F3 /* CCDBTextureAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBTextureAtlas.h; sourceTree = "<group>"; };
+		E51D6D5819860923005DA2F3 /* CCDBDisplayBridge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBDisplayBridge.cpp; sourceTree = "<group>"; };
+		E51D6D5919860923005DA2F3 /* CCDBManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBManager.cpp; sourceTree = "<group>"; };
+		E51D6D5A19860923005DA2F3 /* CCDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDBManager.h; sourceTree = "<group>"; };
+		E51D6D5B19860923005DA2F3 /* CCDBTextureAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBTextureAtlas.cpp; sourceTree = "<group>"; };
+		E51D6D5C19860923005DA2F3 /* CCDBAtlasNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDBAtlasNode.cpp; sourceTree = "<group>"; };
 		E563AE731958300900BCF801 /* CCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCWebView.h; path = webview/CCWebView.h; sourceTree = "<group>"; };
 		F40118BE180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_cocos2dx_extensions_manual.cpp; sourceTree = "<group>"; };
 		F40118BF180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_cocos2dx_extensions_manual.h; sourceTree = "<group>"; };
@@ -1246,16 +1250,19 @@
 		42C222521912286200C3F4AE /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				E51D6D5219860923005DA2F3 /* CCDBNode.h */,
+				E51D6D5319860923005DA2F3 /* CCDBDisplayBridge.h */,
+				E51D6D5419860923005DA2F3 /* CCDBFactory.cpp */,
+				E51D6D5519860923005DA2F3 /* CCDBAtlasNode.h */,
+				E51D6D5619860923005DA2F3 /* CCDBFactory.h */,
+				E51D6D5719860923005DA2F3 /* CCDBTextureAtlas.h */,
+				E51D6D5819860923005DA2F3 /* CCDBDisplayBridge.cpp */,
+				E51D6D5919860923005DA2F3 /* CCDBManager.cpp */,
+				E51D6D5A19860923005DA2F3 /* CCDBManager.h */,
+				E51D6D5B19860923005DA2F3 /* CCDBTextureAtlas.cpp */,
+				E51D6D5C19860923005DA2F3 /* CCDBAtlasNode.cpp */,
 				42C222531912286200C3F4AE /* CCDragonBones.cpp */,
 				42C222541912286200C3F4AE /* CCDragonBones.h */,
-				42C222551912286200C3F4AE /* Cocos2dxAtlasNode.cpp */,
-				42C222561912286200C3F4AE /* Cocos2dxAtlasNode.h */,
-				42C222571912286200C3F4AE /* Cocos2dxDisplayBridge.cpp */,
-				42C222581912286200C3F4AE /* Cocos2dxDisplayBridge.h */,
-				42C222591912286200C3F4AE /* Cocos2dxFactory.cpp */,
-				42C2225A1912286200C3F4AE /* Cocos2dxFactory.h */,
-				42C2225B1912286200C3F4AE /* Cocos2dxTextureAtlas.cpp */,
-				42C2225C1912286200C3F4AE /* Cocos2dxTextureAtlas.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -2897,6 +2904,7 @@
 				F45A2D9E166B168100760194 /* SimpleAudioEngine_objc.m in Sources */,
 				F459EA6C180D04D8006CBDF1 /* CCCrypto.cpp in Sources */,
 				42C2226E1912286200C3F4AE /* Animation.cpp in Sources */,
+				E51D6D5E19860923005DA2F3 /* CCDBDisplayBridge.cpp in Sources */,
 				42C222D81912286A00C3F4AE /* CCGrayFilter.cpp in Sources */,
 				42C222D31912286A00C3F4AE /* CCContrastFilter.cpp in Sources */,
 				F45A2DE9166B16B100760194 /* CCLuaEngine.cpp in Sources */,
@@ -2933,6 +2941,7 @@
 				F459EB10180D04E1006CBDF1 /* cpSpace.c in Sources */,
 				F428259217575DA8001479DC /* CCFileUtils.cpp in Sources */,
 				42C222E01912286A00C3F4AE /* CCTestFilter.cpp in Sources */,
+				E51D6D5F19860923005DA2F3 /* CCDBManager.cpp in Sources */,
 				F428259317575DA8001479DC /* CCImageCommonWebp.cpp in Sources */,
 				42C222D11912286A00C3F4AE /* CCBlurFilter.cpp in Sources */,
 				42C222781912286200C3F4AE /* FrameEvent.cpp in Sources */,
@@ -2975,6 +2984,7 @@
 				F4E882B6177015C400577406 /* CCAffineTransform.cpp in Sources */,
 				F4E882B7177015C400577406 /* CCArray.cpp in Sources */,
 				F459EAFF180D04E1006CBDF1 /* cpGearJoint.c in Sources */,
+				E51D6D6019860923005DA2F3 /* CCDBTextureAtlas.cpp in Sources */,
 				F459EA83180D04D8006CBDF1 /* ReachabilityIOSMac.m in Sources */,
 				F4E882B8177015C400577406 /* CCAutoreleasePool.cpp in Sources */,
 				F4E882B9177015C400577406 /* CCDataVisitor.cpp in Sources */,
@@ -3025,6 +3035,7 @@
 				F459EA7C180D04D8006CBDF1 /* CCStoreReceiptVerifyRequestIOS.mm in Sources */,
 				F4E882D2177015C400577406 /* vec3.c in Sources */,
 				F459EA70180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp in Sources */,
+				E51D6D6119860923005DA2F3 /* CCDBAtlasNode.cpp in Sources */,
 				F459EB0F180D04E1006CBDF1 /* cpShape.c in Sources */,
 				42C222DB1912286A00C3F4AE /* CCMaskFilter.cpp in Sources */,
 				F4E882D3177015C400577406 /* vec4.c in Sources */,
@@ -3041,7 +3052,6 @@
 				42C222DC1912286A00C3F4AE /* CCRGBFilter.cpp in Sources */,
 				F4E882DC177015C400577406 /* CCTransitionPageTurn.cpp in Sources */,
 				F4E882DD177015C400577406 /* CCTransitionProgress.cpp in Sources */,
-				42C222841912286200C3F4AE /* Cocos2dxTextureAtlas.cpp in Sources */,
 				F459EB0E180D04E1006CBDF1 /* cpPolyShape.c in Sources */,
 				F4E882DE177015C400577406 /* CCMenu.cpp in Sources */,
 				42C222D41912286A00C3F4AE /* CCDropShadowFilter.cpp in Sources */,
@@ -3100,7 +3110,6 @@
 				F459EAF9180D04E1006CBDF1 /* CCPhysicsWorld.cpp in Sources */,
 				F4E88302177015C400577406 /* CCUserDefault.mm in Sources */,
 				F4E88303177015C400577406 /* CCUserDefaultAndroid.cpp in Sources */,
-				42C222821912286200C3F4AE /* Cocos2dxDisplayBridge.cpp in Sources */,
 				F4E88304177015C400577406 /* ioapi.cpp in Sources */,
 				F4E88305177015C400577406 /* unzip.cpp in Sources */,
 				F4E88306177015C400577406 /* ZipUtils.cpp in Sources */,
@@ -3137,6 +3146,7 @@
 				F4E88339177015FF00577406 /* CCCommon.mm in Sources */,
 				42C222D71912286A00C3F4AE /* CCGammaFilter.cpp in Sources */,
 				42C222741912286200C3F4AE /* DragonBones.cpp in Sources */,
+				E51D6D5D19860923005DA2F3 /* CCDBFactory.cpp in Sources */,
 				F4E8833A177015FF00577406 /* CCDevice.mm in Sources */,
 				42C2227C1912286200C3F4AE /* dbtinyxml2.cpp in Sources */,
 				F459EB80180D0513006CBDF1 /* except.c in Sources */,
@@ -3199,11 +3209,9 @@
 				F459EA7B180D04D8006CBDF1 /* CCStorePaymentTransactionWrapper.mm in Sources */,
 				42C2227A1912286200C3F4AE /* SoundEventManager.cpp in Sources */,
 				42C222861912286200C3F4AE /* BytesType.cpp in Sources */,
-				42C222811912286200C3F4AE /* Cocos2dxAtlasNode.cpp in Sources */,
 				F4E883D01770163800577406 /* CCTableView.cpp in Sources */,
 				F459EB18180D04E1006CBDF1 /* LuaEventHandler.cpp in Sources */,
 				F4E883D11770163800577406 /* CCTableViewCell.cpp in Sources */,
-				42C222831912286200C3F4AE /* Cocos2dxFactory.cpp in Sources */,
 				F459EA7F180D04D8006CBDF1 /* SBJsonParser.m in Sources */,
 				F4255C97178EBC4200E1C3C1 /* CCLinkPosition.cpp in Sources */,
 				F42F313C17A272FA00A20E45 /* CCGraySprite.cpp in Sources */,
