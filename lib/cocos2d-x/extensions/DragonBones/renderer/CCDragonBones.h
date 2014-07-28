@@ -14,6 +14,7 @@
 #include "utils/preDB.h"
 #include "animation/Animation.h"
 #include "events/Event.h"
+#include "CCDBAtlasNode.h"
 
 namespace dragonBones {
     class Armature;
@@ -44,7 +45,8 @@ namespace dragonBones {
                                             const String &textureAtlasName="",
                                             const String &skinName="");
 
-        CCNode* getDisplayNode();
+        cocos2d::CCNode* getDisplayNode();
+        cocos2d::CCDBAtlasNode* getDBAtlasNode();
         Armature* getArmature();
         Animation* getAnimation();
         cocos2d::CCArray* getAnimationList();

@@ -9,7 +9,7 @@ namespace dragonBones
         : _textureAtlasRawData(data)
     {
         textureAtlas = cocos2d::CCTextureAtlas::create(data->imagePath.c_str() , data->rects.size());
-        CC_SAFE_RETAIN(textureAtlas);
+        textureAtlas->retain();
         uint atlasWidth = textureAtlas->getTexture()->getPixelsWide();
         uint atlasHeight = textureAtlas->getTexture()->getPixelsHigh();
         cocos2d::ccV3F_C4B_T2F_Quad quad;

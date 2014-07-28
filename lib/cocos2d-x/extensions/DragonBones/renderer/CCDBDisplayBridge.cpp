@@ -26,8 +26,8 @@ namespace dragonBones
             int zOrder = 0;
             if(mDisplayNode)
             {
-                parent = mDisplayNode->node->getParent();
-                zOrder = mDisplayNode->node->getZOrder();
+                parent = mDisplayNode->getNode()->getParent();
+                zOrder = mDisplayNode->getNode()->getZOrder();
 
                 removeDisplay();
             }
@@ -57,7 +57,7 @@ namespace dragonBones
         {
             if(mDisplayNode)
             {
-                cocos2d::CCNode *n = mDisplayNode->node;
+                cocos2d::CCNode *n = mDisplayNode->getNode();
                 n->setPosition(matrix.tx , -matrix.ty);
                 n->setScaleX(transform.scaleX);
                 n->setScaleY(transform.scaleY);
@@ -90,7 +90,7 @@ namespace dragonBones
         {
             if(mDisplayNode)
             {
-                cocos2d::CCNodeRGBA *n = dynamic_cast<cocos2d::CCNodeRGBA*>(mDisplayNode->node);
+                cocos2d::CCNodeRGBA *n = dynamic_cast<cocos2d::CCNodeRGBA*>(mDisplayNode->getNode());
                 n->setColor(cocos2d::ccc3(rMultiplier * 255 , gMultiplier * 255 , bMultiplier * 255));
                 n->setOpacity(aMultiplier * 255);
             }
@@ -116,12 +116,12 @@ namespace dragonBones
                 CCDBNode *parent = dynamic_cast<CCDBNode*>(container);
                 if(parent)
                 {
-                    if(mDisplayNode->node->getParent())
+                    if(mDisplayNode->getNode()->getParent())
                     {
-                        mDisplayNode->node->removeFromParentAndCleanup(false);
+                        mDisplayNode->getNode()->removeFromParentAndCleanup(false);
                     }
                     static int zorder = 0;
-                    parent->node->addChild(mDisplayNode->node , index == -1 ? zorder-- : index);
+                    parent->getNode()->addChild(mDisplayNode->getNode() , index == -1 ? zorder-- : index);
                 }
             }
             //if(mDisplayObject)
@@ -143,9 +143,9 @@ namespace dragonBones
          */
         void CCDBDisplayBridge::removeDisplay()
         {
-            if(mDisplayNode && mDisplayNode->node->getParent())
+            if(mDisplayNode && mDisplayNode->getNode()->getParent())
             {
-                mDisplayNode->node->removeFromParent();
+                mDisplayNode->getNode()->removeFromParent();
             }
         }
 

@@ -108,6 +108,11 @@ namespace dragonBones
     {
         return static_cast<CCDBNode*>(m_Armature->getDisplay())->getNode();
     }
+    
+    CCDBAtlasNode* CCDragonBones::getDBAtlasNode()
+    {
+        return static_cast<CCDBAtlasNode*>(getDisplayNode());
+    }
 
     Armature* CCDragonBones::getArmature()
     {
@@ -141,7 +146,7 @@ namespace dragonBones
     {
         this->m_Armature = arm;
         this->schedule(schedule_selector(CCDragonBones::update), 0);
-        this->addChild(static_cast<CCDBNode*>(m_Armature->getDisplay())->node);
+        this->addChild(static_cast<CCDBNode*>(m_Armature->getDisplay())->getNode());
     }
 
     void CCDragonBones::setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName)

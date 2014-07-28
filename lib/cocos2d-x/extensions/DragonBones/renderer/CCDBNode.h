@@ -31,10 +31,11 @@ namespace dragonBones
                 node->release();
             }
         }
-        cocos2d::CCNode *node;
         
         const cocos2d::CCNode *getNode() const { return node; }
         cocos2d::CCNode *getNode() { return node; }
+    private:
+        cocos2d::CCNode *node;
     };
 }
 
