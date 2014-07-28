@@ -84,7 +84,7 @@ namespace dragonBones
             dataDir.replace(pos, 1, "/");
         }
         size_t slash = dataDir.find_last_of("/");
-        if(slash == String::npos)
+        if(slash == String::npos || slash != dataDir.size()-1)
         {
             dataDir.append("/");
         }
