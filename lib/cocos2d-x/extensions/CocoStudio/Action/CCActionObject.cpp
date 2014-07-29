@@ -138,12 +138,12 @@ void ActionObject::initWithDictionary(const rapidjson::Value& dic,CCObject* root
 
 void ActionObject::initWithBinary(CocoLoader *pCocoLoader, stExpCocoNode *pCocoNode, cocos2d::CCObject *root)
 {
-    stExpCocoNode *stChildNode = pCocoNode->GetChildArray();
+    stExpCocoNode *stChildNode = pCocoNode->GetChildArray(pCocoLoader);
     stExpCocoNode *actionNodeList = NULL;
     int count = pCocoNode->GetChildNum();
     for (int i = 0; i < count; ++i) {
         std::string key = stChildNode[i].GetName(pCocoLoader);
-        std::string value = stChildNode[i].GetValue();
+        std::string value = stChildNode[i].GetValue(pCocoLoader);
         if (key == "name") {
             setName(value.c_str());
         }else if (key == "loop"){
@@ -154,28 +154,28 @@ void ActionObject::initWithBinary(CocoLoader *pCocoLoader, stExpCocoNode *pCocoN
             actionNodeList = &stChildNode[i];
         }
     }
-    
+
 	if(NULL != actionNodeList)
 	{
         int actionNodeCount = actionNodeList->GetChildNum();
-        stExpCocoNode *actionNodeArray = actionNodeList->GetChildArray();
+        stExpCocoNode *actionNodeArray = actionNodeList->GetChildArray(pCocoLoader);
         int maxLength = 0;
         for (int i=0; i<actionNodeCount; i++) {
             ActionNode* actionNode = new ActionNode();
             actionNode->autorelease();
-            
+
             actionNode->initWithBinary(pCocoLoader, &actionNodeArray[i] , root);
-            
+
             actionNode->setUnitTime(getUnitTime());
-            
+
             m_ActionNodeList->addObject(actionNode);
-            
+
             int length = actionNode->getLastFrameIndex() - actionNode->getFirstFrameIndex();
             if(length > maxLength)
                 maxLength = length;
         }
-        
-        
+
+
         m_fTotalTime = maxLength*m_fUnitTime;
     }
 }

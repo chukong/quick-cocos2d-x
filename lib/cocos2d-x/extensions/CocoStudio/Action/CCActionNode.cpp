@@ -83,10 +83,10 @@ void ActionNode::initWithDictionary(const rapidjson::Value& dic,CCObject* root)
 		const rapidjson::Value& actionFrameDic = DICTOOL->getDictionaryFromArray_json(dic, "actionframelist", i);
 		int frameInex = DICTOOL->getIntValue_json(actionFrameDic,"frameid");
         int frameTweenType = DICTOOL->getIntValue_json(actionFrameDic,"tweenType");
-        
+
         std::vector<float> frameTweenParameter;
         int frameTweenParameterNum = DICTOOL->getArrayCount_json(actionFrameDic, "tweenParameter");
-        
+
         for (int j = 0; j < frameTweenParameterNum; j++)
         {
             float value = DICTOOL->getFloatValueFromArray_json(actionFrameDic, "tweenParameter", j);
@@ -173,26 +173,26 @@ void ActionNode::initWithDictionary(const rapidjson::Value& dic,CCObject* root)
 
 void ActionNode::initWithBinary(cocos2d::extension::CocoLoader *pCocoLoader, cocos2d::extension::stExpCocoNode *pCocoNode, cocos2d::CCObject *root)
 {
-    
+
     stExpCocoNode *stChildNode = pCocoNode;
-    
+
 	int actionNodeCount =  stChildNode->GetChildNum();
-    stChildNode = stChildNode[0].GetChildArray();
+    stChildNode = stChildNode[0].GetChildArray(pCocoLoader);
     stExpCocoNode *frameListNode = NULL;
     for (int i = 0; i < actionNodeCount; ++i) {
         std::string key = stChildNode[i].GetName(pCocoLoader);
-        std::string value = stChildNode[i].GetValue();
+        std::string value = stChildNode[i].GetValue(pCocoLoader);
         if (key == "ActionTag") {
             setActionTag(valueToInt(value));
         }else if (key == "actionframelist"){
             frameListNode = &stChildNode[i];
         }
     }
-    
+
     int actionFrameCount = frameListNode->GetChildNum();
-    stExpCocoNode *stFrameChildNode = frameListNode->GetChildArray();
+    stExpCocoNode *stFrameChildNode = frameListNode->GetChildArray(pCocoLoader);
 	for (int i=0; i<actionFrameCount; i++) {
-        
+
         int frameIndex;
         int frameTweenType;
         float positionX;
@@ -205,13 +205,13 @@ void ActionNode::initWithBinary(cocos2d::extension::CocoLoader *pCocoLoader, coc
         int colorG = -1;
         int colorB = -1;
         std::vector<float> frameTweenParameter;
-        
+
         int framesCount = stFrameChildNode[i].GetChildNum();
-        stExpCocoNode *innerFrameNode = stFrameChildNode[i].GetChildArray();
+        stExpCocoNode *innerFrameNode = stFrameChildNode[i].GetChildArray(pCocoLoader);
         for (int j = 0; j < framesCount; j++) {
             std::string key = innerFrameNode[j].GetName(pCocoLoader);
-            std::string value = innerFrameNode[j].GetValue();
-            
+            std::string value = innerFrameNode[j].GetValue(pCocoLoader);
+
             if (key == "frameid") {
                 frameIndex = valueToInt(value);
             }else if(key == "tweenType"){
@@ -219,10 +219,10 @@ void ActionNode::initWithBinary(cocos2d::extension::CocoLoader *pCocoLoader, coc
             }else if (key == "tweenParameter"){
               //  There are no tweenParameter args in the json file
                 int tweenParameterCount = innerFrameNode[j].GetChildNum();
-                stExpCocoNode *tweenParameterArray = innerFrameNode[j].GetChildArray();
+                stExpCocoNode *tweenParameterArray = innerFrameNode[j].GetChildArray(pCocoLoader);
                 for (int k = 0; k < tweenParameterCount; ++k) {
                     std::string t_key = tweenParameterArray[j].GetName(pCocoLoader);
-                    std::string t_value = tweenParameterArray[j].GetValue();
+                    std::string t_value = tweenParameterArray[j].GetValue(pCocoLoader);
                     frameTweenParameter.push_back(valueToFloat(t_value));
                 }
             }else if (key == "positionx"){
@@ -276,7 +276,7 @@ void ActionNode::initWithBinary(cocos2d::extension::CocoLoader *pCocoLoader, coc
                 colorG = valueToInt(value);
             }else if(key == "colorr"){
                 colorR = valueToInt(value);
-                
+
                 ActionTintFrame* actionFrame = new ActionTintFrame();
                 actionFrame->autorelease();
                 actionFrame->setEasingType(frameTweenType);
@@ -286,8 +286,8 @@ void ActionNode::initWithBinary(cocos2d::extension::CocoLoader *pCocoLoader, coc
                 CCArray* cActionArray = (CCArray*)m_FrameArray->objectAtIndex((int)kKeyframeTint);
                 cActionArray->addObject(actionFrame);
             }
-            
-           
+
+
         }
 
 	}
@@ -295,7 +295,7 @@ void ActionNode::initWithBinary(cocos2d::extension::CocoLoader *pCocoLoader, coc
 }
 
 void ActionNode::initActionNodeFromRoot(CCObject* root)
-{	
+{
 	CCNode* rootNode = dynamic_cast<CCNode*>(root);
 	if (rootNode != NULL)
 	{
@@ -371,7 +371,7 @@ void ActionNode::insertFrame(int index, ActionFrame* frame)
 	if (cArray == NULL)
 	{
 		return;
-	}	
+	}
 	cArray->insertObject(frame,index);
 }
 
@@ -399,7 +399,7 @@ void ActionNode::deleteFrame(ActionFrame* frame)
 	int frameType = frame->getFrameType();
 	CCArray* cArray = (CCArray*)m_FrameArray->objectAtIndex(frameType);
 	if (cArray == NULL)
-	{ 
+	{
 		return;
 	}
 	cArray->removeObject(frame);
@@ -633,7 +633,7 @@ void ActionNode::easingToFrame(float duration,float delayTime,ActionFrame* srcFr
 	if (cAction == NULL || cNode == NULL)
 	{
 		return;
-	}	
+	}
 	cAction->startWithTarget(cNode);
 	cAction->update(delayTime);
 }
