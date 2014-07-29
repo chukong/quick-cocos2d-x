@@ -2,8 +2,11 @@
 $#include "cocos-ext.h"
 $#include "AssetsManager/AssetsManager.h"
 $#include "filters/cocos2dFilters.h"
+$#include "DragonBones/DragonBonesHeaders.h"
 
 $using namespace cocos2d::extension;
+$using namespace dragonBones;
+$using namespace std;
 
 $pfile "extensions/AssetsManager/AssetsManager.tolua"
 $pfile "extensions/GUI/CCControlExtension/CCControl.tolua"
@@ -37,3 +40,19 @@ $pfile "extensions/filters/filters/CCMaskFilter.tolua"
 $pfile "extensions/filters/filters/CCRGBFilter.tolua"
 $pfile "extensions/filters/filters/CCSaturationFilter.tolua"
 $pfile "extensions/filters/filters/CCSharpenFilter.tolua"
+
+$pfile "extensions/DragonBones/Armature.tolua"
+$pfile "extensions/DragonBones/Bone.tolua"
+$pfile "extensions/DragonBones/Slot.tolua"
+$pfile "extensions/DragonBones/core/DBObject.tolua"
+$pfile "extensions/DragonBones/animation/Animation.tolua"
+$pfile "extensions/DragonBones/animation/AnimationState.tolua"
+$pfile "extensions/DragonBones/renderer/CCDBNode.tolua"
+$pfile "extensions/DragonBones/renderer/CCDragonBones.tolua"
+$pfile "extensions/DragonBones/renderer/CCDBManager.tolua"
+$pfile "extensions/DragonBones/renderer/CCDBAtlasNode.tolua"
+#$pfile "extensions/DragonBones/events/Event.tolua"
+$pfile "extensions/DragonBones/events/AnimationEvent.tolua"
+$pfile "extensions/DragonBones/events/FrameEvent.tolua"
+$pfile "extensions/DragonBones/objects/AnimationData.tolua"
+$pfile "extensions/DragonBones/objects/DBTransform.tolua"

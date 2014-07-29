@@ -80,6 +80,7 @@ quick framework 初始化
 -   luaj: 提供从 Lua 调用 Java 方法的接口（仅限 Android 平台）
 -   luaoc: 提供从 Lua 调用 Objective-C 方法的接口（仅限 iOS 平台）
 -   cc: quick 框架扩展的基础类和组件
+-   dragonbones: DragonBones 骨骼动画支持
 
 ]]
 
@@ -119,8 +120,7 @@ filter     = require(cc.PACKAGE_NAME .. ".filter")
 audio      = require(cc.PACKAGE_NAME .. ".audio")
 ui         = require(cc.PACKAGE_NAME .. ".ui")
 network    = require(cc.PACKAGE_NAME .. ".network")
-crypto     = require(cc.PACKAGE_NAME .. ".crypto")
-json       = require(cc.PACKAGE_NAME .. ".json")
+dragonbones= require(cc.PACKAGE_NAME .. ".dragonbones")
 
 if device.platform == "android" then
     require(cc.PACKAGE_NAME .. ".platform.android")

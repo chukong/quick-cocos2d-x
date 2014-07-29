@@ -1,0 +1,24 @@
+class CCDBManager : public CCDBFactory
+{
+public:
+	static CCDBManager *getInstance();
+	static void destroyInstance();
+
+	void loadData(const String &skeletonFile, const String &textureAtlasFile,
+				   const String &skeletonName, const String &textureAtlasName);
+	void loadDataAsync(const String &skeletonFile,
+						const String &textureAtlasFile,
+						const String &skeletonName,
+						const String &textureAtlasName,
+						LUA_FUNCTION scriptHandler);
+	
+	void loadDataByDir(const String &path,
+					   const String &skeletonName,
+					   const String &textureAtlasName);
+	void loadDataByDirAsync(const String &path,
+							const String &skeletonName,
+							const String &textureAtlasName,
+							LUA_FUNCTION scriptHandler);
+
+	void unloadData(const String &skeletonName, const String &textureAtlasName="");	
+};
