@@ -13,7 +13,7 @@ local db = {}
 local dbManager = CCDBManager:getInstance()
 
 --[[--
-创建一个 CCDragonBonesNode 对象
+创建一个 DragonBonesNode 对象
 
 @author zrong(zengrong.net)
 
@@ -21,7 +21,7 @@ Creation：2014-07-17
 
 @param table params 一个包含所有参数的table
 
-@return CCDragonBonesNode
+@return DragonBonesNode
 
 
 params 参数的值较为丰富，如下：
@@ -38,8 +38,8 @@ params 参数的值较为丰富，如下：
 * textureName texture.xml 中的root元素的 name 值，不提供则与skeletonName相同；
 * skinName 不提供则为空字符串。
 * handler 一个异步函数。
-	* 若不提供，则代表同步加载资源，并立即返回新建的 CCDragonBonesNode 对象；
-	* 若提供，则代表资源进行异步加载，并在 handler 调用的时候提供 CCDragonBonesNode 对象。
+	* 若不提供，则代表同步加载资源，并立即返回新建的 DragonBonesNode 对象；
+	* 若提供，则代表资源进行异步加载，并在 handler 调用的时候提供 DragonBonesNode 对象。
 
 举例如下：
 
@@ -75,7 +75,7 @@ params 参数的值较为丰富，如下：
 	}
 	```
 
-异步载入素材，这个方法会返回nil，在handler中提供一个CCDragonBonesNode对象。
+异步载入素材，这个方法会返回nil，在handler中提供一个DragonBonesNode对象。
 
 	```lua
 	{
@@ -89,7 +89,7 @@ params 参数的值较为丰富，如下：
 	```
 ]]
 function db.new(params)
-	print("db.new:", vardump(params))
+	dump(params)
 	local path = params.path
 	local skeFile = params.skeleton
 	local texFile = params.texture
@@ -126,20 +126,20 @@ function db.new(params)
 		return nil
 	end
 	if path then
-			CCDragonBones:createByDir(
+			cc.DragonBonesNode:createByDir(
 				path, 
 				armName, aniName, 
 				skeName, texName, 
 				skinName)
 	end
 	if skeFile and texFile then
-			CCDragonBones:createByFiles(
+			cc.DragonBonesNode:createByFiles(
 				skeFile, texFile, 
 				armName, aniName, 
 				skeName, texName, 
 				skinName)
 	end
-	return CCDragonBones:createByName(
+	return cc.DragonBonesNode:createByName(
 		armName, aniName, 
 		skeName, texName,
 		skinName)
@@ -151,7 +151,7 @@ end
 
 @param table params
 
-params 的参数与 new 相同。但 handler 的参数与new的不同。因为只是异步载入资源，不会创建一个 CCDragonBonesNode 对象。
+params 的参数与 new 相同。但 handler 的参数与new的不同。因为只是异步载入资源，不会创建一个 DragonBonesNode 对象。
 ]]
 function db.loadData(params)
 	dump(params)

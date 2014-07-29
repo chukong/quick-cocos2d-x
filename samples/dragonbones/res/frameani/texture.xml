@@ -1,0 +1,13 @@
+<TextureAtlas name="FrameAnimation" imagePath="texture.png">
+  <SubTexture name="iceEffectFolder/11" x="134" y="206" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/1" x="0" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/2" x="0" y="206" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/6" x="804" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/4" x="402" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/5" x="134" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/7" x="536" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/8" x="268" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/9" x="670" y="0" width="132" height="204"/>
+  <SubTexture name="iceEffectFolder/位图 2" x="268" y="206" width="106" height="169"/>
+  <SubTexture name="iceEffectFolder/位图 1" x="938" y="0" width="51" height="80"/>
+</TextureAtlas>
