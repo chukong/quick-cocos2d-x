@@ -8,7 +8,7 @@ A sample: https://github.com/zrong/lua#ByteArray
 @author zrong(zengrong.net)
 
 Creation 2013-11-14
-Last Modification 2014-01-01
+Last Modification 2014-07-09
 ]]
 local ByteArray = class("ByteArray")
 
@@ -200,6 +200,9 @@ function ByteArray:writeUShort(__ushort)
 	return self
 end
 
+--[[
+-- 2014-07-09 Remove all of methods about Long in ByteArray.
+-- @see http://zengrong.net/post/2134.htm
 function ByteArray:readLong()
 	local __, __v = string.unpack(self:readBuf(8), self:_getLC("l"))
 	return __v
@@ -222,6 +225,7 @@ function ByteArray:writeULong(__ulong)
 	self:writeBuf(__s)
 	return self
 end
+]]
 
 function ByteArray:readUByte()
 	local __, __val = string.unpack(self:readRawByte(), "b")
@@ -245,6 +249,8 @@ function ByteArray:writeLuaNumber(__number)
 	return self
 end
 
+--- The differently about (read/write)StringBytes and (read/write)String 
+-- are use pack libraty or not.
 function ByteArray:readStringBytes(__len)
 	assert(__len, "Need a length of the string!")
 	if __len == 0 then return "" end
@@ -259,18 +265,11 @@ function ByteArray:writeStringBytes(__string)
 	return self
 end
 
---- DO NOT use this method, it's inefficient.
--- Alternatively use readStringBytes.
 function ByteArray:readString(__len)
 	assert(__len, "Need a length of the string!")
 	if __len == 0 then return "" end
 	self:_checkAvailable()
-	local __bytes = ""
-	for i=self._pos, #self._buf do
-		local __byte = string.byte(self._buf[i])
-		__bytes = __bytes .. string.char(__byte)
-	end
-	return __bytes
+	return self:readBuf(__len)
 end
 
 function ByteArray:writeString(__string)
@@ -390,7 +389,7 @@ function ByteArray:writeRawByte(__rawByte)
 			self._buf[i] = string.char(0)
 		end
 	end
-	self._buf[self._pos] = __rawByte
+	self._buf[self._pos] = string.sub(__rawByte, 1,1)
 	self._pos = self._pos + 1
 	return self
 end
@@ -406,7 +405,7 @@ end
 --- Write a encoded char array into buf
 function ByteArray:writeBuf(__s)
 	for i=1,#__s do
-		self:writeRawByte(__s:sub(i))
+		self:writeRawByte(string.sub(__s,i,i))
 	end
 	return self
 end
