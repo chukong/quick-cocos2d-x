@@ -132,7 +132,7 @@ public:
     CCTexture2D* addUIImage(CCImage *image, const char *key);
 
     /** Get a key for a texture in cache.
-     * @quthor zrong(zengrong.net)
+     * @author zrong(zengrong.net)
      * Creation 2014-07-19
      */
     const char*  keyForTexture(CCTexture2D* texture);
