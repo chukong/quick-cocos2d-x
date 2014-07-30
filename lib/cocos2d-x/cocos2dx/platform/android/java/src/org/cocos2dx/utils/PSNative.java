@@ -213,11 +213,11 @@ public class PSNative {
 		return Build.USER;
 	}
 
-	public static void vibrate(long time) {
+	public static void vibrate(int time) {
 		if (mVibrator == null) {
 			return;
 		}
-		mVibrator.vibrate(time);
+		mVibrator.vibrate((long)time);
 	}
 
 	public static void vibrate(long[] pattern, int repeatcout) {

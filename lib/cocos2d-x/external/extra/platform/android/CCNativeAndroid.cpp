@@ -158,9 +158,9 @@ void CCNative::vibrate()
 {
 	JniMethodInfo methodInfo;
     if (JniHelper::getStaticMethodInfo(methodInfo, "org/cocos2dx/utils/PSNative", "vibrate", 
-        "(L)V"))
+        "(I)V"))
     {
-		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, (jlong)200);
+		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, 200);
 		methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
 }
