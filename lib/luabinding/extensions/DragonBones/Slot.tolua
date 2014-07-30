@@ -1,0 +1,22 @@
+class Slot : public DBObject
+{
+public:
+	Slot(IDisplayBridge *displayBrideg);
+	~Slot();
+	Number getZOrder();
+	void setZOrder(Number value);
+	String getBlendMode();
+	void setBlendMode(const String &value);
+	Object *getDisplay();
+	void setDisplayValue(Object *value);
+	Armature *getChildArmature();
+	void setChildArmature(Armature *value);
+	void setDisplay(Object *display);
+	void changeDisplay(int displayIndex);
+	void setVisible(bool value);
+	void setArmature(Armature *value);
+	void dispose();
+	void update();
+	void updateVisible(bool value);
+	void updateChildArmatureAnimation();
+};

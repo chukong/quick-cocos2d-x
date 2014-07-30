@@ -1,0 +1,81 @@
+<dragonBones name="FrameAnimation" frameRate="24" version="2.3">
+  <armature name="iceEffect">
+    <bone name="bone">
+      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="bone" parent="bone" z="0">
+        <display name="iceEffectFolder/位图 1" type="image">
+          <transform x="-18" y="-76" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/位图 2" type="image">
+          <transform x="-22" y="-165" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/9" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/8" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/7" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/5" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/4" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/6" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/2" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/1" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+        <display name="iceEffectFolder/11" type="image">
+          <transform x="-30" y="-200" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="play" fadeInTime="0.25" duration="19" scale="1" loop="1" tweenEasing="NaN">
+      <timeline name="bone" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="1" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="2" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="3" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="4" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="5" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="6" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="7" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="8" duration="2">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="9" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" displayIndex="10" duration="1">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+</dragonBones>

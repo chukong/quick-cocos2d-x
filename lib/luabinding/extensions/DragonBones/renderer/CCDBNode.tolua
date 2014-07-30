@@ -1,0 +1,12 @@
+namespace dragonBones
+{
+    class CCDBNode : public Object
+    {
+    public:
+        CCDBNode(CCNode *n);
+        ~CCDBNode();
+        const CCNode *getNode() const;
+        CCNode *getNode();
+    };
+}
+

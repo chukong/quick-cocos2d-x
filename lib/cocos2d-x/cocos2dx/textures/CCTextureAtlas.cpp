@@ -614,9 +614,9 @@ void CCTextureAtlas::drawNumberOfQuads(unsigned int n, unsigned int start)
         //		glBufferData(GL_ARRAY_BUFFER, sizeof(quads_[0]) * (n-start), &quads_[start], GL_DYNAMIC_DRAW);
 		
 		// option 3: orphaning + glMapBuffer
-		glBufferData(GL_ARRAY_BUFFER, sizeof(m_pQuads[0]) * (n-start), NULL, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(m_pQuads[0]) * getTotalQuads(), NULL, GL_DYNAMIC_DRAW);
 		void *buf = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-		memcpy(buf, m_pQuads, sizeof(m_pQuads[0])* (n-start));
+		memcpy(buf, m_pQuads, sizeof(m_pQuads[0])* getTotalQuads());
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

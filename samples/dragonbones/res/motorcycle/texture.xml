@@ -1,0 +1,12 @@
+<TextureAtlas name="Motorcycle" imagePath="texture.png">
+  <SubTexture name="MovieClip/moto" x="0" y="0" width="202" height="121"/>
+  <SubTexture name="MovieClip/springf" x="0" y="122" width="62" height="92"/>
+  <SubTexture name="MovieClip/springb" x="163" y="166" width="76" height="49"/>
+  <SubTexture name="MovieClip/wheel" x="63" y="122" width="71" height="71"/>
+  <SubTexture name="MovieClip/head" x="135" y="122" width="51" height="41"/>
+  <SubTexture name="MovieClip/legf" x="203" y="86" width="47" height="61"/>
+  <SubTexture name="MovieClip/legu" x="0" y="215" width="78" height="30"/>
+  <SubTexture name="MovieClip/body" x="203" y="0" width="46" height="85"/>
+  <SubTexture name="MovieClip/armf" x="187" y="148" width="60" height="17"/>
+  <SubTexture name="MovieClip/armu" x="135" y="165" width="27" height="49"/>
+</TextureAtlas>
