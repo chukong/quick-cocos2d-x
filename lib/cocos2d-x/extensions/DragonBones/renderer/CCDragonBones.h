@@ -46,7 +46,6 @@ namespace dragonBones {
                                             const String &skinName="");
 
         cocos2d::CCNode* getDisplayNode();
-        cocos2d::CCDBAtlasNode* getDBAtlasNode();
         Armature* getArmature();
         Animation* getAnimation();
         cocos2d::CCArray* getAnimationList();
@@ -83,9 +82,36 @@ namespace dragonBones {
         bool hasScriptHandler(const String &type);
         int  getScriptHandler(String type);
         
+        inline virtual bool isOpacityModifyRGB()
+        {
+            return getDBAtlasNode()->isOpacityModifyRGB();
+        };
+        virtual void setOpacityModifyRGB(bool isOpacityModifyRGB)
+        {
+            getDBAtlasNode()->setOpacityModifyRGB(isOpacityModifyRGB);
+        };
+        virtual const cocos2d::ccColor3B& getColor()
+        {
+            return getDBAtlasNode()->getColor();
+        };
+        virtual void setColor(const cocos2d::ccColor3B& color)
+        {
+            getDBAtlasNode()->setCascadeColorEnabled(true);
+            getDBAtlasNode()->setColor(color);
+        };
+        virtual void setOpacity(GLubyte opacity)
+        {
+            getDBAtlasNode()->setOpacity(opacity);
+            setOpacityModifyRGB(true);
+        };
+        
     private:
         void initWithArmature(Armature* arm);
         void update(float dt);
+        inline cocos2d::CCDBAtlasNode* getDBAtlasNode()
+        {
+            return static_cast<cocos2d::CCDBAtlasNode*>(getDisplayNode());
+        };
         Armature* m_Armature;
         
         String pointerToString(CCObject* pObj);

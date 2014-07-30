@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Mon Jul 28 16:05:03 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Jul 30 17:09:00 2014.
 */
 
 /****************************************************************************
@@ -63082,38 +63082,6 @@ static int tolua_Cocos2d_CCDragonBones_getDisplayNode00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: getDBAtlasNode of class  CCDragonBones */
-#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_getDBAtlasNode00
-static int tolua_Cocos2d_CCDragonBones_getDBAtlasNode00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCDragonBones",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCDragonBones* self = (CCDragonBones*)  tolua_tousertype(tolua_S,1,0);
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'getDBAtlasNode'", NULL);
-#endif
-  {
-   CCDBAtlasNode* tolua_ret = (CCDBAtlasNode*)  self->getDBAtlasNode();
-    tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCDBAtlasNode");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'getDBAtlasNode'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: getArmature of class  CCDragonBones */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCDragonBones_getArmature00
 static int tolua_Cocos2d_CCDragonBones_getArmature00(lua_State* tolua_S)
@@ -71111,7 +71079,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles03);
    tolua_function(tolua_S,"createByFiles",tolua_Cocos2d_CCDragonBones_createByFiles04);
    tolua_function(tolua_S,"getDisplayNode",tolua_Cocos2d_CCDragonBones_getDisplayNode00);
-   tolua_function(tolua_S,"getDBAtlasNode",tolua_Cocos2d_CCDragonBones_getDBAtlasNode00);
    tolua_function(tolua_S,"getArmature",tolua_Cocos2d_CCDragonBones_getArmature00);
    tolua_function(tolua_S,"getAnimation",tolua_Cocos2d_CCDragonBones_getAnimation00);
    tolua_function(tolua_S,"getAnimationList",tolua_Cocos2d_CCDragonBones_getAnimationList00);
