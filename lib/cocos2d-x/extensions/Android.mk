@@ -145,7 +145,7 @@ LOCAL_SRC_FILES := \
     filters/filters/CCTestFilter.cpp \
     filters/nodes/CCFilteredSprite.cpp \
     filters/shaders/ccFilterShaders.cpp \
-    network/WebSocket.cpp
+    network/WebSocket.cpp \
     DragonBones/animation/Animation.cpp \
     DragonBones/animation/AnimationState.cpp \
     DragonBones/animation/TimelineState.cpp \
@@ -175,7 +175,7 @@ LOCAL_SRC_FILES := \
     DragonBones/utils/ConstValues.cpp \
     DragonBones/utils/DBDataUtil.cpp \
     DragonBones/utils/DBGeometry.cpp \
-    DragonBones/utils/TransformUtil.cpp \
+    DragonBones/utils/TransformUtil.cpp
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
@@ -201,7 +201,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCArmature/external_tool/Json \
                            $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
                            $(LOCAL_PATH)/CCArmature/utils \
-                           $(LOCAL_PATH)/filters
+                           $(LOCAL_PATH)/filters \
+                           $(LOCAL_PATH)/DragonBones
 
 
 LOCAL_C_INCLUDES = $(LOCAL_EXPORT_C_INCLUDES)
