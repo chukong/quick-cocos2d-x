@@ -84,8 +84,6 @@ namespace dragonBones
             
             DB_SAFE_DELETE(_animation);
             DB_SAFE_DELETE(_display);
-            
-            //_display = null;
         }
         
         void Armature::invalidUpdate()
