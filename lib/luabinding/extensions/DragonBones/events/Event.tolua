@@ -1,0 +1,5 @@
+﻿class Event
+{
+public:
+	String &getType();
+};

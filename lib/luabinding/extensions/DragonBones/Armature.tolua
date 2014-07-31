@@ -1,0 +1,44 @@
+typedef std::string String;
+typedef unsigned int uint;
+typedef float Number;
+class Object
+{
+public:
+    Object(){};
+    ~Object(){};
+};
+
+class Event
+{
+public:
+	String &getType();
+};
+
+class Armature : public IAnimatable , public EventDispatcher
+{
+public:
+	String name;
+	Animation* getAnimation();
+	Armature(Object *display);
+	void dispose();
+	void invalidUpdate();
+	void advanceTime(Number passedTime);
+	Slot* getSlot(const char *slotName);
+	Slot* getSlotByDisplay(Object *display);
+	void removeSlot(Slot *slot);
+	void removeSlotByName(const char *slotName);
+	Bone* getBone(const char *boneName);
+	Bone* getBoneByDisplay(Object *display);
+	void removeBone(Bone * bone);
+	void removeBoneByName(const char *boneName);
+	void addChild(DBObject *object, const char *parentName = "");
+	void addBone(Bone * bone, const char *parentName = "");
+	void updateSlotsZOrder();
+	void addDBObject(DBObject *object);
+	void removeDBObject(DBObject * object);
+	static bool sortBone(const std::pair<int , Bone*>& a , const std::pair<int , Bone*>& b);
+	void sortBoneList();
+	void arriveAtFrame(Frame * frame, TimelineState *timelineState, AnimationState *animationState, bool isCross);
+	static bool sortSlot(Slot *slot1, Slot *slot2);
+	
+};

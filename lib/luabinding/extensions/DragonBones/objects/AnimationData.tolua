@@ -1,0 +1,18 @@
+class AnimationData : public Timeline
+{
+public:
+	uint frameRate;
+	String name;
+	int loop;
+	Number tweenEasing;
+	Number fadeInTime;
+	Number duration;        
+	Number scale;
+			
+	AnimationData();
+	~AnimationData();
+	void setFadeInTime(Number value);
+	void dispose();
+	TransformTimeline *getTimeline(const String &timelineName);
+	void addTimeline(TransformTimeline *timeline, const String &timelineName);
+};

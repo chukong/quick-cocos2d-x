@@ -1,0 +1,48 @@
+class CCDragonBones:public CCNode {
+public:
+	static CCDragonBones* create(Armature*arm);
+
+	static CCDragonBones* createByName( const String &armatureName,
+										const String &animationName="",
+										const String &skeletonName="",
+										const String &textureAtlasName="",
+										const String &skinName="");
+
+	static CCDragonBones* createByDir(	const String &path,
+										const String &armatureName,
+										const String &animationName="",
+										const String &skeletonName="",
+										const String &textureAtlasName="",
+										const String &skinName="");
+							
+	static CCDragonBones* createByFiles(const String &skeletonXMLFile,
+										const String &textureXMLFile,
+										const String &armatureName,
+										const String &animationName="",
+										const String &skeletonName="",
+										const String &textureAtlasName="",
+										const String &skinName="");
+
+	CCNode* getDisplayNode();
+	Armature* getArmature();
+	Animation* getAnimation();
+	CCArray* getAnimationList();
+	void gotoAndPlay(   const char *animationName,
+						float fadeInTime = -1,
+						float duration = -1,
+						float loop = NaN,
+						int layer = 0,
+						const char* group = "",
+						const char* fadeOutMode = "sameLayerAndGroup",
+						bool displayControl = true,
+						bool pauseFadeOut = true,
+						bool pauseFadeIn = true
+		);
+
+	void setBoneTexture(const char* boneName, const char* textureName, const char* textureAtlasName);
+	void registerScriptHandler(LUA_FUNCTION funId, String type);
+	void unregisterScriptHandler(String type);
+	void unregisterAllScriptHandler();
+    bool hasScriptHandler(String& type);
+	int  getScriptHandler(String type);
+}; 

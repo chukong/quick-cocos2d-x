@@ -1,0 +1,11 @@
+class ArmatureEvent : public Event
+{
+public:
+	static const String Z_ORDER_UPDATED;
+	ArmatureEvent(const String &type)
+		: Event(type)
+	{
+
+	}
+	
+};

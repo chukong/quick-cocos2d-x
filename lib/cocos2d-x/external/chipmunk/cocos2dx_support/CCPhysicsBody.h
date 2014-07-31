@@ -115,7 +115,10 @@ public:
     // shapes management
     CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
-    CCPhysicsShape *addBoxShape(float width, float height);
+	// original: CCPhysicsShape *addBoxShape(float width, float height);
+	CCPhysicsShape *addBoxShape(float width, float height, float offsetX = 0, float offsetY = 0);
+
+	//CCPhysicsShape *addBoxShapeWithOffset(float width, float height, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on Thu May  8 17:32:55 2014.
+** Generated automatically by tolua++-1.0.92 on 07/12/14 19:08:32.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -3085,7 +3085,9 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_addBoxShape00(lua_State
      !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
+     !tolua_isnumber(tolua_S,4,1,&tolua_err) ||
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -3094,11 +3096,13 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_addBoxShape00(lua_State
   CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
   float width = ((float)  tolua_tonumber(tolua_S,2,0));
   float height = ((float)  tolua_tonumber(tolua_S,3,0));
+  float offsetX = ((float)  tolua_tonumber(tolua_S,4,0));
+  float offsetY = ((float)  tolua_tonumber(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addBoxShape'", NULL);
 #endif
   {
-   CCPhysicsShape* tolua_ret = (CCPhysicsShape*)  self->addBoxShape(width,height);
+   CCPhysicsShape* tolua_ret = (CCPhysicsShape*)  self->addBoxShape(width,height,offsetX,offsetY);
     int nID = (tolua_ret) ? tolua_ret->m_uID : -1;
 int* pLuaID = (tolua_ret) ? &tolua_ret->m_nLuaID : NULL;
 toluafix_pushusertype_ccobject(tolua_S, nID, pLuaID, (void*)tolua_ret,"CCPhysicsShape");

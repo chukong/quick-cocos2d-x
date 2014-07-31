@@ -310,6 +310,36 @@
     <Filter Include="cocos2d-x\extensions\CocoStudio">
       <UniqueIdentifier>{60b2db74-20ba-4cce-bd8e-eeef68732b8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones">
+      <UniqueIdentifier>{1baa1e4c-2bfb-4cd2-a3c7-b92127729462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\objects">
+      <UniqueIdentifier>{64eb0bf1-256b-4d4b-91c0-7af2d53e5a05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\animation">
+      <UniqueIdentifier>{e71ebd45-164f-4bf8-95b9-a2dd7167402a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\core">
+      <UniqueIdentifier>{b7e18c94-74d7-4eb9-9468-cd63256dd247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\display">
+      <UniqueIdentifier>{d3227204-0670-44d6-96c7-af5da0ee4446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\events">
+      <UniqueIdentifier>{b933a7bb-f4fd-4ff3-906f-9931eb702086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\factories">
+      <UniqueIdentifier>{4d602bc0-4b42-425f-b8d2-8b52a83c17ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\renderer">
+      <UniqueIdentifier>{eb433ff8-38ad-4df1-9c71-da68f2afe566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\textures">
+      <UniqueIdentifier>{509c808b-f05b-4e58-968d-83568f2569c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\extensions\DragonBones\utils">
+      <UniqueIdentifier>{8ed2e752-1f75-4ccc-a130-ad0b7f777762}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -1421,6 +1451,96 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Action\ActionManager.cpp">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Armature.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Bone.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Slot.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\dbtinyxml2.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\DisplayData.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\TransformTimeline.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\XMLDataParser.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\animation\Animation.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\animation\AnimationState.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\animation\TimelineState.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\core\DBObject.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\core\DragonBones.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\AnimationEvent.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\ArmatureEvent.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\Event.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\FrameEvent.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\SoundEvent.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\SoundEventManager.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\factories</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\BytesType.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBGeometry.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.cpp">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2839,6 +2959,150 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Action\ActionManager.h">
       <Filter>cocos2d-x\extensions\CocoStudio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Armature.h">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Bone.h">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\DragonBonesHeaders.h">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Slot.h">
+      <Filter>cocos2d-x\extensions\DragonBones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\AnimationData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\ArmatureData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\BoneData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\dbtinyxml2.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\DBTransform.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\DisplayData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\Frame.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\SkeletonData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\SkinData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\SlotData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\TextureAtlasData.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\Timeline.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\TransformFrame.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\TransformTimeline.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\XMLDataParser.h">
+      <Filter>cocos2d-x\extensions\DragonBones\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\Animation.h">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\AnimationState.h">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\IAnimatable.h">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\TimelineState.h">
+      <Filter>cocos2d-x\extensions\DragonBones\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\core\DBObject.h">
+      <Filter>cocos2d-x\extensions\DragonBones\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\core\DragonBones.h">
+      <Filter>cocos2d-x\extensions\DragonBones\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\display\IDisplayBridge.h">
+      <Filter>cocos2d-x\extensions\DragonBones\display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\AnimationEvent.h">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\ArmatureEvent.h">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\Event.h">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\FrameEvent.h">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\SoundEvent.h">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\SoundEventManager.h">
+      <Filter>cocos2d-x\extensions\DragonBones\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.h">
+      <Filter>cocos2d-x\extensions\DragonBones\factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBNode.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.h">
+      <Filter>cocos2d-x\extensions\DragonBones\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\textures\ITextureAtlas.h">
+      <Filter>cocos2d-x\extensions\DragonBones\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\BytesType.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\checkBytesTailisXML.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBGeometry.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\preDB.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.h">
+      <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
