@@ -24,7 +24,6 @@ public:
 										const String &skinName="");
 
 	CCNode* getDisplayNode();
-	CCDBAtlasNode* getDBAtlasNode();
 	Armature* getArmature();
 	Animation* getAnimation();
 	CCArray* getAnimationList();

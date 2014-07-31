@@ -108,11 +108,6 @@ namespace dragonBones
     {
         return static_cast<CCDBNode*>(m_Armature->getDisplay())->getNode();
     }
-    
-    CCDBAtlasNode* CCDragonBones::getDBAtlasNode()
-    {
-        return static_cast<CCDBAtlasNode*>(getDisplayNode());
-    }
 
     Armature* CCDragonBones::getArmature()
     {

@@ -16,7 +16,7 @@ game._DEMOS= {
 function game.startup()
     CCFileUtils:sharedFileUtils():addSearchPath("res/")
 
-	game._curDemo = 3
+	game._curDemo = 1
 	game._demoCount = #game._DEMOS
 
     game.showDemoScene()

@@ -19,6 +19,8 @@ function DragonDemoEntry:_addUI()
 	local menu = ui.newMenu({
 		ui.newTTFLabelMenuItem({text="Stop" ,listener=handler(self, self._onStop)}),
 		ui.newTTFLabelMenuItem({text="Play" ,listener=handler(self, self._onPlay)}),
+		ui.newTTFLabelMenuItem({text="SetColor(20,90,50)" ,listener=handler(self, self._onSetColor)}),
+		ui.newTTFLabelMenuItem({text="SetOpacity(128)" ,listener=handler(self, self._onSetOpacity)}),
 		ui.newTTFLabelMenuItem({text="Change Animation" ,listener=handler(self, self._onChangeAnimation)}),
 	})
 		:pos(display.left+100, display.cy)
@@ -32,6 +34,14 @@ end
 
 function DragonDemoEntry:_onPlay()
 	self._db:getAnimation():play()
+end
+
+function DragonDemoEntry:_onSetOpacity()
+	self._db:setOpacity(128)
+end
+
+function DragonDemoEntry:_onSetColor()
+	self._db:setColor(cc.c3(200,23,120))
 end
 
 function DragonDemoEntry:_onChangeAnimation()
