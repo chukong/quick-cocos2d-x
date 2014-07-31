@@ -75,6 +75,8 @@ public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
 				_webView.setBackgroundColor(0);
 				_webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 				_webView.getSettings().setAppCacheEnabled(false);
+				_webView.getSettings().setJavaScriptEnabled(true);
+				CookieManager.getInstance().setAcceptCookie(true);
 
 				_webView.setWebViewClient(new WebViewClient() {
 					@Override
