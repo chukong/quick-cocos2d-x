@@ -1,4 +1,4 @@
--- For CCDragonBones 
+-- For CCDragonBones
 -- @author zrong(zengrong.net)
 -- Creation: 2014-04-24
 -- Modification: 2014-07-29
@@ -26,7 +26,7 @@ DragonBonesNode.EVENTS = {
 
 注册动作相关的侦听器
 
-@param function listener 
+@param function listener
 @return DragonBonesNode
 
 ]]
@@ -60,7 +60,7 @@ end
 与 `registerScriptHandler` 不同的是:
 
 1. 本方法会缓存侦听器的键名和函数方便反注册
-2. 本方法会返回self 
+2. 本方法会返回self
 
 ]]
 function DragonBonesNode:addScriptListener(evtType, listener)
