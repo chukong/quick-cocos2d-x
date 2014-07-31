@@ -57,6 +57,15 @@ public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
 		return actInstance;
 	}
 
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if(keyCode == KeyEvent.KEYCODE_BACK && _webView!=null)
+		{
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 	public void displayWebView(final int x, final int y, final int width,
 			final int height) {
 		this.runOnUiThread(new Runnable() {
@@ -100,8 +109,12 @@ public class __PROJECT_PACKAGE_LAST_NAME_UF__ extends Cocos2dxActivity {
 	public void removeWebView() {
 		this.runOnUiThread(new Runnable() {
 			public void run() {
-				_webLayout.removeView(_webView);
-				_webView.destroy();
+				if(_webView != null)
+				{
+					_webLayout.removeView(_webView);
+					_webView.destroy();
+					_webView = null;
+				}
 			}
 		});
 	}
