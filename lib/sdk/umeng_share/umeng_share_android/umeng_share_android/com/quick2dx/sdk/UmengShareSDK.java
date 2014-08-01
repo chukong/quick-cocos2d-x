@@ -164,7 +164,7 @@ public class UmengShareSDK {
                     if (img.startsWith("http")) {
                         image = new UMImage(mContext, img);
                     } else {
-                        //将img字串，按对应的方式转为UMImage类型
+                        //将img字串,按对应的方式转为UMImage类型,请按各自需要修改
                         //image = new UMImage(mContext, BitmapFactory.decodeStream(mContext.getAssets().open(img)));
                     }
                 } catch (Exception e) {
