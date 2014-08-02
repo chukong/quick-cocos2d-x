@@ -1,0 +1,31 @@
+class AnimationState
+{
+public:
+	static AnimationState* borrowObject();
+	static void returnObject(AnimationState * animationState);
+	static void clear();
+	AnimationData *getClip();
+	int getLoopCount();
+	int getLoop();
+	uint getLayer();
+	bool getIsPlaying();
+	bool getIsComplete();
+	Number getFadeInTime();
+	Number getTotalTime();
+	Number getCurrentTime();
+	void setCurrentTime(Number value);
+	Number getTimeScale();
+	void setTimeScale(Number value);
+	void fadeIn(Armature * armature, AnimationData * clip, Number fadeInTime, Number timeScale, int loop, uint layer, bool displayControl, bool pauseBeforeFadeInComplete);
+	void fadeOut(Number fadeOutTime, bool pause = false);
+	void play();
+	void stop();
+	int getMixingTransform(const String &timelineName);
+	void addMixingTransform(const String &timelineName, int type = 2, bool recursive = true);
+	void removeMixingTransform(const String &timelineName = "", bool recursive = true);
+	bool advanceTime(Number passedTime);
+	void updateTimelineStates();
+	void addTimelineState(const String &timelineName);
+	void removeTimelineState(const String &timelineName);
+	void clearAll();
+};

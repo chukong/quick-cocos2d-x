@@ -1,0 +1,7 @@
+<TextureAtlas name="Shark" imagePath="texture.png">
+  <SubTexture name="shankFolder/5" x="87" y="102" width="94" height="24"/>
+  <SubTexture name="shankFolder/2" x="0" y="0" width="85" height="124"/>
+  <SubTexture name="shankFolder/4" x="182" y="0" width="31" height="71"/>
+  <SubTexture name="shankFolder/3" x="214" y="0" width="41" height="46"/>
+  <SubTexture name="shankFolder/1" x="87" y="0" width="94" height="100"/>
+</TextureAtlas>

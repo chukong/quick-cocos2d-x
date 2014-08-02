@@ -60,7 +60,7 @@ end
 -- @param __point A coordinate for color.
 -- @param __convertToNodeSpace Optional, default is true, convert a coordinate to node space from world space.
 -- @param __isFloat Optional, default is false, convert a coordinate to node space from world space.
-function Sprite:getColor(__point, __convertToNodeSpace, __isFloat)
+function Sprite:getColorAtPoint(__point, __convertToNodeSpace, __isFloat)
 	if __convertToNodeSpace == nil then
 		__convertToNodeSpace = true
 	end

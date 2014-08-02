@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -251,6 +251,36 @@
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Trigger\TriggerBase.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Trigger\TriggerMng.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\CocoStudio\Trigger\TriggerObj.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\animation\Animation.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\animation\AnimationState.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\animation\TimelineState.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Armature.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Bone.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\core\DBObject.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\core\DragonBones.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\AnimationEvent.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\ArmatureEvent.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\Event.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\FrameEvent.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\SoundEvent.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\events\SoundEventManager.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\dbtinyxml2.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\DisplayData.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\TransformTimeline.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\objects\XMLDataParser.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\Slot.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\BytesType.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\DBGeometry.cpp" />
+    <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\filters\filters\CCBlurFilter.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\filters\filters\CCBrightnessFilter.cpp" />
     <ClCompile Include="..\cocos2d-x\extensions\filters\filters\CCContrastFilter.cpp" />
@@ -807,6 +837,54 @@
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Trigger\TriggerBase.h" />
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Trigger\TriggerMng.h" />
     <ClInclude Include="..\cocos2d-x\extensions\CocoStudio\Trigger\TriggerObj.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\Animation.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\AnimationState.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\IAnimatable.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\animation\TimelineState.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Armature.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Bone.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\core\DBObject.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\core\DragonBones.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\display\IDisplayBridge.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\DragonBonesHeaders.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\AnimationEvent.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\ArmatureEvent.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\Event.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\FrameEvent.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\SoundEvent.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\events\SoundEventManager.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\factories\BaseFactory.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\AnimationData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\ArmatureData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\BoneData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\dbtinyxml2.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\DBTransform.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\DisplayData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\Frame.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\SkeletonData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\SkinData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\SlotData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\TextureAtlasData.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\Timeline.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\TransformFrame.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\TransformTimeline.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\objects\XMLDataParser.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBAtlasNode.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBDisplayBridge.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBFactory.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBManager.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBNode.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDBTextureAtlas.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\renderer\CCDragonBones.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\Slot.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\textures\ITextureAtlas.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\BytesType.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\checkBytesTailisXML.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\ConstValues.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBDataUtil.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\DBGeometry.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\preDB.h" />
+    <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.h" />
     <ClInclude Include="..\cocos2d-x\extensions\ExtensionMacros.h" />
     <ClInclude Include="..\cocos2d-x\extensions\filters\filters\CCBlurFilter.h" />
     <ClInclude Include="..\cocos2d-x\extensions\filters\filters\CCBrightnessFilter.h" />
@@ -961,7 +1039,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110_xp</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -990,7 +1068,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;CC_LUA_ENGINE_ENABLED=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\support\tinyxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libwebp;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\luajit\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\filesystem;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\lpack;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\lsqlite3;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCScrollView;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\AssetsManager;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CCBReader;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\network;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Action;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\animation;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\datas;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\display;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\external_tool;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\utils;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Components;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\GUI;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Json;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Reader;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\libwebsockets\win32\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\libwebsockets\win32\include\win32helpers;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\chipmunk\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\chipmunk\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\chipmunk\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\luaproxy;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\luaproxy\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\luaproxy\ui;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\crypto;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\native;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\network;$(QUICK_COCOS2DX_ROOT)\lib\ccos2d-x\external\extra\platform\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\kazmath\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\support\tinyxml2;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\curl;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\iconv;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libjpeg;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libpng;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libtiff;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libwebp;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\OGLES;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\pthread;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\CocosDenshion\win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\luajit\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\cjson;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\filesystem;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\lpack;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\lsqlite3;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\socket;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\scripting\lua\lua_extensions\zlib;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCControlExtension;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCEditBox;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\GUI\CCScrollView;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\AssetsManager;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CCBReader;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\DragonBones;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\network;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Action;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\animation;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\datas;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\display;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\external_tool;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Armature\utils;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Components;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\GUI;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Json;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\extensions\CocoStudio\Reader;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\libwebsockets\win32\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\libwebsockets\win32\include\win32helpers;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\chipmunk\include;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\chipmunk\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\chipmunk\cocos2dx_support;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\luaproxy;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\luaproxy\tolua;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\luaproxy\ui;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\crypto;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\luabinding;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\native;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\extra\network;$(QUICK_COCOS2DX_ROOT)\lib\ccos2d-x\external\extra\platform\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251;4068;4244;4800</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
