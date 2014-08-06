@@ -164,13 +164,42 @@ public class UmengShareSDK {
                     if (img.startsWith("http")) {
                         image = new UMImage(mContext, img);
                     } else {
-                        //image = new UMImage(mContext, BitmapFactory.decodeStream(mContext.getAssets().open(img)));
+                    	//修改为自己的实现方式
+                        //image = new UMImage(mContext, BitmapFactory.decodeStream(mContext.getAssets().open(img))); //Assets中的资源转为UMImage
+                    	image = new UMImage(mContext, img);  //本地路径转为UMImage
                     }
                 } catch (Exception e) {
                     image = null;
                 }
 
                 if (null != image) {
+                    getInstance().mController.setShareMedia(new UMImage(mContext, img));
+                }
+
+                getInstance().mController.openShare(mContext, false);
+            }
+        });
+    }
+
+    public static void shareImg(final String img) {
+        mContext.runOnUiThread(new Runnable() {
+ 
+            @Override
+            public void run() {
+                UMImage image = null;
+                try {
+                    if (img.startsWith("http")) {
+                        image = new UMImage(mContext, img);
+                    } else {
+                    	//修改为自己的实现方式
+                        //image = new UMImage(mContext, BitmapFactory.decodeStream(mContext.getAssets().open(img))); //Assets中的资源转为UMImage
+                    	image = new UMImage(mContext, img);  //本地路径转为UMImage
+                    }
+                } catch (Exception e) {
+                    image = null;
+                }
+
+                if (null != image) {            
                     getInstance().mController.setShareMedia(new UMImage(mContext, img));
                 }
 
