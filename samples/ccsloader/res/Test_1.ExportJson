@@ -1,0 +1,84 @@
+{
+  "version": "1.0.0.0",
+  "designWidth": 960,
+  "designHeight": 640,
+  "dataScale": 1.0,
+  "textures": [],
+  "texturesPng": [],
+  "nodeTree": {
+    "options": {
+      "$type": "EditorCommon.JsonModel.Component.GUI.RootGUISurrogate, EditorCommon",
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "visible": true,
+      "width": 0.0,
+      "height": 0.0,
+      "frameEvent": null,
+      "name": "Node",
+      "classname": "Node"
+    },
+    "children": [
+      {
+        "options": {
+          "$type": "EditorCommon.JsonModel.Component.GUI.LabelAtlasSurrogate, EditorCommon",
+          "stringValue": "01236789",
+          "charMapFile": null,
+          "charMapFileData": {
+            "resourceType": 0,
+            "path": "GUI/labelatlasimg.png",
+            "plistFile": ""
+          },
+          "startCharMap": "0",
+          "itemWidth": 24,
+          "itemHeight": 32,
+          "x": 390.0,
+          "y": 400.0,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "flipX": false,
+          "flipY": false,
+          "colorR": 255,
+          "colorG": 255,
+          "colorB": 255,
+          "opacity": 255,
+          "touchAble": false,
+          "visible": true,
+          "ZOrder": 0,
+          "classType": "LabelAtlas",
+          "width": 192.0,
+          "height": 32.0,
+          "positionType": 0,
+          "positionPercentX": 0.8125,
+          "positionPercentY": 1.25,
+          "sizeType": 0,
+          "sizePercentX": 0.5,
+          "sizePercentY": 0.1,
+          "useMergedTexture": false,
+          "actionTag": 894529098,
+          "tag": 879,
+          "anchorPointX": 0.5,
+          "anchorPointY": 0.5,
+          "ignoreSize": true,
+          "layoutParameter": null,
+          "customProperty": "",
+          "frameEvent": "",
+          "name": "LabelAtlas_6",
+          "classname": "LabelAtlas"
+        },
+        "children": [],
+        "name": null,
+        "classname": "LabelAtlas"
+      }
+    ],
+    "name": null,
+    "classname": "Node"
+  },
+  "action": {
+    "duration": 0,
+    "speed": 1.0,
+    "timelines": []
+  },
+  "name": null,
+  "classname": null
+}
