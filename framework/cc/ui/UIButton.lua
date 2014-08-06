@@ -32,7 +32,7 @@ function UIButton:ctor(events, initialState, options)
     self.touchInSpriteOnly_ = options and options.touchInSprite
     self.currentImage_ = nil
     self.images_ = {}
-    self.sprite_ = nil
+    self.sprite_ = {}
     self.scale9_ = options and options.scale9
     self.scale9Size_ = nil
     self.labels_ = {}
@@ -132,8 +132,8 @@ end
 function UIButton:setButtonSize(width, height)
     assert(self.scale9_, "UIButton:setButtonSize() - can't change size for non-scale9 button")
     self.scale9Size_ = {width, height}
-    if self.sprite_ then
-        self.sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
+    for i,v in ipairs(self.sprite_) do
+        v:setContentSize(cc.size(self.scale9Size_[1], self.scale9Size_[2]))
     end
     return self
 end
@@ -213,29 +213,48 @@ function UIButton:updateButtonImage_()
     end
     if image then
         if self.currentImage_ ~= image then
-            if self.sprite_ then
-                self.sprite_:removeFromParentAndCleanup(true)
-                self.sprite_ = nil
+            for i,v in ipairs(self.sprite_) do
+                v:removeFromParentAndCleanup(true)
             end
+            self.sprite_ = {}
             self.currentImage_ = image
 
-            if self.scale9_ then
-                self.sprite_ = display.newScale9Sprite(image)
-                if not self.scale9Size_ then
-                    local size = self.sprite_:getContentSize()
-                    self.scale9Size_ = {size.width, size.height}
-                else
-                    self.sprite_:setContentSize(CCSize(self.scale9Size_[1], self.scale9Size_[2]))
+            if "table" == type(image) then
+                for i,v in ipairs(image) do
+                    if self.scale9_ then
+                        self.sprite_[i] = display.newScale9Sprite(v)
+                        if not self.scale9Size_ then
+                            local size = self.sprite_[i]:getContentSize()
+                            self.scale9Size_ = {size.width, size.height}
+                        else
+                            self.sprite_[i]:setContentSize(cc.size(self.scale9Size_[1], self.scale9Size_[2]))
+                        end
+                    else
+                        self.sprite_[i] = display.newSprite(v)
+                    end
+                    self:addChild(self.sprite_[i], UIButton.IMAGE_ZORDER)
                 end
             else
-                self.sprite_ = display.newSprite(image)
+                if self.scale9_ then
+                    self.sprite_[1] = display.newScale9Sprite(image)
+                    if not self.scale9Size_ then
+                        local size = self.sprite_[1]:getContentSize()
+                        self.scale9Size_ = {size.width, size.height}
+                    else
+                        self.sprite_[1]:setContentSize(cc.size(self.scale9Size_[1], self.scale9Size_[2]))
+                    end
+                else
+                    self.sprite_[1] = display.newSprite(image)
+                end
+                self:addChild(self.sprite_[1], UIButton.IMAGE_ZORDER)
             end
-            self:addChild(self.sprite_, UIButton.IMAGE_ZORDER)
         end
 
-        self.sprite_:setAnchorPoint(self:getAnchorPoint())
-        self.sprite_:setPosition(0, 0)
-    else
+        for i,v in ipairs(self.sprite_) do
+            v:setAnchorPoint(self:getAnchorPoint())
+            v:setPosition(0, 0)
+        end
+    elseif not self.labels_ then
         printError("UIButton:updateButtonImage_() - not set image for state %s", state)
     end
 end
@@ -253,9 +272,9 @@ function UIButton:updateButtonLable_()
     end
 
     local ox, oy = self.labelOffset_[1], self.labelOffset_[2]
-    if self.sprite_ then
+    if self.sprite_[1] then
         local ap = self:getAnchorPoint()
-        local spriteSize = self.sprite_:getContentSize()
+        local spriteSize = self.sprite_[1]:getContentSize()
         ox = ox + spriteSize.width * (0.5 - ap.x)
         oy = oy + spriteSize.height * (0.5 - ap.y)
     end
@@ -272,7 +291,7 @@ end
 
 function UIButton:checkTouchInSprite_(x, y)
     if self.touchInSpriteOnly_ then
-        return self.sprite_ and self.sprite_:getCascadeBoundingBox():containsPoint(cc.p(x, y))
+        return self.sprite_[1] and self.sprite_[1]:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     else
         return self:getCascadeBoundingBox():containsPoint(cc.p(x, y))
     end
