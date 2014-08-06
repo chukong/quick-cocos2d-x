@@ -6,6 +6,7 @@
 #include "cocos2d.h"
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
+#include "constraints/CCPinJoint.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -115,13 +116,15 @@ public:
     // shapes management
     CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
-	// original: CCPhysicsShape *addBoxShape(float width, float height);
 	CCPhysicsShape *addBoxShape(float width, float height, float offsetX = 0, float offsetY = 0);
 
-	//CCPhysicsShape *addBoxShapeWithOffset(float width, float height, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);
+
+	// joints management
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2);
+
 #if CC_LUA_ENGINE_ENABLED > 0
     CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
 #endif
@@ -129,7 +132,14 @@ public:
     void removeShapeAtIndex(unsigned int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
-    
+
+	// do remove do the remove action
+	void doRemoveJoint(CCJoint *joint);
+	// remove do the external action and call the doRemoveJoint
+	void removeJoint(CCJoint *joint);
+	void removeAllJoints(void);
+
+
 	// cleanup
 	void removeSelf(bool unbindNow = true);
     
@@ -146,6 +156,7 @@ private:
     cpSpace *m_space;
     cpBody *m_body;
     CCArray *m_shapes;
+	CCArray *m_joints;
     CCNode *m_node;
     int m_tag;
     string m_name;
@@ -154,6 +165,8 @@ private:
 
     // helper
     CCPhysicsShape *addShape(cpShape *shape);
+
+	void addJoint(CCJoint *joint);
 };
 
 #endif // __CCPHYSICS_BODY_H_
