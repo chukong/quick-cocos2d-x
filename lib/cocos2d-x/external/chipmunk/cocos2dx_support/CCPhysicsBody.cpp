@@ -570,6 +570,32 @@ void CCPhysicsBody::update(float dt)
     }
 }
 
+CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody)
+{
+	if (otherBody == NULL)
+	{
+		return NULL;
+	}
+	cpVect bodyAVect = cpv(this->getPositionX(), this->getPositionY());
+	cpVect bodyBVect = cpv(otherBody->getPositionX(), otherBody->getPositionY());
+	return this->pinJointWith(otherBody, bodyAVect, bodyBVect);
+}
+#if CC_LUA_ENGINE_ENABLED > 0
+CCPinJoint *CCPhysicsBody::pinJointWith(int vertexes, CCPhysicsBody *otherBody)
+{
+	if (otherBody == NULL)
+	{
+		return NULL;
+	}
+	CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromLuaTable(vertexes);
+	if (cpVertexes == NULL || cpVertexes->count() != 2)
+	{
+		return NULL;
+	}
+	cpVect *vects = cpVertexes->data();
+	return this->pinJointWith(otherBody, vects[0], vects[1]);
+}
+#endif
 CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2)
 {
 	if (otherBody == this) {
@@ -582,14 +608,15 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, 
 		CCPhysicsBody *bodyB = joint->getBodyB();
 		if (bodyA != NULL && bodyB != NULL )
 		{
-			// body contains joint of otherBody already
-			if ((bodyA == otherBody || bodyB == otherBody) && joint->getJointType() == PIN_JOINT)
-			{
-				return (CCPinJoint*)joint;
-			}
-			else if (joint->getJointType() != PIN_JOINT)
+			// body contains non joint of otherBody already
+			if (joint->getJointType() != PIN_JOINT)
 			{
 				throw "two body has already contains a joint of non-pinJoint";
+			}
+			// body contains pin joint of otherBody already
+			else if ((bodyA == otherBody || bodyB == otherBody) && joint->getJointType() == PIN_JOINT)
+			{
+				return (CCPinJoint*)joint;
 			}
 		}
 	}
@@ -630,6 +657,7 @@ void CCPhysicsBody::removeJoint(CCJoint *joint)
 		return;
 	}
 	this->doRemoveJoint(joint);
+	delete joint;
 }
 
 

@@ -7,7 +7,6 @@
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
 #include "script_support/CCScriptSupport.h"
-#include "constraints/CCJoint.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -103,9 +102,6 @@ private:
     CCArray *m_addedBodies;
     CCArray *m_addedShapes;
     CCArray *m_listeners;
-
-	CCArray *m_removedJoints;
-	CCArray *m_addedJoints;
 
     static const char *POST_STEP_CALLBACK_KEY;
 

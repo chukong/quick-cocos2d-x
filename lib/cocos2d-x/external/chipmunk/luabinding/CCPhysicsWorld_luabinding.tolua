@@ -149,6 +149,17 @@ class CCPhysicsBody : public CCObject
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
 
+    // joints management
+    CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
+    CCPinJoint *pinJointWith(int vertexes, CCPhysicsBody *otherBody);
+    CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2);
+
+    // do remove do the remove action
+    void doRemoveJoint(CCJoint *joint);
+    // remove do the external action and call the doRemoveJoint
+    void removeJoint(CCJoint *joint);
+    void removeAllJoints(void);
+
     // cleanup
     void removeSelf(bool unbind = true);
 };
@@ -170,6 +181,29 @@ class CCPhysicsShape : public CCObject
     void setCollisionGroup(int group);
     int getCollisionLayers(void);
     void setCollisionLayers(int layers);
+};
+
+enum JointType
+{
+    UNKNOWN = 0,
+    PIN_JOINT = 1,
+    SLIDE_JOINT = 2,
+};
+class CCJoint : public CCNode
+{
+    CCPhysicsBody *getBodyA();
+    CCPhysicsBody *getBodyB();
+
+    JointType getJointType();
+    cpConstraint *getConstraint();
+};
+class CCPinJoint : public CCJoint
+{
+    cpFloat getDist();
+    void setDist(cpFloat dist);
+    
+    JointType getJointType();
+    cpConstraint *getConstraint();
 };
 
 class CCPhysicsDebugNode : public CCNode

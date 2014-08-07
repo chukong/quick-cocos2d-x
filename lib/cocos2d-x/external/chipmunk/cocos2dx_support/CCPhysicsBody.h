@@ -6,13 +6,15 @@
 #include "cocos2d.h"
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
-#include "constraints/CCPinJoint.h"
+#include "constraints/CCJoint.h"
 
 using namespace std;
 using namespace cocos2d;
 
 class CCPhysicsWorld;
 class CCPhysicsShape;
+class CCJoint;
+class CCPinJoint;
 
 class CCPhysicsBody : public CCObject
 {
@@ -123,6 +125,10 @@ public:
     CCPhysicsShape *addPolygonShape(int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);
 
 	// joints management
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
+#if CC_LUA_ENGINE_ENABLED > 0
+	CCPinJoint *pinJointWith(int vertexes, CCPhysicsBody *otherBody);
+#endif
 	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2);
 
 #if CC_LUA_ENGINE_ENABLED > 0

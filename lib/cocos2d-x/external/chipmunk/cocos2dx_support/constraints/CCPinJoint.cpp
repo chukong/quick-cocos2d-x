@@ -1,4 +1,4 @@
-#include "CCPinJoint.h"
+#include "CCJoint.h"
 
 CCPinJoint::CCPinJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB) : CCJoint(bodyA, bodyB, PIN_JOINT)
 {

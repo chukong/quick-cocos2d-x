@@ -382,21 +382,6 @@ void CCPhysicsWorld::step(float dt)
         m_removedBodies->removeAllObjects();
     }
 
-	//cpConstraint *constraint;
-	//count = m_removedJoints->count();
-	//if (count)
-	//{
-	//	for (unsigned int i = 0; i < count; ++i)
-	//	{
-	//		constraint = static_cast<CCJoint*>(m_removedJoints->objectAtIndex(i))->getConstraint();
-	//		if (!cpBodyIsRogue(cpbody))
-	//		{
-	//			cpSpaceRemoveBody(m_space, cpbody);
-	//		}
-	//	}
-	//	m_removedBodies->removeAllObjects();
-	//}
-
     count = m_addedShapes->count();
     if (count)
     {
