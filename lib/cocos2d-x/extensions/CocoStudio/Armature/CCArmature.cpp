@@ -643,6 +643,25 @@ CCRect CCArmature::boundingBox()
     return CCRectApplyAffineTransform(boundingBox, nodeToParentTransform());
 }
 
+CCRect CCArmature::getCascadeBoundingBox(void)
+{
+    CCRect cbb;
+    if (m_cascadeBoundingBox.size.width > 0 && m_cascadeBoundingBox.size.height > 0)
+    {
+        // if cascade bounding box set by user, ignore all childrens bounding box
+        cbb = m_cascadeBoundingBox;
+    }
+    else
+    {
+        cbb = boundingBox();
+        if (m_pParent != NULL)
+        {
+            cbb = CCRectApplyAffineTransform(cbb, m_pParent->nodeToWorldTransform());
+        }
+    }
+    return cbb;
+}
+
 CCBone *CCArmature::getBoneAtPoint(float x, float y)
 {
     int length = m_pChildren->data->num;
