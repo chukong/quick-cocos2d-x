@@ -266,9 +266,18 @@ end
 function ccsloader:loadTexture(json)
 	-- cc.FileUtils:getInstance():addSearchPath("res/")
 
+	local png
 	for i,v in ipairs(json.textures) do
 		self.bUseTexture = true
-		display.addSpriteFrames(v, json.texturesPng[i])
+		if json.texturesPng then
+			png = json.texturesPng[i]
+		end
+		if not png then
+			png = io.pathinfo(json.textures[i]).basename .. ".png"
+		end
+		if png then
+			display.addSpriteFrames(v, png)
+		end
 	end
 
 end
