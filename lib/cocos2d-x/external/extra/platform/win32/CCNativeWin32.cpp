@@ -1,4 +1,3 @@
-
 #include "platform/win32/CCNativeWin32.h"
 #include "platform/win32/CCNativeWin32def.h"
 #include "CCEGLView.h"

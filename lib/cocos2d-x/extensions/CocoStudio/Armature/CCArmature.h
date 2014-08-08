@@ -120,6 +120,8 @@ public:
      */
     virtual CCRect boundingBox();
 
+    virtual CCRect getCascadeBoundingBox(void);
+
     CCBone *getBoneAtPoint(float x, float y);
 
     virtual void visit();
