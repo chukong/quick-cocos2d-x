@@ -197,7 +197,7 @@ function UIButton:onChangeState_(event)
     end
 end
 
-function UIButton:onTouch_(event, x, y)
+function UIButton:onTouch_(event)
     printError("UIButton:onTouch_() - must override in inherited class")
 end
 
