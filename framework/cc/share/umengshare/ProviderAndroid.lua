@@ -94,7 +94,13 @@ function ProviderAndroid:shareText(text)
 end
 
 function ProviderAndroid:shareImg(text, img)
-    local ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareImg", {text, img})
+    local ok
+    if nil == text then
+        ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareImg", {img})
+    else
+        ok = luaj.callStaticMethod(SDK_CLASS_NAME, "shareImg", {text, img})
+    end
+
     if not ok then
         printError("cc.push.ProviderAndroid:shareImg() - call shareImg failed.")
         return false
