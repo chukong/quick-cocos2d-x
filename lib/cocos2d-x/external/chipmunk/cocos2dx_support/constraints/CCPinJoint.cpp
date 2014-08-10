@@ -1,3 +1,8 @@
+/**
+* desc: declare all joint type
+* author: dongxurr123@gmail.com/163.com
+* create date:2014-08-03
+**/
 #include "CCJoint.h"
 
 CCPinJoint::CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB) : CCJoint(world, bodyA, bodyB, PIN_JOINT)
@@ -46,9 +51,6 @@ void CCPinJoint::setDist(cpFloat dist)
 
 void CCPinJoint::breakJoint()
 {
-	this->bodyA->removeJoint(this);
-	this->bodyB->removeJoint(this);
-	this->bodyA = NULL;
-	this->bodyB = NULL;
+	CCJoint::breakJoint();
 	this->release();
 }

@@ -1,3 +1,8 @@
+/**
+* desc: declare all joint type
+* author: dongxurr123@gmail.com/163.com
+* create date:2014-08-03
+**/
 #ifndef __CC_JOINT_H_
 #define __CC_JOINT_H_
 #include "cocos2d.h"
@@ -8,8 +13,6 @@
 #include "script_support/CCScriptSupport.h"
 
 using namespace cocos2d;
-
-#define MAX_JOINT 1024
 
 enum JointType
 {
@@ -30,7 +33,7 @@ public:
 	
 	virtual JointType getJointType() = 0;
 	virtual cpConstraint *getConstraint() = 0;
-	virtual void breakJoint() = 0;
+	virtual void breakJoint();
 
 protected:
 	CCPhysicsWorld *world;

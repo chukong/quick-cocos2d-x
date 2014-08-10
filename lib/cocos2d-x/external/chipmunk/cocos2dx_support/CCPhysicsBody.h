@@ -137,6 +137,8 @@ public:
     virtual void update(float dt);
 
 	// joints management
+	static const unsigned int MAX_JOINT = 1024;
+
 	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
 #if CC_LUA_ENGINE_ENABLED > 0
 	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, int vertexes);

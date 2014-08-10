@@ -612,9 +612,11 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVecto
 			// body contains non joint of otherBody already
 			if (joint->getJointType() != PIN_JOINT)
 			{
-				throw "two body has already contains a joint of non-pinJoint";
+				char errMsg[80];
+				sprintf(errMsg, "two body has already contains a joint of non-pinJoint, jointType:%d", joint->getJointType());
+				CCAssert(joint->getJointType() == PIN_JOINT, errMsg);
 			}
-			// body contains pin joint of otherBody already
+			// this body contains pin joint of otherBody already
 			else if ((bodyA == otherBody || bodyB == otherBody) && joint->getJointType() == PIN_JOINT)
 			{
 				return (CCPinJoint*)joint;
@@ -629,8 +631,15 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVecto
 
 void CCPhysicsBody::addJoint(CCJoint *joint)
 {
+	if (this->m_joints->count() >= MAX_JOINT)
+	{
+		char errMsg[80];
+		sprintf(errMsg, "body's joints count reach the MAX_JOINT:%d", MAX_JOINT);
+		CCAssert(this->m_joints->count() < MAX_JOINT, errMsg);
+	}
+	
 	unsigned int index = this->m_joints->indexOfObject(joint);
-	if (index >= UINT_MAX && this->m_joints->count() <= MAX_JOINT)
+	if (index >= UINT_MAX) // means this joint is not in m_joints
 	{
 		this->m_joints->addObject(joint);
 	}
