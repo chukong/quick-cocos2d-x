@@ -548,6 +548,7 @@ void CCPhysicsBody::removeSelf(bool unbindNow/*= true*/)
 {
 	if (unbindNow) unbind();
     removeAllShape();
+	breakAllJoints();
 	m_world->removeBody(this);
 }
 
@@ -576,12 +577,12 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody)
 	{
 		return NULL;
 	}
-	cpVect bodyAVect = cpv(this->getPositionX(), this->getPositionY());
-	cpVect bodyBVect = cpv(otherBody->getPositionX(), otherBody->getPositionY());
+	CCPhysicsVector *bodyAVect = CCPhysicsVector::create(0, 0);
+	CCPhysicsVector *bodyBVect = CCPhysicsVector::create(0, 0);
 	return this->pinJointWith(otherBody, bodyAVect, bodyBVect);
 }
 #if CC_LUA_ENGINE_ENABLED > 0
-CCPinJoint *CCPhysicsBody::pinJointWith(int vertexes, CCPhysicsBody *otherBody)
+CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, int vertexes)
 {
 	if (otherBody == NULL)
 	{
@@ -593,12 +594,12 @@ CCPinJoint *CCPhysicsBody::pinJointWith(int vertexes, CCPhysicsBody *otherBody)
 		return NULL;
 	}
 	cpVect *vects = cpVertexes->data();
-	return this->pinJointWith(otherBody, vects[0], vects[1]);
+	return this->pinJointWith(otherBody, CCPhysicsVector::create(vects[0]), CCPhysicsVector::create(vects[1]));
 }
 #endif
-CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2)
+CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2)
 {
-	if (otherBody == this) {
+	if ( otherBody == NULL || otherBody == this) {
 		return NULL;
 	}
 	for (int i = m_joints->count() - 1; i >= 0; --i)
@@ -620,7 +621,7 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, 
 			}
 		}
 	}
-	CCPinJoint *pinJoint = new CCPinJoint(this, otherBody, arch1, arch2);
+	CCPinJoint *pinJoint = new CCPinJoint(this->m_world, this, otherBody, arch1->getVector(), arch2->getVector());
 	this->addJoint(pinJoint);
 	otherBody->addJoint(pinJoint);
 	return pinJoint;
@@ -628,45 +629,53 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, 
 
 void CCPhysicsBody::addJoint(CCJoint *joint)
 {
-	this->m_joints->addObject(joint);
-}
-
-void CCPhysicsBody::doRemoveJoint(CCJoint *joint)
-{
 	unsigned int index = this->m_joints->indexOfObject(joint);
-	if (index >= 0 &&  index < this->m_joints->count())
+	if (index >= UINT_MAX && this->m_joints->count() <= MAX_JOINT)
 	{
-		this->m_joints->removeObjectAtIndex(index);
+		this->m_joints->addObject(joint);
 	}
 }
 
 void CCPhysicsBody::removeJoint(CCJoint *joint)
 {
-	CCPhysicsBody *bodyA = joint->getBodyA();
-	CCPhysicsBody *bodyB = joint->getBodyB();
-	if (this == bodyA)
+	unsigned int index = this->m_joints->indexOfObject(joint);
+	if (index < this->m_joints->count())
 	{
-		bodyB->doRemoveJoint(joint);
+		this->m_joints->removeObjectAtIndex(index);
 	}
-	else if (this == bodyB)
-	{
-		bodyA->doRemoveJoint(joint);
-	}
-	else
-	{
-		return;
-	}
-	this->doRemoveJoint(joint);
-	delete joint;
 }
 
+void CCPhysicsBody::breakAllJoints(void)
+{
+	unsigned int count = this->m_joints->count();
+	count = count <= MAX_JOINT ? count : MAX_JOINT;
+	vector<CCJoint*> tmpJoints;
+	for (unsigned int i = 0; i < count; i++)
+	{
+		CCJoint* joint = static_cast<CCJoint*>(this->m_joints->objectAtIndex(i));
+		if (joint != NULL)
+		{
+			tmpJoints.push_back(joint);
+		}
+	}
+	vector<CCJoint*>::iterator p;
+	p = tmpJoints.begin();
+	for (; p != tmpJoints.end(); p++)
+	{
+		(*p)->breakJoint();
+	}
+	tmpJoints.clear();
+}
 
-void CCPhysicsBody::removeAllJoints(void)
+void CCPhysicsBody::breakJointByType(JointType jointType)
 {
 	unsigned int count = this->m_joints->count();
 	for (unsigned int i = 0; i < count; i++)
 	{
-		this->removeJoint((CCJoint*)this->m_joints->objectAtIndex(i));
+		CCJoint* joint = static_cast<CCJoint*>(this->m_joints->objectAtIndex(i));
+		if (joint != NULL && joint->getJointType() == jointType) {
+			joint->breakJoint();
+		}
 	}
 }
 

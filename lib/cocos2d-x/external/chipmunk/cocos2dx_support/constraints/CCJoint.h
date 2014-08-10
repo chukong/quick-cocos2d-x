@@ -4,9 +4,12 @@
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
 #include "CCPhysicsBody.h"
+#include "CCPhysicsWorld.h"
 #include "script_support/CCScriptSupport.h"
 
 using namespace cocos2d;
+
+#define MAX_JOINT 1024
 
 enum JointType
 {
@@ -15,10 +18,11 @@ enum JointType
 	SLIDE_JOINT = 2
 };
 
-class CCJoint : public CCNode
+class CCJoint: public CCObject
 {
 public:
-	CCJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, JointType jointType);
+
+	CCJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, JointType jointType);
 	virtual ~CCJoint();
 	
 	CCPhysicsBody *getBodyA();
@@ -26,8 +30,10 @@ public:
 	
 	virtual JointType getJointType() = 0;
 	virtual cpConstraint *getConstraint() = 0;
+	virtual void breakJoint() = 0;
 
 protected:
+	CCPhysicsWorld *world;
 	CCPhysicsBody *bodyA;
 	CCPhysicsBody *bodyB;
 	
@@ -37,8 +43,8 @@ protected:
 class CCPinJoint : public CCJoint
 {
 public:
-	CCPinJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB);
-	CCPinJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB);
+	CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB);
+	CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB);
 	~CCPinJoint();
 
 	cpFloat getDist();
@@ -46,6 +52,7 @@ public:
 
 	JointType getJointType();
 	cpConstraint *getConstraint();
+	void breakJoint();
 private:
 	cpPinJoint *m_pinJoint;
 };

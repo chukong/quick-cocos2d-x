@@ -151,15 +151,11 @@ class CCPhysicsBody : public CCObject
 
     // joints management
     CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
-    CCPinJoint *pinJointWith(int vertexes, CCPhysicsBody *otherBody);
-    CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2);
-
-    // do remove do the remove action
-    void doRemoveJoint(CCJoint *joint);
-    // remove do the external action and call the doRemoveJoint
-    void removeJoint(CCJoint *joint);
-    void removeAllJoints(void);
-
+    CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, int vertexes);
+    CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2);
+    void breakAllJoints(void);
+    void breakJointByType(JointType jointType);
+    
     // cleanup
     void removeSelf(bool unbind = true);
 };
@@ -189,14 +185,14 @@ enum JointType
     PIN_JOINT = 1,
     SLIDE_JOINT = 2,
 };
-class CCJoint : public CCNode
+class CCJoint: public CCObject
 {
     CCPhysicsBody *getBodyA();
     CCPhysicsBody *getBodyB();
-
     JointType getJointType();
     cpConstraint *getConstraint();
-};
+    void breakJoint();
+}
 class CCPinJoint : public CCJoint
 {
     cpFloat getDist();
@@ -204,6 +200,7 @@ class CCPinJoint : public CCJoint
     
     JointType getJointType();
     cpConstraint *getConstraint();
+    void breakJoint();
 };
 
 class CCPhysicsDebugNode : public CCNode

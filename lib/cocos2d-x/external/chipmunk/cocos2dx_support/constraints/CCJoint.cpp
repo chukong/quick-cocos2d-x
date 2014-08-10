@@ -1,7 +1,7 @@
 #include "CCJoint.h"
 
 
-CCJoint::CCJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, JointType jointType) :bodyA(bodyA), bodyB(bodyB), jointType(jointType)
+CCJoint::CCJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, JointType jointType) :world(world), bodyA(bodyA), bodyB(bodyB), jointType(jointType)
 {
 }
 

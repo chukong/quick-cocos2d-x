@@ -1,26 +1,26 @@
 #include "CCJoint.h"
 
-CCPinJoint::CCPinJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB) : CCJoint(bodyA, bodyB, PIN_JOINT)
+CCPinJoint::CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB) : CCJoint(world, bodyA, bodyB, PIN_JOINT)
 {
-	this->m_pinJoint = (cpPinJoint *)cpPinJointNew(bodyA->getBody(), bodyB->getBody(), vectOfBodyA, vectOfBodyB);
+	this->m_pinJoint = (cpPinJoint *)cpSpaceAddConstraint(world->getSpace(), 
+		cpPinJointNew(bodyA->getBody(), bodyB->getBody(), vectOfBodyA, vectOfBodyB));
 }
 
-CCPinJoint::CCPinJoint(CCPhysicsBody *bodyA, CCPhysicsBody *bodyB) : CCJoint(bodyA, bodyB, PIN_JOINT)
+CCPinJoint::CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB) : CCJoint(world, bodyA, bodyB, PIN_JOINT)
 {
 	float bodyAPosX = bodyA->getPositionX();
 	float bodyAPosY = bodyA->getPositionY();
 
 	float bodyBPosX = bodyB->getPositionX();
 	float bodyBPosY = bodyB->getPositionY();
-
-	this->m_pinJoint = (cpPinJoint *)cpPinJointNew(bodyA->getBody(), bodyB->getBody(), cpv(bodyAPosX, bodyAPosY), cpv(bodyBPosX, bodyBPosY));
+	this->m_pinJoint = (cpPinJoint *)cpSpaceAddConstraint(world->getSpace(), 
+		cpPinJointNew(bodyA->getBody(), bodyB->getBody(), cpv(bodyAPosX, bodyAPosY), cpv(bodyBPosX, bodyBPosY)));
 }
 
 
 CCPinJoint::~CCPinJoint()
-{
-	this->bodyA->removeJoint(this);
-	this->bodyB->removeJoint(this);
+{//TODO die here
+	cpSpaceRemoveConstraint(this->world->getSpace(), (cpConstraint*)this->m_pinJoint);
 	cpConstraintFree((cpConstraint*)this->m_pinJoint);
 }
 
@@ -42,4 +42,13 @@ cpFloat CCPinJoint::getDist()
 void CCPinJoint::setDist(cpFloat dist)
 {
 	cpPinJointSetDist((cpConstraint*)this->m_pinJoint, dist);
+}
+
+void CCPinJoint::breakJoint()
+{
+	this->bodyA->removeJoint(this);
+	this->bodyB->removeJoint(this);
+	this->bodyA = NULL;
+	this->bodyB = NULL;
+	this->release();
 }

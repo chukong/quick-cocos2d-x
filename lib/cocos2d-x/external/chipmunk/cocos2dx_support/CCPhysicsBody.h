@@ -3,6 +3,7 @@
 #define __CCPHYSICS_BODY_H_
 
 #include <string>
+#include <vector>
 #include "cocos2d.h"
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
@@ -15,6 +16,7 @@ class CCPhysicsWorld;
 class CCPhysicsShape;
 class CCJoint;
 class CCPinJoint;
+enum JointType;
 
 class CCPhysicsBody : public CCObject
 {
@@ -124,34 +126,30 @@ public:
     CCPhysicsShape *addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);
 
-	// joints management
-	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
-#if CC_LUA_ENGINE_ENABLED > 0
-	CCPinJoint *pinJointWith(int vertexes, CCPhysicsBody *otherBody);
-#endif
-	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, cpVect arch1, cpVect arch2);
-
-#if CC_LUA_ENGINE_ENABLED > 0
-    CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
-#endif
-    
     void removeShapeAtIndex(unsigned int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
-
-	// do remove do the remove action
-	void doRemoveJoint(CCJoint *joint);
-	// remove do the external action and call the doRemoveJoint
-	void removeJoint(CCJoint *joint);
-	void removeAllJoints(void);
-
 
 	// cleanup
 	void removeSelf(bool unbindNow = true);
     
     // delegate
     virtual void update(float dt);
-    
+
+	// joints management
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
+#if CC_LUA_ENGINE_ENABLED > 0
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, int vertexes);
+#endif
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2);
+
+#if CC_LUA_ENGINE_ENABLED > 0
+	CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
+#endif
+
+	void breakAllJoints(void);
+	void breakJointByType(JointType jointType);
+
 private:
     CCPhysicsBody(CCPhysicsWorld *world);
     bool initWithDefaultStaticBody(void);
@@ -171,8 +169,12 @@ private:
 
     // helper
     CCPhysicsShape *addShape(cpShape *shape);
+	friend class CCJoint;
+	friend class CCPinJoint;
 
+	// remove joint data
 	void addJoint(CCJoint *joint);
+	void removeJoint(CCJoint *joint);
 };
 
 #endif // __CCPHYSICS_BODY_H_

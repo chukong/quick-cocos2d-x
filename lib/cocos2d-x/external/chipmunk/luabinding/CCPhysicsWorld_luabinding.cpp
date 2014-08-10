@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CCPhysicsWorld_luabinding
-** Generated automatically by tolua++-1.0.92 on 08/08/14 00:17:27.
+** Generated automatically by tolua++-1.0.92 on 08/10/14 01:35:12.
 */
 
 #include "CCPhysicsWorld_luabinding.h"
@@ -46,7 +46,6 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"CCArray"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCArray)), "CCArray");
  tolua_usertype(tolua_S,"CCPhysicsWorld"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPhysicsWorld)), "CCPhysicsWorld");
  tolua_usertype(tolua_S,"CCPointArray"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPointArray)), "CCPointArray");
- tolua_usertype(tolua_S,"cpConstraint"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(cpConstraint)), "cpConstraint");
  tolua_usertype(tolua_S,"CCPhysicsCollisionEvent"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPhysicsCollisionEvent)), "CCPhysicsCollisionEvent");
  tolua_usertype(tolua_S,"CCJoint"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCJoint)), "CCJoint");
  tolua_usertype(tolua_S,"CCPhysicsBody"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPhysicsBody)), "CCPhysicsBody");
@@ -54,7 +53,7 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"cpFloat"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(cpFloat)), "cpFloat");
  
  tolua_usertype(tolua_S,"CCObject"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCObject)), "CCObject");
- tolua_usertype(tolua_S,"cpVect"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(cpVect)), "cpVect");
+ tolua_usertype(tolua_S,"cpConstraint"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(cpConstraint)), "cpConstraint");
  tolua_usertype(tolua_S,"CCPhysicsShape"); toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCPhysicsShape)), "CCPhysicsShape");
 }
 
@@ -3342,21 +3341,21 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_pinJointWith01(lua_Stat
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,3,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,2,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,4,&tolua_err)
  )
   goto tolua_lerror;
  else
  {
   CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
-  int vertexes = ((int)  tolua_tonumber(tolua_S,2,0));
-  CCPhysicsBody* otherBody = ((CCPhysicsBody*)  tolua_tousertype(tolua_S,3,0));
+  CCPhysicsBody* otherBody = ((CCPhysicsBody*)  tolua_tousertype(tolua_S,2,0));
+  int vertexes = ((int)  tolua_tonumber(tolua_S,3,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pinJointWith'", NULL);
 #endif
   {
-   CCPinJoint* tolua_ret = (CCPinJoint*)  self->pinJointWith(vertexes,otherBody);
+   CCPinJoint* tolua_ret = (CCPinJoint*)  self->pinJointWith(otherBody,vertexes);
     tolua_pushusertype(tolua_S,(void*)tolua_ret,"CCPinJoint");
   }
  }
@@ -3374,8 +3373,8 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_pinJointWith02(lua_Stat
  if (
      !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
      !tolua_isusertype(tolua_S,2,"CCPhysicsBody",0,&tolua_err) ||
-     (tolua_isvaluenil(tolua_S,3,&tolua_err) || !tolua_isusertype(tolua_S,3,"cpVect",0,&tolua_err)) ||
-     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !tolua_isusertype(tolua_S,4,"cpVect",0,&tolua_err)) ||
+     !tolua_isusertype(tolua_S,3,"CCPhysicsVector",0,&tolua_err) ||
+     !tolua_isusertype(tolua_S,4,"CCPhysicsVector",0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,5,&tolua_err)
  )
   goto tolua_lerror;
@@ -3383,8 +3382,8 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_pinJointWith02(lua_Stat
  {
   CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
   CCPhysicsBody* otherBody = ((CCPhysicsBody*)  tolua_tousertype(tolua_S,2,0));
-  cpVect arch1 = *((cpVect*)  tolua_tousertype(tolua_S,3,0));
-  cpVect arch2 = *((cpVect*)  tolua_tousertype(tolua_S,4,0));
+  CCPhysicsVector* arch1 = ((CCPhysicsVector*)  tolua_tousertype(tolua_S,3,0));
+  CCPhysicsVector* arch2 = ((CCPhysicsVector*)  tolua_tousertype(tolua_S,4,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'pinJointWith'", NULL);
 #endif
@@ -3399,75 +3398,9 @@ tolua_lerror:
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: doRemoveJoint of class  CCPhysicsBody */
-#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_doRemoveJoint00
-static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_doRemoveJoint00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"CCJoint",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
-  CCJoint* joint = ((CCJoint*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'doRemoveJoint'", NULL);
-#endif
-  {
-   self->doRemoveJoint(joint);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'doRemoveJoint'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: removeJoint of class  CCPhysicsBody */
-#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeJoint00
-static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeJoint00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
-     !tolua_isusertype(tolua_S,2,"CCJoint",0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
-  CCJoint* joint = ((CCJoint*)  tolua_tousertype(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeJoint'", NULL);
-#endif
-  {
-   self->removeJoint(joint);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeJoint'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* method: removeAllJoints of class  CCPhysicsBody */
-#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeAllJoints00
-static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeAllJoints00(lua_State* tolua_S)
+/* method: breakAllJoints of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_breakAllJoints00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_breakAllJoints00(lua_State* tolua_S)
 {
 #ifndef TOLUA_RELEASE
  tolua_Error tolua_err;
@@ -3481,16 +3414,49 @@ static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeAllJoints00(lua_S
  {
   CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
 #ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'removeAllJoints'", NULL);
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'breakAllJoints'", NULL);
 #endif
   {
-   self->removeAllJoints();
+   self->breakAllJoints();
   }
  }
  return 0;
 #ifndef TOLUA_RELEASE
  tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'removeAllJoints'.",&tolua_err);
+ tolua_error(tolua_S,"#ferror in function 'breakAllJoints'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: breakJointByType of class  CCPhysicsBody */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_breakJointByType00
+static int tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_breakJointByType00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPhysicsBody",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPhysicsBody* self = (CCPhysicsBody*)  tolua_tousertype(tolua_S,1,0);
+  JointType jointType = ((JointType) (int)  tolua_tonumber(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'breakJointByType'", NULL);
+#endif
+  {
+   self->breakJointByType(jointType);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'breakJointByType'.",&tolua_err);
  return 0;
 #endif
 }
@@ -4051,6 +4017,37 @@ static int tolua_CCPhysicsWorld_luabinding_CCJoint_getConstraint00(lua_State* to
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: breakJoint of class  CCJoint */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCJoint_breakJoint00
+static int tolua_CCPhysicsWorld_luabinding_CCJoint_breakJoint00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCJoint",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCJoint* self = (CCJoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'breakJoint'", NULL);
+#endif
+  {
+   self->breakJoint();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'breakJoint'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getDist of class  CCPinJoint */
 #ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPinJoint_getDist00
 static int tolua_CCPhysicsWorld_luabinding_CCPinJoint_getDist00(lua_State* tolua_S)
@@ -4185,6 +4182,37 @@ static int tolua_CCPhysicsWorld_luabinding_CCPinJoint_getConstraint00(lua_State*
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'getConstraint'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: breakJoint of class  CCPinJoint */
+#ifndef TOLUA_DISABLE_tolua_CCPhysicsWorld_luabinding_CCPinJoint_breakJoint00
+static int tolua_CCPhysicsWorld_luabinding_CCPinJoint_breakJoint00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCPinJoint",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCPinJoint* self = (CCPinJoint*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'breakJoint'", NULL);
+#endif
+  {
+   self->breakJoint();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'breakJoint'.",&tolua_err);
  return 0;
 #endif
 }
@@ -5958,9 +5986,8 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"pinJointWith",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_pinJointWith00);
    tolua_function(tolua_S,"pinJointWith",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_pinJointWith01);
    tolua_function(tolua_S,"pinJointWith",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_pinJointWith02);
-   tolua_function(tolua_S,"doRemoveJoint",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_doRemoveJoint00);
-   tolua_function(tolua_S,"removeJoint",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeJoint00);
-   tolua_function(tolua_S,"removeAllJoints",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeAllJoints00);
+   tolua_function(tolua_S,"breakAllJoints",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_breakAllJoints00);
+   tolua_function(tolua_S,"breakJointByType",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_breakJointByType00);
    tolua_function(tolua_S,"removeSelf",tolua_CCPhysicsWorld_luabinding_CCPhysicsBody_removeSelf00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCPhysicsShape","CCPhysicsShape","CCObject",NULL);
@@ -5981,12 +6008,13 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"UNKNOWN",UNKNOWN);
   tolua_constant(tolua_S,"PIN_JOINT",PIN_JOINT);
   tolua_constant(tolua_S,"SLIDE_JOINT",SLIDE_JOINT);
-  tolua_cclass(tolua_S,"CCJoint","CCJoint","CCNode",NULL);
+  tolua_cclass(tolua_S,"CCJoint","CCJoint","CCObject",NULL);
   tolua_beginmodule(tolua_S,"CCJoint");
    tolua_function(tolua_S,"getBodyA",tolua_CCPhysicsWorld_luabinding_CCJoint_getBodyA00);
    tolua_function(tolua_S,"getBodyB",tolua_CCPhysicsWorld_luabinding_CCJoint_getBodyB00);
    tolua_function(tolua_S,"getJointType",tolua_CCPhysicsWorld_luabinding_CCJoint_getJointType00);
    tolua_function(tolua_S,"getConstraint",tolua_CCPhysicsWorld_luabinding_CCJoint_getConstraint00);
+   tolua_function(tolua_S,"breakJoint",tolua_CCPhysicsWorld_luabinding_CCJoint_breakJoint00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCPinJoint","CCPinJoint","CCJoint",NULL);
   tolua_beginmodule(tolua_S,"CCPinJoint");
@@ -5994,6 +6022,7 @@ TOLUA_API int tolua_CCPhysicsWorld_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setDist",tolua_CCPhysicsWorld_luabinding_CCPinJoint_setDist00);
    tolua_function(tolua_S,"getJointType",tolua_CCPhysicsWorld_luabinding_CCPinJoint_getJointType00);
    tolua_function(tolua_S,"getConstraint",tolua_CCPhysicsWorld_luabinding_CCPinJoint_getConstraint00);
+   tolua_function(tolua_S,"breakJoint",tolua_CCPhysicsWorld_luabinding_CCPinJoint_breakJoint00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCPhysicsDebugNode","CCPhysicsDebugNode","CCNode",NULL);
   tolua_beginmodule(tolua_S,"CCPhysicsDebugNode");
