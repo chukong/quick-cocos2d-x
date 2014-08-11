@@ -17,6 +17,8 @@ CCJoint::CCJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bod
 
 CCJoint::~CCJoint()
 {
+	cpSpaceRemoveConstraint(this->world->getSpace(), this->m_constraint);
+	cpConstraintFree(this->m_constraint);
 }
 
 
@@ -36,9 +38,15 @@ void CCJoint::breakJoint()
 	this->bodyB->removeJoint(this);
 	this->bodyA = NULL;
 	this->bodyB = NULL;
+	this->release();
 }
 
 JointType CCJoint::getJointType()
 {
 	return this->jointType;
+}
+
+cpConstraint *CCJoint::getConstraint()
+{
+	return this->m_constraint;
 }

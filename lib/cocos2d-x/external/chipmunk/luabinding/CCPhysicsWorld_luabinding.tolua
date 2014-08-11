@@ -153,6 +153,13 @@ class CCPhysicsBody : public CCObject
     CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
     CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, int vertexes);
     CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2);
+
+    CCDampedSpringJoint *dampedSpringWith(CCPhysicsBody *otherBody,
+        float restLength, float stiffness = 0, float damping = 0);
+
+    CCDampedSpringJoint *dampedSpringWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2,
+        float restLength, float stiffness = 0, float damping = 0);
+
     void breakAllJoints(void);
     void breakJointByType(JointType jointType);
     
@@ -197,10 +204,9 @@ class CCPinJoint : public CCJoint
 {
     cpFloat getDist();
     void setDist(cpFloat dist);
-    
-    JointType getJointType();
-    cpConstraint *getConstraint();
-    void breakJoint();
+};
+class CCDampedSpringJoint : public CCJoint
+{
 };
 
 class CCPhysicsDebugNode : public CCNode

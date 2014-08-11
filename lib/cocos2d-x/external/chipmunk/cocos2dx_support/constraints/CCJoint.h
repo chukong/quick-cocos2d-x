@@ -18,7 +18,8 @@ enum JointType
 {
 	UNKNOWN = 0,
 	PIN_JOINT = 1,
-	SLIDE_JOINT = 2
+	SLIDE_JOINT = 2,
+	DAMPED_SPRING = 5,
 };
 
 class CCJoint: public CCObject
@@ -30,9 +31,9 @@ public:
 	
 	CCPhysicsBody *getBodyA();
 	CCPhysicsBody *getBodyB();
-	
-	virtual JointType getJointType() = 0;
-	virtual cpConstraint *getConstraint() = 0;
+
+	virtual cpConstraint *getConstraint();
+	virtual JointType getJointType();
 	virtual void breakJoint();
 
 protected:
@@ -40,6 +41,7 @@ protected:
 	CCPhysicsBody *bodyA;
 	CCPhysicsBody *bodyB;
 	
+	cpConstraint *m_constraint;
 	JointType jointType;
 };
 
@@ -47,17 +49,20 @@ class CCPinJoint : public CCJoint
 {
 public:
 	CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB);
-	CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB);
 	~CCPinJoint();
 
 	cpFloat getDist();
 	void setDist(cpFloat dist);
+};
 
-	JointType getJointType();
-	cpConstraint *getConstraint();
-	void breakJoint();
-private:
-	cpPinJoint *m_pinJoint;
+class CCDampedSpringJoint : public CCJoint
+{
+public:
+	CCDampedSpringJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB,
+		cpVect vectOfBodyA, cpVect vectOfBodyB,
+		cpFloat restLength, cpFloat stiffness, cpFloat damping);
+
+	~CCDampedSpringJoint();
 };
 #endif
 

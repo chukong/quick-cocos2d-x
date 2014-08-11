@@ -16,6 +16,7 @@ class CCPhysicsWorld;
 class CCPhysicsShape;
 class CCJoint;
 class CCPinJoint;
+class CCDampedSpringJoint;
 enum JointType;
 
 class CCPhysicsBody : public CCObject
@@ -136,7 +137,7 @@ public:
     // delegate
     virtual void update(float dt);
 
-	// joints management
+	// joints management start
 	static const unsigned int MAX_JOINT = 1024;
 
 	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
@@ -145,6 +146,13 @@ public:
 #endif
 	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2);
 
+	CCDampedSpringJoint *dampedSpringWith(CCPhysicsBody *otherBody,
+		cpFloat restLength, cpFloat stiffness=0, cpFloat damping=0);
+
+	CCDampedSpringJoint *dampedSpringWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2,
+		cpFloat restLength, cpFloat stiffness = 0, cpFloat damping = 0);
+
+	// joints management end
 #if CC_LUA_ENGINE_ENABLED > 0
 	CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
 #endif
@@ -172,11 +180,12 @@ private:
     // helper
     CCPhysicsShape *addShape(cpShape *shape);
 	friend class CCJoint;
-	friend class CCPinJoint;
 
 	// remove joint data
 	void addJoint(CCJoint *joint);
 	void removeJoint(CCJoint *joint);
+
+	CCJoint *checkJointWith(CCPhysicsBody *otherBody, JointType type);
 };
 
 #endif // __CCPHYSICS_BODY_H_

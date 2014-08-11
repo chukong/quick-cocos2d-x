@@ -573,10 +573,6 @@ void CCPhysicsBody::update(float dt)
 
 CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody)
 {
-	if (otherBody == NULL)
-	{
-		return NULL;
-	}
 	CCPhysicsVector *bodyAVect = CCPhysicsVector::create(0, 0);
 	CCPhysicsVector *bodyBVect = CCPhysicsVector::create(0, 0);
 	return this->pinJointWith(otherBody, bodyAVect, bodyBVect);
@@ -584,10 +580,6 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody)
 #if CC_LUA_ENGINE_ENABLED > 0
 CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, int vertexes)
 {
-	if (otherBody == NULL)
-	{
-		return NULL;
-	}
 	CCPhysicsVectorArray *cpVertexes = CCPhysicsVectorArray::createFromLuaTable(vertexes);
 	if (cpVertexes == NULL || cpVertexes->count() != 2)
 	{
@@ -599,34 +591,39 @@ CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, int vertexes)
 #endif
 CCPinJoint *CCPhysicsBody::pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2)
 {
-	if ( otherBody == NULL || otherBody == this) {
-		return NULL;
-	}
-	for (int i = m_joints->count() - 1; i >= 0; --i)
+	CCJoint* joint = this->checkJointWith(otherBody, PIN_JOINT);
+	if (joint != NULL)
 	{
-		CCJoint* joint =  static_cast<CCJoint*>(m_joints->objectAtIndex(i));
-		CCPhysicsBody *bodyA = joint->getBodyA();
-		CCPhysicsBody *bodyB = joint->getBodyB();
-		if (bodyA != NULL && bodyB != NULL )
-		{
-			// body contains non joint of otherBody already
-			if (joint->getJointType() != PIN_JOINT)
-			{
-				char errMsg[80];
-				sprintf(errMsg, "two body has already contains a joint of non-pinJoint, jointType:%d", joint->getJointType());
-				CCAssert(joint->getJointType() == PIN_JOINT, errMsg);
-			}
-			// this body contains pin joint of otherBody already
-			else if ((bodyA == otherBody || bodyB == otherBody) && joint->getJointType() == PIN_JOINT)
-			{
-				return (CCPinJoint*)joint;
-			}
-		}
+		return (CCPinJoint*)joint;
 	}
 	CCPinJoint *pinJoint = new CCPinJoint(this->m_world, this, otherBody, arch1->getVector(), arch2->getVector());
 	this->addJoint(pinJoint);
 	otherBody->addJoint(pinJoint);
 	return pinJoint;
+}
+
+CCDampedSpringJoint *CCPhysicsBody::dampedSpringWith(CCPhysicsBody *otherBody,
+	cpFloat restLength, cpFloat stiffness, cpFloat damping)
+{
+	CCPhysicsVector *bodyAVect = CCPhysicsVector::create(0, 0);
+	CCPhysicsVector *bodyBVect = CCPhysicsVector::create(0, 0);
+	return this->dampedSpringWith(otherBody, bodyAVect, bodyBVect, restLength, stiffness, damping);
+}
+
+CCDampedSpringJoint *CCPhysicsBody::dampedSpringWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2,
+	cpFloat restLength, cpFloat stiffness, cpFloat damping)
+{
+	CCJoint* joint = this->checkJointWith(otherBody, PIN_JOINT);
+	if (joint != NULL)
+	{
+		return (CCDampedSpringJoint*)joint;
+	}
+	CCDampedSpringJoint *dampedSpringJoint = new CCDampedSpringJoint(this->m_world, this, otherBody, 
+		arch1->getVector(), arch2->getVector(), 
+		restLength, stiffness, damping);
+	this->addJoint(dampedSpringJoint);
+	otherBody->addJoint(dampedSpringJoint);
+	return dampedSpringJoint;
 }
 
 void CCPhysicsBody::addJoint(CCJoint *joint)
@@ -637,7 +634,6 @@ void CCPhysicsBody::addJoint(CCJoint *joint)
 		sprintf(errMsg, "body's joints count reach the MAX_JOINT:%d", MAX_JOINT);
 		CCAssert(this->m_joints->count() < MAX_JOINT, errMsg);
 	}
-	
 	unsigned int index = this->m_joints->indexOfObject(joint);
 	if (index >= UINT_MAX) // means this joint is not in m_joints
 	{
@@ -686,6 +682,38 @@ void CCPhysicsBody::breakJointByType(JointType jointType)
 			joint->breakJoint();
 		}
 	}
+}
+
+CCJoint *CCPhysicsBody::checkJointWith(CCPhysicsBody *otherBody, JointType type)
+{
+	CCAssert(otherBody != NULL, "joint with NULL");
+	CCAssert(otherBody != this, "body can't joint with itself");
+
+	for (int i = m_joints->count() - 1; i >= 0; --i)
+	{
+		CCJoint* joint = static_cast<CCJoint*>(m_joints->objectAtIndex(i));
+		CCPhysicsBody *bodyA = joint->getBodyA();
+		CCPhysicsBody *bodyB = joint->getBodyB();
+		if (bodyA != NULL && bodyB != NULL)
+		{
+			// this body contains proper type of joint with otherBody already
+			if ((bodyA == otherBody || bodyB == otherBody))
+			{
+				if (joint->getJointType() == type)
+				{
+					return joint;
+				}
+				else
+				{
+					// body contains other joint of otherBody already
+					char errMsg[80];
+					sprintf(errMsg, "two body has already contains a joint of another type:%d", joint->getJointType());
+					CCAssert(joint->getJointType() == type, errMsg);
+				}
+			}
+		}
+	}
+	return NULL;
 }
 
 CCPhysicsShape *CCPhysicsBody::addShape(cpShape *shape)
