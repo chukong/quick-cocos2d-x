@@ -3,15 +3,20 @@
 #define __CCPHYSICS_BODY_H_
 
 #include <string>
+#include <vector>
 #include "cocos2d.h"
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
+#include "constraints/CCJoint.h"
 
 using namespace std;
 using namespace cocos2d;
 
 class CCPhysicsWorld;
 class CCPhysicsShape;
+class CCJoint;
+class CCPinJoint;
+enum JointType;
 
 class CCPhysicsBody : public CCObject
 {
@@ -115,27 +120,38 @@ public:
     // shapes management
     CCPhysicsShape *addSegmentShape(const CCPoint lowerLeft, const CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
-	// original: CCPhysicsShape *addBoxShape(float width, float height);
 	CCPhysicsShape *addBoxShape(float width, float height, float offsetX = 0, float offsetY = 0);
 
-	//CCPhysicsShape *addBoxShapeWithOffset(float width, float height, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);
-#if CC_LUA_ENGINE_ENABLED > 0
-    CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
-#endif
-    
+
     void removeShapeAtIndex(unsigned int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
-    
+
 	// cleanup
 	void removeSelf(bool unbindNow = true);
     
     // delegate
     virtual void update(float dt);
-    
+
+	// joints management
+	static const unsigned int MAX_JOINT = 1024;
+
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
+#if CC_LUA_ENGINE_ENABLED > 0
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, int vertexes);
+#endif
+	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2);
+
+#if CC_LUA_ENGINE_ENABLED > 0
+	CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
+#endif
+
+	void breakAllJoints(void);
+	void breakJointByType(JointType jointType);
+
 private:
     CCPhysicsBody(CCPhysicsWorld *world);
     bool initWithDefaultStaticBody(void);
@@ -146,6 +162,7 @@ private:
     cpSpace *m_space;
     cpBody *m_body;
     CCArray *m_shapes;
+	CCArray *m_joints;
     CCNode *m_node;
     int m_tag;
     string m_name;
@@ -154,6 +171,12 @@ private:
 
     // helper
     CCPhysicsShape *addShape(cpShape *shape);
+	friend class CCJoint;
+	friend class CCPinJoint;
+
+	// remove joint data
+	void addJoint(CCJoint *joint);
+	void removeJoint(CCJoint *joint);
 };
 
 #endif // __CCPHYSICS_BODY_H_
