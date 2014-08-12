@@ -45,8 +45,10 @@ local setPos = cc.Node.setPosition
 function cc.Node:setPosition(_x, _y)
 	if "table" == type(_x) then
 		setPos(self, _x.x, _x.y)
-	else
+	elseif _y then
 		setPos(self, _x, _y)
+	else
+		setPos(self, _x)
 	end
 end
 
