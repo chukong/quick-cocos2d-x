@@ -1,0 +1,23 @@
+<TextureAtlas name="Dragon" imagePath="texture.png">
+  <SubTexture name="parts/clothes4" x="170" y="175" width="104" height="87"/>
+  <SubTexture name="parts/clothes3" x="0" y="198" width="104" height="87"/>
+  <SubTexture name="parts/clothes2" x="276" y="228" width="104" height="87"/>
+  <SubTexture name="parts/beardR" x="57" y="304" width="68" height="18"/>
+  <SubTexture name="parts/beardL" x="126" y="311" width="60" height="18"/>
+  <SubTexture name="parts/handR" x="462" y="157" width="49" height="29"/>
+  <SubTexture name="parts/armR" x="487" y="187" width="23" height="39"/>
+  <SubTexture name="parts/armUpperR" x="163" y="263" width="80" height="47"/>
+  <SubTexture name="parts/legR" x="398" y="0" width="90" height="116"/>
+  <SubTexture name="parts/tail" x="289" y="0" width="108" height="139"/>
+  <SubTexture name="parts/eyeR" x="489" y="0" width="19" height="29"/>
+  <SubTexture name="parts/eyeL" x="489" y="30" width="14" height="23"/>
+  <SubTexture name="parts/head" x="0" y="0" width="169" height="197"/>
+  <SubTexture name="parts/hair" x="398" y="117" width="62" height="141"/>
+  <SubTexture name="parts/clothes1" x="289" y="140" width="104" height="87"/>
+  <SubTexture name="parts/body" x="170" y="0" width="118" height="174"/>
+  <SubTexture name="parts/legL" x="381" y="259" width="102" height="90"/>
+  <SubTexture name="parts/handL" x="462" y="117" width="48" height="39"/>
+  <SubTexture name="parts/armL" x="462" y="187" width="24" height="40"/>
+  <SubTexture name="parts/armUpperL" x="0" y="286" width="56" height="43"/>
+  <SubTexture name="parts/tailTip" x="106" y="198" width="56" height="105"/>
+</TextureAtlas>

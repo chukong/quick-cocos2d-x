@@ -248,21 +248,18 @@ int CCLuaStack::executeString(const char *codes)
 int CCLuaStack::executeScriptFile(const char *filename)
 {
     CCAssert(filename, "CCLuaStack::executeScriptFile() - invalid filename");
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    std::string code("require \"");
-    code.append(filename);
-    code.append("\"");
-    return executeString(code.c_str());
-#else
+
     std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename);
     unsigned long chunkSize = 0;
     unsigned char *chunk = CCFileUtils::sharedFileUtils()->getFileData(fullPath.c_str(), "rb", &chunkSize);
-    if (lua_loadbuffer(m_state, (const char*)chunk, (int)chunkSize, fullPath.c_str()) == 0)
-    {
-        return executeFunction(0);
+    int rn = 0;
+    if (chunk) {
+        if (lua_loadbuffer(m_state, (const char*)chunk, (int)chunkSize, fullPath.c_str()) == 0) {
+            rn = executeFunction(0);
+        }
+        delete chunk;
     }
-    return 0;
-#endif
+    return rn;
 }
 
 int CCLuaStack::executeGlobalFunction(const char *functionName, int numArgs /* = 0 */)

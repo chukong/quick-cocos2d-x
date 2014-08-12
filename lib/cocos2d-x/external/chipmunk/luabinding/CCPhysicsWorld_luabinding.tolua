@@ -140,7 +140,8 @@ class CCPhysicsBody : public CCObject
     // shapes management
     CCPhysicsShape *addSegmentShape(CCPoint lowerLeft, CCPoint lowerRight, float thickness);
     CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
-    CCPhysicsShape *addBoxShape(float width, float height);
+    // original: CCPhysicsShape *addBoxShape(float width, float height);
+    CCPhysicsShape *addBoxShape(float width, float height, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
 

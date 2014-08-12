@@ -55,7 +55,9 @@ function MainScene:showView()
         :onButtonClicked(function()
             cc.share:doCommand{command = "shareImg",
                 args = {shareText = "UmengShare demo on Quick-X",
-                shareImg = "http://www.umeng.com/images/pic/banner_module_social.png"}}
+                shareImg = "http://cc.cocimg.com/bbs/attachment/upload/71/167711400484693.jpg",
+                -- shareImg = "/mnt/sdcard/htl/badge.png"
+                }}
         end)
         :pos(display.cx, display.top - self.innerSpace*4)
         :addTo(self)

@@ -1,0 +1,389 @@
+<dragonBones name="Motorcycle" frameRate="30" version="2.3">
+  <armature name="motorcycleMan">
+    <bone name="armfo" parent="armuo">
+      <transform x="-21.25" y="-77.1" skX="-3.28" skY="-3.28" scX="1" scY="1"/>
+    </bone>
+    <bone name="armuo" parent="body">
+      <transform x="-26.3" y="-107.85" skX="-6.23" skY="-6.23" scX="1" scY="1"/>
+    </bone>
+    <bone name="head" parent="body">
+      <transform x="-8.2" y="-114.15" skX="-0.44" skY="-0.44" scX="1" scY="1"/>
+    </bone>
+    <bone name="legf" parent="legu">
+      <transform x="-16.05" y="-31.15" skX="47.11" skY="47.11" scX="1" scY="1"/>
+    </bone>
+    <bone name="legu" parent="body">
+      <transform x="-49.9" y="-69.2" skX="32.29" skY="32.29" scX="1" scY="1"/>
+    </bone>
+    <bone name="body" parent="moto">
+      <transform x="-48.1" y="-59.85" skX="30.83" skY="30.83" scX="1" scY="1"/>
+    </bone>
+    <bone name="moto">
+      <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+    </bone>
+    <bone name="armfi" parent="armui">
+      <transform x="-8.5" y="-89.15" skX="17.09" skY="17.09" scX="1" scY="1"/>
+    </bone>
+    <bone name="armui" parent="body">
+      <transform x="-13.95" y="-114.5" skX="-4.25" skY="-4.25" scX="1" scY="1"/>
+    </bone>
+    <skin name="">
+      <slot name="armui" parent="armui" z="0">
+        <display name="MovieClip/armu" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10.8" pY="5.85"/>
+        </display>
+      </slot>
+      <slot name="armfi" parent="armfi" z="1">
+        <display name="MovieClip/armf" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.55"/>
+        </display>
+      </slot>
+      <slot name="moto" parent="moto" z="2">
+        <display name="motorcycle" type="armature">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1"/>
+        </display>
+      </slot>
+      <slot name="body" parent="body" z="3">
+        <display name="MovieClip/body" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="22.15" pY="70.4"/>
+        </display>
+      </slot>
+      <slot name="legu" parent="legu" z="4">
+        <display name="MovieClip/legu" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="6" pY="2.5"/>
+        </display>
+      </slot>
+      <slot name="legf" parent="legf" z="5">
+        <display name="MovieClip/legf" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="-1.5" pY="3.1"/>
+        </display>
+      </slot>
+      <slot name="head" parent="head" z="6">
+        <display name="MovieClip/head" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="16.75" pY="24.75"/>
+        </display>
+      </slot>
+      <slot name="armuo" parent="armuo" z="7">
+        <display name="MovieClip/armu" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10.8" pY="5.85"/>
+        </display>
+      </slot>
+      <slot name="armfo" parent="armfo" z="8">
+        <display name="MovieClip/armf" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="4.55"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="stay" fadeInTime="0.333" duration="5" scale="1" loop="0" tweenEasing="NaN">
+      <timeline name="armui" scale="1" offset="0">
+        <frame z="0" duration="2">
+          <transform x="-13.95" y="-114.5" skX="-4.25" skY="-4.25" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="3">
+          <transform x="-13.95" y="-112" skX="-4.25" skY="-4.25" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armfi" scale="1" offset="0">
+        <frame z="1" duration="2">
+          <transform x="-8.5" y="-89.15" skX="17.09" skY="17.09" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="3">
+          <transform x="-8.5" y="-86.65" skX="17.09" skY="17.09" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="moto" scale="1" offset="0">
+        <frame z="2" duration="5">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="body" scale="1" offset="0.1">
+        <frame z="3" duration="2">
+          <transform x="-48.1" y="-59.85" skX="30.83" skY="30.83" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" duration="3">
+          <transform x="-48.1" y="-57.35" skX="30.83" skY="30.83" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legu" scale="1" offset="0">
+        <frame z="4" duration="2">
+          <transform x="-49.9" y="-69.2" skX="32.29" skY="32.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" duration="3">
+          <transform x="-49.9" y="-66.7" skX="32.29" skY="32.29" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legf" scale="1" offset="0">
+        <frame z="5" duration="2">
+          <transform x="-16.05" y="-31.15" skX="47.11" skY="47.11" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="5" duration="3">
+          <transform x="-16.05" y="-28.65" skX="47.11" skY="47.11" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="head" scale="10" offset="0">
+        <frame z="6" duration="2">
+          <transform x="-8.2" y="-114.15" skX="-0.44" skY="-0.44" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="6" duration="3">
+          <transform x="-8.2" y="-111.65" skX="3.26" skY="3.26" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armuo" scale="1" offset="0">
+        <frame z="7" duration="2">
+          <transform x="-26.3" y="-107.85" skX="-6.23" skY="-6.23" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="7" duration="3">
+          <transform x="-26.3" y="-105.35" skX="-6.23" skY="-6.23" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armfo" scale="1" offset="0">
+        <frame z="8" duration="2">
+          <transform x="-21.25" y="-77.1" skX="-3.28" skY="-3.28" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+        <frame z="8" duration="3">
+          <transform x="-21.25" y="-74.6" skX="-3.28" skY="-3.28" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="left" fadeInTime="0.333" duration="1" scale="0" loop="1" tweenEasing="NaN">
+      <timeline name="armui" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="-117.65" y="-95.65" skX="-86.57" skY="-86.57" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armfi" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="-94.15" y="-102.65" skX="-34.81" skY="-34.81" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="moto" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="-33.6" y="-45.25" skX="-36.5" skY="-36.5" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="body" scale="1" offset="0">
+        <frame z="3" duration="1">
+          <transform x="-132.4" y="-40.8" skX="16.06" skY="16.06" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legu" scale="1" offset="0">
+        <frame z="4" duration="1">
+          <transform x="-139.25" y="-43.35" skX="-15.57" skY="-15.57" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legf" scale="1" offset="0">
+        <frame z="5" duration="1">
+          <transform x="-86.85" y="-41.6" skX="-23.25" skY="-23.25" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="head" scale="1" offset="0">
+        <frame z="6" duration="1">
+          <transform x="-107.75" y="-108" skX="-24.15" skY="-24.15" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armuo" scale="1" offset="0">
+        <frame z="7" duration="1">
+          <transform x="-119.45" y="-92.45" skX="-87.97" skY="-87.97" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armfo" scale="1" offset="0">
+        <frame z="8" duration="1">
+          <transform x="-94.35" y="-99.1" skX="-35.22" skY="-35.22" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="right" fadeInTime="0.333" duration="1" scale="0" loop="1" tweenEasing="NaN">
+      <timeline name="armui" scale="1" offset="0">
+        <frame z="0" duration="1">
+          <transform x="155.6" y="-119.8" skX="134.32" skY="134.32" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armfi" scale="1" offset="0">
+        <frame z="1" duration="1">
+          <transform x="135.15" y="-140.55" skX="108.43" skY="108.43" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="moto" scale="1" offset="0">
+        <frame z="2" duration="1">
+          <transform x="50.25" y="-68.35" skX="45" skY="45" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="body" scale="1" offset="0">
+        <frame z="3" duration="1">
+          <transform x="102.5" y="-111" skX="86.74" skY="86.74" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legu" scale="1" offset="0">
+        <frame z="4" duration="1">
+          <transform x="115.65" y="-108.05" skX="134.3" skY="134.3" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="legf" scale="1" offset="0">
+        <frame z="5" duration="1">
+          <transform x="65.3" y="-86.7" skX="106.86" skY="106.86" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="head" scale="1" offset="0">
+        <frame z="6" duration="1">
+          <transform x="168.65" y="-110.85" skX="37.08" skY="37.08" scX="1" scY="1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armuo" scale="1" offset="0">
+        <frame z="7" duration="1">
+          <transform x="156.3" y="-120.1" skX="133.94" skY="133.94" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="armfo" scale="1" offset="0">
+        <frame z="8" duration="1">
+          <transform x="135.7" y="-142" skX="101.45" skY="101.45" scX="0.99" scY="0.99" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+  <armature name="motorcycle">
+    <bone name="moto">
+      <transform x="0" y="0.75" skX="0" skY="0" scX="1.1" scY="1.1"/>
+    </bone>
+    <bone name="springf" parent="moto">
+      <transform x="106.35" y="25.45" skX="0" skY="0" scX="1.1" scY="1.1"/>
+    </bone>
+    <bone name="springb" parent="moto">
+      <transform x="-86.15" y="28.8" skX="0" skY="0" scX="1.1" scY="1.1"/>
+    </bone>
+    <bone name="wheelf" parent="springf">
+      <transform x="107.25" y="26.85" skX="0" skY="0" scX="1.1" scY="1.1"/>
+    </bone>
+    <bone name="wheelb" parent="springb">
+      <transform x="-85.9" y="26.7" skX="0" skY="0" scX="1.1" scY="1.1"/>
+    </bone>
+    <skin name="">
+      <slot name="wheelb" parent="wheelb" z="0">
+        <display name="MovieClip/wheel" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="35.25" pY="35.25"/>
+        </display>
+      </slot>
+      <slot name="wheelf" parent="wheelf" z="1">
+        <display name="MovieClip/wheel" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="35.25" pY="35.25"/>
+        </display>
+      </slot>
+      <slot name="springb" parent="springb" z="2">
+        <display name="MovieClip/springb" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="10.8" pY="38.65"/>
+        </display>
+      </slot>
+      <slot name="springf" parent="springf" z="3">
+        <display name="MovieClip/springf" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="47.45" pY="84.1"/>
+        </display>
+      </slot>
+      <slot name="moto" parent="moto" z="4">
+        <display name="MovieClip/moto" type="image">
+          <transform x="0" y="0" skX="0" skY="0" scX="1" scY="1" pX="124.9" pY="75.95"/>
+        </display>
+      </slot>
+    </skin>
+    <animation name="stay" fadeInTime="0.333" duration="5" scale="1" loop="0" tweenEasing="NaN">
+      <timeline name="wheelb" scale="1" offset="0">
+        <frame z="0" duration="5">
+          <transform x="-85.9" y="26.7" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="wheelf" scale="1" offset="0">
+        <frame z="1" duration="5">
+          <transform x="107.25" y="26.85" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="springb" scale="1" offset="0">
+        <frame z="2" duration="2">
+          <transform x="-86.15" y="28.8" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="2" duration="3">
+          <transform x="-86.15" y="28.8" skX="2.24" skY="2.24" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="springf" scale="1" offset="0">
+        <frame z="3" duration="2">
+          <transform x="106.35" y="25.45" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="3" duration="3">
+          <transform x="106.35" y="25.45" skX="-1.98" skY="-1.98" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="moto" scale="1" offset="0">
+        <frame z="4" duration="2">
+          <transform x="0" y="0.75" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="4" duration="3">
+          <transform x="0" y="3.25" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="left" fadeInTime="0.2" duration="20" scale="0.7" loop="0" tweenEasing="NaN">
+      <timeline name="wheelb" scale="1" offset="0">
+        <frame z="0" tweenEasing="0" tweenRotate="-2" duration="19">
+          <transform x="-85.9" y="26.7" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="1">
+          <transform x="-85.9" y="26.7" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="wheelf" scale="1" offset="0">
+        <frame z="1" tweenEasing="0" tweenRotate="-2" duration="19">
+          <transform x="107.25" y="26.85" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="1">
+          <transform x="107.25" y="26.85" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="springb" scale="1" offset="0">
+        <frame z="2" duration="20">
+          <transform x="-86.15" y="28.8" skX="2.97" skY="2.97" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="springf" scale="1" offset="0">
+        <frame z="3" duration="20">
+          <transform x="106.35" y="25.45" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="moto" scale="1" offset="0">
+        <frame z="4" duration="20">
+          <transform x="0" y="0.75" skX="-2.49" skY="-2.49" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+    <animation name="right" fadeInTime="0.2" duration="21" scale="0.67" loop="0" tweenEasing="NaN">
+      <timeline name="wheelb" scale="1" offset="0">
+        <frame z="0" tweenEasing="0" tweenRotate="2" duration="20">
+          <transform x="-85.9" y="26.7" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="0" duration="1">
+          <transform x="-85.9" y="26.7" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="wheelf" scale="1" offset="0">
+        <frame z="1" tweenEasing="0" tweenRotate="2" duration="20">
+          <transform x="107.25" y="26.85" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+        <frame z="1" duration="1">
+          <transform x="107.25" y="26.85" skX="0" skY="0" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="springb" scale="1" offset="0">
+        <frame z="2" duration="21">
+          <transform x="-86.15" y="28.8" skX="6.22" skY="6.22" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="springf" scale="1" offset="0">
+        <frame z="3" duration="21">
+          <transform x="108.35" y="29.95" skX="-1.47" skY="-1.47" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+      <timeline name="moto" scale="1" offset="0">
+        <frame z="4" duration="21">
+          <transform x="2.5" y="6.25" skX="4.69" skY="4.69" scX="1.1" scY="1.1" pX="0" pY="0"/>
+        </frame>
+      </timeline>
+    </animation>
+  </armature>
+</dragonBones>

@@ -1,0 +1,16 @@
+class DBObject
+{    
+public:
+	DBObject();
+	~DBObject();
+	DBTransform global;
+	DBTransform origin;
+	DBTransform offset;
+	DBTransform tween;
+	void setVisible(bool visible);
+	bool getVisible();
+	virtual Armature* getArmature();
+	virtual void setArmature(Armature *value);
+	virtual void dispose();
+	virtual void update();
+};

@@ -1,0 +1,27 @@
+class Bone : public DBObject
+{
+public:
+	Bone();
+	~Bone();
+	Armature* getChildArmature();
+	Object* getDisplay();
+	void setDisplay(Object *value);
+	String displayController;
+	void setVisible(bool value);
+	void setArmature(Armature *value);
+	void dispose();
+	bool contains(DBObject *child);
+	void addChild(DBObject *child);
+	void removeChild(DBObject *child);
+	void updateColor(
+		Number aOffset, 
+		Number rOffset, 
+		Number gOffset, 
+		Number bOffset, 
+		Number aMultiplier, 
+		Number rMultiplier, 
+		Number gMultiplier, 
+		Number bMultiplier,
+		bool isColorChanged
+	);
+};

@@ -278,3 +278,5 @@ c.Configuration                = CCConfiguration
 c.Director                     = CCDirector
 c.Scheduler                    = CCScheduler
 
+-- dragonbones nodes
+c.DragonBonesNode              = CCDragonBones

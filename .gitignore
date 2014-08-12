@@ -18,7 +18,9 @@ lib/cocos2d-x/cocos2dx/platform/android/java/bin
 lib/cocos2d-x/cocos2dx/platform/android/java/gen
 
 */proj.win32/Debug/
+*/proj.win32/Release/
 */*/proj.win32/Debug/
+*/*/proj.win32/Release/
 */*/proj.android/bin/
 */*/proj.android/gen/
 */*/proj.android/lint.xml

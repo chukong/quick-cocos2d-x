@@ -849,6 +849,7 @@ local shape3 = display.newRect(CCRect(50, 80, 200, 100))
 function display.newRect(width, height, params)
     local x, y = 0, 0
     if type(width) == "userdata" then
+        params = height
         local t = tolua.type(width)
         if t == "CCRect" then
             x = width.origin.x
@@ -866,7 +867,7 @@ function display.newRect(width, height, params)
 
     local rect = CCRectShape:create(CCSize(width, height))
 	local align=display.CENTER
-	if type(height) == "table" then params = hight end
+	-- if type(height) == "table" then params = hight end
 	if type(params) == "table" then
 		x = params.x or x
 		y = params.y or y
