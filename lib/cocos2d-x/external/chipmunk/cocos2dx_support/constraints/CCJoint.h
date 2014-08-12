@@ -36,6 +36,16 @@ public:
 	virtual JointType getJointType();
 	virtual void breakJoint();
 
+	cpFloat getMaxForce();
+	void setMaxForce(cpFloat maxForce);
+
+	cpFloat getErrorBias();
+	void setErrorBias(cpFloat errorBias);
+
+	cpFloat getMaxBias();
+	void setMaxBias(cpFloat maxBias);
+
+	cpFloat getImpulse();
 protected:
 	CCPhysicsWorld *world;
 	CCPhysicsBody *bodyA;

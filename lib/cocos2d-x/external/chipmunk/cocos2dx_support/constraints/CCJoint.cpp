@@ -50,3 +50,38 @@ cpConstraint *CCJoint::getConstraint()
 {
 	return this->m_constraint;
 }
+
+cpFloat CCJoint::getMaxForce()
+{
+	return cpConstraintGetMaxForce(this->m_constraint);
+}
+
+void CCJoint::setMaxForce(cpFloat maxForce)
+{
+	cpConstraintSetMaxForce(this->m_constraint, maxForce);
+}
+
+cpFloat CCJoint::getErrorBias()
+{
+	return cpConstraintGetErrorBias(this->m_constraint);
+}
+
+void CCJoint::setErrorBias(cpFloat errorBias)
+{
+	cpConstraintSetErrorBias(this->m_constraint, errorBias);
+}
+
+cpFloat CCJoint::getMaxBias()
+{
+	cpConstraintGetMaxBias(this->m_constraint);
+}
+
+void CCJoint::setMaxBias(cpFloat maxBias)
+{
+	cpConstraintSetMaxBias(this->m_constraint, maxBias);
+}
+
+cpFloat CCJoint::getImpulse()
+{
+	cpConstraintGetImpulse(this->m_constraint);
+}

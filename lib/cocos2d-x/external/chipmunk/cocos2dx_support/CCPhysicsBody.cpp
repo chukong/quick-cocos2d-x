@@ -610,7 +610,8 @@ CCDampedSpringJoint *CCPhysicsBody::dampedSpringWith(CCPhysicsBody *otherBody,
 	return this->dampedSpringWith(otherBody, bodyAVect, bodyBVect, restLength, stiffness, damping);
 }
 
-CCDampedSpringJoint *CCPhysicsBody::dampedSpringWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2,
+CCDampedSpringJoint *CCPhysicsBody::dampedSpringWith(CCPhysicsBody *otherBody, 
+	CCPhysicsVector *arch1, CCPhysicsVector *arch2,
 	cpFloat restLength, cpFloat stiffness, cpFloat damping)
 {
 	CCJoint* joint = this->checkJointWith(otherBody, PIN_JOINT);
@@ -686,7 +687,7 @@ void CCPhysicsBody::breakJointByType(JointType jointType)
 
 CCJoint *CCPhysicsBody::checkJointWith(CCPhysicsBody *otherBody, JointType type)
 {
-	CCAssert(otherBody != NULL, "joint with NULL");
+	CCAssert(otherBody != NULL, "can not joint with NULL");
 	CCAssert(otherBody != this, "body can't joint with itself");
 
 	for (int i = m_joints->count() - 1; i >= 0; --i)
@@ -702,13 +703,6 @@ CCJoint *CCPhysicsBody::checkJointWith(CCPhysicsBody *otherBody, JointType type)
 				if (joint->getJointType() == type)
 				{
 					return joint;
-				}
-				else
-				{
-					// body contains other joint of otherBody already
-					char errMsg[80];
-					sprintf(errMsg, "two body has already contains a joint of another type:%d", joint->getJointType());
-					CCAssert(joint->getJointType() == type, errMsg);
 				}
 			}
 		}
