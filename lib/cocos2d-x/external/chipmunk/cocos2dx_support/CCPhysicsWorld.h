@@ -41,6 +41,9 @@ public:
 
     bool isLocked(void);
 
+    float getStepInterval(void);
+    void setStepInterval(float interval);
+
     // body management
     CCPhysicsBody *createCircleBody(float mass, float radius, float offsetX = 0, float offsetY = 0);
     CCPhysicsBody *createBoxBody(float mass, float width, float height);

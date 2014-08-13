@@ -116,6 +116,16 @@ bool CCPhysicsWorld::isLocked(void)
     return cpSpaceIsLocked(m_space) == cpTrue;
 }
 
+float CCPhysicsWorld::getStepInterval(void)
+{
+    return m_stepInterval;
+}
+
+void CCPhysicsWorld::setStepInterval(float interval)
+{
+    m_stepInterval = interval;
+}
+
 float CCPhysicsWorld::getIdleSpeedThreshold(void)
 {
     return cpSpaceGetIdleSpeedThreshold(m_space);
@@ -395,9 +405,8 @@ void CCPhysicsWorld::step(float dt)
 
 void CCPhysicsWorld::update(float dt)
 {
-    static float min = 1.0f / 30.f;
-    if (dt < min) dt = min;
-    step(dt);
+    CC_UNUSED_PARAM(dt);
+    step(m_stepInterval);
 }
 
 void CCPhysicsWorld::onExit(void)

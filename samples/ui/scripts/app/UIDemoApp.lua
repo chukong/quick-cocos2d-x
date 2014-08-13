@@ -11,6 +11,7 @@ function UIDemoApp:ctor()
     self.scenes_ = {
         "TestUIImageScene",
         "TestUIButtonScene",
+        "TestUIButtonMoreScene",
         "TestUISliderScene",
     }
 end

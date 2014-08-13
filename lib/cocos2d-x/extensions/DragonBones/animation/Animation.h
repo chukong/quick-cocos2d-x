@@ -16,7 +16,7 @@ namespace dragonBones
      *    {
      *        import dragonBones.Armature;
      *        import dragonBones.factorys.NativeFactory;
-     *      import flash.display.Sprite;
+     *        import flash.display.Sprite;
      *        import flash.events.Event;    
      *
      *        public class DragonAnimation extends Sprite 
@@ -140,7 +140,7 @@ namespace dragonBones
          * @param animationName The name of the AnimationData to play.
          * @param fadeInTime A fade time to apply (> 0)
          * @param duration The duration of that animationData->
-         * @param loop Loop(0:loop forever, 1~+∞:loop times, -1~-∞:will fade animation after loop complete).
+         * @param loop Loop(0:loop forever, 1~+OO:loop times, -1~-OO:will fade animation after loop complete).
          * @param layer The layer of the animation.
          * @param group The group of the animation.
          * @param fadeOutMode Fade out mode.
