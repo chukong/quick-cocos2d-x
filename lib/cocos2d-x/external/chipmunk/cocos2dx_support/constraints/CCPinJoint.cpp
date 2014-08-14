@@ -5,10 +5,11 @@
 **/
 #include "CCJoint.h"
 
-CCPinJoint::CCPinJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect vectOfBodyA, cpVect vectOfBodyB) : CCJoint(world, bodyA, bodyB, PIN_JOINT)
+CCPinJoint::CCPinJoint(CCPhysicsWorld* world, 
+	CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect anchrA, cpVect anchrB) : CCJoint(world, bodyA, bodyB, PIN_JOINT)
 {
 	this->m_constraint = cpSpaceAddConstraint(world->getSpace(),
-		cpPinJointNew(bodyA->getBody(), bodyB->getBody(), vectOfBodyA, vectOfBodyB));
+		cpPinJointNew(bodyA->getBody(), bodyB->getBody(), anchrA, anchrB));
 }
 
 CCPinJoint::~CCPinJoint()
@@ -23,4 +24,24 @@ cpFloat CCPinJoint::getDist()
 void CCPinJoint::setDist(cpFloat dist)
 {
 	cpPinJointSetDist(this->m_constraint, dist);
+}
+
+CCPhysicsVector *CCPinJoint::getAnchrA()
+{
+	return CCPhysicsVector::create(cpPinJointGetAnchr1(this->m_constraint));
+}
+
+void CCPinJoint::setAnchrA(CCPhysicsVector *anchrA)
+{
+	cpPinJointSetAnchr1(this->m_constraint, anchrA->getVector());
+}
+
+CCPhysicsVector *CCPinJoint::getAnchrB()
+{
+	return CCPhysicsVector::create(cpPinJointGetAnchr2(this->m_constraint));
+}
+
+void CCPinJoint::setAnchrB(CCPhysicsVector *anchrB)
+{
+	cpPinJointSetAnchr2(this->m_constraint, anchrB->getVector());
 }

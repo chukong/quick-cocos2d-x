@@ -73,7 +73,7 @@ void CCJoint::setErrorBias(cpFloat errorBias)
 
 cpFloat CCJoint::getMaxBias()
 {
-	cpConstraintGetMaxBias(this->m_constraint);
+	return cpConstraintGetMaxBias(this->m_constraint);
 }
 
 void CCJoint::setMaxBias(cpFloat maxBias)
@@ -83,5 +83,5 @@ void CCJoint::setMaxBias(cpFloat maxBias)
 
 cpFloat CCJoint::getImpulse()
 {
-	cpConstraintGetImpulse(this->m_constraint);
+	return cpConstraintGetImpulse(this->m_constraint);
 }
