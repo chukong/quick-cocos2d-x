@@ -1,7 +1,6 @@
 
 require("config")
 require("framework.init")
-require("app.ForQuickV2")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
@@ -12,6 +11,8 @@ function MyApp:ctor()
         "CCSSample2Scene",
         "CCSSample3Scene",
         "CCSSample4Scene",
+        "CCSSample5Scene",
+        "CCSSample6Scene",
     }
 end
 
@@ -42,7 +43,7 @@ end
 function MyApp:createTitle(scene, title)
     cc.ui.UILabel.new({text = "-- " .. title .. " --", size = 24, color = display.COLOR_WHITE})
         :align(display.CENTER, display.cx, display.top - 20)
-        :addTo(scene)
+        :addTo(scene, 10)
 end
 
 function MyApp:createNextButton(scene)
@@ -57,91 +58,19 @@ function MyApp:createNextButton(scene)
             self:enterNextScene()
         end)
         :align(display.RIGHT_BOTTOM, display.right - 20, display.bottom + 20)
-        :addTo(scene)
+        :addTo(scene, 10)
 end
 
 function MyApp:loadCCSJsonFile(scene, jsonFile)
-    local node = cc.uiloader:load(jsonFile)
+    local node, width, height = cc.uiloader:load(jsonFile)
     if node then
-        node:setPosition((display.width - 480)/2, (display.height - 320)/2)
+        node:setPosition((display.width - width)/2, (display.height - height)/2)
         -- node:setPosition(ccp(0, 0))
         scene:addChild(node)
 
         -- dumpUITree(node)
+        -- drawUIRegion(node, scene, 6)
     end
-end
-
-depth = 1
-function dumpUITree(node)
-    if not node then
-        return
-    end
-
-    if not node:isVisible() then
-        return
-    end
-
-    -- if node.name then
-    --  local info = {}
-    --  table.insert(info, "")
-    --  table.insert(info, getLinePreSym() .. string.format("Name:%s", node.name))
-    --  table.insert(info, getLinePreSym() .. string.format("Tag:%d", node:getTag()))
-    --  table.insert(info, getLinePreSym() .. string.format("Position:(%d, %d)", node:getPositionX(), node:getPositionY()))
-    --  local size = node:getContentSize()
-    --  table.insert(info, getLinePreSym() .. string.format("Size:(%d, %d)", size.width, size.height))
-    --  table.insert(info, getLinePreSym() .. string.format("Scale:(%f, %f)", node:getScaleX(), node:getScaleY()))
-    --  local anchor = node:getAnchorPoint()
-    --  table.insert(info, getLinePreSym() .. string.format("Anchor:(%f, %f)", anchor.x, anchor.y))
-    --  table.insert(info, getLinePreSym() .. "Visible:" .. tostring(node:isVisible()))
-    --  table.insert(info, getLinePreSym() .. string.format("ChildCount:%d", node:getChildrenCount()))
-
-    --  print(table.concat(info, "\n"))
-    -- end
-
-    print("")
-
-    printLine(string.format("Name:%s", node.name))
-    printLine(string.format("Tag:%d", node:getTag()))
-    printLine(string.format("Position:(%d, %d)", node:getPositionX(), node:getPositionY()))
-    local size = node:getContentSize()
-    printLine(string.format("Size:(%d, %d)", size.width, size.height))
-    -- printLine(string.format("Scale:(%f, %f)", node:getScaleX(), node:getScaleY()))
-    local anchor = node:getAnchorPoint()
-    -- printLine(string.format("Anchor:(%f, %f)", anchor.x, anchor.y))
-    -- printLine("Visible:" .. tostring(node:isVisible()))
-    -- printLine(string.format("ChildCount:%d", node:getChildrenCount()))
-
-    depth = depth + 1
-    local children = node:getChildren()
-    local childCount = node:getChildrenCount()
-    local subNode
-    for i=1,childCount do
-        if "table" == type(children) then
-            subNode = children[i]
-        else
-            subNode = children:objectAtIndex(i - 1)
-        end
-        dumpUITree(subNode)
-    end
-
-    depth = depth - 1
-end
-
-function printLine(str)
-    local t = {"+"}
-    for i=1,depth do
-        table.insert(t, "----")
-    end
-    table.insert(t, str)
-    print(table.concat(t))
-end
-
-function drawRect(scene, rect)
-    print("rect type:" .. tolua.type(rect))
-    print(string.format("drawRect x:%d,y:%d,w:%d,h:%d", rect.x, rect.y, rect.width, rect.height))
-    local drawNode = display.newRect(rect,
-        {align = display.LEFT_BOTTOM, color = cc.c4f(1, 0, 0, 1)})
-    scene:addChild(drawNode)
 end
 
 return MyApp

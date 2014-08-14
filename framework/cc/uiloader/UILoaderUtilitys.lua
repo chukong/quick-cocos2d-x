@@ -7,23 +7,15 @@ function UILoaderUtilitys.loadTexture(plist, png)
 	end
 
 	local fileUtil
-	if cc.FileUtils.getInstance then
-		fileUtil = cc.FileUtils:getInstance()
-	else
-		fileUtil = cc.FileUtils:sharedFileUtils()
-	end
+	fileUtil = cc.FileUtils:getInstance()
 	local fullPath = fileUtil:fullPathForFilename(plist)
 	fileUtil:addSearchPath(io.pathinfo(fullPath).dirname)
 	local spCache
-	if cc.SpriteFrameCache.getInstance then
-		spCache = cc.SpriteFrameCache:getInstance()
-	else
-		spCache = cc.SpriteFrameCache:sharedSpriteFrameCache()
-	end
+	spCache = cc.SpriteFrameCache:getInstance()
 	if png then
-		spCache:addSpriteFramesWithFile(plist, png)
+		spCache:addSpriteFrames(plist, png)
 	else
-		spCache:addSpriteFramesWithFile(plist)
+		spCache:addSpriteFrames(plist)
 	end
 end
 

@@ -1,6 +1,7 @@
 
+import(".ForQuickV2")
 local uiloader = class("uiloader")
-local ccsloader = import(".ccsloader")
+local CCSUILoader = import(".CCSUILoader")
 local CCSSceneLoader = import(".CCSSceneLoader")
 
 function uiloader:ctor()
@@ -16,12 +17,12 @@ function uiloader:load(jsonFile)
 	local node
 
 	if self:isScene_(json) then
-		node = CCSSceneLoader:load(json)
+		node, w, h = CCSSceneLoader:load(json)
 	else
-		node = ccsloader:load(json)
+		node, w, h = CCSUILoader:load(json)
 	end
 
-	return node
+	return node, w, h
 end
 
 function uiloader:seekNodeByTag(parent, tag)
@@ -90,6 +91,15 @@ function uiloader:seekNodeByName(parent, name)
 	return
 end
 
+
+function uiloader:seekComponents(parent, nodeName, componentIdx)
+	local node = self:seekNodeByName(parent, nodeName)
+	if not node then
+		return
+	end
+	node = self:seekNodeByName(node, "Component" .. componentIdx)
+	return node
+end
 
 
 

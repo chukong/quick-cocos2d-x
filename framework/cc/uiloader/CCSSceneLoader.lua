@@ -1,9 +1,9 @@
 
-local ccsloader = import(".ccsloader")
+local CCSUILoader = import(".CCSUILoader")
 local CCSSceneLoader = class("CCSSceneLoader")
 
 function CCSSceneLoader:load(json)
-	return self:createGameObject(json)
+	return self:createGameObject(json), json.CanvasSize._width, json.CanvasSize._height
 end
 
 function CCSSceneLoader:createGameObject(jsonNode)
@@ -25,7 +25,7 @@ function CCSSceneLoader:createGameObject(jsonNode)
 	-- component
 	if jsonNode.components then
 		for i,v in ipairs(jsonNode.components) do
-			self:addComponent(node, v)
+			self:addComponent(node, v, i)
 		end
 	end
 
@@ -42,18 +42,18 @@ function CCSSceneLoader:createGameObject(jsonNode)
 	return node
 end
 
-function CCSSceneLoader:addComponent(gameObject, component)
+function CCSSceneLoader:addComponent(gameObject, component, idx)
 	local node
 
 	if component.fileData then
 		self:loadTexture(component.fileData.plistFile)
 	end
 
-	print("CCSSceneLoader name:" .. component.classname)
+	-- print("CCSSceneLoader name:" .. component.classname)
 	if "CCScene" == component.classname then
 		node = self:createScene(component)
-	elseif "CCBackgroundAudio" == component.classname then
-		node = self:createBackgroundAudio(component)
+	-- elseif "CCBackgroundAudio" == component.classname then
+	-- 	node = self:createBackgroundAudio(component)
 	elseif "CCSprite" == component.classname then
 		node = self:createSprite(component)
 	elseif "CCArmature" == component.classname then
@@ -67,6 +67,7 @@ function CCSSceneLoader:addComponent(gameObject, component)
 	end
 
 	if node then
+		node.name = "Component" .. idx
 		gameObject:addChild(node)
 	end
 
@@ -102,7 +103,7 @@ function CCSSceneLoader:createArmature(comp)
 end
 
 function CCSSceneLoader:createGUIComponent(comp)
-	local ui = ccsloader:loadFile(comp.fileData.path)
+	local ui = CCSUILoader:loadFile(comp.fileData.path)
 
 	return ui
 end
