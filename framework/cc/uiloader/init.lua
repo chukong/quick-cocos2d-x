@@ -1,12 +1,28 @@
 
+import(".ForQuickV2")
 local uiloader = class("uiloader")
-local ccsloader = import(".ccsloader")
+local CCSUILoader = import(".CCSUILoader")
+local CCSSceneLoader = import(".CCSSceneLoader")
 
 function uiloader:ctor()
 end
 
 function uiloader:load(jsonFile)
-	return ccsloader:load(jsonFile)
+	local json = self:loadFile_(jsonFile)
+	if not json then
+		print("uiloader - load file fail:" .. jsonFile)
+		return
+	end
+
+	local node
+
+	if self:isScene_(json) then
+		node, w, h = CCSSceneLoader:load(json)
+	else
+		node, w, h = CCSUILoader:load(json)
+	end
+
+	return node, w, h
 end
 
 function uiloader:seekNodeByTag(parent, tag)
@@ -73,6 +89,39 @@ function uiloader:seekNodeByName(parent, name)
 	end
 
 	return
+end
+
+
+function uiloader:seekComponents(parent, nodeName, componentIdx)
+	local node = self:seekNodeByName(parent, nodeName)
+	if not node then
+		return
+	end
+	node = self:seekNodeByName(node, "Component" .. componentIdx)
+	return node
+end
+
+
+
+
+
+
+-- private
+function uiloader:loadFile_(jsonFile)
+	local fileUtil = cc.FileUtils:getInstance()
+	local fullPath = fileUtil:fullPathForFilename(jsonFile)
+	local jsonStr = fileUtil:getStringFromFile(fullPath)
+	local jsonVal = json.decode(jsonStr)
+
+	return jsonVal
+end
+
+function uiloader:isScene_(json)
+	if json.components then
+		return true
+	else
+		return false
+	end
 end
 
 return uiloader
