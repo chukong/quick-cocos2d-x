@@ -128,7 +128,11 @@ function device.showActivityIndicator()
     if DEBUG > 1 then
         printInfo("device.showActivityIndicator()")
     end
-    CCNative:showActivityIndicator()
+    if device.platform == "android" then
+        luaj.callStaticMethod("org/cocos2dx/utils/PSNative", "showActivityIndicator", {}, "()V"); 
+    elseif device.platform == "ios" then
+        CCNative:showActivityIndicator()
+    end
 end
 
 --[[--
@@ -140,7 +144,11 @@ function device.hideActivityIndicator()
     if DEBUG > 1 then
         printInfo("device.hideActivityIndicator()")
     end
-    CCNative:hideActivityIndicator()
+    if device.platform == "android" then
+        luaj.callStaticMethod("org/cocos2dx/utils/PSNative", "hideActivityIndicator", {}, "()V"); 
+    elseif device.platform == "ios" then
+        CCNative:hideActivityIndicator()
+    end
 end
 
 --[[--
