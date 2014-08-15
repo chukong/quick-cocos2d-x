@@ -15,7 +15,7 @@ LOAD_DEPRECATED_API = false
 LOAD_SHORTCODES_API = true
 
 -- screen orientation
-CONFIG_SCREEN_ORIENTATION = "portrait"
+CONFIG_SCREEN_ORIENTATION = "landscape"
 
 -- design resolution
 CONFIG_SCREEN_WIDTH  = 960
