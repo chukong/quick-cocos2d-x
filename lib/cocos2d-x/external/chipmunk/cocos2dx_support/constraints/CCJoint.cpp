@@ -17,6 +17,8 @@ CCJoint::CCJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bod
 
 CCJoint::~CCJoint()
 {
+	cpSpaceRemoveConstraint(this->world->getSpace(), this->m_constraint);
+	cpConstraintFree(this->m_constraint);
 }
 
 
@@ -36,9 +38,50 @@ void CCJoint::breakJoint()
 	this->bodyB->removeJoint(this);
 	this->bodyA = NULL;
 	this->bodyB = NULL;
+	this->release();
 }
 
 JointType CCJoint::getJointType()
 {
 	return this->jointType;
+}
+
+cpConstraint *CCJoint::getConstraint()
+{
+	return this->m_constraint;
+}
+
+cpFloat CCJoint::getMaxForce()
+{
+	return cpConstraintGetMaxForce(this->m_constraint);
+}
+
+void CCJoint::setMaxForce(cpFloat maxForce)
+{
+	cpConstraintSetMaxForce(this->m_constraint, maxForce);
+}
+
+cpFloat CCJoint::getErrorBias()
+{
+	return cpConstraintGetErrorBias(this->m_constraint);
+}
+
+void CCJoint::setErrorBias(cpFloat errorBias)
+{
+	cpConstraintSetErrorBias(this->m_constraint, errorBias);
+}
+
+cpFloat CCJoint::getMaxBias()
+{
+	return cpConstraintGetMaxBias(this->m_constraint);
+}
+
+void CCJoint::setMaxBias(cpFloat maxBias)
+{
+	cpConstraintSetMaxBias(this->m_constraint, maxBias);
+}
+
+cpFloat CCJoint::getImpulse()
+{
+	return cpConstraintGetImpulse(this->m_constraint);
 }

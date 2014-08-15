@@ -16,6 +16,9 @@ class CCPhysicsWorld;
 class CCPhysicsShape;
 class CCJoint;
 class CCPinJoint;
+class CCDampedSpringJoint;
+class CCSlideJoint;
+class CCPivotJoint;
 enum JointType;
 
 class CCPhysicsBody : public CCObject
@@ -125,7 +128,9 @@ public:
     CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, CCPoint *vertexes, float offsetX = 0, float offsetY = 0);
     CCPhysicsShape *addPolygonShape(int numVertexes, cpVect *vertexes, float offsetX = 0, float offsetY = 0);
-
+#if CC_LUA_ENGINE_ENABLED > 0
+	CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
+#endif
     void removeShapeAtIndex(unsigned int index);
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
@@ -136,21 +141,32 @@ public:
     // delegate
     virtual void update(float dt);
 
-	// joints management
+
+	// Joints management start
 	static const unsigned int MAX_JOINT = 1024;
 
-	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody);
-#if CC_LUA_ENGINE_ENABLED > 0
-	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, int vertexes);
-#endif
-	CCPinJoint *pinJointWith(CCPhysicsBody *otherBody, CCPhysicsVector *arch1, CCPhysicsVector *arch2);
+	CCPinJoint *pinJoint(CCPhysicsBody *otherBody);
+	CCPinJoint *pinJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther);
 
-#if CC_LUA_ENGINE_ENABLED > 0
-	CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
-#endif
+	CCDampedSpringJoint *dampedSpringJoint(CCPhysicsBody *otherBody,
+		cpFloat restLength, cpFloat stiffness=0, cpFloat damping=0);
+	CCDampedSpringJoint *dampedSpringJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther,
+		cpFloat restLength, cpFloat stiffness = 0, cpFloat damping = 0);
+
+	CCSlideJoint *slideJoint(CCPhysicsBody *otherBody, cpFloat min, cpFloat max);
+	CCSlideJoint *slideJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther, 
+		cpFloat min, cpFloat max);
+
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody);
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther);
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody, CCPhysicsVector *pivot);
 
 	void breakAllJoints(void);
 	void breakJointByType(JointType jointType);
+
+	// get all joints constraint with the otherBody
+	CCArray *getJointsWith(CCPhysicsBody *otherBody);
+	// Joints management end
 
 private:
     CCPhysicsBody(CCPhysicsWorld *world);
@@ -172,11 +188,12 @@ private:
     // helper
     CCPhysicsShape *addShape(cpShape *shape);
 	friend class CCJoint;
-	friend class CCPinJoint;
 
 	// remove joint data
 	void addJoint(CCJoint *joint);
 	void removeJoint(CCJoint *joint);
+
+	void checkJointWith(CCPhysicsBody *otherBody, JointType type);
 };
 
 #endif // __CCPHYSICS_BODY_H_
