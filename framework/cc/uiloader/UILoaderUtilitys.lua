@@ -12,6 +12,7 @@ function UILoaderUtilitys.loadTexture(plist, png)
 	fileUtil:addSearchPath(io.pathinfo(fullPath).dirname)
 	local spCache
 	spCache = cc.SpriteFrameCache:getInstance()
+	-- print("UILoaderUtilitys - loadTexture plist:" .. plist)
 	if png then
 		spCache:addSpriteFrames(plist, png)
 	else

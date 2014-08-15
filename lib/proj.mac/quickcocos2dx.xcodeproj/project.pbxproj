@@ -427,6 +427,12 @@
 		F4E8817F17700E8A00577406 /* CCSorting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E8816C17700E8A00577406 /* CCSorting.cpp */; };
 		F4E8818017700E8A00577406 /* CCTableView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E8816E17700E8A00577406 /* CCTableView.cpp */; };
 		F4E8818117700E8A00577406 /* CCTableViewCell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4E8817017700E8A00577406 /* CCTableViewCell.cpp */; };
+		F4EE1773199E0E9700023E28 /* CCDampedSpringJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EE176C199E0E9700023E28 /* CCDampedSpringJoint.cpp */; };
+		F4EE1774199E0E9700023E28 /* CCGrooveJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EE176D199E0E9700023E28 /* CCGrooveJoint.cpp */; };
+		F4EE1775199E0E9700023E28 /* CCJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EE176E199E0E9700023E28 /* CCJoint.cpp */; };
+		F4EE1776199E0E9700023E28 /* CCPinJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EE1770199E0E9700023E28 /* CCPinJoint.cpp */; };
+		F4EE1777199E0E9700023E28 /* CCPivotJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EE1771199E0E9700023E28 /* CCPivotJoint.cpp */; };
+		F4EE1778199E0E9700023E28 /* CCSlideJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4EE1772199E0E9700023E28 /* CCSlideJoint.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1385,6 +1391,13 @@
 		F4E8816F17700E8A00577406 /* CCTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableView.h; sourceTree = "<group>"; };
 		F4E8817017700E8A00577406 /* CCTableViewCell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTableViewCell.cpp; sourceTree = "<group>"; };
 		F4E8817117700E8A00577406 /* CCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTableViewCell.h; sourceTree = "<group>"; };
+		F4EE176C199E0E9700023E28 /* CCDampedSpringJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDampedSpringJoint.cpp; sourceTree = "<group>"; };
+		F4EE176D199E0E9700023E28 /* CCGrooveJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGrooveJoint.cpp; sourceTree = "<group>"; };
+		F4EE176E199E0E9700023E28 /* CCJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCJoint.cpp; sourceTree = "<group>"; };
+		F4EE176F199E0E9700023E28 /* CCJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJoint.h; sourceTree = "<group>"; };
+		F4EE1770199E0E9700023E28 /* CCPinJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPinJoint.cpp; sourceTree = "<group>"; };
+		F4EE1771199E0E9700023E28 /* CCPivotJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPivotJoint.cpp; sourceTree = "<group>"; };
+		F4EE1772199E0E9700023E28 /* CCSlideJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSlideJoint.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1791,6 +1804,7 @@
 		F4315231180CF7E30046351C /* cocos2dx_support */ = {
 			isa = PBXGroup;
 			children = (
+				F4EE176B199E0E9700023E28 /* constraints */,
 				F4315232180CF7E30046351C /* CCPhysicsBody.cpp */,
 				F4315233180CF7E30046351C /* CCPhysicsBody.h */,
 				F4315234180CF7E30046351C /* CCPhysicsDebugNode.cpp */,
@@ -3553,6 +3567,20 @@
 			path = CCScrollView;
 			sourceTree = "<group>";
 		};
+		F4EE176B199E0E9700023E28 /* constraints */ = {
+			isa = PBXGroup;
+			children = (
+				F4EE176C199E0E9700023E28 /* CCDampedSpringJoint.cpp */,
+				F4EE176D199E0E9700023E28 /* CCGrooveJoint.cpp */,
+				F4EE176E199E0E9700023E28 /* CCJoint.cpp */,
+				F4EE176F199E0E9700023E28 /* CCJoint.h */,
+				F4EE1770199E0E9700023E28 /* CCPinJoint.cpp */,
+				F4EE1771199E0E9700023E28 /* CCPivotJoint.cpp */,
+				F4EE1772199E0E9700023E28 /* CCSlideJoint.cpp */,
+			);
+			path = constraints;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3629,6 +3657,7 @@
 				F4A9C09816BC3AF400088CF7 /* tolua_fix.c in Sources */,
 				F4B4EEC216C7E05800736FFE /* CCLuaBridge.cpp in Sources */,
 				E540B385198754880054B7F7 /* Event.cpp in Sources */,
+				F4EE1774199E0E9700023E28 /* CCGrooveJoint.cpp in Sources */,
 				2EBA8466191B6A6E00256D60 /* CCFilteredSprite.cpp in Sources */,
 				F4B4EEC716C7E05F00736FFE /* CCLuaObjcBridge.mm in Sources */,
 				F4B4EECC16C7E06F00736FFE /* CCLuaStack.cpp in Sources */,
@@ -3728,9 +3757,11 @@
 				F41D98F417F08B85007171D8 /* WebSocket.cpp in Sources */,
 				F4E8805F1770071600577406 /* plane.c in Sources */,
 				F4E880601770071600577406 /* quaternion.c in Sources */,
+				F4EE1775199E0E9700023E28 /* CCJoint.cpp in Sources */,
 				F4D26D76196320050087295D /* CCDisplayFactory.cpp in Sources */,
 				F4E880611770071600577406 /* ray2.c in Sources */,
 				F4D26D81196320050087295D /* CCComAttribute.cpp in Sources */,
+				F4EE1776199E0E9700023E28 /* CCPinJoint.cpp in Sources */,
 				F4D26D97196320050087295D /* UIRichText.cpp in Sources */,
 				F4E880621770071600577406 /* utility.c in Sources */,
 				F4E880631770071600577406 /* vec2.c in Sources */,
@@ -3843,6 +3874,7 @@
 				F4E880971770071600577406 /* unzip.cpp in Sources */,
 				F4D26DAD196320050087295D /* TriggerBase.cpp in Sources */,
 				F4E880981770071600577406 /* ZipUtils.cpp in Sources */,
+				F4EE1773199E0E9700023E28 /* CCDampedSpringJoint.cpp in Sources */,
 				F4CB87B2180D02F600D81CF3 /* timeout.c in Sources */,
 				F4E880991770071600577406 /* CCIMEDispatcher.cpp in Sources */,
 				F4D26D67196320050087295D /* CCActionNode.cpp in Sources */,
@@ -3983,6 +4015,7 @@
 				F4E8817317700E8A00577406 /* CCControlButton.cpp in Sources */,
 				F4E8817417700E8A00577406 /* CCControlColourPicker.cpp in Sources */,
 				F4CB87A4180D02F600D81CF3 /* lpack.c in Sources */,
+				F4EE1778199E0E9700023E28 /* CCSlideJoint.cpp in Sources */,
 				F4E8817517700E8A00577406 /* CCControlHuePicker.cpp in Sources */,
 				F4E8817617700E8A00577406 /* CCControlPotentiometer.cpp in Sources */,
 				F4E8817717700E8A00577406 /* CCControlSaturationBrightnessPicker.cpp in Sources */,
@@ -3992,6 +4025,7 @@
 				E540B39D198754880054B7F7 /* BaseFactory.cpp in Sources */,
 				F4E8817917700E8A00577406 /* CCControlStepper.cpp in Sources */,
 				F4CB87B7180D02F600D81CF3 /* lua_zlib.c in Sources */,
+				F4EE1777199E0E9700023E28 /* CCPivotJoint.cpp in Sources */,
 				F4E8817A17700E8A00577406 /* CCControlSwitch.cpp in Sources */,
 				F4E8817B17700E8A00577406 /* CCControlUtils.cpp in Sources */,
 				E540B397198754880054B7F7 /* CCDBManager.cpp in Sources */,
