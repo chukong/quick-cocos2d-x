@@ -1,5 +1,4 @@
 
-import(".ForQuickV2")
 local uiloader = class("uiloader")
 local CCSUILoader = import(".CCSUILoader")
 local CCSSceneLoader = import(".CCSSceneLoader")
