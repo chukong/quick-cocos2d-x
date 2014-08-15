@@ -490,25 +490,7 @@ function CCSUILoader:createLabel(options)
 		node:setLayoutSize(options.areaWidth, options.areaHeight)
 	end
 
-	local anchorX
-	local anchorY
-	if options.hAlignment then
-		if 0 == options.hAlignment then
-			anchorX = 0.5
-		else
-			anchorX = options.hAlignment/2
-		end
-	end
-	if options.vAlignment then
-		if 0 == options.vAlignment then
-			anchorY = 0.5
-		else
-			anchorY = options.vAlignment/2
-		end
-	end
-	local anchorType = self:getAnchorType(anchorX or 0, anchorY or 0)
-	-- print("label:" .. anchorType)
-	node:align(anchorType,
+	node:align(self:getAnchorType(options.anchorPointX or 0.5, options.anchorPointY or 0.5),
 		options.x or 0, options.y or 0)
 
 	return node
