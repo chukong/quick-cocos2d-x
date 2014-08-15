@@ -497,9 +497,11 @@ end
 
 创建带描边效果的 TTF 文字显示对象，并返回 CCLabelTTF 对象。
 
-相比 ui.newTTFLabel() 增加一个参数：
+相比 ui.newTTFLabel() 增加参数：
 
     outlineColor: 描边颜色（可选），用 ccc3() 指定，默认为黑色
+    outlineWidth: 描边宽度（可选）, 默认为1
+    opacity: 描边透明度 (可选),默认为255
 
 @param table params 参数表格对象
 
@@ -509,39 +511,28 @@ end
 function ui.newTTFLabelWithOutline(params)
     assert(type(params) == "table",
            "[framework.ui] newTTFLabelWithShadow() invalid params")
-
-    local color        = params.color or display.COLOR_WHITE
     local outlineColor = params.outlineColor or display.COLOR_BLACK
     local x, y         = params.x, params.y
-
+    local outlineWidth = params.outlineWidth or 1
+    local opacity = params.outlineOpacity or 255
     local g = display.newNode()
-    params.size  = params.size
-    params.color = outlineColor
     params.x, params.y = 0, 0
-    g.shadow1 = ui.newTTFLabel(params)
-    g.shadow1:realign(1, 0)
-    g:addChild(g.shadow1)
-    g.shadow2 = ui.newTTFLabel(params)
-    g.shadow2:realign(-1, 0)
-    g:addChild(g.shadow2)
-    g.shadow3 = ui.newTTFLabel(params)
-    g.shadow3:realign(0, -1)
-    g:addChild(g.shadow3)
-    g.shadow4 = ui.newTTFLabel(params)
-    g.shadow4:realign(0, 1)
-    g:addChild(g.shadow4)
-
-    params.color = color
     g.label = ui.newTTFLabel(params)
-    g.label:realign(0, 0)
-    g:addChild(g.label)
+    g:addChild(g.label,1)
+
+    local function createStroke_(o)
+        if g.rt then
+            g.rt:removeFromParent()
+            g.rt = nil
+        end
+        o = o or 1
+        g.rt = ui.createOutline(g.label,outlineWidth,outlineColor,opacity*o)
+    end
+    createStroke_()
 
     function g:setString(text)
-        g.shadow1:setString(text)
-        g.shadow2:setString(text)
-        g.shadow3:setString(text)
-        g.shadow4:setString(text)
         g.label:setString(text)
+        createStroke_()
     end
 
     function g:getContentSize()
@@ -550,21 +541,17 @@ function ui.newTTFLabelWithOutline(params)
 
     function g:setColor(...)
         g.label:setColor(...)
-    end
-
-    function g:setOutlineColor(...)
-        g.shadow1:setColor(...)
-        g.shadow2:setColor(...)
-        g.shadow3:setColor(...)
-        g.shadow4:setColor(...)
+        createStroke_()
     end
 
     function g:setOpacity(opacity)
         g.label:setOpacity(opacity)
-        g.shadow1:setOpacity(opacity)
-        g.shadow2:setOpacity(opacity)
-        g.shadow3:setOpacity(opacity)
-        g.shadow4:setOpacity(opacity)
+        createStroke_(opacity/255)
+    end
+
+    function g:setAnchorPoint(ap)
+        g.label:setAnchorPoint(ap)
+        createStroke_()
     end
 
     if x and y then
@@ -572,6 +559,81 @@ function ui.newTTFLabelWithOutline(params)
     end
 
     return g
+end
+
+--[[--
+
+为一个label或者sprite绘制描边，并将绘制好的描边添加到传入node的后面
+
+@param node 需要描边的对象
+       outlineWidth 描边宽度
+       color外边框颜色
+       opacity描边透明度
+        scr,dst混合模式
+@return CCRenderTexture 描边对象
+
+]]
+function ui.createOutline(node,outlineWidth,color,opacity,src,dst)
+    local w = node:getTexture():getContentSize().width + outlineWidth * 2
+    local h = node:getTexture():getContentSize().height + outlineWidth * 2
+    local rt = CCRenderTexture:create(w, h)
+    -- 记录原始位置
+    local originX, originY = node:getPosition()
+    local originColorR = 255
+    local originColorG = 255
+    local originColorB = 255
+    if node.getColor then
+         -- 记录原始颜色RGB信息
+        originColorR = node:getColor().r
+        originColorG = node:getColor().g
+        originColorB = node:getColor().b
+    end
+    -- 记录原始透明度信息
+    local originOpacity = node:getOpacity()
+    -- 记录原始是否显示
+    local originVisibility = node:isVisible()
+    -- 记录原始混合模式
+    local originBlend = node:getBlendFunc()
+    -- 设置颜色、透明度、显示
+    node:setColor(color)
+    node:setOpacity(opacity)
+    node:setVisible(true)
+    -- 设置新的混合模式
+    local blendFuc = ccBlendFunc:new()
+    blendFuc.src = src or GL_SRC_ALPHA
+    blendFuc.dst = dst or GL_ONE
+    -- blendFuc.dst = GL_ONE_MINUS_SRC_COLOR
+    node:setBlendFunc(blendFuc)
+    -- 这里考虑到锚点的位置，如果锚点刚好在中心处，代码可能会更好理解点
+    local bottomLeftX = node:getTexture():getContentSize().width * node:getAnchorPoint().x + outlineWidth 
+    local bottomLeftY = node:getTexture():getContentSize().height * node:getAnchorPoint().y + outlineWidth
+
+    local positionOffsetX = node:getTexture():getContentSize().width * node:getAnchorPoint().x - node:getTexture():getContentSize().width / 2
+    local positionOffsetY = node:getTexture():getContentSize().height * node:getAnchorPoint().y - node:getTexture():getContentSize().height / 2
+
+    local rtPosition = ccp(originX - positionOffsetX, originY - positionOffsetY)
+    
+    local function degrees2radians(angle)
+        return angle * 0.01745329252
+    end
+    rt:begin()
+    for i = 0, 360, 5 do
+        node:setPosition(ccp(bottomLeftX + math.sin(degrees2radians(i)) * outlineWidth, bottomLeftY + math.cos(degrees2radians(i)) * outlineWidth))
+        node:visit()
+    end
+    rt:endToLua()
+    -- node恢复原状
+    node:setPosition(originX, originY)
+    node:setColor(ccc3(originColorR, originColorG, originColorB))
+    node:setBlendFunc(originBlend)
+    node:setVisible(originVisibility)
+    node:setOpacity(originOpacity)
+    rt:setPosition(rtPosition)
+    --防锯齿
+    rt:getSprite():getTexture():setAntiAliasTexParameters()
+    node:getParent():addChild(rt,node:getZOrder()-1)
+    node.stroke = rt
+    return rt
 end
 
 return ui
