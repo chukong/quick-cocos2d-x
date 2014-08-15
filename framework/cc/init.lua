@@ -43,6 +43,7 @@ local components = {
     "components.behavior.EventProtocol",
     "components.ui.BasicLayoutProtocol",
     "components.ui.LayoutProtocol",
+    "components.ui.DraggableProtocol",
 }
 for _, packageName in ipairs(components) do
     cc.Registry.add(import("." .. packageName, CURRENT_MODULE_NAME), packageName)
