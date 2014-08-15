@@ -52,6 +52,24 @@ function cc.Node:setPosition(_x, _y)
 	end
 end
 
+local setSize = cc.Node.setContentSize
+function cc.Node:setContentSize(_w, _h)
+	if _h then
+		setSize(self, _w, _h)
+	else
+		setSize(self, _w)
+	end
+end
+
+local setScale9Size = CCScale9Sprite.setContentSize
+function CCScale9Sprite:setContentSize(_w, _h)
+	if _h then
+		setScale9Size(self, CCSize(_w, _h))
+	else
+		setScale9Size(self, _w)
+	end
+end
+
 local rect2t = function(_r)
 	_r.x = _r.origin.x
 	_r.y = _r.origin.y
@@ -64,6 +82,12 @@ end
 local getCascade = cc.Node.getCascadeBoundingBox
 function cc.Node:getCascadeBoundingBox()
 	local r = getCascade(self)
+	return rect2t(r)
+end
+
+local getBound = cc.Node.getBoundingBox
+function cc.Node:getBoundingBox()
+	local r = getBound(self)
 	return rect2t(r)
 end
 
