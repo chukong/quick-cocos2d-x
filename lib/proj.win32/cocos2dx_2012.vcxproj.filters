@@ -340,6 +340,9 @@
     <Filter Include="cocos2d-x\extensions\DragonBones\utils">
       <UniqueIdentifier>{8ed2e752-1f75-4ccc-a130-ad0b7f777762}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocos2d-x\external\chipmunk\cocos2dx_support\constraints">
+      <UniqueIdentifier>{2c1549fd-adef-4609-bb77-28c78892b71a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.cpp">
@@ -1541,6 +1544,24 @@
     </ClCompile>
     <ClCompile Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.cpp">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCGrooveJoint.cpp">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCJoint.cpp">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCPinJoint.cpp">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCPivotJoint.cpp">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCSlideJoint.cpp">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCDampedSpringJoint.cpp">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -3103,6 +3124,9 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\DragonBones\utils\TransformUtil.h">
       <Filter>cocos2d-x\extensions\DragonBones\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCJoint.h">
+      <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
