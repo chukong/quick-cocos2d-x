@@ -144,6 +144,8 @@ function CCSUILoader:createUINode(clsName, options)
 		return
 	end
 
+	-- printInfo("CCSUILoader - createUINode:" .. clsName)
+
 	local node
 
 	if clsName == "Node" then
@@ -201,13 +203,13 @@ end
 function CCSUILoader:getButtonStateImages(options)
 	local images = {}
 	if options.normalData and options.normalData.path then
-		images.normal = self:transResName(options.normalData.path)
+		images.normal = self:transResName(options.normalData)
 	end
 	if options.pressedData and options.pressedData.path then
-		images.pressed = self:transResName(options.pressedData.path)
+		images.pressed = self:transResName(options.pressedData)
 	end
 	if options.disabledData and options.disabledData.path then
-		images.disabled = self:transResName(options.disabledData.path)
+		images.disabled = self:transResName(options.disabledData)
 	end
 
 	return images
@@ -246,12 +248,11 @@ function CCSUILoader:getCheckBoxImages(options)
 	local images = {}
 
 	local getBackgroundImage = function(state)
-		local image = options.backGroundBoxData.path
+		local image = options.backGroundBoxData
 		if "pressed" == state then
-			image = options.backGroundBoxSelectedData.path
-		end
-		if "disabled" == state then
-			image = options.backGroundBoxDisabledData.path
+			image = options.backGroundBoxSelectedData
+		elseif "disabled" == state then
+			image = options.backGroundBoxDisabledData
 		end
 
 		return image
@@ -272,10 +273,10 @@ function CCSUILoader:getCheckBoxImages(options)
 	images.off = self:transResName(getBackgroundImage("normal"))
 	images.off_pressed = self:transResName(getBackgroundImage("pressed"))
 	images.off_disabled = self:transResName(getBackgroundImage("disabled"))
-	images.on = {images.off, self:transResName(options.frontCrossData.path)}
+	images.on = {images.off, self:transResName(options.frontCrossData)}
 	images.on_pressed = images.on
 	images.on_disabled = {images.off_disabled,
-		self:transResName(options.frontCrossDisabledData.path)}
+		self:transResName(options.frontCrossDisabledData)}
 
 	return images
 end
@@ -283,13 +284,12 @@ end
 function CCSUILoader:loadTexture(json)
 	-- cc.FileUtils:getInstance():addSearchPath("res/")
 
-	local png
 	for i,v in ipairs(json.textures) do
 		self.bUseTexture = true
-		if json.texturesPng then
-			png = self:getTexturePng(json.texturesPng[i])
-		end
-		UILoaderUtilitys.loadTexture(v, png)
+		-- if json.texturesPng then
+		-- 	png = self:getTexturePng(json.texturesPng[i])
+		-- end
+		UILoaderUtilitys.loadTexture(v)
 	end
 
 end
@@ -311,34 +311,42 @@ function CCSUILoader:getTexturePng(plist)
 	return png
 end
 
-function CCSUILoader:transResName(name)
+function CCSUILoader:transResName(fileData)
+	local name = fileData.path
 	if not name then
 		return name
 	end
 
-	-- local pathInfo = io.pathinfo(path)
-	-- local name = pathInfo.filename
-	local isInTexturePng = function(name)
-		if not self.texturesPng then
-			return false
-		end
-		for i,v in ipairs(self.texturesPng) do
-			if v == name then
-				return true
-			end
-		end
-		return false
-	end
-
-	if not self.bUseTexture then
-		return name
-	end
-
-	if not isInTexturePng(name) then
+	UILoaderUtilitys.loadTexture(fileData.plistFile)
+	if 1 == fileData.resourceType then
 		return "#" .. name
 	else
 		return name
 	end
+
+	-- -- local pathInfo = io.pathinfo(path)
+	-- -- local name = pathInfo.filename
+	-- local isInTexturePng = function(name)
+	-- 	if not self.texturesPng then
+	-- 		return false
+	-- 	end
+	-- 	for i,v in ipairs(self.texturesPng) do
+	-- 		if v == name then
+	-- 			return true
+	-- 		end
+	-- 	end
+	-- 	return false
+	-- end
+
+	-- if not self.bUseTexture then
+	-- 	return name
+	-- end
+
+	-- if not isInTexturePng(name) then
+	-- 	return "#" .. name
+	-- else
+	-- 	return name
+	-- end
 end
 
 function CCSUILoader:createNode(options)
@@ -369,7 +377,7 @@ end
 
 function CCSUILoader:createImage(options)
 	local node = cc.ui.UIImage.new(
-		self:transResName(options.fileNameData.path),
+		self:transResName(options.fileNameData),
 		{scale9 = options.scale9Enable})
 
 	if not options.ignoreSize then
@@ -404,7 +412,7 @@ end
 
 function CCSUILoader:createLoadingBar(options)
 	local params = {}
-	params.image = self:transResName(options.textureData.path)
+	params.image = self:transResName(options.textureData)
 	params.scale9 = options.scale9Enable
 	params.capInsets = cc.rect(options.capInsetsX, options.capInsetsY,
 		options.capInsetsWidth, options.capInsetsHeight)
@@ -425,8 +433,8 @@ end
 
 function CCSUILoader:createSlider(options)
 	local node = cc.ui.UISlider.new(display.LEFT_TO_RIGHT,
-		{bar = self:transResName(options.barFileNameData.path),
-		button = self:transResName(options.ballNormalData.path)},
+		{bar = self:transResName(options.barFileNameData),
+		button = self:transResName(options.ballNormalData)},
 		{scale9 = not options.ignoreSize})
 
 	if not options.ignoreSize then
@@ -475,12 +483,33 @@ function CCSUILoader:createLabel(options)
 		font = options.fontName,
 		size = options.fontSize,
 		color = cc.c3b(options.colorR, options.colorG, options.colorB),
-		align = options.hAlignment or cc.TEXT_ALIGNMENT_RIGHT,
-		valign = options.vAlignment or cc.VERTICAL_TEXT_ALIGNMENT_TOP,
+		align = options.hAlignment,
+		valign = options.vAlignment,
 		x = options.x, y = options.y})
 	if not options.ignoreSize then
 		node:setLayoutSize(options.areaWidth, options.areaHeight)
 	end
+
+	local anchorX
+	local anchorY
+	if options.hAlignment then
+		if 0 == options.hAlignment then
+			anchorX = 0.5
+		else
+			anchorX = options.hAlignment/2
+		end
+	end
+	if options.vAlignment then
+		if 0 == options.vAlignment then
+			anchorY = 0.5
+		else
+			anchorY = options.vAlignment/2
+		end
+	end
+	local anchorType = self:getAnchorType(anchorX or 0, anchorY or 0)
+	-- print("label:" .. anchorType)
+	node:align(anchorType,
+		options.x or 0, options.y or 0)
 
 	return node
 end
@@ -578,7 +607,7 @@ function CCSUILoader:createPanel(options)
 	else
 		if options.backGroundImageData and options.backGroundImageData.path then
 			bgLayer = display.newSprite(
-				self:transResName(options.backGroundImageData.path))
+				self:transResName(options.backGroundImageData))
 		end
 	end
 
