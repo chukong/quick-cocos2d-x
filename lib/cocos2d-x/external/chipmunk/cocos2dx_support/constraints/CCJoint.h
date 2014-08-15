@@ -8,11 +8,13 @@
 #include "cocos2d.h"
 #include "chipmunk.h"
 #include "CCPhysicsSupport.h"
-#include "CCPhysicsBody.h"
-#include "CCPhysicsWorld.h"
 #include "script_support/CCScriptSupport.h"
 
 using namespace cocos2d;
+
+class CCPhysicsBody;
+class CCPhysicsWorld;
+
 
 enum JointType
 {

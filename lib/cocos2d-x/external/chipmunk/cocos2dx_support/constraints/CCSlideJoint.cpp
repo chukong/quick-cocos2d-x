@@ -4,6 +4,8 @@
 * create date:2014-08-03
 **/
 #include "CCJoint.h"
+#include "CCPhysicsBody.h"
+#include "CCPhysicsWorld.h"
 
 CCSlideJoint::CCSlideJoint(CCPhysicsWorld *world,
 	CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect archA, cpVect archB,

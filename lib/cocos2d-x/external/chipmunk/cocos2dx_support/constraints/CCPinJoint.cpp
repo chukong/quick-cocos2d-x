@@ -4,6 +4,8 @@
 * create date:2014-08-03
 **/
 #include "CCJoint.h"
+#include "CCPhysicsBody.h"
+#include "CCPhysicsWorld.h"
 
 CCPinJoint::CCPinJoint(CCPhysicsWorld* world, 
 	CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, cpVect anchrA, cpVect anchrB) : CCJoint(world, bodyA, bodyB, PIN_JOINT)

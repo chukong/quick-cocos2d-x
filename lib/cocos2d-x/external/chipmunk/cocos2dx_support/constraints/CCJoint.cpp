@@ -3,6 +3,10 @@
 * author: dongxurr123@gmail.com/163.com
 * create date:2014-08-03
 **/
+
+#include "CCPhysicsBody.h"
+#include "CCPhysicsWorld.h"
+
 #include "CCJoint.h"
 
 

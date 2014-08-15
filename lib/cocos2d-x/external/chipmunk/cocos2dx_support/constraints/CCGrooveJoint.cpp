@@ -3,7 +3,10 @@
 * author: dongxurr123@gmail.com/163.com
 * create date:2014-08-03
 **/
+
 #include "CCJoint.h"
+#include "CCPhysicsBody.h"
+#include "CCPhysicsWorld.h"
 
 CCGrooveJoint::CCGrooveJoint(CCPhysicsWorld* world, CCPhysicsBody *bodyA, CCPhysicsBody *bodyB, 
 	cpVect grooveA, cpVect grooveB, cpVect archrB) : CCJoint(world, bodyA, bodyB, GROOVE_JOINT)
