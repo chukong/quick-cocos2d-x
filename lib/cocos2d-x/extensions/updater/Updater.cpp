@@ -148,7 +148,8 @@ const char* Updater::getUpdateInfo(const char* url)
     _curl = curl_easy_init();
     if (! _curl)
     {
-        CCLOG("Can not init curl");
+        sendErrorMessage(kNetwork);
+        CCLOG("Updater::getUpdateInfo(%s) Can not init curl", url);
         return "";
     }
     
@@ -161,12 +162,11 @@ const char* Updater::getUpdateInfo(const char* url)
     curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &_updateInfoString);
     if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
     res = curl_easy_perform(_curl);
-    
+    curl_easy_cleanup(_curl);
     if (res != 0)
     {
         sendErrorMessage(kNetwork);
         CCLOG("Can not get update info content %s, error code is %d", url, res);
-        curl_easy_cleanup(_curl);
         return "";
     }
     
@@ -197,6 +197,7 @@ void* updateThreadFunc(void *data)
         succMsg->what = UPDATER_MESSAGE_UPDATE_SUCCEED;
         succMsg->obj = self;
         self->_schedule->sendMessage(succMsg);
+        self->_updateType = Updater::kUpdateUndefined;
     } while (0);
     
     self->clearTid();
@@ -459,21 +460,23 @@ int downloadProgressFunc(void *ptr, double totalToDownload, double nowDownloaded
     msg->what = UPDATER_MESSAGE_PROGRESS;
     
     ProgressMessage *progressData = new ProgressMessage();
-    progressData->percent = (int)(nowDownloaded/totalToDownload*100);
+
+    progressData->percent = totalToDownload > 0 ?
+        (int)(nowDownloaded/totalToDownload*100) :
+        0;
     progressData->manager = manager;
     msg->obj = progressData;
     
     manager->_schedule->sendMessage(msg);
     
-    CCLOG("downloading... %d%%", (int)(nowDownloaded/totalToDownload*100));
-    
+    CCLOG("downloading... %d%%", progressData->percent);
     return 0;
 }
 
-bool Updater::download(const char* zipUrl, const char* zipFile)
+bool Updater::download(const char* fileUrl, const char* filePath)
 {
     // Create a file to save package.
-    string outFileName = string(zipFile);
+    string outFileName = string(filePath);
     FILE *fp = fopen(outFileName.c_str(), "wb");
     if (! fp)
     {
@@ -482,11 +485,19 @@ bool Updater::download(const char* zipUrl, const char* zipFile)
         return false;
     }
     
+    _curl = curl_easy_init();
+    if (! _curl)
+    {
+        sendErrorMessage(kNetwork);
+        CCLOG("Updater::download(%s, %s) Can not init curl!", fileUrl, filePath);
+        return false;
+    }
+    
     this->sendStateMessage(kDownStart);
     
     // Download pacakge
     CURLcode res;
-    curl_easy_setopt(_curl, CURLOPT_URL, zipUrl);
+    curl_easy_setopt(_curl, CURLOPT_URL, fileUrl);
     curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, downloadWriteFunc);
     curl_easy_setopt(_curl, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(_curl, CURLOPT_NOPROGRESS, false);
@@ -502,7 +513,7 @@ bool Updater::download(const char* zipUrl, const char* zipFile)
         return false;
     }
     
-    CCLOG("succeed downloading package %s", zipUrl);
+    CCLOG("Succeed downloading file %s", fileUrl);
     
     fclose(fp);
     this->sendStateMessage(kDownDone);
