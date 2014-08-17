@@ -181,6 +181,7 @@ function StateMachine:doEvent(name, ...)
 
     event.cancel = function()
         -- provide a way for caller to cancel async transition if desired
+        self.inTransition_ = false
         event.transition = nil
         self:afterEvent_(event)
     end
