@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Jul 30 17:09:00 2014.
+** Generated automatically by tolua++-1.0.92 on Sun Aug 17 10:15:27 2014.
 */
 
 /****************************************************************************
@@ -50504,6 +50504,36 @@ static int tolua_Cocos2d_Updater_update00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: update of class  Updater */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_update01
+static int tolua_Cocos2d_Updater_update01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"Updater",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  Updater* self = (Updater*)  tolua_tousertype(tolua_S,1,0);
+  const char* fileUrl = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* filePath = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'update'", NULL);
+#endif
+  {
+   self->update(fileUrl,filePath);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_Updater_update00(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setConnectionTimeout of class  Updater */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_Updater_setConnectionTimeout00
 static int tolua_Cocos2d_Updater_setConnectionTimeout00(lua_State* tolua_S)
@@ -70511,6 +70541,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,".call",tolua_Cocos2d_Updater_new00_local);
    tolua_function(tolua_S,"delete",tolua_Cocos2d_Updater_delete00);
    tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update00);
+   tolua_function(tolua_S,"update",tolua_Cocos2d_Updater_update01);
    tolua_function(tolua_S,"setConnectionTimeout",tolua_Cocos2d_Updater_setConnectionTimeout00);
    tolua_function(tolua_S,"getConnectionTimeout",tolua_Cocos2d_Updater_getConnectionTimeout00);
    tolua_function(tolua_S,"registerScriptHandler",tolua_Cocos2d_Updater_registerScriptHandler00);

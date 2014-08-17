@@ -58,9 +58,6 @@ public:
          -- ...
          */
         kNetwork,
-        /** There is not a new version
-         */
-        kNoNewVersion,
         /** Error caused in uncompressing stage
          -- can not open zip file
          -- can not read file global information
@@ -79,20 +76,27 @@ public:
         kUncompressDone,
     };
     
-    /* @brief Creates a Updater with new package url, version code url and storage path.
-     *
-     * @param packageUrl URL of new package, the package should be a zip file.
-     * @param versionFileUrl URL of version file. It should contain version code of new package.
-     * @param storagePath The path to store downloaded resources.
+    enum TypeCode
+    {
+        kUpdateUndefined,
+        kUpdateZIP,
+        kUpdateFiles,
+        kUpdateFile,
+    };
+    
+    /* @brief Creates a Updater.
      */
     Updater();
     
     virtual ~Updater();
     
-    /* @brief Download new package if there is a new version, and uncompress downloaded zip file.
-     *        Ofcourse it will set search path that stores downloaded files.
+    /* @brief Download new package zip file, and uncompress downloaded zip file.
      */
-    virtual void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip=true);
+    void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZIP=true);
+    
+    void update(CCArray* list);
+    
+    void update(const char* fileUrl, const char* filePath);
     
     /** @brief Sets delegate, the delegate will receive messages
      */
@@ -114,25 +118,31 @@ public:
     bool removeDirectory(const char* path);
     const char* getUpdateInfo(const char* url);
     
-    /* downloadAndUncompress is the entry of a new thread 
-     */
-    friend void* assetsManagerDownloadAndUncompress(void*);
-    friend int assetsManagerProgressFunc(void *, double, double, double, double);
+    /* An entry of a new thresd. */
+    friend void* updateThreadFunc(void*);
+    
+    friend int downloadProgressFunc(void *, double, double, double, double);
     
 protected:
-    bool downLoad(const char* zipUrl, const char* zipFile);
-    bool uncompress(const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip);
+    bool download(const char* fileUrl, const char* filePath);
+    bool uncompress(const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZIP);
     void sendErrorMessage(ErrorCode code);
     void sendStateMessage(StateCode code);
-    void checkUnZipTmpDir();
     
-    std::string _zipFile;
-    std::string _zipUrl;
+    void checkUnZIPTmpDir();
+    void clearOnSuccess();
     std::string _unzipTmpDir;
     std::string _updateInfoString;
-    bool _resetBeforeUnZip;
+    bool _resetBeforeUnZIP;
+    
+    std::string _fileUrl;
+    std::string _filePath;
+    TypeCode _updateType;
     
 private:
+    void clearTid();
+    bool isAvailable();
+    
     typedef struct _Message
     {
     public:

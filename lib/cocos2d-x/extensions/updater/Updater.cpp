@@ -41,7 +41,7 @@
 #include "support/zip_support/unzip.h"
 #include "script_support/CCScriptSupport.h"
 
-using namespace cocos2d;
+USING_NS_CC;
 using namespace std;
 
 NS_CC_EXT_BEGIN;
@@ -87,11 +87,12 @@ Updater::Updater()
 , _connectionTimeout(0)
 , _delegate(NULL)
 , _scriptHandler(0)
-, _zipUrl("")
-, _zipFile("")
+, _fileUrl("")
+, _filePath("")
 , _unzipTmpDir("")
 , _updateInfoString("")
-, _resetBeforeUnZip(true)
+, _resetBeforeUnZIP(true)
+, _updateType(kUpdateUndefined)
 {
     _schedule = new Helper();
 }
@@ -105,7 +106,7 @@ Updater::~Updater()
     unregisterScriptHandler();
 }
 
-void Updater::checkUnZipTmpDir()
+void Updater::checkUnZIPTmpDir()
 {
     if (_unzipTmpDir.size() > 0 && _unzipTmpDir[_unzipTmpDir.size() - 1] != '/')
     {
@@ -113,13 +114,32 @@ void Updater::checkUnZipTmpDir()
     }
 }
 
-static size_t getUpdateInfoFun(void *ptr, size_t size, size_t nmemb, void *userdata)
+void Updater::clearOnSuccess()
+{
+    if(_updateType == kUpdateZIP)
+    {
+        // Delete unloaded zip file.
+        if (remove(_filePath.c_str()) != 0)
+        {
+            CCLOG("Updater::clearOnSuccess Can not remove downloaded zip file %s", _filePath.c_str());
+        }
+    }
+}
+
+static size_t getUpdateInfoWriteFunc(void *ptr, size_t size, size_t nmemb, void *userdata)
 {
     string *updateInfo = (string*)userdata;
-	CCLOG("updateInfo:%s", updateInfo->c_str());
+	CCLOG("getUpdateInfoWriteFunc %s", updateInfo->c_str());
     updateInfo->append((char*)ptr, size * nmemb);
     
     return (size * nmemb);
+}
+
+static size_t downloadWriteFunc(void *ptr, size_t size, size_t nmemb, void *userdata)
+{
+    FILE *fp = (FILE*)userdata;
+    size_t written = fwrite(ptr, size, nmemb, fp);
+    return written;
 }
 
 const char* Updater::getUpdateInfo(const char* url)
@@ -128,7 +148,7 @@ const char* Updater::getUpdateInfo(const char* url)
     _curl = curl_easy_init();
     if (! _curl)
     {
-        CCLOG("can not init curl");
+        CCLOG("Can not init curl");
         return "";
     }
     
@@ -137,7 +157,7 @@ const char* Updater::getUpdateInfo(const char* url)
     CURLcode res;
     curl_easy_setopt(_curl, CURLOPT_URL, url);
     curl_easy_setopt(_curl, CURLOPT_SSL_VERIFYPEER, 0L);
-    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, getUpdateInfoFun);
+    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, getUpdateInfoWriteFunc);
     curl_easy_setopt(_curl, CURLOPT_WRITEDATA, &_updateInfoString);
     if (_connectionTimeout) curl_easy_setopt(_curl, CURLOPT_CONNECTTIMEOUT, _connectionTimeout);
     res = curl_easy_perform(_curl);
@@ -145,7 +165,7 @@ const char* Updater::getUpdateInfo(const char* url)
     if (res != 0)
     {
         sendErrorMessage(kNetwork);
-        CCLOG("can not get version file content %s, error code is %d", url, res);
+        CCLOG("Can not get update info content %s, error code is %d", url, res);
         curl_easy_cleanup(_curl);
         return "";
     }
@@ -153,68 +173,93 @@ const char* Updater::getUpdateInfo(const char* url)
     return _updateInfoString.c_str();
 }
 
-void* assetsManagerDownloadAndUncompress(void *data)
+void* updateThreadFunc(void *data)
 {
     Updater* self = (Updater*)data;
     
     do
     {
-        if (! self->downLoad(self->_zipUrl.c_str(), self->_zipFile.c_str())) break;
+        if (! self->download(self->_fileUrl.c_str(), self->_filePath.c_str())) break;
         
-        // Uncompress zip file.
-        if (! self->uncompress(self->_zipFile.c_str(), self->_unzipTmpDir.c_str(),self->_resetBeforeUnZip))
+        if(self->_updateType == Updater::kUpdateZIP)
         {
-            self->sendErrorMessage(Updater::kUncompress);
-            break;
+            
+            // Uncompress zip file.
+            if (! self->uncompress(self->_filePath.c_str(), self->_unzipTmpDir.c_str(),self->_resetBeforeUnZIP))
+            {
+                self->sendErrorMessage(Updater::kUncompress);
+                break;
+            }
         }
         
         // Record updated version and remove downloaded zip file
-        Updater::Message *msg2 = new Updater::Message();
-        msg2->what = UPDATER_MESSAGE_UPDATE_SUCCEED;
-        msg2->obj = self;
-        self->_schedule->sendMessage(msg2);
+        Updater::Message *succMsg = new Updater::Message();
+        succMsg->what = UPDATER_MESSAGE_UPDATE_SUCCEED;
+        succMsg->obj = self;
+        self->_schedule->sendMessage(succMsg);
     } while (0);
     
-    if (self->_tid)
-    {
-        delete self->_tid;
-        self->_tid = NULL;
-    }
+    self->clearTid();
     
     return NULL;
 }
 
-void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZip)
+void Updater::update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZIP)
 {
-    if (_tid) return;
+    if(!isAvailable()) return;
     
-    _zipUrl.clear();
-    _zipUrl.append(zipUrl);
-    _zipFile.clear();
-    _zipFile.append(zipFile);
+    _updateType = kUpdateZIP;
+    
+    _fileUrl.clear();
+    _fileUrl.append(zipUrl);
+    _filePath.clear();
+    _filePath.append(zipFile);
     _unzipTmpDir.clear();
     _unzipTmpDir.append(unzipTmpDir);
-    _resetBeforeUnZip = resetBeforeUnZip;
+    _resetBeforeUnZIP = resetBeforeUnZIP;
     
-    checkUnZipTmpDir();
+    checkUnZIPTmpDir();
     
     // 1. Urls of package and version should be valid;
     // 2. Package should be a zip file.
-    if (_zipUrl.size() == 0 ||
-        _zipFile.size() == 0 ||
-        std::string::npos == _zipUrl.find(".zip"))
+    if (_fileUrl.size() == 0 ||
+        _filePath.size() == 0 ||
+        std::string::npos == _fileUrl.find(".zip"))
     {
-        CCLOG("no version file url, or no package url, or the package is not a zip file");
+        CCLOG("No version file url, or no package url, or the package is not a zip file");
         return;
     }
     
     _tid = new pthread_t();
-    pthread_create(&(*_tid), NULL, assetsManagerDownloadAndUncompress, this);
+    pthread_create(&(*_tid), NULL, updateThreadFunc, this);
 }
 
-bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool resetBeforeUnZip)
+void Updater::update(cocos2d::CCArray *list)
 {
-    if(resetBeforeUnZip)
+    return;
+    if(!isAvailable()) return;
+    _updateType = kUpdateFiles;
+
+    _tid = new pthread_t();
+    pthread_create(&(*_tid), NULL, updateThreadFunc, this);
+}
+
+void Updater::update(const char* fileUrl, const char* filePath)
+{
+    if(!isAvailable()) return;
+    _updateType = kUpdateFile;
+    _fileUrl.clear();
+    _fileUrl.append(fileUrl);
+    _filePath.clear();
+    _filePath.append(filePath);
+    
+    _tid = new pthread_t();
+    pthread_create(&(*_tid), NULL, updateThreadFunc, this);
+}
+
+bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool resetBeforeUnZIP)
+{
+    if(resetBeforeUnZIP)
     {
         // Create unzipTmpDir
         if(CCFileUtils::sharedFileUtils()->isFileExist(unzipTmpDir))
@@ -230,7 +275,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
     unzFile zipfile = unzOpen(outFileName.c_str());
     if (! zipfile)
     {
-        CCLOG("can not open downloaded zip file %s", outFileName.c_str());
+        CCLOG("Can not open downloaded zip file %s", outFileName.c_str());
         return false;
     }
     
@@ -238,7 +283,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
     unz_global_info global_info;
     if (unzGetGlobalInfo(zipfile, &global_info) != UNZ_OK)
     {
-        CCLOG("can not read file global info of %s", outFileName.c_str());
+        CCLOG("Can not read file global info of %s", outFileName.c_str());
         unzClose(zipfile);
         return false;
     }
@@ -246,7 +291,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
     // Buffer to hold data read from the zip file
     char readBuffer[BUFFER_SIZE];
     
-    CCLOG("start uncompressing");
+    CCLOG("Start uncompressing");
     
     this->sendStateMessage(kUncompressStart);
     
@@ -266,7 +311,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
                                   NULL,
                                   0) != UNZ_OK)
         {
-            CCLOG("can not read file info");
+            CCLOG("Can not read file info");
             unzClose(zipfile);
             return false;
         }
@@ -289,7 +334,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
 				// If the directory exists, it will failed scilently.
 				if (!createDirectory(dirPath.c_str()))
 				{
-						CCLOG("can not create directory %s", dirPath.c_str());
+						CCLOG("Can not create directory %s", dirPath.c_str());
 						//unzClose(zipfile);
 						//return false;
 				}
@@ -303,7 +348,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
             // Open current file.
             if (unzOpenCurrentFile(zipfile) != UNZ_OK)
             {
-                CCLOG("can not open file %s", fileName);
+                CCLOG("Can not open file %s", fileName);
                 unzClose(zipfile);
                 return false;
             }
@@ -312,7 +357,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
             FILE *out = fopen(fullPath.c_str(), "wb");
             if (! out)
             {
-                CCLOG("can not open destination file %s", fullPath.c_str());
+                CCLOG("Can not open destination file %s", fullPath.c_str());
                 unzCloseCurrentFile(zipfile);
                 unzClose(zipfile);
                 return false;
@@ -325,7 +370,7 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
                 error = unzReadCurrentFile(zipfile, readBuffer, BUFFER_SIZE);
                 if (error < 0)
                 {
-                    CCLOG("can not read zip file %s, error code is %d", fileName, error);
+                    CCLOG("Can not read zip file %s, error code is %d", fileName, error);
                     unzCloseCurrentFile(zipfile);
                     unzClose(zipfile);
                     return false;
@@ -347,14 +392,14 @@ bool Updater::uncompress(const char* zipFilePath, const char* unzipTmpDir, bool 
         {
             if (unzGoToNextFile(zipfile) != UNZ_OK)
             {
-                CCLOG("can not read next file");
+                CCLOG("Can not read next file");
                 unzClose(zipfile);
                 return false;
             }
         }
     }
     
-    CCLOG("end uncompressing");
+    CCLOG("End uncompressing");
     this->sendStateMessage(kUncompressDone);
     
     return true;
@@ -406,14 +451,7 @@ bool Updater::createDirectory(const char *path)
 #endif
 }
 
-static size_t downLoadPackage(void *ptr, size_t size, size_t nmemb, void *userdata)
-{
-    FILE *fp = (FILE*)userdata;
-    size_t written = fwrite(ptr, size, nmemb, fp);
-    return written;
-}
-
-int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownloaded,
+int downloadProgressFunc(void *ptr, double totalToDownload, double nowDownloaded,
                               double totalToUpLoad, double nowUpLoaded)
 {
     Updater* manager = (Updater*)ptr;
@@ -432,7 +470,7 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
     return 0;
 }
 
-bool Updater::downLoad(const char* zipUrl, const char* zipFile)
+bool Updater::download(const char* zipUrl, const char* zipFile)
 {
     // Create a file to save package.
     string outFileName = string(zipFile);
@@ -449,10 +487,10 @@ bool Updater::downLoad(const char* zipUrl, const char* zipFile)
     // Download pacakge
     CURLcode res;
     curl_easy_setopt(_curl, CURLOPT_URL, zipUrl);
-    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, downLoadPackage);
+    curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, downloadWriteFunc);
     curl_easy_setopt(_curl, CURLOPT_WRITEDATA, fp);
     curl_easy_setopt(_curl, CURLOPT_NOPROGRESS, false);
-    curl_easy_setopt(_curl, CURLOPT_PROGRESSFUNCTION, assetsManagerProgressFunc);
+    curl_easy_setopt(_curl, CURLOPT_PROGRESSFUNCTION, downloadProgressFunc);
     curl_easy_setopt(_curl, CURLOPT_PROGRESSDATA, this);
     res = curl_easy_perform(_curl);
     curl_easy_cleanup(_curl);
@@ -525,6 +563,27 @@ void Updater::sendStateMessage(Updater::StateCode code)
     _schedule->sendMessage(msg);
 }
 
+void Updater::clearTid()
+{
+    if(_tid)
+    {
+        delete _tid;
+        _tid = NULL;
+    }
+}
+
+bool Updater::isAvailable()
+{
+    if(_tid) return false;
+    if(_updateType!=kUpdateUndefined)
+    {
+ 
+        CCLOG("Update is running!");
+        return false;
+    }
+    return true;
+}
+
 // Implementation of UpdaterHelper
 
 Updater::Helper::Helper()
@@ -590,15 +649,10 @@ void Updater::Helper::handleUpdateSucceed(Message *msg)
 {
     Updater* manager = (Updater*)msg->obj;
     
-    // Delete unloaded zip file.
-    string zipfileName = manager->_zipFile;
-    if (remove(zipfileName.c_str()) != 0)
-    {
-        CCLOG("can not remove downloaded zip file %s", zipfileName.c_str());
-    }
-    
     if (manager)
     {
+        manager->clearOnSuccess();
+
         if (manager->_delegate)
         {
             manager->_delegate->onSuccess();
@@ -614,6 +668,10 @@ void Updater::Helper::handleUpdateSucceed(Message *msg)
                                "CCString"
                                );
         }
+    }
+    else
+    {
+        CCLOG("Updater::Helper::handlerUpdateSuccessed Can not get the Update instance!");
     }
 }
 
@@ -679,10 +737,6 @@ void Updater::Helper::handlerError(Message* msg)
                 
             case kNetwork:
                 errorMessage = "errorNetwork";
-                break;
-                
-            case kNoNewVersion:
-                errorMessage = "errorNoNewVersion";
                 break;
                 
             case kUncompress:
