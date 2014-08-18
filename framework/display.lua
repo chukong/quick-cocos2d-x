@@ -650,7 +650,7 @@ end
 
 function display.removeSpriteFrameByImageName(imageName)
     sharedSpriteFrameCache:removeSpriteFrameByName(imageName)
-    CCTextureCache:sharedTextureCache():removeTextureForKey(imageName)
+    sharedTextureCache:removeTextureForKey(imageName)
 end
 
 function display.newBatchNode(image, capacity)

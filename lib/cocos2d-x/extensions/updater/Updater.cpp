@@ -469,7 +469,7 @@ int downloadProgressFunc(void *ptr, double totalToDownload, double nowDownloaded
     
     manager->_schedule->sendMessage(msg);
     
-    CCLOG("downloading... %d%%", progressData->percent);
+    //CCLOG("downloading... %d%%", progressData->percent);
     return 0;
 }
 
@@ -508,7 +508,7 @@ bool Updater::download(const char* fileUrl, const char* filePath)
     if (res != 0)
     {
         sendErrorMessage(kNetwork);
-        CCLOG("error when download package");
+        CCLOG("Error when download package");
         fclose(fp);
         return false;
     }
@@ -659,7 +659,7 @@ void Updater::Helper::update(float dt)
 void Updater::Helper::handleUpdateSucceed(Message *msg)
 {
     Updater* manager = (Updater*)msg->obj;
-    
+    CCLOG("Updater::helper::handlerUpdateSuccessed");
     if (manager)
     {
         manager->clearOnSuccess();
