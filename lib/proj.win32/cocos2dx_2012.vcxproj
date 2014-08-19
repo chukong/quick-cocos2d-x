@@ -326,6 +326,12 @@
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsShape.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsSupport.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsWorld.cpp" />
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCDampedSpringJoint.cpp" />
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCGrooveJoint.cpp" />
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCJoint.cpp" />
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCPinJoint.cpp" />
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCPivotJoint.cpp" />
+    <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCSlideJoint.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\luabinding\CCPhysicsWorld_luabinding.cpp" />
     <ClCompile Include="..\cocos2d-x\external\chipmunk\src\chipmunk.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
@@ -932,6 +938,7 @@
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsShape.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsSupport.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\CCPhysicsWorld.h" />
+    <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCJoint.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\include\chipmunk.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\include\chipmunk_ffi.h" />
     <ClInclude Include="..\cocos2d-x\external\chipmunk\include\chipmunk_private.h" />

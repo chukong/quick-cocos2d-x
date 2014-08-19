@@ -181,6 +181,12 @@
 		F45A2E0F166B16B100760194 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE7166B16B100760194 /* tolua_push.c */; };
 		F45A2E10166B16B100760194 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE8166B16B100760194 /* tolua_to.c */; };
 		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
+		F475E990199E116300CDEA69 /* CCDampedSpringJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E989199E116300CDEA69 /* CCDampedSpringJoint.cpp */; };
+		F475E991199E116300CDEA69 /* CCGrooveJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98A199E116300CDEA69 /* CCGrooveJoint.cpp */; };
+		F475E992199E116300CDEA69 /* CCJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98B199E116300CDEA69 /* CCJoint.cpp */; };
+		F475E993199E116300CDEA69 /* CCPinJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98D199E116300CDEA69 /* CCPinJoint.cpp */; };
+		F475E994199E116300CDEA69 /* CCPivotJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98E199E116300CDEA69 /* CCPivotJoint.cpp */; };
+		F475E995199E116300CDEA69 /* CCSlideJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98F199E116300CDEA69 /* CCSlideJoint.cpp */; };
 		F47C66C316EB37DB00132435 /* snapshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F47C66C116EB37DB00132435 /* snapshot.c */; };
 		F4A3A8F2182E7B810000EDD1 /* xxtea.c in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8F0182E7B800000EDD1 /* xxtea.c */; };
 		F4A3A8F5182E7B980000EDD1 /* ioapi_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4A3A8F3182E7B980000EDD1 /* ioapi_mem.cpp */; };
@@ -859,6 +865,13 @@
 		F45A2DE7166B16B100760194 /* tolua_push.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_push.c; sourceTree = "<group>"; };
 		F45A2DE8166B16B100760194 /* tolua_to.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_to.c; sourceTree = "<group>"; };
 		F45FF34A16C7DD4C00275222 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = QUICK_COCOS2DX_ROOT; };
+		F475E989199E116300CDEA69 /* CCDampedSpringJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDampedSpringJoint.cpp; sourceTree = "<group>"; };
+		F475E98A199E116300CDEA69 /* CCGrooveJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGrooveJoint.cpp; sourceTree = "<group>"; };
+		F475E98B199E116300CDEA69 /* CCJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCJoint.cpp; sourceTree = "<group>"; };
+		F475E98C199E116300CDEA69 /* CCJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCJoint.h; sourceTree = "<group>"; };
+		F475E98D199E116300CDEA69 /* CCPinJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPinJoint.cpp; sourceTree = "<group>"; };
+		F475E98E199E116300CDEA69 /* CCPivotJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPivotJoint.cpp; sourceTree = "<group>"; };
+		F475E98F199E116300CDEA69 /* CCSlideJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCSlideJoint.cpp; sourceTree = "<group>"; };
 		F47C66C116EB37DB00132435 /* snapshot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snapshot.c; sourceTree = "<group>"; };
 		F47C66C216EB37DB00132435 /* snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snapshot.h; sourceTree = "<group>"; };
 		F4A3A8F0182E7B800000EDD1 /* xxtea.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxtea.c; sourceTree = "<group>"; };
@@ -2030,6 +2043,7 @@
 		F459EA8F180D04E1006CBDF1 /* cocos2dx_support */ = {
 			isa = PBXGroup;
 			children = (
+				F475E988199E116300CDEA69 /* constraints */,
 				F459EA90180D04E1006CBDF1 /* CCPhysicsBody.cpp */,
 				F459EA91180D04E1006CBDF1 /* CCPhysicsBody.h */,
 				F459EA92180D04E1006CBDF1 /* CCPhysicsDebugNode.cpp */,
@@ -2446,6 +2460,20 @@
 				F4ABAD83191A8A7700FEA3CD /* ProjectConfig */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		F475E988199E116300CDEA69 /* constraints */ = {
+			isa = PBXGroup;
+			children = (
+				F475E989199E116300CDEA69 /* CCDampedSpringJoint.cpp */,
+				F475E98A199E116300CDEA69 /* CCGrooveJoint.cpp */,
+				F475E98B199E116300CDEA69 /* CCJoint.cpp */,
+				F475E98C199E116300CDEA69 /* CCJoint.h */,
+				F475E98D199E116300CDEA69 /* CCPinJoint.cpp */,
+				F475E98E199E116300CDEA69 /* CCPivotJoint.cpp */,
+				F475E98F199E116300CDEA69 /* CCSlideJoint.cpp */,
+			);
+			path = constraints;
 			sourceTree = "<group>";
 		};
 		F4A8F6B417F0B18000110198 /* external */ = {
@@ -3838,6 +3866,7 @@
 				F4E882C1177015C400577406 /* CCZone.cpp in Sources */,
 				F4E882C2177015C400577406 /* CCDrawingPrimitives.cpp in Sources */,
 				F4D26E81196321AE0087295D /* CCActionEaseEx.cpp in Sources */,
+				F475E995199E116300CDEA69 /* CCSlideJoint.cpp in Sources */,
 				F40118C2180C9E62002A74D5 /* lua_cocos2dx_extensions_manual.cpp in Sources */,
 				F4E882C3177015C400577406 /* CCDrawNode.cpp in Sources */,
 				F459EAFE180D04E1006CBDF1 /* cpDampedSpring.c in Sources */,
@@ -3944,6 +3973,7 @@
 				F4E882F5177015C400577406 /* CCNotificationCenter.cpp in Sources */,
 				F4D26E86196321AE0087295D /* CCActionObject.cpp in Sources */,
 				F4E882F6177015C400577406 /* CCPointExtension.cpp in Sources */,
+				F475E994199E116300CDEA69 /* CCPivotJoint.cpp in Sources */,
 				F4E882F7177015C400577406 /* CCProfiling.cpp in Sources */,
 				F4E882F8177015C400577406 /* ccUTF8.cpp in Sources */,
 				E5C463561987A250001192EA /* CCDBAtlasNode.cpp in Sources */,
@@ -4007,6 +4037,7 @@
 				F4D26EC7196321AE0087295D /* SliderReader.cpp in Sources */,
 				F4E88312177015C400577406 /* CCTMXTiledMap.cpp in Sources */,
 				F4E88313177015C400577406 /* CCTMXXMLParser.cpp in Sources */,
+				F475E990199E116300CDEA69 /* CCDampedSpringJoint.cpp in Sources */,
 				F4D26EA4196321AE0087295D /* UIWidget.cpp in Sources */,
 				F4E88314177015C400577406 /* CCTouch.cpp in Sources */,
 				F4E88315177015C400577406 /* CCTouchDispatcher.cpp in Sources */,
@@ -4029,6 +4060,7 @@
 				F4E8833C177015FF00577406 /* CCEGLView.mm in Sources */,
 				F4E8833D177015FF00577406 /* CCES2Renderer.m in Sources */,
 				F4D26EAF196321AE0087295D /* UICheckBox.cpp in Sources */,
+				F475E991199E116300CDEA69 /* CCGrooveJoint.cpp in Sources */,
 				F4D26E97196321AE0087295D /* CCColliderDetector.cpp in Sources */,
 				F4E8833E177015FF00577406 /* CCFileUtilsIOS.mm in Sources */,
 				F459EB8E180D0513006CBDF1 /* usocket.c in Sources */,
@@ -4133,6 +4165,8 @@
 				F459EB04180D04E1006CBDF1 /* cpRotaryLimitJoint.c in Sources */,
 				F459EB88180D0513006CBDF1 /* serial.c in Sources */,
 				E5C463611987A250001192EA /* TransformUtil.cpp in Sources */,
+				F475E993199E116300CDEA69 /* CCPinJoint.cpp in Sources */,
+				F475E992199E116300CDEA69 /* CCJoint.cpp in Sources */,
 				F459EA72180D04D8006CBDF1 /* CCNetwork.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

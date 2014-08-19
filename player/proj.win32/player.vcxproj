@@ -88,7 +88,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>cocos2dx.lib;opengl32.lib;ws2_32.lib;wsock32.lib;pthreadVCE2.lib;lua51.lib;winmm.lib;glew32.lib;libcurl_imp.lib;libiconv.lib;libjpeg.lib;libpng.lib;libtiff.lib;libzlib.lib;libwebp.lib;websockets.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QUICK_COCOS2DX_ROOT)\player\proj.win32\$(Configuration);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\libwebsockets\win32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutDir);$(QUICK_COCOS2DX_ROOT)\lib\luajit2\proj.win32;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\cocos2dx\platform\third_party\win32\libraries;$(QUICK_COCOS2DX_ROOT)\lib\cocos2d-x\external\libwebsockets\win32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>

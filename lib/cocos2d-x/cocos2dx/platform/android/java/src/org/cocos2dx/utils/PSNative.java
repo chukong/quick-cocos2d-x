@@ -4,8 +4,11 @@ import java.util.Vector;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
@@ -13,6 +16,11 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
 
 public class PSNative {
 	static Cocos2dxActivity mContext = null;
@@ -21,6 +29,8 @@ public class PSNative {
 
 	static PSDialog mCreatingDialog = null;
 	static PSDialog mShowingDialog = null;
+	static ProgressBar mProgressBar = null;
+	static Dialog mIndicatorDialog = null;
 	static Vector<PSDialog> mShowingDialogs = null;
 
 	static Drawable mAppIcon = null;
@@ -229,5 +239,33 @@ public class PSNative {
 
 	public static Context getAppContext() {
 		return mContext;
+	}
+	
+	public static void showActivityIndicator() {
+		if (mIndicatorDialog == null) {
+			mContext.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					mIndicatorDialog = new Dialog(mContext);
+					mIndicatorDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+					mIndicatorDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					ProgressBar pb = new ProgressBar(mContext);
+				    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);    
+				    lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE); 
+				    mIndicatorDialog.addContentView(pb, lp);
+				    mIndicatorDialog.show();
+				}
+			});
+		}
+
+	}
+	
+	public static void hideActivityIndicator() {
+		if (mIndicatorDialog == null) {
+			return;
+		}
+		mIndicatorDialog.dismiss();
+		mIndicatorDialog = null;
+
 	}
 }
