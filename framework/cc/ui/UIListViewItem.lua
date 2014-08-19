@@ -49,11 +49,11 @@ function UIListViewItem:setItemSize(w, h, bNoMargin)
 
 	self.width = w or 0
 	self.height = h or 0
-	self:setContentSize(CCSize(w, h))
+	self:setContentSize(cc.size(w, h))
 
 	local bg = self:getChildByTag(UIListViewItem.BG_TAG)
 	if bg then
-		bg:setContentSize(CCSize(w, h))
+		bg:setContentSize(cc.size(w, h))
 		bg:setPosition(cc.p(w/2, h/2))
 	end
 

@@ -25,7 +25,7 @@ function CCSUILoader:loadFile(jsonFile)
 	local jsonStr = fileUtil:getStringFromFile(fullPath)
 	local jsonVal = json.decode(jsonStr)
 
-	cc.FileUtils:getInstance():addSearchPath(io.pathinfo(fullPath).dirname)
+	UILoaderUtilitys.addSearchPathIf(io.pathinfo(fullPath).dirname)
 
 	return self:load(jsonVal)
 end
@@ -46,7 +46,7 @@ function CCSUILoader:parserJson(jsonVal)
 end
 
 -- generate a ui node and invoke self to generate child ui node
-function CCSUILoader:generateUINode(jsonNode, transX, transY)
+function CCSUILoader:generateUINode(jsonNode, transX, transY, parent)
 	transX = transX or 0
 	transY = transY or 0
 
@@ -58,7 +58,7 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY)
 	options.x = options.x + transX
 	options.y = options.y + transY
 
-	local uiNode = self:createUINode(clsName, options)
+	local uiNode = self:createUINode(clsName, options, parent)
 	if not uiNode then
 		return
 	end
@@ -78,10 +78,14 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY)
 	end
 
 	if options.flipX then
-		uiNode:setFlippedX(options.flipX)
+		if uiNode.setFlippedX then
+			uiNode:setFlippedX(options.flipX)
+		end
 	end
 	if options.flipY then
-		uiNode:setFlippedY(options.flipY)
+		if uiNode.setFlippedY then
+			uiNode:setFlippedY(options.flipY)
+		end
 	end
 	uiNode:setRotation(options.rotation or 0)
 
@@ -101,7 +105,7 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY)
 
 	local children = jsonNode.children
 	for i,v in ipairs(children) do
-		local childrenNode = self:generateUINode(v, posTrans.x, posTrans.y)
+		local childrenNode = self:generateUINode(v, posTrans.x, posTrans.y, uiNode)
 		if childrenNode then
 			if "ScrollView" == clsName then
 				emptyNode:addChild(childrenNode)
@@ -139,7 +143,7 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY)
 	return uiNode
 end
 
-function CCSUILoader:createUINode(clsName, options)
+function CCSUILoader:createUINode(clsName, options, parent)
 	if not clsName then
 		return
 	end
@@ -376,10 +380,41 @@ function CCSUILoader:createSprite(options)
 end
 
 function CCSUILoader:createImage(options)
-	local node = cc.ui.UIImage.new(
-		self:transResName(options.fileNameData),
-		{scale9 = options.scale9Enable})
+	local params = {}
+	params.scale9 = options.scale9Enable
+	if params.scale9 then
+		params.capInsets = cc.rect(options.capInsetsX, options.capInsetsY,options.capInsetsWidth, options.capInsetsHeight)
+	end
+	local node = cc.ui.UIImage.new(self:transResName(options.fileNameData), params)
 
+	-- local capRect = cc.rect(options.capInsetsX, options.capInsetsY,
+	-- 	options.capInsetsWidth, options.capInsetsHeight)
+	-- if 1 == options.fileNameData.resourceType then
+	-- 	local frame = display.newSpriteFrame(options.fileNameData.path)
+	-- 	if options.scale9Enable then
+	-- 		node:initWithSpriteFrame(frame, capRect);
+	-- 	else
+	-- 		node:setTexture(frame:getTexture())
+	-- 	end
+	-- else
+	-- 	if options.scale9Enable then
+	-- 		node:initWithFile(capRect, options.fileNameData.path);
+	-- 	else
+	-- 		node:setTexture(options.fileNameData.path)
+	-- 	end
+	-- end
+
+	if not options.scale9Enable then
+		if options.scale9Width or options.scale9Height then
+			local originSize = node:getContentSize()
+			if options.scale9Width then
+				options.scaleX = (options.scaleX or 1) * options.scale9Width/originSize.width
+			end
+			if options.scale9Height then
+				options.scaleY = (options.scaleY or 1) * options.scale9Height/originSize.height
+			end
+		end
+	end
 	if not options.ignoreSize then
 		node:setLayoutSize(options.width, options.height)
 	end
@@ -565,12 +600,12 @@ function CCSUILoader:createPanel(options)
 		clrLayer:setTouchEnabled(false)
 		clrLayer:setStartColor(cc.c3b(options.bgStartColorR, options.bgStartColorG, options.bgStartColorB))
 		clrLayer:setEndColor(cc.c3b(options.bgEndColorR, options.bgEndColorG, options.bgEndColorB))
-		clrLayer:setVector(cc.p(options.vectorX, options.vectorY))
+		clrLayer:setVector(cc.p(options.vectorX or 0, options.vectorY or -0.5))
 	end
 
 	if clrLayer then
 		clrLayer:setAnchorPoint(cc.p(0, 0))
-		clrLayer:setOpacity(options.bgColorOpacity)
+		clrLayer:setOpacity(options.bgColorOpacity or 100)
 	end
 
 	-- background layer
@@ -581,9 +616,11 @@ function CCSUILoader:createPanel(options)
 			if self.bUseTexture then
 				bgLayer = cc.Scale9Sprite:createWithSpriteFrameName(
 					options.backGroundImageData.path, capInsets)
+				bgLayer:setContentSize(cc.size(options.width, options.height))
 			else
 				bgLayer = cc.Scale9Sprite:create(
 					capInsets, options.backGroundImageData.path)
+				bgLayer:setContentSize(cc.size(options.width, options.height))
 			end
 		end
 	else
@@ -667,6 +704,7 @@ function CCSUILoader:createScrollView(options)
 		dir = 0
 	end
 	node:setDirection(dir)
+	node:setBounceable(options.bounceEnable or false)
 
 	return node
 end
@@ -697,6 +735,7 @@ function CCSUILoader:createListView(options)
 	end
 	node:setDirection(dir)
 	node:setAlignment(options.gravity)
+	node:setBounceable(options.bounceEnable or false)
 
 	return node
 end
@@ -734,5 +773,31 @@ function CCSUILoader:prettyJson(json)
 
 	setZOrder(json)
 end
+
+-- function CCSUILoader:transPercentPosition(options, parent)
+-- 	if not parent then
+-- 		return
+-- 	end
+-- 	if 1 ~= options.positionType then
+-- 		return
+-- 	end
+
+-- 	local posX, posY = parent:getPosition()
+-- 	options.x = posX + options.x
+-- 	options.y = posY + options.y
+-- end
+
+-- function CCSUILoader:transPercentSize(options, parent)
+-- 	if not parent then
+-- 		return
+-- 	end
+-- 	if 1 ~= options.sizeType then
+-- 		return
+-- 	end
+
+-- 	local parentSize = parent:getContentSize()
+-- 	options.width = parentSize.width * options.sizePercentX
+-- 	options.height = parentSize.height * options.sizePercentY
+-- end
 
 return CCSUILoader

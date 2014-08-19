@@ -1,7 +1,7 @@
 
 local UIImage = class("UIImage", function(filename, options)
     if options and options.scale9 then
-        return display.newScale9Sprite(filename)
+        return display.newScale9Sprite(filename, nil, nil, nil, options.capInsets)
     else
         return display.newSprite(filename)
     end

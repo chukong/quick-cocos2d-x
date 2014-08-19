@@ -1,6 +1,7 @@
 
 local UILoadingBar = class("UILoadingBar", function()
-	local node = cc.ClippingRegionNode:create()
+	local node = cc.Node:create()
+	node:setAnchorPoint(cc.p(0, 0))
 	return node
 end)
 
@@ -8,16 +9,23 @@ UILoadingBar.DIRECTION_LEFT_TO_RIGHT = 0
 UILoadingBar.DIRECTION_RIGHT_TO_LEFT = 1
 
 function UILoadingBar:ctor(params)
+	self.stencil = display.newRect(cc.size(params.viewRect.width, params.viewRect.height))
+	self.stencil:setFill(true)
+	self.stencil:setAnchorPoint(cc.p(0, 0))
+	self.stencil:setLineColor(cc.c4f(1, 1, 0, 1))
+	-- self:setStencil(self.stencil)
+	self:addChild(self.stencil)
 	if params.scale9 then
 		self.scale9 = true
 		if string.byte(params.image) == 35 then
 			self.bar = cc.Scale9Sprite:createWithSpriteFrameName(
 				string.sub(params.image, 2), params.capInsets);
 		else
-			self.bar = cc.Scale9Sprite:create(
+			self.bar = cc.Scale9Sprite:createWithInsets(
 				params.capInsets, params.image)
 		end
-		self:setClippingRegion(cc.rect(0, 0, params.viewRect.width, params.viewRect.height))
+		-- self.stencil:setContentSize(cc.size(params.viewRect.width, params.viewRect.height))		
+		-- self:setClippingRegion(cc.rect(0, 0, params.viewRect.width, params.viewRect.height))
 	else
 		self.bar = display.newSprite(params.image)
 	end
@@ -46,11 +54,13 @@ function UILoadingBar:setPercent(percent)
 	else
 		if UILoadingBar.DIRECTION_LEFT_TO_RIGHT == self.direction_ then
 			rect.width = newWidth
-			self:setClippingRegion(cc.rect(rect.x, rect.y, rect.width, rect.height))
+			-- self:setClippingRegion(cc.rect(rect.x, rect.y, rect.width, rect.height))
+			self.stencil:setSize(cc.size(rect.width, rect.height))
 		else
 			rect.x = rect.x + rect.width - newWidth
 			rect.width = newWidth
-			self:setClippingRegion(cc.rect(rect.x, rect.y, rect.width, rect.height))
+			-- self:setClippingRegion(cc.rect(rect.x, rect.y, rect.width, rect.height))
+			self.stencil:setSize(cc.size(rect.width, rect.height))
 		end
 	end
 end
@@ -58,7 +68,9 @@ end
 function UILoadingBar:setDirction(dir)
 	self.direction_ = dir
 	if UILoadingBar.DIRECTION_LEFT_TO_RIGHT ~= self.direction_ then
-		self.bar:setFlipX(true)
+		if self.bar.setFlipX then
+			self.bar:setFlipX(true)
+		end
 	end
 end
 
