@@ -82,6 +82,7 @@ public:
         kUpdateZIP,
         kUpdateFiles,
         kUpdateFile,
+        kUpdateFileAsync,
     };
     
     /* @brief Creates a Updater.
@@ -94,9 +95,17 @@ public:
      */
     void update(const char* zipUrl, const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZIP=true);
     
+    /** @brief Download some files.
+     */
     void update(CCArray* list);
     
+    /** @brief Download a file and save to filePath.
+     */
     void update(const char* fileUrl, const char* filePath);
+
+    /** @brief Download a file in async.
+     */
+    void update(const char* fileUrl);
     
     /** @brief Sets delegate, the delegate will receive messages
      */
@@ -128,6 +137,7 @@ protected:
     bool uncompress(const char* zipFile, const char* unzipTmpDir, bool resetBeforeUnZIP);
     void sendErrorMessage(ErrorCode code);
     void sendStateMessage(StateCode code);
+    void sendSuccMessage();
     
     void checkUnZIPTmpDir();
     void clearOnSuccess();

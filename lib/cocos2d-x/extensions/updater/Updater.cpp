@@ -94,13 +94,19 @@ Updater::Updater()
 , _resetBeforeUnZIP(true)
 , _updateType(kUpdateUndefined)
 {
+    //CCLOG("Updater::Updater()");
     _schedule = new Helper();
+    CCDirector::sharedDirector()->getScheduler()
+        ->scheduleUpdateForTarget(_schedule, 0, false);
 }
 
 Updater::~Updater()
 {
+    //CCLOG("Updater::~Updater()");
     if (_schedule)
     {
+        CCDirector::sharedDirector()->getScheduler()
+            ->unscheduleAllForTarget(_schedule);
         _schedule->release();
     }
     unregisterScriptHandler();
@@ -176,14 +182,11 @@ const char* Updater::getUpdateInfo(const char* url)
 void* updateThreadFunc(void *data)
 {
     Updater* self = (Updater*)data;
-    
     do
     {
         if (! self->download(self->_fileUrl.c_str(), self->_filePath.c_str())) break;
-        
         if(self->_updateType == Updater::kUpdateZIP)
         {
-            
             // Uncompress zip file.
             if (! self->uncompress(self->_filePath.c_str(), self->_unzipTmpDir.c_str(),self->_resetBeforeUnZIP))
             {
@@ -191,17 +194,9 @@ void* updateThreadFunc(void *data)
                 break;
             }
         }
-        
-        // Record updated version and remove downloaded zip file
-        Updater::Message *succMsg = new Updater::Message();
-        succMsg->what = UPDATER_MESSAGE_UPDATE_SUCCEED;
-        succMsg->obj = self;
-        self->_schedule->sendMessage(succMsg);
-        self->_updateType = Updater::kUpdateUndefined;
+        self->sendSuccMessage();
     } while (0);
-    
     self->clearTid();
-    
     return NULL;
 }
 
@@ -241,6 +236,16 @@ void Updater::update(cocos2d::CCArray *list)
     if(!isAvailable()) return;
     _updateType = kUpdateFiles;
 
+    _tid = new pthread_t();
+    pthread_create(&(*_tid), NULL, updateThreadFunc, this);
+}
+
+void Updater::update(const char* fileUrl)
+{
+    return;
+    if(!isAvailable()) return;
+    _updateType = kUpdateFileAsync;
+    
     _tid = new pthread_t();
     pthread_create(&(*_tid), NULL, updateThreadFunc, this);
 }
@@ -548,6 +553,17 @@ unsigned int Updater::getConnectionTimeout()
     return _connectionTimeout;
 }
 
+void Updater::sendSuccMessage()
+{
+    // Record updated version and remove downloaded zip file
+    Message *msg = new Message();
+    msg->what = UPDATER_MESSAGE_UPDATE_SUCCEED;
+    msg->obj = this;
+    
+    _schedule->sendMessage(msg);
+    _updateType = kUpdateUndefined;
+}
+
 void Updater::sendErrorMessage(Updater::ErrorCode code)
 {
     Message *msg = new Message();
@@ -599,16 +615,19 @@ bool Updater::isAvailable()
 
 Updater::Helper::Helper()
 {
+    //CCLOG("Updater::Helper::Helper()");
     _messageQueue = new list<Message*>();
     pthread_mutex_init(&_messageQueueMutex, NULL);
-    CCDirector::sharedDirector()->getScheduler()
-        ->scheduleUpdateForTarget(this, 0, false);
 }
 
 Updater::Helper::~Helper()
 {
-    CCDirector::sharedDirector()->getScheduler()
-        ->unscheduleAllForTarget(this);
+    //TODO 2014-08-19 zrong
+    // The Helper::update lost the lastest message in MacOS.
+    // But in XCode debug mode, the message is correct.
+    // Add the CCLOG in here can fix it .
+    // It's a stonger bug. Perhaps about multi-thread or lua.
+    CCLOG("Updater::Helper::~Helper()");
     delete _messageQueue;
 }
 
@@ -625,6 +644,7 @@ void Updater::Helper::update(float dt)
     
     // Returns quickly if no message
     pthread_mutex_lock(&_messageQueueMutex);
+    //CCLOG("_messageQueue:%d", _messageQueue->size());
     if (0 == _messageQueue->size())
     {
         pthread_mutex_unlock(&_messageQueueMutex);
@@ -659,7 +679,7 @@ void Updater::Helper::update(float dt)
 void Updater::Helper::handleUpdateSucceed(Message *msg)
 {
     Updater* manager = (Updater*)msg->obj;
-    CCLOG("Updater::helper::handlerUpdateSuccessed");
+    CCLOG("Updater::helper::handlerUpdateSuccessed pointer %u handler %u", manager, manager->_scriptHandler);
     if (manager)
     {
         manager->clearOnSuccess();
