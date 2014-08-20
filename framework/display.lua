@@ -612,6 +612,8 @@ function display.addSpriteFramesWithFileAsync(plistFilename, image, handler)
 end
 
 function display.addSpriteFramesWithFile(plistFilename, image, handler)
+	--plistFilename = io.getres(plistFilename)
+	--image = io.getres(image)
 	local async = type(handler) == "function"
 	local asyncHandler = nil
 	if async then
@@ -690,9 +692,11 @@ end
 
 function display.addAnimationsWithFile(aniFile, handler)
 	if type(handler) == "function" then
+		--sharedAnimationCache:addAnimationsWithFileAsync(io.getres(aniFile), handler)
 		sharedAnimationCache:addAnimationsWithFileAsync(aniFile, handler)
 		return
 	end
+	--sharedAnimationCache:addAnimationsWithFile(io.getres(aniFile))
 	sharedAnimationCache:addAnimationsWithFile(aniFile)
 end
 
