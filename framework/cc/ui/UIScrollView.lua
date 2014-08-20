@@ -38,6 +38,7 @@ function UIScrollView:ctor(params)
 	self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(...)
 			self:update_(...)
 		end)
+	self:scheduleUpdate()
 end
 
 function UIScrollView:addBgColorIf(params)
@@ -262,7 +263,7 @@ end
 function UIScrollView:moveXY(orgX, orgY, speedX, speedY)
 	if self.bBounce then
 		-- bounce enable
-		return self.position_.x + speedX, self.position_.y + speedY
+		return orgX + speedX, orgY + speedY
 	end
 
 	local cascadeBound = self:getScrollNodeRect()
@@ -345,17 +346,22 @@ function UIScrollView:elasticScroll()
 	local viewRect = self:getViewRectInWorldSpace()
 
 	-- dump(cascadeBound, "UIScrollView - cascBoundingBox:")
-	-- dump(self.scrollNode:getBoundingBox(), "UIScrollView - BoundingBox:")
+	-- dump(viewRect, "UIScrollView - viewRect:")
 
 	if cascadeBound.x > viewRect.x then
 		disX = viewRect.x - cascadeBound.x
 	elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
 		disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
 	end
-	if cascadeBound.y > viewRect.y then
-		disY = viewRect.y - cascadeBound.y
-	elseif cascadeBound.y + cascadeBound.height < viewRect.y + viewRect.height then
+
+	if cascadeBound.height < viewRect.height then
 		disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+	else
+		if cascadeBound.y > viewRect.y then
+			disY = viewRect.y - cascadeBound.y
+		elseif cascadeBound.y + cascadeBound.height < viewRect.y + viewRect.height then
+			disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+		end
 	end
 
 	if 0 == disX and 0 == disY then
