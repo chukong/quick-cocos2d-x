@@ -78,8 +78,8 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY, parent)
 	end
 
 	if options.flipX then
-		if uiNode.setFlippedX then
-			uiNode:setFlippedX(options.flipX)
+		if uiNode.setFlipX then
+			uiNode:setFlipX(options.flipX)
 		end
 	end
 	if options.flipY then
