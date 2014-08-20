@@ -42,7 +42,7 @@ function UIListViewItem:setItemSize(w, h, bNoMargin)
 		end
 	end
 
-	print("htl item size:" .. w .. h)
+	-- print("UIListViewItem - setItemSize w:" .. w .. " h:" .. h)
 
 	local oldSize = {width = self.width, height = self.height}
 	local newSize = {width = w, height = h}

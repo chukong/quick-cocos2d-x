@@ -9,6 +9,9 @@ function CCSSample1Scene:ctor()
 
 	cc.FileUtils:getInstance():addSearchPath("res/DemoHead_UI/")
 	app:loadCCSJsonFile(self, "DemoHead_UI/DemoHead_UI.ExportJson")
+
+	local progress = cc.uiloader:seekNodeByTag(self, 4)
+	progress:setPercent(50)
 end
 
 
