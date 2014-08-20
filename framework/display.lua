@@ -543,7 +543,7 @@ function display.newSprite(filename, x, y, params)
                 CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
                 if params and params.capInsets then
-                    sprite = spriteClass:createWithInsets(filename, params.capInsets)
+                    sprite = spriteClass:createWithInsets(params.capInsets, filename)
                 else
                     sprite = spriteClass:create(filename)
                 end
