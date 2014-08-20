@@ -7,6 +7,7 @@ function CCSSample4Scene:ctor()
 	app:createTitle(self, "CCS Sample4")
 	app:createNextButton(self)
 
+	cc.FileUtils:getInstance():addSearchPath("res/DemoShop/")
 	app:loadCCSJsonFile(self, "DemoShop.ExportJson")
 	local shopView = cc.uiloader:seekNodeByTag(self, 66)
 	shopView:onScroll(function(event)

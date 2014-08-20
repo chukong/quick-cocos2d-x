@@ -7,6 +7,7 @@ function CCSSample2Scene:ctor()
 	app:createTitle(self, "CCS Sample2")
 	app:createNextButton(self)
 
+	cc.FileUtils:getInstance():addSearchPath("res/DemoLogin/")
 	app:loadCCSJsonFile(self, "DemoLogin.ExportJson")
 
 	-- register function on node

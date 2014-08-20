@@ -85,7 +85,7 @@ bool CCControlButton::initWithLabelAndBackgroundSprite(CCNode* node, CCScale9Spr
     {
         CCAssert(node != NULL, "Label must not be nil.");
         CCLabelProtocol* label = dynamic_cast<CCLabelProtocol*>(node);
-        //CCAssert(backgroundSprite != NULL, "Background sprite must not be nil."); //background sprite can be nil
+        CCAssert(backgroundSprite != NULL, "Background sprite must not be nil."); //background sprite can be nil
         CCAssert(label != NULL || backgroundSprite != NULL, "");
 
         m_bParentInited = true;

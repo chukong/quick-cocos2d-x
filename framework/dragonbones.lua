@@ -126,14 +126,14 @@ function db.new(params)
 		return nil
 	end
 	if path then
-			cc.DragonBonesNode:createByDir(
+		return cc.DragonBonesNode:createByDir(
 				path, 
 				armName, aniName, 
 				skeName, texName, 
 				skinName)
 	end
 	if skeFile and texFile then
-			cc.DragonBonesNode:createByFiles(
+		return cc.DragonBonesNode:createByFiles(
 				skeFile, texFile, 
 				armName, aniName, 
 				skeName, texName, 

@@ -149,6 +149,29 @@ class CCPhysicsBody : public CCObject
     void removeShape(CCPhysicsShape *shapeObject);
     void removeAllShape(void);
 
+    // joints management
+    CCPinJoint *pinJoint(CCPhysicsBody *otherBody);
+	CCPinJoint *pinJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther);
+
+	CCDampedSpringJoint *dampedSpringJoint(CCPhysicsBody *otherBody,
+		float restLength, float stiffness=0, float damping=0);
+	CCDampedSpringJoint *dampedSpringJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther,
+		float restLength, float stiffness = 0, float damping = 0);
+
+	CCSlideJoint *slideJoint(CCPhysicsBody *otherBody, float min, float max);
+	CCSlideJoint *slideJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther, 
+		float min, float max);
+
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody);
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther);
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody, CCPhysicsVector *pivot);
+
+	CCArray *getJointsWith(CCPhysicsBody *otherBody);
+    void breakAllJoints(void);
+    void breakJointByType(JointType jointType);
+    
+    // 
+
     // cleanup
     void removeSelf(bool unbind = true);
 };
@@ -171,6 +194,81 @@ class CCPhysicsShape : public CCObject
     int getCollisionLayers(void);
     void setCollisionLayers(int layers);
 };
+
+enum JointType
+{
+	UNKNOWN = 0,
+	PIN_JOINT = 1,
+	SLIDE_JOINT = 2,
+	PIVOT_JOINT = 3,
+	GROOVE_JOINT = 4,
+	DAMPED_SPRING = 5,
+	DAMPED_ROTARY_SPRING = 6,
+	ROTARY_LIMIT = 7,
+	RATCHET_JOINT = 8,
+	GEAR_JOINT = 9,
+	SIMPLE_MOTOR = 10
+};
+class CCJoint: public CCObject
+{
+    CCPhysicsBody *getBodyA();
+    CCPhysicsBody *getBodyB();
+    JointType getJointType();
+    cpConstraint *getConstraint();
+    void breakJoint();
+}
+class CCPinJoint : public CCJoint
+{
+    float getDist();
+    void setDist(float dist);
+
+    CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+class CCDampedSpringJoint : public CCJoint
+{
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+class CCSlideJoint : public CCJoint
+{
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+
+    float getMin();
+	void setMin(float min);
+
+	float getMax();
+	void setMax(float max);
+};
+class CCPivotJoint : public CCJoint
+{
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+class CCGrooveJoint : public CCJoint
+{
+    CCPhysicsVector *getGrooveA();
+	void setGrooveA(CCPhysicsVector *grooveA);
+
+	CCPhysicsVector *getGrooveB();
+	void setGrooveB(CCPhysicsVector *grooveB);
+
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+
 
 class CCPhysicsDebugNode : public CCNode
 {
