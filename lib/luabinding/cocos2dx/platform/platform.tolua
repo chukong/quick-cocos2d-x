@@ -29,6 +29,8 @@ THE SOFTWARE.
 
 class cc_timeval
 {
+	  cc_timeval();
+	  ~cc_timeval();
     long tv_sec; // seconds
     int tv_usec; // microSeconds
 };
