@@ -343,4 +343,53 @@ function device.vibrate(millisecond)
     end
 end
 
+--[[
+获得系统时间，精确到微妙
+
+@return cc_timeval
+
+cc_timeval.tv_sec  seconds
+cc_timeval.tv_usec microSeconds
+
+~~~ lua
+
+-- sample
+    local tm = device.gettime()
+    printInfo("%d:%d", tm.tv_sec, tm.tv_usec)  
+~~~
+
+]]
+function device.gettime()
+    local tm = cc_timeval:new()
+    CCTime:gettimeofdayCocos2d(tm, nil)
+
+    if device.platform == "windows" then
+        tm.tv_sec = os.time()
+    end
+    return tm
+end
+
+--[[
+获得时间差，精确到毫秒
+
+@param cc_timeval tm_start 开始时间
+@param cc_timeval tm_end   结束时间
+@return double             时间差(毫秒)         
+
+~~~ lua
+
+-- sample
+    local tm_start = device.gettime()
+    --do something
+    local tm_end   = device.gettime()
+    local timesub  = device.timersub(tm_start, tm_end)
+    printInfo(timesub)  
+~~~
+
+]]
+
+function device.timersub(tm_start, tm_end)
+    return CCTime:timersubCocos2d(tm_start, tm_end)
+end
+
 return device
