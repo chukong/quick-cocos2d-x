@@ -53,6 +53,9 @@ function Gettext._getFileData(mo_file)
 
 	--- use quick-cocos2d-x CCFileUtils, cross-platform
 	local mo_data = CCFileUtils:sharedFileUtils():getFileData(mo_file)
+	if not mo_data then
+		print("Gettext._getFileData("..mo_file.."), the file is not exists.")
+	end
 	return mo_data
 end
 
@@ -60,15 +63,20 @@ function Gettext.loadMOFromFile(mo_file)
 	return Gettext.parseData(Gettext._getFileData(mo_file))
 end
 
-function Gettext.gettextFromFile(mo_file)
-	return Gettext.gettext(Gettext._getFileData(mo_file))
+function Gettext.gettextFromFile(mo_file, strict)
+	return Gettext.gettext(Gettext._getFileData(mo_file), strict)
 end
 
-function Gettext.gettext(mo_data)
-	local __hash = Gettext.parseData(mo_data)
-    return function(text)
-        return __hash[text] or text
-    end
+function Gettext.gettext(mo_data, strict)
+	if mo_data then
+		local __hash = Gettext.parseData(mo_data)
+		return function(text)
+			return __hash[text] or text
+		end
+	elseif strict then
+		return nil
+	end
+	return function(text) return text end
 end
 
 function Gettext.parseData(mo_data)
