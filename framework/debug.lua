@@ -144,7 +144,8 @@ function vardump(object, label)
     end
 
     local function _vardump(object, label, indent, nest)
-        label = label or "<var>"
+		-- 2014-08-21 zrong Get a turly table serialization.
+        --label = label or "<var>"
         local postfix = ""
         if nest > 1 then postfix = "," end
         if type(object) ~= "table" then
@@ -181,7 +182,9 @@ function vardump(object, label)
             result[#result +1] = string.format("%s}%s", indent, postfix)
         end
     end
-    _vardump(object, label, "", 1)
+	-- 2014-08-21 zrong Get a turly table serialization.
+    --_vardump(object, label, "", 1)
+    _vardump(object, nil, "", 1)
 
     return table.concat(result, "\n")
 end
