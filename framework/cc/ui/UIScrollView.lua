@@ -348,10 +348,14 @@ function UIScrollView:elasticScroll()
 	-- dump(cascadeBound, "UIScrollView - cascBoundingBox:")
 	-- dump(viewRect, "UIScrollView - viewRect:")
 
-	if cascadeBound.x > viewRect.x then
+	if cascadeBound.width < viewRect.width then
 		disX = viewRect.x - cascadeBound.x
-	elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
-		disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+	else
+		if cascadeBound.x > viewRect.x then
+			disX = viewRect.x - cascadeBound.x
+		elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
+			disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+		end
 	end
 
 	if cascadeBound.height < viewRect.height then
