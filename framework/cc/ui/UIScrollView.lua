@@ -10,6 +10,7 @@ UIScrollView.DIRECTION_VERTICAL		= 1
 UIScrollView.DIRECTION_HORIZONTAL	= 2
 
 function UIScrollView:ctor(params)
+	self.bBounce = true
 	self.direction = UIScrollView.DIRECTION_BOTH
 	self.layoutPadding = {left = 0, right = 0, top = 0, bottom = 0}
 	self.speed = {x = 0, y = 0}
@@ -37,6 +38,7 @@ function UIScrollView:ctor(params)
 	self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, function(...)
 			self:update_(...)
 		end)
+	self:scheduleUpdate()
 end
 
 function UIScrollView:addBgColorIf(params)
@@ -89,6 +91,12 @@ end
 
 function UIScrollView:setDirection(dir)
 	self.direction = dir
+
+	return self
+end
+
+function UIScrollView:setBounceable(bBounceable)
+	self.bBounce = bBounceable
 
 	return self
 end
@@ -176,7 +184,7 @@ end
 
 function UIScrollView:onTouch_(event)
 	if "began" == event.name and not self:isTouchInViewRect(event) then
-		printInfo("#DEBUG touch didn't in viewRect")
+		printInfo("UIScrollView - touch didn't in viewRect")
 		return false
 	end
 
@@ -252,9 +260,48 @@ function UIScrollView:scrollTo(p, y)
 	self.scrollNode:setPosition(self.position_)
 end
 
+function UIScrollView:moveXY(orgX, orgY, speedX, speedY)
+	if self.bBounce then
+		-- bounce enable
+		return orgX + speedX, orgY + speedY
+	end
+
+	local cascadeBound = self:getScrollNodeRect()
+	local viewRect = self:getViewRectInWorldSpace()
+	local x, y = orgX, orgY
+	local disX, disY
+
+	if speedX > 0 then
+		if cascadeBound.x < viewRect.x then
+			disX = viewRect.x - cascadeBound.x
+			x = orgX + math.min(disX, speedX)
+		end
+	else
+		if cascadeBound.x + cascadeBound.width > viewRect.x + viewRect.width then
+			disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+			x = orgX + math.max(disX, speedX)
+		end
+	end
+
+	if speedY > 0 then
+		if cascadeBound.y < viewRect.y then
+			disY = viewRect.y - cascadeBound.y
+			y = orgY + math.min(disY, speedY)
+		end
+	else
+		if cascadeBound.y + cascadeBound.height > viewRect.y + viewRect.height then
+			disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+			y = orgY + math.max(disY, speedY)
+		end
+	end
+
+	return x, y
+end
+
 function UIScrollView:scrollBy(x, y)
-	self.position_.x = self.position_.x + x
-	self.position_.y = self.position_.y + y
+	self.position_.x, self.position_.y = self:moveXY(self.position_.x, self.position_.y, x, y)
+	-- self.position_.x = self.position_.x + x
+	-- self.position_.y = self.position_.y + y
 	self.scrollNode:setPosition(self.position_)
 
 	if self.actualRect_ then
@@ -283,8 +330,10 @@ function UIScrollView:twiningScroll()
 		return false
 	end
 
+	local disX, disY = self:moveXY(0, 0, self.speed.x*6, self.speed.y*6)
+
 	transition.moveBy(self.scrollNode,
-		{x = self.speed.x*6, y = self.speed.y*6, time = 0.3,
+		{x = disX, y = disY, time = 0.3,
 		easing = "sineOut",
 		onComplete = function()
 			self:elasticScroll()
@@ -297,17 +346,26 @@ function UIScrollView:elasticScroll()
 	local viewRect = self:getViewRectInWorldSpace()
 
 	-- dump(cascadeBound, "UIScrollView - cascBoundingBox:")
-	-- dump(self.scrollNode:getBoundingBox(), "UIScrollView - BoundingBox:")
+	-- dump(viewRect, "UIScrollView - viewRect:")
 
-	if cascadeBound.x > viewRect.x then
+	if cascadeBound.width < viewRect.width then
 		disX = viewRect.x - cascadeBound.x
-	elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
-		disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+	else
+		if cascadeBound.x > viewRect.x then
+			disX = viewRect.x - cascadeBound.x
+		elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
+			disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+		end
 	end
-	if cascadeBound.y > viewRect.y then
-		disY = viewRect.y - cascadeBound.y
-	elseif cascadeBound.y + cascadeBound.height < viewRect.y + viewRect.height then
+
+	if cascadeBound.height < viewRect.height then
 		disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+	else
+		if cascadeBound.y > viewRect.y then
+			disY = viewRect.y - cascadeBound.y
+		elseif cascadeBound.y + cascadeBound.height < viewRect.y + viewRect.height then
+			disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+		end
 	end
 
 	if 0 == disX and 0 == disY then
