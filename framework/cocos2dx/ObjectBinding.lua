@@ -251,6 +251,7 @@ c.Sprite                       = CCSprite
 c.SpriteBatchNode              = CCSpriteBatchNode
 c.SpriteFrame                  = CCSpriteFrame
 c.SpriteFrameCache             = CCSpriteFrameCache
+c.Scale9Sprite                 = CCScale9Sprite
 
 -- support
 c.UserDefault                  = CCUserDefault
