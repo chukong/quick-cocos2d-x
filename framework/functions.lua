@@ -401,7 +401,7 @@ function table.filter(t, fun)
 end
 
 function table.find(t, item)
-    return table.keyOfItem(t, item) ~= nil
+    return table.keyof(t, item) ~= nil
 end
 
 function table.unique(t)
@@ -417,14 +417,14 @@ function table.unique(t)
     return n
 end
 
-function table.pushUnique(t, item)
+function table.insertUnique(t, item)
 	for __, itemInTable in pairs(t) do
 		if itemInTable == item then return end
 	end
 	 t[#t+1] = item
 end
 
-function table.keyOfItem(t, item)
+function table.keyof(t, item)
     for k,v in pairs(t) do
         if v == item then return k end
     end
