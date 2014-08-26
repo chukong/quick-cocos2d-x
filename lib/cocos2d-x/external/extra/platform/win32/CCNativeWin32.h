@@ -35,6 +35,7 @@ public:
 
 	const string getInputText(const char* title, const char* message, const char* defaultValue);
 
+	const string getUDID();
 private:
 	static CCNativeWin32* s_sharedInstance;
 
@@ -42,4 +43,6 @@ private:
 
 	string m_alertViewTitle;
 	string m_alertViewMessage;
+
+	string m_macAddress;
 };
