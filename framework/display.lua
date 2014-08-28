@@ -255,13 +255,12 @@ function display.newSprite(filename, x, y, params)
                 sprite = spriteClass:createWithSpriteFrame(frame)
             end
         else
-			local absfilename = io.getres(filename)
             if display.TEXTURES_PIXEL_FORMAT[filename] then
                 CCTexture2D:setDefaultAlphaPixelFormat(display.TEXTURES_PIXEL_FORMAT[filename])
-                sprite = spriteClass:create(absfilename)
+                sprite = spriteClass:create(filename)
                 CCTexture2D:setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888)
             else
-                sprite = spriteClass:create(absfilename)
+                sprite = spriteClass:create(filename)
             end
         end
     elseif t == "CCSpriteFrame" then
@@ -296,7 +295,7 @@ function display.newTilesSprite(filename, rect)
     if not rect then
         rect = CCRect(0, 0, display.width, display.height)
     end
-    local sprite = CCSprite:create(io.getres(filename), rect)
+    local sprite = CCSprite:create(filename, rect)
     if not sprite then
         echoError("display.newTilesSprite() - create sprite failure, filename %s", tostring(filename))
         return
@@ -592,14 +591,22 @@ function display.addImageAsync(imagePath, callback)
     sharedTextureCache:addImageAsync(imagePath, callback)
 end
 
-function display.addSpriteFramesWithFileAsync(plistFilename, image, handler)
-	--print("display.addSpriteFramesWithFileAsync:", plistFilename, image, handler)
-	local async = type(handler) == "function"
+function display.addTextureWithFile(imagePath, callback)
+	if callback then
+		sharedTextureCache:addImageAsync(imagePath, callback)
+	else
+		sharedTextureCache:addImage(imagePath)
+	end
+end
+
+function display.addSpriteFramesWithFileAsync(plistFilename, image, callback)
+	--print("display.addSpriteFramesWithFileAsync:", plistFilename, image, callback)
+	local async = type(callback) == "function"
 	local asyncHandler = nil
 	if async then
 		asyncHandler = function(evt)
 			printf("evt: %s, asyncdone: %s, %s.", evt, plistFilename, image)
-			handler(plistFilename, image)
+			callback(plistFilename, image)
 		end
 	end
     if display.TEXTURES_PIXEL_FORMAT[image] then
@@ -611,15 +618,13 @@ function display.addSpriteFramesWithFileAsync(plistFilename, image, handler)
     end
 end
 
-function display.addSpriteFramesWithFile(plistFilename, image, handler)
-	--plistFilename = io.getres(plistFilename)
-	--image = io.getres(image)
-	local async = type(handler) == "function"
+function display.addSpriteFramesWithFile(plistFilename, image, callback)
+	local async = type(callback) == "function"
 	local asyncHandler = nil
 	if async then
 		asyncHandler = function()
 			printf("evt: %s, asyncdone: %s, %s.", evt, plistFilename, image)
-			handler(plistFilename, image)
+			callback(plistFilename, image)
 		end
 	end
     if display.TEXTURES_PIXEL_FORMAT[image] then
@@ -656,7 +661,6 @@ function display.removeSpriteFrameByImageName(imageName)
 end
 
 function display.newBatchNode(image, capacity)
-	local image = io.getres(image)
     return CCNodeExtend.extend(CCSpriteBatchNode:create(image, capacity or 100))
 end
 
@@ -690,13 +694,11 @@ function display.newFrames(pattern, begin, length, isReversed)
     return frames
 end
 
-function display.addAnimationsWithFile(aniFile, handler)
-	if type(handler) == "function" then
-		--sharedAnimationCache:addAnimationsWithFileAsync(io.getres(aniFile), handler)
-		sharedAnimationCache:addAnimationsWithFileAsync(aniFile, handler)
+function display.addAnimationsWithFile(aniFile, callback)
+	if type(callback) == "function" then
+		sharedAnimationCache:addAnimationsWithFileAsync(aniFile, callback)
 		return
 	end
-	--sharedAnimationCache:addAnimationsWithFile(io.getres(aniFile))
 	sharedAnimationCache:addAnimationsWithFile(aniFile)
 end
 
