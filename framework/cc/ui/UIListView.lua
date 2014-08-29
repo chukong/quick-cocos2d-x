@@ -34,7 +34,7 @@ function UIListView:ctor(params)
 	-- self.padding_ = params.padding or {left = 0, right = 0, top = 0, bottom = 0}
 
 	-- self:addBgColorIf(params)
-	self:addBgIf(params)
+	-- self:addBgIf(params)
 
 	-- params.viewRect.x = params.viewRect.x + self.padding_.left
 	-- params.viewRect.y = params.viewRect.y + self.padding_.bottom
