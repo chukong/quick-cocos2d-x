@@ -14,9 +14,13 @@ function CCSUILoader:load(json)
 	-- 	display.addSpriteFrames(v, jsonVal.texturesPng[i])
 	-- end
 
-	local node = self:parserJson(json)
+	local node, bAdaptScreen = self:parserJson(json)
 	self.texturesPng = nil
-	return node, json.designWidth, json.designHeight
+	if bAdaptScreen then
+		return node, display.width, display.height
+	else
+		return node, json.designWidth, json.designHeight
+	end
 end
 
 function CCSUILoader:loadFile(jsonFile)
@@ -42,7 +46,7 @@ function CCSUILoader:parserJson(jsonVal)
 	self:prettyJson(root)
 	local uiRoot = self:generateUINode(root)
 
-	return uiRoot
+	return uiRoot, root.options.adaptScreen
 end
 
 -- generate a ui node and invoke self to generate child ui node
@@ -62,6 +66,8 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY, parent)
 	if not uiNode then
 		return
 	end
+
+	self:modifyPanelChildPos_(clsName, options.adaptScreen, uiNode:getContentSize(), jsonNode.children)
 
 	-- ccs中父节点的原点在父节点的锚点位置，这里用posTrans作转换
 	local posTrans = uiNode:getAnchorPoint()
@@ -316,6 +322,10 @@ function CCSUILoader:getTexturePng(plist)
 end
 
 function CCSUILoader:transResName(fileData)
+	if not fileData then
+		return
+	end
+
 	local name = fileData.path
 	if not name then
 		return name
@@ -630,7 +640,12 @@ function CCSUILoader:createPanel(options)
 		end
 	end
 
-	local conSize = cc.size(options.width, options.height)
+	local conSize
+	if options.adaptScreen then
+		options.width = display.width
+		options.height = display.height
+	end
+	conSize = cc.size(options.width, options.height)
 	-- node:setClippingRegion(cc.rect(0, 0, options.width, options.height))
 	local stencil = display.newNode()
 	stencil:setContentSize(options.width, options.height)
@@ -691,6 +706,12 @@ function CCSUILoader:createScrollView(options)
 		params.bgStartColor = cc.c4b(options.bgStartColorR, options.bgStartColorG, options.bgStartColorB, options.bgColorOpacity)
 		params.bgEndColor = cc.c4b(options.bgEndColorR, options.bgEndColorG, options.bgEndColorB, options.bgColorOpacity)
 		params.bgVector = cc.p(options.vectorX, options.vectorY)
+	end
+	params.bg = self:transResName(options.backGroundImageData)
+	if options.backGroundScale9Enable then
+		params.bgScale9 = options.backGroundScale9Enable
+		params.capInsets = cc.rect(options.capInsetsX, options.capInsetsY,
+			options.capInsetsWidth, options.capInsetsHeight)
 	end
 
 	local node = cc.ui.UIScrollView.new(params)
@@ -799,5 +820,383 @@ end
 -- 	options.width = parentSize.width * options.sizePercentX
 -- 	options.height = parentSize.height * options.sizePercentY
 -- end
+
+function CCSUILoader:modifyPanelChildPos_(clsType, bAdaptScreen, parentSize, children)
+	if "Panel" ~= clsType
+		or not bAdaptScreen
+		or not children then
+		return
+	end
+
+	self:modifyLayoutChildPos_(parentSize, children)
+end
+
+function CCSUILoader:modifyLayoutChildPos_(parentSize, children)
+	for _,v in ipairs(children) do
+		self:calcChildPosByName_(children, v.options.name, parentSize)
+	end
+	-- local layoutParameter
+	-- local options
+	-- local x, y
+	-- local bUseOrigin = false
+
+	-- for i,v in ipairs(children) do
+	-- 	bUseOrigin = false
+	-- 	options = v.options
+	-- 	layoutParameter = options.layoutParameter
+
+	-- 	if 1 == layoutParameter.type then
+	-- 		if 1 == layoutParameter.gravity then
+	-- 			-- left
+	-- 			x = options.width * 0.5
+	-- 		elseif 2 == layoutParameter.gravity then
+	-- 			-- top
+	-- 			y = parentSize.height - options.height * 0.5
+	-- 		elseif 3 == layoutParameter.gravity then
+	-- 			-- right
+	-- 			x = parentSize.width - options.width * 0.5
+	-- 		elseif 4 == layoutParameter.gravity then
+	-- 			-- bottom
+	-- 			y = options.height * 0.5
+	-- 		elseif 5 == layoutParameter.gravity then
+	-- 			-- center vertical
+	-- 			y = parentSize.height * 0.5
+	-- 		elseif 6 == layoutParameter.gravity then
+	-- 			-- center horizontal
+	-- 			x = parentSize.width * 0.5
+	-- 		else
+	-- 			-- use origin pos
+	-- 			x = options.x
+	-- 			y = options.y
+	-- 			bUseOrigin = true
+	-- 			print("CCSUILoader - modifyLayoutChildPos_ not support gravity:" .. layoutParameter.type)
+	-- 		end
+
+	-- 		if 1 == layoutParameter.gravity
+	-- 			or 3 == layoutParameter.gravity
+	-- 			or 6 == layoutParameter.gravity then
+	-- 			x = ((options.anchorPointX or 0.5) - 0.5)*options.width + x
+	-- 			y = options.y
+	-- 		else
+	-- 			x = options.x
+	-- 			y = ((options.anchorPointY or 0.5) - 0.5)*options.height + y
+	-- 		end
+	-- 	elseif 2 == layoutParameter.type then
+
+	-- 		-- calc pos on center anchor point (0.5, 0.5)
+	-- 		if 1 == layoutParameter.align then
+	-- 			-- top left
+	-- 			x = options.width * 0.5
+	-- 			y = parentSize.height - options.height * 0.5
+
+	-- 			x = x + (layoutParameter.marginLeft or 0)
+	-- 			y = y - (layoutParameter.marginTop or 0)
+	-- 		elseif 2 == layoutParameter.align then
+	-- 			-- top center
+	-- 			x = parentSize.width * 0.5
+	-- 			y = parentSize.height - options.height * 0.5
+
+	-- 			y = y - (layoutParameter.marginTop or 0)
+	-- 		elseif 3 == layoutParameter.align then
+	-- 			-- top right
+	-- 			x = parentSize.width - options.width * 0.5
+	-- 			y = parentSize.height - options.height * 0.5
+
+	-- 			x = x - (layoutParameter.marginRight or 0)
+	-- 			y = y - (layoutParameter.marginTop or 0)
+	-- 		elseif 4 == layoutParameter.align then
+	-- 			-- left center
+	-- 			x = options.width * 0.5
+	-- 			y = parentSize.height*0.5
+
+	-- 			x = x + (layoutParameter.marginLeft or 0)
+	-- 		elseif 5 == layoutParameter.align then
+	-- 			-- center
+	-- 			x = parentSize.width * 0.5
+	-- 			y = parentSize.height*0.5
+	-- 		elseif 6 == layoutParameter.align then
+	-- 			-- right center
+	-- 			x = parentSize.width - options.width * 0.5
+	-- 			y = parentSize.height*0.5
+
+	-- 			x = x - (layoutParameter.marginRight or 0)
+	-- 		elseif 7 == layoutParameter.align then
+	-- 			-- left bottom
+	-- 			x = options.width * 0.5
+	-- 			y = options.height * 0.5
+
+	-- 			x = x + (layoutParameter.marginLeft or 0)
+	-- 			y = y + (layoutParameter.marginDown or 0)
+	-- 		elseif 8 == layoutParameter.align then
+	-- 			-- bottom center
+	-- 			x = parentSize.width * 0.5
+	-- 			y = options.height * 0.5
+
+	-- 			y = y + (layoutParameter.marginDown or 0)
+	-- 		elseif 9 == layoutParameter.align then
+	-- 			-- right bottom
+	-- 			x = parentSize.width - options.width * 0.5
+	-- 			y = options.height * 0.5
+
+	-- 			x = x - (layoutParameter.marginRight or 0)
+	-- 			y = y + (layoutParameter.marginDown or 0)
+	-- 			print("CCSUILoader x:" .. x)
+	-- 		else
+	-- 			-- use origin pos
+	-- 			x = options.x
+	-- 			y = options.y
+	-- 			bUseOrigin = true
+	-- 			print("CCSUILoader - modifyLayoutChildPos_ not support align:" .. layoutParameter.align)
+	-- 		end
+
+	-- 		-- change pos on real anchor point
+	-- 		x = ((options.anchorPointX or 0.5) - 0.5)*options.width + x
+	-- 		y = ((options.anchorPointY or 0.5) - 0.5)*options.height + y
+	-- 	elseif 0 == layoutParameter.type then
+	-- 		x = options.x
+	-- 		y = options.y
+	-- 	else
+	-- 		print("CCSUILoader - modifyLayoutChildPos_ not support type:" .. layoutParameter.type)
+	-- 	end
+	-- 	options.x = x
+	-- 	options.y = y
+	-- end
+end
+
+function CCSUILoader:calcChildPosByName_(children, name, parentSize)
+	local child = self:getPanelChild_(children, name)
+	if not child then
+		return
+	end
+	if child.posFixed_ then
+		return
+	end
+
+	local layoutParameter
+	local options
+	local x, y
+	local bUseOrigin = false
+
+	options = child.options
+	layoutParameter = options.layoutParameter
+
+	if 1 == layoutParameter.type then
+		if 1 == layoutParameter.gravity then
+			-- left
+			x = options.width * 0.5
+		elseif 2 == layoutParameter.gravity then
+			-- top
+			y = parentSize.height - options.height * 0.5
+		elseif 3 == layoutParameter.gravity then
+			-- right
+			x = parentSize.width - options.width * 0.5
+		elseif 4 == layoutParameter.gravity then
+			-- bottom
+			y = options.height * 0.5
+		elseif 5 == layoutParameter.gravity then
+			-- center vertical
+			y = parentSize.height * 0.5
+		elseif 6 == layoutParameter.gravity then
+			-- center horizontal
+			x = parentSize.width * 0.5
+		else
+			-- use origin pos
+			x = options.x
+			y = options.y
+			bUseOrigin = true
+			print("CCSUILoader - modifyLayoutChildPos_ not support gravity:" .. layoutParameter.type)
+		end
+
+		if 1 == layoutParameter.gravity
+			or 3 == layoutParameter.gravity
+			or 6 == layoutParameter.gravity then
+			x = ((options.anchorPointX or 0.5) - 0.5)*options.width + x
+			y = options.y
+		else
+			x = options.x
+			y = ((options.anchorPointY or 0.5) - 0.5)*options.height + y
+		end
+	elseif 2 == layoutParameter.type then
+		local relativeChild = self:getPanelChild_(children, layoutParameter.relativeToName)
+		local relativeRect
+		if relativeChild then
+			self:calcChildPosByName_(children, layoutParameter.relativeToName, parentSize)
+			relativeRect = cc.rect(
+				(relativeChild.options.x - (relativeChild.options.anchorPointX or 0.5) * relativeChild.options.width) or 0,
+				(relativeChild.options.y - (relativeChild.options.anchorPointY or 0.5) * relativeChild.options.height) or 0,
+				relativeChild.options.width or 0,
+				relativeChild.options.height or 0)
+		end
+
+		-- calc pos on center anchor point (0.5, 0.5)
+		if 1 == layoutParameter.align then
+			-- top left
+			x = options.width * 0.5
+			y = parentSize.height - options.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+			y = y - (layoutParameter.marginTop or 0)
+		elseif 2 == layoutParameter.align then
+			-- top center
+			x = parentSize.width * 0.5
+			y = parentSize.height - options.height * 0.5
+
+			y = y - (layoutParameter.marginTop or 0)
+		elseif 3 == layoutParameter.align then
+			-- top right
+			x = parentSize.width - options.width * 0.5
+			y = parentSize.height - options.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+			y = y - (layoutParameter.marginTop or 0)
+		elseif 4 == layoutParameter.align then
+			-- left center
+			x = options.width * 0.5
+			y = parentSize.height*0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+		elseif 5 == layoutParameter.align then
+			-- center
+			x = parentSize.width * 0.5
+			y = parentSize.height*0.5
+		elseif 6 == layoutParameter.align then
+			-- right center
+			x = parentSize.width - options.width * 0.5
+			y = parentSize.height*0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+		elseif 7 == layoutParameter.align then
+			-- left bottom
+			x = options.width * 0.5
+			y = options.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 8 == layoutParameter.align then
+			-- bottom center
+			x = parentSize.width * 0.5
+			y = options.height * 0.5
+
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 9 == layoutParameter.align then
+			-- right bottom
+			x = parentSize.width - options.width * 0.5
+			y = options.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 10 == layoutParameter.align then
+			-- location above left
+			x = relativeRect.x + options.width * 0.5
+			y = relativeRect.y + relativeRect.height + options.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 11 == layoutParameter.align then
+			-- location above center
+			x = relativeRect.x + relativeRect.width * 0.5
+			y = relativeRect.y + relativeRect.height + options.height * 0.5
+
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 12 == layoutParameter.align then
+			-- location above right
+			x = relativeRect.x + relativeRect.width - options.width * 0.5
+			y = relativeRect.y + relativeRect.height + options.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 13 == layoutParameter.align then
+			-- location left top
+			x = relativeRect.x - options.width * 0.5
+			y = relativeRect.y + relativeRect.height - options.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+			y = y - (layoutParameter.marginTop or 0)
+		elseif 14 == layoutParameter.align then
+			-- location left center
+			x = relativeRect.x - options.width * 0.5
+			y = relativeRect.y + relativeRect.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+		elseif 15 == layoutParameter.align then
+			-- location left bottom
+			x = relativeRect.x - options.width * 0.5
+			y = relativeRect.y + options.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 16 == layoutParameter.align then
+			-- location right top
+			x = relativeRect.x + relativeRect.width + options.width * 0.5
+			y = relativeRect.y + relativeRect.height - options.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+			y = y + (layoutParameter.marginTop or 0)
+		elseif 17 == layoutParameter.align then
+			-- location right center
+			x = relativeRect.x + relativeRect.width + options.width * 0.5
+			y = relativeRect.y + relativeRect.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+		elseif 18 == layoutParameter.align then
+			-- location right bottom
+			x = relativeRect.x + relativeRect.width + options.width * 0.5
+			y = relativeRect.y + options.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+			y = y + (layoutParameter.marginDown or 0)
+		elseif 19 == layoutParameter.align then
+			-- location below left
+			x = relativeRect.x + options.width * 0.5
+			y = relativeRect.y - options.height * 0.5
+
+			x = x + (layoutParameter.marginLeft or 0)
+			y = y - (layoutParameter.marginTop or 0)
+		elseif 20 == layoutParameter.align then
+			-- location below center
+			x = relativeRect.x + relativeRect.width * 0.5
+			y = relativeRect.y - options.height * 0.5
+
+			y = y - (layoutParameter.marginTop or 0)
+		elseif 21 == layoutParameter.align then
+			-- location below right
+			x = relativeRect.x + relativeRect.width - options.width * 0.5
+			y = relativeRect.y - options.height * 0.5
+
+			x = x - (layoutParameter.marginRight or 0)
+			y = y - (layoutParameter.marginTop or 0)
+		else
+			-- use origin pos
+			x = options.x
+			y = options.y
+			bUseOrigin = true
+			print("CCSUILoader - modifyLayoutChildPos_ not support align:" .. layoutParameter.align)
+		end
+
+		-- change pos on real anchor point
+		x = ((options.anchorPointX or 0.5) - 0.5)*options.width + x
+		y = ((options.anchorPointY or 0.5) - 0.5)*options.height + y
+	elseif 0 == layoutParameter.type then
+		x = options.x
+		y = options.y
+	else
+		print("CCSUILoader - modifyLayoutChildPos_ not support type:" .. layoutParameter.type)
+	end
+	options.x = x
+	options.y = y
+	child.posFixed_ = true
+
+end
+
+function CCSUILoader:getPanelChild_(children, name)
+	for _, v in ipairs(children) do
+		if v.options.name == name then
+			return v
+		end
+	end
+
+	return
+end
+
 
 return CCSUILoader
