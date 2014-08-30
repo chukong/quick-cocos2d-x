@@ -1,7 +1,7 @@
 
 local UIImage = class("UIImage", function(filename, options)
     if options and options.scale9 then
-        return display.newScale9Sprite(filename)
+        return display.newScale9Sprite(filename, nil, nil, nil, options.capInsets)
     else
         return display.newSprite(filename)
     end
@@ -26,7 +26,7 @@ function UIImage:setLayoutSize(width, height)
     height = height - top - bottom
 
     if self.isScale9_ then
-        self:setContentSize(CCSize(width, height))
+        self:setContentSize(cc.size(width, height))
     else
         local boundingSize = self:getBoundingBox().size
         local sx = width / (boundingSize.width / self:getScaleX())

@@ -53,7 +53,7 @@ void CCNative::cancelAlert(void)
 
 const std::string CCNative::getOpenUDID(void)
 {
-	return "";
+	return CCNativeWin32::sharedInstance()->getUDID();
 }
 
 void CCNative::openURL(const char* url)

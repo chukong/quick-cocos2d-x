@@ -16,11 +16,7 @@ class StartupCall;
 class  AppDelegate : public cocos2d::CCApplication
 {
 public:
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-    AppDelegate(int argc, char *argv[]);
-#else
     AppDelegate();
-#endif
     virtual ~AppDelegate();
 
     /**
@@ -45,6 +41,10 @@ public:
     void setProjectConfig(const ProjectConfig& config);
     void setOpenRecents(const CCLuaValueArray& recents);
 
+private:
+    // track event
+    void trackEvent(const char *eventName);
+    
 private:
     ProjectConfig m_projectConfig;
     CCLuaValueArray m_openRecents;

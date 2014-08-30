@@ -4,21 +4,17 @@
 #include "SimpleAudioEngine.h"
 #include "support/CCNotificationCenter.h"
 #include "CCLuaEngine.h"
+#include "cocos2dx_extra.h"
+#include "network/CCHTTPRequest.h"
+#include "native/CCNative.h"
 #include <string>
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-#include "player.h"
-#endif
 
 using namespace std;
 using namespace cocos2d;
 using namespace CocosDenshion;
+USING_NS_CC_EXTRA;
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-AppDelegate::AppDelegate(int argc, char *argv[])
-    : CCApplication(argc, argv)
-#else
 AppDelegate::AppDelegate()
-#endif
 {
     // fixed me
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
@@ -42,11 +38,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // register lua engine
     CCScriptEngineManager::sharedManager()->setScriptEngine(CCLuaEngine::defaultEngine());
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-    // regist my own lua
-    Player::registerAllCpp();
-#endif
-
     StartupCall *call = StartupCall::create(this);
     if (m_projectConfig.getDebuggerType() != kCCLuaDebuggerNone)
     {
@@ -62,6 +53,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     {
         call->startup();
     }
+
+	// track launch event
+	trackEvent("launch");
     return true;
 }
 
@@ -95,6 +89,32 @@ void AppDelegate::setOpenRecents(const CCLuaValueArray& recents)
     m_openRecents = recents;
 }
 
+void AppDelegate::trackEvent(const char *eventName)
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	const char *platform = "win";
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+	const char *platform = "mac";
+#else
+	const char *platform = "UNKNOWN";
+#endif
+
+    CCHTTPRequest *request = CCHTTPRequest::createWithUrl(NULL,
+                                                          "http://www.google-analytics.com/collect",
+                                                          kCCHTTPRequestMethodPOST);
+    request->addPOSTValue("v", "1");
+    request->addPOSTValue("tid", "UA-54146057-1");
+    request->addPOSTValue("cid", CCNative::getOpenUDID().c_str());
+    request->addPOSTValue("t", "event");
+    
+    request->addPOSTValue("an", "player");
+    request->addPOSTValue("av", cocos2dVersion());
+
+	request->addPOSTValue("ec", platform);
+    request->addPOSTValue("ea", eventName);
+    
+    request->start();
+}
 // ----------------------------------------
 
 StartupCall *StartupCall::create(AppDelegate *app)

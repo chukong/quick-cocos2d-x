@@ -2,9 +2,11 @@
 #include "platform/win32/CCNativeWin32def.h"
 #include "CCEGLView.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_QT)
-#include <QInputDialog>
-#endif
+// for mac address
+#include <WinSock2.h>
+#include <Iphlpapi.h>
+#pragma comment(lib,"Iphlpapi.lib")
+
 
 CCNativeWin32* CCNativeWin32::s_sharedInstance = NULL;
 
@@ -157,4 +159,71 @@ const string CCNativeWin32::getInputText(const char* title, const char* message,
     SendMessage(handle, WM_CUT, 998, (LPARAM)&inputbox);
     return inputbox.value;
 #endif
+}
+
+// 
+//
+static bool getMacAddress(string& macstring)
+{
+	bool ret = false;
+	ULONG ulOutBufLen = sizeof(IP_ADAPTER_INFO);
+	PIP_ADAPTER_INFO pAdapterInfo = (IP_ADAPTER_INFO *) malloc (ulOutBufLen);
+	if (pAdapterInfo == NULL)
+	{
+		return false;
+	}
+
+	if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW)
+	{
+		free(pAdapterInfo);
+		pAdapterInfo = (IP_ADAPTER_INFO *) malloc (ulOutBufLen);
+		if (pAdapterInfo == NULL)
+		{
+			return false;
+		}
+	}
+	
+	if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == NO_ERROR)
+	{
+		for (PIP_ADAPTER_INFO pAdapter = pAdapterInfo; pAdapter != NULL; pAdapter = pAdapter->Next)
+		{
+			if (pAdapter->Type != MIB_IF_TYPE_ETHERNET)
+			{
+				continue;
+			}
+	
+			if (pAdapter->AddressLength != 6)
+			{
+				continue;
+			}
+
+			char macBuf[32];
+			sprintf(macBuf, "%02X-%02X-%02X-%02X-%02X-%02X",
+				int(pAdapter->Address[0]),
+				int(pAdapter->Address[1]),
+				int(pAdapter->Address[2]),
+				int(pAdapter->Address[3]),
+				int(pAdapter->Address[4]),
+				int(pAdapter->Address[5]));
+			macstring = macBuf;
+			ret = true;
+			break;
+		}
+	}
+	
+	free(pAdapterInfo);
+	return ret;
+}
+
+const string CCNativeWin32::getUDID()
+{
+	if (m_macAddress.length() <= 0)
+	{
+		if (!getMacAddress(m_macAddress))
+		{
+			m_macAddress = "udid-fixed-1234567890";
+		}
+	}
+
+	return m_macAddress;
 }
