@@ -415,14 +415,12 @@ function CCSUILoader:createImage(options)
 	-- end
 
 	if not options.scale9Enable then
-		if options.scale9Width or options.scale9Height then
-			local originSize = node:getContentSize()
-			if options.scale9Width then
-				options.scaleX = (options.scaleX or 1) * options.scale9Width/originSize.width
-			end
-			if options.scale9Height then
-				options.scaleY = (options.scaleY or 1) * options.scale9Height/originSize.height
-			end
+		local originSize = node:getContentSize()
+		if options.width then
+			options.scaleX = (options.scaleX or 1) * options.width/originSize.width
+		end
+		if options.height then
+			options.scaleY = (options.scaleY or 1) * options.height/originSize.height
 		end
 	end
 	if not options.ignoreSize then
