@@ -88,11 +88,21 @@ function UIScrollView:addBgIf(params)
 end
 
 function UIScrollView:setViewRect(rect)
+	if "CCRect" == tolua.type(rect) then
+		rect.x = rect.origin.x
+		rect.y = rect.origin.y
+		rect.width = rect.size.width
+		rect.height = rect.size.height
+	end
 	self:setClippingRegion(rect)
 	self.viewRect_ = rect
 	self.viewRectIsNodeSpace = false
 
 	return self
+end
+
+function UIScrollView:getViewRect()
+	return self.viewRect_
 end
 
 function UIScrollView:setLayoutPadding(top, right, bottom, left)
