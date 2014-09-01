@@ -11,6 +11,7 @@ UIScrollView.DIRECTION_HORIZONTAL	= 2
 
 function UIScrollView:ctor(params)
 	self.bBounce = true
+	self.nShakeVal = 5
 	self.direction = UIScrollView.DIRECTION_BOTH
 	self.layoutPadding = {left = 0, right = 0, top = 0, bottom = 0}
 	self.speed = {x = 0, y = 0}
@@ -245,6 +246,10 @@ function UIScrollView:onTouch_(event)
 
 		return true
 	elseif "moved" == event.name then
+		if self:isShake(event) then
+			return
+		end
+
 		self.bDrag_ = true
 		self.speed.x = event.x - event.prevX
 		self.speed.y = event.y - event.prevY
@@ -567,7 +572,13 @@ function UIScrollView:changeViewRectToNodeSpaceIf()
 	self.viewRect_.x = self.viewRect_.x + ws.x
 	self.viewRect_.y = self.viewRect_.y + ws.y
 	self.viewRectIsNodeSpace = true
-	print("htl changeViewRectToNodeSpaceIf()")
+end
+
+function UIScrollView:isShake(event)
+	if math.abs(event.x - self.prevX_) < self.nShakeVal
+		and math.abs(event.y - self.prevY_) < self.nShakeVal then
+		return true
+	end
 end
 
 return UIScrollView
