@@ -155,8 +155,10 @@ function UIListView:scrollListener(event)
 		self:notifyListener_{name = "clicked",
 			listView = self, itemPos = pos, item = self.items_[pos],
 			point = nodePoint}
-	elseif "moved" == event.name then
 	else
+		event.scrollView = nil
+		event.listView = self
+		self:notifyListener_(event)
 	end
 
 end

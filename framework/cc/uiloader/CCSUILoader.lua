@@ -366,7 +366,7 @@ end
 function CCSUILoader:createNode(options)
 	local node = cc.Node:create()
 	if not options.ignoreSize then
-		node:setContentSize(cc.size(options.width, options.height))
+		node:setContentSize(cc.size(options.width or 0, options.height or 0))
 	end
 	node:setPositionX(options.x or 0)
 	node:setPositionY(options.y or 0)
@@ -595,7 +595,12 @@ end
 
 function CCSUILoader:createPanel(options)
 	-- local node = display.newNode() --cc.ClippingRegionNode:create()
-	local node = cc.ClippingNode:create()
+	local node
+	if options.clipAble then
+		node = cc.ClippingNode:create()
+	else
+		node = display.newNode()
+	end
 	local clrLayer
 	local bgLayer
 
@@ -646,11 +651,14 @@ function CCSUILoader:createPanel(options)
 		options.height = display.height
 	end
 	conSize = cc.size(options.width, options.height)
-	-- node:setClippingRegion(cc.rect(0, 0, options.width, options.height))
-	local stencil = display.newNode()
-	stencil:setContentSize(options.width, options.height)
-	node:setStencil(stencil)
-	node:setInverted(true)
+
+	if options.clipAble then
+		local stencil = display.newNode()
+		stencil:setContentSize(options.width, options.height)
+		node:setStencil(stencil)
+		node:setInverted(true)
+	end
+
 	if not options.ignoreSize then
 		if clrLayer then
 			clrLayer:setContentSize(conSize)
