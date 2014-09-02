@@ -244,6 +244,8 @@ function UIScrollView:onTouch_(event)
 		self:enableScrollBar()
 		-- self:changeViewRectToNodeSpaceIf()
 
+		self.scaleToWorldSpace_ = self:scaleToParent_()
+
 		return true
 	elseif "moved" == event.name then
 		if self:isShake(event) then
@@ -321,11 +323,13 @@ function UIScrollView:moveXY(orgX, orgY, speedX, speedY)
 	if speedX > 0 then
 		if cascadeBound.x < viewRect.x then
 			disX = viewRect.x - cascadeBound.x
+			disX = disX / self.scaleToWorldSpace_.x
 			x = orgX + math.min(disX, speedX)
 		end
 	else
 		if cascadeBound.x + cascadeBound.width > viewRect.x + viewRect.width then
 			disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+			disX = disX / self.scaleToWorldSpace_.x
 			x = orgX + math.max(disX, speedX)
 		end
 	end
@@ -333,11 +337,13 @@ function UIScrollView:moveXY(orgX, orgY, speedX, speedY)
 	if speedY > 0 then
 		if cascadeBound.y < viewRect.y then
 			disY = viewRect.y - cascadeBound.y
+			disY = disY / self.scaleToWorldSpace_.y
 			y = orgY + math.min(disY, speedY)
 		end
 	else
 		if cascadeBound.y + cascadeBound.height > viewRect.y + viewRect.height then
 			disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+			disY = disY / self.scaleToWorldSpace_.y
 			y = orgY + math.max(disY, speedY)
 		end
 	end
@@ -579,6 +585,24 @@ function UIScrollView:isShake(event)
 		and math.abs(event.y - self.prevY_) < self.nShakeVal then
 		return true
 	end
+end
+
+function UIScrollView:scaleToParent_()
+	local parent
+	local node = self
+	local scale = {x = 1, y = 1}
+
+	while true do
+		scale.x = scale.x * node:getScaleX()
+		scale.y = scale.y * node:getScaleY()
+		parent = node:getParent()
+		if not parent then
+			break
+		end
+		node = parent
+	end
+
+	return scale
 end
 
 return UIScrollView
