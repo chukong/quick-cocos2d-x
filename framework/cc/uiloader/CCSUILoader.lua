@@ -751,7 +751,7 @@ function CCSUILoader:createListView(options)
 	end
 
 	local node = cc.ui.UIListView.new(params)
-	local dir = options.direction
+	local dir = options.direction or 1
 	-- ccs listView 0:none 1:vertical 2:horizontal 3:vertical and horizontal
 	-- quick 0:both 1:vertical 2:horizontal
 	if 0 == dir then

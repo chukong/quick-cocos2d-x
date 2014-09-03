@@ -126,6 +126,10 @@ function UIScrollView:setDirection(dir)
 	return self
 end
 
+function UIScrollView:getDirection()
+	return self.direction
+end
+
 function UIScrollView:setBounceable(bBounceable)
 	self.bBounce = bBounceable
 
