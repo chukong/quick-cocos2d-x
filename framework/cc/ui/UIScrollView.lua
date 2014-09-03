@@ -193,6 +193,10 @@ function UIScrollView:addScrollNode(node)
     return self
 end
 
+function UIScrollView:getScrollNode()
+	return self.scrollNode
+end
+
 function UIScrollView:onScroll(listener)
 	self.scrollListener_ = listener
 
