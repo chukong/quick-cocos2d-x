@@ -89,7 +89,7 @@ CCArmature::CCArmature()
     , m_pTopBoneList(NULL)
     , m_pAnimation(NULL)
     , m_pTextureAtlasDic(NULL)
-+   , m_nScriptMovementHandler(0)
+    , m_nScriptMovementHandler(0)
 {
 }
 
