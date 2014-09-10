@@ -146,19 +146,19 @@ public:
     /** Touch events are handled by default; if you want to customize your handlers, please override these functions: 
      * @lua NA
      */
-    virtual void handleTouchesBegin(int num, int ids[], float xs[], float ys[]);
+    virtual void handleTouchesBegin(int num, size_t ids[], float xs[], float ys[]);
     /**
      * @lua NA
      */
-    virtual void handleTouchesMove(int num, int ids[], float xs[], float ys[]);
+    virtual void handleTouchesMove(int num, size_t ids[], float xs[], float ys[]);
     /**
      * @lua NA
      */
-    virtual void handleTouchesEnd(int num, int ids[], float xs[], float ys[]);
+    virtual void handleTouchesEnd(int num, size_t ids[], float xs[], float ys[]);
     /**
      * @lua NA
      */
-    virtual void handleTouchesCancel(int num, int ids[], float xs[], float ys[]);
+    virtual void handleTouchesCancel(int num, size_t ids[], float xs[], float ys[]);
 
     /**
      * Get the opengl view port rectangle.
@@ -175,7 +175,7 @@ public:
      */
     float getScaleY() const;
 private:
-    void getSetOfTouchesEndOrCancel(CCSet& set, int num, int ids[], float xs[], float ys[]);
+    void getSetOfTouchesEndOrCancel(CCSet& set, int num, size_t ids[], float xs[], float ys[]);
 
 protected:
     EGLTouchDelegate* m_pDelegate;
