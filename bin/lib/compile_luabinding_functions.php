@@ -154,6 +154,7 @@ class Builder
     private $macros_;
     private $luaopenFunctionName_;
     private $password_;
+    private $configFilePath_;
 
     function __construct($parameters)
     {
@@ -165,6 +166,7 @@ class Builder
         $this->outputHeaderPath_    = $this->outputDir_ . $this->outputFilename_ . '.h';
         $this->macros_              = $parameters['macros'];
         $this->luaopenFunctionName_ = str_replace('-', '_', sprintf('luaopen_%s', $parameters['output_filename']));
+        $this->configFilePath       = $parameters['config_filepath'];
     }
 
     function build()
@@ -181,7 +183,7 @@ class Builder
 
         chdir(dirname($this->inputPath_));
         $inputFilename = pathinfo($this->inputPath_, PATHINFO_BASENAME);
-        $command = sprintf('"%s" %s -L "%s" -o "%s" "%s"', TOLUA_BIN, $macros, CONFIG_PATH, $this->outputSourcePath_, $inputFilename);
+        $command = sprintf('"%s" %s -L "%s" -o "%s" "%s"', TOLUA_BIN, $macros, $this->configFilePath, $this->outputSourcePath_, $inputFilename);
         printf("\ncommand: %s\n\n", $command);
 
         printf("creating file: %s\n\n", $this->outputSourcePath_);
