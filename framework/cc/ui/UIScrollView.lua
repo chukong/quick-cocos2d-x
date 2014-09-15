@@ -23,7 +23,7 @@ function UIScrollView:ctor(params)
 	if params.viewRect then
 		self:setViewRect(params.viewRect)
 	end
-	if not params.direction then
+	if params.direction then
 		self:setDirection(params.direction)
 	end
 	if params.scrollbarImgH then
@@ -114,6 +114,8 @@ function UIScrollView:setLayoutPadding(top, right, bottom, left)
 	self.layoutPadding.right = right
 	self.layoutPadding.bottom = bottom
 	self.layoutPadding.left = left
+
+	return self
 end
 
 function UIScrollView:setActualRect(rect)
@@ -142,13 +144,10 @@ function UIScrollView:resetPosition()
 		return
 	end
 
-	local x = self.viewRect_.x
-	local y = self.viewRect_.y
+	local x, y = self.scrollNode:getPosition()
 	local bound = self.scrollNode:getCascadeBoundingBox()
-	local anchor = self.scrollNode:getAnchorPoint()
-	y = y + self.viewRect_.height - bound.height
-	x = x + bound.width*anchor.x
-	y = y + bound.height*anchor.y
+	local disY = self.viewRect_.y + self.viewRect_.height - bound.y - bound.height
+	y = y + disY
 	self.scrollNode:setPosition(x, y)
 end
 
