@@ -241,21 +241,18 @@ void CCFilteredSpriteWithOne::drawFilter()
 bool CCFilteredSpriteWithOne::updateFilters()
 {
 	CCAssert(_pFilters || _pFilters->count() != 1, "Invalid CCFilter!");
-	do
-	{
-		unsigned int __count = _pFilters->count();
-		CC_BREAK_IF(__count == 0);
-		CCFilter* __filter = static_cast<CCFilter*>(_pFilters->objectAtIndex(0));
-		__filter->initSprite(this);
-		if (__filter->getProgram())
-		{
-			setShaderProgram(__filter->getProgram());
-		}
-		CHECK_GL_ERROR_DEBUG();
-		return true;
-	} while (0);
-
-	return false;
+    if(_pFilters->count() == 0)
+    {
+        return false;
+    }
+    CCFilter* __filter = static_cast<CCFilter*>(_pFilters->objectAtIndex(0));
+    __filter->initSprite(this);
+    if (__filter->getProgram())
+    {
+        setShaderProgram(__filter->getProgram());
+    }
+    CHECK_GL_ERROR_DEBUG();
+    return true;
 }
 //================== CCFilteredSpriteWithMulti
 
@@ -391,63 +388,60 @@ void CCFilteredSpriteWithMulti::clearFilter()
 bool CCFilteredSpriteWithMulti::updateFilters()
 {
 	CCAssert(_pFilters || _pFilters->count()>1, "Invalid CCFilter!");
-	do
-	{
-		CCFilteredSprite* __sp = NULL;
-		CCSize __size;
-		if (_pTexture)
-		{
-			__size = _pTexture->getContentSize();
-		}
-		else if (_pFrame)
-		{
-			__size = _pFrame->getRect().size;
-		}
-		else
-		{
-			break;
-		}
+    CCFilteredSprite* __sp = NULL;
+    CCSize __size;
+    if (_pTexture)
+    {
+        __size = _pTexture->getContentSize();
+    }
+    else if (_pFrame)
+    {
+        __size = _pFrame->getRect().size;
+    }
+    else
+    {
+        return false;
+    }
 
-		unsigned int __count = _pFilters->count();
-		CCTexture2D* __newTex = NULL;
-		CCRenderTexture* __canva = CCRenderTexture::create(__size.width, __size.height);
-		//CCLOG("CCFilteredSpriteWithMulti::updateFilters %f, %f", __size.width, __size.height);
-		for (size_t i = 0; i < __count; i++)
-		{
-			//CCLOG("CCFilteredSpriteWithMulti render %d", i);
-			
-			__canva->begin();
-			CCFilter* __filter = static_cast<CCFilter*>(_pFilters->objectAtIndex(i));
-			if (i == 0)
-			{
-				__sp = _pTexture ?
-					CCFilteredSpriteWithOne::createWithTexture(_pTexture) :
-					CCFilteredSpriteWithOne::createWithSpriteFrame(_pFrame);
-			}
-			else
-			{
-				__sp = CCFilteredSpriteWithOne::createWithTexture(__newTex);
-			}
-			__sp->setFilter(__filter);
-			__sp->setAnchorPoint(ccp(0, 0));
-			//__sp->setPosition(ccp(0, 0));
-			//__sp->getTexture()->setAliasTexParameters();
-			__sp->visit();
-			__canva->end();
-			__newTex = new CCTexture2D();
-			__newTex->initWithImage(__canva->newCCImage(true));
-			__newTex->autorelease();
+    unsigned int __count = _pFilters->count();
+    CCTexture2D* __newTex = NULL;
+    CCRenderTexture* __canva = CCRenderTexture::create(__size.width, __size.height);
+    //CCLOG("CCFilteredSpriteWithMulti::updateFilters %f, %f", __size.width, __size.height);
+    for (size_t i = 0; i < __count; i++)
+    {
+        //CCLOG("CCFilteredSpriteWithMulti render %d", i);
+        
+        __canva->begin();
+        CCFilter* __filter = static_cast<CCFilter*>(_pFilters->objectAtIndex(i));
+        if (i == 0)
+        {
+            __sp = _pTexture ?
+                CCFilteredSpriteWithOne::createWithTexture(_pTexture) :
+                CCFilteredSpriteWithOne::createWithSpriteFrame(_pFrame);
+        }
+        else
+        {
+            __sp = CCFilteredSpriteWithOne::createWithTexture(__newTex);
+        }
+        __sp->setFilter(__filter);
+        __sp->setAnchorPoint(ccp(0, 0));
+        //__sp->setPosition(ccp(0, 0));
+        //__sp->getTexture()->setAliasTexParameters();
+        __sp->visit();
+        __canva->end();
+        __newTex = new CCTexture2D();
+        CCImage* pNewImage = __canva->newCCImage(true);
+        __newTex->initWithImage(pNewImage);
+        delete pNewImage;
+        __newTex->autorelease();
 
-			//CCLOG("__sp (%u, %u)", __newTex->getPixelsWide(), __newTex->getPixelsHigh());
-		}
-		static_cast<CCSprite*>(this)->initWithTexture(__newTex);
-		CHECK_GL_ERROR_DEBUG();
-		//CCLOG("CCFilteredSpriteWithMulti updateFilters:%d", __count);
-		//CCLOG("==== CCFilteredSpriteWithMulti updateFilters texture %f, %f", __newTex->getContentSize().width, __newTex->getContentSize().height);
-		return true;
-	} while (0);
-
-	return false;
+        //CCLOG("__sp (%u, %u)", __newTex->getPixelsWide(), __newTex->getPixelsHigh());
+    }
+    static_cast<CCSprite*>(this)->initWithTexture(__newTex);
+    CHECK_GL_ERROR_DEBUG();
+    //CCLOG("CCFilteredSpriteWithMulti updateFilters:%d", __count);
+    //CCLOG("==== CCFilteredSpriteWithMulti updateFilters texture %f, %f", __newTex->getContentSize().width, __newTex->getContentSize().height);
+    return true;
 }
 
 void CCFilteredSpriteWithMulti::drawFilter(){}
