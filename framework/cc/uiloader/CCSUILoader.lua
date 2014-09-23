@@ -425,11 +425,20 @@ function CCSUILoader:createImage(options)
 	end
 	if not options.ignoreSize then
 		node:setLayoutSize(options.width, options.height)
+
+		-- setLayoutSize have scaled
+		options.scaleX = 1
+		options.scaleY = 1
 	end
 	node:setPositionX(options.x or 0)
 	node:setPositionY(options.y or 0)
 	node:setAnchorPoint(
 		cc.p(options.anchorPointX or 0.5, options.anchorPointY or 0.5))
+
+	if options.touchAble then
+		node:setTouchEnabled(true)
+		node:setTouchSwallowEnabled(true)
+	end
 
 	return node
 end
