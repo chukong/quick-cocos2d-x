@@ -202,6 +202,16 @@ function UIListView:removeItem(listItem, bAni)
 	return self
 end
 
+function UIListView:removeAllItems(bAni)
+	local itemsList = self.items_
+	
+	for k,v in pairs(itemsList) do
+		self:removeItem(v, bAni)
+	end
+	
+	return self:reload()
+end
+	
 function UIListView:getItemPos(listItem)
 	for i,v in ipairs(self.items_) do
 		if v == listItem then
