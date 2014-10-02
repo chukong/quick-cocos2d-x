@@ -14,7 +14,9 @@ function uiloader:load(jsonFile)
 	end
 
 	local node
-
+	local w
+	local h
+	
 	if self:isScene_(json) then
 		node, w, h = CCSSceneLoader:load(json)
 	else
@@ -58,7 +60,7 @@ function uiloader:seekNodeByTag(parent, tag)
 end
 
 function uiloader:seekNodeByName(parent, name)
-	if not parent then
+	if not parent or parent.getChildren == nil then
 		return
 	end
 

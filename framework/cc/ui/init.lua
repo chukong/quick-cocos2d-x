@@ -35,5 +35,6 @@ ui.UIScrollView          = import(".UIScrollView")
 ui.UIListView            = import(".UIListView")
 ui.UIPageView            = import(".UIPageView")
 ui.UILoadingBar          = import(".UILoadingBar")
+ui.UIPanel               = import(".UIPanel")
 
 return ui
