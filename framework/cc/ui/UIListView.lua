@@ -203,13 +203,15 @@ function UIListView:removeItem(listItem, bAni)
 end
 
 function UIListView:removeAllItems(bAni)
-	local itemsList = self.items_
-	
-	for k,v in pairs(itemsList) do
-		self:removeItem(v, bAni)
-	end
-	
-	return self:reload()
+	local itemsNum_ = table.nums(self.items_)
+
+    if itemsNum_ > 0 then
+    	self:removeItem(self.items_[1], bAni)
+    	self:removeAllItems(bAni)
+    	return
+    end
+
+    return self
 end
 	
 function UIListView:getItemPos(listItem)
