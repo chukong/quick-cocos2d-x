@@ -52,7 +52,7 @@ static int SendBinaryMessageToLua(int nHandler,const unsigned char* pTable,int n
     return nRet;
 }
 
-class LuaWebSocket: public WebSocket,public WebSocket::Delegate
+class LuaWebSocket: public WebSocket::Delegate, public WebSocket
 {
 public:
     virtual ~LuaWebSocket()

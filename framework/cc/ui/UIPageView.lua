@@ -68,17 +68,17 @@ function UIPageView:reload()
 	return self
 end
 
-function UIPageView:gotoPage(pageIdx, bSmooth)
+function UIPageView:gotoPage(pageIdx, bSmooth, bLeftToRight)
 	if pageIdx < 1 or pageIdx > self:getPageCount() then
-		return
+		return self
 	end
-	if pageIdx == self.curPageIdx_ then
-		return
+	if pageIdx == self.curPageIdx_ and bSmooth then
+		return self
 	end
 
 	if bSmooth then
-		self:resetPagePos(pageIdx - self.curPageIdx_)
-		self:scrollPagePos(pageIdx - self.curPageIdx_)
+		self:resetPagePos(pageIdx, bLeftToRight)
+		self:scrollPagePos(pageIdx, bLeftToRight)
 	else
 		self.pages_[self.curPageIdx_]:setVisible(false)
 		self.pages_[pageIdx]:setVisible(true)
@@ -86,12 +86,14 @@ function UIPageView:gotoPage(pageIdx, bSmooth)
 			self.viewRect_.x, self.viewRect_.y)
 		self.curPageIdx_ = pageIdx
 
-		self.touchListener{pageView = self, name = "clicked",
-				item = self.items_[clickIdx],
-				itemIdx = clickIdx,
-				pageIdx = self.curPageIdx_}
+		-- self.notifyListener_{name = "clicked",
+		-- 		item = self.items_[clickIdx],
+		-- 		itemIdx = clickIdx,
+		-- 		pageIdx = self.curPageIdx_}
 		self:notifyListener_{name = "pageChange"}
 	end
+
+	return self
 end
 
 function UIPageView:getPageCount()
@@ -104,6 +106,8 @@ end
 
 function UIPageView:setCirculatory(bCirc)
 	self.bCirc = bCirc
+
+	return self
 end
 
 -- private
@@ -153,7 +157,7 @@ function UIPageView:onTouch_(event)
 	end
 
 	if "began" == event.name then
-		self:resetLRPage()
+		self:stopAllTransition()
 		self.bDrag_ = false
 	elseif "moved" == event.name then
 		self.bDrag_ = true
@@ -163,6 +167,7 @@ function UIPageView:onTouch_(event)
 		if self.bDrag_ then
 			self:scrollAuto()
 		else
+			self:resetPages_()
 			self:onClick_(event)
 		end
 	end
@@ -170,19 +175,44 @@ function UIPageView:onTouch_(event)
 	return true
 end
 
-function UIPageView:resetLRPage()
-	local pageIdx = self.curPageIdx_
-	local page
+function UIPageView:resetPages_()
+	local x,y = self.pages_[self.curPageIdx_]:getPosition()
 
-	self:stopAllTransition()
-	self:resetPagePos(-1)
-	self:resetPagePos(1)
+	if x == self.viewRect_.x then
+		return
+	end
+	print("UIPageView - resetPages_")
+	-- self.pages_[self.curPageIdx_]:getPosition(self.viewRect_.x, y)
+	self:disablePage()
+	self:gotoPage(self.curPageIdx_)
 end
 
-function UIPageView:resetPagePos(dis)
+function UIPageView:resetPagePos(pos, bLeftToRight)
 	local pageIdx = self.curPageIdx_
 	local page
 	local pageWidth = self.viewRect_.width
+	local dis
+	local count = #self.pages_
+
+	dis = pos - pageIdx
+	if self.bCirc then
+		local disL,disR
+		if dis > 0 then
+			disR = dis
+			disL = disR - count
+		else
+			disL = dis
+			disR = disL + count
+		end
+
+		if nil == bLeftToRight then
+			dis = ((math.abs(disL) > math.abs(disR)) and disR) or disL
+		elseif bLeftToRight then
+			dis = disR
+		else
+			dis = disL
+		end
+	end
 
 	local disABS = math.abs(dis)
 	local x = self.pages_[pageIdx]:getPosition()
@@ -192,8 +222,13 @@ function UIPageView:resetPagePos(dis)
 			pageIdx = pageIdx + 1
 			x = x + pageWidth
 		else
+			pageIdx = pageIdx + count
 			pageIdx = pageIdx - 1
 			x = x - pageWidth
+		end
+		pageIdx = pageIdx % count
+		if 0 == pageIdx then
+			pageIdx = count
 		end
 		page = self.pages_[pageIdx]
 		if page then
@@ -203,20 +238,47 @@ function UIPageView:resetPagePos(dis)
 	end
 end
 
-function UIPageView:scrollPagePos(dis)
+function UIPageView:scrollPagePos(pos, bLeftToRight)
 	local pageIdx = self.curPageIdx_
 	local page
 	local pageWidth = self.viewRect_.width
+	local dis
+	local count = #self.pages_
+
+	dis = pos - pageIdx
+	if self.bCirc then
+		local disL,disR
+		if dis > 0 then
+			disR = dis
+			disL = disR - count
+		else
+			disL = dis
+			disR = disL + count
+		end
+
+		if nil == bLeftToRight then
+			dis = ((math.abs(disL) > math.abs(disR)) and disR) or disL
+		elseif bLeftToRight then
+			dis = disR
+		else
+			dis = disL
+		end
+	end
 
 	local disABS = math.abs(dis)
 	local x = self.viewRect_.x
 	local movedis = dis*pageWidth
 
-	for i=1,disABS do
+	for i=1, disABS do
 		if dis > 0 then
 			pageIdx = pageIdx + 1
 		else
+			pageIdx = pageIdx + count
 			pageIdx = pageIdx - 1
+		end
+		pageIdx = pageIdx % count
+		if 0 == pageIdx then
+			pageIdx = count
 		end
 		page = self.pages_[pageIdx]
 		if page then
@@ -228,7 +290,11 @@ function UIPageView:scrollPagePos(dis)
 	transition.moveBy(self.pages_[self.curPageIdx_],
 					{x = -movedis, y = 0, time = 0.3,
 					onComplete = function()
-						self.curPageIdx_ = self.curPageIdx_ + dis
+						local pageIdx = (self.curPageIdx_ + dis + count)%count
+						if 0 == pageIdx then
+							pageIdx = count
+						end
+						self.curPageIdx_ = pageIdx
 						self:disablePage()
 						self:notifyListener_{name = "pageChange"}
 					end})

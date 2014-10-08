@@ -11,6 +11,7 @@ UIScrollView.DIRECTION_HORIZONTAL	= 2
 
 function UIScrollView:ctor(params)
 	self.bBounce = true
+	self.nShakeVal = 5
 	self.direction = UIScrollView.DIRECTION_BOTH
 	self.layoutPadding = {left = 0, right = 0, top = 0, bottom = 0}
 	self.speed = {x = 0, y = 0}
@@ -22,7 +23,7 @@ function UIScrollView:ctor(params)
 	if params.viewRect then
 		self:setViewRect(params.viewRect)
 	end
-	if not params.direction then
+	if params.direction then
 		self:setDirection(params.direction)
 	end
 	if params.scrollbarImgH then
@@ -88,11 +89,21 @@ function UIScrollView:addBgIf(params)
 end
 
 function UIScrollView:setViewRect(rect)
+	if "CCRect" == tolua.type(rect) then
+		rect.x = rect.origin.x
+		rect.y = rect.origin.y
+		rect.width = rect.size.width
+		rect.height = rect.size.height
+	end
 	self:setClippingRegion(rect)
 	self.viewRect_ = rect
 	self.viewRectIsNodeSpace = false
 
 	return self
+end
+
+function UIScrollView:getViewRect()
+	return self.viewRect_
 end
 
 function UIScrollView:setLayoutPadding(top, right, bottom, left)
@@ -103,6 +114,8 @@ function UIScrollView:setLayoutPadding(top, right, bottom, left)
 	self.layoutPadding.right = right
 	self.layoutPadding.bottom = bottom
 	self.layoutPadding.left = left
+
+	return self
 end
 
 function UIScrollView:setActualRect(rect)
@@ -113,6 +126,10 @@ function UIScrollView:setDirection(dir)
 	self.direction = dir
 
 	return self
+end
+
+function UIScrollView:getDirection()
+	return self.direction
 end
 
 function UIScrollView:setBounceable(bBounceable)
@@ -127,13 +144,10 @@ function UIScrollView:resetPosition()
 		return
 	end
 
-	local x = self.viewRect_.x
-	local y = self.viewRect_.y
+	local x, y = self.scrollNode:getPosition()
 	local bound = self.scrollNode:getCascadeBoundingBox()
-	local anchor = self.scrollNode:getAnchorPoint()
-	y = y + self.viewRect_.height - bound.height
-	x = x + bound.width*anchor.x
-	y = y + bound.height*anchor.y
+	local disY = self.viewRect_.y + self.viewRect_.height - bound.y - bound.height
+	y = y + disY
 	self.scrollNode:setPosition(x, y)
 end
 
@@ -180,6 +194,10 @@ function UIScrollView:addScrollNode(node)
     end)
 
     return self
+end
+
+function UIScrollView:getScrollNode()
+	return self.scrollNode
 end
 
 function UIScrollView:onScroll(listener)
@@ -233,8 +251,14 @@ function UIScrollView:onTouch_(event)
 		self:enableScrollBar()
 		-- self:changeViewRectToNodeSpaceIf()
 
+		self.scaleToWorldSpace_ = self:scaleToParent_()
+
 		return true
 	elseif "moved" == event.name then
+		if self:isShake(event) then
+			return
+		end
+
 		self.bDrag_ = true
 		self.speed.x = event.x - event.prevX
 		self.speed.y = event.y - event.prevY
@@ -306,11 +330,13 @@ function UIScrollView:moveXY(orgX, orgY, speedX, speedY)
 	if speedX > 0 then
 		if cascadeBound.x < viewRect.x then
 			disX = viewRect.x - cascadeBound.x
+			disX = disX / self.scaleToWorldSpace_.x
 			x = orgX + math.min(disX, speedX)
 		end
 	else
 		if cascadeBound.x + cascadeBound.width > viewRect.x + viewRect.width then
 			disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+			disX = disX / self.scaleToWorldSpace_.x
 			x = orgX + math.max(disX, speedX)
 		end
 	end
@@ -318,11 +344,13 @@ function UIScrollView:moveXY(orgX, orgY, speedX, speedY)
 	if speedY > 0 then
 		if cascadeBound.y < viewRect.y then
 			disY = viewRect.y - cascadeBound.y
+			disY = disY / self.scaleToWorldSpace_.y
 			y = orgY + math.min(disY, speedY)
 		end
 	else
 		if cascadeBound.y + cascadeBound.height > viewRect.y + viewRect.height then
 			disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+			disY = disY / self.scaleToWorldSpace_.y
 			y = orgY + math.max(disY, speedY)
 		end
 	end
@@ -557,7 +585,179 @@ function UIScrollView:changeViewRectToNodeSpaceIf()
 	self.viewRect_.x = self.viewRect_.x + ws.x
 	self.viewRect_.y = self.viewRect_.y + ws.y
 	self.viewRectIsNodeSpace = true
-	print("htl changeViewRectToNodeSpaceIf()")
+end
+
+function UIScrollView:isShake(event)
+	if math.abs(event.x - self.prevX_) < self.nShakeVal
+		and math.abs(event.y - self.prevY_) < self.nShakeVal then
+		return true
+	end
+end
+
+function UIScrollView:scaleToParent_()
+	local parent
+	local node = self
+	local scale = {x = 1, y = 1}
+
+	while true do
+		scale.x = scale.x * node:getScaleX()
+		scale.y = scale.y * node:getScaleY()
+		parent = node:getParent()
+		if not parent then
+			break
+		end
+		node = parent
+	end
+
+	return scale
+end
+
+--[[--
+
+scrollView的填充方法，可以自动把一个table里的node有序的填充到scrollview里。
+
+~~~ lua
+
+--填充100个相同大小的图片。
+    local view =  cc.ui.UIScrollView.new({viewRect=CCRect(0,0,display.width,display.height),direction=2});
+    self:addChild(view);
+    local t = {};
+    for i = 1, 100 do
+      local png  = cc.ui.UIImage.new("box_bai.png");
+      t[#t+1] = png;
+      cc.ui.UILabel.new({text = i, size = 24, color = ccc3(100,100,100)})
+      :align(display.CENTER, png:getContentSize().width/, png:getContentSize().height/2):addTo(png);
+    end
+--填充scrollview，参数itemSize为填充项的大小(填充项大小必须相同)
+    view:fill(t,{itemSize=cc.size(SIZE(t[#t]))});
+
+~~~
+
+注意：nodes 是table结构，且一定要是{node1,node2,node3,...}不能是{a=node1,b=node2,c=node3,...}
+
+@param nodes node集
+@param params 参见fill函数头定义。
+
+]]
+
+function UIScrollView:fill(nodes,params)
+  --多参数的继承用法,把param2的参数增加覆盖到param1中。
+  local extend = function(param1,param2)
+    if not param2 then
+      return param1;
+    end
+    for k , v in pairs(param2) do
+      param1[k] = param2[k];
+    end
+    return param1;
+  end
+
+  local params = extend({
+    --自动间距
+    autoGap = true,
+    --宽间距
+    widthGap = 0,
+    --高间距
+    heightGap = 0,
+    --自动行列
+    autoTable = true,
+    --行数目
+    rowCount = 3,
+    --列数目
+    cellCount = 3,
+    --填充项大小
+    itemSize = CCSize(50,50)
+  },params);
+
+  if #nodes == 0 then
+    return nil;
+  end
+
+  --基本坐标工具方法
+  local SIZE = function(node) return node:getContentSize(); end
+  local W = function(node) return node:getContentSize().width; end
+  local H = function(node) return node:getContentSize().height; end
+  local S_SIZE = function(node,w,h) return node:setContentSize(CCSize(w,h)); end
+  local S_XY = function(node,x,y) node:setPosition(x,y); end
+  local AX = function(node) return node:getAnchorPoint().x; end
+  local AY = function(node) return node:getAnchorPoint().y; end
+  --三元运算符
+  local CALC_3 = function(exp, result1, result2) if(exp==true)then return result1; else return result2; end end
+
+  --创建一个容器node
+  local innerContainer = display.newNode();
+  --初始容器大小为视图大小
+  S_SIZE(innerContainer,self:getViewRect().width,self:getViewRect().height);
+  self:addScrollNode(innerContainer);
+  --  innerContainer:addTo(self:getScrollNode());
+  
+  --如果是纵向布局
+  if self.direction == cc.ui.UIScrollView.DIRECTION_VERTICAL then
+
+    --自动布局
+    if params.autoTable then
+      params.cellCount = math.floor(W(self)/params.itemSize.width);
+    end
+
+    --自动间隔
+    if params.autoGap then
+      params.widthGap = (W(self)-(params.cellCount*params.itemSize.width))/(params.cellCount+1);
+      params.heightGap = params.widthGap;
+    end
+
+    --填充量
+    params.rowCount = CALC_3(#nodes%params.cellCount==0,math.floor(#nodes/params.cellCount),math.floor(#nodes/params.cellCount)+1);
+    S_SIZE(innerContainer,W(self),(params.itemSize.height+params.heightGap)*params.rowCount+params.heightGap);
+
+    for i = 1 ,#(nodes) do
+
+      local n = nodes[i];
+      local x = 0.0;
+      local y = 0.0;
+
+      x = params.widthGap + math.floor((i-1) % params.cellCount) * (params.widthGap+params.itemSize.width);
+      y = H(innerContainer)-(math.floor((i-1)/params.cellCount)+1)*(params.heightGap+params.itemSize.height);
+      x = x + W(n) * AX(n);
+      y = y + H(n) * AY(n);
+
+      S_XY(n,x,y);
+      n:addTo(innerContainer);
+
+    end
+    --如果是横向布局
+    --  elseif(self.direction==cc.ui.UIScrollView.DIRECTION_HORIZONTAL) then
+  else
+    if(params.autoTable)then
+      params.rowCount = math.floor(H(self)/params.itemSize.height);
+    end
+
+    if(params.autoGap)then
+      params.heightGap = (H(self)-(params.rowCount*params.itemSize.height))/(params.rowCount+1);
+      params.widthGap = params.heightGap;
+    end
+
+    params.cellCount = CALC_3(#nodes%params.rowCount==0,math.floor(#nodes/params.rowCount),math.floor(#nodes/params.rowCount)+1);
+    S_SIZE(innerContainer,(params.itemSize.width+params.widthGap)*params.cellCount+params.widthGap,H(self));
+
+    for i = 1, #(nodes) do
+
+      local n = nodes[i];
+      local x = 0.0;
+      local y = 0.0;
+
+      --不管描点如何，总是有标准居中方式设置坐标。
+      x = params.widthGap +  math.floor((i-1) / params.rowCount) * (params.widthGap+params.itemSize.width);
+      y = H(innerContainer)-(math.floor((i-1) % params.rowCount) +1)*(params.heightGap+params.itemSize.height);
+      x = x + W(n) * AX(n);
+      y = y + H(n) * AY(n);
+
+      S_XY(n,x,y);
+      n:addTo(innerContainer);
+
+    end
+
+  end
+
 end
 
 return UIScrollView

@@ -235,7 +235,7 @@ function TestUIListViewScene:createListView7()
 end
 
 function TestUIListViewScene:touchListener7(event)
-    print("TestUIListViewScene - event:" .. event.name .. " pos:" .. event.itemPos)
+    print("TestUIListViewScene - event:" .. event.name)
     if "clicked" == event.name then
         local column = math.ceil(event.point.x/80)
         local idx = (event.itemPos - 1)*3 + column

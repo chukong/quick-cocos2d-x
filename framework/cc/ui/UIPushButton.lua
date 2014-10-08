@@ -41,13 +41,17 @@ end
 function UIPushButton:onTouch_(event)
     local name, x, y = event.name, event.x, event.y
     if name == "began" then
+        self.touchBeganX = x
+        self.touchBeganY = y
         if not self:checkTouchInSprite_(x, y) then return false end
         self.fsm_:doEvent("press")
         self:dispatchEvent({name = UIButton.PRESSED_EVENT, x = x, y = y, touchInTarget = true})
         return true
     end
 
-    local touchInTarget = self:checkTouchInSprite_(x, y)
+    -- must the begin point and current point in Button Sprite
+    local touchInTarget = self:checkTouchInSprite_(self.touchBeganX, self.touchBeganY)
+                        and self:checkTouchInSprite_(x, y)
     if name == "moved" then
         if touchInTarget and self.fsm_:canDoEvent("press") then
             self.fsm_:doEvent("press")
