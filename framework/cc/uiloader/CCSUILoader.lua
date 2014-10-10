@@ -607,12 +607,12 @@ end
 
 function CCSUILoader:createPanel(options)
 	-- local node = display.newNode() --cc.ClippingRegionNode:create()
-	local node
-	if options.clipAble then
-		node = cc.ClippingNode:create()
-	else
-		node = display.newNode()
-	end
+	local node = cc.ui.UIPanel.new(options)
+	-- if options.clipAble then
+	-- 	node = cc.ClippingNode:create()
+	-- else
+	-- 	node = display.newNode()
+	-- end
 	local clrLayer
 	local bgLayer
 
@@ -673,21 +673,22 @@ function CCSUILoader:createPanel(options)
 		node:setInverted(true)
 	end
 
-	if not options.ignoreSize then
-		if clrLayer then
+	if clrLayer then
+		if not options.ignoreSize then
 			clrLayer:setContentSize(conSize)
 		end
-	end
-	if bgLayer then
-		bgLayer:setPosition(conSize.width/2, conSize.height/2)
-	end
-	node:setContentSize(conSize)
-	if clrLayer then
 		node:addChild(clrLayer)
+		node:addSubControl(clrLayer)
 	end
+
 	if bgLayer then
+		bgLayer:setContentSize(conSize)
+		bgLayer:setAnchorPoint(cc.p(0, 0))
 		node:addChild(bgLayer)
+		node:addSubControl(bgLayer)
 	end
+
+	node:setContentSize(conSize)
 	node:setPositionX(options.x or 0)
 	node:setPositionY(options.y or 0)
 	node:setAnchorPoint(
