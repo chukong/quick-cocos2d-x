@@ -682,8 +682,9 @@ function CCSUILoader:createPanel(options)
 	end
 
 	if bgLayer then
-		bgLayer:setContentSize(conSize)
-		bgLayer:setAnchorPoint(cc.p(0, 0))
+		-- bgLayer:setContentSize(conSize)
+		-- bgLayer:setAnchorPoint(cc.p(0, 0))
+		bgLayer:setPosition(conSize.width/2, conSize.height/2)
 		node:addChild(bgLayer)
 		node:addSubControl(bgLayer)
 	end
