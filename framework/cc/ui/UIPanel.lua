@@ -18,6 +18,13 @@ function UIPanel:setSize(width, height)
     end
 end
 
+function UIPanel:setPanelAnchorPoint(ccp)
+	self:setAnchorPoint(ccp)
+	for _, sub in ipairs(self.subControl) do
+		sub:setAnchorPoint(ccp)
+	end
+end
+
 function UIPanel:addSubControl(sub)
 	self.subControl[#self.subControl + 1] = sub
 end
