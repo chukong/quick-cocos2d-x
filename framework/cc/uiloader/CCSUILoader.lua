@@ -677,16 +677,11 @@ function CCSUILoader:createPanel(options)
 		if not options.ignoreSize then
 			clrLayer:setContentSize(conSize)
 		end
-		-- clrLayer:setAnchorPoint(cc.p(0, 0))
-		-- clrLayer:setPosition(0, 0)
 		node:addChild(clrLayer)
 		node:addSubControl(clrLayer)
 	end
 
 	if bgLayer then
-		-- bgLayer:setContentSize(conSize)
-		-- bgLayer:setAnchorPoint(cc.p(0, 0))
-		-- bgLayer:setPosition(0, 0)
 		bgLayer:setPosition(conSize.width/2, conSize.height/2)
 		node:addChild(bgLayer)
 		node:addSubControl(bgLayer)
@@ -695,7 +690,6 @@ function CCSUILoader:createPanel(options)
 	node:setContentSize(conSize)
 	node:setPositionX(options.x or 0)
 	node:setPositionY(options.y or 0)
-	-- node:setPanelAnchorPoint(
 	node:setAnchorPoint(
 		cc.p(options.anchorPointX or 0.5, options.anchorPointY or 0.5))
 
