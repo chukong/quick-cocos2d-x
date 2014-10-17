@@ -408,26 +408,30 @@ function UIScrollView:elasticScroll()
 	-- dump(cascadeBound, "UIScrollView - cascBoundingBox:")
 	-- dump(viewRect, "UIScrollView - viewRect:")
 
-	if cascadeBound.width < viewRect.width then
-		disX = viewRect.x - cascadeBound.x
-	else
-		if cascadeBound.x > viewRect.x then
+	if self.direction ~= UIScrollView.DIRECTION_VERTICAL then
+		if cascadeBound.width < viewRect.width then
 			disX = viewRect.x - cascadeBound.x
-		elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
-			disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+		else
+			if cascadeBound.x > viewRect.x then
+				disX = viewRect.x - cascadeBound.x
+			elseif cascadeBound.x + cascadeBound.width < viewRect.x + viewRect.width then
+				disX = viewRect.x + viewRect.width - cascadeBound.x - cascadeBound.width
+			end
 		end
 	end
 
-	if cascadeBound.height < viewRect.height then
-		disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
-	else
-		if cascadeBound.y > viewRect.y then
-			disY = viewRect.y - cascadeBound.y
-		elseif cascadeBound.y + cascadeBound.height < viewRect.y + viewRect.height then
+	if self.direction ~= UIScrollView.DIRECTION_HORIZONTAL then
+		if cascadeBound.height < viewRect.height then
 			disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+		else
+			if cascadeBound.y > viewRect.y then
+				disY = viewRect.y - cascadeBound.y
+			elseif cascadeBound.y + cascadeBound.height < viewRect.y + viewRect.height then
+				disY = viewRect.y + viewRect.height - cascadeBound.y - cascadeBound.height
+			end
 		end
 	end
-
+	
 	if 0 == disX and 0 == disY then
 		return
 	end
