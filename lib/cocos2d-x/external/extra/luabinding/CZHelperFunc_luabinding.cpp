@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CZHelperFunc_luabinding
-** Generated automatically by tolua++-1.0.92 on Thu May  8 17:28:16 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Oct 22 00:31:06 2014.
 */
 
 #include "CZHelperFunc_luabinding.h"

@@ -50,17 +50,35 @@ extern "C" {
 // cocos2d-x luabinding
 #include "LuaCocos2d.h"
 
+#if CC_PHYSICS_ENABLED >0
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
+#endif
 
+#if CC_CCB_ENABLED > 0
 // CCB
 #include "Lua_extensions_CCB.h"
+#endif
 
-// cocos-extensions
+#if CC_CCSTUDIO_ENABLED > 0
+// Cocos Studio
 #include "LuaCocoStudio.h"
 #include "lua_cocos2dx_manual.h"
 #include "lua_cocos2dx_extensions_manual.h"
 #include "lua_cocos2dx_cocostudio_manual.h"
+#endif
+
+#if CC_CURL_ENABLED > 0
+#include "LuaCocos2dAssetsManager.h"
+#endif
+
+#if CC_FILTERS_ENABLED > 0
+#include "LuaCocos2dFilters.h"
+#endif
+
+#if CC_DRAGONBONES_ENABLED > 0
+#include "LuaCocos2dDragonBones.h"
+#endif
 
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
@@ -125,14 +143,26 @@ bool CCLuaStack::init(void)
     toluafix_open(m_state);
     tolua_Cocos2d_open(m_state);
 
+#if CC_CCB_ENABLED > 0
     // CCB
     tolua_extensions_ccb_open(m_state);
+#endif
 
-    // CocoStudio
+#if CC_CCSTUDIO_ENABLED > 0
+    // Cocos Studio
     tolua_CocoStudio_open(m_state);
     register_all_cocos2dx_manual(m_state);
     register_all_cocos2dx_extension_manual(m_state);
     register_all_cocos2dx_studio_manual(m_state);
+#endif
+
+#if CC_FILTERS_ENABLED > 0
+    luaopen_ExtensionsFilters(m_state);
+#endif
+
+#if CC_DRAGONBONES_ENABLED > 0
+    luaopen_ExtensionsDragonBones(m_state);
+#endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || (CC_TARGET_PLATFORM == CC_PLATFORM_QT && defined(Q_OS_MAC)))
     CCLuaObjcBridge::luaopen_luaoc(m_state);
@@ -156,16 +186,23 @@ bool CCLuaStack::init(void)
     // register CCLuaStackSnapshot
     luaopen_snapshot(m_state);
 
+#if CC_PHYSICS_ENABLED > 0
     // chipmunk
     luaopen_CCPhysicsWorld_luabinding(m_state);
-	// cocos-extensions
-    register_all_cocos2dx_extension_manual(m_state);
+#endif
+
     // cocos2dx_extra luabinding
     luaopen_cocos2dx_extra_luabinding(m_state);
 	luaopen_CZHelperFunc_luabinding(m_state);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     luaopen_cocos2dx_extra_ios_iap_luabinding(m_state);
 #endif
+
+    // load assets manager
+#if CC_CURL_ENABLED > 0
+    luaopen_ExtensionsAssetsManager(m_state);
+#endif
+
     // load WebSockets luabinding
     tolua_web_socket_open(m_state);
     // lua extensions

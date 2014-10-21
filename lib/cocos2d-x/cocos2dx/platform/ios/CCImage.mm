@@ -544,11 +544,13 @@ bool CCImage::_initWithRawData(void *pData, int nDatalen, int nWidth, int nHeigh
     return bRet;
 }
 
+#if CC_JPEG_ENABLED > 0
 bool CCImage::_initWithJpgData(void *pData, int nDatalen)
 {
     assert(0);
 	return false;
 }
+#endif // CC_JPEG_ENABLED
 
 bool CCImage::_initWithPngData(void *pData, int nDatalen)
 {
@@ -562,11 +564,13 @@ bool CCImage::_saveImageToPNG(const char *pszFilePath, bool bIsToRGB)
 	return false;
 }
 
+#if CC_JPEG_ENABLED > 0
 bool CCImage::_saveImageToJPG(const char *pszFilePath)
 {
     assert(0);
 	return false;
 }
+#endif // CC_JPEG_ENABLED
 
 bool CCImage::initWithString(
                             const char * pText,

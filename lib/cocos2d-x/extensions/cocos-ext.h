@@ -3,6 +3,7 @@
 
 #include "ExtensionMacros.h"
 
+#if CC_CCB_ENABLED > 0
 #include "CCBReader/CCBFileLoader.h"
 #include "CCBReader/CCBMemberVariableAssigner.h"
 #include "CCBReader/CCBReader.h"
@@ -31,12 +32,14 @@
 #include "CCBReader/CCBValue.h"
 #include "CCBReader/CCData.h"
 #include "CCBReader/CCNode+CCBRelativePositioning.h"
+#endif // CC_CCB_ENABLED
 
 #include "GUI/CCControlExtension/CCControlExtensions.h"
 #include "GUI/CCScrollView/CCScrollView.h"
 #include "GUI/CCScrollView/CCTableView.h"
 #include "GUI/CCEditBox/CCEditBox.h"
 
+#if CC_CCSTUDIO_ENABLED > 0
 #include "CocoStudio/Armature/CCArmature.h"
 #include "CocoStudio/Armature/CCBone.h"
 #include "CocoStudio/Armature/animation/CCArmatureAnimation.h"
@@ -74,5 +77,6 @@
 
 #include "CocoStudio/Action/ActionManager.h"
 #include "CocoStudio/Action/CCActionNode.h"
+#endif // CC_CCSTUDIO_ENABLED
 
 #endif /* __COCOS2D_EXT_H__ */

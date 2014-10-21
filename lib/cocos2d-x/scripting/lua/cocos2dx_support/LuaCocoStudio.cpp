@@ -1,6 +1,6 @@
 /*
 ** Lua binding: CocoStudio
-** Generated automatically by tolua++-1.0.92 on Fri Jul 11 12:04:51 2014.
+** Generated automatically by tolua++-1.0.92 on Wed Oct 22 00:36:42 2014.
 */
 
 /****************************************************************************

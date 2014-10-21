@@ -13,7 +13,10 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_lua_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_external_static
+
+ifeq ($(CC_CURL_ENABLED),1)
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_curl_static
+endif
 
 include $(BUILD_STATIC_LIBRARY)
 
