@@ -1563,6 +1563,18 @@
     <ClCompile Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCDampedSpringJoint.cpp">
       <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\external\extra\luabinding\cocos2dx_httprequest_luabinding.cpp">
+      <Filter>cocos2d-x\external\extra\luabinding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dAssetsManager.cpp">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dDragonBones.cpp">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dFilters.cpp">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h">
@@ -3127,6 +3139,18 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\external\chipmunk\cocos2dx_support\constraints\CCJoint.h">
       <Filter>cocos2d-x\external\chipmunk\cocos2dx_support\constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\external\extra\luabinding\cocos2dx_httprequest_luabinding.h">
+      <Filter>cocos2d-x\external\extra\luabinding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dAssetsManager.h">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dDragonBones.h">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dFilters.h">
+      <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
