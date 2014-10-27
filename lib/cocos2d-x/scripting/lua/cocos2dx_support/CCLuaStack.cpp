@@ -50,7 +50,7 @@ extern "C" {
 // cocos2d-x luabinding
 #include "LuaCocos2d.h"
 
-#if CC_PHYSICS_ENABLED >0
+#if CC_PHYSICS_ENABLED > 0
 // chipmunk
 #include "CCPhysicsWorld_luabinding.h"
 #endif
@@ -70,6 +70,7 @@ extern "C" {
 
 #if CC_CURL_ENABLED > 0
 #include "LuaCocos2dAssetsManager.h"
+#include "cocos2dx_httprequest_luabinding.h"
 #endif
 
 #if CC_FILTERS_ENABLED > 0
@@ -201,6 +202,7 @@ bool CCLuaStack::init(void)
     // load assets manager
 #if CC_CURL_ENABLED > 0
     luaopen_ExtensionsAssetsManager(m_state);
+    luaopen_cocos2dx_httprequest_luabinding(m_state);
 #endif
 
     // load WebSockets luabinding
