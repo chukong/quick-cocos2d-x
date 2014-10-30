@@ -455,7 +455,8 @@ function CCSUILoader:createButton(options)
 		node:setButtonLabel(
 			cc.ui.UILabel.new({text = options.text,
 				size = options.fontSize,
-				color = cc.c3b(options.textColorR, options.textColorG, options.textColorB)}))
+				color = cc.c3b(options.textColorR, options.textColorG, options.textColorB),
+				font = options.fontName}))
 	end
 	if not options.ignoreSize then
 		node:setButtonSize(options.width, options.height)
