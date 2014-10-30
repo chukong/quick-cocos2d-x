@@ -1,5 +1,5 @@
 APP_STL := gnustl_static
-APP_CPPFLAGS := -frtti -std=c++11 -Wno-error=format-security -Wno-literal-suffix -fsigned-char -Os $(CPPFLAGS)
+APP_CPPFLAGS := -frtti -std=c++11 -Wno-error=format-security -Wno-literal-suffix -Wno-deprecated-declarations -fsigned-char -Os $(CPPFLAGS)
 APP_DEBUG := $(strip $(NDK_DEBUG))
 ifeq ($(APP_DEBUG),1)
   APP_CPPFLAGS += -DCOCOS2D_DEBUG=1
