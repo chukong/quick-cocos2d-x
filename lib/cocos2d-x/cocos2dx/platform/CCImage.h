@@ -201,15 +201,28 @@ public:
     CC_SYNTHESIZE_READONLY(int,     m_nBitsPerComponent,   BitsPerComponent);
 
 protected:
+#if CC_JPEG_ENABLED > 0
     bool _initWithJpgData(void *pData, int nDatalen);
+#endif
+
     bool _initWithPngData(void *pData, int nDatalen);
+
+#if CC_TIFF_ENABLED > 0
     bool _initWithTiffData(void *pData, int nDataLen);
+#endif
+
+#if CC_WEBP_ENABLED > 0
     bool _initWithWebpData(void *pData, int nDataLen);
+#endif
+
     // @warning kFmtRawData only support RGBA8888
     bool _initWithRawData(void *pData, int nDatalen, int nWidth, int nHeight, int nBitsPerComponent, bool bPreMulti);
 
     bool _saveImageToPNG(const char *pszFilePath, bool bIsToRGB = true);
+
+#if CC_JPEG_ENABLED > 0
     bool _saveImageToJPG(const char *pszFilePath);
+#endif
 
     unsigned char *m_pData;
     bool m_bHasAlpha;

@@ -65,6 +65,10 @@
 		F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDCC16BD152900565A5E /* CCLuaBridge.cpp */; };
 		F40AFDD916BD153500565A5E /* CCLuaObjcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = F40AFDD816BD153500565A5E /* CCLuaObjcBridge.mm */; };
 		F4117FDC1963320B006CF7F5 /* ActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4117FDA1963320B006CF7F5 /* ActionManager.cpp */; };
+		F412728D19F75A59005E6CD0 /* LuaCocos2dAssetsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F412728719F75A59005E6CD0 /* LuaCocos2dAssetsManager.cpp */; };
+		F412728E19F75A59005E6CD0 /* LuaCocos2dDragonBones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F412728919F75A59005E6CD0 /* LuaCocos2dDragonBones.cpp */; };
+		F412728F19F75A59005E6CD0 /* LuaCocos2dFilters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F412728B19F75A59005E6CD0 /* LuaCocos2dFilters.cpp */; };
+		F412729219F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F412729019F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.cpp */; };
 		F426146B17E817B400D37B8D /* CCCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F426146A17E817B400D37B8D /* CCCommon.cpp */; };
 		F42824FA17575D88001479DC /* CCCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EA17575D87001479DC /* CCCamera.cpp */; };
 		F42824FB17575D88001479DC /* CCConfiguration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42823EC17575D87001479DC /* CCConfiguration.cpp */; };
@@ -612,6 +616,14 @@
 		F40AFDD816BD153500565A5E /* CCLuaObjcBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CCLuaObjcBridge.mm; sourceTree = "<group>"; };
 		F4117FDA1963320B006CF7F5 /* ActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionManager.cpp; sourceTree = "<group>"; };
 		F4117FDB1963320B006CF7F5 /* ActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionManager.h; sourceTree = "<group>"; };
+		F412728719F75A59005E6CD0 /* LuaCocos2dAssetsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocos2dAssetsManager.cpp; sourceTree = "<group>"; };
+		F412728819F75A59005E6CD0 /* LuaCocos2dAssetsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocos2dAssetsManager.h; sourceTree = "<group>"; };
+		F412728919F75A59005E6CD0 /* LuaCocos2dDragonBones.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocos2dDragonBones.cpp; sourceTree = "<group>"; };
+		F412728A19F75A59005E6CD0 /* LuaCocos2dDragonBones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocos2dDragonBones.h; sourceTree = "<group>"; };
+		F412728B19F75A59005E6CD0 /* LuaCocos2dFilters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaCocos2dFilters.cpp; sourceTree = "<group>"; };
+		F412728C19F75A59005E6CD0 /* LuaCocos2dFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaCocos2dFilters.h; sourceTree = "<group>"; };
+		F412729019F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_httprequest_luabinding.cpp; sourceTree = "<group>"; };
+		F412729119F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_httprequest_luabinding.h; sourceTree = "<group>"; };
 		F426146A17E817B400D37B8D /* CCCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCommon.cpp; sourceTree = "<group>"; };
 		F42823EA17575D87001479DC /* CCCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCamera.cpp; sourceTree = "<group>"; };
 		F42823EB17575D87001479DC /* CCCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCamera.h; sourceTree = "<group>"; };
@@ -1921,12 +1933,14 @@
 		F459EA04180D04D8006CBDF1 /* luabinding */ = {
 			isa = PBXGroup;
 			children = (
-				49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */,
-				49832214187FE2C000733BFB /* CZHelperFunc_luabinding.h */,
 				F459EA07180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp */,
 				F459EA08180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.h */,
 				F459EA0A180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp */,
 				F459EA0B180D04D8006CBDF1 /* cocos2dx_extra_luabinding.h */,
+				F412729019F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.cpp */,
+				F412729119F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.h */,
+				49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */,
+				49832214187FE2C000733BFB /* CZHelperFunc_luabinding.h */,
 			);
 			path = luabinding;
 			sourceTree = "<group>";
@@ -2418,6 +2432,12 @@
 				F4A8F6C117F0B21200110198 /* Lua_web_socket.h */,
 				F45A2DA6166B16B100760194 /* LuaCocos2d.cpp */,
 				F45A2DA7166B16B100760194 /* LuaCocos2d.h */,
+				F412728719F75A59005E6CD0 /* LuaCocos2dAssetsManager.cpp */,
+				F412728819F75A59005E6CD0 /* LuaCocos2dAssetsManager.h */,
+				F412728919F75A59005E6CD0 /* LuaCocos2dDragonBones.cpp */,
+				F412728A19F75A59005E6CD0 /* LuaCocos2dDragonBones.h */,
+				F412728B19F75A59005E6CD0 /* LuaCocos2dFilters.cpp */,
+				F412728C19F75A59005E6CD0 /* LuaCocos2dFilters.h */,
 				F4ABAE94191A8DC300FEA3CD /* LuaCocoStudio.cpp */,
 				F4ABAE95191A8DC300FEA3CD /* LuaCocoStudio.h */,
 				F40AFDCF16BD153500565A5E /* platform */,
@@ -3773,6 +3793,7 @@
 				F459EA7D180D04D8006CBDF1 /* SBJSON.m in Sources */,
 				F40AFDCE16BD152900565A5E /* CCLuaBridge.cpp in Sources */,
 				F40AFDD916BD153500565A5E /* CCLuaObjcBridge.mm in Sources */,
+				F412728F19F75A59005E6CD0 /* LuaCocos2dFilters.cpp in Sources */,
 				F459EA77180D04D8006CBDF1 /* CCNative.mm in Sources */,
 				F47C66C316EB37DB00132435 /* snapshot.c in Sources */,
 				F459EB89180D0513006CBDF1 /* socket_scripts.c in Sources */,
@@ -3852,6 +3873,7 @@
 				F4E882B8177015C400577406 /* CCAutoreleasePool.cpp in Sources */,
 				F4D26EA3196321AE0087295D /* CCInputDelegate.cpp in Sources */,
 				F4E882B9177015C400577406 /* CCDataVisitor.cpp in Sources */,
+				F412728D19F75A59005E6CD0 /* LuaCocos2dAssetsManager.cpp in Sources */,
 				F4E882BA177015C400577406 /* CCDictionary.cpp in Sources */,
 				E5C4634D1987A250001192EA /* Event.cpp in Sources */,
 				F4E882BB177015C400577406 /* CCGeometry.cpp in Sources */,
@@ -3949,6 +3971,7 @@
 				F4E882E8177015C400577406 /* CCParticleSystemQuad.cpp in Sources */,
 				F4E882E9177015C400577406 /* CCScriptSupport.cpp in Sources */,
 				F4E882EA177015C400577406 /* CCGLProgram.cpp in Sources */,
+				F412729219F75A68005E6CD0 /* cocos2dx_httprequest_luabinding.cpp in Sources */,
 				F4D26E82196321AE0087295D /* CCActionFrame.cpp in Sources */,
 				F459EB86180D0513006CBDF1 /* options.c in Sources */,
 				F4E882EB177015C400577406 /* ccGLStateCache.cpp in Sources */,
@@ -3991,6 +4014,7 @@
 				F4D26EB1196321AE0087295D /* UILabel.cpp in Sources */,
 				F459EB79180D0513006CBDF1 /* fpconv.c in Sources */,
 				F4E882FE177015C400577406 /* TGAlib.cpp in Sources */,
+				F412728E19F75A59005E6CD0 /* LuaCocos2dDragonBones.cpp in Sources */,
 				F4D26EBA196321AE0087295D /* GUIReader.cpp in Sources */,
 				E5C4634B1987A250001192EA /* AnimationEvent.cpp in Sources */,
 				F459EB0C180D04E1006CBDF1 /* cpCollision.c in Sources */,
@@ -4241,6 +4265,16 @@
 					CC_TARGET_OS_IPHONE,
 					"CC_LUA_ENGINE_ENABLED=1",
 					ENABLE_PHYSICS_CHIPMUNK_DETECT,
+					"CC_CURL_ENABLED=1",
+					"CC_JPEG_ENABLED=1",
+					"CC_TIFF_ENABLED=1",
+					"CC_WEBP_ENABLED=1",
+					"CC_PHYSICS_ENABLED=1",
+					"CC_SQLITE_ENABLED=1",
+					"CC_CCSTUDIO_ENABLED=1",
+					"CC_CCB_ENABLED=1",
+					"CC_DRAGONBONES_ENABLED=1",
+					"CC_FILTERS_ENABLED=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -4299,6 +4333,16 @@
 					CC_TARGET_OS_IPHONE,
 					"CC_LUA_ENGINE_ENABLED=1",
 					ENABLE_PHYSICS_CHIPMUNK_DETECT,
+					"CC_CURL_ENABLED=1",
+					"CC_JPEG_ENABLED=1",
+					"CC_TIFF_ENABLED=1",
+					"CC_WEBP_ENABLED=1",
+					"CC_PHYSICS_ENABLED=1",
+					"CC_SQLITE_ENABLED=1",
+					"CC_CCSTUDIO_ENABLED=1",
+					"CC_CCB_ENABLED=1",
+					"CC_DRAGONBONES_ENABLED=1",
+					"CC_FILTERS_ENABLED=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (

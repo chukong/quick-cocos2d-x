@@ -12,9 +12,8 @@ echo "  COCOS2DX_ROOT       = $COCOS2DX_ROOT"
 echo "  APP_ROOT            = $APP_ROOT"
 echo "  APP_ANDROID_ROOT    = $APP_ANDROID_ROOT"
 
-# if dont use DEBUG, comments out two lines below
-NDK_DEBUG=1
-NDK_BUILD_FLAGS="CPPFLAGS=\"-DCOCOS2D_DEBUG=1\""
+# if dont use DEBUG, comments out codes below
+NDK_DEBUG=0
 
 echo "- cleanup"
 find "$APP_ANDROID_ROOT" -type d | xargs chmod 755 $1

@@ -1,0 +1,20 @@
+
+$#include "DragonBones/DragonBonesHeaders.h"
+
+$using namespace dragonBones;
+
+$pfile "extensions/DragonBones/Armature.tolua"
+$pfile "extensions/DragonBones/Bone.tolua"
+$pfile "extensions/DragonBones/Slot.tolua"
+$pfile "extensions/DragonBones/core/DBObject.tolua"
+$pfile "extensions/DragonBones/animation/Animation.tolua"
+$pfile "extensions/DragonBones/animation/AnimationState.tolua"
+$pfile "extensions/DragonBones/renderer/CCDBNode.tolua"
+$pfile "extensions/DragonBones/renderer/CCDragonBones.tolua"
+$pfile "extensions/DragonBones/renderer/CCDBManager.tolua"
+$pfile "extensions/DragonBones/renderer/CCDBAtlasNode.tolua"
+#$pfile "extensions/DragonBones/events/Event.tolua"
+$pfile "extensions/DragonBones/events/AnimationEvent.tolua"
+$pfile "extensions/DragonBones/events/FrameEvent.tolua"
+$pfile "extensions/DragonBones/objects/AnimationData.tolua"
+$pfile "extensions/DragonBones/objects/DBTransform.tolua"

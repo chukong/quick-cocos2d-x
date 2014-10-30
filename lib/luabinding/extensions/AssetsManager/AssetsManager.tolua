@@ -1,3 +1,6 @@
+
+$#include "AssetsManager/AssetsManager.h"
+
 /****************************************************************************
  Copyright (c) 2013 cocos2d-x.org
 

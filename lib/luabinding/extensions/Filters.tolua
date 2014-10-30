@@ -1,0 +1,21 @@
+
+$#include "filters/cocos2dFilters.h"
+
+$using namespace cocos2d;
+$using namespace cocos2d::extension;
+
+$pfile "extensions/filters/nodes/CCFilteredSprite.tolua"
+$pfile "extensions/filters/filters/CCFilter.tolua"
+$pfile "extensions/filters/filters/CCBlurFilter.tolua"
+$pfile "extensions/filters/filters/CCBrightnessFilter.tolua"
+$pfile "extensions/filters/filters/CCContrastFilter.tolua"
+$pfile "extensions/filters/filters/CCDropShadowFilter.tolua"
+$pfile "extensions/filters/filters/CCExposureFilter.tolua"
+$pfile "extensions/filters/filters/CCGammaFilter.tolua"
+$pfile "extensions/filters/filters/CCGrayFilter.tolua"
+$pfile "extensions/filters/filters/CCHazeFilter.tolua"
+$pfile "extensions/filters/filters/CCHueFilter.tolua"
+$pfile "extensions/filters/filters/CCMaskFilter.tolua"
+$pfile "extensions/filters/filters/CCRGBFilter.tolua"
+$pfile "extensions/filters/filters/CCSaturationFilter.tolua"
+$pfile "extensions/filters/filters/CCSharpenFilter.tolua"
