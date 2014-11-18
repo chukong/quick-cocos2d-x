@@ -28,6 +28,10 @@
 NS_CC_BEGIN
 
 int CCEventDispatcher::s_nextid = 0;
+CCEventDispatcher::~CCEventDispatcher()
+{
+    removeAllScriptEventListeners();
+}
 
 int CCEventDispatcher::addScriptEventListener(int event, int callback)
 {
@@ -79,8 +83,16 @@ void CCEventDispatcher::removeAllScriptEventListeners()
 {
     for (ScriptEventHandlerMapIterator it = m_map.begin(); it != m_map.end(); ++it)
     {
-        removeAllScriptEventListenersForEvent(it->first);
+        // it->first: event
+        // it->second: ScriptHandlerMap
+        ScriptHandlerMap &handlers = it->second;
+        for (ScriptHandlerMapIterator it2 = handlers.begin(); it2 != handlers.end(); ++it2)
+        {
+            int callback = it2->second;
+            CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(callback);
+        }
     }
+    LUALOG("[LUA] Remove all script event listeners");
     m_map.clear();
 }
 

@@ -57,6 +57,7 @@ typedef ScriptEventHandlerMap::iterator ScriptEventHandlerMapIterator;
 class CC_DLL CCEventDispatcher : public CCObject
 {
 public:
+    virtual ~CCEventDispatcher();
     int addScriptEventListener(int event, int callback);
     void removeScriptEventListener(int event, int handle);
     void removeAllScriptEventListenersForEvent(int event);
