@@ -153,6 +153,8 @@ using namespace CocosDenshion;]])
       replace([[/* Exported function */
 TOLUA_API int  tolua_CocoStudio_open (lua_State* tolua_S);]], [[]])
 
+      replace([[*((LUA_FUNCTION*)]], [[(]])
+
       replace([[(tolua_isvaluenil(tolua_S,2,&tolua_err) || !tolua_isusertype(tolua_S,2,"CCTextAlignment",0,&tolua_err))]],[[!tolua_isnumber(tolua_S,2,0,&tolua_err)]])
 
       replace([[CCTextAlignment alignment = *((CCTextAlignment*)  tolua_tousertype(tolua_S,2,0));]],[[CCTextAlignment alignment = ((CCTextAlignment) (int)  tolua_tonumber(tolua_S,2,0));]])

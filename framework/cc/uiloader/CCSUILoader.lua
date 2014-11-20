@@ -40,7 +40,7 @@ function CCSUILoader:parserJson(jsonVal)
 		root = jsonVal.widgetTree
 	end
 	if not root then
-		printInfo("CCSUILoader - parserJson havn't found root noe")
+		printInfo("CCSUILoader - parserJson havn't found root node")
 		return
 	end
 	self:prettyJson(root)
@@ -95,8 +95,8 @@ function CCSUILoader:generateUINode(jsonNode, transX, transY, parent)
 	end
 	uiNode:setRotation(options.rotation or 0)
 
-	uiNode:setScaleX(options.scaleX or 1)
-	uiNode:setScaleY(options.scaleY or 1)
+	uiNode:setScaleX((options.scaleX or 1) * uiNode:getScaleX())
+	uiNode:setScaleY((options.scaleY or 1) * uiNode:getScaleY())
 	uiNode:setVisible(options.visible)
 	uiNode:setLocalZOrder(options.ZOrder or 0)
 	-- uiNode:setGlobalZOrder(options.ZOrder or 0)
@@ -425,11 +425,20 @@ function CCSUILoader:createImage(options)
 	end
 	if not options.ignoreSize then
 		node:setLayoutSize(options.width, options.height)
+
+		-- setLayoutSize have scaled
+		options.scaleX = 1
+		options.scaleY = 1
 	end
 	node:setPositionX(options.x or 0)
 	node:setPositionY(options.y or 0)
 	node:setAnchorPoint(
 		cc.p(options.anchorPointX or 0.5, options.anchorPointY or 0.5))
+
+	if options.touchAble then
+		node:setTouchEnabled(true)
+		node:setTouchSwallowEnabled(true)
+	end
 
 	return node
 end
@@ -438,11 +447,16 @@ function CCSUILoader:createButton(options)
 	local node = cc.ui.UIPushButton.new(self:getButtonStateImages(options),
 		{scale9 = not options.ignoreSize})
 
+	if options.opacity then
+		node:setCascadeOpacityEnabled(true)
+		node:setOpacity(options.opacity)
+	end
 	if options.text then
 		node:setButtonLabel(
 			cc.ui.UILabel.new({text = options.text,
 				size = options.fontSize,
-				color = cc.c3b(options.textColorR, options.textColorG, options.textColorG)}))
+				color = cc.c3b(options.textColorR, options.textColorG, options.textColorB),
+				font = options.fontName}))
 	end
 	if not options.ignoreSize then
 		node:setButtonSize(options.width, options.height)
@@ -525,9 +539,10 @@ function CCSUILoader:createLabel(options)
 	local node = cc.ui.UILabel.new({text = options.text,
 		font = options.fontName,
 		size = options.fontSize,
-		color = cc.c3b(options.colorR, options.colorG, options.colorB),
+		color = cc.c3b(options.colorR or 255, options.colorG or 255, options.colorB or 255),
 		align = options.hAlignment,
 		valign = options.vAlignment,
+		dimensions = cc.size(options.areaWidth or 0, options.areaHeight or 0),
 		x = options.x, y = options.y})
 	if not options.ignoreSize then
 		node:setLayoutSize(options.areaWidth, options.areaHeight)
@@ -593,23 +608,25 @@ end
 
 function CCSUILoader:createPanel(options)
 	-- local node = display.newNode() --cc.ClippingRegionNode:create()
-	local node
-	if options.clipAble then
-		node = cc.ClippingNode:create()
-	else
-		node = display.newNode()
-	end
+	local node = cc.ui.UIPanel.new(options)
+	-- if options.clipAble then
+	-- 	node = cc.ClippingNode:create()
+	-- else
+	-- 	node = display.newNode()
+	-- end
 	local clrLayer
 	local bgLayer
 
 	if 1 == options.colorType then
 		-- single color
 		clrLayer = cc.LayerColor:create()
+		clrLayer:resetCascadeBoundingBox()
 		clrLayer:setTouchEnabled(false)
 		clrLayer:setColor(cc.c3b(options.bgColorR, options.bgColorG, options.bgColorB))
 	elseif 2 == options.colorType then
 		-- gradient
 		clrLayer = cc.LayerGradient:create()
+		clrLayer:resetCascadeBoundingBox()
 		clrLayer:setTouchEnabled(false)
 		clrLayer:setStartColor(cc.c3b(options.bgStartColorR, options.bgStartColorG, options.bgStartColorB))
 		clrLayer:setEndColor(cc.c3b(options.bgEndColorR, options.bgEndColorG, options.bgEndColorB))
@@ -657,21 +674,21 @@ function CCSUILoader:createPanel(options)
 		node:setInverted(true)
 	end
 
-	if not options.ignoreSize then
-		if clrLayer then
+	if clrLayer then
+		if not options.ignoreSize then
 			clrLayer:setContentSize(conSize)
 		end
+		node:addChild(clrLayer)
+		node:addSubControl(clrLayer)
 	end
+
 	if bgLayer then
 		bgLayer:setPosition(conSize.width/2, conSize.height/2)
-	end
-	node:setContentSize(conSize)
-	if clrLayer then
-		node:addChild(clrLayer)
-	end
-	if bgLayer then
 		node:addChild(bgLayer)
+		node:addSubControl(bgLayer)
 	end
+
+	node:setContentSize(conSize)
 	node:setPositionX(options.x or 0)
 	node:setPositionY(options.y or 0)
 	node:setAnchorPoint(
@@ -985,6 +1002,10 @@ function CCSUILoader:calcChildPosByName_(children, name, parentSize)
 
 	options = child.options
 	layoutParameter = options.layoutParameter
+
+	if not layoutParameter then
+		return
+	end
 
 	if 1 == layoutParameter.type then
 		if 1 == layoutParameter.gravity then

@@ -131,7 +131,7 @@ function UIListView:scrollListener(event)
 		local pos
 		if UIScrollView.DIRECTION_VERTICAL == self.direction then
 			for i,v in ipairs(self.items_) do
-				_, itemH = v:getItemSize()
+				itemW, itemH = v:getItemSize()
 
 				if nodePoint.y < height and nodePoint.y > height - itemH then
 					pos = i
@@ -142,7 +142,7 @@ function UIListView:scrollListener(event)
 			end
 		else
 			for i,v in ipairs(self.items_) do
-				itemW, _ = v:getItemSize()
+				itemW, itemH = v:getItemSize()
 
 				if nodePoint.x > width and nodePoint.x < width + itemW then
 					pos = i
@@ -202,6 +202,18 @@ function UIListView:removeItem(listItem, bAni)
 	return self
 end
 
+function UIListView:removeAllItems(bAni)
+	local itemsNum_ = table.nums(self.items_)
+
+    if itemsNum_ > 0 then
+    	self:removeItem(self.items_[1], bAni)
+    	self:removeAllItems(bAni)
+    	return
+    end
+
+    return self
+end
+	
 function UIListView:getItemPos(listItem)
 	for i,v in ipairs(self.items_) do
 		if v == listItem then

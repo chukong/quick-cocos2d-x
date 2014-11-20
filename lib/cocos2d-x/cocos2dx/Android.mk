@@ -81,7 +81,6 @@ LOCAL_SRC_FILES := \
     particle_nodes/CCParticleBatchNode.cpp \
     particle_nodes/CCParticleSystemQuad.cpp \
     platform/CCCommon.cpp \
-    platform/CCImageCommonWebp.cpp \
     platform/CCSAXParser.cpp \
     platform/CCThread.cpp \
     platform/CCFileUtils.cpp \
@@ -152,6 +151,11 @@ LOCAL_SRC_FILES := \
     tilemap_parallax_nodes/CCTMXXMLParser.cpp \
     tilemap_parallax_nodes/CCTileMapAtlas.cpp
 
+ifeq ($(CC_WEBP_ENABLED),1)
+LOCAL_SRC_FILES += \
+    platform/CCImageCommonWebp.cpp
+endif
+
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
@@ -170,9 +174,18 @@ LOCAL_EXPORT_LDLIBS := -lGLESv2 \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_libpng_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libxml2_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
+
+ifeq ($(CC_JPEG_ENABLED),1)
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_jpeg_static
+endif
+
+ifeq ($(CC_WEBP_ENABLED),1)
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libwebp_static
+endif
+
+ifeq ($(CC_TIFF_ENABLED),1)
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
+endif
 
 # define the macro to compile through support/zip_support/ioapi.c
 LOCAL_CFLAGS := -Wno-psabi -DUSE_FILE32API $(ANDROID_COCOS2D_BUILD_FLAGS)
@@ -181,7 +194,19 @@ LOCAL_EXPORT_CFLAGS := -Wno-psabi -DUSE_FILE32API
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,libpng)
-$(call import-module,libwebp)
+
+ifeq ($(CC_JPEG_ENABLED),1)
 $(call import-module,libjpeg)
+endif
+
+ifeq ($(CC_WEBP_ENABLED),1)
+$(call import-module,libwebp)
+endif
+
+ifeq ($(CC_TIFF_ENABLED),1)
 $(call import-module,libtiff)
+endif
+
+ifeq ($(CC_CURL_ENABLED),1)
 $(call import-module,libcurl)
+endif

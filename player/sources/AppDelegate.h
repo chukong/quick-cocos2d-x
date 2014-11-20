@@ -44,6 +44,7 @@ public:
 private:
     // track event
     void trackEvent(const char *eventName);
+    void trackLaunchEvent();
     
 private:
     ProjectConfig m_projectConfig;

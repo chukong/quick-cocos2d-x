@@ -168,3 +168,26 @@ end
 function Node:setTouchPriority()
     PRINT_DEPRECATED("Node.setTouchPriority() is deprecated, remove it")
 end
+
+function Node:setCascadeOpacityEnabledRecursively(enabled)
+    self:setCascadeOpacityEnabled(enabled)
+
+    local children = self:getChildren()
+    local childCount = self:getChildrenCount()
+    if childCount < 1 then
+        return
+    end
+    if type(children) == "table" then
+        for i = 1, childCount do
+            local node = children[i]
+            node:setCascadeOpacityEnabledRecursively(enabled)
+        end
+    elseif type(children) == "userdata" then
+        for i = 1, childCount do
+            local node = children:objectAtIndex(i - 1)
+            if node.setCascadeOpacityEnabledRecursively ~= nil then
+                node:setCascadeOpacityEnabledRecursively(enabled)
+            end
+        end
+    end
+end

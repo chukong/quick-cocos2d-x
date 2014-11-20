@@ -3,8 +3,11 @@
 #define __CC_EXTENSION_CCNETWORK_H_
 
 #include "cocos2dx_extra.h"
+
+#if CC_CURL_ENABLED > 0
 #include "network/CCHTTPRequest.h"
 #include "network/CCHTTPRequestDelegate.h"
+#endif
 
 using namespace cocos2d;
 NS_CC_EXTRA_BEGIN
@@ -16,34 +19,31 @@ NS_CC_EXTRA_BEGIN
 class CCNetwork
 {
 public:
-#pragma mark -
-#pragma mark reachability
-    
     /** @brief Checks whether a local wifi connection is available */
     static bool isLocalWiFiAvailable(void);
-    
+
     /** @brief Checks whether the default route is available */
     static bool isInternetConnectionAvailable(void);
-    
+
     /** @brief Checks the reachability of a particular host name */
     static bool isHostNameReachable(const char* hostName);
-    
+
     /** @brief Checks Internet connection reachability status */
     static int getInternetConnectionStatus(void);
-    
-#pragma mark -
-#pragma mark HTTP
-    
+
+#if CC_CURL_ENABLED> 0
     static CCHTTPRequest* createHTTPRequest(CCHTTPRequestDelegate* delegate,
                                             const char* url,
                                             int method = kCCHTTPRequestMethodGET);
-    
+
 #if CC_LUA_ENGINE_ENABLED > 0
     static CCHTTPRequest* createHTTPRequestLua(cocos2d::LUA_FUNCTION listener,
                                                const char* url,
                                                int method = kCCHTTPRequestMethodGET);
 #endif
-    
+
+#endif // CC_CURL_ENABLED
+
 private:
     CCNetwork(void) {}
 };
