@@ -184,7 +184,6 @@
 		F45A2E0E166B16B100760194 /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE6166B16B100760194 /* tolua_map.c */; };
 		F45A2E0F166B16B100760194 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE7166B16B100760194 /* tolua_push.c */; };
 		F45A2E10166B16B100760194 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = F45A2DE8166B16B100760194 /* tolua_to.c */; };
-		F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F45FF34A16C7DD4C00275222 /* libcurl.a */; };
 		F475E990199E116300CDEA69 /* CCDampedSpringJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E989199E116300CDEA69 /* CCDampedSpringJoint.cpp */; };
 		F475E991199E116300CDEA69 /* CCGrooveJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98A199E116300CDEA69 /* CCGrooveJoint.cpp */; };
 		F475E992199E116300CDEA69 /* CCJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F475E98B199E116300CDEA69 /* CCJoint.cpp */; };
@@ -1546,7 +1545,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F45FF34B16C7DD4C00275222 /* libcurl.a in Frameworks */,
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
 				F4A8F6BB17F0B1A400110198 /* libwebsockets.a in Frameworks */,
 				F42825BA17575DBE001479DC /* libwebp.a in Frameworks */,
@@ -4422,7 +4420,7 @@
 					CC_TARGET_OS_IPHONE,
 					"CC_LUA_ENGINE_ENABLED=1",
 					ENABLE_PHYSICS_CHIPMUNK_DETECT,
-					"CC_CURL_ENABLED=1",
+					"CC_CURL_ENABLED=0",
 					"CC_JPEG_ENABLED=1",
 					"CC_TIFF_ENABLED=1",
 					"CC_WEBP_ENABLED=1",
