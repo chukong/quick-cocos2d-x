@@ -18,7 +18,7 @@ LOCAL_SRC_FILES := \
 
 ifeq ($(CC_CURL_ENABLED),1)
 LOCAL_SRC_FILES += \
-    extra/network/CCHTTPRequest.cpp \
+    extra/platform/android/CCHTTPRequestAndroid.cpp \
     extra/luabinding/cocos2dx_httprequest_luabinding.cpp
 endif
 
