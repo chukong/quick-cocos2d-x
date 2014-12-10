@@ -288,6 +288,7 @@ void CCScene::visit()
 
 void CCScene::cleanup(void)
 {
+    m_touchRegistered = false;
     m_touchableNodes->removeAllObjects();
     m_touchingTargets->removeAllObjects();
     CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
