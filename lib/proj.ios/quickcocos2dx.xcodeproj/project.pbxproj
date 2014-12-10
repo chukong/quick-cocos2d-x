@@ -29,6 +29,7 @@
 		49832219187FE2DF00733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832217187FE2DF00733BFB /* HelperFunc.cpp */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
+		DA56D2FE1A3819B3007350D6 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42825B317575DBE001479DC /* libcurl.a */; };
 		E5C463441987A250001192EA /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E5C462EE1987A24F001192EA /* Animation.cpp */; };
 		E5C463451987A250001192EA /* AnimationState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E5C462F01987A24F001192EA /* AnimationState.cpp */; };
 		E5C463461987A250001192EA /* TimelineState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E5C462F31987A24F001192EA /* TimelineState.cpp */; };
@@ -90,7 +91,6 @@
 		F42F313C17A272FA00A20E45 /* CCGraySprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42F313A17A272FA00A20E45 /* CCGraySprite.cpp */; };
 		F44A20D9182A566D00E181EB /* libbase64.c in Sources */ = {isa = PBXBuildFile; fileRef = F44A20D7182A566D00E181EB /* libbase64.c */; };
 		F459EA6C180D04D8006CBDF1 /* CCCrypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FC180D04D8006CBDF1 /* CCCrypto.cpp */; };
-		F459EA6D180D04D8006CBDF1 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = F459E9FF180D04D8006CBDF1 /* md5.c */; };
 		F459EA6F180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459EA07180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp */; };
 		F459EA70180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459EA0A180D04D8006CBDF1 /* cocos2dx_extra_luabinding.cpp */; };
 		F459EA71180D04D8006CBDF1 /* CCHTTPRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459EA11180D04D8006CBDF1 /* CCHTTPRequest.cpp */; };
@@ -714,7 +714,6 @@
 		F459E9F7180D04D8006CBDF1 /* cocos2dx_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra.h; sourceTree = "<group>"; };
 		F459E9FC180D04D8006CBDF1 /* CCCrypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCCrypto.cpp; sourceTree = "<group>"; };
 		F459E9FD180D04D8006CBDF1 /* CCCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCCrypto.h; sourceTree = "<group>"; };
-		F459E9FF180D04D8006CBDF1 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
 		F459EA00180D04D8006CBDF1 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		F459EA07180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cocos2dx_extra_ios_iap_luabinding.cpp; sourceTree = "<group>"; };
 		F459EA08180D04D8006CBDF1 /* cocos2dx_extra_ios_iap_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2dx_extra_ios_iap_luabinding.h; sourceTree = "<group>"; };
@@ -904,7 +903,6 @@
 		F45A2DE6166B16B100760194 /* tolua_map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_map.c; sourceTree = "<group>"; };
 		F45A2DE7166B16B100760194 /* tolua_push.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_push.c; sourceTree = "<group>"; };
 		F45A2DE8166B16B100760194 /* tolua_to.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_to.c; sourceTree = "<group>"; };
-		F45FF34A16C7DD4C00275222 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "lib/cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = QUICK_COCOS2DX_ROOT; };
 		F475E989199E116300CDEA69 /* CCDampedSpringJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCDampedSpringJoint.cpp; sourceTree = "<group>"; };
 		F475E98A199E116300CDEA69 /* CCGrooveJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGrooveJoint.cpp; sourceTree = "<group>"; };
 		F475E98B199E116300CDEA69 /* CCJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCJoint.cpp; sourceTree = "<group>"; };
@@ -1546,6 +1544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
+				DA56D2FE1A3819B3007350D6 /* libcurl.a in Frameworks */,
 				F4A8F6BB17F0B1A400110198 /* libwebsockets.a in Frameworks */,
 				F42825BA17575DBE001479DC /* libwebp.a in Frameworks */,
 			);
@@ -1998,7 +1997,6 @@
 		F459E9FE180D04D8006CBDF1 /* md5 */ = {
 			isa = PBXGroup;
 			children = (
-				F459E9FF180D04D8006CBDF1 /* md5.c */,
 				F459EA00180D04D8006CBDF1 /* md5.h */,
 			);
 			path = md5;
@@ -2358,7 +2356,6 @@
 		F45A2B9F166B07B600760194 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F45FF34A16C7DD4C00275222 /* libcurl.a */,
 				F45A2BA0166B07B600760194 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -4308,7 +4305,6 @@
 				F4E883C31770163800577406 /* CCControlButton.cpp in Sources */,
 				F4E883C41770163800577406 /* CCControlColourPicker.cpp in Sources */,
 				F4E883C51770163800577406 /* CCControlHuePicker.cpp in Sources */,
-				F459EA6D180D04D8006CBDF1 /* md5.c in Sources */,
 				F4E883C61770163800577406 /* CCControlPotentiometer.cpp in Sources */,
 				2EBAD93B1918BBDC00FF9BD6 /* CCTestFilter.cpp in Sources */,
 				F4E883C71770163800577406 /* CCControlSaturationBrightnessPicker.cpp in Sources */,
@@ -4417,7 +4413,7 @@
 					CC_TARGET_OS_IPHONE,
 					"CC_LUA_ENGINE_ENABLED=1",
 					ENABLE_PHYSICS_CHIPMUNK_DETECT,
-					"CC_CURL_ENABLED=0",
+					"CC_CURL_ENABLED=1",
 					"CC_JPEG_ENABLED=1",
 					"CC_TIFF_ENABLED=1",
 					"CC_WEBP_ENABLED=1",
