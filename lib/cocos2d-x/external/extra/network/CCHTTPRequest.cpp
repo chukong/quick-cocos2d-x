@@ -61,6 +61,9 @@ bool CCHTTPRequest::initWithUrl(const char *url, int method)
     curl_easy_setopt(m_curl, CURLOPT_TIMEOUT, DEFAULT_TIMEOUT);
     curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1L);
 
+    curl_easy_setopt(m_curl, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(m_curl, CURLOPT_SSL_VERIFYPEER, 0L);
+
     if (method == kCCHTTPRequestMethodPOST)
     {
         curl_easy_setopt(m_curl, CURLOPT_POST, 1L);
