@@ -435,11 +435,6 @@ static EAGLView *view = 0;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (isKeyboardShown_)
-    {
-        return;
-    }
-    
     int ids[IOS_MAX_TOUCHES_COUNT] = {0};
     float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
     float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -456,11 +451,6 @@ static EAGLView *view = 0;
     
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (isKeyboardShown_)
-    {
-        return;
-    }
-    
     int ids[IOS_MAX_TOUCHES_COUNT] = {0};
     float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
     float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
