@@ -259,6 +259,7 @@ private:
     void setTimeoutJava(int msTime);
     int connectJava();
     void postContentJava(const char* key, const char* value, bool bConnectSym);
+    void postContentByteArrayJava(void* val, size_t len);
     void postFromContentJava(const char* key, const char* value);
     void postFromFileJava(const char* fileName, const char* filePath);
     void postFormEndJava(bool bBoundary);
