@@ -76,8 +76,10 @@ function NetworkTestScene:send_data_to_serverTest()
             return
         end
         self:onResponse(event, index, true)
-        local cookie = network.parseCookie(event.request:getCookieString())
-        dump(cookie, "GET COOKIE FROM SERVER")
+        if "completed" == event.name then
+            local cookie = network.parseCookie(event.request:getCookieString())
+            dump(cookie, "GET COOKIE FROM SERVER")
+        end
     end, "http://quick-x.com/tests/http_request_tests.php", "POST")
     request:addPOSTValue("username", "dualface")
     request:setCookieString(network.makeCookieString({C1 = "V1", C2 = "V2"}))
