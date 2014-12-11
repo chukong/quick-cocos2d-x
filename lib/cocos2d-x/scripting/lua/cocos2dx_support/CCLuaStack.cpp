@@ -60,10 +60,10 @@ extern "C" {
 #include "Lua_extensions_CCB.h"
 #endif
 
+#include "lua_cocos2dx_manual.h"
 #if CC_CCSTUDIO_ENABLED > 0
 // Cocos Studio
 #include "LuaCocoStudio.h"
-#include "lua_cocos2dx_manual.h"
 #include "lua_cocos2dx_extensions_manual.h"
 #include "lua_cocos2dx_cocostudio_manual.h"
 #endif
@@ -149,10 +149,10 @@ bool CCLuaStack::init(void)
     tolua_extensions_ccb_open(m_state);
 #endif
 
+    register_all_cocos2dx_manual(m_state);
 #if CC_CCSTUDIO_ENABLED > 0
     // Cocos Studio
     tolua_CocoStudio_open(m_state);
-    register_all_cocos2dx_manual(m_state);
     register_all_cocos2dx_extension_manual(m_state);
     register_all_cocos2dx_studio_manual(m_state);
 #endif

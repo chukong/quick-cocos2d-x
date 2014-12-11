@@ -62,4 +62,6 @@ require(p .. "SceneEx")
 require(p .. "SpriteEx")
 require(p .. "DrawNodeEx")
 require(p .. "MenuItemEx")
-require(p .. "DragonBonesEx")
+if DragonBonesNode and AnimationEvent then
+	require(p .. "DragonBonesEx")
+end

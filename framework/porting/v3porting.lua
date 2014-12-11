@@ -104,10 +104,12 @@ cc.Node.removeFromParent 		= cc.Node.removeFromParentAndCleanup
 cc.SpriteFrameCache.getInstance = cc.SpriteFrameCache.sharedSpriteFrameCache
 cc.SpriteFrameCache.addSpriteFrames = cc.SpriteFrameCache.addSpriteFramesWithFile
 
-ccs = {}
-ccs.ArmatureDataManager 		= CCArmatureDataManager
-ccs.ArmatureDataManager.getInstance 	= CCArmatureDataManager.sharedArmatureDataManager
-ccs.Armature 					= CCArmature
+if CCArmatureDataManager then
+	ccs = {}
+	ccs.ArmatureDataManager 		= CCArmatureDataManager
+	ccs.ArmatureDataManager.getInstance 	= CCArmatureDataManager.sharedArmatureDataManager
+	ccs.Armature 					= CCArmature
+end
 
 
 
