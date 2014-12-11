@@ -42,6 +42,7 @@ LOCAL_SRC_FILES := ../cocos2dx_support/CCLuaEngine.cpp \
     ../lua_extensions/socket/usocket.c \
     ../lua_extensions/filesystem/lfs.c \
     ../lua_extensions/lpack/lpack.c \
+    ../cocos2dx_support/lua_cocos2dx_manual.cpp \
     ../lua_extensions/lua_extensions.c
 
 ifeq ($(CC_CURL_ENABLED),1)
@@ -58,7 +59,6 @@ endif
 ifeq ($(CC_CCSTUDIO_ENABLED),1)
 LOCAL_SRC_FILES += \
     ../cocos2dx_support/lua_cocos2dx_extensions_manual.cpp \
-    ../cocos2dx_support/lua_cocos2dx_manual.cpp \
     ../cocos2dx_support/lua_cocos2dx_cocostudio_manual.cpp \
     ../cocos2dx_support/LuaCocoStudio.cpp
 endif

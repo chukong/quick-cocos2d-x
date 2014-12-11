@@ -30,9 +30,9 @@
 #include "CCBReader/CCBSequence.h"
 #include "CCBReader/CCBSequenceProperty.h"
 #include "CCBReader/CCBValue.h"
-#include "CCBReader/CCData.h"
 #include "CCBReader/CCNode+CCBRelativePositioning.h"
 #endif // CC_CCB_ENABLED
+#include "CCBReader/CCData.h"
 
 #include "GUI/CCControlExtension/CCControlExtensions.h"
 #include "GUI/CCScrollView/CCScrollView.h"
