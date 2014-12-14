@@ -14,6 +14,7 @@
 
 #include "tolua++.h"
 #include "tolua_event.h"
+#include "lua.h"
 #include "lauxlib.h"
 
 #include <string.h>
