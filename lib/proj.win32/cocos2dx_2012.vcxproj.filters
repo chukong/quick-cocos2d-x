@@ -172,12 +172,6 @@
     <Filter Include="cocos2d-x\extensions\AssetsManager">
       <UniqueIdentifier>{231a7fe7-3cc2-4ec4-8e37-f57af3f9c45c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cocos2d-x\scripting\lua\luajit">
-      <UniqueIdentifier>{878d493e-17aa-47d1-a0a5-b7e7300ee88b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cocos2d-x\scripting\lua\luajit\include">
-      <UniqueIdentifier>{52222938-250b-4b39-b01d-54e2e6299855}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cocos2d-x\extensions\proj.win32">
       <UniqueIdentifier>{1bf40045-e8e9-4c0d-9269-68a56ae5bc1f}</UniqueIdentifier>
     </Filter>
@@ -342,6 +336,9 @@
     </Filter>
     <Filter Include="cocos2d-x\external\chipmunk\cocos2dx_support\constraints">
       <UniqueIdentifier>{2c1549fd-adef-4609-bb77-28c78892b71a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cocos2d-x\scripting\lua\lua">
+      <UniqueIdentifier>{a749176d-bd4d-4aae-9e2c-33df575211e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1575,6 +1572,99 @@
     <ClCompile Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dFilters.cpp">
       <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lapi.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lauxlib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lbaselib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lcode.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ldblib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ldebug.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ldo.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ldump.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lfunc.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lgc.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\linit.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\liolib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\llex.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lmathlib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lmem.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\loadlib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lobject.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lopcodes.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\loslib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lparser.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lstate.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lstring.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lstrlib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ltable.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ltablib.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ltm.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lua.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lundump.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lvm.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lzio.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\print.c">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\CCLuaEngine.h">
@@ -2167,18 +2257,6 @@
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\cocos2dx\support\ccUTF8.h">
       <Filter>cocos2d-x\cocos2dx\support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lauxlib.h">
-      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lua.h">
-      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\luaconf.h">
-      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cocos2d-x\scripting\lua\luajit\include\lualib.h">
-      <Filter>cocos2d-x\scripting\lua\luajit\include</Filter>
     </ClInclude>
     <ClInclude Include="..\cocos2d-x\extensions\proj.win32\Win32InputBox.h">
       <Filter>cocos2d-x\extensions\proj.win32</Filter>
@@ -3152,5 +3230,79 @@
     <ClInclude Include="..\cocos2d-x\scripting\lua\cocos2dx_support\LuaCocos2dFilters.h">
       <Filter>cocos2d-x\scripting\lua\cocos2dx_support</Filter>
     </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lapi.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lauxlib.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lcode.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ldebug.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ldo.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lfunc.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lgc.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\llex.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\llimits.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lmem.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lobject.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lopcodes.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lparser.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lstate.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lstring.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ltable.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\ltm.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lua.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\luaconf.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lualib.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lundump.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lvm.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\lzio.h">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\Makefile">
+      <Filter>cocos2d-x\scripting\lua\lua</Filter>
+    </None>
   </ItemGroup>
 </Project>
