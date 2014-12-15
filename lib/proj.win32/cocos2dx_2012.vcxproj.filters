@@ -3300,9 +3300,4 @@
       <Filter>cocos2d-x\scripting\lua\lua</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\Makefile">
-      <Filter>cocos2d-x\scripting\lua\lua</Filter>
-    </None>
-  </ItemGroup>
 </Project>

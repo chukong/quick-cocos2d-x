@@ -1088,9 +1088,6 @@
     <ClInclude Include="..\cocos2d-x\scripting\lua\tolua\tolua++.h" />
     <ClInclude Include="..\cocos2d-x\scripting\lua\tolua\tolua_event.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\cocos2d-x\scripting\lua\lua\lua-5.1.5\src\Makefile" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9E05AA4B-1A09-433C-B1DF-BCE6675EC0D5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
