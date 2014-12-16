@@ -3,7 +3,7 @@
 ** Generated automatically by tolua++-1.0.92 on Wed Oct 22 00:31:05 2014.
 */
 
-#if CC_CURL_ENABLED > 0
+#if (CC_CURL_ENABLED > 0 || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
 #include "cocos2dx_httprequest_luabinding.h"
 #include "CCLuaEngine.h"

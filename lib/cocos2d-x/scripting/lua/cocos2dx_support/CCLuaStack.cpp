@@ -68,9 +68,13 @@ extern "C" {
 #include "lua_cocos2dx_cocostudio_manual.h"
 #endif
 
-#if CC_CURL_ENABLED > 0
-#include "LuaCocos2dAssetsManager.h"
-#include "cocos2dx_httprequest_luabinding.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    #include "cocos2dx_httprequest_luabinding.h"
+#else
+    #if CC_CURL_ENABLED > 0
+    #include "LuaCocos2dAssetsManager.h"
+    #include "cocos2dx_httprequest_luabinding.h"
+    #endif
 #endif
 
 #if CC_FILTERS_ENABLED > 0
@@ -200,9 +204,13 @@ bool CCLuaStack::init(void)
 #endif
 
     // load assets manager
-#if CC_CURL_ENABLED > 0
-    luaopen_ExtensionsAssetsManager(m_state);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     luaopen_cocos2dx_httprequest_luabinding(m_state);
+#else
+    #if CC_CURL_ENABLED > 0
+        luaopen_ExtensionsAssetsManager(m_state);
+        luaopen_cocos2dx_httprequest_luabinding(m_state);
+    #endif
 #endif
 
     // load WebSockets luabinding
