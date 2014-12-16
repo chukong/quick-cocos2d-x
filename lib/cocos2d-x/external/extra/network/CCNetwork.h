@@ -4,7 +4,7 @@
 
 #include "cocos2dx_extra.h"
 
-#if CC_CURL_ENABLED > 0
+#if (CC_CURL_ENABLED > 0 || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "network/CCHTTPRequest.h"
 #include "network/CCHTTPRequestDelegate.h"
 #endif
@@ -31,7 +31,7 @@ public:
     /** @brief Checks Internet connection reachability status */
     static int getInternetConnectionStatus(void);
 
-#if CC_CURL_ENABLED> 0
+#if (CC_CURL_ENABLED > 0 || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     static CCHTTPRequest* createHTTPRequest(CCHTTPRequestDelegate* delegate,
                                             const char* url,
                                             int method = kCCHTTPRequestMethodGET);
