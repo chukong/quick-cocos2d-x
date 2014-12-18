@@ -183,9 +183,9 @@ class EncryptSetter
             return false;
         }
 
-        print("file1: " . $this->config['dst_files'][0] . "\n");
-        print("file2: " . $this->config['dst_files'][1] . "\n");
-        print("luac: " . $this->config['luac_file'] . "\n");
+        // print("file1: " . $this->config['dst_files'][0] . "\n");
+        // print("file2: " . $this->config['dst_files'][1] . "\n");
+        // print("luac: " . $this->config['luac_file'] . "\n");
         $rnvalue = $this->generateNewDefFiles();
 
         if ($rnvalue)
@@ -196,14 +196,14 @@ class EncryptSetter
         if (!$rnvalue)
         {
             $this->restoreFiles();
+            print("\nSorry for failure, please check error logs.\n");
         }
-
-        if ($this->config['packer'])
+        elseif ($this->config['packer'])
         {
-            system($this->config['packer'], $retval);
+            system($this->config['packer'], $rnvalue);
+            print("\nSuccess!\n");
         }
 
-        print("\nSuccess!\n");
         print("\n\n");
 
         return $rnvalue;
@@ -278,7 +278,7 @@ class EncryptSetter
         system($build, $retval);
         if ($retval!=0)
         {
-            print("Error: build error!!\n");
+            print("\nError: build error!!\n");
             return false;
         }
         if (!file_exists($target))
@@ -321,11 +321,11 @@ class EncryptSetter
     {
         foreach ($this->config['bak_files'] as $i => $file)
         {
-            print("Restore file: " . $file . " ...");
             $dstFile = $this->config['dst_files'][$i];
+            print("Restore file: " . $dstFile . " from " . $file);
             unlink($dstFile);
             rename($file, $dstFile);
-            print("OK\n");
+            print("\n");
         }
     }
 }
