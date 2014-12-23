@@ -25,6 +25,7 @@ LOCAL_SRC_FILES := \
     GUI/CCScrollView/CCSorting.cpp \
     GUI/CCScrollView/CCTableView.cpp \
     GUI/CCScrollView/CCTableViewCell.cpp \
+    CCBReader/CCData.cpp \
     network/WebSocket.cpp
 
 ifeq ($(CC_DRAGONBONES_ENABLED),1)
@@ -99,7 +100,6 @@ LOCAL_SRC_FILES += \
     CCBReader/CCBValue.cpp \
     CCBReader/CCControlButtonLoader.cpp \
     CCBReader/CCControlLoader.cpp \
-    CCBReader/CCData.cpp \
     CCBReader/CCLabelBMFontLoader.cpp \
     CCBReader/CCLabelTTFLoader.cpp \
     CCBReader/CCLayerColorLoader.cpp \

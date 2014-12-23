@@ -90,7 +90,7 @@ extern "C"
 
             begin = next + 1;
             next = searchpath.find_first_of(";", begin);
-        } while (begin < (int)searchpath.length());
+        }while ( begin < (size_t)searchpath.length());
 
         if (chunk)
         {

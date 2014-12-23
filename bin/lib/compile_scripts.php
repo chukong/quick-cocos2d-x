@@ -15,6 +15,7 @@ $options = array(
     array('ex',  'extname',    1,      'lua',       'encrypted file extension name (default is "lua"), only valid for xxtea_chunk'),
     array('c',   'config',     1,      null,        'load options from config file'),
     array('q',   'quiet',      0,      false,       'quiet'),
+    array('jit', 'jit',        0,      false,       'using luajit compile framework'),
 );
 
 function errorhelp()

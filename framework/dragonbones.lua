@@ -8,6 +8,8 @@ Creation 2014-07-24
 用法可参考 samples/dragonbones
 
 ]]
+if CCDBManager==nil then return nil end
+
 local db = {}
 
 local dbManager = CCDBManager:getInstance()

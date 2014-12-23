@@ -124,7 +124,23 @@ static CCNativeMac *s_sharedInstance;
     }
     
     CCLOG("CCNative::showAlertViewWithLuaListener()");
-    int buttonIndex = (int)[alertView_ runModal];
+    NSModalResponse buttonResponse = (int)[alertView_ runModal];
+    int buttonIndex = 0;
+    
+    CCLOG("buttonResponse,%d",(int)buttonResponse);
+    
+    if (buttonResponse == NSAlertFirstButtonReturn)
+    {
+        buttonIndex = 0;
+    }
+    else if (buttonResponse == NSAlertSecondButtonReturn)
+    {
+        buttonIndex = 1;
+    }
+    else if (buttonResponse == NSAlertThirdButtonReturn)
+    {
+        buttonIndex = 2;
+    }
     
     CCLuaValueDict event;
     event["action"] = CCLuaValue::stringValue("clicked");

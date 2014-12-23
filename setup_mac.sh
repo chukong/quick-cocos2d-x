@@ -60,16 +60,16 @@ if [ "$CALL_BY_PKG" != "" ]; then
     $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh
     ln -s $QUICK_COCOS2DX_ROOT/player/mac/player.app $QUICK_COCOS2DX_ROOT/player.app
 
-else
+# else
 
-    while true; do
-        read -p "Do you wish to install LuaJIT (Y/N) ? " yn
-        case $yn in
-            [Yy]* ) echo ""; $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh; break;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer yes or no.";;
-        esac
-    done
+#     while true; do
+#         read -p "Do you wish to install LuaJIT (Y/N) ? " yn
+#         case $yn in
+#             [Yy]* ) echo ""; $QUICK_COCOS2DX_ROOT/bin/install_luajit.sh; break;;
+#             [Nn]* ) exit;;
+#             * ) echo "Please answer yes or no.";;
+#         esac
+#     done
 
 fi;
 

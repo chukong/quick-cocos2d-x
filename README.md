@@ -35,3 +35,4 @@ Quick-Cocos2d-x 基于 Cocos2d-x 开发，具有 Cocos2d-x 的所有优点。并
 -   [设置 quick-cocos2d-x 在 Windows 下的编译环境](docs/howto/setup_development_environment_on_windows/zh.html)
 -   [如何使用 proj.mac 和 proj.win32 工程](docs/howto/use-project-mac-and-win/zh.html)
 -   [API 文档](docs/api/index.html)
+-   [对 Lua 字节码进行加密](docs/howto/encrypt-lua-code/zh.md)
