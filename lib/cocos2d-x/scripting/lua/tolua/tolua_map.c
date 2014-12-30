@@ -351,6 +351,26 @@ static int tolua_bnd_setRegValue(lua_State* L) {
     return 0;
 }
 
+static int tolua_bnd_getUbox(lua_State* L) {
+    if (lua_gettop(L)<1 || !lua_isstring(L, 1))
+    {
+        lua_pushstring(L,"tolua_ubox");
+        lua_rawget(L, LUA_REGISTRYINDEX);
+    }
+    else
+    {
+        const char *type = lua_tostring(L, 1);
+        luaL_getmetatable(L, type);     //stack: ... mt
+        if (!lua_isnil(L, -1))
+        {
+            lua_pushstring(L,"tolua_ubox"); //stack: ... mt string
+            lua_rawget(L,-2);               //stack: ... mt ubox
+        }
+    }
+    
+    return 1;
+}
+
 static int tolua_bnd_setUbox(lua_State* L) {
     if (lua_gettop(L)!=2) {
         lua_pushstring(L, "Wrong number of arguments to setubox(): 2 expected.");
@@ -476,6 +496,7 @@ TOLUA_API void tolua_open (lua_State* L)
         tolua_function(L,"getcfunction", tolua_bnd_getcfunction);
         tolua_function(L,"getregval", tolua_bnd_getRegValue);
         tolua_function(L,"setregval", tolua_bnd_setRegValue);
+        tolua_function(L,"getubox", tolua_bnd_getUbox);
         tolua_function(L,"setubox", tolua_bnd_setUbox);
 
         tolua_endmodule(L);
