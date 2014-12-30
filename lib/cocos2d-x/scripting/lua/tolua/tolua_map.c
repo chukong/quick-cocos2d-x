@@ -331,6 +331,62 @@ static int tolua_bnd_getcfunction(lua_State* L) {
     return 0;
 }
 
+static int tolua_bnd_getRegValue(lua_State* L) {
+    if (lua_gettop(L)!=1) {
+        lua_pushstring(L, "Wrong number of arguments to getregval(): 1 expected.");
+        lua_error(L);
+    }
+    lua_rawget(L, LUA_REGISTRYINDEX);
+    
+    return 1;
+}
+
+static int tolua_bnd_setRegValue(lua_State* L) {
+    if (lua_gettop(L)!=2) {
+        lua_pushstring(L, "Wrong number of arguments to setregval(): 2 expected.");
+        lua_error(L);
+    }
+    lua_rawset(L, LUA_REGISTRYINDEX);
+    
+    return 0;
+}
+
+static int tolua_bnd_setUbox(lua_State* L) {
+    if (lua_gettop(L)!=2) {
+        lua_pushstring(L, "Wrong number of arguments to setubox(): 2 expected.");
+        lua_error(L);
+    }
+    
+    if (!lua_istable(L, 2))
+    {
+        lua_pushstring(L, "Invalid argument #2 to setubox(): table expected.");
+        lua_error(L);
+    }
+
+    if (lua_isstring(L, 1))
+    {
+        char ctype[128] = "const ";
+        const char *type = lua_tostring(L, 1);
+        strncat(ctype,type,120);
+        luaL_getmetatable(L, type);     //stack: type newtbl mt
+        lua_pushstring(L,"tolua_ubox"); //stack: type newtbl mt string
+        lua_pushvalue(L, -3);           //stack: type newtbl mt string newtbl
+        lua_rawset(L,-3);               //stack: type newtbl mt
+        lua_pop(L, 1);                  //stack: type newtbl
+        luaL_getmetatable(L, ctype);    //stack: type newtbl mt
+        lua_pushstring(L,"tolua_ubox"); //stack: type newtbl mt string
+        lua_pushvalue(L, -3);           //stack: type newtbl mt string newtbl
+        lua_rawset(L,-3);               //stack: type newtbl mt
+    }
+    else
+    {
+        lua_pushstring(L,"tolua_ubox"); //stack: type newtbl string
+        lua_insert(L, -2);              //stack: type string newtbl
+        lua_rawset(L, LUA_REGISTRYINDEX);//stack: type
+    }
+    return 0;
+}
+
 /* static int class_gc_event (lua_State* L); */
 
 TOLUA_API void tolua_open (lua_State* L)
@@ -388,11 +444,11 @@ TOLUA_API void tolua_open (lua_State* L)
 
         /* create gc_event closure */
         lua_pushstring(L, "tolua_gc_event");
-        lua_pushstring(L, "tolua_gc");
-        lua_rawget(L, LUA_REGISTRYINDEX);
+//        lua_pushstring(L, "tolua_gc");
+//        lua_rawget(L, LUA_REGISTRYINDEX);
         lua_pushstring(L, "tolua_super");
         lua_rawget(L, LUA_REGISTRYINDEX);
-        lua_pushcclosure(L, class_gc_event, 2);
+        lua_pushcclosure(L, class_gc_event, 1);
         lua_rawset(L, LUA_REGISTRYINDEX);
 
         tolua_newmetatable(L,"tolua_commonclass");
@@ -412,6 +468,9 @@ TOLUA_API void tolua_open (lua_State* L)
         tolua_function(L, "getpeer", tolua_bnd_getpeer);
 #endif
         tolua_function(L,"getcfunction", tolua_bnd_getcfunction);
+        tolua_function(L,"getregval", tolua_bnd_getRegValue);
+        tolua_function(L,"setregval", tolua_bnd_setRegValue);
+        tolua_function(L,"setubox", tolua_bnd_setUbox);
 
         tolua_endmodule(L);
         tolua_endmodule(L);
