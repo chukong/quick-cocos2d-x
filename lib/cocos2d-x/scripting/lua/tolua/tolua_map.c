@@ -367,16 +367,22 @@ static int tolua_bnd_setUbox(lua_State* L) {
     {
         char ctype[128] = "const ";
         const char *type = lua_tostring(L, 1);
-        strncat(ctype,type,120);
         luaL_getmetatable(L, type);     //stack: type newtbl mt
-        lua_pushstring(L,"tolua_ubox"); //stack: type newtbl mt string
-        lua_pushvalue(L, -3);           //stack: type newtbl mt string newtbl
-        lua_rawset(L,-3);               //stack: type newtbl mt
+        if (!lua_isnil(L, -1))
+        {
+            lua_pushstring(L,"tolua_ubox"); //stack: type newtbl mt string
+            lua_pushvalue(L, -3);           //stack: type newtbl mt string newtbl
+            lua_rawset(L,-3);               //stack: type newtbl mt
+        }
         lua_pop(L, 1);                  //stack: type newtbl
+        strncat(ctype,type,120);
         luaL_getmetatable(L, ctype);    //stack: type newtbl mt
-        lua_pushstring(L,"tolua_ubox"); //stack: type newtbl mt string
-        lua_pushvalue(L, -3);           //stack: type newtbl mt string newtbl
-        lua_rawset(L,-3);               //stack: type newtbl mt
+        if (!lua_isnil(L, -1))
+        {
+            lua_pushstring(L,"tolua_ubox"); //stack: type newtbl mt string
+            lua_pushvalue(L, -3);           //stack: type newtbl mt string newtbl
+            lua_rawset(L,-3);               //stack: type newtbl mt
+        }
     }
     else
     {
