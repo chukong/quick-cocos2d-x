@@ -14,7 +14,6 @@
 
 #include "tolua++.h"
 #include "tolua_event.h"
-#include "lua.h"
 #include "lauxlib.h"
 
 #include <string.h>
@@ -212,7 +211,7 @@ static int tolua_bnd_releaseownership (lua_State* L)
 
 /* Type casting
 */
-static int tolua_bnd_cast (lua_State* L)
+int tolua_bnd_cast (lua_State* L)
 {
 
     /* // old code
@@ -470,8 +469,6 @@ TOLUA_API void tolua_open (lua_State* L)
 
         /* create gc_event closure */
         lua_pushstring(L, "tolua_gc_event");
-//        lua_pushstring(L, "tolua_gc");
-//        lua_rawget(L, LUA_REGISTRYINDEX);
         lua_pushstring(L, "tolua_super");
         lua_rawget(L, LUA_REGISTRYINDEX);
         lua_pushcclosure(L, class_gc_event, 1);
@@ -720,10 +717,6 @@ TOLUA_API void tolua_cclass (lua_State* L, const char* lname, const char* name, 
     lua_rawset(L,-3);
     */
 
-// ---- disable by SunLightJuly, 2014.6.5
-    //luaL_getmetatable(L,name);
-    //lua_rawset(L,-3);              /* assign class metatable to module */
-// ---- disable end
 //---- create a new class table, set it's metatable, and assign it to module
     lua_newtable(L);                    // stack: module lname table
     luaL_getmetatable(L,name);          // stack: module lname table mt

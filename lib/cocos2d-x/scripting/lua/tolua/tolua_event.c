@@ -13,8 +13,6 @@
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "tolua++.h"
 
@@ -263,7 +261,6 @@ static int class_index_event (lua_State* L)
     }
     else if (t== LUA_TTABLE)
     {
-//        module_index_event(L);
         lua_pushvalue(L,1);
         class_table_get_index(L);
         return 1;
@@ -381,7 +378,6 @@ static int class_newindex_event (lua_State* L)
     }
     else if (t== LUA_TTABLE)
     {
-//        module_newindex_event(L);
         lua_getmetatable(L,1);  /* stack: t k v mt */
         lua_pushstring(L,".set");
         lua_rawget(L,-2);       /* stack: t k v mt tset */
@@ -456,7 +452,7 @@ static int class_add_event (lua_State* L)
     return do_operator(L,".add");
 }
 
-static int class_sub_event (lua_State* L)
+int class_sub_event (lua_State* L)
 {
     return do_operator(L,".sub");
 }
@@ -539,7 +535,6 @@ TOLUA_API int class_gc_event (lua_State* L)
     lua_pushstring(L,"tolua_gc");
     lua_rawget(L,LUA_REGISTRYINDEX);
 
-//    lua_pushvalue(L, lua_upvalueindex(1));
     lua_pushlightuserdata(L,u);
     lua_rawget(L,-2);            /* stack: gc umt    */
     lua_getmetatable(L,1);       /* stack: gc umt mt */
@@ -645,3 +640,4 @@ TOLUA_API void tolua_classevents (lua_State* L)
     /*lua_pushcfunction(L,class_gc_event);*/
     lua_rawset(L,-3);
 }
+
