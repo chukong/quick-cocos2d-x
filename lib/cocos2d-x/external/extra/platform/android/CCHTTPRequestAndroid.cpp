@@ -441,7 +441,7 @@ void CCHTTPRequest::update(float dt)
         {
             CCLuaValueDict dict;
 
-            dict["name"] = CCLuaValue::stringValue("progress");
+            dict["name"] = CCLuaValue::stringValue("inprogress");
             dict["total"] = CCLuaValue::intValue(m_ultotal);
             dict["dltotal"] = CCLuaValue::intValue(m_dltotal);
             dict["request"] = CCLuaValue::ccobjectValue(this, "CCHTTPRequest");
