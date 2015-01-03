@@ -1,0 +1,12 @@
+class QXPomelo : public cocos2d::CCObject
+{
+	public:
+		QXPomelo(){};
+		virtual ~QXPomelo(){};
+	void connect(const char* _addr, unsigned short _port, LUA_FUNCTION listener);
+	int request(const char* route, const char* msg, LUA_FUNCTION listener);
+	void notify(const char* route, const char* msg);
+	void bindEventHandle(LUA_FUNCTION listener);
+	void addListener(const char* event);
+	void destroy();
+};

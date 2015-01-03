@@ -19,3 +19,5 @@ $pfile "extensions/GUI/CCControlExtension/CCScale9Sprite.tolua"
 $pfile "extensions/GUI/CCEditBox/CCEditBox.tolua"
 $pfile "extensions/GUI/CCScrollView/CCScrollView.tolua"
 $pfile "extensions/GUI/CCScrollView/CCTableView.tolua"
+
+$pfile "extensions/QXPomelo-luabinding.tolua"

@@ -10,7 +10,7 @@ echo "updating all framework_precompiled.zip"
 echo ""
 echo template/PROJECT_TEMPLATE_01/res/framework_precompiled.zip
 cp lib/framework_precompiled/framework_precompiled.zip template/PROJECT_TEMPLATE_01/res/
-
+cp lib/framework_precompiled/framework_precompiled.zip /Users/kvial/dev/github/romf/res/framework.zip
 for dest in `find samples -type f | grep "/res/framework_precompiled.zip"`
 do
     echo $dest

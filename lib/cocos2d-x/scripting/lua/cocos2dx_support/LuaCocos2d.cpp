@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Wed Oct 22 01:02:42 2014.
+** Generated automatically by tolua++-1.0.92 on Thu Jan  1 02:41:51 2015.
 */
 
 /****************************************************************************
@@ -74,6 +74,13 @@ static int tolua_collect_CCAtlasNode (lua_State* tolua_S)
 static int tolua_collect_CCParticleSystemQuad (lua_State* tolua_S)
 {
  CCParticleSystemQuad* self = (CCParticleSystemQuad*) tolua_tousertype(tolua_S,1,0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+static int tolua_collect_CCTMXMapInfo (lua_State* tolua_S)
+{
+ CCTMXMapInfo* self = (CCTMXMapInfo*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -197,9 +204,9 @@ static int tolua_collect_CCImage (lua_State* tolua_S)
     return 0;
 }
 
-static int tolua_collect_CCTMXMapInfo (lua_State* tolua_S)
+static int tolua_collect_QXPomelo (lua_State* tolua_S)
 {
- CCTMXMapInfo* self = (CCTMXMapInfo*) tolua_tousertype(tolua_S,1,0);
+ QXPomelo* self = (QXPomelo*) tolua_tousertype(tolua_S,1,0);
     Mtolua_delete(self);
     return 0;
 }
@@ -586,12 +593,15 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBezierTo)), "CCBezierTo");
  tolua_usertype(tolua_S,"CCDeccelAmplitude");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCDeccelAmplitude)), "CCDeccelAmplitude");
+ tolua_usertype(tolua_S,"cocos2d::CCObject");
+ tolua_usertype(tolua_S,"CCTransitionProgress");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgress)), "CCTransitionProgress");
  tolua_usertype(tolua_S,"CCTableView");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTableView)), "CCTableView");
  tolua_usertype(tolua_S,"CCTableViewCell");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTableViewCell)), "CCTableViewCell");
- tolua_usertype(tolua_S,"CCTransitionProgress");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCTransitionProgress)), "CCTransitionProgress");
+ tolua_usertype(tolua_S,"QXPomelo");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(QXPomelo)), "QXPomelo");
  tolua_usertype(tolua_S,"CCEditBox");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCEditBox)), "CCEditBox");
  tolua_usertype(tolua_S,"HSV");
@@ -56839,6 +56849,299 @@ static int tolua_Cocos2d_CCTableView_unregisterAllScriptHandler00(lua_State* tol
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: new of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_new00
+static int tolua_Cocos2d_QXPomelo_new00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   QXPomelo* tolua_ret = (QXPomelo*)  Mtolua_new((QXPomelo)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"QXPomelo");
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: new_local of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_new00_local
+static int tolua_Cocos2d_QXPomelo_new00_local(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  {
+   QXPomelo* tolua_ret = (QXPomelo*)  Mtolua_new((QXPomelo)());
+    tolua_pushusertype(tolua_S,(void*)tolua_ret,"QXPomelo");
+    tolua_register_gc(tolua_S,lua_gettop(tolua_S));
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'new'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: delete of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_delete00
+static int tolua_Cocos2d_QXPomelo_delete00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'delete'", NULL);
+#endif
+  Mtolua_delete(self);
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'delete'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: connect of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_connect00
+static int tolua_Cocos2d_QXPomelo_connect00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !toluafix_isfunction(tolua_S,4,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+  const char* _addr = ((const char*)  tolua_tostring(tolua_S,2,0));
+  unsigned short _port = ((unsigned short)  tolua_tonumber(tolua_S,3,0));
+  LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'connect'", NULL);
+#endif
+  {
+   self->connect(_addr,_port,listener);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'connect'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: request of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_request00
+static int tolua_Cocos2d_QXPomelo_request00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,4,&tolua_err) || !toluafix_isfunction(tolua_S,4,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,5,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+  const char* route = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* msg = ((const char*)  tolua_tostring(tolua_S,3,0));
+  LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,4,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'request'", NULL);
+#endif
+  {
+   int tolua_ret = (int)  self->request(route,msg,listener);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'request'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: notify of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_notify00
+static int tolua_Cocos2d_QXPomelo_notify00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isstring(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+  const char* route = ((const char*)  tolua_tostring(tolua_S,2,0));
+  const char* msg = ((const char*)  tolua_tostring(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'notify'", NULL);
+#endif
+  {
+   self->notify(route,msg);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'notify'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: bindEventHandle of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_bindEventHandle00
+static int tolua_Cocos2d_QXPomelo_bindEventHandle00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+  LUA_FUNCTION listener = (  toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'bindEventHandle'", NULL);
+#endif
+  {
+   self->bindEventHandle(listener);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'bindEventHandle'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: addListener of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_addListener00
+static int tolua_Cocos2d_QXPomelo_addListener00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+  const char* event = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'addListener'", NULL);
+#endif
+  {
+   self->addListener(event);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'addListener'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: destroy of class  QXPomelo */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_QXPomelo_destroy00
+static int tolua_Cocos2d_QXPomelo_destroy00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"QXPomelo",0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  QXPomelo* self = (QXPomelo*)  tolua_tousertype(tolua_S,1,0);
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'destroy'", NULL);
+#endif
+  {
+   self->destroy();
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'destroy'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
 {
@@ -59620,6 +59923,23 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_constant(tolua_S,"kTableCellSizeAtIndex",CCTableView::kTableCellSizeAtIndex);
    tolua_constant(tolua_S,"kNumberOfCellsInTableView",CCTableView::kNumberOfCellsInTableView);
    tolua_function(tolua_S,"unregisterAllScriptHandler",tolua_Cocos2d_CCTableView_unregisterAllScriptHandler00);
+  tolua_endmodule(tolua_S);
+  #ifdef __cplusplus
+  tolua_cclass(tolua_S,"QXPomelo","QXPomelo","cocos2d::CCObject",tolua_collect_QXPomelo);
+  #else
+  tolua_cclass(tolua_S,"QXPomelo","QXPomelo","cocos2d::CCObject",NULL);
+  #endif
+  tolua_beginmodule(tolua_S,"QXPomelo");
+   tolua_function(tolua_S,"new",tolua_Cocos2d_QXPomelo_new00);
+   tolua_function(tolua_S,"new_local",tolua_Cocos2d_QXPomelo_new00_local);
+   tolua_function(tolua_S,".call",tolua_Cocos2d_QXPomelo_new00_local);
+   tolua_function(tolua_S,"delete",tolua_Cocos2d_QXPomelo_delete00);
+   tolua_function(tolua_S,"connect",tolua_Cocos2d_QXPomelo_connect00);
+   tolua_function(tolua_S,"request",tolua_Cocos2d_QXPomelo_request00);
+   tolua_function(tolua_S,"notify",tolua_Cocos2d_QXPomelo_notify00);
+   tolua_function(tolua_S,"bindEventHandle",tolua_Cocos2d_QXPomelo_bindEventHandle00);
+   tolua_function(tolua_S,"addListener",tolua_Cocos2d_QXPomelo_addListener00);
+   tolua_function(tolua_S,"destroy",tolua_Cocos2d_QXPomelo_destroy00);
   tolua_endmodule(tolua_S);
 
   { /* begin embedded lua code */

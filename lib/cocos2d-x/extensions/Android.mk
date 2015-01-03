@@ -26,7 +26,9 @@ LOCAL_SRC_FILES := \
     GUI/CCScrollView/CCTableView.cpp \
     GUI/CCScrollView/CCTableViewCell.cpp \
     CCBReader/CCData.cpp \
-    network/WebSocket.cpp
+    network/WebSocket.cpp \
+    QXPomelo/CCPomelo.cpp \
+    QXPomelo/QXPomelo.cpp
 
 ifeq ($(CC_DRAGONBONES_ENABLED),1)
 LOCAL_SRC_FILES += \
@@ -211,6 +213,7 @@ endif
 
 LOCAL_WHOLE_STATIC_LIBRARIES += libwebsockets_static
 
+LOCAL_WHOLE_STATIC_LIBRARIES += pomelo_static
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/GUI/CCControlExtension \
@@ -229,7 +232,12 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
                            $(LOCAL_PATH)/CCArmature/utils \
                            $(LOCAL_PATH)/filters \
-                           $(LOCAL_PATH)/DragonBones
+                           $(LOCAL_PATH)/DragonBones \
+                           $(LOCAL_PATH)/QXPomelo \
+                           $(LOCAL_PATH)/QXPomelo/pomelo-private \
+                           $(LOCAL_PATH)/QXPomelo/pomelo-protobuf \
+                           $(LOCAL_PATH)/QXPomelo/pomelo-protocol \
+                           $(LOCAL_PATH)/QXPomelo/uv-private
 
 
 LOCAL_C_INCLUDES = $(LOCAL_EXPORT_C_INCLUDES)
@@ -242,3 +250,4 @@ $(call import-module,cocos2dx)
 $(call import-module,CocosDenshion/android)
 $(call import-module,scripting/lua/proj.android)
 $(call import-module,external/libwebsockets/android)
+$(call import-module,libpomelo)
