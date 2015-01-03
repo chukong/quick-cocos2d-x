@@ -1,0 +1,8 @@
+0.2.0
+==========
+- multi bug fix
+- introduce pc_client_connect3
+
+0.1.2 
+==========
+- add support for configurating the proto file locations, #58  

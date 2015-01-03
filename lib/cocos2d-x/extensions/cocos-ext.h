@@ -79,4 +79,7 @@
 #include "CocoStudio/Action/CCActionNode.h"
 #endif // CC_CCSTUDIO_ENABLED
 
+#include "QXPomelo/QXPomelo.h"
+#include "QXPomelo/CCPomelo.h"
+
 #endif /* __COCOS2D_EXT_H__ */

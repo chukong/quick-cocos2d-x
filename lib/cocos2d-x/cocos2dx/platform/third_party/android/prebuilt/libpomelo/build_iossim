@@ -1,0 +1,3 @@
+xcodebuild -project deps/jansson/jansson.xcodeproj -sdk iphonesimulator6.1 -arch i386
+xcodebuild -project deps/uv/uv.xcodeproj -sdk iphonesimulator6.1 -arch i386
+xcodebuild -project pomelo.xcodeproj -sdk iphonesimulator6.1 -arch i386
