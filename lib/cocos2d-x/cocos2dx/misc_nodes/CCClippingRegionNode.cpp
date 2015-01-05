@@ -42,8 +42,8 @@ void CCClippingRegionNode::visit()
         }
         
         const CCPoint pos = convertToWorldSpace(CCPoint(m_clippingRegion.origin.x, m_clippingRegion.origin.y));
-        CCDirector::sharedDirector()->getOpenGLView()->setScissorInPoints(pos.x * m_fScaleX,
-                                                                          pos.y * m_fScaleX,
+        CCDirector::sharedDirector()->getOpenGLView()->setScissorInPoints(pos.x,
+                                                                          pos.y,
                                                                           m_clippingRegion.size.width * scaleX,
                                                                           m_clippingRegion.size.height * scaleY);
     }
