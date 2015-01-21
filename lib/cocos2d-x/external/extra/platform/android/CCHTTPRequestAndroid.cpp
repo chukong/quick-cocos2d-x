@@ -66,10 +66,9 @@ static jclass getClassID_(const char *className, JNIEnv *env)
         
         if (NULL == s_classHttp) {
             ret = pEnv->FindClass(className);
-            s_classHttp = ret;
-        } else {
-            ret = (jclass)pEnv->NewLocalRef(s_classHttp);
+            s_classHttp = (jclass)pEnv->NewGlobalRef(ret);
         }
+        ret = (jclass)pEnv->NewLocalRef(s_classHttp);
         
         if (! ret)
         {
