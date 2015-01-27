@@ -295,7 +295,7 @@ bool CCHTTPRequest::start(void)
     {
         string val = *it;
         int len = val.length();
-        int pos = val.find('=');
+        int pos = val.find(':');
         if (-1 == pos || pos >= len) {
             continue;
         }
