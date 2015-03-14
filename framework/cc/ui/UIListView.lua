@@ -202,14 +202,9 @@ function UIListView:removeItem(listItem, bAni)
 	return self
 end
 
-function UIListView:removeAllItems(bAni)
-	local itemsNum_ = table.nums(self.items_)
-
-    if itemsNum_ > 0 then
-    	self:removeItem(self.items_[1], bAni)
-    	self:removeAllItems(bAni)
-    	return
-    end
+function UIListView:removeAllItems()
+    self.container:removeAllChildren()
+    self.items_ = {}
 
     return self
 end
