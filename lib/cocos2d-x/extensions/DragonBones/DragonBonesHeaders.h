@@ -49,7 +49,7 @@
 #include "utils/TransformUtil.h"
 
 #include "objects/DBTransform.h"
-#include "objects//dbtinyxml2.h"
+#include "objects/dbtinyxml2.h"
 #include "objects/DisplayData.h"
 #include "objects/SlotData.h"
 #include "objects/SkeletonData.h"
