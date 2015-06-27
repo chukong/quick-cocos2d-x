@@ -456,41 +456,16 @@ bool CCLuaJavaBridge::CallInfo::getMethodInfo(void)
 {
 	m_methodID = 0;
     m_env = 0;
+    JniMethodInfo methodInfo;
+    bool ret = cocos2d::JniHelper::getStaticMethodInfo(methodInfo,
+                                        m_className.c_str(),
+                                        m_methodName.c_str(),
+                                        m_methodSig.c_str());
+    if (!ret) return false;
 
-    JavaVM* jvm = cocos2d::JniHelper::getJavaVM();
-    jint ret = jvm->GetEnv((void**)&m_env, JNI_VERSION_1_4);
-    switch (ret) {
-        case JNI_OK:
-            break;
-
-        case JNI_EDETACHED :
-            if (jvm->AttachCurrentThread(&m_env, NULL) < 0)
-            {
-                LOGD("%s", "Failed to get the environment using AttachCurrentThread()");
-                m_error = LUAJ_ERR_VM_THREAD_DETACHED;
-                return false;
-            }
-            break;
-
-        case JNI_EVERSION :
-        default :
-            LOGD("%s", "Failed to get the environment using GetEnv()");
-            m_error = LUAJ_ERR_VM_FAILURE;
-            return false;
-    }
-
-    m_classID = m_env->FindClass(m_className.c_str());
-    m_methodID = m_env->GetStaticMethodID(m_classID, m_methodName.c_str(), m_methodSig.c_str());
-    if (!m_methodID)
-    {
-    	m_env->ExceptionClear();
-        LOGD("Failed to find method id of %s.%s %s",
-        		m_className.c_str(),
-        		m_methodName.c_str(),
-        		m_methodSig.c_str());
-        m_error = LUAJ_ERR_METHOD_NOT_FOUND;
-        return false;
-    }
+    m_env = methodInfo.env;
+    m_classID = methodInfo.classID;
+    m_methodID = methodInfo.methodID;
 
     return true;
 }
@@ -582,27 +557,6 @@ jobject CCLuaJavaBridge::checkHashMap(lua_State *L)
         stdMap[key] = checkObj(L);
         lua_pop(L, 1);
     }
-    
-    JNIEnv *env = 0;
-    JavaVM* jvm = cocos2d::JniHelper::getJavaVM();
-    jint ret = jvm->GetEnv((void**)&env, JNI_VERSION_1_4);
-    switch (ret) {
-        case JNI_OK:
-            break;
-            
-        case JNI_EDETACHED :
-            if (jvm->AttachCurrentThread(&env, NULL) < 0)
-            {
-                LOGD("Failed to get the environment using AttachCurrentThread()");
-                return NULL;
-            }
-            break;
-            
-        case JNI_EVERSION :
-        default :
-            LOGD("Failed to get the environment using GetEnv()");
-            return NULL;
-    }
 
     PSJNIHelper::createHashMap();
     for(map<string, string>::iterator it = stdMap.begin(); it != stdMap.end(); ++it)
@@ -622,28 +576,7 @@ jobject CCLuaJavaBridge::checkVector(lua_State *L)
         strings.push_back(checkObj(L));
         lua_pop(L, 1);
     }
-    
-    JNIEnv *env = 0;
-    JavaVM* jvm = cocos2d::JniHelper::getJavaVM();
-    jint ret = jvm->GetEnv((void**)&env, JNI_VERSION_1_4);
-    switch (ret) {
-        case JNI_OK:
-            break;
-            
-        case JNI_EDETACHED :
-            if (jvm->AttachCurrentThread(&env, NULL) < 0)
-            {
-                LOGD("Failed to get the environment using AttachCurrentThread()");
-                return NULL;
-            }
-            break;
-            
-        case JNI_EVERSION :
-        default :
-            LOGD("Failed to get the environment using GetEnv()");
-            return NULL;
-    }
-    
+
     PSJNIHelper::createVector();
     for(vector<string>::iterator it = strings.begin(); it != strings.end(); ++it)
     {
@@ -664,28 +597,7 @@ jobject CCLuaJavaBridge::checkArrayList(lua_State *L)
         strings.push_back(checkObj(L));
         lua_pop(L, 1);
     }
-    
-    JNIEnv *env = 0;
-    JavaVM* jvm = cocos2d::JniHelper::getJavaVM();
-    jint ret = jvm->GetEnv((void**)&env, JNI_VERSION_1_4);
-    switch (ret) {
-        case JNI_OK:
-            break;
-            
-        case JNI_EDETACHED :
-            if (jvm->AttachCurrentThread(&env, NULL) < 0)
-            {
-                LOGD("Failed to get the environment using AttachCurrentThread()");
-                return NULL;
-            }
-            break;
-            
-        case JNI_EVERSION :
-        default :
-            LOGD("Failed to get the environment using GetEnv()");
-            return NULL;
-    }
-    
+
     PSJNIHelper::createArrayList();
     for(vector<string>::iterator it = strings.begin(); it != strings.end(); ++it)
     {

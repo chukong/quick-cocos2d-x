@@ -9,6 +9,7 @@ LOCAL_SRC_FILES := \
     extra/apptools/HelperFunc.cpp \
     extra/crypto/CCCrypto.cpp \
     extra/crypto/base64/libbase64.c \
+    extra/crypto/md5/md5.c \
     extra/network/CCNetwork.cpp \
     extra/platform/android/CCCryptoAndroid.cpp \
     extra/platform/android/CCNativeAndroid.cpp \
