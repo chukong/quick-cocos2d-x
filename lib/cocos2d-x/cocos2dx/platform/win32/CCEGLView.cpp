@@ -32,6 +32,8 @@ THE SOFTWARE.
 #include "keypad_dispatcher/CCKeypadDispatcher.h"
 #include "support/CCPointExtension.h"
 #include "CCApplication.h"
+#include "iup.h"
+#include "iupgl.h"
 
 NS_CC_BEGIN
 
@@ -264,63 +266,54 @@ void CCEGLView::destroyGL()
     }
 }
 
+static Ihandle* s_glcanvas;
+static Ihandle* s_dlg;
+
 bool CCEGLView::Create()
 {
-    bool bRet = false;
-    do
-    {
-        CC_BREAK_IF(m_hWnd);
+	HINSTANCE hInstance = GetModuleHandle(NULL);
+	WNDCLASS  wc;        // Windows Class Structure
 
-        s_pMainWindow = this;
+	// Redraw On Size, And Own DC For Window.
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wc.lpfnWndProc = _WindowProc;                    // WndProc Handles Messages
+	wc.cbClsExtra = 0;                              // No Extra Window Data
+	wc.cbWndExtra = 0;                                // No Extra Window Data
+	wc.hInstance = hInstance;                        // Set The Instance
+	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);    // Load The Default Icon
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);    // Load The Arrow Pointer
+	wc.hbrBackground = NULL;                           // No Background Required For GL
+	wc.lpszMenuName = m_menu;                         //
+	wc.lpszClassName = kWindowClassName;               // Set The Class Name
 
-        HINSTANCE hInstance = GetModuleHandle( NULL );
-        WNDCLASS  wc;        // Windows Class Structure
 
-        // Redraw On Size, And Own DC For Window.
-        wc.style          = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-        wc.lpfnWndProc    = _WindowProc;                    // WndProc Handles Messages
-        wc.cbClsExtra     = 0;                              // No Extra Window Data
-        wc.cbWndExtra     = 0;                                // No Extra Window Data
-        wc.hInstance      = hInstance;                        // Set The Instance
-        wc.hIcon          = LoadIcon( NULL, IDI_WINLOGO );    // Load The Default Icon
-        wc.hCursor        = LoadCursor( NULL, IDC_ARROW );    // Load The Arrow Pointer
-        wc.hbrBackground  = NULL;                           // No Background Required For GL
-        wc.lpszMenuName   = m_menu;                         //
-        wc.lpszClassName  = kWindowClassName;               // Set The Class Name
+	IupOpen(NULL, NULL);
+	IupGLCanvasOpen();
 
-        CC_BREAK_IF(! RegisterClass(&wc) && 1410 != GetLastError());
+	s_glcanvas = IupGLCanvas(NULL);
+	IupSetAttribute(s_glcanvas, "BUFFER", "DOUBLE");
+	IupSetAttribute(s_glcanvas, "BORDER", "NO");
 
-        // center window position
-        RECT rcDesktop;
-        GetWindowRect(GetDesktopWindow(), &rcDesktop);
+	s_dlg = IupDialog(s_glcanvas);
 
-        WCHAR wszBuf[50] = {0};
-        MultiByteToWideChar(CP_UTF8, 0, m_szViewName, -1, wszBuf, sizeof(wszBuf));
+	IupSetAttribute(s_dlg, "TITLE", "IupGLCanvas Test");
+	IupSetAttribute(s_dlg, "RESIZE", "NO");
+	
+	IupMap(s_dlg);
+	IupGLMakeCurrent(s_glcanvas);
 
-        // create window
-        m_hWnd = CreateWindowEx(
-            WS_EX_APPWINDOW | WS_EX_WINDOWEDGE,    // Extended Style For The Window
-            kWindowClassName,                                    // Class Name
-            wszBuf,                                                // Window Title
-            WS_CAPTION | WS_POPUPWINDOW | WS_MINIMIZEBOX,        // Defined Window Style
-            0, 0,                                                // Window Position
-            //TODO: Initializing width with a large value to avoid getting a wrong client area by 'GetClientRect' function.
-            1000,                                               // Window Width
-            1000,                                               // Window Height
-            NULL,                                                // No Parent Window
-            NULL,                                                // No Menu
-            hInstance,                                            // Instance
-            NULL );
+	RegisterClass(&wc);
+	m_hWnd = (HWND)IupGetAttribute(s_dlg, "HWND");
 
-        CC_BREAK_IF(! m_hWnd);
+	char* error;
+	error = IupGetAttribute(s_glcanvas, "ERROR");
+	if (error)
+		CCLog("ERROR=%s\n", error);
 
-        bRet = initGL();
-		if(!bRet) destroyGL();
-        CC_BREAK_IF(!bRet);
+	initGL();
 
-        bRet = true;
-    } while (0);
-
+	//CCLog("IupShow\n");
+	IupShowXY(s_dlg, IUP_CENTER, IUP_CENTER);
 #if(_MSC_VER >= 1600)
     m_bSupportTouch = CheckTouchSupport();
     if(m_bSupportTouch)
@@ -329,7 +322,7 @@ bool CCEGLView::Create()
     }
 #endif /* #if(_MSC_VER >= 1600) */
 
-    return bRet;
+    return true;
 }
 
 LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
@@ -574,10 +567,7 @@ void CCEGLView::end()
 
 void CCEGLView::swapBuffers()
 {
-    if (m_hDC != NULL)
-    {
-        ::SwapBuffers(m_hDC);
-    }
+	IupGLSwapBuffers(s_glcanvas);
 }
 
 
@@ -727,10 +717,11 @@ CCEGLView* CCEGLView::sharedOpenGLView()
 {
     if (s_pMainWindow == NULL)
     {
-        CCEGLView *view = new CCEGLView();
-		if(!view->Create())
+		s_pMainWindow = new CCEGLView();
+		if(!s_pMainWindow->Create())
 		{
-			delete view;
+			delete s_pMainWindow;
+			s_pMainWindow = NULL;
 		}
     }
 

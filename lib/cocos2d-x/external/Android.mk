@@ -23,6 +23,7 @@ ifeq ($(CC_CURL_ENABLED),1)
 LOCAL_SRC_FILES += extra/network/CCHTTPRequest.cpp
 else
 LOCAL_SRC_FILES += extra/platform/android/CCHTTPRequestAndroid.cpp
+LOCAL_SRC_FILES += extra/crypto/md5/md5.c
 endif
 
 ifeq ($(CC_PHYSICS_ENABLED),1)
