@@ -605,7 +605,7 @@ void CCHTTPRequest::onRequest(void)
 
     m_errorCode = code;
     m_responseCode = code;
-    m_errorMessage = (code == 200) ? "" : getResponedErrJava();
+    m_errorMessage = (code >= 200 && code < 300) ? "" : getResponedErrJava();
     m_state = (code == 200) ? kCCHTTPRequestStateCompleted : kCCHTTPRequestStateFailed;
     m_curlState = kCCHTTPRequestCURLStateClosed;
 }
