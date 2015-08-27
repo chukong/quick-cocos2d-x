@@ -325,8 +325,15 @@ public class QuickHTTPInterface {
 
     static byte[] getResponedString(HttpURLConnection http) {
         try {
-            DataInputStream in = new DataInputStream(http.getInputStream());
-
+            int statusCode = http.getResponseCode(); 
+            
+            DataInputStream in = null;
+            if(statusCode != 200 && statusCode != 201) {
+                in = new DataInputStream(http.getErrorStream());
+            }else{
+                in = new DataInputStream(http.getInputStream());
+            }
+                        
             byte[] buffer = new byte[1024];
             byte[] retBuf = null;
             int len = in.read(buffer);
