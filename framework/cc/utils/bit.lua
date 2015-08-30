@@ -225,7 +225,9 @@ bit = {
  bor  = bit_or,
  bxor = bit_xor,
  brshift = bit_rshift,
+ rshift = bit_rshift,
  blshift = bit_lshift,
+ lshift = bit_lshift,
  bxor2 = bit_xor2,
  blogic_rshift = bit_logic_rshift,
 
