@@ -1,0 +1,41 @@
+    class Animation
+    {
+    public:
+        static const String NONE;
+        static const String SAME_LAYER;
+        static const String SAME_GROUP;
+        static const String SAME_LAYER_AND_GROUP;
+        static const String ALL;
+        
+        String getLastAnimationName();
+		String getLastAnimationName @ getMovementID();
+		AnimationData* getAnimationData(String &name);
+        AnimationState *getLastAnimationState();
+        bool getIsPlaying();
+        bool getIsComplete();
+        float getTimeScale();
+        void setTimeScale(float value);
+        Animation(Armature *armature);
+        void dispose();
+        AnimationState* gotoAndPlay(
+            const char *animationName, 
+            float fadeInTime = -1, 
+            float duration = -1, 
+            float loop = NaN, 
+            int layer = 0, 
+            const char *group = "",
+            const char *fadeOutMode = "sameLayerAndGroup",
+            bool displayControl = true,
+            bool pauseFadeOut = true,
+            bool pauseFadeIn = true
+        );
+        void play();
+        void stop();
+        AnimationState* getState(const char *name, int layer = 0);
+        bool hasAnimation(const char *animationName);
+        void advanceTime(float passedTime);
+        void setActive(AnimationState *animationState, bool active);
+        int addLayer(int layer);
+        void addState(AnimationState *animationState);
+        void removeState(AnimationState *animationState);
+    };

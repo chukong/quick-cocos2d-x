@@ -1,0 +1,15 @@
+
+$pfile "cocos2dx/Cocos2d.tolua"
+$pfile "CocosDenshion/SimpleAudioEngine.tolua"
+$pfile "extensions/cocos-ext.tolua"
+
+$[
+
+function tolua.resetcfunction(cls, methodname)
+    local cfunction = tolua.getcfunction(cls, methodname)
+    if cfunction then
+        cls[methodname] = cfunction
+    end
+end
+
+$]

@@ -1,0 +1,11 @@
+<TextureAtlas name="Robot" imagePath="texture.png">
+  <SubTexture name="robotFolder/lowerbody" x="135" y="60" width="44" height="53"/>
+  <SubTexture name="robotFolder/upperbody" x="0" y="0" width="60" height="99"/>
+  <SubTexture name="robotFolder/head" x="135" y="0" width="49" height="59"/>
+  <SubTexture name="robotFolder/leg_foot" x="181" y="65" width="41" height="22"/>
+  <SubTexture name="robotFolder/leg_lower" x="61" y="0" width="35" height="103"/>
+  <SubTexture name="robotFolder/leg_upper" x="97" y="0" width="37" height="91"/>
+  <SubTexture name="robotFolder/arm_hand" x="223" y="70" width="18" height="38"/>
+  <SubTexture name="robotFolder/arm_lower" x="224" y="0" width="19" height="69"/>
+  <SubTexture name="robotFolder/arm_upper" x="185" y="0" width="38" height="64"/>
+</TextureAtlas>

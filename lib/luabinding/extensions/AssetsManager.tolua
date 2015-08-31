@@ -1,0 +1,7 @@
+
+$#include "cocos-ext.h"
+
+$using namespace cocos2d::extension;
+$using namespace std;
+
+$pfile "extensions/AssetsManager/AssetsManager.tolua"

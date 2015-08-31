@@ -1,0 +1,111 @@
+/****************************************************************************
+Copyright (c) 2010-2012 cocos2d-x.org
+Copyright (c) 2008-2010 Ricardo Quesada
+Copyright (c) 2011      Zynga Inc.
+
+http://www.cocos2d-x.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+****************************************************************************/
+
+/**
+ * @addtogroup actions
+ * @{
+ */
+
+/**
+@brief Base class for CCAction objects.
+ */
+class CCAction : public CCObject
+{
+    //! return true if the action has finished
+    bool isDone(void);
+
+    //! called every frame with it's delta time. DON'T override unless you know what you are doing.
+    void step(float dt);
+
+    /**
+    called once per frame. time a value between 0 and 1
+
+    For example:
+    - 0 means that the action just started
+    - 0.5 means that the action is in the middle
+    - 1 means that the action is over
+    */
+    void update(float time);
+
+    int getTag(void);
+    void setTag(int nTag);
+};
+
+/**
+@brief
+ Base class actions that do have a finite time duration.
+ Possible actions:
+   - An action with a duration of 0 seconds
+   - An action with a duration of 35.5 seconds
+
+ Infinite time actions are valid
+ */
+class CCFiniteTimeAction : public CCAction
+{
+    CCFiniteTimeAction *copy(void);
+    //! get duration in seconds of the action
+    float getDuration(void);
+    /** returns a reversed action */
+    CCFiniteTimeAction* reverse(void);
+};
+
+/**
+ @brief Changes the speed of an action, making it take longer (speed>1)
+ or less (speed<1) time.
+ Useful to simulate 'slow motion' or 'fast forward' effect.
+ @warning This action can't be Sequenceable because it is not an CCIntervalAction
+ */
+class CCSpeed : public CCAction
+{
+    float getSpeed(void);
+    /** alter the speed of the inner function in runtime */
+    void setSpeed(float fSpeed);
+    /** create the action */
+    static CCSpeed* create(CCActionInterval* pAction, float fSpeed);
+};
+
+/**
+@brief CCFollow is an action that "follows" a node.
+
+Eg:
+layer->runAction(CCFollow::actionWithTarget(hero));
+
+Instead of using CCCamera as a "follower", use this action instead.
+@since v0.99.2
+*/
+class CCFollow : public CCAction
+{
+    bool isBoundarySet(void);
+    /** alter behavior - turn on/off boundary */
+    void setBoudarySet(bool bValue);
+    /** creates the action with a set boundary,
+    It will work with no boundary if @param rect is equal to CCRectZero.
+    */
+    static CCFollow* create(CCNode *pFollowedNode, CCRect rect = CCRect(0, 0, 0, 0));
+};
+
+// end of actions group
+/// @}

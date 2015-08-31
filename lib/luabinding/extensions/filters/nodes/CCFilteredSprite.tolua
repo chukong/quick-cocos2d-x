@@ -1,0 +1,47 @@
+class CCFilteredSprite : public CCSprite
+{
+public:
+	CCFilter* getFilter(unsigned int index = 0);
+	void setFilter(CCFilter* pFilter)=0;
+
+	CCArray* getFilters();
+	void setFilters(CCArray* pFilters);
+
+	void clearFilter();
+};
+
+class CCFilteredSpriteWithOne : public CCFilteredSprite
+{
+public:
+	static CCFilteredSpriteWithOne* create();
+	static CCFilteredSpriteWithOne* create(const char* pszFileName);
+	static CCFilteredSpriteWithOne* create(const char* pszFileName, const CCRect& rect);
+
+	static CCFilteredSpriteWithOne* createWithTexture(CCTexture2D* pTexture);
+	static CCFilteredSpriteWithOne* createWithTexture(CCTexture2D* pTexture, const CCRect& rect);
+
+	static CCFilteredSpriteWithOne* createWithSpriteFrame(CCSpriteFrame* pSpriteFrame);
+
+	static CCFilteredSpriteWithOne* createWithSpriteFrameName(const char* pszSpriteFrameName);
+
+	CCFilter* getFilter(unsigned int index = 0);
+	void setFilters(CCArray* pFilters);
+	void setFilter(CCFilter* pFilter);
+};
+
+class CCFilteredSpriteWithMulti : public CCFilteredSprite
+{
+public:
+	static CCFilteredSpriteWithMulti* create();
+	static CCFilteredSpriteWithMulti* create(const char* pszFileName);
+	static CCFilteredSpriteWithMulti* create(const char* pszFileName, const CCRect& rect);
+
+	static CCFilteredSpriteWithMulti* createWithTexture(CCTexture2D* pTexture);
+	static CCFilteredSpriteWithMulti* createWithTexture(CCTexture2D* pTexture, const CCRect& rect);
+
+	static CCFilteredSpriteWithMulti* createWithSpriteFrame(CCSpriteFrame* pSpriteFrame);
+
+	static CCFilteredSpriteWithMulti* createWithSpriteFrameName(const char* pszSpriteFrameName);
+
+	void setFilter(CCFilter* pFilter);
+};

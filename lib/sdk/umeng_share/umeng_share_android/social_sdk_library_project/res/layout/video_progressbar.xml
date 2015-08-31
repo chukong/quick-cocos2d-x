@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:layout_marginBottom="50dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:alpha="0.8"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/currentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/video_start_time"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+    <SeekBar
+        android:id="@+id/progBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:max="100"
+        android:progress="1"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/thumb" 
+        android:thumbOffset="0dp"/>
+
+    <TextView
+        android:id="@+id/totalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/video_start_time"
+        android:textColor="#ffffff"
+        android:textSize="15sp" />
+
+</LinearLayout>

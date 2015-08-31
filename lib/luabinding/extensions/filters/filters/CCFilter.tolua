@@ -1,0 +1,12 @@
+class CCFilter : public CCObject
+{
+public:
+	void initSprite(CCFilteredSprite* sprite);
+	const char* shaderName;
+};
+
+class CCSingleFloatParamFilter : public CCFilter
+{
+public:
+	void setParameter(float param);
+};

@@ -7,7 +7,7 @@ function help()
 Make luabinding from tolua++ pkg file.
 
 Usage:
-    compile_luabinding [-d output_dir] [-o output_filename] [-E KEY=VALUE] pkg_filename
+    compile_luabinding [-d output_dir] [-o output_filename] [-E KEY=VALUE] [-c config_filepath] pkg_filename
 
 Example:
     -- create files MyClasses_luabinding.cpp, MyClasses_luabinding.h
@@ -56,6 +56,10 @@ while (!empty($argv))
     {
         array_push($parameters['macros'], array_shift($argv));
     }
+    else if ($arg == '-c') 
+    {
+        $parameters['config_filepath'] = array_shift($argv);
+    }
     else
     {
         $parameters['input_path'] = $arg;
@@ -65,7 +69,7 @@ while (!empty($argv))
 // check input file
 if (!isset($parameters['input_path']))
 {
-    echo "\nERR: invalid parameters.\n";
+    echo "\nERR: not set input_path.\n";
     help();
 }
 $input_path = realpath($parameters['input_path']);
@@ -92,6 +96,12 @@ else if (!is_dir($parameters['output_dir']))
 if (!isset($parameters['output_filename']))
 {
     $parameters['output_filename'] = $pathinfo['filename'];
+}
+
+// set default config file path
+if (!isset($parameters['config_filepath']))
+{
+    $parameters['config_filepath'] = rtrim(__DIR__, '/\\') . DIRECTORY_SEPARATOR . 'compile_luabinding_config.lua';
 }
 
 // call builder

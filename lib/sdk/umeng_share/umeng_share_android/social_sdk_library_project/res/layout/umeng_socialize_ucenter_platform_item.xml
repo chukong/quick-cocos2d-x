@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mySwitch="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="10dp"
+    android:background="@null"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/umeng_socialize_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/umeng_socialize_default_avatar" />
+
+    <TextView
+        android:id="@+id/umeng_socialize_msg"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="80dp"
+        android:layout_toRightOf="@id/umeng_socialize_icon"
+        android:gravity="center_vertical"
+        android:text="MSG"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+    <com.umeng.socialize.view.wigets.SwitchImageView
+        android:id="@+id/umeng_socialize_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="right|center" />
+    
+    <View android:id="@+id/umeng_socialize_divider"
+         style="@style/umeng_socialize_divider"
+        android:layout_below="@id/umeng_socialize_msg"/>
+
+</RelativeLayout>

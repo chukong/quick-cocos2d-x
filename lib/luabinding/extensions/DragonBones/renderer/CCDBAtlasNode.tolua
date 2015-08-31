@@ -1,0 +1,12 @@
+class CCDBAtlasNode : public CCNode, public CCTextureProtocol , public dragonBones::Object
+{
+	public:
+	CCDBAtlasNode();
+	~CCDBAtlasNode();
+    bool isOpacityModifyRGB();
+    void setOpacityModifyRGB(bool isOpacityModifyRGB);
+    const ccColor3B& getColor(void);
+    void setColor(const ccColor3B& color);
+    void setOpacity(GLubyte opacity);
+};
+

@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'quick-player' target in the 'quick-player' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

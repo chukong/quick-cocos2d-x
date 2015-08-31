@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UmengSocial</string>
+    <string name="umeng_example_home_btn_plus">社交分享</string>
+    <string name="actionbar_activity_not_found">Failed to open intent...</string>
+	<string name="share_by_weixin">微信分享</string>
+	<string name="share_by_qq">QQ分享</string>
+</resources>

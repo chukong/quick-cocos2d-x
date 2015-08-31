@@ -1,0 +1,92 @@
+
+#ifndef _GRAY_SCPRITE_H_
+#define _GRAY_SCPRITE_H_
+
+#include "sprite_nodes/CCSprite.h"
+
+NS_CC_BEGIN
+
+class CCSpriteFrame;
+
+class CCGraySprite: public CCSprite
+{
+public:
+    /// @{
+    /// @name Creators
+
+    /**
+     * Creates an empty sprite without texture. You can call setTexture method subsequently.
+     *
+     * @return An empty sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* create();
+
+    /**
+     * Creates a sprite with an image filename.
+     *
+     * After creation, the rect of sprite will be the size of the image,
+     * and the offset will be (0,0).
+     *
+     * @param   pszFileName The string which indicates a path to image file, e.g., "scene1/monster.png".
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* create(const char *pszFileName);
+
+    /**
+     * Creates a sprite with an image filename and a rect.
+     *
+     * @param   pszFileName The string wich indicates a path to image file, e.g., "scene1/monster.png"
+     * @param   rect        Only the contents inside rect of pszFileName's texture will be applied for this sprite.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* create(const char *pszFileName, const CCRect& rect);
+
+    /**
+     * Creates a sprite with an exsiting texture contained in a CCTexture2D object
+     * After creation, the rect will be the size of the texture, and the offset will be (0,0).
+     *
+     * @param   pTexture    A pointer to a CCTexture2D object.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* createWithTexture(CCTexture2D *pTexture);
+
+    /**
+     * Creates a sprite with a texture and a rect.
+     *
+     * After creation, the offset will be (0,0).
+     *
+     * @param   pTexture    A pointer to an existing CCTexture2D object.
+     *                      You can use a CCTexture2D object for many sprites.
+     * @param   rect        Only the contents inside the rect of this texture will be applied for this sprite.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* createWithTexture(CCTexture2D *pTexture, const CCRect& rect);
+
+    /**
+     * Creates a sprite with an sprite frame.
+     *
+     * @param   pSpriteFrame    A sprite frame which involves a texture and a rect
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* createWithSpriteFrame(CCSpriteFrame *pSpriteFrame);
+
+    /**
+     * Creates a sprite with an sprite frame name.
+     *
+     * A CCGraySpriteFrame will be fetched from the CCGraySpriteFrameCache by pszSpriteFrameName param.
+     * If the CCGraySpriteFrame doesn't exist it will raise an exception.
+     *
+     * @param   pszSpriteFrameName A null terminated string which indicates the sprite frame name.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCGraySprite* createWithSpriteFrameName(const char *pszSpriteFrameName);
+
+    /// @}  end of creators group
+
+	virtual bool initWithTexture(CCTexture2D *pTexture, const CCRect& rect, bool rotated);
+	virtual void draw(void);
+};
+
+NS_CC_END
+
+#endif

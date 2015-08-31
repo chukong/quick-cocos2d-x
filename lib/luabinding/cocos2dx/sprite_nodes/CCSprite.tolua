@@ -1,0 +1,274 @@
+/****************************************************************************
+Copyright (c) 2010-2012 cocos2d-x.org
+Copyright (c) 2008-2010 Ricardo Quesada
+Copyright (c) 2011      Zynga Inc.
+
+http://www.cocos2d-x.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+****************************************************************************/
+
+/**
+ * @addtogroup sprite_nodes
+ * @{
+ */
+
+
+/**
+ * CCSprite is a 2d image ( http://en.wikipedia.org/wiki/Sprite_(computer_graphics) )
+ *
+ * CCSprite can be created with an image, or with a sub-rectangle of an image.
+ *
+ * If the parent or any of its ancestors is a CCSpriteBatchNode then the following features/limitations are valid
+ *    - Features when the parent is a CCBatchNode:
+ *        - MUCH faster rendering, specially if the CCSpriteBatchNode has many children. All the children will be drawn in a single batch.
+ *
+ *    - Limitations
+ *        - Camera is not supported yet (eg: CCOrbitCamera action doesn't work)
+ *        - GridBase actions are not supported (eg: CCLens, CCRipple, CCTwirl)
+ *        - The Alias/Antialias property belongs to CCSpriteBatchNode, so you can't individually set the aliased property.
+ *        - The Blending function property belongs to CCSpriteBatchNode, so you can't individually set the blending function property.
+ *        - Parallax scroller is not supported, but can be simulated with a "proxy" sprite.
+ *
+ *  If the parent is an standard CCNode, then CCSprite behaves like any other CCNode:
+ *    - It supports blending functions
+ *    - It supports aliasing / antialiasing
+ *    - But the rendering will be slower: 1 draw per children.
+ *
+ * The default anchorPoint in CCSprite is (0.5, 0.5).
+ */
+class CCSprite : public CCNode
+{
+    /// @{
+    /// @name Creators
+
+    /**
+     * Creates a sprite with an image filename and a rect.
+     *
+     * @param   pszFileName The string wich indicates a path to image file, e.g., "scene1/monster.png"
+     * @param   rect        Only the contents inside rect of pszFileName's texture will be applied for this sprite.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCSprite* create(const char *pszFileName, CCRect rect);
+
+    /**
+     * Creates a sprite with an image filename.
+     *
+     * After creation, the rect of sprite will be the size of the image,
+     * and the offset will be (0,0).
+     *
+     * @param   pszFileName The string which indicates a path to image file, e.g., "scene1/monster.png".
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCSprite* create(const char *pszFileName);
+
+    /**
+     * Creates an empty sprite without texture. You can call setTexture method subsequently.
+     *
+     * @return An empty sprite object that is marked as autoreleased.
+     */
+    static CCSprite* create();
+
+    /**
+     * Creates a sprite with a texture and a rect.
+     *
+     * After creation, the offset will be (0,0).
+     *
+     * @param   pTexture    A pointer to an existing CCTexture2D object.
+     *                      You can use a CCTexture2D object for many sprites.
+     * @param   rect        Only the contents inside the rect of this texture will be applied for this sprite.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCSprite* createWithTexture(CCTexture2D *pTexture, CCRect rect);
+
+    /**
+     * Creates a sprite with an exsiting texture contained in a CCTexture2D object
+     * After creation, the rect will be the size of the texture, and the offset will be (0,0).
+     *
+     * @param   pTexture    A pointer to a CCTexture2D object.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCSprite* createWithTexture(CCTexture2D *pTexture);
+
+    /**
+     * Creates a sprite with an sprite frame.
+     *
+     * @param   pSpriteFrame    A sprite frame which involves a texture and a rect
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCSprite* createWithSpriteFrame(CCSpriteFrame *pSpriteFrame);
+
+    /**
+     * Creates a sprite with an sprite frame name.
+     *
+     * A CCSpriteFrame will be fetched from the CCSpriteFrameCache by pszSpriteFrameName param.
+     * If the CCSpriteFrame doesn't exist it will raise an exception.
+     *
+     * @param   pszSpriteFrameName A null terminated string which indicates the sprite frame name.
+     * @return  A valid sprite object that is marked as autoreleased.
+     */
+    static CCSprite* createWithSpriteFrameName(const char *pszSpriteFrameName);
+
+    /// @}  end of creators group
+
+
+    /// @{
+    /// @name Functions inherited from CCTextureProtocol
+    void setTexture(CCTexture2D *texture);
+    CCTexture2D* getTexture(void);
+    void setBlendFunc(ccBlendFunc blendFunc);
+    ccBlendFunc getBlendFunc(void);
+    /// @}
+
+
+    /// @{
+    /// @name Texture methods
+
+    /**
+     * Sets the texture rect, rectRotated and untrimmed size of the CCSprite in points.
+     * It will update the texture coordinates and the vertex rectangle.
+     */
+    void setTextureRect(CCRect rect, bool rotated, CCSize untrimmedSize);
+
+    /**
+     * Updates the texture rect of the CCSprite in points.
+     * It will call setTextureRect:rotated:untrimmedSize with rotated = NO, and utrimmedSize = rect.size.
+     */
+    void setTextureRect(CCRect rect);
+
+    /**
+     * Sets the vertex rect.
+     * It will be called internally by setTextureRect.
+     * Useful if you want to create 2x images from SD images in Retina Display.
+     * Do not call it manually. Use setTextureRect instead.
+     */
+    void setVertexRect(CCRect rect);
+
+    /// @} end of texture methods
+
+
+
+    /// @{
+    /// @name Frames methods
+
+    /**
+     * Sets a new display frame to the CCSprite.
+     */
+    void setDisplayFrame(CCSpriteFrame *pNewFrame);
+
+    /**
+     * Returns whether or not a CCSpriteFrame is being displayed
+     */
+    bool isFrameDisplayed(CCSpriteFrame *pFrame);
+
+    /**
+     * Returns the current displayed frame.
+     */
+    CCSpriteFrame* displayFrame(void);
+    CCSpriteFrame* displayFrame @ getDisplayFrame (void);
+
+    /// @} End of frames methods
+
+
+    /// @{
+    /// @name Animation methods
+    /**
+     * Changes the display frame with animation name and index.
+     * The animation name will be get from the CCAnimationCache
+     */
+    void setDisplayFrameWithAnimationName(const char *animationName, int frameIndex);
+    /// @}
+
+
+    /// @{
+    /// @name Sprite Properties' setter/getters
+
+    /**
+     * Whether or not the Sprite needs to be updated in the Atlas.
+     *
+     * @return true if the sprite needs to be updated in the Atlas, false otherwise.
+     */
+    bool isDirty(void);
+
+    /**
+     * Makes the Sprite to be updated in the Atlas.
+     */
+    void setDirty(bool bDirty);
+
+    /**
+     * Returns whether or not the texture rectangle is rotated.
+     */
+    bool isTextureRectRotated(void);
+
+    /**
+     * Returns the index used on the TextureAtlas.
+     */
+    unsigned int getAtlasIndex(void);
+
+    /**
+     * Returns the rect of the CCSprite in points
+     */
+    CCRect getTextureRect(void);
+
+    /**
+     * Gets the offset position of the sprite. Calculated automatically by editors like Zwoptex.
+     */
+    CCPoint getOffsetPosition(void);
+
+    /**
+     * Returns the flag which indicates whether the sprite is flipped horizontally or not.
+     *
+     * It only flips the texture of the sprite, and not the texture of the sprite's children.
+     * Also, flipping the texture doesn't alter the anchorPoint.
+     * If you want to flip the anchorPoint too, and/or to flip the children too use:
+     * sprite->setScaleX(sprite->getScaleX() * -1);
+     *
+     * @return true if the sprite is flipped horizaontally, false otherwise.
+     */
+    bool isFlipX(void);
+    /**
+     * Sets whether the sprite should be flipped horizontally or not.
+     *
+     * @param bFlipX true if the sprite should be flipped horizaontally, false otherwise.
+     */
+    void setFlipX(bool bFlipX);
+
+    /**
+     * Return the flag which indicates whether the sprite is flipped vertically or not.
+     *
+     * It only flips the texture of the sprite, and not the texture of the sprite's children.
+     * Also, flipping the texture doesn't alter the anchorPoint.
+     * If you want to flip the anchorPoint too, and/or to flip the children too use:
+     * sprite->setScaleY(sprite->getScaleY() * -1);
+     *
+     * @return true if the sprite is flipped vertically, flase otherwise.
+     */
+    bool isFlipY(void);
+    /**
+     * Sets whether the sprite should be flipped vertically or not.
+     *
+     * @param bFlipY true if the sprite should be flipped vertically, flase otherwise.
+     */
+    void setFlipY(bool bFlipY);
+
+    /// @} End of Sprite properties getter/setters
+};
+
+// end of sprite_nodes group
+/// @}

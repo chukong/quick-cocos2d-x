@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quick-cocos2d-x API Documents - cocos2dx.Geometry</title>
+<link rel="stylesheet" href="luadocx-style.css" type="text/css" />
+<link rel="stylesheet" href="luadocx-style-monokai.css" type="text/css" />
+<script src="luadocx-highlight.min.js"></script>
+<script type="text/javascript" charset="utf-8">hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <div id="container">
+
+    <table id="main">
+      <tr>
+        <td id="navigation">
+
+          <h2>Links</h2>
+          <ul>
+            <li><a href="index.html">Index</a></li>
+          </ul>
+
+          <h2>Modules</h2>
+          <ul>
+            <li><a href="audio.html">audio</a></li>
+            <li><a href="cocos2dx.html">cocos2dx</a></li>
+            <li><a href="crypto.html">crypto</a></li>
+            <li><a href="debug.html">debug</a></li>
+            <li><a href="device.html">device</a></li>
+            <li><a href="display.html">display</a></li>
+            <li><a href="functions.html">functions</a></li>
+            <li><a href="index.html">init</a></li>
+            <li><a href="json.html">json</a></li>
+            <li><a href="luaj.html">luaj</a></li>
+            <li><a href="luaoc.html">luaoc</a></li>
+            <li><a href="network.html">network</a></li>
+            <li><a href="scheduler.html">scheduler</a></li>
+            <li><a href="transition.html">transition</a></li>
+            <li><a href="ui.html">ui</a></li>
+            <li><a href="cc_eventproxy.html">cc.EventProxy</a></li>
+            <li><a href="cc_gameobject.html">cc.GameObject</a></li>
+            <li><a href="cc_registry.html">cc.Registry</a></li>
+            <li><a href="cc_components_component.html">cc.components.Component</a></li>
+            <li><a href="cc_components_behavior_eventprotocol.html">cc.components.behavior.EventProtocol</a></li>
+            <li><a href="cc_components_behavior_statemachine.html">cc.components.behavior.StateMachine</a></li>
+            <li><a href="cc_components_ui_basiclayoutprotocol.html">cc.components.ui.BasicLayoutProtocol</a></li>
+            <li><a href="cc_components_ui_layoutprotocol.html">cc.components.ui.LayoutProtocol</a></li>
+            <li><a href="cc_init.html">cc.init</a></li>
+            <li><a href="cc_mvc_appbase.html">cc.mvc.AppBase</a></li>
+            <li><a href="cc_mvc_modelbase.html">cc.mvc.ModelBase</a></li>
+            <li><a href="cc_mvc_init.html">cc.mvc.init</a></li>
+            <li><a href="cc_net_sockettcp.html">cc.net.SocketTCP</a></li>
+            <li><a href="cc_net_init.html">cc.net.init</a></li>
+            <li><a href="cc_ui_uiboxlayout.html">cc.ui.UIBoxLayout</a></li>
+            <li><a href="cc_ui_uibutton.html">cc.ui.UIButton</a></li>
+            <li><a href="cc_ui_uicheckboxbutton.html">cc.ui.UICheckBoxButton</a></li>
+            <li><a href="cc_ui_uicheckboxbuttongroup.html">cc.ui.UICheckBoxButtonGroup</a></li>
+            <li><a href="cc_ui_uigroup.html">cc.ui.UIGroup</a></li>
+            <li><a href="cc_ui_uiimage.html">cc.ui.UIImage</a></li>
+            <li><a href="cc_ui_uilabel.html">cc.ui.UILabel</a></li>
+            <li><a href="cc_ui_uilayout.html">cc.ui.UILayout</a></li>
+            <li><a href="cc_ui_uipushbutton.html">cc.ui.UIPushButton</a></li>
+            <li><a href="cc_ui_uislider.html">cc.ui.UISlider</a></li>
+            <li><a href="cc_ui_uistretch.html">cc.ui.UIStretch</a></li>
+            <li><a href="cc_ui_init.html">cc.ui.init</a></li>
+            <li><a href="cc_utils_bytearray.html">cc.utils.ByteArray</a></li>
+            <li><a href="cc_utils_bytearrayvarint.html">cc.utils.ByteArrayVarint</a></li>
+            <li><a href="cc_utils_gettext.html">cc.utils.Gettext</a></li>
+            <li><a href="cc_utils_init.html">cc.utils.init</a></li>
+            <li><a href="cocos2dx_drawnodeex.html">cocos2dx.DrawNodeEx</a></li>
+            <li><a href="cocos2dx_event.html">cocos2dx.Event</a></li>
+            <li><strong>cocos2dx.Geometry</strong></li>
+            <li><a href="cocos2dx_global.html">cocos2dx.Global</a></li>
+            <li><a href="cocos2dx_layerex.html">cocos2dx.LayerEx</a></li>
+            <li><a href="cocos2dx_menuitemex.html">cocos2dx.MenuItemEx</a></li>
+            <li><a href="cocos2dx_nodeex.html">cocos2dx.NodeEx</a></li>
+            <li><a href="cocos2dx_objectbinding.html">cocos2dx.ObjectBinding</a></li>
+            <li><a href="cocos2dx_opengl.html">cocos2dx.OpenGL</a></li>
+            <li><a href="cocos2dx_sceneex.html">cocos2dx.SceneEx</a></li>
+            <li><a href="cocos2dx_spriteex.html">cocos2dx.SpriteEx</a></li>
+          </ul>
+
+        </td> <!-- navigation -->
+
+        <td id="content">
+
+          <!-- BEGIN module doc -->
+
+          <div id="module_doc">
+
+<h1>cocos2dx.Geometry</h1>
+
+<p>定义用于 cc.Point 结算的辅助函数</p>
+
+<p>创建并返回一个 CCPoint 对象</p>
+
+<pre><code class="lua"><br />local point = c.p(100, 50)
+-- point 是一个 CCPoint 对象
+print(point.x, point.y)
+-- 输出 100 50
+
+</code></pre>
+
+<p>@param number x
+@param number y</p>
+
+<p>@return CCPoint</p>
+
+<p>创建并返回一个 CCSize 对象</p>
+
+<pre><code class="lua"><br />local size = c.size(200, 80)
+-- size 是一个 CCSize 对象
+print(size.width, size.height)
+-- 输出 200 80
+
+</code></pre>
+
+<p>@param number width
+@param number height</p>
+
+<p>@return CCSize</p>
+
+<p>创建并返回一个 CCRect 对象</p>
+
+<pre><code class="lua"><br />local rect = c.rect(100, 50, 200, 80)
+-- rect 是一个 CCRect 对象
+-- rect.origin 是一个 CCPoint 对象
+-- rect.size 是一个 CCSize 对象
+print(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
+-- 输出 100 50 200 80
+
+</code></pre>
+
+<p>@param number x
+@param number y
+@param number width
+@param number height</p>
+
+<p>@return CCRect</p>
+
+          </div>
+
+          <!-- END module doc -->
+
+
+          <!--  BEGIN functions index -->
+
+
+          <table class="function_list">
+
+              <tr>
+                  <th colspan="2">Functions</th>
+              </tr>
+
+
+            <tr>
+              <td class="name" nowrap colspan="2"><a href="#anchor_c_point2t">c.point2t(point)</a></td>
+            </tr>
+
+            <tr>
+              <td class="summary" colspan="2">将 CCPoint 对象转换为一个 Lua 表格</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap colspan="2"><a href="#anchor_c_size2t">c.size2t(size)</a></td>
+            </tr>
+
+            <tr>
+              <td class="summary" colspan="2">将 CCSzie 对象转换为一个 Lua 表格</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap colspan="2"><a href="#anchor_c_rect2t">c.rect2t(rect)</a></td>
+            </tr>
+
+            <tr>
+              <td class="summary" colspan="2">将 CCRect 对象转换为一个 Lua 表格</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap colspan="2"><a href="#anchor_c_t2point">c.t2point(t)</a></td>
+            </tr>
+
+            <tr>
+              <td class="summary" colspan="2">将一个 Lua 表格转换为 CCPoint 对象</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap colspan="2"><a href="#anchor_c_t2size">c.t2size(t)</a></td>
+            </tr>
+
+            <tr>
+              <td class="summary" colspan="2">将一个 Lua 表格转换为 CCSize 对象</td>
+            </tr>
+
+
+            <tr>
+              <td class="name" nowrap colspan="2"><a href="#anchor_c_t2rect">c.t2rect(t)</a></td>
+            </tr>
+
+            <tr>
+              <td class="summary" colspan="2">将一个 Lua 表格转换为 CCRect 对象</td>
+            </tr>
+
+
+          </table>
+
+          <!--  END functions index -->
+
+
+          <!-- BEGIN functions details -->
+
+          <h2>Functions</h2>
+          <dl class="function">
+
+
+<!--            <dt class="--><!--">-->
+<!--              --><!--<a name="--><!--"></a>-->
+<!--              <h3>--><!--</h3>-->
+<!--            </dt>-->
+
+            <a name="anchor_c_point2t"></a>
+
+            <dd class="">
+
+<h3>c.point2t()</h3>
+
+<blockquote>
+  <p>c.point2t(point)</p>
+</blockquote>
+
+<p>将 CCPoint 对象转换为一个 Lua 表格</p>
+
+<pre><code class="lua"><br />local point = c.p(100, 50)
+local res = c.point2t(point)
+-- res = {x = 100, y = 50}
+
+</code></pre>
+
+<h4>Parameters</h4>
+
+<ul>
+<li>CCPoint <strong>point</strong></li>
+</ul>
+
+<h4>Returns</h4>
+
+<ul>
+<li>table</li>
+</ul>
+
+<p>@see c.t2point</p>
+
+            </dd>
+
+
+<!--            <dt class="--><!--">-->
+<!--              --><!--<a name="--><!--"></a>-->
+<!--              <h3>--><!--</h3>-->
+<!--            </dt>-->
+
+            <a name="anchor_c_size2t"></a>
+
+            <dd class="">
+
+<h3>c.size2t()</h3>
+
+<blockquote>
+  <p>c.size2t(size)</p>
+</blockquote>
+
+<p>将 CCSzie 对象转换为一个 Lua 表格</p>
+
+<pre><code class="lua"><br />local size = c.size(200, 80)
+local res = c.size2t(size)
+-- res = {width = 200, height = 80}
+
+</code></pre>
+
+<h4>Parameters</h4>
+
+<ul>
+<li>CCSzie <strong>size</strong></li>
+</ul>
+
+<h4>Returns</h4>
+
+<ul>
+<li>table</li>
+</ul>
+
+<p>@see c.t2size</p>
+
+            </dd>
+
+
+<!--            <dt class="--><!--">-->
+<!--              --><!--<a name="--><!--"></a>-->
+<!--              <h3>--><!--</h3>-->
+<!--            </dt>-->
+
+            <a name="anchor_c_rect2t"></a>
+
+            <dd class="">
+
+<h3>c.rect2t()</h3>
+
+<blockquote>
+  <p>c.rect2t(rect)</p>
+</blockquote>
+
+<p>将 CCRect 对象转换为一个 Lua 表格</p>
+
+<pre><code class="lua"><br />local rect = c.rect(100, 50, 200, 80)
+local res = c.rect2t(rect)
+-- res = {origin = {x = 100, y = 50}, size = {width = 200, height = 80}}
+
+</code></pre>
+
+<h4>Parameters</h4>
+
+<ul>
+<li>CCRect <strong>rect</strong></li>
+</ul>
+
+<h4>Returns</h4>
+
+<ul>
+<li>table</li>
+</ul>
+
+<p>@see c.t2rect</p>
+
+            </dd>
+
+
+<!--            <dt class="--><!--">-->
+<!--              --><!--<a name="--><!--"></a>-->
+<!--              <h3>--><!--</h3>-->
+<!--            </dt>-->
+
+            <a name="anchor_c_t2point"></a>
+
+            <dd class="">
+
+<h3>c.t2point()</h3>
+
+<blockquote>
+  <p>c.t2point(t)</p>
+</blockquote>
+
+<p>将一个 Lua 表格转换为 CCPoint 对象</p>
+
+<pre><code class="lua"><br />local input = {width = 200, height = 80}
+local res = c.t2size(input)
+-- res 是一个 CCSize 对象
+-- res = CCSize(200, 80)
+
+</code></pre>
+
+<h4>Parameters</h4>
+
+<ul>
+<li>table <strong>t</strong></li>
+</ul>
+
+<h4>Returns</h4>
+
+<ul>
+<li>CCSize</li>
+</ul>
+
+<p>@see c.size2t</p>
+
+            </dd>
+
+
+<!--            <dt class="--><!--">-->
+<!--              --><!--<a name="--><!--"></a>-->
+<!--              <h3>--><!--</h3>-->
+<!--            </dt>-->
+
+            <a name="anchor_c_t2size"></a>
+
+            <dd class="">
+
+<h3>c.t2size()</h3>
+
+<blockquote>
+  <p>c.t2size(t)</p>
+</blockquote>
+
+<p>将一个 Lua 表格转换为 CCSize 对象</p>
+
+<pre><code class="lua"><br />local t = {width = 200, height = 80}
+local res = c.t2size(t)
+-- res 是一个 CCSize 对象
+
+</code></pre>
+
+<h4>Parameters</h4>
+
+<ul>
+<li>table <strong>t</strong></li>
+</ul>
+
+<h4>Returns</h4>
+
+<ul>
+<li>CCSize</li>
+</ul>
+
+<p>@see c.size2t</p>
+
+            </dd>
+
+
+<!--            <dt class="--><!--">-->
+<!--              --><!--<a name="--><!--"></a>-->
+<!--              <h3>--><!--</h3>-->
+<!--            </dt>-->
+
+            <a name="anchor_c_t2rect"></a>
+
+            <dd class="">
+
+<h3>c.t2rect()</h3>
+
+<blockquote>
+  <p>c.t2rect(t)</p>
+</blockquote>
+
+<p>将一个 Lua 表格转换为 CCRect 对象</p>
+
+<pre><code class="lua"><br />local t = {origin = {x = 100, y = 50}, size = {width = 200, height = 80}}
+local res = c.t2rect(t)
+-- res 是一个 CCRect 对象
+
+</code></pre>
+
+<h4>Parameters</h4>
+
+<ul>
+<li>table <strong>t</strong></li>
+</ul>
+
+<h4>Returns</h4>
+
+<ul>
+<li>CCRect</li>
+</ul>
+
+<p>@see c.rect2t</p>
+
+            </dd>
+
+
+          </dl>
+
+          <!-- BEGIN functions details -->
+
+
+      </td> <!-- id="content" -->
+
+      </tr>
+    </table> <!-- id="main" -->
+
+    <div id="about">
+      <i>update: 2014-07-07 10:25:58, generated by <a href="http://github.com/dualface/luadocx">luadocx 1.3</a></i>
+    </div> <!-- id="about" -->
+
+  </div> <!-- id="container" -->
+
+</body>
+</html>

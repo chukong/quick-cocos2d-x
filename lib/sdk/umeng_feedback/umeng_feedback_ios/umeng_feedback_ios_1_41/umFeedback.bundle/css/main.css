@@ -1,0 +1,303 @@
+html{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body, ul, li {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+body {
+    font-size: 16px;
+    font-family: "helvetica";
+    -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
+    font-family: helvetica;
+    width: 100%;
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    /*background: url('../img/titleBar.png') no-repeat left top;*/
+    background-color: #272a32;
+    background-size: 100% 45px;
+    /*background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #999), color-stop(0.02, #666), color-stop(1, #222));
+background-image:-moz-linear-gradient(top, #999, #666 2%, #222);
+background-image:-o-linear-gradient(top, #999, #666 2%, #222);*/
+    padding: 0;
+    color: #eee;
+    font-size: 20px;
+    text-align: center;
+}
+
+#header a {
+    color: #f3f3f3;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 43px;
+    /*background: url('../img/bar.png') no-repeat left top;*/
+
+    background-color: #f1f1f1;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(241, 241, 241)),to(rgb(194, 198, 207)));
+    background-image: -webkit-linear-gradient(top, rgb(241, 241, 241), rgb(194, 198, 207));
+
+    background-size: 100% 44px;
+
+    padding: 0px;
+    /*border-top: 1px solid #444;*/
+    z-index: 199;
+}
+
+#footer .textField {
+    width: 97%;
+    height: 60%;
+    font-size: 16px;
+    margin: 8px 0px 0px 0px;
+    text-indent: 4px;
+    /*-webkit-border-radius: 15px;*/
+    /*background-color: transparent!important;*/
+    padding: 0px;
+}
+
+#footer select {
+    background: rgba(255, 255, 255, 0.0) url('../img/star.png') no-repeat 0 0;
+    background-size: 30px 30px;
+    background-position: center center;
+    color: transparent;
+    padding: 4px;
+    line-height: 21px;
+    border: 1px solid transparent;
+    -webkit-appearance: none;
+    width: 34px;
+    height: 34px;
+    margin-left: 4px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+#footer select:active,#footer select.active {
+    background: rgba(255, 255, 255, 0.0) url('../img/star_pressed.png') no-repeat 0 0;
+    background-size: 30px 30px;
+}
+
+#footer td {
+    padding: 0px;
+    height: 40px;
+}
+
+#footer tr {
+    padding: 0px;
+    height: 40px;
+}
+
+#footer table {
+    padding: 0px;
+    height: 40px;
+}
+
+#wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 78px;
+    bottom: 44px;
+    left: 0;
+    width: 100%;
+    background: rgb(219, 226, 237);
+    overflow: auto;
+}
+
+#topics{
+    overflow:hidden;
+    clear: both;
+}
+/*#wrapper:focus {*/
+    /*background: red;*/
+/*}*/
+/*#wrapper:hover {*/
+    /*background: green;*/
+/*}*/
+
+/*#wrapper:active {*/
+    /*background: blue;*/
+/*}*/
+
+#scroller {
+    position: relative;
+    /*  -webkit-touch-callout:none;*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    float: left;
+    width: 100%;
+    padding: 0;
+}
+
+#page {
+    /*margin: 10px 0px;*/
+}
+
+.messageBody {
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+    padding: 0px 0px 0px 0px;
+    max-width: 55%;
+    text-shadow: 0 1px 0 rgb(245, 245, 245);
+    position: relative;
+    margin: 15px 0;
+    word-wrap: break-word;
+}
+
+.messageSend {
+    float: right;
+    border-width: 17px 27px 18px 13px;
+    -webkit-border-image: url("../img/Balloon_1@2x.png") 32 41 24 26 stretch stretch;
+    /*border-image: url("../img/Balloon_1@2x.png") 31/2 70/2 46/2 33/2 stretch stretch;*/
+    background: #a3cde6;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-origin: padding-box, border-box, border-box;
+}
+.messageSend .messageContent {
+    margin: -13px -11px -8px -5px;
+    line-height: 20px;
+}
+
+.messageReceive {
+    float: left;
+    border-width: 12px 14px 18px 27px;
+    -webkit-border-image: url("../img/Balloon_2@2x.png") 33 20 23 47 stretch stretch;
+    /*border-image: url("../img/Balloon_2@2x.png") 32 37 30 53 stretch stretch;*/
+    background: rgb(213, 213, 213);
+    /*background-clip: padding-box, border-box, border-box;*/
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background-origin: padding-box, border-box, border-box;
+}
+
+.messageReceive .messageContent {
+margin: -7px -7px -8px -10px;
+line-height: 20px;
+    }
+
+
+.createDate {
+    display: block;
+    margin: 0px;
+    text-align: center;
+    font-size: 13px;
+    color: #929CAE;
+    text-shadow: 0px 1px #EAEFF8;
+}
+
+.button {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: rgba(255, 255, 255, 0.0) url('../img/back.png') no-repeat 0 0;
+    background-size: 52px 32px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+}
+
+.button:active, .button.active {
+    background: rgba(255, 255, 255, 0.0) url('../img/back_pressed.png') no-repeat 0 0;
+    background-size: 52px 32px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+}
+
+.button_en {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: rgba(255, 255, 255, 0.0) url('../img/back_en.png') no-repeat 0 0;
+    background-size: 52px 32px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+}
+
+.button_en:active, .button_en.active {
+    background: rgba(255, 255, 255, 0.0) url('../img/back_pressed_en.png') no-repeat 0 0;
+    background-size: 52px 32px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+}
+
+.sendButton {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: rgba(255, 255, 255, 0.0) url('../img/send.png') no-repeat 0 0;
+    background-size: 63px 35px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+
+}
+
+.sendButton:active, .sendButton.active {
+    background: rgba(255, 255, 255, 0.0) url('../img/send_pressed.png') no-repeat 0 0;
+    background-size: 63px 35px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+}
+
+.sendButton_en {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: rgba(255, 255, 255, 0.0) url('../img/send_en.png') no-repeat 0 0;
+    background-size: 63px 35px;
+    background-position: center center;
+    width: 53px;
+    height: 33px;
+
+}
+
+.sendButton_en:active, .sendButton_en.active {
+    background: rgba(255, 255, 255, 0.0) url('../img/send_pressed_en.png') no-repeat 0 0;
+    background-size: 63px 35px;    
+    background-position: center center;
+    width: 54px;
+    height: 34px;
+}
+
+.clear {
+    clear: both;
+}
+
+#backBtn {
+    position: absolute;
+    font-size: 12px;
+    float: left;
+    top: 7px;
+    left: 3px;
+}
+
+.select_group {
+    float: left;
+    margin-left: 10px;
+}
+
+.info-body {
+    height: 30px;
+    top: 45px;
+    background: #DBE2ED;
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    padding-top: 5px;
+}
+
+
+

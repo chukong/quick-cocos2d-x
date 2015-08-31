@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0, minimum-scale=1.0, target-densityDpi=device-dpi" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>用户反馈</title>
+
+    <!--Twitter bootstrap css framework http://twitter.github.com/bootstrap/ -->
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
+    <!-- main css file -->
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+    <!-- iscroll  http://cubiq.org/iscroll-4  -->
+    <script type="application/javascript" src="./js/iscroll.js"></script>
+    <!-- http://jquery.com/ -->
+    <script type="application/javascript" src="./js/jQuery.js"></script>
+    <!-- html json templates http://handlebarsjs.com/ -->
+    <script type="application/javascript" src="./js/handlebars.js"></script>
+    <!-- main js file  -->
+    <script type="application/javascript" src="./js/main.js"></script>
+
+    <!-- handlebars template  -->
+    <!-- feedbacks 为反馈列表, new_feedback 为新反馈 -->
+    <!-- 如果需要改变反馈的排版方式，修改这两个模版就可以了 -->
+    <script id="feedbacks" type="text/x-handlebars-template">
+        {{#feedbacks}}
+        <div class="createDate clear">{{datetime}}</div>
+        {{#if sdk_type}}
+        <div class="messageBody messageSend clear">
+            <div class="messageContent">{{{content}}}</div>
+            <div class="arrow"></div>
+        </div>
+        {{else}}
+        <div class="messageBody messageReceive clear">
+            <div class="messageContent">{{{content}}}</div>
+            <div class="arrow"></div>
+        </div>
+        {{/if}}
+        {{/feedbacks}}
+    </script>
+
+    <script id="new_feedback" type="text/x-handlebars-template">
+        <div class="createDate clear">{{datetime}}</div>
+        <div id="{{id}}" class="messageBody messageSend clear">
+            <div class="messageContent">{{content}}</div>
+            <div class="arrow"></div>
+        </div>
+    </script>
+
+</head>
+<body>
+<div id="header">用户反馈</div>
+<a class="button" id="backBtn"></a>
+
+<div class="info-body">
+    <div id="age_gender" style="float: left;
+        padding-top: 6px;
+        padding-left: 9px;">性别/年龄:
+    </div>
+    <div class="select_group">
+        <select id="gender" style="width:100px">
+            <option value>选择性别</option>
+            <option value="1">男</option>
+            <option value="2">女</option>
+        </select>
+    </div>
+    <div class="select_group">
+        <select id="age_group" style="width:100px">
+            <option value>选择年龄</option>
+            <option value="1">小于18岁</option>
+            <option value="2">18～24岁</option>
+            <option value="3">25～30岁</option>
+            <option value="4">31～35岁</option>
+            <option value="5">36～40岁</option>
+            <option value="6">41～50岁</option>
+            <option value="7">51～59岁</option>
+            <option value="8">大于60岁</option>
+        </select>
+    </div>
+</div>
+<div id="wrapper">
+    <div id="scroller">
+        <div id="page">
+            <div id="feedbacks_body">
+                <div class="messageBody messageReceive clear">
+                    <div class="messageContent">您好，我是产品经理，欢迎您给我们提产品的使用感受和建议！</div>
+                    <div class="arrow"></div>
+                </div>
+                <!-- 反馈列表将插入topics div里 -->
+                <div id="topics"></div>
+            </div>
+            <div id="feedbacks_foot"></div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+
+    <table style="width:100%;height:40px;">
+        <tr>
+            <td style="width:34px;">
+                <select id="rate">
+                    <option value>请评价</option>
+                    <option value="5">非常好</option>
+                    <option value="4">好</option>
+                    <option value="3">一般</option>
+                    <option value="2">不好</option>
+                    <option value="1">非常差</option>
+                </select>
+            </td>
+            <td style="vertical-align: top;">
+                <input class="textField" type="text" id="content" value=" " placeholder=""/>
+            </td>
+            <td style="width:66px;">
+                <input type="image" class="sendButton"
+                       onclick="submitForm('zh-Hans');"
+                       value="" src="img/send.png" style="width: 63px;height: 35px;padding: 1px;margin: 1px;"/>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

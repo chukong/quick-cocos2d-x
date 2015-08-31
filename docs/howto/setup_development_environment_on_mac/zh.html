@@ -1,0 +1,328 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    background-color: white;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>设置 Quick-Cocos2d-x 在 Mac 下的编译环境</title>
+
+</head>
+<body>
+<h1>设置 Quick-Cocos2d-x 在 Mac 下的编译环境</h1>
+
+<p>如果不需要在 Android 上运行，那么可以跳过 3/4 两个步骤。</p>
+
+<p>配置编译环境的基本步骤：</p>
+
+<ol>
+<li>下载 Quick-Cocos2d-x 源代码</li>
+<li>设置运行环境</li>
+<li>安装最新的 Android ADT bundle 和 Android NDK</li>
+<li>编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</li>
+</ol>
+
+
+<h2>Step 1: 下载 Quick-Cocos2d-x 源代码</h2>
+
+<p>访问 <a href="https://github.com/chukong/quick-cocos2d-x/releases">https://github.com/chukong/quick-cocos2d-x/releases</a> 下载最新版 Quick 源代码。</p>
+
+<p>Quick-Cocos2d-x 目录的放置有一定要求 ** ：</p>
+
+<ol>
+<li>不能放在根目录</li>
+<li>路径中不能包含中文和空格（所以别放桌面了）</li>
+</ol>
+
+
+<p>~</p>
+
+<h2>Step 2: 设置运行环境</h2>
+
+<p>运行 <strong>setup_mac.sh</strong>，完成运行环境的设置工作，成功会看到如下界面：</p>
+
+<p><img src="res/howto_setup_development_environment_mac_00.png" alt="" /></p>
+
+<p>~</p>
+
+<h2>Step 3: 安装最新的 Android ADT bundle 和 Android NDK</h2>
+
+<ol>
+<li>从 http://developer.android.com/sdk/ 下载 ADT Bundle for Mac</li>
+<li>解压缩 adt-bundle-mac-x86_64-2013????.zip</li>
+<li>将 adt-bundle-mac-x86_64-2014???? 目录改名为 android</li>
+<li>将 android/sdk 目录改名为 android/android-sdk-macosx</li>
+<li>从 http://developer.android.com/tools/sdk/ndk/index.html 下载 Android NDK</li>
+<li>解压缩 android-ndk-r9?-mac-x86_64.tar.bz2</li>
+<li>移动目录 android-ndk-r9? 到 android/android-ndk-r9?   (目录结构如下图)</li>
+</ol>
+
+
+<p>最终的目录结构:</p>
+
+<pre><code>&lt;PATH_TO&gt;/android/android-ndk-r9?
+&lt;PATH_TO&gt;/android/android-sdk-macosx
+&lt;PATH_TO&gt;/android/eclipse
+</code></pre>
+
+<p><img src="res/howto_setup_development_environment_mac_02.png" alt="" /></p>
+
+<p>运行 android/android-sdk-macosx/tools/android, 选中 Android SDK 2.2（如果看不到 Android SDK 2.2，请设置代理）, 并完成安装。
+<img src="res/howto_setup_development_environment_mac_03.png" alt="" /></p>
+
+<p>~</p>
+
+<p>启动 终端 应用程序, 运行命令:</p>
+
+<pre><code>
+$ if [ -f ~/.profile ]; then open ~/.profile -a TextEdit; fi
+</code></pre>
+
+<p>如果没看到文本编辑窗口出现，则运行以下命令：</p>
+
+<pre><code>
+$ if [ -f ~/.bash_profile ]; then open ~/.bash_profile -a TextEdit; fi
+</code></pre>
+
+<p>添加下列代码:</p>
+
+<pre><code>
+export ANDROID_NDK_ROOT=&lt;PATH_TO&gt;/android/android-ndk-r8e
+export ANDROID_SDK_ROOT=&lt;PATH_TO&gt;/android/android-sdk-macosx
+export ANDROID_HOME=${ANDROID_SDK_ROOT}
+</code></pre>
+
+<p>~</p>
+
+<h2>Step 4: 编译 LuaJavaBridge 示例，并在 Android 真机上进行测试</h2>
+
+<p>启动 终端 应用程序, 改变当前目录为 &lt;PATH_TO>/Quick-cocos2d-x/sample/luajavabridge/proj.android, 运行 build_native.sh:</p>
+
+<pre><code>
+$ cd Quick-cocos2d-x/sample/luajavabridge/proj.android
+$ ./build_native.sh
+</code></pre>
+
+<p>如果一切顺利，将看到:</p>
+
+<pre><code>
+SharedLibrary  : libgame.so
+Install        : libgame.so =&gt; libs/armeabi/libgame.so
+</code></pre>
+
+<h3>将项目导入 Eclipse ADT</h3>
+
+<p>启动 &lt;PATH_TO>/eclipse/eclipse.app 应用程序, 导入 libcocos2dx 库.</p>
+
+<p>1.选择菜单 File -> Import, 再选择 Android -> Existing Android Code Into Workspace :</p>
+
+<p><img src="res/howto_setup_development_environment_mac_05.png" alt="" /></p>
+
+<p>2.点击 Browse 按钮, 选择 &lt;PATH_TO>/Quick-cocos2d-x/lib/cocos2d-x/cocos2dx/platform/android/java :</p>
+
+<p><img src="res/howto_setup_development_environment_mac_06.png" alt="" /></p>
+
+<p>3.点击 Finish.</p>
+
+<p>4.重复上述步骤，导入 luajavabridge/proj.android:</p>
+
+<p>5.在 Package Explorer 中选中 LuajavaBridge，点击右键选择菜单 Properties:</p>
+
+<p><img src="res/howto_setup_development_environment_mac_07.png" alt="" /></p>
+
+<p>6.如果 <strong> Library </strong> 列表里 <strong> libcocos2dx </strong> 已经存在，就先删除。点击 <strong> Add </strong> 按钮, 选中 <strong> libcocos2dx </strong>.</p>
+
+<p><img src="res/howto_setup_development_environment_mac_08.png" alt="" /></p>
+
+<p>7.完成。</p>
+
+<h3>设置 Android 设备允许真机调试</h3>
+
+<p>Android 官方文档：http://developer.android.com/tools/device.html</p>
+
+<ol>
+<li>Enable USB debugging on your device.
+
+<ul>
+<li>On most devices running Android 3.2 or older, you can find the option under Settings > Applications > Development.</li>
+<li>On Android 4.0 and newer, it’s in Settings > Developer options.</li>
+</ul>
+
+
+<p> Note: On Android 4.2 and newer, Developer options is hidden by default. To make it available, go to Settings > About phone and tap Build number seven times. Return to the previous screen to find Developer options.</p>
+
+<ul>
+<li>在系统设置中找到“开发者选项”，打开“USB调试”。</li>
+</ul>
+</li>
+<li>Set up your system to detect your device.
+
+<ul>
+<li>If you’re developing on Windows, you need to install a USB driver for adb. For an installation guide and links to OEM drivers, see the OEM USB Drivers document.</li>
+<li>根据不同的机型，也许需要安装该机型特定的 USB 驱动程序。例如 Moto 就必须安装 Moto 的 USB 驱动。</li>
+</ul>
+</li>
+</ol>
+
+
+<h3>在设备上测试 LuaJavaBridge 示例</h3>
+
+<ol>
+<li><p>在 Eclipse 里选择菜单 Window -> Show View -> Other…, 再选择 Android -> Devices.</p></li>
+<li><p>如果设备设置完成，那么在 Devices 标签页中就可以看到你的设备:</p></li>
+<li><p>在项目 LuajavaBridge 上点击鼠标右键, 选择菜单 Debug As -> Android Application. 如果一切正常，等一会儿就可以在设备上看到运行画面了：</p></li>
+</ol>
+
+
+<p><img src="res/howto_setup_development_environment_mac_09.png" alt="" /></p>
+
+<p>-EOF-</p>
+</body>
+</html>

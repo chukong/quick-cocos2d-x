@@ -1,0 +1,195 @@
+/****************************************************************************
+Copyright (c) 2010 cocos2d-x.org
+
+http://www.cocos2d-x.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+****************************************************************************/
+
+/**
+ * @addtogroup data_structures
+ * @{
+ */
+
+// for CCPoint assignement operator and copy constructor
+
+class CCPoint
+{
+    float x;
+    float y;
+
+    CCPoint(float x, float y);
+    CCPoint(CCPoint other);
+    CCPoint(CCSize size);
+    CCPoint();
+    void setPoint(float x, float y);
+    bool equals(CCPoint target);
+
+    /** @returns if points have fuzzy equality which means equal with some degree of variance.
+     @since v2.1.4
+     */
+    bool fuzzyEquals(CCPoint target, float variance);
+
+    /** Calculates distance between point an origin
+     @return float
+     @since v2.1.4
+     */
+    float getLength();
+
+    /** Calculates the square length of a CCPoint (not calling sqrt() )
+     @return float
+     @since v2.1.4
+     */
+    float getLengthSq();
+
+    /** Calculates the square distance between two points (not calling sqrt() )
+     @return float
+     @since v2.1.4
+    */
+    float getDistanceSq(CCPoint other);
+
+    /** Calculates the distance between two points
+     @return float
+     @since v2.1.4
+     */
+    float getDistance(CCPoint other);
+
+    /** @returns the angle in radians between this vector and the x axis
+     @since v2.1.4
+    */
+    float getAngle();
+
+    /** @returns the angle in radians between two vector directions
+     @since v2.1.4
+    */
+    float getAngle(CCPoint other);
+
+    /** Calculates dot product of two points.
+     @return float
+     @since v2.1.4
+     */
+    float dot(CCPoint other);
+
+    /** Calculates cross product of two points.
+     @return float
+     @since v2.1.4
+     */
+    float cross(CCPoint other);
+
+    /** Calculates perpendicular of v, rotated 90 degrees counter-clockwise -- cross(v, perp(v)) >= 0
+     @return CCPoint
+     @since v2.1.4
+     */
+    CCPoint getPerp();
+
+    /** Calculates perpendicular of v, rotated 90 degrees clockwise -- cross(v, rperp(v)) <= 0
+     @return CCPoint
+     @since v2.1.4
+     */
+    CCPoint getRPerp();
+
+    /** Calculates the projection of this over other.
+     @return CCPoint
+     @since v2.1.4
+     */
+    CCPoint project(CCPoint other);
+
+    /** Complex multiplication of two points ("rotates" two points).
+     @return CCPoint vector with an angle of this.getAngle() + other.getAngle(),
+     and a length of this.getLength() * other.getLength().
+     @since v2.1.4
+     */
+    CCPoint rotate(CCPoint other);
+
+    /** Unrotates two points.
+     @return CCPoint vector with an angle of this.getAngle() - other.getAngle(),
+     and a length of this.getLength() * other.getLength().
+     @since v2.1.4
+     */
+    CCPoint unrotate(CCPoint other);
+
+    /** Returns point multiplied to a length of 1.
+     * If the point is 0, it returns (1, 0)
+     @return CCPoint
+     @since v2.1.4
+     */
+    CCPoint normalize();
+
+    /** Linear Interpolation between two points a and b
+     @returns
+        alpha == 0 ? a
+        alpha == 1 ? b
+        otherwise a value between a..b
+     @since v2.1.4
+     */
+    CCPoint lerp(CCPoint other, float alpha);
+
+    /** Rotates a point counter clockwise by the angle around a pivot
+     @param pivot is the pivot, naturally
+     @param angle is the angle of rotation ccw in radians
+     @returns the rotated point
+     @since v2.1.4
+     */
+    CCPoint rotateByAngle(CCPoint pivot, float angle);
+
+    CCPoint forAngle(float a);
+};
+
+CCPoint ccp(float x, float y);
+CCPoint CCPointMake(float x, float y);
+
+class CCSize
+{
+    float width;
+    float height;
+
+    CCSize(float width, float height);
+    CCSize(CCSize other);
+    CCSize(CCPoint point);
+    CCSize();
+    void setSize(float width, float height);
+    bool equals(CCSize target);
+};
+
+CCSize CCSizeMake(float width, float height);
+
+class CCRect
+{
+    CCPoint origin;
+    CCSize  size;
+
+    CCRect(float x, float y, float width, float height);
+    CCRect(CCRect other);
+    CCRect();
+    void setRect(float x, float y, float width, float height);
+    float getMinX(); /// return the leftmost x-value of current rect
+    float getMidX(); /// return the midpoint x-value of current rect
+    float getMaxX(); /// return the rightmost x-value of current rect
+    float getMinY(); /// return the bottommost y-value of current rect
+    float getMidY(); /// return the midpoint y-value of current rect
+    float getMaxY(); /// return the topmost y-value of current rect
+    bool equals(CCRect rect);
+    bool containsPoint(CCPoint point);
+    bool intersectsRect(CCRect rect);
+};
+
+CCRect CCRectMake(float x, float y, float width, float height);
+
+// end of data_structure group
+/// @}

@@ -1,0 +1,193 @@
+/****************************************************************************
+Copyright (c) 2012 cocos2d-x.org
+
+http://www.cocos2d-x.org
+
+Created by Jung Sang-Taik on 12. 3. 16..
+Copyright (c) 2012 Neofect. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+****************************************************************************/
+
+/**
+ * @addtogroup GUI
+ * @{
+ * @addtogroup control_extension
+ * @{
+ */
+
+/**
+ * A 9-slice sprite for cocos2d.
+ *
+ * 9-slice scaling allows you to specify how scaling is applied
+ * to specific areas of a sprite. With 9-slice scaling (3x3 grid),
+ * you can ensure that the sprite does not become distorted when
+ * scaled.
+ *
+ * @see http://yannickloriot.com/library/ios/cccontrolextension/Classes/CCScale9Sprite.html
+ */
+class CCScale9Sprite : public CCNode
+{
+    /** Original sprite's size. */
+    CCSize getOriginalSize();
+
+    //if the preferredSize component is given as -1, it is ignored
+    CCSize getPreferredSize();
+    void setPreferredSize(CCSize s);
+
+    /**
+     * The end-cap insets.
+     * On a non-resizeable sprite, this property is set to CGRectZero; the sprite
+     * does not use end caps and the entire sprite is subject to stretching.
+     */
+    CCRect getCapInsets();
+    void setCapInsets(CCRect rect);
+
+    /** Sets the left side inset */
+    float getInsetLeft();
+    void setInsetLeft(float v);
+
+    /** Sets the top side inset */
+    float getInsetTop();
+    void setInsetTop(float v);
+
+    /** Sets the right side inset */
+    float getInsetRight();
+    void setInsetRight(float v);
+
+    /** Sets the bottom side inset */
+    float getInsetBottom();
+    void setInsetBottom(float v);
+
+    void setContentSize(CCSize size);
+
+    /**
+     * Creates a 9-slice sprite with a texture file, a delimitation zone and
+     * with the specified cap insets.
+     *
+     * @see initWithFile:rect:centerRegion:
+     */
+    static CCScale9Sprite* create(const char* file, CCRect rect,  CCRect capInsets);
+
+     /**
+     * Creates a 9-slice sprite with a texture file and a delimitation zone. The
+     * texture will be broken down into a 3×3 grid of equal blocks.
+     *
+     * @see initWithFile:rect:
+     */
+    static CCScale9Sprite* create(const char* file, CCRect rect);
+
+    /**
+     * Creates a 9-slice sprite with a texture file. The whole texture will be
+     * broken down into a 3×3 grid of equal blocks.
+     *
+     * @see initWithFile:capInsets:
+     */
+    static CCScale9Sprite* create @ createWithInsets (CCRect capInsets, const char* file);
+
+    /**
+     * Creates a 9-slice sprite with a texture file. The whole texture will be
+     * broken down into a 3×3 grid of equal blocks.
+     *
+     * @see initWithFile:
+     */
+    static CCScale9Sprite* create(const char* file);
+
+    /**
+     * Creates a 9-slice sprite with an sprite frame and the centre of its zone.
+     * Once the sprite is created, you can then call its "setContentSize:" method
+     * to resize the sprite will all it's 9-slice goodness intract.
+     * It respects the anchorPoint too.
+     *
+     * @see initWithSpriteFrame:centerRegion:
+     */
+    static CCScale9Sprite* createWithSpriteFrame(CCSpriteFrame* spriteFrame, CCRect capInsets);
+
+    /**
+     * Creates a 9-slice sprite with an sprite frame.
+     * Once the sprite is created, you can then call its "setContentSize:" method
+     * to resize the sprite will all it's 9-slice goodness intract.
+     * It respects the anchorPoint too.
+     *
+     * @see initWithSpriteFrame:
+     */
+    static CCScale9Sprite* createWithSpriteFrame(CCSpriteFrame* spriteFrame);
+
+    /**
+     * Creates a 9-slice sprite with an sprite frame name and the centre of its
+     * zone.
+     * Once the sprite is created, you can then call its "setContentSize:" method
+     * to resize the sprite will all it's 9-slice goodness intract.
+     * It respects the anchorPoint too.
+     *
+     * @see initWithSpriteFrameName:centerRegion:
+     */
+    static CCScale9Sprite* createWithSpriteFrameName(const char*spriteFrameName, CCRect capInsets);
+
+    /**
+     * Creates a 9-slice sprite with an sprite frame name.
+     * Once the sprite is created, you can then call its "setContentSize:" method
+     * to resize the sprite will all it's 9-slice goodness intract.
+     * It respects the anchorPoint too.
+     *
+     * @see initWithSpriteFrameName:
+     */
+    static CCScale9Sprite* createWithSpriteFrameName(const char*spriteFrameName);
+
+    static CCScale9Sprite* create();
+
+    /**
+     * Creates and returns a new sprite object with the specified cap insets.
+     * You use this method to add cap insets to a sprite or to change the existing
+     * cap insets of a sprite. In both cases, you get back a new image and the
+     * original sprite remains untouched.
+     *
+     * @param capInsets The values to use for the cap insets.
+     */
+    CCScale9Sprite* resizableSpriteWithCapInsets(CCRect capInsets);
+
+    /** sets the premultipliedAlphaOpacity property.
+     If set to NO then opacity will be applied as: glColor(R,G,B,opacity);
+     If set to YES then oapcity will be applied as: glColor(opacity, opacity, opacity, opacity );
+     Textures with premultiplied alpha will have this property by default on YES. Otherwise the default value is NO
+     @since v0.8
+     */
+    void setOpacityModifyRGB(bool bValue);
+
+    /** returns whether or not the opacity will be applied using glColor(R,G,B,opacity) or glColor(opacity, opacity, opacity, opacity);
+     @since v0.8
+     */
+    bool isOpacityModifyRGB(void);
+    void setOpacity(GLubyte opacity);
+	GLubyte getOpacity();
+    void setColor(ccColor3B color);
+	ccColor3B getColor();
+
+    void setSpriteFrame(CCSpriteFrame * spriteFrame);
+
+    void setBlendFunc(ccBlendFunc blendFunc);
+    /**
+     * @js NA
+     */
+    ccBlendFunc getBlendFunc(void);
+};
+
+// end of GUI group
+/// @}
+/// @}

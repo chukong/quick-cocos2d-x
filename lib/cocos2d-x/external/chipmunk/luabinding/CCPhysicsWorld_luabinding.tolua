@@ -1,0 +1,388 @@
+
+$#include "CCPhysicsShape.h"
+$#include "CCPhysicsBody.h"
+$#include "CCPhysicsWorld.h"
+$#include "CCPhysicsDebugNode.h"
+
+class CCPhysicsWorld : public CCNode
+{
+    static CCPhysicsWorld *create(float gravityX, float gravityY);
+    static CCPhysicsWorld *create(void);
+
+    CCPhysicsDebugNode *createDebugNode(void);
+
+    // world properties
+    void getGravity(float *gravityX = 0, float *gravityY = 0);
+    void setGravity(float gravityX, float gravityY);
+
+    float getDamping(void);
+    void setDamping(float damping);
+
+    float getIdleSpeedThreshold(void);
+    void setIdleSpeedThreshold(float threshold);
+
+    // body management
+    CCPhysicsBody *createCircleBody(float mass, float radius, float offsetX = 0, float offsetY = 0);
+    CCPhysicsBody *createBoxBody(float mass, float width, float height);
+    CCPhysicsBody *createPolygonBody(float mass, CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
+    CCPhysicsBody *createPolygonBody(float mass, LUA_TABLE vertexes, float offsetX = 0, float offsetY = 0);
+
+    CCArray *getAllBodies(void);
+
+    void addBody(CCPhysicsBody *body);
+    CCPhysicsBody *getBodyByTag(int tag);
+    void removeBodyByTag(int tag, bool unbind = true);
+    void removeBody(CCPhysicsBody *body, bool unbind = true);
+    void removeAllBodies(bool unbind = true);
+
+    // operation
+    void start(void);
+    void stop(void);
+    void step(float dt);
+
+    // events
+    void addCollisionScriptListener(LUA_FUNCTION handler, int collisionTypeA, int collisionTypeB);
+    void removeCollisionScriptListener(int collisionTypeA, int collisionTypeB);
+    void removeAllCollisionListeners(void);
+};
+
+class CCPhysicsBody : public CCObject
+{
+    static CCPhysicsBody *defaultStaticBody(CCPhysicsWorld *world);
+    static CCPhysicsBody *createStaticBody(CCPhysicsWorld *world);
+    static CCPhysicsBody *create(CCPhysicsWorld *world, float mass, float moment);
+
+    // extended properties
+    const char *getName(void);
+    void setName(const char *name);
+
+    // body behaviors
+    bool isSleeping(void);
+    void activate(void);
+    void sleep(void);
+
+    // body properties
+    int getTag(void);
+    void setTag(int tag);
+
+    float getMass(void);
+    void setMass(float mass);
+
+    float getInertia(void);
+    void setInertia(float inertia);
+
+    void getVelocity(float *velocityX = 0, float *velocityY = 0);
+    void setVelocity(float velocityX, float velocityY);
+    void setVelocity(CCPoint velocity);
+    void setVelocity(CCPhysicsVector* velocity);
+
+    float getVelocityLimit(void);
+    void setVelocityLimit(float limit);
+
+    float getAngleVelocity(void);
+    void setAngleVelocity(float velocity);
+
+    float getAngleVelocityLimit(void);
+    void setAngleVelocityLimit(float limit);
+
+    void getForce(float *forceX = 0, float *forceY = 0);
+    void setForce(float forceX, float forceY);
+    void setForce(CCPoint force);
+    void setForce(CCPhysicsVector *force);
+
+    float getTorque(void);
+    void setTorque(float force);
+
+    void resetForces(void);
+    void applyForce(float forceX, float forceY, float offsetX = 0, float offsetY = 0);
+    void applyForce(CCPoint force, float offsetX = 0, float offsetY = 0);
+    void applyForce(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(float forceX, float forceY, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(CCPoint force, float offsetX = 0, float offsetY = 0);
+    void applyImpulse(CCPhysicsVector *force, float offsetX = 0, float offsetY = 0);
+
+    void getPosition(float *x = 0, float *y = 0);
+    float getPositionX(void);
+    float getPositionY(void);
+    void setPosition(float x, float y);
+    void setPosition(CCPoint pos);
+    void setPositionX(float x);
+    void setPositionY(float y);
+
+    float getAngle(void);
+    void setAngle(float angle);
+
+    float getRotation(void);
+    void setRotation(float rotation);
+
+    // shape properties
+    float getElasticity(void);
+    void setElasticity(float elasticity);
+    float getFriction(void);
+    void setFriction(float friction);
+    bool isSensor(void);
+    void setIsSensor(bool isSensor);
+    int getCollisionType(void);
+    void setCollisionType(int type);
+    int getCollisionGroup(void);
+    void setCollisionGroup(int group);
+    int getCollisionLayers(void);
+    void setCollisionLayers(int layers);
+
+    // helper
+    float dist(CCPhysicsBody *other);
+
+    // binding to node
+    void bind(CCNode *node);
+    void unbind(void);
+    CCNode *getNode(void);
+
+    // shapes management
+    CCPhysicsShape *addSegmentShape(CCPoint lowerLeft, CCPoint lowerRight, float thickness);
+    CCPhysicsShape *addCircleShape(float radius, float offsetX = 0, float offsetY = 0);
+    // original: CCPhysicsShape *addBoxShape(float width, float height);
+    CCPhysicsShape *addBoxShape(float width, float height, float offsetX = 0, float offsetY = 0);
+    CCPhysicsShape *addPolygonShape(CCPointArray *vertexes, float offsetX = 0, float offsetY = 0);
+    CCPhysicsShape *addPolygonShape(int vertexes, float offsetX = 0, float offsetY = 0);
+
+    void removeShapeAtIndex(int index);
+    void removeShape(CCPhysicsShape *shapeObject);
+    void removeAllShape(void);
+
+    // joints management
+    CCPinJoint *pinJoint(CCPhysicsBody *otherBody);
+	CCPinJoint *pinJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther);
+
+	CCDampedSpringJoint *dampedSpringJoint(CCPhysicsBody *otherBody,
+		float restLength, float stiffness=0, float damping=0);
+	CCDampedSpringJoint *dampedSpringJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther,
+		float restLength, float stiffness = 0, float damping = 0);
+
+	CCSlideJoint *slideJoint(CCPhysicsBody *otherBody, float min, float max);
+	CCSlideJoint *slideJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther, 
+		float min, float max);
+
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody);
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody, CCPhysicsVector *archrThis, CCPhysicsVector *archrOther);
+	CCPivotJoint *pivotJoint(CCPhysicsBody *otherBody, CCPhysicsVector *pivot);
+
+	CCArray *getJointsWith(CCPhysicsBody *otherBody);
+    void breakAllJoints(void);
+    void breakJointByType(JointType jointType);
+    
+    // 
+
+    // cleanup
+    void removeSelf(bool unbind = true);
+};
+
+class CCPhysicsShape : public CCObject
+{
+    float getElasticity(void);
+    void setElasticity(float elasticity);
+
+    float getFriction(void);
+    void setFriction(float friction);
+
+    bool isSensor(void);
+    void setIsSensor(bool isSensor);
+
+    int getCollisionType(void);
+    void setCollisionType(int collisionType);
+    int getCollisionGroup(void);
+    void setCollisionGroup(int group);
+    int getCollisionLayers(void);
+    void setCollisionLayers(int layers);
+};
+
+enum JointType
+{
+	UNKNOWN = 0,
+	PIN_JOINT = 1,
+	SLIDE_JOINT = 2,
+	PIVOT_JOINT = 3,
+	GROOVE_JOINT = 4,
+	DAMPED_SPRING = 5,
+	DAMPED_ROTARY_SPRING = 6,
+	ROTARY_LIMIT = 7,
+	RATCHET_JOINT = 8,
+	GEAR_JOINT = 9,
+	SIMPLE_MOTOR = 10
+};
+class CCJoint: public CCObject
+{
+    CCPhysicsBody *getBodyA();
+    CCPhysicsBody *getBodyB();
+    JointType getJointType();
+    cpConstraint *getConstraint();
+    void breakJoint();
+}
+class CCPinJoint : public CCJoint
+{
+    float getDist();
+    void setDist(float dist);
+
+    CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+class CCDampedSpringJoint : public CCJoint
+{
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+class CCSlideJoint : public CCJoint
+{
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+
+    float getMin();
+	void setMin(float min);
+
+	float getMax();
+	void setMax(float max);
+};
+class CCPivotJoint : public CCJoint
+{
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+class CCGrooveJoint : public CCJoint
+{
+    CCPhysicsVector *getGrooveA();
+	void setGrooveA(CCPhysicsVector *grooveA);
+
+	CCPhysicsVector *getGrooveB();
+	void setGrooveB(CCPhysicsVector *grooveB);
+
+	CCPhysicsVector *getAnchrA();
+	void setAnchrA(CCPhysicsVector *anchrA);
+
+	CCPhysicsVector *getAnchrB();
+	void setAnchrB(CCPhysicsVector *anchrB);
+};
+
+
+class CCPhysicsDebugNode : public CCNode
+{
+};
+
+class CCPhysicsCollisionEvent : public CCObject
+{
+    CCPhysicsWorld *getWorld(void);
+
+    CCPhysicsBody *getBody1(void);
+    CCPhysicsBody *getBody2(void);
+
+    // Returns true if this is the first step the two shapes started touching. This can be useful for sound effects for instance. If it’s the first frame for a certain collision, check the energy of the collision in a postStep() callbock and use that to determine the volume of a sound effect to play.
+    bool isFirstContact(void);
+
+    // The calculated elasticity for this collision pair. Setting the value in a preSolve() callback will override the value calculated by the space.
+    float getElasticity(void);
+    void setElasticity(float elasticity);
+
+    // The calculated friction for this collision pair. Setting the value in a preSolve() callback will override the value calculated by the space.
+    float getFriction(void);
+    void setFriction(float friction);
+
+    // The calculated surface velocity for this collision pair. Setting the value in a preSolve() callback will override the value calculated by the space.
+    CCPoint getSurfaceVelocities(void);
+    void getSurfaceVelocities(float *velocityX, float *velocityY);
+    void setSurfaceVelocities(float velocityX, float velocityY);
+    void setSurfaceVelocities(CCPoint velocity);
+
+    // Get the number of contact points.
+    int getCount(void);
+
+    // Get the normal of the ith contact point.
+    CCPoint getNormal(int index);
+    void getNormal(int index, float *x, float *y);
+
+    // Get the position of the ith contact point.
+    CCPoint getPoint(int index);
+    void getPoint(int index, float *x, float *y);
+
+    // Get the depth of the ith contact point.
+    float getDepth(int index);
+
+    // A user definable pointer. The value will persist for the pair of shapes until the "separate" is called.
+    void *getUserData(void);
+    void setUserData(void *userdata);
+};
+
+class CCPhysicsVector : public CCObject
+{
+    static CCPhysicsVector *create(float x, float y);
+    static CCPhysicsVector *create(CCPoint vector);
+
+    static CCPhysicsVector *createForAngle(float angle);
+    static CCPhysicsVector *createForRotation(float degrees);
+
+    void getValue(float *x = 0, float *y = 0);
+
+    // Check if two vectors are equal
+    bool equal(float x, float y);
+    bool equal(CCPhysicsVector *other);
+
+    // Add an other vectors
+    void add(float x, float y);
+    void add(CCPhysicsVector *other);
+
+    // Subtract an other vectors
+    void sub(float x, float y);
+    void sub(CCPhysicsVector *other);
+
+    // Negate a vector
+    void negate(void);
+
+    // Scalar multiplication
+    void multi(float scale);
+
+    // Vector dot product
+    float dot(float x, float y);
+    float dot(CCPhysicsVector *other);
+
+    // 2D vector cross product analog
+    float cross(float x, float y);
+    float cross(CCPhysicsVector *other);
+
+    // Returns a perpendicular vector. (90 degree rotation)
+    CCPhysicsVector *perp(void);
+
+    // Returns a perpendicular vector. (-90 degree rotation)
+    CCPhysicsVector *rperp(void);
+
+    // Uses complex multiplication to rotate v1 by v2. Scaling will occur if v1 is not a unit vector.
+    void rotate(float x, float y);
+    void rotate(CCPhysicsVector *other);
+
+    // Returns the length.
+    float length(void);
+
+    // Returns the squared length. Faster than length() when you only need to compare lengths.
+    float lengthsq(void);
+
+    // Returns the distance between current vector to other.
+    float dist(float x, float y);
+    float dist(CCPhysicsVector *other);
+
+    // Returns the squared distance between current vector and other. Faster than dist() when you only need to compare distances.
+    float distsq(float x, float y);
+    float distsq(CCPhysicsVector *other);
+
+    // Returns the angular direction v is pointing in (in radians).
+    float angle(void);
+
+    // Returns the angular direction v is pointing in (in degrees).
+    float rotation(void);
+
+    // Returns the sum of abs(x) nad abs(y).
+    float sum(void);
+};

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="fill_parent"
+    android:layout_height="460dp"
+    android:background="#FFFFFF" >
+
+    <LinearLayout
+        android:id="@+id/content_area"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="fill_parent"
+            android:layout_height="247dp"
+            android:layout_margin="3dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="fill_parent"
+            android:layout_height="160dp"
+            android:layout_below="@id/imageview"
+            android:layout_margin="3dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="2dp"
+        android:layout_below="@id/content_area" >
+
+        <Button
+            android:id="@+id/likeBt"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:background="@drawable/umeng_example_shape_hollow_grey"
+            android:text="喜欢   : 0"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/shareBt"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/likeBt"
+            android:background="@drawable/umeng_example_shape_hollow_grey"
+            android:text="分享 : 0"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/commentBt"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/umeng_example_shape_hollow_grey"
+            android:text="评论 : 0"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

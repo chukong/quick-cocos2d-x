@@ -7,14 +7,15 @@
 #include "CCStdC.h"
 
 #include <string>
+
 #include "cocos2d.h"
 #include "AppDelegate.h"
-#include "SimulatorConfig.h"
+#include "ProjectConfig/SimulatorConfig.h"
 
 using namespace std;
 using namespace cocos2d;
 
-class app
+class CC_DLL App : public CCObject
 {
 public:
     static int createAndRun(void);
@@ -28,42 +29,36 @@ public:
     }
 
 private:
-    static app *s_sharedInstance;
-    static app *sharedInstance(void);
+    static App *s_sharedInstance;
+    static App *sharedInstance(void);
     static void purgeSharedInstance(void);
 
-    app(void);
+    App(void);
 
     AppDelegate *m_app;
     ProjectConfig m_project;
 
     HWND m_hwnd;
     BOOL m_exit;
+    FILE *m_writeDebugLogFile;
 
     int run(void);
     void loadProjectConfig(void);
-    void updateWindowTitle(void);
+    void createViewMenu(void);
+    void updateMenu(void);
     void relaunch(void);
 
+    // debug log
+    void writeDebugLog(const char *log);
+
     // menu callback
-    void onFileNewProject(void);
-    void onFileOpenProject(void);
-    void onFileCreateProjectShortcut(void);
-    void onFileProjectConfig(void);
     void onFileRelaunch(void);
     void onFileExit(void);
 
-    void onViewChangeFrameSize(int index);
-    void onViewChangeDirection(int directionMode);
+    void onViewChangeFrameSize(int viewMenuID);
+    void onViewChangeOrientation(int viewMenuID);
     void onViewChangeZoom(int scaleMode);
-
-    void onHelpAbout(void);
 
     // windows callback
     static LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam, BOOL *pProcessed);
-    static INT_PTR CALLBACK AboutDialogCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
-    static INT CALLBACK OpenProjectCallback(HWND hwnd, UINT uMsg, LPARAM lp, LPARAM pData);
-
-    // helper
-    const string getCommandLineArg(int index);
 };

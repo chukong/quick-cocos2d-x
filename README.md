@@ -1,81 +1,38 @@
+quick-cocos2d-x 是 cocos2d-x 开发商“[触控科技](http://www.chukong-inc.com/)”专门针对 Lua 开发者推出的扩展版本。
 
-## CHINESE => [README_CN.md](https://github.com/dualface/quick-cocos2d-x/blob/master/README_CN.md)
+Quick-Cocos2d-x 基于 Cocos2d-x 开发，具有 Cocos2d-x 的所有优点。并在 Cocos2d-x 基础上添加了 Lua 脚本支持，和高级脚本框架。让开发商可以用更低的成本、更高的开发效率、更省的人力成本创造高品质手游产品。
 
-quick-cocos2d-x is a **quick** framework, based cocos2d-x. Make mobile games in Lua.
+**快速开发：** 框架自带手游需要的各种基础服务，开发商能够将有限的资源投入到产品的玩法和用户体验上。
 
-CODE LESS, PLAY MORE !
+**降低成本：** 选择 Quick-Cocos2d-x，整个产品的绝大部分代码都可以使用 Lua 脚本语言完成开发。相比 C++ 能够显著降低人员成本，在开发效率上也具有明显优势。
 
-> [cocos2d-x](http://www.cocos2d-x.org) is a multi-platform 2D game engine in C++, based on cocos2d-iphone and licensed under MIT. Now this engine has been expanded to iOS, Android, Bada, BlackBerry, Marmalade and desktop operating systems like Linux, WindowsXP & Windows7.
+**优化用户体验：** Quick-Cocos2d-x 提供了更容易使用 UI 库和脚本编译打包加密和自动更新等功能。让开发商可以用更低的成本快速改善产品的体验。
 
-<br />
+**成熟可靠：** 目前使用 Cocos2d-x 平台开发的热门手游产品中，几乎一半都用到了 Lua 脚本语言。而 Quick-Cocos2d-x 作为 Cocos2d-x + Lua 的升级解决方案，保持了成熟可靠的特点。
 
-## GET STARTED
+-   quick-cocos2d-x 中文站 [http://quick.cocos.org/](http://quick.cocos.org/)
+-   新浪微博 [http://weibo.com/quickcocos2dx](http://weibo.com/quickcocos2dx)
+-   QQ 群 284148017, 243709595, 8952580
+-   CSDN 镜像仓库（国内访问稳定快速），和 github 仓库同步，地址 [https://code.csdn.net/u014257247/quick-cocos2d-x](https://code.csdn.net/u014257247/quick-cocos2d-x)
 
-#### SYSTEM AND SOFTWARE REQUIREMENTS
-
--   Latest Xcode (4.6 current) and iOS SDK (6.1 current)
--   Android SDK (2.2) and Android NDK (r8b, DON'T USE OTHER VERSION)
-
-#### DOWNLOADS
-
--   **LATEST**: [quick-cocos2d-x-20130509.zip](http://quick-x.com/downloads/quick-cocos2d-x-20130509.zip)
--   **CHINA DOWNLOAD LINK**: [quick-cocos2d-x-20130509.zip](http://17wanapp.cn/quickx/quick-cocos2d-x-20130509.zip)
+~
 
 
-#### RUN SIMULATOR
+## 快速开始
 
-Open quick-cocos2d-x/simulator/bin/mac/LuaHostMac.app, or quick-cocos2d-x/simulator/bin/win32/LuaHostWin32.exe
+-   下载最新版 quick-cocos2d-x
+-   运行 setup_mac.sh 或者 setup_win.bat
+-   启动 player/mac/player.app 或者 player/win/player.exe
 
-1.  Select menu: File -> Open Project
-2.  Set Project Director to **quick-cocos2d-x/sample/CoinFlip**
-3.  Set Script File to **$WORKDIR/scripts/main.lua**
+![](player/welcome/res/player_screenshot.png)
 
-    ![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_01.png)
-
-4.  Click "Open Project" button.
-
-![](https://raw.github.com/dualface/quick-cocos2d-x/master/doc/img/RUN_SIMULATOR_WINDOWS_02.png)
-
-#### BUILD
-
--   [Install Android SDK/NDK - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_MAC.md)
--   [Install Android SDK/NDK - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/INSTALL_ANDROID_SDK_WINDOWS.md)
--   [Build from source - Mac](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_MAC.md)
--   [Build from source - Windows](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/BUILD_FROM_SOURCE_WINDOWS.md)
--   [Create new project](https://github.com/dualface/quick-cocos2d-x/blob/master/doc/CREATE_NEW_PROJECT.md)
+~
 
 
-#### DOCUMENTS
+## 更进一步
 
--   [API Documents](http://quick-x.com/docs/api/)
--   [Manual](http://quick-x.com/docs/manual/)
-
-<br />
-
-----
-
-## Why quick-cocos2d-x
-
-QUICK = SUCCESS !
-
--   **No risk**: cocos2d-x's Lua support already exists two years, mature, reliable, the choice of large companies.
-
--   **Full-featured framework**: Write the entire game using Lua, no C++ requirements.
-
--   **Native extensions**: Integration of third-party components, including Payment, Ad, Analysis. Lua-ObjectiveC and Lua-Java bridge make life easy.
-
--   **Enhanced Simulator**: Run the game from any directory, multiple resolution switching, debug console.
-
--   **100% FREE**: cocos2d-x, Lua, quick-cocos2d-x all is Open-Sources project. licensed under MIT.
-
-<br />
-
-### Framework main features:
-
--   display: creates scenes, display objects, animation ...
--   transition: moving, fades, creates animation programing easy ...
--   audio: play background music, effect sounds ...
--   ui: creates button, menu, label ...
--   luaoc: Lua call Objective-C, Objective-C call Lua ...
--   luaj: Lua call Java, Java call Lua ...
--   network: Asynchronous HTTP requests, JSON, check the network status ...
+-   [设置 quick-cocos2d-x 在 Mac 下的编译环境](docs/howto/setup_development_environment_on_mac/zh.html)
+-   [设置 quick-cocos2d-x 在 Windows 下的编译环境](docs/howto/setup_development_environment_on_windows/zh.html)
+-   [如何使用 proj.mac 和 proj.win32 工程](docs/howto/use-project-mac-and-win/zh.html)
+-   [API 文档](docs/api/index.html)
+-   [对 Lua 字节码进行加密](docs/howto/encrypt-lua-code/zh.md)

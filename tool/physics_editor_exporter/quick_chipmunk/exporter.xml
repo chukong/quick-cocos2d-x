@@ -1,0 +1,118 @@
+<exporter>
+    <name>quick-cocos2d-x-chipmunk</name>
+    <displayName>quick-cocos2d-x chipmunk</displayName>
+    <description>Exporter for quick-cocos2d-x chipmunk, lua</description>
+    <version>1.0</version>
+    <yAxisDirection>up</yAxisDirection>
+    <physicsEngine>chipmunk</physicsEngine>
+    <template>quick-cocos2d-x-chipmunk.lua</template>
+    <fileExtension>lua</fileExtension>
+
+    <anchorPoint>
+        <enabled>yes</enabled>
+        <relX>0.5</relX>
+        <relY>0.5</relY>
+    </anchorPoint>
+
+    <origin>
+        <type>anchorPoint</type>
+    </origin>
+
+    <!-- Circle support does not work as with standard box2d - you can't change the center
+         or add more than one circle to a shape. This is why it is disabled for now -->
+    <supportsCircles>yes</supportsCircles>
+
+    <body>
+    </body>
+
+    <global>
+    </global>
+
+    <fixture>
+        <parameter>
+            <name>mass</name>
+            <displayName>Mass</displayName>
+            <type>float</type>
+            <default>2.0</default>
+        </parameter>
+
+        <parameter>
+            <name>elasticity</name>
+            <displayName>Elasticity</displayName>
+            <type>float</type>
+            <min>0</min>
+            <max>1000</max>
+            <default>0.0</default>
+        </parameter>
+
+        <parameter>
+            <name>friction</name>
+            <displayName>Friction</displayName>
+            <type>float</type>
+            <min>0</min>
+            <max>1000</max>
+            <default>0.0</default>
+        </parameter>
+
+        <parameter>
+            <name>surface_velocity_x</name>
+            <displayName>Surface velocity X</displayName>
+            <type>float</type>
+            <min>-1000</min>
+            <max>1000</max>
+            <default>0.0</default>
+        </parameter>
+
+        <parameter>
+            <name>surface_velocity_y</name>
+            <displayName>Surface velocity Y</displayName>
+            <type>float</type>
+            <min>-1000</min>
+            <max>1000</max>
+            <default>0.0</default>
+        </parameter>
+
+        <parameter>
+            <name>isSensor</name>
+            <displayName>Is Sensor</displayName>
+            <description>If set the polygon is a sensor</description>
+            <type>bool</type>
+            <default>false</default>
+        </parameter>
+
+        <parameter>
+            <name>collision_type</name>
+            <displayName>Type</displayName>
+            <description>Collision type</description>
+            <shortDescription>Collision type</shortDescription>
+            <type>int</type>
+            <default>0</default>
+        </parameter>
+
+        <parameter>
+            <name>group</name>
+            <displayName>Group</displayName>
+            <description>Collision group</description>
+            <shortDescription>Collision group</shortDescription>
+            <type>int</type>
+            <default>0</default>
+        </parameter>
+
+        <parameter>
+            <name>layers_bitfield</name>
+            <type>bitfield</type>
+            <size>32</size>
+        </parameter>
+
+        <parameter>
+            <name>layers</name>
+            <displayName>Layers</displayName>
+            <description>Layers</description>
+            <shortDescription>Layers</shortDescription>
+            <type>uint</type>
+            <default>0</default>
+            <bitfield>yes</bitfield>
+        </parameter>
+    </fixture>
+</exporter>
+

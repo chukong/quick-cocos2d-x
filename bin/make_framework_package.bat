@@ -1,8 +1,25 @@
 @echo off
 set DIR=%~dp0
-cd "%DIR%\..\"
-php %DIR%\lib\compile_scripts.php -zip -x framework.server -p framework framework lib\framework_precompiled\framework_precompiled
+cd "%DIR%.."
+call %DIR%compile_scripts.bat -i framework -o lib\framework_precompiled\framework_precompiled.zip -p framework -m zip
 
-copy lib\framework_precompiled\framework_precompiled.zip sample\CoinFlip\res\
-copy lib\framework_precompiled\framework_precompiled.zip sample\Benchmark\res\
-copy lib\framework_precompiled\framework_precompiled.zip template\PROJECT_TEMPLATE_01\res\
+
+echo.
+echo ### UPDATING ###
+echo.
+echo updating all framework_precompiled.zip
+echo.
+
+dir /s/b samples | find "framework_precompiled.zip" > ___tmp___
+dir /s/b template | find "framework_precompiled.zip" >> ___tmp___
+
+for /f %%f in (___tmp___) do (
+    echo %%f
+    copy lib\framework_precompiled\framework_precompiled.zip %%f > NUL
+)
+
+del ___tmp___
+
+echo.
+echo DONE
+echo.

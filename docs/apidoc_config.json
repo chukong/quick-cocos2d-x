@@ -1,0 +1,6 @@
+{
+    "title": "quick-cocos2d-x API Documents",
+    "packageName": "",
+    "indexModule": "init",
+    "excludes": "deprecated, filter, shortcodes, api.Context, api.EventProtocol, api.GameNetwork, api.Localize, api.Store, api.Timer, api.GameState, platform.android, platform.ios, platform.mac, cc.share, cc.update, cc.push, cc.feedback, cc.analytics, cc.ad"
+}

@@ -1,0 +1,57 @@
+
+$#include "network/CCNetwork.h"
+
+$using namespace std;
+$using namespace cocos2d;
+$using namespace cocos2d::extra;
+
+#define kCCHTTPRequestMethodGET                 0
+#define kCCHTTPRequestMethodPOST                1
+
+#define kCCHTTPRequestAcceptEncodingIdentity    0
+#define kCCHTTPRequestAcceptEncodingGzip        1
+#define kCCHTTPRequestAcceptEncodingDeflate     2
+
+#define kCCHTTPRequestStateIdle                 0
+#define kCCHTTPRequestStateCleared              1
+#define kCCHTTPRequestStateInProgress           2
+#define kCCHTTPRequestStateCompleted            3
+#define kCCHTTPRequestStateCancelled            4
+#define kCCHTTPRequestStateFailed               5
+
+class CCHTTPRequest : public CCObject
+{
+    static CCHTTPRequest* createWithUrlLua @ createWithUrl (LUA_FUNCTION listener,
+                                           const char* url,
+                                           int method = kCCHTTPRequestMethodGET);
+    void setRequestUrl(const char* url);
+    string getRequestUrl(void);
+    void addRequestHeader(const char* header);
+    void addPOSTValue(const char* key, const char* value);
+    void setPOSTData(const char* data);
+    void addFormFile(const char *name, const char *filePath, const char * fileType="application/octet-stream");
+    void addFormContents(const char *name, const char *value);
+    void setCookieString(const char *cookie);
+    string getCookieString(void);
+    void setAcceptEncoding(int acceptEncoding);
+    void setTimeout(int timeout);
+    bool start(void);
+    void cancel(void);
+    int getState(void);
+    int getResponseStatusCode(void);
+    string getResponseHeadersString(void);
+    string getResponseString(void);
+    LUA_STRING getResponseDataLua @ getResponseData (void);
+    int getResponseDataLength(void);
+    int saveResponseData(const char* filename);
+    int getErrorCode(void);
+    string getErrorMessage(void);
+};
+
+
+class CCNetwork
+{
+    static CCHTTPRequest* createHTTPRequestLua @ createHTTPRequest (LUA_FUNCTION listener,
+                                               const char* url,
+                                               int method = kCCHTTPRequestMethodGET);
+};

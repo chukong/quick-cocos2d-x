@@ -1,0 +1,8 @@
+class CCDropShadowFilter : public CCFilter
+{
+public:
+	static CCDropShadowFilter* create();
+	static CCDropShadowFilter* create(float resolation);
+	void setParameter(float resolation);
+	void initSprite(CCFilteredSprite* sprite);
+};
