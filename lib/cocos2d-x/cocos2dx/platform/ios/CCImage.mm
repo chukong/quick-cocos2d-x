@@ -135,7 +135,7 @@ static bool _initWithFile(const char* path, tImageInfo *pImageinfo)
     //NSString *fullPath = [NSString stringWithUTF8String:path];
 	unsigned long fileSize = 0;
 	unsigned char* pFileData = cocos2d::CZHelperFunc::getFileData(path, "rb", &fileSize);
-    NSData *adata = [[NSData alloc] initWithBytes:pFileData length:fileSize];
+    NSData *adata = [[[NSData alloc] initWithBytes:pFileData length:fileSize] autorelease];
 	delete []pFileData;
     jpg = [[UIImage alloc] initWithData:adata];
     //jpg = [[UIImage alloc] initWithContentsOfFile: fullPath];
