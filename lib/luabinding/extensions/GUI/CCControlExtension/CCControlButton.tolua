@@ -62,9 +62,9 @@ class CCControlButton : public CCControl
 
     /** Adjust the button zooming on touchdown. Default value is YES. */
     bool getZoomOnTouchDown();
-
+    void setZoomOnTouchDown(bool b);
     CCPoint getLabelAnchorPoint();
-
+    void setLabelAnchorPoint(CCPoint labelAnchorPoint);
     bool isPushed();
 
     /* Define the button margin for Top/Bottom edge */
