@@ -917,6 +917,7 @@ CCNode * CCNodeLoader::parsePropTypeCCBFile(CCNode * pNode, CCNode * pParent, CC
         //set callback
         CCArray *ownerCallbackNames = ccbReader->getOwnerCallbackNames();
         CCArray *ownerCallbackNodes = ccbReader->getOwnerCallbackNodes();
+        CCArray *ownerCallbackControlEvents = ccbReader->getOwnerCallbackControlEvents();
         if (NULL != ownerCallbackNames && ownerCallbackNames->count() > 0 &&
             NULL != ownerCallbackNodes && ownerCallbackNodes->count() > 0)
         {
@@ -925,6 +926,12 @@ CCNode * CCNodeLoader::parsePropTypeCCBFile(CCNode * pNode, CCNode * pParent, CC
             for (int i = 0 ; i < nCount; i++) {
                 pCCBReader->addOwnerCallbackName((dynamic_cast<CCString*>(ownerCallbackNames->objectAtIndex(i)))->getCString());
                 pCCBReader->addOwnerCallbackNode(dynamic_cast<CCNode*>(ownerCallbackNodes->objectAtIndex(i)) );
+            }
+        }
+        if (NULL != ownerCallbackControlEvents && ownerCallbackControlEvents->count() > 0){
+            int nCount = ownerCallbackControlEvents->count();
+            for (int i = 0 ; i < nCount; i++) {
+                pCCBReader->addOwnerCallbackControlEvents(CCControlEventTouchUpInside);
             }
         }
         //set variables
