@@ -10,4 +10,6 @@ class  CCArmatureDataManager : public CCObject
     virtual void removeArmatureFileInfo(const char *configFilePath);
     void addSpriteFrameFromFile(const char *plistPath, const char *imagePath, const char *configFilePath = "");
     bool isAutoLoadSpriteFile();
+    CCArmatureData *getArmatureData(const char *id);
+    CCAnimationData *getAnimationData(const char *id);
 };
