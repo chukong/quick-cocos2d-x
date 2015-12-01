@@ -269,4 +269,8 @@ class CCEditBox : public CCControlButton
      */
     void setReturnType(KeyboardReturnType returnType);
     KeyboardReturnType getReturnType();
+    /** callback funtions 
+     *  @js NA
+     */
+    void touchDownAction(CCObject *sender, CCControlEvent controlEvent);
 };
