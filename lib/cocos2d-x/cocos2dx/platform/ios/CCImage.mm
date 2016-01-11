@@ -338,7 +338,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         }
 
         // text color
-        CGContextSetRGBFillColor(context, pInfo->tintColorR, pInfo->tintColorG, pInfo->tintColorB, 1);
+        CGContextSetRGBFillColor(context, pInfo->tintColorR/255.0f, pInfo->tintColorG/255.0f, pInfo->tintColorB/255.0f, 1);
         // move Y rendering to the top of the image
         CGContextTranslateCTM(context, 0.0f, (dim.height - shadowStrokePaddingY) );
         CGContextScaleCTM(context, 1.0f, -1.0f); //NOTE: NSString draws in UIKit referential i.e. renders upside-down compared to CGBitmapContext referential
@@ -375,15 +375,15 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
                 paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
                 [str drawInRect:rect withAttributes:@{
                                                       NSFontAttributeName: font,
-                                                      NSStrokeWidthAttributeName: [NSNumber numberWithFloat: pInfo->strokeSize / nSize * 100  ],
-                                                      NSForegroundColorAttributeName:[UIColor colorWithRed:pInfo->tintColorR
-                                                                                                     green:pInfo->tintColorG
-                                                                                                      blue:pInfo->tintColorB
+                                                      NSStrokeWidthAttributeName: [NSNumber numberWithFloat: (pInfo->strokeSize / nSize) * 100  ],
+                                                      NSForegroundColorAttributeName:[UIColor colorWithRed:pInfo->tintColorR/255.0f
+                                                                                                     green:pInfo->tintColorG/255.0f
+                                                                                                      blue:pInfo->tintColorB/255.0f
                                                                                                      alpha:1.0f],
                                                       NSParagraphStyleAttributeName:paragraphStyle,
-                                                      NSStrokeColorAttributeName: [UIColor colorWithRed:pInfo->strokeColorR
-                                                                                                  green:pInfo->strokeColorG
-                                                                                                   blue:pInfo->strokeColorB
+                                                      NSStrokeColorAttributeName: [UIColor colorWithRed:pInfo->strokeColorR/255.0f
+                                                                                                  green:pInfo->strokeColorG/255.0f
+                                                                                                   blue:pInfo->strokeColorB/255.0f
                                                                                                   alpha:1.0f]
                                                       }
                  ];
@@ -392,7 +392,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             }
             else
             {
-                CGContextSetRGBStrokeColor(context, pInfo->strokeColorR, pInfo->strokeColorG, pInfo->strokeColorB, 1);
+                CGContextSetRGBStrokeColor(context, pInfo->strokeColorR/255.0f, pInfo->strokeColorG/255.0f, pInfo->strokeColorB/255.0f, 1);
                 CGContextSetLineWidth(context, pInfo->strokeSize);
                
                 //original code that was not working in iOS 7

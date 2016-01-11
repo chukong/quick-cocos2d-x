@@ -56,7 +56,7 @@ class CCLabelTTF : public CCSprite
     static CCLabelTTF * create(const char *text, const char *fontName, float fontSize,
                                const CCSize& dimensions, CCTextAlignment hAlignment,
                                CCVerticalTextAlignment vAlignment,
-                               ccColor3B strokeColor,float strokeSize);
+                               ccColor3B& strokeColor,float strokeSize);
 
     /** creates a CCLabel from a fontname, alignment, dimension in points and font size in points
      @since v2.0.1

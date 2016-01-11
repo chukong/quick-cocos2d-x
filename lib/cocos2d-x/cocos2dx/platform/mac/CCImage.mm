@@ -373,7 +373,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
         NSString * fntName = [NSString stringWithUTF8String:pFontName];
         fntName = [[fntName lastPathComponent] stringByDeletingPathExtension];
 
-		NSFont *font = [NSFont fontWithName:fntName size:nSize]
+        NSFont *font = [NSFont fontWithName:fntName size:nSize];
 		if (font == nil) {
 			font = [[NSFontManager sharedFontManager]
 					fontWithFamily:@"Arial"
@@ -391,13 +391,13 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
 		// 	foregroundColor = [NSColor whiteColor];
 		// }
         // color
-		NSColor* foregroundColor = [NSColor colorWithDeviceRed:pInfo->tintColorR green:pInfo->tintColorG blue:pInfo->tintColorB alpha:1];
+		NSColor* foregroundColor = [NSColor colorWithDeviceRed:pInfo->tintColorR/255.0f green:pInfo->tintColorG/255.0f blue:pInfo->tintColorB/255.0f alpha:1];
 		//stroke Color
         NSColor * strokeColor;
         if (pInfo->hasStroke) {
-            strokeColor = [NSColor colorWithDeviceRed:pInfo->strokeColorR
-                                                green:pInfo->strokeColorG
-                                                 blue:pInfo->strokeColorB
+            strokeColor = [NSColor colorWithDeviceRed:pInfo->strokeColorR/255.0f
+                                                green:pInfo->strokeColorG/255.0f
+                                                 blue:pInfo->strokeColorB/255.0f
                                                 alpha:1];
         } else {
             strokeColor = [NSColor whiteColor];
@@ -420,7 +420,7 @@ static bool _initWithString(const char * pText, cocos2d::CCImage::ETextAlign eAl
             
             tokenAttributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                    foregroundColor,NSForegroundColorAttributeName,
-                                   [NSNumber numberWithFloat: - pInfo->strokeSize],NSStrokeWidthAttributeName,
+                                   [NSNumber numberWithFloat:- pInfo->strokeSize],NSStrokeWidthAttributeName,
                                    strokeColor,NSStrokeColorAttributeName,
                                    font, NSFontAttributeName,
                                    paragraphStyle, NSParagraphStyleAttributeName, nil];
