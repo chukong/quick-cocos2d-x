@@ -386,28 +386,32 @@ local label = ui.newTTFLabel({
 function ui.newTTFLabel(params)
     assert(type(params) == "table",
            "[framework.ui] newTTFLabel() invalid params")
-
+    local label
     local text       = tostring(params.text)
     local font       = params.font or ui.DEFAULT_TTF_FONT
     local size       = params.size or ui.DEFAULT_TTF_FONT_SIZE
-    local color      = params.color or display.COLOR_WHITE
+    local color      = params.color
     local textAlign  = params.align or ui.TEXT_ALIGN_LEFT
     local textValign = params.valign or ui.TEXT_VALIGN_CENTER
     local x, y       = params.x, params.y
-    local dimensions = params.dimensions
+    local dimensions = params.dimensions or CCSizeMake(0, 0)
+    local outlineWidth = params.outlineWidth or 0
+    local outlineColor 
+
+    if outlineWidth > 0 then
+        outlineColor = params.outlineColor or ccc3(46,28,18)
+        label = CCLabelTTF:create(text, font, size, dimensions, textAlign, textValign, outlineColor, outlineWidth)
+    else
+        label = CCLabelTTF:create(text, font, size, dimensions, textAlign, textValign)
+    end
 
     assert(type(size) == "number",
            "[framework.ui] newTTFLabel() invalid params.size")
 
-    local label
-    if dimensions then
-        label = CCLabelTTF:create(text, font, size, dimensions, textAlign, textValign)
-    else
-        label = CCLabelTTF:create(text, font, size)
-    end
-
     if label then
-        label:setColor(color)
+        if color then
+            label:setColor(color)
+        end
 
         function label:realign(x, y)
             if textAlign == ui.TEXT_ALIGN_LEFT then
@@ -511,54 +515,7 @@ end
 function ui.newTTFLabelWithOutline(params)
     assert(type(params) == "table",
            "[framework.ui] newTTFLabelWithShadow() invalid params")
-    local outlineColor = params.outlineColor or display.COLOR_BLACK
-    local x, y         = params.x, params.y
-    local outlineWidth = params.outlineWidth or 1
-    local opacity = params.outlineOpacity or 255
-    local g = display.newNode()
-    params.x, params.y = 0, 0
-    g.label = ui.newTTFLabel(params)
-    g:addChild(g.label,1)
-
-    local function createStroke_(o)
-        if g.rt then
-            g.rt:removeFromParent()
-            g.rt = nil
-        end
-        o = o or 1
-        g.rt = ui.createOutline(g.label,outlineWidth,outlineColor,opacity*o)
-    end
-    createStroke_()
-
-    function g:setString(text)
-        g.label:setString(text)
-        createStroke_()
-    end
-
-    function g:getContentSize()
-        return g.label:getContentSize()
-    end
-
-    function g:setColor(...)
-        g.label:setColor(...)
-        createStroke_()
-    end
-
-    function g:setOpacity(opacity)
-        g.label:setOpacity(opacity)
-        createStroke_(opacity/255)
-    end
-
-    function g:setAnchorPoint(ap)
-        g.label:setAnchorPoint(ap)
-        createStroke_()
-    end
-
-    if x and y then
-        g:setPosition(x, y)
-    end
-
-    return g
+    return ui.newTTFLabel(params)
 end
 
 --[[--
