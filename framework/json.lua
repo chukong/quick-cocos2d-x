@@ -30,6 +30,20 @@ JSON 编码与解码
 local json = {}
 local cjson = require("cjson")
 
+
+for k, v in pairs(cjson) do
+    if type(v) == "function" then
+        json[k] = function(...)
+            local status, result = pcall(v, ...)
+            if status then return result end
+            if DEBUG > 1 then
+                printError("json %s failed: %s", tostring(k), tostring(result))
+            end
+        end
+    end
+end
+
+
 --[[--
 
 将表格数据编码为 JSON 字符串
