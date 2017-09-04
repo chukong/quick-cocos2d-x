@@ -28,6 +28,7 @@ function UIListView:ctor(params)
 	UIListView.super.ctor(self, params)
 
 	self.items_ = {}
+	self.callback = params.callback
 	self.direction = params.direction or UIScrollView.DIRECTION_VERTICAL
 	self.alignment = params.alignment or UIListView.ALIGNMENT_VCENTER
 	self.container = cc.Node:create()
@@ -155,6 +156,18 @@ function UIListView:scrollListener(event)
 		self:notifyListener_{name = "clicked",
 			listView = self, itemPos = pos, item = self.items_[pos],
 			point = nodePoint}
+	elseif event.name == "began" then
+		self.oldPoseY = event.y
+	elseif event.name == "ended" then
+		self.newPoseY = event.y
+	elseif event.name == "scrollEnd" then
+		if self.callback then
+			if self.newPoseY - self.oldPoseY > 0 then
+				self.callback("below")	
+			elseif self.newPoseY - self.oldPoseY < 0 then
+				self.callback("top")
+			end
+		end
 	else
 		event.scrollView = nil
 		event.listView = self
